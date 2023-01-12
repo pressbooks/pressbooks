@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-11T16:16:35+00:00\n"
+"POT-Creation-Date: 2023-01-12T15:01:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: pressbooks\n"
@@ -730,7 +730,7 @@ msgstr ""
 #: inc/admin/laf/namespace.php:198
 #: inc/admin/laf/namespace.php:199
 #: templates/admin/organize.blade.php:61
-#: templates/admin/organize.blade.php:94
+#: templates/admin/organize.blade.php:95
 msgid "Add Part"
 msgstr ""
 
@@ -1524,7 +1524,7 @@ msgid "(opens in a new window)"
 msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:912
-#: templates/admin/organize.blade.php:129
+#: templates/admin/organize.blade.php:137
 msgid "Show in Web"
 msgstr ""
 
@@ -1537,12 +1537,12 @@ msgid "Password..."
 msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:921
-#: templates/admin/organize.blade.php:132
+#: templates/admin/organize.blade.php:140
 msgid "Show in Exports"
 msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:925
-#: templates/admin/organize.blade.php:136
+#: templates/admin/organize.blade.php:144
 msgid "Show Title"
 msgstr ""
 
@@ -1792,8 +1792,8 @@ msgstr ""
 
 #: inc/class-activation.php:232
 #: tests/test-cloner.php:52
-#: templates/admin/organize.blade.php:123
-#: templates/admin/organize.blade.php:207
+#: templates/admin/organize.blade.php:131
+#: templates/admin/organize.blade.php:215
 msgid "Authors"
 msgstr ""
 
@@ -4846,63 +4846,64 @@ msgstr ""
 msgid "%s (selected for export)"
 msgstr ""
 
-#: templates/admin/organize.blade.php:89
+#: templates/admin/organize.blade.php:91
+#: templates/admin/organize.blade.php:100
 msgid "Add"
 msgstr ""
 
-#: templates/admin/organize.blade.php:101
-#: templates/admin/organize.blade.php:167
+#: templates/admin/organize.blade.php:109
+#: templates/admin/organize.blade.php:175
 msgid "Edit​%s"
 msgstr ""
 
-#: templates/admin/organize.blade.php:104
+#: templates/admin/organize.blade.php:112
 msgid "Trash​%s"
 msgstr ""
 
-#: templates/admin/organize.blade.php:106
+#: templates/admin/organize.blade.php:114
 msgid "View​%s"
 msgstr ""
 
-#: templates/admin/organize.blade.php:125
+#: templates/admin/organize.blade.php:133
 msgid "Comments"
 msgstr ""
 
-#: templates/admin/organize.blade.php:152
 #: templates/admin/organize.blade.php:160
+#: templates/admin/organize.blade.php:168
 msgid "Ebook start point"
 msgstr ""
 
-#: templates/admin/organize.blade.php:174
+#: templates/admin/organize.blade.php:182
 msgid "Trash%s"
 msgstr ""
 
-#: templates/admin/organize.blade.php:179
+#: templates/admin/organize.blade.php:187
 msgid "View%s"
 msgstr ""
 
-#: templates/admin/organize.blade.php:190
+#: templates/admin/organize.blade.php:198
 msgid "Move%s Up"
 msgstr ""
 
-#: templates/admin/organize.blade.php:196
+#: templates/admin/organize.blade.php:204
 msgid "Move%s Down"
 msgstr ""
 
-#: templates/admin/organize.blade.php:216
+#: templates/admin/organize.blade.php:224
 msgid "comment"
 msgid_plural "comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/admin/organize.blade.php:228
+#: templates/admin/organize.blade.php:236
 msgid "Show %s in Web"
 msgstr ""
 
-#: templates/admin/organize.blade.php:238
+#: templates/admin/organize.blade.php:246
 msgid "Show %s in Exports"
 msgstr ""
 
-#: templates/admin/organize.blade.php:247
+#: templates/admin/organize.blade.php:255
 msgid "Show title for %s"
 msgstr ""
 
