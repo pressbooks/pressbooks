@@ -351,6 +351,6 @@ add_action( 'activated_plugin', '\Pressbooks\Utility\delete_options_cached' );
 register_deactivation_hook( 'pressbooks/pressbooks.php', [ CloneComplete::class, 'uninstall' ] );
 add_action( 'init', [ CloneComplete::class, 'install' ] );
 
-add_filter( 'init', ['\Pressbooks\Utility\ErrorHandler', 'init'] );
+add_filter( 'init', [ '\Pressbooks\Utility\ErrorHandler', 'init' ] );
 
 

@@ -45,7 +45,7 @@ class ErrorHandler {
 		];
 
 		$is_errfile_in_silenced_path = array_filter( $paths_to_silence, function ( $path ) use ( $errfile ) {
-			return str_contains($errfile, $path);
+			return str_contains( $errfile, $path );
 		});
 
 		return E_DEPRECATED === $errorno && count( $is_errfile_in_silenced_path ) > 0;
