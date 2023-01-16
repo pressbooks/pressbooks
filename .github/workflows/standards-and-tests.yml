@@ -2,7 +2,7 @@ name: Run Standards & Tests
 
 on:
   push:
-    branches: [dev, master]
+    branches: [dev, production]
     tags:
       - '*.*.*'
   pull_request:
