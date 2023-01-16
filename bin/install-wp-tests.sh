@@ -69,7 +69,7 @@ install_wp() {
 
 install_pressbooks_book() {
 	if [ -d $WP_CORE_DIR/wp-content/themes/pressbooks-book ]; then
-		cd $WP_CORE_DIR/wp-content/themes/pressbooks-book && git pull
+		cd $WP_CORE_DIR/wp-content/themes/pressbooks-book && git pull origin dev
 		return;
 	fi
 
@@ -78,7 +78,7 @@ install_pressbooks_book() {
 
 install_pressbooks_clarke() {
 	if [ -d $WP_CORE_DIR/wp-content/themes/pressbooks-clarke ]; then
-		cd $WP_CORE_DIR/wp-content/themes/pressbooks-clarke && git pull
+		cd $WP_CORE_DIR/wp-content/themes/pressbooks-clarke && git pull origin dev
 		return;
 	fi
 
@@ -87,7 +87,7 @@ install_pressbooks_clarke() {
 
 install_pressbooks_luther() {
 	if [ -d $WP_CORE_DIR/wp-content/themes/pressbooks-luther ]; then
-		cd $WP_CORE_DIR/wp-content/themes/pressbooks-luther && git pull
+		cd $WP_CORE_DIR/wp-content/themes/pressbooks-luther && git pull origin dev
 		return;
 	fi
 

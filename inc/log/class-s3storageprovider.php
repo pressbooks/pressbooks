@@ -93,9 +93,8 @@ class S3StorageProvider implements StorageProvider {
 				}
 			}
 			return true;
-		} else {
-			return false;
 		}
+		return ! is_null( $this->client );
 	}
 
 	public function setFilePath( string $file_path ) {
