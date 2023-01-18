@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-16T18:07:03+00:00\n"
+"POT-Creation-Date: 2023-01-18T16:40:52+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: pressbooks\n"
@@ -878,7 +878,7 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:663
 #: inc/admin/metaboxes/namespace.php:649
-#: inc/api/endpoints/controller/class-toc.php:197
+#: inc/api/endpoints/controller/class-toc.php:192
 #: inc/posttype/namespace.php:115
 #: inc/posttype/namespace.php:116
 #: inc/posttype/namespace.php:548
@@ -889,7 +889,7 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:671
 #: inc/admin/metaboxes/namespace.php:650
-#: inc/api/endpoints/controller/class-toc.php:214
+#: inc/api/endpoints/controller/class-toc.php:209
 #: inc/class-sass.php:78
 #: inc/modules/themeoptions/class-globaloptions.php:564
 #: inc/posttype/namespace.php:64
@@ -901,7 +901,7 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:681
 #: inc/admin/metaboxes/namespace.php:651
-#: inc/api/endpoints/controller/class-toc.php:230
+#: inc/api/endpoints/controller/class-toc.php:225
 #: inc/posttype/namespace.php:143
 #: inc/posttype/namespace.php:144
 #: inc/posttype/namespace.php:551
@@ -1121,7 +1121,7 @@ msgstr ""
 #: inc/admin/metaboxes/namespace.php:176
 #: inc/admin/metaboxes/namespace.php:706
 #: inc/admin/metaboxes/namespace.php:768
-#: inc/api/endpoints/controller/class-toc.php:207
+#: inc/api/endpoints/controller/class-toc.php:202
 #: inc/class-sass.php:89
 #: inc/modules/export/epub/class-epub.php:1910
 #: inc/modules/themeoptions/class-globaloptions.php:563
@@ -1701,9 +1701,9 @@ msgid "An invitation email has been sent to the user(s) below. A confirmation li
 msgstr ""
 
 #: inc/api/endpoints/controller/class-books.php:127
-#: inc/api/endpoints/controller/class-toc.php:156
-#: inc/api/endpoints/controller/class-toc.php:169
-#: inc/api/endpoints/controller/class-toc.php:182
+#: inc/api/endpoints/controller/class-toc.php:151
+#: inc/api/endpoints/controller/class-toc.php:164
+#: inc/api/endpoints/controller/class-toc.php:177
 msgid "Metadata"
 msgstr ""
 
@@ -1736,7 +1736,7 @@ msgstr ""
 msgid "Word count."
 msgstr ""
 
-#: inc/api/endpoints/controller/class-toc.php:139
+#: inc/api/endpoints/controller/class-toc.php:233
 msgid "Clone token."
 msgstr ""
 
