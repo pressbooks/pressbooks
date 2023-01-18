@@ -42,7 +42,7 @@
 		"illuminate/filesystem": "^8.0",
 		"illuminate/support": "^8.0",
 		"illuminate/view": "^8.0",
-		"jenssegers/imagehash": "0.5.0",
+		"jenssegers/imagehash": "0.8.0",
 		"johnbillion/extended-cpts": "^5.0",
 		"laravel/helpers": "^1.5",
 		"masterminds/html5": "^2.6",
