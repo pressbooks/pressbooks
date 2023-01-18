@@ -83,7 +83,7 @@ function render_page() {
 		if ( $lock->isLocked() ) {
 			$theme = wp_get_theme();
 			$data = $lock->getLockData();
-			$datetime = strftime( '%x', $data['timestamp'] ) . ' at ' . strftime( '%X', $data['timestamp'] );
+			$datetime = date( 'm/d/y', $data['timestamp'] ) . ' at ' . date( 'H:i:s', $data['timestamp'] );
 			$output .= 'Book Theme: ' . $data['name'] . " (LOCKED on $datetime)\n";
 			$output .= 'Book Theme Version: ' . $data['version'] . " (LOCKED on $datetime &mdash; Current Version " . $theme->get( 'Version' ) . ")\n";
 		} else {

@@ -1182,7 +1182,7 @@ class Cloner {
 		if ( $path ) {
 			return ltrim( $path, '/\\' );
 		} else {
-			$host = explode( '.', $host );
+			$host = explode( '.', $host ?? '' );
 			$subdomain = array_shift( $host );
 			return $subdomain;
 		}

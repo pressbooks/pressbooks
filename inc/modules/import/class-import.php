@@ -671,7 +671,7 @@ abstract class Import {
 		$subject = '[ Import Log ]';
 
 		$info = [
-			'time' => strftime( '%c' ),
+			'time' => date( 'D M H:i:s Y' ),
 			'user' => ( isset( $current_user ) ? $current_user->user_login : '__UNKNOWN__' ),
 			'site_url' => site_url(),
 			'blog_id' => get_current_blog_id(),

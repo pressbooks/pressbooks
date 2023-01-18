@@ -86,7 +86,7 @@ class Glyphs {
 		// We want to keep all characters such as ‘ ` " '' [...] < > should be &gt; &lt; Ie. not numeric
 		$content = str_replace( [ '&#8216;', '&#8217;', '&lsquo;', '&rsquo;' ], "'", $content ); // Change back to '
 		$content = str_replace( [ '&#8220;', '&#8221;', '&ldquo;', '&rdquo;' ], '"', $content ); // Change back to "
-		$content = str_replace( [ '<br>', '<br />', '<p>', '</p>', '</p>' ], null, $content ); // Get rid of wpautop() auto-formatting
+		$content = str_replace( [ '<br>', '<br />', '<p>', '</p>', '</p>' ], '', $content ); // Get rid of wpautop() auto-formatting
 		$content = htmlspecialchars( $content, ENT_NOQUOTES, 'UTF-8', false );
 
 		$language = strtolower( $a['lang'] );

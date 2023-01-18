@@ -1402,7 +1402,7 @@ class Epub extends ExportGenerator {
 			if ( ! empty( $meta['pb_copyright_year'] ) ) {
 				$default_copyright_date = $meta['pb_copyright_year'];
 			} elseif ( ! empty( $meta['pb_publication_date'] ) ) {
-				$default_copyright_date = strftime( '%Y', $meta['pb_publication_date'] );
+				$default_copyright_date = date( 'Y', $meta['pb_publication_date'] );
 			} else {
 				$default_copyright_date = date( 'Y' );
 			}

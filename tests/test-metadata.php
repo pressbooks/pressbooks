@@ -580,8 +580,8 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<meta name="citation_doi" content="10.1000/xyz123">', $buffer );
 		$this->assertStringContainsString( '<meta name="citation_isbn" content="9781234567897">', $buffer );
 		$this->assertStringContainsString( '<meta name="citation_language" content="en-ca">', $buffer );
-		$this->assertStringContainsString( '<meta name="citation_year" content="' . strftime( '%Y', $time ) . '">', $buffer );
-		$this->assertStringContainsString( '<meta name="citation_publication_date" content="' . strftime( '%F', $time ) . '">', $buffer );
+		$this->assertStringContainsString( '<meta name="citation_year" content="' . date( 'Y', $time ) . '">', $buffer );
+		$this->assertStringContainsString( '<meta name="citation_publication_date" content="' . date( 'Y-m-d', $time ) . '">', $buffer );
 		$this->assertStringContainsString( '<meta name="citation_publisher" content="Book Oven Inc.">', $buffer );
 		$this->assertStringContainsString( '<meta name="citation_author" content="Some Author">', $buffer );
 
@@ -604,8 +604,8 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<meta name="citation_book_title" content="Some Book">', $buffer );
 		$this->assertStringContainsString( '<meta name="citation_title" content="' . $section_title . '">', $buffer );
 		$this->assertStringContainsString( '<meta name="citation_language" content="en-ca">', $buffer );
-		$this->assertStringContainsString( '<meta name="citation_year" content="' . strftime( '%Y', $time ) . '">', $buffer );
-		$this->assertStringContainsString( '<meta name="citation_publication_date" content="' . strftime( '%F', $time ) . '">', $buffer );
+		$this->assertStringContainsString( '<meta name="citation_year" content="' . date( 'Y', $time ) . '">', $buffer );
+		$this->assertStringContainsString( '<meta name="citation_publication_date" content="' . date( 'Y-m-d', $time ) . '">', $buffer );
 		$this->assertStringContainsString( '<meta name="citation_publisher" content="Book Oven Inc.">', $buffer );
 		$this->assertStringContainsString( '<meta name="citation_author" content="Some Author">', $buffer );
 	}
