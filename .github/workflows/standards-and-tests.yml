@@ -62,7 +62,7 @@ jobs:
     - name: Install PHP dependencies
       run: |
         export PATH="$HOME/.composer/vendor/bin:$PATH"
-        composer install --no-interaction
+        composer update --no-interaction
         ulimit -n 4096
 
     - name: Run PHP CodeSniffer
