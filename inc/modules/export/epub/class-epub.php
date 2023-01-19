@@ -2582,10 +2582,10 @@ class Epub extends ExportGenerator {
 				$metadata[ $key ] = sanitize_xml_attribute( $val );
 				if ( $this->contributors->isValid( $key ) ) {
 					$contributors = decode( $metadata[ $key ], false );
-					$metadata[ $key ] = [];
-					foreach ( explode_remove_and( ';', $contributors ) as $contributor ) {
-						$metadata[ $key ][] = Sanitize\encode_ampersand( $contributor );
-					}
+					$metadata[$key] = array_map(
+						'\Pressbooks\Sanitize\encode_ampersand',
+						explode_remove_and( ';', $contributors )
+					);
 				}
 			}
 		}
