@@ -1348,13 +1348,13 @@ function oxford_comma_explode( string $string ) {
  * Output:
  * [ 'Carl Calson', 'Mark Thomson, PhD', 'John K.' ]
  *
- * @param string $str_explode
+ * @param string $separator
  * @param string $string
  * @return array
  */
-function explode_remove_and( string $separator, string $string ) {
+function explode_remove_and( string $separator, string $string ): array {
 	$results = [];
-	if ( strpos( $string, $separator ) !== false ) {
+	if ( str_contains( $string, $separator ) ) {
 		$items = explode( $separator, $string );
 		if ( count( $items ) === 2 ) {
 			$items = explode( ' ' . __( 'and', 'pressbooks' ) . ' ', $string );

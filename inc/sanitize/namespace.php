@@ -212,7 +212,12 @@ function decode( string $slug, bool $exclude_ampersands = true ) {
 
 	$slug = html_entity_decode( $slug, ENT_NOQUOTES | ENT_XHTML, 'UTF-8' );
 
-	return $exclude_ampersands ? preg_replace( '/&([^#])(?![a-z1-4]{1,8};)/i', '&#038;$1', $slug ) : $slug;
+	return $exclude_ampersands ? encode_ampersand( $slug ) : $slug;
+}
+
+function encode_ampersand( string $slug ): string {
+
+	return preg_replace( '/&([^#])(?![a-z1-4]{1,8};)/i', '&#038;$1', $slug );
 }
 
 function space_to_numerical_html_entity( string $string ) {
