@@ -152,7 +152,7 @@ trait ExportHelpers {
 	 * @param bool $exclude_ampersand
 	 * @return string
 	 */
-	public function renderTocItem(string $post_type, array $data, bool $is_slug = true, bool $exclude_ampersand = false ) {
+	public function renderTocItem( string $post_type, array $data, bool $is_slug = true, bool $exclude_ampersand = false ) {
 
 		$subsections = [];
 
