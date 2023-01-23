@@ -644,14 +644,11 @@ class Epub extends ExportGenerator {
 		exec( $command, $output, $return_var );
 
 		foreach ( $output as $k => $v ) {
-			if ( strpos( $v, 'Picked up _JAVA_OPTIONS:' ) !== false ) {
-				// Remove JAVA warnings that are not actually errors
-				unset( $output[ $k ] );
-			} elseif ( strpos( $v, 'non-standard font type application/x-font-ttf' ) !== false ) {
-				// @see https://github.com/IDPF/epubcheck/issues/586, https://github.com/IDPF/epubcheck/pull/633
-				unset( $output[ $k ] );
-			} elseif ( strpos( $v, 'non-standard font type application/font-sfnt' ) !== false ) {
-				// @see https://github.com/w3c/epubcheck/issues/339
+			if (
+				str_contains($v, 'Picked up _JAVA_OPTIONS:') ||
+				str_contains($v, 'non-standard font type application/x-font-ttf') ||
+				str_contains($v, 'non-standard font type application/font-sfnt')
+			) {
 				unset( $output[ $k ] );
 			}
 		}
@@ -674,11 +671,11 @@ class Epub extends ExportGenerator {
 	 * @return string
 	 */
 	public function mediaType( string $file ): string {
-
 		$mime = static::mimeType( $file );
 		$mime = explode( ';', $mime );
 
-		return trim( $mime[0] );
+		return $mime[0] === 'font/sfnt' && strtolower( pathinfo( $file, PATHINFO_EXTENSION ) ) === 'ttf' ?
+			'font/ttf' : trim( $mime[0] );
 	}
 
 	/**
