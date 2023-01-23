@@ -9,8 +9,10 @@
 
 namespace Pressbooks\Modules\Export\Epub;
 
+use function Pressbooks\Sanitize\decode;
 use function Pressbooks\Sanitize\sanitize_xml_attribute;
 use function Pressbooks\Utility\debug_error_log;
+use function Pressbooks\Utility\explode_remove_and;
 use function Pressbooks\Utility\get_contributors_name_imploded;
 use function Pressbooks\Utility\implode_add_and;
 use function Pressbooks\Utility\str_ends_with;
@@ -1921,7 +1923,7 @@ class Epub extends ExportGenerator {
 
 				$matter_data = $this->getExtendedPostInformation( $type, $query_data );
 
-				$rendered_items[] = $this->renderTocItem( $type, $matter_data, false );
+				$rendered_items[] = $this->renderTocItem( $type, $matter_data, false, true );
 
 			} elseif ( 0 === strpos( $k, 'chapter-' ) ) { //Process chapters
 
@@ -1934,7 +1936,7 @@ class Epub extends ExportGenerator {
 					$chapters_count++;
 				}
 
-				$rendered_items[] = $this->renderTocItem( 'chapter', $chapter_data, false );
+				$rendered_items[] = $this->renderTocItem( 'chapter', $chapter_data, false, true );
 			}
 		}
 
@@ -2577,6 +2579,13 @@ class Epub extends ExportGenerator {
 				}
 			} else {
 				$metadata[ $key ] = sanitize_xml_attribute( $val );
+				if ( $this->contributors->isValid( $key ) ) {
+					$contributors = decode( $metadata[ $key ], false );
+					$metadata[ $key ] = array_map(
+						'\Pressbooks\Sanitize\encode_ampersand',
+						explode_remove_and( ';', $contributors )
+					);
+				}
 			}
 		}
 		$vars['meta'] = $metadata;

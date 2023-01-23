@@ -1,5 +1,5 @@
 @if( isset( $short_title ) )
-	<div class="{{$post_type_class}} {{ $subclass }} {{ $subsection_class ?? '' }}" id="{{ $slug }}" title="{{ $short_title }}">
+	<div class="{{$post_type_class}} {{ $subclass }} {{ $subsection_class ?? '' }}" id="{{ $slug }}" title="{!! $short_title !!}">
 @else
 	<div class="{{$post_type_class}} {{ $subclass }} {{ $subsection_class ?? '' }}" id="{{ $slug }}">
 @endif

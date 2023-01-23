@@ -825,8 +825,8 @@ abstract class Export {
 
 		if ( is_countable( $validation_warning ) && count( $validation_warning ) ) {
 			// Validation warning
-			$exportoptions = get_option( 'pressbooks_export_options' );
-			if ( 1 === (int) $exportoptions['email_validation_logs'] || is_super_admin() ) {
+			$exportoptions = get_option( 'pressbooks_export_options', [] );
+			if ( ! empty( $exportoptions ) && 1 === (int) $exportoptions['email_validation_logs'] || is_super_admin() ) {
 				$export_warning = sprintf(
 					'<p>%s</p>%s',
 					__( 'Warning: The export has validation errors. See logs for more details.', 'pressbooks' ),

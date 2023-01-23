@@ -146,12 +146,13 @@ trait ExportHelpers {
 	}
 
 	/**
-	 * @param $post_type
-	 * @param $data
-	 * @param  bool  $is_slug
+	 * @param string $post_type
+	 * @param array $data
+	 * @param bool $is_slug
+	 * @param bool $exclude_ampersand
 	 * @return string
 	 */
-	public function renderTocItem( $post_type, $data, $is_slug = true ) {
+	public function renderTocItem( string $post_type, array $data, bool $is_slug = true, bool $exclude_ampersand = false ) {
 
 		$subsections = [];
 
@@ -163,7 +164,7 @@ trait ExportHelpers {
 				foreach ( $sections as $id => $subsection ) {
 					$subsections[] = [
 						'slug' => $is_slug ? "#{$id}" : "${data['href']}#{$id}",
-						'title' => Sanitize\decode( $subsection, false ),
+						'title' => Sanitize\decode( $subsection, $exclude_ampersand ),
 					];
 				}
 			}
@@ -172,7 +173,7 @@ trait ExportHelpers {
 		return $this->blade->render('export/bullet-toc-item', array_merge(
 			$data,
 			[
-				'title' => Sanitize\decode( $data['title'], false ),
+				'title' => Sanitize\decode( $data['title'], $exclude_ampersand ),
 				'subclass' => trim( $data['subclass'] ) !== '' ? ' ' . $data['subclass'] : '', //css class space between toc item and subclasses
 				'post_type' => $post_type,
 				'href' => $is_slug ? '#' . $data['href'] : $data['href'],

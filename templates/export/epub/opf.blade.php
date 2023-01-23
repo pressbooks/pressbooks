@@ -24,7 +24,7 @@
 		@endphp
 
 		@if( ! \Pressbooks\Utility\empty_space( $meta['pb_editors'] ) )
-			@foreach( \Pressbooks\Utility\explode_remove_and( ';', $meta['pb_editors'] ) as $editor )
+			@foreach( $meta['pb_editors'] as $editor )
 				@include('export/epub/contributor-partial', ['contributor' => $editor, 'role' => 'edt', 'index' => $index])
 
 				@php
@@ -34,7 +34,7 @@
 		@endif
 
 		@if( ! \Pressbooks\Utility\empty_space( $meta['pb_authors'] ) )
-			@foreach( \Pressbooks\Utility\explode_remove_and( ';', $meta['pb_authors'] ) as $author )
+			@foreach( $meta['pb_authors'] as $author )
 				@include('export/epub/contributor-partial', ['contributor' => $author, 'role' => 'aut', 'index' => $index])
 
 				@php
@@ -44,7 +44,7 @@
 		@endif
 
 		@if( ! \Pressbooks\Utility\empty_space( $meta['pb_translators'] ) )
-			@foreach( \Pressbooks\Utility\explode_remove_and( ';', $meta['pb_translators'] ) as $translator )
+			@foreach( $meta['pb_translators'] as $translator )
 				@include('export/epub/contributor-partial', ['contributor' => $translator, 'role' => 'trl', 'index' => $index])
 
 				@php
@@ -54,7 +54,7 @@
 		@endif
 
 		@if( ! \Pressbooks\Utility\empty_space( $meta['pb_illustrators'] ) )
-			@foreach( \Pressbooks\Utility\explode_remove_and( ';', $meta['pb_illustrators'] ) as $illustrator )
+			@foreach( $meta['pb_illustrators'] as $illustrator )
 				@include('export/epub/contributor-partial', ['contributor' => $illustrator, 'role' => 'ill', 'index' => $index])
 
 				@php
@@ -68,7 +68,7 @@
 		@endif
 
 		@if( ! \Pressbooks\Utility\empty_space( $meta['pb_contributors'] ) )
-			@foreach( \Pressbooks\Utility\explode_remove_and( ';', $meta['pb_contributors'] ) as $index => $contributor )
+			@foreach( $meta['pb_contributors'] as $index => $contributor )
 				@include('export/epub/contributor-partial', ['contributor' => $contributor, 'role' => 'ctb', 'index' => $index + 1])
 			@endforeach
 		@endif
