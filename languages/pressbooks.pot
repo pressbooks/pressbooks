@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-23T17:00:01+00:00\n"
+"POT-Creation-Date: 2023-01-23T19:37:27+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: pressbooks\n"
@@ -169,7 +169,7 @@ msgstr ""
 
 #: inc/admin/class-catalog-list-table.php:230
 #: inc/class-activation.php:237
-#: inc/modules/export/epub/class-epub.php:1211
+#: inc/modules/export/epub/class-epub.php:1213
 #: tests/test-cloner.php:57
 msgid "Cover"
 msgstr ""
@@ -1123,7 +1123,7 @@ msgstr ""
 #: inc/admin/metaboxes/namespace.php:768
 #: inc/api/endpoints/controller/class-toc.php:202
 #: inc/class-sass.php:89
-#: inc/modules/export/epub/class-epub.php:1910
+#: inc/modules/export/epub/class-epub.php:1912
 #: inc/modules/themeoptions/class-globaloptions.php:563
 #: inc/posttype/namespace.php:87
 #: inc/posttype/namespace.php:542
@@ -1276,8 +1276,8 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:391
 #: inc/class-licensing.php:329
-#: inc/modules/export/epub/class-epub.php:1401
-#: inc/modules/export/epub/class-epub.php:1423
+#: inc/modules/export/epub/class-epub.php:1403
+#: inc/modules/export/epub/class-epub.php:1425
 #: inc/modules/export/htmlbook/class-htmlbook.php:855
 #: inc/modules/export/xhtml/class-xhtml11.php:1074
 msgid "Copyright"
@@ -2195,7 +2195,7 @@ msgstr ""
 
 #: inc/class-licensing.php:331
 #: inc/class-styles.php:824
-#: inc/modules/export/epub/class-epub.php:1410
+#: inc/modules/export/epub/class-epub.php:1412
 #: inc/modules/export/htmlbook/class-htmlbook.php:864
 #: inc/modules/export/xhtml/class-xhtml11.php:1083
 #: templates/export/epub/opf.blade.php:100
@@ -2404,7 +2404,7 @@ msgstr ""
 
 #: inc/cloner/class-cloner.php:545
 #: inc/covergenerator/class-generator.php:298
-#: inc/modules/export/epub/class-epub.php:664
+#: inc/modules/export/epub/class-epub.php:666
 #: inc/modules/import/class-import.php:373
 msgid "Finishing up"
 msgstr ""
@@ -2782,107 +2782,107 @@ msgstr ""
 msgid "Date Exported"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:384
+#: inc/modules/export/epub/class-epub.php:386
 msgid "EPUB %s: "
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:494
+#: inc/modules/export/epub/class-epub.php:496
 #: inc/modules/export/xhtml/class-xhtml11.php:204
 msgid "Initializing"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:508
+#: inc/modules/export/epub/class-epub.php:510
 msgid "Preparing book contents"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:519
+#: inc/modules/export/epub/class-epub.php:521
 msgid "Creating container"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:529
+#: inc/modules/export/epub/class-epub.php:531
 #: inc/modules/export/xhtml/class-xhtml11.php:212
 msgid "Saving file to exports folder"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:537
+#: inc/modules/export/epub/class-epub.php:539
 #: inc/modules/export/xhtml/class-xhtml11.php:216
 msgid "Export successful"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:634
+#: inc/modules/export/epub/class-epub.php:636
 #: inc/modules/export/xhtml/class-xhtml11.php:242
 msgid "Validating file"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:663
+#: inc/modules/export/epub/class-epub.php:665
 #: inc/modules/export/xhtml/class-xhtml11.php:258
 msgid "Validation successful"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:960
+#: inc/modules/export/epub/class-epub.php:962
 msgid "Compiling styles"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:969
+#: inc/modules/export/epub/class-epub.php:971
 #: inc/modules/export/xhtml/class-xhtml11.php:431
 msgid "Creating cover"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:976
+#: inc/modules/export/epub/class-epub.php:978
 #: inc/modules/export/xhtml/class-xhtml11.php:435
 msgid "Creating title page"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:980
+#: inc/modules/export/epub/class-epub.php:982
 #: inc/modules/export/xhtml/class-xhtml11.php:439
 msgid "Creating copyright page"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:984
+#: inc/modules/export/epub/class-epub.php:986
 msgid "Exporting dedication and epigraph"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:988
-#: inc/modules/export/epub/class-epub.php:1555
+#: inc/modules/export/epub/class-epub.php:990
+#: inc/modules/export/epub/class-epub.php:1557
 #: inc/modules/export/xhtml/class-xhtml11.php:451
 #: inc/modules/export/xhtml/class-xhtml11.php:1255
 msgid "Exporting front matter"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:995
-#: inc/modules/export/epub/class-epub.php:1656
-#: inc/modules/export/epub/class-epub.php:1686
+#: inc/modules/export/epub/class-epub.php:997
+#: inc/modules/export/epub/class-epub.php:1658
+#: inc/modules/export/epub/class-epub.php:1688
 #: inc/modules/export/xhtml/class-xhtml11.php:458
 #: inc/modules/export/xhtml/class-xhtml11.php:1321
 #: inc/modules/export/xhtml/class-xhtml11.php:1361
 msgid "Exporting parts and chapters"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:999
-#: inc/modules/export/epub/class-epub.php:1817
+#: inc/modules/export/epub/class-epub.php:1001
+#: inc/modules/export/epub/class-epub.php:1819
 #: inc/modules/export/xhtml/class-xhtml11.php:462
 #: inc/modules/export/xhtml/class-xhtml11.php:1461
 msgid "Exporting back matter"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1004
+#: inc/modules/export/epub/class-epub.php:1006
 #: inc/modules/export/xhtml/class-xhtml11.php:447
 msgid "Creating table of contents"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1346
+#: inc/modules/export/epub/class-epub.php:1348
 msgid "Title Page"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1611
+#: inc/modules/export/epub/class-epub.php:1613
 msgid "Make your own books using Pressbooks"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1869
+#: inc/modules/export/epub/class-epub.php:1871
 msgid "Table Of Contents"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1942
+#: inc/modules/export/epub/class-epub.php:1944
 #: inc/modules/export/htmlbook/class-htmlbook.php:979
 #: inc/modules/export/xhtml/class-xhtml11.php:1237
 msgid "Contents"
