@@ -674,8 +674,7 @@ class Epub extends ExportGenerator {
 		$mime = static::mimeType( $file );
 		$mime = explode( ';', $mime );
 
-		return $mime[0] === 'font/sfnt' && strtolower( pathinfo( $file, PATHINFO_EXTENSION ) ) === 'ttf' ?
-			'font/ttf' : trim( $mime[0] );
+		return $mime[0] === 'font/sfnt' ? 'application/font-sfnt' : trim( $mime[0] );
 	}
 
 	/**
