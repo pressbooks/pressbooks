@@ -13,7 +13,7 @@
 		"lint:fix-styles": "stylelint \"assets/src/styles/**/*.scss\" scss --fix"
 	},
 	"engines": {
-		"node": ">= 16"
+		"node": ">= 18"
 	},
 	"dependencies": {
 		"algoliasearch": "^4.14.3",
