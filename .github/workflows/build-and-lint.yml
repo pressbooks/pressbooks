@@ -8,27 +8,5 @@ on:
     branches: [ dev ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: [ '16', '18' ]
-    name: Node ${{ matrix.node }}
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node }}
-      - name: Cache Node modules
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
-      - name: Install Node dependencies & build assets
-        run: |
-          node -v
-          npm ci
-          npm run build
-      - name: Run ESLint and Stylelint
-        run: npm run lint
+  lint:
+    uses: pressbooks/composer-autoupdate-bedrock/.github/workflows/lint-build.yml@v1
