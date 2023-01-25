@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-23T19:37:27+00:00\n"
+"POT-Creation-Date: 2023-01-25T16:45:08+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: pressbooks\n"
@@ -1235,7 +1235,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:331
 #: inc/admin/metaboxes/namespace.php:341
-msgid "This is added to the metadata in your ebook. Please write date in YYYY-MM-DD format."
+msgid "This is added to the metadata in your ebook."
 msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:340
