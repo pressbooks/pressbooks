@@ -27,6 +27,12 @@ class GoogleAnalytics {
 
 	private string $v4_input_label;
 
+	private string $network_page = 'pb_network_analytics';
+
+	private string $book_page = 'pb_analytics';
+
+	private string $menu_slug = 'pb_analytics';
+
 	public function __construct() {
 		$this->v3_input_label = __( 'Google Analytics UA ID', 'pressbooks' );
 		$this->v4_input_label = __( 'Google Analytics 4 ID', 'pressbooks' );
@@ -34,6 +40,20 @@ class GoogleAnalytics {
 			Google will <a href=\'https://support.google.com/analytics/answer/11583528\' target=\'_blank\'>stop processing data</a>
 			for sites which use UA on July 1, 2023.', 'pressbooks' );
 		$this->v4_input_legend = __( 'The Google Analytics 4 ID for your network, e.g &lsquo;G-A123B4C5DE6&rsquo;.', 'pressbooks' );
+	}
+
+	public static function getGoogleIDSiteOption( int $version, bool $for_book ): false|string {
+		return ! $for_book ?
+			get_site_option( $version === 4 ? self::$google_id_v4_option : self::$google_id_v3_option ) :
+			get_option( $version === 4 ? self::$google_id_v4_option : self::$google_id_v3_option );
+	}
+
+	public function getInputLabel( int $version ): string {
+		return $version === 4 ? $this->v4_input_label : $this->v3_input_label;
+	}
+
+	public function getInputLegend( int $version ): string {
+		return $version === 4 ? $this->v4_input_legend : $this->v3_input_legend;
 	}
 
 	static public function init(): GoogleAnalytics {
@@ -64,7 +84,7 @@ class GoogleAnalytics {
 			__( 'Google Analytics', 'pressbooks' ),
 			__( 'Google Analytics', 'pressbooks' ),
 			'manage_network_options',
-			'pb_analytics',
+			$this->menu_slug,
 			[ $this, 'displayNetworkAnalyticsSettings' ]
 		);
 	}
@@ -74,45 +94,69 @@ class GoogleAnalytics {
 			__( 'Google Analytics', 'pressbooks' ),
 			__( 'Google Analytics', 'pressbooks' ),
 			'manage_options',
-			'pb_analytics',
+			$this->menu_slug,
 			[ $this, 'displayBookAnalyticsSettings' ]
 		);
 	}
 
 	public function networkAnalyticsSettingsInit(): void {
-		$_section = 'network_analytics_settings_section';
-		$_page = 'pb_network_analytics';
+		$section = 'network_analytics_settings_section';
 
 		add_settings_section(
-			$_section,
+			$section,
 			'',
 			[ $this, 'analyticsSettingsSectionCallback' ],
-			$_page
+			$this->network_page
 		);
+
+		$this->addNetworkSettingsFields();
+		$this->registerNetworkSettings();
+	}
+
+	private function addNetworkSettingsFields(): void {
+		$section = 'network_analytics_settings_section';
+
 		add_settings_field(
 			self::$google_id_v3_option,
 			$this->v3_input_label,
-			[ $this, 'analyticsNetworkCallback' ],
-			$_page,
-			$_section,
+			[ $this, 'analyticsInputCallback' ],
+			$this->network_page,
+			$section,
 			[
 				'legend' => $this->v3_input_legend,
-				'option' => self::$google_id_v3_option,
+				'version' => 3,
+				'for_book' => false,
 			]
 		);
 		add_settings_field(
 			self::$google_id_v4_option,
 			$this->v4_input_label,
-			[ $this, 'analyticsNetworkCallback' ],
-			$_page,
-			$_section,
+			[ $this, 'analyticsInputCallback' ],
+			$this->network_page,
+			$section,
 			[
-				'legend' => $this->v3_input_legend,
-				'option' => self::$google_id_v4_option,
+				'legend' => $this->v4_input_legend,
+				'version' => 4,
+				'for_book' => false,
 			]
 		);
+		if ( is_subdomain_install() || defined( 'WP_TESTS_MULTISITE' ) ) {
+			add_settings_field(
+				self::$is_allowed_option,
+				__( 'Site-Specific Tracking', 'pressbooks' ),
+				[ $this, 'analyticsBooksAllowedCallback' ],
+				$this->network_page,
+				$section,
+				[
+					__( 'If enabled, the Google Analytics settings page will be visible to book administrators, allowing them to use their own Google Analytics accounts to track statistics at the book level.', 'pressbooks' ),
+				]
+			);
+		}
+	}
+
+	private function registerNetworkSettings(): void {
 		register_setting(
-			$_page,
+			$this->network_page,
 			self::$google_id_v3_option,
 			[
 				'type' => 'string',
@@ -120,27 +164,16 @@ class GoogleAnalytics {
 			]
 		);
 		register_setting(
-			$_page,
+			$this->network_page,
 			self::$google_id_v4_option,
 			[
 				'type' => 'string',
 				'default' => '',
 			]
 		);
-
 		if ( is_subdomain_install() || defined( 'WP_TESTS_MULTISITE' ) ) {
-			add_settings_field(
-				self::$is_allowed_option,
-				__( 'Site-Specific Tracking', 'pressbooks' ),
-				[ $this, 'analyticsBooksAllowedCallback' ],
-				$_page,
-				$_section,
-				[
-					__( 'If enabled, the Google Analytics settings page will be visible to book administrators, allowing them to use their own Google Analytics accounts to track statistics at the book level.', 'pressbooks' ),
-				]
-			);
 			register_setting(
-				$_page,
+				$this->network_page,
 				self::$is_allowed_option,
 				[
 					'type' => 'boolean',
@@ -151,52 +184,66 @@ class GoogleAnalytics {
 	}
 
 	public function bookAnalyticsSettingsInit(): void {
-		$_section = 'analytics_settings_section';
-		$_page = 'pb_analytics';
+		$section = 'analytics_settings_section';
+
 		add_settings_section(
-			$_section,
+			$section,
 			'',
 			[ $this, 'analyticsSettingsSectionCallback' ],
-			$_page
+			$this->book_page
 		);
-		add_settings_field(
-			self::$google_id_v3_option,
-			$this->v3_input_label,
-			[ $this, 'analyticsBookCallback' ],
-			$_page,
-			$_section,
-			[
-				'legend' => $this->v3_input_legend,
-				'option' => self::$google_id_v3_option,
-			]
-		);
+
+		$this->addBookSettingsFields();
+		$this->registerBookSettings();
+	}
+
+	private function registerBookSettings(): void {
 		register_setting(
-			$_page,
+			$this->book_page,
 			self::$google_id_v3_option,
 			[
 				'type' => 'string',
 				'default' => '',
+			]
+		);
+		register_setting(
+			$this->book_page,
+			self::$google_id_v4_option,
+			[
+				'type' => 'string',
+				'default' => '',
+			]
+		);
+	}
+
+	private function addBookSettingsFields(): void {
+		$section = 'analytics_settings_section';
+
+		add_settings_field(
+			self::$google_id_v3_option,
+			$this->v3_input_label,
+			[ $this, 'analyticsInputCallback' ],
+			$this->book_page,
+			$section,
+			[
+				'legend' => $this->v3_input_legend,
+				'version' => 3,
+				'for_book' => true,
 			]
 		);
 		add_settings_field(
 			self::$google_id_v4_option,
 			$this->v4_input_label,
-			[ $this, 'analyticsBookCallback' ],
-			$_page,
-			$_section,
+			[ $this, 'analyticsInputCallback' ],
+			$this->book_page,
+			$section,
 			[
 				'legend' => $this->v4_input_legend,
-				'option' => self::$google_id_v4_option,
+				'version' => 4,
+				'for_book' => true,
 			]
 		);
-		register_setting(
-			$_page,
-			self::$google_id_v4_option,
-			[
-				'type' => 'string',
-				'default' => '',
-			]
-		);
+
 	}
 
 	 // @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
@@ -207,16 +254,9 @@ class GoogleAnalytics {
 		echo '<p>' . __( 'Google Analytics settings.', 'pressbooks' ) . '</p>';
 	}
 
-	public function analyticsBookCallback( array $args ): void {
-		$option = get_option( $args['option'] );
-		$html = '<input type="text" id="' . $args['option'] . '" name="' . $args['option'] . '" value="' . $option . '" />';
-		$html .= '<p class="description">' . $args['legend'] . '</p>';
-		echo $html;
-	}
-
-	public function analyticsNetworkCallback( array $args ): void {
-		$option = get_site_option( $args['option'] );
-		$html = '<input type="text" id="' . $args['option'] . '" name="' . $args['option'] . '" value="' . $option . '" />';
+	public function analyticsInputCallback( array $args ): void {
+		$option = self::getGoogleIDSiteOption( $args['version'], $args['for_book'] );
+		$html = '<input type="text" id="ga_' . $args['version'] . '" name="ga_' . $args['version'] . '" value="' . $option . '" />';
 		$html .= '<p class="description">' . $args['legend'] . '</p>';
 		echo $html;
 	}
@@ -238,21 +278,12 @@ class GoogleAnalytics {
 				if ( ! wp_verify_nonce( $nonce, 'pb_network_analytics-options' ) ) {
 					wp_die( 'Security check' );
 				} else {
-					if ( ! empty( $_REQUEST[ self::$google_id_v3_option ] ) ) {
-						update_site_option( self::$google_id_v3_option, $_REQUEST[ self::$google_id_v3_option ] );
-					} else {
-						delete_site_option( self::$google_id_v3_option );
-					}
-					if ( ! empty( $_REQUEST[ self::$google_id_v4_option ] ) ) {
-						update_site_option( self::$google_id_v4_option, $_REQUEST[ self::$google_id_v4_option ] );
-					} else {
-						delete_site_option( self::$google_id_v4_option );
-					}
-					if ( ! empty( $_REQUEST[ self::$is_allowed_option ] ) ) {
-						update_site_option( self::$is_allowed_option, true );
-					} else {
-						delete_site_option( self::$is_allowed_option );
-					}
+					$this->saveNetworkIDOption( 'ga_3', 3 );
+					$this->saveNetworkIDOption( 'ga_4', 4 );
+
+					empty( $_REQUEST[ self::$is_allowed_option ] ) ?
+							delete_site_option( self::$is_allowed_option ) :
+							update_site_option( self::$is_allowed_option, true );
 					?>
 					<div id="message" role="status" class="updated notice is-dismissible"><p><strong><?php _e( 'Settings saved.', 'pressbooks' ); ?></strong></div>
 					<?php
@@ -261,13 +292,29 @@ class GoogleAnalytics {
 			?>
 			<form method="POST" action="">
 				<?php
-				settings_fields( 'pb_network_analytics' );
-				do_settings_sections( 'pb_network_analytics' );
+				settings_fields( $this->network_page );
+				do_settings_sections( $this->network_page );
 				?>
 				<?php submit_button(); ?>
 			</form>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Save Network Google Analytics ID options by $_REQUEST key
+	 *
+	 * @param string $request_key
+	 * @param int $version
+	 * @return void
+	 */
+	public function saveNetworkIDOption( string $request_key, int $version ): void {
+		empty( $_REQUEST[ $request_key ] ) ?
+			delete_site_option( $version === 3 ? self::$google_id_v3_option : self::$google_id_v4_option ) :
+			update_site_option(
+				$version === 3 ? self::$google_id_v3_option : self::$google_id_v4_option,
+				sanitize_text_field( $_REQUEST[ $request_key ] )
+			);
 	}
 
 	public function displayBookAnalyticsSettings(): void {
@@ -276,8 +323,8 @@ class GoogleAnalytics {
 			<h2><?php _e( 'Google Analytics', 'pressbooks' ); ?></h2>
 			<form method="POST" action="options.php">
 				<?php
-				settings_fields( 'pb_analytics' );
-				do_settings_sections( 'pb_analytics' );
+				settings_fields( $this->book_page );
+				do_settings_sections( $this->book_page );
 				?>
 				<?php submit_button(); ?>
 			</form>
@@ -286,17 +333,19 @@ class GoogleAnalytics {
 	}
 
 	public static function printScripts(): void {
-		$network_google_v3_code = get_site_option( self::$google_id_v3_option );
+		$network_google_v3_code = self::getGoogleIDSiteOption( 3, false );
 		if ( ! empty( $network_google_v3_code ) ) {
 			$book_google_v3_code = get_site_option( self::$is_allowed_option ) ?
-					get_option( self::$google_id_v3_option ) : '';
+				self::getGoogleIDSiteOption( 3, true ) : '';
+
 			self::printV3Scripts( $network_google_v3_code, $book_google_v3_code );
 		}
 
-		$network_google_v4_code = get_site_option( self::$google_id_v4_option );
+		$network_google_v4_code = self::getGoogleIDSiteOption( 4, false );
 		if ( ! empty( $network_google_v4_code ) ) {
 			$book_google_v4_code = get_site_option( self::$is_allowed_option ) ?
-					get_option( self::$google_id_v4_option ) : '';
+				self::getGoogleIDSiteOption( 4, true ) : '';
+
 			self::printV4Scripts( $network_google_v4_code, $book_google_v4_code );
 		}
 
@@ -309,10 +358,8 @@ class GoogleAnalytics {
 			$tracking_html .= "ga('send', 'pageview');\n";
 		}
 
-		$ecommerce_tracking = apply_filters( 'pb_ecommerce_tracking', '' );
-		if ( ! empty( $ecommerce_tracking ) ) {
-			$tracking_html .= $ecommerce_tracking;
-		}
+		$tracking_html .= self::getEcommerceTracking();
+
 		if ( ! empty( $book_google_v3_code ) && Book::isBook() ) {
 			if ( is_subdomain_install() || defined( 'WP_TESTS_MULTISITE' ) ) {
 				$tracking_html .= "ga('create', '{$book_google_v3_code}', 'auto', 'bookTracker');\n";
@@ -338,10 +385,8 @@ class GoogleAnalytics {
 			$tracking_html .= "gtag('config', '{$network_google_v4_code}');\n";
 		}
 
-		$ecommerce_tracking = apply_filters( 'pb_ecommerce_tracking', '' );
-		if ( ! empty( $ecommerce_tracking ) ) {
-			$tracking_html .= $ecommerce_tracking;
-		}
+		$tracking_html .= self::getEcommerceTracking();
+
 		if ( ! empty( $book_google_v4_code ) && Book::isBook() ) {
 			if ( is_subdomain_install() || defined( 'WP_TESTS_MULTISITE' ) ) {
 				$tracking_book_html = "gtag('config', '{$book_google_v4_code}', {'send_page_view': false});\n";
@@ -358,6 +403,11 @@ class GoogleAnalytics {
 			$html .= self::getJSWrapper( $book_google_v4_code, $tracking_book_html );
 		}
 		echo $html;
+	}
+
+	private static function getEcommerceTracking(): string {
+		$ecommerce_tracking = apply_filters( 'pb_ecommerce_tracking', '' );
+		return ! empty( $ecommerce_tracking ) ? $ecommerce_tracking : '';
 	}
 
 	private static function getJSWrapper( string $ga_v4_code, string $ga_config ): string {

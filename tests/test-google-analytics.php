@@ -49,13 +49,14 @@ class GoogleAnalyticsTest extends \WP_UnitTestCase {
 	public function google_analytics_book_input_renders(): void {
 		$args = [
 			'legend' => 'Hello World!',
-			'option' => \Pressbooks\GoogleAnalytics::$google_id_v3_option,
+			'version' => 3,
+			'for_book' => true,
 		];
 		ob_start();
-		$this->google_analytics->analyticsBookCallback( $args );
+		$this->google_analytics->analyticsInputCallback( $args );
 		$buffer = ob_get_clean();
 
-		$this->assertStringContainsString( \Pressbooks\GoogleAnalytics::$google_id_v3_option, $buffer );
+		$this->assertStringContainsString( 'ga_3', $buffer );
 		$this->assertStringContainsString( 'Hello World!', $buffer );
 	}
 
@@ -65,13 +66,14 @@ class GoogleAnalyticsTest extends \WP_UnitTestCase {
 	public function google_analytics_network_input_renders(): void {
 		$args = [
 			'legend' => 'Hello World!',
-			'option' => \Pressbooks\GoogleAnalytics::$google_id_v4_option,
+			'version' => 4,
+			'for_book' => false,
 		];
 		ob_start();
-		$this->google_analytics->analyticsNetworkCallback( $args );
+		$this->google_analytics->analyticsInputCallback( $args );
 		$buffer = ob_get_clean();
 
-		$this->assertStringContainsString( \Pressbooks\GoogleAnalytics::$google_id_v4_option, $buffer );
+		$this->assertStringContainsString( 'ga_4', $buffer );
 		$this->assertStringContainsString( 'Hello World!', $buffer );
 	}
 
