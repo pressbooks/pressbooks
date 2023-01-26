@@ -8,6 +8,10 @@ namespace Pressbooks;
 
 class GoogleAnalytics {
 
+	public const VERSION_3 = 3;
+
+	public const VERSION_4 = 4;
+
 	/**
 	 * @var null|GoogleAnalytics
 	 */
@@ -15,17 +19,14 @@ class GoogleAnalytics {
 
 	public static string $is_allowed_option = 'ga_mu_site_specific_allowed';
 
-	public static string $google_id_v3_option = 'ga_mu_uaid';
-
-	public static string $google_id_v4_option = 'ga_4_mu_uaid';
-
-	private string $v3_input_legend;
-
-	private string $v4_input_legend;
-
-	private string $v3_input_label;
-
-	private string $v4_input_label;
+	private array $versions_settings = [
+		3 => [
+			'option' => 'ga_mu_uaid',
+		],
+		4 => [
+			'option' => 'ga_4_mu_uaid',
+		],
+	];
 
 	private string $network_page = 'pb_network_analytics';
 
@@ -34,29 +35,31 @@ class GoogleAnalytics {
 	private string $menu_slug = 'pb_analytics';
 
 	public function __construct() {
-		$this->v3_input_label = __( 'Google Analytics UA ID', 'pressbooks' );
-		$this->v4_input_label = __( 'Google Analytics 4 ID', 'pressbooks' );
-		$this->v3_input_legend = __( 'The Google Analytics UA ID for your network, &lsquo;UA-01234567-8&rsquo;.
+		$this->versions_settings[ self::VERSION_3 ]['input_label'] = __( 'Google Analytics UA ID', 'pressbooks' );
+		$this->versions_settings[ self::VERSION_4 ]['input_label'] = __( 'Google Analytics 4 ID', 'pressbooks' );
+		$this->versions_settings[ self::VERSION_3 ]['input_legend'] = __( 'The Google Analytics UA ID for your network, &lsquo;UA-01234567-8&rsquo;.
 			Google will <a href=\'https://support.google.com/analytics/answer/11583528\' target=\'_blank\'>stop processing data</a>
 			for sites which use UA on July 1, 2023.', 'pressbooks' );
-		$this->v4_input_legend = __( 'The Google Analytics 4 ID for your network, e.g &lsquo;G-A123B4C5DE6&rsquo;.', 'pressbooks' );
-	}
+		$this->versions_settings[ self::VERSION_4 ]['input_legend'] = __( 'The Google Analytics 4 ID for your network, e.g &lsquo;G-A123B4C5DE6&rsquo;.', 'pressbooks' );}
 
-	public static function getGoogleIDSiteOption( int $version, bool $for_book ): false|string {
+	public function getGoogleIDSiteOption( int $version, bool $for_book ): false|string {
+		if ( ! isset( $this->versions_settings[ $version ] ) ) {
+			return false;
+		}
 		return ! $for_book ?
-			get_site_option( $version === 4 ? self::$google_id_v4_option : self::$google_id_v3_option ) :
-			get_option( $version === 4 ? self::$google_id_v4_option : self::$google_id_v3_option );
+			get_site_option( $this->versions_settings[ $version ]['option'] ) :
+			get_option( $this->versions_settings[ $version ]['option'] );
 	}
 
 	public function getInputLabel( int $version ): string {
-		return $version === 4 ? $this->v4_input_label : $this->v3_input_label;
+		return $this->versions_settings[ $version ] ? $this->versions_settings[ $version ]['input_label'] : '';
 	}
 
 	public function getInputLegend( int $version ): string {
-		return $version === 4 ? $this->v4_input_legend : $this->v3_input_legend;
+		return $this->versions_settings[ $version ] ? $this->versions_settings[ $version ]['input_legend'] : '';
 	}
 
-	static public function init(): GoogleAnalytics {
+	public static function init(): GoogleAnalytics {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -117,26 +120,26 @@ class GoogleAnalytics {
 		$section = 'network_analytics_settings_section';
 
 		add_settings_field(
-			self::$google_id_v3_option,
-			$this->v3_input_label,
+			$this->versions_settings[ self::VERSION_3 ]['option'],
+			$this->versions_settings[ self::VERSION_3 ]['input_label'],
 			[ $this, 'analyticsInputCallback' ],
 			$this->network_page,
 			$section,
 			[
-				'legend' => $this->v3_input_legend,
-				'version' => 3,
+				'legend' => $this->versions_settings[ self::VERSION_3 ]['input_legend'],
+				'version' => self::VERSION_3,
 				'for_book' => false,
 			]
 		);
 		add_settings_field(
-			self::$google_id_v4_option,
-			$this->v4_input_label,
+			$this->versions_settings[ self::VERSION_4 ]['option'],
+			$this->versions_settings[ self::VERSION_4 ]['input_label'],
 			[ $this, 'analyticsInputCallback' ],
 			$this->network_page,
 			$section,
 			[
-				'legend' => $this->v4_input_legend,
-				'version' => 4,
+				'legend' => $this->versions_settings[ self::VERSION_4 ]['input_legend'],
+				'version' => self::VERSION_4,
 				'for_book' => false,
 			]
 		);
@@ -157,7 +160,7 @@ class GoogleAnalytics {
 	private function registerNetworkSettings(): void {
 		register_setting(
 			$this->network_page,
-			self::$google_id_v3_option,
+			$this->versions_settings[ self::VERSION_3 ]['option'],
 			[
 				'type' => 'string',
 				'default' => '',
@@ -165,7 +168,7 @@ class GoogleAnalytics {
 		);
 		register_setting(
 			$this->network_page,
-			self::$google_id_v4_option,
+			$this->versions_settings[ self::VERSION_4 ]['option'],
 			[
 				'type' => 'string',
 				'default' => '',
@@ -200,7 +203,7 @@ class GoogleAnalytics {
 	private function registerBookSettings(): void {
 		register_setting(
 			$this->book_page,
-			self::$google_id_v3_option,
+			$this->versions_settings[ self::VERSION_3 ]['option'],
 			[
 				'type' => 'string',
 				'default' => '',
@@ -208,7 +211,7 @@ class GoogleAnalytics {
 		);
 		register_setting(
 			$this->book_page,
-			self::$google_id_v4_option,
+			$this->versions_settings[ self::VERSION_4 ]['option'],
 			[
 				'type' => 'string',
 				'default' => '',
@@ -220,26 +223,26 @@ class GoogleAnalytics {
 		$section = 'analytics_settings_section';
 
 		add_settings_field(
-			self::$google_id_v3_option,
-			$this->v3_input_label,
+			$this->versions_settings[ self::VERSION_3 ]['option'],
+			$this->versions_settings[ self::VERSION_3 ]['input_label'],
 			[ $this, 'analyticsInputCallback' ],
 			$this->book_page,
 			$section,
 			[
-				'legend' => $this->v3_input_legend,
-				'version' => 3,
+				'legend' => $this->versions_settings[ self::VERSION_3 ]['input_legend'],
+				'version' => self::VERSION_3,
 				'for_book' => true,
 			]
 		);
 		add_settings_field(
-			self::$google_id_v4_option,
-			$this->v4_input_label,
+			$this->versions_settings[ self::VERSION_4 ]['option'],
+			$this->versions_settings[ self::VERSION_4 ]['input_label'],
 			[ $this, 'analyticsInputCallback' ],
 			$this->book_page,
 			$section,
 			[
-				'legend' => $this->v4_input_legend,
-				'version' => 4,
+				'legend' => $this->versions_settings[ self::VERSION_4 ]['input_legend'],
+				'version' => self::VERSION_4,
 				'for_book' => true,
 			]
 		);
@@ -255,7 +258,7 @@ class GoogleAnalytics {
 	}
 
 	public function analyticsInputCallback( array $args ): void {
-		$option = self::getGoogleIDSiteOption( $args['version'], $args['for_book'] );
+		$option = $this->getGoogleIDSiteOption( $args['version'], $args['for_book'] );
 		$html = '<input type="text" id="ga_' . $args['version'] . '" name="ga_' . $args['version'] . '" value="' . $option . '" />';
 		$html .= '<p class="description">' . $args['legend'] . '</p>';
 		echo $html;
@@ -309,10 +312,13 @@ class GoogleAnalytics {
 	 * @return void
 	 */
 	public function saveNetworkIDOption( string $request_key, int $version ): void {
+		if ( ! isset( $_REQUEST[ $request_key ] ) || ! isset( $this->versions_settings[ $version ] ) ) {
+			return;
+		}
 		empty( $_REQUEST[ $request_key ] ) ?
-			delete_site_option( $version === 3 ? self::$google_id_v3_option : self::$google_id_v4_option ) :
+			delete_site_option( $this->versions_settings[ $version ]['option'] ) :
 			update_site_option(
-				$version === 3 ? self::$google_id_v3_option : self::$google_id_v4_option,
+				$this->versions_settings[ $version ]['option'],
 				sanitize_text_field( $_REQUEST[ $request_key ] )
 			);
 	}
@@ -332,26 +338,26 @@ class GoogleAnalytics {
 		<?php
 	}
 
-	public static function printScripts(): void {
+	public function printScripts(): void {
 		$network_google_v3_code = self::getGoogleIDSiteOption( 3, false );
 		if ( ! empty( $network_google_v3_code ) ) {
 			$book_google_v3_code = get_site_option( self::$is_allowed_option ) ?
-				self::getGoogleIDSiteOption( 3, true ) : '';
+				$this->getGoogleIDSiteOption( 3, true ) : '';
 
-			self::printV3Scripts( $network_google_v3_code, $book_google_v3_code );
+			$this->printV3Scripts( $network_google_v3_code, $book_google_v3_code );
 		}
 
-		$network_google_v4_code = self::getGoogleIDSiteOption( 4, false );
+		$network_google_v4_code = $this->getGoogleIDSiteOption( 4, false );
 		if ( ! empty( $network_google_v4_code ) ) {
 			$book_google_v4_code = get_site_option( self::$is_allowed_option ) ?
-				self::getGoogleIDSiteOption( 4, true ) : '';
+				$this->getGoogleIDSiteOption( 4, true ) : '';
 
-			self::printV4Scripts( $network_google_v4_code, $book_google_v4_code );
+			$this->printV4Scripts( $network_google_v4_code, $book_google_v4_code );
 		}
 
 	}
 
-	private static function printV3Scripts( string $network_google_v3_code, string $book_google_v3_code ): void {
+	private function printV3Scripts( string $network_google_v3_code, string $book_google_v3_code ): void {
 		$tracking_html = '';
 		if ( ! empty( $network_google_v3_code ) ) {
 			$tracking_html = "ga('create', '{$network_google_v3_code}', 'auto');\n";

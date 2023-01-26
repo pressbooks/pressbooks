@@ -20,8 +20,8 @@ class GoogleAnalyticsTest extends \WP_UnitTestCase {
 	public function network_settings_are_registered(): void {
 		global $wp_registered_settings;
 		$this->google_analytics->networkAnalyticsSettingsInit();
-		$this->assertArrayHasKey( \Pressbooks\GoogleAnalytics::$google_id_v3_option, $wp_registered_settings );
-		$this->assertArrayHasKey( \Pressbooks\GoogleAnalytics::$google_id_v4_option, $wp_registered_settings );
+		$this->assertArrayHasKey( 'ga_mu_uaid', $wp_registered_settings );
+		$this->assertArrayHasKey( 'ga_4_mu_uaid', $wp_registered_settings );
 		$this->assertArrayHasKey( \Pressbooks\GoogleAnalytics::$is_allowed_option, $wp_registered_settings );
 	}
 
@@ -31,8 +31,8 @@ class GoogleAnalyticsTest extends \WP_UnitTestCase {
 	public function book_settings_are_registered(): void {
 		global $wp_registered_settings;
 		$this->google_analytics->bookAnalyticsSettingsInit();
-		$this->assertArrayHasKey( \Pressbooks\GoogleAnalytics::$google_id_v3_option, $wp_registered_settings );
-		$this->assertArrayHasKey( \Pressbooks\GoogleAnalytics::$google_id_v4_option, $wp_registered_settings );
+		$this->assertArrayHasKey( 'ga_mu_uaid', $wp_registered_settings );
+		$this->assertArrayHasKey( 'ga_4_mu_uaid', $wp_registered_settings );
 	}
 
 	/**
@@ -115,13 +115,17 @@ class GoogleAnalyticsTest extends \WP_UnitTestCase {
 	 */
 	public function ga_scripts_are_printed(): void {
 		switch_to_blog( get_network()->site_id );
-		update_site_option( \Pressbooks\GoogleAnalytics::$google_id_v3_option, 'TEST-v3' );
-		update_site_option( \Pressbooks\GoogleAnalytics::$google_id_v4_option, 'TEST-v4' );
+		$_REQUEST['ga_3'] = 'TEST-v3';
+		$_REQUEST['ga_4'] = 'TEST-v4';
+		$this->google_analytics->saveNetworkIDOption( 'ga_3', 3 );
+		$this->google_analytics->saveNetworkIDOption( 'ga_4', 4 );
+
 		update_site_option( \Pressbooks\GoogleAnalytics::$is_allowed_option, true );
-		update_option( \Pressbooks\GoogleAnalytics::$google_id_v3_option, 'TEST2-v3' );
+
+		update_option( 'ga_mu_uaid', 'TEST2-v3' );
 
 		ob_start();
-		\Pressbooks\GoogleAnalytics::printScripts();
+		$this->google_analytics->printScripts();
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '<script>', $buffer );
 		$this->assertStringContainsString( 'Google', $buffer );
@@ -132,10 +136,10 @@ class GoogleAnalyticsTest extends \WP_UnitTestCase {
 
 		$this->_book();
 
-		update_option( \Pressbooks\GoogleAnalytics::$google_id_v4_option, 'TEST2-v3' );
+		update_option( 'ga_4_mu_uaid', 'TEST2-v3' );
 
 		ob_start();
-		\Pressbooks\GoogleAnalytics::printScripts();
+		$this->google_analytics->printScripts();
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( 'Google', $buffer );
 		$this->assertStringContainsString( 'Analytics', $buffer );
@@ -145,7 +149,7 @@ class GoogleAnalyticsTest extends \WP_UnitTestCase {
 		delete_site_option( \Pressbooks\GoogleAnalytics::$is_allowed_option );
 
 		ob_start();
-		\Pressbooks\GoogleAnalytics::printScripts();
+		$this->google_analytics->printScripts();
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( 'TEST-v3', $buffer );
 		$this->assertStringContainsString( 'https://www.googletagmanager.com/gtag/js?id=TEST-v4', $buffer );
