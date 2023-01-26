@@ -78,9 +78,7 @@ add_action( 'login_footer', '\Pressbooks\Admin\Branding\login_scripts' );
 // -------------------------------------------------------------------------------------------------------------------
 // Analytics
 // -------------------------------------------------------------------------------------------------------------------
-
-add_action( 'init', '\Pressbooks\Analytics\migrate' );
-add_action( 'wp_head', '\Pressbooks\Analytics\print_analytics' );
+add_action( 'init', [ '\Pressbooks\GoogleAnalytics', 'init' ] );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Tracking

@@ -94,15 +94,6 @@ remove_action( 'admin_init', 'register_admin_color_schemes', 1 );
 // Hacks
 add_action( 'edit_form_top', '\Pressbooks\Admin\Laf\edit_screen_navigation' );
 
-// Google Analytics
-add_action( 'network_admin_menu', '\Pressbooks\Admin\Analytics\add_network_menu' );
-add_action( 'admin_init', '\Pressbooks\Admin\Analytics\network_analytics_settings_init' );
-if ( $is_book && get_site_option( 'ga_mu_site_specific_allowed' ) ) {
-	add_action( 'admin_menu', '\Pressbooks\Admin\Analytics\add_book_menu' );
-	add_action( 'admin_init', '\Pressbooks\Admin\Analytics\book_analytics_settings_init' );
-}
-add_action( 'admin_head', '\Pressbooks\Admin\Analytics\print_admin_analytics' );
-
 // Privacy settings
 add_action( 'network_admin_menu', '\Pressbooks\Admin\Laf\network_admin_menu' );
 if ( ! is_network_admin() ) {
