@@ -217,7 +217,7 @@ function decode( string $slug, bool $exclude_ampersands = true ): string {
 
 function encode_ampersand( string $slug ): string {
 
-	return preg_replace( '/&\S*/', '&#038;$1', $slug );
+	return preg_replace( '/&([^#])?(?![a-z1-4]{1,8};)/i', '&#038;$1', $slug );
 }
 
 function space_to_numerical_html_entity( string $string ) {
