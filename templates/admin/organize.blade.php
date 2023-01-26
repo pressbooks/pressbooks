@@ -37,7 +37,7 @@
             </div>
         </div>
     @endif
-    <h1 class="wp-heading-inline">{{ get_bloginfo('name') }}</h1>
+    <h1 class="wp-heading-inline">{!! get_bloginfo('name') !!}</h1>
     @if (is_super_admin())
         <div class="page-title-actions">
             <a class="page-title-action" href="{!! admin_url('edit.php?post_type=front-matter') !!}">{{ __('Front Matter', 'pressbooks') }}</a>
@@ -69,9 +69,9 @@
         <div role="region" aria-labelledby="{{ $slug }}">
             <h2 class="wp-heading-inline">
                 @if (!str_contains($slug, 'part'))
-                    {{ $group['name'] }}
+                    {!! $group['name'] !!}
                 @else
-                    {{ $group['title'] }}
+                    {!! $group['title'] !!}
                 @endif
             </h2>
             @if ($can_edit_posts)
@@ -137,14 +137,14 @@
                                 <div class="row-title">
                                     @if (current_user_can('edit_post', $content['ID']))
                                         <a href="{!! admin_url('post.php?post=' . $content['ID'] . '&action=edit') !!}">
-                                            {{ $content['post_title'] }}
+                                            {!! $content['post_title'] !!}
                                             @if ($start_point === $content['ID'])
                                                 <span class="ebook-start-point"
                                                     title="{{ __('Ebook start point', 'pressbooks') }}">&#9733;</span>
                                             @endif
                                         </a>
                                     @else
-                                        {{ $content['post_title'] }}
+                                        {!! $content['post_title'] !!}
                                         @if ($start_point === $content['ID'])
                                             <span class="ebook-start-point"
                                                 title="{{ __('Ebook start point', 'pressbooks') }}">&#9733;</span>
