@@ -1709,7 +1709,7 @@ class Epub extends ExportGenerator {
 
 				$append_chapter_content .= $this->kneadHtml( $this->tidy( $this->doSectionLevelLicense( $metadata, $chapter_id ) ), 'chapter', $chapter_position );
 
-				$chapter_number = strpos( $chapter_subclass, 'numberless' ) === false ? $chapter_index : '';
+				$chapter_number = ! str_contains( $chapter_subclass, 'numberless' ) ? $chapter_index : '';
 
 				$vars['post_title'] = $chapter['post_title'];
 				$vars['post_content'] = $this->blade->render(
