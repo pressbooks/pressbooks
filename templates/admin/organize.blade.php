@@ -37,7 +37,7 @@
             </div>
         </div>
     @endif
-    <h1 class="wp-heading-inline">{{ get_bloginfo('name') }}</h1>
+    <h1 class="wp-heading-inline">{!! get_bloginfo('name') !!}</h1>
     @if (is_super_admin())
         <div class="page-title-actions">
             <a class="page-title-action" href="{!! admin_url('edit.php?post_type=front-matter') !!}">{{ __('Front Matter', 'pressbooks') }}</a>
