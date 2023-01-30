@@ -588,4 +588,23 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'class', $attributes );
 		$this->assertEquals( 'endnote', $attributes['class'] );
 	}
+
+
+	/**
+	 * @group export
+	 * @test
+	 */
+	public function normalize_external_url_references():void  {
+		$epub = new \Pressbooks\Modules\Export\Epub\Epub( [] );
+		$css_font_import_1 = "@import \"https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i\";\n";
+		$css_font_import_2 = "@import \"https://fonts.googleapis.com/css?family=Roboto+Slab:400,700\";\n";
+		$css = $css_font_import_1 . $css_font_import_2 . "body { font-family: 'Roboto', sans-serif; }";
+
+		$css = $epub->normalizeExternalFontsUrls( $css, 'epub/assets/' );
+
+		$this->assertStringNotContainsString( $css_font_import_1, $css );
+		$this->assertStringNotContainsString( $css_font_import_2, $css );
+
+		$this->assertStringContainsString( '@import url(assets/', $css );
+	}
 }
