@@ -1047,6 +1047,8 @@ class Epub extends ExportGenerator {
 		$scss_dir = pathinfo( $path_to_original_stylesheet, PATHINFO_DIRNAME );
 		$css = $this->normalizeCssUrls( $css, $scss_dir, $this->assetsDir );
 
+		$css = $this->normalizeExternalFontsUrls( $css, $this->assetsDir );
+
 		// Overwrite the new file with new info
 		$this->createEpubFile( $this->stylesheet, $css );
 
@@ -1054,6 +1056,27 @@ class Epub extends ExportGenerator {
 			Container::get( 'Sass' )->debug( $css, $scss, 'epub' );
 		}
 
+	}
+
+	/**
+	 * Download external fonts to include them and rewrite the CSS.
+	 *
+	 * @param string $css
+	 * @param string $path_to_epub_assets
+	 * @return string
+	 */
+	public function normalizeExternalFontsUrls( string $css, string $path_to_epub_assets ): string {
+		foreach ( preg_split( "/((\r?\n)|(\r\n?) )/", $css ) as $line ) {
+			if ( str_contains( $line, '@import "https://' ) ) {
+				preg_match_all( '#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $line, $match );
+				$new_filename = $this->fetchAndSaveUniqueFont( $match[0][0], $path_to_epub_assets );
+
+				$string_replacement = $new_filename ? '@import url(assets/' . $new_filename . ');' : '';
+				$css = str_replace( $line, $string_replacement, $css );
+			}
+		}
+
+		return $css;
 	}
 
 	/**
@@ -2207,9 +2230,26 @@ class Epub extends ExportGenerator {
 			return '';
 		}
 
-		// Basename without query string
-		$filename = explode( '?', basename( $url ) );
-		$filename = array_shift( $filename );
+		// if it is a Google font, we could get the actual font name
+		if ( str_contains( $url, 'fonts.googleapis.com' ) ) {
+			$patterns = [
+				'!^https://fonts.googleapis.com/css\?!',
+				'!(family=[^&:]+).*$!',
+				'!family=!',
+				'/[^A-Za-z0-9\-]/',
+			];
+			$replacements = [
+				'',
+				'$1',
+				'',
+				' ',
+			];
+			$filename = preg_replace( $patterns, $replacements, $url ) . '.css';
+		} else {
+			// Basename without query string
+			$filename = explode( '?', basename( $url ) );
+			$filename = array_shift( $filename );
+		}
 
 		$filename = sanitize_file_name( urldecode( $filename ) );
 		$filename = Sanitize\force_ascii( $filename );
