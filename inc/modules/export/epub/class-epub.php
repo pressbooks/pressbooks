@@ -2230,9 +2230,26 @@ class Epub extends ExportGenerator {
 			return '';
 		}
 
-		// Basename without query string
-		$filename = explode( '?', basename( $url ) );
-		$filename = array_shift( $filename );
+		// if it is a Google font, we could get the actual font name
+		if ( str_contains( $url, 'fonts.googleapis.com' ) ) {
+			$patterns = [
+				'!^https://fonts.googleapis.com/css\?!',
+				'!(family=[^&:]+).*$!',
+				'!family=!',
+				'/[^A-Za-z0-9\-]/',
+			];
+			$replacements = [
+				'',
+				'$1',
+				'',
+				' ',
+			];
+			$filename = preg_replace( $patterns, $replacements, $url );
+		} else {
+			// Basename without query string
+			$filename = explode( '?', basename( $url ) );
+			$filename = array_shift( $filename );
+		}
 
 		$filename = sanitize_file_name( urldecode( $filename ) );
 		$filename = Sanitize\force_ascii( $filename );
