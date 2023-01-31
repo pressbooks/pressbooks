@@ -605,7 +605,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$this->assertStringNotContainsString( $css_font_import_1, $css );
 		$this->assertStringNotContainsString( $css_font_import_2, $css );
 
-		$this->assertStringContainsString( '@import url(assets/Roboto);', $css );
-		$this->assertStringContainsString( '@import url(assets/Roboto-Slab);', $css );
+		$this->assertStringContainsString( '@import url(assets/Roboto.css);', $css );
+		$this->assertStringContainsString( '@import url(assets/Roboto-Slab.css);', $css );
 	}
 }
