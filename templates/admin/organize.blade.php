@@ -195,7 +195,7 @@
                             </td>
                             <td class="author column-author">
                                 <span class="author-label">{{ __('Authors', 'pressbooks') }}:</span>
-                                {{ $contributors->get($content['ID'], 'pb_authors') ?: '—' }}
+                                {!! $contributors->get($content['ID'], 'pb_authors') ?: '—' !!}
                             </td>
                             @if (!$disable_comments)
                                 <td class="comments column-comments">
