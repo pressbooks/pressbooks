@@ -2244,7 +2244,7 @@ class Epub extends ExportGenerator {
 				'',
 				' ',
 			];
-			$filename = preg_replace( $patterns, $replacements, $url );
+			$filename = preg_replace( $patterns, $replacements, $url ) . '.css';
 		} else {
 			// Basename without query string
 			$filename = explode( '?', basename( $url ) );
