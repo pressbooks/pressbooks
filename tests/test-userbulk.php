@@ -40,8 +40,12 @@ class UserBulkTest extends \WP_UnitTestCase {
 		$this->assertInstanceOf( UserBulk::class, $result );
 		$this->user_bulk->hooks( $result );
 		$this->assertNotEmpty( $wp_filter );
-		$this->assertEquals( 10, has_action( 'admin_menu', [ $result, 'addMenu' ] ) );
 		$this->assertEquals( 10, has_action( 'network_admin_menu', [ $result, 'addMenu' ] ) );
+		$this->assertFalse( has_action( 'admin_menu', [ $result, 'addMenu' ] ) );
+
+		$this->_book();
+		$this->user_bulk->hooks( $result );
+		$this->assertEquals( 10, has_action( 'admin_menu', [ $result, 'addMenu' ] ) );
 	}
 
 	public function test_init() {
