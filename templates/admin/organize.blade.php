@@ -196,7 +196,7 @@
                             <td class="author column-author">
                                 <span class="author-label">{{ __('Authors', 'pressbooks') }}:</span>
                                 {!! $contributors->get($content['ID'], 'pb_authors') ?: '—' !!}
-							</td>
+                            </td>
                             @if (!$disable_comments)
                                 <td class="comments column-comments">
                                     <a class="post-comment-count" href="{!! admin_url('edit-comments.php?p=' . $content['ID']) !!}">
