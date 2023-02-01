@@ -3,7 +3,13 @@
 use Pressbooks\Admin\Users\UserBulk;
 use Pressbooks\HtmlParser;
 
+/**
+ * @group users-bulk
+ */
 class UserBulkTest extends \WP_UnitTestCase {
+
+	use utilsTrait;
+
 	/**
 	 * @var UserBulk
 	 */
@@ -28,42 +34,37 @@ class UserBulkTest extends \WP_UnitTestCase {
 		$this->user_bulk = new UserBulk();
 	}
 
-	/**
-	 * @group userbulk
-	 */
 	public function test_hooks() {
 		global $wp_filter;
 		$result = $this->user_bulk->init();
 		$this->assertInstanceOf( UserBulk::class, $result );
 		$this->user_bulk->hooks( $result );
 		$this->assertNotEmpty( $wp_filter );
+		$this->assertEquals( 10, has_action( 'network_admin_menu', [ $result, 'addMenu' ] ) );
+		$this->assertFalse( has_action( 'admin_menu', [ $result, 'addMenu' ] ) );
+
+		$this->_book();
+		$this->user_bulk->hooks( $result );
+		$this->assertEquals( 10, has_action( 'admin_menu', [ $result, 'addMenu' ] ) );
 	}
 
-	/**
-	 * @group userbulk
-	 */
 	public function test_init() {
 		$instance = UserBulk::init();
 		$this->assertInstanceOf( UserBulk::class, $instance );
 	}
 
-	/**
-	 * @group userbulk
-	 */
 	public function test_addMenu() {
 		$this->user_bulk->addMenu( );
 		$this->assertTrue( true ); // Did not crash
 	}
 
 	/**
-	 * @group userbulk
+	 * @test
 	 */
-	public function test_printMenu() {
-		ob_start();
-		$this->user_bulk->printMenu();
-		$html = ob_get_clean();
-		$parser = new HtmlParser( true );
-		$doc = $parser->loadHTML( $html );
+	public function print_menu_for_book_admins(): void {
+		$this->_book();
+		$doc = $this->printMenu();
+
 		$users_input = $doc->getElementById( 'users' );
 		$user_rol_dropdown = $doc->getElementById( 'adduser-role' );
 
@@ -76,8 +77,28 @@ class UserBulkTest extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * @group userbulk
+	 * @test
 	 */
+	public function print_menu_for_network_admins(): void {
+		$doc = $this->printMenu();
+
+		$users_input = $doc->getElementById( 'users' );
+
+		$this->assertInstanceOf( \DOMDocument::class, $doc );
+		$this->assertEquals( 1, $doc->getElementsByTagName( 'form' )->length );
+		$this->assertInstanceOf( DOMElement::class, $users_input );
+		$this->assertNull( $doc->getElementById( 'adduser-role' ) );
+		$this->assertEquals( 'users', $users_input->getAttribute( 'name' ) );
+	}
+
+	private function printMenu(): DOMDocument {
+		ob_start();
+		$this->user_bulk->printMenu();
+		$html = ob_get_clean();
+		$parser = new HtmlParser( true );
+		return $parser->loadHTML( $html );
+	}
+
 	public function test_printMenuException() {
 		$_REQUEST['_wpnonce'] = 'fsdflkjdfsiofueriu';
 		$_POST['users'] = implode( "\r\n", $this->post_users );
@@ -90,9 +111,6 @@ class UserBulkTest extends \WP_UnitTestCase {
 		$this->assertNotFalse( strpos( $html, 'class="error notice is-dismissible"' ) );
 	}
 
-	/**
-	 * @group userbulk
-	 */
 	public function test_bulkAddUsers() {
 		$_REQUEST['_wpnonce'] = wp_create_nonce( 'user_bulk_new' );
 		$_POST['users'] = implode( "\r\n", $this->post_users );
@@ -131,9 +149,6 @@ class UserBulkTest extends \WP_UnitTestCase {
 		}
 	}
 
-	/**
-	 * @group userbulk
-	 */
 	public function test_linkNewUserToBook() {
 		$existing_user = $this->factory()->user->create_and_get(
 			[
@@ -149,9 +164,6 @@ class UserBulkTest extends \WP_UnitTestCase {
 		$this->assertEquals( $success, $this->user_bulk::USER_STATUS_NEW );
 	}
 
-	/**
-	 * @group userbulk
-	 */
 	public function test_generateUserNameFromEmail() {
 		$invalid_email = 'invalid@email@.com';
 		$invalid_user_name = $this->user_bulk->generateUserNameFromEmail( $invalid_email );
@@ -178,9 +190,6 @@ class UserBulkTest extends \WP_UnitTestCase {
 		$this->assertFalse( $valid_user_data_dedup['errors']->has_errors() );
 	}
 
-	/**
-	 * @group userbulk
-	 */
 	public function test_sanitizeUser() {
 		$this->assertEquals( 'test', $this->user_bulk->sanitizeUser( 'test' ) );
 		$this->assertEquals( 'test', $this->user_bulk->sanitizeUser( '(:test:)' ) );
@@ -192,24 +201,21 @@ class UserBulkTest extends \WP_UnitTestCase {
 		$this->assertEquals( '1a11', $this->user_bulk->sanitizeUser( '1' ) );
 	}
 
-	/**
-	 * @group userbulk
-	 */
 	public function test_getBulkResultHtml() {
 		$success = [];
 		$errors = [];
 
 		foreach( $this->post_users as $email ) {
 			if ( rand( 0, 1 ) ) {
-				array_push( $success, [
-					'email'     => $email,
-					'status'    => true
-				] );
+				$success[] = [
+					'email' => $email,
+					'status' => true
+				];
 			} else {
-				array_push( $errors, [
-					'email'     => $email,
-					'status'    => new WP_Error( 1, 'WP error message' )
-				] );
+				$errors[] = [
+					'email' => $email,
+					'status' => new WP_Error(1, 'WP error message')
+				];
 			}
 		}
 
@@ -220,28 +226,30 @@ class UserBulkTest extends \WP_UnitTestCase {
 		if ( ! empty( $success ) ) {
 			$success_message_str = $doc->getElementById( 'bulk-success' )->textContent;
 			foreach( $success as $result ) {
-				$this->assertTrue( false !== strpos( $success_message_str, $result['email'] ) );
+				$this->assertTrue( str_contains( $success_message_str, $result['email'] ) );
 			}
 		}
 
 		if ( ! empty( $errors ) ) {
 			$error_message_str = $doc->getElementById( 'bulk-errors' )->textContent;
 			foreach( $errors as $result ) {
-				$this->assertTrue( false !== strpos( $error_message_str, $result['email'] ) );
+				$this->assertTrue( str_contains( $error_message_str, $result['email'] ) );
 			}
 		}
 	}
 
-	/**
-	 * @group userbulk
-	 */
 	public function test_getBulkMessageSubtitle() {
 		$subtitle_error =  'The following user(s) could not be added.';
-		$subtitle_success_invite = 'User(s) successfully added to this book.';
+		$subtitle_success_invite_book = 'User(s) successfully added to this book.';
+		$subtitle_success_invite_network = 'User(s) successfully added to the network.';
 		$subtitle_success = 'An invitation email has been sent to the user(s) below. A confirmation link must be clicked before their account is created.';
 
 		$this->assertEquals( $this->user_bulk->getBulkMessageSubtitle( $this->user_bulk::USER_STATUS_ERROR ), $subtitle_error );
-		$this->assertEquals( $this->user_bulk->getBulkMessageSubtitle( $this->user_bulk::USER_STATUS_INVITED ), $subtitle_success_invite );
+		$this->assertEquals( $this->user_bulk->getBulkMessageSubtitle( $this->user_bulk::USER_STATUS_INVITED ), $subtitle_success_invite_network );
 		$this->assertEquals( $this->user_bulk->getBulkMessageSubtitle( $this->user_bulk::USER_STATUS_NEW ), $subtitle_success );
+
+		$this->_book();
+
+		$this->assertEquals( $this->user_bulk->getBulkMessageSubtitle( $this->user_bulk::USER_STATUS_INVITED ), $subtitle_success_invite_book );
 	}
 }
