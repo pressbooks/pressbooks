@@ -1,12 +1,12 @@
-# Copyright (C) 2022 Pressbooks (Book Oven Inc.)
+# Copyright (C) 2023 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
 # Omshivaprakash H L <omshivaprakash@gmail.com>, 2021-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2022-05-24T20:09:34+00:00\n"
+"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
+"POT-Creation-Date: 2023-01-23T19:37:27+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
 "Last-Translator: Omshivaprakash H L <omshivaprakash@gmail.com>, 2021-2022\n"
 "Language-Team: Kannada (http://www.transifex.com/pressbooks/pressbooks/language/kn/)\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Language: kn\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Domain: pressbooks\n"
-"X-Generator: WP-CLI 2.5.0\n"
+"X-Generator: WP-CLI 2.7.1\n"
 
 #. Plugin Name of the plugin
 msgid "Pressbooks"
@@ -116,13 +116,14 @@ msgstr "ಸಿದ್ಧತೆಗಳನ್ನು ಉಳಿಸಲಾಗಿದೆ."
 msgid "ATTRIBUTIONS"
 msgstr "ಆಟ್ರಿಬ್ಯೂಷನ್ಗಳು"
 
-#: inc/admin/attachments/namespace.php:46
+#: inc/admin/attachments/namespace.php:46 templates/admin/import.php:205
+#: templates/admin/import.php:206
 msgid "Source URL"
 msgstr "ಮೂಲ ಯು.ಆರ್.ಎಲ್"
 
 #: inc/admin/attachments/namespace.php:54
 #: inc/admin/class-catalog-list-table.php:232
-#: inc/admin/covergenerator/namespace.php:108
+#: inc/admin/covergenerator/namespace.php:109
 msgid "Author"
 msgstr "ಲೇಖಕ"
 
@@ -183,13 +184,14 @@ msgid "Privacy Status"
 msgstr "ಗೌಪ್ಯತೆ ಸ್ಥಿತಿ"
 
 #: inc/admin/class-catalog-list-table.php:230 inc/class-activation.php:237
-#: inc/modules/export/epub/class-epub.php:1211 tests/test-cloner.php:58
+#: inc/modules/export/epub/class-epub.php:1213 tests/test-cloner.php:57
 msgid "Cover"
 msgstr "ಕವರ್"
 
 #: inc/admin/class-catalog-list-table.php:231
-#: inc/admin/covergenerator/namespace.php:75
+#: inc/admin/covergenerator/namespace.php:76
 #: inc/admin/metaboxes/namespace.php:204 templates/admin/import.php:90
+#: templates/admin/cloner/stats.blade.php:4
 msgid "Title"
 msgstr "ಶೀರ್ಷಿಕೆ"
 
@@ -209,18 +211,18 @@ msgstr "ಪಬ್ ದಿನಾಂಕ"
 msgid "Edit Tags"
 msgstr "ಟ್ಯಾಗ್ ಗಳನ್ನು ಸಂಪಾದಿಸು"
 
-#: inc/admin/class-catalog-list-table.php:435 templates/admin/organize.php:44
-#: templates/admin/organize.php:55
+#: inc/admin/class-catalog-list-table.php:435
+#: templates/admin/organize.blade.php:18 templates/admin/organize.blade.php:38
 msgid "Private"
 msgstr "ಖಾಸಗಿ"
 
-#: inc/admin/class-catalog-list-table.php:435 templates/admin/organize.php:42
-#: templates/admin/organize.php:47
+#: inc/admin/class-catalog-list-table.php:435
+#: templates/admin/organize.blade.php:13 templates/admin/organize.blade.php:25
 msgid "Public"
 msgstr "ಸಾರ್ವಜನಿಕ"
 
-#: inc/admin/class-catalog-list-table.php:507 inc/admin/laf/namespace.php:429
-#: inc/admin/laf/namespace.php:609 inc/admin/laf/namespace.php:881
+#: inc/admin/class-catalog-list-table.php:507 inc/admin/laf/namespace.php:433
+#: inc/admin/laf/namespace.php:613 inc/admin/laf/namespace.php:961
 msgid "My Catalog"
 msgstr "ನನ್ನ ಕ್ಯಾಟಲಾಗ್"
 
@@ -287,6 +289,7 @@ msgid "Add By URL"
 msgstr "ಯು.ಆರ್.ಎಲ್.ನಿಂದ ಸೇರಿಸು"
 
 #: inc/admin/class-catalog-list-table.php:564 templates/admin/search.php:81
+#: templates/admin/cloner/page.blade.php:26
 msgid "Search"
 msgstr "ಹುಡುಕಿ"
 
@@ -324,7 +327,7 @@ msgid ""
 " when themes are updated."
 msgstr "ಥೀಮ್ ಗಳನ್ನು ನವೀಕರಿಸಿದಾಗ ನಿಮ್ಮ ಪುಸ್ತಕದ ನೋಟ ಮತ್ತು ಪುಟ ಎಣಿಕೆಯಲ್ಲಿ ಯಾವುದೇ ಬದಲಾವಣೆಗಳನ್ನು ಇದು ತಡೆಯುತ್ತದೆ."
 
-#: inc/admin/class-exportoptions.php:188 inc/admin/laf/namespace.php:394
+#: inc/admin/class-exportoptions.php:188 inc/admin/laf/namespace.php:398
 msgid "Export Settings"
 msgstr "ರಫ್ತು ಸೆಟ್ಟಿಂಗ್‍ಗಳು"
 
@@ -373,7 +376,7 @@ msgid ""
 "provides additional information about selling and distributing your book."
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:293 inc/admin/laf/namespace.php:378
+#: inc/admin/class-publishoptions.php:293 inc/admin/laf/namespace.php:382
 msgid "Publish"
 msgstr "ಪ್ರಕಟಿಸು"
 
@@ -381,64 +384,64 @@ msgstr "ಪ್ರಕಟಿಸು"
 msgid "Sitemap"
 msgstr "ಸೈಟ್ ಮ್ಯಾಪ್"
 
-#: inc/admin/covergenerator/namespace.php:17
+#: inc/admin/covergenerator/namespace.php:18
 #: templates/admin/covergenerator.php:63
 msgid "Cover Generator"
 msgstr "ಕವರ್ ಜನರೇಟರ್"
 
-#: inc/admin/covergenerator/namespace.php:45 inc/admin/laf/namespace.php:358
+#: inc/admin/covergenerator/namespace.php:46 inc/admin/laf/namespace.php:362
 msgid "Saving settings"
 msgstr "ಸೆಟ್ಟಿಂಗ್‍ಗಳನ್ನು ಉಳಿಸಲಾಗುತ್ತಿದೆ"
 
-#: inc/admin/covergenerator/namespace.php:48
+#: inc/admin/covergenerator/namespace.php:49
 msgid ""
 "Cover generation is not done. Leaving this page, now, will cause problems. "
 "Are you sure?"
 msgstr "ಕವರ್ ಜನರೇಷನ್ ಮಾಡಲಾಗಿಲ್ಲ. ಈಗ ಈ ಪುಟವನ್ನು ಬಿಡುವುದು ಸಮಸ್ಯೆಗಳನ್ನು ಉಂಟುಮಾಡುತ್ತದೆ. ಖಚಿತವಾಗಿ ಮುಂದುವರೆಯುವುದೇ?"
 
-#: inc/admin/covergenerator/namespace.php:49 inc/admin/laf/namespace.php:334
-#: inc/admin/laf/namespace.php:357 inc/admin/laf/namespace.php:418
-#: inc/admin/laf/namespace.php:629
+#: inc/admin/covergenerator/namespace.php:50 inc/admin/laf/namespace.php:338
+#: inc/admin/laf/namespace.php:361 inc/admin/laf/namespace.php:422
+#: inc/admin/laf/namespace.php:633
 msgid "Reload"
 msgstr "ಮರುಲೋಡ್ ಮಾಡಿ"
 
-#: inc/admin/covergenerator/namespace.php:68
+#: inc/admin/covergenerator/namespace.php:69
 msgid "Text"
 msgstr "ಪಠ್ಯ"
 
-#: inc/admin/covergenerator/namespace.php:86
+#: inc/admin/covergenerator/namespace.php:87
 msgid "Title (Spine)"
 msgstr "ಶೀರ್ಷಿಕೆ (ಬೆನ್ನುಮೂಳೆ)"
 
-#: inc/admin/covergenerator/namespace.php:97
+#: inc/admin/covergenerator/namespace.php:98
 #: inc/admin/metaboxes/namespace.php:225
 msgid "Subtitle"
 msgstr "ಉಪಶೀರ್ಷಿಕೆ"
 
-#: inc/admin/covergenerator/namespace.php:119
+#: inc/admin/covergenerator/namespace.php:120
 msgid "Author (Spine)"
 msgstr "ಲೇಖಕ (ಬೆನ್ನುಮೂಳೆ)"
 
-#: inc/admin/covergenerator/namespace.php:130 inc/admin/laf/namespace.php:93
+#: inc/admin/covergenerator/namespace.php:131 inc/admin/laf/namespace.php:95
 #: inc/class-activation.php:247 templates/admin/catalog.php:98
 msgid "About"
 msgstr "ಬಗ್ಗೆ"
 
-#: inc/admin/covergenerator/namespace.php:141
+#: inc/admin/covergenerator/namespace.php:142
 msgid "ISBN"
 msgstr "ಐಎಸ್ ಬಿಎನ್"
 
-#: inc/admin/covergenerator/namespace.php:146
+#: inc/admin/covergenerator/namespace.php:147
 msgid ""
 "If you have an ISBN, this will generate a barcode on the back of your print "
 "cover. If you do not have an ISBN, you should leave this field blank."
 msgstr "ನೀವು ಐಎಸ್‍ಬಿಎನ್ ಹೊಂದಿದ್ದರೆ, ಇದು ನಿಮ್ಮ ಮುದ್ರಣ ಕವರ್‍ ನ ಹಿಂಭಾಗದಲ್ಲಿ ಬಾರ್‍ ಕೋಡ್ ಅನ್ನು ಉತ್ಪಾದಿಸುತ್ತದೆ. ನೀವು ಐಎಸ್‍ಬಿಎನ್ ಹೊಂದಿಲ್ಲದಿದ್ದರೆ, ನೀವು ಈ ಕ್ಷೇತ್ರವನ್ನು ಖಾಲಿ ಬಿಡಬೇಕು."
 
-#: inc/admin/covergenerator/namespace.php:153
+#: inc/admin/covergenerator/namespace.php:154
 msgid "or SKU"
 msgstr "ಅಥವಾ ಎಸ್.ಕೆ.ಯು"
 
-#: inc/admin/covergenerator/namespace.php:158
+#: inc/admin/covergenerator/namespace.php:159
 msgid ""
 "If you have a 13-digit identifier that is not an ISBN, entering it in this "
 "field will generate a barcode with that number on the back of your print "
@@ -446,64 +449,64 @@ msgid ""
 " blank."
 msgstr "ನೀವು ಐಎಸ್ ಬಿಎನ್ ಅಲ್ಲದ 13 ಅಂಕಿಗಳ ಐಡೆಂಟಿಫೈಯರ್ ಅನ್ನು ಹೊಂದಿದ್ದರೆ, ಈ ಕ್ಷೇತ್ರದಲ್ಲಿ ಅದನ್ನು ನಮೂದಿಸಿದರೆ ನಿಮ್ಮ ಮುದ್ರಣ ಕವರ್ ನ ಹಿಂಭಾಗದಲ್ಲಿ ಆ ಸಂಖ್ಯೆಯೊಂದಿಗೆ ಬಾರ್ ಕೋಡ್ ಅನ್ನು ಉತ್ಪಾದಿಸುತ್ತದೆ. ನೀವು ಐಎಸ್ ಬಿಎನ್ ಅಲ್ಲದ ಗುರುತಿಸುವಿಕೆಯನ್ನು ಹೊಂದಿಲ್ಲದಿದ್ದರೆ, ನೀವು ಈ ಕ್ಷೇತ್ರವನ್ನು ಖಾಲಿ ಬಿಡಬೇಕು."
 
-#: inc/admin/covergenerator/namespace.php:165
+#: inc/admin/covergenerator/namespace.php:166
 msgid "Design"
 msgstr "ವಿನ್ಯಾಸ"
 
-#: inc/admin/covergenerator/namespace.php:172
+#: inc/admin/covergenerator/namespace.php:173
 msgid "Front Cover Background Image"
 msgstr "ಫ್ರಂಟ್ ಕವರ್ ಹಿನ್ನೆಲೆ ಚಿತ್ರ"
 
-#: inc/admin/covergenerator/namespace.php:180
+#: inc/admin/covergenerator/namespace.php:181
 msgid "Book Title Case"
 msgstr "ಪುಸ್ತಕ ಶೀರ್ಷಿಕೆ ಕೇಸ್"
 
-#: inc/admin/covergenerator/namespace.php:193
+#: inc/admin/covergenerator/namespace.php:194
 msgid "Spine Size"
 msgstr "ಬೆನ್ನುಮೂಳೆಗಾತ್ರ"
 
-#: inc/admin/covergenerator/namespace.php:200
+#: inc/admin/covergenerator/namespace.php:201
 msgid "Page Count"
 msgstr "ಪುಟ ಎಣಿಕೆ"
 
-#: inc/admin/covergenerator/namespace.php:211
+#: inc/admin/covergenerator/namespace.php:212
 msgid "Paper Type"
 msgstr "ಕಾಗದ ಪ್ರಕಾರ"
 
-#: inc/admin/covergenerator/namespace.php:225
+#: inc/admin/covergenerator/namespace.php:226
 msgid "Custom PPI"
 msgstr "ಕಸ್ಟಮ್ ಪಿಪಿಐ"
 
-#: inc/admin/covergenerator/namespace.php:236
+#: inc/admin/covergenerator/namespace.php:237
 msgid "Text and Background Colors"
 msgstr "ಪಠ್ಯ ಮತ್ತು ಹಿನ್ನೆಲೆ ಬಣ್ಣಗಳು"
 
-#: inc/admin/covergenerator/namespace.php:243
+#: inc/admin/covergenerator/namespace.php:244
 msgid "Front Cover Text"
 msgstr "ಫ್ರಂಟ್ ಕವರ್ ಪಠ್ಯ"
 
-#: inc/admin/covergenerator/namespace.php:254
+#: inc/admin/covergenerator/namespace.php:255
 msgid "Front Cover Background"
 msgstr "ಮುಂಭಾಗದ ಕವರ್ ಹಿನ್ನೆಲೆ"
 
-#: inc/admin/covergenerator/namespace.php:265
+#: inc/admin/covergenerator/namespace.php:266
 msgid "Spine Text"
 msgstr "ಸ್ಪೈನ್ ಪಠ್ಯ"
 
-#: inc/admin/covergenerator/namespace.php:276
+#: inc/admin/covergenerator/namespace.php:277
 msgid "Spine Background"
 msgstr "ಸ್ಪೈನ್ ಹಿನ್ನೆಲೆ"
 
-#: inc/admin/covergenerator/namespace.php:287
+#: inc/admin/covergenerator/namespace.php:288
 msgid "Back Cover Text"
 msgstr "ಬ್ಯಾಕ್ ಕವರ್ ಪಠ್ಯ"
 
-#: inc/admin/covergenerator/namespace.php:298
+#: inc/admin/covergenerator/namespace.php:299
 msgid "Back Cover Background"
 msgstr "ಬ್ಯಾಕ್ ಕವರ್ ಹಿನ್ನೆಲೆ"
 
 #. translators: %s: URL to Book Information page
-#: inc/admin/covergenerator/namespace.php:329
+#: inc/admin/covergenerator/namespace.php:330
 msgid ""
 "The text below is pulled from your <a href=\"%s\">Book Information</a> page,"
 " and is used to generate your cover(s). You can reformat the text below as "
@@ -512,7 +515,7 @@ msgid ""
 msgstr "ಕೆಳಗಿನ ಪಠ್ಯವನ್ನು ನಿಮ್ಮ <a href=\"%s\">ಪುಸ್ತಕ ಮಾಹಿತಿ</a> ಪುಟದಿಂದ ಎಳೆಯಲಾಗಿದೆ, ಮತ್ತು ನಿಮ್ಮ ಕವರ್(ಗಳನ್ನು) ರಚಿಸಲು ಬಳಸಲಾಗುತ್ತದೆ. ಅಗತ್ಯಕ್ಕೆ ತಕ್ಕಂತೆ ನೀವು ಕೆಳಗಿನ ಪಠ್ಯವನ್ನು ಸುಧಾರಿಸಬಹುದು. (ಪ್ರಮುಖ<strong>ಸೂಚನೆ:</strong> ನೀವು ಇಲ್ಲಿ ಮಾಡುವ ಬದಲಾವಣೆಗಳು ಪುಸ್ತಕ ಮಾಹಿತಿ ಪುಟದಲ್ಲಿ <strong>ಪ್ರತಿಫಲಿಸುವುದಿಲ್ಲ.)</strong>"
 
 #. translators: %s: URL to Appearance menu
-#: inc/admin/covergenerator/namespace.php:442
+#: inc/admin/covergenerator/namespace.php:443
 msgid ""
 "Below you can make small adjustments to the design of your cover. The look "
 "and feel of the cover will echo the theme you have chosen for your book. You"
@@ -521,65 +524,65 @@ msgstr "ಕೆಳಗೆ ನೀವು ನಿಮ್ಮ ಕವರ್ ನ ವಿನ�
 
 #. translators: 1: pdf page width, 2: pdf page height, 3: URL to Theme Options
 #. page
-#: inc/admin/covergenerator/namespace.php:449
+#: inc/admin/covergenerator/namespace.php:450
 msgid ""
 "Your PDF page size is set to %1$s &times; %2$s, and your PDF cover will be "
 "generated with the same dimensions. You can change the PDF page size in the "
 "<a href=\"%3$s\">Theme Options</a> menu."
 msgstr "ನಿಮ್ಮ ಪಿಡಿಎಫ್ ಪುಟದ ಗಾತ್ರವನ್ನು %1$s × ಹೊಂದಿಸಲಾಗಿದೆ, ಮತ್ತು ನಿಮ್ಮ %2$s ಪಿಡಿಎಫ್ ಕವರ್ ಅದೇ ಆಯಾಮಗಳೊಂದಿಗೆ ಉತ್ಪತ್ತಿಯಾಗುತ್ತದೆ. <a href=\"%3$s\">ಥೀಮ್ ಆಯ್ಕೆಗಳ</a> ಮೆನುವಿನಲ್ಲಿ ನೀವು ಪಿಡಿಎಫ್ ಪುಟದ ಗಾತ್ರವನ್ನು ಬದಲಾಯಿಸಬಹುದು."
 
-#: inc/admin/covergenerator/namespace.php:458
-#: templates/admin/export.blade.php:59
+#: inc/admin/covergenerator/namespace.php:459
+#: templates/admin/export.blade.php:61
 msgid "Change Theme"
 msgstr "ಥೀಮ್ ಬದಲಿಸಿ"
 
-#: inc/admin/covergenerator/namespace.php:459
+#: inc/admin/covergenerator/namespace.php:460
 msgid "Options"
 msgstr "ಆಯ್ಕೆಗಳು"
 
-#: inc/admin/covergenerator/namespace.php:462
+#: inc/admin/covergenerator/namespace.php:463
 msgid "You can upload a background image here."
 msgstr "ನೀವು ಹಿನ್ನೆಲೆ ಚಿತ್ರವನ್ನು ಇಲ್ಲಿ ಅಪ್ ಲೋಡ್ ಮಾಡಬಹುದು."
 
 #. translators: 1: minimum width, 2: minimum height, 3: aspect ratio width, 4:
 #. aspect ratio height
-#: inc/admin/covergenerator/namespace.php:496
+#: inc/admin/covergenerator/namespace.php:500
 msgid ""
 "Your image must be at least %1$s pixels in width by %2$s pixels in height, "
 "with an aspect ratio of %3$s to %4$s."
 msgstr "ನಿಮ್ಮ ಇಮೇಜ್ ಎತ್ತರದಲ್ಲಿ %2$s ಪಿಕ್ಸೆಲ್ ಗಳಿಂದ ಅಗಲದಲ್ಲಿ ಕನಿಷ್ಠ %1$s ಪಿಕ್ಸೆಲ್ ಗಳಾಗಿರಬೇಕು, %3$s ಮತ್ತು %4$s ಅನುಪಾತವನ್ನು ಹೊಂದಿರಬೇಕು."
 
-#: inc/admin/covergenerator/namespace.php:499
+#: inc/admin/covergenerator/namespace.php:503
 msgid "Delete Background Image"
 msgstr "ಹಿನ್ನೆಲೆ ಇಮೇಜ್ ಅಳಿಸು"
 
-#: inc/admin/covergenerator/namespace.php:521
+#: inc/admin/covergenerator/namespace.php:525
 msgid ""
 "Spine size is calculated based on the number of pages in your book, and the "
 "weight of the paper used in printing."
 msgstr "ನಿಮ್ಮ ಪುಸ್ತಕದಲ್ಲಿನ ಪುಟಗಳ ಸಂಖ್ಯೆ ಮತ್ತು ಮುದ್ರಣದಲ್ಲಿ ಬಳಸುವ ಕಾಗದದ ತೂಕದ ಆಧಾರದ ಮೇಲೆ ಬೆನ್ನುಮೂಳೆಯ ಗಾತ್ರವನ್ನು ಲೆಕ್ಕಹಾಕಲಾಗುತ್ತದೆ."
 
-#: inc/admin/covergenerator/namespace.php:527
+#: inc/admin/covergenerator/namespace.php:531
 msgid ""
 "You haven't exported any PDF copies of your book, so you will need to enter "
 "a page count below."
 msgstr "ನೀವು ನಿಮ್ಮ ಪುಸ್ತಕದ ಯಾವುದೇ ಪಿಡಿಎಫ್ ಪ್ರತಿಗಳನ್ನು ರಫ್ತು ಮಾಡಿಲ್ಲ, ಆದ್ದರಿಂದ ನೀವು ಕೆಳಗಿನ ಪುಟ ಎಣಿಕೆಯನ್ನು ನಮೂದಿಸಬೇಕಾಗುತ್ತದೆ."
 
 #. translators: %s: number of pages in pdf
-#: inc/admin/covergenerator/namespace.php:530
+#: inc/admin/covergenerator/namespace.php:534
 msgid ""
 "The last PDF you exported has %s pages (you can edit this below if you "
 "like)."
 msgstr "ನೀವು ರಫ್ತು ಮಾಡಿದ ಕೊನೆಯ ಪಿಡಿಎಫ್ %s ಪುಟಗಳನ್ನು ಹೊಂದಿದೆ (ನೀವು ಬಯಸಿದರೆ ಇದನ್ನು ಕೆಳಗೆ ಸಂಪಾದಿಸಬಹುದು)."
 
-#: inc/admin/covergenerator/namespace.php:534
+#: inc/admin/covergenerator/namespace.php:538
 msgid ""
 "We can calculate the spine size based on CreateSpace and Ingram "
 "specifications, or you can enter your own custom pages per inch (PPI) "
 "defined by your printer."
 msgstr "ಕ್ರಿಯೇಟ್ ಸ್ಪೇಸ್ ಮತ್ತು ಇನ್ ಗ್ರಾಮ್ ನಿರ್ದಿಷ್ಟತೆಗಳ ಆಧಾರದ ಮೇಲೆ ನಾವು ಬೆನ್ನೆಲುಬಿನ ಗಾತ್ರವನ್ನು ಲೆಕ್ಕಹಾಕಬಹುದು, ಅಥವಾ ನಿಮ್ಮ ಪ್ರಿಂಟರ್ ನಿಂದ ವ್ಯಾಖ್ಯಾನಿಸಲಾದ ನಿಮ್ಮ ಸ್ವಂತ ಕಸ್ಟಮ್ ಪುಟಗಳು ಪ್ರತಿ ಇಂಚಿಗೆ (ಪಿಪಿಐ) ನಮೂದಿಸಬಹುದು."
 
-#: inc/admin/covergenerator/namespace.php:567
+#: inc/admin/covergenerator/namespace.php:571
 #: inc/modules/themeoptions/class-pdfoptions.php:159
 #: inc/modules/themeoptions/class-pdfoptions.php:380
 #: inc/modules/themeoptions/class-pdfoptions.php:399
@@ -594,226 +597,43 @@ msgstr "ಕ್ರಿಯೇಟ್ ಸ್ಪೇಸ್ ಮತ್ತು ಇನ್ �
 msgid "Custom&hellip;"
 msgstr "ಕಸ್ಟಮ್&hellip;"
 
-#: inc/admin/covergenerator/namespace.php:585
+#: inc/admin/covergenerator/namespace.php:589
 msgid "Choose text color and background colors below."
 msgstr "ಕೆಳಗೆ ಪಠ್ಯ ಬಣ್ಣ ಮತ್ತು ಹಿನ್ನೆಲೆ ಬಣ್ಣಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ."
 
 #. translators: 1: minimum width, 2: minimum height, 3: image width 4: image
 #. height
-#: inc/admin/covergenerator/namespace.php:750
+#: inc/admin/covergenerator/namespace.php:754
 msgid ""
 "Your image is too small. The image must be %1$d by %2$d pixels. Your image "
 "is %3$d by %4$d pixels."
 msgstr "ನಿಮ್ಮ ಇಮೇಜ್ ತುಂಬಾ ಚಿಕ್ಕದಾಗಿದೆ. ಚಿತ್ರವನ್ನು %2$d ಪಿಕ್ಸೆಲ್ ಗಳಿಂದ %1$d. ನಿಮ್ಮ ಇಮೇಜ್ %4$d ಪಿಕ್ಸೆಲ್ ಗಳಿಂದ %3$d."
 
 #. translators: 1: pdf page width, 2: pdf page height
-#: inc/admin/covergenerator/namespace.php:760
+#: inc/admin/covergenerator/namespace.php:764
 msgid ""
 "Your image is the wrong aspect ratio. The image must have an aspect ratio of"
 " %1$s to %2$s."
 msgstr "ನಿಮ್ಮ ಇಮೇಜ್ ತಪ್ಪು ಆಕಾರ ಅನುಪಾತ ಹೊಂದಿದೆ. ಚಿತ್ರವು %2$s %1$s ಅನುಪಾತವನ್ನು ಹೊಂದಿರಬೇಕು."
 
-#: inc/admin/dashboard/namespace.php:18
-msgid "Pressbooks announcements"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:91
-msgid "Get started with Pressbooks"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:107
-msgid "Need help?"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:134
-msgid "My Book"
-msgstr "ನನ್ನ ಪುಸ್ತಕ"
-
-#: inc/admin/dashboard/namespace.php:135 inc/admin/laf/namespace.php:794
-msgid "Users"
-msgstr "ಬಳಕೆದಾರರು"
-
-#: inc/admin/dashboard/namespace.php:136 inc/admin/dashboard/namespace.php:183
-msgid "Need Help?"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:177
-msgid "Book Permissions"
-msgstr "ಪುಸ್ತಕ ಅನುಮತಿಗಳು"
-
-#: inc/admin/dashboard/namespace.php:195
-msgid "Book Invitations"
-msgstr "ಪುಸ್ತಕ ಆಹ್ವಾನಗಳು"
-
-#: inc/admin/dashboard/namespace.php:219
-msgid "an"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:219
-msgid "a"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:223
-msgid "You have been invited to join %1s as %2$s %3$s"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:226
-msgid "Accept"
-msgstr "ಸ್ವೀಕರಿಸು"
-
-#: inc/admin/dashboard/namespace.php:239
-msgid "Welcome to %s"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:242
-msgid "You do not currently have access to any books on this network."
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:248
-msgid ""
-"This network does not allow users to create new books. To create a new book,"
-" please contact a network manager"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:250 inc/admin/dashboard/namespace.php:263
-msgid "at "
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:255
-msgid "Create a book"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:257
-msgid "Clone a book"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:258
-msgid ""
-"Get started on your next publishing project by creating a new book or "
-"cloning an existing book. The %1$s includes thousands of openly licensed "
-"books available for cloning."
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:258 inc/admin/laf/namespace.php:1264
-#: templates/admin/cloner.php:14
-msgid "Pressbooks Directory"
-msgstr "ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಡೈರೆಕ್ಟರಿ"
-
-#: inc/admin/dashboard/namespace.php:261
-msgid ""
-"You can also request access to an existing book by contacting your network "
-"manager"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:275 inc/class-activation.php:242
-#: inc/modules/themeoptions/class-pdfoptions.php:287 tests/test-cloner.php:63
-#: templates/export/epub/toc.blade.php:13
-msgid "Table of Contents"
-msgstr "ಪರಿವಿಡಿ"
-
-#: inc/admin/dashboard/namespace.php:277 inc/admin/metaboxes/namespace.php:649
-#: inc/api/endpoints/controller/class-toc.php:192
-#: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
-#: inc/posttype/namespace.php:548 templates/admin/import.php:91
-#: templates/admin/organize.php:64 templates/admin/organize.php:87
-msgid "Front Matter"
-msgstr "ಮುಂಭಾಗದ ಪಠ್ಯ"
-
-#: inc/admin/dashboard/namespace.php:318 inc/admin/metaboxes/namespace.php:651
-#: inc/api/endpoints/controller/class-toc.php:225
-#: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
-#: inc/posttype/namespace.php:551 templates/admin/import.php:96
-#: templates/admin/organize.php:66 templates/admin/organize.php:95
-msgid "Back Matter"
-msgstr "ಹಿಂಪುಟದ ಪ‍ಠ್ಯ"
-
-#: inc/admin/dashboard/namespace.php:337 inc/admin/dashboard/namespace.php:439
-#: templates/admin/organize.php:272 templates/admin/organize.php:429
-msgid "Add"
-msgstr "ಸೇರಿಸಿ"
-
-#: inc/admin/dashboard/namespace.php:337 inc/admin/dashboard/namespace.php:439
-#: inc/admin/laf/namespace.php:148
-msgid "Organize"
-msgstr "ಸಂಪಾದಿಸಿ"
-
-#. translators: %s: URL to Pressbooks User Guide
-#: inc/admin/dashboard/namespace.php:381
-msgid "Consult the %s."
-msgstr ""
-
-#. translators: %s: URL to Pressbooks User Guide
-#: inc/admin/dashboard/namespace.php:381
-msgid "Pressbooks User Guide"
-msgstr ""
-
-#. translators: %s: URL to Pressbooks YouTube channel
-#: inc/admin/dashboard/namespace.php:382
-msgid "Watch tutorials on the %s."
-msgstr ""
-
-#. translators: %s: URL to Pressbooks YouTube channel
-#: inc/admin/dashboard/namespace.php:382
-msgid "Pressbooks YouTube channel"
-msgstr ""
-
-#. translators: %s: URL to Pressbooks training webinars
-#: inc/admin/dashboard/namespace.php:383
-msgid "Attend a %s."
-msgstr ""
-
-#. translators: %s: URL to Pressbooks training webinars
-#: inc/admin/dashboard/namespace.php:383
-msgid "live training webinar"
-msgstr ""
-
-#. translators: %s: URL to Pressbooks community forum
-#: inc/admin/dashboard/namespace.php:384
-msgid "Participate in the %s."
-msgstr ""
-
-#. translators: %s: URL to Pressbooks community forum
-#: inc/admin/dashboard/namespace.php:384
-msgid "community forum"
-msgstr ""
-
-#. translators: %s: email address for network manager
-#: inc/admin/dashboard/namespace.php:386
-msgid "For additional support, contact your network manager at %s."
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:425
-msgid "%1$s total users: "
-msgstr "%1$s ಒಟ್ಟು ಬಳಕೆದಾರರು: "
-
-#: inc/admin/dashboard/namespace.php:448 inc/admin/dashboard/namespace.php:449
-#: inc/admin/laf/namespace.php:778 inc/admin/laf/namespace.php:853
+#: inc/admin/dashboard/class-bookdashboard.php:55
+#: inc/admin/dashboard/class-newuserdashboard.php:59
+#: inc/admin/laf/namespace.php:858 inc/admin/laf/namespace.php:933
 msgid "Dashboard"
 msgstr "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್"
 
-#: inc/admin/dashboard/namespace.php:498
-msgid "Dashboard Feed"
-msgstr "ಡ್ಯಾಶ್‍ಬೋರ್ಡ್ ಫೀಡ್"
+#: inc/admin/dashboard/class-bookdashboard.php:56
+#: inc/admin/dashboard/class-newuserdashboard.php:60
+msgid "Home"
+msgstr ""
 
-#: inc/admin/dashboard/namespace.php:505
-msgid "Display Feed"
-msgstr "ಫೀಡ್ ಪ್ರದರ್ಶಿಸು"
+#: inc/admin/dashboard/class-invitations.php:29
+msgid "an"
+msgstr ""
 
-#: inc/admin/dashboard/namespace.php:510
-msgid "Display an RSS feed widget on the dashboard."
-msgstr "ಡ್ಯಾಶ್ ಬೋರ್ಡ್ ನಲ್ಲಿ ಆರ್‍ಎಸ್‍ಎಸ್ ಫೀಡ್ ವಿಜೆಟ್ ಅನ್ನು ಪ್ರದರ್ಶಿಸಿ."
-
-#: inc/admin/dashboard/namespace.php:516
-msgid "Feed Title"
-msgstr "ಶೀರ್ಷಿಕೆ ಫೀಡ್‍ಮಾಡಿ"
-
-#: inc/admin/dashboard/namespace.php:524
-msgid "Feed URL"
-msgstr "ಫೀಡ್ ಯು.ಆರ್.ಎಲ್"
-
-#: inc/admin/dashboard/namespace.php:551
-msgid "Adjust settings for your dashboard RSS feed widget below."
-msgstr "ಕೆಳಗೆ ನಿಮ್ಮ ಡ್ಯಾಶ್ ಬೋರ್ಡ್ ಆರ್‍ಎಸ್‍ಎಸ್ ಫೀಡ್ ವಿಜೆಟ್‍ಗಾಗಿ ಸೆಟ್ಟಿಂಗ್‍ಗಳನ್ನು ಹೊಂದಿಸಿ."
+#: inc/admin/dashboard/class-invitations.php:30
+msgid "a"
+msgstr ""
 
 #: inc/admin/delete/class-book.php:52
 msgid "Delete Book"
@@ -840,8 +660,8 @@ msgid ""
 "###SITE_NAME###"
 msgstr ""
 
-#: inc/admin/diagnostics/namespace.php:33
-#: inc/admin/diagnostics/namespace.php:34 inc/admin/laf/namespace.php:108
+#: inc/admin/diagnostics/namespace.php:34
+#: inc/admin/diagnostics/namespace.php:35 inc/admin/laf/namespace.php:110
 #: templates/admin/diagnostics.blade.php:4
 msgid "Diagnostics"
 msgstr "ದೋ ನಿರ್ಣಯ"
@@ -850,264 +670,309 @@ msgstr "ದೋ ನಿರ್ಣಯ"
 msgid "Stylesheet regenerated."
 msgstr "ಸ್ಟೈಲ್‍ಶೀಟ್ ಪುನರುತ್ಪಾದಿತವಾಗಿದೆ."
 
-#: inc/admin/laf/namespace.php:74 inc/admin/laf/namespace.php:738
+#: inc/admin/laf/namespace.php:76 inc/admin/laf/namespace.php:818
 msgid "Contact"
 msgstr "ಸಂಪರ್ಕಿಸಿ"
 
-#: inc/admin/laf/namespace.php:83
+#: inc/admin/laf/namespace.php:85
 msgid "Powered by %s"
 msgstr "%s ನಿಂದ ಸಾಮರ್ಥ್ಯ ಪಡೆದಿದೆ"
 
-#: inc/admin/laf/namespace.php:103
+#: inc/admin/laf/namespace.php:105
 msgid "Guides and Tutorials"
 msgstr "ಮಾರ್ಗದರ್ಶಿಗಳು ಮತ್ತು ಟ್ಯುಟೋರಿಯಲ್‍ಗಳು"
 
-#: inc/admin/laf/namespace.php:113 templates/admin/sitemap.blade.php:2
+#: inc/admin/laf/namespace.php:115 templates/admin/sitemap.blade.php:2
 msgid "Site Map"
 msgstr "ಸೈಟ್ ಮ್ಯಾಪ್"
 
-#: inc/admin/laf/namespace.php:163
+#: inc/admin/laf/namespace.php:150
+msgid "Organize"
+msgstr "ಸಂಪಾದಿಸಿ"
+
+#: inc/admin/laf/namespace.php:165
 msgid "private"
 msgstr "ಖಾಸಗಿ"
 
-#: inc/admin/laf/namespace.php:164
+#: inc/admin/laf/namespace.php:166
 msgid "public"
 msgstr "ಸಾರ್ವಜನಿಕ"
 
-#: inc/admin/laf/namespace.php:166
+#: inc/admin/laf/namespace.php:167
+msgid "Move Up"
+msgstr "ಮೇಲೆ ಸರಿಸಿ"
+
+#: inc/admin/laf/namespace.php:168
+msgid "Move Down"
+msgstr "ಕೆಳಗೆ ಸರಿಸಿ"
+
+#: inc/admin/laf/namespace.php:170
 msgid "Updating book."
 msgstr "ಪುಸ್ತಕವನ್ನು ನವೀಕರಿಸಲಾಗುತ್ತಿದೆ."
 
-#: inc/admin/laf/namespace.php:167
+#: inc/admin/laf/namespace.php:171
 msgid "Updating chapters."
 msgstr "ಅಧ್ಯಾಯಗಳನ್ನು ನವೀಕರಿಸಲಾಗುತ್ತಿದೆ."
 
-#: inc/admin/laf/namespace.php:168
+#: inc/admin/laf/namespace.php:172
 msgid "Updating part."
 msgstr "ಭಾಗವನ್ನು ನವೀಕರಿಸಲಾಗುತ್ತಿದೆ."
 
-#: inc/admin/laf/namespace.php:169
+#: inc/admin/laf/namespace.php:173
 msgid "Updating front matter."
 msgstr "ಮುಂಭಾಗದ ವಿಷಯವನ್ನು ನವೀಕರಿಸಲಾಗುತ್ತಿದೆ."
 
-#: inc/admin/laf/namespace.php:170
+#: inc/admin/laf/namespace.php:174
 msgid "Updating back matter."
 msgstr "ಹಿಂಪುಟದ ಪ‍ಠ್ಯವನ್ನು ನವೀಕರಿಸಲಾಗುತ್ತಿದೆ."
 
-#: inc/admin/laf/namespace.php:173
+#: inc/admin/laf/namespace.php:177
 msgid "The book has been successfully updated!"
 msgstr "ಪುಸ್ತಕವನ್ನು ಯಶಸ್ವಿಯಾಗಿ ನವೀಕರಿಸಲಾಗಿದೆ!"
 
-#: inc/admin/laf/namespace.php:174
+#: inc/admin/laf/namespace.php:178
 msgid "The chapters has been successfully updated!"
 msgstr "ಅಧ್ಯಾಯಗಳನ್ನು ಯಶಸ್ವಿಯಾಗಿ ನವೀಕರಿಸಲಾಗಿದೆ!"
 
-#: inc/admin/laf/namespace.php:175
+#: inc/admin/laf/namespace.php:179
 msgid "The part has been successfully updated!"
 msgstr "ಭಾಗವನ್ನು ಯಶಸ್ವಿಯಾಗಿ ನವೀಕರಿಸಲಾಗಿದೆ!"
 
-#: inc/admin/laf/namespace.php:176
+#: inc/admin/laf/namespace.php:180
 msgid "The front matter has been successfully updated!"
 msgstr "ಮುಂಭಾಗದ ವಿಷಯವನ್ನು ಯಶಸ್ವಿಯಾಗಿ ನವೀಕರಿಸಲಾಗಿದೆ!"
 
-#: inc/admin/laf/namespace.php:177
+#: inc/admin/laf/namespace.php:181
 msgid "The back matter has been successfully updated!"
 msgstr "ಹಿಂಭಾಗದ ವಿಷಯವನ್ನು ಯಶಸ್ವಿಯಾಗಿ ನವೀಕರಿಸಲಾಗಿದೆ!"
 
-#: inc/admin/laf/namespace.php:180
+#: inc/admin/laf/namespace.php:184
 msgid "Sorry, the book could not be updated.!"
 msgstr "ಕ್ಷಮಿಸಿ, ಪುಸ್ತಕವನ್ನು ನವೀಕರಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.!"
 
-#: inc/admin/laf/namespace.php:181
+#: inc/admin/laf/namespace.php:185
 msgid "Sorry, the chapters could not be updated."
 msgstr "ಕ್ಷಮಿಸಿ, ಅಧ್ಯಾಯಗಳನ್ನು ನವೀಕರಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ."
 
-#: inc/admin/laf/namespace.php:182
+#: inc/admin/laf/namespace.php:186
 msgid "Sorry, the part could not be updated."
 msgstr "ಕ್ಷಮಿಸಿ, ಭಾಗವನ್ನು ನವೀಕರಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ."
 
-#: inc/admin/laf/namespace.php:183
+#: inc/admin/laf/namespace.php:187
 msgid "Sorry, the front matter could not be updated."
 msgstr "ಕ್ಷಮಿಸಿ, ಮುಂಭಾಗದ ವಿಷಯವನ್ನು ನವೀಕರಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ."
 
-#: inc/admin/laf/namespace.php:184
+#: inc/admin/laf/namespace.php:188
 msgid "Sorry, the back matter could not be updated."
 msgstr "ಕ್ಷಮಿಸಿ, ಹಿಂಭಾಗದ ವಿಷಯವನ್ನು ನವೀಕರಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ."
 
-#: inc/admin/laf/namespace.php:194 inc/admin/laf/namespace.php:195
-#: templates/admin/organize.php:74 templates/admin/organize.php:283
+#: inc/admin/laf/namespace.php:198 inc/admin/laf/namespace.php:199
+#: templates/admin/organize.blade.php:61 templates/admin/organize.blade.php:95
 msgid "Add Part"
 msgstr "ಭಾಗವನ್ನು ಸೇರಿಸು"
 
-#: inc/admin/laf/namespace.php:202 inc/admin/laf/namespace.php:203
-#: templates/admin/organize.php:73
+#: inc/admin/laf/namespace.php:206 inc/admin/laf/namespace.php:207
+#: templates/admin/organize.blade.php:60
 msgid "Add Chapter"
 msgstr "ಅಧ್ಯಾಯ ಸೇರಿಸು"
 
-#: inc/admin/laf/namespace.php:210 inc/admin/laf/namespace.php:211
-#: templates/admin/organize.php:71
+#: inc/admin/laf/namespace.php:214 inc/admin/laf/namespace.php:215
+#: templates/admin/organize.blade.php:58
 msgid "Add Front Matter"
 msgstr "ಮುಂಭಾಗದ ಪಠ್ಯ ಸೇರಿಸು"
 
-#: inc/admin/laf/namespace.php:218 inc/admin/laf/namespace.php:219
-#: templates/admin/organize.php:72
+#: inc/admin/laf/namespace.php:222 inc/admin/laf/namespace.php:223
+#: templates/admin/organize.blade.php:59
 msgid "Add Back Matter"
 msgstr "ಹಿಂಪುಟದ ಪ‍ಠ್ಯ ಸೇರಿಸು"
 
-#: inc/admin/laf/namespace.php:226 inc/admin/laf/namespace.php:227
-#: inc/editor/namespace.php:146 inc/posttype/namespace.php:195
+#: inc/admin/laf/namespace.php:230 inc/admin/laf/namespace.php:231
+#: inc/editor/namespace.php:147 inc/posttype/namespace.php:195
 msgid "Glossary Terms"
 msgstr "ಪದಕೋಶದ ಪದಗಳು"
 
-#: inc/admin/laf/namespace.php:234 inc/admin/laf/namespace.php:235
+#: inc/admin/laf/namespace.php:238 inc/admin/laf/namespace.php:239
 msgid "Chapter Types"
 msgstr "ಅಧ್ಯಾಯ ಪ್ರಕಾರಗಳು"
 
-#: inc/admin/laf/namespace.php:242 inc/admin/laf/namespace.php:243
+#: inc/admin/laf/namespace.php:246 inc/admin/laf/namespace.php:247
 msgid "Front Matter Types"
 msgstr "ಮುಂಭಾಗದ ಪಠ್ಯ ಪ್ರಕಾರಗಳು"
 
-#: inc/admin/laf/namespace.php:250 inc/admin/laf/namespace.php:251
+#: inc/admin/laf/namespace.php:254 inc/admin/laf/namespace.php:255
 msgid "Back Matter Types"
 msgstr "ಹಿಂಪುಟದ ಪಠ್ಯ ಪ್ರಕಾರಗಳು"
 
-#: inc/admin/laf/namespace.php:258 inc/admin/laf/namespace.php:259
+#: inc/admin/laf/namespace.php:262 inc/admin/laf/namespace.php:263
 msgid "Glossary Types"
 msgstr "ಪದಕೋಶದ ಪದಗಳು"
 
-#: inc/admin/laf/namespace.php:285
+#: inc/admin/laf/namespace.php:289
 #: inc/modules/import/wordpress/class-wxr.php:542
-#: inc/posttype/namespace.php:151
+#: inc/posttype/namespace.php:151 templates/admin/cloner/stats.blade.php:3
 msgid "Book Info"
 msgstr "ಪುಸ್ತಕ ಮಾಹಿತಿ"
 
-#: inc/admin/laf/namespace.php:297
+#: inc/admin/laf/namespace.php:301
 msgid "Choose institution(s)... "
 msgstr "ಸಂಸ್ಥೆ(ಗಳನ್ನು) ಆಯ್ಕೆಮಾಡಿ..."
 
-#: inc/admin/laf/namespace.php:298
+#: inc/admin/laf/namespace.php:302
 msgid "Choose a subject…"
 msgstr "ಒಂದು ವಿಷಯವನ್ನು ಆಯ್ಕೆಮಾಡಿ…"
 
-#: inc/admin/laf/namespace.php:299
+#: inc/admin/laf/namespace.php:303
 msgid "Choose some subject(s)…"
 msgstr "ಕೆಲವು ವಿಷಯ(ಗಳು)ಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ…"
 
-#: inc/admin/laf/namespace.php:309 inc/admin/laf/namespace.php:310
+#: inc/admin/laf/namespace.php:313 inc/admin/laf/namespace.php:314
 msgid "Contributors"
 msgstr "ಕೊಡುಗೆದಾರರು"
 
-#: inc/admin/laf/namespace.php:316 inc/admin/laf/namespace.php:394
-#: templates/admin/organize.php:70 templates/admin/export.blade.php:11
+#: inc/admin/laf/namespace.php:320 inc/admin/laf/namespace.php:398
+#: templates/admin/export.blade.php:11 templates/admin/icon.blade.php:15
+#: templates/admin/organize.blade.php:57
 msgid "Export"
 msgstr "ರಫ್ತು"
 
-#: inc/admin/laf/namespace.php:329
+#: inc/admin/laf/namespace.php:333
 msgid "Are you sure you want to delete these export files?"
 msgstr "ಈ ರಫ್ತು ಫೈಲ್ ಗಳನ್ನು ಅಳಿಸುವುದು ಖಚಿತವೇ?"
 
-#: inc/admin/laf/namespace.php:330
+#: inc/admin/laf/namespace.php:334
 msgid "Up to 5 files can be pinned at once."
 msgstr "5 ಫೈಲ್ ಗಳವರೆಗೆ ಒಂದೇ ಬಾರಿಗೆ ಪಿನ್ ಮಾಡಬಹುದು."
 
-#: inc/admin/laf/namespace.php:331
+#: inc/admin/laf/namespace.php:335
 msgid "Cannot pin more than 3 of the same file type."
 msgstr "ಒಂದೇ ಫೈಲ್ ಪ್ರಕಾರದ 3 ಕ್ಕಿಂತ ಹೆಚ್ಚು ಪಿನ್ ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ."
 
-#: inc/admin/laf/namespace.php:335
+#: inc/admin/laf/namespace.php:339
 msgid ""
 "Too many pinned files. Deselect one of the pinned files before attempting to"
 " export."
 msgstr "ತುಂಬಾ ಪಿನ್ ಮಾಡಿದ ಫೈಲ್‍ಗಳು. ರಫ್ತು ಮಾಡಲು ಪ್ರಯತ್ನಿಸುವ ಮೊದಲು ಪಿನ್ ಮಾಡಿದ ಫೈಲ್‍ಗಳಲ್ಲಿ ಒಂದನ್ನು ಆಯ್ಕೆ ಮಾಡಿ."
 
-#: inc/admin/laf/namespace.php:336
+#: inc/admin/laf/namespace.php:340
 msgid ""
 "Exports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr "ರಫ್ತು ಮಾಡಲಾಗುವುದಿಲ್ಲ. ಈಗ ಈ ಪುಟವನ್ನು ಬಿಡುವುದು ಸಮಸ್ಯೆಗಳನ್ನು ಉಂಟುಮಾಡುತ್ತದೆ. ನೀನು ಖಚಿತವಾಗಿರುವಿಯಾ?"
 
-#: inc/admin/laf/namespace.php:348 inc/utility/class-handlestransfers.php:88
+#: inc/admin/laf/namespace.php:352 inc/utility/class-handlestransfers.php:88
 #: templates/admin/import.php:38 templates/admin/import.php:114
 msgid "Import"
 msgstr "ಆಮದು"
 
-#: inc/admin/laf/namespace.php:356
+#: inc/admin/laf/namespace.php:360
 msgid ""
 "Imports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr "ಆಮದು ಮಾಡಲಾಗುವುದಿಲ್ಲ. ಈಗ ಈ ಪುಟವನ್ನು ಬಿಡುವುದು ಸಮಸ್ಯೆಗಳನ್ನು ಉಂಟುಮಾಡುತ್ತದೆ. ನೀವು ಖಚಿತವಾಗಿರುವಿರಾ?"
 
-#: inc/admin/laf/namespace.php:381 inc/admin/laf/namespace.php:577
-#: inc/admin/laf/namespace.php:1472
+#: inc/admin/laf/namespace.php:385 inc/admin/laf/namespace.php:581
+#: inc/admin/laf/namespace.php:1586
 #: inc/admin/network/class-sharingandprivacyoptions.php:459
 msgid "Sharing and Privacy Settings"
 msgstr "ಹಂಚಿಕೆ ಮತ್ತು ಗೌಪ್ಯತೆ ಸೆಟ್ಟಿಂಗ್‍ಗಳು"
 
-#: inc/admin/laf/namespace.php:381 inc/admin/laf/namespace.php:577
+#: inc/admin/laf/namespace.php:385 inc/admin/laf/namespace.php:581
 msgid "Sharing &amp; Privacy"
 msgstr "ಹಂಚಿಕೆ &amp; ಗೌಪ್ಯತೆ"
 
-#: inc/admin/laf/namespace.php:399 inc/admin/laf/namespace.php:400
+#: inc/admin/laf/namespace.php:403 inc/admin/laf/namespace.php:404
 msgid "QuickLaTeX"
 msgstr "ಕ್ವಿಕ್‍ಲೇಟೆಕ್"
 
-#: inc/admin/laf/namespace.php:409 inc/admin/laf/namespace.php:615
-#: inc/admin/laf/namespace.php:616 templates/admin/cloner.php:13
+#: inc/admin/laf/namespace.php:413 inc/admin/laf/namespace.php:619
+#: inc/admin/laf/namespace.php:620 templates/admin/cloner/page.blade.php:3
 msgid "Clone a Book"
 msgstr "ಪುಸ್ತಕವನ್ನು ಕ್ಲೋನ್ ಮಾಡಿ"
 
-#: inc/admin/laf/namespace.php:417 inc/admin/laf/namespace.php:628
+#: inc/admin/laf/namespace.php:421 inc/admin/laf/namespace.php:632
 msgid ""
 "Cloning is not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:691 inc/admin/laf/namespace.php:702
+#: inc/admin/laf/namespace.php:645 inc/admin/laf/namespace.php:646
+msgid "Cloning Stats"
+msgstr ""
+
+#: inc/admin/laf/namespace.php:663 inc/admin/metaboxes/namespace.php:649
+#: inc/api/endpoints/controller/class-toc.php:192
+#: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
+#: inc/posttype/namespace.php:548 templates/admin/import.php:91
+#: templates/admin/organize.blade.php:49
+msgid "Front Matter"
+msgstr "ಮುಂಭಾಗದ ಪಠ್ಯ"
+
+#: inc/admin/laf/namespace.php:671 inc/admin/metaboxes/namespace.php:650
+#: inc/api/endpoints/controller/class-toc.php:209 inc/class-sass.php:78
+#: inc/modules/themeoptions/class-globaloptions.php:564
+#: inc/posttype/namespace.php:64 inc/posttype/namespace.php:545
+#: inc/posttype/namespace.php:584 templates/admin/import.php:92
+msgid "Chapter"
+msgstr "ಅಧ್ಯಾಯ"
+
+#: inc/admin/laf/namespace.php:681 inc/admin/metaboxes/namespace.php:651
+#: inc/api/endpoints/controller/class-toc.php:225
+#: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
+#: inc/posttype/namespace.php:551 templates/admin/import.php:96
+#: templates/admin/organize.blade.php:51
+msgid "Back Matter"
+msgstr "ಹಿಂಪುಟದ ಪ‍ಠ್ಯ"
+
+#: inc/admin/laf/namespace.php:771 inc/admin/laf/namespace.php:782
 msgid "About Pressbooks"
 msgstr "ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಬಗ್ಗೆ"
 
-#: inc/admin/laf/namespace.php:713
+#: inc/admin/laf/namespace.php:793
 msgid "Pressbooks.com"
 msgstr "Pressbooks.com"
 
-#: inc/admin/laf/namespace.php:723
+#: inc/admin/laf/namespace.php:803
 msgid "Help"
 msgstr "ಸಹಾಯ"
 
-#: inc/admin/laf/namespace.php:767
+#: inc/admin/laf/namespace.php:847
 msgid "Network Admin"
 msgstr "ನೆಟ್ ವರ್ಕ್ ನಿರ್ವಹಣೆಗಾರರು"
 
-#: inc/admin/laf/namespace.php:786 inc/admin/laf/namespace.php:1527
-#: inc/admin/laf/namespace.php:1537
+#: inc/admin/laf/namespace.php:866 inc/admin/laf/namespace.php:1641
+#: inc/admin/laf/namespace.php:1651
 msgid "Books"
 msgstr "ಪುಸ್ತಕಗಳು"
 
-#: inc/admin/laf/namespace.php:803
+#: inc/admin/laf/namespace.php:874
+msgid "Users"
+msgstr "ಬಳಕೆದಾರರು"
+
+#: inc/admin/laf/namespace.php:883
 msgid "Themes"
 msgstr "ಹೊರನೋಟ (ಥೀಮ್) ಗಳು"
 
-#: inc/admin/laf/namespace.php:811
+#: inc/admin/laf/namespace.php:891
 msgid "Plugins"
 msgstr "ಪ್ಲಗಿನ್‌ಗಳು"
 
-#: inc/admin/laf/namespace.php:861
+#: inc/admin/laf/namespace.php:941
 msgid "Visit Website"
 msgstr "ವೆಬ್ ಸೈಟ್ ಗೆ ಭೇಟಿ ನೀಡಿ"
 
-#: inc/admin/laf/namespace.php:871
+#: inc/admin/laf/namespace.php:951
 msgid "My Books"
 msgstr "ನನ್ನ ಪುಸ್ತಕಗಳು"
 
-#: inc/admin/laf/namespace.php:891
+#: inc/admin/laf/namespace.php:971
 msgid "Create A New Book"
 msgstr "ಹೊಸ ಪುಸ್ತಕವನ್ನು ರಚಿಸಿ"
 
-#: inc/admin/laf/namespace.php:903
+#: inc/admin/laf/namespace.php:983
 msgid "Clone A Book"
 msgstr "ಪುಸ್ತಕವನ್ನು ಕ್ಲೋನ್ ಮಾಡಿ"
 
-#: inc/admin/laf/namespace.php:1125
+#: inc/admin/laf/namespace.php:1205
 msgid ""
 "Are you sure you want to unlock your theme? This will update your book to "
 "the most recent version of your selected theme, which may change your "
@@ -1115,100 +980,104 @@ msgid ""
 "page, this action will NOT be reversable!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1188
+#: inc/admin/laf/namespace.php:1302
 msgid "Book Visibility"
 msgstr "ಪುಸ್ತಕ ಗೋಚರತೆ"
 
-#: inc/admin/laf/namespace.php:1202
+#: inc/admin/laf/namespace.php:1316
 msgid "Private Content"
 msgstr "ಖಾಸಗಿ ವಿಷಯ"
 
-#: inc/admin/laf/namespace.php:1216
+#: inc/admin/laf/namespace.php:1330
 msgid "Disable Comments"
 msgstr "ಪ್ರತಿಕ್ರಿಯೆಗಳನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸು"
 
-#: inc/admin/laf/namespace.php:1234
+#: inc/admin/laf/namespace.php:1348
 msgid "Share Latest Export Files"
 msgstr "ಇತ್ತೀಚಿನ ರಫ್ತು ಫೈಲ್‍ಗಳನ್ನು ಹಂಚಿಕೊಳ್ಳಿ"
 
-#: inc/admin/laf/namespace.php:1281
+#: inc/admin/laf/namespace.php:1378
+msgid "Pressbooks Directory"
+msgstr "ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಡೈರೆಕ್ಟರಿ"
+
+#: inc/admin/laf/namespace.php:1395
 msgid "Sharing and Privacy settings"
 msgstr "ಹಂಚಿಕೆ ಮತ್ತು ಗೌಪ್ಯತೆ ಸೆಟ್ಟಿಂಗ್‍ಗಳು"
 
-#: inc/admin/laf/namespace.php:1296
+#: inc/admin/laf/namespace.php:1410
 msgid "Public. I would like this book to be visible to everyone."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1302
+#: inc/admin/laf/namespace.php:1416
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1326
+#: inc/admin/laf/namespace.php:1440
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1329
+#: inc/admin/laf/namespace.php:1443
 msgid "Only logged in editors and administrators."
 msgstr "ಸಂಪಾದಕರು ಮತ್ತು ನಿರ್ವಾಹಕರಲ್ಲಿ ಮಾತ್ರ ಲಾಗ್ ಇನ್ ಮಾಡಲಾಗಿದೆ."
 
-#: inc/admin/laf/namespace.php:1331
+#: inc/admin/laf/namespace.php:1445
 msgid "All logged in users including subscribers."
 msgstr "ಚಂದಾದಾರರು ಸೇರಿದಂತೆ ಎಲ್ಲಾ ಬಳಕೆದಾರರಲ್ಲಿ ಲಾಗ್ ಇನ್ ಆಗಿದೆ."
 
-#: inc/admin/laf/namespace.php:1352
+#: inc/admin/laf/namespace.php:1466
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
 msgstr "ಹೌದು. ನಾನು ಎಲ್ಲಾ ಫ್ರಂಟ್ ಮ್ಯಾಟರ್, ಅಧ್ಯಾಯಗಳು ಮತ್ತು ಬ್ಯಾಕ್ ಮ್ಯಾಟರ್ ನಲ್ಲಿ ಕಾಮೆಂಟ್ ಗಳು, ಟ್ರ್ಯಾಕ್ ಬ್ಯಾಕ್ ಗಳು ಮತ್ತು ಪಿಂಗ್ ಬ್ಯಾಕ್ ಗಳನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲು ಬಯಸುತ್ತೇನೆ."
 
-#: inc/admin/laf/namespace.php:1358
+#: inc/admin/laf/namespace.php:1472
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
 msgstr "ಇಲ್ಲ. ನಾನು ಕಾಮೆಂಟ್ ಗಳು, ಟ್ರ್ಯಾಕ್ ಬ್ಯಾಕ್ ಗಳು ಮತ್ತು ಪಿಂಗ್ ಬ್ಯಾಕ್ ಗಳನ್ನು ಕೈಯಾರೆ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸದ ಹೊರತು ಎಲ್ಲಾ ಫ್ರಂಟ್ ಮ್ಯಾಟರ್, ಅಧ್ಯಾಯಗಳು ಮತ್ತು ಬ್ಯಾಕ್ ಮ್ಯಾಟರ್ ಗಳಲ್ಲಿ ಸಕ್ರಿಯಗೊಳಿಸಲು ಬಯಸುತ್ತೇನೆ."
 
-#: inc/admin/laf/namespace.php:1374
+#: inc/admin/laf/namespace.php:1488
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr "ಹೌದು. ಇತ್ತೀಚಿನ ರಫ್ತು ಫೈಲ್ ಗಳು ಎಲ್ಲರಿಗೂ ಮುಖಪುಟದಲ್ಲಿ ಉಚಿತವಾಗಿ ಲಭ್ಯವಿರಬೇಕೆಂದು ನಾನು ಬಯಸುತ್ತೇನೆ."
 
-#: inc/admin/laf/namespace.php:1380
+#: inc/admin/laf/namespace.php:1494
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
 msgstr "ಇಲ್ಲ. ಇತ್ತೀಚಿನ ರಫ್ತು ಫೈಲ್ ಗಳು ನಿರ್ವಾಹಕರಿಗೆ ಮಾತ್ರ ಲಭ್ಯವಿರಬೇಕೆಂದು ನಾನು ಬಯಸುತ್ತೇನೆ."
 
-#: inc/admin/laf/namespace.php:1399
+#: inc/admin/laf/namespace.php:1513
 msgid "Yes. I want this book to be listed in the Pressbooks directory."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1405
+#: inc/admin/laf/namespace.php:1519
 msgid "No. Exclude this book from the Pressbooks directory."
 msgstr "ಇಲ್ಲ. ಈ ಪುಸ್ತಕವನ್ನು ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಡೈರೆಕ್ಟರಿಯಿಂದ ಹೊರಗಿಡಿ."
 
-#: inc/admin/laf/namespace.php:1530
+#: inc/admin/laf/namespace.php:1644
 msgid "All Books"
 msgstr "ಎಲ್ಲಾ ಪುಸ್ತಕಗಳು"
 
-#: inc/admin/laf/namespace.php:1540
+#: inc/admin/laf/namespace.php:1654
 msgid "Search Books"
 msgstr "ಪುಸ್ತಕಗಳನ್ನು ಹುಡುಕಿ"
 
-#: inc/admin/laf/namespace.php:1546
+#: inc/admin/laf/namespace.php:1660
 msgid "Edit Book: %s"
 msgstr "ಪುಸ್ತಕ ಸಂಪಾದಿಸು: %s"
 
-#: inc/admin/laf/namespace.php:1549 inc/admin/laf/namespace.php:1558
+#: inc/admin/laf/namespace.php:1663 inc/admin/laf/namespace.php:1672
 msgid "Book Address (URL)"
 msgstr "ಪುಸ್ತಕ ವಿಳಾಸ (ಯು.ಆರ್.ಎಲ್.)"
 
-#: inc/admin/laf/namespace.php:1555
+#: inc/admin/laf/namespace.php:1669
 msgid "Add New Book"
 msgstr "ಹೊಸ ಪುಸ್ತಕವನ್ನು ಸೇರಿಸಿ"
 
-#: inc/admin/laf/namespace.php:1561
+#: inc/admin/laf/namespace.php:1675
 #: inc/modules/themeoptions/class-pdfoptions.php:373
 #: inc/modules/themeoptions/class-pdfoptions.php:392
 #: inc/modules/themeoptions/class-pdfoptions.php:411
@@ -1222,39 +1091,39 @@ msgstr "ಹೊಸ ಪುಸ್ತಕವನ್ನು ಸೇರಿಸಿ"
 msgid "Book Title"
 msgstr "ಪುಸ್ತಕ ಶೀರ್ಷಿಕೆ"
 
-#: inc/admin/laf/namespace.php:1564
+#: inc/admin/laf/namespace.php:1678
 msgid "Book Language"
 msgstr "ಪುಸ್ತಕದ ಭಾಷೆ"
 
-#: inc/admin/laf/namespace.php:1567
+#: inc/admin/laf/namespace.php:1681
 msgid "Add Book"
 msgstr "ಪುಸ್ತಕ ಸೇರಿಸು"
 
-#: inc/admin/laf/namespace.php:1584
+#: inc/admin/laf/namespace.php:1698
 msgid "Edit previous or next item"
 msgstr "ಹಿಂದಿನ ಅಥವಾ ಮುಂದಿನ ಐಟಂ ಸಂಪಾದಿಸು"
 
-#: inc/admin/laf/namespace.php:1589
+#: inc/admin/laf/namespace.php:1703
 msgid "Edit Previous (%s)"
 msgstr "ಹಿಂದಿನ (%s) ಸಂಪಾದಿಸು"
 
-#: inc/admin/laf/namespace.php:1594
+#: inc/admin/laf/namespace.php:1708
 msgid "Edit Next (%s)"
 msgstr "ಮುಂದಿನ ಸಂಕಲನ (%s)"
 
-#: inc/admin/laf/namespace.php:1609
+#: inc/admin/laf/namespace.php:1723
 msgid "Twitter URL"
 msgstr "ಟ್ವಿಟರ್ ಯುಆರ್ಎಲ್"
 
-#: inc/admin/laf/namespace.php:1610
+#: inc/admin/laf/namespace.php:1724
 msgid "LinkedIn URL"
 msgstr "ಲಿಂಕ್ಡಇನ್ ಯುಆರ್ಎಲ್"
 
-#: inc/admin/laf/namespace.php:1611
+#: inc/admin/laf/namespace.php:1725
 msgid "GitHub URL"
 msgstr "ಗಿಟ್‍ಹಬ್ ಯುಆರ್ಎಲ್"
 
-#: inc/admin/laf/namespace.php:1657
+#: inc/admin/laf/namespace.php:1771
 msgid ""
 "Your institutional affiliation, e.g. Rebus Foundation, Open University, "
 "Amnesty International."
@@ -1280,11 +1149,11 @@ msgstr "ಮುಖಪುಟ ಚಿತ್ರ"
 #: inc/admin/metaboxes/namespace.php:176 inc/admin/metaboxes/namespace.php:706
 #: inc/admin/metaboxes/namespace.php:768
 #: inc/api/endpoints/controller/class-toc.php:202 inc/class-sass.php:89
-#: inc/modules/export/epub/class-epub.php:1910
+#: inc/modules/export/epub/class-epub.php:1912
 #: inc/modules/themeoptions/class-globaloptions.php:563
 #: inc/posttype/namespace.php:87 inc/posttype/namespace.php:542
 #: inc/posttype/namespace.php:580 templates/admin/import.php:94
-#: tests/test-posttype.php:261
+#: tests/test-posttype.php:259
 msgid "Part"
 msgstr "ಭಾಗ"
 
@@ -1435,15 +1304,16 @@ msgstr ""
 msgid "Help translate Pressbooks into your language!"
 msgstr "ಪ್ರೆಸ್ ಬುಕ್ ಗಳನ್ನು ನಿಮ್ಮ ಭಾಷೆಗೆ ಅನುವಾದಿಸಲು ಸಹಾಯ ಮಾಡಿ!"
 
-#: inc/admin/metaboxes/namespace.php:391 inc/class-licensing.php:321
-#: inc/modules/export/epub/class-epub.php:1401
-#: inc/modules/export/epub/class-epub.php:1423
+#: inc/admin/metaboxes/namespace.php:391 inc/class-licensing.php:329
+#: inc/modules/export/epub/class-epub.php:1403
+#: inc/modules/export/epub/class-epub.php:1425
 #: inc/modules/export/htmlbook/class-htmlbook.php:855
 #: inc/modules/export/xhtml/class-xhtml11.php:1074
 msgid "Copyright"
 msgstr "ಕೃತಿಸ್ವಾಮ್ಯ"
 
-#: inc/admin/metaboxes/namespace.php:404 templates/admin/cloner.php:19
+#: inc/admin/metaboxes/namespace.php:404
+#: templates/admin/cloner/page.blade.php:7
 msgid "Source Book URL"
 msgstr "ಮೂಲ ಪುಸ್ತಕ ಯು.ಆರ್.ಎಲ್."
 
@@ -1646,15 +1516,6 @@ msgid ""
 "book."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:650
-#: inc/api/endpoints/controller/class-toc.php:209 inc/class-sass.php:78
-#: inc/modules/themeoptions/class-globaloptions.php:564
-#: inc/posttype/namespace.php:64 inc/posttype/namespace.php:545
-#: inc/posttype/namespace.php:584 templates/admin/import.php:92
-#: templates/admin/organize.php:91
-msgid "Chapter"
-msgstr "ಅಧ್ಯಾಯ"
-
 #: inc/admin/metaboxes/namespace.php:655
 msgid "%s Metadata"
 msgstr "%s ಮೆಟಾಡೇಟಾ"
@@ -1710,9 +1571,8 @@ msgstr "ಮುನ್ನೋಟ"
 msgid "(opens in a new window)"
 msgstr "(ಹೊಸ ವಿಂಡೋದಲ್ಲಿ ತೆರೆಯುತ್ತದೆ)"
 
-#: inc/admin/metaboxes/namespace.php:912 templates/admin/organize.php:140
-#: templates/admin/organize.php:243 templates/admin/organize.php:299
-#: templates/admin/organize.php:401
+#: inc/admin/metaboxes/namespace.php:912
+#: templates/admin/organize.blade.php:137
 msgid "Show in Web"
 msgstr "ವೆಬ್ ನಲ್ಲಿ ತೋರಿಸು"
 
@@ -1724,15 +1584,13 @@ msgstr "ಪಾಸ್ ವರ್ಡ್ ಅಗತ್ಯವಿದೆ"
 msgid "Password..."
 msgstr "ಪ್ರವೇಶಪದ…"
 
-#: inc/admin/metaboxes/namespace.php:921 templates/admin/organize.php:148
-#: templates/admin/organize.php:247 templates/admin/organize.php:307
-#: templates/admin/organize.php:405
+#: inc/admin/metaboxes/namespace.php:921
+#: templates/admin/organize.blade.php:140
 msgid "Show in Exports"
 msgstr "ರಫ್ತುಗಳಲ್ಲಿ ತೋರಿಸು"
 
-#: inc/admin/metaboxes/namespace.php:925 templates/admin/organize.php:155
-#: templates/admin/organize.php:251 templates/admin/organize.php:315
-#: templates/admin/organize.php:409
+#: inc/admin/metaboxes/namespace.php:925
+#: templates/admin/organize.blade.php:144
 msgid "Show Title"
 msgstr "ಶೀರ್ಷಿಕೆ ತೋರಿಸು"
 
@@ -1789,13 +1647,25 @@ msgstr ""
 msgid "Owner"
 msgstr "ಮಾಲೀಕ"
 
-#: inc/admin/network/class-networksettings.php:59
-#: tests/test-networksettings.php:30
+#: inc/admin/network/class-networksettings.php:62
+#: tests/test-networksettings.php:29
 msgid "Theme Settings"
 msgstr ""
 
-#: inc/admin/network/class-networksettings.php:61
+#: inc/admin/network/class-networksettings.php:64
 msgid "Default Theme"
+msgstr ""
+
+#: inc/admin/network/class-networksettings.php:84
+msgid "CTA banner settings"
+msgstr ""
+
+#: inc/admin/network/class-networksettings.php:86
+msgid "CTA Banner"
+msgstr ""
+
+#: inc/admin/network/class-networksettings.php:91
+msgid "Display the CTA banner"
 msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:81
@@ -1853,16 +1723,16 @@ msgstr ""
 msgid "Sharing and Privacy settings."
 msgstr "ಹಂಚಿಕೆ ಮತ್ತು ಗೌಪ್ಯತೆ ಸೆಟ್ಟಿಂಗ್ ಗಳು."
 
+#: inc/admin/networkmanagers/namespace.php:20
 #: inc/admin/networkmanagers/namespace.php:21
-#: inc/admin/networkmanagers/namespace.php:22
 msgid "Network Managers"
 msgstr "ನೆಟ್ವರ್ಕ್ ವ್ಯವಸ್ಥಾಪಕರು"
 
-#: inc/admin/networkmanagers/namespace.php:116
+#: inc/admin/networkmanagers/namespace.php:109
 msgid "Pressbooks Network Managers"
 msgstr ""
 
-#: inc/admin/networkmanagers/namespace.php:118
+#: inc/admin/networkmanagers/namespace.php:111
 msgid ""
 "Network administrators&rsquo; access to network administration menus can be "
 "restricted to leave only sites and users visible to them."
@@ -1917,6 +1787,10 @@ msgid ""
 "identity."
 msgstr ""
 
+#: inc/api/endpoints/controller/class-posts.php:197
+msgid "The status for the post."
+msgstr ""
+
 #: inc/api/endpoints/controller/class-toc.php:98
 msgid "Comment count"
 msgstr "ಪ್ರತಿಕ್ರಿಯೆ ಎಣಿಕೆ"
@@ -1933,23 +1807,27 @@ msgstr "ಪೋಸ್ಟ್ ಕಂಟೆಂಟ್ ಹೊಂದಿದೆ, ವಿ�
 msgid "Word count."
 msgstr "ಪದ ಎಣಿಕೆ."
 
-#: inc/api/namespace.php:77
+#: inc/api/endpoints/controller/class-toc.php:233
+msgid "Clone token."
+msgstr ""
+
+#: inc/api/namespace.php:78
 msgid "Part ID."
 msgstr "ಭಾಗ ಐಡಿ."
 
-#: inc/api/namespace.php:201
+#: inc/api/namespace.php:232
 msgid "Invalid batch parameter(s)."
 msgstr "ಅಮಾನ್ಯ ಬ್ಯಾಚ್ ನಿಯತಾಂಕ(ಗಳು)."
 
-#: inc/api/namespace.php:356
+#: inc/api/namespace.php:387
 msgid "Part does not exist"
 msgstr "ಭಾಗ ಅಸ್ತಿತ್ವದಲ್ಲಿಲ್ಲ"
 
-#: inc/api/namespace.php:363
+#: inc/api/namespace.php:394
 msgid "ID is not a part"
 msgstr "ಐಡಿ ಒಂದು ಭಾಗವಲ್ಲ"
 
-#: inc/api/namespace.php:377
+#: inc/api/namespace.php:408
 msgid "Failed to update chapter part"
 msgstr "ಅಧ್ಯಾಯಭಾಗವನ್ನು ನವೀಕರಿಸಲು ವಿಫಲವಾಗಿದೆ"
 
@@ -1957,11 +1835,11 @@ msgstr "ಅಧ್ಯಾಯಭಾಗವನ್ನು ನವೀಕರಿಸಲು �
 msgid "Main Body"
 msgstr ""
 
-#: inc/class-activation.php:210 tests/test-book.php:51
+#: inc/class-activation.php:210 tests/test-book.php:47
 msgid "Introduction"
 msgstr "‍ಪರಿಚಯ‍"
 
-#: inc/class-activation.php:212 tests/test-book.php:102
+#: inc/class-activation.php:212 tests/test-book.php:97
 msgid "This is where you can write your introduction."
 msgstr ""
 
@@ -1983,11 +1861,17 @@ msgstr "ಅನುಬಂಧ"
 msgid "This is where you can add appendices or other back matter."
 msgstr ""
 
-#: inc/class-activation.php:232 templates/admin/organize.php:129
-#: templates/admin/organize.php:216 templates/admin/organize.php:290
-#: templates/admin/organize.php:375 tests/test-cloner.php:53
+#: inc/class-activation.php:232 tests/test-cloner.php:52
+#: templates/admin/organize.blade.php:131
+#: templates/admin/organize.blade.php:215
 msgid "Authors"
 msgstr "ಲೇಖಕರು"
+
+#: inc/class-activation.php:242
+#: inc/modules/themeoptions/class-pdfoptions.php:287 tests/test-cloner.php:62
+#: templates/export/epub/toc.blade.php:13
+msgid "Table of Contents"
+msgstr "ಪರಿವಿಡಿ"
 
 #: inc/class-activation.php:252
 msgid "Buy"
@@ -2118,13 +2002,13 @@ msgstr "ಗಿಟ್‍ಹಬ್"
 msgid "GitHub profile for this contributor. Must be a valid URL."
 msgstr "ಈ ಕೊಡುಗೆದಾರನಿಗೆ ಗಿಟ್ ಹಬ್ ಪ್ರೊಫೈಲ್. ಮಾನ್ಯವಾದ ಯುಆರ್ ಎಲ್ ಆಗಿರಬೇಕು."
 
-#: inc/class-contributors.php:575
+#: inc/class-contributors.php:577
 msgid ""
 "<p>Import multiple contributors at once by uploading a valid JSON file. See "
 "<a href=\"%s\" target=\"_blank\">our guide</a> for details.</p>"
 msgstr ""
 
-#: inc/class-contributors.php:578
+#: inc/class-contributors.php:581
 msgid "Import Contributors"
 msgstr "ಕೊಡುಗೆದಾರರನ್ನು ಆಮದುಮಾಡಿ"
 
@@ -2282,42 +2166,46 @@ msgid "Korean"
 msgstr "ಕೊರಿಯನ್"
 
 #: inc/class-globaltypography.php:57
+msgid "Khmer"
+msgstr ""
+
+#: inc/class-globaltypography.php:58
 msgid "Malayalam"
 msgstr "മലയാളം"
 
-#: inc/class-globaltypography.php:58
+#: inc/class-globaltypography.php:59
 msgid "Musical Notation"
 msgstr ""
 
-#: inc/class-globaltypography.php:59
+#: inc/class-globaltypography.php:60
 msgid "N'Ko"
 msgstr "ಎನ್'ಕೋ"
 
-#: inc/class-globaltypography.php:60
+#: inc/class-globaltypography.php:61
 msgid "Odia"
 msgstr "ಒಡಿಯಾ"
 
-#: inc/class-globaltypography.php:61
+#: inc/class-globaltypography.php:62
 msgid "Syriac"
 msgstr "ಸಿರಿಯಾಕ್"
 
-#: inc/class-globaltypography.php:62
+#: inc/class-globaltypography.php:63
 msgid "Tamil"
 msgstr "தமிழ்"
 
-#: inc/class-globaltypography.php:63
+#: inc/class-globaltypography.php:64
 msgid "Telugu"
 msgstr "ತೆಲುಗು"
 
-#: inc/class-globaltypography.php:64
+#: inc/class-globaltypography.php:65
 msgid "Tibetan"
 msgstr "ಟಿಬೆಟಿಯನ್"
 
-#: inc/class-globaltypography.php:65
+#: inc/class-globaltypography.php:66
 msgid "Turkish"
 msgstr "ಟರ್ಕಿಶ್"
 
-#: inc/class-globaltypography.php:455
+#: inc/class-globaltypography.php:469
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr ""
 
@@ -2381,45 +2269,45 @@ msgid ""
 "License"
 msgstr ""
 
-#: inc/class-licensing.php:139 inc/class-licensing.php:326
+#: inc/class-licensing.php:139 inc/class-licensing.php:334
 msgid "All Rights Reserved"
 msgstr "ಎಲ್ಲಾ ಹಕ್ಕುಗಳನ್ನು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ"
 
-#: inc/class-licensing.php:205
+#: inc/class-licensing.php:213
 msgid ""
 "$title is deprecated. Method will automatically determine title from "
 "licenses"
 msgstr ""
 
-#: inc/class-licensing.php:323 inc/class-styles.php:818
-#: inc/modules/export/epub/class-epub.php:1410
+#: inc/class-licensing.php:331 inc/class-styles.php:824
+#: inc/modules/export/epub/class-epub.php:1412
 #: inc/modules/export/htmlbook/class-htmlbook.php:864
 #: inc/modules/export/xhtml/class-xhtml11.php:1083
-#: templates/export/epub/opf.blade.php:95
+#: templates/export/epub/opf.blade.php:100
 msgid "by"
 msgstr "ಇಂದ"
 
-#: inc/class-licensing.php:382
+#: inc/class-licensing.php:390
 msgid "except where otherwise noted."
 msgstr ""
 
-#: inc/class-licensing.php:409 inc/class-licensing.php:433
+#: inc/class-licensing.php:417 inc/class-licensing.php:441
 msgid "%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved."
 msgstr ""
 
-#: inc/class-licensing.php:421
+#: inc/class-licensing.php:429
 msgid "Icon for the %s"
 msgstr ""
 
-#: inc/class-licensing.php:423
+#: inc/class-licensing.php:431
 msgid "%1$s by %2$s is licensed under a %3$s, except where otherwise noted."
 msgstr ""
 
-#: inc/class-licensing.php:442 inc/class-licensing.php:452
+#: inc/class-licensing.php:450 inc/class-licensing.php:460
 msgid "Icon for the %s license"
 msgstr ""
 
-#: inc/class-licensing.php:444
+#: inc/class-licensing.php:452
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
 msgstr ""
 
@@ -2454,222 +2342,222 @@ msgstr "ಪಿಡಿಎಫ್ ಗಾಗಿ ಕಸ್ಟಮ್ ಶೈಲಿ"
 msgid "Custom Style for Web"
 msgstr "ವೆಬ್ ಗಾಗಿ ಕಸ್ಟಮ್ ಶೈಲಿ"
 
-#: inc/class-styles.php:670
+#: inc/class-styles.php:676
 msgid "Cormorant Garamond"
 msgstr "ಕಾರ್ಮೊರಾಂಟ್ ಗರಮಂಡ್"
 
-#: inc/class-styles.php:671
+#: inc/class-styles.php:677
 msgid "Crimson Text"
 msgstr "ಕ್ರಿಮ್ಸನ್ ಪಠ್ಯ"
 
-#: inc/class-styles.php:672
+#: inc/class-styles.php:678
 msgid "GNU FreeFont Serif"
 msgstr "GNU ಫ್ರೀಫಾಂಟ್ ಸಾನ್ಸ್"
 
-#: inc/class-styles.php:673
+#: inc/class-styles.php:679
 msgid "New Athena Unicode"
 msgstr "ಹೊಸ ಅಥೀನಾ ಯುನಿಕೋಡ್"
 
-#: inc/class-styles.php:674
+#: inc/class-styles.php:680
 msgid "Noto Serif"
 msgstr "ನೋಟೊ ಸೆರಿಫ್"
 
-#: inc/class-styles.php:675
+#: inc/class-styles.php:681
 msgid "Sorts Mill Goudy"
 msgstr ""
 
-#: inc/class-styles.php:676
+#: inc/class-styles.php:682
 msgid "Spectral"
 msgstr ""
 
-#: inc/class-styles.php:680
+#: inc/class-styles.php:686
 msgid "Alegreya Sans"
 msgstr ""
 
-#: inc/class-styles.php:681
+#: inc/class-styles.php:687
 msgid "Barlow"
 msgstr "ಬಾರ್ಲೋ"
 
-#: inc/class-styles.php:682
+#: inc/class-styles.php:688
 msgid "GNU FreeFont Sans"
 msgstr "GNU ಫ್ರೀಫಾಂಟ್ ಸಾನ್ಸ್"
 
-#: inc/class-styles.php:683
+#: inc/class-styles.php:689
 msgid "K2D"
 msgstr "ಕೆ2ಡಿ"
 
-#: inc/class-styles.php:684
+#: inc/class-styles.php:690
 msgid "Lato"
 msgstr "ಲಾಟೊ"
 
-#: inc/class-styles.php:685
+#: inc/class-styles.php:691
 msgid "Libre Franklin"
 msgstr "ಲಿಬ್ರೆ ಫ್ರಾಂಕ್ಲಿನ್"
 
-#: inc/class-styles.php:686
+#: inc/class-styles.php:692
 msgid "Montserrat"
 msgstr "ಮಾಂಟ್ಸೆರಾಟ್"
 
-#: inc/class-styles.php:687
+#: inc/class-styles.php:693
 msgid "Noto Sans"
 msgstr "ನೊಟೊ ಸಾನ್ಸ್"
 
-#: inc/class-styles.php:688
+#: inc/class-styles.php:694
 msgid "Open Sans"
 msgstr ""
 
-#: inc/class-styles.php:689
+#: inc/class-styles.php:695
 msgid "Raleway"
 msgstr "ರಾಲೆವೇ"
 
-#: inc/class-styles.php:690
+#: inc/class-styles.php:696
 msgid "Roboto"
 msgstr "ರೋಬೊಟೊ"
 
-#: inc/class-styles.php:691
+#: inc/class-styles.php:697
 msgid "Rubik"
 msgstr "ರೂಬಿಕ್"
 
-#: inc/class-styles.php:692
+#: inc/class-styles.php:698
 msgid "Source Sans Pro"
 msgstr ""
 
-#: inc/class-styles.php:696 tests/test-styles.php:219
+#: inc/class-styles.php:702 tests/test-styles.php:215
 msgid "Theme default"
 msgstr "ಥೀಮ್ ಡೀಫಾಲ್ಟ್"
 
-#: inc/class-styles.php:697 inc/class-styles.php:711 tests/test-styles.php:220
+#: inc/class-styles.php:703 inc/class-styles.php:717 tests/test-styles.php:216
 msgid "Serif"
 msgstr "ನೋಟೊ ಸೆರಿಫ್"
 
-#: inc/class-styles.php:698 tests/test-styles.php:221
+#: inc/class-styles.php:704 tests/test-styles.php:217
 msgid "Sans serif"
 msgstr "ಸಾನ್ಸ್ ಸೆರಿಫ್"
 
-#: inc/class-styles.php:743
+#: inc/class-styles.php:749
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
 msgstr ""
 
-#: inc/class-styles.php:783 templates/admin/custom-styles.php:20
+#: inc/class-styles.php:789 templates/admin/custom-styles.php:20
 msgid "Web"
 msgstr "ವೆಬ್"
 
-#: inc/class-styles.php:815
+#: inc/class-styles.php:821
 msgid "Last 10 Revisions"
 msgstr "ಕೊನೆಯ 10 ಪರಿಷ್ಕರಣೆಗಳು"
 
-#: inc/cloner/class-cloner.php:435 inc/modules/import/api/class-api.php:115
+#: inc/cloner/class-cloner.php:443 inc/modules/import/api/class-api.php:115
 msgid "Looking up the source book"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:437
+#: inc/cloner/class-cloner.php:445
 msgid "Failed to setup source"
 msgstr "ಮೂಲವನ್ನು ಸೆಟಪ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
-#: inc/cloner/class-cloner.php:441
+#: inc/cloner/class-cloner.php:449
 msgid "Creating the target book"
 msgstr "ಗುರಿ ಪುಸ್ತಕವನ್ನು ರಚಿಸುವುದು"
 
-#: inc/cloner/class-cloner.php:452
+#: inc/cloner/class-cloner.php:460
 msgid "Cloning metadata"
 msgstr "ಕ್ಲೋನಿಂಗ್ ಮೆಟಾಡೇಟಾ"
 
-#: inc/cloner/class-cloner.php:459
+#: inc/cloner/class-cloner.php:467
 msgid "Cloning contributors and licenses"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:470
+#: inc/cloner/class-cloner.php:478
 msgid "Cloning front matter"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:485 inc/cloner/class-cloner.php:491
+#: inc/cloner/class-cloner.php:493 inc/cloner/class-cloner.php:499
 msgid "Cloning parts and chapters"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:504
+#: inc/cloner/class-cloner.php:512
 msgid "Cloning back matter"
 msgstr "ಕ್ಲೋನಿಂಗ್ ಬ್ಯಾಕ್ ಮ್ಯಾಟರ್"
 
-#: inc/cloner/class-cloner.php:536 inc/covergenerator/class-generator.php:298
-#: inc/modules/export/epub/class-epub.php:664
+#: inc/cloner/class-cloner.php:545 inc/covergenerator/class-generator.php:298
+#: inc/modules/export/epub/class-epub.php:666
 #: inc/modules/import/class-import.php:373
 msgid "Finishing up"
 msgstr "ಮುಗಿಸುವುದು"
 
-#: inc/cloner/class-cloner.php:552
+#: inc/cloner/class-cloner.php:561
 msgid ""
 "You can only clone from a book hosted by Pressbooks 4.1 or later. Please "
 "ensure that your source book meets these requirements."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:559
+#: inc/cloner/class-cloner.php:568
 msgid "Could not retrieve metadata from %s."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:567
+#: inc/cloner/class-cloner.php:576
 msgid "%s is not licensed for cloning."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:576
+#: inc/cloner/class-cloner.php:585
 msgid "Could not retrieve contents and structure from %s."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:584
+#: inc/cloner/class-cloner.php:593
 msgid "Could not retrieve taxonomies from %s."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:592
+#: inc/cloner/class-cloner.php:601
 msgid "Could not retrieve media from %s."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:767
+#: inc/cloner/class-cloner.php:776
 msgid ""
 "The source book contained H5P content that could not be cloned. Please "
 "review the cloned version of your book carefully, as missing H5P content "
 "will be indicated. You may want to remove or replace these elements."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:789
+#: inc/cloner/class-cloner.php:798
 msgid "The source book&rsquo;s media could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:885
+#: inc/cloner/class-cloner.php:894
 msgid "The source book&rsquo;s metadata could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:916
+#: inc/cloner/class-cloner.php:925
 msgid "The source book&rsquo;s structure and contents could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:958
+#: inc/cloner/class-cloner.php:970
 msgid "The source book&rsquo;s taxonomies could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2030
+#: inc/cloner/class-cloner.php:2054
 msgid "Your book URL can only contain lowercase letters (a-z) and numbers."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2032
+#: inc/cloner/class-cloner.php:2056
 msgid "Your book URL must contain at least some letters."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2034
+#: inc/cloner/class-cloner.php:2058
 msgid "That book URL is not allowed."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2036
+#: inc/cloner/class-cloner.php:2060
 msgid "Your book URL must be at least %s character."
 msgid_plural "Your book URL must be at least %s characters."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/cloner/class-cloner.php:2038
+#: inc/cloner/class-cloner.php:2062
 msgid "Sorry, you may not use that book URL."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2040
+#: inc/cloner/class-cloner.php:2064
 msgid "Sorry, that book URL already exists!"
 msgstr ""
 
@@ -2711,160 +2599,160 @@ msgstr "ಬಾರ್ ಕೋಡ್ ರಚಿಸುವಲ್ಲಿ ಸಮಸ್ಯ
 msgid "Insert Footnote"
 msgstr ""
 
-#: inc/editor/namespace.php:111
+#: inc/editor/namespace.php:112
 msgid "Convert MS Word Footnotes"
 msgstr ""
 
-#: inc/editor/namespace.php:118
+#: inc/editor/namespace.php:119
 msgid "Insert LaTeX"
 msgstr ""
 
-#: inc/editor/namespace.php:131 templates/admin/import.php:156
+#: inc/editor/namespace.php:132 templates/admin/import.php:156
 msgid "Cancel"
 msgstr "ರದ್ದು"
 
-#: inc/editor/namespace.php:132
+#: inc/editor/namespace.php:133
 msgid "Description"
 msgstr "ವಿವರಣೆ"
 
-#: inc/editor/namespace.php:133
+#: inc/editor/namespace.php:134
 msgid "Insert Glossary Term"
 msgstr ""
 
-#: inc/editor/namespace.php:134
+#: inc/editor/namespace.php:135
 msgid "Insert"
 msgstr "ಸೇರಿಸಿ"
 
-#: inc/editor/namespace.php:136
+#: inc/editor/namespace.php:137
 msgctxt "JS template string"
 msgid "Glossary term <em>${templateString1}</em> not found. Please create it."
 msgstr ""
 
-#: inc/editor/namespace.php:137
+#: inc/editor/namespace.php:138
 msgid "Select a Term"
 msgstr ""
 
-#: inc/editor/namespace.php:138
+#: inc/editor/namespace.php:139
 msgid "Create and Insert Term"
 msgstr ""
 
-#: inc/editor/namespace.php:139
+#: inc/editor/namespace.php:140
 msgid "Choose Existing Term"
 msgstr ""
 
-#: inc/editor/namespace.php:140
+#: inc/editor/namespace.php:141
 msgid "Glossary term already exists."
 msgstr ""
 
-#: inc/editor/namespace.php:142
+#: inc/editor/namespace.php:143
 msgid "Cannot submit empty Glossary term."
 msgstr ""
 
-#: inc/editor/namespace.php:143
+#: inc/editor/namespace.php:144
 msgid "A term was not selected?"
 msgstr ""
 
-#: inc/editor/namespace.php:144 inc/posttype/namespace.php:243
+#: inc/editor/namespace.php:145 inc/posttype/namespace.php:243
 msgid ""
 "To display a list of glossary terms, leave this back matter's content blank."
 msgstr ""
 
-#: inc/editor/namespace.php:145
+#: inc/editor/namespace.php:146
 msgid "Term"
 msgstr "ಪದ"
 
-#: inc/editor/namespace.php:203
+#: inc/editor/namespace.php:204
 msgid "Indent"
 msgstr "ಇಂಡೆಂಟ್"
 
-#: inc/editor/namespace.php:209
+#: inc/editor/namespace.php:210
 msgid "Hanging indent"
 msgstr "ಹ್ಯಾಂಗಿಂಗ್ ಇಂಡೆಂಟ್"
 
-#: inc/editor/namespace.php:215
+#: inc/editor/namespace.php:216
 msgid "No indent"
 msgstr "ಇಂಡೆಂಟ್ ಇಲ್ಲ"
 
-#: inc/editor/namespace.php:221
+#: inc/editor/namespace.php:222
 msgid "Write right to left"
 msgstr "ಬಲದಿಂದ ಎಡಕ್ಕೆ ಬರೆಯಿರಿ"
 
-#: inc/editor/namespace.php:229
+#: inc/editor/namespace.php:230
 msgid "Write left to right"
 msgstr "ಎಡದಿಂದ ಬಲಕ್ಕೆ ಬರೆಯಿರಿ"
 
-#: inc/editor/namespace.php:237
+#: inc/editor/namespace.php:238
 msgid "Tight tracking"
 msgstr "ಬಿಗಿಯಾದ ಟ್ರ್ಯಾಕಿಂಗ್"
 
-#: inc/editor/namespace.php:243
+#: inc/editor/namespace.php:244
 msgid "Very tight tracking"
 msgstr "ತುಂಬಾ ಬಿಗಿಯಾದ ಟ್ರ್ಯಾಕಿಂಗ್"
 
-#: inc/editor/namespace.php:249
+#: inc/editor/namespace.php:250
 msgid "Loose tracking"
 msgstr "ಸಡಿಲ ಟ್ರ್ಯಾಕಿಂಗ್"
 
-#: inc/editor/namespace.php:255
+#: inc/editor/namespace.php:256
 msgid "Very loose tracking"
 msgstr "ತುಂಬಾ ಸಡಿಲವಾದ ಟ್ರ್ಯಾಕಿಂಗ್"
 
-#: inc/editor/namespace.php:261
+#: inc/editor/namespace.php:262
 msgid "Pullquote (left)"
 msgstr "ಪುಲ್ ಕೋಟ್ (ಎಡಕ್ಕೆ)"
 
-#: inc/editor/namespace.php:267
+#: inc/editor/namespace.php:268
 msgid "Pullquote (right)"
 msgstr "ಪುಲ್ ಕೋಟ್ (ಬಲ)"
 
-#: inc/editor/namespace.php:317 inc/editor/namespace.php:359
-#: inc/editor/namespace.php:373
+#: inc/editor/namespace.php:318 inc/editor/namespace.php:360
+#: inc/editor/namespace.php:374
 #: inc/modules/themeoptions/class-weboptions.php:120 languages/tinymce.php:7
 msgid "Standard"
 msgstr "ಸಾಮಾನ್ಯ"
 
-#: inc/editor/namespace.php:321
+#: inc/editor/namespace.php:322
 msgid "No lines"
 msgstr "ಸಾಲುಗಳಿಲ್ಲ"
 
-#: inc/editor/namespace.php:325
+#: inc/editor/namespace.php:326
 msgid "Lines"
 msgstr "ಸಾಲುಗಳು"
 
-#: inc/editor/namespace.php:329 inc/editor/namespace.php:367
-#: inc/editor/namespace.php:381 languages/tinymce.php:10
+#: inc/editor/namespace.php:330 inc/editor/namespace.php:368
+#: inc/editor/namespace.php:382 languages/tinymce.php:10
 msgid "Shaded"
 msgstr ""
 
-#: inc/editor/namespace.php:333
+#: inc/editor/namespace.php:334
 msgid "Full Grid"
 msgstr "ಪೂರ್ಣ ಗ್ರಿಡ್"
 
-#: inc/editor/namespace.php:337
+#: inc/editor/namespace.php:338
 msgid "Standard Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:341
+#: inc/editor/namespace.php:342
 msgid "No lines Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:345
+#: inc/editor/namespace.php:346
 msgid "Lines Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:349
+#: inc/editor/namespace.php:350
 msgid "Shaded Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:353
+#: inc/editor/namespace.php:354
 msgid "Full Grid Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:363 inc/editor/namespace.php:377
+#: inc/editor/namespace.php:364 inc/editor/namespace.php:378
 msgid "Border"
 msgstr "ಚೌಕಟ್ಟು"
 
-#: inc/editor/namespace.php:494
+#: inc/editor/namespace.php:495
 msgid "Internal Link"
 msgstr ""
 
@@ -2878,7 +2766,7 @@ msgid ""
 " target=\"_blank\">our guide</a>."
 msgstr ""
 
-#: inc/image/namespace.php:432 templates/admin/covergenerator.php:123
+#: inc/image/namespace.php:432 templates/admin/covergenerator.php:130
 msgid "Are you sure you want to delete this?"
 msgstr ""
 
@@ -2886,13 +2774,13 @@ msgstr ""
 msgid "Delete"
 msgstr "ಅಳಿಸು"
 
-#: inc/interactive/class-h5p.php:174
+#: inc/interactive/class-h5p.php:182
 msgid ""
 "The original version of this chapter contained H5P content. You may want to "
 "remove or replace this element."
 msgstr ""
 
-#: inc/l10n/namespace.php:508 inc/l10n/namespace.php:531
+#: inc/l10n/namespace.php:512 inc/l10n/namespace.php:535
 msgid ""
 "Please contact your system administrator if you would like them to install "
 "extended %s language support for the Pressbooks interface."
@@ -2918,7 +2806,7 @@ msgid ""
 "all available fields."
 msgstr ""
 
-#: inc/metadata/namespace.php:1191
+#: inc/metadata/namespace.php:1205
 msgid ""
 "The %1$s Thema subject terms requested for this book could not be downloaded"
 " from %2$s. Please report this error to your network manager."
@@ -2960,127 +2848,127 @@ msgstr ""
 msgid "Emailed to:"
 msgstr "ಗೆ ಇಮೇಲ್ ಮಾಡಲಾಗಿದೆ:"
 
-#: inc/modules/export/class-table.php:81
+#: inc/modules/export/class-table.php:82
 msgid "Are you sure you want to delete this export file?"
 msgstr "ಈ ರಫ್ತು ಫೈಲ್ ಅನ್ನು ಅಳಿಸಲು ನೀವು ಖಚಿತವಾಗಿರುವಿರಾ?"
 
-#: inc/modules/export/class-table.php:131
+#: inc/modules/export/class-table.php:132
 msgid "File"
 msgstr "ಕಡತ"
 
-#: inc/modules/export/class-table.php:132
+#: inc/modules/export/class-table.php:133
 msgid "Format"
 msgstr "ನಮೂನೆ"
 
-#: inc/modules/export/class-table.php:133
+#: inc/modules/export/class-table.php:134
 msgid "Size"
 msgstr "ಗಾತ್ರ"
 
-#: inc/modules/export/class-table.php:134
+#: inc/modules/export/class-table.php:135
 msgid "Pin"
 msgstr "ಪಿನ್"
 
-#: inc/modules/export/class-table.php:135
+#: inc/modules/export/class-table.php:136
 msgid "Date Exported"
 msgstr "ರಫ್ತು ಮಾಡಿದ ದಿನಾಂಕ"
 
-#: inc/modules/export/epub/class-epub.php:384
+#: inc/modules/export/epub/class-epub.php:386
 msgid "EPUB %s: "
 msgstr "ಇಪಬ್ %s: "
 
-#: inc/modules/export/epub/class-epub.php:494
+#: inc/modules/export/epub/class-epub.php:496
 #: inc/modules/export/xhtml/class-xhtml11.php:204
 msgid "Initializing"
 msgstr "ಆರಂಭಿಸಲಾಗುತ್ತಿದೆ"
 
-#: inc/modules/export/epub/class-epub.php:508
+#: inc/modules/export/epub/class-epub.php:510
 msgid "Preparing book contents"
 msgstr "ಪುಸ್ತಕ ವಿಷಯಗಳನ್ನು ಸಿದ್ಧಪಡಿಸಲಾಗುತ್ತಿದೆ"
 
-#: inc/modules/export/epub/class-epub.php:519
+#: inc/modules/export/epub/class-epub.php:521
 msgid "Creating container"
 msgstr "ಕಂಟೇನರ್ ರಚಿಸಲಾಗುತ್ತಿದೆ"
 
-#: inc/modules/export/epub/class-epub.php:529
+#: inc/modules/export/epub/class-epub.php:531
 #: inc/modules/export/xhtml/class-xhtml11.php:212
 msgid "Saving file to exports folder"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:537
+#: inc/modules/export/epub/class-epub.php:539
 #: inc/modules/export/xhtml/class-xhtml11.php:216
 msgid "Export successful"
 msgstr "ರಫ್ತು ಯಶಸ್ವಿ"
 
-#: inc/modules/export/epub/class-epub.php:634
+#: inc/modules/export/epub/class-epub.php:636
 #: inc/modules/export/xhtml/class-xhtml11.php:242
 msgid "Validating file"
 msgstr "ಫೈಲ್ ಅನ್ನು ಮಾನ್ಯಮಾಡುತ್ತಿದೆ"
 
-#: inc/modules/export/epub/class-epub.php:663
+#: inc/modules/export/epub/class-epub.php:665
 #: inc/modules/export/xhtml/class-xhtml11.php:258
 msgid "Validation successful"
 msgstr "ಮಾನ್ಯತೆ ಯಶಸ್ವಿ"
 
-#: inc/modules/export/epub/class-epub.php:960
+#: inc/modules/export/epub/class-epub.php:962
 msgid "Compiling styles"
 msgstr "ಶೈಲಿಗಳನ್ನು ಸಂಕಲಿಸುತ್ತಿದೆ"
 
-#: inc/modules/export/epub/class-epub.php:969
+#: inc/modules/export/epub/class-epub.php:971
 #: inc/modules/export/xhtml/class-xhtml11.php:431
 msgid "Creating cover"
 msgstr "ಕವರ್ ರಚಿಸಲಾಗುತ್ತಿದೆ"
 
-#: inc/modules/export/epub/class-epub.php:976
+#: inc/modules/export/epub/class-epub.php:978
 #: inc/modules/export/xhtml/class-xhtml11.php:435
 msgid "Creating title page"
 msgstr "ಶೀರ್ಷಿಕೆ ಪುಟ ವನ್ನು ರಚಿಸಲಾಗುತ್ತಿದೆ"
 
-#: inc/modules/export/epub/class-epub.php:980
+#: inc/modules/export/epub/class-epub.php:982
 #: inc/modules/export/xhtml/class-xhtml11.php:439
 msgid "Creating copyright page"
 msgstr "ಕೃತಿಸ್ವಾಮ್ಯ ಪುಟ ವನ್ನು ರಚಿಸಲಾಗುತ್ತಿದೆ"
 
-#: inc/modules/export/epub/class-epub.php:984
+#: inc/modules/export/epub/class-epub.php:986
 msgid "Exporting dedication and epigraph"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:988
-#: inc/modules/export/epub/class-epub.php:1555
+#: inc/modules/export/epub/class-epub.php:990
+#: inc/modules/export/epub/class-epub.php:1557
 #: inc/modules/export/xhtml/class-xhtml11.php:451
 #: inc/modules/export/xhtml/class-xhtml11.php:1255
 msgid "Exporting front matter"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:995
-#: inc/modules/export/epub/class-epub.php:1656
-#: inc/modules/export/epub/class-epub.php:1686
+#: inc/modules/export/epub/class-epub.php:997
+#: inc/modules/export/epub/class-epub.php:1658
+#: inc/modules/export/epub/class-epub.php:1688
 #: inc/modules/export/xhtml/class-xhtml11.php:458
 #: inc/modules/export/xhtml/class-xhtml11.php:1321
 #: inc/modules/export/xhtml/class-xhtml11.php:1361
 msgid "Exporting parts and chapters"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:999
-#: inc/modules/export/epub/class-epub.php:1817
+#: inc/modules/export/epub/class-epub.php:1001
+#: inc/modules/export/epub/class-epub.php:1819
 #: inc/modules/export/xhtml/class-xhtml11.php:462
 #: inc/modules/export/xhtml/class-xhtml11.php:1461
 msgid "Exporting back matter"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1004
+#: inc/modules/export/epub/class-epub.php:1006
 #: inc/modules/export/xhtml/class-xhtml11.php:447
 msgid "Creating table of contents"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1346
+#: inc/modules/export/epub/class-epub.php:1348
 msgid "Title Page"
 msgstr "ಶೀರ್ಷಿಕೆ ಪುಟ"
 
-#: inc/modules/export/epub/class-epub.php:1611
+#: inc/modules/export/epub/class-epub.php:1613
 msgid "Make your own books using Pressbooks"
 msgstr "ಪ್ರೆಸ್ ಬುಕ್ ಗಳನ್ನು ಬಳಸಿಕೊಂಡು ನಿಮ್ಮ ಸ್ವಂತ ಪುಸ್ತಕಗಳನ್ನು ಮಾಡಿ"
 
-#: inc/modules/export/epub/class-epub.php:1869
+#: inc/modules/export/epub/class-epub.php:1871
 msgid "Table Of Contents"
 msgstr "ಪರಿವಿಡಿ"
 
@@ -3121,12 +3009,12 @@ msgid "PDF (for digital distribution)"
 msgstr "ಪಿಡಿಎಫ್ (ಡಿಜಿಟಲ್ ವಿತರಣೆಗಾಗಿ)"
 
 #: inc/modules/export/namespace.php:100 inc/modules/export/namespace.php:196
-#: inc/modules/export/namespace.php:234
+#: inc/modules/export/namespace.php:233 inc/modules/export/namespace.php:271
 msgid "EPUB"
 msgstr "ಇಪಬ್"
 
 #: inc/modules/export/namespace.php:101 inc/modules/export/namespace.php:201
-#: inc/modules/export/namespace.php:237
+#: inc/modules/export/namespace.php:274
 msgid "Pressbooks XML"
 msgstr ""
 
@@ -3135,17 +3023,17 @@ msgid "XHTML"
 msgstr "ಎಕ್ಸ್.ಟಿ.ಎಮ್.ಎಲ್."
 
 #: inc/modules/export/namespace.php:105 inc/modules/export/namespace.php:195
-#: inc/modules/export/namespace.php:233
+#: inc/modules/export/namespace.php:270
 msgid "HTMLBook"
 msgstr ""
 
 #: inc/modules/export/namespace.php:106 inc/modules/export/namespace.php:200
-#: inc/modules/export/namespace.php:236
+#: inc/modules/export/namespace.php:273
 msgid "OpenDocument"
 msgstr ""
 
 #: inc/modules/export/namespace.php:107 inc/modules/export/namespace.php:202
-#: inc/modules/export/namespace.php:238
+#: inc/modules/export/namespace.php:275
 msgid "WordPress XML"
 msgstr ""
 
@@ -3154,52 +3042,66 @@ msgid "Common Cartridge with Web Links"
 msgstr ""
 
 #: inc/modules/export/namespace.php:192 inc/modules/export/namespace.php:229
-#: inc/modules/export/namespace.php:231
+#: inc/modules/export/namespace.php:266 inc/modules/export/namespace.php:268
 msgid "Print PDF"
 msgstr ""
 
 #: inc/modules/export/namespace.php:193 inc/modules/export/namespace.php:194
-#: inc/modules/export/namespace.php:230 inc/modules/export/namespace.php:232
+#: inc/modules/export/namespace.php:267 inc/modules/export/namespace.php:269
 msgid "Digital PDF"
 msgstr "ಡಿಜಿಟಲ್ ಪಿಡಿಎಫ್"
 
-#: inc/modules/export/namespace.php:197
+#: inc/modules/export/namespace.php:197 inc/modules/export/namespace.php:234
 msgid "MOBI"
 msgstr "ಮೊಬಿ"
 
-#: inc/modules/export/namespace.php:198
+#: inc/modules/export/namespace.php:198 inc/modules/export/namespace.php:235
 msgid "EPUB3"
 msgstr ""
 
-#: inc/modules/export/namespace.php:203 inc/modules/export/namespace.php:239
+#: inc/modules/export/namespace.php:203 inc/modules/export/namespace.php:276
 msgid "Common Cartridge (Web Links)"
 msgstr ""
 
-#: inc/modules/export/namespace.php:204
-msgid "Common Cartridge with LTI links (1.1)"
-msgstr ""
-
-#: inc/modules/export/namespace.php:205
-msgid "Common Cartridge with LTI links (1.2)"
-msgstr ""
-
+#: inc/modules/export/namespace.php:204 inc/modules/export/namespace.php:205
 #: inc/modules/export/namespace.php:206
-msgid "Common Cartridge with LTI links (1.3)"
+msgid "Common Cartridge (LTI Links)"
 msgstr ""
 
-#: inc/modules/export/namespace.php:275
+#: inc/modules/export/namespace.php:230 inc/modules/export/namespace.php:231
+msgid "PDF"
+msgstr ""
+
+#: inc/modules/export/namespace.php:232
+msgid "HTML5"
+msgstr ""
+
+#: inc/modules/export/namespace.php:237
+msgid "ODT"
+msgstr ""
+
+#: inc/modules/export/namespace.php:238 inc/modules/export/namespace.php:239
+msgid "WXR"
+msgstr ""
+
+#: inc/modules/export/namespace.php:240 inc/modules/export/namespace.php:241
+#: inc/modules/export/namespace.php:242 inc/modules/export/namespace.php:243
+msgid "IMSCC"
+msgstr ""
+
+#: inc/modules/export/namespace.php:312
 msgid "The file %1$s has been %2$s successfully."
 msgstr ""
 
-#: inc/modules/export/namespace.php:277
+#: inc/modules/export/namespace.php:314
 msgid "pinned"
 msgstr "ಪಿನ್ ಮಾಡಲಾಗಿದೆ"
 
-#: inc/modules/export/namespace.php:277
+#: inc/modules/export/namespace.php:314
 msgid "unpinned"
 msgstr "ಪಿನ್ ಮಾಡದ"
 
-#: inc/modules/export/namespace.php:296
+#: inc/modules/export/namespace.php:333
 msgid "%s Author"
 msgid_plural "%s Authors"
 msgstr[0] "%s ಲೇಖಕ"
@@ -3295,8 +3197,8 @@ msgstr ""
 msgid "The HTML is larger than pcre.backtrack_limit."
 msgstr ""
 
-#: inc/modules/import/wordpress/class-parser.php:65
-#: inc/modules/import/wordpress/class-parser.php:71
+#: inc/modules/import/wordpress/class-parser.php:73
+#: inc/modules/import/wordpress/class-parser.php:79
 msgid ""
 "This does not appear to be a WXR file, missing/invalid WXR version number"
 msgstr ""
@@ -3348,7 +3250,7 @@ msgstr "ವಿಷಯ ಪಠ್ಯ"
 #: inc/modules/themeoptions/class-admin.php:94
 #: inc/modules/themeoptions/class-admin.php:95
 #: inc/modules/themeoptions/class-admin.php:149
-#: templates/admin/export.blade.php:60
+#: templates/admin/export.blade.php:62
 msgid "Theme Options"
 msgstr "ಥೀಮ್ ಆಯ್ಕೆಗಳು"
 
@@ -3454,7 +3356,7 @@ msgid "About the Author"
 msgstr "ಲೇಖಕರ ಬಗ್ಗೆ"
 
 #: inc/modules/themeoptions/class-globaloptions.php:134
-#: tests/test-options.php:471
+#: tests/test-options.php:466
 msgid "Display information about authors at the end of each chapter"
 msgstr "ಪ್ರತಿ ಅಧ್ಯಾಯದ ಕೊನೆಯಲ್ಲಿ ಲೇಖಕರ ಬಗ್ಗೆ ಮಾಹಿತಿಯನ್ನು ಪ್ರದರ್ಶಿಸಿ"
 
@@ -3981,11 +3883,11 @@ msgstr ""
 msgid "Web Options"
 msgstr "ವೆಬ್ ಆಯ್ಕೆಗಳು"
 
-#: inc/posttype/namespace.php:65 templates/admin/organize.php:65
+#: inc/posttype/namespace.php:65 templates/admin/organize.blade.php:50
 msgid "Chapters"
 msgstr "ಅಧ್ಯಾಯಗಳು"
 
-#: inc/posttype/namespace.php:88 templates/admin/organize.php:67
+#: inc/posttype/namespace.php:88 templates/admin/organize.blade.php:52
 msgid "Parts"
 msgstr "ಭಾಗಗಳು"
 
@@ -4082,7 +3984,7 @@ msgid "glossary"
 msgstr "ಪದಕೋಶ"
 
 #: inc/posttype/namespace.php:554 templates/admin/import.php:97
-#: templates/admin/organize.php:68
+#: templates/admin/organize.blade.php:53
 msgid "Glossary"
 msgstr "ಪದಕೋಶ"
 
@@ -4260,7 +4162,7 @@ msgid " adapted by "
 msgstr " ಇದರ ಮೂಲಕ ಅಳವಡಿಸಿಕೊಳ್ಳಲಾಗಿದೆ "
 
 #: inc/shortcodes/footnotes/class-footnotes.php:187
-#: tests/test-shortcodes-footnotes-footnotes.php:164
+#: tests/test-shortcodes-footnotes-footnotes.php:149
 msgid "Invalid permissions."
 msgstr "ಅಮಾನ್ಯ ಅನುಮತಿಗಳು."
 
@@ -4432,16 +4334,24 @@ msgstr ""
 
 #. translators: 1: URL to Composer documentation, 2: URL to Pressbooks latest
 #. releases
-#: pressbooks.php:79
+#: pressbooks.php:80
 msgid ""
 "Pressbooks dependencies are missing. Please make sure that your "
 "project&rsquo;s <a href=\"%1$s\">Composer autoload file</a> is being "
 "required, or use the <a href=\"%2$s\">latest release</a> instead."
 msgstr ""
 
-#: pressbooks.php:90
+#: pressbooks.php:91
 msgid "Cannot find Pressbooks install."
 msgstr "ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಸ್ಥಾಪಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ."
+
+#: symbionts/custom-metadata/custom_metadata.php:1288
+msgid "datetimepicker not supported by Pressbooks"
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata.php:1294
+msgid "timepicker not supported by Pressbooks"
+msgstr ""
 
 #: templates/admin/catalog.php:27
 msgid "Tags For"
@@ -4455,7 +4365,8 @@ msgstr "ಟ್ಯಾಗ್ ಗಳು"
 msgid "My Catalog Profile"
 msgstr "ನನ್ನ ಕ್ಯಾಟಲಾಗ್ ಪ್ರೊಫೈಲ್"
 
-#: templates/admin/catalog.php:102
+#: templates/admin/catalog.php:102 templates/admin/cloner/stats.blade.php:5
+#: templates/admin/cloner/stats.blade.php:19
 msgid "URL"
 msgstr "URL"
 
@@ -4470,46 +4381,6 @@ msgstr "ಅಡ್ಡಪಟ್ಟಿ ಬಣ್ಣ"
 #: templates/admin/catalog.php:118
 msgid "Logo Or Image"
 msgstr "ಲೋಗೋ ಅಥವಾ ಚಿತ್ರ"
-
-#: templates/admin/cloner.php:14
-msgid ""
-"This tool allows you to %1$s from one Pressbooks network to another. Search "
-"the thousands of books in the %2$s for material you would like to clone. "
-"Once a book is cloned into your network, you can edit content, add new "
-"media, and enhance with H5P interactive activities."
-msgstr "ಈ ಸಾಧನವು ನಿಮಗೆ ಒಂದು ಪ್ರೆಸ್ ಬುಕ್ ಸ್ ನೆಟ್ ವರ್ಕ್ ನಿಂದ ಇನ್ನೊಂದಕ್ಕೆ %1$s ಅನುಮತಿಸುತ್ತದೆ. ನೀವು ತದ್ರೂಪಿ ಮಾಡಲು ಬಯಸುವ ವಸ್ತುವಿಗಾಗಿ %2$s ಸಾವಿರಾರು ಪುಸ್ತಕಗಳನ್ನು ಹುಡುಕಿ. ಒಮ್ಮೆ ನಿಮ್ಮ ನೆಟ್ ವರ್ಕ್ ನಲ್ಲಿ ಪುಸ್ತಕವನ್ನು ಕ್ಲೋನ್ ಮಾಡಿದ ನಂತರ, ನೀವು ವಿಷಯವನ್ನು ಸಂಪಾದಿಸಬಹುದು, ಹೊಸ ಮಾಧ್ಯಮವನ್ನು ಸೇರಿಸಬಹುದು ಮತ್ತು ಎಚ್5ಪಿ ಸಂವಾದಾತ್ಮಕ ಚಟುವಟಿಕೆಗಳೊಂದಿಗೆ ಹೆಚ್ಚಿಸಬಹುದು."
-
-#: templates/admin/cloner.php:14
-msgid "clone openly licensed books"
-msgstr ""
-
-#: templates/admin/cloner.php:22
-msgid ""
-"Enter the URL to a Pressbooks book with an open license which permits "
-"cloning."
-msgstr ""
-
-#: templates/admin/cloner.php:26
-msgid "Target Book URL"
-msgstr "ಟಾರ್ಗೆಟ್ ಬುಕ್ ಯುಆರ್ಎಲ್"
-
-#: templates/admin/cloner.php:34
-msgid "Enter an available URL where you want this book to be cloned."
-msgstr ""
-
-#: templates/admin/cloner.php:38
-msgid "Target Book Title"
-msgstr ""
-
-#: templates/admin/cloner.php:41
-msgid ""
-"Optional. If you leave this blank, the title of the source book will be "
-"used."
-msgstr ""
-
-#: templates/admin/cloner.php:45
-msgid "Clone This Book"
-msgstr ""
 
 #: templates/admin/covergenerator.php:65 templates/admin/covergenerator.php:85
 msgid ""
@@ -4548,14 +4419,29 @@ msgstr "ಕ್ಷಮಿಸಿ! ನೀವು ಮೊದಲು ಕೆಲವು ಕ�
 
 #. translators: %s date/time
 #: templates/admin/covergenerator.php:107
-msgid "Your latest covers were generated on %s. Hover to download them."
-msgstr "ನಿಮ್ಮ ಇತ್ತೀಚಿನ ಕವರ್ ಗಳು %s ನಲ್ಲಿ ಉತ್ಪತ್ತಿಯಾಗಿವೆ. ಅವುಗಳನ್ನು ಡೌನ್ ಲೋಡ್ ಮಾಡಲು ಹೋವರ್ ಮಾಡಿ."
+msgid "Your latest covers were generated on %s."
+msgstr ""
 
-#: templates/admin/covergenerator.php:139
+#. translators: %s file format
+#: templates/admin/covergenerator.php:120
+msgid "%s cover"
+msgstr ""
+
+#. translators: %s file format
+#: templates/admin/covergenerator.php:127
+msgid "Download %s cover"
+msgstr ""
+
+#. translators: %s file format
+#: templates/admin/covergenerator.php:134
+msgid "Delete %s cover"
+msgstr ""
+
+#: templates/admin/covergenerator.php:151
 msgid "Are you sure you want to delete ALL your current covers?"
 msgstr ""
 
-#: templates/admin/covergenerator.php:139
+#: templates/admin/covergenerator.php:151
 msgid "Delete All Covers"
 msgstr "ಎಲ್ಲ ಕವರ್ ಗಳನ್ನು ಅಳಿಸು"
 
@@ -4578,14 +4464,6 @@ msgstr "ನಿಮ್ಮ %s ಶೈಲಿಗಳು"
 #: templates/admin/custom-styles.php:52
 msgid "Save"
 msgstr "ಉಳಿಸಿ"
-
-#: templates/admin/dashboard.php:35
-msgid "Dashboard Settings"
-msgstr "ಡ್ಯಾಶ್‍ಬೋರ್ಡ್ ಸೆಟ್ಟಿಂಗ್‍ಗಳು"
-
-#: templates/admin/dashboard.php:37
-msgid "Customize your Pressbooks dashboard below."
-msgstr ""
 
 #: templates/admin/import.php:18
 msgid "Web page or Pressbooks webbook (.html or URL)"
@@ -4647,87 +4525,25 @@ msgstr "ವೆಬ್ ನಲ್ಲಿ ಆಮದು ಮಾಡಿದ ವಿಷಯ�
 msgid "Import Selection"
 msgstr "ಆಯ್ಕೆ ಆಮದು ಮಾಡಿ"
 
-#: templates/admin/import.php:181
+#: templates/admin/import.php:165
 msgid "Maximum file size:"
 msgstr "ಗರಿಷ್ಠ ಫೈಲ್ ಗಾತ್ರ:"
 
-#: templates/admin/import.php:191
+#: templates/admin/import.php:174
 msgid "Import Type"
 msgstr "ಆಮದು ಪ್ರಕಾರ"
 
-#: templates/admin/import.php:203
+#: templates/admin/import.php:186 templates/admin/import.php:190
 msgid "Import Source"
 msgstr "ಮೂಲ ಆಮದು ಮಾಡಿ"
 
-#: templates/admin/import.php:222
+#: templates/admin/import.php:201
+msgid "Choose file"
+msgstr ""
+
+#: templates/admin/import.php:214
 msgid "Begin Import"
 msgstr "ಆಮದು ಪ್ರಾರಂಭಿಸಿ"
-
-#: templates/admin/organize.php:42 templates/admin/organize.php:44
-msgid "This book’s global privacy is set to"
-msgstr "ಈ ಪುಸ್ತಕದ ಜಾಗತಿಕ ಗೌಪ್ಯತೆಯನ್ನು ಇದಕ್ಕೆ ಹೊಂದಿಸಲಾಗಿದೆ"
-
-#. translators: %s: URL to Pressbooks Directory
-#: templates/admin/organize.php:50
-msgid ""
-"Anyone with the link can see your book. Public books are eligible to be "
-"listed in <a href=\"%s\">Pressbooks Directory</a>. Individual chapters can "
-"be set to private."
-msgstr ""
-
-#: templates/admin/organize.php:56
-msgid ""
-"Only users you invite can see your book, regardless of individual chapter "
-"visibility below."
-msgstr ""
-
-#: templates/admin/organize.php:75
-msgid "Add Glossary Term"
-msgstr "ಪದಕೋಶ ಪದವನ್ನು ಸೇರಿಸು"
-
-#: templates/admin/organize.php:78
-msgid "Word Count:"
-msgstr "ಪದ ಎಣಿಕೆ:"
-
-#: templates/admin/organize.php:78
-msgid "%s (whole book)"
-msgstr "%s (ಸಂಪೂರ್ಣ ಪುಸ್ತಕ)"
-
-#: templates/admin/organize.php:79
-msgid "%s (selected for export)"
-msgstr "%s (ರಫ್ತಿಗೆ ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ)"
-
-#: templates/admin/organize.php:123 templates/admin/organize.php:189
-#: templates/admin/organize.php:347
-msgid "Edit"
-msgstr "ಸಂಪಾದಿಸಿ"
-
-#: templates/admin/organize.php:125 templates/admin/organize.php:191
-#: templates/admin/organize.php:349
-msgid "Trash"
-msgstr "ಕಸದಬುಟ್ಟಿ"
-
-#: templates/admin/organize.php:126 templates/admin/organize.php:192
-#: templates/admin/organize.php:350
-msgid "View"
-msgstr "ನೋಡು"
-
-#: templates/admin/organize.php:133 templates/admin/organize.php:292
-msgid "Comments"
-msgstr "ಪ್ರತಿಕ್ರಿಯೆಗಳು"
-
-#: templates/admin/organize.php:178 templates/admin/organize.php:183
-#: templates/admin/organize.php:336 templates/admin/organize.php:341
-msgid "Ebook start point"
-msgstr "ಇಬುಕ್ ಪ್ರಾರಂಭ ಬಿಂದು"
-
-#: templates/admin/organize.php:199 templates/admin/organize.php:358
-msgid "Move Up"
-msgstr "ಮೇಲೆ ಸರಿಸಿ"
-
-#: templates/admin/organize.php:202 templates/admin/organize.php:361
-msgid "Move Down"
-msgstr "ಕೆಳಗೆ ಸರಿಸಿ"
 
 #: templates/admin/results.php:4
 msgid "Results"
@@ -4857,45 +4673,225 @@ msgstr ""
 msgid "Pressbooks: the CMS for Books."
 msgstr ""
 
-#: tests/test-registration.php:29
+#: tests/test-registration.php:28
 msgid "Create Site"
 msgstr "ಜಾಲತಾಣವನ್ನು ರಚಿಸಿ"
 
-#: assets/src/scripts/a11y.js:35 assets/src/scripts/a11y.js:36
-msgid "Gradient selector"
+#: templates/admin/cloner/book-card.blade.php:9
+msgid "H5P Activities"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:49
-msgid "Black"
-msgstr "ಕಪ್ಪು"
+#: templates/admin/cloner/book-card.blade.php:14
+msgid "By"
+msgstr ""
 
-#: assets/src/scripts/a11y.js:52
-msgid "White"
-msgstr "ಬಿಳಿ"
+#: templates/admin/cloner/book-card.blade.php:29
+msgid "Select this book"
+msgstr ""
 
-#: assets/src/scripts/a11y.js:55
-msgid "Red"
-msgstr "ಕೆಂಪು"
+#: templates/admin/cloner/page.blade.php:4
+msgid ""
+"This tool allows you to clone openly licensed books from one Pressbooks "
+"network to another. The cloning process makes a copy of the original book "
+"for you to revise and redistribute as desired. You can enter the source book"
+" URL if you already know it, or find and select a suitable book from the "
+"Pressbooks Directory."
+msgstr ""
 
-#: assets/src/scripts/a11y.js:58
-msgid "Orange"
-msgstr "ಕಿತ್ತಳೆ"
+#: templates/admin/cloner/page.blade.php:9
+msgid ""
+"Enter the URL of a Pressbooks book with an open license which permits "
+"cloning."
+msgstr ""
 
-#: assets/src/scripts/a11y.js:61
-msgid "Yellow"
-msgstr "ಹಳದಿ"
+#: templates/admin/cloner/page.blade.php:10
+msgid "New Book URL"
+msgstr ""
 
-#: assets/src/scripts/a11y.js:64
-msgid "Green"
-msgstr "ಹಸಿರು"
+#: templates/admin/cloner/page.blade.php:16
+msgid ""
+"Enter the URL where you want this book to be cloned. This URL cannot be "
+"changed later, so choose carefully."
+msgstr ""
 
-#: assets/src/scripts/a11y.js:67
-msgid "Blue"
-msgstr "ನೀಲಿ"
+#: templates/admin/cloner/page.blade.php:17
+msgid "Clone book"
+msgstr ""
 
-#: assets/src/scripts/a11y.js:70
-msgid "Purple"
-msgstr "ನೇರಳೆ"
+#: templates/admin/cloner/page.blade.php:24
+msgid "Search the Pressbooks Directory"
+msgstr ""
+
+#: templates/admin/cloner/results.blade.php:1
+msgid "of"
+msgstr ""
+
+#: templates/admin/cloner/results.blade.php:2
+msgid ""
+"results shown. To see more results, or use advanced search and filtering "
+"capabilities, %s."
+msgstr ""
+
+#: templates/admin/cloner/results.blade.php:2
+msgid "visit the Directory itself"
+msgstr ""
+
+#: templates/admin/cloner/stats.blade.php:6
+msgid "Created"
+msgstr ""
+
+#: templates/admin/cloner/stats.blade.php:7
+msgid "Total # of clones"
+msgstr ""
+
+#: templates/admin/cloner/stats.blade.php:11
+msgid "List of clones"
+msgstr ""
+
+#: templates/admin/cloner/stats.blade.php:12
+msgid ""
+"Pressbooks added the ability to reliably track successful clones in early "
+"2023. This list may not include all clones made before that time."
+msgstr ""
+
+#: templates/admin/cloner/stats.blade.php:13
+msgid ""
+"The URLs here refer to external web addresses which may no longer be active "
+"or which may be hosting other content. Please use caution if you choose to "
+"visit any of the URLs listed below."
+msgstr ""
+
+#: templates/admin/cloner/stats.blade.php:20
+msgid "Date of clone"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:7
+msgid "Visit book"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:28
+msgid "Edit book info"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:39
+msgid "Organize book"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:50
+msgid "Change theme"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:61
+msgid "Manage users"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:72
+msgid "View Analytics"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:83
+msgid "Delete book"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:96
+msgid "Write a new chapter art"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:103
+msgid "Write a new chapter"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:109
+msgid "Import Content"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:123
+msgid "Support Resources"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:132
+msgid "Getting started with Pressbooks"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:135
+msgid "Watch a short video series on how to get started with Pressbooks."
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:143
+msgid "Pressbooks user guide"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:146
+msgid ""
+"Find help and how-tos for your publishing project in this detailed handbook."
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:154
+msgid "Pressbooks community forum"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:157
+msgid ""
+"Discuss Pressbooks related questions with other users in our public forum."
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:165
+msgid "Pressbooks training webinars"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:168
+msgid ""
+"Register for free webinars to learn about Pressbooks features and best "
+"practices."
+msgstr ""
+
+#: templates/admin/dashboard/new-user.blade.php:6
+msgid "Welcome to"
+msgstr ""
+
+#: templates/admin/dashboard/new-user.blade.php:18
+msgid "Book Invitations"
+msgstr "ಪುಸ್ತಕ ಆಹ್ವಾನಗಳು"
+
+#: templates/admin/dashboard/new-user.blade.php:23
+msgid "You have been invited to join %1$s as %2$s"
+msgstr ""
+
+#: templates/admin/dashboard/new-user.blade.php:24
+msgid "Accept"
+msgstr "ಸ್ವೀಕರಿಸು"
+
+#: templates/admin/dashboard/new-user.blade.php:40
+msgid "Create a new book art"
+msgstr ""
+
+#: templates/admin/dashboard/new-user.blade.php:45
+#: templates/admin/dashboard/new-user.blade.php:52
+msgid "Create a book"
+msgstr ""
+
+#: templates/admin/dashboard/new-user.blade.php:47
+msgid ""
+"Create a new book full of engaging content: words, images, audio, video, "
+"footnotes, glossary terms, mathematical formula, interactive quizzes, and "
+"more."
+msgstr ""
+
+#: templates/admin/dashboard/new-user.blade.php:64
+msgid "Adapt a book art"
+msgstr ""
+
+#: templates/admin/dashboard/new-user.blade.php:69
+#: templates/admin/dashboard/new-user.blade.php:76
+msgid "Adapt a book"
+msgstr ""
+
+#: templates/admin/dashboard/new-user.blade.php:71
+msgid ""
+"Use our cloning tool to make your own personalized copy of any of the "
+"thousands of openly licensed educational books already published with "
+"Pressbooks."
+msgstr ""
 
 #: templates/admin/diagnostics.blade.php:5
 msgid "Please submit this information with any bug reports."
@@ -4948,23 +4944,23 @@ msgstr "ರಫ್ತು ಆಯ್ಕೆಗಳು"
 msgid "Supported formats"
 msgstr "ಬೆಂಬಲಿತ ಸ್ವರೂಪಗಳು"
 
-#: templates/admin/export.blade.php:39
+#: templates/admin/export.blade.php:40
 msgid "Other formats"
 msgstr "ಇತರ ಸ್ವರೂಪಗಳು"
 
-#: templates/admin/export.blade.php:58
+#: templates/admin/export.blade.php:60
 msgid "Your Theme"
 msgstr "ನಿಮ್ಮ ಥೀಮ್"
 
-#: templates/admin/export.blade.php:78
+#: templates/admin/export.blade.php:80
 msgid "Export Your Book"
 msgstr "ನಿಮ್ಮ ಪುಸ್ತಕವನ್ನು ರಫ್ತು ಮಾಡಿ"
 
-#: templates/admin/export.blade.php:83
+#: templates/admin/export.blade.php:85
 msgid "Latest Exports"
 msgstr "ಇತ್ತೀಚಿನ ರಫ್ತುಗಳು"
 
-#: templates/admin/institutions.blade.php:9
+#: templates/admin/institutions.blade.php:10
 msgid ""
 "This optional field can be used to display the institution(s) which created "
 "this resource. If your college or university is not listed, please contact "
@@ -5019,15 +5015,109 @@ msgstr "ಆರು ಅಂಕಿಗಳ ಹೆಕ್ಸಾಡೆಸಿಮಲ್ ಸ
 msgid "SVG/PNG Fonts"
 msgstr "ಎಸ್‍ವಿಜಿ/ಪಿಎನ್‍ಜಿ ಫಾಂಟ್‍ಗಳು"
 
-#: templates/admin/mathjax.blade.php:58
+#: templates/admin/mathjax.blade.php:59
 msgid ""
 "Affects exports (PDF, EPUB, MOBI.) Webbook uses CommonHTML. CommonHTML "
 "currently only supports MathJax’s default TeX fonts."
 msgstr "ರಫ್ತುಗಳ ಮೇಲೆ ಪರಿಣಾಮ ಬೀರುತ್ತದೆ (ಪಿಡಿಎಫ್, ಇಪಬ್, ಎಂಓಬಿಐ.) ವೆಬ್ ಬುಕ್ ಕಾಮನ್ ಎಚ್ ಟಿಎಮ್ ಎಲ್ ಅನ್ನು ಬಳಸುತ್ತದೆ. ಸಾಮಾನ್ಯ ಎಚ್ ಟಿಎಮ್ ಎಲ್ ಪ್ರಸ್ತುತ ಮ್ಯಾಥ್ ಜಾಕ್ಸ್ ನ ಡೀಫಾಲ್ಟ್ TATM ಅಕ್ಷರಗಳನ್ನು ಮಾತ್ರ ಬೆಂಬಲಿಸುತ್ತದೆ."
 
-#: templates/admin/mathjax.blade.php:64
+#: templates/admin/mathjax.blade.php:65
 msgid "Save Changes"
 msgstr "ಬದಲಾವಣೆಗಳನ್ನು ಉಳಿಸಿ"
+
+#: templates/admin/organize.blade.php:11 templates/admin/organize.blade.php:16
+msgid "This book’s global privacy is set to"
+msgstr ""
+
+#: templates/admin/organize.blade.php:27
+msgid ""
+"Anyone with the link can see your book. Public books are eligible to be "
+"listed in <a href=\"%s\">Pressbooks Directory</a>. Individual chapters can "
+"be set to private."
+msgstr ""
+
+#: templates/admin/organize.blade.php:39
+msgid ""
+"Only users you invite can see your book, regardless of individual chapter "
+"visibility below."
+msgstr ""
+
+#: templates/admin/organize.blade.php:63
+msgid "Add Glossary Term"
+msgstr "ಪದಕೋಶ ಪದವನ್ನು ಸೇರಿಸು"
+
+#: templates/admin/organize.blade.php:67
+msgid "Word Count:"
+msgstr "ಪದ ಎಣಿಕೆ:"
+
+#: templates/admin/organize.blade.php:67
+msgid "%s (whole book)"
+msgstr "%s (ಸಂಪೂರ್ಣ ಪುಸ್ತಕ)"
+
+#: templates/admin/organize.blade.php:69
+msgid "%s (selected for export)"
+msgstr "%s (ರಫ್ತಿಗೆ ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ)"
+
+#: templates/admin/organize.blade.php:91
+#: templates/admin/organize.blade.php:100
+msgid "Add"
+msgstr "ಸೇರಿಸಿ"
+
+#: templates/admin/organize.blade.php:109
+#: templates/admin/organize.blade.php:175
+msgid "Edit​%s"
+msgstr ""
+
+#: templates/admin/organize.blade.php:112
+msgid "Trash​%s"
+msgstr ""
+
+#: templates/admin/organize.blade.php:114
+msgid "View​%s"
+msgstr ""
+
+#: templates/admin/organize.blade.php:133
+msgid "Comments"
+msgstr "ಪ್ರತಿಕ್ರಿಯೆಗಳು"
+
+#: templates/admin/organize.blade.php:160
+#: templates/admin/organize.blade.php:168
+msgid "Ebook start point"
+msgstr "ಇಬುಕ್ ಪ್ರಾರಂಭ ಬಿಂದು"
+
+#: templates/admin/organize.blade.php:182
+msgid "Trash%s"
+msgstr ""
+
+#: templates/admin/organize.blade.php:187
+msgid "View%s"
+msgstr ""
+
+#: templates/admin/organize.blade.php:198
+msgid "Move%s Up"
+msgstr ""
+
+#: templates/admin/organize.blade.php:204
+msgid "Move%s Down"
+msgstr ""
+
+#: templates/admin/organize.blade.php:224
+msgid "comment"
+msgid_plural "comments"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/admin/organize.blade.php:236
+msgid "Show %s in Web"
+msgstr ""
+
+#: templates/admin/organize.blade.php:246
+msgid "Show %s in Exports"
+msgstr ""
+
+#: templates/admin/organize.blade.php:255
+msgid "Show title for %s"
+msgstr ""
 
 #: templates/admin/sitemap.blade.php:3
 msgid "Admin Bar"
@@ -5052,3 +5142,39 @@ msgid ""
 "One or more interactive elements has been excluded from this version of the "
 "text. You can view them online here: "
 msgstr ""
+
+#: assets/src/scripts/a11y.js:31 assets/src/scripts/a11y.js:32
+msgid "Gradient selector"
+msgstr ""
+
+#: assets/src/scripts/a11y.js:45
+msgid "Black"
+msgstr "ಕಪ್ಪು"
+
+#: assets/src/scripts/a11y.js:48
+msgid "White"
+msgstr "ಬಿಳಿ"
+
+#: assets/src/scripts/a11y.js:51
+msgid "Red"
+msgstr "ಕೆಂಪು"
+
+#: assets/src/scripts/a11y.js:54
+msgid "Orange"
+msgstr "ಕಿತ್ತಳೆ"
+
+#: assets/src/scripts/a11y.js:57
+msgid "Yellow"
+msgstr "ಹಳದಿ"
+
+#: assets/src/scripts/a11y.js:60
+msgid "Green"
+msgstr "ಹಸಿರು"
+
+#: assets/src/scripts/a11y.js:63
+msgid "Blue"
+msgstr "ನೀಲಿ"
+
+#: assets/src/scripts/a11y.js:66
+msgid "Purple"
+msgstr "ನೇರಳೆ"
