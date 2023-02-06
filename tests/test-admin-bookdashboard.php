@@ -7,7 +7,7 @@ use function Pressbooks\Admin\Metaboxes\upload_cover_image;
 /**
  * @group book-dashboard
  */
-class BookDashboardTest extends \WP_UnitTestCase {
+class Admin_BookDashboardTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
@@ -52,7 +52,7 @@ class BookDashboardTest extends \WP_UnitTestCase {
 		$user_id = $this->factory()->user->create( [ 'role' => 'subscriber' ] );
 		wp_set_current_user( $user_id );
 
-		$this->bookDashboard->renderBookDashboard();
+		$this->bookDashboard->renderDashboard();
 		$this->expectOutputRegex( '/<div class="book-dash wrap">/' );
 		$this->expectOutputRegex( '/^((?!<div class="pb-book-cover">).)*$/s' );
 		$this->expectOutputRegex( '/^((?!<div class="pb-dashboard-action">).)*$/s' );
@@ -66,7 +66,7 @@ class BookDashboardTest extends \WP_UnitTestCase {
 		$user_id = $this->factory()->user->create( [ 'role' => 'editor' ] );
 		wp_set_current_user( $user_id );
 
-		$this->bookDashboard->renderBookDashboard();
+		$this->bookDashboard->renderDashboard();
 		$this->expectOutputRegex( '/<div class="book-dash wrap">/' );
 		$this->expectOutputRegex( '/<div class="pb-book-cover">/' );
 		$this->expectOutputRegex( '/<div class="pb-dashboard-action">/' );
@@ -81,7 +81,7 @@ class BookDashboardTest extends \WP_UnitTestCase {
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
 
-		$this->bookDashboard->renderBookDashboard();
+		$this->bookDashboard->renderDashboard();
 		$this->expectOutputRegex( '/<div class="book-dash wrap">/' );
 		$this->expectOutputRegex( '/<div class="pb-book-cover">/' );
 		$this->expectOutputRegex( '/<div class="pb-dashboard-action">/' );
@@ -97,7 +97,7 @@ class BookDashboardTest extends \WP_UnitTestCase {
 		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
 
 		ob_start();
-		$this->bookDashboard->renderBookDashboard();
+		$this->bookDashboard->renderDashboard();
 		$output = ob_get_clean();
 
 		$this->assertStringContainsString( 'images/default-book-cover-225x0@2x.jpg', $output );
@@ -130,7 +130,7 @@ class BookDashboardTest extends \WP_UnitTestCase {
 		upload_cover_image( $post_id, null, $image );
 
 		ob_start();
-		$this->bookDashboard->renderBookDashboard();
+		$this->bookDashboard->renderDashboard();
 		$output = ob_get_clean();
 
 		$this->assertStringNotContainsString( 'images/default-book-cover-225x0@2x.jpg', $output );
