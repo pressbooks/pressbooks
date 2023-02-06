@@ -77,7 +77,7 @@ jobs:
       if: matrix.experimental == true
 
     - name: Run PHP Tests and PCOV
-      run: composer test-coverage
+      run: vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml --coverage-html=./coverage-reports --exclude-group=integrations
       if: matrix.experimental == false
 
     - name: Upload Coverage to Codecov
