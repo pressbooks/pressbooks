@@ -25,19 +25,6 @@ class UserDashboard extends Dashboard {
 		return ! is_network_admin();
 	}
 
-	public function addDashboard(): void {
-		$page = add_dashboard_page(
-			__( 'Dashboard', 'pressbooks' ),
-			__( 'Home', 'pressbooks' ),
-			'read',
-			$this->page_name,
-			[ $this, 'renderDashboard' ],
-			0,
-		);
-
-		$this->enqueueStyles( $page );
-	}
-
 	/**
 	 * @throws ContainerExceptionInterface
 	 * @throws Throwable

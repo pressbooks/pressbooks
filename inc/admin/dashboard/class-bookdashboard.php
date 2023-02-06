@@ -11,25 +11,14 @@ use Pressbooks\Container;
 use Pressbooks\Metadata;
 
 class BookDashboard extends Dashboard {
+	protected static ?Dashboard $instance = null;
+
 	protected string $page_name = 'book_dashboard';
 
 	public function shouldRedirect(): bool {
 		$screen = get_current_screen();
 
 		return $screen->base === 'dashboard';
-	}
-
-	public function addDashboard(): void {
-		$page = add_dashboard_page(
-			__( 'Dashboard', 'pressbooks' ),
-			__( 'Home', 'pressbooks' ),
-			'read',
-			$this->page_name,
-			[ $this, 'renderDashboard' ],
-			0,
-		);
-
-		$this->enqueueStyles( $page );
 	}
 
 	/**

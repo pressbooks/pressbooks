@@ -29,8 +29,6 @@ abstract class Dashboard {
 
 	public abstract function shouldRedirect(): bool;
 
-	public abstract function addDashboard(): void;
-
 	public abstract function renderDashboard(): void;
 
 	public function shouldRemoveDefaultDashboard(): bool {
@@ -57,6 +55,19 @@ abstract class Dashboard {
 		}
 
 		remove_submenu_page( $this->root_page, $this->root_page );
+	}
+
+	public function addDashboard(): void {
+		$page = add_dashboard_page(
+			__( 'Dashboard', 'pressbooks' ),
+			__( 'Home', 'pressbooks' ),
+			'read',
+			$this->page_name,
+			[ $this, 'renderDashboard' ],
+			0,
+		);
+
+		$this->enqueueStyles( $page );
 	}
 
 	public function enqueueStyles( string $page ): void {

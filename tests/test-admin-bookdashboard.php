@@ -8,7 +8,6 @@ use function Pressbooks\Admin\Metaboxes\upload_cover_image;
  * @group book-dashboard
  */
 class Admin_BookDashboardTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**

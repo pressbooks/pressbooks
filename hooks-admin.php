@@ -84,6 +84,10 @@ if ( is_main_site() && ! is_network_admin() ) {
 	add_action( 'plugins_loaded', [ \Pressbooks\Admin\Dashboard\UserDashboard::class, 'init' ] );
 }
 
+if ( is_main_site() && is_network_admin() ) {
+	add_action( 'plugins_loaded', [ \Pressbooks\Admin\Dashboard\NetworkDashboard::class, 'init' ] );
+}
+
 // Replace strings
 add_action( 'gettext', '\Pressbooks\Admin\Laf\sites_to_books', 3, 20 );
 
