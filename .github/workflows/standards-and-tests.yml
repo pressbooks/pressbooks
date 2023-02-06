@@ -73,7 +73,7 @@ jobs:
       run: bash bin/install-wp-tests.sh wordpress_test root root localhost ${{ matrix.wordpress }}
 
     - name: Run PHP Tests
-      run: composer test
+      run: composer test -- --exclude=integrations
       if: matrix.experimental == true
 
     - name: Run PHP Tests and PCOV
