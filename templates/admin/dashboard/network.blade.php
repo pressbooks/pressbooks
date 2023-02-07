@@ -14,8 +14,17 @@
 		<div class="pb-dashboard-panel pb-dashboard-stats">
 			<div class="pb-dashboard-content">
 				<div class="stat">
-					<p>{!! sprintf( __( 'Your network has %s books and %s users. ', 'pressbooks' ), "<strong>{$total_books}</strong>", "<strong>{$total_users}</strong>" ) !!}</p>
-					<a class="button button-primary" href="#">{{ __( 'Explore more stats', 'pressbooks' ) }}</a>
+					<p>
+						{!! sprintf( __( 'Your network has %s books and %s users. ', 'pressbooks' ), "<strong>{$total_books}</strong>", "<strong>{$total_users}</strong>" ) !!}
+					</p>
+					@if( $network_analytics_active )
+						<a
+							class="button button-primary"
+							href="{!! network_admin_url( 'admin.php?page=pb_network_analytics_admin' ) !!}"
+						>
+							{{ __( 'Explore more stats', 'pressbooks' ) }}
+						</a>
+					@endif
 				</div>
 			</div>
 		</div>
@@ -33,11 +42,29 @@
 							alt="{{ __( 'Create a new book art', 'pressbooks' ) }}"
 						/>
 
-						<div class="actions">
-							<a href="#">{{ __( 'Customize network appearance', 'pressbooks' ) }}</a>
-							<a href="#">{{ __( 'Create or edit pages', 'pressbooks' ) }}</a>
-							<a href="#">{{ __( 'View web analytics', 'pressbooks' ) }}</a>
-						</div>
+						<ul class="actions">
+							<li>
+								<a
+									href="{!! admin_url( 'customize.php?return=' . network_admin_url() ) !!}"
+								>
+									{{ __( 'Customize network appearance', 'pressbooks' ) }}
+								</a>
+							</li>
+							<li>
+								<a
+									href="{!! admin_url( 'edit.php?post_type=page' ) !!}"
+								>
+									{{ __( 'Create or edit pages', 'pressbooks' ) }}
+								</a>
+							</li>
+							@if( $koko_analytics_active )
+								<li>
+									<a
+										href="{!! admin_url( 'index.php?page=koko-analytics' ) !!}"
+									>{{ __( 'View web analytics', 'pressbooks' ) }}</a>
+								</li>
+							@endif
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -52,11 +79,29 @@
 							alt="{{ __( 'Create a new book art', 'pressbooks' ) }}"
 						/>
 
-						<div class="actions">
-							<a href="#">{{ __( 'Adjust network settings', 'pressbooks' ) }}</a>
-							<a href="#">{{ __( 'View book list', 'pressbooks' ) }}</a>
-							<a href="#">{{ __( 'View user list', 'pressbooks' ) }}</a>
-						</div>
+						<ul class="actions">
+							<li>
+								<a
+									href="{!! network_admin_url( $network_analytics_active ? 'settings.php?page=pb_network_analytics_options' : 'settings.php' ) !!}"
+								>
+									{{ __( 'Adjust network settings', 'pressbooks' ) }}
+								</a>
+							</li>
+							<li>
+								<a
+									href="{!! network_admin_url( $network_analytics_active ? 'sites.php?page=pb_network_analytics_booklist' : 'sites.php' ) !!}"
+								>
+									{{ __( 'View book list', 'pressbooks' ) }}
+								</a>
+							</li>
+							<li>
+								<a
+									href="{!! network_admin_url( $network_analytics_active ? 'users.php?page=pb_network_analytics_userlist' : 'users.php' ) !!}"
+								>
+									{{ __( 'View user list', 'pressbooks' ) }}
+								</a>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -98,16 +143,18 @@
 						</a>
 						<p>{{ __( 'Learn about doing more with your Pressbooks network from this webinar series.', 'pressbooks' ) }}</p>
 					</li>
-					<li class="resources" id="spotlight">
-						<a href="mailto:premiumsupport@pressbooks.com" target="_blank">
-							<img
-								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-premium-support.png" }}"
-								alt=""
-							/>
-							{{ __('Contact Pressbooks Support', 'pressbooks') }}
-						</a>
-						<p>{{ __( 'Email Pressbooks’ Premium Support team to report bugs or get personalized help.', 'pressbooks' ) }}</p>
-					</li>
+					@if( $network_analytics_active )
+						<li class="resources" id="spotlight">
+							<a href="mailto:premiumsupport@pressbooks.com" target="_blank">
+								<img
+									src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-premium-support.png" }}"
+									alt=""
+								/>
+								{{ __('Contact Pressbooks Support', 'pressbooks') }}
+							</a>
+							<p>{{ __( 'Email Pressbooks’ Premium Support team to report bugs or get personalized help.', 'pressbooks' ) }}</p>
+						</li>
+					@endif
 				</ul>
 			</div>
 		</div>

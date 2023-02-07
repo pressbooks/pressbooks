@@ -43,6 +43,8 @@ class NetworkDashboard extends Dashboard {
 			'network_name' => get_bloginfo( 'name' ),
 			'total_users' => get_user_count(),
 			'total_books' => $this->getTotalNumberOfBooks(),
+			'network_analytics_active' => is_plugin_active( 'pressbooks-network-analytics/pressbooks-network-analytics.php' ),
+			'koko_analytics_active' => is_plugin_active( 'koko-analytics/koko-analytics.php' ),
 		] );
 	}
 
