@@ -1,11 +1,29 @@
 <?php
 
-use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use Pressbooks\Admin\Dashboard\UserDashboard;
 
 class Admin_UserDashboardTest extends \WP_UnitTestCase {
 	use utilsTrait;
+
+	/**
+	 * @test
+	 */
+	public function it_checks_instance(): void {
+		$this->assertInstanceOf( UserDashboard::class, UserDashboard::init() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_checks_hooks(): void {
+		global $wp_filter;
+
+		UserDashboard::init()->hooks();
+
+		$this->assertArrayHasKey( 'load-index.php', $wp_filter );
+		$this->assertArrayHasKey( 'admin_head', $wp_filter );
+		$this->assertArrayHasKey( 'admin_menu', $wp_filter );
+	}
 
 	/**
 	 * @test
@@ -51,21 +69,5 @@ class Admin_UserDashboardTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( 'Create a book', $output );
 		$this->assertStringContainsString( 'Adapt a book', $output );
 		$this->assertStringContainsString( 'Book Invitations', $output );
-	}
-
-	protected function filterHookList( string $filter, string $method ): Collection {
-		global $wp_filter;
-
-		$hook = $wp_filter[ $filter ] ?? null;
-
-		if ( ! $hook ) {
-			return collect();
-		}
-
-		$hooks = array_keys( $hook->callbacks[10] );
-
-		return collect( $hooks )->filter(
-			fn( string $hook ) => Str::contains( $hook, $method )
-		);
 	}
 }
