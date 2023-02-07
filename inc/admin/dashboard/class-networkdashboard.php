@@ -39,6 +39,22 @@ class NetworkDashboard extends Dashboard {
 	public function renderDashboard(): void {
 		$blade = Container::get( 'Blade' );
 
-		echo $blade->render( 'admin.dashboard.network', [] );
+		echo $blade->render( 'admin.dashboard.network', [
+			'network_name' => get_bloginfo( 'name' ),
+			'total_users' => get_user_count(),
+			'total_books' => $this->getTotalNumberOfBooks(),
+		] );
+	}
+
+	protected function getTotalNumberOfBooks(): int {
+		global $wpdb;
+
+		return (int) $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT COUNT(DISTINCT blog_id) FROM {$wpdb->blogmeta} WHERE blog_id <> %d AND meta_key = %s",
+				get_network()->site_id,
+				'pb_book_sync_timestamp',
+			)
+		);
 	}
 }
