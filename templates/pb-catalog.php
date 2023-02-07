@@ -166,9 +166,8 @@ $_current_user_id = $catalog->getUserId();
 	<script src="<?php echo $assets->getPath( 'scripts/isotope.js' ); ?>" type="text/javascript"></script>
 	<script src="<?php echo $assets->getPath( 'scripts/small-menu.js' ); ?>" type="text/javascript"></script>
 	<script src="<?php echo $assets->getPath( 'scripts/catalog.js' ); ?>" type="text/javascript"></script>
-	<?php // @codingStandardsIgnoreEnd
-		$google_analytics = new \Pressbooks\GoogleAnalytics();
-		echo $google_analytics->printScripts(); ?>
+	<?php // @codingStandardsIgnoreEnd ?>
+	<?php \Pressbooks\GoogleAnalytics::init()->printScripts(); ?>
 </head>
 <?php if ( ! empty( $profile['pb_catalog_color'] ) ) : ?>
 <body style="background-image: none !important;">
