@@ -15,12 +15,6 @@ class BookDashboard extends Dashboard {
 
 	protected string $page_name = 'book_dashboard';
 
-	public function shouldRedirect(): bool {
-		$screen = get_current_screen();
-
-		return $screen->base === 'dashboard';
-	}
-
 	/**
 	 * @throws ContainerExceptionInterface
 	 * @throws Throwable
@@ -47,6 +41,12 @@ class BookDashboard extends Dashboard {
 			'write_chapter_url' => $permissions['edit_posts'] ? admin_url( 'post-new.php?post_type=chapter' ) : false,
 			'import_content_url' => $permissions['edit_posts'] ? admin_url( 'admin.php?page=pb_import' ) : false,
 		] );
+	}
+
+	protected function shouldRedirect(): bool {
+		$screen = get_current_screen();
+
+		return $screen->base === 'dashboard';
 	}
 
 	/**

@@ -17,20 +17,6 @@ class NetworkDashboard extends Dashboard {
 		add_action( 'network_admin_menu', [ $this, 'addDashboard' ] );
 	}
 
-	public function shouldRedirect(): bool {
-		$screen = get_current_screen();
-
-		return $screen->base === 'dashboard-network';
-	}
-
-	public function getRedirectUrl(): string {
-		return network_admin_url( "index.php?page={$this->page_name}" );
-	}
-
-	public function shouldRemoveDefaultDashboard(): bool {
-		return is_network_admin();
-	}
-
 	/**
 	 * @throws ContainerExceptionInterface
 	 * @throws Throwable
@@ -46,6 +32,20 @@ class NetworkDashboard extends Dashboard {
 			'network_analytics_active' => is_plugin_active( 'pressbooks-network-analytics/pressbooks-network-analytics.php' ),
 			'koko_analytics_active' => is_plugin_active( 'koko-analytics/koko-analytics.php' ),
 		] );
+	}
+
+	protected function shouldRedirect(): bool {
+		$screen = get_current_screen();
+
+		return $screen->base === 'dashboard-network';
+	}
+
+	protected function getRedirectUrl(): string {
+		return network_admin_url( "index.php?page={$this->page_name}" );
+	}
+
+	protected function shouldRemoveDefaultDashboard(): bool {
+		return is_network_admin();
 	}
 
 	protected function getTotalNumberOfBooks(): int {

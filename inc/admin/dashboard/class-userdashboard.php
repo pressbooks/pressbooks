@@ -13,18 +13,6 @@ class UserDashboard extends Dashboard {
 
 	protected string $page_name = 'pb_home_page';
 
-	public function shouldRedirect(): bool {
-		$screen = get_current_screen();
-
-		$dashboards = collect( [ 'dashboard', 'dashboard-user' ] );
-
-		return $dashboards->contains( $screen->base );
-	}
-
-	public function shouldRemoveDefaultDashboard(): bool {
-		return ! is_network_admin();
-	}
-
 	/**
 	 * @throws ContainerExceptionInterface
 	 * @throws Throwable
@@ -39,5 +27,17 @@ class UserDashboard extends Dashboard {
 			'can_clone_books' => Cloner::isEnabled() && ( can_create_new_books() || is_super_admin() ),
 			'invitations' => Invitations::getPendingInvitations(),
 		] );
+	}
+
+	protected function shouldRedirect(): bool {
+		$screen = get_current_screen();
+
+		$dashboards = collect( [ 'dashboard', 'dashboard-user' ] );
+
+		return $dashboards->contains( $screen->base );
+	}
+
+	protected function shouldRemoveDefaultDashboard(): bool {
+		return ! is_network_admin();
 	}
 }

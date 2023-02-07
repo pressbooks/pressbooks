@@ -27,17 +27,7 @@ abstract class Dashboard {
 		add_action( 'admin_menu', [ $this, 'addDashboard' ] );
 	}
 
-	public abstract function shouldRedirect(): bool;
-
 	public abstract function renderDashboard(): void;
-
-	public function shouldRemoveDefaultDashboard(): bool {
-		return true;
-	}
-
-	public function getRedirectUrl(): string {
-		return admin_url( "index.php?page={$this->page_name}" );
-	}
 
 	public function redirectToDashboard(): void {
 		if ( ! $this->shouldRedirect() ) {
@@ -76,5 +66,15 @@ abstract class Dashboard {
 
 			wp_enqueue_style( 'pb-book-dashboard', $assets->getPath( 'styles/pressbooks-dashboard.css' ) );
 		} );
+	}
+
+	protected abstract function shouldRedirect(): bool;
+
+	protected function shouldRemoveDefaultDashboard(): bool {
+		return true;
+	}
+
+	protected function getRedirectUrl(): string {
+		return admin_url( "index.php?page={$this->page_name}" );
 	}
 }
