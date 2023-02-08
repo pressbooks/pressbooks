@@ -18,7 +18,7 @@ class UserDashboard extends Dashboard {
 	 * @throws Throwable
 	 * @throws NotFoundExceptionInterface
 	 */
-	public function renderDashboard(): void {
+	public function render(): void {
 		$blade = Container::get( 'Blade' );
 
 		echo $blade->render( 'admin.dashboard.user', [
@@ -37,7 +37,7 @@ class UserDashboard extends Dashboard {
 		return $dashboards->contains( $screen->base );
 	}
 
-	protected function shouldRemoveDefaultDashboard(): bool {
+	protected function shouldRemoveDefaultPage(): bool {
 		return ! is_network_admin();
 	}
 }

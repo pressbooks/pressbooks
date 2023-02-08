@@ -22,42 +22,40 @@ abstract class Dashboard {
 	}
 
 	public function hooks(): void {
-		add_action( 'load-index.php', [ $this, 'redirectToDashboard' ] );
-		add_action( 'admin_head', [ $this, 'removeDefaultDashboard' ] );
-		add_action( 'admin_menu', [ $this, 'addDashboard' ] );
+		add_action( 'load-index.php', [ $this, 'redirect'] );
+		add_action( 'admin_head', [ $this, 'removeDefaultPage'] );
+		add_action( 'admin_menu', [ $this, 'addNewPage'] );
 	}
 
-	public abstract function renderDashboard(): void;
+	public abstract function render(): void;
 
-	public function getRedirectUrl(): string {
+	public function getUrl(): string {
 		return admin_url( "index.php?page={$this->page_name}" );
 	}
 
-	public function redirectToDashboard(): bool {
+	public function redirect(): bool {
 		if ( ! $this->shouldRedirect() ) {
 			return false;
 		}
 
-		return wp_redirect(
-			$this->getRedirectUrl()
-		);
+		return $this->doRedirect();
 	}
 
-	public function removeDefaultDashboard(): void {
-		if ( ! $this->shouldRemoveDefaultDashboard() ) {
+	public function removeDefaultPage(): void {
+		if ( ! $this->shouldRemoveDefaultPage() ) {
 			return;
 		}
 
 		remove_submenu_page( $this->root_page, $this->root_page );
 	}
 
-	public function addDashboard(): void {
+	public function addNewPage(): void {
 		$page = add_dashboard_page(
 			__( 'Dashboard', 'pressbooks' ),
 			__( 'Home', 'pressbooks' ),
 			'read',
 			$this->page_name,
-			[ $this, 'renderDashboard' ],
+			[ $this, 'render'],
 			0,
 		);
 
@@ -74,7 +72,11 @@ abstract class Dashboard {
 
 	protected abstract function shouldRedirect(): bool;
 
-	protected function shouldRemoveDefaultDashboard(): bool {
+	protected function shouldRemoveDefaultPage(): bool {
 		return true;
+	}
+
+	protected function doRedirect(): bool {
+		return wp_redirect( $this->getUrl() );
 	}
 }

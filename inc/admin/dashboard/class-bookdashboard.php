@@ -20,7 +20,7 @@ class BookDashboard extends Dashboard {
 	 * @throws Throwable
 	 * @throws NotFoundExceptionInterface
 	 */
-	public function renderDashboard(): void {
+	public function render(): void {
 		$blade = Container::get( 'Blade' );
 
 		$current_user = wp_get_current_user();

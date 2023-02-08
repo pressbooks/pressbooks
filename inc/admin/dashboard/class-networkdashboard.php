@@ -12,12 +12,12 @@ class NetworkDashboard extends Dashboard {
 	protected string $page_name = 'pb_network_page';
 
 	public function hooks(): void {
-		add_action( 'load-index.php', [ $this, 'redirectToDashboard' ] );
-		add_action( 'admin_head', [ $this, 'removeDefaultDashboard' ] );
-		add_action( 'network_admin_menu', [ $this, 'addDashboard' ] );
+		add_action( 'load-index.php', [ $this, 'redirect'] );
+		add_action( 'admin_head', [ $this, 'removeDefaultPage'] );
+		add_action( 'network_admin_menu', [ $this, 'addNewPage'] );
 	}
 
-	public function getRedirectUrl(): string {
+	public function getUrl(): string {
 		return network_admin_url( "index.php?page={$this->page_name}" );
 	}
 
@@ -26,7 +26,7 @@ class NetworkDashboard extends Dashboard {
 	 * @throws Throwable
 	 * @throws NotFoundExceptionInterface
 	 */
-	public function renderDashboard(): void {
+	public function render(): void {
 		$blade = Container::get( 'Blade' );
 
 		echo $blade->render( 'admin.dashboard.network', [
@@ -44,7 +44,7 @@ class NetworkDashboard extends Dashboard {
 		return $screen->base === 'dashboard-network';
 	}
 
-	protected function shouldRemoveDefaultDashboard(): bool {
+	protected function shouldRemoveDefaultPage(): bool {
 		return is_network_admin();
 	}
 

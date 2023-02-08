@@ -30,7 +30,7 @@ class Admin_UserDashboardTest extends \WP_UnitTestCase {
 	 */
 	public function it_renders_home_page(): void {
 		ob_start();
-		UserDashboard::init()->renderDashboard();
+		UserDashboard::init()->render();
 		$output = ob_get_clean();
 
 		$this->assertStringContainsString( 'Welcome to', $output );
@@ -62,7 +62,7 @@ class Admin_UserDashboardTest extends \WP_UnitTestCase {
 		do_action( 'invite_user', $user->ID, $role, $key );
 
 		ob_start();
-		UserDashboard::init()->renderDashboard();
+		UserDashboard::init()->render();
 		$output = ob_get_clean();
 
 		$this->assertStringContainsString( 'Welcome to', $output );
@@ -75,31 +75,43 @@ class Admin_UserDashboardTest extends \WP_UnitTestCase {
 	 * @test
 	 */
 	public function it_redirects_to_the_expected_page(): void {
+		$dashboard = $this->getMockBuilder( UserDashboard::class )
+			->onlyMethods( [ 'doRedirect' ] )
+			->getMock();
+
+		$dashboard
+			->expects( $this->exactly( 2 ) )
+			->method( 'doRedirect' )
+			->willReturn( true );
+
 		set_current_screen( 'dashboard' );
 
-		$dashboard = UserDashboard::init();
-
-		$this->assertSame( admin_url( 'index.php?page=pb_home_page' ), $dashboard->getRedirectUrl() );
-		$this->assertTrue(
-			$dashboard->redirectToDashboard()
-		);
+		$this->assertSame( admin_url( 'index.php?page=pb_home_page' ), $dashboard->getUrl() );
+		$this->assertTrue( $dashboard->redirect() );
 
 		set_current_screen( 'dashboard-user' );
 
-		$this->assertSame( admin_url( 'index.php?page=pb_home_page' ), $dashboard->getRedirectUrl() );
-		$this->assertTrue(
-			$dashboard->redirectToDashboard()
-		);
+		$this->assertSame( admin_url( 'index.php?page=pb_home_page' ), $dashboard->getUrl() );
+		$this->assertTrue( $dashboard->redirect() );
 	}
 
 	/**
 	 * @test
 	 */
 	public function it_does_not_redirect_when_not_the_right_screen(): void {
+		$dashboard = $this->getMockBuilder( UserDashboard::class )
+			->onlyMethods( [ 'doRedirect' ] )
+			->getMock();
+
+		$dashboard
+			->expects( $this->never() )
+			->method( 'doRedirect' )
+			->willReturn( true );
+
 		set_current_screen( 'dashboard-network' );
 
 		$this->assertFalse(
-			UserDashboard::init()->redirectToDashboard()
+			UserDashboard::init()->redirect()
 		);
 	}
 }
