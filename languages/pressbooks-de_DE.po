@@ -1779,7 +1779,7 @@ msgstr ""
 msgid ""
 "An invitation email has been sent to the user(s) below. A confirmation link "
 "must be clicked before their account is created."
-msgstr ""
+msgstr "Erstellt"
 
 #: inc/api/endpoints/controller/class-books.php:127
 #: inc/api/endpoints/controller/class-toc.php:151
@@ -4708,27 +4708,27 @@ msgid ""
 "for you to revise and redistribute as desired. You can enter the source book"
 " URL if you already know it, or find and select a suitable book from the "
 "Pressbooks Directory."
-msgstr ""
+msgstr "Mit diesem Tool können Sie offen lizenzierte Bücher von einem Pressbooks-Netzwerk in ein anderes klonen. Beim Klonen wird eine Kopie des Originalbuchs erstellt, die Sie nach Belieben überarbeiten und weitergeben können. Sie können die Quellbuch-URL eingeben, wenn Sie sie bereits kennen, oder ein geeignetes Buch aus dem Pressbooks-Verzeichnis suchen und auswählen."
 
 #: templates/admin/cloner/page.blade.php:9
 msgid ""
 "Enter the URL of a Pressbooks book with an open license which permits "
 "cloning."
-msgstr ""
+msgstr "Geben Sie die URL eines Pressbooks-Buchs mit einer offenen Lizenz ein, die das Klonen erlaubt."
 
 #: templates/admin/cloner/page.blade.php:10
 msgid "New Book URL"
-msgstr ""
+msgstr "URL des neues Buchs"
 
 #: templates/admin/cloner/page.blade.php:16
 msgid ""
 "Enter the URL where you want this book to be cloned. This URL cannot be "
 "changed later, so choose carefully."
-msgstr ""
+msgstr "Geben Sie die URL ein, unter der dieses Buch geklont werden soll. Diese URL kann später nicht mehr geändert werden, wählen Sie sie also sorgfältig aus."
 
 #: templates/admin/cloner/page.blade.php:17
 msgid "Clone book"
-msgstr ""
+msgstr "Buch klonen"
 
 #: templates/admin/cloner/page.blade.php:24
 msgid "Search the Pressbooks Directory"
@@ -4754,7 +4754,7 @@ msgstr ""
 
 #: templates/admin/cloner/stats.blade.php:7
 msgid "Total # of clones"
-msgstr ""
+msgstr "Gesamtzahl der Klone "
 
 #: templates/admin/cloner/stats.blade.php:11
 msgid "List of clones"
@@ -4811,7 +4811,7 @@ msgstr "Ein neues Kapitel erstellen"
 
 #: templates/admin/dashboard/book.blade.php:103
 msgid "Write a new chapter"
-msgstr ""
+msgstr "Ein neues Kapitel erstellen"
 
 #: templates/admin/dashboard/book.blade.php:109
 msgid "Import Content"
