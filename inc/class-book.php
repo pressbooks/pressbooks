@@ -67,14 +67,8 @@ class Book {
 	 *
 	 * @return bool
 	 */
-	static function isBook() {
-
-		// Currently, the main site is considered a "blog/landing page" whereas everything else is considered a "book".
-		// We might improve this in the future.
-
-		$is_book = ( is_main_site() === false );
-
-		return $is_book;
+	static function isBook(): bool {
+		return ! is_main_site();
 	}
 
 	/**

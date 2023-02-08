@@ -114,12 +114,6 @@ add_action( 'network_admin_notices', '\Pressbooks\Admin\Laf\admin_notices' );
 add_filter( 'admin_body_class', '\Pressbooks\Admin\NetworkManagers\admin_body_class' );
 add_action( 'network_admin_menu', '\Pressbooks\Admin\NetworkManagers\add_menu', 1 );
 add_action( 'wp_ajax_pb_update_admin_status', '\Pressbooks\Admin\NetworkManagers\update_admin_status' );
-add_action( 'admin_init', '\Pressbooks\Admin\NetworkManagers\restrict_access' );
-add_action( 'admin_menu', '\Pressbooks\Admin\NetworkManagers\hide_menus' );
-add_action( 'admin_bar_menu', '\Pressbooks\Admin\NetworkManagers\hide_admin_bar_menus', 999 );
-if ( ! $is_book ) {
-	add_action( 'network_admin_menu', '\Pressbooks\Admin\NetworkManagers\hide_network_menus', 999 );
-}
 
 // Interfaces around Custom Post Types and Taxonomies
 add_filter( 'post_row_actions', '\Pressbooks\PostType\row_actions', 10, 2 );
@@ -354,6 +348,15 @@ add_action( 'admin_init', '\Pressbooks\Theme\check_upgraded_customcss' );
 
 // Bulk add users
 add_action( 'init', [ '\Pressbooks\Admin\Users\UserBulk', 'init' ] );
+
+
+add_action( 'admin_init', '\Pressbooks\Admin\NetworkManagers\restrict_access' );
+
+add_action( 'admin_menu', '\Pressbooks\Admin\NetworkManagers\hide_menus' );
+add_action( 'admin_bar_menu', '\Pressbooks\Admin\NetworkManagers\hide_admin_bar_menus', 999 );
+if ( ! $is_book ) {
+	add_action( 'network_admin_menu', '\Pressbooks\Admin\NetworkManagers\hide_network_menus', 999 );
+}
 
 // Add & sanitize additional contact methods to user profile
 add_filter( 'user_contactmethods', '\Pressbooks\Admin\Laf\modify_user_contact_fields', 11 );
