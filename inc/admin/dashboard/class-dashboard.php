@@ -22,9 +22,9 @@ abstract class Dashboard {
 	}
 
 	public function hooks(): void {
-		add_action( 'load-index.php', [ $this, 'redirect'] );
-		add_action( 'admin_head', [ $this, 'removeDefaultPage'] );
-		add_action( 'admin_menu', [ $this, 'addNewPage'] );
+		add_action( 'load-index.php', [ $this, 'redirect' ] );
+		add_action( 'admin_head', [ $this, 'removeDefaultPage' ] );
+		add_action( 'admin_menu', [ $this, 'addNewPage' ] );
 	}
 
 	public abstract function render(): void;
@@ -55,7 +55,7 @@ abstract class Dashboard {
 			__( 'Home', 'pressbooks' ),
 			'read',
 			$this->page_name,
-			[ $this, 'render'],
+			[ $this, 'render' ],
 			0,
 		);
 

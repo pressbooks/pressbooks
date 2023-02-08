@@ -12,9 +12,9 @@ class NetworkDashboard extends Dashboard {
 	protected string $page_name = 'pb_network_page';
 
 	public function hooks(): void {
-		add_action( 'load-index.php', [ $this, 'redirect'] );
-		add_action( 'admin_head', [ $this, 'removeDefaultPage'] );
-		add_action( 'network_admin_menu', [ $this, 'addNewPage'] );
+		add_action( 'load-index.php', [ $this, 'redirect' ] );
+		add_action( 'admin_head', [ $this, 'removeDefaultPage' ] );
+		add_action( 'network_admin_menu', [ $this, 'addNewPage' ] );
 	}
 
 	public function getUrl(): string {
