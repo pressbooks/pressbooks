@@ -11,24 +11,10 @@ class Admin_BookDashboardTest extends \WP_UnitTestCase {
 	use utilsTrait;
 
 	/**
-	 * @var BookDashboard
-	 */
-	protected $bookDashboard;
-
-	/**
-	 * Test setup
-	 */
-	public function set_up() {
-		parent::set_up();
-
-		$this->bookDashboard = new BookDashboard();
-	}
-
-	/**
 	 * @test
 	 */
 	public function it_checks_instance(): void {
-		$this->assertInstanceOf( '\Pressbooks\Admin\Dashboard\BookDashboard', $this->bookDashboard->init() );
+		$this->assertInstanceOf( '\Pressbooks\Admin\Dashboard\BookDashboard', BookDashboard::init() );
 	}
 
 	/**
@@ -36,8 +22,9 @@ class Admin_BookDashboardTest extends \WP_UnitTestCase {
 	 */
 	public function it_checks_hooks(): void {
 		global $wp_filter;
-		$this->bookDashboard->init();
-		$this->bookDashboard->hooks();
+
+		BookDashboard::init()->hooks();
+
 		$this->assertArrayHasKey( 'load-index.php', $wp_filter );
 		$this->assertArrayHasKey( 'admin_head', $wp_filter );
 		$this->assertArrayHasKey( 'admin_menu', $wp_filter );
@@ -51,7 +38,7 @@ class Admin_BookDashboardTest extends \WP_UnitTestCase {
 		$user_id = $this->factory()->user->create( [ 'role' => 'subscriber' ] );
 		wp_set_current_user( $user_id );
 
-		$this->bookDashboard->renderDashboard();
+		BookDashboard::init()->renderDashboard();
 		$this->expectOutputRegex( '/<div class="book-dash wrap">/' );
 		$this->expectOutputRegex( '/^((?!<div class="pb-book-cover">).)*$/s' );
 		$this->expectOutputRegex( '/^((?!<div class="pb-dashboard-action">).)*$/s' );
@@ -65,7 +52,7 @@ class Admin_BookDashboardTest extends \WP_UnitTestCase {
 		$user_id = $this->factory()->user->create( [ 'role' => 'editor' ] );
 		wp_set_current_user( $user_id );
 
-		$this->bookDashboard->renderDashboard();
+		BookDashboard::init()->renderDashboard();
 		$this->expectOutputRegex( '/<div class="book-dash wrap">/' );
 		$this->expectOutputRegex( '/<div class="pb-book-cover">/' );
 		$this->expectOutputRegex( '/<div class="pb-dashboard-action">/' );
@@ -80,7 +67,7 @@ class Admin_BookDashboardTest extends \WP_UnitTestCase {
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
 
-		$this->bookDashboard->renderDashboard();
+		BookDashboard::init()->renderDashboard();
 		$this->expectOutputRegex( '/<div class="book-dash wrap">/' );
 		$this->expectOutputRegex( '/<div class="pb-book-cover">/' );
 		$this->expectOutputRegex( '/<div class="pb-dashboard-action">/' );
@@ -96,7 +83,7 @@ class Admin_BookDashboardTest extends \WP_UnitTestCase {
 		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
 
 		ob_start();
-		$this->bookDashboard->renderDashboard();
+		BookDashboard::init()->renderDashboard();
 		$output = ob_get_clean();
 
 		$this->assertStringContainsString( 'images/default-book-cover-225x0@2x.jpg', $output );
@@ -129,10 +116,41 @@ class Admin_BookDashboardTest extends \WP_UnitTestCase {
 		upload_cover_image( $post_id, null, $image );
 
 		ob_start();
-		$this->bookDashboard->renderDashboard();
+		BookDashboard::init()->renderDashboard();
 		$output = ob_get_clean();
 
 		$this->assertStringNotContainsString( 'images/default-book-cover-225x0@2x.jpg', $output );
 		$this->assertStringContainsString( 'data/upload/image_test.jpeg', $output );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_redirects_to_the_expected_page(): void {
+		set_current_screen( 'dashboard' );
+
+		$dashboard = BookDashboard::init();
+
+		$this->assertSame( admin_url( 'index.php?page=book_dashboard' ), $dashboard->getRedirectUrl() );
+		$this->assertTrue(
+			$dashboard->redirectToDashboard()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_does_not_redirect_when_not_the_right_screen(): void {
+		set_current_screen( 'dashboard-network' );
+
+		$this->assertFalse(
+			BookDashboard::init()->redirectToDashboard()
+		);
+
+		set_current_screen( 'dashboard-user' );
+
+		$this->assertFalse(
+			BookDashboard::init()->redirectToDashboard()
+		);
 	}
 }

@@ -70,4 +70,36 @@ class Admin_UserDashboardTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( 'Adapt a book', $output );
 		$this->assertStringContainsString( 'Book Invitations', $output );
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_redirects_to_the_expected_page(): void {
+		set_current_screen( 'dashboard' );
+
+		$dashboard = UserDashboard::init();
+
+		$this->assertSame( admin_url( 'index.php?page=pb_home_page' ), $dashboard->getRedirectUrl() );
+		$this->assertTrue(
+			$dashboard->redirectToDashboard()
+		);
+
+		set_current_screen( 'dashboard-user' );
+
+		$this->assertSame( admin_url( 'index.php?page=pb_home_page' ), $dashboard->getRedirectUrl() );
+		$this->assertTrue(
+			$dashboard->redirectToDashboard()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_does_not_redirect_when_not_the_right_screen(): void {
+		set_current_screen( 'dashboard-network' );
+
+		$this->assertFalse(
+			UserDashboard::init()->redirectToDashboard()
+		);
+	}
 }

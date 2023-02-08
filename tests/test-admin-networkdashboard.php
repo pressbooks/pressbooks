@@ -38,4 +38,35 @@ class Admin_NetworkDashboardTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( 'Administer your network', $output );
 		$this->assertStringContainsString( 'Support Resources', $output );
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_redirects_to_the_expected_page(): void {
+		set_current_screen( 'dashboard-network' );
+
+		$dashboard = NetworkDashboard::init();
+
+		$this->assertSame( network_admin_url( 'index.php?page=pb_network_page' ), $dashboard->getRedirectUrl() );
+		$this->assertTrue(
+			$dashboard->redirectToDashboard()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_does_not_redirect_when_not_the_right_screen(): void {
+		set_current_screen( 'dashboard' );
+
+		$this->assertFalse(
+			NetworkDashboard::init()->redirectToDashboard()
+		);
+
+		set_current_screen( 'dashboard-user' );
+
+		$this->assertFalse(
+			NetworkDashboard::init()->redirectToDashboard()
+		);
+	}
 }

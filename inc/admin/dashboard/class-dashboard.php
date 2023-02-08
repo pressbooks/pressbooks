@@ -29,12 +29,16 @@ abstract class Dashboard {
 
 	public abstract function renderDashboard(): void;
 
-	public function redirectToDashboard(): void {
+	public function getRedirectUrl(): string {
+		return admin_url( "index.php?page={$this->page_name}" );
+	}
+
+	public function redirectToDashboard(): bool {
 		if ( ! $this->shouldRedirect() ) {
-			return;
+			return false;
 		}
 
-		wp_redirect(
+		return wp_redirect(
 			$this->getRedirectUrl()
 		);
 	}
@@ -72,9 +76,5 @@ abstract class Dashboard {
 
 	protected function shouldRemoveDefaultDashboard(): bool {
 		return true;
-	}
-
-	protected function getRedirectUrl(): string {
-		return admin_url( "index.php?page={$this->page_name}" );
 	}
 }
