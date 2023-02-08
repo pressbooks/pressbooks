@@ -21,7 +21,6 @@ class Admin_UserDashboardTest extends \WP_UnitTestCase {
 		UserDashboard::init()->hooks();
 
 		$this->assertArrayHasKey( 'load-index.php', $wp_filter );
-		$this->assertArrayHasKey( 'admin_head', $wp_filter );
 		$this->assertArrayHasKey( 'admin_menu', $wp_filter );
 	}
 

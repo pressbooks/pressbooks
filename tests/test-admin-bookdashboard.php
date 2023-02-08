@@ -26,7 +26,6 @@ class Admin_BookDashboardTest extends \WP_UnitTestCase {
 		BookDashboard::init()->hooks();
 
 		$this->assertArrayHasKey( 'load-index.php', $wp_filter );
-		$this->assertArrayHasKey( 'admin_head', $wp_filter );
 		$this->assertArrayHasKey( 'admin_menu', $wp_filter );
 	}
 

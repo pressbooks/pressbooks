@@ -23,7 +23,7 @@ abstract class Dashboard {
 
 	public function hooks(): void {
 		add_action( 'load-index.php', [ $this, 'redirect' ] );
-		add_action( 'admin_head', [ $this, 'removeDefaultPage' ] );
+		add_action( 'admin_menu', [ $this, 'removeDefaultPage' ] );
 		add_action( 'admin_menu', [ $this, 'addNewPage' ] );
 	}
 

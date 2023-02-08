@@ -21,7 +21,6 @@ class Admin_NetworkDashboardTest extends \WP_UnitTestCase {
 		NetworkDashboard::init()->hooks();
 
 		$this->assertArrayHasKey( 'load-index.php', $wp_filter );
-		$this->assertArrayHasKey( 'admin_head', $wp_filter );
 		$this->assertArrayHasKey( 'network_admin_menu', $wp_filter );
 	}
 
