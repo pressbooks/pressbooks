@@ -38,7 +38,7 @@
 
 					<div>
 						<img
-							src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-customize-page.png" }}"
+							src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-root-site.png" }}"
 							alt="{{ __( 'Create a new book art', 'pressbooks' ) }}"
 						/>
 
@@ -75,7 +75,7 @@
 
 					<div>
 						<img
-							src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-administer-network.png" }}"
+							src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-network-settings.png" }}"
 							alt="{{ __( 'Create a new book art', 'pressbooks' ) }}"
 						/>
 
@@ -136,7 +136,7 @@
 					<li class="resources" id="spotlight">
 						<a href="https://pressbooks.com/webinars" target="_blank">
 							<img
-								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-webinars.png" }}"
+								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-spotlight-series.png" }}"
 								alt=""
 							/>
 							{{ __('Pressbooks spotlight series', 'pressbooks') }}
@@ -147,7 +147,7 @@
 						<li class="resources" id="spotlight">
 							<a href="mailto:premiumsupport@pressbooks.com" target="_blank">
 								<img
-									src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-premium-support.png" }}"
+									src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-contact-support.png" }}"
 									alt=""
 								/>
 								{{ __('Contact Pressbooks Support', 'pressbooks') }}
