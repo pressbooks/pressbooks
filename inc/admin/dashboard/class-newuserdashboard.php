@@ -55,7 +55,7 @@ class NewUserDashboard {
 	}
 
 	public function addPressbooksHomePage(): void {
-		$page = add_dashboard_page(
+		$page = add_menu_page(
 			__( 'Dashboard', 'pressbooks' ),
 			__( 'Home', 'pressbooks' ),
 			'read',
