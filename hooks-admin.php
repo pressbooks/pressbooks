@@ -80,8 +80,12 @@ if ( $is_book ) {
 	// See Pressbooks\Privacy::addPrivacyPolicyContent() for reference.
 }
 
-if ( true === is_main_site() ) {
-	add_action( 'plugins_loaded', [ \Pressbooks\Admin\Dashboard\NewUserDashboard::class, 'init' ] );
+if ( is_main_site() && ! is_network_admin() ) {
+	add_action( 'plugins_loaded', [ \Pressbooks\Admin\Dashboard\UserDashboard::class, 'init' ] );
+}
+
+if ( is_main_site() && is_network_admin() ) {
+	add_action( 'plugins_loaded', [ \Pressbooks\Admin\Dashboard\NetworkDashboard::class, 'init' ] );
 }
 
 // Replace strings
