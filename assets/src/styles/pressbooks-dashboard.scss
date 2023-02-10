@@ -37,21 +37,41 @@
   margin-bottom: 1rem;
   max-width: 1220px;
 
+  .flex-wide {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    p, a {
+      margin: 0;
+      display: inline-block;
+    }
+  }
+
   .pb-dashboard-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+
+    .pb-dashboard-grid-image {
+      max-width: 225px;
+    }
   }
 
-  .button.button-hero {
+  .button.button-hero, .button.button-primary {
     font-size: 1.125rem;
     font-weight: 700;
     text-align: center;
     border-radius: 10px;
     display: block;
+    padding: 0 1.5rem;
+  }
+
+  .button.button-hero {
     width: 100%;
     margin-bottom: 1rem;
   }
+
 
   ul.horizontal {
     display: grid;
@@ -97,30 +117,22 @@
       font-size: 1.4rem;
       font-weight: 300;
     }
+
+    .pb-dashboard-flex {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      margin: 1rem 0;
+
+      img {
+        max-width: 225px;
+      }
+    }
   }
 
   .pb-dashboard-panel {
     background-color: $white;
     padding: 1.5rem;
-
-    &.pb-dashboard-invitations {
-      .invitation {
-        align-items: center;
-        display: flex;
-        justify-content: space-between;
-
-        p {
-          margin: .75rem 0;
-        }
-
-        a.button {
-          margin-left: 1rem;
-          padding: 0 1.5rem;
-          font-size: 1.125rem;
-          border-radius: 10px;
-        }
-      }
-    }
   }
 
   ul.pb-dashboard-action {

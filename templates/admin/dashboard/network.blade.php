@@ -11,9 +11,9 @@
 	</div>
 
 	<div class="pb-dashboard-row">
-		<div class="pb-dashboard-panel pb-dashboard-stats">
+		<div class="pb-dashboard-panel">
 			<div class="pb-dashboard-content">
-				<div class="stat">
+				<div class="flex-wide">
 					<p>
 						{!! sprintf( __( 'Your network has %s books and %s users. ', 'pressbooks' ), "<strong>{$total_books}</strong>", "<strong>{$total_users}</strong>" ) !!}
 					</p>
@@ -36,10 +36,11 @@
 				<div class="pb-dashboard-content">
 					<h2>{{ __( 'Update your home page', 'pressbooks' ) }}</h2>
 
-					<div>
+					<div class="pb-dashboard-flex">
 						<img
+							class="pb-dashboard-flex-image"
 							src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-root-site.png" }}"
-							alt="{{ __( 'Create a new book art', 'pressbooks' ) }}"
+							alt="{{ __( 'Update your home page art', 'pressbooks' ) }}"
 						/>
 
 						<ul class="actions">
@@ -73,10 +74,11 @@
 				<div class="pb-dashboard-content">
 					<h2>{{ __( 'Administer your network', 'pressbooks' ) }}</h2>
 
-					<div>
+					<div class="pb-dashboard-flex">
 						<img
+							class="pb-dashboard-flex-image"
 							src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-network-settings.png" }}"
-							alt="{{ __( 'Create a new book art', 'pressbooks' ) }}"
+							alt="{{ __( 'Administer your network art', 'pressbooks' ) }}"
 						/>
 
 						<ul class="actions">
