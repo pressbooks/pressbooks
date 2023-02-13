@@ -349,7 +349,6 @@ add_action( 'admin_init', '\Pressbooks\Theme\check_upgraded_customcss' );
 // Bulk add users
 add_action( 'init', [ '\Pressbooks\Admin\Users\UserBulk', 'init' ] );
 
-
 add_action( 'admin_init', '\Pressbooks\Admin\NetworkManagers\restrict_access' );
 
 add_action( 'admin_menu', '\Pressbooks\Admin\NetworkManagers\hide_menus' );
@@ -366,4 +365,7 @@ add_action( 'edit_user_profile', '\Pressbooks\Admin\Laf\add_user_profile_fields'
 add_action( 'edit_user_profile_update', '\Pressbooks\Admin\Laf\update_user_profile_fields', 11 );
 add_action( 'personal_options_update', '\Pressbooks\Admin\Laf\update_user_profile_fields', 11 );
 
-add_action( 'wp_loaded', [ '\Pressbooks\Admin\Menus\SideBar', 'init'] );
+
+add_action( 'plugins_loaded', [ '\Pressbooks\Admin\Menus\SideBar', 'init'] );
+add_action( 'plugins_loaded', [ \Pressbooks\Admin\Menus\TopBar::class, 'init' ] );
+
