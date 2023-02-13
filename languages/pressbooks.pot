@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-02-08T17:30:23+00:00\n"
+"POT-Creation-Date: 2023-02-13T15:24:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: pressbooks\n"
@@ -535,15 +535,13 @@ msgstr ""
 msgid "Your image is the wrong aspect ratio. The image must have an aspect ratio of %1$s to %2$s."
 msgstr ""
 
-#: inc/admin/dashboard/class-bookdashboard.php:55
-#: inc/admin/dashboard/class-newuserdashboard.php:59
+#: inc/admin/dashboard/class-dashboard.php:54
 #: inc/admin/laf/namespace.php:858
 #: inc/admin/laf/namespace.php:933
 msgid "Dashboard"
 msgstr ""
 
-#: inc/admin/dashboard/class-bookdashboard.php:56
-#: inc/admin/dashboard/class-newuserdashboard.php:60
+#: inc/admin/dashboard/class-dashboard.php:55
 msgid "Home"
 msgstr ""
 
@@ -4632,6 +4630,7 @@ msgid "Import Content"
 msgstr ""
 
 #: templates/admin/dashboard/book.blade.php:123
+#: templates/admin/dashboard/network.blade.php:124
 msgid "Support Resources"
 msgstr ""
 
@@ -4652,6 +4651,7 @@ msgid "Find help and how-tos for your publishing project in this detailed handbo
 msgstr ""
 
 #: templates/admin/dashboard/book.blade.php:154
+#: templates/admin/dashboard/network.blade.php:143
 msgid "Pressbooks community forum"
 msgstr ""
 
@@ -4667,45 +4667,122 @@ msgstr ""
 msgid "Register for free webinars to learn about Pressbooks features and best practices."
 msgstr ""
 
-#: templates/admin/dashboard/new-user.blade.php:6
+#: templates/admin/dashboard/network.blade.php:6
+#: templates/admin/dashboard/user.blade.php:6
 msgid "Welcome to"
 msgstr ""
 
-#: templates/admin/dashboard/new-user.blade.php:18
+#: templates/admin/dashboard/network.blade.php:19
+msgid "Your network has %s books and %s users. "
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:27
+msgid "Explore more stats"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:40
+msgid "Update your home page"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:46
+msgid "Update your home page art"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:54
+msgid "Customize network appearance"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:62
+msgid "Create or edit pages"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:70
+msgid "View web analytics"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:80
+msgid "Administer your network"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:86
+msgid "Administer your network art"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:94
+msgid "Adjust network settings"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:102
+msgid "View book list"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:110
+msgid "View user list"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:132
+msgid "Network manager guide"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:135
+msgid "Learn how to administer your Pressbooks network from our comprehensive how-to guide."
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:146
+msgid "Discuss issues of interest with other network managers and Pressbooks support staff."
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:154
+msgid "Pressbooks spotlight series"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:157
+msgid "Learn about doing more with your Pressbooks network from this webinar series."
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:166
+msgid "Contact Pressbooks Support"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:169
+msgid "Email Pressbooks’ Premium Support team to report bugs or get personalized help."
+msgstr ""
+
+#: templates/admin/dashboard/user.blade.php:18
 msgid "Book Invitations"
 msgstr ""
 
-#: templates/admin/dashboard/new-user.blade.php:23
+#: templates/admin/dashboard/user.blade.php:23
 msgid "You have been invited to join %1$s as %2$s"
 msgstr ""
 
-#: templates/admin/dashboard/new-user.blade.php:24
+#: templates/admin/dashboard/user.blade.php:24
 msgid "Accept"
 msgstr ""
 
-#: templates/admin/dashboard/new-user.blade.php:40
+#: templates/admin/dashboard/user.blade.php:40
 msgid "Create a new book art"
 msgstr ""
 
-#: templates/admin/dashboard/new-user.blade.php:45
-#: templates/admin/dashboard/new-user.blade.php:52
+#: templates/admin/dashboard/user.blade.php:45
+#: templates/admin/dashboard/user.blade.php:52
 msgid "Create a book"
 msgstr ""
 
-#: templates/admin/dashboard/new-user.blade.php:47
+#: templates/admin/dashboard/user.blade.php:47
 msgid "Create a new book full of engaging content: words, images, audio, video, footnotes, glossary terms, mathematical formula, interactive quizzes, and more."
 msgstr ""
 
-#: templates/admin/dashboard/new-user.blade.php:64
+#: templates/admin/dashboard/user.blade.php:64
 msgid "Adapt a book art"
 msgstr ""
 
-#: templates/admin/dashboard/new-user.blade.php:69
-#: templates/admin/dashboard/new-user.blade.php:76
+#: templates/admin/dashboard/user.blade.php:69
+#: templates/admin/dashboard/user.blade.php:76
 msgid "Adapt a book"
 msgstr ""
 
-#: templates/admin/dashboard/new-user.blade.php:71
+#: templates/admin/dashboard/user.blade.php:71
 msgid "Use our cloning tool to make your own personalized copy of any of the thousands of openly licensed educational books already published with Pressbooks."
 msgstr ""
 
