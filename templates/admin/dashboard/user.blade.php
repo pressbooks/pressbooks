@@ -17,7 +17,7 @@
 					<h2>{{ __( 'Book Invitations', 'pressbooks' ) }}</h2>
 
 					@foreach( $invitations as $invitation )
-						<div class="invitation">
+						<div class="flex-wide">
 							<p>{!! sprintf( __( 'You have been invited to join %1$s as %2$s', 'pressbooks' ), $invitation['book_url'], $invitation['role'] ) !!}</p>
 							<a class="button button-primary" href="{{ $invitation['accept_link'] }}">{{ __( 'Accept', 'pressbooks' ) }}</a>
 						</div>

@@ -7,72 +7,20 @@ namespace Pressbooks\Admin\Dashboard;
 use function Pressbooks\Admin\Laf\book_info_slug;
 use function Pressbooks\Image\thumbnail_from_url;
 use Illuminate\Support\Str;
-use PressbooksMix\Assets;
 use Pressbooks\Container;
 use Pressbooks\Metadata;
 
-class BookDashboard {
-	protected static ?BookDashboard $instance = null;
+class BookDashboard extends Dashboard {
+	protected static ?Dashboard $instance = null;
 
-	protected string $menu = 'index.php';
-
-	protected string $submenu = 'book_dashboard';
-
-	public static function init(): BookDashboard {
-		if ( ! static::$instance ) {
-			static::$instance = new static();
-
-			static::$instance->hooks();
-		}
-
-		return static::$instance;
-	}
-
-	public function hooks(): void {
-		add_action( 'load-index.php', [ $this, 'redirectToBookDash' ] );
-		add_action( 'admin_head', [ $this, 'removeDefaultBookDash' ] );
-		add_action( 'admin_menu', [ $this, 'addPressbooksBookDash' ] );
-	}
-
-	public function redirectToBookDash(): void {
-		$screen = get_current_screen();
-
-		if ( $screen->base !== 'dashboard' ) {
-			return;
-		}
-
-		wp_redirect(
-			admin_url( "index.php?page={$this->submenu}" )
-		);
-	}
-
-	public function removeDefaultBookDash(): void {
-		remove_submenu_page( $this->menu, $this->menu );
-	}
-
-	public function addPressbooksBookDash(): void {
-		$page = add_dashboard_page(
-			__( 'Dashboard', 'pressbooks' ),
-			__( 'Home', 'pressbooks' ),
-			'read',
-			$this->submenu,
-			[ $this, 'renderBookDashboard' ],
-			0,
-		);
-
-		add_action( "admin_print_styles-{$page}", function() {
-			$assets = new Assets( 'pressbooks', 'plugin' );
-
-			wp_enqueue_style( 'pb-book-dashboard', $assets->getPath( 'styles/pressbooks-dashboard.css' ) );
-		} );
-	}
+	protected string $page_name = 'book_dashboard';
 
 	/**
-	 * @throws \Psr\Container\ContainerExceptionInterface
-	 * @throws \Throwable
-	 * @throws \Psr\Container\NotFoundExceptionInterface
+	 * @throws ContainerExceptionInterface
+	 * @throws Throwable
+	 * @throws NotFoundExceptionInterface
 	 */
-	public function renderBookDashboard(): void {
+	public function render(): void {
 		$blade = Container::get( 'Blade' );
 
 		$current_user = wp_get_current_user();
@@ -95,12 +43,18 @@ class BookDashboard {
 		] );
 	}
 
+	protected function shouldRedirect(): bool {
+		$screen = get_current_screen();
+
+		return $screen->base === 'dashboard';
+	}
+
 	/**
 	 * Get user permissions according his capabilities and super admin status.
 	 *
 	 * @return array
 	 */
-	private function getUserPermissions(): array {
+	protected function getUserPermissions(): array {
 		$is_super_admin = is_super_admin();
 		$post_meta_id = ( new Metadata() )->getMetaPostId();
 
@@ -114,12 +68,22 @@ class BookDashboard {
 		];
 	}
 
+	/**
+	 * Get the current book cover.
+	 *
+	 * @return string
+	 */
 	protected function getBookCover(): string {
-		$cover_image = get_post_meta( ( new Metadata )->getMetaPostId(), 'pb_cover_image', true );
+		$cover_image = get_post_meta(
+			( new Metadata )->getMetaPostId(), 'pb_cover_image', true
+		);
+
 		$cover_image = Str::of( $cover_image );
+
 		if ( $cover_image->endsWith( 'default-book-cover.jpg' ) ) {
 			return $cover_image->replace( 'default-book-cover.jpg', 'default-book-cover-225x0@2x.jpg' );
 		}
+
 		return thumbnail_from_url( $cover_image, 'pb_cover_medium' );
 	}
 }

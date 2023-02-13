@@ -3,6 +3,7 @@
 namespace Pressbooks\Admin\Menus;
 
 use function Pressbooks\Admin\Laf\can_create_new_books;
+use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use Illuminate\Support\Str;
 use Pressbooks\Cloner\Cloner;
 use WP_Admin_Bar;
@@ -31,10 +32,17 @@ class TopBar {
 	}
 
 	public function reset( WP_Admin_Bar $bar ): void {
-		$bar->remove_node( 'wp-logo' );
-		$bar->remove_node( 'pb-network-admin' ); // This will be reworked
-		$bar->remove_node( 'pb-site-admin' ); // This wil be reworked
-		$bar->remove_node( 'my-books' );
+		$nodes = collect( [
+			'wp-logo',
+			'pb-network-admin',
+			'pb-site-admin',
+			'my-books',
+			'my-books-list',
+		] );
+
+		collect( $bar->get_nodes() )
+			->filter( fn ( $node ) => $nodes->contains( $node->id ) || $nodes->contains( $node->parent ) )
+			->each( fn ( $node ) => $bar->remove_node( $node->id ) );
 	}
 
 	public function add( WP_Admin_Bar $bar ): void {
@@ -92,16 +100,64 @@ class TopBar {
 	}
 
 	protected function addAdministerNetwork( WP_Admin_Bar $bar ): void {
-		$metadata = [
-			'class' => is_network_admin() ? 'active' : null,
+		$main_id = 'pb-administer-network';
+		$network_analytics_active = is_plugin_active( 'pressbooks-network-analytics/pressbooks-network-analytics.php' );
+
+		$submenus = [
+			'pb-administer-network-d' => [
+				'title' => __( 'Dashboard', 'pressbooks' ),
+				'href' => network_admin_url( 'index.php?pb_network_page' ),
+				'visible' => true,
+			],
+			'pb-administer-books' => [
+				'title' => __( 'Books', 'pressbooks' ),
+				'href' => network_admin_url( $network_analytics_active ? 'sites.php?page=pb_network_analytics_booklist' : 'sites.php' ),
+				'visible' => true,
+			],
+			'pb-administer-users' => [
+				'title' => __( 'Users', 'pressbooks' ),
+				'href' => network_admin_url( $network_analytics_active ? 'users.php?page=pb_network_analytics_userlist' : 'users.php' ),
+				'visible' => true,
+			],
+			'pb-administer-appearance' => [
+				'title' => __( 'Appearance', 'pressbooks' ),
+				'href' => admin_url( 'customize.php?return=' . network_admin_url() ),
+				'visible' => true,
+			],
+			'pb-administer-pages' => [
+				'title' => __( 'Pages', 'pressbooks' ),
+				'href' => admin_url( 'edit.php?post_type=page' ),
+				'visible' => true,
+			],
+			'pb-administer-plugins' => [
+				'title' => __( 'Plugins', 'pressbooks' ),
+				'href' => network_admin_url( 'plugins.php' ),
+				'visible' => ! is_restricted(),
+			],
+			'pb-administer-settings' => [
+				'title' => __( 'Settings', 'pressbooks' ),
+				'href' => network_admin_url( $network_analytics_active ? 'settings.php?page=pb_network_analytics_options' : 'settings.php' ),
+				'visible' => true,
+			],
 		];
 
-		$bar->add_node([
-			'id' => 'pb-administer-network',
+		$bar->add_node( [
+			'id' => $main_id,
 			'title' => __( 'Administer Network', 'pressbooks' ),
-			'href' => network_admin_url(), // TODO: this should be the URL to the new dashboard
-			'meta' => array_filter( $metadata ),
-		]);
+			'href' => network_admin_url( 'index.php?pb_network_page' ),
+			'meta' => [
+				'class' => is_network_admin() ? 'active' : null,
+			],
+		] );
+
+		collect( $submenus )
+			->filter( fn ( array $submenu ) => $submenu['visible'] )
+			->each(fn ( array $submenu, string $id ) => $bar->add_node( [
+				'id' => $id,
+				'parent' => $main_id,
+				'title' => $submenu['title'],
+				'href' => $submenu['href'],
+			] ) );
 	}
 
 	protected function addMyBooks( WP_Admin_Bar $bar ): void {
@@ -124,7 +180,10 @@ class TopBar {
 
 		$bar->add_group( [
 			'parent' => 'pb-my-books',
-			'id' => 'my-books-list',
+			'id' => 'pb-my-books-list',
+			'meta' => [
+				'class' => 'ab-sub-secondary ab-submenu',
+			],
 		] );
 
 		$books->each(function( object $book ) use ( $bar ) {
@@ -135,9 +194,9 @@ class TopBar {
 			$title = $book->blogname ?? $book->domain;
 
 			$bar->add_node( [
-				'parent' => 'my-books',
+				'parent' => 'pb-my-books-list',
 				'id' => "book-{$book->userblog_id}",
-				'title' => "<span class='blavatar' /> {$title}",
+				'title' => "<span class='blavatar'></span> {$title}",
 				'href' => get_admin_url( $book->userblog_id ),
 			] );
 		} );
