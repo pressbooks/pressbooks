@@ -31,10 +31,17 @@ class TopBar {
 	}
 
 	public function reset( WP_Admin_Bar $bar ): void {
-		$bar->remove_node( 'wp-logo' );
-		$bar->remove_node( 'pb-network-admin' ); // This will be reworked
-		$bar->remove_node( 'pb-site-admin' ); // This wil be reworked
-		$bar->remove_node( 'my-books' );
+		$nodes = collect( [
+			'wp-logo',
+			'pb-network-admin',
+			'pb-site-admin',
+			'my-books',
+			'my-books-list',
+		] );
+
+		collect( $bar->get_nodes() )
+			->filter( fn ( $node ) => $nodes->contains( $node->id ) || $nodes->contains( $node->parent ) )
+			->each( fn ( $node ) => $bar->remove_node( $node->id ) );
 	}
 
 	public function add( WP_Admin_Bar $bar ): void {
@@ -124,7 +131,10 @@ class TopBar {
 
 		$bar->add_group( [
 			'parent' => 'pb-my-books',
-			'id' => 'my-books-list',
+			'id' => 'pb-my-books-list',
+			'meta' => [
+				'class' => 'ab-sub-secondary ab-submenu',
+			],
 		] );
 
 		$books->each(function( object $book ) use ( $bar ) {
@@ -135,9 +145,9 @@ class TopBar {
 			$title = $book->blogname ?? $book->domain;
 
 			$bar->add_node( [
-				'parent' => 'my-books',
+				'parent' => 'pb-my-books-list',
 				'id' => "book-{$book->userblog_id}",
-				'title' => "<span class='blavatar' /> {$title}",
+				'title' => "<span class='blavatar'></span> {$title}",
 				'href' => get_admin_url( $book->userblog_id ),
 			] );
 		} );
