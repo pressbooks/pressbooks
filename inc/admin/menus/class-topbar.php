@@ -3,6 +3,7 @@
 namespace Pressbooks\Admin\Menus;
 
 use function Pressbooks\Admin\Laf\can_create_new_books;
+use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use Illuminate\Support\Str;
 use Pressbooks\Cloner\Cloner;
 use WP_Admin_Bar;
@@ -99,16 +100,64 @@ class TopBar {
 	}
 
 	protected function addAdministerNetwork( WP_Admin_Bar $bar ): void {
-		$metadata = [
-			'class' => is_network_admin() ? 'active' : null,
+		$main_id = 'pb-administer-network';
+		$network_analytics_active = is_plugin_active( 'pressbooks-network-analytics/pressbooks-network-analytics.php' );
+
+		$submenus = [
+			'pb-administer-network-d' => [
+				'title' => __( 'Dashboard', 'pressbooks' ),
+				'href' => network_admin_url( 'index.php?pb_network_page' ),
+				'visible' => true,
+			],
+			'pb-administer-books' => [
+				'title' => __( 'Books', 'pressbooks' ),
+				'href' => network_admin_url( $network_analytics_active ? 'sites.php?page=pb_network_analytics_booklist' : 'sites.php' ),
+				'visible' => true,
+			],
+			'pb-administer-users' => [
+				'title' => __( 'Users', 'pressbooks' ),
+				'href' => network_admin_url( $network_analytics_active ? 'users.php?page=pb_network_analytics_userlist' : 'users.php' ),
+				'visible' => true,
+			],
+			'pb-administer-appearance' => [
+				'title' => __( 'Appearance', 'pressbooks' ),
+				'href' => admin_url( 'customize.php?return=' . network_admin_url() ),
+				'visible' => true,
+			],
+			'pb-administer-pages' => [
+				'title' => __( 'Pages', 'pressbooks' ),
+				'href' => admin_url( 'edit.php?post_type=page' ),
+				'visible' => true,
+			],
+			'pb-administer-plugins' => [
+				'title' => __( 'Plugins', 'pressbooks' ),
+				'href' => network_admin_url( 'plugins.php' ),
+				'visible' => ! is_restricted(),
+			],
+			'pb-administer-settings' => [
+				'title' => __( 'Settings', 'pressbooks' ),
+				'href' => network_admin_url( $network_analytics_active ? 'settings.php?page=pb_network_analytics_options' : 'settings.php' ),
+				'visible' => true,
+			],
 		];
 
-		$bar->add_node([
-			'id' => 'pb-administer-network',
+		$bar->add_node( [
+			'id' => $main_id,
 			'title' => __( 'Administer Network', 'pressbooks' ),
-			'href' => network_admin_url(), // TODO: this should be the URL to the new dashboard
-			'meta' => array_filter( $metadata ),
-		]);
+			'href' => network_admin_url( 'index.php?pb_network_page' ),
+			'meta' => [
+				'class' => is_network_admin() ? 'active' : null,
+			],
+		] );
+
+		collect( $submenus )
+			->filter( fn ( array $submenu ) => $submenu['visible'] )
+			->each(fn ( array $submenu, string $id ) => $bar->add_node( [
+				'id' => $id,
+				'parent' => $main_id,
+				'title' => $submenu['title'],
+				'href' => $submenu['href'],
+			] ) );
 	}
 
 	protected function addMyBooks( WP_Admin_Bar $bar ): void {
