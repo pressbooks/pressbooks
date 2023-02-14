@@ -2,7 +2,6 @@
 
 namespace Pressbooks\Admin\Menus;
 
-use PressbooksNetworkAnalytics\Admin\Options;
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 
 class SideBar {
@@ -33,8 +32,7 @@ class SideBar {
 		$this->manageIntegrationsAdminMenuItem();
 	}
 
-	public function reorderMenu(): array
-	{
+	public function reorderMenu(): array {
 		$is_network_analytics_active = is_plugin_active( 'pressbooks-network-analytics/pressbooks-network-analytics.php' );
 
 		$items_order = [
@@ -55,9 +53,9 @@ class SideBar {
 
 		if ( $is_network_analytics_active ) {
 			$items_order[] = ! is_network_admin() ?
-				network_admin_url('admin.php?page=pb_network_analytics_admin' ) :
+				network_admin_url( 'admin.php?page=pb_network_analytics_admin' ) :
 				'admin.php?page=pb_network_analytics_admin';
-		} else if ( is_plugin_active( 'koko-analytics/koko-analytics.php' ) ) {
+		} elseif ( is_plugin_active( 'koko-analytics/koko-analytics.php' ) ) {
 			$items_order[] = ! is_network_admin() ? 'koko-analytics' : admin_url( 'admin.php?page=koko-analytics' );
 		}
 
@@ -67,7 +65,7 @@ class SideBar {
 	private function getSettingsSlug(): string {
 		return is_plugin_active( 'pressbooks-network-analytics/pressbooks-network-analytics.php' ) ?
 			$this->getSlug( 'admin.php?page=pb_network_analytics_options', false ) :
-			$this->getSlug('settings.php', false );
+			$this->getSlug( 'settings.php', false );
 	}
 
 	private function getSlug( string $page, bool $admin_url ): string {
@@ -77,8 +75,8 @@ class SideBar {
 	}
 
 	private function removeAdminLegacyItems(): void {
-		remove_submenu_page('index.php', 'pb_catalog' );
-		remove_submenu_page('edit.php?post_type=page', 'post-new.php?post_type=page' );
+		remove_submenu_page( 'index.php', 'pb_catalog' );
+		remove_submenu_page( 'edit.php?post_type=page', 'post-new.php?post_type=page' );
 
 		remove_menu_page( 'index.php' );
 		remove_menu_page( 'themes.php' );
@@ -96,7 +94,7 @@ class SideBar {
 
 	private function addMenuItems(): void {
 		$is_network_analytics_active = is_plugin_active( 'pressbooks-network-analytics/pressbooks-network-analytics.php' );
-		if( $is_network_analytics_active ) {
+		if ( $is_network_analytics_active ) {
 			$books_callback = [ \PressbooksNetworkAnalytics\Admin\Books::init(), 'printMenuBookList' ];
 			$books_slug = 'pb_network_analytics_booklist';
 
@@ -167,7 +165,7 @@ class SideBar {
 			'dashicons-admin-page',
 			5
 		);
-//		remove_submenu_page('settings.php', 'pb_network_analytics_options');
+		//      remove_submenu_page('settings.php', 'pb_network_analytics_options');
 		add_menu_page(
 			__( 'Settings', 'pressbooks' ),
 			__( 'Settings', 'pressbooks' ),
@@ -178,15 +176,13 @@ class SideBar {
 			7
 		);
 
-
-
 		if ( $is_network_analytics_active ) {
 			if ( ! is_network_admin() ) {
 				add_menu_page(
 					__( 'Stats', 'pressbooks' ),
 					__( 'Stats', 'pressbooks' ),
 					'manage_network',
-					network_admin_url('admin.php?page=pb_network_analytics_admin' ),
+					network_admin_url( 'admin.php?page=pb_network_analytics_admin' ),
 					'',
 					'dashicons-chart-area',
 					7
@@ -195,7 +191,7 @@ class SideBar {
 			if ( is_plugin_active( 'koko-analytics/koko-analytics.php' ) ) {
 				add_submenu_page(
 					! is_network_admin() ?
-						network_admin_url('admin.php?page=pb_network_analytics_admin' ) :
+						network_admin_url( 'admin.php?page=pb_network_analytics_admin' ) :
 						'pb_network_analytics_admin',
 					__( 'Analytics', 'pressbooks' ),
 					__( 'Analytics', 'pressbooks' ),
@@ -204,7 +200,7 @@ class SideBar {
 					''
 				);
 			}
-		} else if ( is_plugin_active( 'koko-analytics/koko-analytics.php' ) ) {
+		} elseif ( is_plugin_active( 'koko-analytics/koko-analytics.php' ) ) {
 			add_menu_page(
 				__( 'Stats', 'pressbooks' ),
 				__( 'Stats', 'pressbooks' ),
@@ -228,23 +224,22 @@ class SideBar {
 		}
 	}
 
-	private function manageIntegrationsAdminMenuItem(): void
-	{
+	private function manageIntegrationsAdminMenuItem(): void {
 		\Pressbooks\Admin\Dashboard\init_network_integrations_menu();
 
-		if (is_plugin_active('pressbooks-cas-sso/pressbooks-cas-sso.php')) {
+		if ( is_plugin_active( 'pressbooks-cas-sso/pressbooks-cas-sso.php' ) ) {
 			\PressbooksCasSso\Admin::init()->addMenu();
 		}
 
-		if (is_plugin_active('pressbooks-saml-sso/pressbooks-saml-sso.php')) {
+		if ( is_plugin_active( 'pressbooks-saml-sso/pressbooks-saml-sso.php' ) ) {
 			\PressbooksSamlSso\Admin::init()->addMenu();
 		}
 
-		if (is_plugin_active('pressbooks-oidc-sso/pressbooks-oidc-sso.php')) {
+		if ( is_plugin_active( 'pressbooks-oidc-sso/pressbooks-oidc-sso.php' ) ) {
 			\PressbooksOidcSso\Admin::init()->addMenu();
 		}
 
-		if (is_plugin_active('pressbooks-lti-provider-1p3/pressbooks-lti-provider.php')) {
+		if ( is_plugin_active( 'pressbooks-lti-provider-1p3/pressbooks-lti-provider.php' ) ) {
 			$lti_admin = \PressbooksLtiProvider1p3\Admin::init();
 			$lti_admin->addConsumersMenu();
 			$lti_admin->addSettingsMenu();
