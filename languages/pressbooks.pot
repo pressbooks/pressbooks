@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-02-13T15:24:34+00:00\n"
+"POT-Creation-Date: 2023-02-15T23:26:33+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: pressbooks\n"
@@ -2092,7 +2092,7 @@ msgstr ""
 msgid "Turkish"
 msgstr ""
 
-#: inc/class-globaltypography.php:469
+#: inc/class-globaltypography.php:470
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr ""
 
