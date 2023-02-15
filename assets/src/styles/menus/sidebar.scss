@@ -1,0 +1,13 @@
+$icon-size : 24px;
+#adminmenu {
+  div.wp-menu-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      padding: 0;
+      width: $icon-size;
+      height: $icon-size;
+    }
+  }
+}

@@ -2,17 +2,22 @@
 
 namespace Pressbooks\Admin\Menus;
 
+use Pressbooks\Book;
+use Pressbooks\Utility\Icons;
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 
 class SideBar {
 
 	private bool $isNetworkAnalyticsActive;
-
 	private bool $isKokoAnalyticsActive;
+
+	private Icons $icons;
+
 
 	public function __construct() {
 		$this->isKokoAnalyticsActive = is_plugin_active( 'koko-analytics/koko-analytics.php' );
 		$this->isNetworkAnalyticsActive = is_plugin_active( 'pressbooks-network-analytics/pressbooks-network-analytics.php' );
+		$this->icons = new Icons();
 	}
 
 	public static function init(): void {
@@ -20,6 +25,12 @@ class SideBar {
 	}
 
 	public function hooks(): void {
+
+		//TODO: review if this is the best place to add this hook
+		if( Book::isBook() ) {
+			add_filter( 'admin_menu', [ $this, 'tuneBookMenu' ], 999 );
+		}
+
 		if ( ! is_restricted() ) {
 			return;
 		}
@@ -128,7 +139,7 @@ class SideBar {
 				'manager_network',
 				network_admin_url( 'index.php' ),
 				'',
-				'dashicons-dashboard',
+				$this->icons->getIcon( 'home' ),
 				1
 			);
 		}
@@ -139,7 +150,7 @@ class SideBar {
 			'manager_network',
 			$books_slug,
 			$books_callback,
-			'dashicons-book-alt',
+			$this->icons->getIcon( 'book-open' ),
 			2
 		);
 
@@ -149,7 +160,7 @@ class SideBar {
 			'manager_network',
 			$users_slug,
 			$users_callback,
-			'dashicons-admin-users',
+			$this->icons->getIcon( 'users' ),
 			3
 		);
 
@@ -159,7 +170,7 @@ class SideBar {
 			'manage_network',
 			$this->getSlug( 'customize.php', true),
 			'',
-			'dashicons-admin-appearance',
+			$this->icons->getIcon( 'sparkles' ),
 			4
 		);
 
@@ -169,7 +180,7 @@ class SideBar {
 			'manage_network',
 			$this->getSlug( 'edit.php?post_type=page', true ),
 			'',
-			'dashicons-admin-page',
+			$this->icons->getIcon( 'pencil-square' ),
 			5
 		);
 
@@ -179,7 +190,7 @@ class SideBar {
 			'manager_network',
 			$settings_slug,
 			$settings_callback,
-			'dashicons-admin-settings',
+			$this->icons->getIcon( 'cog-8-tooth' ),
 			7
 		);
 
@@ -191,7 +202,7 @@ class SideBar {
 					'manage_network',
 					$this->getSlug( 'admin.php?page=pb_network_analytics_admin', false ),
 					'',
-					'dashicons-chart-area',
+					$this->icons->getIcon( 'presentation-chart-bar' ),
 					7
 				);
 			}
@@ -223,7 +234,7 @@ class SideBar {
 				'view_koko_analytics',
 				'pressbooks_network_stats',
 				'',
-				'dashicons-chart-area',
+				$this->icons->getIcon( 'presentation-chart-bar' ),
 				7
 			);
 			add_submenu_page(
@@ -291,6 +302,53 @@ class SideBar {
 
 	private function getKokoAnalyticsSlug(): string {
 		return is_network_admin() ? admin_url( 'admin.php?page=koko-analytics' ) : 'koko-analytics';
+	}
+
+	public function tuneBookMenu(): void
+	{
+		//TODO: I'm not sure if this is the best approach (I don't like the hardcoded indexes but I think is better than a lookup by name using a foreach)
+		global $menu;
+		$default_index = 6;
+		$icons_replacement = [
+			[
+				'index' => 2,
+				'name' => 'Dashboard',
+				'icon' => $this->icons->getIcon( 'home' ),
+			],
+			[
+				'index' => 10,
+				'name' => 'Media',
+				'icon' => $this->icons->getIcon( 'camera' ),
+			],
+			[
+				'index' => 60,
+				'name' => 'Appearance',
+				'icon' => $this->icons->getIcon( 'sparkles' ),
+			],
+			[
+				'index' => 65,
+				'name' => 'Plugins',
+				'icon' => $this->icons->getIcon( 'bolt' ),
+			],
+			[
+				'index' => 70,
+				'name' => 'Users',
+				'icon' => $this->icons->getIcon( 'users' ),
+			],
+			[
+				'index' => 75,
+				'name' => 'Tools',
+				'icon' => $this->icons->getIcon( 'wrench' ),
+			],
+			[
+				'index' => 80,
+				'name' => 'Settings',
+				'icon' => $this->icons->getIcon( 'cog-8-tooth' ),
+			]
+		];
+		foreach($icons_replacement as $icon) {
+			$menu[$icon['index']][$default_index] = $icon['icon'];
+		}
 	}
 
 }

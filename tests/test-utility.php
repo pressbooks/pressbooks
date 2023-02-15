@@ -1,5 +1,7 @@
 <?php
 
+use Pressbooks\Utility\Icons;
+
 class UtilityTest extends \WP_UnitTestCase {
 	use utilsTrait;
 
@@ -792,5 +794,13 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$this->assertTrue( is_a( $class1->getMethod( 'display' ), '\ReflectionMethod' ) );
 		$this->assertTrue( is_a( $class2->getMethod( 'display' ), '\ReflectionMethod' ) );
+	}
+	/**
+	 * @test
+	 * @group utility
+	 */
+	public function iconIsReturnedWithWebPath() {
+		$icons = new Icons();
+		$this->assertStringContainsString( 'pressbooks/assets/dist/images/icons/heroicons/home.svg', $icons->getIcon('home') );
 	}
 }
