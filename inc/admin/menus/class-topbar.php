@@ -17,6 +17,7 @@ class TopBar {
 		'pb-create-book',
 		'pb-clone-book',
 		'pb-add-users',
+		'my-account',
 	];
 
 	public static function init(): self {
@@ -56,8 +57,6 @@ class TopBar {
 
 		$this->addMyBooks( $bar );
 
-		$this->addCurrentBook( $bar );
-
 		if ( can_create_new_books() ) {
 			$this->addCreateBook( $bar );
 		}
@@ -95,7 +94,6 @@ class TopBar {
 		$bar->add_node( [
 			'id' => 'my-account',
 			'title' => $title->remove( $to_remove ),
-			'href' => null,
 		] );
 	}
 
@@ -202,14 +200,11 @@ class TopBar {
 		} );
 	}
 
-	protected function addCurrentBook( WP_Admin_Bar $bar ): void {
-
-	}
-
 	protected function addCreateBook( WP_Admin_Bar $bar ): void {
 		$bar->add_node( [
 			'id' => 'pb-create-book',
-			'title' => __( 'Create Book', 'pressbooks' ),
+			'parent' => 'top-secondary',
+			'title' => '<span>' . __( 'Create Book', 'pressbooks' ) . '</span>',
 			'href' => network_home_url( 'wp-signup.php' ),
 			'meta' => [
 				'class' => 'btn action',
@@ -220,7 +215,8 @@ class TopBar {
 	protected function addCloneBook( WP_Admin_Bar $bar ): void {
 		$bar->add_node( [
 			'id' => 'pb-clone-book',
-			'title' => __( 'Clone Book', 'pressbooks' ),
+			'parent' => 'top-secondary',
+			'title' => '<span>' . __( 'Clone Book', 'pressbooks' ) . '</span>',
 			'href' => admin_url( 'admin.php?page=pb_cloner' ),
 			'meta' => [
 				'class' => 'btn action',
@@ -231,7 +227,8 @@ class TopBar {
 	protected function addInsertUsers( WP_Admin_Bar $bar ): void {
 		$bar->add_node( [
 			'id' => 'pb-add-users',
-			'title' => __( 'Add Users', 'pressbooks' ),
+			'parent' => 'top-secondary',
+			'title' => '<span>' . __( 'Add Users', 'pressbooks' ) . '</span>',
 			'href' => network_admin_url( 'users.php?page=user_bulk_new' ),
 			'meta' => [
 				'class' => 'btn action',
