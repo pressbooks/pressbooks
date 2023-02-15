@@ -144,7 +144,7 @@ class TopBar {
 			'title' => __( 'Administer Network', 'pressbooks' ),
 			'href' => network_admin_url( 'index.php?pb_network_page' ),
 			'meta' => [
-				'class' => is_network_admin() ? 'active' : null,
+				'class' => is_network_admin() ? 'you-are-here' : null,
 			],
 		] );
 
@@ -160,7 +160,7 @@ class TopBar {
 
 	protected function addMyBooks( WP_Admin_Bar $bar ): void {
 		$metadata = [
-			'class' => is_main_site() && ! is_network_admin() ? 'active' : null,
+			'class' => is_main_site() && ! is_network_admin() ? 'you-are-here' : null,
 		];
 
 		$bar->add_node( [
