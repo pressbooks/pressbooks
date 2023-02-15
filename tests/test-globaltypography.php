@@ -84,6 +84,7 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 						$this->assertTrue( false, "Cannot download: {$url}" );
 					}
 					$this->assertStringContainsString( "/notofonts/noto-cjk/", $font_url );
+					continue;
 				}
 				if ( str_contains( $baseurl, 'https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/' ) ) {
 					if ( $headers && isset( $headers['content-type'] ) ) {
