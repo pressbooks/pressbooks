@@ -369,6 +369,6 @@ add_action( 'edit_user_profile', '\Pressbooks\Admin\Laf\add_user_profile_fields'
 add_action( 'edit_user_profile_update', '\Pressbooks\Admin\Laf\update_user_profile_fields', 11 );
 add_action( 'personal_options_update', '\Pressbooks\Admin\Laf\update_user_profile_fields', 11 );
 
-add_action( 'plugins_loaded', [ \Pressbooks\Admin\Menus\Sidebar\NetworkManagerSideBar::class, 'init' ] );
+add_action( 'plugins_loaded', [ \Pressbooks\Admin\Menus\SideBar::class, 'init' ] );
 add_action( 'plugins_loaded', [ \Pressbooks\Admin\Menus\TopBar::class, 'init' ] );
 
