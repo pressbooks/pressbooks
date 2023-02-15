@@ -1,10 +1,12 @@
 <?php
 
-namespace Pressbooks\Admin\Menus;
+namespace Pressbooks\Admin\Menus\Sidebar;
 
-use function Pressbooks\Admin\NetworkManagers\is_restricted;
+use function Pressbooks\Admin\Menus\add_action;
+use function Pressbooks\Admin\Menus\add_filter;
+use function Pressbooks\Admin\Menus\admin_url;
 
-class SideBar {
+class NetworkManagerSideBar {
 
 	private bool $isNetworkAnalyticsActive;
 
@@ -20,15 +22,11 @@ class SideBar {
 	}
 
 	public function hooks(): void {
-		if ( ! is_restricted() ) {
-			// super admin menu to come
-			return;
-		}
-		add_action( 'network_admin_menu', [ $this, 'manageNetworkAdminMenu' ], 999 );
-		add_action( 'admin_menu', [ $this, 'manageAdminMenu' ], 999 );
+		\add_action( 'network_admin_menu', [ $this, 'manageNetworkAdminMenu' ], 999 );
+		\add_action( 'admin_menu', [ $this, 'manageAdminMenu' ], 999 );
 
-		add_filter( 'custom_menu_order', '__return_true' );
-		add_filter( 'menu_order', [ $this, 'reorderMenu' ], 999 );
+		\add_filter( 'custom_menu_order', '__return_true' );
+		\add_filter( 'menu_order', [ $this, 'reorderMenu' ], 999 );
 
 		remove_action( 'admin_init', '\Pressbooks\Admin\NetworkManagers\restrict_access' );
 	}
@@ -215,7 +213,7 @@ class SideBar {
 				__( 'Network Stats', 'pressbooks' ),
 				__( 'Network Stats', 'pressbooks' ),
 				'manage_network',
-				$this->getNetworkAnalyticsSlug(),
+				$this->getNetworkAnalyticsStatsSlug(),
 				''
 			);
 			if ( $this->isKokoAnalyticsActive ) {
