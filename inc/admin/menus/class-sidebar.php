@@ -21,6 +21,7 @@ class SideBar {
 
 	public function hooks(): void {
 		if ( ! is_restricted() ) {
+			// super admin menu to come
 			return;
 		}
 		add_action( 'network_admin_menu', [ $this, 'manageNetworkAdminMenu' ], 999 );
@@ -28,6 +29,8 @@ class SideBar {
 
 		add_filter( 'custom_menu_order', '__return_true' );
 		add_filter( 'menu_order', [ $this, 'reorderMenu' ], 999 );
+
+		remove_action( 'admin_init', '\Pressbooks\Admin\NetworkManagers\restrict_access' );
 	}
 
 	public function manageNetworkAdminMenu(): void {
@@ -42,21 +45,28 @@ class SideBar {
 	}
 
 	private function removeNetworkManagerLegacyItems(): void {
-		array_map( 'remove_submenu_page', [
-			'sites.php',
-			'sites.php',
-			'users.php',
-			'settings.php',
-			'users.php',
-			'users.php',
-		], [
-			'pb_network_analytics_booklist',
-			'site-new.php',
-			'pb_network_analytics_userlist',
-			'pb_network_analytics_options',
-			'user-new.php',
-			'user_bulk_new',
-		] );
+		array_map( 'remove_submenu_page',
+			[
+				'sites.php',
+				'sites.php',
+				'users.php',
+				'settings.php',
+				'settings.php',
+				'settings.php',
+				'users.php',
+				'users.php',
+			],
+			[
+				'pb_network_analytics_booklist',
+				'site-new.php',
+				'pb_network_analytics_userlist',
+				'pb_network_analytics_options',
+				'pressbooks_sharingandprivacy_options',
+				'pb_analytics',
+				'user-new.php',
+				'user_bulk_new',
+			]
+		);
 
 		array_map( 'remove_menu_page', [
 			'settings.php',
@@ -76,28 +86,33 @@ class SideBar {
 	}
 
 	private function removeAdminLegacyItems(): void {
-		array_map( 'remove_submenu_page', [
-			'index.php',
-			'edit.php?post_type=page',
-		], [
-			'pb_catalog',
-			'post-new.php?post_type=page',
-		] );
+		array_map( 'remove_submenu_page',
+			[
+				'index.php',
+				'edit.php?post_type=page',
+			],
+			[
+				'pb_catalog',
+				'post-new.php?post_type=page',
+			]
+		);
 
-		array_map( 'remove_menu_page', [
-			'index.php',
-			'themes.php',
-			'edit.php?post_type=page',
-			'pb_home_page',
-			'upload.php',
-			'plugins.php',
-			'tools.php',
-			'options-general.php',
-			'users.php',
-			'separator1',
-			'separator-last',
-			'separator2',
-		] );
+		array_map( 'remove_menu_page',
+			[
+				'index.php',
+				'themes.php',
+				'edit.php?post_type=page',
+				'pb_home_page',
+				'upload.php',
+				'plugins.php',
+				'tools.php',
+				'options-general.php',
+				'users.php',
+				'separator1',
+				'separator-last',
+				'separator2',
+			]
+		);
 	}
 
 	private function addMenuItems(): void {
@@ -157,7 +172,7 @@ class SideBar {
 			__( 'Appearance', 'pressbooks' ),
 			__( 'Appearance', 'pressbooks' ),
 			'manage_network',
-			$this->getSlug( 'customize.php', true),
+			$this->getSlug( 'customize.php', true ),
 			'',
 			'dashicons-admin-appearance',
 			4
@@ -189,26 +204,23 @@ class SideBar {
 					__( 'Stats', 'pressbooks' ),
 					__( 'Stats', 'pressbooks' ),
 					'manage_network',
-					$this->getSlug( 'admin.php?page=pb_network_analytics_admin', false ),
+					network_admin_url( 'admin.php?page=pb_network_analytics_admin' ),
 					'',
 					'dashicons-chart-area',
 					7
 				);
 			}
 			add_submenu_page(
-				is_network_admin() ?
-					'pb_network_analytics_admin' : network_admin_url( 'admin.php?page=pb_network_analytics_admin'),
+				$this->getNetworkAnalyticsStatsSlug(),
 				__( 'Network Stats', 'pressbooks' ),
 				__( 'Network Stats', 'pressbooks' ),
 				'manage_network',
-				is_network_admin() ?
-					'pb_network_analytics_admin' : network_admin_url( 'admin.php?page=pb_network_analytics_admin'),
+				$this->getNetworkAnalyticsSlug(),
 				''
 			);
 			if ( $this->isKokoAnalyticsActive ) {
 				add_submenu_page(
-					is_network_admin() ?
-						'pb_network_analytics_admin' : network_admin_url( 'admin.php?page=pb_network_analytics_admin'),
+					$this->getNetworkAnalyticsStatsSlug(),
 					__( 'Analytics', 'pressbooks' ),
 					__( 'Analytics', 'pressbooks' ),
 					'view_koko_analytics',
@@ -235,7 +247,6 @@ class SideBar {
 				''
 			);
 
-			// Koko analytics dashboard must be a submenu item to make it work
 			remove_submenu_page( 'pressbooks_network_stats', 'pressbooks_network_stats' );
 		}
 	}
@@ -271,7 +282,7 @@ class SideBar {
 			$this->isNetworkAnalyticsActive ?
 				'pb_network_analytics_userlist' :
 				$this->getSlug( 'users.php', false ),
-			$this->getSlug( 'customize.php', true),
+			$this->getSlug( 'customize.php', true ),
 			$this->getSlug( 'edit.php?post_type=page', true ),
 		];
 
@@ -280,8 +291,7 @@ class SideBar {
 			$this->getSlug( 'settings.php', false );
 
 		if ( $this->isNetworkAnalyticsActive ) {
-			$items_order[] = is_network_admin() ?
-				'pb_network_analytics_admin' : network_admin_url( 'admin.php?page=pb_network_analytics_admin');
+			$items_order[] = $this->getNetworkAnalyticsStatsSlug();
 		} elseif ( $this->isKokoAnalyticsActive ) {
 			$items_order[] = $this->getKokoAnalyticsSlug();
 		}
@@ -291,6 +301,11 @@ class SideBar {
 
 	private function getKokoAnalyticsSlug(): string {
 		return is_network_admin() ? admin_url( 'admin.php?page=koko-analytics' ) : 'koko-analytics';
+	}
+
+	private function getNetworkAnalyticsStatsSlug(): string {
+		return is_network_admin() ?
+			'pb_network_analytics_admin' : network_admin_url( 'admin.php?page=pb_network_analytics_admin' );
 	}
 
 }
