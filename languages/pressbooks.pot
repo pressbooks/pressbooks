@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-02-15T23:26:33+00:00\n"
+"POT-Creation-Date: 2023-02-15T23:49:14+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: pressbooks\n"
@@ -4631,7 +4631,7 @@ msgstr ""
 
 #: templates/admin/dashboard/book.blade.php:123
 #: templates/admin/dashboard/network.blade.php:124
-msgid "Support Resources"
+msgid "Support resources"
 msgstr ""
 
 #: templates/admin/dashboard/book.blade.php:132
@@ -4677,15 +4677,15 @@ msgid "Your network has %s books and %s users. "
 msgstr ""
 
 #: templates/admin/dashboard/network.blade.php:27
-msgid "Explore more stats"
+msgid "Explore stats"
 msgstr ""
 
 #: templates/admin/dashboard/network.blade.php:40
-msgid "Update your home page"
+msgid "Update homepage"
 msgstr ""
 
 #: templates/admin/dashboard/network.blade.php:46
-msgid "Update your home page art"
+msgid "Update homepage art"
 msgstr ""
 
 #: templates/admin/dashboard/network.blade.php:54
@@ -4697,15 +4697,15 @@ msgid "Create or edit pages"
 msgstr ""
 
 #: templates/admin/dashboard/network.blade.php:70
-msgid "View web analytics"
+msgid "View home page analytics"
 msgstr ""
 
 #: templates/admin/dashboard/network.blade.php:80
-msgid "Administer your network"
+msgid "Administer network"
 msgstr ""
 
 #: templates/admin/dashboard/network.blade.php:86
-msgid "Administer your network art"
+msgid "Administer network art"
 msgstr ""
 
 #: templates/admin/dashboard/network.blade.php:94
