@@ -77,13 +77,13 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 			foreach ( $val['files'] as $font => $font_url ) {
 				$url = $baseurl . $font_url;
 				$headers = wp_get_http_headers( $url );
-				if ( str_contains( $baseurl, 'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/OTF/' ) ) {
+				if ( str_contains( $baseurl, 'https://github.com/notofonts/noto-cjk/raw/main/Sans/OTF/' ) ) {
 					if ( $headers && isset( $headers['location'] ) ) {
 						$font_url = $headers['location'];
 					} else {
 						$this->assertTrue( false, "Cannot download: {$url}" );
 					}
-					$this->assertStringContainsString( "https://raw.githubusercontent.com/notofonts/noto-cjk/main/", $font_url );
+					$this->assertStringContainsString( "https://github.com/notofonts/noto-cjk/raw/main/Sans/OTF/", $font_url );
 				}
 				if ( str_contains( $baseurl, 'https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/' ) ) {
 					if ( $headers && isset( $headers['content-type'] ) ) {
