@@ -111,7 +111,7 @@
 	<div class="pb-dashboard-row">
 		<div class="pb-dashboard-panel">
 			<div class="pb-dashboard-content">
-				<h2>{{ __('Support Resources', 'pressbooks') }}</h2>
+				<h2>{{ __('Support resources', 'pressbooks') }}</h2>
 				{{-- TODO: add link to new YouTube playlist. --}}
 				<ul class="horizontal">
 					<li class="resources" id="getting-started">
