@@ -17,4 +17,9 @@ class SuperAdminSideBar {
 
 		remove_action( 'admin_init', '\Pressbooks\Admin\NetworkManagers\restrict_access' );
 	}
+
+	public function manageNetworkAdminMenu(): void {
+		$this->removeNetworkManagerLegacyItems();
+		$this->addMenuItems();
+	}
 }
