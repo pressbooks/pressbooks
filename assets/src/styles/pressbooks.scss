@@ -1,4 +1,5 @@
 @import "partials/colors";
+@import "temp-admin";
 
 // TODO: Use our colors!
 
@@ -27,95 +28,6 @@
     url("../fonts/PBFont.svg#PBFont") format("svg");
   font-weight: normal;
   font-style: normal;
-}
-
-#wpadminbar {
-  .quicklinks li .blavatar {
-    margin: 0 8px 4px 0;
-  }
-
-   .quicklinks li .blavatar::before {
-    font: 14px/1 PBFont, sans-serif !important;
-    -webkit-font-smoothing: antialiased;
-    background: none;
-    content: "\e600" !important;
-  }
-
-  #wp-admin-bar-pb-network-admin > .ab-item::before {
-    -webkit-font-smoothing: antialiased;
-    background: none;
-    content: "\f325" !important;
-  }
-
-  #wp-admin-bar-pb-site-admin > .ab-item::before {
-    -webkit-font-smoothing: antialiased;
-    background: none;
-    content: "\f102" !important;
-  }
-
-  #wp-admin-bar-my-books > .ab-item::before {
-    -webkit-font-smoothing: antialiased;
-    background: none;
-    content: "\f318" !important;
-  }
-
-  #wp-admin-bar-site-name > .ab-item::before {
-    -webkit-font-smoothing: antialiased;
-    background: none;
-    content: "\f330" !important;
-  }
-
-  #wp-admin-bar-wp-logo > .ab-item .ab-icon::before {
-    font: 20px/1 PBFont, sans-serif !important;
-    -webkit-font-smoothing: antialiased;
-    background: none;
-    content: "\e600" !important;
-  }
-
-  #wp-admin-bar-my-books-list {
-    height: auto;
-    max-height: calc(100vh - 150px);
-    overflow-y: auto;
-    padding-right: 5px;
-  }
-
-  @media screen and (max-width: 782px) {
-    #wp-admin-bar-pb-network-admin, #wp-admin-bar-pb-site-admin, #wp-admin-bar-my-books {
-      display: block;
-
-      a.ab-item {
-        text-overflow: clip;
-     }
-
-      & > .ab-item {
-        text-indent: 100%;
-        white-space: nowrap;
-        overflow: hidden;
-        width: 55px;
-        padding: 0;
-        color: #999;
-        position: relative;
-
-        &::before {
-          font: 400 34px/1 dashicons, sans-serif !important;
-          text-align: center;
-          text-indent: 0;
-          top: 7px;
-          width: 55px;
-          -webkit-font-smoothing: antialiased;
-          background: none;
-        }
-      }
-    }
-
-    .quicklinks li .blavatar::before {
-      display: inline-block;
-    }
-
-    #wp-admin-bar-wp-logo > .ab-item .ab-icon::before {
-      font: 28px/1 PBFont, sans-serif !important;
-    }
-  }
 }
 
 .post-type-metadata #wp-admin-bar-view {

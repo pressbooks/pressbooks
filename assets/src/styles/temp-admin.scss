@@ -1,0 +1,149 @@
+@import "partials/colors";
+
+#wpcontent #wpadminbar {
+  height: 44px;
+
+  .quicklinks {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+
+    > ul {
+      display: flex;
+      align-items: center;
+      height: 100%;
+
+      & > li:not(#wp-admin-bar-menu-toggle) {
+        > .ab-item::before {
+          top: 0;
+        }
+      }
+    }
+
+    li .blavatar {
+      margin: 0 .25rem .25rem;
+
+      &::before {
+        font: 14px/1 PBFont, sans-serif;
+        content: '\e600';
+      }
+    }
+
+    #wp-admin-bar-top-secondary li.btn.action a {
+      border: 1px solid $white;
+      border-radius: 8px;
+      margin: 0 4px;
+      padding: 0 6px;
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        background-color: $white;
+        color: $monza;
+      }
+
+      &::before {
+        font: normal 16px/1 dashicons;
+        content: '\f102';
+        top: 0;
+      }
+    }
+  }
+
+  ul:not(.ab-submenu) > li:not(.btn.action) {
+    & > .ab-item {
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 2.45;
+
+      &::before {
+        -webkit-font-smoothing: antialiased;
+        background: none;
+      }
+    }
+  }
+
+  ul.ab-submenu > li a:hover {
+    box-shadow: inset .25rem 0 0 0 currentColor;
+    transition: box-shadow .1s linear;
+  }
+
+  #wp-admin-bar-pb-administer-network > .ab-item::before {
+    content: '\f102';
+  }
+
+  #wp-admin-bar-pb-my-books > .ab-item::before {
+    content: '\f318';
+  }
+
+  @media screen and (max-width: 1024px) {
+    .quicklinks li .blavatar::before {
+      display: inline-block;
+    }
+
+    .quicklinks li#wp-admin-bar-my-account.with-avatar > a img {
+      position: absolute;
+      top: 6px;
+      right: 10px;
+      width: 26px;
+      height: 26px;
+    }
+
+    .quicklinks > ul > li:not(#wp-admin-bar-menu-toggle) {
+      display: block;
+
+      > .ab-item {
+        text-overflow: clip;
+        text-indent: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 48px;
+        padding: 0;
+        position: relative;
+
+        &::before {
+          display: block;
+          text-indent: 0;
+          font: normal 20px/1 dashicons;
+          width: 48px;
+          top: 2px;
+          text-align: center;
+        }
+      }
+    }
+
+    .quicklinks > ul > li.btn > .ab-item {
+      height: 32px !important;
+      width: 32px !important;
+
+      &::before {
+        font: normal 20px/1 dashicons;
+        top: 0;
+        margin: 0;
+      }
+
+      span {
+        display: none;
+      }
+    }
+  }
+
+  @media screen and (max-width: 782px) {
+    height: 46px;
+
+    .quicklinks li#wp-admin-bar-my-account.with-avatar > a img {
+      top: 13px;
+    }
+
+    .quicklinks > ul > li:not(#wp-admin-bar-menu-toggle) > .ab-item {
+      display: list-item;
+      width: 48px;
+
+      &::before {
+        font: normal 30px/1 dashicons;
+        top: 7px;
+        margin: 0;
+      }
+    }
+  }
+}
