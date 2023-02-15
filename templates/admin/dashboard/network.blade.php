@@ -22,7 +22,7 @@
 							class="button button-primary"
 							href="{!! network_admin_url( 'admin.php?page=pb_network_analytics_admin' ) !!}"
 						>
-							{{ __( 'Explore more stats', 'pressbooks' ) }}
+							{{ __( 'Explore stats', 'pressbooks' ) }}
 						</a>
 					@endif
 				</div>
@@ -34,13 +34,13 @@
 		<div class="pb-dashboard-grid">
 			<div class="pb-dashboard-panel">
 				<div class="pb-dashboard-content">
-					<h2>{{ __( 'Update your home page', 'pressbooks' ) }}</h2>
+					<h2>{{ __( 'Update homepage', 'pressbooks' ) }}</h2>
 
 					<div class="pb-dashboard-flex">
 						<img
 							class="pb-dashboard-flex-image"
 							src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-root-site.png" }}"
-							alt="{{ __( 'Update your home page art', 'pressbooks' ) }}"
+							alt="{{ __( 'Update homepage art', 'pressbooks' ) }}"
 						/>
 
 						<ul class="actions">
@@ -62,7 +62,7 @@
 								<li>
 									<a
 										href="{!! admin_url( 'index.php?page=koko-analytics' ) !!}"
-									>{{ __( 'View web analytics', 'pressbooks' ) }}</a>
+									>{{ __( 'View home page analytics', 'pressbooks' ) }}</a>
 								</li>
 							@endif
 						</ul>
