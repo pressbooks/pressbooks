@@ -72,13 +72,13 @@
 
 			<div class="pb-dashboard-panel">
 				<div class="pb-dashboard-content">
-					<h2>{{ __( 'Administer your network', 'pressbooks' ) }}</h2>
+					<h2>{{ __( 'Administer network', 'pressbooks' ) }}</h2>
 
 					<div class="pb-dashboard-flex">
 						<img
 							class="pb-dashboard-flex-image"
 							src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-network-settings.png" }}"
-							alt="{{ __( 'Administer your network art', 'pressbooks' ) }}"
+							alt="{{ __( 'Administer network art', 'pressbooks' ) }}"
 						/>
 
 						<ul class="actions">
@@ -113,7 +113,7 @@
 	<div class="pb-dashboard-row">
 		<div class="pb-dashboard-panel">
 			<div class="pb-dashboard-content">
-				<h2>{{ __('Support Resources', 'pressbooks') }}</h2>
+				<h2>{{ __('Support resources', 'pressbooks') }}</h2>
 				<ul class="horizontal">
 					<li class="resources" id="pressbooks-guide">
 						<a href="https://networkmanagerguide.pressbooks.com/" target="_blank">
