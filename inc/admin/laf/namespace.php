@@ -319,7 +319,7 @@ function replace_book_admin_menu() {
 	);
 
 	// Export
-	$export_page = add_menu_page( __( 'Export', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'edit_posts', 'pb_export', __NAMESPACE__ . '\display_export', $icons_helper->getIcon( 'arrow-down-tray' ), 14 );
+	$export_page = add_menu_page( __( 'Export', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'edit_posts', 'pb_export', __NAMESPACE__ . '\display_export', $icons_helper->getIcon( 'arrow-up-tray' ), 14 );
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) use ( $export_page ) {
 			if ( $hook === $export_page ) {
@@ -351,7 +351,7 @@ function replace_book_admin_menu() {
 	);
 
 	// Import
-	$import_page = add_menu_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import', $icons_helper->getIcon( 'arrow-down-tray' ), 16 );
+	$import_page = add_menu_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import', $icons_helper->getIcon( 'arrow-up-tray' ), 16 );
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) use ( $import_page ) {
 			if ( $hook === $import_page ) {
