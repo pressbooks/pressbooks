@@ -2,7 +2,6 @@
 	"name": "@pressbooks/pressbooks",
 	"description": "Pressbooks is an open source book publishing tool built on a WordPress multisite platform. Pressbooks outputs books in multiple formats, including PDF, EPUB, web, and a variety of XML flavours, using a theming/templating system, driven by CSS.",
 	"scripts": {
-		"install-build-tools": "npm install --no-save pressbooks-build-tools",
 		"watch": "mix watch",
 		"build": "mix --production",
 		"test": "npm run lint",
@@ -21,7 +20,7 @@
 		"block-ui": "^2.70.1",
 		"countup.js": "^2.4.2",
 		"event-source-polyfill": "^1.0.31",
-		"instantsearch.js": "^4.50.3",
+		"instantsearch.js": "^4.51.0",
 		"isotope-layout": "^3.0.6",
 		"jquery-match-height": "^0.7.2",
 		"jquery-sticky": "^1.0.4",

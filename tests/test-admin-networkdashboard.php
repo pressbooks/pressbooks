@@ -33,9 +33,9 @@ class Admin_NetworkDashboardTest extends \WP_UnitTestCase {
 		$output = ob_get_clean();
 
 		$this->assertStringContainsString( 'Welcome to', $output );
-		$this->assertStringContainsString( 'Update your home page', $output );
-		$this->assertStringContainsString( 'Administer your network', $output );
-		$this->assertStringContainsString( 'Support Resources', $output );
+		$this->assertStringContainsString( 'Update homepage', $output );
+		$this->assertStringContainsString( 'Administer network', $output );
+		$this->assertStringContainsString( 'Support resources', $output );
 	}
 
 	/**
