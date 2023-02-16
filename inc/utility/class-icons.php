@@ -2,8 +2,11 @@
 
 namespace Pressbooks\Utility;
 
+use PressbooksMix\Assets;
+
 /**
  * Class Icons
+ *
  * @package Pressbooks\Utility
  * This class is used to get the path to the icons used in the admin menu (heroicons).
  */
@@ -17,7 +20,8 @@ class Icons {
 	 * Icons constructor.
 	 */
 	public function __construct() {
-		$this->path = PB_PLUGIN_URL . 'assets/dist/images/icons/heroicons/';
+		$assets = new Assets( 'pressbooks', 'plugin' );
+		$this->path = $assets->getPath( 'images/icons/heroicons/' );
 	}
 
 	/**
@@ -26,9 +30,9 @@ class Icons {
 	 * @return String
 	 */
 	public function getIcon( String $icon, bool $solid = false ): String {
-		$icon = $this->path . $icon . '.svg';
+		$icon = "{$this->path}{$icon}.svg";
 		if ( $solid ) {
-			$icon = $this->path . 'solid/' . $icon . '.svg';
+			$icon = "{$this->path}solid/{$icon}.svg";
 		}
 		return $icon;
 	}

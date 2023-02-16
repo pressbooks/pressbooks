@@ -344,6 +344,16 @@ class SideBar {
 				'index' => 80,
 				'name' => 'Settings',
 				'icon' => $this->icons->getIcon( 'cog-8-tooth' ),
+			],
+			[
+				'index' => 102,
+				'name' => 'H5P',
+				'icon' => $this->icons->getIcon( 'bolt' ),
+			],
+			[
+				'index' => 101,
+				'name' => 'Integrations',
+				'icon' => $this->icons->getIcon( 'rocket-launch' ),
 			]
 		];
 		foreach($icons_replacement as $icon) {
