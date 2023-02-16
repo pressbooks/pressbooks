@@ -1,6 +1,10 @@
 @import "menus/sidebar";
 @import "partials/colors";
 
+$svg-md: 18px;
+$svg-lg: 24px;
+$svg-profile: 28px;
+
 #wpcontent #wpadminbar {
   height: 44px;
 
@@ -30,6 +34,12 @@
       }
     }
 
+    #wp-admin-bar-my-account.with-avatar > a svg {
+      height: $svg-profile;
+      width: $svg-profile;
+    }
+
+
     #wp-admin-bar-top-secondary li.btn.action a {
       border: 1px solid $white;
       border-radius: 8px;
@@ -37,16 +47,20 @@
       padding: 0 6px;
       display: flex;
       align-items: center;
+      justify-content: center;
+
+      svg {
+        height: $svg-md;
+        width: $svg-md;
+      }
+
+      span {
+        margin-left: 6px;
+      }
 
       &:hover {
         background-color: $white;
         color: $monza;
-      }
-
-      &::before {
-        font: normal 16px/1 dashicons;
-        content: '\f102';
-        top: 0;
       }
     }
   }
@@ -54,12 +68,19 @@
   ul:not(.ab-submenu) > li:not(.btn.action) {
     & > .ab-item {
       font-size: 13px;
-      font-weight: 700;
       line-height: 2.45;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-      &::before {
-        -webkit-font-smoothing: antialiased;
-        background: none;
+      svg {
+        height: $svg-md;
+        width: $svg-md;
+      }
+
+      span {
+        font-weight: 500;
+        margin-left: 6px;
       }
     }
   }
@@ -69,12 +90,12 @@
     transition: box-shadow .1s linear;
   }
 
-  #wp-admin-bar-pb-administer-network > .ab-item::before {
-    content: '\f102';
+  #wp-admin-bar-site-name > .ab-item::before {
+    content: none;
   }
 
-  #wp-admin-bar-pb-my-books > .ab-item::before {
-    content: '\f318';
+  #wp-admin-bar-updates .ab-icon:before {
+    top: 0;
   }
 
   @media screen and (max-width: 1024px) {
@@ -82,33 +103,20 @@
       display: inline-block;
     }
 
-    .quicklinks li#wp-admin-bar-my-account.with-avatar > a img {
-      position: absolute;
-      top: 6px;
-      right: 10px;
-      width: 26px;
-      height: 26px;
-    }
-
-    .quicklinks > ul > li:not(#wp-admin-bar-menu-toggle) {
+    .quicklinks > ul > li:not(#wp-admin-bar-menu-toggle, #wp-admin-bar-my-account) {
       display: block;
 
       > .ab-item {
-        text-overflow: clip;
-        text-indent: 100%;
-        white-space: nowrap;
-        overflow: hidden;
         width: 48px;
         padding: 0;
-        position: relative;
 
-        &::before {
-          display: block;
-          text-indent: 0;
-          font: normal 20px/1 dashicons;
-          width: 48px;
-          top: 2px;
-          text-align: center;
+        svg {
+          height: $svg-lg;
+          width: $svg-lg;
+        }
+
+        span {
+          display: none;
         }
       }
     }
@@ -116,12 +124,6 @@
     .quicklinks > ul > li.btn > .ab-item {
       height: 32px !important;
       width: 32px !important;
-
-      &::before {
-        font: normal 20px/1 dashicons;
-        top: 0;
-        margin: 0;
-      }
 
       span {
         display: none;
@@ -132,19 +134,18 @@
   @media screen and (max-width: 782px) {
     height: 46px;
 
-    .quicklinks li#wp-admin-bar-my-account.with-avatar > a img {
-      top: 13px;
+    .quicklinks > ul > li:not(#wp-admin-bar-menu-toggle) > .ab-item {
+      color: $white;
+
+      svg {
+        height: $svg-lg;
+        width: $svg-lg;
+      }
     }
 
-    .quicklinks > ul > li:not(#wp-admin-bar-menu-toggle) > .ab-item {
-      display: list-item;
-      width: 48px;
-
-      &::before {
-        font: normal 30px/1 dashicons;
-        top: 7px;
-        margin: 0;
-      }
+    .quicklinks > ul > li#wp-admin-bar-my-account > .ab-item svg {
+      height: $svg-profile;
+      width: $svg-profile;
     }
   }
 }

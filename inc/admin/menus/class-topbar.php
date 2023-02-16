@@ -6,6 +6,7 @@ use function Pressbooks\Admin\Laf\can_create_new_books;
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use Illuminate\Support\Str;
 use Pressbooks\Cloner\Cloner;
+use Pressbooks\Utility\Icons;
 use WP_Admin_Bar;
 
 class TopBar {
@@ -20,9 +21,12 @@ class TopBar {
 		'my-account',
 	];
 
+	protected function __construct( protected Icons $icons ) {
+	}
+
 	public static function init(): self {
 		return tap(
-			new self, fn( TopBar $instance) => $instance->hooks()
+			new self( new Icons ), fn( TopBar $instance) => $instance->hooks()
 		);
 	}
 
@@ -57,6 +61,8 @@ class TopBar {
 
 		$this->addMyBooks( $bar );
 
+		$this->updateCurrentBook( $bar );
+
 		if ( can_create_new_books() ) {
 			$this->addCreateBook( $bar );
 		}
@@ -87,13 +93,9 @@ class TopBar {
 			return;
 		}
 
-		$title = Str::of( $node->title );
-
-		$to_remove = $title->before( '<img' );
-
 		$bar->add_node( [
-			'id' => 'my-account',
-			'title' => $title->remove( $to_remove ),
+			'id' => $node->id,
+			'title' => $this->icons->getIconContents( icon: 'user-circle', solid: true ),
 		] );
 	}
 
@@ -109,12 +111,12 @@ class TopBar {
 			],
 			'pb-administer-books' => [
 				'title' => __( 'Books', 'pressbooks' ),
-				'href' => network_admin_url( $network_analytics_active ? 'sites.php?page=pb_network_analytics_booklist' : 'sites.php' ),
+				'href' => network_admin_url( $network_analytics_active ? 'admin.php?page=pb_network_analytics_booklist' : 'sites.php' ),
 				'visible' => true,
 			],
 			'pb-administer-users' => [
 				'title' => __( 'Users', 'pressbooks' ),
-				'href' => network_admin_url( $network_analytics_active ? 'users.php?page=pb_network_analytics_userlist' : 'users.php' ),
+				'href' => network_admin_url( $network_analytics_active ? 'admin.php?page=pb_network_analytics_userlist' : 'users.php' ),
 				'visible' => true,
 			],
 			'pb-administer-appearance' => [
@@ -134,14 +136,17 @@ class TopBar {
 			],
 			'pb-administer-settings' => [
 				'title' => __( 'Settings', 'pressbooks' ),
-				'href' => network_admin_url( $network_analytics_active ? 'settings.php?page=pb_network_analytics_options' : 'settings.php' ),
+				'href' => network_admin_url( $network_analytics_active ? 'admin.php?page=pb_network_analytics_options' : 'settings.php' ),
 				'visible' => true,
 			],
 		];
 
+		$title = __( 'Administer Network', 'pressbooks' );
+		$svg = $this->icons->getIconContents( 'building-library' );
+
 		$bar->add_node( [
 			'id' => $main_id,
-			'title' => __( 'Administer Network', 'pressbooks' ),
+			'title' => "$svg <span>{$title}</span>",
 			'href' => network_admin_url( 'index.php?pb_network_page' ),
 			'meta' => [
 				'class' => is_network_admin() ? 'you-are-here' : null,
@@ -163,9 +168,12 @@ class TopBar {
 			'class' => is_main_site() && ! is_network_admin() ? 'you-are-here' : null,
 		];
 
+		$title = __( 'My Books', 'pressbooks' );
+		$svg = $this->icons->getIconContents( 'my-books' );
+
 		$bar->add_node( [
 			'id' => 'pb-my-books',
-			'title' => __( 'My Books', 'pressbooks' ),
+			'title' => "$svg <span>{$title}</span>",
 			'href' => admin_url( 'index.php?pb_home_page' ),
 			'meta' => array_filter( $metadata ),
 		] );
@@ -200,11 +208,30 @@ class TopBar {
 		} );
 	}
 
+	protected function updateCurrentBook( WP_Admin_Bar $bar ): void {
+		$node = $bar->get_node( 'site-name' ) ?? null;
+
+		if ( ! $node ) {
+			return;
+		}
+
+		$svg = $this->icons->getIconContents( 'book-open' );
+		$title = $node->title;
+
+		$bar->add_node( [
+			'id' => $node->id,
+			'title' => "$svg <span>{$node->title}</span>",
+		] );
+	}
+
 	protected function addCreateBook( WP_Admin_Bar $bar ): void {
+		$title = __( 'Create Book', 'pressbooks' );
+		$svg = $this->icons->getIconContents( icon: 'plus-circle', solid: true );
+
 		$bar->add_node( [
 			'id' => 'pb-create-book',
 			'parent' => 'top-secondary',
-			'title' => '<span>' . __( 'Create Book', 'pressbooks' ) . '</span>',
+			'title' => "$svg <span>{$title}</span>",
 			'href' => network_home_url( 'wp-signup.php' ),
 			'meta' => [
 				'class' => 'btn action',
@@ -213,10 +240,13 @@ class TopBar {
 	}
 
 	protected function addCloneBook( WP_Admin_Bar $bar ): void {
+		$title = __( 'Clone Book', 'pressbooks' );
+		$svg = $this->icons->getIconContents( icon: 'clone-books', solid: true );
+
 		$bar->add_node( [
 			'id' => 'pb-clone-book',
 			'parent' => 'top-secondary',
-			'title' => '<span>' . __( 'Clone Book', 'pressbooks' ) . '</span>',
+			'title' => "$svg <span>{$title}</span>",
 			'href' => admin_url( 'admin.php?page=pb_cloner' ),
 			'meta' => [
 				'class' => 'btn action',
@@ -225,10 +255,13 @@ class TopBar {
 	}
 
 	protected function addInsertUsers( WP_Admin_Bar $bar ): void {
+		$title = __( 'Add Users', 'pressbooks' );
+		$svg = $this->icons->getIconContents( icon: 'user-plus', solid: true );
+
 		$bar->add_node( [
 			'id' => 'pb-add-users',
 			'parent' => 'top-secondary',
-			'title' => '<span>' . __( 'Add Users', 'pressbooks' ) . '</span>',
+			'title' => "$svg <span>{$title}</span>",
 			'href' => network_admin_url( 'users.php?page=user_bulk_new' ),
 			'meta' => [
 				'class' => 'btn action',
