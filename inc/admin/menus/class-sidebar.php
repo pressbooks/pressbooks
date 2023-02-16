@@ -110,6 +110,7 @@ class SideBar {
 			'separator-last',
 			'separator2',
 			'pb_stats',
+			'themes.php',
 		] );
 
 		if ( ! is_restricted() ) {
@@ -197,6 +198,13 @@ class SideBar {
 				$this->icons->getIcon( 'home' ),
 				1
 			);
+		} else {
+			// Change icon
+			global $menu;
+
+			if ( isset( $menu[2] ) && $menu[2][2] === 'index.php' ) {
+				$menu[2][6] = $this->icons->getIcon( 'home' );
+			}
 		}
 
 		add_menu_page(
@@ -239,7 +247,7 @@ class SideBar {
 			5
 		);
 
-		if ( ! ! is_restricted() ) {
+		if ( is_restricted() ) {
 			add_menu_page(
 				__( 'Settings', 'pressbooks' ),
 				__( 'Settings', 'pressbooks' ),
@@ -262,6 +270,13 @@ class SideBar {
 					$this->icons->getIcon( 'presentation-chart-bar' ),
 					7
 				);
+			} else {
+				// Change stats icon
+				global $menu;
+
+				if ( isset( $menu[100] ) && $menu[100][2] === 'pb_network_analytics_admin' ) {
+					$menu[100][6] = $this->icons->getIcon( 'presentation-chart-bar' );
+				}
 			}
 			add_submenu_page(
 				$this->getNetworkAnalyticsStatsSlug(),
@@ -468,6 +483,21 @@ class SideBar {
 				'manage_network',
 				$this->getContextSlug( 'settings.php?page=pb_analytics', false )
 			);
+		} else {
+			// Change some icons
+			global $menu;
+
+			if ( isset( $menu[20] ) && $menu[20][0] === __( 'Plugins' ) ) {
+				$menu[20][6] = $this->icons->getIcon( 'bolt' );
+			}
+
+			if ( isset( $menu[25] ) && $menu[25][0] === __( 'Settings' ) ) {
+				$menu[25][6] = $this->icons->getIcon( 'cog-8-tooth' );
+			}
+
+			if ( isset( $menu[101] ) && $menu[101][0] === __( 'Stats' ) ) {
+				$menu[101][6] = $this->icons->getIcon( 'presentation-chart-bar' );
+			}
 		}
 
 		if ( $this->isNetworkAnalyticsActive ) {
@@ -570,18 +600,24 @@ class SideBar {
 			$settings_items_ordered[] = $this->getSubmenuBySlug( $settings_items, 'pb_network_analytics_options' );
 		}
 
-		$settings_items_ordered[] = $this->getSubmenuBySlug( $settings_items, 'settings.php' );
-		$settings_items_ordered[] = $this->getSubmenuBySlug( $settings_items, 'setup.php' );
-		$settings_items_ordered[] = $this->getSubmenuBySlug( $settings_items, 'pb_network_managers' );
+		array_push(
+			$settings_items_ordered,
+			$this->getSubmenuBySlug( $settings_items, 'settings.php' ),
+			$this->getSubmenuBySlug( $settings_items, 'setup.php' ),
+			$this->getSubmenuBySlug( $settings_items, 'pb_network_managers' )
+		);
 
 		if ( $this->isNetworkAnalyticsActive ) {
 			$settings_items_ordered[] = $this->getSubmenuBySlug( $settings_items, 'pressbooks_sharingandprivacy_options' );
 		}
 
-		$settings_items_ordered[] = $this->getSubmenuBySlug( $settings_items, 'pb_analytics' );
-		$settings_items_ordered[] = $this->getSubmenuBySlug( $settings_items, 'options-general.php' );
-		$settings_items_ordered[] = $this->getSubmenuBySlug( $settings_items, 'options-media.php' );
-		$settings_items_ordered[] = $this->getSubmenuBySlug( $settings_items, 'options-privacy.php' );
+		array_push(
+			$settings_items_ordered,
+			$this->getSubmenuBySlug( $settings_items, 'pb_analytics' ),
+			$this->getSubmenuBySlug( $settings_items, 'options-general.php' ),
+			$this->getSubmenuBySlug( $settings_items, 'options-media.php' ),
+			$this->getSubmenuBySlug( $settings_items, 'options-privacy.php' )
+		);
 
 		if ( is_plugin_active( 'pressbooks-whitelabel/pressbooks-whitelabel.php' ) ) {
 			$settings_items_ordered[] = $this->getSubmenuBySlug( $settings_items, 'pb_whitelabel_settings' );
