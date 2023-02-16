@@ -127,6 +127,16 @@
       img {
         width: 40%;
       }
+
+      .actions li a {
+        display: flex;
+        align-items: center;
+        gap: .75rem;
+
+        svg {
+          height: 25px;
+        }
+      }
     }
   }
 
