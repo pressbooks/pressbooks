@@ -141,9 +141,9 @@
 								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-spotlight-series.png" }}"
 								alt=""
 							/>
-							{{ __('Pressbooks spotlight series', 'pressbooks') }}
+							{{ __('Pressbooks webinars', 'pressbooks') }}
 						</a>
-						<p>{{ __( 'Learn about doing more with your Pressbooks network from this webinar series.', 'pressbooks' ) }}</p>
+						<p>{{ __( 'Become a confident Pressbooks user by attending a free, live webinar.', 'pressbooks' ) }}</p>
 					</li>
 					@if( $network_analytics_active )
 						<li class="resources" id="spotlight">
