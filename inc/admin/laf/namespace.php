@@ -1135,6 +1135,11 @@ function disable_customizer() {
  * Instantiates various sub-classes, remove meta boxes from post pages & registers custom post status.
  */
 function init_css_js() {
+	// Reset admin css colors so we only provide Pressbooks' options.
+	global $_wp_admin_css_colors;
+
+	$_wp_admin_css_colors = [];
+
 	$assets = new Assets( 'pressbooks', 'plugin' );
 
 	wp_admin_css_color(

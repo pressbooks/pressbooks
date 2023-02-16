@@ -4,7 +4,6 @@ namespace Pressbooks\Admin\Menus;
 
 use function Pressbooks\Admin\Laf\can_create_new_books;
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
-use Illuminate\Support\Str;
 use Pressbooks\Cloner\Cloner;
 use Pressbooks\Utility\Icons;
 use WP_Admin_Bar;
