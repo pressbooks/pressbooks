@@ -372,5 +372,7 @@ add_action( 'edit_user_profile', '\Pressbooks\Admin\Laf\add_user_profile_fields'
 add_action( 'edit_user_profile_update', '\Pressbooks\Admin\Laf\update_user_profile_fields', 11 );
 add_action( 'personal_options_update', '\Pressbooks\Admin\Laf\update_user_profile_fields', 11 );
 
-add_action( 'plugins_loaded', [ SideBar::class, 'init' ] );
+if ( ! $is_book ) {
+	add_action( 'plugins_loaded', [ SideBar::class, 'init' ] );
+}
 add_action( 'plugins_loaded', [ TopBar::class, 'init' ] );

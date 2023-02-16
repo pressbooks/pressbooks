@@ -2,9 +2,8 @@
 
 namespace Pressbooks\Admin\Menus;
 
-use Pressbooks\Book;
-use Pressbooks\Utility\Icons;
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
+use Pressbooks\Utility\Icons;
 
 class SideBar {
 
@@ -41,13 +40,13 @@ class SideBar {
 			$this->settingsSlug = 'pb_network_analytics_options';
 		} else {
 			$this->booksCallback = '';
-			$this->booksSlug = $this->getSlug( 'sites.php', false );
+			$this->booksSlug = $this->getContextSlug( 'sites.php', false );
 
 			$this->usersCallback = '';
-			$this->usersSlug = $this->getSlug( 'users.php', false );
+			$this->usersSlug = $this->getContextSlug( 'users.php', false );
 
 			$this->settingsCallback = '';
-			$this->settingsSlug = $this->getSlug( 'settings.php', false );
+			$this->settingsSlug = $this->getContextSlug( 'settings.php', false );
 		}
 		$this->icons = new Icons();
 	}
@@ -57,14 +56,17 @@ class SideBar {
 	}
 
 	public function hooks(): void {
-
+		if ( ! is_super_admin() ) {
+			return;
+		}
 		add_action( 'network_admin_menu', [ $this, 'manageNetworkAdminMenu' ], 999 );
 		add_action( 'admin_menu', [ $this, 'manageAdminMenu' ], 999 );
 
 		add_filter( 'custom_menu_order', '__return_true' );
-		add_filter( 'menu_order', [ $this, 'reorderMenu' ], 999 );
 
-		if ( ! is_restricted() ) {
+		if ( is_restricted() ) {
+			add_filter( 'menu_order', [ $this, 'reorderMenu' ], 999 );
+		} else {
 			add_filter( 'menu_order', [ $this, 'reorderSuperAdminMenu' ], 999 );
 		}
 
@@ -107,6 +109,7 @@ class SideBar {
 			'separator1',
 			'separator-last',
 			'separator2',
+			'pb_stats',
 		] );
 
 		if ( ! is_restricted() ) {
@@ -136,12 +139,6 @@ class SideBar {
 
 			remove_menu_page( 'settings.php' );
 		}
-	}
-
-	private function getSlug( string $page, bool $is_main_site_page ): string {
-		return is_network_admin() ?
-			( $is_main_site_page ? admin_url( $page ) : $page ) :
-			( $is_main_site_page ? $page : network_admin_url( $page ) );
 	}
 
 	private function removeAdminLegacyItems(): void {
@@ -226,7 +223,7 @@ class SideBar {
 			__( 'Appearance', 'pressbooks' ),
 			__( 'Appearance', 'pressbooks' ),
 			'manage_network',
-			$this->getSlug( 'customize.php', true ),
+			$this->getContextSlug( 'customize.php', true ),
 			'',
 			$this->icons->getIcon( 'sparkles' ),
 			4
@@ -236,7 +233,7 @@ class SideBar {
 			__( 'Pages', 'pressbooks' ),
 			__( 'Pages', 'pressbooks' ),
 			'manage_network',
-			$this->getSlug( 'edit.php?post_type=page', true ),
+			$this->getContextSlug( 'edit.php?post_type=page', true ),
 			'',
 			$this->icons->getIcon( 'pencil-square' ),
 			5
@@ -309,9 +306,6 @@ class SideBar {
 		if ( ! is_restricted() ) {
 			$this->addSuperAdminMenuItems();
 		}
-		if ( Book::isBook() ) {
-			$this->tuneBookMenu();
-		}
 	}
 
 	private function addSuperAdminMenuItems(): void {
@@ -344,34 +338,34 @@ class SideBar {
 			__( 'Root Site Users', 'pressbooks' ),
 			__( 'Root Site Users', 'pressbooks' ),
 			'manager_network',
-			$this->getSlug( 'users.php', true )
+			$this->getContextSlug( 'users.php', true )
 		);
 
 		// Appearance
 		add_submenu_page(
-			$this->getSlug( 'customize.php', true ),
+			$this->getContextSlug( 'customize.php', true ),
 			__( 'Activate Book Themes' ),
 			__( 'Activate Book Themes' ),
 			'manage_network',
-			$this->getSlug( 'themes.php', false )
+			$this->getContextSlug( 'themes.php', false )
 		);
 
 		add_submenu_page(
-			$this->getSlug( 'customize.php', true ),
+			$this->getContextSlug( 'customize.php', true ),
 			__( 'Change Root Site Theme' ),
 			__( 'Change Root Site Theme' ),
 			'manage_network',
-			$this->getSlug( 'themes.php', true )
+			$this->getContextSlug( 'themes.php', true )
 		);
 
-		remove_submenu_page( $this->getSlug( 'customize.php', true ), $this->getSlug( 'customize.php', true ) );
+		remove_submenu_page( $this->getContextSlug( 'customize.php', true ), $this->getContextSlug( 'customize.php', true ) );
 
 		add_submenu_page(
-			$this->getSlug( 'customize.php', true ),
+			$this->getContextSlug( 'customize.php', true ),
 			__( 'Customize Home Page' ),
 			__( 'Customize Home Page' ),
 			'manage_network',
-			$this->getSlug( 'customize.php', true )
+			$this->getContextSlug( 'customize.php', true )
 		);
 
 		// Plugins
@@ -384,29 +378,29 @@ class SideBar {
 				'manage_network',
 				network_admin_url( 'plugins.php' ),
 				'',
-				'dashicons-admin-plugins',
+				$this->icons->getIcon( 'bolt' ),
 				65
 			);
 		}
 
 		add_submenu_page(
-			$this->getSlug( 'plugins.php', false ),
+			$this->getContextSlug( 'plugins.php', false ),
 			__( 'Network Plugins', 'pressbooks' ),
 			__( 'Network Plugins', 'pressbooks' ),
 			'manage_network',
-			$this->getSlug( 'plugins.php', false )
+			$this->getContextSlug( 'plugins.php', false )
 		);
 
 		if ( is_network_admin() ) {
-			remove_submenu_page( $this->getSlug( 'plugins.php', false ), $this->getSlug( 'plugins.php', false ) );
+			remove_submenu_page( $this->getContextSlug( 'plugins.php', false ), $this->getContextSlug( 'plugins.php', false ) );
 		}
 
 		add_submenu_page(
-			$this->getSlug( 'plugins.php', false ),
+			$this->getContextSlug( 'plugins.php', false ),
 			__( 'Root Site Plugins', 'pressbooks' ),
 			__( 'Root Site Plugins', 'pressbooks' ),
 			'manage_network',
-			$this->getSlug( 'plugins.php', true )
+			$this->getContextSlug( 'plugins.php', true )
 		);
 
 		// Settings
@@ -415,121 +409,121 @@ class SideBar {
 				__( 'Settings', 'pressbooks' ),
 				__( 'Settings', 'pressbooks' ),
 				'manage_network',
-				$this->getSlug( 'settings.php', false ),
+				$this->getContextSlug( 'settings.php', false ),
 				'',
-				'dashicons-admin-settings',
+				$this->icons->getIcon( 'cog-8-tooth' ),
 				66
 			);
 
-			remove_submenu_page( $this->getSlug( 'settings.php', false ), $this->getSlug( 'settings.php', false ) );
+			remove_submenu_page( $this->getContextSlug( 'settings.php', false ), $this->getContextSlug( 'settings.php', false ) );
 
 			add_submenu_page(
-				$this->getSlug( 'settings.php', false ),
+				$this->getContextSlug( 'settings.php', false ),
 				__( 'Network Settings', 'pressbooks' ),
 				__( 'Network Settings', 'pressbooks' ),
 				'manage_network',
-				$this->getSlug( 'settings.php', false )
+				$this->getContextSlug( 'settings.php', false )
 			);
 
 			add_submenu_page(
-				$this->getSlug( 'settings.php', false ),
+				$this->getContextSlug( 'settings.php', false ),
 				__( 'Network Setup', 'pressbooks' ),
 				__( 'Network Setup', 'pressbooks' ),
 				'manage_network',
-				$this->getSlug( 'setup.php', false )
+				$this->getContextSlug( 'setup.php', false )
 			);
 
 			add_submenu_page(
-				$this->getSlug( 'settings.php', false ),
+				$this->getContextSlug( 'settings.php', false ),
 				__( 'Network Managers', 'pressbooks' ),
 				__( 'Network Managers', 'pressbooks' ),
 				'manage_network',
-				$this->getSlug( 'settings.php?page=pb_network_managers', false )
+				$this->getContextSlug( 'settings.php?page=pb_network_managers', false )
 			);
 
 			if ( is_plugin_active( 'pressbooks-whitelabel/pressbooks-whitelabel.php' ) ) {
 				add_submenu_page(
-					$this->getSlug( 'settings.php', false ),
+					$this->getContextSlug( 'settings.php', false ),
 					__( 'Whitelabel Settings', 'pressbooks' ),
 					__( 'Whitelabel Settings', 'pressbooks' ),
 					'manage_network',
-					$this->getSlug( 'settings.php?page=pb_whitelabel_settings', false )
+					$this->getContextSlug( 'settings.php?page=pb_whitelabel_settings', false )
 				);
 			}
 
 			if ( is_plugin_active( 'object-cache-pro/object-cache-pro.php' ) ) {
 				add_submenu_page(
-					$this->getSlug( 'settings.php', false ),
+					$this->getContextSlug( 'settings.php', false ),
 					__( 'Object Cache', 'pressbooks' ),
 					__( 'Object Cache', 'pressbooks' ),
 					'manage_network',
-					$this->getSlug( 'settings.php?page=objectcache', false )
+					$this->getContextSlug( 'settings.php?page=objectcache', false )
 				);
 			}
 
 			add_submenu_page(
-				$this->getSlug( 'settings.php', false ),
+				$this->getContextSlug( 'settings.php', false ),
 				__( 'Google Analytics', 'pressbooks' ),
 				__( 'Google Analytics', 'pressbooks' ),
 				'manage_network',
-				$this->getSlug( 'settings.php?page=pb_analytics', false )
+				$this->getContextSlug( 'settings.php?page=pb_analytics', false )
 			);
 		}
 
 		if ( $this->isNetworkAnalyticsActive ) {
 			if ( ! is_network_admin() ) {
 				add_submenu_page(
-					$this->getSlug( 'settings.php', false ),
+					$this->getContextSlug( 'settings.php', false ),
 					__( 'Network Options', 'pressbooks' ),
 					__( 'Network Options', 'pressbooks' ),
 					'manage_network',
-					$this->getSlug( 'admin.php?page=pb_network_analytics_options', false ),
+					$this->getContextSlug( 'admin.php?page=pb_network_analytics_options', false ),
 				);
 
 				add_submenu_page(
-					$this->getSlug( 'settings.php', false ),
+					$this->getContextSlug( 'settings.php', false ),
 					__( 'Sharing & Privacy', 'pressbooks' ),
 					__( 'Sharing & Privacy', 'pressbooks' ),
 					'manage_network',
-					$this->getSlug( 'settings.php?page=pressbooks_sharingandprivacy_options', false )
+					$this->getContextSlug( 'settings.php?page=pressbooks_sharingandprivacy_options', false )
 				);
 			}
 		}
 
-		remove_submenu_page( $this->getSlug( 'options-general.php', true ), $this->getSlug( 'options-general.php', true ) );
+		remove_submenu_page( $this->getContextSlug( 'options-general.php', true ), $this->getContextSlug( 'options-general.php', true ) );
 
 		add_submenu_page(
-			$this->getSlug( 'settings.php', false ),
+			$this->getContextSlug( 'settings.php', false ),
 			__( 'Root Site General Settings', 'pressbooks' ),
 			__( 'Root Site General Settings', 'pressbooks' ),
 			'manage_network',
-			$this->getSlug( 'options-general.php', true )
+			$this->getContextSlug( 'options-general.php', true )
 		);
 
 		remove_submenu_page(
-			$this->getSlug( 'options-general.php', true ),
-			$this->getSlug( 'options-media.php', true )
+			$this->getContextSlug( 'options-general.php', true ),
+			$this->getContextSlug( 'options-media.php', true )
 		);
 
 		add_submenu_page(
-			$this->getSlug( 'settings.php', false ),
+			$this->getContextSlug( 'settings.php', false ),
 			__( 'Root Site Media Settings', 'pressbooks' ),
 			__( 'Root Site Media Settings', 'pressbooks' ),
 			'manage_network',
-			$this->getSlug( 'options-media.php', true )
+			$this->getContextSlug( 'options-media.php', true )
 		);
 
 		remove_submenu_page(
-			$this->getSlug( 'options-general.php', true ),
-			$this->getSlug( 'options-privacy.php', true )
+			$this->getContextSlug( 'options-general.php', true ),
+			$this->getContextSlug( 'options-privacy.php', true )
 		);
 
 		add_submenu_page(
-			$this->getSlug( 'settings.php', false ),
+			$this->getContextSlug( 'settings.php', false ),
 			__( 'Root Site Privacy Settings', 'pressbooks' ),
 			__( 'Root Site Privacy Settings', 'pressbooks' ),
 			'manage_network',
-			$this->getSlug( 'options-privacy.php', true )
+			$this->getContextSlug( 'options-privacy.php', true )
 		);
 
 		// Stats
@@ -544,7 +538,7 @@ class SideBar {
 					'manage_network',
 					$stats_slug,
 					'',
-					'dashicons-chart-bar',
+					$this->icons->getIcon( 'presentation-chart-bar' ),
 					'3'
 				);
 			}
@@ -554,14 +548,21 @@ class SideBar {
 				__( 'PB Stats', 'pressbooks' ),
 				__( 'PB Stats', 'pressbooks' ),
 				'manage_network',
-				'pb_stats'
+				is_network_admin() ? 'pb_stats' : network_admin_url( 'admin.php?page=pb_stats' )
 			);
 		}
 	}
 
 	public function reorderSuperAdminMenu( array $menu_order ): array {
 		global $submenu;
-		$settings_items = $submenu[ $this->getSlug( 'settings.php', false ) ];
+
+		$setting_slug = $this->getContextSlug( 'settings.php', false );
+
+		if ( ! array_key_exists( $setting_slug, $submenu ) ) {
+			return [];
+		}
+
+		$settings_items = $submenu[ $setting_slug ];
 
 		$settings_items_ordered = [];
 
@@ -590,7 +591,7 @@ class SideBar {
 			$settings_items_ordered[] = $this->getSubmenuBySlug( $settings_items, 'objectcache' );
 		}
 
-		$submenu[ $this->getSlug( 'settings.php', false ) ] = array_merge(
+		$submenu[ $this->getContextSlug( 'settings.php', false ) ] = array_merge(
 			$settings_items_ordered,
 			$settings_items
 		);
@@ -605,7 +606,7 @@ class SideBar {
 				return $item;
 			}
 		}
-		return 0;
+		return $submenu[0];
 	}
 
 	private function manageIntegrationsAdminMenuItem(): void {
@@ -632,20 +633,13 @@ class SideBar {
 
 	public function reorderMenu(): array {
 		$items_order = [
-			$this->getSlug( 'index.php', false ),
-			$this->isNetworkAnalyticsActive ?
-				'pb_network_analytics_booklist' :
-				$this->getSlug( 'sites.php', false ),
-			$this->isNetworkAnalyticsActive ?
-				'pb_network_analytics_userlist' :
-				$this->getSlug( 'users.php', false ),
-			$this->getSlug( 'customize.php', true ),
-			$this->getSlug( 'edit.php?post_type=page', true ),
+			$this->getContextSlug( 'index.php', false ),
+			$this->booksSlug,
+			$this->usersSlug,
+			$this->getContextSlug( 'customize.php', true ),
+			$this->getContextSlug( 'edit.php?post_type=page', true ),
+			$this->settingsSlug,
 		];
-
-		$items_order[] = $this->isNetworkAnalyticsActive ?
-			'pb_network_analytics_options' :
-			$this->getSlug( 'settings.php', false );
 
 		if ( $this->isNetworkAnalyticsActive ) {
 			$items_order[] = $this->getNetworkAnalyticsStatsSlug();
@@ -665,21 +659,10 @@ class SideBar {
 			'pb_network_analytics_admin' : network_admin_url( 'admin.php?page=pb_network_analytics_admin' );
 	}
 
-	public function tuneBookMenu(): void
-	{
-		//TODO: I'm not sure if this is the best approach (I don't like the hardcoded indexes but I think is better than a lookup by name using a foreach)
-		global $menu;
-		$default_index = 6;
-		$icons_replacement = [
-			[
-				'index' => 65,
-				'name' => 'Plugins',
-				'icon' => $this->icons->getIcon( 'bolt' ),
-			]
-		];
-		foreach($icons_replacement as $icon) {
-			$menu[$icon['index']][$default_index] = $icon['icon'];
-		}
+	private function getContextSlug( string $page, bool $is_main_site_page ): string {
+		return is_network_admin() ?
+			( $is_main_site_page ? admin_url( $page ) : $page ) :
+			( $is_main_site_page ? $page : network_admin_url( $page ) );
 	}
 
 }

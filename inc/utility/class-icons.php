@@ -14,7 +14,7 @@ class Icons {
 	/**
 	 * @var string
 	 */
-	private String $path;
+	private string $path;
 
 	/**
 	 * Icons constructor.
@@ -29,7 +29,7 @@ class Icons {
 	 * @param  bool  $solid Whether the icon is a solid icon.
 	 * @return String
 	 */
-	public function getIcon( String $icon, bool $solid = false ): String {
+	public function getIcon( string $icon, bool $solid = false ): string {
 		$icon = "{$this->path}{$icon}.svg";
 		if ( $solid ) {
 			$icon = "{$this->path}solid/{$icon}.svg";

@@ -6,14 +6,16 @@
 
 namespace Pressbooks\Admin\Dashboard;
 
+use Pressbooks\Utility\Icons;
+
 /**
  * Init pb_network_integrations menu, removes itself from sub-menus
  *
- * @since 5.3.0
- *
  * @return string
+ *@since 5.3.0
+ *
  */
-function init_network_integrations_menu() {
+function init_network_integrations_menu(): string {
 	$parent_slug = 'pb_network_integrations';
 	static $init_pb_network_integrations_menu = false;
 	if ( ! $init_pb_network_integrations_menu ) {
@@ -23,7 +25,7 @@ function init_network_integrations_menu() {
 			'manage_network',
 			$parent_slug,
 			'',
-			'dashicons-networking'
+			( new Icons() )->getIcon( 'rocket-launch' ),
 		);
 		add_action(
 			'admin_bar_init', function () {

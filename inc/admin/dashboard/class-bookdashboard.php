@@ -4,12 +4,12 @@
  */
 namespace Pressbooks\Admin\Dashboard;
 
-use Pressbooks\Utility\Icons;
 use function Pressbooks\Admin\Laf\book_info_slug;
 use function Pressbooks\Image\thumbnail_from_url;
 use Illuminate\Support\Str;
 use Pressbooks\Container;
 use Pressbooks\Metadata;
+use Pressbooks\Utility\Icons;
 
 class BookDashboard extends Dashboard {
 	protected static ?Dashboard $instance = null;
