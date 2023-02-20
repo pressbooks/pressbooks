@@ -43,6 +43,9 @@ class Icons {
 	 * @return string The svg content of the icon.
 	 */
 	public function render( string $icon, bool $solid = false ): string {
+		if ( ! file_exists( $this->getIcon( $icon, $solid ) ) ) {
+			return '';
+		}
 		return file_get_contents(
 			$this->getIcon( $icon, $solid )
 		);
