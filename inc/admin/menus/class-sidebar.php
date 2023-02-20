@@ -163,6 +163,8 @@ class SideBar {
 				'separator1',
 				'separator-last',
 				'separator2',
+				'edit-comments.php',
+				'edit.php',
 			]
 		);
 
