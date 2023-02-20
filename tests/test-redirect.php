@@ -210,10 +210,10 @@ class RedirectTest extends \WP_UnitTestCase {
 
 		$redirect_to = admin_url( 'index.php?page=pb_home_page' );
 
-		$this->assertSame(
-			network_admin_url( 'admin.php?page=pb_network_page' ),
-			\Pressbooks\Redirect\handle_dashboard_redirect( $redirect_to, $redirect_to, $user )
-		);
+		$redirected = \Pressbooks\Redirect\handle_dashboard_redirect( $redirect_to, $redirect_to, $user );
+
+		$this->assertNotSame( $redirect_to, $redirected );
+		$this->assertSame( network_admin_url( 'admin.php?page=pb_network_page' ), $redirected );
 	}
 
 	/**
