@@ -5,6 +5,7 @@
 namespace Pressbooks\Admin\Dashboard;
 
 use Pressbooks\Container;
+use Pressbooks\Utility\Icons;
 
 class NetworkDashboard extends Dashboard {
 	protected static ?Dashboard $instance = null;
@@ -35,6 +36,7 @@ class NetworkDashboard extends Dashboard {
 			'total_books' => $this->getTotalNumberOfBooks(),
 			'network_analytics_active' => is_plugin_active( 'pressbooks-network-analytics/pressbooks-network-analytics.php' ),
 			'koko_analytics_active' => is_plugin_active( 'koko-analytics/koko-analytics.php' ),
+			'icons' => new Icons,
 		] );
 	}
 

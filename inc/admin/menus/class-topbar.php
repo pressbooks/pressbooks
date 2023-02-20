@@ -94,7 +94,7 @@ class TopBar {
 
 		$bar->add_node( [
 			'id' => $node->id,
-			'title' => $this->icons->getIconContents( icon: 'user-circle', solid: true ),
+			'title' => $this->icons->render( icon: 'user-circle', solid: true ),
 		] );
 	}
 
@@ -141,7 +141,7 @@ class TopBar {
 		];
 
 		$title = __( 'Administer Network', 'pressbooks' );
-		$svg = $this->icons->getIconContents( 'building-library' );
+		$svg = $this->icons->render( 'building-library' );
 
 		$bar->add_node( [
 			'id' => $main_id,
@@ -168,7 +168,7 @@ class TopBar {
 		];
 
 		$title = __( 'My Books', 'pressbooks' );
-		$svg = $this->icons->getIconContents( 'my-books' );
+		$svg = $this->icons->render( 'my-books' );
 
 		$bar->add_node( [
 			'id' => 'pb-my-books',
@@ -214,7 +214,7 @@ class TopBar {
 			return;
 		}
 
-		$svg = $this->icons->getIconContents( 'book-open' );
+		$svg = $this->icons->render( 'book-open' );
 		$title = $node->title;
 
 		$bar->add_node( [
@@ -225,7 +225,7 @@ class TopBar {
 
 	protected function addCreateBook( WP_Admin_Bar $bar ): void {
 		$title = __( 'Create Book', 'pressbooks' );
-		$svg = $this->icons->getIconContents( icon: 'plus-circle', solid: true );
+		$svg = $this->icons->render( icon: 'plus-circle', solid: true );
 
 		$bar->add_node( [
 			'id' => 'pb-create-book',
@@ -240,7 +240,7 @@ class TopBar {
 
 	protected function addCloneBook( WP_Admin_Bar $bar ): void {
 		$title = __( 'Clone Book', 'pressbooks' );
-		$svg = $this->icons->getIconContents( icon: 'clone-books', solid: true );
+		$svg = $this->icons->render( icon: 'clone-books', solid: true );
 
 		$bar->add_node( [
 			'id' => 'pb-clone-book',
@@ -255,7 +255,7 @@ class TopBar {
 
 	protected function addInsertUsers( WP_Admin_Bar $bar ): void {
 		$title = __( 'Add Users', 'pressbooks' );
-		$svg = $this->icons->getIconContents( icon: 'user-plus', solid: true );
+		$svg = $this->icons->render( icon: 'user-plus', solid: true );
 
 		$bar->add_node( [
 			'id' => 'pb-add-users',

@@ -20,9 +20,7 @@
 						<ul class="pb-dashboard-action">
 							@if( $book_info_url )
 								<li id="book_info">
-									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-										<image xlink:href="{{ $icons->getIcon('pencil-square') }}"  height="24" width="24"/>
-									</svg>
+									{!! $icons->render( 'pencil-square' ) !!}
 									<a href="{!! $book_info_url !!}">
 										{{ __( 'Edit book info', 'pressbooks' ) }}
 									</a>
@@ -30,9 +28,7 @@
 							@endif
 							@if( $organize_url )
 								<li id="organize">
-									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-										<image xlink:href="{{ $icons->getIcon('book-open') }}"  height="24" width="24"/>
-									</svg>
+									{!! $icons->render( 'book-open' ) !!}
 									<a href="{{ $organize_url }}">
 										{{ __( 'Organize book', 'pressbooks' ) }}
 									</a>
@@ -40,9 +36,7 @@
 							@endif
 							@if( $themes_url )
 								<li id="theme">
-									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-										<image xlink:href="{{ $icons->getIcon('rectangle-group') }}"  height="24" width="24"/>
-									</svg>
+									{!! $icons->render( 'rectangle-group' ) !!}
 									<a href="{{ $themes_url }}">
 										{{ __( 'Change theme', 'pressbooks' ) }}
 									</a>
@@ -50,9 +44,7 @@
 							@endif
 							@if( $users_url )
 							<li id="users">
-								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-									<image xlink:href="{{ $icons->getIcon('users') }}"  height="24" width="24"/>
-								</svg>
+								{!! $icons->render( 'users' ) !!}
 								<a href="{{ $users_url }}">
 									{{ __( 'Manage users', 'pressbooks' ) }}
 								</a>
@@ -60,9 +52,7 @@
 							@endif
 							@if( $analytics_url )
 								<li id="analytics">
-									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-										<image xlink:href="{{ $icons->getIcon('presentation-chart-bar') }}"  height="24" width="24"/>
-									</svg>
+									{!! $icons->render( 'presentation-chart-bar' ) !!}
 									<a href="{{ $analytics_url }}">
 										{{ __( 'View Analytics', 'pressbooks' ) }}
 									</a>
@@ -70,9 +60,7 @@
 							@endif
 							@if( $delete_book_url )
 								<li id="delete">
-									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-										<image xlink:href="{{ $icons->getIcon('trash') }}"  height="24" width="24"/>
-									</svg>
+									{!! $icons->render( 'trash' ) !!}
 									<a href="{{ $delete_book_url }}">
 										{{ __( 'Delete book', 'pressbooks' ) }}
 									</a>

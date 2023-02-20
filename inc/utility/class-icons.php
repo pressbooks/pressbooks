@@ -42,7 +42,7 @@ class Icons {
 	 * @param bool $solid Whether the icon is solid or outline.
 	 * @return string The svg content of the icon.
 	 */
-	public function getIconContents( string $icon, bool $solid = false ): string {
+	public function render( string $icon, bool $solid = false ): string {
 		return file_get_contents(
 			$this->getIcon( $icon, $solid )
 		);

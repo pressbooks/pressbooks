@@ -48,7 +48,7 @@
 								<a
 									href="{!! admin_url( 'customize.php?return=' . network_admin_url() ) !!}"
 								>
-									{!! (new \Pressbooks\Utility\Icons())->getIconContents( 'sparkles' ) !!}
+									{!! $icons->render( 'sparkles' ) !!}
 									{{ __( 'Customize network appearance', 'pressbooks' ) }}
 								</a>
 							</li>
@@ -56,7 +56,7 @@
 								<a
 									href="{!! admin_url( 'edit.php?post_type=page' ) !!}"
 								>
-									{!! (new \Pressbooks\Utility\Icons())->getIconContents( 'pencil-square' ) !!}
+									{!! $icons->render( 'pencil-square' ) !!}
 									{{ __( 'Create or edit pages', 'pressbooks' ) }}
 								</a>
 							</li>
@@ -65,7 +65,7 @@
 									<a
 										href="{!! admin_url( 'index.php?page=koko-analytics' ) !!}"
 									>
-										{!! (new \Pressbooks\Utility\Icons())->getIconContents( 'presentation-chart-bar' ) !!}
+										{!! $icons->render( 'presentation-chart-bar' ) !!}
 										{{ __( 'View home page analytics', 'pressbooks' ) }}</a>
 								</li>
 							@endif
@@ -90,7 +90,7 @@
 								<a
 									href="{!! network_admin_url( $network_analytics_active ? 'settings.php?page=pb_network_analytics_options' : 'settings.php' ) !!}"
 								>
-									{!! (new \Pressbooks\Utility\Icons())->getIconContents( 'cog-8-tooth' ) !!}
+									{!! $icons->render( 'cog-8-tooth' ) !!}
 									{{ __( 'Adjust network settings', 'pressbooks' ) }}
 								</a>
 							</li>
@@ -98,7 +98,7 @@
 								<a
 									href="{!! network_admin_url( $network_analytics_active ? 'sites.php?page=pb_network_analytics_booklist' : 'sites.php' ) !!}"
 								>
-									{!! (new \Pressbooks\Utility\Icons())->getIconContents( 'book-open' ) !!}
+									{!! $icons->render( 'book-open' ) !!}
 									{{ __( 'View book list', 'pressbooks' ) }}
 								</a>
 							</li>
@@ -106,7 +106,7 @@
 								<a
 									href="{!! network_admin_url( $network_analytics_active ? 'users.php?page=pb_network_analytics_userlist' : 'users.php' ) !!}"
 								>
-									{!! (new \Pressbooks\Utility\Icons())->getIconContents( 'users' ) !!}
+									{!! $icons->render( 'users' ) !!}
 									{{ __( 'View user list', 'pressbooks' ) }}
 								</a>
 							</li>
