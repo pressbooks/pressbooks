@@ -64,11 +64,7 @@ class SideBar {
 
 		add_filter( 'custom_menu_order', '__return_true' );
 
-		if ( is_restricted() ) {
-			add_filter( 'menu_order', [ $this, 'reorderMenu' ], 999 );
-		} else {
-			add_filter( 'menu_order', [ $this, 'reorderSuperAdminMenu' ], 999 );
-		}
+		add_filter( 'menu_order', [ $this, 'reorderMenu' ], 999 );
 
 		remove_action( 'admin_init', '\Pressbooks\Admin\NetworkManagers\restrict_access' );
 	}
@@ -593,6 +589,15 @@ class SideBar {
 	public function reorderSuperAdminMenu( array $menu_order ): array {
 		global $submenu;
 
+		if ( ! is_network_admin() ) {
+			$original_menu_order = $menu_order;
+			$menu_order[5] = $original_menu_order[6];
+			$menu_order[6] = $original_menu_order[7];
+			$menu_order[7] = $original_menu_order[5];
+			$menu_order[8] = $original_menu_order[9];
+			$menu_order[9] = $original_menu_order[8];
+		}
+
 		$setting_slug = $this->getContextSlug( 'settings.php', false );
 
 		if ( ! array_key_exists( $setting_slug, $submenu ) ) {
@@ -674,7 +679,11 @@ class SideBar {
 		}
 	}
 
-	public function reorderMenu(): array {
+	public function reorderMenu( array $menu_order ): array {
+		if ( ! is_restricted() ) {
+			return $this->reorderSuperAdminMenu( $menu_order );
+		}
+
 		$items_order = [
 			$this->getContextSlug( 'index.php', false ),
 			$this->booksSlug,
