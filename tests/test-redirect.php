@@ -236,4 +236,26 @@ class RedirectTest extends \WP_UnitTestCase {
 			\Pressbooks\Redirect\handle_dashboard_redirect( $redirect_to, $redirect_to, $user )
 		);
 	}
+
+	/**
+	 * @test
+	 * @group redirect
+	 */
+	public function it_uses_redirect_to_when_no_user_is_provided(): void {
+		$redirect_to = home_url( 'wp-login.php' );
+
+		$this->assertSame(
+			$redirect_to,
+			\Pressbooks\Redirect\handle_dashboard_redirect( $redirect_to, $redirect_to, new WP_Error )
+		);
+
+		$this->_book();
+
+		$redirect_to = get_site_url( get_current_blog_id() );
+
+		$this->assertSame(
+			$redirect_to,
+			\Pressbooks\Redirect\handle_dashboard_redirect( $redirect_to, $redirect_to, new WP_Error )
+		);
+	}
 }
