@@ -1,12 +1,11 @@
 @import "menus/sidebar";
 @import "partials/colors";
 
-$svg-md: 18px;
-$svg-lg: 24px;
-$svg-profile: 28px;
+$svg-md: 24px;
+$svg-lg: 48px;
 
 #wpcontent #wpadminbar {
-  height: 44px;
+  height: 70px;
 
   .quicklinks {
     display: flex;
@@ -17,6 +16,7 @@ $svg-profile: 28px;
       display: flex;
       align-items: center;
       height: 100%;
+      gap: 20px;
 
       & > li:not(#wp-admin-bar-menu-toggle) {
         > .ab-item::before {
@@ -35,17 +35,16 @@ $svg-profile: 28px;
     }
 
     #wp-admin-bar-my-account.with-avatar > a svg {
-      height: $svg-profile;
-      width: $svg-profile;
+      height: $svg-lg;
+      width: $svg-lg;
     }
-
 
     #wp-admin-bar-top-secondary li.btn.action a {
       border: 1px solid $white;
       border-radius: 8px;
-      margin: 0 4px;
-      padding: 0 6px;
-      display: flex;
+      margin: 0;
+      padding: 5px 10px;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
 
@@ -55,6 +54,9 @@ $svg-profile: 28px;
       }
 
       span {
+        font-family: "Karla", sans-serif;
+        font-size: 1.125rem;
+        font-weight: bold;
         margin-left: 6px;
       }
 
@@ -65,13 +67,16 @@ $svg-profile: 28px;
     }
   }
 
+  #wp-admin-bar-my-account {
+    margin-left: 10px;
+    // TODO: figure out how to vertically center this element better and make sure the SVG is visible on mobile devices
+  }
+
   ul:not(.ab-submenu) > li:not(.btn.action) {
     & > .ab-item {
-      font-size: 13px;
-      line-height: 2.45;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
+      height: 100%;
 
       svg {
         height: $svg-md;
@@ -79,7 +84,9 @@ $svg-profile: 28px;
       }
 
       span {
-        font-weight: 500;
+        font-family: "Karla", sans-serif;
+        font-size: 1.2rem;
+        font-weight: bold;
         margin-left: 6px;
       }
     }
@@ -132,7 +139,6 @@ $svg-profile: 28px;
   }
 
   @media screen and (max-width: 782px) {
-    height: 46px;
 
     .quicklinks > ul > li:not(#wp-admin-bar-menu-toggle) > .ab-item {
       color: $white;
@@ -144,8 +150,26 @@ $svg-profile: 28px;
     }
 
     .quicklinks > ul > li#wp-admin-bar-my-account > .ab-item svg {
-      height: $svg-profile;
-      width: $svg-profile;
+      height: $svg-lg;
+      width: $svg-lg;
     }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #wpcontent #wpbody {
+   padding-top: 70px;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  #wpwrap {
+    top: 24px;
+  }
+}
+
+@media screen and (min-width: 783px) {
+  #wpwrap {
+    top: 38px;
   }
 }
