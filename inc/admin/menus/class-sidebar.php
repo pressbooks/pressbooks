@@ -91,14 +91,12 @@ class SideBar {
 				'sites.php',
 				'users.php',
 				'users.php',
-				'users.php',
 			],
 			[
 				'pb_network_analytics_booklist',
 				'site-new.php',
 				'pb_network_analytics_userlist',
 				'user-new.php',
-				'user_bulk_new',
 			]
 		);
 
@@ -345,6 +343,15 @@ class SideBar {
 				__( 'Network Users', 'pressbooks' ),
 				'manager_network',
 				$this->usersSlug
+			);
+		} else {
+			remove_submenu_page( $this->usersSlug, $this->usersSlug );
+			add_submenu_page(
+				$this->usersSlug,
+				__( 'Network Users', 'pressbooks' ),
+				__( 'Network Users', 'pressbooks' ),
+				'manager_network',
+				$this->getContextSlug( 'users.php', false )
 			);
 		}
 
