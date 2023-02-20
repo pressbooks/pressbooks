@@ -492,3 +492,28 @@ function break_reset_password_loop( $redirect_to, $requested_redirect_to, $user 
 	}
 	return $redirect_to;
 }
+
+/**
+ * Handles the dashboard redirect in case of super admin users
+ *
+ * @param string $redirect_to The redirect destination URL.
+ * @param string $requested_redirect_to The requested redirect destination URL passed as a parameter.
+ * @param \WP_User|\WP_Error $user
+ *
+ * @return string
+ */
+function handle_dashboard_redirect( string $redirect_to, string $requested_redirect_to, \WP_User|\WP_Error $user ): string {
+	if ( $user instanceof \WP_Error ) {
+		return $redirect_to;
+	}
+
+	if ( ! is_super_admin( $user->ID ) ) {
+		return $redirect_to;
+	}
+
+	if ( str_contains( $redirect_to, 'page=pb_home_page' ) ) {
+		return network_admin_url( 'admin.php?page=pb_network_page' );
+	}
+
+	return $redirect_to;
+}
