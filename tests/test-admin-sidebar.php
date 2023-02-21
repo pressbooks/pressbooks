@@ -18,16 +18,6 @@ class testAdminSidebar extends \WP_UnitTestCase {
 		parent::set_up();
 	}
 
-	private function createSuperAdminUser(): int {
-		$this->_book();
-		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
-		grant_super_admin( $user_id );
-
-		wp_set_current_user( $user_id );
-
-		return $user_id;
-	}
-
 	/**
 	 * Check for both super admin and network admin
 	 *
