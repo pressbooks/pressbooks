@@ -6,8 +6,7 @@ class testAdminTopbar extends \WP_UnitTestCase
 {
 	use utilsTrait;
 
-	public function getAdminBar(): WP_Admin_Bar
-	{
+	public function getAdminBar(): WP_Admin_Bar {
 		require_once ABSPATH . WPINC . '/class-wp-admin-bar.php';
 		$wp_admin_bar = new \WP_Admin_Bar();
 		$wp_admin_bar->initialize();
@@ -17,8 +16,7 @@ class testAdminTopbar extends \WP_UnitTestCase
 		return $wp_admin_bar;
 	}
 
-	private function mapValues($array, $key): array
-	{
+	private function mapValues($array, $key): array {
 		return array_values(array_map(
 			static function ($item) use ($key) {
 				return $item->$key;
@@ -31,10 +29,12 @@ class testAdminTopbar extends \WP_UnitTestCase
 	 * @test
 	 * @group topbar
 	 */
-	public function admin_bar_is_modified_for_super_admins(): void
-	{
+	public function admin_bar_is_modified_for_super_admins(): void {
 		$this->createSuperAdminUser();
 		$modified_menu = $this->getAdminBar()->get_nodes();
+
+		$site_name = get_bloginfo( 'name' );
+
 		$expected_order = [
 			'Dashboard',
 			'Books',
@@ -44,14 +44,16 @@ class testAdminTopbar extends \WP_UnitTestCase
 			'Plugins',
 			'Settings',
 			false,
-			"<span class='blavatar'></span> Site 0000044",
+			"<span class='blavatar'></span> {$site_name}",
 			' <span>Administer Network</span>',
 			' <span>My Books</span>',
 			' <span>Create Book</span>',
 			' <span>Clone Book</span>',
 			' <span>Add Users</span>',
 		];
+
 		$items_ordered = $this->mapValues($modified_menu, 'title');
+
 		$this->assertEquals($expected_order, $items_ordered);
 	}
 
@@ -59,18 +61,22 @@ class testAdminTopbar extends \WP_UnitTestCase
 	 * @test
 	 * @group topbar
 	 */
-	public function admin_bar_is_modified_for_non_admins(): void
-	{
+	public function admin_bar_is_modified_for_non_admins(): void {
 		$this->createSubscriberUser();
 		$modified_menu = $this->getAdminBar()->get_nodes();
+
+		$site_name = get_bloginfo( 'name' );
+
 		$expected_order = [
 			false,
-			"<span class='blavatar'></span> Site 0000046",
+			"<span class='blavatar'></span> {$site_name}",
 			' <span>My Books</span>',
 			' <span>Create Book</span>',
 			' <span>Clone Book</span>',
 		];
+
 		$items_ordered = $this->mapValues($modified_menu, 'title');
+
 		$this->assertEquals($expected_order, $items_ordered);
 	}
 
