@@ -1,4 +1,5 @@
 $icon-size: 24px;
+
 #adminmenu {
   div.wp-menu-image {
     display: flex;
@@ -9,16 +10,6 @@ $icon-size: 24px;
       padding: 0;
       width: $icon-size;
       height: $icon-size;
-    }
-  }
-}
-
-#toplevel_page_h5p {
-  div.wp-menu-image {
-    &:before {
-      display: none;
-      content: '';
-      padding: 0;
     }
   }
 }

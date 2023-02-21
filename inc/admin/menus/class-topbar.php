@@ -92,9 +92,11 @@ class TopBar {
 			return;
 		}
 
+		$avatar = get_avatar( get_current_user_id(), 48 );
+
 		$bar->add_node( [
 			'id' => $node->id,
-			'title' => $this->icons->render( icon: 'user-circle', solid: true ),
+			'title' => $avatar,
 		] );
 	}
 

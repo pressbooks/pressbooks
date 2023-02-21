@@ -34,6 +34,18 @@ $svg-lg: 48px;
       }
     }
 
+    #wp-admin-bar-my-account.with-avatar > a {
+      display: flex;
+    }
+
+    #wp-admin-bar-my-account.with-avatar > a img {
+      margin: 0;
+      width: 100%;
+      height: auto;
+      border-radius: 50%;
+      border: 0;
+    }
+
     #wp-admin-bar-my-account.with-avatar > a svg {
       height: $svg-lg;
       width: $svg-lg;
@@ -54,7 +66,7 @@ $svg-lg: 48px;
       }
 
       span {
-        font-family: "Karla", sans-serif;
+        font-family: Karla, sans-serif;
         font-size: 1.125rem;
         font-weight: bold;
         margin-left: 6px;
@@ -65,11 +77,6 @@ $svg-lg: 48px;
         color: $monza;
       }
     }
-  }
-
-  #wp-admin-bar-my-account {
-    margin-left: 10px;
-    // TODO: figure out how to vertically center this element better and make sure the SVG is visible on mobile devices
   }
 
   ul:not(.ab-submenu) > li:not(.btn.action) {
@@ -84,7 +91,7 @@ $svg-lg: 48px;
       }
 
       span {
-        font-family: "Karla", sans-serif;
+        font-family: Karla, sans-serif;
         font-size: 1.2rem;
         font-weight: bold;
         margin-left: 6px;
@@ -93,7 +100,7 @@ $svg-lg: 48px;
   }
 
   ul.ab-submenu > li a:hover {
-    box-shadow: inset .25rem 0 0 0 currentColor;
+    box-shadow: inset .25rem 0 0 0 currentcolor;
     transition: box-shadow .1s linear;
   }
 
@@ -101,7 +108,7 @@ $svg-lg: 48px;
     content: none;
   }
 
-  #wp-admin-bar-updates .ab-icon:before {
+  #wp-admin-bar-updates .ab-icon::before {
     top: 0;
   }
 
@@ -139,7 +146,6 @@ $svg-lg: 48px;
   }
 
   @media screen and (max-width: 782px) {
-
     .quicklinks > ul > li:not(#wp-admin-bar-menu-toggle) > .ab-item {
       color: $white;
 
