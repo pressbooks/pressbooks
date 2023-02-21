@@ -18,6 +18,10 @@ $svg-lg: 48px;
       height: 100%;
       gap: 20px;
 
+      li#wp-admin-bar-pb-administer-network {
+        margin-left: 6px;
+      }
+
       & > li:not(#wp-admin-bar-menu-toggle) {
         > .ab-item::before {
           top: 0;
@@ -36,9 +40,14 @@ $svg-lg: 48px;
 
     #wp-admin-bar-my-account.with-avatar > a {
       display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      padding-right: 8px;
     }
 
     #wp-admin-bar-my-account.with-avatar > a img {
+      position: unset;
       margin: 0;
       width: 100%;
       height: auto;
@@ -108,8 +117,18 @@ $svg-lg: 48px;
     content: none;
   }
 
-  #wp-admin-bar-updates .ab-icon::before {
-    top: 0;
+  #wp-admin-bar-updates {
+    .ab-icon {
+      margin-right: 0;
+
+      &::before {
+        top: 0;
+      }
+    }
+
+    .ab-label {
+      height: auto;
+    }
   }
 
   @media screen and (max-width: 1024px) {
@@ -118,7 +137,11 @@ $svg-lg: 48px;
     }
 
     .quicklinks > ul > li:not(#wp-admin-bar-menu-toggle, #wp-admin-bar-my-account) {
-      display: block;
+      display: flex;
+
+      .ab-sub-wrapper {
+        top: 48px;
+      }
 
       > .ab-item {
         width: 48px;
@@ -146,6 +169,14 @@ $svg-lg: 48px;
   }
 
   @media screen and (max-width: 782px) {
+    .quicklinks > ul > li#wp-admin-bar-menu-toggle {
+      display: flex;
+    }
+
+    .quicklinks > ul > li#wp-admin-bar-pb-administer-network {
+      margin-left: 0;
+    }
+
     .quicklinks > ul > li:not(#wp-admin-bar-menu-toggle) > .ab-item {
       color: $white;
 
