@@ -214,6 +214,13 @@ class RedirectTest extends \WP_UnitTestCase {
 
 		$this->assertNotSame( $redirect_to, $redirected );
 		$this->assertSame( network_admin_url( 'admin.php?page=pb_network_page' ), $redirected );
+
+		$redirect_to = admin_url();
+
+		$redirected = \Pressbooks\Redirect\handle_dashboard_redirect( $redirect_to, $redirect_to, $user );
+
+		$this->assertNotSame( $redirect_to, $redirected );
+		$this->assertSame( network_admin_url( 'admin.php?page=pb_network_page' ), $redirected );
 	}
 
 	/**

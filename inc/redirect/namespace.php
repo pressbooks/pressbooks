@@ -511,7 +511,7 @@ function handle_dashboard_redirect( string $redirect_to, string $requested_redir
 		return $redirect_to;
 	}
 
-	if ( str_contains( $redirect_to, 'page=pb_home_page' ) ) {
+	if ( $redirect_to === admin_url() || str_contains( $redirect_to, 'page=pb_home_page' ) ) {
 		return network_admin_url( 'admin.php?page=pb_network_page' );
 	}
 
