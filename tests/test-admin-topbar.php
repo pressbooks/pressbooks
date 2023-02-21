@@ -1,29 +1,10 @@
 <?php
 
+use Illuminate\Support\Str;
 use Pressbooks\Admin\Menus\TopBar;
 
-class testAdminTopbar extends \WP_UnitTestCase
-{
+class testAdminTopbar extends \WP_UnitTestCase {
 	use utilsTrait;
-
-	public function getAdminBar(): WP_Admin_Bar {
-		require_once ABSPATH . WPINC . '/class-wp-admin-bar.php';
-		$wp_admin_bar = new \WP_Admin_Bar();
-		$wp_admin_bar->initialize();
-		TopBar::init(); //Dalcin's magic
-		do_action('admin_bar_menu', $wp_admin_bar);
-		set_current_screen('dashboard');
-		return $wp_admin_bar;
-	}
-
-	private function mapValues($array, $key): array {
-		return array_values(array_map(
-			static function ($item) use ($key) {
-				return $item->$key;
-			},
-			$array
-		));
-	}
 
 	/**
 	 * @test
@@ -45,16 +26,16 @@ class testAdminTopbar extends \WP_UnitTestCase
 			'Settings',
 			false,
 			"<span class='blavatar'></span> {$site_name}",
-			' <span>Administer Network</span>',
-			' <span>My Books</span>',
-			' <span>Create Book</span>',
-			' <span>Clone Book</span>',
-			' <span>Add Users</span>',
+			'<span>Administer Network</span>',
+			'<span>My Books</span>',
+			'<span>Create Book</span>',
+			'<span>Clone Book</span>',
+			'<span>Add Users</span>',
 		];
 
-		$items_ordered = $this->mapValues($modified_menu, 'title');
+		$items_ordered = $this->mapValues( $modified_menu, 'title' );
 
-		$this->assertEquals($expected_order, $items_ordered);
+		$this->assertEquals( $expected_order, $items_ordered );
 	}
 
 	/**
@@ -70,14 +51,43 @@ class testAdminTopbar extends \WP_UnitTestCase
 		$expected_order = [
 			false,
 			"<span class='blavatar'></span> {$site_name}",
-			' <span>My Books</span>',
-			' <span>Create Book</span>',
-			' <span>Clone Book</span>',
+			'<span>My Books</span>',
+			'<span>Create Book</span>',
+			'<span>Clone Book</span>',
 		];
 
-		$items_ordered = $this->mapValues($modified_menu, 'title');
+		$items_ordered = $this->mapValues( $modified_menu , 'title' );
 
-		$this->assertEquals($expected_order, $items_ordered);
+		$this->assertEquals( $expected_order, $items_ordered );
 	}
 
+	private function getAdminBar(): WP_Admin_Bar {
+		require_once ABSPATH . WPINC . '/class-wp-admin-bar.php';
+
+		$wp_admin_bar = new \WP_Admin_Bar();
+		$wp_admin_bar->initialize();
+
+		TopBar::init();
+
+		do_action( 'admin_bar_menu', $wp_admin_bar );
+		set_current_screen( 'dashboard' );
+
+		return $wp_admin_bar;
+	}
+
+	private function mapValues( array $items, string $key ): array {
+		return array_values(
+			array_map( function ( $item ) use ( $key ) {
+				if ( ! is_string( $item->$key ) ) {
+					return $item->$key;
+				}
+
+				$value = Str::of( $item->$key );
+
+				return $value->contains( '<span>' ) ?
+					(string) $value->remove( $value->before( '<span>' ) ) :
+					(string) $value;
+			}, $items )
+		);
+	}
 }

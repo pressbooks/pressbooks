@@ -2,8 +2,6 @@
 
 namespace Pressbooks\Utility;
 
-use PressbooksMix\Assets;
-
 /**
  * Class Icons
  *
@@ -11,17 +9,15 @@ use PressbooksMix\Assets;
  * This class is used to get the path to the icons used in the admin menu (heroicons).
  */
 class Icons {
-	/**
-	 * @var string
-	 */
-	private string $path;
+	private string $base_url;
 
-	/**
-	 * Icons constructor.
-	 */
+	private string $base_path;
+
 	public function __construct() {
-		$assets = new Assets( 'pressbooks', 'plugin' );
-		$this->path = $assets->getPath( 'images/icons/heroicons/' );
+		$path = 'assets/dist/images/icons/heroicons';
+
+		$this->base_url = PB_PLUGIN_URL . $path;
+		$this->base_path = PB_PLUGIN_DIR . $path;
 	}
 
 	/**
@@ -30,11 +26,7 @@ class Icons {
 	 * @return String
 	 */
 	public function getIcon( string $icon, bool $solid = false ): string {
-		if ( $solid ) {
-			return "{$this->path}solid/{$icon}.svg";
-		}
-
-		return "{$this->path}{$icon}.svg";
+		return $this->base_url . $this->path( $icon, $solid );
 	}
 
 	/**
@@ -43,11 +35,16 @@ class Icons {
 	 * @return string The svg content of the icon.
 	 */
 	public function render( string $icon, bool $solid = false ): string {
-		if ( ! file_exists( $this->getIcon( $icon, $solid ) ) ) {
+		$file = $this->base_path . $this->path( $icon, $solid );
+
+		if ( ! file_exists( $file ) ) {
 			return '';
 		}
-		return file_get_contents(
-			$this->getIcon( $icon, $solid )
-		);
+
+		return file_get_contents( $file );
+	}
+
+	private function path( string $icon, bool $solid = false ) {
+		return $solid ? "/solid/{$icon}.svg" : "/{$icon}.svg";
 	}
 }
