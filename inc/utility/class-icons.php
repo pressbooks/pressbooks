@@ -44,7 +44,7 @@ class Icons {
 		return file_get_contents( $file );
 	}
 
-	private function path( string $icon, bool $solid = false ) {
+	private function path( string $icon, bool $solid = false ): string {
 		return $solid ? "/solid/{$icon}.svg" : "/{$icon}.svg";
 	}
 }
