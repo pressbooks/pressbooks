@@ -185,6 +185,8 @@ class SideBar {
 	}
 
 	private function addMenuItems(): void {
+		global $menu;
+
 		if ( ! is_network_admin() ) {
 			add_menu_page(
 				__( 'Dashboard', 'pressbooks' ),
@@ -195,10 +197,10 @@ class SideBar {
 				$this->icons->getIcon( 'home' ),
 				1
 			);
+			if ( isset( $menu[100] ) && $menu[100][2] === 'h5p' ) {
+				$menu[100][6] = $this->icons->getIcon( 'bolt' );
+			}
 		} else {
-			// Change icon
-			global $menu;
-
 			if ( isset( $menu[2] ) && $menu[2][2] === 'index.php' ) {
 				$menu[2][6] = $this->icons->getIcon( 'home' );
 			}
