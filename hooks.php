@@ -179,6 +179,7 @@ add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_catalog', 1 );
 add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_open', 1 );
 add_action( 'plugins_loaded', '\Pressbooks\Redirect\migrate_generated_content', 1 );
 add_filter( 'login_redirect', '\Pressbooks\Redirect\break_reset_password_loop', 10, 3 );
+add_filter( 'login_redirect', '\Pressbooks\Redirect\handle_dashboard_redirect', 10, 3 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Sitemap
