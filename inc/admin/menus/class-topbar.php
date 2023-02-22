@@ -103,6 +103,8 @@ class TopBar {
 	protected function addAdministerNetwork( WP_Admin_Bar $bar ): void {
 		$main_id = 'pb-administer-network';
 		$network_analytics_active = is_plugin_active( 'pressbooks-network-analytics/pressbooks-network-analytics.php' );
+		$koko_analytics_active = is_plugin_active( 'koko-analytics/koko-analytics.php' );
+		$pressbooks_stats_active = is_plugin_active( 'pressbooks-stats/pressbooks-stats.php' );
 
 		$submenus = [
 			'pb-administer-network-d' => [
@@ -140,6 +142,11 @@ class TopBar {
 				'href' => network_admin_url( $network_analytics_active ? 'admin.php?page=pb_network_analytics_options' : 'settings.php' ),
 				'visible' => true,
 			],
+			'pb-administer-stats' => [
+				'title' => __( 'Stats', 'pressbooks' ),
+				'href' => $this->getStatsPageUrl($network_analytics_active, $koko_analytics_active, $pressbooks_stats_active),
+				'visible' => $network_analytics_active || $koko_analytics_active || $pressbooks_stats_active,
+			]
 		];
 
 		$title = __( 'Administer Network', 'pressbooks' );
@@ -268,5 +275,21 @@ class TopBar {
 				'class' => 'btn action',
 			],
 		] );
+	}
+
+	protected function getStatsPageUrl( bool $network_analytics_active, bool $koko_analytics_active, bool $pressbooks_stats_active ): string|null {
+		if ($network_analytics_active) {
+			return network_admin_url('admin.php?page=pb_network_analytics_admin');
+		}
+
+		if ($koko_analytics_active) {
+			return admin_url('admin.php?page=koko-analytics');
+		}
+
+		if ($pressbooks_stats_active) {
+			return network_admin_url('admin.php?page=pb_stats');
+		}
+
+		return null;
 	}
 }
