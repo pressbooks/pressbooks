@@ -21,6 +21,10 @@ $svg-lg: 48px;
         margin-left: 6px;
       }
 
+      li#wp-admin-bar-pb-my-books:nth-child(2) {
+        margin-left: 6px;
+      }
+
       & > li:not(#wp-admin-bar-menu-toggle, #wp-admin-bar-my-account) {
         display: flex;
         align-items: center;
@@ -190,8 +194,10 @@ $svg-lg: 48px;
       display: flex;
     }
 
-    .quicklinks > ul > li#wp-admin-bar-pb-administer-network {
-      margin-left: 0;
+    .quicklinks > ul {
+      li#wp-admin-bar-pb-administer-network, li#wp-admin-bar-pb-my-books:nth-child(2) {
+        margin-left: 0;
+      }
     }
 
     .quicklinks > ul > li#wp-admin-bar-site-name {
