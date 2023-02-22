@@ -5,12 +5,21 @@ $icon-size: 24px;
     display: flex;
     justify-content: center;
     align-items: center;
-
     img {
       padding: 0;
       width: $icon-size;
       height: $icon-size;
       opacity: 1;
+    }
+  }
+}
+
+#toplevel_page_h5p {
+  div.wp-menu-image {
+    &:before {
+      display: none;
+      content: '';
+      padding: 0;
     }
   }
 }
