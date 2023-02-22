@@ -5,6 +5,7 @@ $icon-size: 24px;
     display: flex;
     justify-content: center;
     align-items: center;
+
     img {
       padding: 0;
       width: $icon-size;
@@ -14,9 +15,9 @@ $icon-size: 24px;
   }
 }
 
-#toplevel_page_h5p {
+#toplevel_page_h5p { /* stylelint-disable-line */
   div.wp-menu-image {
-    &:before {
+    &::before {
       display: none;
       content: '';
       padding: 0;
