@@ -122,7 +122,7 @@ class TopBar {
 			],
 			'pb-administer-appearance' => [
 				'title' => __( 'Appearance', 'pressbooks' ),
-				'href' => admin_url( 'customize.php?return=' . network_admin_url() ),
+				'href' => admin_url( 'customize.php' ),
 				'visible' => true,
 			],
 			'pb-administer-pages' => [
