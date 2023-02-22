@@ -1,6 +1,5 @@
 <?php
 
-use JetBrains\PhpStorm\NoReturn;
 use Pressbooks\Admin\Menus\SideBar;
 
 /**
@@ -23,7 +22,7 @@ class TestAdminSidebar extends \WP_UnitTestCase {
 	 *
 	 * @test
 	 */
-	#[NoReturn] public function it_tests_super_admin_menu_order(): void {
+	public function it_tests_super_admin_menu_order(): void {
 		$this->createSuperAdminUser();
 
 		global $menu, $submenu;
@@ -71,7 +70,7 @@ class TestAdminSidebar extends \WP_UnitTestCase {
 	/**
 	 * @test
 	 */
-	#[NoReturn] public function it_tests_network_admin_menu_order(): void {
+	public function it_tests_network_admin_menu_order(): void {
 		$user_id = $this->createSuperAdminUser();
 
 		// Restrict user to network admin
