@@ -6,7 +6,7 @@ use Pressbooks\Admin\Menus\SideBar;
 /**
  * @group sidebar
  */
-class testAdminSidebar extends \WP_UnitTestCase {
+class TestAdminSidebar extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
@@ -24,16 +24,15 @@ class testAdminSidebar extends \WP_UnitTestCase {
 	 * @test
 	 */
 	#[NoReturn] public function it_tests_super_admin_menu_order(): void {
-		global $menu, $submenu, $current_screen;
-
 		$this->createSuperAdminUser();
 
-//		set_current_screen( 'dashboard-network' );
-
+		global $menu, $submenu;
 		include_once( ABSPATH . '/wp-admin/menu.php' );
+
 		$this->sidebar->manageNetworkAdminMenu();
-//		$this->sidebar->reorderSuperAdminMenu( $menu );
-//		dd($menu);
+		$this->sidebar->reorderSuperAdminMenu( $menu );
+
+		set_current_screen( 'dashboard-network' );
 
 		$expected_order = [
 			'Dashboard',
@@ -43,18 +42,10 @@ class testAdminSidebar extends \WP_UnitTestCase {
 			'Pages',
 			'Plugins',
 			'Settings',
-			'Integrations',
 		];
 
-
-		$items_ordered = array_values(
-				array_map(
-				static function ( $item ) {
-					return $item[0];
-				},
-				$menu
-			)
-		);
+		// Ignore WP default menu items
+		$items_ordered = $this->getMenuItemsNames( array_slice( $menu, 8 ) );
 
 		$this->assertEquals( $expected_order, $items_ordered );
 
@@ -70,18 +61,11 @@ class testAdminSidebar extends \WP_UnitTestCase {
 		$this->assertEquals( 'Customize Home Page', $submenu[ 'customize.php' ][3][0] );
 
 		// Root site menu
-//		set_current_screen( 'dashboard' );
-//
-//		$items_ordered = array_values(
-//			array_map(
-//				static function ( $item ) {
-//					return $item[0];
-//				},
-//				$menu
-//			)
-//		);
-//
-//		$this->assertEquals( $expected_order, $items_ordered );
+		set_current_screen( 'dashboard' );
+
+		$items_ordered = $this->getMenuItemsNames( array_slice( $menu, 8 ) );
+
+		$this->assertEquals( $expected_order, $items_ordered );
 	}
 
 	/**
@@ -96,6 +80,9 @@ class testAdminSidebar extends \WP_UnitTestCase {
 		global $menu, $submenu;
 		include_once( ABSPATH . '/wp-admin/menu.php' );
 
+		// network admin
+		set_current_screen( 'dashboard-network' );
+
 		$this->sidebar->manageAdminMenu();
 
 		$expected_order = [
@@ -108,38 +95,28 @@ class testAdminSidebar extends \WP_UnitTestCase {
 			'Settings',
 		];
 
-		$items_ordered = array_slice( $menu, 7 );
-
-		$items_ordered = array_values(
-			array_map(
-				static function ( $item ) {
-					return $item[0];
-				},
-				$items_ordered
-			)
-		);
+		$items_ordered = $this->getMenuItemsNames( array_slice( $menu, 0, 7 ) );
 
 		$this->assertEquals( $expected_order, array_unique( $items_ordered ) );
 
 		// Root site menu
-//		global $current_screen;
-//		$current_screen = WP_Screen::get( 'edit.php' );
+		set_current_screen( 'dashboard' );
 
-//		$items_ordered = array_slice( $menu, 7 );
-//
-//		$items_ordered = array_values(
-//			array_map(
-//				static function ( $item ) {
-//					return $item[0];
-//				},
-//				$items_ordered
-//			)
-//		);
-//
-//		$this->assertEquals( $expected_order, array_unique( $items_ordered ) );
+		$items_ordered = $this->getMenuItemsNames( array_slice( $menu, 0, 7 ) );
+
+		$this->assertEquals( $expected_order, array_unique( $items_ordered ) );
 
 	}
 
-
+	private function getMenuItemsNames( array $menu ): array {
+		return array_values(
+			array_map(
+				static function ( $item ) {
+					return $item[0];
+				},
+				$menu
+			)
+		);
+	}
 
 }

@@ -590,7 +590,10 @@ class SideBar {
 	}
 
 	public function reorderSuperAdminMenu( array $menu_order ): array {
-		if ( ! is_network_admin() ) {
+		if (
+			! is_network_admin() &&
+			! array_diff_key( array_flip( range( 5, 9 ) ), $menu_order )
+		) {
 			$original_menu_order = $menu_order;
 			$menu_order[5] = $original_menu_order[6];
 			$menu_order[6] = $original_menu_order[7];
