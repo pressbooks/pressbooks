@@ -130,11 +130,6 @@
       .actions li a {
         display: flex;
         align-items: center;
-        gap: .75rem;
-
-        svg {
-          height: 25px;
-        }
       }
     }
   }
@@ -152,9 +147,10 @@
       align-items: center;
     }
 
-    svg {
+    svg, a svg {
       height: 25px;
       margin-right: .75rem;
+      color: $mine-shaft;
     }
 
     #view svg {
