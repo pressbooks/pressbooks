@@ -43,26 +43,24 @@
 							alt="{{ __( 'Update homepage art', 'pressbooks' ) }}"
 						/>
 
-						<ul class="actions">
+						<ul class="pb-dashboard-action">
 							<li>
-								<a
-									href="{!! admin_url( 'customize.php?return=' . network_admin_url() ) !!}"
-								>
+								{!! $icons->render( 'sparkles' ) !!}
+								<a href="{!! admin_url( 'customize.php?return=' . network_admin_url() ) !!}">
 									{{ __( 'Customize network appearance', 'pressbooks' ) }}
 								</a>
 							</li>
 							<li>
-								<a
-									href="{!! admin_url( 'edit.php?post_type=page' ) !!}"
-								>
+								{!! $icons->render( 'pencil-square' ) !!}
+								<a href="{!! admin_url( 'edit.php?post_type=page' ) !!}">
 									{{ __( 'Create or edit pages', 'pressbooks' ) }}
 								</a>
 							</li>
 							@if( $koko_analytics_active )
 								<li>
-									<a
-										href="{!! admin_url( 'index.php?page=koko-analytics' ) !!}"
-									>{{ __( 'View home page analytics', 'pressbooks' ) }}</a>
+									{!! $icons->render( 'presentation-chart-bar' ) !!}
+									<a href="{!! admin_url( 'index.php?page=koko-analytics' ) !!}">
+										{{ __( 'View home page analytics', 'pressbooks' ) }}</a>
 								</li>
 							@endif
 						</ul>
@@ -81,25 +79,22 @@
 							alt="{{ __( 'Administer network art', 'pressbooks' ) }}"
 						/>
 
-						<ul class="actions">
+						<ul class="pb-dashboard-action">
 							<li>
-								<a
-									href="{!! network_admin_url( $network_analytics_active ? 'settings.php?page=pb_network_analytics_options' : 'settings.php' ) !!}"
-								>
+								{!! $icons->render( 'cog-8-tooth' ) !!}
+								<a href="{!! network_admin_url( $network_analytics_active ? 'settings.php?page=pb_network_analytics_options' : 'settings.php' ) !!}">
 									{{ __( 'Adjust network settings', 'pressbooks' ) }}
 								</a>
 							</li>
 							<li>
-								<a
-									href="{!! network_admin_url( $network_analytics_active ? 'sites.php?page=pb_network_analytics_booklist' : 'sites.php' ) !!}"
-								>
+								{!! $icons->render( 'book-open' ) !!}
+								<a href="{!! network_admin_url( $network_analytics_active ? 'sites.php?page=pb_network_analytics_booklist' : 'sites.php' ) !!}">
 									{{ __( 'View book list', 'pressbooks' ) }}
 								</a>
 							</li>
 							<li>
-								<a
-									href="{!! network_admin_url( $network_analytics_active ? 'users.php?page=pb_network_analytics_userlist' : 'users.php' ) !!}"
-								>
+								{!! $icons->render( 'users' ) !!}
+								<a href="{!! network_admin_url( $network_analytics_active ? 'users.php?page=pb_network_analytics_userlist' : 'users.php' ) !!}">
 									{{ __( 'View user list', 'pressbooks' ) }}
 								</a>
 							</li>
@@ -141,9 +136,9 @@
 								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-spotlight-series.png" }}"
 								alt=""
 							/>
-							{{ __('Pressbooks spotlight series', 'pressbooks') }}
+							{{ __('Pressbooks webinars', 'pressbooks') }}
 						</a>
-						<p>{{ __( 'Learn about doing more with your Pressbooks network from this webinar series.', 'pressbooks' ) }}</p>
+						<p>{{ __( 'Become a confident Pressbooks user by attending a free, live webinar.', 'pressbooks' ) }}</p>
 					</li>
 					@if( $network_analytics_active )
 						<li class="resources" id="spotlight">

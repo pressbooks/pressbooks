@@ -9,6 +9,7 @@ use function Pressbooks\Image\thumbnail_from_url;
 use Illuminate\Support\Str;
 use Pressbooks\Container;
 use Pressbooks\Metadata;
+use Pressbooks\Utility\Icons;
 
 class BookDashboard extends Dashboard {
 	protected static ?Dashboard $instance = null;
@@ -40,6 +41,7 @@ class BookDashboard extends Dashboard {
 			'delete_book_url' => $permissions['delete_site'] ? admin_url( 'ms-delete-site.php' ) : false,
 			'write_chapter_url' => $permissions['edit_posts'] ? admin_url( 'post-new.php?post_type=chapter' ) : false,
 			'import_content_url' => $permissions['edit_posts'] ? admin_url( 'admin.php?page=pb_import' ) : false,
+			'icons' => new Icons(),
 		] );
 	}
 
