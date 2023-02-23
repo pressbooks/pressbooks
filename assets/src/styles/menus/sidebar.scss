@@ -14,13 +14,3 @@ $icon-size: 24px;
     }
   }
 }
-
-#toplevel_page_h5p { /* stylelint-disable-line */
-  div.wp-menu-image {
-    &::before {
-      display: none;
-      content: '';
-      padding: 0;
-    }
-  }
-}
