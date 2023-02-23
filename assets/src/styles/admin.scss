@@ -106,6 +106,14 @@ $svg-lg: 36px;
     }
   }
 
+  ul:not(.ab-submenu) > li:not(.btn-action) > .ab-item,
+  ul:not(.ab-submenu) > li:not(.btn-action) > .ab-item span {
+    font-family: Karla, sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
   ul:not(.ab-submenu) > li:not(.btn.action) {
     & > .ab-item {
       display: inline-flex;
@@ -120,11 +128,7 @@ $svg-lg: 36px;
       }
 
       span {
-        font-family: Karla, sans-serif;
-        font-size: 1rem;
-        font-weight: 500;
         margin-left: 6px;
-        line-height: 1.2;
         white-space: nowrap;
       }
     }

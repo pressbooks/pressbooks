@@ -13,6 +13,7 @@ class TopBar {
 		'pb-administer-network',
 		'pb-my-books',
 		'site-name',
+		'view',
 		'updates',
 		'pb-create-book',
 		'pb-clone-book',
