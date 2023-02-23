@@ -45,7 +45,6 @@ add_action( 'admin_bar_menu', '\Pressbooks\Admin\Laf\remove_menu_bar_update', 41
 add_action( 'admin_bar_menu', '\Pressbooks\Admin\Laf\remove_menu_bar_new_content', 71 );
 add_filter( 'admin_bar_menu', '\Pressbooks\Admin\Laf\replace_wordpress_howdy', 25 );
 add_action( 'admin_head', '\Pressbooks\Admin\Branding\favicon' );
-add_filter( 'avatar_defaults', 'Pressbooks\Admin\Laf\replace_default_gravatar' );
 
 // Add contact Info
 add_filter( 'admin_footer_text', '\Pressbooks\Admin\Laf\add_footer_link' );
