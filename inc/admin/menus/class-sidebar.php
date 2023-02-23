@@ -611,7 +611,7 @@ class SideBar {
 			unset( $menu_order[5] );
 		}
 
-		if ( $menu_order[5] === 'pressbooks_network_stats' ) {
+		if ( isset( $menu_order[5] ) && $menu_order[5] === 'pressbooks_network_stats' ) {
 			array_splice( $menu_order, 8, 0, 'pressbooks_network_stats' );
 			unset( $menu_order[5] );
 		}
@@ -682,7 +682,10 @@ class SideBar {
 	}
 
 	private function manageIntegrationsAdminMenuItem(): void {
+		global $submenu;
+
 		\Pressbooks\Admin\Dashboard\init_network_integrations_menu();
+		$plugins_active = false;
 
 		if ( is_plugin_active( 'pressbooks-cas-sso/pressbooks-cas-sso.php' ) ) {
 			\PressbooksCasSso\Admin::init()->addMenu();
@@ -702,11 +705,17 @@ class SideBar {
 			$lti_admin->addSettingsMenu();
 
 			// Move LTI settings menu item to network admin menu page
-			global $submenu;
 			if ( ! is_network_admin() && isset( $submenu['pb_network_integrations'] ) ) {
-				$submenu[ network_admin_url( 'admin.phppage_pb_lti_settings' ) ] = $submenu['pb_network_integrations'];
+				$submenu[ network_admin_url( 'admin.php?page=pb_lti_settings' ) ] = $submenu['pb_network_integrations'];
 				unset( $submenu['pb_network_integrations'] );
 			}
+		}
+
+		if (
+			isset( $submenu[ network_admin_url( 'admin.php?page=pb_network_integrations' ) ] ) &&
+			$submenu[ network_admin_url( 'admin.php?page=pb_network_integrations' ) ][0][2] === network_admin_url( 'admin.php?page=pb_network_integrations' )
+		) {
+			unset( $submenu[ network_admin_url( 'admin.php?page=pb_network_integrations' ) ][0] );
 		}
 	}
 
