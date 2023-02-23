@@ -2,10 +2,10 @@
 @import "partials/colors";
 
 $svg-md: 24px;
-$svg-lg: 48px;
+$svg-lg: 36px;
 
 #wpcontent #wpadminbar {
-  height: 70px;
+  height: 50px;
 
   .quicklinks {
     display: flex;
@@ -36,7 +36,7 @@ $svg-lg: 48px;
         }
 
         .ab-sub-wrapper {
-          top: 70px;
+          top: 50px;
           left: 0;
         }
       }
@@ -51,19 +51,22 @@ $svg-lg: 48px;
       }
     }
 
+    #wp-admin-bar-my-account.with-avatar {
+      padding-right: 10px;
+    }
+
     #wp-admin-bar-my-account.with-avatar > a {
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 0;
-      padding-right: 8px;
     }
 
     #wp-admin-bar-my-account.with-avatar > a img {
       position: unset;
       margin: 0;
-      width: 100%;
-      height: auto;
+      height: 35px;
+      width: 35px;
       border-radius: 50%;
       border: 0;
     }
@@ -73,9 +76,9 @@ $svg-lg: 48px;
 
       a {
         border: 1px solid $white;
-        border-radius: 8px;
+        border-radius: 10px;
         margin: 0;
-        padding: 5px 10px;
+        padding: 1px 10px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -88,7 +91,7 @@ $svg-lg: 48px;
 
         span {
           font-family: Karla, sans-serif;
-          font-size: 1.125rem;
+          font-size: 1rem;
           font-weight: 500;
           margin-left: 6px;
           line-height: 1.2;
@@ -107,6 +110,7 @@ $svg-lg: 48px;
     & > .ab-item {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       height: 100%;
 
       svg {
@@ -117,7 +121,7 @@ $svg-lg: 48px;
 
       span {
         font-family: Karla, sans-serif;
-        font-size: 1.125rem;
+        font-size: 1rem;
         font-weight: 500;
         margin-left: 6px;
         line-height: 1.2;
@@ -156,7 +160,6 @@ $svg-lg: 48px;
     }
 
     .quicklinks > ul > li:not(#wp-admin-bar-menu-toggle, #wp-admin-bar-my-account) {
-      display: flex;
       position: relative;
       margin-right: 16px;
 
@@ -224,18 +227,18 @@ $svg-lg: 48px;
 
 @media screen and (max-width: 600px) {
   #wpcontent #wpbody {
-   padding-top: 70px;
+   padding-top: 50px;
   }
 }
 
 @media screen and (min-width: 600px) {
   #wpwrap {
-    top: 24px;
+    top: 4px;
   }
 }
 
 @media screen and (min-width: 783px) {
   #wpwrap {
-    top: 38px;
+    top: 18px;
   }
 }
