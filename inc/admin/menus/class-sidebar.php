@@ -185,8 +185,6 @@ class SideBar {
 	}
 
 	private function addMenuItems(): void {
-		global $menu;
-
 		if ( ! is_network_admin() ) {
 			add_menu_page(
 				__( 'Dashboard', 'pressbooks' ),
@@ -197,10 +195,9 @@ class SideBar {
 				$this->icons->getIcon( 'home' ),
 				1
 			);
-			if ( isset( $menu[100] ) && $menu[100][2] === 'h5p' ) {
-				$menu[100][6] = $this->icons->getIcon( 'bolt' );
-			}
 		} else {
+			global $menu;
+
 			if ( isset( $menu[2] ) && $menu[2][2] === 'index.php' ) {
 				$menu[2][6] = $this->icons->getIcon( 'home' );
 			}
@@ -354,6 +351,8 @@ class SideBar {
 				'manager_network',
 				$this->getContextSlug( 'users.php', false )
 			);
+			global $submenu;
+			unset( $submenu[ $this->usersSlug ][11] );
 		}
 
 		add_submenu_page(
@@ -365,6 +364,14 @@ class SideBar {
 		);
 
 		// Appearance
+		add_submenu_page(
+			$this->getContextSlug( 'customize.php', true ),
+			__( 'Customize Home Page' ),
+			__( 'Customize Home Page' ),
+			'manage_network',
+			$this->getContextSlug( 'customize.php', true )
+		);
+
 		add_submenu_page(
 			$this->getContextSlug( 'customize.php', true ),
 			__( 'Activate Book Themes' ),
@@ -381,18 +388,13 @@ class SideBar {
 			$this->getContextSlug( 'themes.php', true )
 		);
 
-		remove_submenu_page( $this->getContextSlug( 'customize.php', true ), $this->getContextSlug( 'customize.php', true ) );
-
-		add_submenu_page(
-			$this->getContextSlug( 'customize.php', true ),
-			__( 'Customize Home Page' ),
-			__( 'Customize Home Page' ),
-			'manage_network',
-			$this->getContextSlug( 'customize.php', true )
-		);
-
 		// Plugins
 		if ( is_network_admin() ) {
+			global $menu;
+			if ( isset( $menu[20] ) && $menu[20][2] === 'plugins.php' ) {
+				$menu[20][6] = $this->icons->getIcon( 'bolt' );
+			}
+
 			remove_submenu_page( 'plugins.php', 'plugin-install.php' );
 		} else {
 			add_menu_page(
@@ -566,10 +568,30 @@ class SideBar {
 
 		// Stats
 		if ( is_plugin_active( 'pressbooks-stats/pressbooks-stats.php' ) ) {
-			$stats_slug = $this->getNetworkAnalyticsStatsSlug();
+			if ( ! $this->isNetworkAnalyticsActive && $this->isKokoAnalyticsActive ) {
+				$stats_slug = 'pressbooks_network_stats';
+				add_submenu_page(
+					$stats_slug,
+					__( 'PB Stats', 'pressbooks' ),
+					__( 'PB Stats', 'pressbooks' ),
+					'manage_network',
+					is_network_admin() ? 'pb_stats' : network_admin_url( 'admin.php?page=pb_stats' )
+				);
+			}
 
-			if ( ! $this->isNetworkAnalyticsActive ) {
-				$stats_slug = 'pb_stats';
+			if ( $this->isNetworkAnalyticsActive ) {
+				$stats_slug = is_network_admin() ? 'pb_network_analytics_admin' : network_admin_url( 'admin.php?page=pb_network_analytics_admin' );
+				add_submenu_page(
+					$stats_slug,
+					__( 'PB Stats', 'pressbooks' ),
+					__( 'PB Stats', 'pressbooks' ),
+					'manage_network',
+					is_network_admin() ? 'pb_stats' : network_admin_url( 'admin.php?page=pb_stats' )
+				);
+			}
+
+			if ( ! $this->isKokoAnalyticsActive && ! $this->isNetworkAnalyticsActive ) {
+				$stats_slug = is_network_admin() ? 'pb_stats' : network_admin_url( 'admin.php?page=pb_stats' );
 				add_menu_page(
 					__( 'Stats', 'pressbooks' ),
 					__( 'Stats', 'pressbooks' ),
@@ -577,31 +599,21 @@ class SideBar {
 					$stats_slug,
 					'',
 					$this->icons->getIcon( 'presentation-chart-bar' ),
-					'3'
+					66
 				);
 			}
-
-			add_submenu_page(
-				$stats_slug,
-				__( 'PB Stats', 'pressbooks' ),
-				__( 'PB Stats', 'pressbooks' ),
-				'manage_network',
-				is_network_admin() ? 'pb_stats' : network_admin_url( 'admin.php?page=pb_stats' )
-			);
 		}
 	}
 
 	public function reorderSuperAdminMenu( array $menu_order ): array {
-		if (
-			! is_network_admin() &&
-			! array_diff_key( array_flip( range( 5, 9 ) ), $menu_order )
-		) {
-			$original_menu_order = $menu_order;
-			$menu_order[5] = $original_menu_order[6];
-			$menu_order[6] = $original_menu_order[7];
-			$menu_order[7] = $original_menu_order[5];
-			$menu_order[8] = $original_menu_order[9];
-			$menu_order[9] = $original_menu_order[8];
+		if ( ! is_network_admin() && $this->isNetworkAnalyticsActive ) {
+			array_splice( $menu_order, 8, 0, network_admin_url( 'admin.php?page=pb_network_analytics_admin' ) );
+			unset( $menu_order[5] );
+		}
+
+		if ( $menu_order[5] === 'pressbooks_network_stats' ) {
+			array_splice( $menu_order, 8, 0, 'pressbooks_network_stats' );
+			unset( $menu_order[5] );
 		}
 
 		$this->reorderSettingsSubMenu();
@@ -688,6 +700,13 @@ class SideBar {
 			$lti_admin = \PressbooksLtiProvider1p3\Admin::init();
 			$lti_admin->addConsumersMenu();
 			$lti_admin->addSettingsMenu();
+
+			// Move LTI settings menu item to network admin menu page
+			global $submenu;
+			if ( ! is_network_admin() && isset( $submenu['pb_network_integrations'] ) ) {
+				$submenu[ network_admin_url( 'admin.phppage_pb_lti_settings' ) ] = $submenu['pb_network_integrations'];
+				unset( $submenu['pb_network_integrations'] );
+			}
 		}
 	}
 
