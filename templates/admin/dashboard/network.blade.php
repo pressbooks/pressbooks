@@ -60,7 +60,7 @@
 								<li>
 									{!! $icons->render( 'presentation-chart-bar' ) !!}
 									<a href="{!! admin_url( 'index.php?page=koko-analytics' ) !!}">
-										{{ __( 'View home page analytics', 'pressbooks' ) }}</a>
+										{{ __( 'View homepage analytics', 'pressbooks' ) }}</a>
 								</li>
 							@endif
 						</ul>
