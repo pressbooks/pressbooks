@@ -1,1 +1,147 @@
-tinymce.PluginManager.add("textboxes",(function(e){e.addButton("textboxes",{type:"menubutton",text:e.getLang("strings.textboxes"),icon:!1,menu:[{text:e.getLang("strings.standard"),onclick:function(){var t=e.selection.getContent();""!==t?e.execCommand("mceReplaceContent",!1,'<div class="textbox">'+t+"</div><p></p>"):e.execCommand("mceInsertContent",0,'<div class="textbox">'+e.getLang("strings.standardplaceholder")+"</div><p></p>")}},{text:e.getLang("strings.shaded"),onclick:function(){var t=e.selection.getContent();""!==t?e.execCommand("mceReplaceContent",!1,'<div class="textbox shaded">'+t+"</div><p></p>"):e.execCommand("mceInsertContent",0,'<div class="textbox shaded">'+e.getLang("strings.standardplaceholder")+"</div><p></p>")}},{text:e.getLang("strings.learningobjectives"),onclick:function(){var t=e.selection.getContent();""!==t?e.execCommand("mceReplaceContent",!1,'<div class="textbox learning-objectives"><h3 itemprop="educationalUse">'+e.getLang("strings.learningobjectives")+"</h3>\n"+t+"</div><p></p>"):e.execCommand("mceInsertContent",0,'<div class="textbox learning-objectives"><h3 itemprop="educationalUse">'+e.getLang("strings.learningobjectives")+"</h3>\n<p>"+e.getLang("strings.learningobjectivesplaceholder")+"</p><ul><li>"+e.getLang("strings.first")+"</li><li>"+e.getLang("strings.second")+"</li></ul></div><p></p>")}},{text:e.getLang("strings.keytakeaways"),onclick:function(){var t=e.selection.getContent();""!==t?e.execCommand("mceReplaceContent",!1,'<div class="textbox key-takeaways"><h3 itemprop="educationalUse">'+e.getLang("strings.keytakeaways")+"</h3>\n"+t+"</div><p></p>"):e.execCommand("mceInsertContent",0,'<div class="textbox key-takeaways"><h3 itemprop="educationalUse">'+e.getLang("strings.keytakeaways")+"</h3>\n<p>"+e.getLang("strings.keytakeawaysplaceholder")+"</p><ul><li>"+e.getLang("strings.first")+"</li><li>"+e.getLang("strings.second")+"</li></ul></div><p></p>")}},{text:e.getLang("strings.exercises"),onclick:function(){var t=e.selection.getContent();""!==t?e.execCommand("mceReplaceContent",!1,'<div class="textbox exercises"><h3 itemprop="educationalUse">'+e.getLang("strings.exercises")+"</h3>\n"+t+"</div><p></p>"):e.execCommand("mceInsertContent",0,'<div class="textbox exercises"><h3 itemprop="educationalUse">'+e.getLang("strings.exercises")+"</h3>\n<p>"+e.getLang("strings.exercisesplaceholder")+"</p><ul><li>"+e.getLang("strings.first")+"</li><li>"+e.getLang("strings.second")+"</li></ul></div><p></p>")}},{text:e.getLang("strings.examples"),onclick:function(){var t=e.selection.getContent();""!==t?e.execCommand("mceReplaceContent",!1,'<div class="textbox examples"><h3 itemprop="educationalUse">'+e.getLang("strings.examples")+"</h3>\n"+t+"</div><p></p>"):e.execCommand("mceInsertContent",0,'<div class="textbox examples"><h3 itemprop="educationalUse">'+e.getLang("strings.examples")+"</h3>\n<p>"+e.getLang("strings.examplesplaceholder")+"</p><ul><li>"+e.getLang("strings.first")+"</li><li>"+e.getLang("strings.second")+"</li></ul></div><p></p>")}},{text:e.getLang("strings.customellipses"),onclick:function(){var t;t=e.selection.getNode(),e.windowManager.open({title:e.getLang("strings.customtextbox"),body:{type:"textbox",name:"className",size:40,label:e.getLang("strings.classtitle"),value:t.name||t.id},onsubmit:function(t){e.execCommand("mceReplaceContent",!1,'<div class="textbox '+t.data.className+'">{$selection}</div>')}})}}]})}));
+/******/ (() => { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!************************************************!*\
+  !*** ./assets/src/scripts/textboxes-legacy.js ***!
+  \************************************************/
+/**
+ * textboxes.js
+ *
+ * Copyright, Moxiecode Systems AB
+ * Released under LGPL License.
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+tinymce.PluginManager.add('textboxes', function (editor) {
+  /**
+   *
+   */
+  function showDialog() {
+    var selectedNode = editor.selection.getNode();
+    editor.windowManager.open({
+      title: editor.getLang('strings.customtextbox'),
+      body: {
+        type: 'textbox',
+        name: 'className',
+        size: 40,
+        label: editor.getLang('strings.classtitle'),
+        value: selectedNode.name || selectedNode.id
+      },
+
+      /**
+       * @param e
+       */
+      onsubmit: function onsubmit(e) {
+        editor.execCommand('mceReplaceContent', false, '<div class="textbox ' + e.data.className + '">{$selection}</div>');
+      }
+    });
+  }
+
+  editor.addButton('textboxes', {
+    type: 'menubutton',
+    text: editor.getLang('strings.textboxes'),
+    icon: false,
+    menu: [{
+      text: editor.getLang('strings.standard'),
+
+      /**
+       *
+       */
+      onclick: function onclick() {
+        var selection = editor.selection.getContent();
+
+        if (selection !== '') {
+          editor.execCommand('mceReplaceContent', false, '<div class="textbox">' + selection + '</div><p></p>');
+        } else {
+          editor.execCommand('mceInsertContent', 0, '<div class="textbox">' + editor.getLang('strings.standardplaceholder') + '</div><p></p>');
+        }
+      }
+    }, {
+      text: editor.getLang('strings.shaded'),
+
+      /**
+       *
+       */
+      onclick: function onclick() {
+        var selection = editor.selection.getContent();
+
+        if (selection !== '') {
+          editor.execCommand('mceReplaceContent', false, '<div class="textbox shaded">' + selection + '</div><p></p>');
+        } else {
+          editor.execCommand('mceInsertContent', 0, '<div class="textbox shaded">' + editor.getLang('strings.standardplaceholder') + '</div><p></p>');
+        }
+      }
+    }, {
+      text: editor.getLang('strings.learningobjectives'),
+
+      /**
+       *
+       */
+      onclick: function onclick() {
+        var selection = editor.selection.getContent();
+
+        if (selection !== '') {
+          editor.execCommand('mceReplaceContent', false, '<div class="textbox learning-objectives"><h3 itemprop="educationalUse">' + editor.getLang('strings.learningobjectives') + '</h3>\n' + selection + '</div><p></p>');
+        } else {
+          editor.execCommand('mceInsertContent', 0, '<div class="textbox learning-objectives"><h3 itemprop="educationalUse">' + editor.getLang('strings.learningobjectives') + '</h3>\n<p>' + editor.getLang('strings.learningobjectivesplaceholder') + '</p><ul><li>' + editor.getLang('strings.first') + '</li><li>' + editor.getLang('strings.second') + '</li></ul></div><p></p>');
+        }
+      }
+    }, {
+      text: editor.getLang('strings.keytakeaways'),
+
+      /**
+       *
+       */
+      onclick: function onclick() {
+        var selection = editor.selection.getContent();
+
+        if (selection !== '') {
+          editor.execCommand('mceReplaceContent', false, '<div class="textbox key-takeaways"><h3 itemprop="educationalUse">' + editor.getLang('strings.keytakeaways') + '</h3>\n' + selection + '</div><p></p>');
+        } else {
+          editor.execCommand('mceInsertContent', 0, '<div class="textbox key-takeaways"><h3 itemprop="educationalUse">' + editor.getLang('strings.keytakeaways') + '</h3>\n<p>' + editor.getLang('strings.keytakeawaysplaceholder') + '</p><ul><li>' + editor.getLang('strings.first') + '</li><li>' + editor.getLang('strings.second') + '</li></ul></div><p></p>');
+        }
+      }
+    }, {
+      text: editor.getLang('strings.exercises'),
+
+      /**
+       *
+       */
+      onclick: function onclick() {
+        var selection = editor.selection.getContent();
+
+        if (selection !== '') {
+          editor.execCommand('mceReplaceContent', false, '<div class="textbox exercises"><h3 itemprop="educationalUse">' + editor.getLang('strings.exercises') + '</h3>\n' + selection + '</div><p></p>');
+        } else {
+          editor.execCommand('mceInsertContent', 0, '<div class="textbox exercises"><h3 itemprop="educationalUse">' + editor.getLang('strings.exercises') + '</h3>\n<p>' + editor.getLang('strings.exercisesplaceholder') + '</p><ul><li>' + editor.getLang('strings.first') + '</li><li>' + editor.getLang('strings.second') + '</li></ul></div><p></p>');
+        }
+      }
+    }, {
+      text: editor.getLang('strings.examples'),
+
+      /**
+       *
+       */
+      onclick: function onclick() {
+        var selection = editor.selection.getContent();
+
+        if (selection !== '') {
+          editor.execCommand('mceReplaceContent', false, '<div class="textbox examples"><h3 itemprop="educationalUse">' + editor.getLang('strings.examples') + '</h3>\n' + selection + '</div><p></p>');
+        } else {
+          editor.execCommand('mceInsertContent', 0, '<div class="textbox examples"><h3 itemprop="educationalUse">' + editor.getLang('strings.examples') + '</h3>\n<p>' + editor.getLang('strings.examplesplaceholder') + '</p><ul><li>' + editor.getLang('strings.first') + '</li><li>' + editor.getLang('strings.second') + '</li></ul></div><p></p>');
+        }
+      }
+    }, {
+      text: editor.getLang('strings.customellipses'),
+
+      /**
+       *
+       */
+      onclick: function onclick() {
+        showDialog();
+      }
+    }]
+  });
+});
+/******/ })()
+;

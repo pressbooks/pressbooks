@@ -1,1 +1,143 @@
-@charset "UTF-8";.pb-cloner{font-family:Karla,sans-serif}.pb-cloner .pb-cloner-section{background:#fff;margin-bottom:1rem;max-width:950px;padding:1.5rem}.pb-cloner .pb-cloner-section h1{font-size:2.25rem;font-weight:700;margin:0 0 1rem;padding:0}.pb-cloner .pb-cloner-section h2{font-size:1.5rem;margin:1.5rem 0 .5rem}.pb-cloner .pb-cloner-section p{max-width:625px}.pb-cloner .pb-cloner-section .section-title{margin:0 0 1.5rem}.pb-cloner .pb-cloner-section .book-description,.pb-cloner .pb-cloner-section input,.pb-cloner .pb-cloner-section li,.pb-cloner .pb-cloner-section p{font-size:1rem;line-height:1.5}.pb-cloner .pb-cloner-section .url-input{display:block;overflow:hidden;padding:0 5px}.pb-cloner .pb-cloner-section .subdir-target-url{float:left}.pb-cloner .pb-cloner-section .subdomain-target-url{float:right}.pb-cloner .pb-cloner-section .subdir-target-url,.pb-cloner .pb-cloner-section .subdomain-target-url{font-size:1rem;padding:11px 0}.pb-cloner .pb-cloner-section .subdir-target-url input{width:100%}.pb-cloner .pb-cloner-section input[type=search],.pb-cloner .pb-cloner-section input[type=text],.pb-cloner .pb-cloner-section input[type=url]{font-weight:400;min-height:40px;width:100%}.pb-cloner .pb-cloner-section #pb-cloner-button,.pb-cloner .pb-cloner-section .select-book{border-radius:10px;display:block;font-size:1.125rem;font-weight:700;height:65px;margin:1rem 0 0;max-width:350px;text-align:center;width:100%}.pb-cloner .pb-cloner-section .description{font-size:.75rem}.pb-cloner .pb-cloner-section .pb-directory-search{font-weight:700;margin:.5rem 0;width:100%}.pb-cloner .pb-cloner-section .pb-directory-logo{display:block;margin-bottom:1rem}.pb-cloner .pb-cloner-section .book-cards .ais-Hits-list{margin:1.5rem 0 0}.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item{list-style:none;margin-bottom:1rem}.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card{border-bottom:1px solid #ccc;display:flex;margin-bottom:1.5rem;padding-bottom:1.5em}.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .book-cover{margin-right:1.5rem;max-width:300px;width:30%}.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .book-cover img{width:100%}.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .book-info{width:70%}.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .book-info h2{line-height:1.3;margin:0}.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .book-info .book-details{margin-top:.25rem}.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .book-info .book-details .h5p-count:after,.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .book-info .book-details .license:after{content:" |"}.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .book-info p{margin:0 0 1rem}.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .book-info p span.author-name:not(:last-of-type):after{content:", "}.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .line-clamp{-webkit-line-clamp:5;-webkit-box-orient:vertical;display:-webkit-box;overflow:hidden}@media screen and (max-width:768px){.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card{display:block}.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .book-cover{margin:0 auto 1rem;width:250px}.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .book-info{width:100%}}.pb-cloner .pb-cloner-section .ais-SearchBox-reset{display:none}.pb-cloner .pb-cloner-section.stats ol{margin-left:1rem}.pb-cloner .pb-cloner-section.stats ol li{margin-bottom:1rem}
+@charset "UTF-8";
+.pb-cloner {
+  font-family: Karla, sans-serif;
+}
+.pb-cloner .pb-cloner-section {
+  max-width: 950px;
+  background: #fff;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+.pb-cloner .pb-cloner-section h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin: 0 0 1rem;
+  padding: 0;
+}
+.pb-cloner .pb-cloner-section h2 {
+  font-size: 1.5rem;
+  margin: 1.5rem 0 0.5rem;
+}
+.pb-cloner .pb-cloner-section p {
+  max-width: 625px;
+}
+.pb-cloner .pb-cloner-section .section-title {
+  margin: 0 0 1.5rem;
+}
+.pb-cloner .pb-cloner-section p, .pb-cloner .pb-cloner-section input, .pb-cloner .pb-cloner-section li, .pb-cloner .pb-cloner-section .book-description {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.pb-cloner .pb-cloner-section .url-input {
+  display: block;
+  overflow: hidden;
+  padding: 0 5px;
+}
+.pb-cloner .pb-cloner-section .subdir-target-url {
+  float: left;
+}
+.pb-cloner .pb-cloner-section .subdomain-target-url {
+  float: right;
+}
+.pb-cloner .pb-cloner-section .subdir-target-url, .pb-cloner .pb-cloner-section .subdomain-target-url {
+  padding: 11px 0;
+  font-size: 1rem;
+}
+.pb-cloner .pb-cloner-section .subdir-target-url input {
+  width: 100%;
+}
+.pb-cloner .pb-cloner-section input[type=url], .pb-cloner .pb-cloner-section input[type=text], .pb-cloner .pb-cloner-section input[type=search] {
+  font-weight: normal;
+  width: 100%;
+  min-height: 40px;
+}
+.pb-cloner .pb-cloner-section #pb-cloner-button, .pb-cloner .pb-cloner-section .select-book {
+  margin: 1rem 0 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 10px;
+  display: block;
+  width: 100%;
+  max-width: 350px;
+  height: 65px;
+}
+.pb-cloner .pb-cloner-section .description {
+  font-size: 0.75rem;
+}
+.pb-cloner .pb-cloner-section .pb-directory-search {
+  margin: 0.5rem 0;
+  width: 100%;
+  font-weight: bold;
+}
+.pb-cloner .pb-cloner-section .pb-directory-logo {
+  display: block;
+  margin-bottom: 1rem;
+}
+.pb-cloner .pb-cloner-section .book-cards .ais-Hits-list {
+  margin: 1.5rem 0 0;
+}
+.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item {
+  margin-bottom: 1rem;
+  list-style: none;
+}
+.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card {
+  display: flex;
+  border-bottom: 1px solid #CCC;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5em;
+}
+.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .book-cover {
+  margin-right: 1.5rem;
+  width: 30%;
+  max-width: 300px;
+}
+.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .book-cover img {
+  width: 100%;
+}
+.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .book-info {
+  width: 70%;
+}
+.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .book-info h2 {
+  margin: 0;
+  line-height: 1.3;
+}
+.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .book-info .book-details {
+  margin-top: 0.25rem;
+}
+.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .book-info .book-details .license::after, .pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .book-info .book-details .h5p-count::after {
+  content: " |";
+}
+.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .book-info p {
+  margin: 0 0 1rem;
+}
+.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .book-info p span.author-name:not(:last-of-type)::after {
+  content: ", ";
+}
+.pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .line-clamp {
+  display: -webkit-box; /* stylelint-disable-line */
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+@media screen and (max-width: 768px) {
+  .pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card {
+    display: block;
+  }
+  .pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .book-cover {
+    width: 250px;
+    margin: 0 auto 1rem;
+  }
+  .pb-cloner .pb-cloner-section .book-cards .ais-Hits-item .book-card .book-info {
+    width: 100%;
+  }
+}
+.pb-cloner .pb-cloner-section .ais-SearchBox-reset {
+  display: none;
+}
+.pb-cloner .pb-cloner-section.stats ol {
+  margin-left: 1rem;
+}
+.pb-cloner .pb-cloner-section.stats ol li {
+  margin-bottom: 1rem;
+}

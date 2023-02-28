@@ -131,9 +131,12 @@
         display: flex;
         align-items: center;
         gap: .75rem;
-
-        svg {
-          height: 25px;
+        text-decoration: none;
+        i.pb-heroicons {
+          font-size: 25px;
+        }
+        span {
+          text-decoration: underline;
         }
       }
     }

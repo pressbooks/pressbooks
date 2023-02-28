@@ -106,26 +106,6 @@ div.taxonomy_multi_select span.description a.button {
   margin-top: 0.5em;
 }
 
-// Dashicons
-
-i.mce-i-icon {
-  padding: 0 2px 0 0;
-  margin-left: -2px;
-  font: 400 20px/1 dashicons, sans-serif;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  vertical-align: top;
-  speak: none;
-}
-
-.button .dashicons {
-  vertical-align: text-bottom;
-}
-
-.wp-menu-image.dashicons-admin-multisite::before {
-  content: "\f330";
-}
-
 // Status and visibility
 
 .postbox#status-visibility {

@@ -25,7 +25,7 @@ function init_network_integrations_menu(): string {
 			'manage_network',
 			$parent_slug,
 			'',
-			( new Icons() )->getIcon( 'rocket-launch' ),
+			'dashicons-networking',
 		);
 		add_action(
 			'admin_bar_init', function () {

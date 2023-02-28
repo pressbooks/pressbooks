@@ -373,6 +373,6 @@ add_action( 'edit_user_profile_update', '\Pressbooks\Admin\Laf\update_user_profi
 add_action( 'personal_options_update', '\Pressbooks\Admin\Laf\update_user_profile_fields', 11 );
 
 if ( ! $is_book ) {
-	add_action( 'plugins_loaded', [ SideBar::class, 'init' ] );
+	//add_action( 'plugins_loaded', [ SideBar::class, 'init' ] );
 }
 add_action( 'plugins_loaded', [ TopBar::class, 'init' ] );

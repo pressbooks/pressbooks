@@ -212,7 +212,7 @@ class SideBar {
 			'manager_network',
 			$this->booksSlug,
 			$this->booksCallback,
-			$this->icons->getIcon( 'book-open' ),
+			'dashicons-book-alt',
 			2
 		);
 
@@ -222,7 +222,7 @@ class SideBar {
 			'manager_network',
 			$this->usersSlug,
 			$this->usersCallback,
-			$this->icons->getIcon( 'users' ),
+			'dashicons-admin-users',
 			3
 		);
 
@@ -232,7 +232,7 @@ class SideBar {
 			'manage_network',
 			$this->getContextSlug( 'customize.php', true ),
 			'',
-			$this->icons->getIcon( 'sparkles' ),
+			'dashicons-admin-appearance',
 			4
 		);
 
@@ -242,7 +242,7 @@ class SideBar {
 			'manage_network',
 			$this->getContextSlug( 'edit.php?post_type=page', true ),
 			'',
-			$this->icons->getIcon( 'pencil-square' ),
+			'dashicons-admin-page',
 			5
 		);
 
@@ -253,7 +253,7 @@ class SideBar {
 				'manager_network',
 				$this->settingsSlug,
 				$this->settingsCallback,
-				$this->icons->getIcon( 'cog-8-tooth' ),
+				'dashicons-admin-settings',
 				7
 			);
 		}

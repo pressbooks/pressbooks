@@ -20,49 +20,49 @@
 						<ul class="pb-dashboard-action">
 							@if( $book_info_url )
 								<li id="book_info">
-									{!! $icons->render( 'pencil-square' ) !!}
 									<a href="{!! $book_info_url !!}">
-										{{ __( 'Edit book info', 'pressbooks' ) }}
+										<i class="pb-heroicons pb-heroicons-pencil-square"></i>
+										<span>{{ __( 'Edit book info', 'pressbooks' ) }}</span>
 									</a>
 								</li>
 							@endif
 							@if( $organize_url )
 								<li id="organize">
-									{!! $icons->render( 'book-open' ) !!}
 									<a href="{{ $organize_url }}">
-										{{ __( 'Organize book', 'pressbooks' ) }}
+										<i class="pb-heroicons pb-heroicons-book-open"></i>
+										<span>{{ __( 'Organize book', 'pressbooks' ) }}</span>
 									</a>
 								</li>
 							@endif
 							@if( $themes_url )
 								<li id="theme">
-									{!! $icons->render( 'rectangle-group' ) !!}
 									<a href="{{ $themes_url }}">
-										{{ __( 'Change theme', 'pressbooks' ) }}
+										<i class="pb-heroicons pb-heroicons-sparkles"></i>
+										<span>{{ __( 'Change theme', 'pressbooks' ) }}</span>
 									</a>
 								</li>
 							@endif
 							@if( $users_url )
 							<li id="users">
-								{!! $icons->render( 'users' ) !!}
 								<a href="{{ $users_url }}">
-									{{ __( 'Manage users', 'pressbooks' ) }}
+									<i class="pb-heroicons pb-heroicons-users"></i>
+									<span>{{ __( 'Manage users', 'pressbooks' ) }}</span>
 								</a>
 							</li>
 							@endif
 							@if( $analytics_url )
 								<li id="analytics">
-									{!! $icons->render( 'presentation-chart-bar' ) !!}
 									<a href="{{ $analytics_url }}">
-										{{ __( 'View Analytics', 'pressbooks' ) }}
+										<i class="pb-heroicons pb-heroicons-presentation-chart-bar"></i>
+										<span>{{ __( 'View Analytics', 'pressbooks' ) }}</span>
 									</a>
 								</li>
 							@endif
 							@if( $delete_book_url )
 								<li id="delete">
-									{!! $icons->render( 'trash' ) !!}
 									<a href="{{ $delete_book_url }}">
-										{{ __( 'Delete book', 'pressbooks' ) }}
+										<i class="pb-heroicons pb-heroicons-trash"></i>
+										<span>{{ __( 'Delete book', 'pressbooks' ) }}</span>
 									</a>
 								</li>
 							@endif

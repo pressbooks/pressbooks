@@ -1,1 +1,24 @@
-#the-list tr td:first-child{border-left:4px solid transparent;transition:all .5s}#the-list tr.restricted td:first-child{border-left:4px solid #fb0}#the-list img.avatar{float:left;margin-right:6px}#the-list .user_login{clear:right;float:left}#the-list .row-actions{float:left;margin-top:6px;width:100%}#the-list .restrict a,#the-list .unrestrict a{cursor:pointer}
+#the-list tr td:first-child {
+  border-left: solid 4px transparent;
+  transition: all 0.5s;
+}
+#the-list tr.restricted td:first-child {
+  border-left: solid 4px #fb0;
+}
+#the-list img.avatar {
+  margin-right: 6px;
+  float: left;
+}
+#the-list .user_login {
+  float: left;
+  clear: right;
+}
+#the-list .row-actions {
+  float: left;
+  width: 100%;
+  margin-top: 6px;
+}
+#the-list .restrict a,
+#the-list .unrestrict a {
+  cursor: pointer;
+}

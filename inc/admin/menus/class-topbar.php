@@ -20,12 +20,11 @@ class TopBar {
 		'my-account',
 	];
 
-	protected function __construct( protected Icons $icons ) {
-	}
+	protected function __construct() {}
 
 	public static function init(): self {
 		return tap(
-			new self( new Icons ), fn( TopBar $instance) => $instance->hooks()
+			new self(), fn( TopBar $instance) => $instance->hooks()
 		);
 	}
 
@@ -143,11 +142,10 @@ class TopBar {
 		];
 
 		$title = __( 'Administer Network', 'pressbooks' );
-		$svg = $this->icons->render( 'building-library' );
 
 		$bar->add_node( [
 			'id' => $main_id,
-			'title' => "$svg <span>{$title}</span>",
+			'title' => "<i class='pb-heroicons pb-heroicons-building-library'></i><span>{$title}</span>",
 			'href' => network_admin_url( 'index.php?pb_network_page' ),
 			'meta' => [
 				'class' => is_network_admin() ? 'you-are-here' : null,
@@ -170,11 +168,10 @@ class TopBar {
 		];
 
 		$title = __( 'My Books', 'pressbooks' );
-		$svg = $this->icons->render( 'my-books' );
 
 		$bar->add_node( [
 			'id' => 'pb-my-books',
-			'title' => "$svg <span>{$title}</span>",
+			'title' => "<i class='pb-heroicons pb-heroicons-my-books'></i><span>{$title}</span>",
 			'href' => admin_url( 'index.php?pb_home_page' ),
 			'meta' => array_filter( $metadata ),
 		] );
@@ -216,23 +213,19 @@ class TopBar {
 			return;
 		}
 
-		$svg = $this->icons->render( 'book-open' );
-		$title = $node->title;
-
 		$bar->add_node( [
 			'id' => $node->id,
-			'title' => "$svg <span>{$node->title}</span>",
+			'title' => "<i class='pb-heroicons pb-heroicons-book-open'></i><span>{$node->title}</span>",
 		] );
 	}
 
 	protected function addCreateBook( WP_Admin_Bar $bar ): void {
 		$title = __( 'Create Book', 'pressbooks' );
-		$svg = $this->icons->render( icon: 'plus-circle', solid: true );
 
 		$bar->add_node( [
 			'id' => 'pb-create-book',
 			'parent' => 'top-secondary',
-			'title' => "$svg <span>{$title}</span>",
+			'title' => "<i class='pb-heroicons pb-heroicons-plus-circle-filled'></i><span>{$title}</span>",
 			'href' => network_home_url( 'wp-signup.php' ),
 			'meta' => [
 				'class' => 'btn action',
@@ -242,12 +235,11 @@ class TopBar {
 
 	protected function addCloneBook( WP_Admin_Bar $bar ): void {
 		$title = __( 'Clone Book', 'pressbooks' );
-		$svg = $this->icons->render( icon: 'clone-books', solid: true );
 
 		$bar->add_node( [
 			'id' => 'pb-clone-book',
 			'parent' => 'top-secondary',
-			'title' => "$svg <span>{$title}</span>",
+			'title' => "<i class='pb-heroicons pb-heroicons-clone-book'></i><span>{$title}</span>",
 			'href' => admin_url( 'admin.php?page=pb_cloner' ),
 			'meta' => [
 				'class' => 'btn action',
@@ -257,12 +249,11 @@ class TopBar {
 
 	protected function addInsertUsers( WP_Admin_Bar $bar ): void {
 		$title = __( 'Add Users', 'pressbooks' );
-		$svg = $this->icons->render( icon: 'user-plus', solid: true );
 
 		$bar->add_node( [
 			'id' => 'pb-add-users',
 			'parent' => 'top-secondary',
-			'title' => "$svg <span>{$title}</span>",
+			'title' => "<i class='pb-heroicons pb-heroicons-user'></i><span><span>{$title}</span>",
 			'href' => network_admin_url( 'users.php?page=user_bulk_new' ),
 			'meta' => [
 				'class' => 'btn action',

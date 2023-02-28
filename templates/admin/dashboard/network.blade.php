@@ -48,16 +48,16 @@
 								<a
 									href="{!! admin_url( 'customize.php?return=' . network_admin_url() ) !!}"
 								>
-									{!! $icons->render( 'sparkles' ) !!}
-									{{ __( 'Customize network appearance', 'pressbooks' ) }}
+									<i class="pb-heroicons pb-heroicons-sparkles"></i>
+									<span>{{ __( 'Customize network appearance', 'pressbooks' ) }}</span>
 								</a>
 							</li>
 							<li>
 								<a
 									href="{!! admin_url( 'edit.php?post_type=page' ) !!}"
 								>
-									{!! $icons->render( 'pencil-square' ) !!}
-									{{ __( 'Create or edit pages', 'pressbooks' ) }}
+									<i class="pb-heroicons pb-heroicons-pencil-square"></i>
+									<span>{{ __( 'Create or edit pages', 'pressbooks' ) }}</span>
 								</a>
 							</li>
 							@if( $koko_analytics_active )
@@ -65,8 +65,9 @@
 									<a
 										href="{!! admin_url( 'index.php?page=koko-analytics' ) !!}"
 									>
-										{!! $icons->render( 'presentation-chart-bar' ) !!}
-										{{ __( 'View home page analytics', 'pressbooks' ) }}</a>
+										<i class="pb-heroicons pb-heroicons-chart-bar"></i>
+										<span>{{ __( 'View home page analytics', 'pressbooks' ) }}</span>
+									</a>
 								</li>
 							@endif
 						</ul>
@@ -90,24 +91,24 @@
 								<a
 									href="{!! network_admin_url( $network_analytics_active ? 'settings.php?page=pb_network_analytics_options' : 'settings.php' ) !!}"
 								>
-									{!! $icons->render( 'cog-8-tooth' ) !!}
-									{{ __( 'Adjust network settings', 'pressbooks' ) }}
+									<i class="pb-heroicons pb-heroicons-cog-8-tooth"></i>
+									<span>{{ __( 'Adjust network settings', 'pressbooks' ) }}</span>
 								</a>
 							</li>
 							<li>
 								<a
 									href="{!! network_admin_url( $network_analytics_active ? 'sites.php?page=pb_network_analytics_booklist' : 'sites.php' ) !!}"
 								>
-									{!! $icons->render( 'book-open' ) !!}
-									{{ __( 'View book list', 'pressbooks' ) }}
+									<i class="pb-heroicons pb-heroicons-book-open"></i>
+									<span>{{ __( 'View book list', 'pressbooks' ) }}</span>
 								</a>
 							</li>
 							<li>
 								<a
 									href="{!! network_admin_url( $network_analytics_active ? 'users.php?page=pb_network_analytics_userlist' : 'users.php' ) !!}"
 								>
-									{!! $icons->render( 'users' ) !!}
-									{{ __( 'View user list', 'pressbooks' ) }}
+									<i class="pb-heroicons pb-heroicons-users"></i>
+									<span>{{ __( 'View user list', 'pressbooks' ) }}</span>
 								</a>
 							</li>
 						</ul>
