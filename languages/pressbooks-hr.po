@@ -1690,7 +1690,7 @@ msgstr "Omogući kloniranje"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:111
 msgid "Enable book cloning via the Pressbooks REST API."
-msgstr "Omogući kloniranje putem PressBooks REST API-a."
+msgstr "Omogući kloniranje putem Pressbooks REST API-a."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:117
 msgid "Enable CC with Weblinks"

@@ -10,6 +10,7 @@ use WP_Admin_Bar;
 
 class TopBar {
 	protected array $order = [
+		'pb-logo',
 		'pb-administer-network',
 		'pb-my-books',
 		'site-name',
@@ -150,6 +151,14 @@ class TopBar {
 				'visible' => $network_analytics_active || $koko_analytics_active || ( ! is_restricted() && $pressbooks_stats_active ),
 			],
 		];
+
+		$bar->add_menu(
+			[
+				'id' => 'pb-logo',
+				'title' => '<span class="ab-icon"></span><span class="screen-reader-text">' . __( 'About Pressbooks', 'pressbooks' ) . '</span>',
+				'href' => ( 'https://pressbooks.com/' ),
+			]
+		);
 
 		$title = __( 'Administer Network', 'pressbooks' );
 		$svg = $this->icons->render( 'building-library' );

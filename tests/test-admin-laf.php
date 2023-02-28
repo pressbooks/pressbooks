@@ -326,7 +326,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 
 		$node = $wp_admin_bar->get_node( 'contact' );
 		$this->assertTrue( is_object( $node ) );
-		$this->assertStringContainsString( 'pressbooks.org', $node->href );
+		$this->assertStringContainsString( 'pressbooks.com', $node->href );
 	}
 
 	/**
