@@ -40,8 +40,8 @@ $svg-lg: 36px;
 
     #wp-admin-bar-pb-logo .ab-icon::before {
       -webkit-font-smoothing: antialiased;
-      content: "\e600"!important;
-      font: 18px/1 PBFont,sans-serif!important;
+      content: '\e600';
+      font: 18px/1 PBFont, sans-serif;
     }
 
     li .blavatar {
@@ -63,6 +63,7 @@ $svg-lg: 36px;
       justify-content: center;
       padding: 0;
       border-radius: 50%;
+      border: 2px solid transparent;
 
       img {
         position: unset;
@@ -75,7 +76,7 @@ $svg-lg: 36px;
     }
 
     #wp-admin-bar-my-account.with-avatar > a:hover, #wp-admin-bar-my-account.with-avatar > a:focus, #wp-admin-bar-my-account.with-avatar.hover a {
-      border: 2px solid white;
+      border: 2px solid $white;
     }
 
     #wp-admin-bar-top-secondary li.btn.action {
@@ -198,6 +199,10 @@ $svg-lg: 36px;
       }
     }
 
+    .quicklinks #wp-admin-bar-pb-logo .ab-icon::before {
+      font-size: 26px;
+    }
+
     #wp-admin-bar-updates .ab-icon::before {
       font-size: 40px;
     }
@@ -222,6 +227,11 @@ $svg-lg: 36px;
       &.hover > .ab-item {
         color: $monza;
       }
+    }
+
+    .quicklinks #wp-admin-bar-pb-logo .ab-icon::before {
+      font-size: 30px;
+      top: -1px;
     }
 
     .quicklinks > ul > li:not(#wp-admin-bar-menu-toggle) > .ab-item svg {
