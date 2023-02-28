@@ -38,7 +38,7 @@ $svg-lg: 36px;
       }
     }
 
-    #wp-admin-bar-pb-logo .ab-icon:before {
+    #wp-admin-bar-pb-logo .ab-icon::before {
       -webkit-font-smoothing: antialiased;
       content: "\e600"!important;
       font: 18px/1 PBFont,sans-serif!important;

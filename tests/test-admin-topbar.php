@@ -26,6 +26,7 @@ class testAdminTopbar extends \WP_UnitTestCase {
 			'Settings',
 			false,
 			"<span class='blavatar'></span> {$site_name}",
+			'<span class="ab-icon"></span><span class="screen-reader-text">About Pressbooks</span>',
 			'<span>Administer Network</span>',
 			'<span>My Books</span>',
 			'<span>Create Book</span>',
@@ -51,6 +52,7 @@ class testAdminTopbar extends \WP_UnitTestCase {
 		$expected_order = [
 			false,
 			"<span class='blavatar'></span> {$site_name}",
+			'<span class="ab-icon"></span><span class="screen-reader-text">About Pressbooks</span>',
 			'<span>My Books</span>',
 			'<span>Create Book</span>',
 			'<span>Clone Book</span>',
