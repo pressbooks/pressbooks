@@ -104,16 +104,16 @@
 .pb-dashboard-row .pb-dashboard-content .pb-dashboard-flex img {
   width: 40%;
 }
-.pb-dashboard-row .pb-dashboard-content .pb-dashboard-flex .actions li a, .pb-dashboard-action li a {
+.pb-dashboard-row .pb-dashboard-content .pb-dashboard-flex .actions li a {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   text-decoration: none;
 }
-.pb-dashboard-row .pb-dashboard-content .pb-dashboard-flex .actions li a i.pb-heroicons, .pb-dashboard-action li a i.pb-heroicons {
+.pb-dashboard-row .pb-dashboard-content .pb-dashboard-flex .actions li a i.pb-heroicons {
   font-size: 25px;
 }
-.pb-dashboard-row .pb-dashboard-content .pb-dashboard-flex .actions li a span, .pb-dashboard-action li a span {
+.pb-dashboard-row .pb-dashboard-content .pb-dashboard-flex .actions li a span {
   text-decoration: underline;
 }
 .pb-dashboard-row .pb-dashboard-panel {
