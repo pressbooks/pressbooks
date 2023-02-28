@@ -77,14 +77,14 @@ msgid ""
 "Pressbooks will not work with your version of PHP. Pressbooks requires PHP "
 "version %s or greater. Please upgrade PHP if you would like to use "
 "Pressbooks."
-msgstr "PressBooks ne peut fonctionner avec votre version de PHP. PressBooks nécessite la version %s de PHP ou une version ultérieure. Veuillez mettre à jour PHP si vous voulez utiliser PressBooks. "
+msgstr "Pressbooks ne peut fonctionner avec votre version de PHP. Pressbooks nécessite la version %s de PHP ou une version ultérieure. Veuillez mettre à jour PHP si vous voulez utiliser Pressbooks. "
 
 #: compatibility.php:185
 msgid ""
 "Pressbooks will not work with your version of WordPress. Pressbooks requires"
 " a dedicated install of WordPress Multisite, version %s or greater. Please "
 "upgrade WordPress if you would like to use Pressbooks."
-msgstr "PressBooks ne peut fonctionner avec votre version actuelle de WordPress. PressBooks nécessite l&rsquo;installation de Multisite de WordPress(%s ou version ultérieure. Veuillez mettre à jour WordPress si vous voulez utiliser PressBooks."
+msgstr "Pressbooks ne peut fonctionner avec votre version actuelle de WordPress. Pressbooks nécessite l&rsquo;installation de Multisite de WordPress(%s ou version ultérieure. Veuillez mettre à jour WordPress si vous voulez utiliser Pressbooks."
 
 #: compatibility.php:196
 msgid ""

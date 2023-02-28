@@ -10,6 +10,7 @@ use WP_Admin_Bar;
 
 class TopBar {
 	protected array $order = [
+		'pb-logo',
 		'pb-administer-network',
 		'pb-my-books',
 		'site-name',
@@ -52,6 +53,8 @@ class TopBar {
 
 	public function add( WP_Admin_Bar $bar ): void {
 		$this->updateMyAccount( $bar );
+
+		$this->addPressbooksLogo( $bar );
 
 		if ( is_super_admin() ) {
 			$this->addAdministerNetwork( $bar );
@@ -99,6 +102,16 @@ class TopBar {
 			'id' => $node->id,
 			'title' => $avatar,
 		] );
+	}
+
+	protected function addPressbooksLogo( WP_Admin_Bar $bar ): void {
+		$bar->add_menu(
+			[
+				'id' => 'pb-logo',
+				'title' => '<span class="ab-icon"></span><span class="screen-reader-text">' . __( 'About Pressbooks', 'pressbooks' ) . '</span>',
+				'href' => ( 'https://pressbooks.com/' ),
+			]
+		);
 	}
 
 	protected function addAdministerNetwork( WP_Admin_Bar $bar ): void {
