@@ -52,7 +52,7 @@ $svg-lg: 36px;
     }
 
     #wp-admin-bar-my-account.with-avatar {
-      padding-right: 10px;
+      padding-right: 15px;
     }
 
     #wp-admin-bar-my-account.with-avatar > a {
@@ -60,15 +60,20 @@ $svg-lg: 36px;
       align-items: center;
       justify-content: center;
       padding: 0;
+      border-radius: 50%;
+
+      img {
+        position: unset;
+        margin: 0;
+        height: 35px;
+        width: 35px;
+        border-radius: 50%;
+        border: 0;
+      }
     }
 
-    #wp-admin-bar-my-account.with-avatar > a img {
-      position: unset;
-      margin: 0;
-      height: 35px;
-      width: 35px;
-      border-radius: 50%;
-      border: 0;
+    #wp-admin-bar-my-account.with-avatar > a:hover, #wp-admin-bar-my-account.with-avatar > a:focus, #wp-admin-bar-my-account.with-avatar.hover a {
+      border: 2px solid white;
     }
 
     #wp-admin-bar-top-secondary li.btn.action {
