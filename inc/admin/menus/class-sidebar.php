@@ -3,7 +3,6 @@
 namespace Pressbooks\Admin\Menus;
 
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
-use Pressbooks\Utility\Icons;
 
 class SideBar {
 
@@ -22,8 +21,6 @@ class SideBar {
 	private string $settingsSlug;
 
 	private array|string $settingsCallback;
-
-	private Icons $icons;
 
 	public function __construct() {
 		$this->isKokoAnalyticsActive = is_plugin_active( 'koko-analytics/koko-analytics.php' );
@@ -48,7 +45,6 @@ class SideBar {
 			$this->settingsCallback = '';
 			$this->settingsSlug = $this->getContextSlug( 'settings.php', false );
 		}
-		$this->icons = new Icons();
 	}
 
 	public static function init(): void {
@@ -194,16 +190,9 @@ class SideBar {
 				'manager_network',
 				network_admin_url( 'index.php' ),
 				'',
-				$this->icons->getIcon( 'home' ),
+				'dashicons-dashboard',
 				1
 			);
-			if ( isset( $menu[100] ) && $menu[100][2] === 'h5p' ) {
-				$menu[100][6] = $this->icons->getIcon( 'bolt' );
-			}
-		} else {
-			if ( isset( $menu[2] ) && $menu[2][2] === 'index.php' ) {
-				$menu[2][6] = $this->icons->getIcon( 'home' );
-			}
 		}
 
 		add_menu_page(
@@ -266,17 +255,11 @@ class SideBar {
 					'manage_network',
 					network_admin_url( 'admin.php?page=pb_network_analytics_admin' ),
 					'',
-					$this->icons->getIcon( 'presentation-chart-bar' ),
+					'dashicons-chart-area',
 					7
 				);
-			} else {
-				// Change stats icon
-				global $menu;
-
-				if ( isset( $menu[100] ) && $menu[100][2] === 'pb_network_analytics_admin' ) {
-					$menu[100][6] = $this->icons->getIcon( 'presentation-chart-bar' );
-				}
 			}
+
 			add_submenu_page(
 				$this->getNetworkAnalyticsStatsSlug(),
 				__( 'Network Stats', 'pressbooks' ),
@@ -285,6 +268,7 @@ class SideBar {
 				$this->getNetworkAnalyticsStatsSlug(),
 				''
 			);
+
 			if ( $this->isKokoAnalyticsActive ) {
 				add_submenu_page(
 					$this->getNetworkAnalyticsStatsSlug(),
@@ -302,7 +286,7 @@ class SideBar {
 				'view_koko_analytics',
 				'pressbooks_network_stats',
 				'',
-				$this->icons->getIcon( 'presentation-chart-bar' ),
+				'dashicons-chart-bar',
 				7
 			);
 			add_submenu_page(
@@ -401,7 +385,7 @@ class SideBar {
 				'manage_network',
 				network_admin_url( 'plugins.php' ),
 				'',
-				$this->icons->getIcon( 'bolt' ),
+				'dashicons-admin-plugins',
 				65
 			);
 		}
@@ -434,7 +418,7 @@ class SideBar {
 				'manage_network',
 				$this->getContextSlug( 'settings.php', false ),
 				'',
-				$this->icons->getIcon( 'cog-8-tooth' ),
+				'dashicons-admin-settings',
 				66
 			);
 
@@ -491,21 +475,6 @@ class SideBar {
 				'manage_network',
 				$this->getContextSlug( 'settings.php?page=pb_analytics', false )
 			);
-		} else {
-			// Change some icons
-			global $menu;
-
-			if ( isset( $menu[20] ) && $menu[20][0] === __( 'Plugins' ) ) {
-				$menu[20][6] = $this->icons->getIcon( 'bolt' );
-			}
-
-			if ( isset( $menu[25] ) && $menu[25][0] === __( 'Settings' ) ) {
-				$menu[25][6] = $this->icons->getIcon( 'cog-8-tooth' );
-			}
-
-			if ( isset( $menu[101] ) && $menu[101][0] === __( 'Stats' ) ) {
-				$menu[101][6] = $this->icons->getIcon( 'presentation-chart-bar' );
-			}
 		}
 
 		if ( $this->isNetworkAnalyticsActive ) {
@@ -576,7 +545,7 @@ class SideBar {
 					'manage_network',
 					$stats_slug,
 					'',
-					$this->icons->getIcon( 'presentation-chart-bar' ),
+					'dashicons-chart-area',
 					'3'
 				);
 			}

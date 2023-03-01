@@ -5,7 +5,6 @@ namespace Pressbooks\Admin\Menus;
 use function Pressbooks\Admin\Laf\can_create_new_books;
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use Pressbooks\Cloner\Cloner;
-use Pressbooks\Utility\Icons;
 use WP_Admin_Bar;
 
 class TopBar {
@@ -253,7 +252,7 @@ class TopBar {
 		$bar->add_node( [
 			'id' => 'pb-add-users',
 			'parent' => 'top-secondary',
-			'title' => "<i class='pb-heroicons pb-heroicons-user'></i><span><span>{$title}</span>",
+			'title' => "<i class='pb-heroicons pb-heroicons-user'></i><span>{$title}</span>",
 			'href' => network_admin_url( 'users.php?page=user_bulk_new' ),
 			'meta' => [
 				'class' => 'btn action',

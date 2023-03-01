@@ -151,17 +151,18 @@
     margin: 0;
 
     li {
-      display: flex;
-      align-items: center;
-    }
-
-    svg {
-      height: 25px;
-      margin-right: .75rem;
-    }
-
-    #view svg {
-      transform: rotate(270deg);
+      a {
+        display: flex;
+        align-items: center;
+        gap: .75rem;
+        text-decoration: none;
+        i.pb-heroicons {
+          font-size: 25px;
+        }
+        span  {
+          text-decoration: underline;
+        }
+      }
     }
 
     #delete {

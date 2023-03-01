@@ -29,7 +29,6 @@ use Pressbooks\Cloner\Cloner;
 use Pressbooks\Container;
 use Pressbooks\DataCollector\Book as DataCollector;
 use Pressbooks\Metadata;
-use Pressbooks\Utility\Icons;
 use WP_Error;
 
 /**
@@ -124,7 +123,6 @@ function add_footer_link() {
  */
 function replace_book_admin_menu() {
 
-	$icons_helper = new Icons();
 	// Note:
 	// If $menu_slug is a URL and the URL has an ampersand in it make sure you use &amp; (and not simply &) so that aria-current works
 

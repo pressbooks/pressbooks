@@ -6,8 +6,6 @@
 
 namespace Pressbooks\Admin\Dashboard;
 
-use Pressbooks\Utility\Icons;
-
 /**
  * Init pb_network_integrations menu, removes itself from sub-menus
  *

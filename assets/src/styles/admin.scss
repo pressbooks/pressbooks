@@ -3,8 +3,8 @@
 @import "heroicons";
 @import "heroicons-bridge";
 
-$svg-md: 24px;
-$svg-lg: 48px;
+$pb-icon-md-size: 24px;
+$pb-icon-lg-size: 48px;
 
 #wpcontent #wpadminbar {
   height: 70px;
@@ -83,9 +83,8 @@ $svg-lg: 48px;
         justify-content: center;
 
         i {
-          height: $svg-md;
-          width: $svg-md;
-          flex-shrink: 0;
+          display: flex;
+          font-size: $pb-icon-md-size;
         }
 
         span {
@@ -112,7 +111,8 @@ $svg-lg: 48px;
       height: 100%;
 
       i {
-        font-size: $svg-md;
+        display: flex;
+        font-size: $pb-icon-md-size;
       }
 
       span {
@@ -205,14 +205,12 @@ $svg-lg: 48px;
       }
     }
 
-    .quicklinks > ul > li:not(#wp-admin-bar-menu-toggle) > .ab-item svg {
-      height: $svg-lg;
-      width: $svg-lg;
+    .quicklinks > ul > li:not(#wp-admin-bar-menu-toggle) > .ab-item i {
+      font-size: $pb-icon-lg-size;
     }
 
-    .quicklinks > ul > li#wp-admin-bar-my-account > .ab-item svg {
-      height: $svg-lg;
-      width: $svg-lg;
+    .quicklinks > ul > li#wp-admin-bar-my-account > .ab-item i {
+      font-size: $pb-icon-lg-size;
     }
   }
 }
