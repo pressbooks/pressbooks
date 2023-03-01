@@ -197,7 +197,7 @@ class TopBar {
 		$bar->add_node( [
 			'id' => 'pb-my-books',
 			'title' => "$svg <span>{$title}</span>",
-			'href' => get_admin_url( get_main_site_id() ) . 'index.php?page=pb_home_page',
+			'href' => get_admin_url( get_main_site_id(), 'index.php?page=pb_home_page' ),
 			'meta' => array_filter( $metadata ),
 		] );
 
