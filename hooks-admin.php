@@ -38,8 +38,7 @@ add_action( 'plugins_loaded', [ '\Pressbooks\EventStreams', 'init' ] );
 // Remove the Try Gutenberg panel
 remove_action( 'try_gutenberg_panel', 'wp_try_gutenberg_panel' );
 
-// PressBook-ify the admin bar
-add_action( 'admin_bar_menu', '\Pressbooks\Admin\Laf\replace_menu_bar_branding', 11 );
+// Pressbook-ify the admin bar
 add_action( 'admin_bar_menu', '\Pressbooks\Admin\Laf\replace_menu_bar_my_sites', 21 );
 add_action( 'admin_bar_menu', '\Pressbooks\Admin\Laf\remove_menu_bar_update', 41 );
 add_action( 'admin_bar_menu', '\Pressbooks\Admin\Laf\remove_menu_bar_new_content', 71 );

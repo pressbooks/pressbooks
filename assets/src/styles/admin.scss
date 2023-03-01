@@ -4,10 +4,10 @@
 @import "heroicons-bridge";
 
 $pb-icon-md-size: 24px;
-$pb-icon-lg-size: 48px;
+$pb-icon-lg-size: 36px;
 
 #wpcontent #wpadminbar {
-  height: 70px;
+  height: 50px;
 
   .quicklinks {
     display: flex;
@@ -18,10 +18,6 @@ $pb-icon-lg-size: 48px;
       display: flex;
       align-items: center;
       height: 100%;
-
-      li#wp-admin-bar-pb-administer-network {
-        margin-left: 6px;
-      }
 
       li#wp-admin-bar-pb-my-books:nth-child(2) {
         margin-left: 6px;
@@ -38,10 +34,16 @@ $pb-icon-lg-size: 48px;
         }
 
         .ab-sub-wrapper {
-          top: 70px;
+          top: 50px;
           left: 0;
         }
       }
+    }
+
+    #wp-admin-bar-pb-logo .ab-icon::before {
+      -webkit-font-smoothing: antialiased;
+      content: '\e600';
+      font: 18px/1 PBFont, sans-serif;
     }
 
     li .blavatar {
@@ -53,21 +55,30 @@ $pb-icon-lg-size: 48px;
       }
     }
 
+    #wp-admin-bar-my-account.with-avatar {
+      padding-right: 15px;
+    }
+
     #wp-admin-bar-my-account.with-avatar > a {
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 0;
-      padding-right: 8px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+
+      img {
+        position: unset;
+        margin: 0;
+        height: 35px;
+        width: 35px;
+        border-radius: 50%;
+        border: 0;
+      }
     }
 
-    #wp-admin-bar-my-account.with-avatar > a img {
-      position: unset;
-      margin: 0;
-      width: 100%;
-      height: auto;
-      border-radius: 50%;
-      border: 0;
+    #wp-admin-bar-my-account.with-avatar > a:hover, #wp-admin-bar-my-account.with-avatar > a:focus, #wp-admin-bar-my-account.with-avatar.hover a {
+      border: 2px solid $white;
     }
 
     #wp-admin-bar-top-secondary li.btn.action {
@@ -75,9 +86,9 @@ $pb-icon-lg-size: 48px;
 
       a {
         border: 1px solid $white;
-        border-radius: 8px;
+        border-radius: 10px;
         margin: 0;
-        padding: 5px 10px;
+        padding: 1px 10px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -89,7 +100,7 @@ $pb-icon-lg-size: 48px;
 
         span {
           font-family: Karla, sans-serif;
-          font-size: 1.125rem;
+          font-size: 1rem;
           font-weight: 500;
           margin-left: 6px;
           line-height: 1.2;
@@ -104,10 +115,19 @@ $pb-icon-lg-size: 48px;
     }
   }
 
+  ul:not(.ab-submenu) > li:not(.btn-action) > .ab-item,
+  ul:not(.ab-submenu) > li:not(.btn-action) > .ab-item span {
+    font-family: Karla, sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
   ul:not(.ab-submenu) > li:not(.btn.action) {
     & > .ab-item {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       height: 100%;
 
       i {
@@ -116,11 +136,7 @@ $pb-icon-lg-size: 48px;
       }
 
       span {
-        font-family: Karla, sans-serif;
-        font-size: 1.125rem;
-        font-weight: 500;
         margin-left: 6px;
-        line-height: 1.2;
         white-space: nowrap;
       }
     }
@@ -179,6 +195,10 @@ $pb-icon-lg-size: 48px;
       }
     }
 
+    .quicklinks #wp-admin-bar-pb-logo .ab-icon::before {
+      font-size: 26px;
+    }
+
     #wp-admin-bar-updates .ab-icon::before {
       font-size: 40px;
     }
@@ -205,6 +225,11 @@ $pb-icon-lg-size: 48px;
       }
     }
 
+    .quicklinks #wp-admin-bar-pb-logo .ab-icon::before {
+      font-size: 30px;
+      top: -1px;
+    }
+
     .quicklinks > ul > li:not(#wp-admin-bar-menu-toggle) > .ab-item i {
       font-size: $pb-icon-lg-size;
     }
@@ -217,18 +242,18 @@ $pb-icon-lg-size: 48px;
 
 @media screen and (max-width: 600px) {
   #wpcontent #wpbody {
-   padding-top: 70px;
+   padding-top: 50px;
   }
 }
 
 @media screen and (min-width: 600px) {
   #wpwrap {
-    top: 24px;
+    top: 4px;
   }
 }
 
 @media screen and (min-width: 783px) {
   #wpwrap {
-    top: 38px;
+    top: 18px;
   }
 }

@@ -1,10 +1,12 @@
+/* stylelint-disable scss/at-extend-no-missing-placeholder */
+
 /**
  * This file maps the Heroicons to the Dashicons used in the admin menu.
  * this way everytime a dashicon is used in the admin menu, it will be replaced by the mapped heroicon.
  */
 
 .dashicons-before {
-  &:before {
+  &::before {
     font-family: heroicons, serif !important;
     font-style: normal;
     font-weight: normal !important;
@@ -17,7 +19,7 @@
   }
 }
 
-.dashicons-admin-multisite:before {
+.dashicons-admin-multisite::before {
   @extend .pb-heroicons-book-open;
 }
 
@@ -68,7 +70,7 @@
 .dashicons-admin-media {
   @extend .pb-heroicons-camera;
 }
-
+/* stylelint-disable-next-line selector-id-pattern */
 #toplevel_page_h5p .wp-menu-image {
   @extend .pb-heroicons-h5p;
 }

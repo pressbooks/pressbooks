@@ -14,7 +14,7 @@ namespace Pressbooks\Admin\Dashboard;
  *
  */
 function init_network_integrations_menu(): string {
-	$parent_slug = 'pb_network_integrations';
+	$parent_slug = is_network_admin() ? 'pb_network_integrations' : network_admin_url( 'admin.php?page=pb_network_integrations' );
 	static $init_pb_network_integrations_menu = false;
 	if ( ! $init_pb_network_integrations_menu ) {
 		add_menu_page(

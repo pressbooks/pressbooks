@@ -1,5 +1,7 @@
 <?php
 
+use Pressbooks\Utility\Icons;
+
 class UtilityTest extends \WP_UnitTestCase {
 	use utilsTrait;
 
@@ -792,5 +794,49 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$this->assertTrue( is_a( $class1->getMethod( 'display' ), '\ReflectionMethod' ) );
 		$this->assertTrue( is_a( $class2->getMethod( 'display' ), '\ReflectionMethod' ) );
+	}
+
+	/**
+	 * @test
+	 * @group utility
+	 */
+	public function it_returns_the_icon_with_web_path(): void {
+		$icons = new Icons;
+
+		$this->assertStringContainsString(
+			'pressbooks/assets/dist/images/icons/heroicons/home.svg',
+			$icons->getIcon('home')
+		);
+
+		$this->assertStringContainsString(
+			'pressbooks/assets/dist/images/icons/heroicons/solid/plus-circle.svg',
+			$icons->getIcon( icon: 'plus-circle', solid: true )
+		);
+	}
+
+	/**
+	 * @test
+	 * @group utility
+	 */
+	public function it_returns_the_svg_content(): void {
+		$icons = new Icons;
+
+		$expected_svg = <<<SVG
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/>
+</svg>
+
+SVG;
+
+		$this->assertSame( $expected_svg, $icons->render( 'home') );
+
+		$expected_svg = <<<SVG
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+  <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 9a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25V15a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V9z" clip-rule="evenodd"/>
+</svg>
+
+SVG;
+
+		$this->assertSame( $expected_svg, $icons->render( icon: 'plus-circle', solid: true ) );
 	}
 }

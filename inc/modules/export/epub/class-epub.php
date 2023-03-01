@@ -817,7 +817,7 @@ class Epub extends ExportGenerator {
 				}
 			} catch ( \Exception $exc ) {
 				$this->fetchedImageCache[ $url ] = '';
-				debug_error_log( '\PressBooks\Export\Epub3\fetchAndSaveUniqueMedia wp_error on wp_remote_get() - ' . $response->get_error_message() . ' - ' . $exc->getMessage() );
+				debug_error_log( '\Pressbooks\Export\Epub3\fetchAndSaveUniqueMedia wp_error on wp_remote_get() - ' . $response->get_error_message() . ' - ' . $exc->getMessage() );
 				return '';
 			}
 		}
@@ -2108,7 +2108,7 @@ class Epub extends ExportGenerator {
 				}
 			} catch ( \Exception $exc ) {
 				$this->fetchedImageCache[ $url ] = '';
-				debug_error_log( '\PressBooks\Export\Epub\fetchAndSaveUniqueImage wp_error on wp_remote_get() - ' . $response->get_error_message() . ' - ' . $exc->getMessage() );
+				debug_error_log( '\Pressbooks\Export\Epub\fetchAndSaveUniqueImage wp_error on wp_remote_get() - ' . $response->get_error_message() . ' - ' . $exc->getMessage() );
 				return '';
 			}
 		}
@@ -2155,7 +2155,7 @@ class Epub extends ExportGenerator {
 
 		if ( ! \Pressbooks\Image\is_valid_image( $tmp_file, $filename ) ) {
 			$this->fetchedImageCache[ $url ] = '';
-			debug_error_log( '\PressBooks\Export\Epub\fetchAndSaveUniqueImage is_valid_image, not a valid image ' );
+			debug_error_log( '\Pressbooks\Export\Epub\fetchAndSaveUniqueImage is_valid_image, not a valid image ' );
 			fclose( $GLOBALS[ $resource_key ] ); // @codingStandardsIgnoreLine
 			return ''; // Not an image
 		}
