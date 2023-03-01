@@ -107,7 +107,7 @@ class TopBar {
 			[
 				'id' => 'pb-logo',
 				'title' => '<span class="ab-icon"></span><span class="screen-reader-text">' . __( 'About Pressbooks', 'pressbooks' ) . '</span>',
-				'href' => ( 'https://pressbooks.com/' ),
+				'href' => 'https://pressbooks.com',
 			]
 		);
 	}
@@ -122,7 +122,7 @@ class TopBar {
 		$submenus = [
 			'pb-administer-network-d' => [
 				'title' => __( 'Dashboard', 'pressbooks' ),
-				'href' => network_admin_url( 'index.php?pb_network_page' ),
+				'href' => network_admin_url( 'index.php?page=pb_network_page' ),
 				'visible' => true,
 			],
 			'pb-administer-books' => [
@@ -167,7 +167,7 @@ class TopBar {
 		$bar->add_node( [
 			'id' => $main_id,
 			'title' => "<i class='pb-heroicons pb-heroicons-building-library'></i><span>{$title}</span>",
-			'href' => network_admin_url( 'index.php?pb_network_page' ),
+			'href' => network_admin_url( 'index.php?page=pb_network_page' ),
 			'meta' => [
 				'class' => is_network_admin() ? 'you-are-here' : null,
 			],
@@ -193,7 +193,7 @@ class TopBar {
 		$bar->add_node( [
 			'id' => 'pb-my-books',
 			'title' => "<i class='pb-heroicons pb-heroicons-my-books'></i><span>{$title}</span>",
-			'href' => admin_url( 'index.php?pb_home_page' ),
+			'href' => get_admin_url( get_main_site_id(), 'index.php?page=pb_home_page' ),
 			'meta' => array_filter( $metadata ),
 		] );
 
@@ -274,7 +274,7 @@ class TopBar {
 		$bar->add_node( [
 			'id' => 'pb-add-users',
 			'parent' => 'top-secondary',
-			'title' => "<i class='pb-heroicons pb-heroicons-user'></i><span>{$title}</span>",
+			'title' => "<i class='pb-heroicons pb-heroicons-user-plus-filled'></i><span>{$title}</span>",
 			'href' => network_admin_url( 'users.php?page=user_bulk_new' ),
 			'meta' => [
 				'class' => 'btn action',

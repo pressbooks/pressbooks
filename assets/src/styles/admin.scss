@@ -237,6 +237,11 @@ $pb-icon-lg-size: 36px;
     .quicklinks > ul > li#wp-admin-bar-my-account > .ab-item i {
       font-size: $pb-icon-lg-size;
     }
+
+    #wp-admin-bar-site-name .ab-item {
+      text-indent: 0;
+    }
+
   }
 }
 

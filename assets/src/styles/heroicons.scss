@@ -108,14 +108,22 @@ i[class^="pb-heroicons-"]::before, i[class*=" pb-heroicons-"]::before {
   content: "\f117";
 }
 
-.pb-heroicons-user::before {
+.pb-heroicons-user-plus-filled::before {
   content: "\f118";
 }
 
-.pb-heroicons-users::before {
+.pb-heroicons-user-plus::before {
   content: "\f119";
 }
 
-.pb-heroicons-wrench::before {
+.pb-heroicons-user::before {
   content: "\f11a";
+}
+
+.pb-heroicons-users::before {
+  content: "\f11b";
+}
+
+.pb-heroicons-wrench::before {
+  content: "\f11c";
 }

@@ -65,7 +65,7 @@
 									<a
 										href="{!! admin_url( 'index.php?page=koko-analytics' ) !!}"
 									>
-										<i class="pb-heroicons pb-heroicons-chart-bar"></i>
+										<i class="pb-heroicons pb-heroicons-presentation-chart-bar"></i>
 										<span>{{ __( 'View home page analytics', 'pressbooks' ) }}</span>
 									</a>
 								</li>
