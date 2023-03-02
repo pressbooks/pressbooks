@@ -130,6 +130,16 @@
       .actions li a {
         display: flex;
         align-items: center;
+        gap: .75rem;
+        text-decoration: none;
+
+        i.pb-heroicons {
+          font-size: 25px;
+        }
+
+        span {
+          text-decoration: underline;
+        }
       }
     }
   }
@@ -143,18 +153,20 @@
     margin: 0;
 
     li {
-      display: flex;
-      align-items: center;
-    }
+      a {
+        display: flex;
+        align-items: center;
+        gap: .75rem;
+        text-decoration: none;
 
-    svg, a svg {
-      height: 25px;
-      margin-right: .75rem;
-      color: $mine-shaft;
-    }
+        i.pb-heroicons {
+          font-size: 25px;
+        }
 
-    #view svg {
-      transform: rotate(270deg);
+        span  {
+          text-decoration: underline;
+        }
+      }
     }
 
     #delete {

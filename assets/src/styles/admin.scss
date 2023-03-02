@@ -1,8 +1,10 @@
 @import "menus/sidebar";
 @import "partials/colors";
+@import "heroicons";
+@import "heroicons-bridge";
 
-$svg-md: 24px;
-$svg-lg: 36px;
+$pb-icon-md-size: 24px;
+$pb-icon-lg-size: 36px;
 
 #wpcontent #wpadminbar {
   height: 50px;
@@ -91,10 +93,9 @@ $svg-lg: 36px;
         align-items: center;
         justify-content: center;
 
-        svg {
-          height: $svg-md;
-          width: $svg-md;
-          flex-shrink: 0;
+        i {
+          display: flex;
+          font-size: $pb-icon-md-size;
         }
 
         span {
@@ -129,10 +130,9 @@ $svg-lg: 36px;
       justify-content: center;
       height: 100%;
 
-      svg {
-        height: $svg-md;
-        width: $svg-md;
-        flex-shrink: 0;
+      i {
+        display: flex;
+        font-size: $pb-icon-md-size;
       }
 
       span {
@@ -172,17 +172,13 @@ $svg-lg: 36px;
     }
 
     .quicklinks > ul > li:not(#wp-admin-bar-menu-toggle, #wp-admin-bar-my-account) {
+      display: flex;
       position: relative;
       margin-right: 16px;
 
       > .ab-item {
         width: 48px;
         padding: 0;
-
-        svg {
-          height: $svg-lg;
-          width: $svg-lg;
-        }
 
         span:not(.ab-icon) {
           display: none;
@@ -234,15 +230,18 @@ $svg-lg: 36px;
       top: -1px;
     }
 
-    .quicklinks > ul > li:not(#wp-admin-bar-menu-toggle) > .ab-item svg {
-      height: $svg-lg;
-      width: $svg-lg;
+    .quicklinks > ul > li:not(#wp-admin-bar-menu-toggle) > .ab-item i {
+      font-size: $pb-icon-lg-size;
     }
 
-    .quicklinks > ul > li#wp-admin-bar-my-account > .ab-item svg {
-      height: $svg-lg;
-      width: $svg-lg;
+    .quicklinks > ul > li#wp-admin-bar-my-account > .ab-item i {
+      font-size: $pb-icon-lg-size;
     }
+
+    #wp-admin-bar-site-name .ab-item {
+      text-indent: 0;
+    }
+
   }
 }
 

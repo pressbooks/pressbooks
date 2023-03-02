@@ -43,24 +43,31 @@
 							alt="{{ __( 'Update homepage art', 'pressbooks' ) }}"
 						/>
 
-						<ul class="pb-dashboard-action">
+						<ul class="actions">
 							<li>
-								{!! $icons->render( 'sparkles' ) !!}
-								<a href="{!! admin_url( 'customize.php?return=' . network_admin_url() ) !!}">
-									{{ __( 'Customize network appearance', 'pressbooks' ) }}
+								<a
+									href="{!! admin_url( 'customize.php?return=' . network_admin_url() ) !!}"
+								>
+									<i class="pb-heroicons pb-heroicons-sparkles"></i>
+									<span>{{ __( 'Customize network appearance', 'pressbooks' ) }}</span>
 								</a>
 							</li>
 							<li>
-								{!! $icons->render( 'pencil-square' ) !!}
-								<a href="{!! admin_url( 'edit.php?post_type=page' ) !!}">
-									{{ __( 'Create or edit pages', 'pressbooks' ) }}
+								<a
+									href="{!! admin_url( 'edit.php?post_type=page' ) !!}"
+								>
+									<i class="pb-heroicons pb-heroicons-pencil-square"></i>
+									<span>{{ __( 'Create or edit pages', 'pressbooks' ) }}</span>
 								</a>
 							</li>
 							@if( $koko_analytics_active )
 								<li>
-									{!! $icons->render( 'presentation-chart-bar' ) !!}
-									<a href="{!! admin_url( 'index.php?page=koko-analytics' ) !!}">
-										{{ __( 'View homepage analytics', 'pressbooks' ) }}</a>
+									<a
+										href="{!! admin_url( 'index.php?page=koko-analytics' ) !!}"
+									>
+										<i class="pb-heroicons pb-heroicons-presentation-chart-bar"></i>
+										<span>{{ __( 'View home page analytics', 'pressbooks' ) }}</span>
+									</a>
 								</li>
 							@endif
 						</ul>
@@ -79,23 +86,29 @@
 							alt="{{ __( 'Administer network art', 'pressbooks' ) }}"
 						/>
 
-						<ul class="pb-dashboard-action">
+						<ul class="actions">
 							<li>
-								{!! $icons->render( 'cog-8-tooth' ) !!}
-								<a href="{!! network_admin_url( $network_analytics_active ? 'settings.php?page=pb_network_analytics_options' : 'settings.php' ) !!}">
-									{{ __( 'Adjust network settings', 'pressbooks' ) }}
+								<a
+									href="{!! network_admin_url( $network_analytics_active ? 'settings.php?page=pb_network_analytics_options' : 'settings.php' ) !!}"
+								>
+									<i class="pb-heroicons pb-heroicons-cog-8-tooth"></i>
+									<span>{{ __( 'Adjust network settings', 'pressbooks' ) }}</span>
 								</a>
 							</li>
 							<li>
-								{!! $icons->render( 'book-open' ) !!}
-								<a href="{!! network_admin_url( $network_analytics_active ? 'sites.php?page=pb_network_analytics_booklist' : 'sites.php' ) !!}">
-									{{ __( 'View book list', 'pressbooks' ) }}
+								<a
+									href="{!! network_admin_url( $network_analytics_active ? 'sites.php?page=pb_network_analytics_booklist' : 'sites.php' ) !!}"
+								>
+									<i class="pb-heroicons pb-heroicons-book-open"></i>
+									<span>{{ __( 'View book list', 'pressbooks' ) }}</span>
 								</a>
 							</li>
 							<li>
-								{!! $icons->render( 'users' ) !!}
-								<a href="{!! network_admin_url( $network_analytics_active ? 'users.php?page=pb_network_analytics_userlist' : 'users.php' ) !!}">
-									{{ __( 'View user list', 'pressbooks' ) }}
+								<a
+									href="{!! network_admin_url( $network_analytics_active ? 'users.php?page=pb_network_analytics_userlist' : 'users.php' ) !!}"
+								>
+									<i class="pb-heroicons pb-heroicons-users"></i>
+									<span>{{ __( 'View user list', 'pressbooks' ) }}</span>
 								</a>
 							</li>
 						</ul>

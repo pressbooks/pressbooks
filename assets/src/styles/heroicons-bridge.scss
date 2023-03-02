@@ -1,0 +1,88 @@
+/* stylelint-disable scss/at-extend-no-missing-placeholder */
+
+/**
+ * This file maps the Heroicons to the Dashicons used in the admin menu.
+ * this way everytime a dashicon is used in the admin menu, it will be replaced by the mapped heroicon.
+ */
+
+.dashicons-before {
+  &::before {
+    font-family: heroicons, serif !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    font-size: 24px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+.dashicons-admin-multisite::before {
+  @extend .pb-heroicons-book-open;
+}
+
+.dashicons-book-alt{
+  @extend .pb-heroicons-book-open;
+}
+
+.dashicons-book {
+  @extend .pb-heroicons-book-open;
+}
+
+.dashicons-admin-users {
+  @extend .pb-heroicons-users;
+}
+
+.dashicons-info {
+  @extend .pb-heroicons-bolt;
+}
+
+.dashicons-admin-appearance {
+  @extend .pb-heroicons-sparkles;
+}
+
+.dashicons-migrate {
+  @extend .pb-heroicons-arrow-right-on-rectangle;
+}
+
+.dashicons-admin-tools {
+  @extend .pb-heroicons-wrench;
+}
+
+.dashicons-chart-area {
+  @extend .pb-heroicons-presentation-chart-bar;
+}
+
+.dashicons-products {
+  @extend .pb-heroicons-link;
+}
+
+.dashicons-admin-plugins {
+  @extend .pb-heroicons-bolt;
+}
+
+.dashicons-admin-page {
+  @extend .pb-heroicons-pencil-square;
+}
+
+.dashicons-admin-media {
+  @extend .pb-heroicons-camera;
+}
+/* stylelint-disable-next-line selector-id-pattern */
+#toplevel_page_h5p .wp-menu-image {
+  @extend .pb-heroicons-h5p;
+}
+
+.dashicons-networking {
+  @extend .pb-heroicons-rocket-launch;
+}
+
+.dashicons-admin-settings {
+  @extend .pb-heroicons-cog-8-tooth;
+}
+
+.dashicons-dashboard {
+  @extend .pb-heroicons-home;
+}

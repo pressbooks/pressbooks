@@ -29,7 +29,6 @@ use Pressbooks\Cloner\Cloner;
 use Pressbooks\Container;
 use Pressbooks\DataCollector\Book as DataCollector;
 use Pressbooks\Metadata;
-use Pressbooks\Utility\Icons;
 use WP_Error;
 
 /**
@@ -124,7 +123,6 @@ function add_footer_link() {
  */
 function replace_book_admin_menu() {
 
-	$icons_helper = new Icons();
 	// Note:
 	// If $menu_slug is a URL and the URL has an ampersand in it make sure you use &amp; (and not simply &) so that aria-current works
 
@@ -149,7 +147,7 @@ function replace_book_admin_menu() {
 	remove_submenu_page( 'tools.php', 'site-health.php' );
 
 	// Organize
-	$organize_page = add_menu_page( __( 'Organize', 'pressbooks' ), __( 'Organize', 'pressbooks' ), 'edit_posts', 'pb_organize', __NAMESPACE__ . '\display_organize', $icons_helper->getIcon( 'book-open' ) );
+	$organize_page = add_menu_page( __( 'Organize', 'pressbooks' ), __( 'Organize', 'pressbooks' ), 'edit_posts', 'pb_organize', __NAMESPACE__ . '\display_organize', 'dashicons-book' );
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) use ( $organize_page ) {
 			if ( $hook === $organize_page ) {
@@ -288,7 +286,7 @@ function replace_book_admin_menu() {
 
 	// Book Information
 	$book_info_url = book_info_slug();
-	$bookinfo_page = add_menu_page( __( 'Book Info', 'pressbooks' ), __( 'Book Info', 'pressbooks' ), 'manage_options', $book_info_url, '', $icons_helper->getIcon( 'pencil-square' ), 12 );
+	$bookinfo_page = add_menu_page( __( 'Book Info', 'pressbooks' ), __( 'Book Info', 'pressbooks' ), 'manage_options', $book_info_url, '', 'dashicons-info', 12 );
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) use ( $bookinfo_page ) {
 			if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
@@ -319,7 +317,7 @@ function replace_book_admin_menu() {
 	);
 
 	// Export
-	$export_page = add_menu_page( __( 'Export', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'edit_posts', 'pb_export', __NAMESPACE__ . '\display_export', $icons_helper->getIcon( 'arrow-up-tray' ), 14 );
+	$export_page = add_menu_page( __( 'Export', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'edit_posts', 'pb_export', __NAMESPACE__ . '\display_export', 'dashicons-migrate', 14 );
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) use ( $export_page ) {
 			if ( $hook === $export_page ) {
@@ -351,7 +349,7 @@ function replace_book_admin_menu() {
 	);
 
 	// Import
-	$import_page = add_menu_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import', $icons_helper->getIcon( 'arrow-up-tray' ), 16 );
+	$import_page = add_menu_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import', 'dashicons-migrate', 16 );
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) use ( $import_page ) {
 			if ( $hook === $import_page ) {
@@ -381,7 +379,7 @@ function replace_book_admin_menu() {
 		update_option( 'pressbooks_ecommerce_links_version', $page::VERSION, false );
 	}
 
-	add_menu_page( __( 'Publish', 'pressbooks' ), __( 'Publish', 'pressbooks' ), 'edit_posts', 'pb_publish', [ $page, 'render' ], $icons_helper->getIcon( 'link' ), 17 );
+	add_menu_page( __( 'Publish', 'pressbooks' ), __( 'Publish', 'pressbooks' ), 'edit_posts', 'pb_publish', [ $page, 'render' ], 'dashicons-products', 17 );
 
 	// Privacy
 	add_options_page( __( 'Sharing and Privacy Settings', 'pressbooks' ), __( 'Sharing &amp; Privacy', 'pressbooks' ), 'manage_options', 'pressbooks_sharingandprivacy_options', __NAMESPACE__ . '\display_privacy_settings' );
