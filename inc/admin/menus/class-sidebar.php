@@ -283,7 +283,7 @@ class SideBar {
 				'view_koko_analytics',
 				'pressbooks_network_stats',
 				'',
-				'dashicons-chart-bar',
+				'dashicons-chart-area',
 				7
 			);
 			add_submenu_page(
