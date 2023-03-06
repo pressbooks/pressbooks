@@ -23,7 +23,7 @@
     color: #3c434a;
   }
 
-  a:hover i.pb-heroicons {
+  a:hover i.pb-heroicons, a:focus i.pb-heroicons {
     color: #1a1d20;
   }
 }
