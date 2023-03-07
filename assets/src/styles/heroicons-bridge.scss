@@ -1,8 +1,7 @@
 /* stylelint-disable scss/at-extend-no-missing-placeholder */
 
 /**
- * This file maps the Heroicons to the Dashicons used in the admin menu.
- * this way everytime a dashicon is used in the admin menu, it will be replaced by the mapped heroicon.
+ * This file replaces specific Dashicons with mapped Heroicons in the admin dashboard and nav menus.
  */
 
 .dashicons-before {
@@ -14,6 +13,8 @@
     text-transform: none;
     line-height: 1;
     font-size: 24px;
+    position: relative;
+    top: -2px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -36,7 +37,7 @@
 }
 
 .dashicons-info {
-  @extend .pb-heroicons-bolt;
+  @extend .pb-heroicons-pencil-square;
 }
 
 .dashicons-admin-appearance {
