@@ -1,7 +1,7 @@
-<div class="wrap">
 	<div class="pb-dashboard-row">
 		<div class="pb-dashboard-panel">
 			<div class="pb-dashboard-content">
+				<h1 class="screen-reader-text">{{ __('Network Manager Dashboard', 'pressbooks')  }}</h1>
 				<h2>
 					{{ __( 'Welcome to', 'pressbooks' ) }}
 					<span class="network-title">{!! $network_name !!}</span>
@@ -9,7 +9,6 @@
 			</div>
 		</div>
 	</div>
-
 	<div class="pb-dashboard-row">
 		<div class="pb-dashboard-panel">
 			<div class="pb-dashboard-content">
@@ -26,6 +25,7 @@
 						</a>
 					@endif
 				</div>
+				<div class="wp-header-end"></div>
 			</div>
 		</div>
 	</div>
