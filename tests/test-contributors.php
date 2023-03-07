@@ -678,7 +678,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 	 * @group contributors
 	 */
 	public function test_handleImage() {
-		$src = $this->contributor->handleImage( 'https://dev.pressbooks.pub/app/plugins/pressbooks/assets/dist/images/default-book-cover.jpg' );
+		$src = $this->contributor->handleImage( 'https://dev.pressbooks.network/app/plugins/pressbooks/assets/dist/images/default-book-cover.jpg' );
 
 		$this->assertStringContainsString( 'default-book-cover', $src );
 

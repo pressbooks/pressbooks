@@ -17,6 +17,15 @@
     font-size: 1.125rem;
     margin: 0 0 1rem;
   }
+
+  i.pb-heroicons {
+    font-size: 1.5rem;
+    color: #3c434a;
+  }
+
+  a:hover i.pb-heroicons, a:focus i.pb-heroicons {
+    color: #1a1d20;
+  }
 }
 
 .pb-dashboard-image, .pb-book-cover {
@@ -137,10 +146,6 @@
         gap: .75rem;
         text-decoration: none;
 
-        i.pb-heroicons {
-          font-size: 25px;
-        }
-
         span {
           text-decoration: underline;
         }
@@ -162,10 +167,6 @@
         align-items: center;
         gap: .75rem;
         text-decoration: none;
-
-        i.pb-heroicons {
-          font-size: 25px;
-        }
 
         span  {
           text-decoration: underline;
