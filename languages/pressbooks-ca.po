@@ -58,14 +58,14 @@ msgid ""
 "Pressbooks will not work with your version of PHP. Pressbooks requires PHP "
 "version %s or greater. Please upgrade PHP if you would like to use "
 "Pressbooks."
-msgstr "Pressbooks no funcionarà amb la teva versió de PHP. Pressbooks requereix la versió de PHP %s o superior. Si us plau, actualitza la versió de PHP si vols fer servir Pressbooks."
+msgstr "Pressbooks no funcionarà amb la teva versió de PHP. Pressbooks requereix la versió de PHP %s o superior. Si us plau, actualitza la versió de PHP si vols fer servir PressBooks."
 
 #: compatibility.php:185
 msgid ""
 "Pressbooks will not work with your version of WordPress. Pressbooks requires"
 " a dedicated install of WordPress Multisite, version %s or greater. Please "
 "upgrade WordPress if you would like to use Pressbooks."
-msgstr "Pressbooks no funcionarà amb la teva versió de WordPress. Pressbooks requereix una instalació dedicada de WordPress Multisite, versió %s o superior. Si us plau, actualitza la versió de WordPress si vols fer servir Pressbooks."
+msgstr "Pressbooks no funcionarà amb la teva versió de WordPress. PressBooks requereix una instalació dedicada de WordPress Multisite, versió %s o superior. Si us plau, actualitza la versió de WordPress si vols fer servir PressBooks."
 
 #: compatibility.php:196
 msgid ""
@@ -4673,7 +4673,7 @@ msgstr "Ho sento, no hi ha llibres que coincideixin amb la teva selecció. Si us
 
 #: templates/pb-catalog.php:273
 msgid "Pressbooks: the CMS for Books."
-msgstr "Pressbooks: el CMS per a llibes"
+msgstr "PressBooks: el CMS per a llibes"
 
 #: tests/test-registration.php:28
 msgid "Create Site"
