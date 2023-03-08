@@ -4887,7 +4887,7 @@ msgid ""
 "Create a new book full of engaging content: words, images, audio, video, "
 "footnotes, glossary terms, mathematical formula, interactive quizzes, and "
 "more."
-msgstr "Erstellen Sie ein neues Buch voller fesselnder Inhalte: Wörter, Bilder, Audio, Video, Fußnoten, Glossarbegriffe, mathematische Formeln, interaktive Quizze und mehr."
+msgstr "Erstellen Sie ein neues Buch mit Bildern, Audios, Videos, Fussnoten, Glossarbegriffen, Formeln und Interaktivitäten."
 
 #: templates/admin/dashboard/new-user.blade.php:64
 msgid "Adapt a book art"
