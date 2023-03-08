@@ -1,3 +1,4 @@
+<div class="wrap">
 	<div class="pb-dashboard-row">
 		<div class="pb-dashboard-panel">
 			<div class="pb-dashboard-content">
