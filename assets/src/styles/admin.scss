@@ -149,6 +149,12 @@ $pb-icon-lg-size: 36px;
     transition: box-shadow .1s linear;
   }
 
+  #wp-admin-bar-pb-my-books-list {
+    min-height: 100px;
+    max-height: calc(100vh - 150px);
+    overflow-y: auto;
+  }
+
   #wp-admin-bar-site-name > .ab-item::before {
     content: none;
   }
