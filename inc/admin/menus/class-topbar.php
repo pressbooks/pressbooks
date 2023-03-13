@@ -64,7 +64,7 @@ class TopBar {
 
 		$this->updateCurrentBook( $bar );
 
-		if ( can_create_new_books() ) {
+		if ( can_create_new_books() || is_super_admin() ) {
 			$this->addCreateBook( $bar );
 		}
 
