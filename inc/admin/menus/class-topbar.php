@@ -243,7 +243,7 @@ class TopBar {
 	protected function addCreateBook( WP_Admin_Bar $bar ): void {
 		$title = __( 'Create Book', 'pressbooks' );
 
-		$bar->add_node( [
+		$node = [
 			'id' => 'pb-create-book',
 			'parent' => 'top-secondary',
 			'title' => "<i class='pb-heroicons pb-heroicons-plus-circle-filled'></i><span>{$title}</span>",
@@ -251,6 +251,11 @@ class TopBar {
 			'meta' => [
 				'class' => 'btn action',
 			],
+		];
+
+		$bar->add_node( can_create_new_books() ? $node : [
+			...$node,
+			'href' => network_admin_url( 'site-new.php' ),
 		] );
 	}
 
