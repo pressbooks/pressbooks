@@ -16,7 +16,7 @@
 	},
 	"dependencies": {
 		"algoliasearch": "^4.15.0",
-		"alpinejs": "^3.11.1",
+		"alpinejs": "^3.12.0",
 		"block-ui": "^2.70.1",
 		"countup.js": "^2.5.0",
 		"event-source-polyfill": "^1.0.31",
