@@ -13,11 +13,6 @@ class UserDashboard extends Dashboard {
 
 	protected string $page_name = 'pb_home_page';
 
-	/**
-	 * @throws ContainerExceptionInterface
-	 * @throws Throwable
-	 * @throws NotFoundExceptionInterface
-	 */
 	public function render(): void {
 		$blade = Container::get( 'Blade' );
 
