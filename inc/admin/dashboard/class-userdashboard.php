@@ -23,7 +23,8 @@ class UserDashboard extends Dashboard {
 
 		echo $blade->render( 'admin.dashboard.user', [
 			'site_name' => get_bloginfo( 'name' ),
-			'can_create_new_books' => can_create_new_books(),
+			'book_creation_enabled' => can_create_new_books(),
+			'can_create_new_books' => can_create_new_books() || is_super_admin(),
 			'can_clone_books' => Cloner::isEnabled() && ( can_create_new_books() || is_super_admin() ),
 			'invitations' => Invitations::getPendingInvitations(),
 		] );

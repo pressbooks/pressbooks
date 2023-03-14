@@ -46,9 +46,15 @@
 						</div>
 
 						<div class="pb-dashboard-action">
-							<a class="button button-hero button-primary" href="{{ network_home_url( 'wp-signup.php' ) }}">
-								{{ __( 'Create a book', 'pressbooks' ) }}
-							</a>
+							@if( $book_creation_enabled )
+								<a class="button button-hero button-primary" href="{{ network_home_url( 'wp-signup.php' ) }}">
+									{{ __( 'Create a book', 'pressbooks' ) }}
+								</a>
+							@else
+								<a class="button button-hero button-primary" href="{{ network_admin_url( 'new-site.php' ) }}">
+									{{ __( 'Create a book', 'pressbooks' ) }}
+								</a>
+							@endif
 						</div>
 					</div>
 				@endif
