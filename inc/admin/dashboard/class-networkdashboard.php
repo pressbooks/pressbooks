@@ -21,11 +21,6 @@ class NetworkDashboard extends Dashboard {
 		return network_admin_url( "index.php?page={$this->page_name}" );
 	}
 
-	/**
-	 * @throws ContainerExceptionInterface
-	 * @throws Throwable
-	 * @throws NotFoundExceptionInterface
-	 */
 	public function render(): void {
 		$blade = Container::get( 'Blade' );
 

@@ -15,11 +15,6 @@ class BookDashboard extends Dashboard {
 
 	protected string $page_name = 'book_dashboard';
 
-	/**
-	 * @throws ContainerExceptionInterface
-	 * @throws Throwable
-	 * @throws NotFoundExceptionInterface
-	 */
 	public function render(): void {
 		$blade = Container::get( 'Blade' );
 

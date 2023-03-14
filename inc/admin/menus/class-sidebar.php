@@ -34,7 +34,7 @@ class SideBar {
 			$this->usersSlug = 'pb_network_analytics_userlist';
 
 			$this->settingsCallback = [ \PressbooksNetworkAnalytics\Admin\Options::init(), 'printMenuSettings' ];
-			$this->settingsSlug = 'pb_network_analytics_options';
+			$this->settingsSlug = $this->getContextSlug( 'admin.php?page=pb_network_analytics_options', false );
 		} else {
 			$this->booksCallback = '';
 			$this->booksSlug = $this->getContextSlug( 'sites.php', false );
@@ -123,7 +123,7 @@ class SideBar {
 					'settings.php',
 				],
 				[
-					'pb_network_analytics_options',
+					'pressbooks_network_analytics_options',
 					'pressbooks_sharingandprivacy_options',
 					'pb_analytics',
 				]
@@ -233,16 +233,27 @@ class SideBar {
 			5
 		);
 
-		if ( is_restricted() ) {
+		if ( is_restricted() && $this->isNetworkAnalyticsActive ) {
 			add_menu_page(
 				__( 'Settings', 'pressbooks' ),
 				__( 'Settings', 'pressbooks' ),
 				'manager_network',
-				$this->settingsSlug,
+				'settings.php',
 				$this->settingsCallback,
 				'dashicons-admin-settings',
 				7
 			);
+			if ( ! is_network_admin() ) {
+				add_submenu_page(
+					'settings.php',
+					__( 'Network Options', 'pressbooks' ),
+					__( 'Network Options', 'pressbooks' ),
+					'manager_network',
+					$this->settingsSlug,
+					''
+				);
+				remove_submenu_page( 'settings.php', 'settings.php' );
+			}
 		}
 
 		if ( $this->isNetworkAnalyticsActive ) {

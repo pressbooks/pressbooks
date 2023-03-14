@@ -137,12 +137,12 @@ class TopBar {
 			],
 			'pb-administer-appearance' => [
 				'title' => __( 'Appearance', 'pressbooks' ),
-				'href' => admin_url( 'customize.php' ),
+				'href' => get_admin_url( get_main_site_id(), 'customize.php' ),
 				'visible' => true,
 			],
 			'pb-administer-pages' => [
 				'title' => __( 'Pages', 'pressbooks' ),
-				'href' => admin_url( 'edit.php?post_type=page' ),
+				'href' => get_admin_url( get_main_site_id(), 'edit.php?post_type=page' ),
 				'visible' => true,
 			],
 			'pb-administer-plugins' => [
@@ -266,7 +266,7 @@ class TopBar {
 			'id' => 'pb-clone-book',
 			'parent' => 'top-secondary',
 			'title' => "<i class='pb-heroicons pb-heroicons-clone-book'></i><span>{$title}</span>",
-			'href' => admin_url( 'admin.php?page=pb_cloner' ),
+			'href' => get_admin_url( get_main_site_id(), 'admin.php?page=pb_cloner' ),
 			'meta' => [
 				'class' => 'btn action',
 			],
