@@ -360,7 +360,7 @@ class SideBar {
 				__( 'User Activation Keys', 'pressbooks' ),
 				'edit_users',
 				'act_keys',
-				[ $ds_wp3_user_activation_keys, 'ds_delete_stale' ]
+				is_network_admin() ? '' : [ $ds_wp3_user_activation_keys, 'ds_delete_stale' ]
 			);
 		}
 
