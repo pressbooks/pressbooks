@@ -84,12 +84,14 @@ class SideBar {
 				'sites.php',
 				'users.php',
 				'users.php',
+				'users.php',
 			],
 			[
 				'pb_network_analytics_booklist',
 				'site-new.php',
 				'pb_network_analytics_userlist',
 				'user-new.php',
+				'act_keys',
 			]
 		);
 
@@ -134,16 +136,7 @@ class SideBar {
 	}
 
 	private function removeAdminLegacyItems(): void {
-		array_map( 'remove_submenu_page',
-			[
-				'index.php',
-				'edit.php?post_type=page',
-			],
-			[
-				'pb_catalog',
-				'post-new.php?post_type=page',
-			]
-		);
+		remove_submenu_page( 'edit.php?post_type=page', 'post-new.php?post_type=page' );
 
 		array_map( 'remove_menu_page',
 			[
@@ -357,6 +350,19 @@ class SideBar {
 			'manager_network',
 			$this->getContextSlug( 'users.php', true )
 		);
+
+		if ( is_plugin_active( 'user-activation-keys/ds_wp3_user_activation_keys.php' ) ) {
+			require_once WP_PLUGIN_DIR . '/user-activation-keys/ds_wp3_user_activation_keys.php';
+			$ds_wp3_user_activation_keys = new \DS_User_Activation_Keys();
+			add_submenu_page(
+				$this->usersSlug,
+				__( 'User Activation Keys', 'pressbooks' ),
+				__( 'User Activation Keys', 'pressbooks' ),
+				'edit_users',
+				'act_keys',
+				is_network_admin() ? '' : [ $ds_wp3_user_activation_keys, 'ds_delete_stale' ]
+			);
+		}
 
 		// Appearance
 		add_submenu_page(
@@ -579,7 +585,6 @@ class SideBar {
 			}
 		}
 	}
-
 	public function reorderSuperAdminMenu( array $menu_order ): array {
 		if ( ! is_network_admin() && $this->isNetworkAnalyticsActive ) {
 			array_splice( $menu_order, 8, 0, network_admin_url( 'admin.php?page=pb_network_analytics_admin' ) );
