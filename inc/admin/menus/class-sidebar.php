@@ -134,16 +134,7 @@ class SideBar {
 	}
 
 	private function removeAdminLegacyItems(): void {
-		array_map( 'remove_submenu_page',
-			[
-				'index.php',
-				'edit.php?post_type=page',
-			],
-			[
-				'pb_catalog',
-				'post-new.php?post_type=page',
-			]
-		);
+		remove_submenu_page( 'edit.php?post_type=page', 'post-new.php?post_type=page' );
 
 		array_map( 'remove_menu_page',
 			[
