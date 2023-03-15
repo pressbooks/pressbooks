@@ -51,7 +51,7 @@
 									{{ __( 'Create a book', 'pressbooks' ) }}
 								</a>
 							@else
-								<a class="button button-hero button-primary" href="{{ network_admin_url( 'new-site.php' ) }}">
+								<a class="button button-hero button-primary" href="{{ network_admin_url( 'site-new.php' ) }}">
 									{{ __( 'Create a book', 'pressbooks' ) }}
 								</a>
 							@endif
