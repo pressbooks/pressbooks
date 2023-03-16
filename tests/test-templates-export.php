@@ -5,6 +5,11 @@ use Pressbooks\Container;
 class TemplateExportTest extends \WP_UnitTestCase {
 	use utilsTrait;
 
+	/**
+	 * @var Closure|\Jenssegers\Blade\Blade|mixed|object|null
+	 */
+	private mixed $blade;
+
 	public function set_up() {
 		parent::set_up();
 		$this->blade = Container::get( 'Blade' );

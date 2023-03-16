@@ -43,7 +43,7 @@ function default_cover_url( $size = 'full' ) {
 	 *
 	 * @since 5.4.0
 	 */
-	return apply_filters( 'pb_default_cover_url', PB_PLUGIN_URL . "assets/dist/images/default-book-cover${suffix}.jpg", $suffix );
+	return apply_filters( 'pb_default_cover_url', PB_PLUGIN_URL . "assets/dist/images/default-book-cover{$suffix}.jpg", $suffix );
 }
 
 /**
@@ -78,7 +78,7 @@ function default_cover_path( $size = 'full' ) {
 	 *
 	 * @since 5.4.0
 	 */
-	return apply_filters( 'pb_default_cover_path', PB_PLUGIN_DIR . "assets/dist/images/default-book-cover${suffix}.jpg", $suffix );
+	return apply_filters( 'pb_default_cover_path', PB_PLUGIN_DIR . "assets/dist/images/default-book-cover{$suffix}.jpg", $suffix );
 }
 
 /**

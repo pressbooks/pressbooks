@@ -27,6 +27,41 @@ class OptionsMock extends \Pressbooks\Options {
 	public $defaults;
 
 	/**
+	 * Export booleans.
+	 *
+	 * @var array
+	 */
+	private $booleans;
+
+	/**
+	 * Export strings.
+	 *
+	 * @var array
+	 */
+	private $strings;
+
+	/**
+	 * Export integers.
+	 *
+	 * @var array
+	 */
+	private $integers;
+
+	/**
+	 * Export floats.
+	 *
+	 * @var array
+	 */
+	private $floats;
+
+	/**
+	 * Export predefined options.
+	 *
+	 * @var array
+	 */
+	private $predefined;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param array $options The retrieved options.

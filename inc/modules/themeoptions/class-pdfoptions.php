@@ -37,6 +37,41 @@ class PDFOptions extends \Pressbooks\Options {
 	public $defaults;
 
 	/**
+	 * PDF theme booleans.
+	 *
+	 * @var array
+	 */
+	private $booleans;
+
+	/**
+	 * PDF theme strings.
+	 *
+	 * @var array
+	 */
+	private $strings;
+
+	/**
+	 * PDF theme integers.
+	 *
+	 * @var array
+	 */
+	private $integers;
+
+	/**
+	 * PDF theme floats.
+	 *
+	 * @var array
+	 */
+	private $floats;
+
+	/**
+	 * PDF theme predefined options.
+	 *
+	 * @var array
+	 */
+	private $predefined;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param array $options

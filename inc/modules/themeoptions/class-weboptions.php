@@ -36,6 +36,41 @@ class WebOptions extends \Pressbooks\Options {
 	public $defaults;
 
 	/**
+	 * Web theme booleans.
+	 *
+	 * @var array
+	 */
+	private $booleans;
+
+	/**
+	 * Web theme strings.
+	 *
+	 * @var array
+	 */
+	private $strings;
+
+	/**
+	 * Web theme integers.
+	 *
+	 * @var array
+	 */
+	private $integers;
+
+	/**
+	 * Web theme floats.
+	 *
+	 * @var array
+	 */
+	private $floats;
+
+	/**
+	 * Web theme predefined options.
+	 *
+	 * @var array
+	 */
+	private $predefined;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param array $options

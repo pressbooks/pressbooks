@@ -1268,7 +1268,7 @@ function transform_institutions( array $institutions ): array {
  */
 function transform_regions( string $country, array $regions ): array {
 	return array_reduce( $regions, static function( $values, $region ) use ( $country ) {
-		$institutions = [ "${country}/${region['name']}" => transform_institutions( $region['institutions'] ?? [] ) ];
+		$institutions = [ "{$country}/{$region['name']}" => transform_institutions( $region['institutions'] ?? [] ) ];
 
 		return array_merge( $values, $institutions );
 	}, [] );

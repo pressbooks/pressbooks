@@ -1952,7 +1952,7 @@ class Epub extends ExportGenerator {
 				$chapter_type = $this->taxonomy->getChapterType( $chapter_data['ID'] );
 
 				if ( 'numberless' !== $chapter_type && $this->numbered ) {
-					$chapter_data['title'] = "${chapters_count}. ${chapter_data['title']}";
+					$chapter_data['title'] = "{$chapters_count}. {$chapter_data['title']}";
 					$chapters_count++;
 				}
 

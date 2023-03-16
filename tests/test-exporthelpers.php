@@ -13,6 +13,9 @@ class ExportHelpersTest extends \WP_UnitTestCase {
 
 	protected $wrapHeaderElements = false;
 
+	private $taxonomy;
+	private $contributors;
+
 	/**
 	 * @group export_helpers
 	 */
