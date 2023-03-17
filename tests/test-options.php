@@ -411,7 +411,6 @@ class OptionsTest extends \WP_UnitTestCase {
 	 * @group options
 	 */
 	public function test_deleteCacheAfterUpdate() {
-		define( 'DAY_IN_SECONDS', 24 * 60 * 60 );
 		$now = time() - 60;
 		set_transient( 'pb_cache_deleted', $now, DAY_IN_SECONDS );
 
