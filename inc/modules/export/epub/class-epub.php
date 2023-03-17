@@ -927,7 +927,7 @@ class Epub extends ExportGenerator {
 	 * @throws \Exception
 	 */
 	protected function createContainer(): void {
-		$this->createEpubFile( 'mimetype', utf8_decode( 'application/epub+zip' ), [ 'directory' => $this->tmpDir ] );
+		$this->createEpubFile( 'mimetype', mb_convert_encoding( 'application/epub+zip', 'ISO-8859-1', 'UTF-8' ), [ 'directory' => $this->tmpDir ] );
 
 		mkdir( $this->metaInfDir );
 		mkdir( $this->epubDir );

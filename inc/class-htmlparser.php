@@ -44,7 +44,7 @@ class HtmlParser {
 		$html = '<div><!-- pb_fixme -->' . $html . '<!-- pb_fixme --></div>';
 		if ( $this->parser instanceof \DOMDocument ) {
 			libxml_use_internal_errors( true );
-			$this->parser->loadHTML( htmlspecialchars( $html, ENT_COMPAT | ENT_HTML5, 'UTF-8' ), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+			$this->parser->loadHTML( mb_convert_encoding( $html, 'HTML-ENTITIES', 'UTF-8' ), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
 			$this->errors = libxml_get_errors();
 			libxml_clear_errors();
 			return $this->parser;
