@@ -19,12 +19,12 @@ jobs:
     - name: Setup PHP with tools
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.0'
+        php-version: '8.1'
         tools: composer, wp-cli/wp-cli-bundle
     - name: Update POT file
       run: wp i18n make-pot . languages/pressbooks.pot --domain=pressbooks --slug=pressbooks --package-name="Pressbooks" --headers="{\"Report-Msgid-Bugs-To\":\"https://github.com/pressbooks/pressbooks/issues\"}"
     - name: Commit updated POT file
       uses: stefanzweifel/git-auto-commit-action@v4.16.0
       with:
-        commit_message: 'chore(l10n): update languages/pressbooks.pot'
+        commit_message: 'chore(l10n): update languages/pressbooks.pot [ci skip]'
         file_pattern: '*.pot'
