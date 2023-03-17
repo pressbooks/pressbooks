@@ -36,7 +36,7 @@ class PublishOptions extends \Pressbooks\Options {
 	 *
 	 * @var array
 	 */
-	private $urls;
+	public $urls;
 
 	/**
 	 * Constructor.

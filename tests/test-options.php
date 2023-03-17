@@ -31,35 +31,35 @@ class OptionsMock extends \Pressbooks\Options {
 	 *
 	 * @var array
 	 */
-	private $booleans;
+	public $booleans;
 
 	/**
 	 * Export strings.
 	 *
 	 * @var array
 	 */
-	private $strings;
+	public $strings;
 
 	/**
 	 * Export integers.
 	 *
 	 * @var array
 	 */
-	private $integers;
+	public $integers;
 
 	/**
 	 * Export floats.
 	 *
 	 * @var array
 	 */
-	private $floats;
+	public $floats;
 
 	/**
 	 * Export predefined options.
 	 *
 	 * @var array
 	 */
-	private $predefined;
+	public $predefined;
 
 	/**
 	 * Constructor.
@@ -411,6 +411,7 @@ class OptionsTest extends \WP_UnitTestCase {
 	 * @group options
 	 */
 	public function test_deleteCacheAfterUpdate() {
+		define( 'DAY_IN_SECONDS', 24 * 60 * 60 );
 		$now = time() - 60;
 		set_transient( 'pb_cache_deleted', $now, DAY_IN_SECONDS );
 

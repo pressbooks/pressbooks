@@ -40,35 +40,35 @@ class GlobalOptions extends \Pressbooks\Options {
 	 *
 	 * @var array
 	 */
-	private $booleans;
+	public $booleans;
 
 	/**
 	 * Global theme strings.
 	 *
 	 * @var array
 	 */
-	private $strings;
+	public $strings;
 
 	/**
 	 * Global theme integers.
 	 *
 	 * @var array
 	 */
-	private $integers;
+	public $integers;
 
 	/**
 	 * Global theme floats.
 	 *
 	 * @var array
 	 */
-	private $floats;
+	public $floats;
 
 	/**
 	 * Global theme predefined options.
 	 *
 	 * @var array
 	 */
-	private $predefined;
+	public $predefined;
 
 	/**
 	 * Constructor.

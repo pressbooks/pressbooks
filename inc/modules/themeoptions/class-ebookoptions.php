@@ -37,35 +37,35 @@ class EbookOptions extends \Pressbooks\Options {
 	 *
 	 * @var array
 	 */
-	private $booleans;
+	public $booleans;
 
 	/**
 	 * Ebook theme strings.
 	 *
 	 * @var array
 	 */
-	private $strings;
+	public $strings;
 
 	/**
 	 * Ebook theme integers.
 	 *
 	 * @var array
 	 */
-	private $integers;
+	public $integers;
 
 	/**
 	 * Ebook theme floats.
 	 *
 	 * @var array
 	 */
-	private $floats;
+	public $floats;
 
 	/**
 	 * Ebook theme predefined options.
 	 *
 	 * @var array
 	 */
-	private $predefined;
+	public $predefined;
 
 	/**
 	 * Constructor.

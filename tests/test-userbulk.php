@@ -226,7 +226,7 @@ class UserBulkTest extends \WP_UnitTestCase {
 		if ( ! empty( $success ) ) {
 			$success_message_str = $doc->getElementById( 'bulk-success' )->textContent;
 			foreach( $success as $result ) {
-				$this->assertTrue( str_contains( $success_message_str, $result['email'] ) );
+				$this->assertTrue( str_contains( $success_message_str ?? '', $result['email'] ) );
 			}
 		}
 

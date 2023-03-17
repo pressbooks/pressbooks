@@ -8,7 +8,7 @@ class TemplateExportTest extends \WP_UnitTestCase {
 	/**
 	 * @var Closure|\Jenssegers\Blade\Blade|mixed|object|null
 	 */
-	private mixed $blade;
+	public mixed $blade;
 
 	public function set_up() {
 		parent::set_up();
