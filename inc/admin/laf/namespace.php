@@ -635,7 +635,6 @@ function add_pb_cloner_page() {
 			);
 			global $wp_scripts;
 			wp_enqueue_script( 'pb-cloner' );
-			wp_deregister_script( 'heartbeat' );
 		}
 	);
 }
