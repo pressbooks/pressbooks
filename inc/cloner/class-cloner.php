@@ -133,7 +133,7 @@ class Cloner {
 	 *
 	 * @var array
 	 */
-	protected $termMap = [];
+	protected $termMap = [ 'default' => true ];
 
 	/**
 	 * An array of cloned items.
