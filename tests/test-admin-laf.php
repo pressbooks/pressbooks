@@ -156,7 +156,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$GLOBALS['post'] = get_post( $this->factory()->post->create_object( $new_post ) );
 		$GLOBALS['current_screen'] = WP_Screen::get( 'post' );
 		\Pressbooks\Admin\Laf\init_css_js();
-		do_action( 'admin_enqueue_scripts' );
+		do_action( 'admin_enqueue_scripts', 'admin_page_pb_cloner' );
 		$this->assertContains( 'pb-cloner', $wp_scripts->queue );
 
 		unset( $GLOBALS['post'], $GLOBALS['current_screen'] ); // Cleanup

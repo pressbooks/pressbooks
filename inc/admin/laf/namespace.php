@@ -614,7 +614,7 @@ function fix_root_admin_menu() {
 }
 
 function add_pb_cloner_page() {
-	add_submenu_page(
+	$cloner_page = add_submenu_page(
 		null,
 		__( 'Clone a Book', 'pressbooks' ),
 		__( 'Clone a Book', 'pressbooks' ),
@@ -624,18 +624,19 @@ function add_pb_cloner_page() {
 	);
 	add_action(
 		'admin_enqueue_scripts',
-		function () {
-			wp_localize_script(
-				'pb-cloner', 'PB_ClonerToken', [
-					'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=clone-book' ), 'pb-cloner' ),
-					'redirectUrl' => admin_url( 'admin.php?page=pb_cloner' ),
-					'unloadWarning' => __( 'Cloning is not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
-					'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . __( 'Reload', 'pressbooks' ) . '</a>)</em>',
-				]
-			);
-			global $wp_scripts;
-			wp_enqueue_script( 'pb-cloner' );
-			wp_deregister_script( 'heartbeat' );
+		function ( $hook ) use ( $cloner_page ) {
+			if ( $hook === $cloner_page ) {
+				wp_localize_script(
+					'pb-cloner', 'PB_ClonerToken', [
+						'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=clone-book' ), 'pb-cloner' ),
+						'redirectUrl' => admin_url( 'admin.php?page=pb_cloner' ),
+						'unloadWarning' => __( 'Cloning is not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
+						'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . __( 'Reload', 'pressbooks' ) . '</a>)</em>',
+					]
+				);
+				wp_enqueue_script( 'pb-cloner' );
+				wp_deregister_script( 'heartbeat' );
+			}
 		}
 	);
 }
