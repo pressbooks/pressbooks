@@ -23,7 +23,7 @@ jobs:
         run: npm run build
       - name: Create pull request with built assets
         id: cpr
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v5
         with:
           commit-message: "chore(build): build assets"
           title: "chore(build): build assets"
