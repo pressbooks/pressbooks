@@ -163,7 +163,7 @@ trait ExportHelpers {
 			if ( $sections ) {
 				foreach ( $sections as $id => $subsection ) {
 					$subsections[] = [
-						'slug' => $is_slug ? "#{$id}" : "${data['href']}#{$id}",
+						'slug' => $is_slug ? "#{$id}" : "{$data['href']}#{$id}",
 						'title' => Sanitize\decode( $subsection, $exclude_ampersand ),
 					];
 				}

@@ -717,7 +717,7 @@ class Contributors implements BackMatter, Transferable {
 				} else {
 					$suffix = '';
 				}
-				$name = $suffix ? "${name}${suffix}" : $name;
+				$name = $suffix ? "{$name}{$suffix}" : $name;
 			} elseif ( ! empty( $term->name ) ) {
 				$name = $term->name;
 			}
