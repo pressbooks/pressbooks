@@ -307,6 +307,12 @@ class Book {
 		$in_catalog = empty( get_option( get_in_catalog_option() ) ) ? 0 : 1;
 		update_site_meta( $book_id, self::IN_CATALOG, $in_catalog );
 
+		// pb_authors is being skipped by the getBookInformation() method when reading metadata from the database
+		// we need to check if it's empty and if so, read it from the database
+		if ( count( $metadata['pb_authors'] ) === 0 ) {
+			$metadata['pb_authors'] = get_site_meta( $book_id, self::AUTHORS );
+		}
+
 		$this->saveArrayMetadata( $book_id, self::AUTHORS, 'name', $metadata );
 
 		$this->saveArrayMetadata( $book_id, self::EDITORS, 'name', $metadata );
