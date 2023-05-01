@@ -29,7 +29,6 @@
 }
 
 .pb-dashboard-image, .pb-book-cover {
-  max-width: 300px;
   margin: 0 auto;
 
   img {
@@ -37,8 +36,17 @@
   }
 }
 
-.book-dash * .pb-dashboard-image {
+.pb-book-cover {
+  max-width: 300px;
+}
+
+.pb-dashboard-image {
   max-width: 225px;
+}
+
+.book-dash .pb-dashboard-image {
+  max-width: 195px;
+  padding-bottom: 1rem;
 }
 
 .pb-dashboard-row {
@@ -103,7 +111,7 @@
     img {
       display: block;
       margin: 0 auto 1rem;
-      max-height: 175px;
+      max-height: 125px;
     }
   }
 
@@ -138,6 +146,7 @@
 
       img {
         width: 40%;
+        max-width: 125px;
       }
 
       .actions li a {
