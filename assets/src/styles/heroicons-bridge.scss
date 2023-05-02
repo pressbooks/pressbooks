@@ -76,6 +76,11 @@
   @extend .pb-heroicons-h5p;
 }
 
+/* stylelint-disable-next-line selector-id-pattern */
+#toplevel_page_tablepress .wp-menu-image {
+  @extend .pb-heroicons-tablepress;
+}
+
 .dashicons-networking {
   @extend .pb-heroicons-rocket-launch;
 }
