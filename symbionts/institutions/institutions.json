@@ -8,7 +8,7 @@
           {
             "code": "AS-KAZ-001",
             "name": "Nazarbayev University",
-            "url": "https:\/\/nu.edu.kz/\/"
+            "url": "https:\/\/nu.edu.kz\/"
           }
         ]
       }
@@ -1429,8 +1429,8 @@
           },
           {
             "code": "EU-GBR-004",
-            "name": "University of Aberdeen",
-            "url": "https:\/\/www.abdn.ac.uk\/"
+            "name": "University of Edinburgh",
+            "url": "https:\/\/www.ed.ac.uk\/"
           },
           {
             "code": "EU-GBR-005",
@@ -2111,11 +2111,6 @@
             "code": "EU-GBR-140",
             "name": "York St John University",
             "url": "https:\/\/www.yorksj.ac.uk\/"
-          },
-          {
-            "code": "EU-GBR-141",
-            "name": "University of Edinburgh",
-            "url": "https:\/\/www.ed.ac.uk\/"
           }
         ]
       }
