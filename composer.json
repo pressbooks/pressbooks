@@ -82,8 +82,6 @@
 			".github",
 			".gitignore",
 			".phpstorm.meta.php",
-			".stylelintrc",
-			".travis.yml",
 			".tx",
 			"assets/src",
 			"bin",
@@ -91,8 +89,7 @@
 			"phpcs.ruleset.xml",
 			"phpunit.xml",
 			"tests",
-			"webpack.mx.js",
-			"yarn.lock"
+			"webpack.mix.js"
 		]
 	},
   "scripts": {
