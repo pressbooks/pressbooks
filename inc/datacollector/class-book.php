@@ -9,12 +9,15 @@ namespace Pressbooks\DataCollector;
 use function Pressbooks\Image\attachment_id_from_url;
 use function Pressbooks\Metadata\get_institution_by_code;
 use function \Pressbooks\Metadata\get_in_catalog_option;
+use Pressbooks\Licensing;
 
 class Book {
 
 	// Meta Key Constants:
 
 	const COVER = 'pb_cover_image';
+
+	const THUMBNAIL = 'pb_thumbnail_image';
 
 	const TITLE = 'pb_title';
 
@@ -32,11 +35,17 @@ class Book {
 
 	const LANGUAGE = 'pb_language';
 
+	const LANGUAGE_NAME = 'pb_language_name';
+
 	const SUBJECT = 'pb_subject';
 
 	const THEME = 'pb_theme';
 
 	const LICENSE = 'pb_book_license';
+
+	const LICENSE_CODE = 'pb_license_code';
+
+	const LICENSE_NAME = 'pb_license_name';
 
 	const PUBLIC = 'pb_is_public';
 
@@ -87,6 +96,8 @@ class Book {
 	const AUTHORS = 'pb_authors';
 
 	const EDITORS = 'pb_editors';
+
+	const CONTRIBUTORS = 'pb_contributors';
 
 	const SHORT_DESCRIPTION = 'pb_about_50';
 
@@ -223,6 +234,9 @@ class Book {
 		$cover = \Pressbooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'pb_cover_medium' );
 		update_site_meta( $book_id, self::COVER, $cover );
 
+		// pb_thumbnail
+		update_site_meta( $book_id, self::THUMBNAIL, $this->getCoverThumbnail( $book_id, $metadata['pb_cover_image'] ) );
+
 		// pb_title
 		update_site_meta( $book_id, self::TITLE, $metadata['pb_title'] ?? '' );
 
@@ -261,7 +275,15 @@ class Book {
 		update_site_meta( $book_id, self::STORAGE_SIZE, $space_used );
 
 		// pb_language
-		update_site_meta( $book_id, self::LANGUAGE, $metadata['pb_language'] ?? 'en' );
+		$book_language = $metadata['pb_language'] ?? 'en';
+		update_site_meta( $book_id, self::LANGUAGE, $book_language );
+
+		$languages = \Pressbooks\L10n\supported_languages();
+		$language = ( array_key_exists( $book_language, $languages ) ) ?
+			$languages[ $book_language ] : 'English';
+
+		// pb_language_name
+		update_site_meta( $book_id, self::LANGUAGE_NAME, $language );
 
 		// pb_subject
 		$subject_list = '';
@@ -298,6 +320,23 @@ class Book {
 		// pb_book_license
 		update_site_meta( $book_id, self::LICENSE, $metadata['pb_book_license'] ?? 'all-rights-reserved' );
 
+		$licensing = new Licensing;
+		$supported_types = $licensing->getSupportedTypes();
+
+		// pb_license_code
+		update_site_meta(
+			$book_id,
+			self::LICENSE_CODE,
+			$supported_types[ $metadata['pb_book_license'] ?? 'all-rights-reserved' ]['abbreviation'] ?? 'All Rights Reserved'
+		);
+
+		// pb_license_name
+		update_site_meta(
+			$book_id,
+			self::LICENSE_NAME,
+			$supported_types[ $metadata['pb_book_license'] ?? 'all-rights-reserved' ]['desc'] ?? 'all-rights-reserved'
+		);
+
 		// pb_is_public
 		$is_public = empty( get_option( 'blog_public' ) ) ? 0 : 1;
 		update_site_meta( $book_id, self::PUBLIC, $is_public );
@@ -310,6 +349,8 @@ class Book {
 		$this->saveArrayMetadata( $book_id, self::AUTHORS, 'name', $metadata );
 
 		$this->saveArrayMetadata( $book_id, self::EDITORS, 'name', $metadata );
+
+		$this->saveArrayMetadata( $book_id, self::CONTRIBUTORS, 'name', $metadata );
 
 		// pb_institutions
 		// clean up institutions before adding
