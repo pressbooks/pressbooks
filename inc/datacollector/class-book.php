@@ -279,11 +279,8 @@ class Book {
 		update_site_meta( $book_id, self::LANGUAGE, $book_language );
 
 		$languages = \Pressbooks\L10n\supported_languages();
-		$language = ( array_key_exists( $book_language, $languages ) ) ?
-			$languages[ $book_language ] : 'English';
-
 		// pb_language_name
-		update_site_meta( $book_id, self::LANGUAGE_NAME, $language );
+		update_site_meta( $book_id, self::LANGUAGE_NAME, $languages[ $book_language ] ?? 'English' );
 
 		// pb_subject
 		$subject_list = '';
