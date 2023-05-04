@@ -144,7 +144,6 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 		add_post_meta( $metadata_post->ID, 'pb_publisher', 'Publisher Name' );
 		add_post_meta( $metadata_post->ID, 'pb_language', 'en' );
 		add_post_meta( $metadata_post->ID, 'pb_book_license', 'public-domain' );
-		add_post_meta( $metadata_post->ID, 'pb_book_license', 'public-domain' );
 
 		wp_cache_flush();
 
