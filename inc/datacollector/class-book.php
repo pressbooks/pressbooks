@@ -321,17 +321,19 @@ class Book {
 		$supported_types = $licensing->getSupportedTypes();
 
 		// pb_license_code
+		$book_license = $metadata['pb_book_license'] ?? 'all-rights-reserved';
+
 		update_site_meta(
 			$book_id,
 			self::LICENSE_CODE,
-			$supported_types[ $metadata['pb_book_license'] ?? 'all-rights-reserved' ]['abbreviation'] ?? 'All Rights Reserved'
+			$supported_types[ $book_license ]['abbreviation'] ?? 'All Rights Reserved'
 		);
 
 		// pb_license_name
 		update_site_meta(
 			$book_id,
 			self::LICENSE_NAME,
-			$supported_types[ $metadata['pb_book_license'] ?? 'all-rights-reserved' ]['desc'] ?? 'all-rights-reserved'
+			$supported_types[ $book_license ]['desc'] ?? 'all-rights-reserved'
 		);
 
 		// pb_is_public
