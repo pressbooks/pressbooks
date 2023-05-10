@@ -24,7 +24,7 @@
 		"isotope-layout": "^3.0.6",
 		"jquery-match-height": "^0.7.2",
 		"jquery-sticky": "^1.0.4",
-		"js-cookie": "^3.0.4",
+		"js-cookie": "^3.0.5",
 		"pagedjs": "^0.4.1",
 		"popper.js": "^1.16.1",
 		"select2": "github:woocommerce/selectWoo#1.0.8",
