@@ -207,12 +207,28 @@ class Epub201 extends ImportGenerator {
 		$selected_for_import = $this->selectedForImport( $xml, $match_ids );
 		$total = count( $selected_for_import );
 		$y = new PercentageYield( 40, 95, $total );
+
+        $posts = [];
+        $urls = [];
+
 		foreach ( $selected_for_import as $id ) {
 			yield from $y->tick( __( 'Importing', 'pressbooks' ) );
 			// Insert
 			$href = $this->basedir . $this->manifest[ $id ]['href'];
-			$this->kneadAndInsert( $href, $this->determinePostType( $id ), $chapter_parent, $current_import['default_post_status'] );
+			$pid = $this->kneadAndInsert( $href, $this->determinePostType( $id ), $chapter_parent, $current_import['default_post_status'] );
+			// Collect info for replacement of hrefs
+			$posts[$pid] = get_post( $pid );
+			$urls[$pid]['new'] = $posts[$pid]->guid;
+			$urls[$pid]['old'] = $href;
 		}
+
+		// Fix all hrefs in imported posts
+		foreach ( $posts as $pid => $post ) {
+			$post = $this->fixHrefs( $post, $urls );
+			// Update content
+			wp_update_post( ['ID' => $pid, 'post_content' => $post->post_content] );
+	}
+
 		$_SESSION['pb_notices'][] = sprintf( __( 'Imported %s chapters.', 'pressbooks' ), $total );
 	}
 
@@ -334,6 +350,7 @@ class Epub201 extends ImportGenerator {
 	 * @param string $post_type
 	 * @param int $chapter_parent
 	 * @param string $post_status
+	 * @return int
 	 */
 	protected function kneadAndInsert( $href, $post_type, $chapter_parent, $post_status ) {
 
@@ -364,6 +381,29 @@ class Epub201 extends ImportGenerator {
 		update_post_meta( $pid, 'pb_show_title', 'on' );
 
 		Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder
+
+        return $pid;
+	}
+
+	/**
+	 * Fix hrefs in content
+	 *
+	 * @param WP_Post $post
+	 * @param array $urls
+	 */
+	protected function fixHrefs( $post, $urls ) {
+
+		$use_relative_hrefs = false;
+		$site_url = get_site_url();
+		foreach ( $urls as $url ) {
+            $old_url = explode( '/', $url['old'] );
+            $old_url = array_pop( $old_url );
+            $new_url = $use_relative_hrefs ? str_replace( $site_url, '../..', $url['new'] ) : $url['new'];
+            $post->post_content = str_replace( 'href="' . $old_url, 'href="' . $new_url, $post->post_content );
+            $post->post_content = str_replace( "href='" . $old_url, "href='" . $new_url, $post->post_content );
+		}
+
+		return $post;
 	}
 
 	/**
@@ -589,7 +629,9 @@ class Epub201 extends ImportGenerator {
 	 */
 	protected function kneadHref( \DOMDocument $doc, $type, $href ) {
 
-		// TODO: Fix self-referencing URLs
+		// @see function fixHrefs()
+		// Cannot be fixed here because url of post is required
+		// (url is only available after saving of post)
 
 		return $doc;
 	}
