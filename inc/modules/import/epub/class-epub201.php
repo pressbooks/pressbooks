@@ -208,8 +208,8 @@ class Epub201 extends ImportGenerator {
 		$total = count( $selected_for_import );
 		$y = new PercentageYield( 40, 95, $total );
 
-        $posts = [];
-        $urls = [];
+		$posts = [];
+		$urls = [];
 
 		foreach ( $selected_for_import as $id ) {
 			yield from $y->tick( __( 'Importing', 'pressbooks' ) );
@@ -217,17 +217,20 @@ class Epub201 extends ImportGenerator {
 			$href = $this->basedir . $this->manifest[ $id ]['href'];
 			$pid = $this->kneadAndInsert( $href, $this->determinePostType( $id ), $chapter_parent, $current_import['default_post_status'] );
 			// Collect info for replacement of hrefs
-			$posts[$pid] = get_post( $pid );
-			$urls[$pid]['new'] = $posts[$pid]->guid;
-			$urls[$pid]['old'] = $href;
+			$posts[ $pid ] = get_post( $pid );
+			$urls[ $pid ]['new'] = $posts[ $pid ]->guid;
+			$urls[ $pid ]['old'] = $href;
 		}
 
 		// Fix all hrefs in imported posts
 		foreach ( $posts as $pid => $post ) {
 			$post = $this->fixHrefs( $post, $urls );
 			// Update content
-			wp_update_post( ['ID' => $pid, 'post_content' => $post->post_content] );
-	}
+			wp_update_post( [
+				'ID' => $pid,
+				'post_content' => $post->post_content,
+			] );
+		}
 
 		$_SESSION['pb_notices'][] = sprintf( __( 'Imported %s chapters.', 'pressbooks' ), $total );
 	}
@@ -382,7 +385,7 @@ class Epub201 extends ImportGenerator {
 
 		Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder
 
-        return $pid;
+		return $pid;
 	}
 
 	/**
@@ -396,11 +399,11 @@ class Epub201 extends ImportGenerator {
 		$use_relative_hrefs = false;
 		$site_url = get_site_url();
 		foreach ( $urls as $url ) {
-            $old_url = explode( '/', $url['old'] );
-            $old_url = array_pop( $old_url );
-            $new_url = $use_relative_hrefs ? str_replace( $site_url, '../..', $url['new'] ) : $url['new'];
-            $post->post_content = str_replace( 'href="' . $old_url, 'href="' . $new_url, $post->post_content );
-            $post->post_content = str_replace( "href='" . $old_url, "href='" . $new_url, $post->post_content );
+			$old_url = explode( '/', $url['old'] );
+			$old_url = array_pop( $old_url );
+			$new_url = $use_relative_hrefs ? str_replace( $site_url, '../..', $url['new'] ) : $url['new'];
+			$post->post_content = str_replace( 'href="' . $old_url, 'href="' . $new_url, $post->post_content );
+			$post->post_content = str_replace( "href='" . $old_url, "href='" . $new_url, $post->post_content );
 		}
 
 		return $post;
