@@ -433,75 +433,75 @@ class Contributors implements BackMatter, Transferable {
 	public static function getContributorFields( $field = '' ) {
 		$allowed_fields = [
 			self::TAXONOMY . '_prefix' => [
-				'label' => __( 'Prefix', 'pressbooks' ),
+				'label' => esc_html__( 'Prefix', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-prefix',
 				'input_type' => 'text',
-				'description' => __( 'Prefix to be displayed before this contributor\'s name, e.g. Dr., Prof., Ms., Rev., Capt.', 'pressbooks' ),
+				'description' => esc_html__( 'Prefix to be displayed before this contributor\'s name, e.g. Dr., Prof., Ms., Rev., Capt.', 'pressbooks' ),
 				'sanitization_method' => 'sanitize_text_field',
 			],
 			self::TAXONOMY . '_first_name' => [
-				'label' => __( 'First Name', 'pressbooks' ),
+				'label' => esc_html__( 'First Name', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-first-name',
 				'input_type' => 'text',
 				'sanitization_method' => 'sanitize_text_field',
 			],
 			self::TAXONOMY . '_last_name' => [
-				'label' => __( 'Last Name', 'pressbooks' ),
+				'label' => esc_html__( 'Last Name', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-last-name',
 				'input_type' => 'text',
 				'sanitization_method' => 'sanitize_text_field',
 			],
 			self::TAXONOMY . '_suffix' => [
-				'label' => __( 'Suffix', 'pressbooks' ),
+				'label' => esc_html__( 'Suffix', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-suffix',
 				'input_type' => 'text',
-				'description' => __( 'Suffix to be displayed after this contributors\'s name, e.g. Jr., Sr., IV, PhD, MD, USN (Ret.).', 'pressbooks' ),
+				'description' => esc_html__( 'Suffix to be displayed after this contributors\'s name, e.g. Jr., Sr., IV, PhD, MD, USN (Ret.).', 'pressbooks' ),
 				'sanitization_method' => 'sanitize_text_field',
 			],
 			self::TAXONOMY . '_picture' => [
-				'label' => __( 'Picture', 'pressbooks' ),
+				'label' => esc_html__( 'Picture', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-picture',
 				'input_type' => 'picture',
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 			self::TAXONOMY . '_description' => [
-				'label' => __( 'Biographical Info', 'pressbooks' ),
+				'label' => esc_html__( 'Biographical Info', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-biography',
 				'input_type' => 'tinymce',
 			],
 			self::TAXONOMY . '_institution' => [
-				'label' => __( 'Institution', 'pressbooks' ),
+				'label' => esc_html__( 'Institution', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-institution',
 				'input_type' => 'text',
-				'description' => __( 'Institution this contributor is associated with, e.g. Rebus Foundation, Open University, Amnesty International.', 'pressbooks' ),
+				'description' => esc_html__( 'Institution this contributor is associated with, e.g. Rebus Foundation, Open University, Amnesty International.', 'pressbooks' ),
 				'sanitization_method' => 'sanitize_text_field',
 			],
 			self::TAXONOMY . '_user_url' => [
-				'label' => __( 'Website', 'presbooks' ),
+				'label' => esc_html__( 'Website', 'presbooks' ),
 				'tag' => self::TAXONOMY . '-website',
 				'input_type' => 'text',
-				'description' => __( 'Website for this contributor. Must be a valid URL.', 'pressbooks' ),
+				'description' => esc_html__( 'Website for this contributor. Must be a valid URL.', 'pressbooks' ),
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 			self::TAXONOMY . '_twitter' => [
-				'label' => __( 'Twitter', 'pressbooks' ),
+				'label' => esc_html__( 'Twitter', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-twitter',
 				'input_type' => 'text',
-				'description' => __( 'Twitter profile for this contributor. Must be a valid URL.', 'pressbooks' ),
+				'description' => esc_html__( 'Twitter profile for this contributor. Must be a valid URL.', 'pressbooks' ),
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 			self::TAXONOMY . '_linkedin' => [
-				'label' => __( 'LinkedIn', 'pressbooks' ),
+				'label' => esc_html__( 'LinkedIn', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-linkedin',
 				'input_type' => 'text',
-				'description' => __( 'LinkedIn profile for this contributor. Must be a valid URL.', 'pressbooks' ),
+				'description' => esc_html__( 'LinkedIn profile for this contributor. Must be a valid URL.', 'pressbooks' ),
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 			self::TAXONOMY . '_github' => [
-				'label' => __( 'GitHub', 'pressbooks' ),
+				'label' => esc_html__( 'GitHub', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-github',
 				'input_type' => 'text',
-				'description' => __( 'GitHub profile for this contributor. Must be a valid URL.', 'pressbooks' ),
+				'description' => esc_html__( 'GitHub profile for this contributor. Must be a valid URL.', 'pressbooks' ),
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 		];
@@ -574,11 +574,11 @@ class Contributors implements BackMatter, Transferable {
 		$guide_chapter = esc_url( 'https://guide.pressbooks.com/chapter/creating-and-displaying-contributors/#importingcontributors' );
 		// TODO: Review if should we re-enable WordPress.WP.I18n.NoHtmlWrappedStrings sniff.
 		// phpcs:disable
-		$hint = __( '<p>Import multiple contributors at once by uploading a valid JSON file. See <a href="%s" target="_blank">our guide</a> for details.</p>', 'pressbooks' );
+		$hint = esc_html__('<p>Import multiple contributors at once by uploading a valid JSON file. See <a href="%s" target="_blank">our guide</a> for details.</p>', 'pressbooks' );
 		// phpcs:enable
 
 		return [
-			'title' => '<h2>' . __( 'Import Contributors', 'pressbooks' ) . '</h2>',
+			'title' => '<h2>' . esc_html__( 'Import Contributors', 'pressbooks' ) . '</h2>',
 			'hint' => sprintf( $hint, $guide_chapter ),
 		];
 	}

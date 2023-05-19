@@ -7,6 +7,9 @@
 					{{ __( 'Welcome to', 'pressbooks' ) }}
 					<span class="network-title">{!! $network_name !!}</span>
 				</h2>
+				<a class="visit-homepage" href="{{ $network_url }}">
+					{{ __( 'Visit network homepage', 'pressbooks' ) }}
+				</a>
 			</div>
 		</div>
 	</div>
@@ -67,7 +70,7 @@
 										href="{!! admin_url( 'index.php?page=koko-analytics' ) !!}"
 									>
 										<i class="pb-heroicons pb-heroicons-presentation-chart-bar"></i>
-										<span>{{ __( 'View home page analytics', 'pressbooks' ) }}</span>
+										<span>{{ __( 'View homepage analytics', 'pressbooks' ) }}</span>
 									</a>
 								</li>
 							@endif
