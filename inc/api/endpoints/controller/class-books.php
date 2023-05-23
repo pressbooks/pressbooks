@@ -11,40 +11,20 @@ class Books extends \WP_REST_Controller {
 
 	/**
 	 * Maximum number of books per page
-	 *
-	 * @var int
 	 */
-	protected $limit;
+	protected mixed $limit;
 
-	/**
-	 * @var int
-	 */
-	protected $totalBooks = 0;
+	protected int $totalBooks = 0;
 
-	/**
-	 * @var int
-	 */
-	protected $lastKnownBookId = 0;
+	protected int $lastKnownBookId = 0;
 
-	/**
-	 * @var Metadata
-	 */
-	protected $metadata;
+	protected Metadata $metadata;
 
-	/**
-	 * @var array
-	 */
-	protected $linkCollector = [];
+	protected array $linkCollector = [];
 
-	/**
-	 * @var BookDataCollector
-	 */
-	protected $bookDataCollector;
+	protected ?BookDataCollector $bookDataCollector;
 
-	/**
-	 * @var $networkExcludedDirectory
-	 */
-	protected $networkExcludedDirectory = false;
+	protected bool $networkExcludedDirectory = false;
 
 	/**
 	 * Books
@@ -54,8 +34,8 @@ class Books extends \WP_REST_Controller {
 		$this->rest_base = 'books';
 		$this->limit = apply_filters( 'pb_api_books_limit', 10 );
 		$network_options = get_site_option( SharingAndPrivacyOptions::getSlug() );
-		$this->networkExcludedDirectory = isset( $network_options[ SharingAndPrivacyOptions::NETWORK_DIRECTORY_EXCLUDED ] )
-			? (bool) $network_options[ SharingAndPrivacyOptions::NETWORK_DIRECTORY_EXCLUDED ] : false;
+		$this->networkExcludedDirectory = isset($network_options[SharingAndPrivacyOptions::NETWORK_DIRECTORY_EXCLUDED])
+			&& (bool)$network_options[SharingAndPrivacyOptions::NETWORK_DIRECTORY_EXCLUDED];
 		$this->metadata = new Metadata();
 		$this->bookDataCollector = BookDataCollector::init();
 	}
@@ -154,6 +134,40 @@ class Books extends \WP_REST_Controller {
 			'type' => 'integer',
 			'sanitize_callback' => 'absint',
 			'validate_callback' => 'rest_validate_request_arg',
+		];
+
+		$params['license_code'] = [
+			'description' => __( 'Array of license codes to filter books.', 'pressbooks' ),
+			'type' => 'array',
+			'items' => [
+				'type' => 'string',
+			],
+			'validate_callback' => function ( $param, $request, $key ) {
+				return is_array( $param );
+			},
+		];
+
+		$params['title'] = [
+			'description' => __( 'Array of title filters to filter books.', 'pressbooks' ),
+			'type' => 'array',
+			'items' => [
+				'type' => 'string',
+			],
+			'validate_callback' => function ( $param, $request, $key ) {
+				return is_array( $param );
+			},
+		];
+
+		$params['in_directory'] = [
+			'description' => __( 'Boolean value to filter books by directory exclusion.', 'pressbooks' ),
+			'type' => 'boolean',
+			'default' => null,
+		];
+
+		$params['words'] = [
+			'description' => __( 'String value to filter books by word count range.', 'pressbooks' ),
+			'type' => 'string',
+			'pattern' => '^gte_\d+|^lte_\d+$',
 		];
 
 		return $params;
@@ -320,7 +334,7 @@ class Books extends \WP_REST_Controller {
 
 		$limit = ! empty( $request['per_page'] ) ? $request['per_page'] : $this->limit;
 		$offset = ! empty( $request['page'] ) ? ( $request['page'] - 1 ) * $limit : 0;
-		$conditions = 'public = 1 AND archived = 0 AND spam = 0 AND deleted = 0 AND blog_id != %d';
+		$conditions = "public = 1 AND archived = 0 AND spam = 0 AND deleted = 0 AND {$wpdb->blogs}.blog_id != %d";
 
 		if ( ! empty( $request['modified_since'] ) && is_numeric( $request['modified_since'] ) ) {
 			$epoch = $request['modified_since'];
@@ -328,12 +342,56 @@ class Books extends \WP_REST_Controller {
 			$conditions .= sprintf( ' AND last_updated > \'%s\'', $datetime->format( 'Y-m-d H:i:s' ) );
 		}
 
+		$join_metatable = false;
+		$join_placeholders_replacements = [];
+
+		if ( $request['license_code'] ) {
+			$join_metatable = true;
+			$license_placeholder = implode( ',', array_fill( 0, count( $request['license_code'] ), '%s' ) );
+			$join_placeholders_replacements[] = BookDataCollector::LICENSE_CODE;
+			$conditions .= " AND meta_key = %s AND meta_value IN ($license_placeholder)";
+		}
+
+		if ( $request['title'] ) {
+			$join_metatable = true;
+			$include_titles = array_filter( $request['title'], function ( $title ) {
+				return $title[0] !== '-';
+			} );
+			$exclude_titles = array_filter( $request['title'], function ( $title ) {
+				return $title[0] === '-';
+			} );
+
+			if ( ! empty( $include_titles ) ) {
+				foreach($include_titles as $title) {
+					$conditions .= " AND meta_key = '%s' AND meta_value LIKE %s";
+					$join_placeholders_replacements[] = BookDataCollector::TITLE;
+					$join_placeholders_replacements[] = '%' . $title . '%';
+				}
+			}
+
+			if ( ! empty( $exclude_titles ) ) {
+				foreach($exclude_titles as $title) {
+					$conditions .= " AND meta_key = '%s' AND meta_value NOT LIKE %s";
+					$join_placeholders_replacements[] = BookDataCollector::TITLE;
+					$join_placeholders_replacements[] = '%' . substr($title, 1) . '%';
+				}
+			}
+		}
+
+		$inner_join = $join_metatable ?
+			"INNER JOIN {$wpdb->base_prefix}blogmeta ON {$wpdb->blogs}.blog_id = {$wpdb->base_prefix}blogmeta.blog_id" : '';
+
 		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
 		$blogs = $wpdb->get_col(
 			$wpdb->prepare(
-				"SELECT SQL_CALC_FOUND_ROWS blog_id FROM {$wpdb->blogs}
+				"SELECT SQL_CALC_FOUND_ROWS {$wpdb->blogs}.blog_id FROM {$wpdb->blogs} {$inner_join}
 				WHERE {$conditions}
-				ORDER BY blog_id LIMIT %d, %d ", get_network()->site_id, $offset, $limit
+				ORDER BY {$wpdb->blogs}.blog_id LIMIT %d, %d ",
+				array_merge(
+					[ get_network()->site_id ],
+					$join_placeholders_replacements,
+					[$offset, $limit]
+				)
 			)
 		);
 		// phpcs:enable
