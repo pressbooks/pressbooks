@@ -396,7 +396,7 @@ function book_information_to_schema( array $book_information, bool $network_excl
 	}
 
 	if ( true === $network_excluded_directory ) {
-		$book_schema['bookDirectoryExcluded'] = $network_excluded_directory && ! $book_schema['inCatalog'];
+		$book_schema['bookDirectoryExcluded'] = ! $book_schema['inCatalog'];
 	} elseif ( isset( $book_schema['bookDirectoryExcluded'] ) ) {
 		$book_schema['bookDirectoryExcluded'] = (bool) $book_information['pb_book_directory_excluded'];
 	} else {

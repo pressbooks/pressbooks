@@ -328,7 +328,7 @@ class Books extends \WP_REST_Controller {
 	 *
 	 * @return array blog ids
 	 */
-	protected function listBookIds( $request ) {
+	protected function listBookIds( $request ): array {
 
 		global $wpdb;
 
@@ -378,8 +378,20 @@ class Books extends \WP_REST_Controller {
 			$join_placeholders_replacements[] = $word_count_value;
 		}
 
-		if ( ! empty( $request['in_directory'] ) ) {
-
+		if ( isset( $request['in_directory'] ) ) {
+			if ( $this->networkExcludedDirectory ) {
+				$conditions .= " AND meta_key= '%s' AND meta_value = %s";
+				$join_placeholders_replacements[] = BookDataCollector::IN_CATALOG;
+				$join_placeholders_replacements[] = $request['in_directory'] ? '1' : '0';
+			} else {
+				$join_placeholders_replacements[] = BookDataCollector::BOOK_DIRECTORY_EXCLUDED;
+				if ( $request['in_directory'] === false ) {
+					$conditions .= " AND meta_key= '%s' AND meta_value = %s";
+					$join_placeholders_replacements[] = 1;
+				} else {
+					$conditions .= " AND {$wpdb->blogs}.blog_id NOT IN (SELECT blog_id FROM {$wpdb->base_prefix}blogmeta WHERE meta_key = %s)";
+				}
+			}
 		}
 
 		$inner_join = ! empty( $join_placeholders_replacements ) ?
