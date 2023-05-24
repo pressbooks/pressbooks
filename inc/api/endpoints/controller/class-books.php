@@ -342,43 +342,47 @@ class Books extends \WP_REST_Controller {
 			$conditions .= sprintf( ' AND last_updated > \'%s\'', $datetime->format( 'Y-m-d H:i:s' ) );
 		}
 
-		$join_metatable = false;
 		$join_placeholders_replacements = [];
 
 		if ( $request['license_code'] ) {
-			$join_metatable = true;
 			$license_placeholder = implode( ',', array_fill( 0, count( $request['license_code'] ), '%s' ) );
 			$join_placeholders_replacements[] = BookDataCollector::LICENSE_CODE;
+			array_push( $join_placeholders_replacements, ...$request['license_code'] );
 			$conditions .= " AND meta_key = %s AND meta_value IN ($license_placeholder)";
 		}
 
 		if ( $request['title'] ) {
-			$join_metatable = true;
-			$include_titles = array_filter( $request['title'], function ( $title ) {
-				return $title[0] !== '-';
-			} );
-			$exclude_titles = array_filter( $request['title'], function ( $title ) {
-				return $title[0] === '-';
-			} );
+			$title_conditions = [];
 
-			if ( ! empty( $include_titles ) ) {
-				foreach($include_titles as $title) {
-					$conditions .= " AND meta_key = '%s' AND meta_value LIKE %s";
-					$join_placeholders_replacements[] = BookDataCollector::TITLE;
-					$join_placeholders_replacements[] = '%' . $title . '%';
-				}
+			$join_placeholders_replacements[] = BookDataCollector::TITLE;
+
+			foreach ( $request['title'] as $title ) {
+				$exclude = str_starts_with( $title, '-' );
+
+				$not_like = $exclude ? 'NOT' : '';
+				$title_conditions[] = "meta_value {$not_like} LIKE %s";
+				$title_meta_value = $exclude ? substr( $title, 1 ) : $title;
+				$join_placeholders_replacements[] = '%' . $title_meta_value . '%';
 			}
 
-			if ( ! empty( $exclude_titles ) ) {
-				foreach($exclude_titles as $title) {
-					$conditions .= " AND meta_key = '%s' AND meta_value NOT LIKE %s";
-					$join_placeholders_replacements[] = BookDataCollector::TITLE;
-					$join_placeholders_replacements[] = '%' . substr($title, 1) . '%';
-				}
-			}
+			$conditions .= " AND meta_key = '%s' AND (" . implode( ' OR ', $title_conditions ) . ')';
 		}
 
-		$inner_join = $join_metatable ?
+		if ( ! empty( $request['words'] ) ) {
+			$word_count_value = explode('_', $request['words'])[1];
+
+			$operator = str_starts_with( $request['words'], 'gte_' ) ? '>=' : '<=';
+			$conditions .= " AND meta_key = '%s' AND meta_value {$operator} %d";
+
+			$join_placeholders_replacements[] = BookDataCollector::WORD_COUNT;
+			$join_placeholders_replacements[] = $word_count_value;
+		}
+
+		if ( ! empty( $request['in_directory'] ) ) {
+
+		}
+
+		$inner_join = ! empty( $join_placeholders_replacements ) ?
 			"INNER JOIN {$wpdb->base_prefix}blogmeta ON {$wpdb->blogs}.blog_id = {$wpdb->base_prefix}blogmeta.blog_id" : '';
 
 		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
@@ -394,6 +398,7 @@ class Books extends \WP_REST_Controller {
 				)
 			)
 		);
+//		dd($wpdb->last_query);
 		// phpcs:enable
 
 		$this->totalBooks = $wpdb->get_var( 'SELECT FOUND_ROWS()' );
