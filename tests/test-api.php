@@ -57,11 +57,13 @@ class ApiTest extends \WP_UnitTestCase {
 
 	/**
 	 * @test
+	 * @group api
 	 */
 	public function it_filters_books_by_title(): void {
 		$data = $this->setupBookEndpoint( [
 			'title' => [
-				'-book'
+				'test',
+				'stuff',
 			],
 		]);
 		$this->assertEquals( 2, count( $data ) );
@@ -73,6 +75,7 @@ class ApiTest extends \WP_UnitTestCase {
 
 	/**
 	 * @test
+	 * @group api
 	 */
 	public function it_excludes_books_by_title(): void {
 		$data = $this->setupBookEndpoint( [
@@ -87,6 +90,7 @@ class ApiTest extends \WP_UnitTestCase {
 
 	/**
 	 * @test
+	 * @group api
 	 */
 	public function it_filters_books_by_word_count_gte(): void {
 		$data = $this->setupBookEndpoint( [
@@ -101,6 +105,7 @@ class ApiTest extends \WP_UnitTestCase {
 
 	/**
 	 * @test
+	 * @group api
 	 */
 	public function it_filters_books_by_word_count_lte(): void {
 		$data = $this->setupBookEndpoint( [
@@ -116,6 +121,7 @@ class ApiTest extends \WP_UnitTestCase {
 
 	/**
 	 * @test
+	 * @group api
 	 */
 	public function it_filters_books_by_license_codes(): void {
 		$data = $this->setupBookEndpoint( [
@@ -134,6 +140,7 @@ class ApiTest extends \WP_UnitTestCase {
 
 	/**
 	 * @test
+	 * @group api
 	 */
 	public function it_filters_book_by_directory_included(): void {
 		$data = $this->setupBookEndpoint( [
@@ -149,6 +156,7 @@ class ApiTest extends \WP_UnitTestCase {
 
 	/**
 	 * @test
+	 * @group api
 	 */
 	public function it_filters_book_by_directory_excluded(): void {
 		$data = $this->setupBookEndpoint( [
@@ -164,6 +172,7 @@ class ApiTest extends \WP_UnitTestCase {
 
 	/**
 	 * @test
+	 * @group api
 	 */
 	public function it_filters_book_by_directory_include_catalog_network_setting(): void {
 		$data = $this->setupBookEndpoint( [
@@ -181,6 +190,7 @@ class ApiTest extends \WP_UnitTestCase {
 
 	/**
 	 * @test
+	 * @group api
 	 */
 	public function it_filters_book_by_directory_catalog_network_setting(): void {
 		$data = $this->setupBookEndpoint( [
