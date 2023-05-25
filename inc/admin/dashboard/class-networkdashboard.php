@@ -26,6 +26,7 @@ class NetworkDashboard extends Dashboard {
 
 		echo $blade->render( 'admin.dashboard.network', [
 			'network_name' => get_bloginfo( 'name' ),
+			'network_url' => network_home_url(),
 			'total_users' => get_user_count(),
 			'total_books' => $this->getTotalNumberOfBooks(),
 			'network_analytics_active' => is_plugin_active( 'pressbooks-network-analytics/pressbooks-network-analytics.php' ),
