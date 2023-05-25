@@ -18,6 +18,8 @@ class BooksQueryBuilder {
 
 	private int $number_of_rows = 0;
 
+	private readonly \WP_REST_Request $request;
+
 	private array $parameters_classes_map = [
 		'modified_since' => ModifiedSinceParameter::class,
 		'title' => TitleParameter::class,
@@ -26,15 +28,10 @@ class BooksQueryBuilder {
 		'in_directory' => InDirectoryParameter::class,
 	];
 
-	public function __construct( private readonly \WP_REST_Request $request ) {
-		foreach ( $this->parameters_classes_map as $get_parameter => $parameter ) {
-			if ( ! is_null( $this->request->get_param( $get_parameter ) ) ) {
-				$this->parameters[] = new $parameter( $this->request[ $get_parameter ] );
-			}
-		}
-	}
+	public function build(\WP_REST_Request $request): self {
+		$this->request = $request;
+		$this->setupParameters();
 
-	public function build(): self {
 		global $wpdb;
 
 		$this->query = "SELECT SQL_CALC_FOUND_ROWS blog_id FROM {$wpdb->blogs} AS b
@@ -55,6 +52,14 @@ class BooksQueryBuilder {
 		$this->placeholder_values[] = $limit;
 
 		return $this;
+	}
+
+	private function setupParameters(): void {
+		foreach ( $this->parameters_classes_map as $get_parameter => $parameter ) {
+			if ( ! is_null( $this->request->get_param( $get_parameter ) ) ) {
+				$this->parameters[] = new $parameter( $this->request[ $get_parameter ] );
+			}
+		}
 	}
 
 	public function get(): array {

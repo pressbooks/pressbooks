@@ -338,8 +338,8 @@ class Books extends \WP_REST_Controller {
 	 */
 	protected function listBookIds( \WP_REST_Request $request ): array {
 
-		$book_query_builder = new BooksQueryBuilder( $request );
-		$blogs = $book_query_builder->build()->get();
+		$book_query_builder = new BooksQueryBuilder();
+		$blogs = $book_query_builder->build( $request )->get();
 		$this->totalBooks = $book_query_builder->getNumberOfRows();
 
 		return $blogs;
