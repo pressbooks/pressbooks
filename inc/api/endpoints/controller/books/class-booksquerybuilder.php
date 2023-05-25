@@ -28,7 +28,7 @@ class BooksQueryBuilder {
 		'in_directory' => InDirectoryParameter::class,
 	];
 
-	public function build(\WP_REST_Request $request): self {
+	public function build( \WP_REST_Request $request ): self {
 		$this->request = $request;
 		$this->setupParameters();
 
