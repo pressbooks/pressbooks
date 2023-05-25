@@ -1,10 +1,12 @@
 <?php
 
-namespace Pressbooks\Api\Endpoints\Controller;
+namespace Pressbooks\Api\Endpoints\Controller\books;
 
+use function Pressbooks\Metadata\book_information_to_schema;
 use function Pressbooks\Utility\apply_https_if_available;
-use function \Pressbooks\Metadata\book_information_to_schema;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
+use Pressbooks\Api\Endpoints\Controller\books\BooksQueryBuilder;
+use Pressbooks\Api\Endpoints\Controller\Metadata;
 use Pressbooks\DataCollector\Book as BookDataCollector;
 
 class Books extends \WP_REST_Controller {
@@ -34,8 +36,8 @@ class Books extends \WP_REST_Controller {
 		$this->rest_base = 'books';
 		$this->limit = apply_filters( 'pb_api_books_limit', 10 );
 		$network_options = get_site_option( SharingAndPrivacyOptions::getSlug() );
-		$this->networkExcludedDirectory = isset($network_options[SharingAndPrivacyOptions::NETWORK_DIRECTORY_EXCLUDED])
-			&& (bool)$network_options[SharingAndPrivacyOptions::NETWORK_DIRECTORY_EXCLUDED];
+		$this->networkExcludedDirectory = isset( $network_options[ SharingAndPrivacyOptions::NETWORK_DIRECTORY_EXCLUDED ] )
+			&& (bool) $network_options[ SharingAndPrivacyOptions::NETWORK_DIRECTORY_EXCLUDED ];
 		$this->metadata = new Metadata();
 		$this->bookDataCollector = BookDataCollector::init();
 	}
@@ -134,6 +136,12 @@ class Books extends \WP_REST_Controller {
 			'type' => 'integer',
 			'sanitize_callback' => 'absint',
 			'validate_callback' => 'rest_validate_request_arg',
+		];
+
+		$params['modified_since'] = [
+			'description' => __( 'Timestamp for updated field.', 'pressbooks' ),
+			'type' => 'integer',
+			'sanitize_callback' => 'absint',
 		];
 
 		$params['license_code'] = [
@@ -324,96 +332,15 @@ class Books extends \WP_REST_Controller {
 	/**
 	 * Count all books, update $this->>totalBooks, return a paginated subset of book ids
 	 *
-	 * @param \WP_REST_Request
+	 * @param \WP_REST_Request $request
 	 *
 	 * @return array blog ids
 	 */
-	protected function listBookIds( $request ): array {
+	protected function listBookIds( \WP_REST_Request $request ): array {
 
-		global $wpdb;
-
-		$limit = ! empty( $request['per_page'] ) ? $request['per_page'] : $this->limit;
-		$offset = ! empty( $request['page'] ) ? ( $request['page'] - 1 ) * $limit : 0;
-		$conditions = "public = 1 AND archived = 0 AND spam = 0 AND deleted = 0 AND {$wpdb->blogs}.blog_id != %d";
-
-		if ( ! empty( $request['modified_since'] ) && is_numeric( $request['modified_since'] ) ) {
-			$epoch = $request['modified_since'];
-			$datetime = new \DateTime( "@$epoch" );
-			$conditions .= sprintf( ' AND last_updated > \'%s\'', $datetime->format( 'Y-m-d H:i:s' ) );
-		}
-
-		$join_placeholders_replacements = [];
-
-		if ( $request['license_code'] ) {
-			$license_placeholder = implode( ',', array_fill( 0, count( $request['license_code'] ), '%s' ) );
-			$join_placeholders_replacements[] = BookDataCollector::LICENSE_CODE;
-			array_push( $join_placeholders_replacements, ...$request['license_code'] );
-			$conditions .= " AND meta_key = %s AND meta_value IN ($license_placeholder)";
-		}
-
-		if ( $request['title'] ) {
-			$title_conditions = [];
-
-			$join_placeholders_replacements[] = BookDataCollector::TITLE;
-
-			foreach ( $request['title'] as $title ) {
-				$exclude = str_starts_with( $title, '-' );
-
-				$not_like = $exclude ? 'NOT' : '';
-				$title_conditions[] = "meta_value {$not_like} LIKE %s";
-				$title_meta_value = $exclude ? substr( $title, 1 ) : $title;
-				$join_placeholders_replacements[] = '%' . $title_meta_value . '%';
-			}
-
-			$conditions .= " AND meta_key = '%s' AND (" . implode( ' OR ', $title_conditions ) . ')';
-		}
-
-		if ( ! empty( $request['words'] ) ) {
-			$word_count_value = explode('_', $request['words'])[1];
-
-			$operator = str_starts_with( $request['words'], 'gte_' ) ? '>=' : '<=';
-			$conditions .= " AND meta_key = '%s' AND meta_value {$operator} %d";
-
-			$join_placeholders_replacements[] = BookDataCollector::WORD_COUNT;
-			$join_placeholders_replacements[] = $word_count_value;
-		}
-
-		if ( isset( $request['in_directory'] ) ) {
-			if ( $this->networkExcludedDirectory ) {
-				$conditions .= " AND meta_key= '%s' AND meta_value = %s";
-				$join_placeholders_replacements[] = BookDataCollector::IN_CATALOG;
-				$join_placeholders_replacements[] = $request['in_directory'] ? '1' : '0';
-			} else {
-				$join_placeholders_replacements[] = BookDataCollector::BOOK_DIRECTORY_EXCLUDED;
-				if ( $request['in_directory'] === false ) {
-					$conditions .= " AND meta_key= '%s' AND meta_value = %s";
-					$join_placeholders_replacements[] = 1;
-				} else {
-					$conditions .= " AND {$wpdb->blogs}.blog_id NOT IN (SELECT blog_id FROM {$wpdb->base_prefix}blogmeta WHERE meta_key = %s)";
-				}
-			}
-		}
-
-		$inner_join = ! empty( $join_placeholders_replacements ) ?
-			"INNER JOIN {$wpdb->base_prefix}blogmeta ON {$wpdb->blogs}.blog_id = {$wpdb->base_prefix}blogmeta.blog_id" : '';
-
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
-		$blogs = $wpdb->get_col(
-			$wpdb->prepare(
-				"SELECT SQL_CALC_FOUND_ROWS {$wpdb->blogs}.blog_id FROM {$wpdb->blogs} {$inner_join}
-				WHERE {$conditions}
-				ORDER BY {$wpdb->blogs}.blog_id LIMIT %d, %d ",
-				array_merge(
-					[ get_network()->site_id ],
-					$join_placeholders_replacements,
-					[$offset, $limit]
-				)
-			)
-		);
-//		dd($wpdb->last_query);
-		// phpcs:enable
-
-		$this->totalBooks = $wpdb->get_var( 'SELECT FOUND_ROWS()' );
+		$book_query_builder = new BooksQueryBuilder( $request );
+		$blogs = $book_query_builder->build()->get();
+		$this->totalBooks = $book_query_builder->getNumberOfRows();
 
 		return $blogs;
 	}

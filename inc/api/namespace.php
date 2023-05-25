@@ -141,7 +141,7 @@ function init_root() {
 	\Pressbooks\Metadata\init_book_data_models();
 
 	// Register Books
-	( new Endpoints\Controller\Books() )->register_routes();
+	( new Endpoints\Controller\books\Books() )->register_routes();
 
 	// Register Directory endpoints
 	( new Endpoints\Controller\Directory() )->register_routes();
