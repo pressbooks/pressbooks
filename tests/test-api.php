@@ -1,8 +1,10 @@
 <?php
 
+use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Api\Endpoints\Controller\Posts;
 use Pressbooks\Container;
 
+use Pressbooks\DataCollector\Book;
 use function \Pressbooks\Metadata\book_information_to_schema;
 
 class ApiTest extends \WP_UnitTestCase {
@@ -51,6 +53,218 @@ class ApiTest extends \WP_UnitTestCase {
 		$this->assertIsInt( $data['metadata']['h5pActivities'] );
 		$this->assertIsBool( $data['metadata']['inCatalog'] );
 		$this->assertIsString( $data['metadata']['license']['code'] );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_filters_books_by_title(): void {
+		$data = $this->setupBookEndpoint( [
+			'title' => [
+				'-book'
+			],
+		]);
+		$this->assertEquals( 2, count( $data ) );
+
+		foreach ( $data as $book ) {
+			$this->assertMatchesRegularExpression( '/test|stuff/i', strtolower( $book['metadata']['name'] ) );
+		}
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_excludes_books_by_title(): void {
+		$data = $this->setupBookEndpoint( [
+			'title' => [
+				'-book'
+			],
+		] );
+		$this->assertEquals( 1, count( $data ) );
+
+		$this->assertStringNotContainsString( 'book', strtolower( $data[0]['metadata']['name'] ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_filters_books_by_word_count_gte(): void {
+		$data = $this->setupBookEndpoint( [
+			'words' => 'gte_1000',
+		] );
+		$this->assertEquals( 3, count( $data ) );
+
+		foreach ( $data as $book ) {
+			$this->assertGreaterThanOrEqual( 1000, (int) $book['metadata']['wordCount'] );
+		}
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_filters_books_by_word_count_lte(): void {
+		$data = $this->setupBookEndpoint( [
+			'words' => 'lte_2000',
+		] );
+
+		$this->assertEquals( 2, count( $data ) );
+
+		foreach ( $data as $book ) {
+			$this->assertLessThanOrEqual( 2000, (int) $book['metadata']['wordCount'] );
+		}
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_filters_books_by_license_codes(): void {
+		$data = $this->setupBookEndpoint( [
+			'license_code' => [
+				'CC BY',
+				'Public Domain',
+			],
+		] );
+
+		$this->assertEquals( 3, count( $data ) );
+
+		foreach ( $data as $book ) {
+			$this->assertMatchesRegularExpression( '/CC BY|Public Domain/i', $book['metadata']['license']['code'] );
+		}
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_filters_book_by_directory_included(): void {
+		$data = $this->setupBookEndpoint( [
+			'in_directory' => true,
+		] );
+
+		$this->assertEquals( 2, count( $data ) );
+
+		foreach ( $data as $book ) {
+			$this->assertFalse( $book['metadata']['bookDirectoryExcluded'] );
+		}
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_filters_book_by_directory_excluded(): void {
+		$data = $this->setupBookEndpoint( [
+			'in_directory' => false,
+		] );
+
+		$this->assertEquals( 2, count( $data ) );
+
+		foreach ( $data as $book ) {
+			$this->assertTrue( $book['metadata']['bookDirectoryExcluded'] );
+		}
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_filters_book_by_directory_include_catalog_network_setting(): void {
+		$data = $this->setupBookEndpoint( [
+			'in_directory' => true,
+		], true );
+
+
+
+		$this->assertEquals( 3, count( $data ) );
+
+		foreach ( $data as $book ) {
+			$this->assertFalse( $book['metadata']['bookDirectoryExcluded'] );
+		}
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_filters_book_by_directory_catalog_network_setting(): void {
+		$data = $this->setupBookEndpoint( [
+			'in_directory' => false,
+		], true );
+
+
+		$this->assertEquals( 1, count( $data ) );
+		$this->assertTrue( $data[0]['metadata']['bookDirectoryExcluded'] );
+	}
+
+	/**
+	 * Create a set of books with metadata and setup API endpoint for books.
+	 *
+	 * @param array $params
+	 * @param bool $exclude_directory_catalog
+	 * @return array
+	 */
+	private function setupBookEndpoint( array $params, bool $exclude_directory_catalog = false ): array {
+		$licenses_map = [
+			'Public Domain' => 'public-domain',
+			'All Rights Reserved' => 'all-rights-reserved',
+			'CC BY' => 'cc-by',
+		];
+
+		$network_options = get_site_option( SharingAndPrivacyOptions::getSlug() );
+		$network_options[ SharingAndPrivacyOptions::NETWORK_DIRECTORY_EXCLUDED ] = $exclude_directory_catalog;
+		update_site_option( SharingAndPrivacyOptions::getSlug(), $network_options );
+
+		$metadata = [
+			[
+				Book::TITLE => 'Test PB Book',
+				Book::WORD_COUNT => 1000,
+				Book::BOOK_DIRECTORY_EXCLUDED => 1,
+				Book::LICENSE_CODE => 'Public Domain',
+				Book::IN_CATALOG => 1,
+			],
+			[
+				Book::TITLE => 'Awesome textbook',
+				Book::WORD_COUNT => 2340,
+				Book::LICENSE_CODE => 'Public Domain',
+				Book::IN_CATALOG => 1,
+			],
+			[
+				Book::TITLE => 'Book about stuff',
+				Book::WORD_COUNT => 50,
+				Book::LICENSE_CODE => 'CC BY',
+				Book::IN_CATALOG => 0,
+			],
+			[
+				Book::TITLE => 'This is about things',
+				Book::WORD_COUNT => 7477,
+				Book::BOOK_DIRECTORY_EXCLUDED => 1,
+				Book::LICENSE_CODE => 'All Rights Reserved',
+				Book::IN_CATALOG => 1,
+			],
+		];
+		$book_collector = new Book();
+
+		foreach ( $metadata as $meta ) {
+			$this->_book();
+			$book_id = get_current_blog_id();
+			foreach ( $meta as $key => $value ) {
+				$metadata_info_array = $book_collector->get( $book_id, Book::BOOK_INFORMATION_ARRAY );
+
+				if ( $key === Book::LICENSE_CODE ) {
+					$metadata_info_array['pb_book_license'] = $licenses_map[ $value ];
+				} else {
+					$metadata_info_array[ $key ] = $value;
+				}
+
+				update_site_meta( $book_id, Book::BOOK_INFORMATION_ARRAY, $metadata_info_array );
+
+				update_site_meta( $book_id, $key, $value );
+			}
+		}
+
+		$server = $this->_setupRootApi();
+
+		$endpoint = '/pressbooks/v2/books';
+		$request = new \WP_REST_Request( 'GET', $endpoint );
+		$request->set_query_params( $params );
+		$response = $server->dispatch( $request );
+		return $response->get_data();
 	}
 
 	/**

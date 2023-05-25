@@ -21,20 +21,21 @@ class InDirectoryParameter implements BookParameter {
 		global $wpdb;
 
 		if ( $this->network_directory_excluded ) {
-			$query = " AND EXISTS (SELECT blog_id FROM {$wpdb->blogmeta} WHERE meta_key= '%s' AND meta_value = %s";
+			$query = " AND EXISTS (SELECT blog_id FROM {$wpdb->blogmeta} WHERE meta_key= '%s' AND meta_value=%s AND b.blog_id = blog_id)";
 			$this->place_holder_values[] = BookDataCollector::IN_CATALOG;
 			$this->place_holder_values[] = $this->in_directory ? 1 : 0;
 		} else {
 			$this->place_holder_values[] = BookDataCollector::BOOK_DIRECTORY_EXCLUDED;
 			if ( ! $this->in_directory ) {
-				$query = " AND EXISTS (SELECT blog_id FROM {$wpdb->blogmeta} WHERE meta_key= '%s' AND meta_value = %s";
+				$query = " AND EXISTS (SELECT blog_id FROM {$wpdb->blogmeta} WHERE meta_key= '%s' AND meta_value = %s AND b.blog_id = blog_id)";
 				$this->place_holder_values[] = 1;
 			} else {
-				$query = " AND NOT EXISTS (SELECT blog_id FROM {$wpdb->blogmeta} WHERE meta_key = %s";
+				$query = " AND (NOT EXISTS (SELECT blog_id FROM {$wpdb->blogmeta} WHERE meta_key = %s AND b.blog_id = blog_id)";
+				$query .= " OR EXISTS (SELECT blog_id FROM {$wpdb->blogmeta} WHERE meta_key = %s AND meta_value = %s AND b.blog_id = blog_id))";
+				$this->place_holder_values[] = BookDataCollector::BOOK_DIRECTORY_EXCLUDED;
+				$this->place_holder_values[] = 0;
 			}
 		}
-
-		$query .= ' AND b.blog_id = blog_id)';
 
 		return $query;
 	}
