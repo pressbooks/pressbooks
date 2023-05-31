@@ -1,11 +1,11 @@
 <?php
 
-namespace Pressbooks\Api\Endpoints\Controller\books;
+namespace Pressbooks\Api\Endpoints\Controller\Books;
 
 use function Pressbooks\Metadata\book_information_to_schema;
 use function Pressbooks\Utility\apply_https_if_available;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
-use Pressbooks\Api\Endpoints\Controller\books\BooksQueryBuilder;
+use Pressbooks\Api\Endpoints\Controller\Books\BooksQueryBuilder;
 use Pressbooks\Api\Endpoints\Controller\Metadata;
 use Pressbooks\DataCollector\Book as BookDataCollector;
 

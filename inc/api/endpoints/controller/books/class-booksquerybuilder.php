@@ -1,12 +1,12 @@
 <?php
 
-namespace Pressbooks\Api\Endpoints\Controller\books;
+namespace Pressbooks\Api\Endpoints\Controller\Books;
 
-use Pressbooks\Api\Endpoints\Controller\books\parameters\InDirectoryParameter;
-use Pressbooks\Api\Endpoints\Controller\books\parameters\LicenseCodeParameter;
-use Pressbooks\Api\Endpoints\Controller\books\parameters\ModifiedSinceParameter;
-use Pressbooks\Api\Endpoints\Controller\books\parameters\TitleParameter;
-use Pressbooks\Api\Endpoints\Controller\books\parameters\WordsParameter;
+use Pressbooks\Api\Endpoints\Controller\Books\parameters\InDirectoryParameter;
+use Pressbooks\Api\Endpoints\Controller\Books\parameters\LicenseCodeParameter;
+use Pressbooks\Api\Endpoints\Controller\Books\parameters\ModifiedSinceParameter;
+use Pressbooks\Api\Endpoints\Controller\Books\parameters\TitleParameter;
+use Pressbooks\Api\Endpoints\Controller\Books\parameters\WordsParameter;
 
 class BooksQueryBuilder {
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pressbooks\Api\Endpoints\Controller\books\parameters;
+namespace Pressbooks\Api\Endpoints\Controller\Books\parameters;
 
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\DataCollector\Book as BookDataCollector;
