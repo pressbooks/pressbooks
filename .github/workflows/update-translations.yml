@@ -14,15 +14,10 @@ jobs:
           TRANSIFEX_USER: api
           TRANSIFEX_PASSWORD: ${{ secrets.TRANSIFEX_API_TOKEN }}
         run: |
-          sudo pip install virtualenv
-          virtualenv ~/env
-          source ~/env/bin/activate
-          sudo pip install transifex-client
-          sudo echo $'[https://app.transifex.com]\nhostname = https://app.transifex.com\nusername = '"$TRANSIFEX_USER"$'\npassword = '"$TRANSIFEX_PASSWORD"$'\ntoken = '"$TRANSIFEX_API_TOKEN"$'\n' > ~/.transifexrc
+          curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
+          sudo echo $'[https://app.transifex.com]\nhostname = https://app.transifex.com\napi_hostname = https://api.transifex.com\nusername = '"$TRANSIFEX_USER"$'\npassword = '"$TRANSIFEX_PASSWORD"$'\n > .transifexrc
       - name: Pull translations from Transifex
-        run: tx pull --all --force --minimum-perc=25
-        env:
-          TX_TOKEN: ${{ secrets.TX_TOKEN }}
+        run: ./tx pull --all --force --minimum-perc=25
       - name: Setup PHP with tools
         uses: shivammathur/setup-php@v2
         with:
@@ -30,8 +25,11 @@ jobs:
           tools: composer, wp-cli/wp-cli-bundle
       - name: Generate MO files
         run: wp i18n make-mo languages
-      - name: Commit updated translation files
-        uses: stefanzweifel/git-auto-commit-action@v4.16.0
+      - name: Create Pull Request for MO files
+        uses: peter-evans/create-pull-request@v5
         with:
-          commit_message: 'chore(l10n): update translations'
-          file_pattern: '*.mo'
+          token: ${{ secrets.PAT_FOR_GITHUB_ACTIONS }}
+          commit-message: 'chore(l10n): update languages/*.mo'
+          title: 'chore(l10n): update languages/*.mo'
+          body: 'This pull request updates the MO files for the latest changes in the POT file.'
+          branch: chore/update-mo-files

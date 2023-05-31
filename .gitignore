@@ -11,3 +11,6 @@ coverage-reports
 
 .env.*
 !.env.*.example
+tx
+.transifexrc
+LICENSE

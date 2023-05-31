@@ -23,8 +23,11 @@ jobs:
         tools: composer, wp-cli/wp-cli-bundle
     - name: Update POT file
       run: wp i18n make-pot . languages/pressbooks.pot --domain=pressbooks --slug=pressbooks --package-name="Pressbooks" --headers="{\"Report-Msgid-Bugs-To\":\"https://github.com/pressbooks/pressbooks/issues\"}"
-    - name: Commit updated POT file
-      uses: stefanzweifel/git-auto-commit-action@v4.16.0
+    - name: Create Pull Request for POT file
+      uses: peter-evans/create-pull-request@v5
       with:
-        commit_message: 'chore(l10n): update languages/pressbooks.pot [ci skip]'
-        file_pattern: '*.pot'
+        token: ${{ secrets.PAT_FOR_GITHUB_ACTIONS }}
+        commit-message: 'chore(l10n): update languages/pressbooks.pot'
+        title: 'chore(l10n): update languages/pressbooks.pot'
+        body: 'This pull request updates the POT file for the Pressbooks project.'
+        branch: chore/update-pot-file
