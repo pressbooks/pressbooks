@@ -27,6 +27,7 @@ jobs:
       uses: peter-evans/create-pull-request@v5
       with:
         token: ${{ secrets.PAT_FOR_GITHUB_ACTIONS }}
+        labels: automerge-pot
         commit-message: 'chore(l10n): update languages/pressbooks.pot'
         title: 'chore(l10n): update languages/pressbooks.pot'
         body: 'This pull request updates the POT file for the Pressbooks project.'
@@ -36,6 +37,6 @@ jobs:
       uses: "pascalgn/automerge-action@v0.15.6"
       env:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-        MERGE_LABELS: automerge
+        MERGE_LABELS: automerge-pot
         MERGE_METHOD: squash
         PULL_REQUEST: "${{ steps.cpr.outputs.pull-request-number }}"

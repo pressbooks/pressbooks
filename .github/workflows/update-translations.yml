@@ -15,7 +15,7 @@ jobs:
           TRANSIFEX_PASSWORD: ${{ secrets.TRANSIFEX_API_TOKEN }}
         run: |
           curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
-          sudo echo $'[https://app.transifex.com]\nhostname = https://app.transifex.com\napi_hostname = https://api.transifex.com\nusername = '"$TRANSIFEX_USER"$'\npassword = '"$TRANSIFEX_PASSWORD"$'\n' > .transifexrc
+          sudo echo $'[https://app.transifex.com]\nhostname = https://app.transifex.com\napi_hostname = https://api.transifex.com\nusername = '"$TRANSIFEX_USER"$'\npassword = '"$TRANSIFEX_PASSWORD"$'\n' > ~/.transifexrc
       - name: Pull translations from Transifex
         run: ./tx pull --all --force --minimum-perc=25
       - name: Setup PHP with tools
@@ -30,6 +30,7 @@ jobs:
         with:
           token: ${{ secrets.PAT_FOR_GITHUB_ACTIONS }}
           commit-message: 'chore(l10n): update languages/*.mo'
+          labels: automerge-mo
           title: 'chore(l10n): update languages/*.mo'
           body: 'This pull request updates the MO files for the latest changes in the POT file.'
           branch: chore/update-mo-files
@@ -38,6 +39,6 @@ jobs:
         uses: "pascalgn/automerge-action@v0.15.6"
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          MERGE_LABELS: automerge
+          MERGE_LABELS: automerge-mo
           MERGE_METHOD: squash
           PULL_REQUEST: "${{ steps.cpr.outputs.pull-request-number }}"
