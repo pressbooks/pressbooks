@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks 6.10.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2023-05-02T13:24:47-07:00\n"
+"POT-Creation-Date: 2023-06-01T14:13:09+00:00\n"
 "PO-Revision-Date: 2023-05-25 04:50+0000\n"
 "Last-Translator: Eduardo Vera, 2023\n"
 "Language-Team: Japanese (https://app.transifex.com/pressbooks/teams/9194/ja/)\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Domain: pressbooks\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"X-Generator: WP-CLI 2.8.0\n"
 
 #. Plugin Name of the plugin
 msgid "Pressbooks"
@@ -151,7 +151,7 @@ msgid "Privacy Status"
 msgstr "プライバシーステータス"
 
 #: inc/admin/class-catalog-list-table.php:230 inc/class-activation.php:237
-#: inc/modules/export/epub/class-epub.php:1233 tests/test-cloner.php:57
+#: inc/modules/export/epub/class-epub.php:1233
 msgid "Cover"
 msgstr "表紙"
 
@@ -599,8 +599,8 @@ msgid ""
 msgstr "自分の画像の縦横比が正しくありません。画像の縦横比は%1$s:%2$sが必要です。"
 
 #: inc/admin/dashboard/class-dashboard.php:54 inc/admin/laf/namespace.php:787
-#: inc/admin/laf/namespace.php:862 inc/admin/menus/class-sidebar.php:179
-#: inc/admin/menus/class-sidebar.php:180 inc/admin/menus/class-topbar.php:124
+#: inc/admin/laf/namespace.php:862 inc/admin/menus/class-sidebar.php:177
+#: inc/admin/menus/class-sidebar.php:178 inc/admin/menus/class-topbar.php:124
 msgid "Dashboard"
 msgstr "ダッシュボード"
 
@@ -920,13 +920,13 @@ msgid "Network Admin"
 msgstr "サイトネットワーク管理"
 
 #: inc/admin/laf/namespace.php:795 inc/admin/laf/namespace.php:1575
-#: inc/admin/laf/namespace.php:1585 inc/admin/menus/class-sidebar.php:190
-#: inc/admin/menus/class-sidebar.php:191 inc/admin/menus/class-topbar.php:129
+#: inc/admin/laf/namespace.php:1585 inc/admin/menus/class-sidebar.php:188
+#: inc/admin/menus/class-sidebar.php:189 inc/admin/menus/class-topbar.php:129
 msgid "Books"
 msgstr "本"
 
-#: inc/admin/laf/namespace.php:803 inc/admin/menus/class-sidebar.php:200
-#: inc/admin/menus/class-sidebar.php:201 inc/admin/menus/class-topbar.php:134
+#: inc/admin/laf/namespace.php:803 inc/admin/menus/class-sidebar.php:198
+#: inc/admin/menus/class-sidebar.php:199 inc/admin/menus/class-topbar.php:134
 msgid "Users"
 msgstr "ユーザー"
 
@@ -934,8 +934,8 @@ msgstr "ユーザー"
 msgid "Themes"
 msgstr "テーマ"
 
-#: inc/admin/laf/namespace.php:820 inc/admin/menus/class-sidebar.php:397
-#: inc/admin/menus/class-sidebar.php:398 inc/admin/menus/class-topbar.php:149
+#: inc/admin/laf/namespace.php:820 inc/admin/menus/class-sidebar.php:395
+#: inc/admin/menus/class-sidebar.php:396 inc/admin/menus/class-topbar.php:149
 msgid "Plugins"
 msgstr "プラグイン"
 
@@ -1114,115 +1114,115 @@ msgid ""
 "Amnesty International."
 msgstr "所属機関 (例: Rebus Foundation、Open University、アムネスティ・インターナショナル)"
 
-#: inc/admin/menus/class-sidebar.php:210 inc/admin/menus/class-sidebar.php:211
+#: inc/admin/menus/class-sidebar.php:208 inc/admin/menus/class-sidebar.php:209
 #: inc/admin/menus/class-topbar.php:139
 msgid "Appearance"
 msgstr "外観"
 
-#: inc/admin/menus/class-sidebar.php:220 inc/admin/menus/class-sidebar.php:221
+#: inc/admin/menus/class-sidebar.php:218 inc/admin/menus/class-sidebar.php:219
 #: inc/admin/menus/class-topbar.php:144
 msgid "Pages"
 msgstr "固定ページ"
 
-#: inc/admin/menus/class-sidebar.php:231 inc/admin/menus/class-sidebar.php:232
-#: inc/admin/menus/class-sidebar.php:430 inc/admin/menus/class-sidebar.php:431
+#: inc/admin/menus/class-sidebar.php:229 inc/admin/menus/class-sidebar.php:230
+#: inc/admin/menus/class-sidebar.php:428 inc/admin/menus/class-sidebar.php:429
 #: inc/admin/menus/class-topbar.php:154
 msgid "Settings"
 msgstr "設定"
 
-#: inc/admin/menus/class-sidebar.php:242 inc/admin/menus/class-sidebar.php:243
-#: inc/admin/menus/class-sidebar.php:498 inc/admin/menus/class-sidebar.php:499
+#: inc/admin/menus/class-sidebar.php:240 inc/admin/menus/class-sidebar.php:241
+#: inc/admin/menus/class-sidebar.php:496 inc/admin/menus/class-sidebar.php:497
 msgid "Network Options"
 msgstr "サイトネットワーク設定"
 
-#: inc/admin/menus/class-sidebar.php:255 inc/admin/menus/class-sidebar.php:256
-#: inc/admin/menus/class-sidebar.php:285 inc/admin/menus/class-sidebar.php:286
-#: inc/admin/menus/class-sidebar.php:577 inc/admin/menus/class-sidebar.php:578
+#: inc/admin/menus/class-sidebar.php:253 inc/admin/menus/class-sidebar.php:254
+#: inc/admin/menus/class-sidebar.php:283 inc/admin/menus/class-sidebar.php:284
+#: inc/admin/menus/class-sidebar.php:575 inc/admin/menus/class-sidebar.php:576
 #: inc/admin/menus/class-topbar.php:159
 msgid "Stats"
 msgstr "統計"
 
-#: inc/admin/menus/class-sidebar.php:267 inc/admin/menus/class-sidebar.php:268
+#: inc/admin/menus/class-sidebar.php:265 inc/admin/menus/class-sidebar.php:266
 msgid "Network Stats"
 msgstr "サイトネットワーク統計"
 
-#: inc/admin/menus/class-sidebar.php:276 inc/admin/menus/class-sidebar.php:277
-#: inc/admin/menus/class-sidebar.php:295 inc/admin/menus/class-sidebar.php:296
+#: inc/admin/menus/class-sidebar.php:274 inc/admin/menus/class-sidebar.php:275
+#: inc/admin/menus/class-sidebar.php:293 inc/admin/menus/class-sidebar.php:294
 msgid "Analytics"
 msgstr "アナリティクス"
 
-#: inc/admin/menus/class-sidebar.php:315 inc/admin/menus/class-sidebar.php:316
+#: inc/admin/menus/class-sidebar.php:313 inc/admin/menus/class-sidebar.php:314
 msgid "Upgrade Network"
 msgstr "サイトネットワークをアップグレード"
 
-#: inc/admin/menus/class-sidebar.php:328 inc/admin/menus/class-sidebar.php:329
-#: inc/admin/menus/class-sidebar.php:337 inc/admin/menus/class-sidebar.php:338
+#: inc/admin/menus/class-sidebar.php:326 inc/admin/menus/class-sidebar.php:327
+#: inc/admin/menus/class-sidebar.php:335 inc/admin/menus/class-sidebar.php:336
 msgid "Network Users"
 msgstr "サイトネットワークユーザー"
 
-#: inc/admin/menus/class-sidebar.php:348 inc/admin/menus/class-sidebar.php:349
+#: inc/admin/menus/class-sidebar.php:346 inc/admin/menus/class-sidebar.php:347
 msgid "Root Site Users"
 msgstr "ルートサイトユーザー"
 
-#: inc/admin/menus/class-sidebar.php:359 inc/admin/menus/class-sidebar.php:360
+#: inc/admin/menus/class-sidebar.php:357 inc/admin/menus/class-sidebar.php:358
 msgid "User Activation Keys"
 msgstr "ユーザーの有効化キー"
 
-#: inc/admin/menus/class-sidebar.php:409 inc/admin/menus/class-sidebar.php:410
+#: inc/admin/menus/class-sidebar.php:407 inc/admin/menus/class-sidebar.php:408
 msgid "Network Plugins"
 msgstr "サイトネットワークのプラグイン"
 
-#: inc/admin/menus/class-sidebar.php:421 inc/admin/menus/class-sidebar.php:422
+#: inc/admin/menus/class-sidebar.php:419 inc/admin/menus/class-sidebar.php:420
 msgid "Root Site Plugins"
 msgstr "ルートサイトのプラグイン"
 
-#: inc/admin/menus/class-sidebar.php:443 inc/admin/menus/class-sidebar.php:444
+#: inc/admin/menus/class-sidebar.php:441 inc/admin/menus/class-sidebar.php:442
 msgid "Network Settings"
 msgstr "サイトネットワーク設定"
 
-#: inc/admin/menus/class-sidebar.php:451 inc/admin/menus/class-sidebar.php:452
+#: inc/admin/menus/class-sidebar.php:449 inc/admin/menus/class-sidebar.php:450
 msgid "Network Setup"
 msgstr "サイトネットワークの設置"
 
-#: inc/admin/menus/class-sidebar.php:459 inc/admin/menus/class-sidebar.php:460
+#: inc/admin/menus/class-sidebar.php:457 inc/admin/menus/class-sidebar.php:458
 #: inc/admin/networkmanagers/namespace.php:20
 #: inc/admin/networkmanagers/namespace.php:21
 msgid "Network Managers"
 msgstr "サイトネットワーク管理者"
 
-#: inc/admin/menus/class-sidebar.php:468 inc/admin/menus/class-sidebar.php:469
+#: inc/admin/menus/class-sidebar.php:466 inc/admin/menus/class-sidebar.php:467
 msgid "Whitelabel Settings"
 msgstr "Whitelabel 設定"
 
-#: inc/admin/menus/class-sidebar.php:478 inc/admin/menus/class-sidebar.php:479
+#: inc/admin/menus/class-sidebar.php:476 inc/admin/menus/class-sidebar.php:477
 msgid "Object Cache"
 msgstr "Object Cache"
 
-#: inc/admin/menus/class-sidebar.php:487 inc/admin/menus/class-sidebar.php:488
+#: inc/admin/menus/class-sidebar.php:485 inc/admin/menus/class-sidebar.php:486
 #: inc/class-googleanalytics.php:87 inc/class-googleanalytics.php:88
 #: inc/class-googleanalytics.php:97 inc/class-googleanalytics.php:98
 #: inc/class-googleanalytics.php:277 inc/class-googleanalytics.php:329
 msgid "Google Analytics"
 msgstr "Google アナリティクス"
 
-#: inc/admin/menus/class-sidebar.php:506 inc/admin/menus/class-sidebar.php:507
+#: inc/admin/menus/class-sidebar.php:504 inc/admin/menus/class-sidebar.php:505
 msgid "Sharing & Privacy"
 msgstr "共有とプライバシー"
 
-#: inc/admin/menus/class-sidebar.php:518 inc/admin/menus/class-sidebar.php:519
+#: inc/admin/menus/class-sidebar.php:516 inc/admin/menus/class-sidebar.php:517
 msgid "Root Site General Settings"
 msgstr "ルートサイト一般設定"
 
-#: inc/admin/menus/class-sidebar.php:531 inc/admin/menus/class-sidebar.php:532
+#: inc/admin/menus/class-sidebar.php:529 inc/admin/menus/class-sidebar.php:530
 msgid "Root Site Media Settings"
 msgstr "ルートサイトメディア設定"
 
-#: inc/admin/menus/class-sidebar.php:544 inc/admin/menus/class-sidebar.php:545
+#: inc/admin/menus/class-sidebar.php:542 inc/admin/menus/class-sidebar.php:543
 msgid "Root Site Privacy Settings"
 msgstr "ルートサイトプライバシー設定"
 
-#: inc/admin/menus/class-sidebar.php:556 inc/admin/menus/class-sidebar.php:557
-#: inc/admin/menus/class-sidebar.php:567 inc/admin/menus/class-sidebar.php:568
+#: inc/admin/menus/class-sidebar.php:554 inc/admin/menus/class-sidebar.php:555
+#: inc/admin/menus/class-sidebar.php:565 inc/admin/menus/class-sidebar.php:566
 msgid "PB Stats"
 msgstr "Pressbooks の統計"
 
@@ -1270,7 +1270,6 @@ msgstr "表紙画像"
 #: inc/modules/themeoptions/class-globaloptions.php:598
 #: inc/posttype/namespace.php:87 inc/posttype/namespace.php:542
 #: inc/posttype/namespace.php:580 templates/admin/import.php:94
-#: tests/test-posttype.php:259
 msgid "Part"
 msgstr "編"
 
@@ -1771,7 +1770,6 @@ msgid "Owner"
 msgstr "保有者"
 
 #: inc/admin/network/class-networksettings.php:62
-#: tests/test-networksettings.php:29
 msgid "Theme Settings"
 msgstr "テーマ設定"
 
@@ -1900,16 +1898,36 @@ msgid ""
 "must be clicked before their account is created."
 msgstr "以下のユーザーへ招待メールを送信しました。確認用の URL がクリックされ次第、アカウントが作成されます。"
 
-#: inc/api/endpoints/controller/class-books.php:127
+#: inc/api/endpoints/controller/books/class-books.php:109
 #: inc/api/endpoints/controller/class-toc.php:151
 #: inc/api/endpoints/controller/class-toc.php:164
 #: inc/api/endpoints/controller/class-toc.php:177
 msgid "Metadata"
 msgstr "メタデータ"
 
-#: inc/api/endpoints/controller/class-books.php:153
+#: inc/api/endpoints/controller/books/class-books.php:135
 msgid "ID offset, overrides page."
 msgstr "ID オフセット、ページを上書きます。"
+
+#: inc/api/endpoints/controller/books/class-books.php:142
+msgid "Timestamp for updated field."
+msgstr ""
+
+#: inc/api/endpoints/controller/books/class-books.php:148
+msgid "Array of license codes to filter books."
+msgstr ""
+
+#: inc/api/endpoints/controller/books/class-books.php:159
+msgid "Array of title filters to filter books."
+msgstr ""
+
+#: inc/api/endpoints/controller/books/class-books.php:170
+msgid "Boolean value to filter books by directory exclusion."
+msgstr ""
+
+#: inc/api/endpoints/controller/books/class-books.php:176
+msgid "String value to filter books by word count range."
+msgstr ""
 
 #: inc/api/endpoints/controller/class-metadata.php:549
 #: inc/api/endpoints/controller/class-sectionmetadata.php:453
@@ -1966,11 +1984,11 @@ msgstr "章の編の更新に失敗しました。"
 msgid "Main Body"
 msgstr "本文"
 
-#: inc/class-activation.php:210 tests/test-book.php:47
+#: inc/class-activation.php:210
 msgid "Introduction"
 msgstr "はじめに"
 
-#: inc/class-activation.php:212 tests/test-book.php:97
+#: inc/class-activation.php:212
 msgid "This is where you can write your introduction."
 msgstr "ここに序文を書くことができます。"
 
@@ -1992,14 +2010,13 @@ msgstr "付録"
 msgid "This is where you can add appendices or other back matter."
 msgstr "ここに付録および後付けを追加できます。"
 
-#: inc/class-activation.php:232 tests/test-cloner.php:52
-#: templates/admin/organize.blade.php:131
+#: inc/class-activation.php:232 templates/admin/organize.blade.php:131
 #: templates/admin/organize.blade.php:215
 msgid "Authors"
 msgstr "著者"
 
 #: inc/class-activation.php:242
-#: inc/modules/themeoptions/class-pdfoptions.php:322 tests/test-cloner.php:62
+#: inc/modules/themeoptions/class-pdfoptions.php:322
 #: templates/export/epub/toc.blade.php:13
 msgid "Table of Contents"
 msgstr "目次"
@@ -2592,15 +2609,15 @@ msgstr "Rubik"
 msgid "Source Sans Pro"
 msgstr "Source Sans Pro"
 
-#: inc/class-styles.php:702 tests/test-styles.php:215
+#: inc/class-styles.php:702
 msgid "Theme default"
 msgstr "テーマデフォルト"
 
-#: inc/class-styles.php:703 inc/class-styles.php:717 tests/test-styles.php:216
+#: inc/class-styles.php:703 inc/class-styles.php:717
 msgid "Serif"
 msgstr "セリフ"
 
-#: inc/class-styles.php:704 tests/test-styles.php:217
+#: inc/class-styles.php:704
 msgid "Sans serif"
 msgstr "サンセリフ"
 
@@ -3535,7 +3552,6 @@ msgid "About the Author"
 msgstr "著者について"
 
 #: inc/modules/themeoptions/class-globaloptions.php:169
-#: tests/test-options.php:501
 msgid "Display information about authors at the end of each chapter"
 msgstr "各章の終わりで著者について情報を表示"
 
@@ -4345,7 +4361,6 @@ msgid " adapted by "
 msgstr " 翻案者 "
 
 #: inc/shortcodes/footnotes/class-footnotes.php:187
-#: tests/test-shortcodes-footnotes-footnotes.php:149
 msgid "Invalid permissions."
 msgstr "無効な権限。"
 
@@ -4872,10 +4887,6 @@ msgstr ""
 msgid "Pressbooks: the CMS for Books."
 msgstr "Pressbooks: 本の CMS。"
 
-#: tests/test-registration.php:28
-msgid "Create Site"
-msgstr "サイトを作成"
-
 #: templates/admin/cloner/book-card.blade.php:9
 msgid "H5P Activities"
 msgstr "H5P アクティビティ"
@@ -5012,7 +5023,7 @@ msgid "Import Content"
 msgstr "コンテンツをインポート"
 
 #: templates/admin/dashboard/book.blade.php:105
-#: templates/admin/dashboard/network.blade.php:128
+#: templates/admin/dashboard/network.blade.php:132
 msgid "Support resources"
 msgstr "サポートリソース"
 
@@ -5034,7 +5045,7 @@ msgid ""
 msgstr "この詳細なハンドブックに出版プロジェクトのヘルプと使い方を検索します。"
 
 #: templates/admin/dashboard/book.blade.php:136
-#: templates/admin/dashboard/network.blade.php:147
+#: templates/admin/dashboard/network.blade.php:151
 msgid "Pressbooks community forum"
 msgstr "Pressbooks のコミュニティフォーラム"
 
@@ -5062,83 +5073,87 @@ msgstr "サイトネットワーク管理者ダッシュボード"
 msgid "Welcome to"
 msgstr "ようこそ"
 
-#: templates/admin/dashboard/network.blade.php:19
+#: templates/admin/dashboard/network.blade.php:12
+msgid "Visit network homepage"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:23
 msgid "Your network has %s books and %s users. "
 msgstr "サイトネットワークには%s冊の本と%s人のユーザーがいます。 "
 
-#: templates/admin/dashboard/network.blade.php:27
+#: templates/admin/dashboard/network.blade.php:31
 msgid "Explore stats"
 msgstr "統計を調べる"
 
-#: templates/admin/dashboard/network.blade.php:41
+#: templates/admin/dashboard/network.blade.php:45
 msgid "Update homepage"
 msgstr "ホームページを更新"
 
-#: templates/admin/dashboard/network.blade.php:47
+#: templates/admin/dashboard/network.blade.php:51
 msgid "Update homepage art"
 msgstr "ホームページを更新の絵"
 
-#: templates/admin/dashboard/network.blade.php:56
+#: templates/admin/dashboard/network.blade.php:60
 msgid "Customize network appearance"
 msgstr "サイトネットワーク外観をカスタマイズ"
 
-#: templates/admin/dashboard/network.blade.php:64
+#: templates/admin/dashboard/network.blade.php:68
 msgid "Create or edit pages"
 msgstr "ページを作成・編集"
 
-#: templates/admin/dashboard/network.blade.php:73
-msgid "View home page analytics"
-msgstr "ホームページのアナリティクスを表示"
+#: templates/admin/dashboard/network.blade.php:77
+msgid "View homepage analytics"
+msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:84
+#: templates/admin/dashboard/network.blade.php:88
 msgid "Administer network"
 msgstr "サイトネットワーク管理"
 
-#: templates/admin/dashboard/network.blade.php:90
+#: templates/admin/dashboard/network.blade.php:94
 msgid "Administer network art"
 msgstr "サイトネットワーク管理の絵"
 
-#: templates/admin/dashboard/network.blade.php:99
+#: templates/admin/dashboard/network.blade.php:103
 msgid "Adjust network settings"
 msgstr "サイトネットワーク設定を調整"
 
-#: templates/admin/dashboard/network.blade.php:107
+#: templates/admin/dashboard/network.blade.php:111
 msgid "View book list"
 msgstr "本リストを表示"
 
-#: templates/admin/dashboard/network.blade.php:115
+#: templates/admin/dashboard/network.blade.php:119
 msgid "View user list"
 msgstr "ユーザーリストを表示"
 
-#: templates/admin/dashboard/network.blade.php:136
+#: templates/admin/dashboard/network.blade.php:140
 msgid "Network manager guide"
 msgstr "サイトネットワーク管理者ガイド"
 
-#: templates/admin/dashboard/network.blade.php:139
+#: templates/admin/dashboard/network.blade.php:143
 msgid ""
 "Learn how to administer your Pressbooks network from our comprehensive how-"
 "to guide."
 msgstr "包括的なハウツーガイドから Pressbooks サイトネットワークを管理する方法に詳しく。"
 
-#: templates/admin/dashboard/network.blade.php:150
+#: templates/admin/dashboard/network.blade.php:154
 msgid ""
 "Discuss issues of interest with other network managers and Pressbooks "
 "support staff."
 msgstr "他のサイトネットワーク管理者や Pressbooks サポートスタッフと関心のある問題について話し合います。"
 
-#: templates/admin/dashboard/network.blade.php:158
+#: templates/admin/dashboard/network.blade.php:162
 msgid "Pressbooks webinars"
 msgstr "Pressbooks ウェビナー"
 
-#: templates/admin/dashboard/network.blade.php:161
+#: templates/admin/dashboard/network.blade.php:165
 msgid "Become a confident Pressbooks user by attending a free, live webinar."
 msgstr "無料のライブウェビナーに参加して、自信を持って Pressbooks ユーザーになります。"
 
-#: templates/admin/dashboard/network.blade.php:170
+#: templates/admin/dashboard/network.blade.php:174
 msgid "Contact Pressbooks Support"
 msgstr "Pressbooks サポートに連絡"
 
-#: templates/admin/dashboard/network.blade.php:173
+#: templates/admin/dashboard/network.blade.php:177
 msgid ""
 "Email Pressbooks’ Premium Support team to report bugs or get personalized "
 "help."
