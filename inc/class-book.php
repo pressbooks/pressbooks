@@ -251,7 +251,7 @@ class Book {
 		global $blog_id;
 		$book_data_collector = BookDataCollector::init();
 		$book_information_array = $book_data_collector->get( $blog_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
-		if ( self::removeInvalidatedBisacCodes( $blog_id, $book_information_array ) ) {
+		if ( $book_information_array && self::removeInvalidatedBisacCodes( $blog_id, $book_information_array ) ) {
 			add_error( __(
 				"This book was using a <a href='https://bisg.org/page/InactivatedCodes' target='_blank'> retired BISAC subject term </a>, which has been replaced in your book with a recommended BISAC replacement. You may wish to check the BISAC subject terms manually to confirm that you are satisfied with these replacements."
 			) );
