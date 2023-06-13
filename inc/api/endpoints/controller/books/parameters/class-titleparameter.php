@@ -7,28 +7,16 @@ use Pressbooks\DataCollector\Book as BookDataCollector;
 class TitleParameter extends ExclusionParameter implements BookParameter {
 
 	public function getQueryCondition(): string {
-		global $wpdb;
-
-		$query = " AND EXISTS (SELECT blog_id FROM {$wpdb->blogmeta} WHERE meta_key = %s AND (";
-
-		$included = ! empty( $this->includedValues );
-		if ( $included ) {
-			$query .= 'LOWER(meta_value) REGEXP %s';
-
-		}
-		if ( ! empty( $this->excludedValues ) ) {
-			if ( $included ) {
-				$query .= ' AND ';
-			}
-
-			$query .= 'LOWER(meta_value) NOT REGEXP %s';
-		}
-		$query .= ') AND b.blog_id = blog_id)';
-
-		return $query;
+		return $this->getSubQuery( 'meta_value REGEXP %s', 'meta_value NOT REGEXP %s' );
 	}
 
 	public function getPlaceHoldervalues(): array {
-		return $this->getPlaceHolders( BookDataCollector::TITLE );
+		$included_values = implode( '|', $this->includedValues );
+		$excluded_values = implode( '|', $this->excludedValues );
+		return array_merge(
+			[ BookDataCollector::TITLE ],
+			$this->includedValues ? [ $included_values ] : [],
+			$this->excludedValues ? [ $excluded_values ] : []
+		);
 	}
 }
