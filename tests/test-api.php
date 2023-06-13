@@ -142,6 +142,24 @@ class ApiTest extends \WP_UnitTestCase {
 	 * @test
 	 * @group api
 	 */
+	public function it_excludes_books_by_license_codes(): void {
+		$data = $this->setupBookEndpoint( [
+			'license_code' => [
+				'-Public Domain',
+			],
+		] );
+
+		$this->assertEquals( 2, count( $data ) );
+
+		foreach ( $data as $book ) {
+			$this->assertNotEquals( 'Public Domain', $book['metadata']['license']['code'] );
+		}
+	}
+
+	/**
+	 * @test
+	 * @group api
+	 */
 	public function it_filters_book_by_directory_included(): void {
 		$data = $this->setupBookEndpoint( [
 			'in_directory' => true,

@@ -2,11 +2,11 @@
 
 namespace Pressbooks\Api\Endpoints\Controller\Books;
 
-use Pressbooks\Api\Endpoints\Controller\Books\parameters\InDirectoryParameter;
-use Pressbooks\Api\Endpoints\Controller\Books\parameters\LicenseCodeParameter;
-use Pressbooks\Api\Endpoints\Controller\Books\parameters\ModifiedSinceParameter;
-use Pressbooks\Api\Endpoints\Controller\Books\parameters\TitleParameter;
-use Pressbooks\Api\Endpoints\Controller\Books\parameters\WordsParameter;
+use Pressbooks\Api\Endpoints\Controller\Books\Parameters\InDirectoryParameter;
+use Pressbooks\Api\Endpoints\Controller\Books\Parameters\LicenseCodeParameter;
+use Pressbooks\Api\Endpoints\Controller\Books\Parameters\ModifiedSinceParameter;
+use Pressbooks\Api\Endpoints\Controller\Books\Parameters\TitleParameter;
+use Pressbooks\Api\Endpoints\Controller\Books\Parameters\WordsParameter;
 
 class BooksQueryBuilder {
 
