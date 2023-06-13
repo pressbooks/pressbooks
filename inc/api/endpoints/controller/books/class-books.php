@@ -8,6 +8,7 @@ use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Api\Endpoints\Controller\Books\BooksQueryBuilder;
 use Pressbooks\Api\Endpoints\Controller\Metadata;
 use Pressbooks\DataCollector\Book as BookDataCollector;
+use Pressbooks\Licensing;
 
 class Books extends \WP_REST_Controller {
 
@@ -151,7 +152,18 @@ class Books extends \WP_REST_Controller {
 				'type' => 'string',
 			],
 			'validate_callback' => function ( $param, $request, $key ) {
-				return is_array( $param );
+				if ( ! is_array( $param ) ) {
+					return false;
+				}
+
+				$licensing = new Licensing;
+
+				$supported_types = $licensing->getSupportedTypes();
+				$supported_codes = array_map( fn ( $license ) => $license['abbreviation'], $supported_types );
+
+				$values = array_map( fn ( $value ) => str_starts_with( $value, '-' ) ? substr( $value, 1 ) : $value, $param );
+
+				return array_intersect( $values, array_values( $supported_codes ) ) === $values;
 			},
 		];
 
