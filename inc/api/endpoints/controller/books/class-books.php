@@ -5,8 +5,8 @@ namespace Pressbooks\Api\Endpoints\Controller\Books;
 use function Pressbooks\Metadata\book_information_to_schema;
 use function Pressbooks\Utility\apply_https_if_available;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
-use Pressbooks\Api\Endpoints\Controller\Books\BooksQueryBuilder;
 use Pressbooks\Api\Endpoints\Controller\Metadata;
+use Pressbooks\Book;
 use Pressbooks\DataCollector\Book as BookDataCollector;
 
 class Books extends \WP_REST_Controller {
@@ -46,7 +46,6 @@ class Books extends \WP_REST_Controller {
 	 *  Registers routes for Books
 	 */
 	public function register_routes() {
-
 		register_rest_route(
 			$this->namespace, '/' . $this->rest_base, [
 				[
@@ -84,7 +83,6 @@ class Books extends \WP_REST_Controller {
 	}
 
 	public function get_item_schema() {
-
 		$metadata = $this->metadata->get_item_schema();
 
 		$schema = [
@@ -122,7 +120,6 @@ class Books extends \WP_REST_Controller {
 	 * @return array
 	 */
 	public function get_collection_params() {
-
 		$params = parent::get_collection_params();
 
 		unset( $params['search'] ); // Fulltext search not supported
@@ -187,7 +184,6 @@ class Books extends \WP_REST_Controller {
 	 * @return bool
 	 */
 	public function get_items_permissions_check( $request ) {
-
 		return true;
 	}
 
@@ -197,7 +193,6 @@ class Books extends \WP_REST_Controller {
 	 * @return bool
 	 */
 	public function get_item_permissions_check( $request ) {
-
 		if ( $request['id'] === get_network()->site_id ) {
 			return false;
 		}
@@ -216,7 +211,6 @@ class Books extends \WP_REST_Controller {
 	 * @return \WP_REST_Response
 	 */
 	public function get_items( $request ) {
-
 		// Register missing routes
 		$this->registerRouteDependencies();
 
@@ -232,7 +226,6 @@ class Books extends \WP_REST_Controller {
 	 * @return \WP_REST_Response
 	 */
 	public function get_item( $request ) {
-
 		// Register missing routes
 		$this->registerRouteDependencies();
 
@@ -262,18 +255,17 @@ class Books extends \WP_REST_Controller {
 	 *
 	 * @return array
 	 */
-	protected function renderBook( $id ) {
-		$metadata_info_array = $this->bookDataCollector->get( $id, BookDataCollector::BOOK_INFORMATION_ARRAY );
+	protected function renderBook( int $id ): array {
+		$metadata_info_array = Book::getBookInformation( $id );
 
-		$keys = [
+		$metadata_blog_meta = $this->bookDataCollector->getMultipleMeta( $id, [
 			BookDataCollector::WORD_COUNT,
 			BookDataCollector::STORAGE_SIZE,
 			BookDataCollector::H5P_ACTIVITIES,
 			BookDataCollector::IN_CATALOG,
 			BookDataCollector::BOOK_URL,
 			BookDataCollector::BOOK_DIRECTORY_EXCLUDED,
-		];
-		$metadata_blog_meta = $this->bookDataCollector->getMultipleMeta( $id, $keys );
+		] );
 
 		if ( ! isset( $metadata_blog_meta[ BookDataCollector::BOOK_DIRECTORY_EXCLUDED ] ) ) {
 			$metadata_blog_meta[ BookDataCollector::BOOK_DIRECTORY_EXCLUDED ] = get_blog_option( $id, BookDataCollector::BOOK_DIRECTORY_EXCLUDED, 0 );
@@ -287,7 +279,7 @@ class Books extends \WP_REST_Controller {
 		$metadata_thumb['pb_thumbnail'] = $this->bookDataCollector->getCoverThumbnail( $id, $metadata_info_array['pb_cover_image'] );
 
 		$metadata = array_merge( $metadata_info_array, $metadata_blog_meta, $blog_info, $metadata_thumb );
-		$metadata = ( is_array( $metadata ) && ! empty( $metadata ) ) ? book_information_to_schema( $metadata, $this->networkExcludedDirectory ) : [];
+		$metadata = empty( $metadata ) ? [] : book_information_to_schema( $metadata, $this->networkExcludedDirectory );
 
 		$item = [
 			'id' => $id,
@@ -337,7 +329,6 @@ class Books extends \WP_REST_Controller {
 	 * @return array blog ids
 	 */
 	protected function listBookIds( \WP_REST_Request $request ): array {
-
 		$book_query_builder = new BooksQueryBuilder();
 		$blogs = $book_query_builder->build( $request )->get();
 		$this->totalBooks = $book_query_builder->getNumberOfRows();
@@ -352,7 +343,6 @@ class Books extends \WP_REST_Controller {
 	 * @param \WP_REST_Response $response
 	 */
 	protected function addPreviousNextLinks( $request, $response ) {
-
 		$page = (int) $request['page'];
 		$max_pages = (int) ceil( $this->totalBooks / (int) $request['per_page'] );
 
@@ -376,5 +366,4 @@ class Books extends \WP_REST_Controller {
 			$response->link_header( 'next', $next_link );
 		}
 	}
-
 }
