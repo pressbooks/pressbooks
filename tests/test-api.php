@@ -216,7 +216,7 @@ class ApiTest extends \WP_UnitTestCase {
 			'CC BY' => 'cc-by',
 		];
 
-		$network_options = get_site_option( SharingAndPrivacyOptions::getSlug() );
+		$network_options = get_site_option( SharingAndPrivacyOptions::getSlug(), [] );
 		$network_options[ SharingAndPrivacyOptions::NETWORK_DIRECTORY_EXCLUDED ] = $exclude_directory_catalog;
 		update_site_option( SharingAndPrivacyOptions::getSlug(), $network_options );
 
@@ -253,11 +253,16 @@ class ApiTest extends \WP_UnitTestCase {
 		foreach ( $metadata as $meta ) {
 			$this->_book();
 			$book_id = get_current_blog_id();
+			$meta_post_id = ( new Pressbooks\Metadata )->getMetaPostId();
+
+			update_post_meta( $meta_post_id, Book::TITLE, $meta[ Book::TITLE ] );
+
 			foreach ( $meta as $key => $value ) {
 				$metadata_info_array = $book_collector->get( $book_id, Book::BOOK_INFORMATION_ARRAY );
 
 				if ( $key === Book::LICENSE_CODE ) {
-					$metadata_info_array['pb_book_license'] = $licenses_map[ $value ];
+					$metadata_info_array[ Book::LICENSE ] = $licenses_map[ $value ];
+					update_post_meta( $meta_post_id, Book::LICENSE, $licenses_map[ $value ] );
 				} else {
 					$metadata_info_array[ $key ] = $value;
 				}
