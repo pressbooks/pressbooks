@@ -176,6 +176,10 @@ class Licensing {
 		return $supported;
 	}
 
+	public function getSupportedCodes(): array {
+		return array_map( fn ( $license ) => $license['abbreviation'], $this->getSupportedTypes() );
+	}
+
 	/**
 	 * For gettext filter
 	 *

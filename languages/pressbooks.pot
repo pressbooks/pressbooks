@@ -9,9 +9,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-06-01T17:57:41+00:00\n"
+"POT-Creation-Date: 2023-06-15T14:36:42+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.8.0\n"
+"X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: pressbooks\n"
 
 #. Plugin Name of the plugin
@@ -1826,34 +1826,34 @@ msgstr ""
 msgid "An invitation email has been sent to the user(s) below. A confirmation link must be clicked before their account is created."
 msgstr ""
 
-#: inc/api/endpoints/controller/books/class-books.php:109
+#: inc/api/endpoints/controller/books/class-books.php:107
 #: inc/api/endpoints/controller/class-toc.php:151
 #: inc/api/endpoints/controller/class-toc.php:164
 #: inc/api/endpoints/controller/class-toc.php:177
 msgid "Metadata"
 msgstr ""
 
-#: inc/api/endpoints/controller/books/class-books.php:135
+#: inc/api/endpoints/controller/books/class-books.php:132
 msgid "ID offset, overrides page."
 msgstr ""
 
-#: inc/api/endpoints/controller/books/class-books.php:142
+#: inc/api/endpoints/controller/books/class-books.php:139
 msgid "Timestamp for updated field."
 msgstr ""
 
-#: inc/api/endpoints/controller/books/class-books.php:148
+#: inc/api/endpoints/controller/books/class-books.php:145
 msgid "Array of license codes to filter books."
 msgstr ""
 
-#: inc/api/endpoints/controller/books/class-books.php:159
+#: inc/api/endpoints/controller/books/class-books.php:156
 msgid "Array of title filters to filter books."
 msgstr ""
 
-#: inc/api/endpoints/controller/books/class-books.php:170
+#: inc/api/endpoints/controller/books/class-books.php:167
 msgid "Boolean value to filter books by directory exclusion."
 msgstr ""
 
-#: inc/api/endpoints/controller/books/class-books.php:176
+#: inc/api/endpoints/controller/books/class-books.php:173
 msgid "String value to filter books by word count range."
 msgstr ""
 
