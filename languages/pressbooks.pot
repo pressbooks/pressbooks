@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 6.11.0\n"
+"Project-Id-Version: Pressbooks 6.12.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-06-15T14:36:42+00:00\n"
+"POT-Creation-Date: 2023-06-15T23:58:33+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: pressbooks\n"
@@ -1398,7 +1398,7 @@ msgid "Help translate Pressbooks into your language!"
 msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:391
-#: inc/class-licensing.php:329
+#: inc/class-licensing.php:333
 #: inc/modules/export/epub/class-epub.php:1423
 #: inc/modules/export/epub/class-epub.php:1445
 #: inc/modules/export/htmlbook/class-htmlbook.php:855
@@ -1826,34 +1826,34 @@ msgstr ""
 msgid "An invitation email has been sent to the user(s) below. A confirmation link must be clicked before their account is created."
 msgstr ""
 
-#: inc/api/endpoints/controller/books/class-books.php:107
+#: inc/api/endpoints/controller/books/class-books.php:108
 #: inc/api/endpoints/controller/class-toc.php:151
 #: inc/api/endpoints/controller/class-toc.php:164
 #: inc/api/endpoints/controller/class-toc.php:177
 msgid "Metadata"
 msgstr ""
 
-#: inc/api/endpoints/controller/books/class-books.php:132
+#: inc/api/endpoints/controller/books/class-books.php:133
 msgid "ID offset, overrides page."
 msgstr ""
 
-#: inc/api/endpoints/controller/books/class-books.php:139
+#: inc/api/endpoints/controller/books/class-books.php:140
 msgid "Timestamp for updated field."
 msgstr ""
 
-#: inc/api/endpoints/controller/books/class-books.php:145
+#: inc/api/endpoints/controller/books/class-books.php:146
 msgid "Array of license codes to filter books."
 msgstr ""
 
-#: inc/api/endpoints/controller/books/class-books.php:156
+#: inc/api/endpoints/controller/books/class-books.php:166
 msgid "Array of title filters to filter books."
 msgstr ""
 
-#: inc/api/endpoints/controller/books/class-books.php:167
+#: inc/api/endpoints/controller/books/class-books.php:177
 msgid "Boolean value to filter books by directory exclusion."
 msgstr ""
 
-#: inc/api/endpoints/controller/books/class-books.php:173
+#: inc/api/endpoints/controller/books/class-books.php:183
 msgid "String value to filter books by word count range."
 msgstr ""
 
@@ -2358,15 +2358,15 @@ msgid "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 Internationa
 msgstr ""
 
 #: inc/class-licensing.php:139
-#: inc/class-licensing.php:334
+#: inc/class-licensing.php:338
 msgid "All Rights Reserved"
 msgstr ""
 
-#: inc/class-licensing.php:213
+#: inc/class-licensing.php:217
 msgid "$title is deprecated. Method will automatically determine title from licenses"
 msgstr ""
 
-#: inc/class-licensing.php:331
+#: inc/class-licensing.php:335
 #: inc/class-styles.php:824
 #: inc/modules/export/epub/class-epub.php:1432
 #: inc/modules/export/htmlbook/class-htmlbook.php:864
@@ -2375,29 +2375,29 @@ msgstr ""
 msgid "by"
 msgstr ""
 
-#: inc/class-licensing.php:390
+#: inc/class-licensing.php:394
 msgid "except where otherwise noted."
 msgstr ""
 
-#: inc/class-licensing.php:417
-#: inc/class-licensing.php:441
+#: inc/class-licensing.php:421
+#: inc/class-licensing.php:445
 msgid "%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved."
 msgstr ""
 
-#: inc/class-licensing.php:429
+#: inc/class-licensing.php:433
 msgid "Icon for the %s"
 msgstr ""
 
-#: inc/class-licensing.php:431
+#: inc/class-licensing.php:435
 msgid "%1$s by %2$s is licensed under a %3$s, except where otherwise noted."
 msgstr ""
 
-#: inc/class-licensing.php:450
-#: inc/class-licensing.php:460
+#: inc/class-licensing.php:454
+#: inc/class-licensing.php:464
 msgid "Icon for the %s license"
 msgstr ""
 
-#: inc/class-licensing.php:452
+#: inc/class-licensing.php:456
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
 msgstr ""
 
