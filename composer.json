@@ -66,7 +66,7 @@
 		"codeception/module-webdriver": "^1.2",
 		"lucatume/wp-browser": "^3.0",
 		"pressbooks/coding-standards": "^1.1",
-		"yoast/phpunit-polyfills": "^1.0.1",
+		"yoast/phpunit-polyfills": "^2.0.0",
 		"dms/phpunit-arraysubset-asserts": "^0.5.0"
 	},
 	"suggest": {
