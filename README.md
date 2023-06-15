@@ -1,9 +1,9 @@
 # Pressbooks
 Contributors: Pressbooks <code@pressbooks.com>
 Tags: ebooks, publishing, webbooks
-Requires at least: 6.2
+Requires at least: 6.2.2
 Tested up to: 6.2.2
-Stable tag: 6.11.0
+Stable tag: 6.12.0
 Requires PHP: 8.1
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/production/LICENSE.md
