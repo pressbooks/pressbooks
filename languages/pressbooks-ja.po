@@ -5103,7 +5103,7 @@ msgstr "ページを作成・編集"
 
 #: templates/admin/dashboard/network.blade.php:77
 msgid "View homepage analytics"
-msgstr ""
+msgstr "ホームページのアナリティクスを表示"
 
 #: templates/admin/dashboard/network.blade.php:88
 msgid "Administer network"
