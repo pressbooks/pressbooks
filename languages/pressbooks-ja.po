@@ -5075,7 +5075,7 @@ msgstr "ようこそ"
 
 #: templates/admin/dashboard/network.blade.php:12
 msgid "Visit network homepage"
-msgstr ""
+msgstr "サイトネットワークのホームページを表示"
 
 #: templates/admin/dashboard/network.blade.php:23
 msgid "Your network has %s books and %s users. "
