@@ -1915,7 +1915,7 @@ msgstr "更新されたフィールドのタイムスタンプ。"
 
 #: inc/api/endpoints/controller/books/class-books.php:146
 msgid "Array of license codes to filter books."
-msgstr "本を絞り込むのためライセンスコード配列。"
+msgstr "本を絞り込むのためライセンスコードの配列。"
 
 #: inc/api/endpoints/controller/books/class-books.php:166
 msgid "Array of title filters to filter books."
