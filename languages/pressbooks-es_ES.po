@@ -2050,7 +2050,7 @@ msgstr "Array de filtros de título para filtrar libros."
 
 #: inc/api/endpoints/controller/books/class-books.php:177
 msgid "Boolean value to filter books by directory exclusion."
-msgstr ""
+msgstr "Valor booleano para filtrar libros por exclusión de directorios."
 
 #: inc/api/endpoints/controller/books/class-books.php:183
 msgid "String value to filter books by word count range."
