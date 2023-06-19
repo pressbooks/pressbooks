@@ -1927,7 +1927,7 @@ msgstr "ディレクトリの除外で本を絞り込むのため真偽値。"
 
 #: inc/api/endpoints/controller/books/class-books.php:183
 msgid "String value to filter books by word count range."
-msgstr ""
+msgstr "単語数範囲で本を絞り込むのため文字列値。"
 
 #: inc/api/endpoints/controller/class-metadata.php:549
 #: inc/api/endpoints/controller/class-sectionmetadata.php:453
