@@ -1919,7 +1919,7 @@ msgstr "本を絞り込むのためライセンスコード配列。"
 
 #: inc/api/endpoints/controller/books/class-books.php:166
 msgid "Array of title filters to filter books."
-msgstr ""
+msgstr "本を絞り込むのためタイトル絞り込みの配列。"
 
 #: inc/api/endpoints/controller/books/class-books.php:177
 msgid "Boolean value to filter books by directory exclusion."
