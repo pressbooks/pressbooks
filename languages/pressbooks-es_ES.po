@@ -2042,7 +2042,7 @@ msgstr "Marca de tiempo para el campo actualizado."
 
 #: inc/api/endpoints/controller/books/class-books.php:146
 msgid "Array of license codes to filter books."
-msgstr ""
+msgstr "Array de códigos de licencia para filtrar libros."
 
 #: inc/api/endpoints/controller/books/class-books.php:166
 msgid "Array of title filters to filter books."
