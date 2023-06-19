@@ -1923,7 +1923,7 @@ msgstr "本を絞り込むのためタイトル絞り込みの配列。"
 
 #: inc/api/endpoints/controller/books/class-books.php:177
 msgid "Boolean value to filter books by directory exclusion."
-msgstr ""
+msgstr "ディレクトリの除外で本を絞り込むのため真偽値。"
 
 #: inc/api/endpoints/controller/books/class-books.php:183
 msgid "String value to filter books by word count range."
