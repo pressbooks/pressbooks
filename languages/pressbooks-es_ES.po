@@ -5416,7 +5416,7 @@ msgstr "Te damos la bienvenida a"
 
 #: templates/admin/dashboard/network.blade.php:12
 msgid "Visit network homepage"
-msgstr ""
+msgstr "Visitar la página de inicio de la red"
 
 #: templates/admin/dashboard/network.blade.php:23
 msgid "Your network has %s books and %s users. "
