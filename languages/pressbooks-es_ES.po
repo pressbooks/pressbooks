@@ -5444,7 +5444,7 @@ msgstr "Crear o editar páginas"
 
 #: templates/admin/dashboard/network.blade.php:77
 msgid "View homepage analytics"
-msgstr ""
+msgstr "Ver la analítica de la página de inicio"
 
 #: templates/admin/dashboard/network.blade.php:88
 msgid "Administer network"
