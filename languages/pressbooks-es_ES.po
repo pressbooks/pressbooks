@@ -2055,6 +2055,7 @@ msgstr "Valor booleano para filtrar libros por exclusión de directorios."
 #: inc/api/endpoints/controller/books/class-books.php:183
 msgid "String value to filter books by word count range."
 msgstr ""
+"Valor de cadena para filtrar libros por intervalo de número de palabras."
 
 #: inc/api/endpoints/controller/class-metadata.php:549
 #: inc/api/endpoints/controller/class-sectionmetadata.php:453
