@@ -15,7 +15,7 @@
 		"node": ">= 18"
 	},
 	"dependencies": {
-		"algoliasearch": "^4.17.2",
+		"algoliasearch": "^4.18.0",
 		"alpinejs": "^3.12.2",
 		"block-ui": "^2.70.1",
 		"countup.js": "^2.6.2",
