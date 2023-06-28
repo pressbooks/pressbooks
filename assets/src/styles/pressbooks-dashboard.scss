@@ -210,6 +210,7 @@
 
   .network-checklist {
     line-height: 1.4;
+    margin-bottom: 1.5rem;
 
     h2 {
       margin: 0 0 2rem;
@@ -263,11 +264,16 @@
     .completed {
       display: flex;
       gap: 2rem;
+      justify-content: center;
 
       .completed-checkbox {
-        width: 30%;
+        width: 18%;
         min-width: 125px;
         display: flex;
+
+        @media (max-width: 600px) {
+          display: none;
+        }
 
         svg {
           width: 100%;
@@ -275,12 +281,17 @@
         }
       }
 
-      .completed-message h3 {
-        margin-top: 0;
+      .completed-message {
+        max-width: 600px;
+
+        h3 {
+          margin-top: 0;
+        }
       }
 
       .button-primary {
-        margin-bottom: 1rem;
+        margin: 1.5rem 0 1rem;
+        max-width: 270px;
       }
     }
   }
