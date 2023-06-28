@@ -68,46 +68,61 @@ class NetworkDashboard extends Dashboard {
 			[
 				'title' => __( 'Customize your homepage', 'pressbooks' ),
 				'link' => admin_url( 'edit.php?post_type=page' ),
-				'description' => __( 'Edit the textboxes and menu links on your homepage to better orient visitors' ),
+				'description' => __( 'Edit the textboxes and menu links on your homepage' ),
 				'checked' => get_network_option( null, 'network_checklist_customize_homepage', false ),
 			],
 			[
 				'title' => __( 'Review network settings', 'pressbooks' ),
 				'link' => network_admin_url( 'admin.php?page=pb_network_analytics_options' ),
-				'description' => __( 'Adjust defaults for new books and user permissions to suit your preferences' ),
+				'description' => __( 'Adjust defaults for new books and user permissions ' ),
 				'checked' => get_network_option( null, 'network_checklist_review_network', false ),
 			],
 			[
 				'title' => __( 'Configure Google Analytics', 'pressbooks' ),
 				'link' => network_admin_url( 'settings.php?page=pb_network_analytics_options#tabs-3' ),
-				'description' => __( 'Set up Google Analytics for additional insight into your network’s visitors' ),
+				'description' => __( 'Get more insight into your network’s web traffic' ),
 				'checked' => get_network_option( null, 'network_checklist_google_analytics', false ),
-			],
-			[
-				'title' => __( 'Join the Pressbooks Community Forum', 'pressbooks' ),
-				'link' => 'https://pressbooks.community/invites/Rqa9J1wYUN',
-				'description' => __( 'Communicate with other network managers in a dedicated group on the Pressbooks Forum' ),
-				'checked' => get_network_option( null, 'network_checklist_join_forum', false ),
-			],
-			[
-				'title' => __( 'Complete your onboarding', 'pressbooks' ),
-				'link' => 'https://calendly.com/pb-amy',
-				'description' => __( 'Book a short meeting with Pressbooks staff to answer all of your pre-launch questions' ),
-				'checked' => get_network_option( null, 'network_checklist_book_meeting', false ),
 			],
 		];
 
-		// Check if SSO plugin is activated
+		// Check if either SSO plugin is activated
 		if ( is_plugin_active( 'pressbooks-saml-sso/pressbooks-saml-sso.php' ) ) {
 			$sso_item = [
+				'title' => __( 'Configure Single Sign On (SSO)', 'pressbooks' ),
+				'link' => network_admin_url( 'admin.php?page=pb_saml_admin' ),
+				'description' => __( 'Allow users to login with their existing institutional credentials' ),
+				'checked' => get_network_option( null, 'network_checklist_configure_sso', false ),
+			];
+			array_splice( $items, 3, 0, [ $sso_item ] );
+		}
+		if ( is_plugin_active( 'pressbooks-cas-sso/pressbooks-cas-sso.php' ) ) {
+			$sso_item = [
 				'title'       => __( 'Configure Single Sign On (SSO)', 'pressbooks' ),
-				'link'        => network_admin_url( 'admin.php?page=pb_saml_admin' ),
-				'description' => __( 'Allow users to login using their existing institutional credentials' ),
+				'link'        => network_admin_url( 'admin.php?page=pb_cas_admin' ),
+				'description' => __( 'Allow users to login with their existing institutional credentials' ),
 				'checked'     => get_network_option( null, 'network_checklist_configure_sso', false ),
 			];
-
-			// Insert SSO item at the fourth position
 			array_splice( $items, 3, 0, [ $sso_item ] );
+		}
+
+		// Check if Network Analytics plugin is activated
+		if ( is_plugin_active( 'pressbooks-network-analytics/pressbooks-network-analytics.php' ) ) {
+			$forum_item = [
+				'title' => __( 'Join the Pressbooks Community Forum', 'pressbooks' ),
+				'link' => 'https://pressbooks.community/invites/Rqa9J1wYUN',
+				'description' => __( 'Chat with other network managers in a dedicated group' ),
+				'checked' => get_network_option( null, 'network_checklist_join_forum', false ),
+			];
+			$checkin_item = [
+				'title' => __( 'Complete your onboarding', 'pressbooks' ),
+				'link' => 'https://calendly.com/pb-amy',
+				'description' => __( 'Book a meeting to discuss any remaining questions with us' ),
+				'checked' => get_network_option( null, 'network_checklist_book_meeting', false ),
+			];
+
+			// Insert forum and checkin items at end of the list/array
+			$items[] = $forum_item;
+			$items[] = $checkin_item;
 		}
 
 		return $items;

@@ -74,7 +74,9 @@
 					</svg>
 				</div>
 				<h2>{{ __( 'Congratulations', 'pressbooks' ) }}</h2>
-				<p>{{ __( 'You are ready to launch and can invite users to your network. Please take this survey about your onboarding experience.', 'pressbooks' ) }}</p>
+				<p>{{ __( 'You are ready to launch your Pressbooks network by inviting users to begin creating and publishing books!' ) }}</p>
+				<p>{{ __( 'Please help us understand and improve the network manager onboarding experience by completing a brief "Readiness to Launch" survey.', 'pressbooks' ) }}</p>
+				<a class="button button-primary" href="#">Take onboarding survey</a>
 				<a href="#">{{ __( 'Return to checklist', 'pressbooks' ) }}</a>
 			</div>
 		</div>
