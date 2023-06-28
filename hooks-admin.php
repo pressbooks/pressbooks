@@ -236,6 +236,8 @@ add_action( 'wp_ajax_pb_ftnref_convert', [ '\Pressbooks\Shortcodes\Footnotes\Foo
 add_action( 'wp_ajax_pb_delete_catalog_logo', [ '\Pressbooks\Catalog', 'deleteLogo' ] );
 // Export page
 add_action( 'wp_ajax_pb_update_pins', '\Pressbooks\Modules\Export\update_pins' );
+// Checklist dashboard
+add_action( 'wp_ajax_pb-dashboard-checklist', ['Pressbooks\Admin\Dashboard\NetworkDashboard', 'storeCheck' ]);
 
 // -------------------------------------------------------------------------------------------------------------------
 // SASS

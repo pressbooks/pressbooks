@@ -40,14 +40,15 @@
 				@if($network_checklist)
 					<ul>
 						@foreach($network_checklist as $item)
-							<li x-data="{ isChecked: false }" :class="{ 'checked': isChecked }">
+							@php
+								$isChecked = $item['checked'] === '1';
+							@endphp
+							<li x-data="{ isChecked: @json($isChecked) }" :class="{ 'checked': isChecked }" @change="networkManagerDashboard.handleChange">
 								<label>
 									<input
+										value="{{ $item['id'] }}"
 										type="checkbox"
 										x-model="isChecked"
-										@if($item['checked'])
-											checked
-										@endif
 									/>
 									<div>
 										<a href="{{ $item['link'] }}">{{ $item['title'] }}</a>
