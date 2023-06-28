@@ -35,7 +35,6 @@ class NetworkDashboard extends Dashboard {
 			'koko_analytics_active' => is_plugin_active( 'koko-analytics/koko-analytics.php' ),
 			'network_checklist' => [
 				'items' => $this->getNetworkChecklist(),
-				'is_done' => $this->checkIfAllChecked(),
 				'should_display' => $this->shouldDisplayChecklist(),
 				'survey_link' => env( 'PB_CHECKLIST_ONBOARDING_SURVEY' ),
 			],
@@ -180,7 +179,8 @@ class NetworkDashboard extends Dashboard {
 	}
 
 	/**
-	 * Check if the checklist should be displayed if the network is older than 3 months
+	 * Check if the checklist should be displayed if the network is older than X months
+	 * PB_CHECKLIST_NETWORK_CREATION_MONTHS_AGO is defined in the .env file
 	 *
 	 * @return bool
 	 */

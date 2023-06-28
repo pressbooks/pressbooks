@@ -34,9 +34,6 @@
 		</div>
 	</div>
 	@if($network_checklist['should_display'])
-		@php
-			$isCompleted = $network_checklist['is_done'];
-		@endphp
 	<div class="pb-dashboard-row" x-data>
 		<div class="pb-dashboard-panel">
 			<div class="pb-dashboard-content network-checklist">
