@@ -186,7 +186,7 @@ class NetworkDashboard extends Dashboard {
 	 */
 	public function shouldDisplayChecklist(): bool {
 
-		if ( ! env( 'PB_CHECKLIST_NETWORK_CREATION_MONTHS_AGO' )  ) {
+		if ( ! env( 'PB_CHECKLIST_NETWORK_CREATION_MONTHS_AGO' ) ) {
 			return false;
 		}
 
