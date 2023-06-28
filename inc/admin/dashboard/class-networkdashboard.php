@@ -37,7 +37,7 @@ class NetworkDashboard extends Dashboard {
 				'items' => $this->getNetworkChecklist(),
 				'is_done' => $this->checkIfAllChecked(),
 				'should_display' => $this->shouldDisplayChecklist(),
-				'survey_link' => env( 'PB_CHECKLIST_ONBOARDING_SURVEY')
+				'survey_link' => env( 'PB_CHECKLIST_ONBOARDING_SURVEY' ),
 			],
 		] );
 	}
@@ -145,7 +145,7 @@ class NetworkDashboard extends Dashboard {
 			$items[] = [
 				'id' => 'network_checklist_book_meeting',
 				'title' => __( 'Complete your onboarding', 'pressbooks' ),
-				'link' => env( 'PB_CHECKLIST_BOOKING_URL'),
+				'link' => env( 'PB_CHECKLIST_BOOKING_URL' ),
 				'description' => __( 'Book a meeting to discuss any remaining questions with us' ),
 				'checked' => get_network_option( null, 'network_checklist_book_meeting', false ),
 			];
@@ -192,7 +192,7 @@ class NetworkDashboard extends Dashboard {
 
 		if ( $network_creation_date ) {
 			$current_date = current_time( 'Y-m-d' ); // Use a non-timestamp format
-			$months_ago = strtotime( env('PB_CHECKLIST_NETWORK_CREATION_MONTHS_AGO') );
+			$months_ago = strtotime( env( 'PB_CHECKLIST_NETWORK_CREATION_MONTHS_AGO' ) );
 			$months_ago_date = date( 'Y-m-d', $months_ago );
 			return ( strtotime( $network_creation_date ) >= strtotime( $months_ago_date ) && strtotime( $network_creation_date ) <= strtotime( $current_date ) );
 		}
