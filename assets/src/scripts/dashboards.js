@@ -37,7 +37,12 @@ let networkManagerDashboard = {
 	 *
 	 */
 	reset: function () {
-		document.dispatchEvent( new CustomEvent( 'updateCompleted', { detail: { reset: true, completed: true } } ) );
+		document.dispatchEvent( new CustomEvent( 'updateCompleted', {
+			detail: {
+				reset: true,
+				completed: true,
+			},
+		} ) );
 	},
 };
 
@@ -47,23 +52,26 @@ document.addEventListener( 'alpine:init', () => {
 		reset: false,
 		loading: true,
 		/**
-		 * @param {object} event
+		 *
 		 */
 		toggleComplete() {
 			this.completed = ! this.completed;
 		},
 		/**
-		 * @param {object} event
+		 *
 		 */
 		toggleReset() {
 			this.reset = ! this.reset;
 		},
+		/**
+		 *
+		 */
 		updateCompleted() {
-			const checkboxes = document.querySelectorAll('.network-checklist input[type="checkbox"]');
-			const allSelected = Array.from(checkboxes).every((checkbox) => checkbox.checked);
+			const checkboxes = document.querySelectorAll( '.network-checklist input[type="checkbox"]' );
+			const allSelected = Array.from( checkboxes ).every( checkbox => checkbox.checked );
 			this.completed = allSelected;
 			this.loading = false;
-		}
+		},
 	} );
 } );
 
@@ -71,13 +79,13 @@ document.addEventListener( 'alpine:init', () => {
 document.addEventListener( 'updateCompleted', function ( event ) {
 	const { completed, reset } = event.detail;
 	if ( reset ) {
-		Alpine.store( 'checklist' ).toggleReset()
+		Alpine.store( 'checklist' ).toggleReset();
 	}
 	if ( completed ) {
 		Alpine.store( 'checklist' ).toggleComplete();
 	}
 } );
 
-document.addEventListener('DOMContentLoaded', () => {
-	Alpine.store('checklist').updateCompleted();
-});
+document.addEventListener( 'DOMContentLoaded', () => {
+	Alpine.store( 'checklist' ).updateCompleted();
+} );

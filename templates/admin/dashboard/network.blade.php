@@ -68,16 +68,20 @@
 					@endif
 				</div >
 				<div class="completed" x-show="$store.checklist.completed" x-cloak>
-					<div>
-						<svg width="136" height="136" viewBox="0 0 136 136" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<div class="completed-checkbox">
+						<svg viewBox="0 0 136 136" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M68 136C30.4779 136 0 105.522 0 68C0 30.4779 30.4779 0 68 0C105.522 0 136 30.4779 136 68C136 105.522 105.522 136 68 136ZM68 10.4615C36.2667 10.4615 10.4615 36.2667 10.4615 68C10.4615 99.7333 36.2667 125.538 68 125.538C99.7333 125.538 125.538 99.7333 125.538 68C125.538 36.2667 99.7333 10.4615 68 10.4615ZM62.7692 94.1538C61.3744 94.1538 60.0492 93.5959 59.0728 92.6195L43.3805 76.9272C41.358 74.9046 41.358 71.5569 43.3805 69.5344C45.4031 67.5118 48.7508 67.5118 50.7733 69.5344L62.0718 80.8328L84.6687 49.239C86.3426 46.8677 89.6205 46.3097 91.9918 48.0533C94.3631 49.7272 94.921 53.0051 93.1774 55.3764L67.0236 91.9918C66.1169 93.2472 64.7221 94.0144 63.1877 94.1538C63.0482 94.1538 62.9087 94.1538 62.7692 94.1538Z" fill="#27AE60"/>
 						</svg>
 					</div>
-					<h3>{{ __( 'Congratulations!', 'pressbooks' ) }}</h3>
-					<p>{{ __( 'You are ready to launch your Pressbooks network. You can start inviting users to begin creating and publishing books.' ) }}</p>
-					<p>{{ __( 'Help us improve the network manager onboarding experience by completing a brief \'Readiness to Launch\' survey.', 'pressbooks' ) }}</p>
-					<a class="button button-primary" href="{{ $network_checklist['survey_link'] }}">Take onboarding survey</a>
-					<a x-data href="#reset" @click.prevent="networkManagerDashboard.reset">{{ __( 'Return to checklist', 'pressbooks' ) }}</a>
+					<div class="completed-message">
+						<h3>{{ __( 'Congratulations!', 'pressbooks' ) }}</h3>
+						<p>{{ __( 'You are ready to launch your Pressbooks network. You can start inviting users to begin creating and publishing books.' ) }}</p>
+						<p>{{ __( 'Help us improve the network manager onboarding experience by completing a brief \'Readiness to Launch\' survey.', 'pressbooks' ) }}</p>
+						@if($network_checklist['survey_link'])
+							<a class="button button-primary" href="{{ $network_checklist['survey_link'] }}">Take onboarding survey</a>
+						@endif
+						<a x-data href="#" @click.prevent="networkManagerDashboard.reset">{{ __( 'Return to checklist', 'pressbooks' ) }}</a>
+					</div>
 				</div>
 			</div>
 		</div>

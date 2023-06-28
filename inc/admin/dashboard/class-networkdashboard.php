@@ -192,9 +192,9 @@ class NetworkDashboard extends Dashboard {
 
 		if ( $network_creation_date ) {
 			$current_date = current_time( 'Y-m-d' ); // Use a non-timestamp format
-			$three_months_ago = strtotime( env('PB_CHECKLIST_NETWORK_CREATION_MONTHS_AGO') );
-			$three_months_ago_date = date( 'Y-m-d', $three_months_ago );
-			return ( strtotime( $network_creation_date ) >= strtotime( $three_months_ago_date ) && strtotime( $network_creation_date ) <= strtotime( $current_date ) );
+			$months_ago = strtotime( env('PB_CHECKLIST_NETWORK_CREATION_MONTHS_AGO') );
+			$months_ago_date = date( 'Y-m-d', $months_ago );
+			return ( strtotime( $network_creation_date ) >= strtotime( $months_ago_date ) && strtotime( $network_creation_date ) <= strtotime( $current_date ) );
 		}
 
 		return false;
