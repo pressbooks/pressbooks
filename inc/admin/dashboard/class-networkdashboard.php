@@ -4,8 +4,8 @@
  */
 namespace Pressbooks\Admin\Dashboard;
 
-use Pressbooks\Container;
 use PressbooksMix\Assets;
+use Pressbooks\Container;
 
 class NetworkDashboard extends Dashboard {
 	protected static ?Dashboard $instance = null;
@@ -17,7 +17,6 @@ class NetworkDashboard extends Dashboard {
 		add_action( 'network_admin_menu', [ $this, 'removeDefaultPage' ] );
 		add_action( 'network_admin_menu', [ $this, 'addNewPage' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueueAssets' ] );
-		add_action( 'wp_ajax_pb-dashboard-checklist', [ $this, 'storeCheck' ]);
 	}
 
 	public function getUrl(): string {
@@ -34,7 +33,11 @@ class NetworkDashboard extends Dashboard {
 			'total_books' => $this->getTotalNumberOfBooks(),
 			'network_analytics_active' => is_plugin_active( 'pressbooks-network-analytics/pressbooks-network-analytics.php' ),
 			'koko_analytics_active' => is_plugin_active( 'koko-analytics/koko-analytics.php' ),
-			'network_checklist' => $this->getNetworkChecklist(),
+			'network_checklist' => [
+				'items' => $this->getNetworkChecklist(),
+				'is_done' => $this->checkIfAllChecked(),
+				'should_display' => $this->shouldDisplayChecklist(),
+			],
 		] );
 	}
 
@@ -60,17 +63,16 @@ class NetworkDashboard extends Dashboard {
 		);
 	}
 
-	public function enqueueAssets(): void
-	{
+	public function enqueueAssets(): void {
 		$assets = new Assets( 'pressbooks', 'plugin' );
 		wp_enqueue_script( 'pb-dashboard-checklist', $assets->getPath( 'scripts/dashboards.js' ), false, null );
-		wp_localize_script('pb-dashboard-checklist', 'pb_ajax_dashboard', array(
-			'ajax_url' => admin_url('admin-ajax.php'),
-			'nonce' => wp_create_nonce('pb-dashboard-checklist'),
-		));
+		wp_localize_script('pb-dashboard-checklist', 'pb_ajax_dashboard', [
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+			'nonce' => wp_create_nonce( 'pb-dashboard-checklist' ),
+		]);
 	}
 
-	protected function getNetworkChecklist() : array {
+	public function getNetworkChecklist() : array {
 		$items = [
 			[
 				'id' => 'network_checklist_pressbooks_branding',
@@ -83,61 +85,117 @@ class NetworkDashboard extends Dashboard {
 				'id' => 'network_checklist_customize_homepage',
 				'title' => __( 'Customize your homepage', 'pressbooks' ),
 				'link' => admin_url( 'edit.php?post_type=page' ),
-				'description' => __( 'Edit the textboxes and menu links on your homepage to better orient visitors' ),
+				'description' => __( 'Edit the textboxes and menu links on your homepage' ),
 				'checked' => get_network_option( null, 'network_checklist_customize_homepage', false ),
 			],
 			[
 				'id' => 'network_checklist_review_network',
 				'title' => __( 'Review network settings', 'pressbooks' ),
 				'link' => network_admin_url( 'admin.php?page=pb_network_analytics_options' ),
-				'description' => __( 'Adjust defaults for new books and user permissions to suit your preferences' ),
+				'description' => __( 'Adjust defaults for new books and user permissions ' ),
 				'checked' => get_network_option( null, 'network_checklist_review_network', false ),
 			],
 			[
 				'id' => 'network_checklist_google_analytics',
 				'title' => __( 'Configure Google Analytics', 'pressbooks' ),
 				'link' => network_admin_url( 'settings.php?page=pb_network_analytics_options#tabs-3' ),
-				'description' => __( 'Set up Google Analytics for additional insight into your network’s visitors' ),
+				'description' => __( 'Get more insight into your network’s web traffic' ),
 				'checked' => get_network_option( null, 'network_checklist_google_analytics', false ),
-			],
-			[
-				'id' => 'network_checklist_join_forum',
-				'title' => __( 'Join the Pressbooks Community Forum', 'pressbooks' ),
-				'link' => 'https://pressbooks.community/invites/Rqa9J1wYUN',
-				'description' => __( 'Communicate with other network managers in a dedicated group on the Pressbooks Forum' ),
-				'checked' => get_network_option( null, 'network_checklist_join_forum', false ),
-			],
-			[
-				'id' => 'network_checklist_book_meeting',
-				'title' => __( 'Complete your onboarding', 'pressbooks' ),
-				'link' => 'https://calendly.com/pb-amy',
-				'description' => __( 'Book a short meeting with Pressbooks staff to answer all of your pre-launch questions' ),
-				'checked' => get_network_option( null, 'network_checklist_book_meeting', false ),
 			],
 		];
 
-		// Check if SSO plugin is activated
-		if ( is_plugin_active( 'pressbooks-saml-sso/pressbooks-saml-sso.php' ) ) {
-			$sso_item = [
-				'id'          => 'network_checklist_configure_sso',
-				'title'       => __( 'Configure Single Sign On (SSO)', 'pressbooks' ),
+		// Check if either SSO plugin is activated
+		$sso_configurations = [
+			[
+				'plugin'      => 'pressbooks-saml-sso/pressbooks-saml-sso.php',
 				'link'        => network_admin_url( 'admin.php?page=pb_saml_admin' ),
-				'description' => __( 'Allow users to login using their existing institutional credentials' ),
-				'checked'     => get_network_option( null, 'network_checklist_configure_sso', false ),
-			];
+			],
+			[
+				'plugin'      => 'pressbooks-cas-sso/pressbooks-cas-sso.php',
+				'link'        => network_admin_url( 'admin.php?page=pb_cas_admin' ),
+			],
+		];
 
-			// Insert SSO item at the fourth position
-			array_splice( $items, 3, 0, [ $sso_item ] );
+		// Check for active SSO plugin and add configuration
+		foreach ( $sso_configurations as $sso_configuration ) {
+			if ( is_plugin_active( $sso_configuration['plugin'] ) ) {
+				$sso_item = [
+					'id'          => 'network_checklist_configure_sso',
+					'title'       => __( 'Configure Single Sign On (SSO)', 'pressbooks' ),
+					'link'        => $sso_configuration['link'],
+					'description' => __( 'Allow users to login with their existing institutional credentials' ),
+					'checked'     => get_network_option( null, 'network_checklist_configure_sso', false ),
+				];
+
+				array_splice( $items, 3, 0, [ $sso_item ] );
+				break;
+			}
+		}
+
+		// Check if Network Analytics plugin is activated
+		if ( is_plugin_active( 'pressbooks-network-analytics/pressbooks-network-analytics.php' ) ) {
+			$items[] = [
+				'id' => 'network_checklist_join_forum',
+				'title' => __( 'Join the Pressbooks Community Forum', 'pressbooks' ),
+				'link' => 'https://pressbooks.community/invites/Rqa9J1wYUN',
+				'description' => __( 'Chat with other network managers in a dedicated group' ),
+				'checked' => get_network_option( null, 'network_checklist_join_forum', false ),
+			];
+			$items[] = [
+				'id' => 'network_checklist_book_meeting',
+				'title' => __( 'Complete your onboarding', 'pressbooks' ),
+				'link' => 'https://calendly.com/pb-amy',
+				'description' => __( 'Book a meeting to discuss any remaining questions with us' ),
+				'checked' => get_network_option( null, 'network_checklist_book_meeting', false ),
+			];
 		}
 
 		return $items;
 	}
 
-	public static function storeCheck(): void
-	{
-		check_ajax_referer('pb-dashboard-checklist');
-		$item = $_POST['item'];
+	public static function storeCheck(): void {
+		check_ajax_referer( 'pb-dashboard-checklist' );
+		$item = sanitize_text_field( wp_unslash( $_POST['item'] ?? '' ) );
 		$current = get_network_option( null, $item );
-		wp_send_json_success(update_network_option( null, $item, ! $current));
+		$updated = update_network_option( null, $item, ! $current );
+		if ( $updated ) {
+			wp_send_json_success(
+				[
+					'checked' => $updated,
+					'completed' => ( new self() )->checkIfAllChecked(),
+				]
+			);
+		}
+	}
+
+	public function checkIfAllChecked(): bool {
+		$checklist = $this->getNetworkChecklist();
+		foreach ( $checklist as $item ) {
+			if ( ! $item['checked'] ) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Check if the checklist should be displayed if the network is older than 3 months
+	 *
+	 * @return bool
+	 */
+	public function shouldDisplayChecklist(): bool {
+		global $wpdb;
+
+		// Get the root site creation date
+		$network_creation_date = $wpdb->get_var( $wpdb->prepare( "SELECT registered FROM $wpdb->blogs WHERE site_id = %s", 1 ) );
+
+		if ( $network_creation_date ) {
+			$current_date = current_time( 'Y-m-d' ); // Use a non-timestamp format
+			$three_months_ago = strtotime( '-3 months' );
+			$three_months_ago_date = date( 'Y-m-d', $three_months_ago );
+			return ( strtotime( $network_creation_date ) >= strtotime( $three_months_ago_date ) && strtotime( $network_creation_date ) <= strtotime( $current_date ) );
+		}
+
+		return false;
 	}
 }
