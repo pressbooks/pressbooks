@@ -22,8 +22,8 @@ let networkManagerDashboard = {
 				return response.json();
 			} )
 			.then( ( { data } ) => {
-				// Handle the response
 				if ( data.completed ) {
+					//notify alpine
 					document.dispatchEvent( new CustomEvent( 'updateCompleted', {
 						detail: {
 							completed: data.completed,
@@ -37,7 +37,7 @@ let networkManagerDashboard = {
 	 *
 	 */
 	reset: function () {
-		document.dispatchEvent( new CustomEvent( 'updateCompleted', { detail: { reset: true } } ) );
+		document.dispatchEvent( new CustomEvent( 'updateCompleted', { detail: { reset: true, completed: true } } ) );
 	},
 };
 
@@ -45,23 +45,39 @@ document.addEventListener( 'alpine:init', () => {
 	Alpine.store( 'checklist', {
 		completed: false,
 		reset: false,
+		loading: true,
 		/**
-		 *
+		 * @param {object} event
 		 */
-		toggle() {
+		toggleComplete() {
 			this.completed = ! this.completed;
 		},
+		/**
+		 * @param {object} event
+		 */
+		toggleReset() {
+			this.reset = ! this.reset;
+		},
+		updateCompleted() {
+			const checkboxes = document.querySelectorAll('.network-checklist input[type="checkbox"]');
+			const allSelected = Array.from(checkboxes).every((checkbox) => checkbox.checked);
+			this.completed = allSelected;
+			this.loading = false;
+		}
 	} );
 } );
 
 //alpine init
 document.addEventListener( 'updateCompleted', function ( event ) {
-	const { completed } = event.detail;
-	const { reset } = event.detail;
+	const { completed, reset } = event.detail;
 	if ( reset ) {
-		Alpine.store( 'checklist' ).reset = true;
+		Alpine.store( 'checklist' ).toggleReset()
 	}
 	if ( completed ) {
-		Alpine.store( 'checklist' ).toggle();
+		Alpine.store( 'checklist' ).toggleComplete();
 	}
 } );
+
+document.addEventListener('DOMContentLoaded', () => {
+	Alpine.store('checklist').updateCompleted();
+});

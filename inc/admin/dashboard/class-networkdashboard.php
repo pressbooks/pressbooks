@@ -37,6 +37,7 @@ class NetworkDashboard extends Dashboard {
 				'items' => $this->getNetworkChecklist(),
 				'is_done' => $this->checkIfAllChecked(),
 				'should_display' => $this->shouldDisplayChecklist(),
+				'survey_link' => env( 'PB_CHECKLIST_ONBOARDING_SURVEY')
 			],
 		] );
 	}
@@ -144,7 +145,7 @@ class NetworkDashboard extends Dashboard {
 			$items[] = [
 				'id' => 'network_checklist_book_meeting',
 				'title' => __( 'Complete your onboarding', 'pressbooks' ),
-				'link' => 'https://calendly.com/pb-amy',
+				'link' => env( 'PB_CHECKLIST_BOOKING_URL'),
 				'description' => __( 'Book a meeting to discuss any remaining questions with us' ),
 				'checked' => get_network_option( null, 'network_checklist_book_meeting', false ),
 			];
@@ -187,11 +188,11 @@ class NetworkDashboard extends Dashboard {
 		global $wpdb;
 
 		// Get the root site creation date
-		$network_creation_date = $wpdb->get_var( $wpdb->prepare( "SELECT registered FROM $wpdb->blogs WHERE site_id = %s", 1 ) );
+		$network_creation_date = $wpdb->get_var( $wpdb->prepare( "SELECT registered FROM $wpdb->blogs WHERE site_id = %s", get_main_network_id() ) );
 
 		if ( $network_creation_date ) {
 			$current_date = current_time( 'Y-m-d' ); // Use a non-timestamp format
-			$three_months_ago = strtotime( '-3 months' );
+			$three_months_ago = strtotime( env('PB_CHECKLIST_NETWORK_CREATION_MONTHS_AGO') );
 			$three_months_ago_date = date( 'Y-m-d', $three_months_ago );
 			return ( strtotime( $network_creation_date ) >= strtotime( $three_months_ago_date ) && strtotime( $network_creation_date ) <= strtotime( $current_date ) );
 		}
