@@ -92,6 +92,16 @@ class Admin_NetworkDashboardTest extends \WP_UnitTestCase {
 	 * @test
 	 * @group network-dashboard
 	 */
+	public function it_returns_false_if_env_not_defined(): void {
+
+		putenv( 'PB_CHECKLIST_NETWORK_CREATION_MONTHS_AGO=' );
+		$this->assertFalse( (new NetworkDashboard())->shouldDisplayChecklist() );
+	}
+
+	/**
+	 * @test
+	 * @group network-dashboard
+	 */
 	public function it_shows_network_checklist_only_if_network_is_recently_created(): void {
 
 		putenv( 'PB_CHECKLIST_NETWORK_CREATION_MONTHS_AGO="-6 month"' );

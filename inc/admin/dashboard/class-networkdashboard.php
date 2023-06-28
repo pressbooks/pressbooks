@@ -185,6 +185,11 @@ class NetworkDashboard extends Dashboard {
 	 * @return bool
 	 */
 	public function shouldDisplayChecklist(): bool {
+
+		if ( ! env( 'PB_CHECKLIST_NETWORK_CREATION_MONTHS_AGO' )  ) {
+			return false;
+		}
+
 		global $wpdb;
 
 		// Get the root site creation date
