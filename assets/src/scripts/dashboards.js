@@ -24,7 +24,12 @@ let networkManagerDashboard = {
 			.then( ( { data } ) => {
 				// Handle the response
 				if ( data.completed ) {
-					document.dispatchEvent( new CustomEvent( 'updateCompleted', { detail: { completed: data.completed, reset: false } } ) );
+					document.dispatchEvent( new CustomEvent( 'updateCompleted', {
+						detail: {
+							completed: data.completed,
+							reset: false,
+						},
+					} ) );
 				}
 			} ).catch( function ( error ) {} );
 	},
