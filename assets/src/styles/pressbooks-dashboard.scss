@@ -212,7 +212,7 @@
     line-height: 1.4;
 
     h2 {
-      margin: 0 0 1rem;
+      margin: 0 0 2rem;
     }
 
     ul {
@@ -260,11 +260,28 @@
       }
     }
 
-    .button-primary {
-      width: 350px;
-      max-width: 100%;
-      margin-bottom: 1rem;
-    }
+    .completed {
+      display: flex;
+      gap: 2rem;
 
+      .completed-checkbox {
+        width: 30%;
+        min-width: 125px;
+        display: flex;
+
+        svg {
+          width: 100%;
+          align-self: center;
+        }
+      }
+
+      .completed-message h3 {
+        margin-top: 0;
+      }
+
+      .button-primary {
+        margin-bottom: 1rem;
+      }
+    }
   }
 }
