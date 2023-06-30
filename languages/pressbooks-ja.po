@@ -5,9 +5,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 6.12.0\n"
+"Project-Id-Version: Pressbooks 6.13.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2023-06-15T23:58:33+00:00\n"
+"POT-Creation-Date: 2023-06-29T17:26:46+00:00\n"
 "PO-Revision-Date: 2023-05-25 04:50+0000\n"
 "Last-Translator: Eduardo Vera, 2023\n"
 "Language-Team: Japanese (https://app.transifex.com/pressbooks/teams/9194/ja/)\n"
@@ -615,6 +615,38 @@ msgstr "1つの"
 #: inc/admin/dashboard/class-invitations.php:30
 msgid "a"
 msgstr "1つの"
+
+#: inc/admin/dashboard/class-networkdashboard.php:79
+msgid "Brand your network"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:81
+msgid "Display your institutional logos and colors across your network"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:86
+msgid "Customize your homepage"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:93
+msgid "Review network settings"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:100
+msgid "Configure Google Analytics"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:124
+msgid "Configure Single Sign On (SSO)"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:139
+msgid "Join the Pressbooks Community Forum"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:146
+msgid "Complete your onboarding"
+msgstr ""
 
 #: inc/admin/delete/class-book.php:52
 msgid "Delete Book"
@@ -5023,7 +5055,7 @@ msgid "Import Content"
 msgstr "コンテンツをインポート"
 
 #: templates/admin/dashboard/book.blade.php:105
-#: templates/admin/dashboard/network.blade.php:132
+#: templates/admin/dashboard/network.blade.php:184
 msgid "Support resources"
 msgstr "サポートリソース"
 
@@ -5045,7 +5077,7 @@ msgid ""
 msgstr "この詳細なハンドブックに出版プロジェクトのヘルプと使い方を検索します。"
 
 #: templates/admin/dashboard/book.blade.php:136
-#: templates/admin/dashboard/network.blade.php:151
+#: templates/admin/dashboard/network.blade.php:203
 msgid "Pressbooks community forum"
 msgstr "Pressbooks のコミュニティフォーラム"
 
@@ -5085,75 +5117,93 @@ msgstr "サイトネットワークには%s冊の本と%s人のユーザーが�
 msgid "Explore stats"
 msgstr "統計を調べる"
 
-#: templates/admin/dashboard/network.blade.php:45
+#: templates/admin/dashboard/network.blade.php:44
+msgid "Ready to Launch Checklist"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:80
+msgid "Congratulations!"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:82
+msgid ""
+"Help us improve the network manager onboarding experience by completing a "
+"brief 'Readiness to Launch' survey."
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:86
+msgid "Return to checklist"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:97
 msgid "Update homepage"
 msgstr "ホームページを更新"
 
-#: templates/admin/dashboard/network.blade.php:51
+#: templates/admin/dashboard/network.blade.php:103
 msgid "Update homepage art"
 msgstr "ホームページを更新の絵"
 
-#: templates/admin/dashboard/network.blade.php:60
+#: templates/admin/dashboard/network.blade.php:112
 msgid "Customize network appearance"
 msgstr "サイトネットワーク外観をカスタマイズ"
 
-#: templates/admin/dashboard/network.blade.php:68
+#: templates/admin/dashboard/network.blade.php:120
 msgid "Create or edit pages"
 msgstr "ページを作成・編集"
 
-#: templates/admin/dashboard/network.blade.php:77
+#: templates/admin/dashboard/network.blade.php:129
 msgid "View homepage analytics"
 msgstr "ホームページのアナリティクスを表示"
 
-#: templates/admin/dashboard/network.blade.php:88
+#: templates/admin/dashboard/network.blade.php:140
 msgid "Administer network"
 msgstr "サイトネットワーク管理"
 
-#: templates/admin/dashboard/network.blade.php:94
+#: templates/admin/dashboard/network.blade.php:146
 msgid "Administer network art"
 msgstr "サイトネットワーク管理の絵"
 
-#: templates/admin/dashboard/network.blade.php:103
+#: templates/admin/dashboard/network.blade.php:155
 msgid "Adjust network settings"
 msgstr "サイトネットワーク設定を調整"
 
-#: templates/admin/dashboard/network.blade.php:111
+#: templates/admin/dashboard/network.blade.php:163
 msgid "View book list"
 msgstr "本リストを表示"
 
-#: templates/admin/dashboard/network.blade.php:119
+#: templates/admin/dashboard/network.blade.php:171
 msgid "View user list"
 msgstr "ユーザーリストを表示"
 
-#: templates/admin/dashboard/network.blade.php:140
+#: templates/admin/dashboard/network.blade.php:192
 msgid "Network manager guide"
 msgstr "サイトネットワーク管理者ガイド"
 
-#: templates/admin/dashboard/network.blade.php:143
+#: templates/admin/dashboard/network.blade.php:195
 msgid ""
 "Learn how to administer your Pressbooks network from our comprehensive how-"
 "to guide."
 msgstr "包括的なハウツーガイドから Pressbooks サイトネットワークを管理する方法に詳しく。"
 
-#: templates/admin/dashboard/network.blade.php:154
+#: templates/admin/dashboard/network.blade.php:206
 msgid ""
 "Discuss issues of interest with other network managers and Pressbooks "
 "support staff."
 msgstr "他のサイトネットワーク管理者や Pressbooks サポートスタッフと関心のある問題について話し合います。"
 
-#: templates/admin/dashboard/network.blade.php:162
+#: templates/admin/dashboard/network.blade.php:214
 msgid "Pressbooks webinars"
 msgstr "Pressbooks ウェビナー"
 
-#: templates/admin/dashboard/network.blade.php:165
+#: templates/admin/dashboard/network.blade.php:217
 msgid "Become a confident Pressbooks user by attending a free, live webinar."
 msgstr "無料のライブウェビナーに参加して、自信を持って Pressbooks ユーザーになります。"
 
-#: templates/admin/dashboard/network.blade.php:174
+#: templates/admin/dashboard/network.blade.php:226
 msgid "Contact Pressbooks Support"
 msgstr "Pressbooks サポートに連絡"
 
-#: templates/admin/dashboard/network.blade.php:177
+#: templates/admin/dashboard/network.blade.php:229
 msgid ""
 "Email Pressbooks’ Premium Support team to report bugs or get personalized "
 "help."
