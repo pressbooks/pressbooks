@@ -687,7 +687,7 @@ msgstr "Únete al foro de la comunidad de Pressbooks"
 
 #: inc/admin/dashboard/class-networkdashboard.php:146
 msgid "Complete your onboarding"
-msgstr ""
+msgstr "Completa la puesta en marcha"
 
 #: inc/admin/delete/class-book.php:52
 msgid "Delete Book"
