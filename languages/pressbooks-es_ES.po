@@ -667,11 +667,11 @@ msgstr "Muestra los colores y logotipos de tu institución en toda tu red."
 
 #: inc/admin/dashboard/class-networkdashboard.php:86
 msgid "Customize your homepage"
-msgstr "Personalizar la página de inicio"
+msgstr "Personaliza tu página de inicio"
 
 #: inc/admin/dashboard/class-networkdashboard.php:93
 msgid "Review network settings"
-msgstr "Revisar los ajustes de la red"
+msgstr "Revisa los ajustes de la red"
 
 #: inc/admin/dashboard/class-networkdashboard.php:100
 msgid "Configure Google Analytics"
