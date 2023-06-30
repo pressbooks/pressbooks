@@ -679,7 +679,7 @@ msgstr "Configurar Google Analytics"
 
 #: inc/admin/dashboard/class-networkdashboard.php:124
 msgid "Configure Single Sign On (SSO)"
-msgstr ""
+msgstr "Configurar el acceso único (SSO)"
 
 #: inc/admin/dashboard/class-networkdashboard.php:139
 msgid "Join the Pressbooks Community Forum"
