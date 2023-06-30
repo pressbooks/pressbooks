@@ -5476,7 +5476,7 @@ msgstr ""
 
 #: templates/admin/dashboard/network.blade.php:86
 msgid "Return to checklist"
-msgstr ""
+msgstr "Volver a la lista de comprobación"
 
 #: templates/admin/dashboard/network.blade.php:97
 msgid "Update homepage"
