@@ -683,7 +683,7 @@ msgstr "Configura el acceso único (SSO)"
 
 #: inc/admin/dashboard/class-networkdashboard.php:139
 msgid "Join the Pressbooks Community Forum"
-msgstr ""
+msgstr "Únete al foro de la comunidad de Pressbooks"
 
 #: inc/admin/dashboard/class-networkdashboard.php:146
 msgid "Complete your onboarding"
