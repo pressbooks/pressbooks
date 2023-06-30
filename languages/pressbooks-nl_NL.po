@@ -5,9 +5,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 6.10.0\n"
+"Project-Id-Version: Pressbooks 6.13.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2023-06-01T14:13:09+00:00\n"
+"POT-Creation-Date: 2023-06-29T17:26:46+00:00\n"
 "PO-Revision-Date: 2023-05-25 04:50+0000\n"
 "Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2023\n"
 "Language-Team: Dutch (Netherlands) (https://app.transifex.com/pressbooks/teams/9194/nl_NL/)\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: pressbooks\n"
-"X-Generator: WP-CLI 2.8.0\n"
+"X-Generator: WP-CLI 2.8.1\n"
 
 #. Plugin Name of the plugin
 msgid "Pressbooks"
@@ -632,6 +632,38 @@ msgstr ""
 
 #: inc/admin/dashboard/class-invitations.php:30
 msgid "a"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:79
+msgid "Brand your network"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:81
+msgid "Display your institutional logos and colors across your network"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:86
+msgid "Customize your homepage"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:93
+msgid "Review network settings"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:100
+msgid "Configure Google Analytics"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:124
+msgid "Configure Single Sign On (SSO)"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:139
+msgid "Join the Pressbooks Community Forum"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:146
+msgid "Complete your onboarding"
 msgstr ""
 
 #: inc/admin/delete/class-book.php:52
@@ -1449,7 +1481,7 @@ msgstr ""
 msgid "Help translate Pressbooks into your language!"
 msgstr "Help Pressbooks in uw taal te vertalen!"
 
-#: inc/admin/metaboxes/namespace.php:391 inc/class-licensing.php:329
+#: inc/admin/metaboxes/namespace.php:391 inc/class-licensing.php:333
 #: inc/modules/export/epub/class-epub.php:1423
 #: inc/modules/export/epub/class-epub.php:1445
 #: inc/modules/export/htmlbook/class-htmlbook.php:855
@@ -1925,34 +1957,34 @@ msgid ""
 "must be clicked before their account is created."
 msgstr ""
 
-#: inc/api/endpoints/controller/books/class-books.php:109
+#: inc/api/endpoints/controller/books/class-books.php:108
 #: inc/api/endpoints/controller/class-toc.php:151
 #: inc/api/endpoints/controller/class-toc.php:164
 #: inc/api/endpoints/controller/class-toc.php:177
 msgid "Metadata"
 msgstr "Metadata"
 
-#: inc/api/endpoints/controller/books/class-books.php:135
+#: inc/api/endpoints/controller/books/class-books.php:133
 msgid "ID offset, overrides page."
 msgstr "ID offset, overrides pagina."
 
-#: inc/api/endpoints/controller/books/class-books.php:142
+#: inc/api/endpoints/controller/books/class-books.php:140
 msgid "Timestamp for updated field."
 msgstr ""
 
-#: inc/api/endpoints/controller/books/class-books.php:148
+#: inc/api/endpoints/controller/books/class-books.php:146
 msgid "Array of license codes to filter books."
 msgstr ""
 
-#: inc/api/endpoints/controller/books/class-books.php:159
+#: inc/api/endpoints/controller/books/class-books.php:166
 msgid "Array of title filters to filter books."
 msgstr ""
 
-#: inc/api/endpoints/controller/books/class-books.php:170
+#: inc/api/endpoints/controller/books/class-books.php:177
 msgid "Boolean value to filter books by directory exclusion."
 msgstr ""
 
-#: inc/api/endpoints/controller/books/class-books.php:176
+#: inc/api/endpoints/controller/books/class-books.php:183
 msgid "String value to filter books by word count range."
 msgstr ""
 
@@ -2490,18 +2522,18 @@ msgstr ""
 "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International "
 "License"
 
-#: inc/class-licensing.php:139 inc/class-licensing.php:334
+#: inc/class-licensing.php:139 inc/class-licensing.php:338
 msgid "All Rights Reserved"
 msgstr "Alle rechten voorbehouden"
 
-#: inc/class-licensing.php:213
+#: inc/class-licensing.php:217
 msgid ""
 "$title is deprecated. Method will automatically determine title from "
 "licenses"
 msgstr ""
 "$title is verouderd. Methode zal automatisch de titel van licenties bepalen."
 
-#: inc/class-licensing.php:331 inc/class-styles.php:824
+#: inc/class-licensing.php:335 inc/class-styles.php:824
 #: inc/modules/export/epub/class-epub.php:1432
 #: inc/modules/export/htmlbook/class-htmlbook.php:864
 #: inc/modules/export/xhtml/class-xhtml11.php:1083
@@ -2509,27 +2541,27 @@ msgstr ""
 msgid "by"
 msgstr "door"
 
-#: inc/class-licensing.php:390
+#: inc/class-licensing.php:394
 msgid "except where otherwise noted."
 msgstr "tenzij anders vermeld."
 
-#: inc/class-licensing.php:417 inc/class-licensing.php:441
+#: inc/class-licensing.php:421 inc/class-licensing.php:445
 msgid "%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved."
 msgstr "%1$s Copyright &copy;%2$s by %3$s. Alle Rechten Voorbehouden."
 
-#: inc/class-licensing.php:429
+#: inc/class-licensing.php:433
 msgid "Icon for the %s"
 msgstr "Icoon voor de %s"
 
-#: inc/class-licensing.php:431
+#: inc/class-licensing.php:435
 msgid "%1$s by %2$s is licensed under a %3$s, except where otherwise noted."
 msgstr ""
 
-#: inc/class-licensing.php:450 inc/class-licensing.php:460
+#: inc/class-licensing.php:454 inc/class-licensing.php:464
 msgid "Icon for the %s license"
 msgstr "Icoon voor de %slicentie"
 
-#: inc/class-licensing.php:452
+#: inc/class-licensing.php:456
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
 msgstr "Dit werk (%1$s van %2$s) is vrij van bekende copyright restricties."
 
@@ -5067,7 +5099,7 @@ msgid "Import Content"
 msgstr ""
 
 #: templates/admin/dashboard/book.blade.php:105
-#: templates/admin/dashboard/network.blade.php:132
+#: templates/admin/dashboard/network.blade.php:184
 msgid "Support resources"
 msgstr ""
 
@@ -5089,7 +5121,7 @@ msgid ""
 msgstr ""
 
 #: templates/admin/dashboard/book.blade.php:136
-#: templates/admin/dashboard/network.blade.php:151
+#: templates/admin/dashboard/network.blade.php:203
 msgid "Pressbooks community forum"
 msgstr ""
 
@@ -5129,75 +5161,93 @@ msgstr ""
 msgid "Explore stats"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:45
+#: templates/admin/dashboard/network.blade.php:44
+msgid "Ready to Launch Checklist"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:80
+msgid "Congratulations!"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:82
+msgid ""
+"Help us improve the network manager onboarding experience by completing a "
+"brief 'Readiness to Launch' survey."
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:86
+msgid "Return to checklist"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:97
 msgid "Update homepage"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:51
+#: templates/admin/dashboard/network.blade.php:103
 msgid "Update homepage art"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:60
+#: templates/admin/dashboard/network.blade.php:112
 msgid "Customize network appearance"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:68
+#: templates/admin/dashboard/network.blade.php:120
 msgid "Create or edit pages"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:77
+#: templates/admin/dashboard/network.blade.php:129
 msgid "View homepage analytics"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:88
+#: templates/admin/dashboard/network.blade.php:140
 msgid "Administer network"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:94
+#: templates/admin/dashboard/network.blade.php:146
 msgid "Administer network art"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:103
+#: templates/admin/dashboard/network.blade.php:155
 msgid "Adjust network settings"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:111
+#: templates/admin/dashboard/network.blade.php:163
 msgid "View book list"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:119
+#: templates/admin/dashboard/network.blade.php:171
 msgid "View user list"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:140
+#: templates/admin/dashboard/network.blade.php:192
 msgid "Network manager guide"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:143
+#: templates/admin/dashboard/network.blade.php:195
 msgid ""
 "Learn how to administer your Pressbooks network from our comprehensive how-"
 "to guide."
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:154
+#: templates/admin/dashboard/network.blade.php:206
 msgid ""
 "Discuss issues of interest with other network managers and Pressbooks "
 "support staff."
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:162
+#: templates/admin/dashboard/network.blade.php:214
 msgid "Pressbooks webinars"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:165
+#: templates/admin/dashboard/network.blade.php:217
 msgid "Become a confident Pressbooks user by attending a free, live webinar."
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:174
+#: templates/admin/dashboard/network.blade.php:226
 msgid "Contact Pressbooks Support"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:177
+#: templates/admin/dashboard/network.blade.php:229
 msgid ""
 "Email Pressbooks’ Premium Support team to report bugs or get personalized "
 "help."
