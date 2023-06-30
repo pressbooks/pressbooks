@@ -91,14 +91,14 @@ class NetworkDashboard extends Dashboard {
 			[
 				'id' => 'network_checklist_review_network',
 				'title' => __( 'Review network settings', 'pressbooks' ),
-				'link' => 'https://networkmanagerguide.pressbooks.com/chapter/view-page-visit-and-referrer-statistics/',
+				'link' => network_admin_url( 'settings.php?page=pb_network_analytics_options' ),
 				'description' => __( 'Adjust defaults for new books and user permissions ' ),
 				'checked' => get_network_option( null, 'network_checklist_review_network', false ),
 			],
 			[
 				'id' => 'network_checklist_google_analytics',
 				'title' => __( 'Learn about analytics options', 'pressbooks' ),
-				'link' => network_admin_url( 'settings.php?page=pb_network_analytics_options#tabs-3' ),
+				'link' => 'https://networkmanagerguide.pressbooks.com/chapter/view-page-visit-and-referrer-statistics/',
 				'description' => __( 'Learn how to understand your network’s web traffic' ),
 				'checked' => get_network_option( null, 'network_checklist_google_analytics', false ),
 			],
