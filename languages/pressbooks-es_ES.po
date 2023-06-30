@@ -663,7 +663,7 @@ msgstr "Añade tu marca a la red"
 
 #: inc/admin/dashboard/class-networkdashboard.php:81
 msgid "Display your institutional logos and colors across your network"
-msgstr ""
+msgstr "Muestra los colores y logotipos de tu institución en toda tu red."
 
 #: inc/admin/dashboard/class-networkdashboard.php:86
 msgid "Customize your homepage"
