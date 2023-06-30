@@ -659,7 +659,7 @@ msgstr "un"
 
 #: inc/admin/dashboard/class-networkdashboard.php:79
 msgid "Brand your network"
-msgstr ""
+msgstr "Añade tu marca a tu red"
 
 #: inc/admin/dashboard/class-networkdashboard.php:81
 msgid "Display your institutional logos and colors across your network"
