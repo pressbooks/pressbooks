@@ -675,11 +675,11 @@ msgstr "Revisa los ajustes de la red"
 
 #: inc/admin/dashboard/class-networkdashboard.php:100
 msgid "Configure Google Analytics"
-msgstr "Configurar Google Analytics"
+msgstr "Configura Google Analytics"
 
 #: inc/admin/dashboard/class-networkdashboard.php:124
 msgid "Configure Single Sign On (SSO)"
-msgstr "Configurar el acceso único (SSO)"
+msgstr "Configura el acceso único (SSO)"
 
 #: inc/admin/dashboard/class-networkdashboard.php:139
 msgid "Join the Pressbooks Community Forum"
