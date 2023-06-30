@@ -91,15 +91,15 @@ class NetworkDashboard extends Dashboard {
 			[
 				'id' => 'network_checklist_review_network',
 				'title' => __( 'Review network settings', 'pressbooks' ),
-				'link' => network_admin_url( 'admin.php?page=pb_network_analytics_options' ),
+				'link' => 'https://networkmanagerguide.pressbooks.com/chapter/view-page-visit-and-referrer-statistics/',
 				'description' => __( 'Adjust defaults for new books and user permissions ' ),
 				'checked' => get_network_option( null, 'network_checklist_review_network', false ),
 			],
 			[
 				'id' => 'network_checklist_google_analytics',
-				'title' => __( 'Configure Google Analytics', 'pressbooks' ),
+				'title' => __( 'Learn about analytics options', 'pressbooks' ),
 				'link' => network_admin_url( 'settings.php?page=pb_network_analytics_options#tabs-3' ),
-				'description' => __( 'Get more insight into your network’s web traffic' ),
+				'description' => __( 'Learn how to understand your network’s web traffic' ),
 				'checked' => get_network_option( null, 'network_checklist_google_analytics', false ),
 			],
 		];
@@ -114,6 +114,10 @@ class NetworkDashboard extends Dashboard {
 				'plugin'      => 'pressbooks-cas-sso/pressbooks-cas-sso.php',
 				'link'        => network_admin_url( 'admin.php?page=pb_cas_admin' ),
 			],
+			[
+				'plugin'      => 'pressbooks-oidc-sso/pressbooks-oidc-sso.php',
+				'link'        => network_admin_url( 'admin.php?page=pb_oidc_admin')
+			]
 		];
 
 		// Check for active SSO plugin and add configuration
@@ -147,6 +151,13 @@ class NetworkDashboard extends Dashboard {
 				'link' => env( 'PB_CHECKLIST_BOOKING_URL' ),
 				'description' => __( 'Book a meeting to discuss any remaining questions with us' ),
 				'checked' => get_network_option( null, 'network_checklist_book_meeting', false ),
+			];
+			$items[] = [
+				'id' => 'network_checklist_take_survey',
+				'title' => __( 'Take the \'Readiness to Launch\' survey', 'pressbooks' ),
+				'link' => env( 'PB_CHECKLIST_ONBOARDING_SURVEY'),
+			    'description' => __( 'Complete a brief survey about your onboarding experience', 'pressbooks' ),
+			    'checked' => get_network_option( null, 'network_checklist_take_survey', 'pressbooks' ),
 			];
 		}
 

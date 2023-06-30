@@ -73,10 +73,6 @@
 					<div class="completed-message">
 						<h3>{{ __( 'Congratulations!', 'pressbooks' ) }}</h3>
 						<p>{{ __( 'You are ready to launch your Pressbooks network. You can start inviting users to begin creating and publishing books.' ) }}</p>
-						<p>{{ __( 'Help us improve the network manager onboarding experience by completing a brief \'Readiness to Launch\' survey.', 'pressbooks' ) }}</p>
-						@if($network_checklist['survey_link'])
-							<a class="button button-primary" href="{{ $network_checklist['survey_link'] }}">Take onboarding survey</a>
-						@endif
 						<a x-data href="#" @click.prevent="networkManagerDashboard.reset">{{ __( 'Return to checklist', 'pressbooks' ) }}</a>
 					</div>
 				</div>
