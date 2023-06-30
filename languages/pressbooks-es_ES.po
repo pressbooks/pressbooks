@@ -671,7 +671,7 @@ msgstr "Personalizar la página de inicio"
 
 #: inc/admin/dashboard/class-networkdashboard.php:93
 msgid "Review network settings"
-msgstr ""
+msgstr "Revisar los ajustes de la red"
 
 #: inc/admin/dashboard/class-networkdashboard.php:100
 msgid "Configure Google Analytics"
