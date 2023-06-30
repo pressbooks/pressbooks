@@ -5460,7 +5460,7 @@ msgstr "Explorar las estadísticas"
 
 #: templates/admin/dashboard/network.blade.php:44
 msgid "Ready to Launch Checklist"
-msgstr ""
+msgstr "Lista de comprobación previa"
 
 #: templates/admin/dashboard/network.blade.php:80
 msgid "Congratulations!"
