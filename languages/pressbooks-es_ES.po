@@ -675,7 +675,7 @@ msgstr "Revisar los ajustes de la red"
 
 #: inc/admin/dashboard/class-networkdashboard.php:100
 msgid "Configure Google Analytics"
-msgstr ""
+msgstr "Configurar Google Analytics"
 
 #: inc/admin/dashboard/class-networkdashboard.php:124
 msgid "Configure Single Sign On (SSO)"
