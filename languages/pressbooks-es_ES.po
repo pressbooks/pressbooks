@@ -5471,8 +5471,8 @@ msgid ""
 "Help us improve the network manager onboarding experience by completing a "
 "brief 'Readiness to Launch' survey."
 msgstr ""
-"Ayúdanos a mejorar la experiencia durante la puesta en marcha de la red "
-"completando una breve encuesta sobre la preparación preliminar."
+"Ayúdanos a mejorar la experiencia de puesta en marcha del administrador de "
+"la red completando una breve encuesta sobre la preparación preliminar."
 
 #: templates/admin/dashboard/network.blade.php:86
 msgid "Return to checklist"
