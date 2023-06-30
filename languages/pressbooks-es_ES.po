@@ -5464,7 +5464,7 @@ msgstr "Lista de comprobación previa"
 
 #: templates/admin/dashboard/network.blade.php:80
 msgid "Congratulations!"
-msgstr ""
+msgstr "¡Felicidades!"
 
 #: templates/admin/dashboard/network.blade.php:82
 msgid ""
