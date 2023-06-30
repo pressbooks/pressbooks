@@ -116,8 +116,8 @@ class NetworkDashboard extends Dashboard {
 			],
 			[
 				'plugin'      => 'pressbooks-oidc-sso/pressbooks-oidc-sso.php',
-				'link'        => network_admin_url( 'admin.php?page=pb_oidc_admin')
-			]
+				'link'        => network_admin_url( 'admin.php?page=pb_oidc_admin' ),
+			],
 		];
 
 		// Check for active SSO plugin and add configuration
@@ -155,9 +155,9 @@ class NetworkDashboard extends Dashboard {
 			$items[] = [
 				'id' => 'network_checklist_take_survey',
 				'title' => __( 'Take the \'Readiness to Launch\' survey', 'pressbooks' ),
-				'link' => env( 'PB_CHECKLIST_ONBOARDING_SURVEY'),
-			    'description' => __( 'Complete a brief survey about your onboarding experience', 'pressbooks' ),
-			    'checked' => get_network_option( null, 'network_checklist_take_survey', 'pressbooks' ),
+				'link' => env( 'PB_CHECKLIST_ONBOARDING_SURVEY' ),
+				'description' => __( 'Complete a brief survey about your onboarding experience', 'pressbooks' ),
+				'checked' => get_network_option( null, 'network_checklist_take_survey', 'pressbooks' ),
 			];
 		}
 

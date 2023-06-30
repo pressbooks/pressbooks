@@ -211,7 +211,7 @@ class Admin_NetworkDashboardTest extends \WP_UnitTestCase {
 		});
 
 		$items = $networkDashboard->getNetworkChecklist();
-		$this->assertCount( 6, $items );
+		$this->assertCount( 7, $items );
 
 		$bookingItem = $items[5];
 		$this->assertStringContainsString( 'https://calendly.com/fancypb-support', $bookingItem['link'] );
