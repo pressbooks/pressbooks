@@ -212,7 +212,6 @@ class Admin_NetworkDashboardTest extends \WP_UnitTestCase {
 		});
 
 		$items = $networkDashboard->getNetworkChecklist();
-		dump($items);
 		$this->assertCount( 6, $items );
 		$settingsItem = $items[2];
 		$this->assertStringContainsString( 'settings.php?page=pb_network_analytics_options', $settingsItem['link'] );
