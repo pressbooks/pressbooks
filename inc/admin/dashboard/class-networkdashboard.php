@@ -91,15 +91,15 @@ class NetworkDashboard extends Dashboard {
 			[
 				'id' => 'network_checklist_review_network',
 				'title' => __( 'Review network settings', 'pressbooks' ),
-				'link' => network_admin_url( 'admin.php?page=pb_network_analytics_options' ),
+				'link' => network_admin_url( 'settings.php' ),
 				'description' => __( 'Adjust defaults for new books and user permissions ' ),
 				'checked' => get_network_option( null, 'network_checklist_review_network', false ),
 			],
 			[
 				'id' => 'network_checklist_google_analytics',
-				'title' => __( 'Configure Google Analytics', 'pressbooks' ),
-				'link' => network_admin_url( 'settings.php?page=pb_network_analytics_options#tabs-3' ),
-				'description' => __( 'Get more insight into your network’s web traffic' ),
+				'title' => __( 'Learn about analytics options', 'pressbooks' ),
+				'link' => 'https://networkmanagerguide.pressbooks.com/chapter/view-page-visit-and-referrer-statistics/',
+				'description' => __( 'Understand your options for analyzing network web traffic' ),
 				'checked' => get_network_option( null, 'network_checklist_google_analytics', false ),
 			],
 		];
@@ -107,12 +107,16 @@ class NetworkDashboard extends Dashboard {
 		// Check if either SSO plugin is activated
 		$sso_configurations = [
 			[
-				'plugin'      => 'pressbooks-saml-sso/pressbooks-saml-sso.php',
-				'link'        => network_admin_url( 'admin.php?page=pb_saml_admin' ),
+				'plugin' => 'pressbooks-saml-sso/pressbooks-saml-sso.php',
+				'link' => network_admin_url( 'admin.php?page=pb_saml_admin' ),
 			],
 			[
-				'plugin'      => 'pressbooks-cas-sso/pressbooks-cas-sso.php',
-				'link'        => network_admin_url( 'admin.php?page=pb_cas_admin' ),
+				'plugin' => 'pressbooks-cas-sso/pressbooks-cas-sso.php',
+				'link' => network_admin_url( 'admin.php?page=pb_cas_admin' ),
+			],
+			[
+				'plugin' => 'pressbooks-oidc-sso/pressbooks-oidc-sso.php',
+				'link' => network_admin_url( 'admin.php?page=pb_oidc_admin' ),
 			],
 		];
 
@@ -120,11 +124,11 @@ class NetworkDashboard extends Dashboard {
 		foreach ( $sso_configurations as $sso_configuration ) {
 			if ( is_plugin_active( $sso_configuration['plugin'] ) ) {
 				$sso_item = [
-					'id'          => 'network_checklist_configure_sso',
-					'title'       => __( 'Configure Single Sign On (SSO)', 'pressbooks' ),
-					'link'        => $sso_configuration['link'],
+					'id' => 'network_checklist_configure_sso',
+					'title' => __( 'Configure Single Sign On (SSO)', 'pressbooks' ),
+					'link' => $sso_configuration['link'],
 					'description' => __( 'Allow users to login with their existing institutional credentials' ),
-					'checked'     => get_network_option( null, 'network_checklist_configure_sso', false ),
+					'checked' => get_network_option( null, 'network_checklist_configure_sso', false ),
 				];
 
 				array_splice( $items, 3, 0, [ $sso_item ] );
@@ -134,6 +138,7 @@ class NetworkDashboard extends Dashboard {
 
 		// Check if Network Analytics plugin is activated
 		if ( is_plugin_active( 'pressbooks-network-analytics/pressbooks-network-analytics.php' ) ) {
+			$items[2]['link'] = network_admin_url( 'settings.php?page=pb_network_analytics_options' );
 			$items[] = [
 				'id' => 'network_checklist_join_forum',
 				'title' => __( 'Join the Pressbooks Community Forum', 'pressbooks' ),
@@ -141,15 +146,25 @@ class NetworkDashboard extends Dashboard {
 				'description' => __( 'Chat with other network managers in a dedicated group' ),
 				'checked' => get_network_option( null, 'network_checklist_join_forum', false ),
 			];
-			$items[] = [
-				'id' => 'network_checklist_book_meeting',
-				'title' => __( 'Complete your onboarding', 'pressbooks' ),
-				'link' => env( 'PB_CHECKLIST_BOOKING_URL' ),
-				'description' => __( 'Book a meeting to discuss any remaining questions with us' ),
-				'checked' => get_network_option( null, 'network_checklist_book_meeting', false ),
-			];
+			if ( ! empty( env( 'PB_CHECKLIST_BOOKING_URL' ) ) ) {
+				$items[] = [
+					'id' => 'network_checklist_book_meeting',
+					'title' => __( 'Complete your onboarding', 'pressbooks' ),
+					'link' => env( 'PB_CHECKLIST_BOOKING_URL' ),
+					'description' => __( 'Book a meeting to discuss any remaining questions with us' ),
+					'checked' => get_network_option( null, 'network_checklist_book_meeting', false ),
+				];
+			}
+			if ( ! empty( env( 'PB_CHECKLIST_ONBOARDING_SURVEY' ) ) ) {
+				$items[] = [
+					'id' => 'network_checklist_take_survey',
+					'title' => __( 'Take the \'Readiness to Launch\' survey', 'pressbooks' ),
+					'link' => env( 'PB_CHECKLIST_ONBOARDING_SURVEY' ),
+					'description' => __( 'Complete a brief survey about your onboarding experience', 'pressbooks' ),
+					'checked' => get_network_option( null, 'network_checklist_take_survey', 'pressbooks' ),
+				];
+			}
 		}
-
 		return $items;
 	}
 
@@ -159,6 +174,8 @@ class NetworkDashboard extends Dashboard {
 		$current = get_network_option( null, $item );
 		$updated = update_network_option( null, $item, ! $current );
 		if ( $updated ) {
+			$network_id = get_main_network_id();
+			wp_cache_delete( "$network_id-$item", 'site-options' );
 			wp_send_json_success(
 				[
 					'checked' => $updated,
@@ -178,12 +195,12 @@ class NetworkDashboard extends Dashboard {
 		return true;
 	}
 
-	/**
-	 * Check if the checklist should be displayed if the network is older than X months
-	 * PB_CHECKLIST_NETWORK_CREATION_MONTHS_AGO is defined in the .env file
-	 *
-	 * @return bool
-	 */
+		/**
+		 * Check if the checklist should be displayed if the network is older than X months
+		 * PB_CHECKLIST_NETWORK_CREATION_MONTHS_AGO is defined in the .env file
+		 *
+		 * @return bool
+		 */
 	public function shouldDisplayChecklist(): bool {
 
 		if ( ! env( 'PB_CHECKLIST_NETWORK_CREATION_MONTHS_AGO' ) ) {
