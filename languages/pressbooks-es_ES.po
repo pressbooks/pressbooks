@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks 6.13.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2023-06-29T17:26:46+00:00\n"
+"POT-Creation-Date: 2023-07-04T20:36:32+00:00\n"
 "PO-Revision-Date: 2023-05-25 04:50+0000\n"
 "Last-Translator: Eduardo Vera, 2023\n"
 "Language-Team: Spanish (https://app.transifex.com/pressbooks/teams/9194/es/)\n"
@@ -674,20 +674,28 @@ msgid "Review network settings"
 msgstr "Revisa los ajustes de la red"
 
 #: inc/admin/dashboard/class-networkdashboard.php:100
-msgid "Configure Google Analytics"
-msgstr "Configura Google Analytics"
+msgid "Learn about analytics options"
+msgstr ""
 
-#: inc/admin/dashboard/class-networkdashboard.php:124
+#: inc/admin/dashboard/class-networkdashboard.php:128
 msgid "Configure Single Sign On (SSO)"
 msgstr "Configura el acceso único (SSO)"
 
-#: inc/admin/dashboard/class-networkdashboard.php:139
+#: inc/admin/dashboard/class-networkdashboard.php:144
 msgid "Join the Pressbooks Community Forum"
 msgstr "Únete al foro de la comunidad de Pressbooks"
 
-#: inc/admin/dashboard/class-networkdashboard.php:146
+#: inc/admin/dashboard/class-networkdashboard.php:152
 msgid "Complete your onboarding"
 msgstr "Completa la puesta en marcha"
+
+#: inc/admin/dashboard/class-networkdashboard.php:161
+msgid "Take the 'Readiness to Launch' survey"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:163
+msgid "Complete a brief survey about your onboarding experience"
+msgstr ""
 
 #: inc/admin/delete/class-book.php:52
 msgid "Delete Book"
@@ -5390,7 +5398,7 @@ msgid "Import Content"
 msgstr "Importar contenido"
 
 #: templates/admin/dashboard/book.blade.php:105
-#: templates/admin/dashboard/network.blade.php:184
+#: templates/admin/dashboard/network.blade.php:180
 msgid "Support resources"
 msgstr "Recursos de soporte"
 
@@ -5414,7 +5422,7 @@ msgstr ""
 "manual detallado."
 
 #: templates/admin/dashboard/book.blade.php:136
-#: templates/admin/dashboard/network.blade.php:203
+#: templates/admin/dashboard/network.blade.php:199
 msgid "Pressbooks community forum"
 msgstr "Foro de la comunidad de Pressbooks"
 
@@ -5467,62 +5475,54 @@ msgid "Congratulations!"
 msgstr "¡Felicidades!"
 
 #: templates/admin/dashboard/network.blade.php:82
-msgid ""
-"Help us improve the network manager onboarding experience by completing a "
-"brief 'Readiness to Launch' survey."
-msgstr ""
-"Ayúdanos a mejorar la experiencia de puesta en marcha del administrador de "
-"la red completando una breve encuesta sobre la preparación preliminar."
-
-#: templates/admin/dashboard/network.blade.php:86
 msgid "Return to checklist"
 msgstr "Volver a la lista de comprobación"
 
-#: templates/admin/dashboard/network.blade.php:97
+#: templates/admin/dashboard/network.blade.php:93
 msgid "Update homepage"
 msgstr "Actualizar la página de inicio"
 
-#: templates/admin/dashboard/network.blade.php:103
+#: templates/admin/dashboard/network.blade.php:99
 msgid "Update homepage art"
 msgstr "Imagen de actualizar la página de inicio"
 
-#: templates/admin/dashboard/network.blade.php:112
+#: templates/admin/dashboard/network.blade.php:108
 msgid "Customize network appearance"
 msgstr "Personalizar la apariencia de la red"
 
-#: templates/admin/dashboard/network.blade.php:120
+#: templates/admin/dashboard/network.blade.php:116
 msgid "Create or edit pages"
 msgstr "Crear o editar páginas"
 
-#: templates/admin/dashboard/network.blade.php:129
+#: templates/admin/dashboard/network.blade.php:125
 msgid "View homepage analytics"
 msgstr "Ver la analítica de la página de inicio"
 
-#: templates/admin/dashboard/network.blade.php:140
+#: templates/admin/dashboard/network.blade.php:136
 msgid "Administer network"
 msgstr "Administrar la red"
 
-#: templates/admin/dashboard/network.blade.php:146
+#: templates/admin/dashboard/network.blade.php:142
 msgid "Administer network art"
 msgstr "Imagen de administrar la red"
 
-#: templates/admin/dashboard/network.blade.php:155
+#: templates/admin/dashboard/network.blade.php:151
 msgid "Adjust network settings"
 msgstr "Ajustes de la red"
 
-#: templates/admin/dashboard/network.blade.php:163
+#: templates/admin/dashboard/network.blade.php:159
 msgid "View book list"
 msgstr "Ver la lista de libros"
 
-#: templates/admin/dashboard/network.blade.php:171
+#: templates/admin/dashboard/network.blade.php:167
 msgid "View user list"
 msgstr "Ver la lista de usuarios"
 
-#: templates/admin/dashboard/network.blade.php:192
+#: templates/admin/dashboard/network.blade.php:188
 msgid "Network manager guide"
 msgstr "Guía del administrador de la red"
 
-#: templates/admin/dashboard/network.blade.php:195
+#: templates/admin/dashboard/network.blade.php:191
 msgid ""
 "Learn how to administer your Pressbooks network from our comprehensive how-"
 "to guide."
@@ -5530,7 +5530,7 @@ msgstr ""
 "Aprende a administrar tu red de Presbooks con nuestra detallada guía "
 "práctica."
 
-#: templates/admin/dashboard/network.blade.php:206
+#: templates/admin/dashboard/network.blade.php:202
 msgid ""
 "Discuss issues of interest with other network managers and Pressbooks "
 "support staff."
@@ -5538,21 +5538,21 @@ msgstr ""
 "Discute incidencias de interés con otros administradores de redes y con el "
 "personal de soporte de Pressbooks."
 
-#: templates/admin/dashboard/network.blade.php:214
+#: templates/admin/dashboard/network.blade.php:210
 msgid "Pressbooks webinars"
 msgstr "Webinarios de Pressbooks"
 
-#: templates/admin/dashboard/network.blade.php:217
+#: templates/admin/dashboard/network.blade.php:213
 msgid "Become a confident Pressbooks user by attending a free, live webinar."
 msgstr ""
 "Vuélvete un usuario conocedor de Pressbooks asistiendo a un webinario "
 "gratuito en directo."
 
-#: templates/admin/dashboard/network.blade.php:226
+#: templates/admin/dashboard/network.blade.php:222
 msgid "Contact Pressbooks Support"
 msgstr "Contacta con el soporte de Pressbooks"
 
-#: templates/admin/dashboard/network.blade.php:229
+#: templates/admin/dashboard/network.blade.php:225
 msgid ""
 "Email Pressbooks’ Premium Support team to report bugs or get personalized "
 "help."
