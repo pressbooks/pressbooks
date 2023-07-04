@@ -153,6 +153,7 @@ class Admin_NetworkDashboardTest extends \WP_UnitTestCase {
 		$networkDashboard = new NetworkDashboard();
 		$items = $networkDashboard->getNetworkChecklist();
 		$this->assertCount( 4, $items );
+		$this->assertEquals( $items[2]['link'], network_admin_url( 'settings.php' ) );
 	}
 
 	/**
@@ -211,9 +212,18 @@ class Admin_NetworkDashboardTest extends \WP_UnitTestCase {
 		});
 
 		$items = $networkDashboard->getNetworkChecklist();
-		$this->assertCount( 7, $items );
+		dump($items);
+		$this->assertCount( 6, $items );
+		$settingsItem = $items[2];
+		$this->assertStringContainsString( 'settings.php?page=pb_network_analytics_options', $settingsItem['link'] );
 
 		$bookingItem = $items[5];
 		$this->assertStringContainsString( 'https://calendly.com/fancypb-support', $bookingItem['link'] );
+
+		putenv( 'PB_CHECKLIST_ONBOARDING_SURVEY=https://surveysparrow.com/test-survey' );
+		$items = $networkDashboard->getNetworkChecklist();
+		$this->assertCount( 7, $items );
+		$surveyItem = $items[6];
+		$this->assertStringContainsString( 'https://surveysparrow.com/test-survey', $surveyItem['link'] );
 	}
 }

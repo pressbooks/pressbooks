@@ -267,9 +267,8 @@
       justify-content: center;
 
       .completed-checkbox {
-        width: 18%;
-        min-width: 125px;
         display: flex;
+        width: 125px;
 
         @media (max-width: 600px) {
           display: none;
