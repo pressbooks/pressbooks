@@ -91,7 +91,7 @@ class NetworkDashboard extends Dashboard {
 			[
 				'id' => 'network_checklist_review_network',
 				'title' => __( 'Review network settings', 'pressbooks' ),
-				'link' => network_admin_url( 'settings.php?page=pb_network_analytics_options' ),
+				'link' => network_admin_url( 'admin.php?page=pb_network_analytics_options' ),
 				'description' => __( 'Adjust defaults for new books and user permissions ' ),
 				'checked' => get_network_option( null, 'network_checklist_review_network', false ),
 			],
