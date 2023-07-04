@@ -170,6 +170,8 @@ class NetworkDashboard extends Dashboard {
 		$current = get_network_option( null, $item );
 		$updated = update_network_option( null, $item, ! $current );
 		if ( $updated ) {
+			$network_id = get_main_network_id();
+			wp_cache_delete( "$network_id-$item", 'site-options' );
 			wp_send_json_success(
 				[
 					'checked' => $updated,
