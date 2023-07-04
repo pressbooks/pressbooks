@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks 6.13.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2023-06-29T17:26:46+00:00\n"
+"POT-Creation-Date: 2023-07-04T20:36:32+00:00\n"
 "PO-Revision-Date: 2023-05-25 04:50+0000\n"
 "Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2023\n"
 "Language-Team: Dutch (Netherlands) (https://app.transifex.com/pressbooks/teams/9194/nl_NL/)\n"
@@ -651,19 +651,27 @@ msgid "Review network settings"
 msgstr ""
 
 #: inc/admin/dashboard/class-networkdashboard.php:100
-msgid "Configure Google Analytics"
+msgid "Learn about analytics options"
 msgstr ""
 
-#: inc/admin/dashboard/class-networkdashboard.php:124
+#: inc/admin/dashboard/class-networkdashboard.php:128
 msgid "Configure Single Sign On (SSO)"
 msgstr ""
 
-#: inc/admin/dashboard/class-networkdashboard.php:139
+#: inc/admin/dashboard/class-networkdashboard.php:144
 msgid "Join the Pressbooks Community Forum"
 msgstr ""
 
-#: inc/admin/dashboard/class-networkdashboard.php:146
+#: inc/admin/dashboard/class-networkdashboard.php:152
 msgid "Complete your onboarding"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:161
+msgid "Take the 'Readiness to Launch' survey"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:163
+msgid "Complete a brief survey about your onboarding experience"
 msgstr ""
 
 #: inc/admin/delete/class-book.php:52
@@ -5099,7 +5107,7 @@ msgid "Import Content"
 msgstr ""
 
 #: templates/admin/dashboard/book.blade.php:105
-#: templates/admin/dashboard/network.blade.php:184
+#: templates/admin/dashboard/network.blade.php:180
 msgid "Support resources"
 msgstr ""
 
@@ -5121,7 +5129,7 @@ msgid ""
 msgstr ""
 
 #: templates/admin/dashboard/book.blade.php:136
-#: templates/admin/dashboard/network.blade.php:203
+#: templates/admin/dashboard/network.blade.php:199
 msgid "Pressbooks community forum"
 msgstr ""
 
@@ -5170,84 +5178,78 @@ msgid "Congratulations!"
 msgstr ""
 
 #: templates/admin/dashboard/network.blade.php:82
-msgid ""
-"Help us improve the network manager onboarding experience by completing a "
-"brief 'Readiness to Launch' survey."
-msgstr ""
-
-#: templates/admin/dashboard/network.blade.php:86
 msgid "Return to checklist"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:97
+#: templates/admin/dashboard/network.blade.php:93
 msgid "Update homepage"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:103
+#: templates/admin/dashboard/network.blade.php:99
 msgid "Update homepage art"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:112
+#: templates/admin/dashboard/network.blade.php:108
 msgid "Customize network appearance"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:120
+#: templates/admin/dashboard/network.blade.php:116
 msgid "Create or edit pages"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:129
+#: templates/admin/dashboard/network.blade.php:125
 msgid "View homepage analytics"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:140
+#: templates/admin/dashboard/network.blade.php:136
 msgid "Administer network"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:146
+#: templates/admin/dashboard/network.blade.php:142
 msgid "Administer network art"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:155
+#: templates/admin/dashboard/network.blade.php:151
 msgid "Adjust network settings"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:163
+#: templates/admin/dashboard/network.blade.php:159
 msgid "View book list"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:171
+#: templates/admin/dashboard/network.blade.php:167
 msgid "View user list"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:192
+#: templates/admin/dashboard/network.blade.php:188
 msgid "Network manager guide"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:195
+#: templates/admin/dashboard/network.blade.php:191
 msgid ""
 "Learn how to administer your Pressbooks network from our comprehensive how-"
 "to guide."
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:206
+#: templates/admin/dashboard/network.blade.php:202
 msgid ""
 "Discuss issues of interest with other network managers and Pressbooks "
 "support staff."
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:214
+#: templates/admin/dashboard/network.blade.php:210
 msgid "Pressbooks webinars"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:217
+#: templates/admin/dashboard/network.blade.php:213
 msgid "Become a confident Pressbooks user by attending a free, live webinar."
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:226
+#: templates/admin/dashboard/network.blade.php:222
 msgid "Contact Pressbooks Support"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:229
+#: templates/admin/dashboard/network.blade.php:225
 msgid ""
 "Email Pressbooks’ Premium Support team to report bugs or get personalized "
 "help."
