@@ -98,7 +98,7 @@ class NetworkDashboard extends Dashboard {
 			[
 				'id' => 'network_checklist_google_analytics',
 				'title' => __( 'Learn about analytics options', 'pressbooks' ),
-				'link' => 'https://networkmanagerguide.pressbooks.com/chapter/view-page-visit-and-referrer-statistics/',
+				'link' => 'https://networkmanagerguide.pressbooks.com/chapter/review-analytics-options/',
 				'description' => __( 'Understand your options for analyzing network web traffic' ),
 				'checked' => get_network_option( null, 'network_checklist_google_analytics', false ),
 			],
