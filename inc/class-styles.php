@@ -662,7 +662,7 @@ class Styles {
 	 * @return bool
 	 */
 	public function isShapeShifterCompatible() {
-		return apply_filters( 'pb_is_shape_shifter_compatible', ( 'pressbooks-malala' === get_stylesheet() || 'pressbooks-book' === get_stylesheet() ) );
+		return apply_filters( 'pb_is_shape_shifter_compatible', 'pressbooks-book' === get_stylesheet() );
 	}
 
 	/**

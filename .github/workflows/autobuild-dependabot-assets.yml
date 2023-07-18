@@ -23,7 +23,7 @@ jobs:
         run: npm run build
       - name: Create pull request with built assets
         id: cpr
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v5
         with:
           commit-message: "chore(build): build assets"
           title: "chore(build): build assets"
@@ -33,7 +33,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Merge pull request with built assets into Dependabot branch
         if: ${{ steps.cpr.outputs.pull-request-number }}
-        uses: "pascalgn/automerge-action@v0.15.5"
+        uses: "pascalgn/automerge-action@v0.15.6"
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           MERGE_LABELS: automerge

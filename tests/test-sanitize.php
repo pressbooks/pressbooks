@@ -139,6 +139,17 @@ class SanitizeTest extends \WP_UnitTestCase {
 
 	/**
 	 * @group sanitize
+	 * @test
+	 */
+	public function sanitize_excluding_ampersand(): void {
+		$string = 'Hello & World';
+		$this->assertEquals( 'Hello &#038; World', \Pressbooks\Sanitize\decode( $string ) );
+
+		$this->assertEquals( 'Hello & World', \Pressbooks\Sanitize\decode( $string, false ) );
+	}
+
+	/**
+	 * @group sanitize
 	 */
 	public function test_strip_br() {
 		$test = 'Hello <br /> World!';

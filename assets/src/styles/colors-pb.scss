@@ -71,7 +71,7 @@ div.error {
 // Admin Menu
 
 #adminmenu li.current:hover div.wp-menu-image::before,
-#adminmenu li.wp-menu-open:hover div.wp-menu-image::before {
+#adminmenu li.wp-menu-open:hover div.wp-menu-image::before, #adminmenu li.wp-has-current-submenu.opensub > a.menu-top div.wp-menu-image::before {
   color: $white;
 }
 

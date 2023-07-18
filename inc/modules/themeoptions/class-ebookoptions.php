@@ -19,18 +19,53 @@ class EbookOptions extends \Pressbooks\Options {
 	const VERSION = 2;
 
 	/**
-	 * Web theme options.
+	 * Ebook theme options.
 	 *
 	 * @var array
 	 */
 	public $options;
 
 	/**
-	 * Web theme defaults.
+	 * Ebook theme defaults.
 	 *
 	 * @var array
 	 */
 	public $defaults;
+
+	/**
+	 * Ebook theme booleans.
+	 *
+	 * @var array
+	 */
+	public $booleans;
+
+	/**
+	 * Ebook theme strings.
+	 *
+	 * @var array
+	 */
+	public $strings;
+
+	/**
+	 * Ebook theme integers.
+	 *
+	 * @var array
+	 */
+	public $integers;
+
+	/**
+	 * Ebook theme floats.
+	 *
+	 * @var array
+	 */
+	public $floats;
+
+	/**
+	 * Ebook theme predefined options.
+	 *
+	 * @var array
+	 */
+	public $predefined;
 
 	/**
 	 * Constructor.

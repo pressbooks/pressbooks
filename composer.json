@@ -28,7 +28,7 @@
 		}
 	},
 	"require": {
-		"php": "^8.0",
+		"php": "^8.1",
 		"aws/aws-sdk-php": "^3.173",
 		"composer/installers": "^2.1",
 		"davidgorges/human-name-parser": "^1.0",
@@ -42,7 +42,7 @@
 		"illuminate/filesystem": "^8.0",
 		"illuminate/support": "^8.0",
 		"illuminate/view": "^8.0",
-		"jenssegers/imagehash": "0.5.0",
+		"jenssegers/imagehash": "^0.8.0",
 		"johnbillion/extended-cpts": "^5.0",
 		"laravel/helpers": "^1.5",
 		"masterminds/html5": "^2.6",
@@ -50,7 +50,7 @@
 		"monolog/monolog": "^2.2",
 		"pressbooks/mix": "^2.1",
 		"pressbooks/pb-cli": "^3",
-		"scssphp/scssphp": "~1.1.0",
+		"scssphp/scssphp": "^1.11.0",
 		"sinergi/browser-detector": "^6.1",
 		"vanilla/htmlawed": "^2.2",
 		"phpcompatibility/php-compatibility": "^9.3",
@@ -66,8 +66,8 @@
 		"codeception/module-webdriver": "^1.2",
 		"lucatume/wp-browser": "^3.0",
 		"pressbooks/coding-standards": "^1.1",
-		"yoast/phpunit-polyfills": "^1.0.1",
-		"dms/phpunit-arraysubset-asserts": "^0.4.0"
+		"yoast/phpunit-polyfills": "^2.0.0",
+		"dms/phpunit-arraysubset-asserts": "^0.5.0"
 	},
 	"suggest": {
 		"pressbooks/pressbooks-book":
@@ -82,8 +82,6 @@
 			".github",
 			".gitignore",
 			".phpstorm.meta.php",
-			".stylelintrc",
-			".travis.yml",
 			".tx",
 			"assets/src",
 			"bin",
@@ -91,8 +89,7 @@
 			"phpcs.ruleset.xml",
 			"phpunit.xml",
 			"tests",
-			"webpack.mx.js",
-			"yarn.lock"
+			"webpack.mix.js"
 		]
 	},
   "scripts": {

@@ -13,13 +13,15 @@
 					</div>
 				</td>
 			</tr>
-			<tr class="form-field">
-				<th scope="row"><label for="adduser-role">@php _e( 'Role' ); @endphp</label></th>
-				<td><select name="role" id="adduser-role">
-						@php wp_dropdown_roles( get_option( 'default_role' ) ); @endphp
-					</select>
-				</td>
-			</tr>
+			@if( \Pressbooks\Book::isBook() )
+				<tr class="form-field">
+					<th scope="row"><label for="adduser-role">@php _e( 'Role' ); @endphp</label></th>
+					<td><select name="role" id="adduser-role">
+							@php wp_dropdown_roles( get_option( 'default_role' ) ); @endphp
+						</select>
+					</td>
+				</tr>
+			@endif
 		</table>
 		{!! get_submit_button( __( 'Add users', 'users' ) ) !!}
 	</form>

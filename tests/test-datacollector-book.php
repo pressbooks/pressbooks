@@ -120,6 +120,10 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 				[ 'name' =>  'Pat Metheny', 'slug' => 'pat' ],
 				[ 'name' =>  'Pedro Aznar', 'slug' => 'pedro' ],
 			],
+			'pb_contributors' => [
+				[ 'name' =>  'Lyle Mays', 'slug' => 'lyle' ],
+				[ 'name' =>  'Steve Rodby', 'slug' => 'steve' ],
+			],
 		];
 
 		$site = get_site();
@@ -138,6 +142,8 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 		add_post_meta( $metadata_post->ID, 'pb_additional_subjects', 'AVP, AVR, AVRQ' );
 		add_post_meta( $metadata_post->ID, 'pb_institutions', 'CA-ON-002' );
 		add_post_meta( $metadata_post->ID, 'pb_publisher', 'Publisher Name' );
+		add_post_meta( $metadata_post->ID, 'pb_language', 'en' );
+		add_post_meta( $metadata_post->ID, 'pb_book_license', 'public-domain' );
 
 		wp_cache_flush();
 
@@ -146,6 +152,7 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 		$data_collected = [
 			'pb_authors' => get_site_meta( $site->id, BookDataCollector::AUTHORS ),
 			'pb_editors' => get_site_meta( $site->id, BookDataCollector::EDITORS ),
+			'pb_contributors' => get_site_meta( $site->id, BookDataCollector::CONTRIBUTORS ),
 		];
 
 		foreach ( $contributors as $contributor_type => $contributors_array ) {
@@ -164,6 +171,8 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 		$this->assertContains( 'AVRQ', $subjects_collected );
 		$this->assertEquals( 'Publisher Name', get_site_meta( $site->id, BookDataCollector::PUBLISHER, true ) );
 		$this->assertEquals( 'Theory of art', get_site_meta( $site->id, BookDataCollector::SUBJECT, true ) );
+		$this->assertEquals( 'English', get_site_meta( $site->id, BookDataCollector::LANGUAGE_NAME, true ) );
+		$this->assertEquals( 'Public Domain', get_site_meta( $site->id, BookDataCollector::LICENSE_NAME, true ) );
 	}
 
 	/**

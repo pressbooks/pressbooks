@@ -9,8 +9,10 @@
 
 namespace Pressbooks\Modules\Export\Epub;
 
+use function Pressbooks\Sanitize\decode;
 use function Pressbooks\Sanitize\sanitize_xml_attribute;
 use function Pressbooks\Utility\debug_error_log;
+use function Pressbooks\Utility\explode_remove_and;
 use function Pressbooks\Utility\get_contributors_name_imploded;
 use function Pressbooks\Utility\implode_add_and;
 use function Pressbooks\Utility\str_ends_with;
@@ -642,14 +644,11 @@ class Epub extends ExportGenerator {
 		exec( $command, $output, $return_var );
 
 		foreach ( $output as $k => $v ) {
-			if ( strpos( $v, 'Picked up _JAVA_OPTIONS:' ) !== false ) {
-				// Remove JAVA warnings that are not actually errors
-				unset( $output[ $k ] );
-			} elseif ( strpos( $v, 'non-standard font type application/x-font-ttf' ) !== false ) {
-				// @see https://github.com/IDPF/epubcheck/issues/586, https://github.com/IDPF/epubcheck/pull/633
-				unset( $output[ $k ] );
-			} elseif ( strpos( $v, 'non-standard font type application/font-sfnt' ) !== false ) {
-				// @see https://github.com/w3c/epubcheck/issues/339
+			if (
+				str_contains( $v, 'Picked up _JAVA_OPTIONS:' ) ||
+				str_contains( $v, 'non-standard font type application/x-font-ttf' ) ||
+				str_contains( $v, 'non-standard font type application/font-sfnt' )
+			) {
 				unset( $output[ $k ] );
 			}
 		}
@@ -676,7 +675,7 @@ class Epub extends ExportGenerator {
 		$mime = static::mimeType( $file );
 		$mime = explode( ';', $mime );
 
-		return trim( $mime[0] );
+		return $mime[0] === 'font/sfnt' ? 'application/font-sfnt' : trim( $mime[0] );
 	}
 
 	/**
@@ -818,7 +817,7 @@ class Epub extends ExportGenerator {
 				}
 			} catch ( \Exception $exc ) {
 				$this->fetchedImageCache[ $url ] = '';
-				debug_error_log( '\PressBooks\Export\Epub3\fetchAndSaveUniqueMedia wp_error on wp_remote_get() - ' . $response->get_error_message() . ' - ' . $exc->getMessage() );
+				debug_error_log( '\Pressbooks\Export\Epub3\fetchAndSaveUniqueMedia wp_error on wp_remote_get() - ' . $response->get_error_message() . ' - ' . $exc->getMessage() );
 				return '';
 			}
 		}
@@ -928,7 +927,7 @@ class Epub extends ExportGenerator {
 	 * @throws \Exception
 	 */
 	protected function createContainer(): void {
-		$this->createEpubFile( 'mimetype', utf8_decode( 'application/epub+zip' ), [ 'directory' => $this->tmpDir ] );
+		$this->createEpubFile( 'mimetype', mb_convert_encoding( 'application/epub+zip', 'ISO-8859-1', 'UTF-8' ), [ 'directory' => $this->tmpDir ] );
 
 		mkdir( $this->metaInfDir );
 		mkdir( $this->epubDir );
@@ -1048,6 +1047,8 @@ class Epub extends ExportGenerator {
 		$scss_dir = pathinfo( $path_to_original_stylesheet, PATHINFO_DIRNAME );
 		$css = $this->normalizeCssUrls( $css, $scss_dir, $this->assetsDir );
 
+		$css = $this->normalizeExternalFontsUrls( $css, $this->assetsDir );
+
 		// Overwrite the new file with new info
 		$this->createEpubFile( $this->stylesheet, $css );
 
@@ -1055,6 +1056,27 @@ class Epub extends ExportGenerator {
 			Container::get( 'Sass' )->debug( $css, $scss, 'epub' );
 		}
 
+	}
+
+	/**
+	 * Download external fonts to include them and rewrite the CSS.
+	 *
+	 * @param string $css
+	 * @param string $path_to_epub_assets
+	 * @return string
+	 */
+	public function normalizeExternalFontsUrls( string $css, string $path_to_epub_assets ): string {
+		foreach ( preg_split( "/((\r?\n)|(\r\n?) )/", $css ) as $line ) {
+			if ( str_contains( $line, '@import "https://' ) ) {
+				preg_match_all( '#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $line, $match );
+				$new_filename = $this->fetchAndSaveUniqueFont( $match[0][0], $path_to_epub_assets );
+
+				$string_replacement = $new_filename ? '@import url(assets/' . $new_filename . ');' : '';
+				$css = str_replace( $line, $string_replacement, $css );
+			}
+		}
+
+		return $css;
 	}
 
 	/**
@@ -1402,7 +1424,7 @@ class Epub extends ExportGenerator {
 			if ( ! empty( $meta['pb_copyright_year'] ) ) {
 				$default_copyright_date = $meta['pb_copyright_year'];
 			} elseif ( ! empty( $meta['pb_publication_date'] ) ) {
-				$default_copyright_date = strftime( '%Y', $meta['pb_publication_date'] );
+				$default_copyright_date = date( 'Y', $meta['pb_publication_date'] );
 			} else {
 				$default_copyright_date = date( 'Y' );
 			}
@@ -1710,7 +1732,7 @@ class Epub extends ExportGenerator {
 
 				$append_chapter_content .= $this->kneadHtml( $this->tidy( $this->doSectionLevelLicense( $metadata, $chapter_id ) ), 'chapter', $chapter_position );
 
-				$chapter_number = strpos( $chapter_subclass, 'numberless' ) === false ? $chapter_index : '';
+				$chapter_number = ! str_contains( $chapter_subclass, 'numberless' ) ? $chapter_index : '';
 
 				$vars['post_title'] = $chapter['post_title'];
 				$vars['post_content'] = $this->blade->render(
@@ -1921,7 +1943,7 @@ class Epub extends ExportGenerator {
 
 				$matter_data = $this->getExtendedPostInformation( $type, $query_data );
 
-				$rendered_items[] = $this->renderTocItem( $type, $matter_data, false );
+				$rendered_items[] = $this->renderTocItem( $type, $matter_data, false, true );
 
 			} elseif ( 0 === strpos( $k, 'chapter-' ) ) { //Process chapters
 
@@ -1930,11 +1952,11 @@ class Epub extends ExportGenerator {
 				$chapter_type = $this->taxonomy->getChapterType( $chapter_data['ID'] );
 
 				if ( 'numberless' !== $chapter_type && $this->numbered ) {
-					$chapter_data['title'] = "${chapters_count}. ${chapter_data['title']}";
+					$chapter_data['title'] = "{$chapters_count}. {$chapter_data['title']}";
 					$chapters_count++;
 				}
 
-				$rendered_items[] = $this->renderTocItem( 'chapter', $chapter_data, false );
+				$rendered_items[] = $this->renderTocItem( 'chapter', $chapter_data, false, true );
 			}
 		}
 
@@ -2086,7 +2108,7 @@ class Epub extends ExportGenerator {
 				}
 			} catch ( \Exception $exc ) {
 				$this->fetchedImageCache[ $url ] = '';
-				debug_error_log( '\PressBooks\Export\Epub\fetchAndSaveUniqueImage wp_error on wp_remote_get() - ' . $response->get_error_message() . ' - ' . $exc->getMessage() );
+				debug_error_log( '\Pressbooks\Export\Epub\fetchAndSaveUniqueImage wp_error on wp_remote_get() - ' . $response->get_error_message() . ' - ' . $exc->getMessage() );
 				return '';
 			}
 		}
@@ -2133,7 +2155,7 @@ class Epub extends ExportGenerator {
 
 		if ( ! \Pressbooks\Image\is_valid_image( $tmp_file, $filename ) ) {
 			$this->fetchedImageCache[ $url ] = '';
-			debug_error_log( '\PressBooks\Export\Epub\fetchAndSaveUniqueImage is_valid_image, not a valid image ' );
+			debug_error_log( '\Pressbooks\Export\Epub\fetchAndSaveUniqueImage is_valid_image, not a valid image ' );
 			fclose( $GLOBALS[ $resource_key ] ); // @codingStandardsIgnoreLine
 			return ''; // Not an image
 		}
@@ -2208,9 +2230,26 @@ class Epub extends ExportGenerator {
 			return '';
 		}
 
-		// Basename without query string
-		$filename = explode( '?', basename( $url ) );
-		$filename = array_shift( $filename );
+		// if it is a Google font, we could get the actual font name
+		if ( str_contains( $url, 'fonts.googleapis.com' ) ) {
+			$patterns = [
+				'!^https://fonts.googleapis.com/css\?!',
+				'!(family=[^&:]+).*$!',
+				'!family=!',
+				'/[^A-Za-z0-9\-]/',
+			];
+			$replacements = [
+				'',
+				'$1',
+				'',
+				' ',
+			];
+			$filename = preg_replace( $patterns, $replacements, $url ) . '.css';
+		} else {
+			// Basename without query string
+			$filename = explode( '?', basename( $url ) );
+			$filename = array_shift( $filename );
+		}
 
 		$filename = sanitize_file_name( urldecode( $filename ) );
 		$filename = Sanitize\force_ascii( $filename );
@@ -2577,6 +2616,13 @@ class Epub extends ExportGenerator {
 				}
 			} else {
 				$metadata[ $key ] = sanitize_xml_attribute( $val );
+				if ( $this->contributors->isValid( $key ) ) {
+					$contributors = decode( $metadata[ $key ], false );
+					$metadata[ $key ] = array_map(
+						'\Pressbooks\Sanitize\encode_ampersand',
+						explode_remove_and( ';', $contributors )
+					);
+				}
 			}
 		}
 		$vars['meta'] = $metadata;

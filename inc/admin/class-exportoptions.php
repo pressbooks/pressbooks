@@ -32,6 +32,13 @@ class ExportOptions extends \Pressbooks\Options {
 	public $defaults;
 
 	/**
+	 * Export booleans.
+	 *
+	 * @var array
+	 */
+	public $booleans;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param array $options

@@ -1,12 +1,12 @@
 # Pressbooks
 Contributors: Pressbooks <code@pressbooks.com>
 Tags: ebooks, publishing, webbooks
-Requires at least: 6.1.1
-Tested up to: 6.1.1
-Stable tag: 6.6.0
-Requires PHP: 8.0
+Requires at least: 6.2.2
+Tested up to: 6.2.2
+Stable tag: 6.13.0
+Requires PHP: 8.1
 License: GPL v3.0 or later
-License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
+License URI: https://github.com/pressbooks/pressbooks/blob/production/LICENSE.md
 
 Pressbooks is an open source book publishing tool built on a WordPress multisite platform.
 
@@ -21,7 +21,7 @@ Pressbooks is an open source book publishing tool built on a WordPress multisite
 [![Code Coverage](https://codecov.io/gh/pressbooks/pressbooks/branch/dev/graph/badge.svg)](https://codecov.io/gh/pressbooks/pressbooks)
 [![Translate Pressbooks](https://img.shields.io/badge/dynamic/json.svg?label=translated&url=https%3A%2F%2Ftenpercent.now.sh%2F%3Forganization%3Dpressbooks%26project%3Dpressbooks&query=%24.status&colorB=e05d44&suffix=%25)](https://www.transifex.com/pressbooks/pressbooks/translate/)
 
-[Pressbooks](https://pressbooks.org) is an open source book publishing tool built on a WordPress multisite platform. Pressbooks outputs books in multiple formats, including PDF, EPUB, web, and a variety of XML flavours, using a theming/templating system, driven by CSS. Pressbooks is free software, released under the [GPL v3.0 or later](https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md) license.
+[Pressbooks](https://pressbooks.org) is an open source book publishing tool built on a WordPress multisite platform. Pressbooks outputs books in multiple formats, including PDF, EPUB, web, and a variety of XML flavours, using a theming/templating system, driven by CSS. Pressbooks is free software, released under the [GPL v3.0 or later](https://github.com/pressbooks/pressbooks/blob/production/LICENSE.md) license.
 
 Our webbooks and EPUB/[PDF][pdf] exports are all driven by HTML + CSS. XML outputs have no styling.
 
@@ -29,7 +29,7 @@ Our webbooks and EPUB/[PDF][pdf] exports are all driven by HTML + CSS. XML outpu
 
 ## Requirements
 
-Pressbooks works with PHP 8.0 and WordPress 6.1.1. Lower versions are not supported.
+Pressbooks works with PHP 8.1 and WordPress 6.2.2. Lower versions are not supported.
 
 ## Installing the Plugin
 
@@ -48,11 +48,20 @@ Developers who are interested in contributing to our project should consult our 
 The Pressbooks plugin is supplied "as is" and all use is at your own risk.
 
 ## Changelog
-### 6.5.1
-* See: https://github.com/pressbooks/pressbooks/releases/tag/6.5.1
+### 6.13.0
+* See: https://github.com/pressbooks/pressbooks/releases/tag/6.13.0
 * Full release history available at: https://github.com/pressbooks/pressbooks/releases
 
 ## Upgrade Notices
+### 6.12.0
+* Pressbooks 6.12.0 requires [WordPress 6.2.2](https://wordpress.org/documentation/wordpress-version/version-6-2-2/)
+
+### 6.10.0
+* Pressbooks 6.10.0 requires [WordPress 6.2](https://wordpress.org/documentation/wordpress-version/version-6-2/)
+
+### 6.9.0
+* Pressbooks 6.9.0 requires PHP >= 8.1
+
 ### 6.4.0
 * Pressbooks 6.4.0 requires PHP >= 8.0
 * Pressbooks 6.4.0 requires [WordPress 6.1.1](https://wordpress.org/support/wordpress-version/version-6-1-1/)

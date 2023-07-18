@@ -78,9 +78,7 @@ add_action( 'login_footer', '\Pressbooks\Admin\Branding\login_scripts' );
 // -------------------------------------------------------------------------------------------------------------------
 // Analytics
 // -------------------------------------------------------------------------------------------------------------------
-
-add_action( 'init', '\Pressbooks\Analytics\migrate' );
-add_action( 'wp_head', '\Pressbooks\Analytics\print_analytics' );
+add_action( 'init', [ '\Pressbooks\GoogleAnalytics', 'init' ] );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Tracking
@@ -181,6 +179,7 @@ add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_catalog', 1 );
 add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_open', 1 );
 add_action( 'plugins_loaded', '\Pressbooks\Redirect\migrate_generated_content', 1 );
 add_filter( 'login_redirect', '\Pressbooks\Redirect\break_reset_password_loop', 10, 3 );
+add_filter( 'login_redirect', '\Pressbooks\Redirect\handle_dashboard_redirect', 10, 3 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Sitemap
@@ -350,5 +349,7 @@ add_action( 'activated_plugin', '\Pressbooks\Utility\delete_options_cached' );
 // Clone complete table
 register_deactivation_hook( 'pressbooks/pressbooks.php', [ CloneComplete::class, 'uninstall' ] );
 add_action( 'init', [ CloneComplete::class, 'install' ] );
+
+add_filter( 'init', [ '\Pressbooks\Utility\ErrorHandler', 'init' ] );
 
 

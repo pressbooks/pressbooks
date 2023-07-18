@@ -14,6 +14,7 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 	 */
 	function showDialog() {
 		let selectedNode = editor.selection.getNode();
+		let selection = editor.selection.getContent();
 
 		editor.windowManager.open( {
 			title: editor.getLang( 'strings.customtextbox' ),
@@ -31,7 +32,7 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 				editor.execCommand(
 					'mceReplaceContent',
 					false,
-					'<div class="textbox ' + e.data.className + '">{$selection}</div>'
+					`<div class="textbox ${ e.data.className }"><p>${ selection }</p></div>`
 				);
 			},
 		} );
@@ -99,15 +100,13 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 						editor.execCommand(
 							'mceReplaceContent',
 							false,
-							'<div class="textbox">' + selection + '</div><p></p>'
+							`<div class="textbox"><p>${ selection }</p></div><p></p>`
 						);
 					} else {
 						editor.execCommand(
 							'mceInsertContent',
 							0,
-							'<div class="textbox">' +
-								editor.getLang( 'strings.standardplaceholder' ) +
-								'</div><p></p>'
+							`<div class="textbox"><p>${ editor.getLang( 'strings.standardplaceholder' ) }</p></div><p></p>`
 						);
 					}
 				},
@@ -123,17 +122,13 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 						editor.execCommand(
 							'mceReplaceContent',
 							false,
-							'<div class="textbox textbox--sidebar">' +
-								selection +
-								'</div><p></p>'
+							`<div class="textbox textbox--sidebar"><p>${ selection }</p></div><p></p>`
 						);
 					} else {
 						editor.execCommand(
 							'mceInsertContent',
 							0,
-							'<div class="textbox textbox--sidebar">' +
-								editor.getLang( 'strings.standardplaceholder' ) +
-								'</div><p></p>'
+							`<div class="textbox textbox--sidebar"><p>${ editor.getLang( 'strings.standardplaceholder' ) }</p></div><p></p>`
 						);
 					}
 				},
@@ -149,15 +144,13 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 						editor.execCommand(
 							'mceReplaceContent',
 							false,
-							'<div class="textbox shaded">' + selection + '</div><p></p>'
+							`<div class="textbox shaded"><p>${ selection }</p></div><p></p>`
 						);
 					} else {
 						editor.execCommand(
 							'mceInsertContent',
 							0,
-							'<div class="textbox shaded">' +
-								editor.getLang( 'strings.standardplaceholder' ) +
-								'</div><p></p>'
+							`<div class="textbox shaded"><p>${ editor.getLang( 'strings.standardplaceholder' ) }</p></div><p></p>`
 						);
 					}
 				},
@@ -173,17 +166,13 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 						editor.execCommand(
 							'mceReplaceContent',
 							false,
-							'<div class="textbox textbox--sidebar shaded">' +
-								selection +
-								'</div><p></p>'
+							`<div class="textbox textbox--sidebar shaded"><p>${ selection }</p></div><p></p>`
 						);
 					} else {
 						editor.execCommand(
 							'mceInsertContent',
 							0,
-							'<div class="textbox textbox--sidebar shaded">' +
-								editor.getLang( 'strings.standardplaceholder' ) +
-								'</div><p></p>'
+							`<div class="textbox textbox--sidebar shaded"><p>${ editor.getLang( 'strings.standardplaceholder' ) }</p></div><p></p>`
 						);
 					}
 				},

@@ -1,5 +1,20 @@
 [
   {
+    "country": "Asia",
+    "regions": [
+      {
+        "name": "Kazakhstan",
+        "institutions": [
+          {
+            "code": "AS-KAZ-001",
+            "name": "Nazarbayev University",
+            "url": "https:\/\/nu.edu.kz\/"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "country": "Australia",
     "regions": [
       {
@@ -399,7 +414,7 @@
           },
           {
             "code": "CA-BC-005",
-            "name": "Capilano College",
+            "name": "Capilano University",
             "url": "https:\/\/www.capilanou.ca\/"
           },
           {
@@ -1271,6 +1286,880 @@
             "code": "CA-YT-002",
             "name": "Yukon School of Visual Arts",
             "url": "https:\/\/yukonsova.net\/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Europe",
+    "regions": [
+      {
+        "name": "Ireland",
+        "institutions": [
+          {
+            "code": "EU-IRL-001",
+            "name": "Dublin City University",
+            "url": "https:\/\/www.dcu.ie\/"
+          },
+          {
+            "code": "EU-IRL-002",
+            "name": "National University of Ireland",
+            "url": "https:\/\/www.nui.ie\/"
+          },
+          {
+            "code": "EU-IRL-003",
+            "name": "National University of Ireland, Cork",
+            "url": "https:\/\/www.ucc.ie\/"
+          },
+          {
+            "code": "EU-IRL-004",
+            "name": "University College Dublin",
+            "url": "https:\/\/www.ucd.ie\/"
+          },
+          {
+            "code": "EU-IRL-005",
+            "name": "National University of Ireland, Maynooth",
+            "url": "https:\/\/www.maynoothuniversity.ie\/"
+          },
+          {
+            "code": "EU-IRL-006",
+            "name": "University of Galway",
+            "url": "https:\/\/universityofgalway.ie\/"
+          },
+          {
+            "code": "EU-IRL-007",
+            "name": "Royal College of Surgeons in Ireland",
+            "url": "https:\/\/www.rcsi.ie\/"
+          },
+          {
+            "code": "EU-IRL-008",
+            "name": "University of Limerick",
+            "url": "https:\/\/www.ul.ie\/"
+          },
+          {
+            "code": "EU-IRL-009",
+            "name": "University of Dublin",
+            "url": "https:\/\/www.tcd.ie\/"
+          },
+          {
+            "code": "EU-IRL-010",
+            "name": "Atlantic Technological University",
+            "url": "https:\/\/atu.ie\/"
+          },
+          {
+            "code": "EU-IRL-011",
+            "name": "Munster Technological University",
+            "url": "https:\/\/mtu.ie\/"
+          },
+          {
+            "code": "EU-IRL-012",
+            "name": "South East Technological University",
+            "url": "https:\/\/setu.ie\/"
+          },
+          {
+            "code": "EU-IRL-013",
+            "name": "Technological University Dublin",
+            "url": "https:\/\/tudublin.ie\/"
+          },
+          {
+            "code": "EU-IRL-014",
+            "name": "Technological University of the Shannon: Midlands Midwest",
+            "url": "https:\/\/tus.ie\/"
+          },
+          {
+            "code": "EU-IRL-015",
+            "name": "Dún Laoghaire Institute of Art, Design and Technology",
+            "url": "https:\/\/iadt.ie\/"
+          },
+          {
+            "code": "EU-IRL-016",
+            "name": "Dundalk Institute of Technology",
+            "url": "https:\/\/dkit.ie\/"
+          },
+          {
+            "code": "EU-IRL-017",
+            "name": "St Patrick's Pontifical University, Maynooth",
+            "url": "https:\/\/maynoothcollege.ie\/"
+          },
+          {
+            "code": "EU-IRL-018",
+            "name": "St. Angela's College, Sligo",
+            "url": "https:\/\/stangelas.ie\/"
+          },
+          {
+            "code": "EU-IRL-019",
+            "name": "National College of Ireland",
+            "url": "https:\/\/ncirl.ie\/"
+          },
+          {
+            "code": "EU-IRL-020",
+            "name": "Griffith College",
+            "url": "https:\/\/www.griffith.ie\/"
+          },
+          {
+            "code": "EU-IRL-021",
+            "name": "St Patrick's, Carlow College",
+            "url": "https:\/\/carlowcollege.ie\/"
+          },
+          {
+            "code": "EU-IRL-022",
+            "name": "Dublin Design Institute",
+            "url": "https:\/\/dublindesign.ie\/"
+          }
+        ]
+      },
+      {
+        "name": "United Kingdom",
+        "institutions": [
+          {
+            "code": "EU-GBR-001",
+            "name": "University of Aberdeen",
+            "url": "https:\/\/www.abdn.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-002",
+            "name": "Abertay University",
+            "url": "https:\/\/www.abertay.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-003",
+            "name": "Aberystwyth University",
+            "url": "https:\/\/www.aber.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-004",
+            "name": "University of Edinburgh",
+            "url": "https:\/\/www.ed.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-005",
+            "name": "Anglia Ruskin University",
+            "url": "https:\/\/aru.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-006",
+            "name": "Arden University",
+            "url": "https:\/\/www.arden.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-007",
+            "name": "Aston University",
+            "url": "https:\/\/www.aston.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-008",
+            "name": "Bangor University",
+            "url": "https:\/\/bangor.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-009",
+            "name": "University of Bath",
+            "url": "https:\/\/www.bath.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-010",
+            "name": "Bath Spa University",
+            "url": "https:\/\/bathspa.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-011",
+            "name": "University of Bedfordshire",
+            "url": "https:\/\/www.beds.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-012",
+            "name": "British and Irish Modern Music Institute",
+            "url": "https:\/\/www.bimm.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-013",
+            "name": "University of Birmingham",
+            "url": "https:\/\/www.birmingham.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-014",
+            "name": "Birmingham City University",
+            "url": "https:\/\/www.bcu.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-015",
+            "name": "University College Birmingham",
+            "url": "https:\/\/www.ucb.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-016",
+            "name": "Bishop Grosseteste University",
+            "url": "https:\/\/bishopg.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-017",
+            "name": "University of Bolton",
+            "url": "https:\/\/www.bolton.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-018",
+            "name": "Arts University Bournemouth",
+            "url": "https:\/\/www.aub.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-019",
+            "name": "University of Bournemouth",
+            "url": "https:\/\/www.bournemouth.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-020",
+            "name": "University of Bradford",
+            "url": "https:\/\/www.bradford.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-021",
+            "name": "University of Brighton",
+            "url": "https:\/\/www.brighton.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-022",
+            "name": "University of Bristol",
+            "url": "https:\/\/bristol.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-023",
+            "name": "Brunel University London",
+            "url": "https:\/\/www.brunel.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-024",
+            "name": "University of Buckingham",
+            "url": "https:\/\/buckingham.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-025",
+            "name": "Buckinghamshire New University",
+            "url": "https:\/\/www.bucks.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-026",
+            "name": "University of Cambridge",
+            "url": "https:\/\/www.cam.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-027",
+            "name": "Canterbury Christ Church University",
+            "url": "https:\/\/canterbury.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-028",
+            "name": "Cardiff Metropolitan University",
+            "url": "https:\/\/www.cardiffmet.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-029",
+            "name": "Cardiff University",
+            "url": "https:\/\/www.cardiff.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-030",
+            "name": "University of Chester",
+            "url": "https:\/\/www.chester.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-031",
+            "name": "University of Chichester",
+            "url": "https:\/\/www.chi.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-032",
+            "name": "Coventry University",
+            "url": "https:\/\/www.coventry.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-033",
+            "name": "Cranfield University",
+            "url": "https:\/\/www.cranfield.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-034",
+            "name": "University for the Creative Arts",
+            "url": "https:\/\/uca.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-035",
+            "name": "University of Cumbria",
+            "url": "https:\/\/www.cumbria.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-036",
+            "name": "De Montfort University",
+            "url": "https:\/\/dmu.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-037",
+            "name": "University of Derby",
+            "url": "https:\/\/www.derby.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-038",
+            "name": "University of Dundee",
+            "url": "https:\/\/www.dundee.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-039",
+            "name": "Durham University",
+            "url": "https:\/\/www.durham.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-040",
+            "name": "University of East Anglia",
+            "url": "https:\/\/uea.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-041",
+            "name": "University of East London",
+            "url": "https:\/\/www.uel.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-042",
+            "name": "Edge Hill University",
+            "url": "https:\/\/www.edgehill.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-043",
+            "name": "Edinburgh Napier University",
+            "url": "https:\/\/www.napier.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-044",
+            "name": "University of Essex",
+            "url": "https:\/\/www.essex.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-045",
+            "name": "University of Exeter",
+            "url": "https:\/\/exeter.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-046",
+            "name": "Falmouth University",
+            "url": "https:\/\/www.falmouth.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-047",
+            "name": "Coventry University",
+            "url": "https:\/\/www.coventry.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-048",
+            "name": "University of Glasgow",
+            "url": "https:\/\/gla.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-049",
+            "name": "Glasgow Caledonian University",
+            "url": "https:\/\/www.gcu.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-050",
+            "name": "University of Gloucestershire",
+            "url": "https:\/\/www.glos.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-051",
+            "name": "University of Greenwich",
+            "url": "https:\/\/gre.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-052",
+            "name": "Harper Adams University",
+            "url": "https:\/\/harper-adams.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-053",
+            "name": "Hartpury University and Hartpury College",
+            "url": "https:\/\/www.hartpury.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-054",
+            "name": "Heriot-Watt University",
+            "url": "https:\/\/www.hw.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-055",
+            "name": "University of Hertfordshire",
+            "url": "https:\/\/herts.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-056",
+            "name": "University of the Highlands and Islands",
+            "url": "https:\/\/uhi.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-057",
+            "name": "University of Huddersfield",
+            "url": "https:\/\/hud.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-058",
+            "name": "University of Hull",
+            "url": "https:\/\/www.hull.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-059",
+            "name": "Imperial College London",
+            "url": "https:\/\/www.imperial.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-060",
+            "name": "University of Keele",
+            "url": "https:\/\/www.keele.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-061",
+            "name": "University of Kent",
+            "url": "https:\/\/kent.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-062",
+            "name": "Kingston University London",
+            "url": "https:\/\/www.kingston.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-063",
+            "name": "University of Central Lancashire",
+            "url": "https:\/\/www.uclan.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-064",
+            "name": "Lancaster University",
+            "url": "https:\/\/www.lancaster.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-065",
+            "name": "University of Leeds",
+            "url": "https:\/\/www.leeds.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-066",
+            "name": "Leeds Arts University",
+            "url": "https:\/\/www.leeds-art.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-067",
+            "name": "Leeds Beckett University",
+            "url": "https:\/\/www.leedsbeckett.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-068",
+            "name": "Leeds Trinity University",
+            "url": "https:\/\/www.leedstrinity.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-069",
+            "name": "University of Leicester",
+            "url": "https:\/\/le.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-070",
+            "name": "University of Lincoln",
+            "url": "https:\/\/lincoln.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-071",
+            "name": "University of Liverpool",
+            "url": "https:\/\/www.liverpool.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-072",
+            "name": "Liverpool Hope University",
+            "url": "https:\/\/www.hope.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-073",
+            "name": "Liverpool John Moores University",
+            "url": "https:\/\/www.ljmu.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-074",
+            "name": "University of London",
+            "url": "https:\/\/www.london.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-075",
+            "name": "London Metropolitan University",
+            "url": "https:\/\/londonmet.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-076",
+            "name": "London School of Economics and Political Science",
+            "url": "https:\/\/lse.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-077",
+            "name": "London South Bank University",
+            "url": "https:\/\/www.lsbu.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-078",
+            "name": "Loughborough University",
+            "url": "https:\/\/lboro.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-079",
+            "name": "University of Manchester",
+            "url": "https:\/\/www.manchester.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-080",
+            "name": "Manchester Metropolitan University",
+            "url": "https:\/\/www.mmu.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-081",
+            "name": "Middlesex University London",
+            "url": "https:\/\/mdx.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-082",
+            "name": "University of Newcastle upon Tyne",
+            "url": "https:\/\/www.ncl.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-083",
+            "name": "Newman University",
+            "url": "https:\/\/newman.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-084",
+            "name": "University of Northampton",
+            "url": "https:\/\/northampton.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-085",
+            "name": "Northeastern University - London",
+            "url": "https:\/\/www.nulondon.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-086",
+            "name": "Northumbria University",
+            "url": "https:\/\/www.northumbria.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-087",
+            "name": "Norwich University of the Arts",
+            "url": "https:\/\/www.nua.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-088",
+            "name": "University of Nottingham",
+            "url": "https:\/\/nottingham.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-089",
+            "name": "Nottingham Trent University",
+            "url": "https:\/\/www.ntu.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-090",
+            "name": "Open University",
+            "url": "https:\/\/www.open.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-091",
+            "name": "University of Oxford",
+            "url": "https:\/\/www.ox.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-092",
+            "name": "Oxford Brookes University",
+            "url": "https:\/\/brookes.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-093",
+            "name": "Plymouth Marjon University",
+            "url": "https:\/\/marjon.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-094",
+            "name": "Arts University Plymouth",
+            "url": "https:\/\/aup.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-095",
+            "name": "University of Plymouth",
+            "url": "https:\/\/www.plymouth.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-096",
+            "name": "University of Portsmouth",
+            "url": "https:\/\/www.port.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-097",
+            "name": "Queen Margaret University",
+            "url": "https:\/\/www.qmu.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-098",
+            "name": "Queen's University Belfast",
+            "url": "https:\/\/www.qub.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-099",
+            "name": "Ravensbourne University London",
+            "url": "https:\/\/www.ravensbourne.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-100",
+            "name": "University of Reading",
+            "url": "https:\/\/www.reading.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-101",
+            "name": "Regent's University London",
+            "url": "https:\/\/regents.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-102",
+            "name": "Richmond American University London",
+            "url": "https:\/\/www.richmond.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-103",
+            "name": "Robert Gordon University",
+            "url": "https:\/\/www.rgu.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-104",
+            "name": "University of Roehampton",
+            "url": "https:\/\/www.roehampton.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-105",
+            "name": "Royal Agricultural University",
+            "url": "https:\/\/www.rau.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-106",
+            "name": "Royal Holloway, University of London",
+            "url": "https:\/\/www.royalholloway.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-107",
+            "name": "University of Salford",
+            "url": "https:\/\/www.salford.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-108",
+            "name": "University of Sheffield",
+            "url": "https:\/\/sheffield.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-109",
+            "name": "Sheffield Hallam University",
+            "url": "https:\/\/shu.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-110",
+            "name": "University of South Wales",
+            "url": "https:\/\/southwales.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-111",
+            "name": "University of Southampton",
+            "url": "https:\/\/www.southampton.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-112",
+            "name": "Solent University",
+            "url": "https:\/\/www.solent.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-113",
+            "name": "University of St Andrews",
+            "url": "https:\/\/st-andrews.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-114",
+            "name": "St George's Hospital Medical School",
+            "url": "https:\/\/www.sgul.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-115",
+            "name": "St Mary's University, Twickenham",
+            "url": "https:\/\/www.stmarys.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-116",
+            "name": "Staffordshire University",
+            "url": "https:\/\/www.staffs.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-117",
+            "name": "The University of Stirling",
+            "url": "https:\/\/www.stir.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-118",
+            "name": "University of Strathclyde",
+            "url": "https:\/\/www.strath.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-119",
+            "name": "University of Suffolk",
+            "url": "https:\/\/www.uos.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-120",
+            "name": "University of Sunderland",
+            "url": "https:\/\/sunderland.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-121",
+            "name": "University of Surrey",
+            "url": "https:\/\/surrey.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-122",
+            "name": "University of Sussex",
+            "url": "https:\/\/sussex.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-123",
+            "name": "Swansea University",
+            "url": "https:\/\/swansea.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-124",
+            "name": "Teesside University",
+            "url": "https:\/\/www.tees.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-125",
+            "name": "University of the Arts London",
+            "url": "https:\/\/arts.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-126",
+            "name": "University of Ulster",
+            "url": "https:\/\/www.ulster.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-127",
+            "name": "The University of Law",
+            "url": "https:\/\/law.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-128",
+            "name": "University of Wales",
+            "url": "https:\/\/www.wales.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-129",
+            "name": "University of Wales Trinity Saint David",
+            "url": "https:\/\/www.uwtsd.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-130",
+            "name": "University of Warwick",
+            "url": "https:\/\/warwick.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-131",
+            "name": "University of the West of England",
+            "url": "https:\/\/www.coventry.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-132",
+            "name": "University of the West of Scotland",
+            "url": "https:\/\/www.uws.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-133",
+            "name": "University of West London",
+            "url": "https:\/\/www.uwl.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-134",
+            "name": "University of Westminster",
+            "url": "https:\/\/www.westminster.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-135",
+            "name": "University of Winchester",
+            "url": "https:\/\/www.winchester.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-136",
+            "name": "University of Wolverhampton",
+            "url": "https:\/\/www.wlv.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-137",
+            "name": "University of Worcester",
+            "url": "https:\/\/www.worcester.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-138",
+            "name": "Wrexham Glyndŵr University",
+            "url": "https:\/\/www.glyndwr.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-139",
+            "name": "University of York",
+            "url": "https:\/\/www.york.ac.uk\/"
+          },
+          {
+            "code": "EU-GBR-140",
+            "name": "York St John University",
+            "url": "https:\/\/www.yorksj.ac.uk\/"
+          }
+        ]
+      }
+    ]
+  },
+  {"country": "Oceania",
+    "regions": [
+      {
+        "name": "New Zealand",
+        "institutions": [
+          {
+            "code": "OC-NZL-001",
+            "name": "Auckland University of Technology",
+            "url": "https:\/\/www.aut.ac.nz\/"
+          },
+          {
+            "code": "OC-NZL-002",
+            "name": "Lincoln University",
+            "url": "https:\/\/www.lincoln.ac.nz\/"
+          },
+          {
+            "code": "OC-NZL-003",
+            "name": "Massey University",
+            "url": "https:\/\/www.massey.ac.nz\/"
+          },
+          {
+            "code": "OC-NZL-004",
+            "name": "University of Auckland",
+            "url": "https:\/\/www.auckland.ac.nz\/"
+          },
+          {
+            "code": "OC-NZL-005",
+            "name": "University of Canterbury",
+            "url": "https:\/\/www.canterbury.ac.nz\/"
+          },
+          {
+            "code": "OC-NZL-006",
+            "name": "University of Otago",
+            "url": "https:\/\/www.otago.ac.nz/\/"
+          },
+          {
+            "code": "OC-NZL-007",
+            "name": "University of Waikato",
+            "url": "https:\/\/www.waikato.ac.nz\/"
+          },
+          {
+            "code": "OC-NZL-008",
+            "name": "Victoria University of Wellington",
+            "url": "https:\/\/www.wgtn.ac.nz\/"
           }
         ]
       }

@@ -2,7 +2,7 @@ name: Run Standards & Tests
 
 on:
   push:
-    branches: [dev, master]
+    branches: [dev, production]
     tags:
       - '*.*.*'
   pull_request:
@@ -15,16 +15,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [8.0, 8.1]
+        php: [8.1, 8.2]
         os: [ubuntu-20.04]
         epubcheck: [4.2.6]
         prince: [14.3-1]
-        wordpress: [6.1.1, latest]
+        wordpress: [6.2.2, latest]
         include:
           - experimental: true
           - experimental: false
-            php: 8.0
-            wordpress: 6.1.1
+            php: 8.1
+            wordpress: 6.2.2
 
     name: Test - PHP ${{ matrix.php }} - WP ${{ matrix.wordpress }}
 
@@ -73,11 +73,11 @@ jobs:
       run: bash bin/install-wp-tests.sh wordpress_test root root localhost ${{ matrix.wordpress }}
 
     - name: Run PHP Tests
-      run: composer test
+      run: composer test -- --exclude=integrations
       if: matrix.experimental == true
 
     - name: Run PHP Tests and PCOV
-      run: composer test-coverage
+      run: composer test-coverage -- --exclude=integrations
       if: matrix.experimental == false
 
     - name: Upload Coverage to Codecov
@@ -114,8 +114,9 @@ jobs:
           ${{github.workspace}}/*.zip
 
     - name: Trigger Bedrock Update
-      if: github.ref == 'refs/heads/dev' && matrix.experimental == false
-      uses: pressbooks/composer-autoupdate-bedrock@v1.0
+      if: (github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/production')  && matrix.experimental == false
+      uses: pressbooks/composer-autoupdate-bedrock@v2
       with:
         triggered-by: ${{ github.repository }}
         token: ${{ secrets.PAT_COMPOSER_UPDATE }}
+        branch: ${{ github.ref }}

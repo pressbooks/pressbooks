@@ -286,7 +286,7 @@ abstract class Export {
 		$subject = get_class( $this );
 
 		$info = [
-			'time' => strftime( '%c' ),
+			'time' => date( 'D M H:i:s Y' ),
 			'user' => ( isset( $current_user ) ? $current_user->user_login : '__UNKNOWN__' ),
 			'site_url' => site_url(),
 			'blog_id' => get_current_blog_id(),
@@ -825,8 +825,8 @@ abstract class Export {
 
 		if ( is_countable( $validation_warning ) && count( $validation_warning ) ) {
 			// Validation warning
-			$exportoptions = get_option( 'pressbooks_export_options' );
-			if ( 1 === (int) $exportoptions['email_validation_logs'] || is_super_admin() ) {
+			$exportoptions = get_option( 'pressbooks_export_options', [] );
+			if ( ! empty( $exportoptions ) && 1 === (int) $exportoptions['email_validation_logs'] || is_super_admin() ) {
 				$export_warning = sprintf(
 					'<p>%s</p>%s',
 					__( 'Warning: The export has validation errors. See logs for more details.', 'pressbooks' ),

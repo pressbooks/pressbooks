@@ -321,5 +321,5 @@ function pb_tag_sections( $content, $id ) {
  * @return string
  */
 function pb_thumbify( $thumb, $path ) {
-	return \PressBooks\Image\thumbify( $thumb, $path );
+	return \Pressbooks\Image\thumbify( $thumb, $path );
 }

@@ -7,6 +7,7 @@
 
 namespace Pressbooks\Admin\Users;
 
+use Pressbooks\Book;
 use Pressbooks\Container;
 
 class UserBulk {
@@ -48,9 +49,10 @@ class UserBulk {
 	 * @param UserBulk $obj
 	 */
 	static public function hooks( UserBulk $obj ) {
-		if ( \Pressbooks\Book::isBook() ) {
+		if ( Book::isBook() ) {
 			add_action( 'admin_menu', [ $obj, 'addMenu' ] );
 		}
+		add_action( 'network_admin_menu', [ $obj, 'addMenu' ] );
 	}
 
 	public function __construct() {
@@ -60,7 +62,7 @@ class UserBulk {
 	/**
 	 * Register 'Bulk add' submenu
 	 */
-	public function addMenu() {
+	public function addMenu(): void {
 		add_submenu_page(
 			self::PARENT_SLUG,
 			__( 'Bulk Add', 'pressbooks' ),
@@ -96,13 +98,13 @@ class UserBulk {
 	/**
 	 * @return bool|array
 	 */
-	public function bulkAddUsers() {
-		if ( empty( $_POST ) || empty( $_POST['role'] ) || empty( $_POST['users'] ) || ! check_admin_referer( self::SLUG ) ) {
+	public function bulkAddUsers(): bool|array {
+		if ( empty( $_POST ) || empty( $_POST['users'] ) || ! check_admin_referer( self::SLUG ) ) {
 			return false;
 		}
 
 		$_POST = array_map( 'trim', $_POST );
-		$role = $_POST['role'];
+		$role = Book::isBook() && isset( $_POST['role'] ) ? sanitize_text_field( $_POST['role'] ) : 'subscriber';
 		$emails_input = array_unique( preg_split( '/\r\n|\r|\n/', $_POST['users'] ) );
 		$emails = array_map( 'sanitize_text_field', $emails_input );
 		$results = [];
@@ -121,12 +123,10 @@ class UserBulk {
 				$result = $this->linkNewUserToBook( $email, $role );
 			}
 
-			array_push(
-				$results, [
-					'email'  => $email,
-					'status' => $result,
-				]
-			);
+			$results[] = [
+				'email' => $email,
+				'status' => $result,
+			];
 		}
 
 		return $results;
@@ -135,9 +135,9 @@ class UserBulk {
 	/**
 	 * @param string $email
 	 * @param string $role
-	 * @return WP_Error|bool
+	 * @return \WP_Error|string
 	 */
-	public function linkNewUserToBook( string $email, string $role ) {
+	public function linkNewUserToBook( string $email, string $role ): \WP_Error|string {
 		$user_details = $this->generateUserNameFromEmail( $email );
 
 		if ( is_wp_error( $user_details['errors'] ) && $user_details['errors']->has_errors() ) {
@@ -164,7 +164,7 @@ class UserBulk {
 	 * @param string $email
 	 * @return array
 	 */
-	public function generateUserNameFromEmail( string $email ) {
+	public function generateUserNameFromEmail( string $email ): array {
 		if ( ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
 			return [ 'errors' => new \WP_Error( 'pb_email', __( 'Invalid email address', 'pressbooks' ) ) ];
 		}
@@ -177,8 +177,7 @@ class UserBulk {
 			++$i;
 		}
 
-		$user_details = wpmu_validate_user_signup( $unique_username, $email );
-		return $user_details;
+		return wpmu_validate_user_signup( $unique_username, $email );
 	}
 
 	/**
@@ -190,7 +189,7 @@ class UserBulk {
 	 *
 	 * @return string
 	 */
-	public function sanitizeUser( $username ) : string {
+	public function sanitizeUser( string $username ) : string {
 		$unique_username = sanitize_user( $username, true );
 		$unique_username = strtolower( $unique_username );
 		$unique_username = preg_replace( '/[^a-z0-9]/', '', $unique_username );
@@ -199,9 +198,7 @@ class UserBulk {
 			$unique_username .= 'a'; // usernames must have letters too
 		}
 
-		$unique_username = str_pad( $unique_username, 4, '1' );
-
-		return $unique_username;
+		return str_pad( $unique_username, 4, '1' );
 	}
 
 	/**
@@ -231,11 +228,11 @@ class UserBulk {
 	}
 
 	/**
-	 * @param string|\WP_Error $status
+	 * @param string $status
 	 *
 	 * @return string
 	 */
-	public function getBulkMessageSubtitle( $status ) : string {
+	public function getBulkMessageSubtitle( string $status ): string {
 		$subtitle = '';
 
 		switch ( $status ) {
@@ -243,7 +240,9 @@ class UserBulk {
 				$subtitle = __( 'The following user(s) could not be added.', 'pressbooks' );
 				break;
 			case self::USER_STATUS_INVITED:
-				$subtitle = __( 'User(s) successfully added to this book.', 'pressbooks' );
+				$subtitle = Book::isBook() ?
+					__( 'User(s) successfully added to this book.', 'pressbooks' ) :
+					__( 'User(s) successfully added to the network.', 'pressbooks' );
 				break;
 			case self::USER_STATUS_NEW:
 				$subtitle = __( 'An invitation email has been sent to the user(s) below. A confirmation link must be clicked before their account is created.', 'pressbooks' );

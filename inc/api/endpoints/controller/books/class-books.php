@@ -1,50 +1,33 @@
 <?php
 
-namespace Pressbooks\Api\Endpoints\Controller;
+namespace Pressbooks\Api\Endpoints\Controller\Books;
 
+use function Pressbooks\Metadata\book_information_to_schema;
 use function Pressbooks\Utility\apply_https_if_available;
-use function \Pressbooks\Metadata\book_information_to_schema;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
+use Pressbooks\Api\Endpoints\Controller\Metadata;
+use Pressbooks\Book;
 use Pressbooks\DataCollector\Book as BookDataCollector;
+use Pressbooks\Licensing;
 
 class Books extends \WP_REST_Controller {
 
 	/**
 	 * Maximum number of books per page
-	 *
-	 * @var int
 	 */
-	protected $limit;
+	protected mixed $limit;
 
-	/**
-	 * @var int
-	 */
-	protected $totalBooks = 0;
+	protected int $totalBooks = 0;
 
-	/**
-	 * @var int
-	 */
-	protected $lastKnownBookId = 0;
+	protected int $lastKnownBookId = 0;
 
-	/**
-	 * @var Metadata
-	 */
-	protected $metadata;
+	protected Metadata $metadata;
 
-	/**
-	 * @var array
-	 */
-	protected $linkCollector = [];
+	protected array $linkCollector = [];
 
-	/**
-	 * @var BookDataCollector
-	 */
-	protected $bookDataCollector;
+	protected ?BookDataCollector $bookDataCollector;
 
-	/**
-	 * @var $networkExcludedDirectory
-	 */
-	protected $networkExcludedDirectory = false;
+	protected bool $networkExcludedDirectory = false;
 
 	/**
 	 * Books
@@ -55,7 +38,7 @@ class Books extends \WP_REST_Controller {
 		$this->limit = apply_filters( 'pb_api_books_limit', 10 );
 		$network_options = get_site_option( SharingAndPrivacyOptions::getSlug() );
 		$this->networkExcludedDirectory = isset( $network_options[ SharingAndPrivacyOptions::NETWORK_DIRECTORY_EXCLUDED ] )
-			? (bool) $network_options[ SharingAndPrivacyOptions::NETWORK_DIRECTORY_EXCLUDED ] : false;
+			&& (bool) $network_options[ SharingAndPrivacyOptions::NETWORK_DIRECTORY_EXCLUDED ];
 		$this->metadata = new Metadata();
 		$this->bookDataCollector = BookDataCollector::init();
 	}
@@ -64,7 +47,6 @@ class Books extends \WP_REST_Controller {
 	 *  Registers routes for Books
 	 */
 	public function register_routes() {
-
 		register_rest_route(
 			$this->namespace, '/' . $this->rest_base, [
 				[
@@ -102,7 +84,6 @@ class Books extends \WP_REST_Controller {
 	}
 
 	public function get_item_schema() {
-
 		$metadata = $this->metadata->get_item_schema();
 
 		$schema = [
@@ -140,7 +121,6 @@ class Books extends \WP_REST_Controller {
 	 * @return array
 	 */
 	public function get_collection_params() {
-
 		$params = parent::get_collection_params();
 
 		unset( $params['search'] ); // Fulltext search not supported
@@ -156,6 +136,55 @@ class Books extends \WP_REST_Controller {
 			'validate_callback' => 'rest_validate_request_arg',
 		];
 
+		$params['modified_since'] = [
+			'description' => __( 'Timestamp for updated field.', 'pressbooks' ),
+			'type' => 'integer',
+			'sanitize_callback' => 'absint',
+		];
+
+		$params['license_code'] = [
+			'description' => __( 'Array of license codes to filter books.', 'pressbooks' ),
+			'type' => 'array',
+			'items' => [
+				'type' => 'string',
+			],
+			'validate_callback' => function ( $param, $request, $key ) {
+				if ( ! is_array( $param ) ) {
+					return false;
+				}
+
+				$licensing = new Licensing;
+				$supported_codes = $licensing->getSupportedCodes();
+
+				$values = array_map( fn ( $value ) => str_starts_with( $value, '-' ) ? substr( $value, 1 ) : $value, $param );
+
+				return array_intersect( $values, array_values( $supported_codes ) ) === $values;
+			},
+		];
+
+		$params['title'] = [
+			'description' => __( 'Array of title filters to filter books.', 'pressbooks' ),
+			'type' => 'array',
+			'items' => [
+				'type' => 'string',
+			],
+			'validate_callback' => function ( $param, $request, $key ) {
+				return is_array( $param );
+			},
+		];
+
+		$params['in_directory'] = [
+			'description' => __( 'Boolean value to filter books by directory exclusion.', 'pressbooks' ),
+			'type' => 'boolean',
+			'default' => null,
+		];
+
+		$params['words'] = [
+			'description' => __( 'String value to filter books by word count range.', 'pressbooks' ),
+			'type' => 'string',
+			'pattern' => '^gte_\d+|^lte_\d+$',
+		];
+
 		return $params;
 	}
 
@@ -165,7 +194,6 @@ class Books extends \WP_REST_Controller {
 	 * @return bool
 	 */
 	public function get_items_permissions_check( $request ) {
-
 		return true;
 	}
 
@@ -175,7 +203,6 @@ class Books extends \WP_REST_Controller {
 	 * @return bool
 	 */
 	public function get_item_permissions_check( $request ) {
-
 		if ( $request['id'] === get_network()->site_id ) {
 			return false;
 		}
@@ -194,7 +221,6 @@ class Books extends \WP_REST_Controller {
 	 * @return \WP_REST_Response
 	 */
 	public function get_items( $request ) {
-
 		// Register missing routes
 		$this->registerRouteDependencies();
 
@@ -210,7 +236,6 @@ class Books extends \WP_REST_Controller {
 	 * @return \WP_REST_Response
 	 */
 	public function get_item( $request ) {
-
 		// Register missing routes
 		$this->registerRouteDependencies();
 
@@ -240,18 +265,17 @@ class Books extends \WP_REST_Controller {
 	 *
 	 * @return array
 	 */
-	protected function renderBook( $id ) {
-		$metadata_info_array = $this->bookDataCollector->get( $id, BookDataCollector::BOOK_INFORMATION_ARRAY );
+	protected function renderBook( int $id ): array {
+		$metadata_info_array = Book::getBookInformation( $id );
 
-		$keys = [
+		$metadata_blog_meta = $this->bookDataCollector->getMultipleMeta( $id, [
 			BookDataCollector::WORD_COUNT,
 			BookDataCollector::STORAGE_SIZE,
 			BookDataCollector::H5P_ACTIVITIES,
 			BookDataCollector::IN_CATALOG,
 			BookDataCollector::BOOK_URL,
 			BookDataCollector::BOOK_DIRECTORY_EXCLUDED,
-		];
-		$metadata_blog_meta = $this->bookDataCollector->getMultipleMeta( $id, $keys );
+		] );
 
 		if ( ! isset( $metadata_blog_meta[ BookDataCollector::BOOK_DIRECTORY_EXCLUDED ] ) ) {
 			$metadata_blog_meta[ BookDataCollector::BOOK_DIRECTORY_EXCLUDED ] = get_blog_option( $id, BookDataCollector::BOOK_DIRECTORY_EXCLUDED, 0 );
@@ -265,7 +289,7 @@ class Books extends \WP_REST_Controller {
 		$metadata_thumb['pb_thumbnail'] = $this->bookDataCollector->getCoverThumbnail( $id, $metadata_info_array['pb_cover_image'] );
 
 		$metadata = array_merge( $metadata_info_array, $metadata_blog_meta, $blog_info, $metadata_thumb );
-		$metadata = ( is_array( $metadata ) && ! empty( $metadata ) ) ? book_information_to_schema( $metadata, $this->networkExcludedDirectory ) : [];
+		$metadata = empty( $metadata ) ? [] : book_information_to_schema( $metadata, $this->networkExcludedDirectory );
 
 		$item = [
 			'id' => $id,
@@ -310,35 +334,14 @@ class Books extends \WP_REST_Controller {
 	/**
 	 * Count all books, update $this->>totalBooks, return a paginated subset of book ids
 	 *
-	 * @param \WP_REST_Request
+	 * @param \WP_REST_Request $request
 	 *
 	 * @return array blog ids
 	 */
-	protected function listBookIds( $request ) {
-
-		global $wpdb;
-
-		$limit = ! empty( $request['per_page'] ) ? $request['per_page'] : $this->limit;
-		$offset = ! empty( $request['page'] ) ? ( $request['page'] - 1 ) * $limit : 0;
-		$conditions = 'public = 1 AND archived = 0 AND spam = 0 AND deleted = 0 AND blog_id != %d';
-
-		if ( ! empty( $request['modified_since'] ) && is_numeric( $request['modified_since'] ) ) {
-			$epoch = $request['modified_since'];
-			$datetime = new \DateTime( "@$epoch" );
-			$conditions .= sprintf( ' AND last_updated > \'%s\'', $datetime->format( 'Y-m-d H:i:s' ) );
-		}
-
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
-		$blogs = $wpdb->get_col(
-			$wpdb->prepare(
-				"SELECT SQL_CALC_FOUND_ROWS blog_id FROM {$wpdb->blogs}
-				WHERE {$conditions}
-				ORDER BY blog_id LIMIT %d, %d ", get_network()->site_id, $offset, $limit
-			)
-		);
-		// phpcs:enable
-
-		$this->totalBooks = $wpdb->get_var( 'SELECT FOUND_ROWS()' );
+	protected function listBookIds( \WP_REST_Request $request ): array {
+		$book_query_builder = new BooksQueryBuilder();
+		$blogs = $book_query_builder->build( $request )->get();
+		$this->totalBooks = $book_query_builder->getNumberOfRows();
 
 		return $blogs;
 	}
@@ -350,7 +353,6 @@ class Books extends \WP_REST_Controller {
 	 * @param \WP_REST_Response $response
 	 */
 	protected function addPreviousNextLinks( $request, $response ) {
-
 		$page = (int) $request['page'];
 		$max_pages = (int) ceil( $this->totalBooks / (int) $request['per_page'] );
 
@@ -374,5 +376,4 @@ class Books extends \WP_REST_Controller {
 			$response->link_header( 'next', $next_link );
 		}
 	}
-
 }
