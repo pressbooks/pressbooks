@@ -8,14 +8,14 @@
 				@if ( !isset( $exporting ) )
 					<span class="screen-reader-text">name: </span>
 				@endif
-				{{ $contributor['name'] }}
+				{!! $contributor['name'] !!}
 			</p>
 			@if ( $contributor['contributor_institution'] )
 				<p class="contributor__institution">
 					@if ( !isset( $exporting ) )
 						<span class="screen-reader-text">institution: </span>
 					@endif
-					{{ $contributor['contributor_institution'] }}
+					{!! $contributor['contributor_institution'] !!}
 				</p>
 			@endif
 			@if ( $contributor['contributor_user_url'] )

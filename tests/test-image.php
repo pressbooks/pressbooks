@@ -249,8 +249,8 @@ class ImageTest extends \WP_UnitTestCase {
 		 * Test PNGs with alpha channel
 		 */
 		$path = __DIR__ . '/data/';
-		$original = "${path}alpha.png";
-		$resized = "${path}alpha_resized.png";
+		$original = "{$path}alpha.png";
+		$resized = "{$path}alpha_resized.png";
 		copy( $original, $resized );
 
 		\Pressbooks\Image\resize_down( 'png', $resized, 400 );
@@ -264,8 +264,8 @@ class ImageTest extends \WP_UnitTestCase {
 		 * Test Jpeg
 		 */
 
-		$original = "${path}skates.jpg";
-		$resized = "${path}skates_resized.jpg";
+		$original = "{$path}skates.jpg";
+		$resized = "{$path}skates_resized.jpg";
 		copy( $original, $resized );
 
 		\Pressbooks\Image\resize_down( 'jpeg', $resized, 200 );

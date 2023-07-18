@@ -89,7 +89,7 @@ function get_microdata_elements() {
 
 	if ( ! array_key_exists( 'pb_copyright_year', $metadata ) && array_key_exists( 'pb_publication_date', $metadata ) && is_valid_timestamp( $metadata['pb_publication_date'] ) ) {
 		$itemprop = 'copyrightYear';
-		$content = strftime( '%Y', (int) $metadata['pb_publication_date'] );
+		$content = date( 'Y', (int) $metadata['pb_publication_date'] );
 		$html .= "<meta itemprop='" . $itemprop . "' content='" . $content . "' id='" . $itemprop . "'>\n";
 	}
 
@@ -334,10 +334,10 @@ function book_information_to_schema( array $book_information, bool $network_excl
 	}
 
 	if ( isset( $book_information['pb_publication_date'] ) && is_valid_timestamp( $book_information['pb_publication_date'] ) ) {
-		$book_schema['datePublished'] = strftime( '%F', (int) $book_information['pb_publication_date'] );
+		$book_schema['datePublished'] = date( 'Y-m-d', (int) $book_information['pb_publication_date'] );
 
 		if ( ! isset( $book_information['pb_copyright_year'] ) ) {
-			$book_schema['copyrightYear'] = strftime( '%Y', (int) $book_information['pb_publication_date'] );
+			$book_schema['copyrightYear'] = date( 'Y', (int) $book_information['pb_publication_date'] );
 		}
 	}
 
@@ -396,7 +396,7 @@ function book_information_to_schema( array $book_information, bool $network_excl
 	}
 
 	if ( true === $network_excluded_directory ) {
-		$book_schema['bookDirectoryExcluded'] = $network_excluded_directory && ! $book_schema['inCatalog'];
+		$book_schema['bookDirectoryExcluded'] = ! $book_schema['inCatalog'];
 	} elseif ( isset( $book_schema['bookDirectoryExcluded'] ) ) {
 		$book_schema['bookDirectoryExcluded'] = (bool) $book_information['pb_book_directory_excluded'];
 	} else {
@@ -663,9 +663,9 @@ function section_information_to_schema( $section_information, $book_information 
 	}
 
 	if ( isset( $book_information['pb_publication_date'] ) && is_valid_timestamp( $book_information['pb_publication_date'] ) ) {
-		$section_schema['datePublished'] = strftime( '%F', (int) $book_information['pb_publication_date'] );
+		$section_schema['datePublished'] = date( 'Y-m-d', (int) $book_information['pb_publication_date'] );
 		if ( ! isset( $book_information['pb_copyright_year'] ) ) {
-			$section_schema['copyrightYear'] = strftime( '%Y', (int) $book_information['pb_publication_date'] );
+			$section_schema['copyrightYear'] = date( 'Y', (int) $book_information['pb_publication_date'] );
 		}
 	}
 
@@ -876,7 +876,7 @@ function get_thema_subjects( bool $include_qualifiers = false, bool $main_site =
 				$subjects[ $code->CodeValue ] = [
 					'label' => $code->CodeDescription,
 				];
-				if ( ctype_alpha( $code->CodeValue ) ) {
+				if ( ctype_alpha( (string) $code->CodeValue ) ) {
 					$subjects[ $code->CodeValue ]['children'][ $code->CodeValue ] = $code->CodeDescription;
 				}
 			} else {
@@ -1268,7 +1268,7 @@ function transform_institutions( array $institutions ): array {
  */
 function transform_regions( string $country, array $regions ): array {
 	return array_reduce( $regions, static function( $values, $region ) use ( $country ) {
-		$institutions = [ "${country}/${region['name']}" => transform_institutions( $region['institutions'] ?? [] ) ];
+		$institutions = [ "{$country}/{$region['name']}" => transform_institutions( $region['institutions'] ?? [] ) ];
 
 		return array_merge( $values, $institutions );
 	}, [] );

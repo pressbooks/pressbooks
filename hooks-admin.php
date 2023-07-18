@@ -1,9 +1,12 @@
 <?php
+
 /**
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  */
 
+use Pressbooks\Admin\Menus\SideBar;
+use Pressbooks\Admin\Menus\TopBar;
 use Pressbooks\Book;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -35,8 +38,7 @@ add_action( 'plugins_loaded', [ '\Pressbooks\EventStreams', 'init' ] );
 // Remove the Try Gutenberg panel
 remove_action( 'try_gutenberg_panel', 'wp_try_gutenberg_panel' );
 
-// PressBook-ify the admin bar
-add_action( 'admin_bar_menu', '\Pressbooks\Admin\Laf\replace_menu_bar_branding', 11 );
+// Pressbook-ify the admin bar
 add_action( 'admin_bar_menu', '\Pressbooks\Admin\Laf\replace_menu_bar_my_sites', 21 );
 add_action( 'admin_bar_menu', '\Pressbooks\Admin\Laf\remove_menu_bar_update', 41 );
 add_action( 'admin_bar_menu', '\Pressbooks\Admin\Laf\remove_menu_bar_new_content', 71 );
@@ -80,8 +82,12 @@ if ( $is_book ) {
 	// See Pressbooks\Privacy::addPrivacyPolicyContent() for reference.
 }
 
-if ( true === is_main_site() ) {
-	add_action( 'plugins_loaded', [ \Pressbooks\Admin\Dashboard\NewUserDashboard::class, 'init' ] );
+if ( is_main_site() && ! is_network_admin() ) {
+	add_action( 'plugins_loaded', [ \Pressbooks\Admin\Dashboard\UserDashboard::class, 'init' ] );
+}
+
+if ( is_main_site() && is_network_admin() ) {
+	add_action( 'plugins_loaded', [ \Pressbooks\Admin\Dashboard\NetworkDashboard::class, 'init' ] );
 }
 
 // Replace strings
@@ -93,15 +99,6 @@ remove_action( 'admin_init', 'register_admin_color_schemes', 1 );
 
 // Hacks
 add_action( 'edit_form_top', '\Pressbooks\Admin\Laf\edit_screen_navigation' );
-
-// Google Analytics
-add_action( 'network_admin_menu', '\Pressbooks\Admin\Analytics\add_network_menu' );
-add_action( 'admin_init', '\Pressbooks\Admin\Analytics\network_analytics_settings_init' );
-if ( $is_book && get_site_option( 'ga_mu_site_specific_allowed' ) ) {
-	add_action( 'admin_menu', '\Pressbooks\Admin\Analytics\add_book_menu' );
-	add_action( 'admin_init', '\Pressbooks\Admin\Analytics\book_analytics_settings_init' );
-}
-add_action( 'admin_head', '\Pressbooks\Admin\Analytics\print_admin_analytics' );
 
 // Privacy settings
 add_action( 'network_admin_menu', '\Pressbooks\Admin\Laf\network_admin_menu' );
@@ -123,12 +120,6 @@ add_action( 'network_admin_notices', '\Pressbooks\Admin\Laf\admin_notices' );
 add_filter( 'admin_body_class', '\Pressbooks\Admin\NetworkManagers\admin_body_class' );
 add_action( 'network_admin_menu', '\Pressbooks\Admin\NetworkManagers\add_menu', 1 );
 add_action( 'wp_ajax_pb_update_admin_status', '\Pressbooks\Admin\NetworkManagers\update_admin_status' );
-add_action( 'admin_init', '\Pressbooks\Admin\NetworkManagers\restrict_access' );
-add_action( 'admin_menu', '\Pressbooks\Admin\NetworkManagers\hide_menus' );
-add_action( 'admin_bar_menu', '\Pressbooks\Admin\NetworkManagers\hide_admin_bar_menus', 999 );
-if ( ! $is_book ) {
-	add_action( 'network_admin_menu', '\Pressbooks\Admin\NetworkManagers\hide_network_menus', 999 );
-}
 
 // Interfaces around Custom Post Types and Taxonomies
 add_filter( 'post_row_actions', '\Pressbooks\PostType\row_actions', 10, 2 );
@@ -248,6 +239,8 @@ add_action( 'wp_ajax_pb_ftnref_convert', [ '\Pressbooks\Shortcodes\Footnotes\Foo
 add_action( 'wp_ajax_pb_delete_catalog_logo', [ '\Pressbooks\Catalog', 'deleteLogo' ] );
 // Export page
 add_action( 'wp_ajax_pb_update_pins', '\Pressbooks\Modules\Export\update_pins' );
+// Checklist dashboard
+add_action( 'wp_ajax_pb-dashboard-checklist', [ 'Pressbooks\Admin\Dashboard\NetworkDashboard', 'storeCheck' ] );
 
 // -------------------------------------------------------------------------------------------------------------------
 // SASS
@@ -367,6 +360,14 @@ add_action( 'admin_init', '\Pressbooks\Theme\check_upgraded_customcss' );
 // Bulk add users
 add_action( 'init', [ '\Pressbooks\Admin\Users\UserBulk', 'init' ] );
 
+add_action( 'admin_init', '\Pressbooks\Admin\NetworkManagers\restrict_access' );
+
+add_action( 'admin_menu', '\Pressbooks\Admin\NetworkManagers\hide_menus' );
+add_action( 'admin_bar_menu', '\Pressbooks\Admin\NetworkManagers\hide_admin_bar_menus', 999 );
+if ( ! $is_book ) {
+	add_action( 'network_admin_menu', '\Pressbooks\Admin\NetworkManagers\hide_network_menus', 999 );
+}
+
 // Add & sanitize additional contact methods to user profile
 add_filter( 'user_contactmethods', '\Pressbooks\Admin\Laf\modify_user_contact_fields', 11 );
 add_action( 'user_profile_update_errors', '\Pressbooks\Admin\Laf\sanitize_user_profile', 10, 3 );
@@ -374,3 +375,8 @@ add_action( 'show_user_profile', '\Pressbooks\Admin\Laf\add_user_profile_fields'
 add_action( 'edit_user_profile', '\Pressbooks\Admin\Laf\add_user_profile_fields', 11 );
 add_action( 'edit_user_profile_update', '\Pressbooks\Admin\Laf\update_user_profile_fields', 11 );
 add_action( 'personal_options_update', '\Pressbooks\Admin\Laf\update_user_profile_fields', 11 );
+
+if ( ! $is_book ) {
+	add_action( 'plugins_loaded', [ SideBar::class, 'init' ] );
+}
+add_action( 'plugins_loaded', [ TopBar::class, 'init' ] );

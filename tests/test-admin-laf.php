@@ -156,7 +156,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$GLOBALS['post'] = get_post( $this->factory()->post->create_object( $new_post ) );
 		$GLOBALS['current_screen'] = WP_Screen::get( 'post' );
 		\Pressbooks\Admin\Laf\init_css_js();
-		do_action( 'admin_enqueue_scripts' );
+		do_action( 'admin_enqueue_scripts', 'admin_page_pb_cloner' );
 		$this->assertContains( 'pb-cloner', $wp_scripts->queue );
 
 		unset( $GLOBALS['post'], $GLOBALS['current_screen'] ); // Cleanup
@@ -311,22 +311,6 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<a href', $buffer );
 		$this->assertStringContainsString( 'Edit Previous', $buffer );
 		$this->assertStringContainsString( 'Edit Next', $buffer );
-	}
-
-	/**
-	 * @group branding
-	 */
-	function test_replace_menu_bar_branding() {
-		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
-		wp_set_current_user( $user_id );
-		require_once ABSPATH . WPINC . '/class-wp-admin-bar.php';
-		$wp_admin_bar = new \WP_Admin_Bar();
-		$wp_admin_bar->initialize();
-		\Pressbooks\Admin\Laf\replace_menu_bar_branding( $wp_admin_bar );
-
-		$node = $wp_admin_bar->get_node( 'contact' );
-		$this->assertTrue( is_object( $node ) );
-		$this->assertStringContainsString( 'pressbooks.org', $node->href );
 	}
 
 	/**

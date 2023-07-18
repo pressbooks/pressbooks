@@ -1075,7 +1075,7 @@ class Xhtml11 extends ExportGenerator {
 			if ( ! empty( $meta['pb_copyright_year'] ) ) {
 				$default_copyright_date = $meta['pb_copyright_year'] . ' ';
 			} elseif ( ! empty( $meta['pb_publication_date'] ) ) {
-				$default_copyright_date = strftime( '%Y', $meta['pb_publication_date'] );
+				$default_copyright_date = date( 'Y', $meta['pb_publication_date'] );
 			} else {
 				$default_copyright_date = date( 'Y' );
 			}
@@ -1389,7 +1389,7 @@ class Xhtml11 extends ExportGenerator {
 					? \Pressbooks\Modules\Export\get_contributors_section( $chapter_id )
 					: '';
 
-				$chapter_number = strpos( $chapter_subclass, 'numberless' ) === false ? $chapter_index : '';
+				$chapter_number = ! str_contains( $chapter_subclass, 'numberless' ) ? $chapter_index : '';
 
 				$rendered_chapters .= $this->blade->render(
 					'export/chapter',
@@ -1398,7 +1398,7 @@ class Xhtml11 extends ExportGenerator {
 						'slug' => $chapter_slug,
 						'sanitized_title' => $chapter_short_title ?: wp_strip_all_tags( \Pressbooks\Sanitize\decode( $chapter['post_title'] ) ),
 						'number' => $chapter_number,
-						'title' => \Pressbooks\Sanitize\decode( $chapter_title ),
+						'title' => \Pressbooks\Sanitize\decode( $chapter_title, false ),
 						'is_new_buckram' => $this->wrapHeaderElements,
 						'output_short_title' => $this->outputShortTitle,
 						'author' => $chapter_author,

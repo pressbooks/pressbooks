@@ -1,5 +1,4 @@
 @import 'partials/colors';
-@import 'https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200;0,400;0,700;1,200;1,400;1,700&family=Spectral:ital,wght@0,200;0,400;0,700;1,200;1,400;1,700&display=swap';
 
 * {
   box-sizing: border-box;
@@ -18,10 +17,18 @@
     font-size: 1.125rem;
     margin: 0 0 1rem;
   }
+
+  i.pb-heroicons {
+    font-size: 1.5rem;
+    color: #3c434a;
+  }
+
+  a:hover i.pb-heroicons, a:focus i.pb-heroicons {
+    color: #1a1d20;
+  }
 }
 
 .pb-dashboard-image, .pb-book-cover {
-  max-width: 300px;
   margin: 0 auto;
 
   img {
@@ -29,29 +36,62 @@
   }
 }
 
-.book-dash * .pb-dashboard-image {
+.pb-book-cover {
+  max-width: 300px;
+}
+
+.pb-dashboard-image {
   max-width: 225px;
+}
+
+.book-dash .pb-dashboard-image {
+  max-width: 195px;
+  padding-bottom: 1rem;
 }
 
 .pb-dashboard-row {
   margin-bottom: 1rem;
   max-width: 1220px;
 
+  .flex-wide {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    p, a {
+      margin: 0;
+      display: inline-block;
+    }
+  }
+
+  .notice, div.updated, div.error {
+    margin: 20px 0 0;
+  }
+
   .pb-dashboard-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+
+    .pb-dashboard-grid-image {
+      max-width: 225px;
+    }
   }
 
-  .button.button-hero {
+  .button.button-hero, .button.button-primary {
     font-size: 1.125rem;
     font-weight: 700;
     text-align: center;
     border-radius: 10px;
     display: block;
+    padding: 0 1.5rem;
+  }
+
+  .button.button-hero {
     width: 100%;
     margin-bottom: 1rem;
   }
+
 
   ul.horizontal {
     display: grid;
@@ -70,8 +110,8 @@
 
     img {
       display: block;
-      margin: 0 auto .5rem;
-      max-height: 175px;
+      margin: 0 auto 1rem;
+      max-height: 125px;
     }
   }
 
@@ -92,52 +132,59 @@
       font-size: 2rem;
     }
 
-    .visit-book {
+    .visit-book, .visit-homepage {
       display: block;
       font-size: 1.4rem;
       font-weight: 300;
+    }
+
+    .visit-homepage {
+      margin-top: 1em;
+    }
+
+    .pb-dashboard-flex {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      margin: 1rem 0;
+
+      img {
+        width: 40%;
+        max-width: 125px;
+      }
+
+      .actions li a {
+        display: flex;
+        align-items: center;
+        gap: .75rem;
+        text-decoration: none;
+
+        span {
+          text-decoration: underline;
+        }
+      }
     }
   }
 
   .pb-dashboard-panel {
     background-color: $white;
     padding: 1.5rem;
-
-    &.pb-dashboard-invitations {
-      .invitation {
-        align-items: center;
-        display: flex;
-        justify-content: space-between;
-
-        p {
-          margin: .75rem 0;
-        }
-
-        a.button {
-          margin-left: 1rem;
-          padding: 0 1.5rem;
-          font-size: 1.125rem;
-          border-radius: 10px;
-        }
-      }
-    }
   }
 
   ul.pb-dashboard-action {
     margin: 0;
 
     li {
-      display: flex;
-      align-items: center;
-    }
+      a {
+        display: flex;
+        align-items: center;
+        gap: .75rem;
+        text-decoration: none;
 
-    svg {
-      height: 25px;
-      margin-right: .75rem;
-    }
-
-    #view svg {
-      transform: rotate(270deg);
+        span {
+          text-decoration: underline;
+        }
+      }
     }
 
     #delete {
@@ -160,4 +207,92 @@
       grid-template-columns: 1fr;
     }
   }
+
+  .network-checklist {
+    line-height: 1.4;
+    margin-bottom: 1.5rem;
+
+    h2 {
+      margin: 0 0 2rem;
+    }
+
+    ul {
+      li {
+        border: 1px solid #d4d4d4;
+        padding: 14px;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+
+        label {
+          display: flex;
+          align-items: flex-start;
+          gap: .75rem;
+
+          input {
+            margin: 0.15rem 0 0;
+          }
+        }
+
+        a {
+          display: block;
+          padding: 0 0 0.5rem;
+
+          ::after {
+            content: "\A";
+            white-space: pre;
+          }
+        }
+
+        &.checked {
+          background-color: #D4D4D4;
+
+          a, span {
+            color: #3F3F3F;
+          }
+        }
+      }
+
+      @media (min-width: 768px) {
+        columns: 2;
+
+        li {
+          break-inside: avoid;
+        }
+      }
+    }
+
+    .completed {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+
+      .completed-checkbox {
+        display: flex;
+        width: 125px;
+
+        @media (max-width: 600px) {
+          display: none;
+        }
+
+        svg {
+          width: 100%;
+          align-self: center;
+        }
+      }
+
+      .completed-message {
+        max-width: 600px;
+
+        h3 {
+          margin-top: 0;
+        }
+      }
+
+      .button-primary {
+        margin: 1.5rem 0 1rem;
+        max-width: 270px;
+      }
+    }
+  }
 }
+[x-cloak] { display: none !important; }

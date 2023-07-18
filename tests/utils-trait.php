@@ -279,4 +279,23 @@ https://youtu.be/Lqqsp8soXTo
 				'pdf_toc' => 1
 			] );
 	}
+
+	private function createSuperAdminUser(): int {
+		$this->_book();
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		grant_super_admin( $user_id );
+
+		wp_set_current_user( $user_id );
+
+		return $user_id;
+	}
+
+	private function createSubscriberUser(): int {
+		$this->_book();
+		$user_id = $this->factory()->user->create();
+		$user = get_userdata( $user_id );
+		$user->add_role( 'subscriber' );
+		wp_set_current_user( $user_id );
+		return $user_id;
+	}
 }

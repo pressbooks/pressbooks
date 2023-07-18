@@ -130,9 +130,9 @@ class Metadata implements \JsonSerializable {
 	 *
 	 * @since 4.0.0
 	 *
-	 * @return array
+	 * @return mixed
 	 */
-	public function jsonSerialize() {
+	public function jsonSerialize(): mixed {
 
 		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/metadata' );
 		$meta = new \Pressbooks\Api\Endpoints\Controller\Metadata();

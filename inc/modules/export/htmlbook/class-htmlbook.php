@@ -856,7 +856,7 @@ class HTMLBook extends Export {
 			if ( ! empty( $meta['pb_copyright_year'] ) ) {
 				$p->appendContent( $meta['pb_copyright_year'] . ' ' );
 			} elseif ( ! empty( $meta['pb_publication_date'] ) ) {
-				$p->appendContent( strftime( '%Y', $meta['pb_publication_date'] ) );
+				$p->appendContent( date( 'Y', $meta['pb_publication_date'] ) );
 			} else {
 				$p->appendContent( date( 'Y' ) );
 			}

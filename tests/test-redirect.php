@@ -133,7 +133,11 @@ class RedirectTest extends \WP_UnitTestCase {
 		$this->assertEquals( $logged_in->user_login, $user->user_login );
 	}
 
-	public function test_break_reset_password_loop() {
+	/**
+	 * @test
+	 * @group redirect
+	 */
+	public function test_break_reset_password_loop(): void {
 		$user_id = $this->factory()->user->create( [ 'role' => 'subscriber' ] );
 		$user = get_userdata( $user_id );
 		$requested_redirect_to = 'ignored';
@@ -155,5 +159,110 @@ class RedirectTest extends \WP_UnitTestCase {
 		$user = new WP_Error();
 		$url = \Pressbooks\Redirect\break_reset_password_loop( $redirect_to, $requested_redirect_to, $user );
 		$this->assertNotEquals( admin_url(), $url );
+	}
+
+	/**
+	 * @test
+	 * @group redirect
+	 */
+	public function it_redirects_regular_users_to_the_new_user_dashboard(): void {
+		$user = get_userdata(
+			$this->factory()->user->create( [ 'role' => 'subscriber' ] )
+		);
+
+		$redirect_to = admin_url( 'index.php?page=pb_home_page' );
+
+		$this->assertSame(
+			$redirect_to,
+			\Pressbooks\Redirect\handle_dashboard_redirect( $redirect_to, $redirect_to, $user )
+		);
+	}
+
+	/**
+	 * @test
+	 * @group redirect
+	 */
+	public function it_redirects_regular_users_to_the_book_page(): void {
+		$user = get_userdata(
+			$this->factory()->user->create( [ 'role' => 'subscriber' ] )
+		);
+
+		$this->_book();
+
+		$redirect_to = get_site_url( get_current_blog_id() );
+
+		$this->assertSame(
+			$redirect_to,
+			\Pressbooks\Redirect\handle_dashboard_redirect( $redirect_to, $redirect_to, $user )
+		);
+	}
+
+	/**
+	 * @test
+	 * @group redirect
+	 */
+	public function it_redirects_super_admins_to_the_new_network_dashboard(): void {
+		$user = get_userdata(
+			$this->factory()->user->create( [ 'role' => 'administrator' ] )
+		);
+
+		grant_super_admin( $user->ID );
+
+		$redirect_to = admin_url( 'index.php?page=pb_home_page' );
+
+		$redirected = \Pressbooks\Redirect\handle_dashboard_redirect( $redirect_to, $redirect_to, $user );
+
+		$this->assertNotSame( $redirect_to, $redirected );
+		$this->assertSame( network_admin_url( 'admin.php?page=pb_network_page' ), $redirected );
+
+		$redirect_to = admin_url();
+
+		$redirected = \Pressbooks\Redirect\handle_dashboard_redirect( $redirect_to, $redirect_to, $user );
+
+		$this->assertNotSame( $redirect_to, $redirected );
+		$this->assertSame( network_admin_url( 'admin.php?page=pb_network_page' ), $redirected );
+	}
+
+	/**
+	 * @test
+	 * @group redirect
+	 */
+	public function it_redirects_super_admins_to_the_book_page(): void {
+		$user = get_userdata(
+			$this->factory()->user->create( [ 'role' => 'administrator' ] )
+		);
+
+		grant_super_admin( $user->ID );
+
+		$this->_book();
+
+		$redirect_to = get_site_url( get_current_blog_id() );
+
+		$this->assertSame(
+			$redirect_to,
+			\Pressbooks\Redirect\handle_dashboard_redirect( $redirect_to, $redirect_to, $user )
+		);
+	}
+
+	/**
+	 * @test
+	 * @group redirect
+	 */
+	public function it_uses_redirect_to_when_no_user_is_provided(): void {
+		$redirect_to = home_url( 'wp-login.php' );
+
+		$this->assertSame(
+			$redirect_to,
+			\Pressbooks\Redirect\handle_dashboard_redirect( $redirect_to, $redirect_to, new WP_Error )
+		);
+
+		$this->_book();
+
+		$redirect_to = get_site_url( get_current_blog_id() );
+
+		$this->assertSame(
+			$redirect_to,
+			\Pressbooks\Redirect\handle_dashboard_redirect( $redirect_to, $redirect_to, new WP_Error )
+		);
 	}
 }

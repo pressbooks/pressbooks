@@ -67,14 +67,8 @@ class Book {
 	 *
 	 * @return bool
 	 */
-	static function isBook() {
-
-		// Currently, the main site is considered a "blog/landing page" whereas everything else is considered a "book".
-		// We might improve this in the future.
-
-		$is_book = ( is_main_site() === false );
-
-		return $is_book;
+	static function isBook(): bool {
+		return ! is_main_site();
 	}
 
 	/**
@@ -257,7 +251,7 @@ class Book {
 		global $blog_id;
 		$book_data_collector = BookDataCollector::init();
 		$book_information_array = $book_data_collector->get( $blog_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
-		if ( self::removeInvalidatedBisacCodes( $blog_id, $book_information_array ) ) {
+		if ( is_array( $book_information_array ) && self::removeInvalidatedBisacCodes( $blog_id, $book_information_array ) ) {
 			add_error( __(
 				"This book was using a <a href='https://bisg.org/page/InactivatedCodes' target='_blank'> retired BISAC subject term </a>, which has been replaced in your book with a recommended BISAC replacement. You may wish to check the BISAC subject terms manually to confirm that you are satisfied with these replacements."
 			) );
