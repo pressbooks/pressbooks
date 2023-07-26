@@ -1295,6 +1295,36 @@
     "country": "Europe",
     "regions": [
       {
+        "name": "Belgium",
+        "institutions": [
+          {
+            "code": "EU-BEL-001",
+            "name": "Université Libre de Bruxelles",
+            "url": "https:\/\/www.ulb.be/\/"
+          },
+          {
+            "code": "EU-BEL-002",
+            "name": "Université Catholique de Louvain",
+            "url": "https:\/\/uclouvain.be/\/"
+          },
+          {
+            "code": "EU-BEL-003",
+            "name": "Université de Namur",
+            "url": "https:\/\/www.unamur.be/\/"
+          },
+          {
+            "code": "EU-BEL-004",
+            "name": "Université de Liège",
+            "url": "https:\/\/www.uliege.be/\/"
+          },
+          {
+            "code": "EU-BEL-005",
+            "name": "Université de Mons",
+            "url": "https:\/\/web.umons.ac.be/\/"
+          }
+        ]
+      },
+      {
         "name": "Ireland",
         "institutions": [
           {
