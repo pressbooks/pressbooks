@@ -434,7 +434,7 @@ class Licensing {
 					sprintf(
 						__( '%1$s Copyright &copy;%2$s by %3$s is licensed under a %4$s, except where otherwise noted.', 'pressbooks' ),
 						sprintf( '<a rel="cc:attributionURL" href="%1$s" property="dc:title">%2$s</a>', $link, $title ),
-						$copyright_year,
+						( $copyright_year ) ? ' ' . $copyright_year : '',
 						sprintf( '<span property="cc:attributionName">%1$s</span>', $copyright_holder ),
 						sprintf( '<a rel="license" href="%1$s">%2$s</a>', $url, $name )
 					)
