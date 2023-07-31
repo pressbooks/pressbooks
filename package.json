@@ -16,7 +16,7 @@
 	},
 	"dependencies": {
 		"@pressbooks/multiselect": "^1.0.1",
-		"algoliasearch": "^4.17.2",
+		"algoliasearch": "^4.19.1",
 		"alpinejs": "^3.12.2",
 		"block-ui": "^2.70.1",
 		"countup.js": "^2.7.0",
