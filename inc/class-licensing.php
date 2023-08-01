@@ -427,7 +427,7 @@ class Licensing {
 		} elseif ( $this->isSupportedType( $license ) ) {
 			$name = $this->getNameForLicense( $license );
 			$url  = $this->getUrlForLicense( $license );
-			if ( \Pressbooks\Utility\str_starts_with( $license, 'cc' ) && $license !== 'cc-zero' ) {
+			if ( \Pressbooks\Utility\str_starts_with( $license, 'cc' ) || \Pressbooks\Utility\str_starts_with( $license, 'ontario' ) && $license !== 'cc-zero' ) {
 				return sprintf(
 					'<div class="license-attribution"><p>%1$s</p><p>%2$s</p></div>',
 					sprintf( '<img src="%1$s" alt="%2$s" />', get_template_directory_uri() . '/packages/buckram/assets/images/' . $license . '.svg', sprintf( __( 'Icon for the %s', 'pressbooks' ), $name ) ),
