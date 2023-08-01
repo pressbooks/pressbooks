@@ -27,8 +27,8 @@ class GoogleAnalytics {
 		$this->settings['input_label'] = __( 'Google Analytics ID', 'pressbooks' );
 		$this->settings['input_legend'] = __( 'The Google Analytics ID for your network, e.g &lsquo;G-A123B4C5DE6&rsquo;.', 'pressbooks' );}
 
-	public function getGoogleIDSiteOption( bool $for_book ): false|string {
-		return ! $for_book ?
+	public function getGoogleIDSiteOption( bool $for_book_context ): false|string {
+		return ! $for_book_context ?
 			get_site_option( $this->settings['option'] ) :
 			get_option( $this->settings['option'] );
 	}
@@ -198,7 +198,7 @@ class GoogleAnalytics {
 	}
 
 	public function analyticsInputCallback( array $args ): void {
-		$option = $this->getGoogleIDSiteOption( $args['for_book'] );
+		$option = $this->getGoogleIDSiteOption( for_book_context: $args['for_book'] );
 		$html = '<input type="text" id="ga_4" name="ga_4" value="' . $option . '" />';
 		$html .= '<p class="description">' . $args['legend'] . '</p>';
 		echo $html;
@@ -277,10 +277,10 @@ class GoogleAnalytics {
 	}
 
 	public function printScripts(): void {
-		$network_google_code = $this->getGoogleIDSiteOption( false );
+		$network_google_code = $this->getGoogleIDSiteOption( for_book_context: false );
 		if ( ! empty( $network_google_code ) ) {
 			$book_google_code = get_site_option( self::$is_allowed_option ) ?
-				$this->getGoogleIDSiteOption( true ) : '';
+				$this->getGoogleIDSiteOption( for_book_context: true ) : '';
 
 			$this->printScript( $network_google_code, $book_google_code );
 		}
