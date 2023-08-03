@@ -427,13 +427,14 @@ class Licensing {
 		} elseif ( $this->isSupportedType( $license ) ) {
 			$name = $this->getNameForLicense( $license );
 			$url  = $this->getUrlForLicense( $license );
-			if ( \Pressbooks\Utility\str_starts_with( $license, 'cc' ) && $license !== 'cc-zero' ) {
+			if ( str_starts_with( $license, 'cc' ) && $license !== 'cc-zero' ) {
 				return sprintf(
 					'<div class="license-attribution"><p>%1$s</p><p>%2$s</p></div>',
 					sprintf( '<img src="%1$s" alt="%2$s" />', get_template_directory_uri() . '/packages/buckram/assets/images/' . $license . '.svg', sprintf( __( 'Icon for the %s', 'pressbooks' ), $name ) ),
 					sprintf(
-						__( '%1$s by %2$s is licensed under a %3$s, except where otherwise noted.', 'pressbooks' ),
+						__( '%1$s Copyright &copy;%2$s by %3$s is licensed under a %4$s, except where otherwise noted.', 'pressbooks' ),
 						sprintf( '<a rel="cc:attributionURL" href="%1$s" property="dc:title">%2$s</a>', $link, $title ),
+						( $copyright_year ) ? ' ' . $copyright_year : '',
 						sprintf( '<span property="cc:attributionName">%1$s</span>', $copyright_holder ),
 						sprintf( '<a rel="license" href="%1$s">%2$s</a>', $url, $name )
 					)
@@ -475,6 +476,14 @@ class Licensing {
 						$copyright_holder,
 						sprintf( '<a href="%1$s">%2$s</a>', $link, $title )
 					)
+				);
+			} else {
+				return sprintf(
+					__( '%1$s Copyright &copy;%2$s by %3$s is licensed under a %4$s, except where otherwise noted.', 'pressbooks' ),
+					sprintf( '<a href="%1$s" property="dc:title">%2$s</a>', $link, $title ),
+					( $copyright_year ) ? ' ' . $copyright_year : '',
+					sprintf( '<span>%1$s</span>', $copyright_holder ),
+					sprintf( '<a rel="license" href="%1$s">%2$s</a>', $url, $name )
 				);
 			}
 		}
