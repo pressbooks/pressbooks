@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 6.13.0\n"
+"Project-Id-Version: Pressbooks 6.14.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-07-10T17:23:48+00:00\n"
+"POT-Creation-Date: 2023-08-03T23:30:56+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: pressbooks\n"
@@ -1211,12 +1211,12 @@ msgstr ""
 
 #: inc/admin/menus/class-sidebar.php:485
 #: inc/admin/menus/class-sidebar.php:486
-#: inc/class-googleanalytics.php:87
-#: inc/class-googleanalytics.php:88
-#: inc/class-googleanalytics.php:97
-#: inc/class-googleanalytics.php:98
-#: inc/class-googleanalytics.php:277
-#: inc/class-googleanalytics.php:329
+#: inc/class-googleanalytics.php:69
+#: inc/class-googleanalytics.php:70
+#: inc/class-googleanalytics.php:79
+#: inc/class-googleanalytics.php:80
+#: inc/class-googleanalytics.php:217
+#: inc/class-googleanalytics.php:267
 msgid "Google Analytics"
 msgstr ""
 
@@ -1825,7 +1825,7 @@ msgid "Sharing and Privacy settings."
 msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:202
-#: inc/class-googleanalytics.php:291
+#: inc/class-googleanalytics.php:230
 msgid "Settings saved."
 msgstr ""
 
@@ -2310,34 +2310,23 @@ msgstr ""
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr ""
 
-#: inc/class-googleanalytics.php:38
-msgid "Google Analytics UA ID"
+#: inc/class-googleanalytics.php:27
+msgid "Google Analytics ID"
 msgstr ""
 
-#: inc/class-googleanalytics.php:39
-msgid "Google Analytics 4 ID"
+#: inc/class-googleanalytics.php:28
+msgid "The Google Analytics ID for your network, e.g &lsquo;G-A123B4C5DE6&rsquo;."
 msgstr ""
 
-#: inc/class-googleanalytics.php:40
-msgid ""
-"The Google Analytics UA ID for your network, &lsquo;UA-01234567-8&rsquo;.\n"
-"\t\t\tGoogle will <a href='https://support.google.com/analytics/answer/11583528' target='_blank'>stop processing data</a>\n"
-"\t\t\tfor sites which use UA on July 1, 2023."
-msgstr ""
-
-#: inc/class-googleanalytics.php:43
-msgid "The Google Analytics 4 ID for your network, e.g &lsquo;G-A123B4C5DE6&rsquo;."
-msgstr ""
-
-#: inc/class-googleanalytics.php:149
+#: inc/class-googleanalytics.php:118
 msgid "Site-Specific Tracking"
 msgstr ""
 
-#: inc/class-googleanalytics.php:154
+#: inc/class-googleanalytics.php:123
 msgid "If enabled, the Google Analytics settings page will be visible to book administrators, allowing them to use their own Google Analytics accounts to track statistics at the book level."
 msgstr ""
 
-#: inc/class-googleanalytics.php:257
+#: inc/class-googleanalytics.php:197
 msgid "Google Analytics settings."
 msgstr ""
 
@@ -2420,7 +2409,7 @@ msgid "except where otherwise noted."
 msgstr ""
 
 #: inc/class-licensing.php:421
-#: inc/class-licensing.php:445
+#: inc/class-licensing.php:446
 msgid "%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved."
 msgstr ""
 
@@ -2429,15 +2418,16 @@ msgid "Icon for the %s"
 msgstr ""
 
 #: inc/class-licensing.php:435
-msgid "%1$s by %2$s is licensed under a %3$s, except where otherwise noted."
+#: inc/class-licensing.php:482
+msgid "%1$s Copyright &copy;%2$s by %3$s is licensed under a %4$s, except where otherwise noted."
 msgstr ""
 
-#: inc/class-licensing.php:454
-#: inc/class-licensing.php:464
+#: inc/class-licensing.php:455
+#: inc/class-licensing.php:465
 msgid "Icon for the %s license"
 msgstr ""
 
-#: inc/class-licensing.php:456
+#: inc/class-licensing.php:457
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
 msgstr ""
 
