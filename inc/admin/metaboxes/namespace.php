@@ -165,6 +165,18 @@ function add_metadata_styles( $hook ) {
 	}
 }
 
+function cmb2_render_date( $field, $escaped_value, $object_id, $object_type, $field_type_object ) {
+	$blade = Container::get( 'Blade' );
+
+
+	echo $blade->render(
+		'cmb2/date', [
+			'args' => $field->args,
+			'value' => $escaped_value
+		]
+	);
+}
+
 function cmb2_render_taxonomy_multiselect( $field, $escaped_value, $object_id, $object_type, $field_type_object ) {
 	$blade = Container::get( 'Blade' );
 
@@ -182,6 +194,8 @@ function cmb2_sanitize_taxonomy_multiselect_callback( $override_value, $value, $
 }
 
 function cmb2_meta_boxes() {
+	$show_expanded_metadata = \Pressbooks\Metadata\show_expanded_metadata();
+
 	$general = new_cmb2_box( [
 		'id' => 'cmb2-general-book-information',
 		'title' => __( 'General Book Information', 'pressbooks' ),
@@ -199,7 +213,7 @@ function cmb2_meta_boxes() {
 
 	$general->add_field( [
 		'name' => __( 'Short Title', 'pressbooks' ),
-		'description' => __( 'In case of long titles that might be truncated in running heads in the PDF export.', 'pressbooks' ),
+		'desc' => __( 'In case of long titles that might be truncated in running heads in the PDF export.', 'pressbooks' ),
 		'id' => 'pb_short_title',
 		'type' => 'text',
 	] );
@@ -229,20 +243,33 @@ function cmb2_meta_boxes() {
 
 	$general->add_field( [
 		'name' => __( 'Publisher', 'pressbooks' ),
-		'description' => __( 'This text appears on the title page of your book.', 'pressbooks' ),
+		'desc' => __( 'This text appears on the title page of your book.', 'pressbooks' ),
 		'id' => 'pb_publisher',
 		'type' => 'text',
 	] );
 
 	$general->add_field( [
 		'name' => __( 'Publisher City', 'pressbooks' ),
-		'description' => __( 'This text appears on the title page of your book.', 'pressbooks' ),
+		'desc' => __( 'This text appears on the title page of your book.', 'pressbooks' ),
 		'id' => 'pb_publisher_city',
 		'type' => 'text',
 	] );
 
-	// TODO: pb_publication_date
-	// TODO: pb_onsale_date
+	$general->add_field( [
+		'name' => __( 'Publication Date', 'pressbooks' ),
+		'desc' => __( 'This is added to the metadata in your ebook.', 'pressbooks' ),
+		'id' => 'pb_publication_date',
+		'type' => 'date',
+	] );
+
+	if ( $show_expanded_metadata ) {
+		$general->add_field( [
+			'name' => __( 'On-Sale Date', 'pressbooks' ),
+			'desc' => __( 'This is added to the metadata in your ebook.', 'pressbooks' ),
+			'id' => 'pb_onsale_date',
+			'type' => 'date'
+		] );
+	}
 
 	$general->add_field( [
 		'name' => __( 'Ebook ISBN', 'pressbooks' ),
@@ -264,7 +291,14 @@ function cmb2_meta_boxes() {
 		'type' => 'text',
 	] );
 
-	// TODO: pb_language
+	$general->add_field( [
+		'name' => __( 'Language', 'pressbooks' ),
+		'id' => 'pb_language',
+		'desc' => __( 'This sets metadata in your ebook, making it easier to find in some stores. It also changes some system generated content for supported languages, such as the "Contents" header.', 'pressbooks' ) . '<br />' . sprintf( '<a href="https://www.transifex.com/pressbooks/pressbooks/">%s</a>', __( 'Help translate Pressbooks into your language!', 'pressbooks' ) ),
+		'type' => 'select',
+		'options' => \Pressbooks\L10n\supported_languages()
+	] );
+
 
 	$cover = new_cmb2_box( [
 		'id' => 'cmb2-cover-image',
@@ -293,6 +327,10 @@ function cmb2_meta_boxes() {
 		'cmb_styles' => false,
 	] );
 
+	$meta = new Metadata();
+	$data = $meta->getMetaPostMetadata();
+	$source_url = $data['pb_is_based_on'] ?? false;
+
 	$copyright = new_cmb2_box( [
 		'id' => 'cmb2-copyright',
 		'title' => __( 'Copyright', 'pressbooks' ),
@@ -302,6 +340,64 @@ function cmb2_meta_boxes() {
 		'cmb_styles' => false,
 	] );
 
+	if ( $source_url ) {
+		// x_add_metadata_field(
+		// 	'pb_is_based_on', 'metadata', [
+		// 		'group' => 'copyright',
+		// 		'label' => __( 'Source Book URL', 'pressbooks' ),
+		// 		'readonly' => true,
+		// 		'description' => __( 'This book was cloned from a pre-existing book at the above URL. This information will be displayed on the webbook homepage.', 'pressbooks' ),
+		// 	]
+		// );
+	}
+
+	if ( $show_expanded_metadata ) {
+	// 	x_add_metadata_field(
+	// 		'pb_copyright_year', 'metadata', [
+	// 			'group' => 'copyright',
+	// 			'label' => __( 'Copyright Year', 'pressbooks' ),
+	// 			'description' => __( 'Year that the book is/was published.', 'pressbooks' ),
+	// 			'sanitize_callback' => function ( ...$args ) {
+	// 				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+	// 			},
+	//
+	// 		]
+	// 	);
+	}
+
+	// x_add_metadata_field(
+	// 	'pb_copyright_holder', 'metadata', [
+	// 		'group' => 'copyright',
+	// 		'label' => __( 'Copyright Holder', 'pressbooks' ),
+	// 		'description' => __( 'Name of the copyright holder.', 'pressbooks' ),
+	// 		'sanitize_callback' => function ( ...$args ) {
+	// 			return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+	// 		},
+	// 	]
+	// );
+	//
+	// x_add_metadata_field(
+	// 	'pb_book_license', 'metadata', [
+	// 		'group' => 'copyright',
+	// 		'field_type' => 'taxonomy_select',
+	// 		'taxonomy' => Licensing::TAXONOMY,
+	// 		'label' => __( 'Copyright License', 'pressbooks' ),
+	// 		'description' => __( 'You can select various licenses including Creative Commons.', 'pressbooks' ),
+	// 	]
+	// );
+	//
+	// x_add_metadata_field(
+	// 	'pb_custom_copyright', 'metadata', [
+	// 		'field_type' => 'wysiwyg',
+	// 		'group' => 'copyright',
+	// 		'label' => __( 'Copyright Notice', 'pressbooks' ),
+	// 		'description' => __( 'Enter a custom copyright notice, with whatever information you like. This will override the auto-generated copyright notice if All Rights Reserved or no license is selected, and will be inserted after the title page. If you select a Creative Commons license, the custom notice will appear after the license text in both the webbook and your exports.', 'pressbooks' ),
+	// 		'sanitize_callback' => function ( ...$args ) {
+	// 			return trim( sanitize_string( $args[ METADATA_CALLBACK_INDEX ], true ) );
+	// 		},
+	// 	]
+	// );
+
 	$about = new_cmb2_box( [
 		'id' => 'cmb2-about-the-book',
 		'title' => __( 'About the Book', 'pressbooks' ),
@@ -310,6 +406,184 @@ function cmb2_meta_boxes() {
 		'show_names' => true,
 		'cmb_styles' => false,
 	] );
+
+	// x_add_metadata_field(
+	// 	'pb_about_140', 'metadata', [
+	// 		'group' => 'about-the-book',
+	// 		'label' => __( 'Book Tagline', 'pressbooks' ),
+	// 		'description' => __( 'A very short description of your book. It should fit in a Twitter post, and encapsulate your book in the briefest sentence.', 'pressbooks' ),
+	// 		'sanitize_callback' => function ( ...$args ) {
+	// 			return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+	// 		},
+	// 	]
+	// );
+	//
+	// x_add_metadata_field(
+	// 	'pb_about_50', 'metadata', [
+	// 		'field_type' => 'textarea',
+	// 		'group' => 'about-the-book',
+	// 		'label' => __( 'Short Description', 'pressbooks' ),
+	// 		'description' => __( 'A short paragraph about your book, for catalogs, reviewers etc. to quote.', 'pressbooks' ),
+	// 		'sanitize_callback' => function ( ...$args ) {
+	// 			return trim( sanitize_string( $args[ METADATA_CALLBACK_INDEX ], true ) );
+	// 		},
+	// 	]
+	// );
+	//
+	// x_add_metadata_field(
+	// 	'pb_about_unlimited', 'metadata', [
+	// 		'field_type' => 'wysiwyg',
+	// 		'group' => 'about-the-book',
+	// 		'label' => __( 'Long Description', 'pressbooks' ),
+	// 		'description' => __( 'The full description of your book.', 'pressbooks' ),
+	// 		'sanitize_callback' => function ( ...$args ) {
+	// 			return trim( sanitize_string( $args[ METADATA_CALLBACK_INDEX ], true ) );
+	// 		},
+	// 	]
+	// );
+
+	if ( $show_expanded_metadata ) {
+	$about = new_cmb2_box( [
+		'id' => 'cmb2-additional-catalog-information',
+		'title' => __( 'Additional Catalog Information', 'pressbooks' ),
+		'object_types' => [ 'metadata' ],
+		'priority' => 'high',
+		'show_names' => true,
+		'cmb_styles' => false,
+	] );
+
+	// x_add_metadata_field(
+	// 	'pb_series_title', 'metadata', [
+	// 		'group' => 'additional-catalog-information',
+	// 		'label' => __( 'Series Title', 'pressbooks' ),
+	// 		'description' => __( 'Add if your book is part of a series.', 'pressbooks' ),
+	// 		'sanitize_callback' => function ( ...$args ) {
+	// 			return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+	// 		},
+	// 	]
+	// );
+	//
+	// x_add_metadata_field(
+	// 	'pb_series_number', 'metadata', [
+	// 		'group' => 'additional-catalog-information',
+	// 		'label' => __( 'Series Number', 'pressbooks' ),
+	// 		'description' => __( 'Add if your book is part of a series.', 'pressbooks' ),
+	// 		'sanitize_callback' => function ( ...$args ) {
+	// 			return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+	// 		},
+	// 	]
+	// );
+	//
+	// x_add_metadata_field(
+	// 	'pb_keywords_tags', 'metadata', [
+	// 		'group' => 'additional-catalog-information',
+	// 		'label' => __( 'Keywords', 'pressbooks' ),
+	// 		'multiple' => true,
+	// 		'description' => __( 'These are added to your webbook cover page, and in your ebook metadata. Keywords are used by online book stores and search engines.', 'pressbooks' ),
+	// 	]
+	// );
+	//
+	// x_add_metadata_field(
+	// 	'pb_hashtag', 'metadata', [
+	// 		'group' => 'additional-catalog-information',
+	// 		'label' => __( 'Hashtag', 'pressbooks' ),
+	// 		'description' => __( 'These are added to your webbook cover page. For those of you who like Twitter.', 'pressbooks' ),
+	// 		'sanitize_callback' => function ( ...$args ) {
+	// 			return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+	// 		},
+	// 	]
+	// );
+	//
+	// x_add_metadata_field(
+	// 	'pb_list_price_print', 'metadata', [
+	// 		'group' => 'additional-catalog-information',
+	// 		'label' => __( 'List Price (Print)', 'pressbooks' ),
+	// 		'description' => __( 'The list price of your book in print.', 'pressbooks' ),
+	// 		'sanitize_callback' => function ( ...$args ) {
+	// 			return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+	// 		},
+	// 	]
+	// );
+	//
+	// x_add_metadata_field(
+	// 	'pb_list_price_pdf', 'metadata', [
+	// 		'group' => 'additional-catalog-information',
+	// 		'label' => __( 'List Price (PDF)', 'pressbooks' ),
+	// 		'description' => __( 'The list price of your book in PDF format.', 'pressbooks' ),
+	// 		'sanitize_callback' => function ( ...$args ) {
+	// 			return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+	// 		},
+	// 	]
+	// );
+	//
+	// x_add_metadata_field(
+	// 	'pb_list_price_epub', 'metadata', [
+	// 		'group' => 'additional-catalog-information',
+	// 		'label' => __( 'List Price (ebook)', 'pressbooks' ),
+	// 		'description' => __( 'The list price of your book in Ebook formats.', 'pressbooks' ),
+	// 		'sanitize_callback' => function ( ...$args ) {
+	// 			return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+	// 		},
+	// 	]
+	// );
+	//
+	// x_add_metadata_field(
+	// 	'pb_list_price_web', 'metadata', [
+	// 		'group' => 'additional-catalog-information',
+	// 		'label' => __( 'List Price (Web)', 'pressbooks' ),
+	// 		'description' => __( 'The list price of your webbook.', 'pressbooks' ),
+	// 		'sanitize_callback' => function ( ...$args ) {
+	// 			return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+	// 		},
+	// 	]
+	// );
+	//
+	// x_add_metadata_field(
+	// 	'pb_audience', 'metadata', [
+	// 		'group' => 'additional-catalog-information',
+	// 		'field_type' => 'select',
+	// 		'values' => [
+	// 			'' => __( 'Choose an audience&hellip;', 'pressbooks' ),
+	// 			'juvenile' => __( 'Juvenile', 'pressbooks' ),
+	// 			'young-adult' => __( 'Young Adult', 'pressbooks' ),
+	// 			'adult' => __( 'Adult', 'pressbooks' ),
+	// 		],
+	// 		'label' => __( 'Audience', 'pressbooks' ),
+	// 		'description' => __( 'The target audience for your book.', 'pressbooks' ),
+	// 	]
+	// );
+	//
+	// x_add_metadata_field(
+	// 	/**
+	// 	 * Filter metadata field arguments for BISAC Subject(s).
+	// 	 *
+	// 	 * @since 4.0.0
+	// 	 */
+	// 	'pb_bisac_subject', 'metadata', apply_filters(
+	// 		'pb_bisac_subject_field_args', [
+	// 			'group' => 'additional-catalog-information',
+	// 			'label' => __( 'BISAC Subject(s)', 'pressbooks' ),
+	// 			'multiple' => true,
+	// 			'description' => sprintf( __( 'BISAC Subject Headings help libraries and bookstores properly classify your book. To select the appropriate subject heading for your book, consult %s.', 'pressbooks' ), sprintf( '<a href="https://bisg.org/page/BISACEdition">%s</a>', __( 'the BISAC Subject Headings list', 'pressbooks' ) ) ),
+	// 		]
+	// 	)
+	// );
+	//
+	// x_add_metadata_field(
+	// 	/**
+	// 	 * Filter metadata field arguments for BISAC Regional Theme.
+	// 	 *
+	// 	 * @since 4.0.0
+	// 	 */
+	// 	'pb_bisac_regional_theme', 'metadata', apply_filters(
+	// 		'pb_bisac_regional_theme_field_args', [
+	// 			'group' => 'additional-catalog-information',
+	// 			'label' => __( 'BISAC Regional Theme', 'pressbooks' ),
+	// 			'description' => __( 'BISAC Regional Themes help libraries and bookstores properly classify your book.', 'pressbooks' ),
+	// 		]
+	// 	)
+	// );
+	}
 }
 
 /**
@@ -331,307 +605,6 @@ function add_meta_boxes() {
 	// Book info: slug should be not available
 
 	remove_meta_box( 'slugdiv', 'metadata', 'normal' );
-
-	// Custom Image Upload
-
-	add_meta_box( 'covers', __( 'Cover Image', 'pressbooks' ), '\Pressbooks\Image\cover_image_box', 'metadata', 'normal', 'low' );
-
-	// Book Metadata
-
-	x_add_metadata_group(
-		'general-book-information', 'metadata', [
-			'label' => __( 'General Book Information', 'pressbooks' ),
-			'priority' => 'high',
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_publication_date', 'metadata', [
-			'field_type' => 'datepicker',
-			'group' => 'general-book-information',
-			'label' => __( 'Publication Date', 'pressbooks' ),
-			'description' => __( 'This is added to the metadata in your ebook.', 'pressbooks' ),
-		]
-	);
-
-	if ( $show_expanded_metadata ) {
-		x_add_metadata_field(
-			'pb_onsale_date', 'metadata', [
-				'field_type' => 'datepicker',
-				'group' => 'general-book-information',
-				'label' => __( 'On-Sale Date', 'pressbooks' ),
-				'description' => __( 'This is added to the metadata in your ebook.', 'pressbooks' ),
-			]
-		);
-	}
-
-	x_add_metadata_field(
-		'pb_language', 'metadata', [
-			'group' => 'general-book-information',
-			'field_type' => 'select',
-			'values' => \Pressbooks\L10n\supported_languages(),
-			'label' => __( 'Language', 'pressbooks' ),
-			'description' => __( 'This sets metadata in your ebook, making it easier to find in some stores. It also changes some system generated content for supported languages, such as the "Contents" header.', 'pressbooks' ) . '<br />' . sprintf( '<a href="https://www.transifex.com/pressbooks/pressbooks/">%s</a>', __( 'Help translate Pressbooks into your language!', 'pressbooks' ) ),
-			'select2' => true,
-		]
-	);
-
-	x_add_metadata_group(
-		'copyright', 'metadata', [
-			'label' => __( 'Copyright', 'pressbooks' ),
-			'priority' => 'low',
-		]
-	);
-
-	$meta = new Metadata();
-	$data = $meta->getMetaPostMetadata();
-	$source_url = $data['pb_is_based_on'] ?? false;
-
-	if ( $source_url ) {
-		x_add_metadata_field(
-			'pb_is_based_on', 'metadata', [
-				'group' => 'copyright',
-				'label' => __( 'Source Book URL', 'pressbooks' ),
-				'readonly' => true,
-				'description' => __( 'This book was cloned from a pre-existing book at the above URL. This information will be displayed on the webbook homepage.', 'pressbooks' ),
-			]
-		);
-
-	}
-
-	if ( $show_expanded_metadata ) {
-		x_add_metadata_field(
-			'pb_copyright_year', 'metadata', [
-				'group' => 'copyright',
-				'label' => __( 'Copyright Year', 'pressbooks' ),
-				'description' => __( 'Year that the book is/was published.', 'pressbooks' ),
-				'sanitize_callback' => function ( ...$args ) {
-					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
-				},
-
-			]
-		);
-	}
-
-	x_add_metadata_field(
-		'pb_copyright_holder', 'metadata', [
-			'group' => 'copyright',
-			'label' => __( 'Copyright Holder', 'pressbooks' ),
-			'description' => __( 'Name of the copyright holder.', 'pressbooks' ),
-			'sanitize_callback' => function ( ...$args ) {
-				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
-			},
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_book_license', 'metadata', [
-			'group' => 'copyright',
-			'field_type' => 'taxonomy_select',
-			'taxonomy' => Licensing::TAXONOMY,
-			'label' => __( 'Copyright License', 'pressbooks' ),
-			'description' => __( 'You can select various licenses including Creative Commons.', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_custom_copyright', 'metadata', [
-			'field_type' => 'wysiwyg',
-			'group' => 'copyright',
-			'label' => __( 'Copyright Notice', 'pressbooks' ),
-			'description' => __( 'Enter a custom copyright notice, with whatever information you like. This will override the auto-generated copyright notice if All Rights Reserved or no license is selected, and will be inserted after the title page. If you select a Creative Commons license, the custom notice will appear after the license text in both the webbook and your exports.', 'pressbooks' ),
-			'sanitize_callback' => function ( ...$args ) {
-				return trim( sanitize_string( $args[ METADATA_CALLBACK_INDEX ], true ) );
-			},
-		]
-	);
-
-	x_add_metadata_group(
-		'about-the-book', 'metadata', [
-			'label' => __( 'About the Book', 'pressbooks' ),
-			'priority' => 'low',
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_about_140', 'metadata', [
-			'group' => 'about-the-book',
-			'label' => __( 'Book Tagline', 'pressbooks' ),
-			'description' => __( 'A very short description of your book. It should fit in a Twitter post, and encapsulate your book in the briefest sentence.', 'pressbooks' ),
-			'sanitize_callback' => function ( ...$args ) {
-				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
-			},
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_about_50', 'metadata', [
-			'field_type' => 'textarea',
-			'group' => 'about-the-book',
-			'label' => __( 'Short Description', 'pressbooks' ),
-			'description' => __( 'A short paragraph about your book, for catalogs, reviewers etc. to quote.', 'pressbooks' ),
-			'sanitize_callback' => function ( ...$args ) {
-				return trim( sanitize_string( $args[ METADATA_CALLBACK_INDEX ], true ) );
-			},
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_about_unlimited', 'metadata', [
-			'field_type' => 'wysiwyg',
-			'group' => 'about-the-book',
-			'label' => __( 'Long Description', 'pressbooks' ),
-			'description' => __( 'The full description of your book.', 'pressbooks' ),
-			'sanitize_callback' => function ( ...$args ) {
-				return trim( sanitize_string( $args[ METADATA_CALLBACK_INDEX ], true ) );
-			},
-		]
-	);
-
-	add_meta_box( 'subject', __( 'Subject(s)', 'pressbooks' ), __NAMESPACE__ . '\metadata_subject_box', 'metadata', 'normal', 'low' );
-
-	add_meta_box( 'institutions', __( 'Institutions', 'pressbooks' ), __NAMESPACE__ . '\institutions_metabox', 'metadata', 'normal', 'low' );
-
-	if ( $show_expanded_metadata ) {
-		x_add_metadata_group(
-			'additional-catalog-information', 'metadata', [
-				'label' => __( 'Additional Catalog Information', 'pressbooks' ),
-				'priority' => 'low',
-			]
-		);
-
-		x_add_metadata_field(
-			'pb_series_title', 'metadata', [
-				'group' => 'additional-catalog-information',
-				'label' => __( 'Series Title', 'pressbooks' ),
-				'description' => __( 'Add if your book is part of a series.', 'pressbooks' ),
-				'sanitize_callback' => function ( ...$args ) {
-					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
-				},
-			]
-		);
-
-		x_add_metadata_field(
-			'pb_series_number', 'metadata', [
-				'group' => 'additional-catalog-information',
-				'label' => __( 'Series Number', 'pressbooks' ),
-				'description' => __( 'Add if your book is part of a series.', 'pressbooks' ),
-				'sanitize_callback' => function ( ...$args ) {
-					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
-				},
-			]
-		);
-
-		x_add_metadata_field(
-			'pb_keywords_tags', 'metadata', [
-				'group' => 'additional-catalog-information',
-				'label' => __( 'Keywords', 'pressbooks' ),
-				'multiple' => true,
-				'description' => __( 'These are added to your webbook cover page, and in your ebook metadata. Keywords are used by online book stores and search engines.', 'pressbooks' ),
-			]
-		);
-
-		x_add_metadata_field(
-			'pb_hashtag', 'metadata', [
-				'group' => 'additional-catalog-information',
-				'label' => __( 'Hashtag', 'pressbooks' ),
-				'description' => __( 'These are added to your webbook cover page. For those of you who like Twitter.', 'pressbooks' ),
-				'sanitize_callback' => function ( ...$args ) {
-					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
-				},
-			]
-		);
-
-		x_add_metadata_field(
-			'pb_list_price_print', 'metadata', [
-				'group' => 'additional-catalog-information',
-				'label' => __( 'List Price (Print)', 'pressbooks' ),
-				'description' => __( 'The list price of your book in print.', 'pressbooks' ),
-				'sanitize_callback' => function ( ...$args ) {
-					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
-				},
-			]
-		);
-
-		x_add_metadata_field(
-			'pb_list_price_pdf', 'metadata', [
-				'group' => 'additional-catalog-information',
-				'label' => __( 'List Price (PDF)', 'pressbooks' ),
-				'description' => __( 'The list price of your book in PDF format.', 'pressbooks' ),
-				'sanitize_callback' => function ( ...$args ) {
-					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
-				},
-			]
-		);
-
-		x_add_metadata_field(
-			'pb_list_price_epub', 'metadata', [
-				'group' => 'additional-catalog-information',
-				'label' => __( 'List Price (ebook)', 'pressbooks' ),
-				'description' => __( 'The list price of your book in Ebook formats.', 'pressbooks' ),
-				'sanitize_callback' => function ( ...$args ) {
-					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
-				},
-			]
-		);
-
-		x_add_metadata_field(
-			'pb_list_price_web', 'metadata', [
-				'group' => 'additional-catalog-information',
-				'label' => __( 'List Price (Web)', 'pressbooks' ),
-				'description' => __( 'The list price of your webbook.', 'pressbooks' ),
-				'sanitize_callback' => function ( ...$args ) {
-					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
-				},
-			]
-		);
-
-		x_add_metadata_field(
-			'pb_audience', 'metadata', [
-				'group' => 'additional-catalog-information',
-				'field_type' => 'select',
-				'values' => [
-					'' => __( 'Choose an audience&hellip;', 'pressbooks' ),
-					'juvenile' => __( 'Juvenile', 'pressbooks' ),
-					'young-adult' => __( 'Young Adult', 'pressbooks' ),
-					'adult' => __( 'Adult', 'pressbooks' ),
-				],
-				'label' => __( 'Audience', 'pressbooks' ),
-				'description' => __( 'The target audience for your book.', 'pressbooks' ),
-			]
-		);
-
-		x_add_metadata_field(
-			/**
-			 * Filter metadata field arguments for BISAC Subject(s).
-			 *
-			 * @since 4.0.0
-			 */
-			'pb_bisac_subject', 'metadata', apply_filters(
-				'pb_bisac_subject_field_args', [
-					'group' => 'additional-catalog-information',
-					'label' => __( 'BISAC Subject(s)', 'pressbooks' ),
-					'multiple' => true,
-					'description' => sprintf( __( 'BISAC Subject Headings help libraries and bookstores properly classify your book. To select the appropriate subject heading for your book, consult %s.', 'pressbooks' ), sprintf( '<a href="https://bisg.org/page/BISACEdition">%s</a>', __( 'the BISAC Subject Headings list', 'pressbooks' ) ) ),
-				]
-			)
-		);
-
-		x_add_metadata_field(
-			/**
-			 * Filter metadata field arguments for BISAC Regional Theme.
-			 *
-			 * @since 4.0.0
-			 */
-			'pb_bisac_regional_theme', 'metadata', apply_filters(
-				'pb_bisac_regional_theme_field_args', [
-					'group' => 'additional-catalog-information',
-					'label' => __( 'BISAC Regional Theme', 'pressbooks' ),
-					'description' => __( 'BISAC Regional Themes help libraries and bookstores properly classify your book.', 'pressbooks' ),
-				]
-			)
-		);
-	}
 
 	// Front Matter, Back Matter, and Chapter Metadata
 

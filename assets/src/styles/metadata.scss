@@ -47,6 +47,10 @@ $side-right-space: 20px;
   margin-bottom: 0;
 }
 
+.cmb-type-date input {
+  min-width: 12.5rem;
+}
+
 .cmb-td input[type="text"],
 .cmb-td input[type="url"] {
   width: 100%;
