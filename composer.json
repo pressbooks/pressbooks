@@ -92,9 +92,6 @@
 			"tests",
 			"webpack.mix.js"
 		]
-	},
-  "autoload": {
-    "files": ["vendor/cmb2/cmb2/init.php"]
   },
   "extra": {
       "installer-paths": {

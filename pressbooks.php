@@ -74,6 +74,7 @@ add_action( 'wp_login', '\Pressbooks\session_kill' );
 $composer = PB_PLUGIN_DIR . 'vendor/autoload.php';
 if ( file_exists( $composer ) ) {
 	require_once( $composer );
+	require_once( PB_PLUGIN_DIR . 'vendor/cmb2/cmb2/init.php' );
 } else {
 	if ( ! class_exists( '\Illuminate\Container\Container' ) ) {
 		/* translators: 1: URL to Composer documentation, 2: URL to Pressbooks latest releases */
