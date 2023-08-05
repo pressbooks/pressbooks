@@ -76,6 +76,8 @@ if ( file_exists( $composer ) ) {
 	require_once( $composer );
 	require_once( PB_PLUGIN_DIR . 'vendor/cmb2/cmb2/init.php' );
 } else {
+	require_once( PB_PLUGIN_DIR . '../cmb2/init.php' );
+
 	if ( ! class_exists( '\Illuminate\Container\Container' ) ) {
 		/* translators: 1: URL to Composer documentation, 2: URL to Pressbooks latest releases */
 		die( sprintf( esc_html__( 'Pressbooks dependencies are missing. Please make sure that your project&rsquo;s <a href="%1$s">Composer autoload file</a> is being required, or use the <a href="%2$s">latest release</a> instead.', 'pressbooks' ), 'https://getcomposer.org/doc/01-basic-usage.md#autoloading', 'https://github.com/pressbooks/pressbooks/releases/latest/' ) );
