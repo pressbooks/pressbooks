@@ -51,9 +51,8 @@ class Taxonomy {
 	/**
 	 * @param Taxonomy $obj
 	 */
-	static public function hooks( Taxonomy $obj ) {
+	public static function hooks( Taxonomy $obj ) {
 		if ( Book::isBook() ) {
-			add_action( 'init', [ $obj, 'registerTaxonomies' ] );
 			add_action( 'init', [ $obj, 'maybeUpgrade' ], 1000 );
 			add_action( 'user_register', [ $obj->contributors, 'addBlogUser' ] );
 			add_action( 'add_user_to_blog', [ $obj, 'registerTaxonomies' ] ); // This is a workaround because newbloguser does not fire init action.
@@ -69,6 +68,7 @@ class Taxonomy {
 			add_filter( 'license_row_actions', [ $obj, 'removeTaxonomyViewLinks' ], 10, 2 );
 			add_filter( 'contributor_row_actions', [ $obj, 'removeTaxonomyViewLinks' ], 10, 2 );
 		}
+		add_action( 'init', [ $obj, 'registerTaxonomies' ] );
 	}
 
 	/**
