@@ -16,9 +16,9 @@
 	},
 	"dependencies": {
 		"algoliasearch": "^4.19.1",
-		"alpinejs": "^3.12.2",
+		"alpinejs": "^3.13.0",
 		"block-ui": "^2.70.1",
-		"countup.js": "^2.7.1",
+		"countup.js": "^2.8.0",
 		"event-source-polyfill": "^1.0.31",
 		"instantsearch.js": "^4.56.9",
 		"isotope-layout": "^3.0.6",
