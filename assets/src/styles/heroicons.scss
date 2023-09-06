@@ -1,8 +1,11 @@
+/* UNIQUEID */
+$nocache: unique_id();
+
 @font-face {
   font-family: heroicons;
-  src: url("../fonts/heroicons.eot?bffddc54721116a5a33192a7db61a6ca#iefix") format("embedded-opentype"),
-  url("../fonts/heroicons.woff2?bffddc54721116a5a33192a7db61a6ca") format("woff2"),
-  url("../fonts/heroicons.woff?bffddc54721116a5a33192a7db61a6ca") format("woff");
+  src: url("../fonts/heroicons.eot?v=#{$nocache}") format("embedded-opentype"),
+  url("../fonts/heroicons.woff2?v=#{$nocache}") format("woff2"),
+  url("../fonts/heroicons.woff?v=#{$nocache}") format("woff");
 }
 
 i[class^="pb-heroicons-"]::before, i[class*=" pb-heroicons-"]::before {
