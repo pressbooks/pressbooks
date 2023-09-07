@@ -18,6 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // -------------------------------------------------------------------------------------------------------------------
 
 require_once( __DIR__ . '/requires-admin.php' );
+require_once __DIR__ . '/symbionts/cmb2/init.php';
 
 // -------------------------------------------------------------------------------------------------------------------
 // Recycle, reduce, reuse
@@ -158,15 +159,16 @@ add_action(
 add_action( 'custom_metadata_manager_init_metadata', '\Pressbooks\Admin\Metaboxes\add_meta_boxes' );
 add_action( 'cmb2_render_date', '\Pressbooks\Admin\Metaboxes\cmb2_render_date', 10, 5 );
 add_action( 'cmb2_render_taxonomy_multiselect', '\Pressbooks\Admin\Metaboxes\cmb2_render_taxonomy_multiselect', 10, 5 );
-add_filter( 'cmb2_sanitize_taxonomy_multiselect', '\Pressbooks\Admin\Metaboxes\cmb2_sanitize_taxonomy_multiselect_callback', 10, 5 );add_action( 'cmb2_admin_init', '\Pressbooks\Admin\Metaboxes\cmb2_meta_boxes' );
+add_filter( 'cmb2_sanitize_taxonomy_multiselect', '\Pressbooks\Admin\Metaboxes\cmb2_sanitize_taxonomy_multiselect_callback', 10, 5 );
+add_action( 'cmb2_admin_init', '\Pressbooks\Admin\Metaboxes\cmb2_meta_boxes' );
 
 if ( $is_book ) {
 	add_action( 'admin_enqueue_scripts', '\Pressbooks\Admin\Metaboxes\add_metadata_styles' );
 	add_action( 'save_post', [ '\Pressbooks\Book', 'consolidatePost' ], 10, 2 );
 	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\upload_cover_image', 10, 2 );
 	add_action( 'wp_insert_post', '\Pressbooks\Admin\Metaboxes\add_required_data', 10, 2 );
-	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\save_institutions_metadata', 10, 2 );
-	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\save_subject_metadata', 10, 2 );
+	// add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\save_institutions_metadata', 10, 2 );
+	// add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\save_subject_metadata', 10, 2 );
 	add_action( 'contributor_pre_add_form', '\Pressbooks\Admin\Metaboxes\contributor_add_form_picture' );
 	add_action( 'contributor_add_form_fields', '\Pressbooks\Admin\Metaboxes\contributor_add_form' );
 	add_action( 'contributor_edit_form_fields', '\Pressbooks\Admin\Metaboxes\contributor_edit_form' );
@@ -181,8 +183,8 @@ if ( $is_book ) {
 	add_action( 'edit_term', '\Pressbooks\Admin\Metaboxes\save_contributor_meta', 10, 3 );
 	add_action( 'added_post_meta', '\Pressbooks\Admin\Metaboxes\title_update', 10, 4 );
 	add_action( 'updated_post_meta', '\Pressbooks\Admin\Metaboxes\title_update', 10, 4 );
-	add_action( 'updated_post_meta', '\Pressbooks\L10n\install_book_locale', 10, 4 );
-	add_action( 'updated_post_meta', '\Pressbooks\Metadata\download_thema_lang', 10, 4 );
+	// add_action( 'updated_post_meta', '\Pressbooks\L10n\install_book_locale', 10, 4 );
+	// add_action( 'updated_post_meta', '\Pressbooks\Metadata\download_thema_lang', 10, 4 );
 	add_action( 'save_post', [ '\Pressbooks\Book', 'deleteBookObjectCache' ], 1000 );
 	add_action( 'wp_trash_post', [ '\Pressbooks\Book', 'deletePost' ] );
 	add_action( 'wp_trash_post', [ '\Pressbooks\Book', 'deleteBookObjectCache' ], 1000 );

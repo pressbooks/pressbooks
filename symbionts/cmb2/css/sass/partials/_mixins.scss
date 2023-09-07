@@ -1,0 +1,51 @@
+//--------------------------------------------------------------
+// Mixins
+//--------------------------------------------------------------
+
+@mixin fullth() {
+	font-size: 1.2em;
+	@include _fullth;
+}
+
+@mixin fullth_side() {
+
+	@include _fullth;
+
+	label {
+		font-size: $font-size;
+		line-height: 1.4em;
+	}
+}
+
+@mixin _fullth() {
+	display: block;
+	float: none;
+	padding-bottom: 1em;
+	text-align: left;
+	width: 100%;
+
+	label {
+		display: block;
+		margin-top: 0;
+		margin-bottom: 0.5em;
+	}
+}
+
+@mixin pseudo-dashicons( $glyph: "\f333" ) {
+	content: $glyph;
+	font-family: 'Dashicons';
+	speak: none;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	margin: 0;
+	text-indent: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}

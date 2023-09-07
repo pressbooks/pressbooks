@@ -1,0 +1,29 @@
+/*--------------------------------------------------------------
+ * Misc.
+--------------------------------------------------------------*/
+
+#poststuff .cmb-repeatable-group h2 {
+	margin: 0;
+}
+
+.edit-tags-php,
+.profile-php,
+.user-edit-php {
+	.cmb2-metabox-title {
+		font-size: 1.4em;
+	}
+}
+
+.cmb2-postbox, .cmb2-no-box-wrap {
+	.cmb-spinner {
+		float: left;
+		display: none;
+	}
+}
+
+.cmb-spinner {
+	display: none;
+	&.is-active {
+		display: block;
+	}
+}

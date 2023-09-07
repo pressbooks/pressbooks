@@ -48,7 +48,27 @@ $side-right-space: 20px;
 }
 
 .cmb-type-date input {
+  line-height: 2;
+  margin: 3px 0;
+  max-width: 40rem;
+  min-height: 30px;
   min-width: 12.5rem;
+  padding: 0 8px;
+}
+
+.cmb-type-date .duet-date__input-wrapper,
+.cmb-type-date .duet-date__dialog {
+  max-width: 40rem;
+}
+
+.cmb-type-date .duet-date__toggle {
+  height: 28px;
+  top: 4px;
+  width: 36px;
+}
+
+.cmb-type-date .duet-date__cell {
+  padding: 0;
 }
 
 .cmb-td input[type="text"],

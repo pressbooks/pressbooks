@@ -1,0 +1,533 @@
+/*--------------------------------------------------------------
+ * Main Wrap
+--------------------------------------------------------------*/
+
+.cmb2-wrap {
+	margin: 0;
+
+	input,
+	textarea {
+		max-width: 100%;
+	}
+
+	input[type="text"] {
+
+		&.cmb2-oembed {
+			width: 100%;
+		}
+	}
+
+	textarea {
+		width: 500px;
+		padding: 8px;
+
+		&.cmb2-textarea-code {
+			font-family: $font-mono;
+			line-height: 16px;
+		}
+	}
+
+	input {
+
+		&.cmb2-text-small,
+		&.cmb2-timepicker {
+			width: 100px;
+			// margin-right: 15px
+		}
+
+		&.cmb2-text-money {
+			width: 90px;
+			// margin-right: 15px
+		}
+
+		&.cmb2-text-medium {
+			width: 230px;
+			// margin-right: 15px
+		}
+
+		&.cmb2-upload-file {
+			width: 65%;
+		}
+
+		&.ed_button {
+			padding: 2px 4px;
+		}
+
+		&:not([type="hidden"]) {
+			+ input,
+			+ .button-secondary,
+			+ select {
+				margin-left: 20px;
+			}
+		}
+	}
+
+	ul {
+		margin: 0;
+	}
+
+	li {
+		font-size: $font-size;
+		line-height: 16px;
+		margin: 1px 0 5px 0;
+	}
+
+	// .cmb-field-list .cmb-field-list {
+	//  padding-top:5px;
+	//  margin: 0;
+	// }
+
+	select {
+		font-size: $font-size;
+		margin-top: 3px;
+	}
+
+	input:focus,
+	textarea:focus {
+		background: $light-yellow;
+	}
+
+	input[type="radio"] {
+		margin: 0 5px 0 0;
+		padding: 0;
+	}
+
+	input[type="checkbox"] {
+		margin: 0 5px 0 0;
+		padding: 0;
+	}
+
+	button,
+	.button-secondary {
+		white-space: nowrap;
+	}
+
+	.mceLayout {
+		border: 1px solid $light-gray !important;
+	}
+
+	.mceIframeContainer {
+		background: $white;
+	}
+
+	.meta_mce {
+		width: 97%;
+
+		textarea {
+			width: 100%;
+		}
+	}
+
+	// Multicheck toggle
+	.cmb-multicheck-toggle {
+		margin-top: -1em;
+	}
+
+	// Color picker
+	.wp-picker-clear.button,
+	.wp-picker-default.button {
+		margin-left: 6px;
+		padding: 2px 8px;
+	}
+
+	.cmb-row {
+		margin: 0;
+
+		&:after {
+			content: '';
+			clear: both;
+			display: block;
+			width: 100%;
+		}
+
+		&.cmb-repeat .cmb2-metabox-description {
+			padding-top: 0;
+			padding-bottom: 1em;
+		}
+	}
+
+}
+
+// Fixes bug created by 5.3+ block editor-specific styling
+// Over-specific selector to override WordPress's over-specific selector without !important
+// @todo - Remove when `body.branch-5-3` targeting 5.3+ is widely used
+body.block-editor-page.branch-5-3 .cmb2-wrap .cmb-row .cmb2-radio-list input[type="radio"]::before {
+	margin: .1875rem;
+
+	@media screen and (max-width: 782px) {
+		margin: .4375rem;
+	}
+}
+
+.cmb2-metabox {
+	clear: both;
+	margin: 0;
+
+	> .cmb-row:first-of-type >,
+	.cmb-field-list > .cmb-row:first-of-type > {
+		.cmb-td,
+		.cmb-th {
+			border: 0;
+		}
+	}
+}
+
+.cmb-add-row {
+	margin: 1.8em 0 0;
+}
+
+.cmb-nested .cmb-td,
+.cmb-repeatable-group .cmb-th,
+.cmb-repeatable-group:first-of-type {
+	border: 0;
+}
+
+.cmb-row:last-of-type,
+.cmb2-wrap .cmb-row:last-of-type,
+.cmb-repeatable-group:last-of-type {
+	border-bottom: 0;
+}
+
+.cmb-repeatable-grouping {
+	border: 1px solid $light-gray;
+	padding: 0 1em;
+
+	&.cmb-row {
+		margin: 0 0 0.8em;
+	}
+
+	+ .cmb-repeatable-grouping {
+	}
+}
+
+.cmb-th {
+	color: $dark-gray;
+	float: left;
+	font-weight: 600;
+	padding: 20px 10px 20px 0;
+	vertical-align: top;
+	width: 200px;
+
+	@media (max-width: $mobile-break) {
+		@include fullth;
+	}
+}
+
+.cmb-td {
+	line-height: 1.3;
+	max-width: 100%;
+	padding: 15px 10px;
+	vertical-align: middle;
+}
+
+.cmb-type-title {
+
+	.cmb-td {
+		padding: 0;
+	}
+}
+
+.cmb-th label {
+	display: block;
+	padding: 5px 0;
+}
+
+.cmb-th + .cmb-td {
+	float: left;
+}
+
+.cmb-td .cmb-td {
+	padding-bottom: 1em;
+}
+
+.cmb-remove-row {
+	text-align: right;
+}
+
+.empty-row.hidden {
+	display: none;
+}
+
+// Repeatable fields styles
+.cmb-repeat-table {
+	background-color: $almostwhite;
+	border: 1px solid darken($light-gray, 3%);
+
+	.cmb-row.cmb-repeat-row {
+		position: relative;
+		counter-increment: el;
+
+		margin: 0;
+		padding: 10px 10px 10px 50px;
+		border-bottom: none !important; // Sometime, we need !important :).
+
+		& + .cmb-repeat-row {
+			border-top: solid 1px $light-gray;
+		}
+
+		&.ui-sortable-helper {
+			outline: dashed 2px $light-gray !important; // Sometime, we need !important :).
+		}
+
+		&:before {
+			content: counter(el);
+			display: block;
+
+			top: 0;
+			left: 0;
+			position: absolute;
+
+			width: 35px;
+			height: 100%;
+			line-height: 35px;
+			cursor: move;
+			color: $gray;
+			text-align: center;
+			border-right: solid 1px $light-gray;
+		}
+
+		.cmb-td {
+			margin: 0;
+			padding: 0;
+		}
+
+	}
+
+	+ .cmb-add-row {
+		margin: 0;
+
+		&:before {
+			content: '';
+			width: 1px;
+			height: 1.6em;
+			display: block;
+			margin-left: 17px;
+			background-color: darken($light-gray, 5%);
+		}
+	}
+
+	.cmb-remove-row {
+		top: 7px;
+		right: 7px;
+		position: absolute;
+
+		width: auto;
+		margin-left: 0;
+		padding: 0 !important; // Sometime, we need !important :).
+
+		display: none;
+
+		> .cmb-remove-row-button {
+			font-size: 20px;
+			text-indent: -1000px;
+
+			overflow: hidden;
+			position: relative;
+
+			height: auto;
+			line-height: 1;
+			padding: 0 10px 0;
+
+			&:before {
+				@include pseudo-dashicons("\f335");
+			}
+		}
+	}
+
+	.cmb-repeat-row:hover .cmb-remove-row {
+		display: block;
+	}
+
+}
+
+.cmb-repeatable-group {
+
+	.cmb-th {
+		padding: 5px;
+	}
+
+	.cmb-group-title {
+		background-color: $light-gray;
+		padding: 8px 12px 8px 2.2em;
+		margin: 0 -1em;
+		min-height: 1.5em;
+		font-size: 14px;
+		line-height: 1.4;
+
+		h4 {
+			border: 0;
+			margin: 0;
+			font-size: 1.2em;
+			font-weight: 500;
+			padding: 0.5em 0.75em;
+		}
+
+		.cmb-th {
+			display: block;
+			width: 100%;
+		}
+	}
+
+	.cmb-group-description .cmb-th {
+		@include fullth;
+	}
+
+	.cmb-shift-rows {
+		margin-right: 1em;
+
+		.dashicons-arrow-up-alt2 {
+			margin-top: .15em;
+		}
+
+		.dashicons-arrow-down-alt2 {
+			margin-top: .2em;
+		}
+	}
+
+	.cmb2-upload-button {
+		float: right;
+	}
+
+}
+
+p.cmb2-metabox-description {
+	color: $medium-gray;
+	letter-spacing: 0.01em;
+	margin: 0;
+	padding-top: .5em;
+}
+
+span.cmb2-metabox-description {
+	color: $medium-gray;
+	letter-spacing: 0.01em;
+}
+
+.cmb2-metabox-title {
+	margin: 0 0 5px 0;
+	padding: 5px 0 0 0;
+	font-size: 14px;
+}
+
+.cmb-inline ul {
+	padding: 4px 0 0 0;
+}
+
+.cmb-inline li {
+	display: inline-block;
+	padding-right: 18px;
+}
+
+.cmb-type-textarea-code pre {
+	margin: 0;
+}
+
+.cmb2-media-status {
+
+	.img-status {
+		clear: none;
+		display: inline-block;
+		vertical-align: middle;
+		margin-right: 10px;
+		width: auto;
+
+		img {
+			max-width: 350px;
+			height: auto;
+		}
+	}
+
+	.img-status img,
+	.embed-status {
+		background: $lightchecker;
+		border: 5px solid $white;
+		outline: 1px solid $light-gray;
+		box-shadow: inset 0 0 15px rgba( 0, 0, 0, 0.3 ), inset 0 0 0 1px rgba( 0, 0, 0, 0.05 );
+		background-image: linear-gradient(45deg, $darkchecker 25%, transparent 25%, transparent 75%, $darkchecker 75%, $darkchecker), linear-gradient(45deg, $darkchecker 25%, transparent 25%, transparent 75%, $darkchecker 75%, $darkchecker);
+		background-position: 0 0, 10px 10px;
+		background-size: 20px 20px;
+		border-radius: 2px;
+		-moz-border-radius: 2px;
+		margin: 15px 0 0 0;
+	}
+
+	.embed-status {
+		float: left;
+		max-width: 800px;
+	}
+
+	.img-status, .embed-status {
+		position: relative;
+
+		.cmb2-remove-file-button {
+			background: url(../images/ico-delete.png);
+			height: 16px;
+			left: -5px;
+			position: absolute;
+			text-indent: -9999px;
+			top: -5px;
+			width: 16px;
+		}
+
+	}
+
+	.img-status {
+
+		.cmb2-remove-file-button {
+			top: 10px;
+		}
+	}
+
+	.img-status img, .file-status > span {
+		cursor: pointer;
+	}
+
+	&.cmb-attach-list {
+		.img-status img, .file-status > span {
+			cursor: move;
+		}
+	}
+
+}
+
+.cmb-type-file-list .cmb2-media-status .img-status {
+	clear: none;
+	vertical-align: middle;
+	width: auto;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	margin-top: 0;
+}
+
+.cmb-attach-list li {
+	clear: both;
+	display: inline-block;
+	width: 100%;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	img {
+		float: left;
+		margin-right: 10px;
+	}
+}
+
+.cmb2-remove-wrapper {
+	margin: 0;
+}
+
+.child-cmb2 .cmb-th {
+	text-align: left;
+}
+
+.cmb2-indented-hierarchy {
+	padding-left: 1.5em;
+}
+
+@media (max-width: $mobile-break) {
+	.cmb-th,
+	.cmb-td,
+	.cmb-th + .cmb-td {
+		display: block;
+		float: none;
+		width: 100%;
+	}
+}

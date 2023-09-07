@@ -8,6 +8,8 @@
 	{{ $attr }}="{{ $val }}"
 	@endforeach
 />
+
+{{-- <duet-date-picker identifier="{{ $args['_id'] }}" name="{{ $args['_name'] }}" value="{{ $value ? esc_attr( date( 'Y-m-d', (int) $value ) ) : '' }}"></duet-date-picker>
 @if(isset($args['desc']))
 <p class="description">{{ $args['desc'] }}</p>
-@endif
+@endif --}}

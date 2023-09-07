@@ -292,6 +292,7 @@ function replace_book_admin_menu() {
 			if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
 				$post_type = get_post_type();
 				if ( 'metadata' === $post_type ) {
+					wp_enqueue_script( 'duet-date-picker' );
 					wp_enqueue_script( 'pb-metadata' );
 					wp_localize_script(
 						'pb-metadata', 'PB_BookInfoToken', [
@@ -303,6 +304,7 @@ function replace_book_admin_menu() {
 							'selectSubjectsText' => esc_html__( 'Choose some subject(s)…', 'pressbooks' ),
 						]
 					);
+					wp_enqueue_style( 'duet-date-picker' );
 				}
 			}
 		}
@@ -1162,10 +1164,12 @@ function init_css_js() {
 	wp_register_script( 'pb-post-visibility', $assets->getPath( 'scripts/post-visibility.js' ), [ 'jquery' ], false, true );
 	wp_register_script( 'pb-post-mathjax', $assets->getPath( 'scripts/post-mathjax.js' ), [ 'jquery' ], false, true );
 	wp_register_script( 'pb-post-back-matter', $assets->getPath( 'scripts/post-back-matter.js' ), [ 'jquery', 'editor' ], false, true );
+	wp_register_script( 'duet-date-picker', $assets->getPath( 'scripts/duet/duet.js' ), [], false, true );
 
 	// Register styles for later, on-the-fly, using action: admin_print_scripts- (or other tricks of the shade)
 	wp_register_style( 'pb-export', $assets->getPath( 'styles/export.css' ) );
 	wp_register_style( 'pb-organize', $assets->getPath( 'styles/organize.css' ) );
+	wp_register_style( 'duet-date-picker', $assets->getPath( 'styles/duet.css' ) );
 
 	// Always enqueue jquery and jquery-ui-core.
 	wp_enqueue_script( 'jquery' );

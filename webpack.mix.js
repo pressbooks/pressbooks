@@ -109,6 +109,7 @@ mix
 	.sass( 'assets/src/styles/colors-pb.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/colors-pb-a11y.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/covergenerator.scss', 'assets/dist/styles/' )
+	.css( 'assets/src/styles/duet.css', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/export.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/glossary-tooltip.scss', 'assets/dist/styles' )
 	.sass( 'assets/src/styles/login.scss', 'assets/dist/styles/' )
@@ -125,5 +126,6 @@ mix
 	.copy( 'node_modules/alpinejs/dist/cdn.min.js', 'assets/dist/scripts/alpine.min.js' )
 	.copy( 'node_modules/instantsearch.js/dist/instantsearch.production.min.js', 'assets/dist/scripts/instantsearch.production.min.js' )
 	.copy( 'node_modules/algoliasearch/dist/algoliasearch-lite.umd.js', 'assets/dist/scripts/algoliasearch-lite.umd.js' )
+	.copyDirectory( 'node_modules/@duetds/date-picker/dist/duet/', 'assets/dist/scripts/duet/' )
 	.copyDirectory( 'assets/src/fonts', 'assets/dist/fonts' )
 	.copyDirectory( 'assets/src/images', 'assets/dist/images' );
