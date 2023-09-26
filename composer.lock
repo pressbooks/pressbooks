@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e215224c0f9c6d7d03e18e9d28a0e368",
+    "content-hash": "fcccb88c4f21af46a7e413b2746457f5",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -154,65 +154,6 @@
                 "source": "https://github.com/aws/aws-sdk-php/tree/3.276.3"
             },
             "time": "2023-07-21T18:30:18+00:00"
-        },
-        {
-            "name": "cmb2/cmb2",
-            "version": "v2.10.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/CMB2/CMB2.git",
-                "reference": "4afc4bb7b92ab6d93aac2247c9a84af773e42532"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/CMB2/CMB2/zipball/4afc4bb7b92ab6d93aac2247c9a84af773e42532",
-                "reference": "4afc4bb7b92ab6d93aac2247c9a84af773e42532",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">5.2.4"
-            },
-            "require-dev": {
-                "apigen/apigen": "4.1.2",
-                "awesomemotive/am-cli-tools": ">=1.3.1",
-                "nette/utils": "2.5.3",
-                "phpunit/phpunit": "^6.5",
-                "yoast/phpunit-polyfills": "^1.0"
-            },
-            "suggest": {
-                "composer/installers": "~1.0"
-            },
-            "type": "wordpress-plugin",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Justin Sternberg",
-                    "email": "justin@dsgnwrks.pro",
-                    "homepage": "https://dsgnwrks.pro",
-                    "role": "Developer"
-                },
-                {
-                    "name": "WebDevStudios",
-                    "email": "contact@webdevstudios.com",
-                    "homepage": "https://github.com/WebDevStudios",
-                    "role": "Developer"
-                }
-            ],
-            "description": "CMB2 is a metabox, custom fields, and forms library for WordPress that will blow your mind.",
-            "homepage": "https://github.com/CMB2/CMB2",
-            "keywords": [
-                "metabox",
-                "plugin",
-                "wordpress"
-            ],
-            "support": {
-                "issues": "https://github.com/CMB2/CMB2/issues",
-                "source": "http://wordpress.org/support/plugin/cmb2"
-            },
-            "time": "2022-02-22T14:15:16+00:00"
         },
         {
             "name": "composer/installers",

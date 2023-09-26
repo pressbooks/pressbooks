@@ -13,10 +13,14 @@ namespace Pressbooks\Admin\Metaboxes;
 
 use function Pressbooks\Sanitize\sanitize_string;
 use PressbooksMix\Assets;
+use Pressbooks\Admin\Fields\Field;
 use Pressbooks\Container;
 use Pressbooks\Contributors;
 use Pressbooks\Licensing;
 use Pressbooks\Metadata;
+use Pressbooks\Admin\Metaboxes\Metabox;
+use Pressbooks\Admin\Metaboxes\GeneralInformation;
+
 
 // phpcs:ignore
 define( 'METADATA_CALLBACK_INDEX', 4 );
@@ -48,8 +52,6 @@ function add_required_data( $pid, $post ) {
 	if ( $post->post_type !== 'metadata' ) {
 		return; // Do nothing
 	}
-
-	xdebug_break();
 
 	$pb_authors = get_post_meta( $pid, 'pb_authors', true );
 	if ( ! $pb_authors ) {
@@ -167,166 +169,8 @@ function add_metadata_styles( $hook ) {
 	}
 }
 
-function cmb2_render_date( $field, $escaped_value, $object_id, $object_type, $field_type_object ) {
-	$blade = Container::get( 'Blade' );
-
-
-	echo $blade->render(
-		'cmb2/date', [
-			'args' => $field->args,
-			'value' => $escaped_value
-		]
-	);
-}
-
-function cmb2_render_taxonomy_multiselect( $field, $escaped_value, $object_id, $object_type, $field_type_object ) {
-	$blade = Container::get( 'Blade' );
-
-	echo $blade->render(
-		'cmb2/taxonomy-multiselect', [
-			'args' => $field->args,
-			'options' => get_terms( $field->args['taxonomy'], [ 'hide_empty' => false ] ),
-			'selections' => is_array( $escaped_value ) ? $escaped_value : [ $escaped_value ],
-		]
-	);
-}
-
-function cmb2_sanitize_taxonomy_multiselect_callback( $override_value, $value, $object_id, $field_args, $sanitizer_object ) {
-	wp_set_object_terms( $object_id, $value, $field_args['taxonomy'] );
-}
-
 function cmb2_meta_boxes() {
     $show_expanded_metadata = \Pressbooks\Metadata\show_expanded_metadata();
-
-    $general = new_cmb2_box([
-        'id' => 'cmb2-general-book-information',
-        'title' => __('General Book Information', 'pressbooks'),
-        'object_types' => [ 'metadata' ],
-        'priority' => 'high',
-        'show_names' => true,
-        'cmb_styles' => false,
-    ]);
-
-    $general->add_field([
-        'name' => __('Title', 'pressbooks'),
-        'id' => 'pb_title',
-        'type' => 'text'
-    ]);
-
-    $general->add_field( [
-        'name' => __( 'Short Title', 'pressbooks' ),
-        'desc' => __( 'In case of long titles that might be truncated in running heads in the PDF export.', 'pressbooks' ),
-        'id' => 'pb_short_title',
-        'type' => 'text',
-    ] );
-
-    $general->add_field( [
-        'name' => __( 'Subtitle', 'pressbooks' ),
-        'id' => 'pb_subtitle',
-        'type' => 'text',
-    ] );
-
-    foreach ( [
-        'pb_authors' => __( 'Author(s)', 'pressbooks' ),
-        'pb_editors' => __( 'Editor(s)', 'pressbooks' ),
-        'pb_translators' => __( 'Translator(s)', 'pressbooks' ),
-        'pb_reviewers' => __( 'Reviewer(s)', 'pressbooks' ),
-        'pb_illustrators' => __( 'Illustrator(s)', 'pressbooks' ),
-        'pb_contributors' => __( 'Contributor(s)', 'pressbooks' ),
-    ] as $id => $name ) {
-        $general->add_field([
-            'name' => $name,
-            'id' => $id,
-            'type' => 'taxonomy_multiselect',
-            'taxonomy' => Contributors::TAXONOMY,
-            'multiple' => true,
-        ]);
-    }
-
-    // $general->add_field( [
-    //     'name' => __( 'Publisher', 'pressbooks' ),
-    //     'desc' => __( 'This text appears on the title page of your book.', 'pressbooks' ),
-    //     'id' => 'pb_publisher',
-    //     'type' => 'text',
-    // ] );
-
-    // $general->add_field( [
-    //     'name' => __( 'Publisher City', 'pressbooks' ),
-    //     'desc' => __( 'This text appears on the title page of your book.', 'pressbooks' ),
-    //     'id' => 'pb_publisher_city',
-    //     'type' => 'text',
-    // ] );
-
-    // $general->add_field( [
-    //     'name' => __( 'Publication Date', 'pressbooks' ),
-    //     'desc' => __( 'This is added to the metadata in your ebook.', 'pressbooks' ),
-    //     'id' => 'pb_publication_date',
-    //     'type' => 'date',
-    // ] );
-
-    // if ( $show_expanded_metadata ) {
-    //     $general->add_field( [
-    //         'name' => __( 'On-Sale Date', 'pressbooks' ),
-    //         'desc' => __( 'This is added to the metadata in your ebook.', 'pressbooks' ),
-    //         'id' => 'pb_onsale_date',
-    //         'type' => 'date'
-    //     ] );
-    // }
-
-    // $general->add_field( [
-    //     'name' => __( 'Ebook ISBN', 'pressbooks' ),
-    //     'description' => __( 'ISBN is the International Standard Book Number, and you\'ll need one if you want to sell your book in some online ebook stores. This is added to the metadata in your ebook.', 'pressbooks' ),
-    //     'id' => 'pb_ebook_isbn',
-    //     'type' => 'text',
-    // ] );
-
-    // $general->add_field( [
-    //     'name' => __( 'Print ISBN', 'pressbooks' ),
-    //     'description' => __( 'ISBN is the International Standard Book Number, and you\'ll need one if you want to sell your book in online and physical book stores.', 'pressbooks' ),
-    //     'id' => 'pb_print_isbn',
-    //     'type' => 'text',
-    // ] );
-
-    // $general->add_field( [
-    //     'name' => __( 'Digital Object Identifier (DOI)', 'pressbooks' ),
-    //     'id' => 'pb_book_doi',
-    //     'type' => 'text',
-    // ] );
-
-    // $general->add_field( [
-    //     'name' => __( 'Language', 'pressbooks' ),
-    //     'id' => 'pb_language',
-    //     'desc' => __( 'This sets metadata in your ebook, making it easier to find in some stores. It also changes some system generated content for supported languages, such as the "Contents" header.', 'pressbooks' ) . '<br />' . sprintf( '<a href="https://www.transifex.com/pressbooks/pressbooks/">%s</a>', __( 'Help translate Pressbooks into your language!', 'pressbooks' ) ),
-    //     'type' => 'select',
-    //     'options' => \Pressbooks\L10n\supported_languages()
-    // ] );
-
-    // $cover = new_cmb2_box( [
-    //     'id' => 'cmb2-cover-image',
-    //     'title' => __( 'Cover Image', 'pressbooks' ),
-    //     'object_types' => [ 'metadata' ],
-    //     'priority' => 'high',
-    //     'show_names' => true,
-    //     'cmb_styles' => false,
-    // ] );
-
-    // // $subjects = new_cmb2_box( [
-    // // 	'id' => 'cmb2-subjects',
-    // // 	'title' => __( 'Subject(s)', 'pressbooks' ),
-    // // 	'object_types' => [ 'metadata' ],
-    // // 	'priority' => 'high',
-    // // 	'show_names' => true,
-    // // 	'cmb_styles' => false,
-    // // ] );
-
-    // // $institutions = new_cmb2_box( [
-    // // 	'id' => 'cmb2-institutions',
-    // // 	'title' => __( 'Institutions', 'pressbooks' ),
-    // // 	'object_types' => [ 'metadata' ],
-    // // 	'priority' => 'high',
-    // // 	'show_names' => true,
-    // // 	'cmb_styles' => false,
-    // // ] );
 
     // $meta = new Metadata();
     // $data = $meta->getMetaPostMetadata();
@@ -605,6 +449,35 @@ function cmb2_meta_boxes() {
 
 }
 
+function add_meta_boxes_metadata() {
+	$expanded = \Pressbooks\Metadata\show_expanded_metadata();
+
+	(new GeneralInformation( $expanded ))->register();
+	(new CoverImage( $expanded ))->register();
+	(new Subjects( $expanded ))->register();
+	(new Institutions( $expanded ))->register();
+	(new Copyright( $expanded ))->register();
+	(new About( $expanded ))->register();
+
+	if ($expanded) {
+		$additional_catalog_information = (new AdditionalCatalogInformation( $expanded ))->register();
+	}
+}
+
+function save_general_metadata( $post_id ) {
+	$expanded = \Pressbooks\Metadata\show_expanded_metadata();
+
+	(new GeneralInformation( $expanded ))->save( $post_id );
+	(new CoverImage( $expanded ))->save( $post_id );
+	(new Subjects( $expanded ))->save( $post_id );
+	(new Institutions( $expanded ))->save( $post_id );
+	(new Copyright( $expanded ))->save( $post_id );
+	(new About( $expanded ))->save( $post_id );
+
+	if ($expanded) {
+		(new AdditionalCatalogInformation($expanded))->save($post_id);
+	}
+}
 
 /**
  * Register all metadata groups and fields
@@ -639,12 +512,12 @@ function add_meta_boxes() {
 			]
 		);
 
-		// x_add_metadata_field(
-		// 	'pb_short_title', $slug, [
-		// 		'group' => 'section-metadata',
-		// 		'label' => sprintf( __( '%s Short Title (appears in the PDF running header and webbook navigation)', 'pressbooks' ), $label ),
-		// 	]
-		// );
+		x_add_metadata_field(
+			'pb_short_title', $slug, [
+				'group' => 'section-metadata',
+				'label' => sprintf( __( '%s Short Title (appears in the PDF running header and webbook navigation)', 'pressbooks' ), $label ),
+			]
+		);
 
 		x_add_metadata_field(
 			'pb_subtitle', $slug, [

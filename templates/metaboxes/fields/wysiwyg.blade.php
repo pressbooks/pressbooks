@@ -1,0 +1,19 @@
+<div class="form-field">
+	<label for="{{ $field->id ?? $field->name }}">
+		{{ $field->label }}
+	</label>
+	<textarea
+		id="{{ $field->id ?? $field->name }}"
+		name="{{ $field->name }}"
+		type="{{ $field->type ?? 'text' }}"
+		@if(isset($field->disabled)) disabled @endif
+		@if(isset($field->description)) aria-describedby="{{ $field->id ?? $field->name . '-description' }}" @endif
+	>
+		{{ $value ?? '' }}
+	</textarea>
+	@if(isset($field->description))
+	<p class="description" id="{{ $field->id ?? $field->name . '-description' }}">
+		{{ $field->description }}
+	</p>
+	@endif
+</div>
