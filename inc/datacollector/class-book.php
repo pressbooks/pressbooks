@@ -469,9 +469,8 @@ class Book {
 	 */
 	private function saveArrayMetadata( int $blog_id, string $meta_key, string $array_key, array $metadata ): void {
 		if ( isset( $metadata[ $meta_key ] ) && is_array( $metadata[ $meta_key ] ) ) {
+			delete_site_meta( $blog_id, $meta_key );
 			foreach ( $metadata[ $meta_key ] as $value ) {
-				// clean up meta key before adding
-				delete_site_meta( $blog_id, $meta_key, $value[ $array_key ] );
 				if ( is_array( $value ) ) {
 					add_site_meta( $blog_id, $meta_key, $value[ $array_key ] );
 				}
