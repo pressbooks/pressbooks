@@ -11,8 +11,9 @@
 		aria-describedby="{{ $field->id . '-description' }}"
 		@endif
 	>
+		{{-- TODO: Support <optgroup> elements --}}
 		@foreach($field->options as $value => $label)
-		<option value="{{ $value }}" {{ selected($field->value, $value) }}>{!! $label !!}</option>
+		<option value="{{ $value }}" {{ $field->multiple ? in_array($value, $field->value) : selected($field->value, $value) }}>{!! $label !!}</option>
 		@endforeach
 	</select>
 	@if(isset($field->description))

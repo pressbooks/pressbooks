@@ -6,10 +6,8 @@
 
 namespace Pressbooks\Admin\Metaboxes;
 
-use Pressbooks\Admin\Fields\Date as DateField;
 use Pressbooks\Admin\Fields\Select;
-use Pressbooks\Admin\Fields\TaxonomySelect;
-use Pressbooks\Admin\Fields\Text;
+use function Pressbooks\Metadata\get_institutions;
 
 class Institutions extends Metabox
 {
@@ -23,6 +21,29 @@ class Institutions extends Metabox
 
     public function getFields(): array
     {
-        return [];
+        return [
+			new Select(
+				name: 'pb_institutions',
+				label: __( 'Institutions', 'pressbooks' ),
+				options: $this->getInstitutions(),
+				multiple: true
+			)
+		];
     }
+
+	public function getInstitutions(): array
+	{
+		$options = [];
+
+		foreach ( get_institutions() as $region => $institutions ) {
+			if (is_array($institutions)) {
+				foreach( $institutions as $code => $institution ) {
+					// $options[$region][$code] = $institution['name'];
+					$options[$code] = "{$institution['name']} ({$region})";
+				}
+			}
+		}
+
+		return $options;
+	}
 }

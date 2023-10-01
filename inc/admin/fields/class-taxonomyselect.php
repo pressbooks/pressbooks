@@ -15,9 +15,9 @@ class TaxonomySelect extends Field {
 
 	public string $view = 'taxonomy-select';
 
-	public function __construct(string $name, string $label, ?string $description = null, ?string $id = null, string $taxonomy = null, array $options = [], string $default = '')
+	public function __construct(string $name, string $label, ?string $description = null, ?string $id = null, bool $multiple = false, string $taxonomy = null, array $options = [], string $default = '')
 	{
-		parent::__construct($name, $label, $description, $id);
+		parent::__construct($name, $label, $description, $id, $multiple);
 
 		$this->taxonomy = $taxonomy;
 		$this->options = $options;

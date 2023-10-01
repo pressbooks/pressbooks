@@ -12,24 +12,30 @@ abstract class Metabox {
 
 	public string $title = '';
 
+	public bool $expanded = false;
+
 	public array $fields = [];
 
 	public string|array $callback = [];
 
-	public bool $expanded = false;
+	public ?string $screen = null;
+
+	public string $context = 'advanced';
+
+	public string $priority = 'default';
 
 	public function __construct( bool $expanded = false )
 	{
-		$this->fields = $this->getFields();
 		$this->callback = [$this, 'render'];
 		$this->expanded = $expanded;
+		$this->fields = $this->getFields();
 	}
 
 	abstract public function getFields();
 
 	public function register()
 	{
-		add_meta_box( $this->slug, $this->title, $this->callback );
+		add_meta_box( $this->slug, $this->title, $this->callback, null, 'advanced', 'high' );
 	}
 
 	public function render()

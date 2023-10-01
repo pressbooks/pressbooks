@@ -13,10 +13,11 @@ use Pressbooks\Admin\Fields\TaxonomySelect;
 use Pressbooks\Admin\Fields\Text;
 use Pressbooks\Admin\Fields\Wysiwyg;
 use Pressbooks\Licensing;
+use Pressbooks\Metadata;
 
 class Copyright extends Metabox
 {
-    public function __construct(bool $expanded = false)
+    public function __construct( bool $expanded = false)
     {
         parent::__construct($expanded);
 
@@ -26,12 +27,15 @@ class Copyright extends Metabox
 
     public function getFields(): array
     {
+		$metadata = (new Metadata())->getMetaPostMetadata();
+    	$pb_is_based_on = $metadata['pb_is_based_on'] ?? false;
+
         return array_filter( [
-			new Url(
+			$pb_is_based_on ? new Url(
 				name: 'pb_is_based_on',
 				label: __( 'Source Book URL', 'pressbooks' ),
 				description: __( 'This book was cloned from a pre-existing book at the above URL. This information will be displayed on the webbook homepage.', 'pressbooks' ),
-			),
+			) : null,
 			$this->expanded ?
 			new Text(
 				name: 'pb_copyright_year',

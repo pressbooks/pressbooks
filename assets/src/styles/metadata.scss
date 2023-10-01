@@ -24,56 +24,69 @@ $side-right-space: 20px;
   }
 }
 
-.cmb-field-list {
-  padding-top: 20px;
+.form-field {
+  margin-top: 1.25rem;
 }
 
-.field {
-  margin-bottom: 15px;
+.form-field + .form-field {
+  margin-top: 0.9375rem;
 }
 
-.field label {
+.form-field > label {
   color: #000;
   display: block;
-  font-size: 13px;
-  line-height: 18px;
+  font-size: 0.8125rem;
+  line-height: 0.722222222;
   font-weight: 600;
-  margin: 5px 0;
+  margin: 0.3125rem 0;
 }
 
-.cmb2-metabox-description {
-  font-size: 11px;
-  margin-top: 3px;
+.form-field .description {
+  font-size: 0.6875rem;
+  margin-top: 0.1875rem;
   margin-bottom: 0;
 }
 
-.cmb-type-date input {
+.form-field input,
+.form-field select {
   line-height: 2;
-  margin: 3px 0;
-  max-width: 40rem;
+  margin: 0.1875rem 0;
   min-height: 30px;
   min-width: 12.5rem;
-  padding: 0 8px;
-}
-
-.cmb-type-date .duet-date__input-wrapper,
-.cmb-type-date .duet-date__dialog {
-  max-width: 40rem;
-}
-
-.cmb-type-date .duet-date__toggle {
-  height: 28px;
-  top: 4px;
-  width: 36px;
-}
-
-.cmb-type-date .duet-date__cell {
-  padding: 0;
-}
-
-.cmb-td input[type="text"],
-.cmb-td input[type="url"] {
+  padding: 0 0.5rem;
   width: 100%;
+}
+
+.form-field input {
   max-width: 40rem;
-  margin: 3px 0;
+}
+
+.form-field select {
+  max-width: 25rem;
+}
+
+.form-field .duet-date__input-wrapper,
+.form-field .duet-date__dialog {
+  max-width: 12.5rem;
+}
+
+.form-field .duet-date__mobile-heading {
+  display: inline-block;
+  font-weight: var(--duet-font-bold);
+}
+
+@media (min-width: 36em) {
+  .duet-date__mobile-heading {
+    display: none;
+  }
+}
+
+.form-field .duet-date__toggle {
+  height: 1.75rem;
+  top: 0.25rem;
+  width: 2.25rem;
+}
+
+.form-field .duet-date__cell {
+  padding: 0;
 }

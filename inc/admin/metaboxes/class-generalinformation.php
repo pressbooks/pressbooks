@@ -40,11 +40,14 @@ class GeneralInformation extends Metabox {
 				label: __( 'Subtitle', 'pressbooks' )
 			),
 
+			// TODO: Authors, editors, translators, reviewers, illustrators, contributors
+
 			new TaxonomySelect(
 				name: 'pb_authors',
 				label: __( 'Author(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
 				options: [],
+				multiple: true
 			),
 
 			new TaxonomySelect(
@@ -52,6 +55,7 @@ class GeneralInformation extends Metabox {
 				label: __( 'Editor(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
 				options: [],
+				multiple: true
 			),
 
 			new TaxonomySelect(
@@ -59,6 +63,7 @@ class GeneralInformation extends Metabox {
 				label: __( 'Translator(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
 				options: [],
+				multiple: true
 			),
 
 			new TaxonomySelect(
@@ -66,6 +71,7 @@ class GeneralInformation extends Metabox {
 				label: __( 'Reviewer(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
 				options: [],
+				multiple: true
 			),
 
 			new TaxonomySelect(
@@ -73,6 +79,7 @@ class GeneralInformation extends Metabox {
 				label: __( 'Illustrator(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
 				options: [],
+				multiple: true
 			),
 
 			new TaxonomySelect(
@@ -80,9 +87,8 @@ class GeneralInformation extends Metabox {
 				label: __( 'Contributor(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
 				options: [],
+				multiple: true
 			),
-
-			// TODO: Authors, editors, translators, reviewers, illustrators, contributors
 
 			new Text(
 				name: 'pb_publisher',
