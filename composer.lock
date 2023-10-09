@@ -5064,22 +5064,23 @@
         },
         {
             "name": "vanilla/htmlawed",
-            "version": "v2.2.5",
+            "version": "v2.2.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vanilla/htmlawed.git",
-                "reference": "b1fc7b3990796112387c08a132f85b7333022ec2"
+                "reference": "e9bbc21d22a6c13afa1cc9a4b3be9805acc10049"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vanilla/htmlawed/zipball/b1fc7b3990796112387c08a132f85b7333022ec2",
-                "reference": "b1fc7b3990796112387c08a132f85b7333022ec2",
+                "url": "https://api.github.com/repos/vanilla/htmlawed/zipball/e9bbc21d22a6c13afa1cc9a4b3be9805acc10049",
+                "reference": "e9bbc21d22a6c13afa1cc9a4b3be9805acc10049",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0"
+                "php": ">=7.4.0"
             },
             "require-dev": {
+                "phpunit/phpunit": "^9.0",
                 "tburry/pquery": "~1.0.1"
             },
             "type": "library",
@@ -5101,9 +5102,9 @@
             "description": "A composer wrapper for the htmLawed library to purify & filter HTML. Tested with PHPUnit and PhantomJS!",
             "support": {
                 "issues": "https://github.com/vanilla/htmlawed/issues",
-                "source": "https://github.com/vanilla/htmlawed/tree/master"
+                "source": "https://github.com/vanilla/htmlawed/tree/v2.2.15"
             },
-            "time": "2019-10-16T15:36:02+00:00"
+            "time": "2023-09-29T18:41:55+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
