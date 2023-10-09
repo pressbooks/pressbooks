@@ -71,6 +71,11 @@
 .dashicons-admin-media {
   @extend .pb-heroicons-camera;
 }
+
+.dashicons-cart {
+  @extend .pb-heroicons-shopping-cart;
+}
+
 /* stylelint-disable-next-line selector-id-pattern */
 #toplevel_page_h5p .wp-menu-image {
   @extend .pb-heroicons-h5p;
