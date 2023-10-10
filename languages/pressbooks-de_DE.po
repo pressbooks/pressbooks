@@ -1899,7 +1899,7 @@ msgid ""
 "an account you can login <a href=\"/wp-login.php\">here</a>. You can also "
 "set up your own Pressbooks book at: <a "
 "href=\"http://pressbooks.com\">Pressbooks.com</a>."
-msgstr "Dies ist ein privates Buch und nur für registrierte Benutzer zugänglich. Wenn Sie ein Benutzerkonto haben können Sie sich <a href=\"/wp-login.php\">hier</a> anmelden. Sie können auch Ihr eigenes Pressbooks Buch unter <a href=\"http://pressbooks.com\">Pressbooks.com</a> erzeugen."
+msgstr "Dies ist ein privates Buch und nur für registrierte Benutzer zugänglich. Wenn Sie ein Benutzerkonto haben, können Sie sich <a href=\"/wp-login.php\">hier</a> anmelden. "
 
 #: inc/class-activation.php:264 inc/class-customcss.php:91
 msgid "Custom CSS for Ebook"
