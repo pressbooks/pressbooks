@@ -46,48 +46,53 @@ class GeneralInformation extends Metabox {
 				name: 'pb_authors',
 				label: __( 'Author(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
-				options: [],
-				multiple: true
+				multiple: true,
+				description: sprintf('<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __('Create New Contributor', 'pressbooks'))
 			),
 
 			new TaxonomySelect(
 				name: 'pb_editors',
 				label: __( 'Editor(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
-				options: [],
-				multiple: true
+				multiple: true,
+				description: sprintf('<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __('Create New Contributor', 'pressbooks'))
+
 			),
 
 			new TaxonomySelect(
 				name: 'pb_translators',
 				label: __( 'Translator(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
-				options: [],
-				multiple: true
+				multiple: true,
+				description: sprintf('<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __('Create New Contributor', 'pressbooks'))
+
 			),
 
 			new TaxonomySelect(
 				name: 'pb_reviewers',
 				label: __( 'Reviewer(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
-				options: [],
-				multiple: true
+				multiple: true,
+				description: sprintf('<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __('Create New Contributor', 'pressbooks'))
+
 			),
 
 			new TaxonomySelect(
 				name: 'pb_illustrators',
 				label: __( 'Illustrator(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
-				options: [],
-				multiple: true
+				multiple: true,
+				description: sprintf('<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __('Create New Contributor', 'pressbooks'))
+
 			),
 
 			new TaxonomySelect(
 				name: 'pb_contributors',
 				label: __( 'Contributor(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
-				options: [],
-				multiple: true
+				multiple: true,
+				description: sprintf('<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __('Create New Contributor', 'pressbooks'))
+
 			),
 
 			new Text(

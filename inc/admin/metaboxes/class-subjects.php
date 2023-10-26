@@ -8,7 +8,6 @@ namespace Pressbooks\Admin\Metaboxes;
 
 use Pressbooks\Admin\Fields\Date as DateField;
 use Pressbooks\Admin\Fields\Select;
-use Pressbooks\Admin\Fields\TaxonomySelect;
 use Pressbooks\Admin\Fields\Text;
 use function Pressbooks\Metadata\get_thema_subjects;
 
