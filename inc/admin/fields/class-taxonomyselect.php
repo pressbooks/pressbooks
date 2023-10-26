@@ -13,7 +13,7 @@ class TaxonomySelect extends Field {
 
 	public string $default = '';
 
-	public string $view = 'taxonomy-select';
+	public string $view = 'select';
 
 	public function __construct(string $name, string $label, ?string $description = null, ?string $id = null, bool $multiple = false, string $taxonomy = null, string $default = '')
 	{

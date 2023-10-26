@@ -38,8 +38,7 @@ class Institutions extends Metabox
 		foreach ( get_institutions() as $region => $institutions ) {
 			if (is_array($institutions)) {
 				foreach( $institutions as $code => $institution ) {
-					// $options[$region][$code] = $institution['name'];
-					$options[$code] = "{$institution['name']} ({$region})";
+					$options[$region][$code] = $institution['name'];
 				}
 			}
 		}

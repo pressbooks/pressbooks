@@ -45,19 +45,15 @@ class Subjects extends Metabox
 		$data = [];
 
 		foreach (get_thema_subjects() as $subject_group) {
-			// $group = $subject_group['label'];
-			// $children = [];
-			foreach ($subject_group['children'] as $key => $value) {
-				$data[$key] = "{$value} ({$subject_group['label']})";
-				// $children[$key] = $value;
+			$group = $subject_group['label'];
+			$children = [];
+			foreach ( $subject_group['children'] as $key => $value ) {
+				$children[$key] = $value;
 			}
 
-			// if (! empty($children)) {
-			// 	$data[] = [
-			// 		'text' => $group,
-			// 		'children' => $children,
-			// 	];
-			// }
+			if (! empty($children)) {
+				$data[$group] = $children;
+			}
 		}
 
 		return $data;
