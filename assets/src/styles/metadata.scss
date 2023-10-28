@@ -36,7 +36,7 @@ $side-right-space: 20px;
   color: #000;
   display: block;
   font-size: 0.8125rem;
-  line-height: 0.722222222;
+  line-height: 0.7222;
   font-weight: 600;
   margin: 0.3125rem 0;
 }
@@ -72,11 +72,6 @@ $side-right-space: 20px;
 .form-field .duet-date__input-wrapper,
 .form-field .duet-date__dialog {
   max-width: 12.5rem;
-}
-
-.form-field .duet-date__mobile-heading {
-  display: inline-block;
-  font-weight: var(--duet-font-bold);
 }
 
 .form-field .duet-date__mobile-heading {
