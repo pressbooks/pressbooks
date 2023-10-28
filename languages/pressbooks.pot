@@ -2,16 +2,16 @@
 # This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 6.14.0\n"
+"Project-Id-Version: Pressbooks 6.15.1\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-08-03T22:29:37+00:00\n"
+"POT-Creation-Date: 2023-10-10T08:45:40-07:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.8.1\n"
+"X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: pressbooks\n"
 
 #. Plugin Name of the plugin
@@ -131,6 +131,7 @@ msgstr ""
 #: inc/admin/class-catalog-list-table.php:230
 #: inc/class-activation.php:237
 #: inc/modules/export/epub/class-epub.php:1233
+#: tests/test-cloner.php:57
 msgid "Cover"
 msgstr ""
 
@@ -1293,6 +1294,7 @@ msgstr ""
 #: inc/posttype/namespace.php:542
 #: inc/posttype/namespace.php:580
 #: templates/admin/import.php:94
+#: tests/test-posttype.php:259
 msgid "Part"
 msgstr ""
 
@@ -1753,6 +1755,7 @@ msgid "Owner"
 msgstr ""
 
 #: inc/admin/network/class-networksettings.php:62
+#: tests/test-networksettings.php:29
 msgid "Theme Settings"
 msgstr ""
 
@@ -1951,10 +1954,12 @@ msgid "Main Body"
 msgstr ""
 
 #: inc/class-activation.php:210
+#: tests/test-book.php:47
 msgid "Introduction"
 msgstr ""
 
 #: inc/class-activation.php:212
+#: tests/test-book.php:97
 msgid "This is where you can write your introduction."
 msgstr ""
 
@@ -1975,6 +1980,7 @@ msgid "This is where you can add appendices or other back matter."
 msgstr ""
 
 #: inc/class-activation.php:232
+#: tests/test-cloner.php:52
 #: templates/admin/organize.blade.php:131
 #: templates/admin/organize.blade.php:215
 msgid "Authors"
@@ -1982,6 +1988,7 @@ msgstr ""
 
 #: inc/class-activation.php:242
 #: inc/modules/themeoptions/class-pdfoptions.php:322
+#: tests/test-cloner.php:62
 #: templates/export/epub/toc.blade.php:13
 msgid "Table of Contents"
 msgstr ""
@@ -2543,15 +2550,18 @@ msgid "Source Sans Pro"
 msgstr ""
 
 #: inc/class-styles.php:702
+#: tests/test-styles.php:215
 msgid "Theme default"
 msgstr ""
 
 #: inc/class-styles.php:703
 #: inc/class-styles.php:717
+#: tests/test-styles.php:216
 msgid "Serif"
 msgstr ""
 
 #: inc/class-styles.php:704
+#: tests/test-styles.php:217
 msgid "Sans serif"
 msgstr ""
 
@@ -3469,6 +3479,7 @@ msgid "About the Author"
 msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:169
+#: tests/test-options.php:501
 msgid "Display information about authors at the end of each chapter"
 msgstr ""
 
@@ -4232,6 +4243,7 @@ msgid " adapted by "
 msgstr ""
 
 #: inc/shortcodes/footnotes/class-footnotes.php:187
+#: tests/test-shortcodes-footnotes-footnotes.php:149
 msgid "Invalid permissions."
 msgstr ""
 
@@ -4697,6 +4709,10 @@ msgstr ""
 
 #: templates/pb-catalog.php:273
 msgid "Pressbooks: the CMS for Books."
+msgstr ""
+
+#: tests/test-registration.php:28
+msgid "Create Site"
 msgstr ""
 
 #: templates/admin/cloner/book-card.blade.php:9

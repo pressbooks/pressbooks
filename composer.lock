@@ -62,16 +62,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.281.12",
+            "version": "3.283.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "22a92f08758db2b152843ea0875eeee5a467d8ff"
+                "reference": "0233b9f3f2155dac35c829ce4fc1b7cdb6ff8c0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/22a92f08758db2b152843ea0875eeee5a467d8ff",
-                "reference": "22a92f08758db2b152843ea0875eeee5a467d8ff",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0233b9f3f2155dac35c829ce4fc1b7cdb6ff8c0a",
+                "reference": "0233b9f3f2155dac35c829ce4fc1b7cdb6ff8c0a",
                 "shasum": ""
             },
             "require": {
@@ -151,9 +151,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.281.12"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.283.9"
             },
-            "time": "2023-09-22T18:12:27+00:00"
+            "time": "2023-10-20T20:03:26+00:00"
         },
         {
             "name": "composer/installers",
@@ -349,16 +349,16 @@
         },
         {
             "name": "docraptor/docraptor",
-            "version": "4.0.0",
+            "version": "4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DocRaptor/docraptor-php.git",
-                "reference": "9f90d8164c923be21cd2c6ba23da8841c8940074"
+                "reference": "ad344fd7ed4d8fac2beba88dd95547f6a68d4c8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DocRaptor/docraptor-php/zipball/9f90d8164c923be21cd2c6ba23da8841c8940074",
-                "reference": "9f90d8164c923be21cd2c6ba23da8841c8940074",
+                "url": "https://api.github.com/repos/DocRaptor/docraptor-php/zipball/ad344fd7ed4d8fac2beba88dd95547f6a68d4c8d",
+                "reference": "ad344fd7ed4d8fac2beba88dd95547f6a68d4c8d",
                 "shasum": ""
             },
             "require": {
@@ -401,9 +401,9 @@
             ],
             "support": {
                 "issues": "https://github.com/DocRaptor/docraptor-php/issues",
-                "source": "https://github.com/DocRaptor/docraptor-php/tree/v4.0.0"
+                "source": "https://github.com/DocRaptor/docraptor-php/tree/v4.1.0"
             },
-            "time": "2022-11-14T21:19:56+00:00"
+            "time": "2023-09-26T20:00:16+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -5064,22 +5064,23 @@
         },
         {
             "name": "vanilla/htmlawed",
-            "version": "v2.2.5",
+            "version": "v2.2.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vanilla/htmlawed.git",
-                "reference": "b1fc7b3990796112387c08a132f85b7333022ec2"
+                "reference": "e9bbc21d22a6c13afa1cc9a4b3be9805acc10049"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vanilla/htmlawed/zipball/b1fc7b3990796112387c08a132f85b7333022ec2",
-                "reference": "b1fc7b3990796112387c08a132f85b7333022ec2",
+                "url": "https://api.github.com/repos/vanilla/htmlawed/zipball/e9bbc21d22a6c13afa1cc9a4b3be9805acc10049",
+                "reference": "e9bbc21d22a6c13afa1cc9a4b3be9805acc10049",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0"
+                "php": ">=7.4.0"
             },
             "require-dev": {
+                "phpunit/phpunit": "^9.0",
                 "tburry/pquery": "~1.0.1"
             },
             "type": "library",
@@ -5101,9 +5102,9 @@
             "description": "A composer wrapper for the htmLawed library to purify & filter HTML. Tested with PHPUnit and PhantomJS!",
             "support": {
                 "issues": "https://github.com/vanilla/htmlawed/issues",
-                "source": "https://github.com/vanilla/htmlawed/tree/master"
+                "source": "https://github.com/vanilla/htmlawed/tree/v2.2.15"
             },
-            "time": "2019-10-16T15:36:02+00:00"
+            "time": "2023-09-29T18:41:55+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
