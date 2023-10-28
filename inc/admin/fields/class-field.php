@@ -52,7 +52,17 @@ abstract class Field {
 
 	public function save( int $post_id ): void
 	{
-		update_post_meta( $post_id, $this->name, $this->sanitize( $_POST[$this->name] ) );
+		if ( $this->multiple ) {
+			delete_post_meta( $post_id, $this->name );
+			foreach ( $_POST[$this->name] as $value ) {
+				$value = trim($this->sanitize($value));
+				if ( $value ) {
+					add_post_meta( $post_id, $this->name, $value, false );
+				}
+			}
+		} else {
+			update_post_meta( $post_id, $this->name, $this->sanitize( $_POST[$this->name] ) );
+		}
 	}
 
 	public function delete( int $post_id ): void
