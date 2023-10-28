@@ -25,6 +25,7 @@ class Institutions extends Metabox
 			new Select(
 				name: 'pb_institutions',
 				label: __( 'Institutions', 'pressbooks' ),
+				description: __('This optional field can be used to display the institution(s) which created this resource. If your college or university is not listed, please contact your network manager.', 'pressbooks'),
 				options: $this->getInstitutions(),
 				multiple: true
 			)

@@ -79,8 +79,14 @@ $side-right-space: 20px;
   font-weight: var(--duet-font-bold);
 }
 
+.form-field .duet-date__mobile-heading {
+  display: inline-block;
+  font-weight: var(--duet-font-bold);
+}
+
 @media (min-width: 36em) {
-  .duet-date__mobile-heading {
+  .duet-date__mobile-heading,
+  .form-field .duet-date__mobile-heading {
     display: none;
   }
 }
