@@ -40,8 +40,6 @@ class GeneralInformation extends Metabox {
 				label: __( 'Subtitle', 'pressbooks' )
 			),
 
-			// TODO: Authors, editors, translators, reviewers, illustrators, contributors
-
 			new TaxonomySelect(
 				name: 'pb_authors',
 				label: __( 'Author(s)', 'pressbooks' ),

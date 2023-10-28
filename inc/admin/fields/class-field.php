@@ -53,7 +53,7 @@ abstract class Field {
 	public function save( int $post_id ): void
 	{
 		if ( $this->multiple ) {
-			delete_post_meta( $post_id, $this->name );
+			$this->delete( $post_id );
 			foreach ( $_POST[$this->name] as $value ) {
 				$value = trim($this->sanitize($value));
 				if ( $value ) {

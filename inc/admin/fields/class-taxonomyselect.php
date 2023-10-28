@@ -36,4 +36,21 @@ class TaxonomySelect extends Field {
 
 		return $options;
 	}
+
+	public function sanitize( mixed $value ): mixed
+	{
+		return sanitize_text_field( $value );
+	}
+
+	public function save( int $post_id ): void
+	{
+		wp_set_object_terms( $post_id, $_POST[$this->name], $this->taxonomy );
+
+		parent::save( $post_id );
+	}
+
+	public function delete( int $post_id ): void
+	{
+		parent::delete( $post_id );
+	}
 }
