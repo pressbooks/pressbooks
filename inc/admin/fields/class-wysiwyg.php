@@ -6,21 +6,16 @@
 
 namespace Pressbooks\Admin\Fields;
 
+
 class Wysiwyg extends Field {
 	public string $view = 'wysiwyg';
 
-	public function sanitize(mixed $value): mixed
+	public int $rows = 20;
+
+	public function __construct(string $name, string $label, ?string $description = null, ?string $id = null, bool $multiple = false, int $rows = 20)
 	{
-		return $value;
-	}
+		parent::__construct($name, $label, $description, $id, $multiple);
 
-	public function save(int $post_id): void
-	{
-
-	}
-
-	public function delete(int $post_id): void
-	{
-
+		$this->rows = $rows;
 	}
 }

@@ -36,7 +36,8 @@ class About extends Metabox
 			new Wysiwyg(
 				name: 'pb_about_unlimited',
 				label: __( 'Long Description', 'pressbooks' ),
-				description: __( 'The full description of your book.', 'pressbooks' )
+				description: __( 'The full description of your book.', 'pressbooks' ),
+				rows: 4
 			)
 		];
     }

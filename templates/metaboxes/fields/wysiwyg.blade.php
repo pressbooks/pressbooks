@@ -2,15 +2,7 @@
 	<label for="{{ $field->id ?? $field->name }}">
 		{{ $field->label }}
 	</label>
-	<textarea
-		id="{{ $field->id ?? $field->name }}"
-		name="{{ $field->name }}"
-		type="{{ $field->type ?? 'text' }}"
-		@if(isset($field->disabled)) disabled @endif
-		@if(isset($field->description)) aria-describedby="{{ $field->id ?? $field->name . '-description' }}" @endif
-	>
-		{{ $value ?? '' }}
-	</textarea>
+	@php(wp_editor($value ?? '', $field->name, \Pressbooks\Editor\metadata_manager_default_editor_args(['textarea_rows' => $field->rows ?? 20])))
 	@if(isset($field->description))
 	<p class="description" id="{{ $field->id ?? $field->name . '-description' }}">
 		{{ $field->description }}
