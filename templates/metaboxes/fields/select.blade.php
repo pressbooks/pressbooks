@@ -8,7 +8,7 @@
 		<select
 			class="widefat"
 			@if($field->multiple) multiple @endif
-			name="{{ $field->name }}"
+			name="{{ $field->multiple ? $field->name . '[]' : $field->name }}"
 			id="{{ $field->id }}"
 			@if ($field->description)
 			aria-describedby="{{ $field->id . '-description' }}"
@@ -27,7 +27,7 @@
 			@endforeach
 		</select>
 		@if(isset($field->description))
-		<p class="description" id="{{ $field->id . '-description' }}">
+		<p class="description" id="{{ $field->id . '-description' }}" slot="after">
 			{!! $field->description !!}
 		</p>
 		@endif

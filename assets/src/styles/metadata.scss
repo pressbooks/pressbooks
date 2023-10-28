@@ -47,6 +47,10 @@ $side-right-space: 20px;
   margin-bottom: 0;
 }
 
+.form-field .description .button {
+  margin-block: 0.25rem;
+}
+
 .form-field input,
 .form-field select {
   line-height: 2;
@@ -89,4 +93,8 @@ $side-right-space: 20px;
 
 .form-field .duet-date__cell {
   padding: 0;
+}
+
+:root {
+  --pb-combo-container-max-width: 40rem;
 }
