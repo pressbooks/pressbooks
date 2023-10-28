@@ -13,12 +13,14 @@ use Pressbooks\Admin\Fields\Text;
 use Pressbooks\Contributors;
 
 class GeneralInformation extends Metabox {
+
 	public function __construct( bool $expanded = false )
 	{
 		parent::__construct( $expanded );
 
 		$this->slug = 'general-information';
 		$this->title = __( 'General Book Information', 'pressbooks' );
+		$this->priority = 'high';
 	}
 
 	public function getFields(): array

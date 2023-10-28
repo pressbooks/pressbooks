@@ -24,25 +24,6 @@ class MetaboxesTest extends \WP_UnitTestCase {
 	/**
 	 * @group metaboxes
 	 */
-	public function test_add_meta_boxes() {
-		global $wp_meta_boxes;
-
-		$c = custom_metadata_manager::instance();
-
-		update_option( 'pressbooks_show_expanded_metadata', 1 );
-
-		\Pressbooks\Admin\Metaboxes\add_meta_boxes();
-
-		$this->assertArrayHasKey( 'chapter', $wp_meta_boxes );
-		$this->assertArrayHasKey( 'part', $wp_meta_boxes );
-		$this->assertArrayHasKey( 'metadata', $c->metadata );
-		$this->assertArrayHasKey( 'general-book-information', $c->metadata['metadata'] );
-		$this->assertArrayHasKey( 'additional-catalog-information', $c->metadata['metadata'] );
-	}
-
-	/**
-	 * @group metaboxes
-	 */
 	public function test_status_visibility_box() {
 		\Pressbooks\Metadata\init_book_data_models();
 
@@ -235,49 +216,6 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '<div class="submitbox" id="submitpost">', $buffer );
 		$this->assertStringContainsString( '<input name="save" id="publish" type="submit"', $buffer );
-	}
-
-	/**
-	 * @group metaboxes
-	 */
-	public function test_institutions_metabox(): void {
-		$this->_book();
-
-		$metadata = new \Pressbooks\Metadata();
-
-		ob_start();
-		\Pressbooks\Admin\Metaboxes\institutions_metabox( $metadata->getMetaPost() );
-		$result = ob_get_clean();
-
-		$this->assertStringContainsString( '<div class="custom-metadata-field institutions">', $result );
-		$this->assertStringContainsString( '<label for="pb-institutions">Institutions</label>', $result);
-		$this->assertStringContainsString( '<select id="pb-institutions" name="pb_institutions[]" multiple>', $result);
-	}
-
-	/**
-	 * @group metaboxes
-	 */
-	public function test_get_thema_subjects() {
-		$reporting = $this->_fakeAjax();
-		$_REQUEST['_ajax_nonce'] = wp_create_nonce( 'pb-metadata' );
-
-		ob_start();
-		\Pressbooks\Admin\Metaboxes\get_thema_subjects();
-		$buffer = json_decode( ob_get_clean(), true );
-		$this->assertNotEmpty( $buffer['results'] );
-		// Test Select2 data format
-		$this->assertArrayHasKey( 'text', $buffer['results'][0] );
-		$this->assertArrayHasKey( 'id', $buffer['results'][0]['children'][0] );
-		$this->assertArrayHasKey( 'text', $buffer['results'][0]['children'][0] );
-
-		// Test searching for something that can't be found
-		$_REQUEST['q'] = 'xxxxxxxxxxxxxx';
-		ob_start();
-		\Pressbooks\Admin\Metaboxes\get_thema_subjects();
-		$buffer = json_decode( ob_get_clean(), true );
-		$this->assertEmpty( $buffer['results'] );
-
-		$this->_fakeAjaxDone( $reporting );
 	}
 
 	/**

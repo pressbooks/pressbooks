@@ -173,7 +173,7 @@ function add_meta_boxes_metadata() {
 	$expanded = \Pressbooks\Metadata\show_expanded_metadata();
 
 	(new GeneralInformation( $expanded ))->register();
-	(new CoverImage( $expanded ))->register();
+	add_meta_box( 'covers', __( 'Cover Image', 'pressbooks' ), '\Pressbooks\Image\cover_image_box', 'metadata', 'normal', 'low' );
 	(new Subjects( $expanded ))->register();
 	(new Institutions( $expanded ))->register();
 	(new Copyright( $expanded ))->register();
@@ -184,11 +184,10 @@ function add_meta_boxes_metadata() {
 	}
 }
 
-function save_general_metadata( $post_id ) {
+function save_metadata( $post_id ) {
 	$expanded = \Pressbooks\Metadata\show_expanded_metadata();
 
 	(new GeneralInformation( $expanded ))->save( $post_id );
-	(new CoverImage( $expanded ))->save( $post_id );
 	(new Subjects( $expanded ))->save( $post_id );
 	(new Institutions( $expanded ))->save( $post_id );
 	(new Copyright( $expanded ))->save( $post_id );
@@ -661,205 +660,6 @@ function publish_fields_save( $post_id, $post, $update ) {
 			]
 		);
 		$recursion = false;
-	}
-}
-
-/**
- * Display the institutions meta box
- *
- * @since 5.33.0
- *
- * @param \WP_Post $post
- */
-function institutions_metabox( \WP_Post $post ): void {
-	wp_nonce_field( basename( __FILE__ ), 'institutions_metabox_nonce' );
-
-	$institutions = get_post_meta( $post->ID, 'pb_institutions', false );
-
-	echo Container::get( 'Blade' )->render(
-		'admin.institutions',
-		compact( 'institutions' )
-	);
-}
-
-/**
- * Display subjects meta box
- *
- * @since 4.4.0
- *
- * @param \WP_Post $post
- */
-function metadata_subject_box( $post ) {
-	wp_nonce_field( basename( __FILE__ ), 'subject_meta_nonce' );
-	$pb_primary_subject = get_post_meta( $post->ID, 'pb_primary_subject', true );
-	$pb_additional_subjects = get_post_meta( $post->ID, 'pb_additional_subjects' );
-	if ( ! $pb_additional_subjects ) {
-		$pb_additional_subjects = [];
-	}
-	?>
-	<div class="custom-metadata-field select">
-		<label for="primary-subject"><?php _e( 'Primary Subject', 'pressbooks' ); ?></label>
-		<select id="primary-subject" name="pb_primary_subject">
-			<option value="<?php echo $pb_primary_subject; ?>" selected="selected"><?php echo Metadata\get_subject_from_thema( $pb_primary_subject ); ?></option>
-		</select>
-		<span class="description"><?php printf( __( '%1$s subject terms appear on the web homepage of your book and help categorize your book in your network catalog and Pressbooks Directory (if applicable). Use %2$s to determine which subject category is best for your book.', 'pressbooks' ), sprintf( '<a href="%1$s"><em>%2$s</em></a>', 'https://www.editeur.org/151/Thema', __( 'Thema', 'pressbooks' ) ), sprintf( '<a href="%1$s">%2$s</a>', 'https://ns.editeur.org/thema/en', __( 'the Thema subject category list', 'pressbooks' ) ) ); ?></span>
-	</div>
-	<div class="custom-metadata-field select">
-		<label for="additional-subjects"><?php _e( 'Additional Subject(s)', 'pressbooks' ); ?></label>
-		<select id="additional-subjects" name="pb_additional_subjects[]" multiple>
-			<?php
-			foreach ( $pb_additional_subjects as $pb_additional_subject ) {
-				?>
-				<option value="<?php echo $pb_additional_subject; ?>" selected="selected"><?php echo  Metadata\get_subject_from_thema( $pb_additional_subject ); ?></option>
-				<?php
-			}
-			?>
-		</select>
-		<span class="description"><?php printf( __( '%1$s subject terms appear on the web homepage of your book and help categorize your book in your network catalog and Pressbooks Directory (if applicable). Use %2$s to determine which additional subject categories are appropriate for your book.', 'pressbooks' ), sprintf( '<a href="%1$s"><em>%2$s</em></a>', 'https://www.editeur.org/151/Thema', __( 'Thema', 'pressbooks' ) ), sprintf( '<a href="%1$s">%2$s</a>', 'https://ns.editeur.org/thema/en', __( 'the Thema subject category list', 'pressbooks' ) ) ); ?></span>
-	</div>
-	<?php
-}
-
-/**
- * Return the list of institutions in the Select2 data format
- *
- * @since 5.33.0
- * @see https://select2.org/data-sources/formats
- *
- * @return void
- */
-function get_institutions_to_select(): void {
-	check_ajax_referer( 'pb-metadata' );
-
-	$items = [];
-	$q = $_REQUEST['q'] ?? '';
-
-	foreach ( \Pressbooks\Metadata\get_institutions() as $region => $institutions ) {
-		$children = array_values( array_filter( $institutions, static function( $institution ) use ( $q ) {
-			return ! $q || stripos( $institution['name'], $q ) !== false;
-		} ) );
-
-		if ( ! empty( $children ) ) {
-			$items[] = [
-				'text' => $region,
-				'children' => array_map( static function( $institution ) {
-					return [
-						'id' => $institution['code'],
-						'text' => $institution['name'],
-					];
-				}, $children ),
-			];
-		}
-	}
-
-	wp_send_json([
-		'results' => $items,
-		'pagination' => [
-			'more' => false,
-		],
-	]);
-}
-
-/**
- * Save the institutions metadata
- *
- * @since 5.33.0
- *
- * @param int $post_id
- *
- * @return void
- */
-function save_institutions_metadata( int $post_id ): void {
-	if ( ! wp_verify_nonce( $_POST['institutions_metabox_nonce'], basename( __FILE__ ) ) ) {
-		return;
-	}
-
-	if ( ! current_user_can( 'edit_post', $post_id ) ) {
-		return;
-	}
-
-	if ( isset( $_POST['pb_institutions'] ) && ! empty( $_POST['pb_institutions'] ) ) {
-		$value = ( is_array( $_POST['pb_institutions'] ) ) ? $_POST['pb_institutions'] : [ $_POST['pb_institutions'] ];
-
-		delete_post_meta( $post_id, 'pb_institutions' );
-
-		foreach ( $value as $v ) {
-			add_post_meta( $post_id, 'pb_institutions', sanitize_text_field( $v ) );
-		}
-	} else {
-		delete_post_meta( $post_id, 'pb_institutions' );
-	}
-}
-
-/**
- * Select2 data format
- *
- * @see https://select2.org/data-sources/formats
- */
-function get_thema_subjects() {
-	check_ajax_referer( 'pb-metadata' );
-
-	$include_qualifiers = ! empty( $_REQUEST['includeQualifiers'] );
-	$q = $_REQUEST['q'] ?? '';
-	$data = [];
-	$thema_subjects = \Pressbooks\Metadata\get_thema_subjects( $include_qualifiers );
-	foreach ( $thema_subjects as $subject_group ) {
-		$group = $subject_group['label'];
-		$children = [];
-		foreach ( $subject_group['children'] as $key => $value ) {
-			if ( empty( $q ) || stripos( $key, $q ) !== false || stripos( $value, $q ) !== false ) {
-				$children[] = [
-					'id' => $key,
-					'text' => $value,
-				];
-			}
-		}
-		if ( ! empty( $children ) ) {
-			$data[] = [
-				'text' => $group,
-				'children' => $children,
-			];
-		}
-	}
-
-	wp_send_json(
-		[
-			'results' => $data,
-			'pagination' => [
-				'more' => false,
-			],
-		]
-	);
-}
-
-/**
- * Save subject metadata
- *
- * @since 4.4.0
- *
- * @param int $post_id The post ID.
- */
-function save_subject_metadata( $post_id ) {
-	if ( ! isset( $_POST['subject_meta_nonce'] ) || ! wp_verify_nonce( $_POST['subject_meta_nonce'], basename( __FILE__ ) ) ) {
-		return;
-	}
-	if ( ! current_user_can( 'edit_post', $post_id ) ) {
-		return;
-	}
-	if ( isset( $_REQUEST['pb_primary_subject'] ) && ! empty( $_REQUEST['pb_primary_subject'] ) ) {
-		update_post_meta( $post_id, 'pb_primary_subject', sanitize_text_field( $_POST['pb_primary_subject'] ) );
-	} else {
-		delete_post_meta( $post_id, 'pb_primary_subject' );
-	}
-
-	if ( isset( $_REQUEST['pb_additional_subjects'] ) && ! empty( $_REQUEST['pb_additional_subjects'] ) ) {
-		$value = ( is_array( $_POST['pb_additional_subjects'] ) ) ? $_POST['pb_additional_subjects'] : [ $_POST['pb_additional_subjects'] ];
-		delete_post_meta( $post_id, 'pb_additional_subjects' );
-		foreach ( $value as $v ) {
-			add_post_meta( $post_id, 'pb_additional_subjects', sanitize_text_field( $v ) );
-		}
-	} else {
-		delete_post_meta( $post_id, 'pb_additional_subjects' );
 	}
 }
 
