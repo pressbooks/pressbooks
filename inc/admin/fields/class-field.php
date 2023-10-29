@@ -6,6 +6,8 @@
 
 namespace Pressbooks\Admin\Fields;
 
+use function Pressbooks\Sanitize\sanitize_string;
+
 abstract class Field {
 	/* The name attribute of the field. */
 	public string $name;
@@ -28,6 +30,9 @@ abstract class Field {
 	/* Whether the field should save multiple values. */
 	public bool $multiple = false;
 
+	/* Whether the field should allow HTML. */
+	public bool $allowHtml = false;
+
 	public function __construct( string $name, string $label, ?string $description = null, ?string $id = null, bool $multiple = false )
 	{
 		$this->name = $name;
@@ -47,7 +52,9 @@ abstract class Field {
 
 	public function sanitize( mixed $value ): mixed
 	{
-		return sanitize_text_field( $value );
+		return $this->allowHtml ?
+			sanitize_string( $value, $this->allowHtml ) :
+			sanitize_text_field( $value );
 	}
 
 	public function save( int $post_id ): void
