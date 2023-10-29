@@ -274,16 +274,6 @@ function add_meta_boxes() {
 		);
 	}
 
-	// Chapter Parent
-
-	x_add_metadata_group(
-		'chapter-parent', 'chapter', [
-			'label' => __( 'Part', 'pressbooks' ),
-			'context' => 'side',
-			'priority' => 'high',
-		]
-	);
-
 	// Part Metadata
 
 	add_action(
