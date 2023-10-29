@@ -28,7 +28,12 @@ class TaxonomySelect extends Field {
 	{
 		$terms = get_terms( $this->taxonomy, array( 'hide_empty' => false ) );
 
-		$options = [];
+		$options = [
+		];
+
+		if (!$this->multiple) {
+			$options[''] = '';
+		}
 
 		foreach($terms as $term) {
 			$options[$term->slug] = $term->name;

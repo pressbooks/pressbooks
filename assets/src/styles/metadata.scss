@@ -32,7 +32,8 @@ $side-right-space: 20px;
   margin-top: 0.9375rem;
 }
 
-.form-field > label {
+.form-field > label,
+.form-field pressbooks-multiselect label {
   color: #000;
   display: block;
   font-size: 0.8125rem;

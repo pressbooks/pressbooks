@@ -293,7 +293,6 @@ function replace_book_admin_menu() {
 				$post_type = get_post_type();
 				if ( 'metadata' === $post_type ) {
 					wp_enqueue_script( 'duet-date-picker' );
-					wp_enqueue_script( 'pressbooks-multiselect' );
 					wp_enqueue_script( 'pb-metadata' );
 					wp_localize_script(
 						'pb-metadata', 'PB_BookInfoToken', [
@@ -306,6 +305,17 @@ function replace_book_admin_menu() {
 						]
 					);
 					wp_enqueue_style( 'duet-date-picker' );
+				}
+			}
+		}
+	);
+
+	add_action(
+		'admin_enqueue_scripts', function ( $hook ) use ( $bookinfo_page ) {
+			if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
+				$post_type = get_post_type();
+				if ( in_array( $post_type, [ 'metadata', 'front-matter', 'chapter', 'back-matter' ] ) ) {
+					wp_enqueue_script( 'pressbooks-multiselect' );
 				}
 			}
 		}

@@ -18,9 +18,6 @@ use Pressbooks\Container;
 use Pressbooks\Contributors;
 use Pressbooks\Licensing;
 use Pressbooks\Metadata;
-use Pressbooks\Admin\Metaboxes\Metabox;
-use Pressbooks\Admin\Metaboxes\GeneralInformation;
-
 
 // phpcs:ignore
 define( 'METADATA_CALLBACK_INDEX', 4 );
@@ -154,7 +151,7 @@ function add_metadata_styles( $hook ) {
 
 	if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
 		$post_type = get_post_type();
-		if ( 'metadata' === $post_type ) {
+		if ( in_array( $post_type, [ 'metadata', 'front-matter', 'chapter', 'back-matter' ] ) ) {
 			$assets = new Assets( 'pressbooks', 'plugin' );
 			wp_enqueue_style( 'metadata', $assets->getPath( 'styles/metadata.css' ) );
 		} elseif ( 'part' === $post_type ) {
@@ -184,6 +181,18 @@ function add_meta_boxes_metadata() {
 	}
 }
 
+function add_meta_boxes_front_matter() {
+	(new SectionMetadata( __( 'Front Matter', 'pressbooks' ) ))->register();
+}
+
+function add_meta_boxes_chapter() {
+	(new SectionMetadata( __( 'Chapter', 'pressbooks' ) ))->register();
+}
+
+function add_meta_boxes_back_matter() {
+	(new SectionMetadata( __( 'Back Matter', 'pressbooks' ) ))->register();
+}
+
 function save_metadata( $post_id ) {
 	$expanded = \Pressbooks\Metadata\show_expanded_metadata();
 
@@ -196,6 +205,10 @@ function save_metadata( $post_id ) {
 	if ($expanded) {
 		(new AdditionalCatalogInformation($expanded))->save($post_id);
 	}
+}
+
+function save_section_metadata( $post_id ) {
+	(new SectionMetadata())->save( $post_id );
 }
 
 /**
@@ -217,62 +230,6 @@ function add_meta_boxes() {
 	// Book info: slug should be not available
 
 	remove_meta_box( 'slugdiv', 'metadata', 'normal' );
-
-	// Front Matter, Back Matter, and Chapter Metadata
-
-	foreach ( [
-		'front-matter' => __( 'Front Matter', 'pressbooks' ),
-		'chapter' => __( 'Chapter', 'pressbooks' ),
-		'back-matter' => __( 'Back Matter', 'pressbooks' ),
-	] as $slug => $label ) {
-		x_add_metadata_group(
-			'section-metadata', $slug, [
-				'label' => sprintf( __( '%s Metadata', 'pressbooks' ), $label ),
-			]
-		);
-
-		x_add_metadata_field(
-			'pb_short_title', $slug, [
-				'group' => 'section-metadata',
-				'label' => sprintf( __( '%s Short Title (appears in the PDF running header and webbook navigation)', 'pressbooks' ), $label ),
-			]
-		);
-
-		x_add_metadata_field(
-			'pb_subtitle', $slug, [
-				'group' => 'section-metadata',
-				'label' => sprintf( __( '%s Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' ), $label ),
-			]
-		);
-
-		x_add_metadata_field(
-			'pb_authors', $slug, [
-				'group' => 'section-metadata',
-				'label' => sprintf( __( '%s Author(s)', 'pressbooks' ), $label ),
-				'field_type' => 'taxonomy_multi_select',
-				'taxonomy' => Contributors::TAXONOMY,
-				'select2' => true,
-				'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
-				'placeholder' => __( 'Choose author(s)...', 'pressbooks' ),
-			]
-		);
-
-		x_add_metadata_field(
-			'pb_section_license', $slug, [
-				'group' => 'section-metadata',
-				'field_type' => 'taxonomy_select',
-				'taxonomy' => Licensing::TAXONOMY,
-				'label' => sprintf( __( '%s Copyright License (overrides book license on this page)', 'pressbooks' ), $label ),
-			]
-		);
-
-		x_add_metadata_field(
-			'pb_section_doi', $slug, [
-				'group' => 'section-metadata',
-				'label' => sprintf( __( '%s Digital Object Identifier (DOI)', 'pressbooks' ), $label ),
-			]
-		);
-	}
 
 	// Part Metadata
 
