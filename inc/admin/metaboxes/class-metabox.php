@@ -35,7 +35,7 @@ abstract class Metabox {
 
 	public function register()
 	{
-		add_meta_box( $this->slug, $this->title, $this->callback, null, 'advanced', 'high' );
+		add_meta_box( $this->slug, $this->title, $this->callback, null, $this->context, $this->priority );
 	}
 
 	public function render()

@@ -151,7 +151,7 @@ function add_metadata_styles( $hook ) {
 
 	if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
 		$post_type = get_post_type();
-		if ( in_array( $post_type, [ 'metadata', 'front-matter', 'chapter', 'back-matter' ] ) ) {
+		if ( in_array( $post_type, [ 'metadata', 'front-matter', 'chapter', 'back-matter', 'part' ] ) ) {
 			$assets = new Assets( 'pressbooks', 'plugin' );
 			wp_enqueue_style( 'metadata', $assets->getPath( 'styles/metadata.css' ) );
 		} elseif ( 'part' === $post_type ) {
@@ -193,6 +193,11 @@ function add_meta_boxes_back_matter() {
 	(new SectionMetadata( __( 'Back Matter', 'pressbooks' ) ))->register();
 }
 
+function add_meta_boxes_part() {
+	(new PartVisibility())->register();
+}
+
+
 function save_metadata( $post_id ) {
 	$expanded = \Pressbooks\Metadata\show_expanded_metadata();
 
@@ -209,6 +214,10 @@ function save_metadata( $post_id ) {
 
 function save_section_metadata( $post_id ) {
 	(new SectionMetadata())->save( $post_id );
+}
+
+function save_part_metadata( $post_id ) {
+	(new PartVisibility())->save( $post_id );
 }
 
 /**
@@ -240,23 +249,6 @@ function add_meta_boxes() {
 				echo '<p><span class="description">' . $tip . '</span></p>';
 			}
 		}
-	);
-
-	x_add_metadata_group(
-		'part-metadata-visibility', 'part', [
-			'label' => __( 'Part Visibility', 'pressbooks' ),
-			'context' => 'side',
-			'priority' => 'low',
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_part_invisible', 'part', [
-			'field_type' => 'checkbox',
-			'group' => 'part-metadata-visibility',
-			'label' => __( 'Invisible', 'pressbooks' ),
-			'description' => __( 'Hide from table of contents and part numbering.', 'pressbooks' ),
-		]
 	);
 }
 

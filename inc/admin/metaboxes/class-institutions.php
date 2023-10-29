@@ -11,9 +11,9 @@ use function Pressbooks\Metadata\get_institutions;
 
 class Institutions extends Metabox
 {
-    public function __construct(bool $expanded = false)
+    public function __construct()
     {
-        parent::__construct($expanded);
+        parent::__construct();
 
         $this->slug = 'institutions';
         $this->title = __('Institutions', 'pressbooks');
