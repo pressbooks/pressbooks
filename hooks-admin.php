@@ -155,9 +155,9 @@ add_action(
 	}
 );
 
-add_action( 'custom_metadata_manager_init_metadata', '\Pressbooks\Admin\Metaboxes\add_meta_boxes' );
 
 if ( $is_book ) {
+	add_action( 'add_meta_boxes', '\Pressbooks\Admin\Metaboxes\add_meta_boxes' );
 	add_action( 'add_meta_boxes_metadata', '\Pressbooks\Admin\Metaboxes\add_meta_boxes_metadata' );
 	add_action( 'add_meta_boxes_front-matter', '\Pressbooks\Admin\Metaboxes\add_meta_boxes_front_matter' );
 	add_action( 'add_meta_boxes_chapter', '\Pressbooks\Admin\Metaboxes\add_meta_boxes_chapter' );

@@ -1124,26 +1124,6 @@ function init_css_js() {
 		wp_enqueue_script( 'theme-options-js', $assets->getPath( 'scripts/theme-options.js' ), [ 'jquery', 'wp-color-picker' ] );
 	}
 
-	// Upgrade Select2 in Custom Metadata Manager
-	add_filter(
-		'custom_metadata_manager_select2_js',
-		function ( $path ) use ( $assets ) {
-			return $assets->getPath( 'scripts/select2.js' );
-		}
-	);
-	add_filter(
-		'custom_metadata_manager_select2_js_version',
-		function ( $version ) {
-			return get_bloginfo( 'version' );
-		}
-	);
-	add_filter(
-		'custom_metadata_manager_select2_css',
-		function ( $path ) use ( $assets ) {
-			return $assets->getPath( 'styles/select2.css' );
-		}
-	);
-
 	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pressbooks_export_options' ) {
 		wp_enqueue_script( 'pressbooks/theme-lock', $assets->getPath( 'scripts/theme-lock.js' ), [ 'jquery' ] );
 		wp_localize_script(

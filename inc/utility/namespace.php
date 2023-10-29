@@ -400,9 +400,7 @@ function show_experimental_features( $host = '' ) {
  * @since 2.5.1
  */
 function include_plugins() {
-	$plugins = [
-		'custom-metadata/custom_metadata.php' => 1,
-	];
+	$plugins = [];
 
 	$plugins = filter_plugins( $plugins );
 

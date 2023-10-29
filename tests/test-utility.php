@@ -204,14 +204,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	/**
 	 * @group utility
 	 */
-	public function test_include_plugins() {
-		\Pressbooks\Utility\include_plugins();
-		$this->assertTrue( class_exists( 'custom_metadata_manager' ) );
-	}
-
-	/**
-	 * @group utility
-	 */
 	public function test_filter_plugins() {
 		$symbionts = [ 'a-plugin-that-does-not-exist/foobar.php' => 1 ];
 
