@@ -180,7 +180,7 @@ function add_meta_boxes_metadata() {
 	(new About( $expanded ))->register();
 
 	if ($expanded) {
-		$additional_catalog_information = (new AdditionalCatalogInformation( $expanded ))->register();
+		(new AdditionalCatalogInformation( $expanded ))->register();
 	}
 }
 
