@@ -128,9 +128,9 @@ function updateWordCountForExport() {
 function getAdjacentContainer( table, relationship ) {
 	if ( relationship === 'prev' ) {
 		return $( table ).prevAll( '[id^=part]' ).first();
-	} else if ( relationship === 'next' ) {
-		return $( table ).nextAll( '[id^=part]' ).first();
 	}
+
+	return $( table ).nextAll( '[id^=part]' ).first();
 }
 
 /**
