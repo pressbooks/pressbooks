@@ -11,13 +11,11 @@
 
 namespace Pressbooks\Admin\Diagnostics;
 
+use DeviceDetector\DeviceDetector;
 use function Pressbooks\Utility\check_epubcheck_install;
 use function Pressbooks\Utility\check_prince_install;
 use function Pressbooks\Utility\check_saxonhe_install;
 use function Pressbooks\Utility\check_xmllint_install;
-use DeviceDetector\DeviceDetector;
-use DeviceDetector\Parser\Client\Browser;
-use DeviceDetector\Parser\OperatingSystem;
 use Pressbooks\Book;
 use Pressbooks\Container;
 use Pressbooks\HtmLawed;
@@ -44,8 +42,8 @@ function add_menu() {
  */
 function render_page() {
 	global $wpdb;
-	$userAgent = $_SERVER['HTTP_USER_AGENT'];
-	$dd = new DeviceDetector($userAgent);
+	$user_agent = $_SERVER['HTTP_USER_AGENT'];
+	$dd = new DeviceDetector( $user_agent );
 	$dd->parse();
 	$is_book = Book::isBook();
 	$lock = Lock::init();
@@ -62,10 +60,10 @@ function render_page() {
 		$output .= 'Root Blog URL: ' . trailingslashit( get_bloginfo( 'url' ) ) . "\n\n";
 	}
 	$output .= "#### Browser\n\n";
-	$output .= 'Platform: ' . $dd->getOs('name') . ' ' . $dd->getOs('version') . "\n";
-	$output .= 'Browser Name: ' . $dd->getClient('name') . "\n";
-	$output .= 'Browser Version: ' . $dd->getClient('version') . "\n";
-	$output .= 'User Agent String: ' . $userAgent . "\n\n";
+	$output .= 'Platform: ' . $dd->getOs( 'name' ) . ' ' . $dd->getOs( 'version' ) . "\n";
+	$output .= 'Browser Name: ' . $dd->getClient( 'name' ) . "\n";
+	$output .= 'Browser Version: ' . $dd->getClient( 'version' ) . "\n";
+	$output .= 'User Agent String: ' . $user_agent . "\n\n";
 	$output .= '#### WordPress Configuration' . "\n\n";
 	$output .= 'Network URL: ' . network_home_url() . "\n";
 	$output .= 'Network Type: ' . ( is_subdomain_install() ? 'Subdomain' : 'Subdirectory' ) . "\n";
