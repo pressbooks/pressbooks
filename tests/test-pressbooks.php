@@ -30,10 +30,25 @@ class PressbooksTest extends \WP_UnitTestCase {
 	 * @group plugin
 	 */
 	public function test_allowedRootThemes() {
-		$result = $this->pb->allowedRootThemes( [ 'pressbooks-book' => true, 'pressbooks-clarke' => true, 'pressbooks-fake' => true, 'twentytwentyone' => true ] );
+		$wp_themes = search_theme_directories();
+
+		$themes = array_values(
+			array_filter(
+				array_keys($wp_themes),
+				fn (string $theme) => str_starts_with($theme, 'twenty')
+			)
+		);
+
+		$result = $this->pb->allowedRootThemes( [
+			'pressbooks-book' => true,
+			'pressbooks-clarke' => true,
+			'pressbooks-fake' => true,
+			$themes[0] ?? 'twentytwentyfour' => true
+		] );
+
 		$this->assertTrue( is_array( $result ) );
 		$this->assertCount( 1, $result );
-		$this->assertArrayHasKey( 'twentytwentyone', $result );
+		$this->assertArrayHasKey( $themes[0] ?? 'twentytwentyfour', $result );
 		// TODO: Travis CI doesn't download (git clone) the root theme so we can't test it yet
 		// @see: https://github.com/pressbooks/pressbooks/blob/dev/bin/install-wp-tests.sh
 	}
