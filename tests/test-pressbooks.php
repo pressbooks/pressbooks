@@ -43,7 +43,7 @@ class PressbooksTest extends \WP_UnitTestCase {
 			'pressbooks-book' => true,
 			'pressbooks-clarke' => true,
 			'pressbooks-fake' => true,
-				$themes[0] ?? 'twentytwentyfour' => true
+			$themes[0] ?? 'twentytwentyfour' => true
 		] );
 
 		$this->assertTrue( is_array( $result ) );

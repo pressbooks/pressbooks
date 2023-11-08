@@ -18,8 +18,8 @@ function init_network_integrations_menu(): string {
 	static $init_pb_network_integrations_menu = false;
 	if ( ! $init_pb_network_integrations_menu ) {
 		add_menu_page(
-			esc_html__( 'Integrations', 'pressbooks-lti-provider' ),
-			esc_html__( 'Integrations', 'pressbooks-lti-provider' ),
+			esc_html__( 'Integrations', 'pressbooks' ),
+			esc_html__( 'Integrations', 'pressbooks' ),
 			'manage_network',
 			$parent_slug,
 			'',
