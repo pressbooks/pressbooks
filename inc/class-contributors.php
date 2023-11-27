@@ -572,14 +572,11 @@ class Contributors implements BackMatter, Transferable {
 	 */
 	public function getFormMessages() {
 		$guide_chapter = esc_url( 'https://guide.pressbooks.com/chapter/creating-and-displaying-contributors/#importingcontributors' );
-		// TODO: Review if should we re-enable WordPress.WP.I18n.NoHtmlWrappedStrings sniff.
-		// phpcs:disable
-		$hint = esc_html__('<p>Import multiple contributors at once by uploading a valid JSON file. See <a href="%s" target="_blank">our guide</a> for details.</p>', 'pressbooks' );
-		// phpcs:enable
+		$hint = __( 'Import multiple contributors at once by uploading a valid JSON file. See <a href="%s" target="_blank">our guide</a> for details.', 'pressbooks' );
 
 		return [
 			'title' => '<h2>' . esc_html__( 'Import Contributors', 'pressbooks' ) . '</h2>',
-			'hint' => sprintf( $hint, $guide_chapter ),
+			'hint' => '<p>' . sprintf( $hint, $guide_chapter ) . '</p>',
 		];
 	}
 
