@@ -2,6 +2,7 @@
 
 namespace Pressbooks\Admin\Menus;
 
+use PressbooksLti\Bootstrap;
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 
 class SideBar {
@@ -661,7 +662,7 @@ class SideBar {
 
 	private function manageIntegrationsAdminMenuItem(): void {
 		global $submenu;
-
+		//TODO: Rethink this
 		\Pressbooks\Admin\Dashboard\init_network_integrations_menu();
 		$plugins_active = false;
 
@@ -676,11 +677,8 @@ class SideBar {
 		if ( is_plugin_active( 'pressbooks-oidc-sso/pressbooks-oidc-sso.php' ) ) {
 			\PressbooksOidcSso\Admin::init()->addMenu();
 		}
-
-		if ( is_plugin_active( 'pressbooks-lti-provider-1p3/pressbooks-lti-provider.php' ) ) {
-			$lti_admin = \PressbooksLtiProvider1p3\Admin::init();
-			$lti_admin->addConsumersMenu();
-			$lti_admin->addSettingsMenu();
+		if ( is_plugin_active( 'pressbooks-lti/pressbooks-lti.php' ) ) {
+			(new Bootstrap())->registerMenus();
 
 			// Move LTI settings menu item to network admin menu page
 			if ( ! is_network_admin() && isset( $submenu['pb_network_integrations'] ) ) {
