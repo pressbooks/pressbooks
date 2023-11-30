@@ -685,13 +685,6 @@ class SideBar {
 				unset( $submenu['pb_network_integrations'] );
 			}
 		}
-
-		if (
-			isset( $submenu[ network_admin_url( 'admin.php?page=pb_network_integrations' ) ] ) &&
-			$submenu[ network_admin_url( 'admin.php?page=pb_network_integrations' ) ][0][2] === network_admin_url( 'admin.php?page=pb_network_integrations' )
-		) {
-			unset( $submenu[ network_admin_url( 'admin.php?page=pb_network_integrations' ) ][0] );
-		}
 	}
 
 	private function getKokoAnalyticsSlug(): string {
