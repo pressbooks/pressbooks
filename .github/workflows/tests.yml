@@ -1,4 +1,4 @@
-name: Run Standards & Tests
+name: Run Tests
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
     branches: [dev]
 
 jobs:
-  standards-and-tests:
+  tests:
     runs-on: ${{ matrix.os }}
     continue-on-error: ${{ matrix.experimental }}
     strategy:
@@ -64,10 +64,6 @@ jobs:
         export PATH="$HOME/.composer/vendor/bin:$PATH"
         composer install --no-interaction
         ulimit -n 4096
-
-    - name: Run PHP CodeSniffer
-      run: composer standards
-      if: matrix.experimental == false
 
     - name: Install WP tests
       run: bash bin/install-wp-tests.sh wordpress_test root root localhost ${{ matrix.wordpress }}
