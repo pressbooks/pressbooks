@@ -20,9 +20,4 @@ class Date extends Field {
 
 		return $value;
 	}
-
-	public function save( int $post_id ): void
-	{
-		update_post_meta( $post_id, $this->name, $this->sanitize( $_POST[$this->name] ) );
-	}
 };
