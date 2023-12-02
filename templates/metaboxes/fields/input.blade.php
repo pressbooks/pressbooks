@@ -19,7 +19,8 @@
 			name="{{ $field->name }}[]"
 			type="{{ $field->type ?? 'text' }}"
 			value="{{ $value }}"
-			@if(isset($field->disabled)) disabled @endif
+			@if($field->disabled) disabled @endif
+			@if($field->readonly) readonly @endif
 			aria-labelledby="{{ $field->name }}-label"
 			@if(isset($field->description)) aria-describedby="{{ $field->id }}-description" @endif
 		/>
@@ -29,7 +30,8 @@
 			name="{{ $field->name }}[]"
 			type="{{ $field->type ?? 'text' }}"
 			value=""
-			@if(isset($field->disabled)) disabled @endif
+			@if($field->disabled) disabled @endif
+			@if($field->readonly) readonly @endif
 			aria-labelledby="{{ $field->name }}-label"
 			@if(isset($field->description)) aria-describedby="{{ $field->id }}-description" @endif
 		/>
@@ -40,7 +42,8 @@
 				name="{{ $field->name }}[]"
 				type="{{ $field->type ?? 'text' }}"
 				value=""
-				@if(isset($field->disabled)) disabled @endif
+				@if($field->disabled) disabled @endif
+				@if($field->readonly) readonly @endif
 				aria-labelledby="{{ $field->name }}-label"
 				@if(isset($field->description)) aria-describedby="{{ $field->id }}-description" @endif
 			/>
@@ -53,7 +56,8 @@
 			name="{{ $field->name }}"
 			type="{{ $field->type ?? 'text' }}"
 			value="{{ $field->value }}"
-			@if(isset($field->disabled)) disabled @endif
+			@if($field->disabled) disabled @endif
+			@if($field->readonly) readonly @endif
 			@if(isset($field->description)) aria-describedby="{{ $field->id }}-description" @endif
 		/>
 	@endif

@@ -2,9 +2,9 @@
 	<input
 		id="{{ $field->id }}"
 		name="{{ $field->name }}"
-		type="{{ $field->type }}"
+		type="checkbox"
 		{{ checked( $field->value, 'on', false ) }}
-		@if(isset($field->disabled)) disabled @endif
+		@if($field->disabled) disabled @endif
 		@if(isset($field->description)) aria-describedby="{{ $field->id }}-description" @endif
 	/>
 	<label for="{{ $field->id }}">

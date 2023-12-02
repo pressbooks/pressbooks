@@ -6,6 +6,7 @@
 
 namespace Pressbooks\Admin\Fields;
 
+use Pressbooks\Container;
 use function Pressbooks\Sanitize\sanitize_string;
 
 abstract class Field {
@@ -33,13 +34,21 @@ abstract class Field {
 	/* Whether the field should allow HTML. */
 	public bool $allowHtml = false;
 
-	public function __construct( string $name, string $label, ?string $description = null, ?string $id = null, bool $multiple = false )
+	/* Whether the field is disabled. */
+	public bool $disabled = false;
+
+	/* Whether the field is read only. */
+	public bool $readonly = false;
+
+	public function __construct( string $name, string $label, ?string $description = null, ?string $id = null, bool $multiple = false, bool $disabled = false, bool $readonly = false )
 	{
 		$this->name = $name;
 		$this->label = $label;
 		$this->description = $description;
 		$this->id = $id ?? $this->name;
 		$this->multiple = $multiple;
+		$this->disabled = $disabled;
+		$this->readonly = $readonly;
 		$this->value = $this->getValue();
 	}
 
@@ -75,5 +84,10 @@ abstract class Field {
 	public function delete( int $post_id ): void
 	{
 		delete_post_meta( $post_id, $this->name );
+	}
+
+	public function render(): string
+	{
+		return Container::get( 'Blade' )->render("metaboxes.fields.{$this->view}", ['field' => $this]);
 	}
 }

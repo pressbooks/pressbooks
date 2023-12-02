@@ -5,6 +5,7 @@
  */
 
 namespace Pressbooks\Admin\Metaboxes;
+
 use Pressbooks\Container;
 
 abstract class Metabox {
@@ -40,9 +41,14 @@ abstract class Metabox {
 
 	public function render()
 	{
-		wp_nonce_field( $this->slug, "{$this->slug}_nonce" );
+		$nonce = wp_nonce_field( $this->slug, "{$this->slug}_nonce", true, false );
 
-		echo Container::get( 'Blade' )->render("metaboxes.metabox", ['fields' => $this->fields]);
+		echo Container::get( 'Blade' )->render("metaboxes.metabox", [
+			'nonce' => $nonce,
+			'fields' => array_map( function ($field) {
+				return $field->render();
+			}, $this->fields )
+		]);
 	}
 
 	public function save( $post_id )

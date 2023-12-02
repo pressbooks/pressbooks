@@ -6,7 +6,8 @@
 		id="{{ $field->id ?? $field->name }}"
 		name="{{ $field->name }}"
 		type="{{ $field->type ?? 'text' }}"
-		@if(isset($field->disabled)) disabled @endif
+		@if($field->disabled) disabled @endif
+		@if($field->readonly) readonly @endif
 		@if(isset($field->description)) aria-describedby="{{ $field->id ?? $field->name . '-description' }}" @endif
 	>
 		{{ $value ?? '' }}

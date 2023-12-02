@@ -35,6 +35,7 @@ class Copyright extends Metabox
 				name: 'pb_is_based_on',
 				label: __( 'Source Book URL', 'pressbooks' ),
 				description: __( 'This book was cloned from a pre-existing book at the above URL. This information will be displayed on the webbook homepage.', 'pressbooks' ),
+				readonly: true
 			) : null,
 			$this->expanded ?
 			new Text(

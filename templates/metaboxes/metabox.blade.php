@@ -1,5 +1,6 @@
 <div class="form-wrap">
+	{!! $nonce !!}
 	@foreach($fields as $field)
-		@include("metaboxes.fields.{$field->view}", ['field' => $field])
+		{!! $field !!}
 	@endforeach
 </div>
