@@ -6,31 +6,36 @@
 
 namespace Pressbooks\Admin\Metaboxes;
 
-use Pressbooks\Admin\Fields\Date as DateField;
-use Pressbooks\Admin\Fields\Select;
-use Pressbooks\Admin\Fields\Url;
 use Pressbooks\Admin\Fields\TaxonomySelect;
 use Pressbooks\Admin\Fields\Text;
+use Pressbooks\Admin\Fields\Url;
 use Pressbooks\Admin\Fields\Wysiwyg;
 use Pressbooks\Licensing;
 use Pressbooks\Metadata;
 
-class Copyright extends Metabox
-{
-    public function __construct( bool $expanded = false)
-    {
-        parent::__construct($expanded);
+class Copyright extends Metabox {
 
-        $this->slug = 'copyright';
-        $this->title = __('Copyright', 'pressbooks');
-    }
+	public bool $expanded = false;
 
-    public function getFields(): array
-    {
-		$metadata = (new Metadata())->getMetaPostMetadata();
-    	$pb_is_based_on = $metadata['pb_is_based_on'] ?? false;
+	public function __construct( bool $expanded = false ) {
+		parent::__construct( $expanded );
 
-        return array_filter( [
+		$this->expanded = $expanded;
+	}
+
+	public function getSlug(): string {
+		return 'copyright';
+	}
+
+	public function getTitle(): string {
+		return __( 'Copyright', 'pressbooks' );
+	}
+
+	public function getFields(): array {
+		$metadata = ( new Metadata() )->getMetaPostMetadata();
+		$pb_is_based_on = $metadata['pb_is_based_on'] ?? false;
+
+		return array_filter( [
 			$pb_is_based_on ? new Url(
 				name: 'pb_is_based_on',
 				label: __( 'Source Book URL', 'pressbooks' ),
@@ -57,10 +62,10 @@ class Copyright extends Metabox
 			),
 			new Wysiwyg(
 				name: 'pb_custom_copyright',
-				label: __('Copyright Notice', 'pressbooks'),
+				label: __( 'Copyright Notice', 'pressbooks' ),
 				description: __( 'Enter a custom copyright notice, with whatever information you like. This will override the auto-generated copyright notice if All Rights Reserved or no license is selected, and will be inserted after the title page. If you select a Creative Commons license, the custom notice will appear after the license text in both the webbook and your exports.', 'pressbooks' ),
 				rows: 4
-			)
+			),
 		] );
-    }
+	}
 }

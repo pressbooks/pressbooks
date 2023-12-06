@@ -14,17 +14,24 @@ use Pressbooks\Contributors;
 
 class GeneralInformation extends Metabox {
 
-	public function __construct( bool $expanded = false )
-	{
+	public bool $expanded = false;
+
+	public function __construct( bool $expanded = false ) {
 		parent::__construct( $expanded );
 
-		$this->slug = 'general-information';
-		$this->title = __( 'General Book Information', 'pressbooks' );
+		$this->expanded = $expanded;
 		$this->priority = 'high';
 	}
 
-	public function getFields(): array
-	{
+	public function getSlug(): string {
+		return 'general-information';
+	}
+
+	public function getTitle(): string {
+		return __( 'General Book Information', 'pressbooks' );
+	}
+
+	public function getFields(): array {
 		return array_filter( [
 			new Text(
 				name: 'pb_title',
@@ -47,7 +54,7 @@ class GeneralInformation extends Metabox {
 				label: __( 'Author(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
 				multiple: true,
-				description: sprintf('<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __('Create New Contributor', 'pressbooks'))
+				description: sprintf( '<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __( 'Create New Contributor', 'pressbooks' ) )
 			),
 
 			new TaxonomySelect(
@@ -55,8 +62,7 @@ class GeneralInformation extends Metabox {
 				label: __( 'Editor(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
 				multiple: true,
-				description: sprintf('<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __('Create New Contributor', 'pressbooks'))
-
+				description: sprintf( '<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __( 'Create New Contributor', 'pressbooks' ) )
 			),
 
 			new TaxonomySelect(
@@ -64,8 +70,7 @@ class GeneralInformation extends Metabox {
 				label: __( 'Translator(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
 				multiple: true,
-				description: sprintf('<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __('Create New Contributor', 'pressbooks'))
-
+				description: sprintf( '<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __( 'Create New Contributor', 'pressbooks' ) )
 			),
 
 			new TaxonomySelect(
@@ -73,8 +78,7 @@ class GeneralInformation extends Metabox {
 				label: __( 'Reviewer(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
 				multiple: true,
-				description: sprintf('<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __('Create New Contributor', 'pressbooks'))
-
+				description: sprintf( '<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __( 'Create New Contributor', 'pressbooks' ) )
 			),
 
 			new TaxonomySelect(
@@ -82,8 +86,7 @@ class GeneralInformation extends Metabox {
 				label: __( 'Illustrator(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
 				multiple: true,
-				description: sprintf('<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __('Create New Contributor', 'pressbooks'))
-
+				description: sprintf( '<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __( 'Create New Contributor', 'pressbooks' ) )
 			),
 
 			new TaxonomySelect(
@@ -91,8 +94,7 @@ class GeneralInformation extends Metabox {
 				label: __( 'Contributor(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
 				multiple: true,
-				description: sprintf('<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __('Create New Contributor', 'pressbooks'))
-
+				description: sprintf( '<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __( 'Create New Contributor', 'pressbooks' ) )
 			),
 
 			new Text(

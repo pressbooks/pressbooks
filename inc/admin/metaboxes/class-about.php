@@ -6,23 +6,22 @@
 
 namespace Pressbooks\Admin\Metaboxes;
 
-use Pressbooks\Admin\Fields\Wysiwyg;
-use Pressbooks\Admin\Fields\TextArea;
 use Pressbooks\Admin\Fields\Text;
+use Pressbooks\Admin\Fields\TextArea;
+use Pressbooks\Admin\Fields\Wysiwyg;
 
-class About extends Metabox
-{
-    public function __construct(bool $expanded = false)
-    {
-        parent::__construct($expanded);
+class About extends Metabox {
 
-        $this->slug = 'about-the-book';
-        $this->title = __('About the Book', 'pressbooks');
-    }
+	public function getTitle(): string {
+		return __( 'About the Book', 'pressbooks' );
+	}
 
-    public function getFields(): array
-    {
-        return [
+	public function getSlug(): string {
+		return 'about-the-book';
+	}
+
+	public function getFields(): array {
+		return [
 			new Text(
 				name: 'pb_about_140',
 				label: __( 'Book Tagline', 'pressbooks' ),
@@ -38,7 +37,7 @@ class About extends Metabox
 				label: __( 'Long Description', 'pressbooks' ),
 				description: __( 'The full description of your book.', 'pressbooks' ),
 				rows: 4
-			)
+			),
 		];
-    }
+	}
 }

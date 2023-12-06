@@ -11,13 +11,8 @@
 // @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotValidated
 namespace Pressbooks\Admin\Metaboxes;
 
-use function Pressbooks\Sanitize\sanitize_string;
 use PressbooksMix\Assets;
-use Pressbooks\Admin\Fields\Field;
-use Pressbooks\Container;
 use Pressbooks\Contributors;
-use Pressbooks\Licensing;
-use Pressbooks\Metadata;
 
 // phpcs:ignore
 define( 'METADATA_CALLBACK_INDEX', 4 );
@@ -169,55 +164,54 @@ function add_metadata_styles( $hook ) {
 function add_meta_boxes_metadata() {
 	$expanded = \Pressbooks\Metadata\show_expanded_metadata();
 
-	(new GeneralInformation( $expanded ))->register();
+	( new GeneralInformation( $expanded ) )->register();
 	add_meta_box( 'covers', __( 'Cover Image', 'pressbooks' ), '\Pressbooks\Image\cover_image_box', 'metadata', 'normal', 'low' );
-	(new Subjects( $expanded ))->register();
-	(new Institutions( $expanded ))->register();
-	(new Copyright( $expanded ))->register();
-	(new About( $expanded ))->register();
+	( new Subjects( $expanded ) )->register();
+	( new Institutions( $expanded ) )->register();
+	( new Copyright( $expanded ) )->register();
+	( new About( $expanded ) )->register();
 
-	if ($expanded) {
-		(new AdditionalCatalogInformation( $expanded ))->register();
+	if ( $expanded ) {
+		( new AdditionalCatalogInformation( $expanded ) )->register();
 	}
 }
 
 function add_meta_boxes_front_matter() {
-	(new SectionMetadata( __( 'Front Matter', 'pressbooks' ) ))->register();
+	( new SectionMetadata( __( 'Front Matter', 'pressbooks' ) ) )->register();
 }
 
 function add_meta_boxes_chapter() {
-	(new SectionMetadata( __( 'Chapter', 'pressbooks' ) ))->register();
+	( new SectionMetadata( __( 'Chapter', 'pressbooks' ) ) )->register();
 }
 
 function add_meta_boxes_back_matter() {
-	(new SectionMetadata( __( 'Back Matter', 'pressbooks' ) ))->register();
+	( new SectionMetadata( __( 'Back Matter', 'pressbooks' ) ) )->register();
 }
 
 function add_meta_boxes_part() {
-	(new PartVisibility())->register();
+	( new PartVisibility() )->register();
 }
-
 
 function save_metadata( $post_id ) {
 	$expanded = \Pressbooks\Metadata\show_expanded_metadata();
 
-	(new GeneralInformation( $expanded ))->save( $post_id );
-	(new Subjects( $expanded ))->save( $post_id );
-	(new Institutions( $expanded ))->save( $post_id );
-	(new Copyright( $expanded ))->save( $post_id );
-	(new About( $expanded ))->save( $post_id );
+	( new GeneralInformation( $expanded ) )->save( $post_id );
+	( new Subjects( $expanded ) )->save( $post_id );
+	( new Institutions( $expanded ) )->save( $post_id );
+	( new Copyright( $expanded ) )->save( $post_id );
+	( new About( $expanded ) )->save( $post_id );
 
-	if ($expanded) {
-		(new AdditionalCatalogInformation($expanded))->save($post_id);
+	if ( $expanded ) {
+		( new AdditionalCatalogInformation( $expanded ) )->save( $post_id );
 	}
 }
 
 function save_section_metadata( $post_id ) {
-	(new SectionMetadata())->save( $post_id );
+	( new SectionMetadata() )->save( $post_id );
 }
 
 function save_part_metadata( $post_id ) {
-	(new PartVisibility())->save( $post_id );
+	( new PartVisibility() )->save( $post_id );
 }
 
 /**

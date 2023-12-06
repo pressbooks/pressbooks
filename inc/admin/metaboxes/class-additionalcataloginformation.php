@@ -9,19 +9,18 @@ namespace Pressbooks\Admin\Metaboxes;
 use Pressbooks\Admin\Fields\Select;
 use Pressbooks\Admin\Fields\Text;
 
-class AdditionalCatalogInformation extends Metabox
-{
-    public function __construct(bool $expanded = false)
-    {
-        parent::__construct($expanded);
+class AdditionalCatalogInformation extends Metabox {
 
-        $this->slug = 'additional-catalog-information';
-        $this->title = __('Additional Catalog Information', 'pressbooks');
-    }
+	public function getSlug(): string {
+		return 'additional-catalog-information';
+	}
 
-    public function getFields(): array
-    {
-        return [
+	public function getTitle(): string {
+		return __( 'Additional Catalog Information', 'pressbooks' );
+	}
+
+	public function getFields(): array {
+		return [
 			new Text(
 				name: 'pb_series_title',
 				label: __( 'Series Title', 'pressbooks' ),
@@ -86,7 +85,7 @@ class AdditionalCatalogInformation extends Metabox
 				label: __( 'BISAC Regional Theme', 'pressbooks' ),
 				description:  __( 'BISAC Regional Themes help libraries and bookstores properly classify your book.', 'pressbooks' ),
 				options: []
-			)
+			),
 		];
-    }
+	}
 }
