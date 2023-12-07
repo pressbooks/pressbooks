@@ -3074,7 +3074,7 @@ msgstr "Common Cartridge with Web Links"
 #: inc/modules/export/namespace.php:192 inc/modules/export/namespace.php:229
 #: inc/modules/export/namespace.php:266 inc/modules/export/namespace.php:268
 msgid "Print PDF"
-msgstr "Imprimer le PDF"
+msgstr "PDF (pour impression)"
 
 #: inc/modules/export/namespace.php:193 inc/modules/export/namespace.php:194
 #: inc/modules/export/namespace.php:267 inc/modules/export/namespace.php:269
