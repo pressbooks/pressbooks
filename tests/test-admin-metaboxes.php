@@ -6,7 +6,7 @@ use Pressbooks\Admin\Metaboxes\AdditionalCatalogInformation;
 /**
  * @group metaboxes
  */
-class Admin_Metabox extends \WP_UnitTestCase {
+class Admin_Metaboxes extends \WP_UnitTestCase {
 	use utilsTrait;
 
 	public function set_up()
@@ -35,7 +35,7 @@ class Admin_Metabox extends \WP_UnitTestCase {
 			'Pressbooks\\Admin\\Metaboxes\\Institutions',
 			'Pressbooks\\Admin\\Metaboxes\\Subjects'
 		] as $classname) {
-			$metabox = new $classname();
+			$metabox = new $classname( true );
 			ob_start();
 			$metabox->render();
 			$output = ob_get_clean();
