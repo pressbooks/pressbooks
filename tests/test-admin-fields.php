@@ -20,6 +20,8 @@ class Admin_Fields extends \WP_UnitTestCase {
 		$GLOBALS['post'] = get_post( $this->factory()->post->create_object( [
 			'post_type' => 'chapter'
 		] ) );
+
+		$_POST = [];
 	}
 
 	public function test_sanitize_date() {
@@ -46,6 +48,32 @@ class Admin_Fields extends \WP_UnitTestCase {
 		$field = new Url( 'test', 'Test' );
 
 		$this->assertEquals( 'http://pressbooks.com', $field->sanitize( 'pressbooks.com' ) );
+	}
+
+	public function test_save_text()
+	{
+		global $post;
+
+		$_POST['test'] = 'test value';
+
+		$field = new Text( 'test', 'Test' );
+
+		$field->save( $post->ID );
+
+		$this->assertEquals('test value', get_post_meta( $post->ID, 'test', true ));
+	}
+
+	public function test_save_text_multiple()
+	{
+		global $post;
+
+		$_POST['test'] = ['test value one', 'test value two'];
+
+		$field = new Text( name: 'test', label: 'Test', multiple: true );
+
+		$field->save( $post->ID );
+
+		$this->assertEquals(['test value one', 'test value two'], get_post_meta( $post->ID, 'test', false ));
 	}
 
 	public function provideInputData(): array
