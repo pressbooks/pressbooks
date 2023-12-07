@@ -155,7 +155,6 @@ add_action(
 	}
 );
 
-
 if ( $is_book ) {
 	add_action( 'add_meta_boxes', '\Pressbooks\Admin\Metaboxes\add_meta_boxes' );
 	add_action( 'add_meta_boxes_metadata', '\Pressbooks\Admin\Metaboxes\add_meta_boxes_metadata' );

@@ -15,36 +15,32 @@ class TaxonomySelect extends Field {
 
 	public string $view = 'select';
 
-	public function __construct(string $name, string $label, ?string $description = null, ?string $id = null, bool $multiple = true, string $taxonomy = null, string $default = '')
-	{
-		parent::__construct($name, $label, $description, $id, $multiple);
+	public function __construct( string $name, string $label, ?string $description = null, ?string $id = null, bool $multiple = true, string $taxonomy = null, string $default = '' ) {
+		parent::__construct( $name, $label, $description, $id, $multiple );
 
 		$this->taxonomy = $taxonomy;
 		$this->options = $this->getOptions();
 		$this->default = $default;
 	}
 
-	public function getOptions(): array
-	{
-		$terms = get_terms( $this->taxonomy, array( 'hide_empty' => false ) );
+	public function getOptions(): array {
+		$terms = get_terms( $this->taxonomy, [ 'hide_empty' => false ] );
 
-		$options = [
-		];
+		$options = [];
 
-		if (!$this->multiple) {
+		if ( ! $this->multiple ) {
 			$options[''] = '';
 		}
 
-		foreach($terms as $term) {
-			$options[$term->slug] = $term->name;
+		foreach ( $terms as $term ) {
+			$options[ $term->slug ] = $term->name;
 		}
 
 		return $options;
 	}
 
-	public function save( int $post_id ): void
-	{
-		wp_set_object_terms( $post_id, $_POST[$this->name], $this->taxonomy );
+	public function save( int $post_id ): void {
+		wp_set_object_terms( $post_id, $_POST[ $this->name ], $this->taxonomy );
 
 		parent::save( $post_id );
 	}

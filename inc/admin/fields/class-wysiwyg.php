@@ -13,9 +13,8 @@ class Wysiwyg extends Field {
 
 	public bool $allowHtml = true;
 
-	public function __construct(string $name, string $label, ?string $description = null, ?string $id = null, ?int $rows = null)
-	{
-		parent::__construct($name, $label, $description, $id);
+	public function __construct( string $name, string $label, ?string $description = null, ?string $id = null, ?int $rows = null ) {
+		parent::__construct( $name, $label, $description, $id );
 
 		$this->rows = $rows ?? 20;
 	}

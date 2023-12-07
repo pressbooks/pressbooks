@@ -166,10 +166,10 @@ function add_meta_boxes_metadata() {
 
 	( new GeneralInformation( $expanded ) )->register();
 	add_meta_box( 'covers', __( 'Cover Image', 'pressbooks' ), '\Pressbooks\Image\cover_image_box', 'metadata', 'normal', 'low' );
-	( new Subjects( $expanded ) )->register();
-	( new Institutions( $expanded ) )->register();
+	( new Subjects() )->register();
+	( new Institutions() )->register();
 	( new Copyright( $expanded ) )->register();
-	( new About( $expanded ) )->register();
+	( new About() )->register();
 
 	if ( $expanded ) {
 		( new AdditionalCatalogInformation( $expanded ) )->register();
@@ -196,13 +196,13 @@ function save_metadata( $post_id ) {
 	$expanded = \Pressbooks\Metadata\show_expanded_metadata();
 
 	( new GeneralInformation( $expanded ) )->save( $post_id );
-	( new Subjects( $expanded ) )->save( $post_id );
-	( new Institutions( $expanded ) )->save( $post_id );
+	( new Subjects() )->save( $post_id );
+	( new Institutions() )->save( $post_id );
 	( new Copyright( $expanded ) )->save( $post_id );
-	( new About( $expanded ) )->save( $post_id );
+	( new About() )->save( $post_id );
 
 	if ( $expanded ) {
-		( new AdditionalCatalogInformation( $expanded ) )->save( $post_id );
+		( new AdditionalCatalogInformation() )->save( $post_id );
 	}
 }
 

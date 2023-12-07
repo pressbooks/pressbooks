@@ -18,9 +18,9 @@ class Copyright extends Metabox {
 	public bool $expanded = false;
 
 	public function __construct( bool $expanded = false ) {
-		parent::__construct( $expanded );
-
 		$this->expanded = $expanded;
+
+		parent::__construct();
 	}
 
 	public function getSlug(): string {
@@ -42,13 +42,11 @@ class Copyright extends Metabox {
 				description: __( 'This book was cloned from a pre-existing book at the above URL. This information will be displayed on the webbook homepage.', 'pressbooks' ),
 				readonly: true
 			) : null,
-			$this->expanded ?
-			new Text(
+			$this->expanded ? new Text(
 				name: 'pb_copyright_year',
 				label: __( 'Copyright Year', 'pressbooks' ),
 				description: __( 'Year that the book is/was published.', 'pressbooks' )
-			)
-			: null,
+			) : null,
 			new Text(
 				name: 'pb_copyright_holder',
 				label: __( 'Copyright Holder', 'pressbooks' ),

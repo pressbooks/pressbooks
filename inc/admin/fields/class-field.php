@@ -6,8 +6,8 @@
 
 namespace Pressbooks\Admin\Fields;
 
-use Pressbooks\Container;
 use function Pressbooks\Sanitize\sanitize_string;
+use Pressbooks\Container;
 
 abstract class Field {
 	/* The name attribute of the field. */
@@ -40,8 +40,7 @@ abstract class Field {
 	/* Whether the field is read only. */
 	public bool $readonly = false;
 
-	public function __construct( string $name, string $label, ?string $description = null, ?string $id = null, bool $multiple = false, bool $disabled = false, bool $readonly = false )
-	{
+	public function __construct( string $name, string $label, ?string $description = null, ?string $id = null, bool $multiple = false, bool $disabled = false, bool $readonly = false ) {
 		$this->name = $name;
 		$this->label = $label;
 		$this->description = $description;
@@ -52,42 +51,37 @@ abstract class Field {
 		$this->value = $this->getValue();
 	}
 
-	public function getValue()
-	{
+	public function getValue() {
 		global $post;
 
-		return get_post_meta( $post->ID, $this->name, !$this->multiple );
+		return get_post_meta( $post->ID, $this->name, ! $this->multiple );
 	}
 
-	public function sanitize( mixed $value ): mixed
-	{
+	public function sanitize( mixed $value ): mixed {
 		return $this->allowHtml ?
 			sanitize_string( $value, $this->allowHtml ) :
 			sanitize_text_field( $value );
 	}
 
-	public function save( int $post_id ): void
-	{
+	public function save( int $post_id ): void {
 		if ( $this->multiple ) {
 			$this->delete( $post_id );
-			foreach ( $_POST[$this->name] as $value ) {
-				$value = trim($this->sanitize($value));
+			foreach ( $_POST[ $this->name ] as $value ) {
+				$value = trim( $this->sanitize( $value ) );
 				if ( $value ) {
 					add_post_meta( $post_id, $this->name, $value, false );
 				}
 			}
 		} else {
-			update_post_meta( $post_id, $this->name, $this->sanitize( $_POST[$this->name] ) );
+			update_post_meta( $post_id, $this->name, $this->sanitize( $_POST[ $this->name ] ) );
 		}
 	}
 
-	public function delete( int $post_id ): void
-	{
+	public function delete( int $post_id ): void {
 		delete_post_meta( $post_id, $this->name );
 	}
 
-	public function render(): string
-	{
-		return Container::get( 'Blade' )->render("metaboxes.fields.{$this->view}", ['field' => $this]);
+	public function render(): string {
+		return Container::get( 'Blade' )->render( "metaboxes.fields.{$this->view}", [ 'field' => $this ] );
 	}
 }

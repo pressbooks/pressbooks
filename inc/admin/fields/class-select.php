@@ -13,9 +13,8 @@ class Select extends Field {
 
 	public string $view = 'select';
 
-	public function __construct(string $name, string $label, ?string $description = null, ?string $id = null, bool $multiple = false, array $options = [], string $default = '')
-	{
-		parent::__construct($name, $label, $description, $id, $multiple);
+	public function __construct( string $name, string $label, ?string $description = null, ?string $id = null, bool $multiple = false, array $options = [], string $default = '' ) {
+		parent::__construct( $name, $label, $description, $id, $multiple );
 
 		$this->options = $options;
 		$this->default = $default;

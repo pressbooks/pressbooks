@@ -17,10 +17,11 @@ class GeneralInformation extends Metabox {
 	public bool $expanded = false;
 
 	public function __construct( bool $expanded = false ) {
-		parent::__construct( $expanded );
-
 		$this->expanded = $expanded;
 		$this->priority = 'high';
+
+		parent::__construct();
+
 	}
 
 	public function getSlug(): string {
@@ -119,7 +120,7 @@ class GeneralInformation extends Metabox {
 				name: 'pb_onsale_date',
 				label: __( 'On-Sale Date', 'pressbooks' ),
 				description: __( 'This is added to the metadata in your ebook.', 'pressbooks' ),
-			) : false,
+			) : null,
 
 			new Text(
 				name: 'pb_ebook_isbn',

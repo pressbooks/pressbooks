@@ -24,7 +24,7 @@ abstract class Metabox {
 	public string $priority = 'default';
 
 	public function __construct() {
-		 $this->title = $this->getTitle();
+		$this->title = $this->getTitle();
 		$this->slug = $this->getSlug();
 		$this->fields = $this->getFields();
 		$this->callback = [ $this, 'render' ];

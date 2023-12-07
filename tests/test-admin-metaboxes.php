@@ -26,6 +26,7 @@ class Admin_Metaboxes extends \WP_UnitTestCase {
 		global $post;
 
 		$post = $this->metadata->getMetaPost();
+		add_post_meta($post->ID, 'pb_is_based_on', 'https://book.pressbooks.com/');
 
 		foreach([
 			'Pressbooks\\Admin\\Metaboxes\\About',
@@ -35,7 +36,10 @@ class Admin_Metaboxes extends \WP_UnitTestCase {
 			'Pressbooks\\Admin\\Metaboxes\\Institutions',
 			'Pressbooks\\Admin\\Metaboxes\\Subjects'
 		] as $classname) {
-			$metabox = $classname === 'Pressbooks\\Admin\\Metaboxes\\Copyright' ?
+			$metabox = in_array( $classname, [
+				'Pressbooks\\Admin\\Metaboxes\\Copyright',
+				'Pressbooks\\Admin\\Metaboxes\\GeneralInformation',
+			] ) ?
 				new $classname( expanded: true ) :
 				new $classname();
 			ob_start();
@@ -45,6 +49,7 @@ class Admin_Metaboxes extends \WP_UnitTestCase {
 			$this->assertStringContainsString($metabox->slug . '_nonce', $output);
 
 			foreach($metabox->fields as $field) {
+				echo $field->name . "\n";
 				$this->assertStringContainsString($field->name, $output);
 			}
 		}

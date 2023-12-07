@@ -14,26 +14,22 @@ use Pressbooks\Licensing;
 class SectionMetadata extends Metabox {
 	public string $sectionType = '';
 
-	public function __construct( string $sectionType = '' )
-	{
+	public function __construct( string $sectionType = '' ) {
 		$this->sectionType = $sectionType;
 		$this->priority = 'high';
 
 		parent::__construct();
 	}
 
-	public function getSlug(): string
-	{
+	public function getSlug(): string {
 		return 'section-metadata';
 	}
 
-	public function getTitle(): string
-	{
+	public function getTitle(): string {
 		return sprintf( __( '%s Metadata', 'pressbooks' ), $this->sectionType );
 	}
 
-	public function getFields(): array
-	{
+	public function getFields(): array {
 		return [
 			new Text(
 				name: 'pb_short_title',
@@ -52,7 +48,7 @@ class SectionMetadata extends Metabox {
 				label: sprintf( __( '%s Author(s)', 'pressbooks' ), $this->sectionType ),
 				taxonomy: Contributors::TAXONOMY,
 				multiple: true,
-				description: sprintf('<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __('Create New Contributor', 'pressbooks'))
+				description: sprintf( '<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __( 'Create New Contributor', 'pressbooks' ) )
 			),
 
 			new TaxonomySelect(
