@@ -1,6 +1,7 @@
 <?php
 
 use Pressbooks\Admin\Fields\Date;
+use Pressbooks\Admin\Fields\TaxonomySelect;
 use Pressbooks\Admin\Fields\Text;
 use Pressbooks\Admin\Fields\TextArea;
 use Pressbooks\Admin\Fields\Url;
@@ -74,6 +75,31 @@ class Admin_Fields extends \WP_UnitTestCase {
 		$field->save( $post->ID );
 
 		$this->assertEquals(['test value one', 'test value two'], get_post_meta( $post->ID, 'test', false ));
+	}
+
+	public function test_save_taxonomy_select()
+	{
+		global $post;
+
+		$contributor = new \Pressbooks\Contributors();
+		$taxonomy = new \Pressbooks\Taxonomy(
+			$this->getMockBuilder( '\Pressbooks\Licensing' )->getMock(),
+			$contributor
+		);
+		$taxonomy->registerTaxonomies();
+		$post_id = $this->_createChapter();
+
+		$person = $contributor->insert( 'Pat Metheny', $post->ID, 'contributors' );
+
+		$term = get_term_by( 'term_id', $person['term_id'], 'contributor' );
+
+		$_POST['editors'] = [$term->slug];
+
+		$field = new TaxonomySelect( name: 'editors', label: 'Editors', taxonomy: 'contributor' );
+
+		$field->save( $post->ID );
+
+		$this->assertEquals([$term->slug], get_post_meta( $post->ID, 'editors' ));
 	}
 
 	public function provideInputData(): array

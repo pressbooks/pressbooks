@@ -15,7 +15,7 @@ class TaxonomySelect extends Field {
 
 	public string $view = 'select';
 
-	public function __construct(string $name, string $label, ?string $description = null, ?string $id = null, bool $multiple = false, string $taxonomy = null, string $default = '')
+	public function __construct(string $name, string $label, ?string $description = null, ?string $id = null, bool $multiple = true, string $taxonomy = null, string $default = '')
 	{
 		parent::__construct($name, $label, $description, $id, $multiple);
 
@@ -47,12 +47,5 @@ class TaxonomySelect extends Field {
 		wp_set_object_terms( $post_id, $_POST[$this->name], $this->taxonomy );
 
 		parent::save( $post_id );
-	}
-
-	public function delete( int $post_id ): void
-	{
-		wp_set_object_terms( $post_id, [], $this->taxonomy );
-
-		parent::delete( $post_id );
 	}
 }
