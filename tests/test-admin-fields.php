@@ -46,22 +46,22 @@ class Admin_Fields extends \WP_UnitTestCase {
 		$this->assertEquals( 'http://pressbooks.com', $field->sanitize( 'pressbooks.com' ) );
 	}
 
-	public function provideTextData(): array
+	public function provideInputData(): array
 	{
+		$defaults = [
+			'name' => 'test',
+			'label' => 'Test',
+			'description' => null,
+			'id' => null,
+			'multiple' => false,
+			'disabled' => false,
+			'readonly' => false,
+		];
+
 		return [
 			'minimal parameters' => [
-				'field' => '\\Pressbooks\\Admin\\Fields\\Text',
-				'parameters' => [
-					'name' => 'test',
-					'label' => 'Test',
-					'description' => null,
-					'id' => null,
-					'multiple' => false,
-					'disabled' => false,
-					'readonly' => false,
-				],
+				'parameters' => $defaults,
 				'expected_substrings' => [
-					'type="text"',
 					'name="test"',
 					'id="test"',
 					'for="test"'
@@ -72,16 +72,9 @@ class Admin_Fields extends \WP_UnitTestCase {
 				]
 			],
 			'custom id' => [
-				'field' => '\\Pressbooks\\Admin\\Fields\\Text',
-				'parameters' => [
-					'name' => 'test',
-					'label' => 'Test',
-					'description' => null,
+				'parameters' => array_merge($defaults, [
 					'id' => 'test_field',
-					'multiple' => false,
-					'disabled' => false,
-					'readonly' => false,
-				],
+				]),
 				'expected_substrings' => [
 					'id="test_field"',
 					'for="test_field"'
@@ -89,16 +82,9 @@ class Admin_Fields extends \WP_UnitTestCase {
 				'unexpected_substrings' => []
 			],
 			'description' => [
-				'field' => '\\Pressbooks\\Admin\\Fields\\Text',
-				'parameters' => [
-					'name' => 'test',
-					'label' => 'Test',
-					'description' => 'A test field.',
-					'id' => null,
-					'multiple' => false,
-					'disabled' => false,
-					'readonly' => false,
-				],
+				'parameters' => array_merge($defaults, [
+					'description' => 'A test field.'
+				]),
 				'expected_substrings' => [
 					'aria-describedby="test-description"',
 					'<p class="description" id="test-description">',
@@ -107,50 +93,28 @@ class Admin_Fields extends \WP_UnitTestCase {
 				'unexpected_substrings' => []
 			],
 			'disabled' => [
-				'field' => '\\Pressbooks\\Admin\\Fields\\Text',
-				'parameters' => [
-					'name' => 'test',
-					'label' => 'Test',
-					'description' => null,
-					'id' => null,
-					'multiple' => false,
-					'disabled' => true,
-					'readonly' => false,
-				],
+				'parameters' => array_merge($defaults, [
+					'disabled' => true
+				]),
 				'expected_substrings' => [
 					' disabled '
 				],
 				'unexpected_substrings' => []
 			],
 			'readonly' => [
-				'field' => '\\Pressbooks\\Admin\\Fields\\Text',
-				'parameters' => [
-					'name' => 'test',
-					'label' => 'Test',
-					'description' => null,
-					'id' => null,
-					'multiple' => false,
-					'disabled' => false,
-					'readonly' => true,
-				],
+				'parameters' => array_merge($defaults, [
+					'readonly' => true
+				]),
 				'expected_substrings' => [
 					' readonly '
 				],
 				'unexpected_substrings' => []
 			],
 			'minimal multiple' => [
-				'field' => '\\Pressbooks\\Admin\\Fields\\Text',
-				'parameters' => [
-					'name' => 'test',
-					'label' => 'Test',
-					'description' => null,
-					'id' => null,
-					'multiple' => true,
-					'disabled' => false,
-					'readonly' => false,
-				],
+				'parameters' => array_merge($defaults, [
+					'multiple' => true
+				]),
 				'expected_substrings' => [
-					'type="text"',
 					'name="test[]"',
 					'id="test-1"',
 					'aria-labelledby="test-label"'
@@ -164,11 +128,11 @@ class Admin_Fields extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * @dataProvider provideTextData
+	 * @dataProvider provideInputData
 	 */
-	public function test_render_text( string $field, array $parameters, array $expected_substrings, array $unexpected_substrings ): void
+	public function test_render_text( array $parameters, array $expected_substrings, array $unexpected_substrings ): void
 	{
-		$rendered_field = (new $field(
+		$rendered_field = (new Text(
 			name: $parameters['name'],
 			label: $parameters['label'],
 			description: $parameters['description'],
@@ -177,6 +141,34 @@ class Admin_Fields extends \WP_UnitTestCase {
 			disabled: $parameters['disabled'],
 			readonly: $parameters['readonly']
 		))->render();
+
+		$this->assertStringContainsString( 'type="text"', $rendered_field );
+
+		foreach ($expected_substrings as $substring) {
+			$this->assertStringContainsString( $substring, $rendered_field );
+		}
+
+		foreach ($unexpected_substrings as $substring) {
+			$this->assertStringNotContainsString( $substring, $rendered_field );
+		}
+	}
+
+	/**
+	 * @dataProvider provideInputData
+	 */
+	public function test_render_url( array $parameters, array $expected_substrings, array $unexpected_substrings ): void
+	{
+		$rendered_field = (new Url(
+			name: $parameters['name'],
+			label: $parameters['label'],
+			description: $parameters['description'],
+			id: $parameters['id'],
+			multiple: $parameters['multiple'],
+			disabled: $parameters['disabled'],
+			readonly: $parameters['readonly']
+		))->render();
+
+		$this->assertStringContainsString( 'type="url"', $rendered_field );
 
 		foreach ($expected_substrings as $substring) {
 			$this->assertStringContainsString( $substring, $rendered_field );
