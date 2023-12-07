@@ -49,7 +49,6 @@ class Admin_Metaboxes extends \WP_UnitTestCase {
 			$this->assertStringContainsString($metabox->slug . '_nonce', $output);
 
 			foreach($metabox->fields as $field) {
-				echo $field->name . "\n";
 				$this->assertStringContainsString($field->name, $output);
 			}
 		}
