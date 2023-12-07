@@ -6,18 +6,17 @@
 
 namespace Pressbooks\Admin\Fields;
 
-
 class Wysiwyg extends Field {
 	public string $view = 'wysiwyg';
 
-	public int $rows = 20;
+	public ?int $rows;
 
 	public bool $allowHtml = true;
 
-	public function __construct(string $name, string $label, ?string $description = null, ?string $id = null, bool $multiple = false, int $rows = 20)
+	public function __construct(string $name, string $label, ?string $description = null, ?string $id = null, ?int $rows = null)
 	{
-		parent::__construct($name, $label, $description, $id, $multiple);
+		parent::__construct($name, $label, $description, $id);
 
-		$this->rows = $rows;
+		$this->rows = $rows ?? 20;
 	}
 }
