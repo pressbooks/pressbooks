@@ -26,6 +26,8 @@ class Admin_Fields extends \WP_UnitTestCase {
 		$field = new Date( 'test', 'Test' );
 
 		$this->assertEquals( 1639699200, $field->sanitize( '2021-12-17' ) );
+		$this->assertEquals( 'not a date', $field->sanitize( 'not a date' ) );
+
 	}
 
 	public function test_sanitize_text() {
