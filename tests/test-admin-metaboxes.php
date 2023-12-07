@@ -35,7 +35,9 @@ class Admin_Metaboxes extends \WP_UnitTestCase {
 			'Pressbooks\\Admin\\Metaboxes\\Institutions',
 			'Pressbooks\\Admin\\Metaboxes\\Subjects'
 		] as $classname) {
-			$metabox = new $classname( true );
+			$metabox = $classname === 'Pressbooks\\Admin\\Metaboxes\\Copyright' ?
+				new $classname( expanded: true ) :
+				new $classname();
 			ob_start();
 			$metabox->render();
 			$output = ob_get_clean();
