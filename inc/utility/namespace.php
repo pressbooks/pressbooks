@@ -400,17 +400,6 @@ function show_experimental_features( $host = '' ) {
  * @since 2.5.1
  */
 function include_plugins() {
-	$plugins = [];
-
-	$plugins = filter_plugins( $plugins );
-
-	if ( ! empty( $plugins ) ) {
-		foreach ( $plugins as $key => $val ) {
-			require_once( PB_PLUGIN_DIR . 'symbionts/' . $key );
-		}
-	}
-
-	// Disable comments
 	if ( true === disable_comments() ) {
 		require_once( PB_PLUGIN_DIR . 'symbionts/disable-comments-mu/disable-comments-mu.php' );
 	}
