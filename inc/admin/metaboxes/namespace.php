@@ -218,8 +218,6 @@ function save_part_metadata( $post_id ) {
  * Register all metadata groups and fields
  */
 function add_meta_boxes() {
-	$show_expanded_metadata = \Pressbooks\Metadata\show_expanded_metadata();
-
 	// Override WordPress' parent_id
 
 	add_meta_box( 'chapter-parent', __( 'Part', 'pressbooks' ), __NAMESPACE__ . '\override_parent_id', 'chapter', 'side', 'high' );

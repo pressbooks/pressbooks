@@ -12,22 +12,9 @@ class Admin_Metaboxes extends \WP_UnitTestCase {
 		$this->book = \Pressbooks\Book::getInstance();
 		$this->_book();
 		$this->structure = $this->book::getBookStructure();
-		$this->user_id = wp_insert_user( [
-			'user_login' => 'administrator',
-			'role' => 'administrator',
-			'user_pass' => 'password',
-		] );
-		add_user_to_blog( get_current_blog_id(), $this->user_id, 'administrator' );
-		wp_set_current_user( $this->user_id, '' );
 		$this->metadata = new \Pressbooks\Metadata();
 		$GLOBALS['post'] = $this->metadata->getMetaPost();
 		$_POST = [];
-	}
-
-	public function tear_down(): void {
-		parent::tear_down();
-
-		wp_delete_user( $this->user_id );
 	}
 
 	public function test_render_metabox() {
@@ -87,28 +74,31 @@ class Admin_Metaboxes extends \WP_UnitTestCase {
 		}
 	}
 
-	public function provideSaveData(): array {
-		return [
-			[
-				'classname' => 'Pressbooks\\Admin\\Metaboxes\\About',
-				'field' => 'pb_about_140',
-				'value' => 'It was a dark and stormy night.',
-			],
-		];
-	}
-
-	/**
-	 * @dataProvider provideSaveData
-	 */
-	public function test_save_metabox( string $classname, string $field, string $value ): void {
+	public function test_save_metabox(): void {
 		global $post;
 
-		$metabox = new $classname();
+		$user_id = wp_insert_user( [
+			'user_login' => 'administrator',
+			'role' => 'administrator',
+			'user_pass' => 'password',
+		] );
+		add_user_to_blog( get_current_blog_id(), $user_id, 'administrator' );
+		wp_set_current_user( $user_id, '' );
+
+		$metabox = new Pressbooks\Admin\Metaboxes\GeneralInformation();
 		$doc = new DOMDocument();
 		$doc->loadHTML( $metabox->nonce );
 		$_POST[ "{$metabox->slug}_nonce" ] = $doc->getElementById( "{$metabox->slug}_nonce" )->getAttribute( 'value' );
-		$_POST[ $field ] = $value;
+		$_POST[ 'pb_subtitle' ] = 'Or, the Whale';
 		$metabox->save( $post->ID );
-		$this->assertEquals( $value, get_post_meta( $post->ID, $field, true ) );
+		$this->assertEquals( 'Or, the Whale', get_post_meta( $post->ID, 'pb_subtitle', true ) );
+
+		$_POST[ "{$metabox->slug}_nonce" ] = 'bad nonce';
+		$_POST[ 'pb_subtitle' ] = 'An Arcane History';
+		$metabox->save( $post->ID );
+
+		$this->assertEquals( 'Or, the Whale', get_post_meta( $post->ID, 'pb_subtitle', true ) );
+
+		wp_delete_user( $user_id );
 	}
 }
