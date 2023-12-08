@@ -89,9 +89,24 @@ class Admin_Fields extends \WP_UnitTestCase {
 
 		$term = get_term_by( 'term_id', $person['term_id'], 'contributor' );
 
+		// Single
+		$_POST['editors'] = $term->slug;
+
+		$field = new TaxonomySelect( name: 'editors', label: 'Editors', taxonomy: 'contributor', multiple: false );
+
+		$this->assertArrayHasKey( '', $field->options );
+		$this->assertEquals( '', $field->options[''] );
+
+		$field->save( $post->ID );
+
+		$this->assertEquals( $term->slug, get_post_meta( $post->ID, 'editors', true ) );
+
+		// Multiple
 		$_POST['editors'] = [ $term->slug ];
 
-		$field = new TaxonomySelect( name: 'editors', label: 'Editors', taxonomy: 'contributor' );
+		$field = new TaxonomySelect( name: 'editors', label: 'Editors', taxonomy: 'contributor', multiple: true );
+
+		$this->assertArrayNotHasKey( '', $field->options );
 
 		$field->save( $post->ID );
 
