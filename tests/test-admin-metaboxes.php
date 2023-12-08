@@ -88,7 +88,9 @@ class Admin_Metaboxes extends \WP_UnitTestCase {
 		$metabox = new Pressbooks\Admin\Metaboxes\GeneralInformation();
 		$doc = new DOMDocument();
 		$doc->loadHTML( $metabox->nonce );
-		$_POST[ "{$metabox->slug}_nonce" ] = $doc->getElementById( "{$metabox->slug}_nonce" )->getAttribute( 'value' );
+		$nonce = $doc->getElementById( "{$metabox->slug}_nonce" )->getAttribute( 'value' );
+
+		$_POST[ "{$metabox->slug}_nonce" ] = $nonce;
 		$_POST[ 'pb_subtitle' ] = 'Or, the Whale';
 		$metabox->save( $post->ID );
 		$this->assertEquals( 'Or, the Whale', get_post_meta( $post->ID, 'pb_subtitle', true ) );
@@ -100,5 +102,11 @@ class Admin_Metaboxes extends \WP_UnitTestCase {
 		$this->assertEquals( 'Or, the Whale', get_post_meta( $post->ID, 'pb_subtitle', true ) );
 
 		wp_delete_user( $user_id );
+
+		$_POST[ "{$metabox->slug}_nonce" ] = $nonce;
+		$_POST[ 'pb_subtitle' ] = 'An Arcane History';
+		$metabox->save( $post->ID );
+
+		$this->assertEquals( 'Or, the Whale', get_post_meta( $post->ID, 'pb_subtitle', true ) );
 	}
 }
