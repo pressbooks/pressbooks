@@ -79,18 +79,24 @@ class Admin_Metaboxes extends \WP_UnitTestCase {
 
 		$metabox = new Pressbooks\Admin\Metaboxes\GeneralInformation();
 
-
 		// Nonce not set
 		$_POST[ 'pb_subtitle' ] = 'Or, the Whale';
 		$metabox->save( $post->ID );
+
 		$this->assertEquals( '', get_post_meta( $post->ID, 'pb_subtitle', true ) );
 
 		// Nonce set, user lacks permissions
+		$doc = new DOMDocument();
+		$doc->loadHTML( $metabox->nonce );
+		$nonce = $doc->getElementById( "{$metabox->slug}_nonce" )->getAttribute( 'value' );
+
 		$_POST[ "{$metabox->slug}_nonce" ] = $nonce;
 		$_POST[ 'pb_subtitle' ] = 'Or, the Whale';
 		$metabox->save( $post->ID );
+
 		$this->assertEquals( '', get_post_meta( $post->ID, 'pb_subtitle', true ) );
 
+		// Nonce set, user has permissions
 		$user_id = wp_insert_user( [
 			'user_login' => 'administrator',
 			'role' => 'administrator',
@@ -99,7 +105,6 @@ class Admin_Metaboxes extends \WP_UnitTestCase {
 		add_user_to_blog( get_current_blog_id(), $user_id, 'administrator' );
 		wp_set_current_user( $user_id, '' );
 
-		// Nonce set, user has permissions
 		$_POST[ "{$metabox->slug}_nonce" ] = $nonce;
 		$_POST[ 'pb_subtitle' ] = 'Or, the Whale';
 		$metabox->save( $post->ID );
