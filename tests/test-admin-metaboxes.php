@@ -78,9 +78,7 @@ class Admin_Metaboxes extends \WP_UnitTestCase {
 		global $post;
 
 		$metabox = new Pressbooks\Admin\Metaboxes\GeneralInformation();
-		$doc = new DOMDocument();
-		$doc->loadHTML( $metabox->nonce );
-		$nonce = $doc->getElementById( "{$metabox->slug}_nonce" )->getAttribute( 'value' );
+
 
 		// Nonce not set
 		$_POST[ 'pb_subtitle' ] = 'Or, the Whale';
@@ -102,6 +100,7 @@ class Admin_Metaboxes extends \WP_UnitTestCase {
 		wp_set_current_user( $user_id, '' );
 
 		// Nonce set, user has permissions
+		$_POST[ "{$metabox->slug}_nonce" ] = $nonce;
 		$_POST[ 'pb_subtitle' ] = 'Or, the Whale';
 		$metabox->save( $post->ID );
 
