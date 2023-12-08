@@ -75,7 +75,9 @@ class Admin_Metaboxes extends \WP_UnitTestCase {
 	}
 
 	public function test_save_metabox(): void {
-		global $post;
+		global $post, $current_user;
+
+		$default_user_id = $current_user->ID;
 
 		$user_id = wp_insert_user( [
 			'user_login' => 'administrator',
@@ -101,7 +103,7 @@ class Admin_Metaboxes extends \WP_UnitTestCase {
 
 		$this->assertEquals( 'Or, the Whale', get_post_meta( $post->ID, 'pb_subtitle', true ) );
 
-		wp_delete_user( $user_id );
+		wp_set_current_user( $default_user_id, '' );
 
 		$_POST[ "{$metabox->slug}_nonce" ] = $nonce;
 		$_POST[ 'pb_subtitle' ] = 'An Arcane History';
