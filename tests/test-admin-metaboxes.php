@@ -88,6 +88,7 @@ class Admin_Metaboxes extends \WP_UnitTestCase {
 		$this->assertEquals( '', get_post_meta( $post->ID, 'pb_subtitle', true ) );
 
 		// Nonce set, user lacks permissions
+		$_POST[ "{$metabox->slug}_nonce" ] = $nonce;
 		$_POST[ 'pb_subtitle' ] = 'Or, the Whale';
 		$metabox->save( $post->ID );
 		$this->assertEquals( '', get_post_meta( $post->ID, 'pb_subtitle', true ) );
@@ -101,7 +102,6 @@ class Admin_Metaboxes extends \WP_UnitTestCase {
 		wp_set_current_user( $user_id, '' );
 
 		// Nonce set, user has permissions
-		$_POST[ "{$metabox->slug}_nonce" ] = 'bad nonce';
 		$_POST[ 'pb_subtitle' ] = 'Or, the Whale';
 		$metabox->save( $post->ID );
 
