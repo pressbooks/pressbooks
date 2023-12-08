@@ -12,14 +12,13 @@ use Pressbooks\Admin\Fields\Url;
 class Admin_Fields extends \WP_UnitTestCase {
 	use utilsTrait;
 
-	public function set_up()
-	{
+	public function set_up() {
 		parent::set_up();
 
 		$new_post['post_type'] = 'chapter';
 
 		$GLOBALS['post'] = get_post( $this->factory()->post->create_object( [
-			'post_type' => 'chapter'
+			'post_type' => 'chapter',
 		] ) );
 
 		$_POST = [];
@@ -36,13 +35,13 @@ class Admin_Fields extends \WP_UnitTestCase {
 	public function test_sanitize_text() {
 		$field = new Text( 'test', 'Test' );
 
-		$this->assertEquals( 'Title', $field->sanitize( "<h2>Title</h2>" ) );
+		$this->assertEquals( 'Title', $field->sanitize( '<h2>Title</h2>' ) );
 	}
 
 	public function test_sanitize_text_with_html() {
 		$field = new TextArea( 'test', 'Test' );
 
-		$this->assertEquals( "<h2>Title</h2>", $field->sanitize( "<h2>Title</h2>" ) );
+		$this->assertEquals( '<h2>Title</h2>', $field->sanitize( '<h2>Title</h2>' ) );
 	}
 
 	public function test_sanitize_url() {
@@ -51,8 +50,7 @@ class Admin_Fields extends \WP_UnitTestCase {
 		$this->assertEquals( 'http://pressbooks.com', $field->sanitize( 'pressbooks.com' ) );
 	}
 
-	public function test_save_text()
-	{
+	public function test_save_text() {
 		global $post;
 
 		$_POST['test'] = 'test value';
@@ -61,24 +59,22 @@ class Admin_Fields extends \WP_UnitTestCase {
 
 		$field->save( $post->ID );
 
-		$this->assertEquals('test value', get_post_meta( $post->ID, 'test', true ));
+		$this->assertEquals( 'test value', get_post_meta( $post->ID, 'test', true ) );
 	}
 
-	public function test_save_text_multiple()
-	{
-		global $post;
+	public function test_save_text_multiple() {
+		 global $post;
 
-		$_POST['test'] = ['test value one', 'test value two'];
+		$_POST['test'] = [ 'test value one', 'test value two' ];
 
 		$field = new Text( name: 'test', label: 'Test', multiple: true );
 
 		$field->save( $post->ID );
 
-		$this->assertEquals(['test value one', 'test value two'], get_post_meta( $post->ID, 'test', false ));
+		$this->assertEquals( [ 'test value one', 'test value two' ], get_post_meta( $post->ID, 'test', false ) );
 	}
 
-	public function test_save_taxonomy_select()
-	{
+	public function test_save_taxonomy_select() {
 		global $post;
 
 		$contributor = new \Pressbooks\Contributors();
@@ -93,17 +89,16 @@ class Admin_Fields extends \WP_UnitTestCase {
 
 		$term = get_term_by( 'term_id', $person['term_id'], 'contributor' );
 
-		$_POST['editors'] = [$term->slug];
+		$_POST['editors'] = [ $term->slug ];
 
 		$field = new TaxonomySelect( name: 'editors', label: 'Editors', taxonomy: 'contributor' );
 
 		$field->save( $post->ID );
 
-		$this->assertEquals([$term->slug], get_post_meta( $post->ID, 'editors' ));
+		$this->assertEquals( [ $term->slug ], get_post_meta( $post->ID, 'editors' ) );
 	}
 
-	public function provideInputData(): array
-	{
+	public function provideInputData(): array {
 		$defaults = [
 			'name' => 'test',
 			'label' => 'Test',
@@ -120,12 +115,12 @@ class Admin_Fields extends \WP_UnitTestCase {
 				'expected_substrings' => [
 					'name="test"',
 					'id="test"',
-					'for="test"'
+					'for="test"',
 				],
 				'unexpected_substrings' => [
 					'disabled',
-					'readonly'
-				]
+					'readonly',
+				],
 			],
 			'custom id' => [
 				'parameters' => array_merge($defaults, [
@@ -133,52 +128,52 @@ class Admin_Fields extends \WP_UnitTestCase {
 				]),
 				'expected_substrings' => [
 					'id="test_field"',
-					'for="test_field"'
+					'for="test_field"',
 				],
-				'unexpected_substrings' => []
+				'unexpected_substrings' => [],
 			],
 			'description' => [
 				'parameters' => array_merge($defaults, [
-					'description' => 'A test field.'
+					'description' => 'A test field.',
 				]),
 				'expected_substrings' => [
 					'aria-describedby="test-description"',
 					'<p class="description" id="test-description">',
-					'A test field.'
+					'A test field.',
 				],
-				'unexpected_substrings' => []
+				'unexpected_substrings' => [],
 			],
 			'disabled' => [
 				'parameters' => array_merge($defaults, [
-					'disabled' => true
+					'disabled' => true,
 				]),
 				'expected_substrings' => [
-					' disabled '
+					' disabled ',
 				],
-				'unexpected_substrings' => []
+				'unexpected_substrings' => [],
 			],
 			'readonly' => [
 				'parameters' => array_merge($defaults, [
-					'readonly' => true
+					'readonly' => true,
 				]),
 				'expected_substrings' => [
-					' readonly '
+					' readonly ',
 				],
-				'unexpected_substrings' => []
+				'unexpected_substrings' => [],
 			],
 			'minimal multiple' => [
 				'parameters' => array_merge($defaults, [
-					'multiple' => true
+					'multiple' => true,
 				]),
 				'expected_substrings' => [
 					'name="test[]"',
 					'id="test-1"',
-					'aria-labelledby="test-label"'
+					'aria-labelledby="test-label"',
 				],
 				'unexpected_substrings' => [
 					'disabled',
-					'readonly'
-				]
+					'readonly',
+				],
 			],
 		];
 	}
@@ -186,9 +181,8 @@ class Admin_Fields extends \WP_UnitTestCase {
 	/**
 	 * @dataProvider provideInputData
 	 */
-	public function test_render_text( array $parameters, array $expected_substrings, array $unexpected_substrings ): void
-	{
-		$rendered_field = (new Text(
+	public function test_render_text( array $parameters, array $expected_substrings, array $unexpected_substrings ): void {
+		$rendered_field = ( new Text(
 			name: $parameters['name'],
 			label: $parameters['label'],
 			description: $parameters['description'],
@@ -196,15 +190,15 @@ class Admin_Fields extends \WP_UnitTestCase {
 			multiple: $parameters['multiple'],
 			disabled: $parameters['disabled'],
 			readonly: $parameters['readonly']
-		))->render();
+		) )->render();
 
 		$this->assertStringContainsString( 'type="text"', $rendered_field );
 
-		foreach ($expected_substrings as $substring) {
+		foreach ( $expected_substrings as $substring ) {
 			$this->assertStringContainsString( $substring, $rendered_field );
 		}
 
-		foreach ($unexpected_substrings as $substring) {
+		foreach ( $unexpected_substrings as $substring ) {
 			$this->assertStringNotContainsString( $substring, $rendered_field );
 		}
 	}
@@ -212,9 +206,8 @@ class Admin_Fields extends \WP_UnitTestCase {
 	/**
 	 * @dataProvider provideInputData
 	 */
-	public function test_render_url( array $parameters, array $expected_substrings, array $unexpected_substrings ): void
-	{
-		$rendered_field = (new Url(
+	public function test_render_url( array $parameters, array $expected_substrings, array $unexpected_substrings ): void {
+		$rendered_field = ( new Url(
 			name: $parameters['name'],
 			label: $parameters['label'],
 			description: $parameters['description'],
@@ -222,15 +215,15 @@ class Admin_Fields extends \WP_UnitTestCase {
 			multiple: $parameters['multiple'],
 			disabled: $parameters['disabled'],
 			readonly: $parameters['readonly']
-		))->render();
+		) )->render();
 
 		$this->assertStringContainsString( 'type="url"', $rendered_field );
 
-		foreach ($expected_substrings as $substring) {
+		foreach ( $expected_substrings as $substring ) {
 			$this->assertStringContainsString( $substring, $rendered_field );
 		}
 
-		foreach ($unexpected_substrings as $substring) {
+		foreach ( $unexpected_substrings as $substring ) {
 			$this->assertStringNotContainsString( $substring, $rendered_field );
 		}
 	}

@@ -23,11 +23,14 @@ abstract class Metabox {
 
 	public string $priority = 'default';
 
+	public string $nonce = '';
+
 	public function __construct() {
 		$this->title = $this->getTitle();
 		$this->slug = $this->getSlug();
 		$this->fields = $this->getFields();
 		$this->callback = [ $this, 'render' ];
+		$this->nonce = wp_nonce_field( $this->slug, "{$this->slug}_nonce", true, false );
 	}
 
 	abstract public function getTitle();
@@ -41,10 +44,9 @@ abstract class Metabox {
 	}
 
 	public function render() {
-		$nonce = wp_nonce_field( $this->slug, "{$this->slug}_nonce", true, false );
 
 		echo Container::get( 'Blade' )->render('metaboxes.metabox', [
-			'nonce' => $nonce,
+			'nonce' => $this->nonce,
 			'fields' => array_map( function ( $field ) {
 				return $field->render();
 			}, $this->fields ),
