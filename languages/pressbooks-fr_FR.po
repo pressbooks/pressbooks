@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2023-01-23T19:37:27+00:00\n"
+"POT-Creation-Date: 2023-12-14T19:44:52+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
 "Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2019,2023\n"
 "Language-Team: French (http://app.transifex.com/pressbooks/pressbooks/language/fr/)\n"
@@ -37,7 +37,7 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 "X-Domain: pressbooks\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"X-Generator: WP-CLI 2.9.0\n"
 
 #. Plugin Name of the plugin
 msgid "Pressbooks"
@@ -92,46 +92,6 @@ msgid ""
 "Pressbooks. This is causing errors. Please go to the Plugins page, and "
 "activate Pressbooks."
 msgstr "Le module d&rsquo;extension Pressbooks est inactif, mais vous avez des modules d&rsquo;extension actifs qui nécessitent Pressbooks, ce qui cause des erreurs. Merci d&rsquo;aller à la page des modules d&rsquo;extension et d&rsquo;activer Pressbooks."
-
-#: inc/admin/analytics/namespace.php:16 inc/admin/analytics/namespace.php:17
-#: inc/admin/analytics/namespace.php:26 inc/admin/analytics/namespace.php:27
-#: inc/admin/analytics/namespace.php:169 inc/admin/analytics/namespace.php:209
-msgid "Google Analytics"
-msgstr "Google Analytics"
-
-#: inc/admin/analytics/namespace.php:50 inc/admin/analytics/namespace.php:106
-msgid "Google Analytics ID"
-msgstr "ID Google Analytics"
-
-#: inc/admin/analytics/namespace.php:55
-msgid ""
-"The Google Analytics ID for your network, e.g. &lsquo;UA-01234567-8&rsquo;."
-msgstr "ID Google Analytics pour votre réseau, ex. &lsquo;UA-01234567-8&rsquo;."
-
-#: inc/admin/analytics/namespace.php:73
-msgid "Site-Specific Tracking"
-msgstr "Suivi spécifique au site"
-
-#: inc/admin/analytics/namespace.php:78
-msgid ""
-"If enabled, the Google Analytics settings page will be visible to book "
-"administrators, allowing them to use their own Google Analytics accounts to "
-"track statistics at the book level."
-msgstr "Si cette option est activée, les administrateurs du livre pourront voir la page des paramètres Google Analytics, ce qui leur permettra d&rsquo;utiliser leurs propres comptes Google Analytics pour faire le suivi des statistiques sur le livre."
-
-#: inc/admin/analytics/namespace.php:111
-msgid ""
-"The Google Analytics ID for your book, e.g. &lsquo;UA-01234567-8&rsquo;."
-msgstr "ID Google Analytics pour votre livre, ex. &lsquo;UA-01234567-8&rsquo;."
-
-#: inc/admin/analytics/namespace.php:128
-msgid "Google Analytics settings."
-msgstr "Paramètres Google Analytics."
-
-#: inc/admin/analytics/namespace.php:187
-#: inc/admin/network/class-sharingandprivacyoptions.php:188
-msgid "Settings saved."
-msgstr "Paramètres sauvegardés"
 
 #: inc/admin/attachments/namespace.php:39
 msgid "ATTRIBUTIONS"
@@ -205,7 +165,7 @@ msgid "Privacy Status"
 msgstr "Statut de confidentialité"
 
 #: inc/admin/class-catalog-list-table.php:230 inc/class-activation.php:237
-#: inc/modules/export/epub/class-epub.php:1213 tests/test-cloner.php:57
+#: inc/modules/export/epub/class-epub.php:1233
 msgid "Cover"
 msgstr "Couverture"
 
@@ -243,7 +203,7 @@ msgid "Public"
 msgstr "Public"
 
 #: inc/admin/class-catalog-list-table.php:507 inc/admin/laf/namespace.php:433
-#: inc/admin/laf/namespace.php:613 inc/admin/laf/namespace.php:961
+#: inc/admin/laf/namespace.php:613 inc/admin/laf/namespace.php:890
 msgid "My Catalog"
 msgstr "Mon catalogue"
 
@@ -314,41 +274,41 @@ msgstr "Ajouter par adresse URL"
 msgid "Search"
 msgstr "Rechercher"
 
-#: inc/admin/class-exportoptions.php:68
+#: inc/admin/class-exportoptions.php:75
 msgid "Email Validation Logs"
 msgstr "Journaux de validation par courrier électronique"
 
-#: inc/admin/class-exportoptions.php:73
+#: inc/admin/class-exportoptions.php:80
 msgid "No. Ignore validation errors."
 msgstr "Non. Ignorer les erreurs de validation."
 
-#: inc/admin/class-exportoptions.php:74
+#: inc/admin/class-exportoptions.php:81
 msgid "Yes."
 msgstr "Oui."
 
-#: inc/admin/class-exportoptions.php:74
+#: inc/admin/class-exportoptions.php:81
 msgid "Email me validation error logs on export."
 msgstr "M&rsquo;envoyer par courriel les journaux d&rsquo;erreurs de validation à l&rsquo;exportation."
 
-#: inc/admin/class-exportoptions.php:81
+#: inc/admin/class-exportoptions.php:88
 msgid "Lock Theme"
 msgstr "Verrouiller le thème"
 
-#: inc/admin/class-exportoptions.php:86
+#: inc/admin/class-exportoptions.php:93
 msgid "Lock your theme at its current version."
 msgstr "Verrouillez votre thème à sa version actuelle."
 
-#: inc/admin/class-exportoptions.php:102
+#: inc/admin/class-exportoptions.php:109
 msgid "Export settings."
 msgstr "Paramètres d&rsquo;exportation."
 
-#: inc/admin/class-exportoptions.php:168
+#: inc/admin/class-exportoptions.php:175
 msgid ""
 "This will prevent any changes to your book&rsquo;s appearance and page count"
 " when themes are updated."
 msgstr "Cela empêchera toute modification de l&rsquo;apparence et du nombre de pages de votre livre lorsque les thèmes seront mis à jour."
 
-#: inc/admin/class-exportoptions.php:188 inc/admin/laf/namespace.php:398
+#: inc/admin/class-exportoptions.php:195 inc/admin/laf/namespace.php:398
 msgid "Export Settings"
 msgstr "Paramètres d&rsquo;exportation"
 
@@ -362,42 +322,42 @@ msgstr "Restreindre l&rsquo;accès"
 msgid "Unrestrict Access"
 msgstr "Accès sans restriction"
 
-#: inc/admin/class-publishoptions.php:68
+#: inc/admin/class-publishoptions.php:75
 msgid "Amazon URL"
 msgstr "Adresse URL Amazon"
 
-#: inc/admin/class-publishoptions.php:77
+#: inc/admin/class-publishoptions.php:84
 msgid "O'Reilly URL"
 msgstr "Adresse URL O&rsquo;Reilly"
 
-#: inc/admin/class-publishoptions.php:86
+#: inc/admin/class-publishoptions.php:93
 msgid "Barnes and Noble URL"
 msgstr "Adresse URL Barnes and Noble"
 
-#: inc/admin/class-publishoptions.php:95
+#: inc/admin/class-publishoptions.php:102
 msgid "Kobo URL"
 msgstr "Adresse URL Kobo"
 
-#: inc/admin/class-publishoptions.php:104
+#: inc/admin/class-publishoptions.php:111
 msgid "Apple Books URL"
 msgstr "URL des livres Apple"
 
-#: inc/admin/class-publishoptions.php:113
+#: inc/admin/class-publishoptions.php:120
 msgid "Other Service URL"
 msgstr "Adresse URL d&rsquo;un autre service"
 
-#: inc/admin/class-publishoptions.php:132
+#: inc/admin/class-publishoptions.php:139
 msgid "Add BUY Links to Your Pressbooks Webbook"
 msgstr "Ajoutez des liens Acheter à votre livre Web Pressbooks"
 
-#: inc/admin/class-publishoptions.php:133
+#: inc/admin/class-publishoptions.php:140
 msgid ""
 "Enter the URLs for locations where your book can be purchased below. <a "
 "href=\"https://guide.pressbooks.com/chapter/publish/\">Our guide</a> "
 "provides additional information about selling and distributing your book."
 msgstr "Saisissez ci-dessous les URL des lieux où votre livre peut être acheté. <a href=\"https://guide.pressbooks.com/chapter/publish/\">Notre guide </a>fournit des informations supplémentaires sur la vente et la distribution de votre livre."
 
-#: inc/admin/class-publishoptions.php:293 inc/admin/laf/namespace.php:382
+#: inc/admin/class-publishoptions.php:300 inc/admin/laf/namespace.php:382
 msgid "Publish"
 msgstr "Publier"
 
@@ -422,7 +382,7 @@ msgstr "La création de la page couverture n&rsquo;est pas terminée. Quitter ce
 
 #: inc/admin/covergenerator/namespace.php:50 inc/admin/laf/namespace.php:338
 #: inc/admin/laf/namespace.php:361 inc/admin/laf/namespace.php:422
-#: inc/admin/laf/namespace.php:633
+#: inc/admin/laf/namespace.php:634
 msgid "Reload"
 msgstr "Recharger"
 
@@ -604,17 +564,17 @@ msgid ""
 msgstr "Nous pouvons calculer la taille du dos en fonction des spécifications CreateSpace et Ingram. Vous pouvez aussi entrer vos propres pages par pouce (PPP) définies par votre imprimante."
 
 #: inc/admin/covergenerator/namespace.php:571
-#: inc/modules/themeoptions/class-pdfoptions.php:159
-#: inc/modules/themeoptions/class-pdfoptions.php:380
-#: inc/modules/themeoptions/class-pdfoptions.php:399
-#: inc/modules/themeoptions/class-pdfoptions.php:418
-#: inc/modules/themeoptions/class-pdfoptions.php:437
-#: inc/modules/themeoptions/class-pdfoptions.php:455
-#: inc/modules/themeoptions/class-pdfoptions.php:473
-#: inc/modules/themeoptions/class-pdfoptions.php:494
-#: inc/modules/themeoptions/class-pdfoptions.php:515
-#: inc/modules/themeoptions/class-pdfoptions.php:534
-#: inc/modules/themeoptions/class-pdfoptions.php:553
+#: inc/modules/themeoptions/class-pdfoptions.php:194
+#: inc/modules/themeoptions/class-pdfoptions.php:415
+#: inc/modules/themeoptions/class-pdfoptions.php:434
+#: inc/modules/themeoptions/class-pdfoptions.php:453
+#: inc/modules/themeoptions/class-pdfoptions.php:472
+#: inc/modules/themeoptions/class-pdfoptions.php:490
+#: inc/modules/themeoptions/class-pdfoptions.php:508
+#: inc/modules/themeoptions/class-pdfoptions.php:529
+#: inc/modules/themeoptions/class-pdfoptions.php:550
+#: inc/modules/themeoptions/class-pdfoptions.php:569
+#: inc/modules/themeoptions/class-pdfoptions.php:588
 msgid "Custom&hellip;"
 msgstr "Personnalisé&hellip;"
 
@@ -637,14 +597,13 @@ msgid ""
 " %1$s to %2$s."
 msgstr "Votre image présente un mauvais rapport hauteur/largeur. L&rsquo;image doit avoir un rapport hauteur/largeur de %2$s à %1$s."
 
-#: inc/admin/dashboard/class-bookdashboard.php:55
-#: inc/admin/dashboard/class-newuserdashboard.php:59
-#: inc/admin/laf/namespace.php:858 inc/admin/laf/namespace.php:933
+#: inc/admin/dashboard/class-dashboard.php:54 inc/admin/laf/namespace.php:787
+#: inc/admin/laf/namespace.php:862 inc/admin/menus/class-sidebar.php:177
+#: inc/admin/menus/class-sidebar.php:178 inc/admin/menus/class-topbar.php:124
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
-#: inc/admin/dashboard/class-bookdashboard.php:56
-#: inc/admin/dashboard/class-newuserdashboard.php:60
+#: inc/admin/dashboard/class-dashboard.php:55
 msgid "Home"
 msgstr "Page d'accueil"
 
@@ -655,6 +614,50 @@ msgstr "un"
 #: inc/admin/dashboard/class-invitations.php:30
 msgid "a"
 msgstr "un"
+
+#: inc/admin/dashboard/class-networkdashboard.php:79
+msgid "Brand your network"
+msgstr "Marquez votre réseau"
+
+#: inc/admin/dashboard/class-networkdashboard.php:81
+msgid "Display your institutional logos and colors across your network"
+msgstr "Affichez vos logos et couleurs institutionnels sur votre réseau."
+
+#: inc/admin/dashboard/class-networkdashboard.php:86
+msgid "Customize your homepage"
+msgstr "Personnalisez votre page d'accueil"
+
+#: inc/admin/dashboard/class-networkdashboard.php:93
+msgid "Review network settings"
+msgstr "Vérifier les paramètres réseau"
+
+#: inc/admin/dashboard/class-networkdashboard.php:100
+msgid "Learn about analytics options"
+msgstr "En savoir plus sur les options d'analyse"
+
+#: inc/admin/dashboard/class-networkdashboard.php:128
+msgid "Configure Single Sign On (SSO)"
+msgstr "Configurer l'authentification unique (Single Sign On)"
+
+#: inc/admin/dashboard/class-networkdashboard.php:144
+msgid "Join the Pressbooks Community Forum"
+msgstr "Rejoignez le forum de la communauté Pressbooks"
+
+#: inc/admin/dashboard/class-networkdashboard.php:152
+msgid "Complete your onboarding"
+msgstr "Complétez votre intégration"
+
+#: inc/admin/dashboard/class-networkdashboard.php:161
+msgid "Take the 'Readiness to Launch' survey"
+msgstr "Répondez à l'enquête « Prêt à lancer »"
+
+#: inc/admin/dashboard/class-networkdashboard.php:163
+msgid "Complete a brief survey about your onboarding experience"
+msgstr "Répondez à une brève enquête sur votre expérience d'intégration"
+
+#: inc/admin/dashboard/namespace.php:21 inc/admin/dashboard/namespace.php:22
+msgid "Integrations"
+msgstr "Intégrations"
 
 #: inc/admin/delete/class-book.php:52
 msgid "Delete Book"
@@ -691,7 +694,7 @@ msgstr "Diagnostics"
 msgid "Stylesheet regenerated."
 msgstr "Recréation de la feuille de style"
 
-#: inc/admin/laf/namespace.php:76 inc/admin/laf/namespace.php:818
+#: inc/admin/laf/namespace.php:76
 msgid "Contact"
 msgstr "Contact"
 
@@ -892,8 +895,8 @@ msgid ""
 msgstr "Les importations ne sont pas terminées. Quitter cette page entraînera des problèmes. Voulez-vous vraiment quitter la page?"
 
 #: inc/admin/laf/namespace.php:385 inc/admin/laf/namespace.php:581
-#: inc/admin/laf/namespace.php:1586
-#: inc/admin/network/class-sharingandprivacyoptions.php:459
+#: inc/admin/laf/namespace.php:1520
+#: inc/admin/network/class-sharingandprivacyoptions.php:473
 msgid "Sharing and Privacy Settings"
 msgstr "Paramètres de partage et de confidentialité"
 
@@ -910,17 +913,17 @@ msgstr "QuickLaTeX"
 msgid "Clone a Book"
 msgstr "Dupliquer un livre"
 
-#: inc/admin/laf/namespace.php:421 inc/admin/laf/namespace.php:632
+#: inc/admin/laf/namespace.php:421 inc/admin/laf/namespace.php:633
 msgid ""
 "Cloning is not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr "Le clonage n&rsquo;est pas terminé. Quitter cette page entraînera des problèmes. Voulez-vous vraiment quitter la page?"
 
-#: inc/admin/laf/namespace.php:645 inc/admin/laf/namespace.php:646
+#: inc/admin/laf/namespace.php:646 inc/admin/laf/namespace.php:647
 msgid "Cloning Stats"
 msgstr "Statistiques de clonage"
 
-#: inc/admin/laf/namespace.php:663 inc/admin/metaboxes/namespace.php:649
+#: inc/admin/laf/namespace.php:664 inc/admin/metaboxes/namespace.php:649
 #: inc/api/endpoints/controller/class-toc.php:192
 #: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
 #: inc/posttype/namespace.php:548 templates/admin/import.php:91
@@ -928,15 +931,15 @@ msgstr "Statistiques de clonage"
 msgid "Front Matter"
 msgstr "Section Préliminaire"
 
-#: inc/admin/laf/namespace.php:671 inc/admin/metaboxes/namespace.php:650
+#: inc/admin/laf/namespace.php:672 inc/admin/metaboxes/namespace.php:650
 #: inc/api/endpoints/controller/class-toc.php:209 inc/class-sass.php:78
-#: inc/modules/themeoptions/class-globaloptions.php:564
+#: inc/modules/themeoptions/class-globaloptions.php:599
 #: inc/posttype/namespace.php:64 inc/posttype/namespace.php:545
 #: inc/posttype/namespace.php:584 templates/admin/import.php:92
 msgid "Chapter"
 msgstr "Chapitre"
 
-#: inc/admin/laf/namespace.php:681 inc/admin/metaboxes/namespace.php:651
+#: inc/admin/laf/namespace.php:682 inc/admin/metaboxes/namespace.php:651
 #: inc/api/endpoints/controller/class-toc.php:225
 #: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
 #: inc/posttype/namespace.php:551 templates/admin/import.php:96
@@ -944,56 +947,47 @@ msgstr "Chapitre"
 msgid "Back Matter"
 msgstr "Section finale"
 
-#: inc/admin/laf/namespace.php:771 inc/admin/laf/namespace.php:782
-msgid "About Pressbooks"
-msgstr "À propos de Pressbooks"
-
-#: inc/admin/laf/namespace.php:793
-msgid "Pressbooks.com"
-msgstr "Pressbooks.com"
-
-#: inc/admin/laf/namespace.php:803
-msgid "Help"
-msgstr "Aide"
-
-#: inc/admin/laf/namespace.php:847
+#: inc/admin/laf/namespace.php:776
 msgid "Network Admin"
 msgstr "Administrateur de réseau"
 
-#: inc/admin/laf/namespace.php:866 inc/admin/laf/namespace.php:1641
-#: inc/admin/laf/namespace.php:1651
+#: inc/admin/laf/namespace.php:795 inc/admin/laf/namespace.php:1575
+#: inc/admin/laf/namespace.php:1585 inc/admin/menus/class-sidebar.php:188
+#: inc/admin/menus/class-sidebar.php:189 inc/admin/menus/class-topbar.php:129
 msgid "Books"
 msgstr "Livres"
 
-#: inc/admin/laf/namespace.php:874
+#: inc/admin/laf/namespace.php:803 inc/admin/menus/class-sidebar.php:198
+#: inc/admin/menus/class-sidebar.php:199 inc/admin/menus/class-topbar.php:134
 msgid "Users"
 msgstr "Utilisateurs"
 
-#: inc/admin/laf/namespace.php:883
+#: inc/admin/laf/namespace.php:812
 msgid "Themes"
 msgstr "Thèmes"
 
-#: inc/admin/laf/namespace.php:891
+#: inc/admin/laf/namespace.php:820 inc/admin/menus/class-sidebar.php:395
+#: inc/admin/menus/class-sidebar.php:396 inc/admin/menus/class-topbar.php:149
 msgid "Plugins"
 msgstr "Modules d&rsquo;extension"
 
-#: inc/admin/laf/namespace.php:941
+#: inc/admin/laf/namespace.php:870
 msgid "Visit Website"
 msgstr "Consultez le site web"
 
-#: inc/admin/laf/namespace.php:951
+#: inc/admin/laf/namespace.php:880 inc/admin/menus/class-topbar.php:191
 msgid "My Books"
 msgstr "Mes livres"
 
-#: inc/admin/laf/namespace.php:971
+#: inc/admin/laf/namespace.php:900
 msgid "Create A New Book"
 msgstr "Créer un nouveau livre"
 
-#: inc/admin/laf/namespace.php:983
+#: inc/admin/laf/namespace.php:912
 msgid "Clone A Book"
 msgstr "Dupliquer un livre"
 
-#: inc/admin/laf/namespace.php:1205
+#: inc/admin/laf/namespace.php:1139
 msgid ""
 "Are you sure you want to unlock your theme? This will update your book to "
 "the most recent version of your selected theme, which may change your "
@@ -1001,154 +995,286 @@ msgid ""
 "page, this action will NOT be reversable!"
 msgstr "Voulez-vous vraiment dévérouiller votre thème? Cette action mettra votre livre à jour avec la version la plus récente du thème sélectionné. Ceci pourrait changer l&rsquo;apparence et le nombre de pages de votre livre. Une fois vos réglages sauvegardés sur cette page, cette action est IRRÉVERSIBLE!"
 
-#: inc/admin/laf/namespace.php:1302
+#: inc/admin/laf/namespace.php:1236
 msgid "Book Visibility"
 msgstr "Visibilité du livre"
 
-#: inc/admin/laf/namespace.php:1316
+#: inc/admin/laf/namespace.php:1250
 msgid "Private Content"
 msgstr "Contenu privé"
 
-#: inc/admin/laf/namespace.php:1330
+#: inc/admin/laf/namespace.php:1264
 msgid "Disable Comments"
 msgstr "Désactiver les commentaires"
 
-#: inc/admin/laf/namespace.php:1348
+#: inc/admin/laf/namespace.php:1282
 msgid "Share Latest Export Files"
 msgstr "Partage des derniers fichiers exportés"
 
-#: inc/admin/laf/namespace.php:1378
+#: inc/admin/laf/namespace.php:1312
 msgid "Pressbooks Directory"
 msgstr "Catalogue Pressbooks"
 
-#: inc/admin/laf/namespace.php:1395
+#: inc/admin/laf/namespace.php:1329
 msgid "Sharing and Privacy settings"
 msgstr "Paramètres de partage et de confidentialité"
 
-#: inc/admin/laf/namespace.php:1410
+#: inc/admin/laf/namespace.php:1344
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "Je veux que ce livre soit visible pour tout le monde."
 
-#: inc/admin/laf/namespace.php:1416
+#: inc/admin/laf/namespace.php:1350
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "Je veux que ce livre ne soit accessible qu&rsquo;aux personnes que j&rsquo;invite."
 
-#: inc/admin/laf/namespace.php:1440
+#: inc/admin/laf/namespace.php:1374
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr "Qui peut voir les pages liminaires, les chapitres ou les parties annexes privés?"
 
-#: inc/admin/laf/namespace.php:1443
+#: inc/admin/laf/namespace.php:1377
 msgid "Only logged in editors and administrators."
 msgstr "Seulement les éditeurs et les administrateurs connectés."
 
-#: inc/admin/laf/namespace.php:1445
+#: inc/admin/laf/namespace.php:1379
 msgid "All logged in users including subscribers."
 msgstr "Toutes les personnes connectées, y compris les abonnés."
 
-#: inc/admin/laf/namespace.php:1466
+#: inc/admin/laf/namespace.php:1400
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
 msgstr "Oui, je veux désactiver automatiquement les commentaires ainsi que les fonctions rétroliens Pingbacks et Trackback pour l&rsquo;ensemble des pages liminaires, des chapitres et des parties annexes."
 
-#: inc/admin/laf/namespace.php:1472
+#: inc/admin/laf/namespace.php:1406
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
 msgstr "Non, je souhaite activer les commentaires ainsi que les fonctions rétroliens Pingbacks et Trackback pour l&rsquo;ensemble des pages liminaires, des chapitres et des parties annexes, sauf si je les désactive manuellement."
 
-#: inc/admin/laf/namespace.php:1488
+#: inc/admin/laf/namespace.php:1422
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr "Oui. Je souhaite que les derniers fichiers exportés soient accessibles à tous sur la page d&rsquo;accueil."
 
-#: inc/admin/laf/namespace.php:1494
+#: inc/admin/laf/namespace.php:1428
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
 msgstr "Non. Je souhaite que les derniers fichiers exportés ne soient accessibles qu&rsquo;aux administrateurs."
 
-#: inc/admin/laf/namespace.php:1513
+#: inc/admin/laf/namespace.php:1447
 msgid "Yes. I want this book to be listed in the Pressbooks directory."
 msgstr "Oui. Je veux que ce livre soit répertoirié dans l'annuaire Pressbooks."
 
-#: inc/admin/laf/namespace.php:1519
+#: inc/admin/laf/namespace.php:1453
 msgid "No. Exclude this book from the Pressbooks directory."
 msgstr "Non. Exclure ce livre de l'annuaire Pressbooks."
 
-#: inc/admin/laf/namespace.php:1644
+#: inc/admin/laf/namespace.php:1578
 msgid "All Books"
 msgstr "Tous les livres"
 
-#: inc/admin/laf/namespace.php:1654
+#: inc/admin/laf/namespace.php:1588
 msgid "Search Books"
 msgstr "Rechercher dans les livres"
 
-#: inc/admin/laf/namespace.php:1660
+#: inc/admin/laf/namespace.php:1594
 msgid "Edit Book: %s"
 msgstr "Modifier le livre&nbsp;: %s"
 
-#: inc/admin/laf/namespace.php:1663 inc/admin/laf/namespace.php:1672
+#: inc/admin/laf/namespace.php:1597 inc/admin/laf/namespace.php:1606
 msgid "Book Address (URL)"
 msgstr "Adresse du livre (URL)"
 
-#: inc/admin/laf/namespace.php:1669
+#: inc/admin/laf/namespace.php:1603
 msgid "Add New Book"
 msgstr "Ajouter un nouveau livre"
 
-#: inc/admin/laf/namespace.php:1675
-#: inc/modules/themeoptions/class-pdfoptions.php:373
-#: inc/modules/themeoptions/class-pdfoptions.php:392
-#: inc/modules/themeoptions/class-pdfoptions.php:411
-#: inc/modules/themeoptions/class-pdfoptions.php:430
-#: inc/modules/themeoptions/class-pdfoptions.php:449
-#: inc/modules/themeoptions/class-pdfoptions.php:467
-#: inc/modules/themeoptions/class-pdfoptions.php:485
-#: inc/modules/themeoptions/class-pdfoptions.php:506
-#: inc/modules/themeoptions/class-pdfoptions.php:527
-#: inc/modules/themeoptions/class-pdfoptions.php:546
+#: inc/admin/laf/namespace.php:1609
+#: inc/modules/themeoptions/class-pdfoptions.php:408
+#: inc/modules/themeoptions/class-pdfoptions.php:427
+#: inc/modules/themeoptions/class-pdfoptions.php:446
+#: inc/modules/themeoptions/class-pdfoptions.php:465
+#: inc/modules/themeoptions/class-pdfoptions.php:484
+#: inc/modules/themeoptions/class-pdfoptions.php:502
+#: inc/modules/themeoptions/class-pdfoptions.php:520
+#: inc/modules/themeoptions/class-pdfoptions.php:541
+#: inc/modules/themeoptions/class-pdfoptions.php:562
+#: inc/modules/themeoptions/class-pdfoptions.php:581
 msgid "Book Title"
 msgstr "Titre du livre"
 
-#: inc/admin/laf/namespace.php:1678
+#: inc/admin/laf/namespace.php:1612
 msgid "Book Language"
 msgstr "Langue du livre"
 
-#: inc/admin/laf/namespace.php:1681
+#: inc/admin/laf/namespace.php:1615
 msgid "Add Book"
 msgstr "Ajouter un livre"
 
-#: inc/admin/laf/namespace.php:1698
+#: inc/admin/laf/namespace.php:1632
 msgid "Edit previous or next item"
 msgstr "Modifier la section précédente ou suivante"
 
-#: inc/admin/laf/namespace.php:1703
+#: inc/admin/laf/namespace.php:1637
 msgid "Edit Previous (%s)"
 msgstr "Modifier la section précédente (%s)"
 
-#: inc/admin/laf/namespace.php:1708
+#: inc/admin/laf/namespace.php:1642
 msgid "Edit Next (%s)"
 msgstr "Modifier la section suivante (%s)"
 
-#: inc/admin/laf/namespace.php:1723
+#: inc/admin/laf/namespace.php:1657
 msgid "Twitter URL"
 msgstr "URL de Twitter"
 
-#: inc/admin/laf/namespace.php:1724
+#: inc/admin/laf/namespace.php:1658
 msgid "LinkedIn URL"
 msgstr "URL de LinkedIn "
 
-#: inc/admin/laf/namespace.php:1725
+#: inc/admin/laf/namespace.php:1659
 msgid "GitHub URL"
 msgstr "URL de GitHub "
 
-#: inc/admin/laf/namespace.php:1771
+#: inc/admin/laf/namespace.php:1705
 msgid ""
 "Your institutional affiliation, e.g. Rebus Foundation, Open University, "
 "Amnesty International."
 msgstr "Votre affiliation institutionnelle, par exemple la Fondation Rebus, l'Université ouverte, Amnesty International."
+
+#: inc/admin/menus/class-sidebar.php:208 inc/admin/menus/class-sidebar.php:209
+#: inc/admin/menus/class-topbar.php:139
+msgid "Appearance"
+msgstr "Apparence"
+
+#: inc/admin/menus/class-sidebar.php:218 inc/admin/menus/class-sidebar.php:219
+#: inc/admin/menus/class-topbar.php:144
+msgid "Pages"
+msgstr "Pages"
+
+#: inc/admin/menus/class-sidebar.php:229 inc/admin/menus/class-sidebar.php:230
+#: inc/admin/menus/class-sidebar.php:428 inc/admin/menus/class-sidebar.php:429
+#: inc/admin/menus/class-topbar.php:154
+msgid "Settings"
+msgstr "Paramètres"
+
+#: inc/admin/menus/class-sidebar.php:240 inc/admin/menus/class-sidebar.php:241
+#: inc/admin/menus/class-sidebar.php:496 inc/admin/menus/class-sidebar.php:497
+msgid "Network Options"
+msgstr "Options Réseau"
+
+#: inc/admin/menus/class-sidebar.php:253 inc/admin/menus/class-sidebar.php:254
+#: inc/admin/menus/class-sidebar.php:283 inc/admin/menus/class-sidebar.php:284
+#: inc/admin/menus/class-sidebar.php:575 inc/admin/menus/class-sidebar.php:576
+#: inc/admin/menus/class-topbar.php:159
+msgid "Stats"
+msgstr "Statistiques"
+
+#: inc/admin/menus/class-sidebar.php:265 inc/admin/menus/class-sidebar.php:266
+msgid "Network Stats"
+msgstr "Statistiques du Réseau"
+
+#: inc/admin/menus/class-sidebar.php:274 inc/admin/menus/class-sidebar.php:275
+#: inc/admin/menus/class-sidebar.php:293 inc/admin/menus/class-sidebar.php:294
+msgid "Analytics"
+msgstr "Analytique"
+
+#: inc/admin/menus/class-sidebar.php:313 inc/admin/menus/class-sidebar.php:314
+msgid "Upgrade Network"
+msgstr "Mettre à niveau le réseau"
+
+#: inc/admin/menus/class-sidebar.php:326 inc/admin/menus/class-sidebar.php:327
+#: inc/admin/menus/class-sidebar.php:335 inc/admin/menus/class-sidebar.php:336
+msgid "Network Users"
+msgstr "Utilisateurs du réseau"
+
+#: inc/admin/menus/class-sidebar.php:346 inc/admin/menus/class-sidebar.php:347
+msgid "Root Site Users"
+msgstr "Utilisateurs du site principal"
+
+#: inc/admin/menus/class-sidebar.php:357 inc/admin/menus/class-sidebar.php:358
+msgid "User Activation Keys"
+msgstr "Clés d'activation utilisateur"
+
+#: inc/admin/menus/class-sidebar.php:407 inc/admin/menus/class-sidebar.php:408
+msgid "Network Plugins"
+msgstr "Plugins réseau"
+
+#: inc/admin/menus/class-sidebar.php:419 inc/admin/menus/class-sidebar.php:420
+msgid "Root Site Plugins"
+msgstr "Plugins du site principal"
+
+#: inc/admin/menus/class-sidebar.php:441 inc/admin/menus/class-sidebar.php:442
+msgid "Network Settings"
+msgstr "Paramètres réseau"
+
+#: inc/admin/menus/class-sidebar.php:449 inc/admin/menus/class-sidebar.php:450
+msgid "Network Setup"
+msgstr "Configuration du réseau"
+
+#: inc/admin/menus/class-sidebar.php:457 inc/admin/menus/class-sidebar.php:458
+#: inc/admin/networkmanagers/namespace.php:20
+#: inc/admin/networkmanagers/namespace.php:21
+msgid "Network Managers"
+msgstr "Administrateurs de réseau"
+
+#: inc/admin/menus/class-sidebar.php:466 inc/admin/menus/class-sidebar.php:467
+msgid "Whitelabel Settings"
+msgstr "Paramètres de marque blanche"
+
+#: inc/admin/menus/class-sidebar.php:476 inc/admin/menus/class-sidebar.php:477
+msgid "Object Cache"
+msgstr "Cache d'objet"
+
+#: inc/admin/menus/class-sidebar.php:485 inc/admin/menus/class-sidebar.php:486
+#: inc/class-googleanalytics.php:69 inc/class-googleanalytics.php:70
+#: inc/class-googleanalytics.php:79 inc/class-googleanalytics.php:80
+#: inc/class-googleanalytics.php:217 inc/class-googleanalytics.php:267
+msgid "Google Analytics"
+msgstr "Google Analytics"
+
+#: inc/admin/menus/class-sidebar.php:504 inc/admin/menus/class-sidebar.php:505
+msgid "Sharing & Privacy"
+msgstr "Partage et confidentialité"
+
+#: inc/admin/menus/class-sidebar.php:516 inc/admin/menus/class-sidebar.php:517
+msgid "Root Site General Settings"
+msgstr "Paramètres généraux du site principal"
+
+#: inc/admin/menus/class-sidebar.php:529 inc/admin/menus/class-sidebar.php:530
+msgid "Root Site Media Settings"
+msgstr "Paramètres multimédias du site principal"
+
+#: inc/admin/menus/class-sidebar.php:542 inc/admin/menus/class-sidebar.php:543
+msgid "Root Site Privacy Settings"
+msgstr "Paramètres de confidentialité du site principal"
+
+#: inc/admin/menus/class-sidebar.php:554 inc/admin/menus/class-sidebar.php:555
+#: inc/admin/menus/class-sidebar.php:565 inc/admin/menus/class-sidebar.php:566
+msgid "PB Stats"
+msgstr ""
+
+#: inc/admin/menus/class-topbar.php:109
+msgid "About Pressbooks"
+msgstr "À propos de Pressbooks"
+
+#: inc/admin/menus/class-topbar.php:165
+msgid "Administer Network"
+msgstr "Administrer le réseau"
+
+#: inc/admin/menus/class-topbar.php:244 inc/registration/namespace.php:59
+msgid "Create Book"
+msgstr "Créer un livre"
+
+#: inc/admin/menus/class-topbar.php:263
+msgid "Clone Book"
+msgstr "Dupliquer un livre"
+
+#: inc/admin/menus/class-topbar.php:277
+msgid "Add Users"
+msgstr "Ajouter des utilisateurs"
 
 #: inc/admin/metaboxes/namespace.php:104
 msgid ""
@@ -1170,11 +1296,10 @@ msgstr "Image de couverture"
 #: inc/admin/metaboxes/namespace.php:176 inc/admin/metaboxes/namespace.php:706
 #: inc/admin/metaboxes/namespace.php:768
 #: inc/api/endpoints/controller/class-toc.php:202 inc/class-sass.php:89
-#: inc/modules/export/epub/class-epub.php:1912
-#: inc/modules/themeoptions/class-globaloptions.php:563
+#: inc/modules/export/epub/class-epub.php:1932
+#: inc/modules/themeoptions/class-globaloptions.php:598
 #: inc/posttype/namespace.php:87 inc/posttype/namespace.php:542
 #: inc/posttype/namespace.php:580 templates/admin/import.php:94
-#: tests/test-posttype.php:259
 msgid "Part"
 msgstr "Partie"
 
@@ -1276,10 +1401,8 @@ msgid "Publication Date"
 msgstr "Date de publication"
 
 #: inc/admin/metaboxes/namespace.php:331 inc/admin/metaboxes/namespace.php:341
-msgid ""
-"This is added to the metadata in your ebook. Please write date in YYYY-MM-DD"
-" format."
-msgstr "Ceci est ajouté aux métadonnées de votre livre numérique. Veuillez écrire la date au format AAAA-MM-JJ."
+msgid "This is added to the metadata in your ebook."
+msgstr "Cela est ajouté aux métadonnées dans votre livre numérique."
 
 #: inc/admin/metaboxes/namespace.php:340
 msgid "On-Sale Date"
@@ -1325,9 +1448,9 @@ msgstr "Active les métadonnées dans votre livre numérique, ce qui le rend plu
 msgid "Help translate Pressbooks into your language!"
 msgstr "Aidez à traduire Pressbooks dans votre langue!"
 
-#: inc/admin/metaboxes/namespace.php:391 inc/class-licensing.php:329
-#: inc/modules/export/epub/class-epub.php:1403
-#: inc/modules/export/epub/class-epub.php:1425
+#: inc/admin/metaboxes/namespace.php:391 inc/class-licensing.php:333
+#: inc/modules/export/epub/class-epub.php:1423
+#: inc/modules/export/epub/class-epub.php:1445
 #: inc/modules/export/htmlbook/class-htmlbook.php:855
 #: inc/modules/export/xhtml/class-xhtml11.php:1074
 msgid "Copyright"
@@ -1669,7 +1792,6 @@ msgid "Owner"
 msgstr "Propriétaire"
 
 #: inc/admin/network/class-networksettings.php:62
-#: tests/test-networksettings.php:29
 msgid "Theme Settings"
 msgstr "Paramètres du thème"
 
@@ -1689,65 +1811,65 @@ msgstr "Bannière d'appel à l'action"
 msgid "Display the CTA banner"
 msgstr "Afficher la bannière d'appel à l'action"
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:81
+#: inc/admin/network/class-sharingandprivacyoptions.php:95
 msgid "Allow Redistribution"
 msgstr "Autoriser la redistribution"
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:87
+#: inc/admin/network/class-sharingandprivacyoptions.php:101
 msgid "Allow book administrators to enable redistribution of export files."
 msgstr "Autoriser les administrateurs du livre à activer la redistribution des fichiers exportés."
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:93
+#: inc/admin/network/class-sharingandprivacyoptions.php:107
 msgid "Enable network API"
 msgstr "Activer l&rsquo;interface réseau API"
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:99
+#: inc/admin/network/class-sharingandprivacyoptions.php:113
 msgid "Enable access to your network of books via the Pressbooks REST API."
 msgstr "Autoriser l&rsquo;accès à votre réseau de livres au moyen de l&rsquo;interface REST API de Pressbooks."
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:105
+#: inc/admin/network/class-sharingandprivacyoptions.php:119
 msgid "Enable Cloning"
 msgstr "Activer le clonage"
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:111
+#: inc/admin/network/class-sharingandprivacyoptions.php:125
 msgid "Enable book cloning via the Pressbooks REST API."
 msgstr "Activer le clonage de livre par l&rsquo;interface REST API de Pressbooks."
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:117
+#: inc/admin/network/class-sharingandprivacyoptions.php:131
 msgid "Enable CC with Weblinks"
 msgstr "Activer CC avec liens web"
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:123
+#: inc/admin/network/class-sharingandprivacyoptions.php:137
 msgid "Allow users to produce Common Cartridge exports with simple Web Links."
 msgstr "Laisser les utilisateurs produire le format « Common Cartridge » avec liens web simples."
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:129
+#: inc/admin/network/class-sharingandprivacyoptions.php:143
 msgid "Book directory"
 msgstr "Répertoire de livres"
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:135
+#: inc/admin/network/class-sharingandprivacyoptions.php:149
 msgid "Exclude non-catalogued public books from Pressbooks Directory."
 msgstr "Exclure les livres publics non catalogués du répertoire Pressbooks."
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:141
+#: inc/admin/network/class-sharingandprivacyoptions.php:155
 msgid "Iframe Allowlist"
 msgstr "Liste de Iframe autorisées"
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:146
+#: inc/admin/network/class-sharingandprivacyoptions.php:160
 msgid ""
 "To allowlist all content from a domain: <code>guide.pressbooks.com</code> To"
 " allowlist a path: <code>//guide.pressbooks.com/some/path/</code> One per "
 "line."
 msgstr "Pour autoriser tout le contenu d'un domaine<code>guide.pressbooks.com</code> Pour autoriser un chemin web <code>//guide.pressbooks.com/certain/chemin/</code> Un par ligne. "
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:162
+#: inc/admin/network/class-sharingandprivacyoptions.php:176
 msgid "Sharing and Privacy settings."
 msgstr "Paramètres de partage et de confidentialité."
 
-#: inc/admin/networkmanagers/namespace.php:20
-#: inc/admin/networkmanagers/namespace.php:21
-msgid "Network Managers"
-msgstr "Administrateurs de réseau"
+#: inc/admin/network/class-sharingandprivacyoptions.php:202
+#: inc/class-googleanalytics.php:230
+msgid "Settings saved."
+msgstr "Paramètres sauvegardés"
 
 #: inc/admin/networkmanagers/namespace.php:109
 msgid "Pressbooks Network Managers"
@@ -1768,7 +1890,7 @@ msgid ""
 " image formats."
 msgstr "Veuillez noter que tout contenu fourni par un service tiers distant, comme WP QuickLaTeX, peut ne pas être sécuritaire à 100 %. Le plugin WP QuickLaTeX comprend également un paramètre avancé qui permet aux utilisateurs de créer et d'afficher des fichiers SVG, un format qui peut présenter un risque de sécurité plus élevé que les autres formats d'image."
 
-#: inc/admin/users/class-userbulk.php:66 inc/admin/users/class-userbulk.php:67
+#: inc/admin/users/class-userbulk.php:68 inc/admin/users/class-userbulk.php:69
 msgid "Bulk Add"
 msgstr "Ajout en Vrac"
 
@@ -1776,30 +1898,54 @@ msgstr "Ajout en Vrac"
 msgid "Invalid email address"
 msgstr "Courriel invalide"
 
-#: inc/admin/users/class-userbulk.php:243
+#: inc/admin/users/class-userbulk.php:240
 msgid "The following user(s) could not be added."
 msgstr "Le ou les utilisateurs suivants n'ont pas pu être ajoutés."
 
-#: inc/admin/users/class-userbulk.php:246
+#: inc/admin/users/class-userbulk.php:244
 msgid "User(s) successfully added to this book."
 msgstr "Utilisateur(s) ajouté(s) avec succès à ce livre."
 
-#: inc/admin/users/class-userbulk.php:249
+#: inc/admin/users/class-userbulk.php:245
+msgid "User(s) successfully added to the network."
+msgstr "Utilisateur(s) ajouté(s) avec succès au réseau."
+
+#: inc/admin/users/class-userbulk.php:248
 msgid ""
 "An invitation email has been sent to the user(s) below. A confirmation link "
 "must be clicked before their account is created."
 msgstr "Un courriel d'invitation a été envoyé à l'utilisateur ou aux utilisateurs ci-dessous. Un lien de confirmation doit être cliqué pour que leur compte soit créé."
 
-#: inc/api/endpoints/controller/class-books.php:127
+#: inc/api/endpoints/controller/books/class-books.php:108
 #: inc/api/endpoints/controller/class-toc.php:151
 #: inc/api/endpoints/controller/class-toc.php:164
 #: inc/api/endpoints/controller/class-toc.php:177
 msgid "Metadata"
 msgstr "Métadonnées"
 
-#: inc/api/endpoints/controller/class-books.php:153
+#: inc/api/endpoints/controller/books/class-books.php:133
 msgid "ID offset, overrides page."
 msgstr "Le décalage de l&rsquo;ID, remplace la page."
+
+#: inc/api/endpoints/controller/books/class-books.php:140
+msgid "Timestamp for updated field."
+msgstr "Horodatage pour le champ mis à jour."
+
+#: inc/api/endpoints/controller/books/class-books.php:146
+msgid "Array of license codes to filter books."
+msgstr "Tableau de codes de licence pour filtrer les livres."
+
+#: inc/api/endpoints/controller/books/class-books.php:166
+msgid "Array of title filters to filter books."
+msgstr "Tableau de filtres de titres pour filtrer les livres."
+
+#: inc/api/endpoints/controller/books/class-books.php:177
+msgid "Boolean value to filter books by directory exclusion."
+msgstr "Valeur booléenne pour filtrer les livres par exclusion de répertoire."
+
+#: inc/api/endpoints/controller/books/class-books.php:183
+msgid "String value to filter books by word count range."
+msgstr "Valeur de chaîne pour filtrer les livres par plage de nombre de mots."
 
 #: inc/api/endpoints/controller/class-metadata.php:549
 #: inc/api/endpoints/controller/class-sectionmetadata.php:453
@@ -1856,11 +2002,11 @@ msgstr "Impossible de mettre à jour la partie"
 msgid "Main Body"
 msgstr "Corps du texte"
 
-#: inc/class-activation.php:210 tests/test-book.php:47
+#: inc/class-activation.php:210
 msgid "Introduction"
 msgstr "Introduction"
 
-#: inc/class-activation.php:212 tests/test-book.php:97
+#: inc/class-activation.php:212
 msgid "This is where you can write your introduction."
 msgstr "Vous pouvez écrire votre introduction ici."
 
@@ -1882,14 +2028,13 @@ msgstr "Annexes"
 msgid "This is where you can add appendices or other back matter."
 msgstr "Vous pouvez ajouter des annexes ou une parties annexes ici."
 
-#: inc/class-activation.php:232 tests/test-cloner.php:52
-#: templates/admin/organize.blade.php:131
+#: inc/class-activation.php:232 templates/admin/organize.blade.php:131
 #: templates/admin/organize.blade.php:215
 msgid "Authors"
 msgstr "Auteurs"
 
 #: inc/class-activation.php:242
-#: inc/modules/themeoptions/class-pdfoptions.php:287 tests/test-cloner.php:62
+#: inc/modules/themeoptions/class-pdfoptions.php:322
 #: templates/export/epub/toc.blade.php:13
 msgid "Table of Contents"
 msgstr "Table des matières"
@@ -2023,13 +2168,13 @@ msgstr "GitHub"
 msgid "GitHub profile for this contributor. Must be a valid URL."
 msgstr "Profil GitHub de ce contributeur. Il doit s'agir d'une URL valide."
 
-#: inc/class-contributors.php:577
+#: inc/class-contributors.php:575
 msgid ""
-"<p>Import multiple contributors at once by uploading a valid JSON file. See "
-"<a href=\"%s\" target=\"_blank\">our guide</a> for details.</p>"
-msgstr "<p>Importez plusieurs contributeurs à la fois en téléchargeant un fichier JSON valide. Consultez <a href=\"%s\" target=\"_blank\">notre guide</a> pour plus de détails.</p>"
+"Import multiple contributors at once by uploading a valid JSON file. See <a "
+"href=\"%s\" target=\"_blank\">our guide</a> for details."
+msgstr "Importez plusieurs contributeurs à la fois en téléchargeant un fichier JSON valide. Consultez <a href=\"%s\" target=\"_blank\">notre guide</a> pour plus de détails."
 
-#: inc/class-contributors.php:581
+#: inc/class-contributors.php:578
 msgid "Import Contributors"
 msgstr "Importer des contributeurs"
 
@@ -2234,9 +2379,33 @@ msgstr "Tibétain"
 msgid "Turkish"
 msgstr "Turc"
 
-#: inc/class-globaltypography.php:469
+#: inc/class-globaltypography.php:470
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr "Votre police %1$s n&rsquo;a pas pu être téléchargée à partir de %2$s."
+
+#: inc/class-googleanalytics.php:27
+msgid "Google Analytics ID"
+msgstr "ID Google Analytics"
+
+#: inc/class-googleanalytics.php:28
+msgid ""
+"The Google Analytics ID for your network, e.g &lsquo;G-A123B4C5DE6&rsquo;."
+msgstr "L'identifiant Google Analytics pour votre réseau, par exemple &lsquo;G-A123B4C5DE6&rsquo;."
+
+#: inc/class-googleanalytics.php:118
+msgid "Site-Specific Tracking"
+msgstr "Suivi spécifique au site"
+
+#: inc/class-googleanalytics.php:123
+msgid ""
+"If enabled, the Google Analytics settings page will be visible to book "
+"administrators, allowing them to use their own Google Analytics accounts to "
+"track statistics at the book level."
+msgstr "Si cette option est activée, les administrateurs du livre pourront voir la page des paramètres Google Analytics, ce qui leur permettra d&rsquo;utiliser leurs propres comptes Google Analytics pour faire le suivi des statistiques sur le livre."
+
+#: inc/class-googleanalytics.php:197
+msgid "Google Analytics settings."
+msgstr "Paramètres Google Analytics."
 
 #: inc/class-licensing.php:57
 msgid "Public Domain"
@@ -2298,45 +2467,47 @@ msgid ""
 "License"
 msgstr "Licence Creative Commons Attribution - Pas d&rsquo;utilisation commerciale - Pas de modification 4.0 International"
 
-#: inc/class-licensing.php:139 inc/class-licensing.php:334
+#: inc/class-licensing.php:139 inc/class-licensing.php:338
 msgid "All Rights Reserved"
 msgstr "Tous droits réservés"
 
-#: inc/class-licensing.php:213
+#: inc/class-licensing.php:217
 msgid ""
 "$title is deprecated. Method will automatically determine title from "
 "licenses"
 msgstr "$titre désapprouvé. La méthode déterminera le titre automatiquement à partir des licences."
 
-#: inc/class-licensing.php:331 inc/class-styles.php:824
-#: inc/modules/export/epub/class-epub.php:1412
+#: inc/class-licensing.php:335 inc/class-styles.php:824
+#: inc/modules/export/epub/class-epub.php:1432
 #: inc/modules/export/htmlbook/class-htmlbook.php:864
 #: inc/modules/export/xhtml/class-xhtml11.php:1083
 #: templates/export/epub/opf.blade.php:100
 msgid "by"
 msgstr "par"
 
-#: inc/class-licensing.php:390
+#: inc/class-licensing.php:394
 msgid "except where otherwise noted."
 msgstr "sauf indication contraire."
 
-#: inc/class-licensing.php:417 inc/class-licensing.php:441
+#: inc/class-licensing.php:421 inc/class-licensing.php:446
 msgid "%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved."
 msgstr "%1$s&copy; %2$s par %3$s. Tous droits réservés."
 
-#: inc/class-licensing.php:429
+#: inc/class-licensing.php:433
 msgid "Icon for the %s"
 msgstr "Symbole de %s"
 
-#: inc/class-licensing.php:431
-msgid "%1$s by %2$s is licensed under a %3$s, except where otherwise noted."
-msgstr "%1$s de %2$s est sous une licence %3$s, sauf indication contraire."
+#: inc/class-licensing.php:435 inc/class-licensing.php:482
+msgid ""
+"%1$s Copyright &copy;%2$s by %3$s is licensed under a %4$s, except where "
+"otherwise noted."
+msgstr "%1$s Droit d'auteur &copy;%2$s par %3$s est sous licence %4$s, sauf indication contraire."
 
-#: inc/class-licensing.php:450 inc/class-licensing.php:460
+#: inc/class-licensing.php:455 inc/class-licensing.php:465
 msgid "Icon for the %s license"
 msgstr "Icône de la licence %s"
 
-#: inc/class-licensing.php:452
+#: inc/class-licensing.php:457
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
 msgstr "Cette oeuvre (%1$s de %2$s) n&rsquo;a aucune restriction de droit d’auteur connue."
 
@@ -2451,15 +2622,15 @@ msgstr "Rubik"
 msgid "Source Sans Pro"
 msgstr "Source Sans Pro"
 
-#: inc/class-styles.php:702 tests/test-styles.php:215
+#: inc/class-styles.php:702
 msgid "Theme default"
 msgstr "Thème par défaut"
 
-#: inc/class-styles.php:703 inc/class-styles.php:717 tests/test-styles.php:216
+#: inc/class-styles.php:703 inc/class-styles.php:717
 msgid "Serif"
 msgstr "Serif"
 
-#: inc/class-styles.php:704 tests/test-styles.php:217
+#: inc/class-styles.php:704
 msgid "Sans serif"
 msgstr "Sans serif"
 
@@ -2510,7 +2681,7 @@ msgid "Cloning back matter"
 msgstr "Clonage des parties annexes"
 
 #: inc/cloner/class-cloner.php:545 inc/covergenerator/class-generator.php:298
-#: inc/modules/export/epub/class-epub.php:666
+#: inc/modules/export/epub/class-epub.php:663
 #: inc/modules/import/class-import.php:373
 msgid "Finishing up"
 msgstr "Presque fini"
@@ -2737,7 +2908,7 @@ msgstr "Citation en vedette (droite)"
 
 #: inc/editor/namespace.php:318 inc/editor/namespace.php:360
 #: inc/editor/namespace.php:374
-#: inc/modules/themeoptions/class-weboptions.php:120 languages/tinymce.php:7
+#: inc/modules/themeoptions/class-weboptions.php:155 languages/tinymce.php:7
 msgid "Standard"
 msgstr "Normale"
 
@@ -2934,75 +3105,75 @@ msgstr "Exportation réussie"
 msgid "Validating file"
 msgstr "Validation du fichier"
 
-#: inc/modules/export/epub/class-epub.php:665
+#: inc/modules/export/epub/class-epub.php:662
 #: inc/modules/export/xhtml/class-xhtml11.php:258
 msgid "Validation successful"
 msgstr "Validation réussie"
 
-#: inc/modules/export/epub/class-epub.php:962
+#: inc/modules/export/epub/class-epub.php:959
 msgid "Compiling styles"
 msgstr "Compilation des styles"
 
-#: inc/modules/export/epub/class-epub.php:971
+#: inc/modules/export/epub/class-epub.php:968
 #: inc/modules/export/xhtml/class-xhtml11.php:431
 msgid "Creating cover"
 msgstr "Création de la page couverture"
 
-#: inc/modules/export/epub/class-epub.php:978
+#: inc/modules/export/epub/class-epub.php:975
 #: inc/modules/export/xhtml/class-xhtml11.php:435
 msgid "Creating title page"
 msgstr "Création de la page titre"
 
-#: inc/modules/export/epub/class-epub.php:982
+#: inc/modules/export/epub/class-epub.php:979
 #: inc/modules/export/xhtml/class-xhtml11.php:439
 msgid "Creating copyright page"
 msgstr "Création de la page du droit d&rsquo;auteur"
 
-#: inc/modules/export/epub/class-epub.php:986
+#: inc/modules/export/epub/class-epub.php:983
 msgid "Exporting dedication and epigraph"
 msgstr "Exportation de la dédicace et de l&rsquo;épigraphe"
 
-#: inc/modules/export/epub/class-epub.php:990
-#: inc/modules/export/epub/class-epub.php:1557
+#: inc/modules/export/epub/class-epub.php:987
+#: inc/modules/export/epub/class-epub.php:1577
 #: inc/modules/export/xhtml/class-xhtml11.php:451
 #: inc/modules/export/xhtml/class-xhtml11.php:1255
 msgid "Exporting front matter"
 msgstr "Exportation des pages liminaires"
 
-#: inc/modules/export/epub/class-epub.php:997
-#: inc/modules/export/epub/class-epub.php:1658
-#: inc/modules/export/epub/class-epub.php:1688
+#: inc/modules/export/epub/class-epub.php:994
+#: inc/modules/export/epub/class-epub.php:1678
+#: inc/modules/export/epub/class-epub.php:1708
 #: inc/modules/export/xhtml/class-xhtml11.php:458
 #: inc/modules/export/xhtml/class-xhtml11.php:1321
 #: inc/modules/export/xhtml/class-xhtml11.php:1361
 msgid "Exporting parts and chapters"
 msgstr "Exportation des parties et des chapitres"
 
-#: inc/modules/export/epub/class-epub.php:1001
-#: inc/modules/export/epub/class-epub.php:1819
+#: inc/modules/export/epub/class-epub.php:998
+#: inc/modules/export/epub/class-epub.php:1839
 #: inc/modules/export/xhtml/class-xhtml11.php:462
 #: inc/modules/export/xhtml/class-xhtml11.php:1461
 msgid "Exporting back matter"
 msgstr "Exportation des parties annexes"
 
-#: inc/modules/export/epub/class-epub.php:1006
+#: inc/modules/export/epub/class-epub.php:1003
 #: inc/modules/export/xhtml/class-xhtml11.php:447
 msgid "Creating table of contents"
 msgstr "Création de la table des matières"
 
-#: inc/modules/export/epub/class-epub.php:1348
+#: inc/modules/export/epub/class-epub.php:1368
 msgid "Title Page"
 msgstr "Page titre"
 
-#: inc/modules/export/epub/class-epub.php:1613
+#: inc/modules/export/epub/class-epub.php:1633
 msgid "Make your own books using Pressbooks"
 msgstr "Créez vos propres livre avec Pressbooks"
 
-#: inc/modules/export/epub/class-epub.php:1871
+#: inc/modules/export/epub/class-epub.php:1891
 msgid "Table Of Contents"
 msgstr "Table des matières"
 
-#: inc/modules/export/epub/class-epub.php:1944
+#: inc/modules/export/epub/class-epub.php:1964
 #: inc/modules/export/htmlbook/class-htmlbook.php:979
 #: inc/modules/export/xhtml/class-xhtml11.php:1237
 msgid "Contents"
@@ -3021,7 +3192,7 @@ msgid ""
 msgstr "Certaines dépendances pour les exportations de %1$s sont introuvables. Veuillez vérifier que les <a href=\"%2$s\">directives d&rsquo;installation</a> ont été respectées."
 
 #: inc/modules/export/namespace.php:85
-#: inc/modules/themeoptions/class-globaloptions.php:420
+#: inc/modules/themeoptions/class-globaloptions.php:455
 #: inc/utility/namespace.php:1321 inc/utility/namespace.php:1326
 #: inc/utility/namespace.php:1360 inc/utility/namespace.php:1370
 #: inc/utility/namespace.php:1376 templates/admin/covergenerator.php:53
@@ -3132,11 +3303,11 @@ msgid "unpinned"
 msgstr "retiré des épingles"
 
 #: inc/modules/export/namespace.php:333
-msgid "%s Author"
-msgid_plural "%s Authors"
-msgstr[0] "%sAuteur"
-msgstr[1] "%s Auteurs"
-msgstr[2] "%s Auteures"
+msgid "About the author"
+msgid_plural "About the authors"
+msgstr[0] "À propos de l'auteur"
+msgstr[1] "À propos des auteurs"
+msgstr[2] "À propos des auteurs"
 
 #: inc/modules/export/prince/class-pdf.php:278
 msgid ""
@@ -3289,628 +3460,627 @@ msgstr "Options du thème"
 msgid "Theme Options Tabs"
 msgstr "Onglets options du thème"
 
-#: inc/modules/themeoptions/class-ebookoptions.php:81
-#: inc/modules/themeoptions/class-pdfoptions.php:86
-#: inc/modules/themeoptions/class-weboptions.php:85
+#: inc/modules/themeoptions/class-ebookoptions.php:116
+#: inc/modules/themeoptions/class-pdfoptions.php:121
+#: inc/modules/themeoptions/class-weboptions.php:120
 msgid "Header Font"
 msgstr "Police d'en-tête"
 
-#: inc/modules/themeoptions/class-ebookoptions.php:89
-#: inc/modules/themeoptions/class-pdfoptions.php:94
-#: inc/modules/themeoptions/class-weboptions.php:93
+#: inc/modules/themeoptions/class-ebookoptions.php:124
+#: inc/modules/themeoptions/class-pdfoptions.php:129
+#: inc/modules/themeoptions/class-weboptions.php:128
 msgid "Body Font"
 msgstr "Police du corps du texte"
 
-#: inc/modules/themeoptions/class-ebookoptions.php:99
+#: inc/modules/themeoptions/class-ebookoptions.php:134
 msgid "Ebook Start Point"
 msgstr "Point de départ du livre numérique"
 
-#: inc/modules/themeoptions/class-ebookoptions.php:104
+#: inc/modules/themeoptions/class-ebookoptions.php:139
 msgid ""
 "Note: This designated ebook start book may be overridden by some ereader "
 "devices."
 msgstr "Note&nbsp;: le début du livre numérique peut être remplacé par certaines liseuses."
 
-#: inc/modules/themeoptions/class-ebookoptions.php:111
-#: inc/modules/themeoptions/class-pdfoptions.php:262
-#: inc/modules/themeoptions/class-weboptions.php:128
+#: inc/modules/themeoptions/class-ebookoptions.php:146
+#: inc/modules/themeoptions/class-pdfoptions.php:297
+#: inc/modules/themeoptions/class-weboptions.php:163
 msgid "Paragraph Separation"
 msgstr "Séparation de paragraphe"
 
-#: inc/modules/themeoptions/class-ebookoptions.php:116
-#: inc/modules/themeoptions/class-pdfoptions.php:267
-#: inc/modules/themeoptions/class-weboptions.php:133
+#: inc/modules/themeoptions/class-ebookoptions.php:151
+#: inc/modules/themeoptions/class-pdfoptions.php:302
+#: inc/modules/themeoptions/class-weboptions.php:168
 msgid "Indent paragraphs"
 msgstr "Paragraphes en retrait"
 
-#: inc/modules/themeoptions/class-ebookoptions.php:117
-#: inc/modules/themeoptions/class-pdfoptions.php:268
-#: inc/modules/themeoptions/class-weboptions.php:134
+#: inc/modules/themeoptions/class-ebookoptions.php:152
+#: inc/modules/themeoptions/class-pdfoptions.php:303
+#: inc/modules/themeoptions/class-weboptions.php:169
 msgid "Skip lines between paragraphs"
 msgstr "Sauter une ligne entre les paragraphes"
 
-#: inc/modules/themeoptions/class-ebookoptions.php:123
+#: inc/modules/themeoptions/class-ebookoptions.php:158
 msgid "Compress Images"
 msgstr "Compresser les images"
 
-#: inc/modules/themeoptions/class-ebookoptions.php:128
+#: inc/modules/themeoptions/class-ebookoptions.php:163
 msgid "Reduce image size and quality"
 msgstr "Réduire la taille et la qualité de l&rsquo;image"
 
-#: inc/modules/themeoptions/class-ebookoptions.php:153
+#: inc/modules/themeoptions/class-ebookoptions.php:188
 msgid "These options apply to ebook exports."
 msgstr "Ces options s&rsquo;appliquent aux exportations de  livre numérique."
 
-#: inc/modules/themeoptions/class-ebookoptions.php:354
+#: inc/modules/themeoptions/class-ebookoptions.php:389
 msgid "Ebook Options"
 msgstr "Options du livre numérique"
 
-#: inc/modules/themeoptions/class-globaloptions.php:83
+#: inc/modules/themeoptions/class-globaloptions.php:118
 msgid "Part and Chapter Numbers"
 msgstr "Numéros de parties et de chapitres"
 
-#: inc/modules/themeoptions/class-globaloptions.php:88
+#: inc/modules/themeoptions/class-globaloptions.php:123
 msgid "Display part and chapter numbers"
 msgstr "Afficher les numéros de parties et de chapitres"
 
-#: inc/modules/themeoptions/class-globaloptions.php:94
+#: inc/modules/themeoptions/class-globaloptions.php:129
 msgid "Part Label"
 msgstr "Étiquette de la partie"
 
-#: inc/modules/themeoptions/class-globaloptions.php:99
+#: inc/modules/themeoptions/class-globaloptions.php:134
 msgid ""
 "The \"part\" label is used in the table of contents and in part titles in "
 "your webbook and exports."
 msgstr "L&rsquo;étiquette de la partie est utilisée dans la table des matières et dans les titres des parties de votre livre Web et de vos exportations."
 
-#: inc/modules/themeoptions/class-globaloptions.php:106
+#: inc/modules/themeoptions/class-globaloptions.php:141
 msgid "Chapter Label"
 msgstr "Étiquette de chapitre"
 
-#: inc/modules/themeoptions/class-globaloptions.php:111
+#: inc/modules/themeoptions/class-globaloptions.php:146
 msgid ""
 "The \"chapter\" label is used in the table of contents and in chapter titles"
 " in your webbook and exports."
 msgstr "L&rsquo;étiquette de chapitre est utilisée dans la table des matières et dans les titres des chapitres de votre livre Web et de vos exportations."
 
-#: inc/modules/themeoptions/class-globaloptions.php:118
+#: inc/modules/themeoptions/class-globaloptions.php:153
 msgid "Two-Level TOC"
 msgstr "TdM à deux niveaux"
 
-#: inc/modules/themeoptions/class-globaloptions.php:123
+#: inc/modules/themeoptions/class-globaloptions.php:158
 msgid ""
 "Enable two-level table of contents (displays headings under chapter titles)"
 msgstr "Activer la table des matières à deux niveaux (affiche les en-têtes sous le titre des chapitres)"
 
-#: inc/modules/themeoptions/class-globaloptions.php:129
+#: inc/modules/themeoptions/class-globaloptions.php:164
 msgid "About the Author"
 msgstr "À propos de l'auteur"
 
-#: inc/modules/themeoptions/class-globaloptions.php:134
-#: tests/test-options.php:466
+#: inc/modules/themeoptions/class-globaloptions.php:169
 msgid "Display information about authors at the end of each chapter"
 msgstr "Afficher des informations sur les auteurs à la fin de chaque chapitre"
 
-#: inc/modules/themeoptions/class-globaloptions.php:140
+#: inc/modules/themeoptions/class-globaloptions.php:175
 #: inc/shortcodes/attributions/class-attachments.php:262
 msgid "Media Attributions"
 msgstr "Mention de la source du contenu multimédia"
 
-#: inc/modules/themeoptions/class-globaloptions.php:145
+#: inc/modules/themeoptions/class-globaloptions.php:180
 msgid "Display attributions at the end of a chapter"
 msgstr "Afficher les mentions de la source à la fin d&rsquo;un chapitre"
 
-#: inc/modules/themeoptions/class-globaloptions.php:153
+#: inc/modules/themeoptions/class-globaloptions.php:188
 msgid "Language & Script Support"
 msgstr "Soutien pour la langue et le caractère d&rsquo;écriture"
 
-#: inc/modules/themeoptions/class-globaloptions.php:158
+#: inc/modules/themeoptions/class-globaloptions.php:193
 msgid "Include fonts to support the following languages and scripts:"
 msgstr "Comprend les polices nécessaires aux langues et aux caractères d&rsquo;écriture suivants&nbsp;:"
 
-#: inc/modules/themeoptions/class-globaloptions.php:172
+#: inc/modules/themeoptions/class-globaloptions.php:207
 msgid "Chapter Licenses"
 msgstr "Licences de chapitre"
 
-#: inc/modules/themeoptions/class-globaloptions.php:177
+#: inc/modules/themeoptions/class-globaloptions.php:212
 msgid "Do not display section level copyright license"
 msgstr "Masquer la license de droit d&rsquo;auteur du niveau de la section"
 
-#: inc/modules/themeoptions/class-globaloptions.php:178
+#: inc/modules/themeoptions/class-globaloptions.php:213
 msgid "Display section level license on table of contents in export formats"
 msgstr "Afficher la license de droit d&rsquo;auteur du niveau de la section dans la table des matières dans les versions exportées"
 
-#: inc/modules/themeoptions/class-globaloptions.php:179
+#: inc/modules/themeoptions/class-globaloptions.php:214
 msgid "Display section level license at end of chapter in export formats"
 msgstr "Afficher la license de droit d&rsquo;auteur du niveau de la section à la fin des chapitres dans les versions exportées"
 
-#: inc/modules/themeoptions/class-globaloptions.php:185
+#: inc/modules/themeoptions/class-globaloptions.php:220
 #: languages/tinymce.php:21
 msgid "Examples"
 msgstr "Exemples"
 
-#: inc/modules/themeoptions/class-globaloptions.php:186
+#: inc/modules/themeoptions/class-globaloptions.php:221
 #: languages/tinymce.php:18
 msgid "Exercises"
 msgstr "Exercices"
 
-#: inc/modules/themeoptions/class-globaloptions.php:187
+#: inc/modules/themeoptions/class-globaloptions.php:222
 #: languages/tinymce.php:15
 msgid "Key Takeaways"
 msgstr "Éléments clés à retenir"
 
-#: inc/modules/themeoptions/class-globaloptions.php:188
+#: inc/modules/themeoptions/class-globaloptions.php:223
 #: languages/tinymce.php:12
 msgid "Learning Objectives"
 msgstr "Objectifs d&rsquo;apprentissage"
 
-#: inc/modules/themeoptions/class-globaloptions.php:197
+#: inc/modules/themeoptions/class-globaloptions.php:232
 msgid "Customize colors for %s textboxes using the fields below."
 msgstr "Personnalisez les couleurs des boîtes de texte %s avec les champs ci-dessous."
 
-#: inc/modules/themeoptions/class-globaloptions.php:203
+#: inc/modules/themeoptions/class-globaloptions.php:238
 msgid "Header Color"
 msgstr "Couleur d&rsquo;en-tête"
 
-#: inc/modules/themeoptions/class-globaloptions.php:209
+#: inc/modules/themeoptions/class-globaloptions.php:244
 msgid "The header text color for a %s textbox."
 msgstr "La couleur du texte de l&rsquo;en-tête pour une boîte de texte %s."
 
-#: inc/modules/themeoptions/class-globaloptions.php:214
+#: inc/modules/themeoptions/class-globaloptions.php:249
 msgid "Header Background"
 msgstr "Arrière-plan de l&rsquo;en-tête"
 
-#: inc/modules/themeoptions/class-globaloptions.php:220
+#: inc/modules/themeoptions/class-globaloptions.php:255
 msgid "The header background color for a %s textbox."
 msgstr "La couleur d&rsquo;arrière-plan de l&rsquo;en-tête pour une boîte de texte %s."
 
-#: inc/modules/themeoptions/class-globaloptions.php:225
+#: inc/modules/themeoptions/class-globaloptions.php:260
 msgid "Background"
 msgstr "Arrière-plan"
 
-#: inc/modules/themeoptions/class-globaloptions.php:231
+#: inc/modules/themeoptions/class-globaloptions.php:266
 msgid "The background color for a %s textbox."
 msgstr "La couleur d&rsquo;arrière-plan pour une boîte de texte %s. "
 
-#: inc/modules/themeoptions/class-globaloptions.php:258
+#: inc/modules/themeoptions/class-globaloptions.php:293
 msgid "These options apply universally to webbook, PDF and ebook exports."
 msgstr "Ces options s&rsquo;appliquent à toutes les exportations de livres Web, de PDF et de livres numériques."
 
-#: inc/modules/themeoptions/class-globaloptions.php:429
+#: inc/modules/themeoptions/class-globaloptions.php:464
 msgid "Select languages&hellip;"
 msgstr "Sélectionner les langues&hellip;"
 
-#: inc/modules/themeoptions/class-globaloptions.php:437
+#: inc/modules/themeoptions/class-globaloptions.php:472
 msgid "This theme includes built-in support for %s."
 msgstr "Ce thème comprend un soutien intégré pour%s."
 
-#: inc/modules/themeoptions/class-globaloptions.php:545
+#: inc/modules/themeoptions/class-globaloptions.php:580
 msgid "Global Options"
 msgstr "Options générales"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:105
+#: inc/modules/themeoptions/class-pdfoptions.php:140
 msgid "Body Font Size"
 msgstr "Taille de la police du corps du texte"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:110
+#: inc/modules/themeoptions/class-pdfoptions.php:145
 msgid ""
 "Heading sizes are proportional to the body font size and will also be "
 "affected by this setting."
 msgstr "La taille de police des en-têtes est proportionnelle à la taille de la police de caractères du corps du texte et sera aussi modifiée par ce paramètre. "
 
-#: inc/modules/themeoptions/class-pdfoptions.php:118
+#: inc/modules/themeoptions/class-pdfoptions.php:153
 msgid "Footnote Font Size"
 msgstr "Taille de la police des notes de bas de page"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:131
+#: inc/modules/themeoptions/class-pdfoptions.php:166
 msgid "Body Line Height"
 msgstr "Hauteur de la ligne de caractère du corps du texte"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:145
+#: inc/modules/themeoptions/class-pdfoptions.php:180
 msgid "Page Size"
 msgstr "Taille de page"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:150
+#: inc/modules/themeoptions/class-pdfoptions.php:185
 msgid "Digest (5.5&quot; &times; 8.5&quot;)"
 msgstr "Résumé (5,5&quot; &times; 8,5&quot;)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:151
+#: inc/modules/themeoptions/class-pdfoptions.php:186
 msgid "US Trade (6&quot; &times; 9&quot;)"
 msgstr "Commerce américain (6&quot; &times; 9&quot;)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:152
+#: inc/modules/themeoptions/class-pdfoptions.php:187
 msgid "US Letter (8.5&quot; &times; 11&quot;)"
 msgstr "Lettre au format américain (8,5&quot; &times; 11&quot;)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:153
+#: inc/modules/themeoptions/class-pdfoptions.php:188
 msgid "Custom (8.5&quot; &times; 9.25&quot;)"
 msgstr "Personnalisé (8,5&quot; &times; 9,25&quot;)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:154
+#: inc/modules/themeoptions/class-pdfoptions.php:189
 msgid "Duodecimo (5&quot; &times; 7.75&quot;)"
 msgstr "Duodecimo (5&quot; &times; 7,75&quot;)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:155
+#: inc/modules/themeoptions/class-pdfoptions.php:190
 msgid "Pocket (4.25&quot; &times; 7&quot;)"
 msgstr "Pocket (4,25&quot; &times; 7&quot;)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:156
+#: inc/modules/themeoptions/class-pdfoptions.php:191
 msgid "A4 (21cm &times; 29.7cm)"
 msgstr "A4 (21 cm &times; 29,7 cm)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:157
+#: inc/modules/themeoptions/class-pdfoptions.php:192
 msgid "A5 (14.8cm &times; 21cm)"
 msgstr "A5 (14.8cm &times; 21cm)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:158
+#: inc/modules/themeoptions/class-pdfoptions.php:193
 msgid "5&quot; &times; 8&quot;"
 msgstr "5&quot; &times; 8&quot;"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:166
+#: inc/modules/themeoptions/class-pdfoptions.php:201
 msgid "Page Width"
 msgstr "Largeur de page"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:171
+#: inc/modules/themeoptions/class-pdfoptions.php:206
 msgid ""
 "Page width must be expressed in CSS-compatible units, e.g. "
 "&lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;."
 msgstr "La largeur de la page doit être exprimée en unités compatibles CSS, par ex. '5.5in' ou '10cm'."
 
-#: inc/modules/themeoptions/class-pdfoptions.php:178
+#: inc/modules/themeoptions/class-pdfoptions.php:213
 msgid "Page Height"
 msgstr "Hauteur de page"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:183
+#: inc/modules/themeoptions/class-pdfoptions.php:218
 msgid ""
 "Page height must be expressed in CSS-compatible units, e.g. "
 "&lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;."
 msgstr "La hauteur de la page doit être exprimée en unités compatibles CSS, par ex. '8.5in' ou '10cm'."
 
-#: inc/modules/themeoptions/class-pdfoptions.php:191
+#: inc/modules/themeoptions/class-pdfoptions.php:226
 msgid "Margins"
 msgstr "Marges"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:196
+#: inc/modules/themeoptions/class-pdfoptions.php:231
 msgid "Customize your book&rsquo;s margins using the fields below."
 msgstr "Personnalisez les marges de votre livre avec les champs ci-dessous."
 
-#: inc/modules/themeoptions/class-pdfoptions.php:202
-#: inc/modules/themeoptions/class-pdfoptions.php:927
+#: inc/modules/themeoptions/class-pdfoptions.php:237
+#: inc/modules/themeoptions/class-pdfoptions.php:962
 msgid "Outside Margin"
 msgstr "Marge extérieure"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:207
-#: inc/modules/themeoptions/class-pdfoptions.php:219
-#: inc/modules/themeoptions/class-pdfoptions.php:231
-#: inc/modules/themeoptions/class-pdfoptions.php:243
+#: inc/modules/themeoptions/class-pdfoptions.php:242
+#: inc/modules/themeoptions/class-pdfoptions.php:254
+#: inc/modules/themeoptions/class-pdfoptions.php:266
+#: inc/modules/themeoptions/class-pdfoptions.php:278
 msgid ""
 "Margins must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo; "
 "or &lsquo;10cm&rsquo;."
 msgstr "Les marges doivent être indiquées en unités CSS, par exemple&nbsp;: &lsquo;8,5 in&rsquo; or &lsquo;10 cm&rsquo;."
 
-#: inc/modules/themeoptions/class-pdfoptions.php:214
-#: inc/modules/themeoptions/class-pdfoptions.php:928
+#: inc/modules/themeoptions/class-pdfoptions.php:249
+#: inc/modules/themeoptions/class-pdfoptions.php:963
 msgid "Inside Margin"
 msgstr "Marge intérieure"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:226
-#: inc/modules/themeoptions/class-pdfoptions.php:929
+#: inc/modules/themeoptions/class-pdfoptions.php:261
+#: inc/modules/themeoptions/class-pdfoptions.php:964
 msgid "Top Margin"
 msgstr "Marge supérieure"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:238
-#: inc/modules/themeoptions/class-pdfoptions.php:930
+#: inc/modules/themeoptions/class-pdfoptions.php:273
+#: inc/modules/themeoptions/class-pdfoptions.php:965
 msgid "Bottom Margin"
 msgstr "Marge inférieure"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:251
+#: inc/modules/themeoptions/class-pdfoptions.php:286
 msgid "Hyphens"
 msgstr "Traits d&rsquo;union"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:256
+#: inc/modules/themeoptions/class-pdfoptions.php:291
 msgid "Enable hyphenation"
 msgstr "Autoriser les coupures de mots"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:274
+#: inc/modules/themeoptions/class-pdfoptions.php:309
 msgid "Section Openings"
 msgstr "Section en regard"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:279
+#: inc/modules/themeoptions/class-pdfoptions.php:314
 msgid "Left or right page section opening (for print PDF)"
 msgstr "Section en regard gauche ou droite (PDF imprimé)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:280
+#: inc/modules/themeoptions/class-pdfoptions.php:315
 msgid "Right page section openings (for print PDF)"
 msgstr "Section en regard droite (PDF imprimé)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:281
+#: inc/modules/themeoptions/class-pdfoptions.php:316
 msgid "No blank pages (for web PDF)"
 msgstr "Aucune page vierge (pour PDF sur le web)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:292
+#: inc/modules/themeoptions/class-pdfoptions.php:327
 msgid "Display table of contents"
 msgstr "Afficher la table des matières"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:298
+#: inc/modules/themeoptions/class-pdfoptions.php:333
 msgid "Crop Marks"
 msgstr "Lignes de rognage"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:303
+#: inc/modules/themeoptions/class-pdfoptions.php:338
 msgid "Display crop marks"
 msgstr "Afficher les lignes de rognage"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:310
+#: inc/modules/themeoptions/class-pdfoptions.php:345
 msgid "Romanize Part Numbers"
 msgstr "Numéros de parties en chiffre romain"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:315
+#: inc/modules/themeoptions/class-pdfoptions.php:350
 msgid "Convert part numbers into Roman numerals"
 msgstr "Convertir les numéros de partie en chiffre romain."
 
-#: inc/modules/themeoptions/class-pdfoptions.php:322
+#: inc/modules/themeoptions/class-pdfoptions.php:357
 msgid "Footnote Style"
 msgstr "Style des notes de bas de page"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:327
+#: inc/modules/themeoptions/class-pdfoptions.php:362
 msgid "Regular footnotes"
 msgstr "Notes de bas de page ordinaires"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:328
+#: inc/modules/themeoptions/class-pdfoptions.php:363
 msgid "Display as chapter endnotes"
 msgstr "Afficher comme notes de fin de chapitre"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:334
+#: inc/modules/themeoptions/class-pdfoptions.php:369
 msgid "Widows"
 msgstr "Veuves"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:345
+#: inc/modules/themeoptions/class-pdfoptions.php:380
 msgid "Orphans"
 msgstr "Orphelins"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:357
+#: inc/modules/themeoptions/class-pdfoptions.php:392
 msgid "Running Heads & Feet"
 msgstr "Titres courants et titres courants en bas de page"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:362
+#: inc/modules/themeoptions/class-pdfoptions.php:397
 msgid ""
 "Running content appears in either running heads or running feet (at the top "
 "or bottom of the page) depending on your theme."
 msgstr "Contenu courant qui figure dans les titres courants (en haut ou en bas de page) selon le thème."
 
-#: inc/modules/themeoptions/class-pdfoptions.php:368
+#: inc/modules/themeoptions/class-pdfoptions.php:403
 msgid "Front Matter Left Page Running Content"
 msgstr "Contenu courant de la page liminaire gauche"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:374
-#: inc/modules/themeoptions/class-pdfoptions.php:393
-#: inc/modules/themeoptions/class-pdfoptions.php:412
-#: inc/modules/themeoptions/class-pdfoptions.php:431
-#: inc/modules/themeoptions/class-pdfoptions.php:450
-#: inc/modules/themeoptions/class-pdfoptions.php:468
-#: inc/modules/themeoptions/class-pdfoptions.php:486
-#: inc/modules/themeoptions/class-pdfoptions.php:507
-#: inc/modules/themeoptions/class-pdfoptions.php:528
-#: inc/modules/themeoptions/class-pdfoptions.php:547
+#: inc/modules/themeoptions/class-pdfoptions.php:409
+#: inc/modules/themeoptions/class-pdfoptions.php:428
+#: inc/modules/themeoptions/class-pdfoptions.php:447
+#: inc/modules/themeoptions/class-pdfoptions.php:466
+#: inc/modules/themeoptions/class-pdfoptions.php:485
+#: inc/modules/themeoptions/class-pdfoptions.php:503
+#: inc/modules/themeoptions/class-pdfoptions.php:521
+#: inc/modules/themeoptions/class-pdfoptions.php:542
+#: inc/modules/themeoptions/class-pdfoptions.php:563
+#: inc/modules/themeoptions/class-pdfoptions.php:582
 msgid "Book Subtitle"
 msgstr "Sous-titre du livre"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:375
-#: inc/modules/themeoptions/class-pdfoptions.php:394
-#: inc/modules/themeoptions/class-pdfoptions.php:413
-#: inc/modules/themeoptions/class-pdfoptions.php:432
-#: inc/modules/themeoptions/class-pdfoptions.php:451
-#: inc/modules/themeoptions/class-pdfoptions.php:469
-#: inc/modules/themeoptions/class-pdfoptions.php:487
-#: inc/modules/themeoptions/class-pdfoptions.php:508
-#: inc/modules/themeoptions/class-pdfoptions.php:529
-#: inc/modules/themeoptions/class-pdfoptions.php:548
+#: inc/modules/themeoptions/class-pdfoptions.php:410
+#: inc/modules/themeoptions/class-pdfoptions.php:429
+#: inc/modules/themeoptions/class-pdfoptions.php:448
+#: inc/modules/themeoptions/class-pdfoptions.php:467
+#: inc/modules/themeoptions/class-pdfoptions.php:486
+#: inc/modules/themeoptions/class-pdfoptions.php:504
+#: inc/modules/themeoptions/class-pdfoptions.php:522
+#: inc/modules/themeoptions/class-pdfoptions.php:543
+#: inc/modules/themeoptions/class-pdfoptions.php:564
+#: inc/modules/themeoptions/class-pdfoptions.php:583
 msgid "Book Author"
 msgstr "Auteur du livre"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:376
-#: inc/modules/themeoptions/class-pdfoptions.php:395
+#: inc/modules/themeoptions/class-pdfoptions.php:411
+#: inc/modules/themeoptions/class-pdfoptions.php:430
 msgid "Front Matter Title"
 msgstr "Titre des pages liminaires"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:377
-#: inc/modules/themeoptions/class-pdfoptions.php:396
+#: inc/modules/themeoptions/class-pdfoptions.php:412
+#: inc/modules/themeoptions/class-pdfoptions.php:431
 msgid "Front Matter Author"
 msgstr "Auteur des pages liminaires"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:378
-#: inc/modules/themeoptions/class-pdfoptions.php:397
+#: inc/modules/themeoptions/class-pdfoptions.php:413
+#: inc/modules/themeoptions/class-pdfoptions.php:432
 msgid "Front Matter Subtitle"
 msgstr "Sous-titre des pages liminaires"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:379
-#: inc/modules/themeoptions/class-pdfoptions.php:398
-#: inc/modules/themeoptions/class-pdfoptions.php:417
-#: inc/modules/themeoptions/class-pdfoptions.php:436
-#: inc/modules/themeoptions/class-pdfoptions.php:454
-#: inc/modules/themeoptions/class-pdfoptions.php:472
-#: inc/modules/themeoptions/class-pdfoptions.php:493
-#: inc/modules/themeoptions/class-pdfoptions.php:514
-#: inc/modules/themeoptions/class-pdfoptions.php:533
-#: inc/modules/themeoptions/class-pdfoptions.php:552
+#: inc/modules/themeoptions/class-pdfoptions.php:414
+#: inc/modules/themeoptions/class-pdfoptions.php:433
+#: inc/modules/themeoptions/class-pdfoptions.php:452
+#: inc/modules/themeoptions/class-pdfoptions.php:471
+#: inc/modules/themeoptions/class-pdfoptions.php:489
+#: inc/modules/themeoptions/class-pdfoptions.php:507
+#: inc/modules/themeoptions/class-pdfoptions.php:528
+#: inc/modules/themeoptions/class-pdfoptions.php:549
+#: inc/modules/themeoptions/class-pdfoptions.php:568
+#: inc/modules/themeoptions/class-pdfoptions.php:587
 msgid "Blank"
 msgstr "Vide"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:387
+#: inc/modules/themeoptions/class-pdfoptions.php:422
 msgid "Front Matter Right Page Running Content"
 msgstr "Contenu courant de la page liminaire droite"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:406
+#: inc/modules/themeoptions/class-pdfoptions.php:441
 msgid "Introduction Left Page Running Content"
 msgstr "Contenu courant de la page d&rsquo;introduction gauche"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:414
-#: inc/modules/themeoptions/class-pdfoptions.php:433
+#: inc/modules/themeoptions/class-pdfoptions.php:449
+#: inc/modules/themeoptions/class-pdfoptions.php:468
 msgid "Introduction Title"
 msgstr "Titre de l&rsquo;introduction"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:415
-#: inc/modules/themeoptions/class-pdfoptions.php:434
+#: inc/modules/themeoptions/class-pdfoptions.php:450
+#: inc/modules/themeoptions/class-pdfoptions.php:469
 msgid "Introduction Author"
 msgstr "Auteur de l&rsquo;introduction"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:416
-#: inc/modules/themeoptions/class-pdfoptions.php:435
+#: inc/modules/themeoptions/class-pdfoptions.php:451
+#: inc/modules/themeoptions/class-pdfoptions.php:470
 msgid "Introduction Subtitle"
 msgstr "Sous-titre de l&rsquo;introduction"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:425
+#: inc/modules/themeoptions/class-pdfoptions.php:460
 msgid "Introduction Right Page Running Content"
 msgstr "Contenu courant de la page d&rsquo;introduction gauche"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:444
+#: inc/modules/themeoptions/class-pdfoptions.php:479
 msgid "Part Left Page Running Content"
 msgstr "Contenu courant de la page gauche de la partie"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:452
-#: inc/modules/themeoptions/class-pdfoptions.php:470
-#: inc/modules/themeoptions/class-pdfoptions.php:488
-#: inc/modules/themeoptions/class-pdfoptions.php:509
+#: inc/modules/themeoptions/class-pdfoptions.php:487
+#: inc/modules/themeoptions/class-pdfoptions.php:505
+#: inc/modules/themeoptions/class-pdfoptions.php:523
+#: inc/modules/themeoptions/class-pdfoptions.php:544
 msgid "Part Number"
 msgstr "Numéro de partie"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:453
-#: inc/modules/themeoptions/class-pdfoptions.php:471
-#: inc/modules/themeoptions/class-pdfoptions.php:489
-#: inc/modules/themeoptions/class-pdfoptions.php:510
+#: inc/modules/themeoptions/class-pdfoptions.php:488
+#: inc/modules/themeoptions/class-pdfoptions.php:506
+#: inc/modules/themeoptions/class-pdfoptions.php:524
+#: inc/modules/themeoptions/class-pdfoptions.php:545
 msgid "Part Title"
 msgstr "Titre de partie"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:462
+#: inc/modules/themeoptions/class-pdfoptions.php:497
 msgid "Part Right Page Running Content"
 msgstr "Contenu courant de la page droite de la partie"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:480
+#: inc/modules/themeoptions/class-pdfoptions.php:515
 msgid "Chapter Left Page Running Content"
 msgstr "Contenu courant de la page de gauche du chapitre"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:490
-#: inc/modules/themeoptions/class-pdfoptions.php:511
+#: inc/modules/themeoptions/class-pdfoptions.php:525
+#: inc/modules/themeoptions/class-pdfoptions.php:546
 msgid "Chapter Title"
 msgstr "Titre du chapitre"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:491
-#: inc/modules/themeoptions/class-pdfoptions.php:512
+#: inc/modules/themeoptions/class-pdfoptions.php:526
+#: inc/modules/themeoptions/class-pdfoptions.php:547
 msgid "Chapter Author"
 msgstr "Auteur du chapitre"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:492
-#: inc/modules/themeoptions/class-pdfoptions.php:513
+#: inc/modules/themeoptions/class-pdfoptions.php:527
+#: inc/modules/themeoptions/class-pdfoptions.php:548
 msgid "Chapter Subtitle"
 msgstr "Sous-titre du chapitre"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:501
+#: inc/modules/themeoptions/class-pdfoptions.php:536
 msgid "Chapter Right Page Running Content"
 msgstr "Contenu courant de la page de droite du chapitre"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:522
+#: inc/modules/themeoptions/class-pdfoptions.php:557
 msgid "Back Matter Left Page Running Content"
 msgstr "Contenu courant de la partie annexe de gauche"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:530
-#: inc/modules/themeoptions/class-pdfoptions.php:549
+#: inc/modules/themeoptions/class-pdfoptions.php:565
+#: inc/modules/themeoptions/class-pdfoptions.php:584
 msgid "Back Matter Title"
 msgstr "Titre de la partie annexe"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:531
-#: inc/modules/themeoptions/class-pdfoptions.php:550
+#: inc/modules/themeoptions/class-pdfoptions.php:566
+#: inc/modules/themeoptions/class-pdfoptions.php:585
 msgid "Back Matter Author"
 msgstr "Auteur de la partie annexe"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:532
-#: inc/modules/themeoptions/class-pdfoptions.php:551
+#: inc/modules/themeoptions/class-pdfoptions.php:567
+#: inc/modules/themeoptions/class-pdfoptions.php:586
 msgid "Back Matter Subtitle"
 msgstr "Sous-titre de la partie annexe"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:541
+#: inc/modules/themeoptions/class-pdfoptions.php:576
 msgid "Back Matter Right Page Running Content"
 msgstr "Contenu courant de la partie annexe de droite"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:562
+#: inc/modules/themeoptions/class-pdfoptions.php:597
 msgid "Increase Font Size"
 msgstr "Augmenter la police de caractères"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:567
+#: inc/modules/themeoptions/class-pdfoptions.php:602
 msgid "Increases font size and line height for greater accessibility"
 msgstr "Augmenter la police de caractères et la hauteur de la ligne pour une meilleure accessibilité"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:593
+#: inc/modules/themeoptions/class-pdfoptions.php:628
 msgid "These options apply to PDF exports."
 msgstr "Ces options s&rsquo;appliquent aux exportations en PDF."
 
-#: inc/modules/themeoptions/class-pdfoptions.php:935
+#: inc/modules/themeoptions/class-pdfoptions.php:970
 msgid ""
 "IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm "
 "on any side can cause your file to be rejected."
 msgstr "IMPORTANT&nbsp;: Si vous prévoyez utiliser le service d&rsquo;impression à la demande, les marges doivent avoir plus de 2 cm de chaque côté. Autrement votre fichier pourrait être rejeté."
 
-#: inc/modules/themeoptions/class-pdfoptions.php:1499
+#: inc/modules/themeoptions/class-pdfoptions.php:1534
 msgid "PDF Options"
 msgstr "Options PDF"
 
-#: inc/modules/themeoptions/class-weboptions.php:103
+#: inc/modules/themeoptions/class-weboptions.php:138
 msgid "Enable Social Media"
 msgstr "Activer les médias sociaux"
 
-#: inc/modules/themeoptions/class-weboptions.php:108
+#: inc/modules/themeoptions/class-weboptions.php:143
 msgid ""
 "Adds a button to cover page and each chapter which allows readers to share "
 "links to your book through Twitter"
 msgstr "Ajoute un bouton à la page de couverture et à chaque chapitre qui permet aux lecteurs de partager des liens vers votre livre via Twitter"
 
-#: inc/modules/themeoptions/class-weboptions.php:114
+#: inc/modules/themeoptions/class-weboptions.php:149
 msgid "Webbook Width"
 msgstr "Largeur du livre Web"
 
-#: inc/modules/themeoptions/class-weboptions.php:119
+#: inc/modules/themeoptions/class-weboptions.php:154
 msgid "Narrow"
 msgstr "Étroit"
 
-#: inc/modules/themeoptions/class-weboptions.php:121
+#: inc/modules/themeoptions/class-weboptions.php:156
 msgid "Wide"
 msgstr "Large"
 
-#: inc/modules/themeoptions/class-weboptions.php:140
+#: inc/modules/themeoptions/class-weboptions.php:175
 msgid "Display Part Title"
 msgstr "Afficher le titre de la partie"
 
-#: inc/modules/themeoptions/class-weboptions.php:145
+#: inc/modules/themeoptions/class-weboptions.php:180
 msgid "Display the Part title on each chapter"
 msgstr "Afficher le titre de la partie sur chaque chapitre"
 
-#: inc/modules/themeoptions/class-weboptions.php:152
+#: inc/modules/themeoptions/class-weboptions.php:187
 msgid "Collapse Sections"
 msgstr "Réduire les sections"
 
-#: inc/modules/themeoptions/class-weboptions.php:157
+#: inc/modules/themeoptions/class-weboptions.php:192
 msgid "Collapse sections within front matter, chapters, and back matter"
 msgstr "Réduire les sections dans les pages liminaires, les chapitres et les parties annexes"
 
-#: inc/modules/themeoptions/class-weboptions.php:165
+#: inc/modules/themeoptions/class-weboptions.php:200
 msgid "Enable Source Comparison"
 msgstr "Activer la comparaison avec la source"
 
-#: inc/modules/themeoptions/class-weboptions.php:170
+#: inc/modules/themeoptions/class-weboptions.php:205
 msgid ""
 "Add comparison tool to the end of each front matter, part, chapter, and back"
 " matter"
 msgstr "Ajouter l&rsquo;outil de comparaison à la fin de l&rsquo;ensemble des pages liminaires, parties, chapitres et parties annexes."
 
-#: inc/modules/themeoptions/class-weboptions.php:171
+#: inc/modules/themeoptions/class-weboptions.php:206
 msgid ""
 "Allows readers to compare content with the original book from which it was "
 "cloned."
 msgstr "Permet aux lecteurs de comparer le contenu du duplicata avec le livre original."
 
-#: inc/modules/themeoptions/class-weboptions.php:197
+#: inc/modules/themeoptions/class-weboptions.php:232
 msgid "These options apply to the webbook."
 msgstr "Ces options s&rsquo;appliquent au livre Web."
 
-#: inc/modules/themeoptions/class-weboptions.php:397
+#: inc/modules/themeoptions/class-weboptions.php:432
 msgid "Web Options"
 msgstr "Options Web"
 
@@ -4071,10 +4241,6 @@ msgstr "Langue du livre&nbsp;:"
 msgid "Would you like your webbook to be visible to the public?"
 msgstr "Souhaitez-vous que votre livre Web soit visible au public?"
 
-#: inc/registration/namespace.php:59
-msgid "Create Book"
-msgstr "Créer un livre"
-
 #: inc/registration/namespace.php:62
 msgid "Register a %s account"
 msgstr "Enregistrer un compte %s"
@@ -4193,7 +4359,6 @@ msgid " adapted by "
 msgstr "adapté par"
 
 #: inc/shortcodes/footnotes/class-footnotes.php:187
-#: tests/test-shortcodes-footnotes-footnotes.php:149
 msgid "Invalid permissions."
 msgstr "Permissions invalides."
 
@@ -4704,10 +4869,6 @@ msgstr "Désolé. Aucun livre ne correspond aux critères sélectionnés. <a cla
 msgid "Pressbooks: the CMS for Books."
 msgstr "Pressbooks&nbsp;: le CMS pour les livres."
 
-#: tests/test-registration.php:28
-msgid "Create Site"
-msgstr "Créer un site"
-
 #: templates/admin/cloner/book-card.blade.php:9
 msgid "H5P Activities"
 msgstr "H5P Activités"
@@ -4800,124 +4961,230 @@ msgstr "Date de dupliquage"
 msgid "Visit book"
 msgstr "Visitez ce livre"
 
-#: templates/admin/dashboard/book.blade.php:28
+#: templates/admin/dashboard/book.blade.php:26
 msgid "Edit book info"
 msgstr "Modifier les informations sur le livre"
 
-#: templates/admin/dashboard/book.blade.php:39
+#: templates/admin/dashboard/book.blade.php:34
 msgid "Organize book"
 msgstr "Organiser le livre"
 
-#: templates/admin/dashboard/book.blade.php:50
+#: templates/admin/dashboard/book.blade.php:42
 msgid "Change theme"
 msgstr "Change le thème"
 
-#: templates/admin/dashboard/book.blade.php:61
+#: templates/admin/dashboard/book.blade.php:50
 msgid "Manage users"
 msgstr "Gérer les utilisateurs"
 
-#: templates/admin/dashboard/book.blade.php:72
+#: templates/admin/dashboard/book.blade.php:58
 msgid "View Analytics"
 msgstr "Afficher l'analyse des pages vues"
 
-#: templates/admin/dashboard/book.blade.php:83
+#: templates/admin/dashboard/book.blade.php:66
 msgid "Delete book"
 msgstr "Supprimer ce livre"
 
-#: templates/admin/dashboard/book.blade.php:96
+#: templates/admin/dashboard/book.blade.php:78
 msgid "Write a new chapter art"
 msgstr "L'art pour 'Ecrire un nouveau chapitre'"
 
-#: templates/admin/dashboard/book.blade.php:103
+#: templates/admin/dashboard/book.blade.php:85
 msgid "Write a new chapter"
 msgstr "Ecrire un nouveau chapitre"
 
-#: templates/admin/dashboard/book.blade.php:109
+#: templates/admin/dashboard/book.blade.php:91
 msgid "Import Content"
 msgstr "Importer du contenu"
 
-#: templates/admin/dashboard/book.blade.php:123
-msgid "Support Resources"
-msgstr "Ressources d'assistance"
+#: templates/admin/dashboard/book.blade.php:105
+#: templates/admin/dashboard/network.blade.php:180
+msgid "Support resources"
+msgstr "Ressources de support"
 
-#: templates/admin/dashboard/book.blade.php:132
+#: templates/admin/dashboard/book.blade.php:114
 msgid "Getting started with Pressbooks"
 msgstr "Premiers pas avec Pressbooks"
 
-#: templates/admin/dashboard/book.blade.php:135
+#: templates/admin/dashboard/book.blade.php:117
 msgid "Watch a short video series on how to get started with Pressbooks."
 msgstr "Regardez une courte série de vidéos sur la façon de démarrer avec Pressbooks."
 
-#: templates/admin/dashboard/book.blade.php:143
+#: templates/admin/dashboard/book.blade.php:125
 msgid "Pressbooks user guide"
 msgstr "Guide d'utilisation pour Pressbooks"
 
-#: templates/admin/dashboard/book.blade.php:146
+#: templates/admin/dashboard/book.blade.php:128
 msgid ""
 "Find help and how-tos for your publishing project in this detailed handbook."
 msgstr "Trouvez de l'aide et des conseils pratiques pour votre projet de publication dans ce manuel détaillé."
 
-#: templates/admin/dashboard/book.blade.php:154
+#: templates/admin/dashboard/book.blade.php:136
+#: templates/admin/dashboard/network.blade.php:199
 msgid "Pressbooks community forum"
 msgstr "Forum de la communauté"
 
-#: templates/admin/dashboard/book.blade.php:157
+#: templates/admin/dashboard/book.blade.php:139
 msgid ""
 "Discuss Pressbooks related questions with other users in our public forum."
 msgstr "Discutez des questions liées à Pressbooks avec d'autres utilisateurs sur notre forum public."
 
-#: templates/admin/dashboard/book.blade.php:165
+#: templates/admin/dashboard/book.blade.php:147
 msgid "Pressbooks training webinars"
 msgstr "Webinaires de formation"
 
-#: templates/admin/dashboard/book.blade.php:168
+#: templates/admin/dashboard/book.blade.php:150
 msgid ""
 "Register for free webinars to learn about Pressbooks features and best "
 "practices."
 msgstr "Inscrivez-vous à des webinaires gratuits pour en savoir plus sur les fonctionnalités et les meilleures pratiques de Pressbooks."
 
-#: templates/admin/dashboard/new-user.blade.php:6
+#: templates/admin/dashboard/network.blade.php:5
+msgid "Network Manager Dashboard"
+msgstr "Tableau de bord de l'administrateur de réseau"
+
+#: templates/admin/dashboard/network.blade.php:7
+#: templates/admin/dashboard/user.blade.php:6
 msgid "Welcome to"
 msgstr "Bienvenue à"
 
-#: templates/admin/dashboard/new-user.blade.php:18
+#: templates/admin/dashboard/network.blade.php:12
+msgid "Visit network homepage"
+msgstr "Visitez la page d'accueil du réseau"
+
+#: templates/admin/dashboard/network.blade.php:23
+msgid "Your network has %s books and %s users. "
+msgstr "Votre réseau compte %s livres et %s utilisateurs."
+
+#: templates/admin/dashboard/network.blade.php:31
+msgid "Explore stats"
+msgstr "Explorer les statistiques"
+
+#: templates/admin/dashboard/network.blade.php:44
+msgid "Ready to Launch Checklist"
+msgstr "Check-list « Prêt à lancer »"
+
+#: templates/admin/dashboard/network.blade.php:80
+msgid "Congratulations!"
+msgstr "Félicitations!"
+
+#: templates/admin/dashboard/network.blade.php:82
+msgid "Return to checklist"
+msgstr "Retour à la liste de contrôle"
+
+#: templates/admin/dashboard/network.blade.php:93
+msgid "Update homepage"
+msgstr "Mettre à jour la page d'accueil"
+
+#: templates/admin/dashboard/network.blade.php:99
+msgid "Update homepage art"
+msgstr "Mettre à jour l'art de la page d'accueil"
+
+#: templates/admin/dashboard/network.blade.php:108
+msgid "Customize network appearance"
+msgstr "Personnaliser l'apparence du réseau"
+
+#: templates/admin/dashboard/network.blade.php:116
+msgid "Create or edit pages"
+msgstr "Créer ou modifier des pages"
+
+#: templates/admin/dashboard/network.blade.php:125
+msgid "View homepage analytics"
+msgstr "Afficher les statistiques de la page d'accueil"
+
+#: templates/admin/dashboard/network.blade.php:136
+msgid "Administer network"
+msgstr "Administrer le réseau"
+
+#: templates/admin/dashboard/network.blade.php:142
+msgid "Administer network art"
+msgstr "Administrer l'art du réseau"
+
+#: templates/admin/dashboard/network.blade.php:151
+msgid "Adjust network settings"
+msgstr "Ajuster les paramètres réseau"
+
+#: templates/admin/dashboard/network.blade.php:159
+msgid "View book list"
+msgstr "Afficher la liste des livres"
+
+#: templates/admin/dashboard/network.blade.php:167
+msgid "View user list"
+msgstr "Afficher la liste des utilisateurs"
+
+#: templates/admin/dashboard/network.blade.php:188
+msgid "Network manager guide"
+msgstr "Guide pour les administrateurs de réseau"
+
+#: templates/admin/dashboard/network.blade.php:191
+msgid ""
+"Learn how to administer your Pressbooks network from our comprehensive how-"
+"to guide."
+msgstr "Apprenez comment administrer votre réseau Pressbooks grâce à notre guide complet sur la façon de faire."
+
+#: templates/admin/dashboard/network.blade.php:202
+msgid ""
+"Discuss issues of interest with other network managers and Pressbooks "
+"support staff."
+msgstr "Discutez des problèmes d'intérêt avec d'autres administrateurs de réseau et le personnel de soutien de Pressbooks."
+
+#: templates/admin/dashboard/network.blade.php:210
+msgid "Pressbooks webinars"
+msgstr "Webinaires Pressbooks"
+
+#: templates/admin/dashboard/network.blade.php:213
+msgid "Become a confident Pressbooks user by attending a free, live webinar."
+msgstr "Devenez un utilisateur confiant de Pressbooks en participant à un webinaire gratuit et en direct."
+
+#: templates/admin/dashboard/network.blade.php:222
+msgid "Contact Pressbooks Support"
+msgstr "Contactez le support de Pressbooks."
+
+#: templates/admin/dashboard/network.blade.php:225
+msgid ""
+"Email Pressbooks’ Premium Support team to report bugs or get personalized "
+"help."
+msgstr "Envoyez un e-mail à l'équipe de support premium de Pressbooks pour signaler des bugs ou obtenir de l'aide personnalisée."
+
+#: templates/admin/dashboard/user.blade.php:18
 msgid "Book Invitations"
 msgstr "Invitations à des livres"
 
-#: templates/admin/dashboard/new-user.blade.php:23
+#: templates/admin/dashboard/user.blade.php:23
 msgid "You have been invited to join %1$s as %2$s"
 msgstr "Vous avez été invité à rejoindre %1$s avec rôle de: %2$s"
 
-#: templates/admin/dashboard/new-user.blade.php:24
+#: templates/admin/dashboard/user.blade.php:24
 msgid "Accept"
 msgstr "Accepter"
 
-#: templates/admin/dashboard/new-user.blade.php:40
+#: templates/admin/dashboard/user.blade.php:40
 msgid "Create a new book art"
 msgstr "L'art pour 'Créer un nouveau livre'"
 
-#: templates/admin/dashboard/new-user.blade.php:45
-#: templates/admin/dashboard/new-user.blade.php:52
+#: templates/admin/dashboard/user.blade.php:45
+#: templates/admin/dashboard/user.blade.php:53
+#: templates/admin/dashboard/user.blade.php:58
 msgid "Create a book"
 msgstr "Créer un livre"
 
-#: templates/admin/dashboard/new-user.blade.php:47
+#: templates/admin/dashboard/user.blade.php:47
 msgid ""
 "Create a new book full of engaging content: words, images, audio, video, "
 "footnotes, glossary terms, mathematical formula, interactive quizzes, and "
 "more."
 msgstr "Créez un nouveau livre plein de contenu engageant: mots, images, audio, vidéo, notes de bas de page, termes du glossaire, formule mathématique, quiz interactifs, et plus encore."
 
-#: templates/admin/dashboard/new-user.blade.php:64
+#: templates/admin/dashboard/user.blade.php:71
 msgid "Adapt a book art"
 msgstr "L'art pour 'Adapter un livre'"
 
-#: templates/admin/dashboard/new-user.blade.php:69
-#: templates/admin/dashboard/new-user.blade.php:76
+#: templates/admin/dashboard/user.blade.php:76
+#: templates/admin/dashboard/user.blade.php:83
 msgid "Adapt a book"
 msgstr "Adapter un livre"
 
-#: templates/admin/dashboard/new-user.blade.php:71
+#: templates/admin/dashboard/user.blade.php:78
 msgid ""
 "Use our cloning tool to make your own personalized copy of any of the "
 "thousands of openly licensed educational books already published with "
