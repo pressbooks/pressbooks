@@ -73,19 +73,17 @@ class AdditionalCatalogInformation extends Metabox {
 					'adult' => __( 'Adult', 'pressbooks' ),
 				]
 			),
-			new Select(
+			apply_filters( 'bisac_subject_field', new Text(
 				name: 'pb_bisac_subject',
 				label: __( 'BISAC Subject(s)', 'pressbooks' ),
 				description: sprintf( __( 'BISAC Subject Headings help libraries and bookstores properly classify your book. To select the appropriate subject heading for your book, consult %s.', 'pressbooks' ), sprintf( '<a href="https://bisg.org/page/BISACEdition">%s</a>', __( 'the BISAC Subject Headings list', 'pressbooks' ) ) ),
-				options: [],
 				multiple: true
-			),
-			new Select(
+			) ),
+			apply_filters( 'bisac_regional_theme_field', new Text(
 				name: 'pb_bisac_regional_theme',
 				label: __( 'BISAC Regional Theme', 'pressbooks' ),
 				description:  __( 'BISAC Regional Themes help libraries and bookstores properly classify your book.', 'pressbooks' ),
-				options: []
-			),
+			) ),
 		];
 	}
 }
