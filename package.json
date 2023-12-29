@@ -33,7 +33,6 @@
 		"wp-admin-colors": "^6.0.0"
 	},
 	"devDependencies": {
-		"eslint-plugin-jsdoc": "^46.9.1",
 		"pressbooks-build-tools": "^4.0.0"
 	},
 	"repository": {
