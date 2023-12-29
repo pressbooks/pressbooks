@@ -225,7 +225,7 @@ class Glossary implements BackMatter {
 			return $content;
 		}
 
-		$html = '<button class="glossary-term" aria-describedby="' . $id . '-' . $glossary_term_id . '">' . $content . '</button>';
+		$html = '<a class="glossary-term" aria-haspopup="dialog" aria-describedby="definition" href="#term_' . $id . '_' . $glossary_term_id . '">' . $content . '</a>';
 
 		return $html;
 	}
@@ -290,11 +290,11 @@ class Glossary implements BackMatter {
 			return $content;
 		}
 
-		$content .= '<div class="glossary">';
+		$content .= '<div class="glossary"><span class="screen-reader-text" id="definition">' . __('definition', 'pressbooks'). '</span>';
 
 		foreach ( $glossary_terms as $glossary_term_id => $glossary_term ) {
-			$identifier = "$id-$glossary_term_id";
-			$content .= '<div class="glossary__tooltip" id="' . $identifier . '" hidden>' . wpautop( do_shortcode( $glossary_term ) ) . '</div>';
+			$identifier = 'term_' . $id . '_' . $glossary_term_id;
+			$content .= '<template id="' . $identifier . '"><div class="glossary__definition" role="dialog"><div tabindex="-1">' . wpautop( do_shortcode( $glossary_term ) ) . '</div><button><span aria-hidden="true">&times;</span><span class="screen-reader-text">' . __('Close definition', 'pressbooks') . '</span></button></div></template>';
 		}
 
 		$content .= '</div>';

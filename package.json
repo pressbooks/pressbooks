@@ -15,6 +15,7 @@
 		"node": ">= 18"
 	},
 	"dependencies": {
+		"@popperjs/core": "^2.11.8",
 		"algoliasearch": "^4.20.0",
 		"alpinejs": "^3.13.1",
 		"block-ui": "^2.70.1",
@@ -26,13 +27,13 @@
 		"jquery-sticky": "^1.0.4",
 		"js-cookie": "^3.0.5",
 		"pagedjs": "^0.4.3",
-		"popper.js": "^1.16.1",
 		"select2": "github:woocommerce/selectWoo#1.0.8",
 		"sidr": "^2.2.1",
 		"tinymce": "^4.9.11",
 		"wp-admin-colors": "^6.0.0"
 	},
 	"devDependencies": {
+		"eslint-plugin-jsdoc": "^46.9.1",
 		"pressbooks-build-tools": "^4.0.0"
 	},
 	"repository": {

@@ -1,62 +1,75 @@
-window.Popper = require( 'popper.js' ).default;
+import { createPopper } from '@popperjs/core';
 
-document.addEventListener( 'DOMContentLoaded', function () {
-	const glossaryTerms = document.querySelectorAll(
-		'#content .glossary-term'
-	);
+const glossaryTerms = document.querySelectorAll( '#content .glossary-term' );
 
-	const glossary = document.querySelector(
-		'#content .glossary'
-	);
+const glossary = document.querySelector( '#content .glossary' );
 
-	Array.prototype.forEach.call( glossaryTerms, glossaryTerm => {
-		const glossaryTermId = glossaryTerm.getAttribute( 'aria-describedby' );
-		const glossaryDefinition = document.getElementById( glossaryTermId );
+Array.prototype.forEach.call( glossaryTerms, glossaryTerm => {
+	const template = document.querySelector( glossaryTerm.getAttribute( 'href' ) );
 
-		glossaryTerm.onfocus = showDefinition;
-
-		document.addEventListener( 'click', event => {
-			if (
-				event.target !== glossaryTerm
-				&& event.target.getAttribute( 'aria-describedby' ) !== glossaryTermId
-				&& ! glossaryDefinition.contains( event.target )
-			) {
-				hideDefinition();
-			} else if ( event.target === glossaryTerm ) {
-				showDefinition();
-			}
-		} );
-
-		document.addEventListener( 'keydown', function ( e ) {
-			if ( e.key === 'Escape' ) {
-				Array.prototype.forEach.call( glossary.childNodes, dfn => {
-					dfn.classList.remove( 'glossary__tooltip--visible' );
-					dfn.hidden = true;
-				} );
-			}
-		} );
-
-		/**
-		 *
-		 */
-		function showDefinition() {
-			new Popper( glossaryTerm, glossaryDefinition, {} );
-			glossaryDefinition.classList.add( 'glossary__tooltip--visible' );
-			glossaryDefinition.hidden = false;
-			Array.prototype.forEach.call( glossary.childNodes, dfn => {
-				if ( dfn.getAttribute( 'id' ) !== glossaryTermId ) {
-					dfn.classList.remove( 'glossary__tooltip--visible' );
-					dfn.hidden = true;
-				}
-			} );
+	document.addEventListener( 'click', event => {
+		if ( event.target === glossaryTerm ) {
+			event.preventDefault();
+			showDefinition( template );
 		}
 
-		/**
-		 *
-		 */
-		function hideDefinition() {
-			glossaryDefinition.hidden = true;
-			glossaryDefinition.classList.remove( 'glossary__tooltip--visible' );
+		if (
+			( event.target !== glossaryTerm &&
+					! event.target.closest( '.glossary__definition' ) ) ||
+				event.target.closest( '.glossary__definition button' )
+		) {
+			removeDefinition( glossaryTerm );
 		}
 	} );
+
+	document.addEventListener( 'keydown', function ( e ) {
+		if ( e.key === 'Escape' ) {
+			removeDefinition( glossaryTerm );
+		}
+	} );
+
+	/**
+	 * Show a term definition.
+	 * @param template The definition template to display.
+	 */
+	function showDefinition( template ) {
+		const clone = template.content.cloneNode( true );
+		const definition = clone.children[0];
+		document.body.classList.add( 'has-dialog' );
+		const elems = document.body.children;
+		Array.prototype.forEach.call( elems, elem => {
+			elem.setAttribute( 'inert', '' );
+		} );
+		const overlay = document.createElement( 'div' );
+		overlay.classList.add( 'overlay' );
+		document.body.appendChild( overlay );
+		document.body.appendChild( definition );
+		createPopper( glossaryTerm, definition );
+		definition.querySelector( 'div' ).focus();
+	}
+
+	/**
+	 * Remove a displayed term definition.
+	 * @param glossaryTerm The term whose definition is currently displayed.
+	 */
+	function removeDefinition( glossaryTerm ) {
+		const definition = document.querySelector( '.glossary__definition' );
+		const overlay = document.querySelector( '.overlay' );
+
+		if ( definition !== null ) {
+			definition.remove();
+		}
+
+		if ( overlay !== null ) {
+			overlay.remove();
+		}
+
+		document.body.classList.remove( 'has-dialog' );
+		const elems = document.body.children;
+		Array.prototype.forEach.call( elems, elem => {
+			elem.removeAttribute( 'inert' );
+		} );
+
+		glossaryTerm.focus();
+	}
 } );
