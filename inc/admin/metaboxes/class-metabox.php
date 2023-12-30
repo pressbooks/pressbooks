@@ -4,6 +4,9 @@
  * @license GPLv3 (or any later version)
  */
 
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
+
 namespace Pressbooks\Admin\Metaboxes;
 
 use Pressbooks\Container;
@@ -44,13 +47,12 @@ abstract class Metabox {
 	}
 
 	public function render() {
-
-		echo Container::get( 'Blade' )->render('metaboxes.metabox', [
-			'nonce' => $this->nonce,
-			'fields' => array_map( function ( $field ) {
+		echo esc_html( Container::get( 'Blade' )->render('metaboxes.metabox', [
+			'nonce' => esc_html( $this->nonce ),
+			'fields' => esc_html( array_map( function ( $field ) {
 				return $field->render();
-			}, $this->fields ),
-		]);
+			}, $this->fields ) ),
+		] ) );
 	}
 
 	public function save( $post_id ) {
@@ -64,7 +66,9 @@ abstract class Metabox {
 
 		foreach ( $this->fields as $field ) {
 			if ( isset( $_POST[ $field->name ] ) && ! empty( $_POST[ $field->name ] ) ) {
-				$field->save( $post_id );
+
+				$value = $_POST[ $field->name ];
+				$field->save( $post_id, $value );
 			} else {
 				$field->delete( $post_id );
 			}

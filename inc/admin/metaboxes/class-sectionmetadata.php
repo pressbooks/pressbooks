@@ -14,8 +14,8 @@ use Pressbooks\Licensing;
 class SectionMetadata extends Metabox {
 	public string $sectionType = '';
 
-	public function __construct( string $sectionType = '' ) {
-		$this->sectionType = $sectionType;
+	public function __construct( string $section_type = '' ) {
+		$this->sectionType = $section_type;
 		$this->priority = 'high';
 
 		parent::__construct();

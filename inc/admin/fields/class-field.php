@@ -63,17 +63,17 @@ abstract class Field {
 			sanitize_text_field( $value );
 	}
 
-	public function save( int $post_id ): void {
+	public function save( int $post_id, mixed $value ): void {
 		if ( $this->multiple ) {
 			$this->delete( $post_id );
-			foreach ( $_POST[ $this->name ] as $value ) {
-				$value = trim( $this->sanitize( $value ) );
-				if ( $value ) {
-					add_post_meta( $post_id, $this->name, $value, false );
+			foreach ( $value as $v ) {
+				$v = trim( $this->sanitize( $v ) );
+				if ( $v ) {
+					add_post_meta( $post_id, $this->name, $v, false );
 				}
 			}
 		} else {
-			update_post_meta( $post_id, $this->name, $this->sanitize( $_POST[ $this->name ] ) );
+			update_post_meta( $post_id, $this->name, $this->sanitize( $value ) );
 		}
 	}
 

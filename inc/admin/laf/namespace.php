@@ -314,7 +314,7 @@ function replace_book_admin_menu() {
 		'admin_enqueue_scripts', function ( $hook ) use ( $bookinfo_page ) {
 			if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
 				$post_type = get_post_type();
-				if ( in_array( $post_type, [ 'metadata', 'front-matter', 'chapter', 'back-matter' ] ) ) {
+				if ( in_array( $post_type, [ 'metadata', 'front-matter', 'chapter', 'back-matter' ], true ) ) {
 					wp_enqueue_script( 'pressbooks-multiselect' );
 				}
 			}

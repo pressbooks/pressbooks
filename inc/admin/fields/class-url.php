@@ -12,6 +12,6 @@ class Url extends Field {
 	public string $type = 'url';
 
 	public function sanitize( mixed $value ): mixed {
-		return sanitize_url( $value );
+		return esc_url_raw( $value );
 	}
 }

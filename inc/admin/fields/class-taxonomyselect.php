@@ -39,13 +39,13 @@ class TaxonomySelect extends Field {
 		return $options;
 	}
 
-	public function save( int $post_id ): void {
+	public function save( int $post_id, $value ): void {
 		if ( $this->multiple ) {
-			wp_set_object_terms( $post_id, $_POST[ $this->name ], $this->taxonomy );
+			wp_set_object_terms( $post_id, $value, $this->taxonomy );
 		} else {
 			wp_set_object_terms(
 				$post_id,
-				[ $_POST[ $this->name ] ],
+				[ $value ],
 				$this->taxonomy
 			);
 		}

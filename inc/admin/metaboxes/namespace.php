@@ -146,7 +146,7 @@ function add_metadata_styles( $hook ) {
 
 	if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
 		$post_type = get_post_type();
-		if ( in_array( $post_type, [ 'metadata', 'front-matter', 'chapter', 'back-matter', 'part' ] ) ) {
+		if ( in_array( $post_type, [ 'metadata', 'front-matter', 'chapter', 'back-matter', 'part' ], true ) ) {
 			$assets = new Assets( 'pressbooks', 'plugin' );
 			wp_enqueue_style( 'metadata', $assets->getPath( 'styles/metadata.css' ) );
 		} elseif ( 'part' === $post_type ) {
