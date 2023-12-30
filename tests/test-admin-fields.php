@@ -57,7 +57,7 @@ class Admin_Fields extends \WP_UnitTestCase {
 
 		$field = new Text( 'test', 'Test' );
 
-		$field->save( $post->ID );
+		$field->save( $post->ID, 'test value' );
 
 		$this->assertEquals( 'test value', get_post_meta( $post->ID, 'test', true ) );
 	}
@@ -69,7 +69,7 @@ class Admin_Fields extends \WP_UnitTestCase {
 
 		$field = new Text( name: 'test', label: 'Test', multiple: true );
 
-		$field->save( $post->ID );
+		$field->save( $post->ID, [ 'test value one', 'test value two' ] );
 
 		$this->assertEquals( [ 'test value one', 'test value two' ], get_post_meta( $post->ID, 'test', false ) );
 	}
@@ -97,7 +97,7 @@ class Admin_Fields extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( '', $field->options );
 		$this->assertEquals( '', $field->options[''] );
 
-		$field->save( $post->ID );
+		$field->save( $post->ID, $term->slug );
 
 		$this->assertEquals( $term->slug, get_post_meta( $post->ID, 'editors', true ) );
 
@@ -108,7 +108,7 @@ class Admin_Fields extends \WP_UnitTestCase {
 
 		$this->assertArrayNotHasKey( '', $field->options );
 
-		$field->save( $post->ID );
+		$field->save( $post->ID, [ $term->slug ] );
 
 		$this->assertEquals( [ $term->slug ], get_post_meta( $post->ID, 'editors' ) );
 	}

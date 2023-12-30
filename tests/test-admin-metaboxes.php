@@ -80,7 +80,7 @@ class Admin_Metaboxes extends \WP_UnitTestCase {
 		// Nonce not set, user lacks permissions
 		$metabox = new Pressbooks\Admin\Metaboxes\GeneralInformation();
 		$_POST['pb_subtitle'] = 'Or, the Whale';
-		$metabox->save( $post->ID );
+		$metabox->save( $post->ID, 'Or, the Whale' );
 
 		$this->assertEquals( '', get_post_meta( $post->ID, 'pb_subtitle', true ) );
 
@@ -92,7 +92,7 @@ class Admin_Metaboxes extends \WP_UnitTestCase {
 		$_POST[ "{$metabox->slug}_nonce" ] = $doc->getElementById( "{$metabox->slug}_nonce" )->getAttribute( 'value' );
 
 		$_POST['pb_subtitle'] = 'Or, the Whale';
-		$metabox->save( $post->ID );
+		$metabox->save( $post->ID, 'Or, the Whale' );
 
 		$this->assertEquals( '', get_post_meta( $post->ID, 'pb_subtitle', true ) );
 
@@ -113,7 +113,7 @@ class Admin_Metaboxes extends \WP_UnitTestCase {
 		$_POST[ "{$metabox->slug}_nonce" ] = $doc->getElementById( "{$metabox->slug}_nonce" )->getAttribute( 'value' );
 		$_POST['pb_subtitle'] = 'Or, the Whale';
 
-		$metabox->save( $post->ID );
+		$metabox->save( $post->ID, 'Or, the Whale' );
 
 		$this->assertEquals( 'Or, the Whale', get_post_meta( $post->ID, 'pb_subtitle', true ) );
 

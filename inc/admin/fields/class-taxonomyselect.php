@@ -39,7 +39,7 @@ class TaxonomySelect extends Field {
 		return $options;
 	}
 
-	public function save( int $post_id, $value ): void {
+	public function save( int $post_id, mixed $value ): void {
 		if ( $this->multiple ) {
 			wp_set_object_terms( $post_id, $value, $this->taxonomy );
 		} else {
@@ -50,6 +50,6 @@ class TaxonomySelect extends Field {
 			);
 		}
 
-		parent::save( $post_id );
+		parent::save( $post_id, $value );
 	}
 }

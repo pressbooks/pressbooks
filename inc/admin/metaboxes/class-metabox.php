@@ -6,6 +6,7 @@
 
 // @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
 // @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
 
 namespace Pressbooks\Admin\Metaboxes;
 
@@ -47,12 +48,12 @@ abstract class Metabox {
 	}
 
 	public function render() {
-		echo esc_html( Container::get( 'Blade' )->render('metaboxes.metabox', [
-			'nonce' => esc_html( $this->nonce ),
-			'fields' => esc_html( array_map( function ( $field ) {
+		echo Container::get( 'Blade' )->render('metaboxes.metabox', [
+			'nonce' => $this->nonce,
+			'fields' => array_map( function ( $field ) {
 				return $field->render();
-			}, $this->fields ) ),
-		] ) );
+			}, $this->fields ),
+		] );
 	}
 
 	public function save( $post_id ) {
