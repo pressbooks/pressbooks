@@ -120,7 +120,6 @@ mix
 	.sass( 'assets/src/styles/pressbooks.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/pressbooks-dashboard.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/search-and-replace.scss', 'assets/dist/styles/' )
-	.sass( 'assets/src/styles/select2.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/style-catalog.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/theme-options.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/cloner.scss', 'assets/dist/styles/' )
