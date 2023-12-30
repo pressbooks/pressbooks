@@ -42,7 +42,7 @@
 		"illuminate/http": "^8.0",
 		"illuminate/support": "^8.0",
 		"illuminate/view": "^8.0",
-		"jenssegers/imagehash": "^0.8.0",
+		"jenssegers/imagehash": "^0.9.0",
 		"johnbillion/extended-cpts": "^5.0",
 		"laravel/helpers": "^1.5",
 		"masterminds/html5": "^2.6",
@@ -66,7 +66,7 @@
 		"codeception/module-webdriver": "^1.2",
 		"lucatume/wp-browser": "^3.0",
 		"pressbooks/coding-standards": "^1.1",
-		"yoast/phpunit-polyfills": "^2.0.0",
+		"yoast/phpunit-polyfills": "^1.1",
 		"dms/phpunit-arraysubset-asserts": "^0.5.0"
 	},
 	"suggest": {
