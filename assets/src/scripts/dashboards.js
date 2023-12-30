@@ -3,6 +3,7 @@
 let networkManagerDashboard = {
 	/**
 	 * This function perform the ajax call to update the checklist item.
+	 *
 	 * @param {object} target - The target element.
 	 * @param target.target
 	 */

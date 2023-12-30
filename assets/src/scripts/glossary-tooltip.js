@@ -30,6 +30,7 @@ Array.prototype.forEach.call( glossaryTerms, glossaryTerm => {
 
 	/**
 	 * Show a term definition.
+	 *
 	 * @param template The definition template to display.
 	 */
 	function showDefinition( template ) {
@@ -50,6 +51,7 @@ Array.prototype.forEach.call( glossaryTerms, glossaryTerm => {
 
 	/**
 	 * Remove a displayed term definition.
+	 *
 	 * @param glossaryTerm The term whose definition is currently displayed.
 	 */
 	function removeDefinition( glossaryTerm ) {
