@@ -123,7 +123,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$id = 42; // Fake it!
 		$pid = $this->_createGlossaryPost();
 		$result = $this->gl->glossaryTooltip( $pid, 'PHP' );
-		$this->assertEquals( '<button class="glossary-term" aria-describedby="42-' . $pid . '">PHP</button>', $result );
+		$this->assertEquals( '<a class="glossary-term" aria-haspopup="dialog" aria-describedby="definition">PHP</a>', $result );
 
 		$this->factory()->post->update_object( $pid, [ 'post_status' => 'trash' ] );
 		$result = $this->gl->glossaryTooltip( $pid, 'PHP' );
