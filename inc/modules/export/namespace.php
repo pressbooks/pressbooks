@@ -330,7 +330,7 @@ function get_contributors_section( $post_id ) {
 	if ( empty( $chapter_contributors ) ) {
 		return '';
 	}
-	$title = sprintf( _n( '%s Author', '%s Authors', count( $chapter_contributors ), 'pressbooks' ), 'About the' );
+	$title = _n( 'About the author', 'About the authors', count( $chapter_contributors ), 'pressbooks' );
 	$print = '<div class="contributors">';
 	$print .= "<h3 class=\"about-authors\">{$title}</h3>";
 	$blade_engine = Container::get( 'Blade' );

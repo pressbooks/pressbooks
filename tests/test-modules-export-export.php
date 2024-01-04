@@ -566,7 +566,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( $contributor_metadata['url'], $contributors_print );
 		$this->assertStringContainsString( $contributor_metadata['institution'], $contributors_print );
 		$this->assertStringContainsString( $contributor_metadata['description'], $contributors_print );
-		$this->assertStringContainsString( "<h3 class=\"about-authors\">About the Author</h3>", $contributors_print );
+		$this->assertStringContainsString( "<h3 class=\"about-authors\">About the author</h3>", $contributors_print );
 	}
 
 	/**
