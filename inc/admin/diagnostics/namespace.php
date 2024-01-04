@@ -11,6 +11,7 @@
 
 namespace Pressbooks\Admin\Diagnostics;
 
+use DeviceDetector\DeviceDetector;
 use function Pressbooks\Utility\check_epubcheck_install;
 use function Pressbooks\Utility\check_prince_install;
 use function Pressbooks\Utility\check_saxonhe_install;
@@ -20,9 +21,6 @@ use Pressbooks\Container;
 use Pressbooks\HtmLawed;
 use Pressbooks\Modules\ThemeOptions\Admin;
 use Pressbooks\Theme\Lock;
-use Sinergi\BrowserDetector\Browser;
-use Sinergi\BrowserDetector\Os;
-use Sinergi\BrowserDetector\UserAgent;
 
 /**
  * Add the diagnostics menu (with parent page set to null)
@@ -44,9 +42,9 @@ function add_menu() {
  */
 function render_page() {
 	global $wpdb;
-	$browser = new Browser;
-	$os = new Os;
-	$user_agent = new UserAgent;
+	$user_agent = $_SERVER['HTTP_USER_AGENT'];
+	$dd = new DeviceDetector( $user_agent );
+	$dd->parse();
 	$is_book = Book::isBook();
 	$lock = Lock::init();
 	$regenerate_webbook_stylesheet_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin-post.php?action=pb_regenerate_webbook_stylesheet' ), 'pb-regenerate-webbook-stylesheet' );
@@ -62,10 +60,10 @@ function render_page() {
 		$output .= 'Root Blog URL: ' . trailingslashit( get_bloginfo( 'url' ) ) . "\n\n";
 	}
 	$output .= "#### Browser\n\n";
-	$output .= 'Platform: ' . $os->getName() . "\n";
-	$output .= 'Browser Name: ' . $browser->getName() . "\n";
-	$output .= 'Browser Version: ' . $browser->getVersion() . "\n";
-	$output .= 'User Agent String: ' . $user_agent->getUserAgentString() . "\n\n";
+	$output .= 'Platform: ' . $dd->getOs( 'name' ) . ' ' . $dd->getOs( 'version' ) . "\n";
+	$output .= 'Browser Name: ' . $dd->getClient( 'name' ) . "\n";
+	$output .= 'Browser Version: ' . $dd->getClient( 'version' ) . "\n";
+	$output .= 'User Agent String: ' . $user_agent . "\n\n";
 	$output .= '#### WordPress Configuration' . "\n\n";
 	$output .= 'Network URL: ' . network_home_url() . "\n";
 	$output .= 'Network Type: ' . ( is_subdomain_install() ? 'Subdomain' : 'Subdirectory' ) . "\n";
