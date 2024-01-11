@@ -4,11 +4,11 @@
  * @license GPLv3 (or any later version)
  */
 
-use Pressbooks\Privacy;
 use function \Pressbooks\Utility\include_plugins as include_symbionts;
 use Pressbooks\Book;
 use Pressbooks\CloneComplete;
 use Pressbooks\Container;
+use Pressbooks\Privacy;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
