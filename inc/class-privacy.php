@@ -80,7 +80,7 @@ class Privacy {
 				$current_user = wp_get_current_user();
 				$permissive_roles = [ 'subscriber', 'collaborator', 'author' ];
 				if ( $permissive_private_content && array_intersect( $permissive_roles, $current_user->roles ) ) {
-					$query->set( 'post_status', [ 'publish', 'pending', 'draft', 'web-only' ] );
+					$query->set( 'post_status', [ 'publish', 'pending', 'draft', 'private', 'web-only' ] );
 				}
 			}
 			return $query;
