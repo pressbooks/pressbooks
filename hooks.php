@@ -4,6 +4,7 @@
  * @license GPLv3 (or any later version)
  */
 
+use Pressbooks\Privacy;
 use function \Pressbooks\Utility\include_plugins as include_symbionts;
 use Pressbooks\Book;
 use Pressbooks\CloneComplete;
@@ -352,4 +353,5 @@ add_action( 'init', [ CloneComplete::class, 'install' ] );
 
 add_filter( 'init', [ '\Pressbooks\Utility\ErrorHandler', 'init' ] );
 
-
+// Open up private content to subscribers and collaborators when permissive_private_content is enabled
+add_filter( 'init', [ Privacy::class, 'showPermissivePrivateContent' ] );
