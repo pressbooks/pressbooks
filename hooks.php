@@ -8,6 +8,7 @@ use function \Pressbooks\Utility\include_plugins as include_symbionts;
 use Pressbooks\Book;
 use Pressbooks\CloneComplete;
 use Pressbooks\Container;
+use Pressbooks\Privacy;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -345,4 +346,5 @@ add_action( 'init', [ CloneComplete::class, 'install' ] );
 
 add_filter( 'init', [ '\Pressbooks\Utility\ErrorHandler', 'init' ] );
 
-
+// Open up private content to subscribers and collaborators when permissive_private_content is enabled
+add_filter( 'init', [ Privacy::class, 'showPermissivePrivateContent' ] );
