@@ -42,7 +42,11 @@
   background: #fff;
   border: solid 1px #444;
   border-radius: 0.5rem;
+  left: 50%;
   padding: 1rem;
+  position: absolute;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
   margin: 1rem;
   max-width: var(--reading-width, 40em);
   width: 100%;

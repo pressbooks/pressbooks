@@ -1,30 +1,26 @@
-import { createPopper } from '@popperjs/core';
-
 const glossaryTerms = document.querySelectorAll( '#content .glossary-term' );
 
-const glossary = document.querySelector( '#content .glossary' );
-
 Array.prototype.forEach.call( glossaryTerms, glossaryTerm => {
-	const template = document.querySelector( glossaryTerm.getAttribute( 'href' ) );
 
 	document.addEventListener( 'click', event => {
 		if ( event.target === glossaryTerm ) {
 			event.preventDefault();
+			const template = document.querySelector( glossaryTerm.getAttribute( 'href' ) );
 			showDefinition( template );
 		}
 
 		if (
-			( event.target !== glossaryTerm &&
+			( ! event.target.closest( '.glossary-term' ) &&
 					! event.target.closest( '.glossary__definition' ) ) ||
 				event.target.closest( '.glossary__definition button' )
 		) {
-			removeDefinition( glossaryTerm );
+			removeDefinition();
 		}
 	} );
 
 	document.addEventListener( 'keydown', function ( e ) {
 		if ( e.key === 'Escape' ) {
-			removeDefinition( glossaryTerm );
+			removeDefinition();
 		}
 	} );
 
@@ -45,17 +41,16 @@ Array.prototype.forEach.call( glossaryTerms, glossaryTerm => {
 		overlay.classList.add( 'overlay' );
 		document.body.appendChild( overlay );
 		document.body.appendChild( definition );
-		createPopper( glossaryTerm, definition );
 		definition.querySelector( 'div' ).focus();
 	}
 
 	/**
 	 * Remove a displayed term definition.
-	 *
-	 * @param glossaryTerm The term whose definition is currently displayed.
 	 */
-	function removeDefinition( glossaryTerm ) {
+	function removeDefinition() {
 		const definition = document.querySelector( '.glossary__definition' );
+		const glossaryTermId = definition.dataset.id;
+		const glossaryTerm = document.querySelector( `.glossary-term[href='#${ glossaryTermId }']` );
 		const overlay = document.querySelector( '.overlay' );
 
 		if ( definition !== null ) {

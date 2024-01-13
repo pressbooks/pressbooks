@@ -15,7 +15,6 @@
 		"node": ">= 18"
 	},
 	"dependencies": {
-		"@popperjs/core": "^2.11.8",
 		"algoliasearch": "^4.20.0",
 		"alpinejs": "^3.13.1",
 		"block-ui": "^2.70.1",

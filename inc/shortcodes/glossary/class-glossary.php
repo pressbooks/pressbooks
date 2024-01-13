@@ -78,8 +78,8 @@ class Glossary implements BackMatter {
 	public function addTooltipScripts() {
 		if ( ! is_admin() ) {
 			$assets = new Assets( 'pressbooks', 'plugin' );
-			wp_enqueue_script( 'glossary-tooltip', $assets->getPath( 'scripts/glossary-tooltip.js' ), false, null, true );
-			wp_enqueue_style( 'glossary-tooltip', $assets->getPath( 'styles/glossary-tooltip.css' ), false, null );
+			wp_enqueue_script( 'glossary-definition', $assets->getPath( 'scripts/glossary-definition.js' ), false, null, true );
+			wp_enqueue_style( 'glossary-definition', $assets->getPath( 'styles/glossary-definition.css' ), false, null );
 		}
 	}
 
@@ -294,7 +294,7 @@ class Glossary implements BackMatter {
 
 		foreach ( $glossary_terms as $glossary_term_id => $glossary_term ) {
 			$identifier = 'term_' . $id . '_' . $glossary_term_id;
-			$content .= '<template id="' . $identifier . '"><div class="glossary__definition" role="dialog"><div tabindex="-1">' . wpautop( do_shortcode( $glossary_term ) ) . '</div><button><span aria-hidden="true">&times;</span><span class="screen-reader-text">' . __( 'Close definition', 'pressbooks' ) . '</span></button></div></template>';
+			$content .= '<template id="' . $identifier . '"><div class="glossary__definition" role="dialog" data-id="' . $identifier . '"><div tabindex="-1">' . wpautop( do_shortcode( $glossary_term ) ) . '</div><button><span aria-hidden="true">&times;</span><span class="screen-reader-text">' . __( 'Close definition', 'pressbooks' ) . '</span></button></div></template>';
 		}
 
 		$content .= '</div>';
