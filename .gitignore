@@ -1,4 +1,5 @@
 .idea/
+.nova/
 .DS_Store
 coverage.xml
 node_modules

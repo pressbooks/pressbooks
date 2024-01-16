@@ -65,6 +65,7 @@ mix
 	.js( 'assets/src/scripts/export-footnotes.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/contributors.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/algolia-search.js', 'assets/dist/scripts/' )
+	.js( 'node_modules/@pressbooks/multiselect/pressbooks-multiselect.js', 'assets/dist/scripts/' )
 	.scripts(
 		'node_modules/event-source-polyfill/src/eventsource.js',
 		'assets/dist/scripts/eventsource.polyfill.js'
@@ -109,6 +110,7 @@ mix
 	.sass( 'assets/src/styles/colors-pb.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/colors-pb-a11y.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/covergenerator.scss', 'assets/dist/styles/' )
+	.css( 'assets/src/styles/duet.css', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/export.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/glossary-definition.scss', 'assets/dist/styles' )
 	.sass( 'assets/src/styles/login.scss', 'assets/dist/styles/' )
@@ -118,12 +120,12 @@ mix
 	.sass( 'assets/src/styles/pressbooks.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/pressbooks-dashboard.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/search-and-replace.scss', 'assets/dist/styles/' )
-	.sass( 'assets/src/styles/select2.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/style-catalog.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/theme-options.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/cloner.scss', 'assets/dist/styles/' )
 	.copy( 'node_modules/alpinejs/dist/cdn.min.js', 'assets/dist/scripts/alpine.min.js' )
 	.copy( 'node_modules/instantsearch.js/dist/instantsearch.production.min.js', 'assets/dist/scripts/instantsearch.production.min.js' )
 	.copy( 'node_modules/algoliasearch/dist/algoliasearch-lite.umd.js', 'assets/dist/scripts/algoliasearch-lite.umd.js' )
+	.copyDirectory( 'node_modules/@duetds/date-picker/dist/duet/', 'assets/dist/scripts/duet/' )
 	.copyDirectory( 'assets/src/fonts', 'assets/dist/fonts' )
 	.copyDirectory( 'assets/src/images', 'assets/dist/images' );

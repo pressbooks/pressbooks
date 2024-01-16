@@ -64,10 +64,10 @@
 		"codeception/module-filesystem": "^1.0",
 		"codeception/module-phpbrowser": "^1.0",
 		"codeception/module-webdriver": "^1.2",
+		"dms/phpunit-arraysubset-asserts": "^0.5.0",
 		"lucatume/wp-browser": "^3.0",
 		"pressbooks/coding-standards": "^1.1",
-		"yoast/phpunit-polyfills": "^1.1",
-		"dms/phpunit-arraysubset-asserts": "^0.5.0"
+		"yoast/phpunit-polyfills": "^2.0"
 	},
 	"suggest": {
 		"pressbooks/pressbooks-book":
@@ -91,7 +91,7 @@
 			"tests",
 			"webpack.mix.js"
 		]
-	},
+  },
   "scripts": {
 		"test": [
 			"vendor/bin/phpunit --configuration phpunit.xml"

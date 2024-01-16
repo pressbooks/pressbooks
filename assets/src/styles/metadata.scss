@@ -23,3 +23,84 @@ $side-right-space: 20px;
     margin-right: 0 !important;
   }
 }
+
+.form-field {
+  margin-top: 1.25rem;
+}
+
+.form-field + .form-field {
+  margin-top: 0.9375rem;
+}
+
+.form-field > label,
+.form-field pressbooks-multiselect label {
+  color: #000;
+  display: block;
+  font-size: 0.8125rem;
+  line-height: 0.7222;
+  font-weight: 600;
+  margin: 0.3125rem 0;
+}
+
+.form-field > input[type="checkbox"] + label {
+  display: inline;
+}
+
+.form-field .description {
+  font-size: 0.6875rem;
+  margin-top: 0.1875rem;
+  margin-bottom: 0;
+}
+
+.form-field .description .button {
+  margin-block: 0.25rem;
+}
+
+.form-field input:not(.button, [type="checkbox"], [type="radio"]),
+.form-field select {
+  line-height: 2;
+  margin: 0.1875rem 0;
+  min-height: 30px;
+  min-width: 12.5rem;
+  padding: 0 0.5rem;
+  width: 100%;
+}
+
+.form-field input:not(.button, [type="checkbox"], [type="radio"]) {
+  max-width: 40rem;
+}
+
+.form-field select {
+  max-width: 25rem;
+}
+
+.form-field .duet-date__input-wrapper,
+.form-field .duet-date__dialog {
+  max-width: 12.5rem;
+}
+
+.form-field .duet-date__mobile-heading {
+  display: inline-block;
+  font-weight: var(--duet-font-bold);
+}
+
+@media (min-width: 36em) {
+  .duet-date__mobile-heading,
+  .form-field .duet-date__mobile-heading {
+    display: none;
+  }
+}
+
+.form-field .duet-date__toggle {
+  height: 1.75rem;
+  top: 0.25rem;
+  width: 2.25rem;
+}
+
+.form-field .duet-date__cell {
+  padding: 0;
+}
+
+:root {
+  --pb-combo-container-max-width: 40rem;
+}

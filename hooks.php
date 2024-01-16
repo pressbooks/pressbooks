@@ -88,13 +88,6 @@ add_action( 'init', [ '\Pressbooks\GoogleAnalytics', 'init' ] );
 add_action( 'init', [ '\Pressbooks\Tracking\BookDownload', 'init' ] );
 
 // -------------------------------------------------------------------------------------------------------------------
-// Custom Metadata plugin
-// -------------------------------------------------------------------------------------------------------------------
-
-add_filter( 'custom_metadata_manager_wysiwyg_args_field_pb_custom_copyright', '\Pressbooks\Editor\metadata_manager_default_editor_args' );
-add_filter( 'custom_metadata_manager_wysiwyg_args_field_pb_about_unlimited', '\Pressbooks\Editor\metadata_manager_default_editor_args' );
-
-// -------------------------------------------------------------------------------------------------------------------
 // Languages
 // -------------------------------------------------------------------------------------------------------------------
 

@@ -155,15 +155,22 @@ add_action(
 	}
 );
 
-add_action( 'custom_metadata_manager_init_metadata', '\Pressbooks\Admin\Metaboxes\add_meta_boxes' );
-
 if ( $is_book ) {
+	add_action( 'add_meta_boxes', '\Pressbooks\Admin\Metaboxes\add_meta_boxes' );
+	add_action( 'add_meta_boxes_metadata', '\Pressbooks\Admin\Metaboxes\add_meta_boxes_metadata' );
+	add_action( 'add_meta_boxes_front-matter', '\Pressbooks\Admin\Metaboxes\add_meta_boxes_front_matter' );
+	add_action( 'add_meta_boxes_chapter', '\Pressbooks\Admin\Metaboxes\add_meta_boxes_chapter' );
+	add_action( 'add_meta_boxes_back-matter', '\Pressbooks\Admin\Metaboxes\add_meta_boxes_back_matter' );
+	add_action( 'add_meta_boxes_part', '\Pressbooks\Admin\Metaboxes\add_meta_boxes_part' );
 	add_action( 'admin_enqueue_scripts', '\Pressbooks\Admin\Metaboxes\add_metadata_styles' );
 	add_action( 'save_post', [ '\Pressbooks\Book', 'consolidatePost' ], 10, 2 );
+	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\save_metadata', 10, 1 );
 	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\upload_cover_image', 10, 2 );
+	add_action( 'save_post_front-matter', '\Pressbooks\Admin\Metaboxes\save_section_metadata', 10, 1 );
+	add_action( 'save_post_chapter', '\Pressbooks\Admin\Metaboxes\save_section_metadata', 10, 1 );
+	add_action( 'save_post_back-matter', '\Pressbooks\Admin\Metaboxes\save_section_metadata', 10, 1 );
+	add_action( 'save_post_part', '\Pressbooks\Admin\Metaboxes\save_part_metadata', 10, 1 );
 	add_action( 'wp_insert_post', '\Pressbooks\Admin\Metaboxes\add_required_data', 10, 2 );
-	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\save_institutions_metadata', 10, 2 );
-	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\save_subject_metadata', 10, 2 );
 	add_action( 'contributor_pre_add_form', '\Pressbooks\Admin\Metaboxes\contributor_add_form_picture' );
 	add_action( 'contributor_add_form_fields', '\Pressbooks\Admin\Metaboxes\contributor_add_form' );
 	add_action( 'contributor_edit_form_fields', '\Pressbooks\Admin\Metaboxes\contributor_edit_form' );
