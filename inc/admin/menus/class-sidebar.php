@@ -2,6 +2,7 @@
 
 namespace Pressbooks\Admin\Menus;
 
+use function Pressbooks\Admin\Dashboard\init_network_integrations_menu;
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 
 class SideBar {
@@ -662,8 +663,20 @@ class SideBar {
 	private function manageIntegrationsAdminMenuItem(): void {
 		global $submenu;
 
-		\Pressbooks\Admin\Dashboard\init_network_integrations_menu();
-		$plugins_active = false;
+		init_network_integrations_menu();
+
+		/**
+		 * TODO: create a filter to add/remove integrations menu items and apply inversion of control principle
+		 *
+		 * Creating a filter to add/remove integrations menu items will allow us to apply inversion of control principle
+		 * and avoid the need to add/remove integrations menu items in this class directly.
+		 *
+		 * For example, we can create a filter to add/remove integrations menu items in a plugin or theme.
+		 *
+		 * apply_filters( 'add_items_to_network_integrations_menu', $submenu )
+		 * apply_filters( 'remove_items_from_network_integrations_menu', $submenu )
+		 *
+		 */
 
 		if ( is_plugin_active( 'pressbooks-cas-sso/pressbooks-cas-sso.php' ) ) {
 			\PressbooksCasSso\Admin::init()->addMenu();
@@ -687,13 +700,23 @@ class SideBar {
 				$submenu[ network_admin_url( 'admin.php?page=pb_lti_settings' ) ] = $submenu['pb_network_integrations'];
 				unset( $submenu['pb_network_integrations'] );
 			}
+
+			if (
+				isset( $submenu[ network_admin_url( 'admin.php?page=pb_network_integrations' ) ] ) &&
+				$submenu[ network_admin_url( 'admin.php?page=pb_network_integrations' ) ][0][2] === network_admin_url( 'admin.php?page=pb_network_integrations' )
+			) {
+				unset( $submenu[ network_admin_url( 'admin.php?page=pb_network_integrations' ) ][0] );
+			}
 		}
 
-		if (
-			isset( $submenu[ network_admin_url( 'admin.php?page=pb_network_integrations' ) ] ) &&
-			$submenu[ network_admin_url( 'admin.php?page=pb_network_integrations' ) ][0][2] === network_admin_url( 'admin.php?page=pb_network_integrations' )
-		) {
-			unset( $submenu[ network_admin_url( 'admin.php?page=pb_network_integrations' ) ][0] );
+		if ( is_plugin_active( 'pressbooks-lti/pressbooks-lti.php' ) ) {
+			( new \PressbooksLti\Bootstrap() )->registerMenus();
+
+			// Move LTI settings menu item to network admin menu page
+			if ( ! is_network_admin() && isset( $submenu['pb_network_integrations'] ) ) {
+				$submenu[ network_admin_url( 'admin.php?page=pb_lti_settings' ) ] = $submenu['pb_network_integrations'];
+				unset( $submenu['pb_network_integrations'] );
+			}
 		}
 	}
 
