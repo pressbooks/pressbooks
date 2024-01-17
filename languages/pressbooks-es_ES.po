@@ -4,6 +4,7 @@
 # Antonio D., 2018,2020
 # Antonio D., 2018,2020
 # Eduardo Vera, 2020-2021
+# Eduardo Vera, 2023
 # Eduardo Vera, 2021-2022
 # Eduardo Vera, 2021
 # Eduardo Vera, 2020-2021
@@ -19,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
 "POT-Creation-Date: 2023-12-14T19:44:52+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
-"Last-Translator: Víctor Sabaté <maelstrom@editorialmaelstrom.com>, 2015\n"
+"Last-Translator: Eduardo Vera, 2023\n"
 "Language-Team: Spanish (http://app.transifex.com/pressbooks/pressbooks/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -607,47 +608,47 @@ msgstr "un"
 
 #: inc/admin/dashboard/class-networkdashboard.php:79
 msgid "Brand your network"
-msgstr ""
+msgstr "Añade tu marca a la red"
 
 #: inc/admin/dashboard/class-networkdashboard.php:81
 msgid "Display your institutional logos and colors across your network"
-msgstr ""
+msgstr "Muestra los colores y logotipos de tu institución en toda tu red."
 
 #: inc/admin/dashboard/class-networkdashboard.php:86
 msgid "Customize your homepage"
-msgstr ""
+msgstr "Personaliza tu página de inicio"
 
 #: inc/admin/dashboard/class-networkdashboard.php:93
 msgid "Review network settings"
-msgstr ""
+msgstr "Revisa los ajustes de la red"
 
 #: inc/admin/dashboard/class-networkdashboard.php:100
 msgid "Learn about analytics options"
-msgstr ""
+msgstr "Aprende sobre las opciones de analítica"
 
 #: inc/admin/dashboard/class-networkdashboard.php:128
 msgid "Configure Single Sign On (SSO)"
-msgstr ""
+msgstr "Configura el acceso único (SSO)"
 
 #: inc/admin/dashboard/class-networkdashboard.php:144
 msgid "Join the Pressbooks Community Forum"
-msgstr ""
+msgstr "Únete al foro de la comunidad de Pressbooks"
 
 #: inc/admin/dashboard/class-networkdashboard.php:152
 msgid "Complete your onboarding"
-msgstr ""
+msgstr "Completa la puesta en marcha"
 
 #: inc/admin/dashboard/class-networkdashboard.php:161
 msgid "Take the 'Readiness to Launch' survey"
-msgstr ""
+msgstr "Realiza la encuesta de comprobación previa"
 
 #: inc/admin/dashboard/class-networkdashboard.php:163
 msgid "Complete a brief survey about your onboarding experience"
-msgstr ""
+msgstr "Completa una encuesta breve sobre tu experiencia de puesta en marcha."
 
 #: inc/admin/dashboard/namespace.php:21 inc/admin/dashboard/namespace.php:22
 msgid "Integrations"
-msgstr ""
+msgstr "Integraciones"
 
 #: inc/admin/delete/class-book.php:52
 msgid "Delete Book"
@@ -1137,72 +1138,72 @@ msgstr "Tu afiliación institucional, por ejemplo, la Fundación Rebus, Open Uni
 #: inc/admin/menus/class-sidebar.php:208 inc/admin/menus/class-sidebar.php:209
 #: inc/admin/menus/class-topbar.php:139
 msgid "Appearance"
-msgstr ""
+msgstr "Apariencia"
 
 #: inc/admin/menus/class-sidebar.php:218 inc/admin/menus/class-sidebar.php:219
 #: inc/admin/menus/class-topbar.php:144
 msgid "Pages"
-msgstr ""
+msgstr "Páginas"
 
 #: inc/admin/menus/class-sidebar.php:229 inc/admin/menus/class-sidebar.php:230
 #: inc/admin/menus/class-sidebar.php:428 inc/admin/menus/class-sidebar.php:429
 #: inc/admin/menus/class-topbar.php:154
 msgid "Settings"
-msgstr ""
+msgstr "Ajustes"
 
 #: inc/admin/menus/class-sidebar.php:240 inc/admin/menus/class-sidebar.php:241
 #: inc/admin/menus/class-sidebar.php:496 inc/admin/menus/class-sidebar.php:497
 msgid "Network Options"
-msgstr ""
+msgstr "Opciones de red"
 
 #: inc/admin/menus/class-sidebar.php:253 inc/admin/menus/class-sidebar.php:254
 #: inc/admin/menus/class-sidebar.php:283 inc/admin/menus/class-sidebar.php:284
 #: inc/admin/menus/class-sidebar.php:575 inc/admin/menus/class-sidebar.php:576
 #: inc/admin/menus/class-topbar.php:159
 msgid "Stats"
-msgstr ""
+msgstr "Estadísticas"
 
 #: inc/admin/menus/class-sidebar.php:265 inc/admin/menus/class-sidebar.php:266
 msgid "Network Stats"
-msgstr ""
+msgstr "Estadísticas de la red"
 
 #: inc/admin/menus/class-sidebar.php:274 inc/admin/menus/class-sidebar.php:275
 #: inc/admin/menus/class-sidebar.php:293 inc/admin/menus/class-sidebar.php:294
 msgid "Analytics"
-msgstr ""
+msgstr "Analítica"
 
 #: inc/admin/menus/class-sidebar.php:313 inc/admin/menus/class-sidebar.php:314
 msgid "Upgrade Network"
-msgstr ""
+msgstr "Actualizar la red"
 
 #: inc/admin/menus/class-sidebar.php:326 inc/admin/menus/class-sidebar.php:327
 #: inc/admin/menus/class-sidebar.php:335 inc/admin/menus/class-sidebar.php:336
 msgid "Network Users"
-msgstr ""
+msgstr "Usuarios de la red"
 
 #: inc/admin/menus/class-sidebar.php:346 inc/admin/menus/class-sidebar.php:347
 msgid "Root Site Users"
-msgstr ""
+msgstr "Usuarios del sitio raíz"
 
 #: inc/admin/menus/class-sidebar.php:357 inc/admin/menus/class-sidebar.php:358
 msgid "User Activation Keys"
-msgstr ""
+msgstr "Claves de activación de usuarios"
 
 #: inc/admin/menus/class-sidebar.php:407 inc/admin/menus/class-sidebar.php:408
 msgid "Network Plugins"
-msgstr ""
+msgstr "Plugins de la red"
 
 #: inc/admin/menus/class-sidebar.php:419 inc/admin/menus/class-sidebar.php:420
 msgid "Root Site Plugins"
-msgstr ""
+msgstr "Plugins del sitio raíz"
 
 #: inc/admin/menus/class-sidebar.php:441 inc/admin/menus/class-sidebar.php:442
 msgid "Network Settings"
-msgstr ""
+msgstr "Ajustes de la red"
 
 #: inc/admin/menus/class-sidebar.php:449 inc/admin/menus/class-sidebar.php:450
 msgid "Network Setup"
-msgstr ""
+msgstr "Configuración de la red"
 
 #: inc/admin/menus/class-sidebar.php:457 inc/admin/menus/class-sidebar.php:458
 #: inc/admin/networkmanagers/namespace.php:20
@@ -1212,11 +1213,11 @@ msgstr "Administradores de la red"
 
 #: inc/admin/menus/class-sidebar.php:466 inc/admin/menus/class-sidebar.php:467
 msgid "Whitelabel Settings"
-msgstr ""
+msgstr "Ajustes de Whitelabel"
 
 #: inc/admin/menus/class-sidebar.php:476 inc/admin/menus/class-sidebar.php:477
 msgid "Object Cache"
-msgstr ""
+msgstr "Object Cache"
 
 #: inc/admin/menus/class-sidebar.php:485 inc/admin/menus/class-sidebar.php:486
 #: inc/class-googleanalytics.php:69 inc/class-googleanalytics.php:70
@@ -1227,24 +1228,24 @@ msgstr "Google Analytics"
 
 #: inc/admin/menus/class-sidebar.php:504 inc/admin/menus/class-sidebar.php:505
 msgid "Sharing & Privacy"
-msgstr ""
+msgstr "Difusión y privacidad"
 
 #: inc/admin/menus/class-sidebar.php:516 inc/admin/menus/class-sidebar.php:517
 msgid "Root Site General Settings"
-msgstr ""
+msgstr "Ajustes generales del sitio raíz"
 
 #: inc/admin/menus/class-sidebar.php:529 inc/admin/menus/class-sidebar.php:530
 msgid "Root Site Media Settings"
-msgstr ""
+msgstr "Ajustes de medios del sitio raíz"
 
 #: inc/admin/menus/class-sidebar.php:542 inc/admin/menus/class-sidebar.php:543
 msgid "Root Site Privacy Settings"
-msgstr ""
+msgstr "Ajustes de privacidad del sitio raíz"
 
 #: inc/admin/menus/class-sidebar.php:554 inc/admin/menus/class-sidebar.php:555
 #: inc/admin/menus/class-sidebar.php:565 inc/admin/menus/class-sidebar.php:566
 msgid "PB Stats"
-msgstr ""
+msgstr "Estadísticas de Pressbooks"
 
 #: inc/admin/menus/class-topbar.php:109
 msgid "About Pressbooks"
@@ -1252,7 +1253,7 @@ msgstr "Acerca de Pressbooks"
 
 #: inc/admin/menus/class-topbar.php:165
 msgid "Administer Network"
-msgstr ""
+msgstr "Administrar la red"
 
 #: inc/admin/menus/class-topbar.php:244 inc/registration/namespace.php:59
 msgid "Create Book"
@@ -1260,11 +1261,11 @@ msgstr "Crear un libro"
 
 #: inc/admin/menus/class-topbar.php:263
 msgid "Clone Book"
-msgstr ""
+msgstr "Clonar un libro"
 
 #: inc/admin/menus/class-topbar.php:277
 msgid "Add Users"
-msgstr ""
+msgstr "Añadir usuarios"
 
 #: inc/admin/metaboxes/namespace.php:104
 msgid ""
@@ -1392,7 +1393,7 @@ msgstr "Fecha de publicación"
 
 #: inc/admin/metaboxes/namespace.php:331 inc/admin/metaboxes/namespace.php:341
 msgid "This is added to the metadata in your ebook."
-msgstr ""
+msgstr "Se añade a los metadatos de tu libro electrónico."
 
 #: inc/admin/metaboxes/namespace.php:340
 msgid "On-Sale Date"
@@ -1898,7 +1899,7 @@ msgstr "Los usuarios se añadieron correctamente a este libro."
 
 #: inc/admin/users/class-userbulk.php:245
 msgid "User(s) successfully added to the network."
-msgstr ""
+msgstr "Los usuarios se añadieron correctamente a la red."
 
 #: inc/admin/users/class-userbulk.php:248
 msgid ""
@@ -1919,23 +1920,23 @@ msgstr "Desplazamiento del ID, reemplaza al de la página."
 
 #: inc/api/endpoints/controller/books/class-books.php:140
 msgid "Timestamp for updated field."
-msgstr ""
+msgstr "Marca de tiempo para el campo actualizado."
 
 #: inc/api/endpoints/controller/books/class-books.php:146
 msgid "Array of license codes to filter books."
-msgstr ""
+msgstr "Array de códigos de licencia para filtrar libros."
 
 #: inc/api/endpoints/controller/books/class-books.php:166
 msgid "Array of title filters to filter books."
-msgstr ""
+msgstr "Array de filtros de título para filtrar libros."
 
 #: inc/api/endpoints/controller/books/class-books.php:177
 msgid "Boolean value to filter books by directory exclusion."
-msgstr ""
+msgstr "Valor booleano para filtrar libros por exclusión de directorios."
 
 #: inc/api/endpoints/controller/books/class-books.php:183
 msgid "String value to filter books by word count range."
-msgstr ""
+msgstr "Valor de cadena para filtrar libros por intervalo de número de palabras."
 
 #: inc/api/endpoints/controller/class-metadata.php:549
 #: inc/api/endpoints/controller/class-sectionmetadata.php:453
@@ -2162,7 +2163,7 @@ msgstr "Perfil de GitHub del colaborador. Debe ser una URL válida."
 msgid ""
 "Import multiple contributors at once by uploading a valid JSON file. See <a "
 "href=\"%s\" target=\"_blank\">our guide</a> for details."
-msgstr ""
+msgstr "Importa varios colaboradores al mismo tiempo subiendo un archivo JSON válido. Consulta los detalles en <a href=\"%s\" target=\"_blank\">nuestra guía</a>."
 
 #: inc/class-contributors.php:578
 msgid "Import Contributors"
@@ -2380,7 +2381,7 @@ msgstr "ID de Google Analytics"
 #: inc/class-googleanalytics.php:28
 msgid ""
 "The Google Analytics ID for your network, e.g &lsquo;G-A123B4C5DE6&rsquo;."
-msgstr ""
+msgstr "El ID de Google Analytics para tu red, por ejemplo: «G-A123B4C5DE6»."
 
 #: inc/class-googleanalytics.php:118
 msgid "Site-Specific Tracking"
@@ -2491,7 +2492,7 @@ msgstr "Icono de %s"
 msgid ""
 "%1$s Copyright &copy;%2$s by %3$s is licensed under a %4$s, except where "
 "otherwise noted."
-msgstr ""
+msgstr "%1$s Copyright &copy;%2$s por %3$s se distribuye bajo una %4$s, excepto cuando se especifiquen otros términos."
 
 #: inc/class-licensing.php:455 inc/class-licensing.php:465
 msgid "Icon for the %s license"
@@ -3295,9 +3296,9 @@ msgstr "desfijado"
 #: inc/modules/export/namespace.php:333
 msgid "About the author"
 msgid_plural "About the authors"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Sobre el autor"
+msgstr[1] "Sobre los autores"
+msgstr[2] "Sobre los autores"
 
 #: inc/modules/export/prince/class-pdf.php:278
 msgid ""
@@ -4990,7 +4991,7 @@ msgstr "Importar contenido"
 #: templates/admin/dashboard/book.blade.php:105
 #: templates/admin/dashboard/network.blade.php:180
 msgid "Support resources"
-msgstr ""
+msgstr "Recursos de soporte"
 
 #: templates/admin/dashboard/book.blade.php:114
 msgid "Getting started with Pressbooks"
@@ -5031,7 +5032,7 @@ msgstr "Regístrate en los webinarios gratuitos para aprender sobre las caracter
 
 #: templates/admin/dashboard/network.blade.php:5
 msgid "Network Manager Dashboard"
-msgstr ""
+msgstr "Escritorio del administrador de la red"
 
 #: templates/admin/dashboard/network.blade.php:7
 #: templates/admin/dashboard/user.blade.php:6
@@ -5040,101 +5041,101 @@ msgstr "Te damos la bienvenida a"
 
 #: templates/admin/dashboard/network.blade.php:12
 msgid "Visit network homepage"
-msgstr ""
+msgstr "Visitar la página de inicio de la red"
 
 #: templates/admin/dashboard/network.blade.php:23
 msgid "Your network has %s books and %s users. "
-msgstr ""
+msgstr "Tu red tiene %s libros y %s usuarios. "
 
 #: templates/admin/dashboard/network.blade.php:31
 msgid "Explore stats"
-msgstr ""
+msgstr "Explorar las estadísticas"
 
 #: templates/admin/dashboard/network.blade.php:44
 msgid "Ready to Launch Checklist"
-msgstr ""
+msgstr "Lista de comprobación previa"
 
 #: templates/admin/dashboard/network.blade.php:80
 msgid "Congratulations!"
-msgstr ""
+msgstr "¡Felicidades!"
 
 #: templates/admin/dashboard/network.blade.php:82
 msgid "Return to checklist"
-msgstr ""
+msgstr "Volver a la lista de comprobación"
 
 #: templates/admin/dashboard/network.blade.php:93
 msgid "Update homepage"
-msgstr ""
+msgstr "Actualizar la página de inicio"
 
 #: templates/admin/dashboard/network.blade.php:99
 msgid "Update homepage art"
-msgstr ""
+msgstr "Imagen de actualizar la página de inicio"
 
 #: templates/admin/dashboard/network.blade.php:108
 msgid "Customize network appearance"
-msgstr ""
+msgstr "Personalizar la apariencia de la red"
 
 #: templates/admin/dashboard/network.blade.php:116
 msgid "Create or edit pages"
-msgstr ""
+msgstr "Crear o editar páginas"
 
 #: templates/admin/dashboard/network.blade.php:125
 msgid "View homepage analytics"
-msgstr ""
+msgstr "Ver la analítica de la página de inicio"
 
 #: templates/admin/dashboard/network.blade.php:136
 msgid "Administer network"
-msgstr ""
+msgstr "Administrar la red"
 
 #: templates/admin/dashboard/network.blade.php:142
 msgid "Administer network art"
-msgstr ""
+msgstr "Imagen de administrar la red"
 
 #: templates/admin/dashboard/network.blade.php:151
 msgid "Adjust network settings"
-msgstr ""
+msgstr "Ajustes de la red"
 
 #: templates/admin/dashboard/network.blade.php:159
 msgid "View book list"
-msgstr ""
+msgstr "Ver la lista de libros"
 
 #: templates/admin/dashboard/network.blade.php:167
 msgid "View user list"
-msgstr ""
+msgstr "Ver la lista de usuarios"
 
 #: templates/admin/dashboard/network.blade.php:188
 msgid "Network manager guide"
-msgstr ""
+msgstr "Guía del administrador de la red"
 
 #: templates/admin/dashboard/network.blade.php:191
 msgid ""
 "Learn how to administer your Pressbooks network from our comprehensive how-"
 "to guide."
-msgstr ""
+msgstr "Aprende a administrar tu red de Presbooks con nuestra detallada guía práctica."
 
 #: templates/admin/dashboard/network.blade.php:202
 msgid ""
 "Discuss issues of interest with other network managers and Pressbooks "
 "support staff."
-msgstr ""
+msgstr "Discute incidencias de interés con otros administradores de redes y con el personal de soporte de Pressbooks."
 
 #: templates/admin/dashboard/network.blade.php:210
 msgid "Pressbooks webinars"
-msgstr ""
+msgstr "Webinarios de Pressbooks"
 
 #: templates/admin/dashboard/network.blade.php:213
 msgid "Become a confident Pressbooks user by attending a free, live webinar."
-msgstr ""
+msgstr "Vuélvete un usuario conocedor de Pressbooks asistiendo a un webinario gratuito en directo."
 
 #: templates/admin/dashboard/network.blade.php:222
 msgid "Contact Pressbooks Support"
-msgstr ""
+msgstr "Contacta con el soporte de Pressbooks"
 
 #: templates/admin/dashboard/network.blade.php:225
 msgid ""
 "Email Pressbooks’ Premium Support team to report bugs or get personalized "
 "help."
-msgstr ""
+msgstr "Envía un correo electrónico al equipo de soporte Premium de Pressbooks para informar de fallos u obtener ayuda personalizada."
 
 #: templates/admin/dashboard/user.blade.php:18
 msgid "Book Invitations"
