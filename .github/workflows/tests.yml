@@ -133,7 +133,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Fetch code coverage artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: code-coverage
       - name: Upload coverage to Codecov
