@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Capsule\Manager;
 use Pressbooks\Container;
 use Pressbooks\ServiceProvider;
 
@@ -107,5 +108,17 @@ class ContainerTest extends \WP_UnitTestCase {
 		$this->expectException( InvalidArgumentException::class );
 
 		$blade->render( 'Bar::template', [ 'name' => 'World'] );
+	}
+
+	/**
+	 * @test
+	 * @group container
+	 */
+	public function it_boots_eloquent() {
+		ServiceProvider::init();
+
+		$eloquent = Container::get( 'db' );
+
+		$this->assertInstanceOf( Manager::class, $eloquent );
 	}
 }

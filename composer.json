@@ -42,6 +42,8 @@
 		"illuminate/http": "^8.0",
 		"illuminate/support": "^8.0",
 		"illuminate/view": "^8.0",
+		"illuminate/database": "^8.0",
+		"illuminate/pagination": "^8.0",
 		"jenssegers/imagehash": "^0.9.0",
 		"johnbillion/extended-cpts": "^5.0",
 		"laravel/helpers": "^1.5",
@@ -91,8 +93,8 @@
 			"tests",
 			"webpack.mix.js"
 		]
-  },
-  "scripts": {
+	},
+	"scripts": {
 		"test": [
 			"vendor/bin/phpunit --configuration phpunit.xml"
 		],
