@@ -83,7 +83,7 @@
 
 /* stylelint-disable-next-line selector-id-pattern */
 #toplevel_page_tablepress .wp-menu-image {
-  @extend .pb-heroicons-tablepress;
+  @extend .pb-heroicons-table-cells;
 }
 
 .dashicons-networking {
@@ -91,9 +91,13 @@
 }
 
 .dashicons-admin-settings {
-  @extend .pb-heroicons-cog-8-tooth;
+  @extend .pb-heroicons-cog8-tooth;
 }
 
 .dashicons-dashboard {
   @extend .pb-heroicons-home;
+}
+
+.dashicons-building {
+  @extend .pb-heroicons-building-office;
 }
