@@ -14,7 +14,7 @@
 
       .selected-options {
         display: flex;
-        flex-wrap: wrap;
+        flex-flow: var(--pb-selected-options-flex-direction, row) wrap;
         gap: 0.5rem;
         list-style-type: none;
         max-width: var(--pb-selected-options-max-width, 100%);
