@@ -25,7 +25,7 @@ jobs:
         run: wp i18n make-mo languages
       - name: Create Pull Request for MO files
         id: cprtransifex
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.PAT_FOR_GITHUB_ACTIONS }}
           commit-message: 'chore(l10n): update languages/*.mo'
