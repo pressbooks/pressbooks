@@ -316,6 +316,7 @@ function replace_book_admin_menu() {
 				$post_type = get_post_type();
 				if ( in_array( $post_type, [ 'metadata', 'front-matter', 'chapter', 'back-matter' ], true ) ) {
 					wp_enqueue_script( 'pressbooks-multiselect' );
+					wp_enqueue_script( 'pressbooks-reorderable-multiselect' );
 				}
 			}
 		}
@@ -1155,6 +1156,7 @@ function init_css_js() {
 	wp_register_script( 'pb-post-back-matter', $assets->getPath( 'scripts/post-back-matter.js' ), [ 'jquery', 'editor' ], false, true );
 	wp_register_script( 'duet-date-picker', $assets->getPath( 'scripts/duet/duet.js' ), [], false, true );
 	wp_register_script( 'pressbooks-multiselect', $assets->getPath( 'scripts/pressbooks-multiselect.js' ), [], false, true );
+	wp_register_script( 'pressbooks-reorderable-multiselect', $assets->getPath( 'scripts/pressbooks-reorderable-multiselect.js' ), [], false, true );
 
 	// Register styles for later, on-the-fly, using action: admin_print_scripts- (or other tricks of the shade)
 	wp_register_style( 'pb-export', $assets->getPath( 'styles/export.css' ) );
