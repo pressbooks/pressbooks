@@ -120,7 +120,7 @@ class Admin_Fields extends \WP_UnitTestCase {
 
 		$this->assertArrayNotHasKey( '', $field->options );
 
-		$field->save( $post->ID, $term->slug );
+		$field->save( $post->ID, [ $term->slug ] );
 
 		$this->assertEquals( [ $term->slug ], get_post_meta( $post->ID, 'editors' ) );
 	}
