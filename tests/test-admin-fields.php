@@ -111,6 +111,17 @@ class Admin_Fields extends \WP_UnitTestCase {
 		$field->save( $post->ID, [ $term->slug ] );
 
 		$this->assertEquals( [ $term->slug ], get_post_meta( $post->ID, 'editors' ) );
+
+		// Reorderable
+		$_POST['editors'] = [ $term->slug ];
+
+		$field = new TaxonomyReorderableMultiselect( name: 'editors', label: 'Editors', taxonomy: 'contributor' );
+
+		$this->assertArrayNotHasKey( '', $field->options );
+
+		$field->save( $post->ID, $term->slug );
+
+		$this->assertEquals( [ $term->slug ], get_post_meta( $post->ID, 'editors' ) );
 	}
 
 	public function provideInputData(): array {

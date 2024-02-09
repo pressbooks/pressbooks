@@ -69,6 +69,7 @@ abstract class Metabox {
 			if ( isset( $_POST[ $field->name ] ) && ! empty( $_POST[ $field->name ] ) ) {
 
 				$value = $_POST[ $field->name ];
+
 				$field->save( $post_id, $value );
 			} else {
 				$field->delete( $post_id );
