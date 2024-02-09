@@ -2,6 +2,7 @@
 
 use Pressbooks\Admin\Fields\Date;
 use Pressbooks\Admin\Fields\TaxonomySelect;
+use Pressbooks\Admin\Fields\TaxonomyReorderableMultiselect;
 use Pressbooks\Admin\Fields\Text;
 use Pressbooks\Admin\Fields\TextArea;
 use Pressbooks\Admin\Fields\Url;

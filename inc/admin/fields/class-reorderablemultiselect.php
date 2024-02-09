@@ -22,11 +22,11 @@ class ReorderableMultiselect extends Field {
 
 		$value = get_post_meta( $post->ID, $this->name, false );
 
-		return is_array($value) ? implode(',', array_filter($value)) : $value;
+		return is_array( $value ) ? implode( ',', array_filter( $value ) ) : $value;
 	}
 
 	public function save( int $post_id, mixed $value ): void {
-		$values = explode(',', implode('', $value));
+		$values = explode( ',', implode( '', $value ) );
 
 		$this->delete( $post_id );
 		foreach ( $values as $v ) {

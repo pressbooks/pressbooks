@@ -25,7 +25,7 @@ class TaxonomyReorderableMultiselect extends Field {
 
 		$value = get_post_meta( $post->ID, $this->name, false );
 
-		return is_array($value) ? implode(',', array_filter($value)) : $value;
+		return is_array( $value ) ? implode( ',', array_filter( $value ) ) : $value;
 	}
 
 	public function getOptions(): array {
@@ -41,7 +41,7 @@ class TaxonomyReorderableMultiselect extends Field {
 	}
 
 	public function save( int $post_id, mixed $value ): void {
-		$values = explode(',', implode('', $value));
+		$values = explode( ',', implode( '', $value ) );
 
 		wp_set_object_terms( $post_id, $values, $this->taxonomy );
 

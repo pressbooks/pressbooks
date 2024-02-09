@@ -8,7 +8,6 @@ namespace Pressbooks\Admin\Metaboxes;
 
 use Pressbooks\Admin\Fields\Date as DateField;
 use Pressbooks\Admin\Fields\Select;
-use Pressbooks\Admin\Fields\TaxonomySelect;
 use Pressbooks\Admin\Fields\TaxonomyReorderableMultiselect;
 use Pressbooks\Admin\Fields\Text;
 use Pressbooks\Contributors;
