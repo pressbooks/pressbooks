@@ -3,6 +3,7 @@
 namespace Pressbooks;
 
 use Illuminate\Container\Container;
+use Illuminate\Database\Capsule\Manager;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\View\Compilers\BladeCompiler;
@@ -81,5 +82,32 @@ class ServiceProvider {
 				};
 			}
 		);
+
+		global $wpdb;
+
+		$db = new Manager;
+
+		/**
+		 * TODO: how to fetch environment variables from a config class,
+		 * roots config won't be accessible in the pipeline
+		 * Mantle POC
+		 * This would only create one connection that would be able in other plugins that tries to use Eloquent ORM
+		 */
+		$db->addConnection( [
+			'driver' => 'mysql',
+			'host' => env( 'DB_HOST', DB_HOST ),
+			'database' => env( 'DB_NAME', DB_NAME ),
+			'username' => env( 'DB_USER', DB_USER ),
+			'password' => env( 'DB_PASSWORD', DB_PASSWORD ),
+			'charset' => $wpdb->charset,
+			'collation' => $wpdb->collate,
+			'prefix' => $wpdb->base_prefix,
+		] );
+
+		$db->setAsGlobal();
+		$db->bootEloquent();
+
+		$container->bind( 'db', fn () => $db );
+
 	}
 }
