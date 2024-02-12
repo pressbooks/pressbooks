@@ -5,9 +5,9 @@
 		'Move Up' => __('Move Up', 'pressbooks'),
 		'Move Down' => __('Move Down', 'pressbooks'),
 		'Available Options' => __('Available options', 'pressbooks'),
-		'Moved to position $1' => __('Déplacé en position $1'),
-		'Removed $1 from selection' => __('Supprimer $1 de la sélection'),
-		'Added $1 to selection' => __('Ajouté $1 à la sélection')
+		'Moved to position $1' => __('Moved to position $1', 'pressbooks'),
+		'Removed $1 from selection' => __('Removed $1 from selection', 'pressbooks'),
+		'Added $1 to selection' => __('Added $1 to selection', 'pressbooks')
 	]) }}">
 		<label>
 			{{ $field->label }}
