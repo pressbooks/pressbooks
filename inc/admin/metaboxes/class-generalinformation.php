@@ -8,7 +8,7 @@ namespace Pressbooks\Admin\Metaboxes;
 
 use Pressbooks\Admin\Fields\Date as DateField;
 use Pressbooks\Admin\Fields\Select;
-use Pressbooks\Admin\Fields\TaxonomySelect;
+use Pressbooks\Admin\Fields\TaxonomyReorderableMultiselect;
 use Pressbooks\Admin\Fields\Text;
 use Pressbooks\Contributors;
 
@@ -50,51 +50,45 @@ class GeneralInformation extends Metabox {
 				label: __( 'Subtitle', 'pressbooks' )
 			),
 
-			new TaxonomySelect(
+			new TaxonomyReorderableMultiselect(
 				name: 'pb_authors',
 				label: __( 'Author(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
-				multiple: true,
 				description: sprintf( '<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __( 'Create New Contributor', 'pressbooks' ) )
 			),
 
-			new TaxonomySelect(
+			new TaxonomyReorderableMultiselect(
 				name: 'pb_editors',
 				label: __( 'Editor(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
-				multiple: true,
 				description: sprintf( '<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __( 'Create New Contributor', 'pressbooks' ) )
 			),
 
-			new TaxonomySelect(
+			new TaxonomyReorderableMultiselect(
 				name: 'pb_translators',
 				label: __( 'Translator(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
-				multiple: true,
 				description: sprintf( '<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __( 'Create New Contributor', 'pressbooks' ) )
 			),
 
-			new TaxonomySelect(
+			new TaxonomyReorderableMultiselect(
 				name: 'pb_reviewers',
 				label: __( 'Reviewer(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
-				multiple: true,
 				description: sprintf( '<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __( 'Create New Contributor', 'pressbooks' ) )
 			),
 
-			new TaxonomySelect(
+			new TaxonomyReorderableMultiselect(
 				name: 'pb_illustrators',
 				label: __( 'Illustrator(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
-				multiple: true,
 				description: sprintf( '<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __( 'Create New Contributor', 'pressbooks' ) )
 			),
 
-			new TaxonomySelect(
+			new TaxonomyReorderableMultiselect(
 				name: 'pb_contributors',
 				label: __( 'Contributor(s)', 'pressbooks' ),
 				taxonomy: Contributors::TAXONOMY,
-				multiple: true,
 				description: sprintf( '<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __( 'Create New Contributor', 'pressbooks' ) )
 			),
 

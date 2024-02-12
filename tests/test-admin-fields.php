@@ -2,6 +2,7 @@
 
 use Pressbooks\Admin\Fields\Date;
 use Pressbooks\Admin\Fields\TaxonomySelect;
+use Pressbooks\Admin\Fields\TaxonomyReorderableMultiselect;
 use Pressbooks\Admin\Fields\Text;
 use Pressbooks\Admin\Fields\TextArea;
 use Pressbooks\Admin\Fields\Url;
@@ -105,6 +106,17 @@ class Admin_Fields extends \WP_UnitTestCase {
 		$_POST['editors'] = [ $term->slug ];
 
 		$field = new TaxonomySelect( name: 'editors', label: 'Editors', taxonomy: 'contributor', multiple: true );
+
+		$this->assertArrayNotHasKey( '', $field->options );
+
+		$field->save( $post->ID, [ $term->slug ] );
+
+		$this->assertEquals( [ $term->slug ], get_post_meta( $post->ID, 'editors' ) );
+
+		// Reorderable
+		$_POST['editors'] = [ $term->slug ];
+
+		$field = new TaxonomyReorderableMultiselect( name: 'editors', label: 'Editors', taxonomy: 'contributor' );
 
 		$this->assertArrayNotHasKey( '', $field->options );
 
