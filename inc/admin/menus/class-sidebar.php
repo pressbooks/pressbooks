@@ -204,7 +204,6 @@ class SideBar {
 			'dashicons-admin-users',
 			3
 		);
-
 		add_menu_page(
 			__( 'Appearance', 'pressbooks' ),
 			__( 'Appearance', 'pressbooks' ),

@@ -603,18 +603,38 @@ SQL;
 	 */
 	public function getTotalNetworkStorageBytes() {
 		global $wpdb;
-		$total = $wpdb->get_var( $wpdb->prepare( "SELECT SUM(meta_value) FROM {$wpdb->blogmeta} WHERE meta_key = %s ", self::STORAGE_SIZE ) );
+
+		$filtered_books_ids = apply_filters( 'pb_filter_books', [] );
+		$filtered_books = implode( ',', $filtered_books_ids );
+
+		if ( ! empty( $filtered_books_ids ) ) {
+			// Use placeholders for the dynamic part of the query
+			$total = $wpdb->get_var( $wpdb->prepare( "SELECT SUM(meta_value) FROM {$wpdb->blogmeta} WHERE meta_key = %s AND blog_id IN (%s)", self::STORAGE_SIZE, $filtered_books ) );
+		} else {
+			// Only the root_id is dynamic, so we can directly use prepare
+			$total = $wpdb->get_var( $wpdb->prepare( "SELECT SUM(meta_value) FROM {$wpdb->blogmeta} WHERE meta_key = %s", self::STORAGE_SIZE ) );
+		}
+
 		return (int) $total;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getTotalBooks() {
+	public function getTotalBooks(): int {
 		global $wpdb;
 		$root_id = get_network()->site_id; // root network id should not be considered
 
-		$total = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(DISTINCT blog_id) FROM {$wpdb->blogmeta} WHERE blog_id <> %d AND meta_key = %s ", $root_id, self::TIMESTAMP ) );
+		$filtered_books_ids = apply_filters( 'pb_filter_books', [] );
+		$filtered_books = implode( ',', $filtered_books_ids );
+
+		if ( ! empty( $filtered_books_ids ) ) {
+			// Use placeholders for the dynamic part of the query
+			$total = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->blogs} WHERE archived = 0 AND spam = 0 AND blog_id != %d AND blog_id IN (%s)", $root_id, $filtered_books ) );
+		} else {
+			// Only the root_id is dynamic, so we can directly use prepare
+			$total = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->blogs} WHERE archived = 0 AND spam = 0 AND blog_id != %d", $root_id ) );
+		}
 
 		return (int) $total;
 	}
