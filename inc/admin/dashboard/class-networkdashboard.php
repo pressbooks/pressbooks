@@ -58,7 +58,7 @@ class NetworkDashboard extends Dashboard {
 
 		$filtered_books = apply_filters( 'pb_filter_books', [] );
 
-		if ( ! empty( $filtered_books ) ) {
+		if ( has_filter( 'pb_filter_books' ) ) {
 			return count( $filtered_books );
 		}
 

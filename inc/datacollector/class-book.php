@@ -628,7 +628,7 @@ SQL;
 		$filtered_books_ids = apply_filters( 'pb_filter_books', [] );
 		$filtered_books = implode( ',', $filtered_books_ids );
 
-		if ( ! empty( $filtered_books_ids ) ) {
+		if ( has_filter( 'pb_filter_books' ) ) {
 			// Use placeholders for the dynamic part of the query
 			$total = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->blogs} WHERE archived = 0 AND spam = 0 AND blog_id != %d AND blog_id IN (%s)", $root_id, $filtered_books ) );
 		} else {
