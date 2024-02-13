@@ -1,7 +1,7 @@
 # Copyright (C) 2023 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
-# Ali Fuat Demir <afuatdemir@gmail.com>, 2022
+# Zeki Tuman (ztuman) <afuatdemir@gmail.com>, 2022
 # Antonio D., 2017
 # ayse tekbas <ayse.tekbas@gmail.com>, 2016
 # Hakan Demiralp, 2022
