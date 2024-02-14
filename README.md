@@ -1,9 +1,9 @@
 # Pressbooks
 Contributors: Pressbooks <code@pressbooks.com>
 Tags: ebooks, publishing, webbooks
-Requires at least: 6.4.2
-Tested up to: 6.4.2
-Stable tag: 6.16.0
+Requires at least: 6.4.3
+Tested up to: 6.4.3
+Stable tag: 6.17.0
 Requires PHP: 8.1
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/production/LICENSE.md
@@ -49,11 +49,15 @@ The Pressbooks plugin is supplied "as is" and all use is at your own risk.
 
 ## Changelog
 
-### 6.16.0
-* See: https://github.com/pressbooks/pressbooks/releases/tag/6.16.0
+### 6.17.0
+* See: https://github.com/pressbooks/pressbooks/releases/tag/6.17.0
 * Full release history available at: https://github.com/pressbooks/pressbooks/releases
 
 ## Upgrade Notices
+### 6.17.0
+* Pressbooks 6.17.0 requires [WordPress 6.4.3](https://wordpress.org/documentation/wordpress-version/version-6-4-3/)
+
+
 ### 6.15.2
 * Pressbooks 6.15.2 requires [WordPress 6.4.2](https://wordpress.org/documentation/wordpress-version/version-6-4-2/)
 

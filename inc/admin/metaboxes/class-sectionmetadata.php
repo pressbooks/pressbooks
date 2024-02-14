@@ -6,6 +6,7 @@
 
 namespace Pressbooks\Admin\Metaboxes;
 
+use Pressbooks\Admin\Fields\TaxonomyReorderableMultiselect;
 use Pressbooks\Admin\Fields\TaxonomySelect;
 use Pressbooks\Admin\Fields\Text;
 use Pressbooks\Contributors;
@@ -43,11 +44,10 @@ class SectionMetadata extends Metabox {
 				description: __( 'Appears in the Web/ebook/PDF output.', 'pressbooks' )
 			),
 
-			new TaxonomySelect(
+			new TaxonomyReorderableMultiselect(
 				name: 'pb_authors',
 				label: sprintf( __( '%s Author(s)', 'pressbooks' ), $this->sectionType ),
 				taxonomy: Contributors::TAXONOMY,
-				multiple: true,
 				description: sprintf( '<a class="button" href="%s">%s</a>', 'edit-tags.php?taxonomy=contributor', __( 'Create New Contributor', 'pressbooks' ) )
 			),
 
