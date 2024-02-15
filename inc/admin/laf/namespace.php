@@ -629,7 +629,7 @@ function fix_root_admin_menu() {
 
 function add_pb_cloner_page() {
 	$cloner_page = add_submenu_page(
-		null,
+		'pb-null',
 		esc_html__( 'Clone a Book', 'pressbooks' ),
 		esc_html__( 'Clone a Book', 'pressbooks' ),
 		'read',
