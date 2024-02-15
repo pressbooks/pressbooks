@@ -276,6 +276,30 @@
       }
     ]
   },
+  { "country": "Africa",
+    "regions": [
+      {
+        "name": "Namibia",
+        "institutions": [
+          {
+            "code": "AF-NAM-001",
+            "name": "International University of Management",
+            "url": "https:\/\/ium.edu.na\/"
+          },
+          {
+            "code": "AF-NAM-002",
+            "name": "Namibia University of Science and Technology",
+            "url": "https:\/\/www.nust.na\/"
+          },
+          {
+            "code": "AF-NAM-003",
+            "name": "University of Namibia",
+            "url": "https:\/\/www.unam.edu.na\/"
+          }
+        ]
+      }
+    ]
+  },
   {
     "country": "Canada",
     "regions": [
@@ -1300,27 +1324,492 @@
           {
             "code": "EU-BEL-001",
             "name": "Université Libre de Bruxelles",
-            "url": "https:\/\/www.ulb.be/\/"
+            "url": "https:\/\/www.ulb.be\/"
           },
           {
             "code": "EU-BEL-002",
             "name": "Université Catholique de Louvain",
-            "url": "https:\/\/uclouvain.be/\/"
+            "url": "https:\/\/uclouvain.be\/"
           },
           {
             "code": "EU-BEL-003",
             "name": "Université de Namur",
-            "url": "https:\/\/www.unamur.be/\/"
+            "url": "https:\/\/www.unamur.be\/"
           },
           {
             "code": "EU-BEL-004",
             "name": "Université de Liège",
-            "url": "https:\/\/www.uliege.be/\/"
+            "url": "https:\/\/www.uliege.be\/"
           },
           {
             "code": "EU-BEL-005",
             "name": "Université de Mons",
-            "url": "https:\/\/web.umons.ac.be/\/"
+            "url": "https:\/\/web.umons.ac.be\/"
+          }
+        ]
+      },
+      {
+        "name": "Germany",
+        "institutions": [
+          {
+            "code": "EU-DEU-001",
+            "name": "Bauhaus University Weimar",
+            "url": "https:\/\/www.uni-weimar.de\/"
+          },
+          {
+            "code": "EU-DEU-002",
+            "name": "Berlin University of the Arts",
+            "url": "https:\/\/www.udk-berlin.de\/"
+          },
+          {
+            "code": "EU-DEU-003",
+            "name": "Bielefeld University",
+            "url": "https:\/\/www.uni-bielefeld.de\/"
+          },
+          {
+            "code": "EU-DEU-004",
+            "name": "Brandenburg Medical School Theodor Fontane",
+            "url": "https:\/\/www.mhb-fontane.de\/"
+          },
+          {
+            "code": "EU-DEU-005",
+            "name": "Brandenburg University of Technology",
+            "url": "https:\/\/www.b-tu.de\/"
+          },
+          {
+            "code": "EU-DEU-006",
+            "name": "Catholic University of Eichstätt-Ingolstadt",
+            "url": "https:\/\/www.ku.de\/"
+          },
+          {
+            "code": "EU-DEU-007",
+            "name": "Chemnitz University of Technology",
+            "url": "https:\/\/www.tu-chemnitz.de\/"
+          },
+          {
+            "code": "EU-DEU-008",
+            "name": "Clausthal University of Technology",
+            "url": "https:\/\/www.tu-clausthal.de\/"
+          },
+          {
+            "code": "EU-DEU-009",
+            "name": "Constructor University",
+            "url": "https:\/\/https:\/\/constructor.university\/"
+          },
+          {
+            "code": "EU-DEU-010",
+            "name": "Darmstadt University of Technology",
+            "url": "https:\/\/www.tu-darmstadt.de\/"
+          },
+          {
+            "code": "EU-DEU-011",
+            "name": "Dresden University of Technology",
+            "url": "https:\/\/tu-dresden.de\/"
+          },
+          {
+            "code": "EU-DEU-012",
+            "name": "European University Viadrina Frankfurt",
+            "url": "https:\/\/www.europa-uni.de\/"
+          },
+          {
+            "code": "EU-DEU-013",
+            "name": "Free University of Berlin",
+            "url": "https:\/\/www.fu-berlin.de\/"
+          },
+          {
+            "code": "EU-DEU-014",
+            "name": "Freiberg University of Mining and Technology",
+            "url": "https:\/\/tu-freiberg.de\/"
+          },
+          {
+            "code": "EU-DEU-015",
+            "name": "German University of Administrative Sciences Speyer",
+            "url": "https:\/\/www.uni-speyer.de\/"
+          },
+          {
+            "code": "EU-DEU-016",
+            "name": "Goethe University Frankfurt",
+            "url": "https:\/\/www.goethe-university-frankfurt.de\/"
+          },
+          {
+            "code": "EU-DEU-017",
+            "name": "HafenCity University Hamburg",
+            "url": "https:\/\/www.hcu-hamburg.de\/"
+          },
+          {
+            "code": "EU-DEU-018",
+            "name": "Hamburg University of Technology",
+            "url": "https:\/\/www.tuhh.de\/"
+          },
+          {
+            "code": "EU-DEU-019",
+            "name": "Hannover Medical School",
+            "url": "https:\/\/www.mhh.de\/"
+          },
+          {
+            "code": "EU-DEU-020",
+            "name": "Heidelberg University",
+            "url": "https:\/\/www.uni-heidelberg.de\/"
+          },
+          {
+            "code": "EU-DEU-021",
+            "name": "Heinrich Heine University Düsseldorf",
+            "url": "https:\/\/www.hhu.de\/"
+          },
+          {
+            "code": "EU-DEU-022",
+            "name": "Hertie School",
+            "url": "https:\/\/www.hertie-school.org\/"
+          },
+          {
+            "code": "EU-DEU-023",
+            "name": "Hochschule Bremen",
+            "url": "https:\/\/www.hs-bremen.de\/"
+          },
+          {
+            "code": "EU-DEU-024",
+            "name": "Humboldt University of Berlin",
+            "url": "https:\/\/www.hu-berlin.de\/"
+          },
+          {
+            "code": "EU-DEU-025",
+            "name": "Kaiserslautern University of Technology",
+            "url": "https:\/\/www.uni-kl.de\/"
+          },
+          {
+            "code": "EU-DEU-026",
+            "name": "Karlsruhe Institute of Technology",
+            "url": "https:\/\/www.kit.edu\/"
+          },
+          {
+            "code": "EU-DEU-027",
+            "name": "Kühne Logistics University",
+            "url": "https:\/\/www.klu.org\/"
+          },
+          {
+            "code": "EU-DEU-028",
+            "name": "Leibniz University Hannover",
+            "url": "https:\/\/www.uni-hannover.de\/"
+          },
+          {
+            "code": "EU-DEU-029",
+            "name": "Leipzig University",
+            "url": "https:\/\/www.uni-leipzig.de\/"
+          },
+          {
+            "code": "EU-DEU-030",
+            "name": "Leuphana University Lüneburg",
+            "url": "https:\/\/www.leuphana.de\/"
+          },
+          {
+            "code": "EU-DEU-031",
+            "name": "Ludwig Maximilian University of Munich",
+            "url": "https:\/\/www.lmu.de\/"
+          },
+          {
+            "code": "EU-DEU-032",
+            "name": "Martin Luther University Halle-Wittenberg",
+            "url": "https:\/\/www.uni-halle.de\/"
+          },
+          {
+            "code": "EU-DEU-033",
+            "name": "Otto von Guericke University Magdeburg",
+            "url": "https:\/\/www.ovgu.de\/"
+          },
+          {
+            "code": "EU-DEU-034",
+            "name": "Rheinland-Pfälzische Technical University",
+            "url": "https:\/\/rptu.de\/"
+          },
+          {
+            "code": "EU-DEU-035",
+            "name": "RWTH Aachen University",
+            "url": "https:\/\/www.rwth-aachen.de\/"
+          },
+          {
+            "code": "EU-DEU-036",
+            "name": "Ruhr University Bochum",
+            "url": "https:\/\/www.ruhr-uni-bochum.de\/"
+          },
+          {
+            "code": "EU-DEU-037",
+            "name": "Saarland University",
+            "url": "https:\/\/www.uni-saarland.de\/"
+          },
+          {
+            "code": "EU-DEU-038",
+            "name": "Technical University Dortmund",
+            "url": "https:\/\/www.tu-dortmund.de\/"
+          },
+          {
+            "code": "EU-DEU-039",
+            "name": "Technical University Ilmenau",
+            "url": "https:\/\/www.tu-ilmenau.de\/"
+          },
+          {
+            "code": "EU-DEU-040",
+            "name": "Technical University of Berlin",
+            "url": "https:\/\/www.tu.berlin\/"
+          },
+          {
+            "code": "EU-DEU-041",
+            "name": "Technical University of Braunschweig",
+            "url": "https:\/\/www.tu-braunschweig.de\/"
+          },
+          {
+            "code": "EU-DEU-042",
+            "name": "Technical University of Munich",
+            "url": "https:\/\/www.tum.de\/"
+          },
+          {
+            "code": "EU-DEU-043",
+            "name": "Ukrainian Free University",
+            "url": "https:\/\/www.ufu-muenchen.de\/"
+          },
+          {
+            "code": "EU-DEU-044",
+            "name": "Ulm University",
+            "url": "https:\/\/www.uni-ulm.de\/"
+          },
+          {
+            "code": "EU-DEU-045",
+            "name": "University of Augsburg",
+            "url": "https:\/\/www.uni-augsburg.de\/"
+          },
+          {
+            "code": "EU-DEU-046",
+            "name": "University of Bamberg",
+            "url": "https:\/\/www.uni-bamberg.de\/"
+          },
+          {
+            "code": "EU-DEU-047",
+            "name": "University of Bayreuth",
+            "url": "https:\/\/www.uni-bayreuth.de\/"
+          },
+          {
+            "code": "EU-DEU-048",
+            "name": "University of Bonn",
+            "url": "https:\/\/www.uni-bonn.de\/"
+          },
+          {
+            "code": "EU-DEU-049",
+            "name": "University of Bremen",
+            "url": "https:\/\/www.uni-bremen.de\/"
+          },
+          {
+            "code": "EU-DEU-050",
+            "name": "University of Cologne",
+            "url": "https:\/\/www.uni-koeln.de\/"
+          },
+          {
+            "code": "EU-DEU-051",
+            "name": "University of Duisburg-Essen",
+            "url": "https:\/\/www.uni-due.de\/"
+          },
+          {
+            "code": "EU-DEU-052",
+            "name": "University of Erfurt",
+            "url": "https:\/\/www.uni-erfurt.de\/"
+          },
+          {
+            "code": "EU-DEU-053",
+            "name": "University of Erlangen-Nuremberg",
+            "url": "https:\/\/www.fau.eu\/"
+          },
+          {
+            "code": "EU-DEU-054",
+            "name": "University of Flensburg",
+            "url": "https:\/\/www.uni-flensburg.de\/"
+          },
+          {
+            "code": "EU-DEU-055",
+            "name": "University of Freiburg",
+            "url": "https:\/\/www.uni-freiburg.de\/"
+          },
+          {
+            "code": "EU-DEU-056",
+            "name": "University of Giessen",
+            "url": "https:\/\/www.uni-giessen.de\/"
+          },
+          {
+            "code": "EU-DEU-057",
+            "name": "University of Greifswald",
+            "url": "https:\/\/www.uni-greifswald.de\/"
+          },
+          {
+            "code": "EU-DEU-058",
+            "name": "University of Göttingen",
+            "url": "https:\/\/www.uni-goettingen.de\/"
+          },
+          {
+            "code": "EU-DEU-059",
+            "name": "University of Hagen",
+            "url": "https:\/\/www.fernuni-hagen.de\/"
+          },
+          {
+            "code": "EU-DEU-060",
+            "name": "University of Hamburg",
+            "url": "https:\/\/www.uni-hamburg.de\/"
+          },
+          {
+            "code": "EU-DEU-061",
+            "name": "University of Hildesheim",
+            "url": "https:\/\/www.uni-hildesheim.de\/"
+          },
+          {
+            "code": "EU-DEU-062",
+            "name": "University of Hohenheim",
+            "url": "https:\/\/www.uni-hohenheim.de\/"
+          },
+          {
+            "code": "EU-DEU-063",
+            "name": "University of Jena",
+            "url": "https:\/\/www.uni-jena.de\/"
+          },
+          {
+            "code": "EU-DEU-064",
+            "name": "University of Kaiserslautern",
+            "url": "https:\/\/www.uni-kl.de\/"
+          },
+          {
+            "code": "EU-DEU-065",
+            "name": "University of Karlsruhe",
+            "url": "https:\/\/www.kit.edu\/"
+          },
+          {
+            "code": "EU-DEU-066",
+            "name": "University of Kassel",
+            "url": "https:\/\/www.uni-kassel.de\/"
+          },
+          {
+            "code": "EU-DEU-067",
+            "name": "University of Kiel",
+            "url": "https:\/\/www.uni-kiel.de\/"
+          },
+          {
+            "code": "EU-DEU-068",
+            "name": "University of Koblenz",
+            "url": "https:\/\/www.uni-koblenz.de\/"
+          },
+          {
+            "code": "EU-DEU-069",
+            "name": "University of Konstanz",
+            "url": "https:\/\/www.uni-konstanz.de\/"
+          },
+          {
+            "code": "EU-DEU-070",
+            "name": "University of Leipzig",
+            "url": "https:\/\/www.uni-leipzig.de\/"
+          },
+          {
+            "code": "EU-DEU-071",
+            "name": "University of Lübeck",
+            "url": "https:\/\/www.uni-luebeck.de\/"
+          },
+          {
+            "code": "EU-DEU-072",
+            "name": "University of Mainz",
+            "url": "https:\/\/www.uni-mainz.de\/"
+          },
+          {
+            "code": "EU-DEU-073",
+            "name": "University of Mannheim",
+            "url": "https:\/\/www.uni-mannheim.de\/"
+          },
+          {
+            "code": "EU-DEU-074",
+            "name": "University of Marburg",
+            "url": "https:\/\/www.uni-marburg.de\/"
+          },
+          {
+            "code": "EU-DEU-075",
+            "name": "University of Münster",
+            "url": "https:\/\/www.uni-muenster.de\/"
+          },
+          {
+            "code": "EU-DEU-076",
+            "name": "University of Oldenburg",
+            "url": "https:\/\/www.uni-oldenburg.de\/"
+          },
+          {
+            "code": "EU-DEU-077",
+            "name": "University of Osnabrück",
+            "url": "https:\/\/www.uni-osnabrueck.de\/"
+          },
+          {
+            "code": "EU-DEU-078",
+            "name": "University of Paderborn",
+            "url": "https:\/\/www.uni-paderborn.de\/"
+          },
+          {
+            "code": "EU-DEU-079",
+            "name": "University of Passau",
+            "url": "https:\/\/www.uni-passau.de\/"
+          },
+          {
+            "code": "EU-DEU-080",
+            "name": "University of Potsdam",
+            "url": "https:\/\/www.uni-potsdam.de\/"
+          },
+          {
+            "code": "EU-DEU-081",
+            "name": "University of Regensburg",
+            "url": "https:\/\/www.uni-regensburg.de\/"
+          },
+          {
+            "code": "EU-DEU-082",
+            "name": "University of Rostock",
+            "url": "https:\/\/www.uni-rostock.de\/"
+          },
+          {
+            "code": "EU-DEU-083",
+            "name": "University of Siegen",
+            "url": "https:\/\/www.uni-siegen.de\/"
+          },
+          {
+            "code": "EU-DEU-084",
+            "name": "University of Stuttgart",
+            "url": "https:\/\/www.uni-stuttgart.de\/"
+          },
+          {
+            "code": "EU-DEU-085",
+            "name": "University of the Bundeswehr Munich",
+            "url": "https:\/\/www.unibw.de\/"
+          },
+          {
+            "code": "EU-DEU-086",
+            "name": "University of Trier",
+            "url": "https:\/\/www.uni-trier.de\/"
+          },
+          {
+            "code": "EU-DEU-087",
+            "name": "University of Tübingen",
+            "url": "https:\/\/www.uni-tuebingen.de\/"
+          },
+          {
+            "code": "EU-DEU-088",
+            "name": "University of Vechta",
+            "url": "https:\/\/www.uni-vechta.de\/"
+          },
+          {
+            "code": "EU-DEU-089",
+            "name": "University of Wuppertal",
+            "url": "https:\/\/www.uni-wuppertal.de\/"
+          },
+          {
+            "code": "EU-DEU-090",
+            "name": "University of Würzburg",
+            "url": "https:\/\/www.uni-wuerzburg.de\/"
+          },
+          {
+            "code": "EU-DEU-091",
+            "name": "Witten/Herdecke University",
+            "url": "https:\/\/www.uni-wh.de\/"
+          },
+          {
+            "code": "EU-DEU-092",
+            "name": "Zeppelin University",
+            "url": "https:\/\/www.zu.de\/"
           }
         ]
       },
@@ -5027,7 +5516,7 @@
             "name": "Wiregrass Georgia Technical College",
             "url": "https:\/\/www.wiregrass.edu\/"
           },
-           {
+          {
             "code": "US-GA-068",
             "name": "Atlanta University Center",
             "url": "https:\/\/aucenter.edu/\/"
