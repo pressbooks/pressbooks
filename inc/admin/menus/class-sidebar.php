@@ -354,7 +354,7 @@ class SideBar {
 			require_once WP_PLUGIN_DIR . '/user-activation-keys/ds_wp3_user_activation_keys.php';
 			$ds_wp3_user_activation_keys = new \DS_User_Activation_Keys();
 			add_submenu_page(
-				null,
+				'pb-null',
 				__( 'User Activation Keys', 'pressbooks' ),
 				__( 'User Activation Keys', 'pressbooks' ),
 				'edit_users',

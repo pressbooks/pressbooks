@@ -150,8 +150,8 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		include_once( ABSPATH . '/wp-admin/menu.php' );
 		\Pressbooks\Admin\Laf\add_pb_cloner_page();
 		$this->assertArrayHasKey( 'index.php', $submenu );
-		$this->assertArrayHasKey( '', $submenu );
-		$this->assertContains( 'Clone a Book', $submenu[''][0] );
+		$this->assertArrayHasKey( 'pb-null', $submenu );
+		$this->assertContains( 'Clone a Book', $submenu['pb-null'][0] );
 		$new_post['post_type'] = 'post';
 		$GLOBALS['post'] = get_post( $this->factory()->post->create_object( $new_post ) );
 		$GLOBALS['current_screen'] = WP_Screen::get( 'post' );
