@@ -1929,6 +1929,466 @@
         ]
       },
       {
+        "name": "Italy",
+        "institutions": [
+          {
+            "code": "EU-ITA-001",
+            "name": "Basilicata University",
+            "url": "https:\/\/portale.unibas.it\/"
+          },
+          {
+            "code": "EU-ITA-002",
+            "name": "Bocconi University",
+            "url": "https:\/\/www.unibocconi.eu\/"
+          },
+          {
+            "code": "EU-ITA-003",
+            "name": "Ca' Foscari University of Venice",
+            "url": "https:\/\/unive.it\/"
+          },
+          {
+            "code": "EU-ITA-004",
+            "name": "Carlo Cattaneo University",
+            "url": "https:\/\/www.liuc.it\/"
+          },
+          {
+            "code": "EU-ITA-005",
+            "name": "Catholic University of the Sacred Heart",
+            "url": "https:\/\/www.unicatt.eu\/"
+          },
+          {
+            "code": "EU-ITA-006",
+            "name": "D'Annunzio University",
+            "url": "https:\/\/www.unich.it\/"
+          },
+          {
+            "code": "EU-ITA-007",
+            "name": "Dante Alighieri University for Foreigners of Reggio Calabria",
+            "url": "https:\/\/www.unidarc.it\/"
+          },
+          {
+            "code": "EU-ITA-008",
+            "name": "European University of Rome",
+            "url": "https:\/\/www.universitaeuropeadiroma.it\/"
+          },
+          {
+            "code": "EU-ITA-009",
+            "name": "Faenza ISIA",
+            "url": "https:\/\/www.isiafaenza.it\/"
+          },
+          {
+            "code": "EU-ITA-010",
+            "name": "Florence ISIA",
+            "url": "https:\/\/www.isiadesign.fi.it\/"
+          },
+          {
+            "code": "EU-ITA-011",
+            "name": "Free Mediterranean University",
+            "url": "https:\/\/www.lum.it\/"
+          },
+          {
+            "code": "EU-ITA-012",
+            "name": "Free University of Bozen-Bolzano",
+            "url": "https:\/\/www.unibz.it\/"
+          },
+          {
+            "code": "EU-ITA-013",
+            "name": "Guglielmo Marconi University",
+            "url": "https:\/\/www.unimarconi.it\/"
+          },
+          {
+            "code": "EU-ITA-014",
+            "name": "Humanitas University",
+            "url": "https:\/\/www.hunimed.eu\/"
+          },
+          {
+            "code": "EU-ITA-015",
+            "name": "IMT School for Advanced Studies Lucca",
+            "url": "https:\/\/www.imtlucca.it\/"
+          },
+          {
+            "code": "EU-ITA-016",
+            "name": "Institute for Advanced Study Pavia",
+            "url": "https:\/\/www.iusspavia.it\/"
+          },
+          {
+            "code": "EU-ITA-017",
+            "name": "International School for Advanced Studies",
+            "url": "https:\/\/www.sissa.it\/"
+          },
+          {
+            "code": "EU-ITA-018",
+            "name": "International University of Rome",
+            "url": "https:\/\/www.unint.eu\/"
+          },
+          {
+            "code": "EU-ITA-019",
+            "name": "Iuav University of Venice",
+            "url": "https:\/\/www5.iuav.it\/"
+          },
+          {
+            "code": "EU-ITA-020",
+            "name": "IULM University of Milan",
+            "url": "https:\/\/www.iulm.it\/"
+          },
+          {
+            "code": "EU-ITA-021",
+            "name": "Kore University of Enna",
+            "url": "https:\/\/unikore.it\/"
+          },
+          {
+            "code": "EU-ITA-022",
+            "name": "LUISS University of Rome",
+            "url": "https:\/\/www.luiss.edu\/"
+          },
+          {
+            "code": "EU-ITA-023",
+            "name": "LUMSA University",
+            "url": "https:\/\/www.lumsa.it\/"
+          },
+          {
+            "code": "EU-ITA-024",
+            "name": "Magna Græcia University of Catanzaro",
+            "url": "https:\/\/web.unicz.it\/"
+          },
+          {
+            "code": "EU-ITA-025",
+            "name": "Mercatorum University",
+            "url": "https:\/\/www.unimercatorum.it\/"
+          },
+          {
+            "code": "EU-ITA-026",
+            "name": "Niccolò Cusano University",
+            "url": "https:\/\/www.unicusano.it\/"
+          },
+          {
+            "code": "EU-ITA-027",
+            "name": "Parthenope University of Naples",
+            "url": "https:\/\/www.uniparthenope.it\/"
+          },
+          {
+            "code": "EU-ITA-028",
+            "name": "Pegaso University",
+            "url": "https:\/\/www.unipegaso.it\/"
+          },
+          {
+            "code": "EU-ITA-029",
+            "name": "Polytechnic University of Bari",
+            "url": "https:\/\/www.poliba.it\/"
+          },
+          {
+            "code": "EU-ITA-030",
+            "name": "Polytechnic University of Milan",
+            "url": "https:\/\/www.polimi.it\/"
+          },
+          {
+            "code": "EU-ITA-031",
+            "name": "Polytechnic University of the Marches",
+            "url": "https:\/\/www.univpm.it\/"
+          },
+          {
+            "code": "EU-ITA-032",
+            "name": "Polytechnic University of Turin",
+            "url": "https:\/\/www.polito.it\/"
+          },
+          {
+            "code": "EU-ITA-033",
+            "name": "Rome ISIA",
+            "url": "https:\/\/www.isiaroma.it\/"
+          },
+          {
+            "code": "EU-ITA-034",
+            "name": "Salesian University Institute of Venice",
+            "url": "https:\/\/www.iusve.it\/"
+          },
+          {
+            "code": "EU-ITA-035",
+            "name": "Sant'Anna School of Advanced Studies",
+            "url": "https:\/\/www.santannapisa.it\/"
+          },
+          {
+            "code": "EU-ITA-036",
+            "name": "Sapienza University of Rome",
+            "url": "https:\/\/www.uniroma1.it\/"
+          },
+          {
+            "code": "EU-ITA-037",
+            "name": "Scuola Normale Superiore of Pisa",
+            "url": "https:\/\/www.sns.it\/"
+          },
+          {
+            "code": "EU-ITA-038",
+            "name": "Suor Orsola Benincasa University of Naples",
+            "url": "https:\/\/www.unisob.na.it\/"
+          },
+          {
+            "code": "EU-ITA-039",
+            "name": "Tor Vergata University of Rome",
+            "url": "https:\/\/web.uniroma2.it\/"
+          },
+          {
+            "code": "EU-ITA-040",
+            "name": "Tuscia University",
+            "url": "https:\/\/www.unitus.it\/"
+          },
+          {
+            "code": "EU-ITA-041",
+            "name": "University for Foreigners of Perugia",
+            "url": "https:\/\/www.unistrapg.it\/"
+          },
+          {
+            "code": "EU-ITA-042",
+            "name": "University for Foreigners of Siena",
+            "url": "https:\/\/www.unistrasi.it\/"
+          },
+          {
+            "code": "EU-ITA-043",
+            "name": "University of Aosta Valley",
+            "url": "https:\/\/www.univda.it\/"
+          },
+          {
+            "code": "EU-ITA-044",
+            "name": "University of Bari",
+            "url": "https:\/\/www.uniba.it\/"
+          },
+          {
+            "code": "EU-ITA-045",
+            "name": "University of Bergamo",
+            "url": "https:\/\/www.unibg.it\/"
+          },
+          {
+            "code": "EU-ITA-046",
+            "name": "University of Bologna",
+            "url": "https:\/\/www.unibo.it\/"
+          },
+          {
+            "code": "EU-ITA-047",
+            "name": "University of Brescia",
+            "url": "https:\/\/www.unibs.it\/"
+          },
+          {
+            "code": "EU-ITA-048",
+            "name": "University of Cagliari",
+            "url": "https:\/\/www.unica.it\/"
+          },
+          {
+            "code": "EU-ITA-049",
+            "name": "University of Calabria",
+            "url": "https:\/\/www.unical.it\/"
+          },
+          {
+            "code": "EU-ITA-050",
+            "name": "University of Camerino",
+            "url": "https:\/\/www.unicam.it\/"
+          },
+          {
+            "code": "EU-ITA-051",
+            "name": "University of Campania Luigi Vanvitelli",
+            "url": "https:\/\/www.unicampania.it\/"
+          },
+          {
+            "code": "EU-ITA-052",
+            "name": "University of Cassino",
+            "url": "https:\/\/www.unicas.it\/"
+          },
+          {
+            "code": "EU-ITA-053",
+            "name": "University of Catania",
+            "url": "https:\/\/www.unict.it\/"
+          },
+          {
+            "code": "EU-ITA-054",
+            "name": "University of Eastern Piedmont",
+            "url": "https:\/\/www.uniupo.it\/"
+          },
+          {
+            "code": "EU-ITA-055",
+            "name": "University of Ferrara",
+            "url": "https:\/\/www.unife.it\/"
+          },
+          {
+            "code": "EU-ITA-056",
+            "name": "University of Florence",
+            "url": "https:\/\/www.unifi.it\/"
+          },
+          {
+            "code": "EU-ITA-057",
+            "name": "University of Foggia",
+            "url": "https:\/\/www.unifg.it\/"
+          },
+          {
+            "code": "EU-ITA-058",
+            "name": "University of Gastronomic Sciences of Pollenzo",
+            "url": "https:\/\/www.unisg.it\/"
+          },
+          {
+            "code": "EU-ITA-059",
+            "name": "University of Genoa",
+            "url": "https:\/\/www.unige.it\/"
+          },
+          {
+            "code": "EU-ITA-060",
+            "name": "University of Insubria",
+            "url": "https:\/\/www.uninsubria.it\/"
+          },
+          {
+            "code": "EU-ITA-061",
+            "name": "University of L'Aquila",
+            "url": "https:\/\/www.univaq.it\/"
+          },
+          {
+            "code": "EU-ITA-062",
+            "name": "University of Macerata",
+            "url": "https:\/\/www.unimc.it\/"
+          },
+          {
+            "code": "EU-ITA-063",
+            "name": "University of Messina",
+            "url": "https:\/\/www.unime.it\/"
+          },
+          {
+            "code": "EU-ITA-064",
+            "name": "University of Milan",
+            "url": "https:\/\/www.unimi.it\/"
+          },
+          {
+            "code": "EU-ITA-065",
+            "name": "University of Milan - Bicocca",
+            "url": "https:\/\/www.unimib.it\/"
+          },
+          {
+            "code": "EU-ITA-066",
+            "name": "University of Modena and Reggio Emilia",
+            "url": "https:\/\/www.unimore.it\/"
+          },
+          {
+            "code": "EU-ITA-067",
+            "name": "University of Molise",
+            "url": "https:\/\/www.unimol.it\/"
+          },
+          {
+            "code": "EU-ITA-068",
+            "name": "University of Naples Federico II",
+            "url": "https:\/\/www.unina.it\/"
+          },
+          {
+            "code": "EU-ITA-069",
+            "name": "University of Naples L'Orientale",
+            "url": "https:\/\/www.unior.it\/"
+          },
+          {
+            "code": "EU-ITA-070",
+            "name": "University of Padua",
+            "url": "https:\/\/www.unipd.it\/"
+          },
+          {
+            "code": "EU-ITA-071",
+            "name": "University of Palermo",
+            "url": "https:\/\/www.unipa.it\/"
+          },
+          {
+            "code": "EU-ITA-072",
+            "name": "University of Parma",
+            "url": "https:\/\/www.unipr.it\/"
+          },
+          {
+            "code": "EU-ITA-073",
+            "name": "University of Pavia",
+            "url": "https:\/\/www.unipv.it\/"
+          },
+          {
+            "code": "EU-ITA-074",
+            "name": "University of Perugia",
+            "url": "https:\/\/www.unipg.it\/"
+          },
+          {
+            "code": "EU-ITA-075",
+            "name": "University of Pisa",
+            "url": "https:\/\/www.unipi.it\/"
+          },
+          {
+            "code": "EU-ITA-076",
+            "name": "University of Reggio Calabria",
+            "url": "https:\/\/www.unirc.it\/"
+          },
+          {
+            "code": "EU-ITA-077",
+            "name": "University of Rome III",
+            "url": "https:\/\/www.uniroma3.it\/"
+          },
+          {
+            "code": "EU-ITA-078",
+            "name": "University of Salento",
+            "url": "https:\/\/www.unisalento.it\/"
+          },
+          {
+            "code": "EU-ITA-079",
+            "name": "University of Salerno",
+            "url": "https:\/\/www.unisa.it\/"
+          },
+          {
+            "code": "EU-ITA-080",
+            "name": "University of Sannio",
+            "url": "https:\/\/www.unisannio.it\/"
+          },
+          {
+            "code": "EU-ITA-081",
+            "name": "University of Sassari",
+            "url": "https:\/\/www.uniss.it\/"
+          },
+          {
+            "code": "EU-ITA-082",
+            "name": "University of Siena",
+            "url": "https:\/\/www.unisi.it\/"
+          },
+          {
+            "code": "EU-ITA-083",
+            "name": "University of Teramo",
+            "url": "https:\/\/www.unite.it\/"
+          },
+          {
+            "code": "EU-ITA-084",
+            "name": "University of Trento",
+            "url": "https:\/\/www.unitn.it\/"
+          },
+          {
+            "code": "EU-ITA-085",
+            "name": "University of Trieste",
+            "url": "https:\/\/www.units.it\/"
+          },
+          {
+            "code": "EU-ITA-086",
+            "name": "University of Turin",
+            "url": "https:\/\/www.unito.it\/"
+          },
+          {
+            "code": "EU-ITA-087",
+            "name": "University of Udine",
+            "url": "https:\/\/www.uniud.it\/"
+          },
+          {
+            "code": "EU-ITA-088",
+            "name": "University of Urbino",
+            "url": "https:\/\/www.uniurb.it\/"
+          },
+          {
+            "code": "EU-ITA-089",
+            "name": "University of Verona",
+            "url": "https:\/\/www.univr.it\/"
+          },
+          {
+            "code": "EU-ITA-090",
+            "name": "Urbino ISIA",
+            "url": "https:\/\/isiaurbino.net//"
+          },
+          {
+            "code": "EU-ITA-091",
+            "name": "Vita-Salute San Raffaele University",
+            "url": "https:\/\/www.unisr.it\/"
+          }
+        ]
+      },
+      {
         "name": "Netherlands",
         "institutions": [
 
@@ -1970,7 +2430,7 @@
           {
             "code": "EU-NLD-008",
             "name": "Tilburg University",
-            "url": "https:\/\/www.tilburguniversity.edu/\/"
+            "url": "https:\/\/www.tilburguniversity.edu\/"
           },
           {
             "code": "EU-NLD-009",
@@ -5519,7 +5979,7 @@
           {
             "code": "US-GA-068",
             "name": "Atlanta University Center",
-            "url": "https:\/\/aucenter.edu/\/"
+            "url": "https:\/\/aucenter.edu\/"
           }
         ]
       },
@@ -14234,12 +14694,12 @@
           {
             "code": "US-WA-057",
             "name": "Seattle Colleges District",
-            "url": "https:\/\/www.seattlecolleges.edu/\/"
+            "url": "https:\/\/www.seattlecolleges.edu\/"
           },
           {
             "code": "US-WA-058",
             "name": "Community Colleges of Spokane District",
-            "url": "https:\/\/ccs.spokane.edu/\/"
+            "url": "https:\/\/ccs.spokane.edu\/"
           }
         ]
       },
