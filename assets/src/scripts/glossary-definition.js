@@ -1,18 +1,18 @@
 const glossaryTerms = document.querySelectorAll( '#content .glossary-term' );
 
 Array.prototype.forEach.call( glossaryTerms, glossaryTerm => {
-
 	document.addEventListener( 'click', event => {
 		if ( event.target === glossaryTerm ) {
 			event.preventDefault();
-			const template = document.querySelector( glossaryTerm.getAttribute( 'href' ) );
+			event.target.setAttribute( 'data-source', true );
+			const template = document.querySelector(
+				glossaryTerm.getAttribute( 'href' )
+			);
 			showDefinition( template );
 		}
 
 		if (
-			( ! event.target.closest( '.glossary-term' ) &&
-					! event.target.closest( '.glossary__definition' ) ) ||
-				event.target.closest( '.glossary__definition button' )
+			( ! event.target.closest( '.glossary-term' ) && ! event.target.closest( '.glossary__definition' ) ) || event.target.closest( '.glossary__definition button' )
 		) {
 			removeDefinition();
 		}
@@ -50,7 +50,7 @@ Array.prototype.forEach.call( glossaryTerms, glossaryTerm => {
 	function removeDefinition() {
 		const definition = document.querySelector( '.glossary__definition' );
 		const glossaryTermId = definition.dataset.id;
-		const glossaryTerm = document.querySelector( `.glossary-term[href='#${ glossaryTermId }']` );
+		const glossaryTerm = document.querySelector( '.glossary-term[data-source]' );
 		const overlay = document.querySelector( '.overlay' );
 
 		if ( definition !== null ) {
@@ -68,5 +68,6 @@ Array.prototype.forEach.call( glossaryTerms, glossaryTerm => {
 		} );
 
 		glossaryTerm.focus();
+		glossaryTerm.removeAttribute( 'data-source' );
 	}
 } );
