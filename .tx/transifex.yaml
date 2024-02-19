@@ -1,0 +1,19 @@
+git:
+    filters:
+        - filter_type: file
+          file_format: PO
+          source_file: languages/pressbooks.pot
+          source_language: en
+          translation_files_expression: languages/pressbooks-<lang>.po
+    settings:
+        pr_branch_name: chore/update-translations-<br_unique_id>
+        language_mapping:
+            de: de_DE
+            es: es_ES
+            fr: fr_FR
+            gl: gl_ES
+            nb: nb_NO
+            it: it_IT
+            ka: ka_GE
+            ru: ru_RU
+            ta: ta_LK
