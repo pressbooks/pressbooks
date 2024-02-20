@@ -82,52 +82,54 @@
 	@endif
 	<div class="pb-dashboard-row">
 		<div class="pb-dashboard-grid">
-			<div class="pb-dashboard-panel">
-				<div class="pb-dashboard-content">
-					<h2>{{ __( 'Update homepage', 'pressbooks' ) }}</h2>
+			@if(!$is_institution)
+				<div class="pb-dashboard-panel">
+					<div class="pb-dashboard-content">
+						<h2>{{ __( 'Update homepage', 'pressbooks' ) }}</h2>
 
-					<div class="pb-dashboard-flex">
-						<img
-							class="pb-dashboard-flex-image"
-							src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-root-site.png" }}"
-							alt="{{ __( 'Update homepage art', 'pressbooks' ) }}"
-						/>
+						<div class="pb-dashboard-flex">
+							<img
+								class="pb-dashboard-flex-image"
+								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-root-site.png" }}"
+								alt="{{ __( 'Update homepage art', 'pressbooks' ) }}"
+							/>
 
-						<ul class="actions">
-							<li>
-								<a
-									href="{!! admin_url( 'customize.php?return=' . network_admin_url() ) !!}"
-								>
-									<i class="pb-heroicons pb-heroicons-sparkles"></i>
-									<span>{{ __( 'Customize network appearance', 'pressbooks' ) }}</span>
-								</a>
-							</li>
-							<li>
-								<a
-									href="{!! admin_url( 'edit.php?post_type=page' ) !!}"
-								>
-									<i class="pb-heroicons pb-heroicons-pencil-square"></i>
-									<span>{{ __( 'Create or edit pages', 'pressbooks' ) }}</span>
-								</a>
-							</li>
-							@if( $koko_analytics_active )
+							<ul class="actions">
 								<li>
 									<a
-										href="{!! admin_url( 'index.php?page=koko-analytics' ) !!}"
+										href="{!! admin_url( 'customize.php?return=' . network_admin_url() ) !!}"
 									>
-										<i class="pb-heroicons pb-heroicons-presentation-chart-bar"></i>
-										<span>{{ __( 'View homepage analytics', 'pressbooks' ) }}</span>
+										<i class="pb-heroicons pb-heroicons-sparkles"></i>
+										<span>{{ __( 'Customize network appearance', 'pressbooks' ) }}</span>
 									</a>
 								</li>
-							@endif
-						</ul>
+								<li>
+									<a
+										href="{!! admin_url( 'edit.php?post_type=page' ) !!}"
+									>
+										<i class="pb-heroicons pb-heroicons-pencil-square"></i>
+										<span>{{ __( 'Create or edit pages', 'pressbooks' ) }}</span>
+									</a>
+								</li>
+								@if( $koko_analytics_active )
+									<li>
+										<a
+											href="{!! admin_url( 'index.php?page=koko-analytics' ) !!}"
+										>
+											<i class="pb-heroicons pb-heroicons-presentation-chart-bar"></i>
+											<span>{{ __( 'View homepage analytics', 'pressbooks' ) }}</span>
+										</a>
+									</li>
+								@endif
+							</ul>
+						</div>
 					</div>
 				</div>
-			</div>
+				@endif
 
 			<div class="pb-dashboard-panel">
 				<div class="pb-dashboard-content">
-					<h2>{{ __( 'Administer network', 'pressbooks' ) }}</h2>
+					<h2>@if($is_institution) {{ __( 'Administer institution', 'pressbooks' ) }} @else {{ __( 'Administer network', 'pressbooks' ) }} @endif</h2>
 
 					<div class="pb-dashboard-flex">
 						<img
@@ -137,6 +139,7 @@
 						/>
 
 						<ul class="actions">
+							@if(!$is_institution)
 							<li>
 								<a
 									href="{!! network_admin_url( $network_analytics_active ? 'settings.php?page=pb_network_analytics_options' : 'settings.php' ) !!}"
@@ -145,6 +148,7 @@
 									<span>{{ __( 'Adjust network settings', 'pressbooks' ) }}</span>
 								</a>
 							</li>
+							@endif
 							<li>
 								<a
 									href="{!! network_admin_url( $network_analytics_active ? 'sites.php?page=pb_network_analytics_booklist' : 'sites.php' ) !!}"

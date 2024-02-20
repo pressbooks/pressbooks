@@ -28,8 +28,11 @@ class NetworkDashboard extends Dashboard {
 
 		$filtered_users = apply_filters( 'pb_filter_users', [] );
 
+		$institution = apply_filters('pb_institution','');
+
 		echo $blade->render( 'admin.dashboard.network', [
-			'network_name' => get_bloginfo( 'name' ),
+			'is_institution' => !empty($institution),
+			'network_name' => !empty($institution)? $institution['name'] : get_bloginfo( 'name' ),
 			'network_url' => network_home_url(),
 			'total_users' => has_filter( 'pb_filter_users' ) ? count( $filtered_users ) : get_user_count(),
 			'total_books' => $this->getTotalNumberOfBooks(),
