@@ -26,12 +26,10 @@ class NetworkDashboard extends Dashboard {
 	public function render(): void {
 		$blade = Container::get( 'Blade' );
 
-		$filtered_users = apply_filters( 'pb_filter_users', [] );
-
 		echo $blade->render( 'admin.dashboard.network', [
 			'network_name' => get_bloginfo( 'name' ),
 			'network_url' => network_home_url(),
-			'total_users' => has_filter( 'pb_filter_users' ) ? count( $filtered_users ) : get_user_count(),
+			'total_users' => get_user_count(),
 			'total_books' => $this->getTotalNumberOfBooks(),
 			'network_analytics_active' => is_plugin_active( 'pressbooks-network-analytics/pressbooks-network-analytics.php' ),
 			'koko_analytics_active' => is_plugin_active( 'koko-analytics/koko-analytics.php' ),
@@ -55,12 +53,6 @@ class NetworkDashboard extends Dashboard {
 
 	protected function getTotalNumberOfBooks(): int {
 		global $wpdb;
-
-		$filtered_books = apply_filters( 'pb_filter_books', [] );
-
-		if ( ! empty( $filtered_books ) ) {
-			return count( $filtered_books );
-		}
 
 		return (int) $wpdb->get_var(
 			$wpdb->prepare(
