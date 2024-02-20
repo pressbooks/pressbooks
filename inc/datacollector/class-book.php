@@ -603,18 +603,49 @@ SQL;
 	 */
 	public function getTotalNetworkStorageBytes() {
 		global $wpdb;
-		$total = $wpdb->get_var( $wpdb->prepare( "SELECT SUM(meta_value) FROM {$wpdb->blogmeta} WHERE meta_key = %s ", self::STORAGE_SIZE ) );
+
+		$filtered_books_ids = apply_filters( 'pb_institutional_books', [] );
+
+		if ( ! empty( $filtered_books_ids ) ) {
+			// Assuming $filtered_books is an array of integers
+			$filtered_books_placeholder = implode( ',', array_fill( 0, count( $filtered_books_ids ), '%d' ) );
+			// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Safe dynamic SQL generation for IN clause
+			$total = $wpdb->get_var( $wpdb->prepare(
+				"SELECT SUM(meta_value) FROM {$wpdb->blogmeta} WHERE meta_key = %s AND blog_id IN ($filtered_books_placeholder)",
+				array_merge( [ self::STORAGE_SIZE ], $filtered_books_ids )
+			) );
+			// phpcs:enable
+		} else {
+			// Only the root_id is dynamic, so we can directly use prepare
+			$total = $wpdb->get_var( $wpdb->prepare( "SELECT SUM(meta_value) FROM {$wpdb->blogmeta} WHERE meta_key = %s", self::STORAGE_SIZE ) );
+		}
+
 		return (int) $total;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getTotalBooks() {
+	public function getTotalBooks(): int {
 		global $wpdb;
 		$root_id = get_network()->site_id; // root network id should not be considered
 
-		$total = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(DISTINCT blog_id) FROM {$wpdb->blogmeta} WHERE blog_id <> %d AND meta_key = %s ", $root_id, self::TIMESTAMP ) );
+		$filtered_books_ids = apply_filters( 'pb_institutional_books', [] );
+
+		if ( has_filter( 'pb_institutional_books' ) && count( $filtered_books_ids ) > 0 ) {
+			// Use placeholders for the dynamic part of the query
+			// Assuming $filtered_books is an array of integers
+			$filtered_books_placeholder = implode( ',', array_fill( 0, count( $filtered_books_ids ), '%d' ) );
+			// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Safe dynamic SQL generation for IN clause
+			$total = $wpdb->get_var( $wpdb->prepare(
+				"SELECT COUNT(*) FROM {$wpdb->blogs} WHERE archived = 0 AND spam = 0 AND blog_id != %d AND blog_id IN ($filtered_books_placeholder)",
+				array_merge( [ $root_id ], $filtered_books_ids )
+			) );
+			// phpcs:enable
+		} else {
+			// Only the root_id is dynamic, so we can directly use prepare
+			$total = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->blogs} WHERE archived = 0 AND spam = 0 AND blog_id != %d", $root_id ) );
+		}
 
 		return (int) $total;
 	}
