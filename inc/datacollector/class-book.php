@@ -606,7 +606,7 @@ SQL;
 
 		$filtered_books_ids = apply_filters( 'pb_institutional_books', [] );
 
-		if ( ! empty( $filtered_books_ids ) ) {
+		if ( has_filter( 'pb_institutional_books' ) ) {
 			// Assuming $filtered_books is an array of integers
 			$filtered_books_placeholder = implode( ',', array_fill( 0, count( $filtered_books_ids ), '%d' ) );
 			// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Safe dynamic SQL generation for IN clause
@@ -632,7 +632,7 @@ SQL;
 
 		$filtered_books_ids = apply_filters( 'pb_institutional_books', [] );
 
-		if ( has_filter( 'pb_institutional_books' ) && count( $filtered_books_ids ) > 0 ) {
+		if ( has_filter( 'pb_institutional_books' ) ) {
 			// Use placeholders for the dynamic part of the query
 			// Assuming $filtered_books is an array of integers
 			$filtered_books_placeholder = implode( ',', array_fill( 0, count( $filtered_books_ids ), '%d' ) );
