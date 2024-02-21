@@ -511,6 +511,10 @@ function handle_dashboard_redirect( string $redirect_to, string $requested_redir
 		return $redirect_to;
 	}
 
+	if( has_filter( 'pb_dashboard_redirect' ) ){
+		return apply_filters( 'pb_dashboard_redirect', $redirect_to, $requested_redirect_to, $user );
+	}
+
 	if ( $redirect_to === admin_url() || str_contains( $redirect_to, 'page=pb_home_page' ) ) {
 		return network_admin_url( 'admin.php?page=pb_network_page' );
 	}
