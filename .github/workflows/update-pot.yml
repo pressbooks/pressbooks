@@ -25,7 +25,7 @@ jobs:
       run: wp i18n make-pot . languages/pressbooks.pot --domain=pressbooks --slug=pressbooks --package-name="Pressbooks" --headers="{\"Report-Msgid-Bugs-To\":\"https://github.com/pressbooks/pressbooks/issues\"}"
     - name: Create Pull Request for POT file
       id: cprpot
-      uses: peter-evans/create-pull-request@v5
+      uses: peter-evans/create-pull-request@v6
       with:
         token: ${{ secrets.PAT_FOR_GITHUB_ACTIONS }}
         labels: automerge-pot
