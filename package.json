@@ -45,7 +45,8 @@
 	"keywords": [
 		"ebooks",
 		"publishing",
-		"webbooks"
+		"webbooks",
+		"test"
 	],
 	"author": "Book Oven Inc. <code@pressbooks.com>",
 	"license": "GPL-3.0-or-later",
