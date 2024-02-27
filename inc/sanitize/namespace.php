@@ -757,11 +757,11 @@ function sanitize_webbook_content( $content ) {
 	// Remove deprecated table borders
 	$spec = '';
 	$spec .= 'table=-border;';
-	
-	$spec = apply_filters('pb_sanitize_webbook_content_spec', $spec);
-	$config = apply_filters('pb_sanitize_webbook_content_config', []);
-	
-	$content = htmlawed_with_mixed_markup($content, $config, $spec);
+
+	$spec = apply_filters( 'pb_sanitize_webbook_content_spec', $spec );
+	$config = apply_filters( 'pb_sanitize_webbook_content_config', [] );
+
+	$content = htmlawed_with_mixed_markup( $content, $config, $spec) ;
 	return $content;
 }
 
