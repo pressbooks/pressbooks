@@ -21,21 +21,12 @@ jobs:
         run: npm ci
       - name: Build assets
         run: npm run build
-      - name: Create pull request with built assets
-        id: cpr
-        uses: peter-evans/create-pull-request@v6
-        with:
-          commit-message: "chore(build): build assets"
-          title: "chore(build): build assets"
-          body: This is an auto-generated PR to build assets changed by Dependabot.
-          labels: dependencies, automerge
-          branch: "autobuild/${{ github.head_ref }}"
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Merge pull request with built assets into Dependabot branch
-        if: ${{ steps.cpr.outputs.pull-request-number }}
-        uses: "pascalgn/automerge-action@v0.16.2"
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          MERGE_LABELS: automerge
-          MERGE_METHOD: squash
-          PULL_REQUEST: "${{ steps.cpr.outputs.pull-request-number }}"
+      - name: Configure Git
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+      - name: Commit and push build assets
+        run: |
+          git add -A
+          git commit -m "chore: build assets"
+          git push origin ${{ github.head_ref }}
