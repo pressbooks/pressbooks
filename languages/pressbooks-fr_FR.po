@@ -5554,11 +5554,11 @@ msgstr ""
 
 #: templates/admin/dashboard/network.blade.php:159
 msgid "View book list"
-msgstr ""
+msgstr "Afficher la liste des livres"
 
 #: templates/admin/dashboard/network.blade.php:167
 msgid "View user list"
-msgstr ""
+msgstr "Afficher la liste des utilisateurs"
 
 #: templates/admin/dashboard/network.blade.php:188
 msgid "Network manager guide"
