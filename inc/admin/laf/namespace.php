@@ -1733,20 +1733,6 @@ function update_user_profile_fields( $user_id ) {
 /**
  *
  * @since 5.35.0
- * @param object $wp_admin_bar
- */
-function replace_wordpress_howdy( $wp_admin_bar ) {
-	$my_account = $wp_admin_bar->get_node( 'my-account' );
-	$newtext = str_replace( 'Howdy,', 'Hello,', $my_account->title );
-	$wp_admin_bar->add_node( [
-		'id' => 'my-account',
-		'title' => $newtext,
-	] );
-}
-
-/**
- *
- * @since 5.35.0
  */
 function remove_emoji() {
 	remove_action( 'admin_print_styles', 'print_emoji_styles' );

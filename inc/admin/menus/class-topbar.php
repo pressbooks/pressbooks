@@ -98,7 +98,10 @@ class TopBar {
 
 		$bar->add_node( [
 			'id' => $node->id,
-			'title' => $avatar,
+			'title' => '<span class="screen-reader-text">' . wp_get_current_user()->display_name . '</span>' . $avatar,
+			'meta' => [
+				'aria-label' => wp_get_current_user()->display_name
+			]
 		] );
 	}
 
@@ -166,7 +169,7 @@ class TopBar {
 
 		$bar->add_node( [
 			'id' => $main_id,
-			'title' => "<i class='pb-heroicons pb-heroicons-building-library'></i><span>{$title}</span>",
+			'title' => "<i aria-hidden='true' class='pb-heroicons pb-heroicons-building-library'></i><span>{$title}</span>",
 			'href' => network_admin_url( 'index.php?page=pb_network_page' ),
 			'meta' => [
 				'class' => is_network_admin() ? 'you-are-here' : null,
@@ -192,7 +195,7 @@ class TopBar {
 
 		$bar->add_node( [
 			'id' => 'pb-my-books',
-			'title' => "<i class='pb-heroicons pb-heroicons-my-books'></i><span>{$title}</span>",
+			'title' => "<i aria-hidden='true' class='pb-heroicons pb-heroicons-my-books'></i><span>{$title}</span>",
 			'href' => get_admin_url( get_main_site_id(), 'index.php?page=pb_home_page' ),
 			'meta' => array_filter( $metadata ),
 		] );
@@ -236,7 +239,7 @@ class TopBar {
 
 		$bar->add_node( [
 			'id' => $node->id,
-			'title' => "<i class='pb-heroicons pb-heroicons-book-open'></i><span>{$node->title}</span>",
+			'title' => "<i aria-hidden='true' class='pb-heroicons pb-heroicons-book-open'></i><span>{$node->title}</span>",
 		] );
 	}
 
@@ -246,7 +249,7 @@ class TopBar {
 		$node = [
 			'id' => 'pb-create-book',
 			'parent' => 'top-secondary',
-			'title' => "<i class='pb-heroicons pb-heroicons-plus-circle-filled'></i><span>{$title}</span>",
+			'title' => "<i aria-hidden='true' class='pb-heroicons pb-heroicons-plus-circle-filled'></i><span>{$title}</span>",
 			'href' => network_home_url( 'wp-signup.php' ),
 			'meta' => [
 				'class' => 'btn action',
@@ -265,7 +268,7 @@ class TopBar {
 		$bar->add_node( [
 			'id' => 'pb-clone-book',
 			'parent' => 'top-secondary',
-			'title' => "<i class='pb-heroicons pb-heroicons-clone-book'></i><span>{$title}</span>",
+			'title' => "<i aria-hidden='true' class='pb-heroicons pb-heroicons-clone-book'></i><span>{$title}</span>",
 			'href' => get_admin_url( get_main_site_id(), 'admin.php?page=pb_cloner' ),
 			'meta' => [
 				'class' => 'btn action',
@@ -279,7 +282,7 @@ class TopBar {
 		$bar->add_node( [
 			'id' => 'pb-add-users',
 			'parent' => 'top-secondary',
-			'title' => "<i class='pb-heroicons pb-heroicons-user-plus-filled'></i><span>{$title}</span>",
+			'title' => "<i aria-hidden='true' class='pb-heroicons pb-heroicons-user-plus-filled'></i><span>{$title}</span>",
 			'href' => network_admin_url( 'users.php?page=user_bulk_new' ),
 			'meta' => [
 				'class' => 'btn action',
