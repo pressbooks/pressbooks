@@ -1682,7 +1682,7 @@ msgstr "Date de publication"
 #: inc/admin/metaboxes/class-generalinformation.php:110
 #: inc/admin/metaboxes/class-generalinformation.php:116
 msgid "This is added to the metadata in your ebook."
-msgstr ""
+msgstr "Cela est ajouté aux métadonnées dans votre livre numérique."
 
 #: inc/admin/metaboxes/class-generalinformation.php:115
 msgid "On-Sale Date"
