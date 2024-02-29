@@ -99,9 +99,6 @@ class TopBar {
 		$bar->add_node( [
 			'id' => $node->id,
 			'title' => '<span class="screen-reader-text">' . wp_get_current_user()->display_name . '</span>' . $avatar,
-			'meta' => [
-				'aria-label' => wp_get_current_user()->display_name
-			]
 		] );
 	}
 
