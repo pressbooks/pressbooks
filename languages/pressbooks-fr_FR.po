@@ -699,7 +699,7 @@ msgstr "Configurer l'authentification unique (Single Sign On)"
 
 #: inc/admin/dashboard/class-networkdashboard.php:144
 msgid "Join the Pressbooks Community Forum"
-msgstr ""
+msgstr "Rejoignez le forum de la communauté Pressbooks"
 
 #: inc/admin/dashboard/class-networkdashboard.php:152
 msgid "Complete your onboarding"
