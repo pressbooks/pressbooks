@@ -62,16 +62,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.299.1",
+            "version": "3.300.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "a0f87b8e8bfb9afd0ffd702fcda556b465eee457"
+                "reference": "27d59c22c121ce9c0041c563dc9d7270e180925c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a0f87b8e8bfb9afd0ffd702fcda556b465eee457",
-                "reference": "a0f87b8e8bfb9afd0ffd702fcda556b465eee457",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/27d59c22c121ce9c0041c563dc9d7270e180925c",
+                "reference": "27d59c22c121ce9c0041c563dc9d7270e180925c",
                 "shasum": ""
             },
             "require": {
@@ -151,9 +151,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.299.1"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.300.4"
             },
-            "time": "2024-02-16T19:08:34+00:00"
+            "time": "2024-02-23T19:10:30+00:00"
         },
         {
             "name": "carbonphp/carbon-doctrine-types",
