@@ -2391,7 +2391,6 @@
       {
         "name": "Netherlands",
         "institutions": [
-
           {
             "code": "EU-NLD-001",
             "name": "Delft University of Technology",
@@ -2461,6 +2460,16 @@
             "code": "EU-NLD-014",
             "name": "Wageningen University & Research",
             "url": "https:\/\/www.wur.nl/\/"
+          }
+        ]
+      },
+      {
+        "name": "Turkey",
+        "institutions": [
+          {
+            "code": "EU-TUR-001",
+            "name": "Bosphorus University",
+            "url": "https:\/\/bogazici.edu.tr\/"
           }
         ]
       },
@@ -3215,21 +3224,6 @@
             "code": "OC-NZL-008",
             "name": "Victoria University of Wellington",
             "url": "https:\/\/www.wgtn.ac.nz\/"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "country": "Turkey",
-    "regions": [
-      {
-        "name": "Istanbul",
-        "institutions": [
-          {
-            "code": "TR-IST-001",
-            "name": "Bosphorus University",
-            "url": "https:\/\/bogazici.edu.tr\/"
           }
         ]
       }
