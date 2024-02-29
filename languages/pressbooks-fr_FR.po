@@ -679,7 +679,7 @@ msgstr "Marquez votre réseau"
 
 #: inc/admin/dashboard/class-networkdashboard.php:81
 msgid "Display your institutional logos and colors across your network"
-msgstr ""
+msgstr "Affichez vos logos et couleurs institutionnels sur votre réseau."
 
 #: inc/admin/dashboard/class-networkdashboard.php:86
 msgid "Customize your homepage"
@@ -691,11 +691,11 @@ msgstr "Vérifier les paramètres réseau"
 
 #: inc/admin/dashboard/class-networkdashboard.php:100
 msgid "Learn about analytics options"
-msgstr ""
+msgstr "En savoir plus sur les options d'analyse"
 
 #: inc/admin/dashboard/class-networkdashboard.php:128
 msgid "Configure Single Sign On (SSO)"
-msgstr ""
+msgstr "Configurer l'authentification unique (Single Sign On)"
 
 #: inc/admin/dashboard/class-networkdashboard.php:144
 msgid "Join the Pressbooks Community Forum"
