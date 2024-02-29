@@ -3221,6 +3221,21 @@
     ]
   },
   {
+    "country": "Turkey",
+    "regions": [
+      {
+        "name": "Istanbul",
+        "institutions": [
+          {
+            "code": "TR-IST-001",
+            "name": "Bosphorus University",
+            "url": "https:\/\/bogazici.edu.tr\/"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "country": "United States of America",
     "regions": [
       {
