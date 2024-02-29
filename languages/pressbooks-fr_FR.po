@@ -703,7 +703,7 @@ msgstr "Rejoignez le forum de la communauté Pressbooks"
 
 #: inc/admin/dashboard/class-networkdashboard.php:152
 msgid "Complete your onboarding"
-msgstr ""
+msgstr "Complétez votre intégration"
 
 #: inc/admin/dashboard/class-networkdashboard.php:161
 msgid "Take the 'Readiness to Launch' survey"
