@@ -2464,16 +2464,6 @@
         ]
       },
       {
-        "name": "Turkey",
-        "institutions": [
-          {
-            "code": "EU-TUR-001",
-            "name": "Boğaziçi University",
-            "url": "https:\/\/bogazici.edu.tr\/"
-          }
-        ]
-      },
-      {
         "name": "United Kingdom",
         "institutions": [
           {
@@ -3228,6 +3218,16 @@
         ]
       }
     ]
+  },
+  {
+    "country": "Turkey",
+    "institutions": [
+        {
+          "code": "TR-XX-001",
+          "name": "Boğaziçi University",
+          "url": "https:\/\/bogazici.edu.tr\/"
+        }
+      ]
   },
   {
     "country": "United States of America",
