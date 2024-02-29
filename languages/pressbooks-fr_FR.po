@@ -715,7 +715,7 @@ msgstr "Répondez à une brève enquête sur votre expérience d'intégration"
 
 #: inc/admin/dashboard/namespace.php:21 inc/admin/dashboard/namespace.php:22
 msgid "Integrations"
-msgstr ""
+msgstr "Intégrations"
 
 #: inc/admin/delete/class-book.php:52
 msgid "Delete Book"
