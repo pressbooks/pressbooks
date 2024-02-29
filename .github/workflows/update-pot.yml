@@ -31,7 +31,7 @@ jobs:
         labels: automerge-pot
         commit-message: 'chore(l10n): update pot file'
         title: 'chore(l10n): update pot file'
-        body: 'This pull request updates the POT file for this plugin.'
+        body: 'Update the POT file for this plugin.'
         branch: chore/update-pot-file
     - name: Merge pull request with updated POT file
       if: ${{ steps.cprpot.outputs.pull-request-number }}
