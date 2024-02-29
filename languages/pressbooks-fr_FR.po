@@ -1253,12 +1253,12 @@ msgstr ""
 #: inc/admin/menus/class-sidebar.php:209 inc/admin/menus/class-sidebar.php:210
 #: inc/admin/menus/class-topbar.php:139
 msgid "Appearance"
-msgstr ""
+msgstr "Apparence"
 
 #: inc/admin/menus/class-sidebar.php:219 inc/admin/menus/class-sidebar.php:220
 #: inc/admin/menus/class-topbar.php:144
 msgid "Pages"
-msgstr ""
+msgstr "Pages"
 
 #: inc/admin/menus/class-sidebar.php:230 inc/admin/menus/class-sidebar.php:231
 #: inc/admin/menus/class-sidebar.php:429 inc/admin/menus/class-sidebar.php:430
