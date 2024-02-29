@@ -1264,7 +1264,7 @@ msgstr "Pages"
 #: inc/admin/menus/class-sidebar.php:429 inc/admin/menus/class-sidebar.php:430
 #: inc/admin/menus/class-topbar.php:154
 msgid "Settings"
-msgstr ""
+msgstr "Paramètres"
 
 #: inc/admin/menus/class-sidebar.php:241 inc/admin/menus/class-sidebar.php:242
 #: inc/admin/menus/class-sidebar.php:497 inc/admin/menus/class-sidebar.php:498
