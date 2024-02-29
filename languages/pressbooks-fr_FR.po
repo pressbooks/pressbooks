@@ -707,11 +707,11 @@ msgstr "Complétez votre intégration"
 
 #: inc/admin/dashboard/class-networkdashboard.php:161
 msgid "Take the 'Readiness to Launch' survey"
-msgstr ""
+msgstr "Répondez à l'enquête « Prêt à lancer »"
 
 #: inc/admin/dashboard/class-networkdashboard.php:163
 msgid "Complete a brief survey about your onboarding experience"
-msgstr ""
+msgstr "Répondez à une brève enquête sur votre expérience d'intégration"
 
 #: inc/admin/dashboard/namespace.php:21 inc/admin/dashboard/namespace.php:22
 msgid "Integrations"
