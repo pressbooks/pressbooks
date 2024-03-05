@@ -167,7 +167,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 	/**
 	 * @group branding
 	 */
-	function test_clonning_page_is_not_shown_if_new_books_are_not_allowed() {
+	function test_cloning_page_is_not_shown_if_new_books_are_not_allowed() {
 		update_site_option( 'registration', 'none' ); // No new books allowed
 		$user_id = $this->factory()->user->create();
 		$user = get_userdata( $user_id );
