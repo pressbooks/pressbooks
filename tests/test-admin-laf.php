@@ -161,6 +161,23 @@ class Admin_LafTest extends \WP_UnitTestCase {
 
 		unset( $GLOBALS['post'], $GLOBALS['current_screen'] ); // Cleanup
 	}
+
+	/**
+	 * @group branding
+	 */
+	function test_clonning_page_is_not_shown_if_new_books_are_not_allowed() {
+		update_site_option( 'registration', 'none' ); // No new books allowed
+		$user_id = $this->factory()->user->create();
+		$user = get_userdata( $user_id );
+		$user->add_role( 'subscriber' );
+		wp_set_current_user( $user_id );
+		global $submenu, $wp_scripts;
+		include_once( ABSPATH . '/wp-admin/menu.php' );
+		\Pressbooks\Admin\Laf\add_pb_cloner_page();
+		$this->assertArrayHasKey( 'index.php', $submenu );
+		$this->assertArrayNotHasKey( 'pb-null', $submenu );
+	}
+
 	/**
 	 * @group branding
 	 * @test

@@ -628,31 +628,33 @@ function fix_root_admin_menu() {
 }
 
 function add_pb_cloner_page() {
-	$cloner_page = add_submenu_page(
-		'pb-null',
-		esc_html__( 'Clone a Book', 'pressbooks' ),
-		esc_html__( 'Clone a Book', 'pressbooks' ),
-		'read',
-		'pb_cloner',
-		__NAMESPACE__ . '\display_cloner'
-	);
-	add_action(
-		'admin_enqueue_scripts',
-		function ( $hook ) use ( $cloner_page ) {
-			if ( $hook === $cloner_page ) {
-				wp_localize_script(
-					'pb-cloner', 'PB_ClonerToken', [
-						'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=clone-book' ), 'pb-cloner' ),
-						'redirectUrl' => admin_url( 'admin.php?page=pb_cloner' ),
-						'unloadWarning' => esc_html__( 'Cloning is not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
-						'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . esc_html__( 'Reload', 'pressbooks' ) . '</a>)</em>',
-					]
-				);
-				wp_enqueue_script( 'pb-cloner' );
-				wp_deregister_script( 'heartbeat' );
+	if ( Cloner::isEnabled() && ( can_create_new_books() || is_super_admin() ) ) {
+		$cloner_page = add_submenu_page(
+			'pb-null',
+			esc_html__( 'Clone a Book', 'pressbooks' ),
+			esc_html__( 'Clone a Book', 'pressbooks' ),
+			'read',
+			'pb_cloner',
+			__NAMESPACE__ . '\display_cloner'
+		);
+		add_action(
+			'admin_enqueue_scripts',
+			function ( $hook ) use ( $cloner_page ) {
+				if ( $hook === $cloner_page ) {
+					wp_localize_script(
+						'pb-cloner', 'PB_ClonerToken', [
+							'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=clone-book' ), 'pb-cloner' ),
+							'redirectUrl' => admin_url( 'admin.php?page=pb_cloner' ),
+							'unloadWarning' => esc_html__( 'Cloning is not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
+							'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . esc_html__( 'Reload', 'pressbooks' ) . '</a>)</em>',
+						]
+					);
+					wp_enqueue_script( 'pb-cloner' );
+					wp_deregister_script( 'heartbeat' );
+				}
 			}
-		}
-	);
+		);
+	}
 }
 
 function add_cloning_stats_page() {
