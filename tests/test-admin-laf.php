@@ -1,5 +1,7 @@
 <?php
 
+use function Pressbooks\Admin\Laf\can_create_new_books;
+
 require_once( PB_PLUGIN_DIR . 'inc/admin/laf/namespace.php' );
 
 
@@ -158,7 +160,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Laf\init_css_js();
 		do_action( 'admin_enqueue_scripts', 'admin_page_pb_cloner' );
 		$this->assertContains( 'pb-cloner', $wp_scripts->queue );
-
+		unset( $submenu['pb-null'] );
 		unset( $GLOBALS['post'], $GLOBALS['current_screen'] ); // Cleanup
 	}
 
@@ -171,7 +173,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$user = get_userdata( $user_id );
 		$user->add_role( 'subscriber' );
 		wp_set_current_user( $user_id );
-		global $submenu, $wp_scripts;
+		global $submenu;
 		include_once( ABSPATH . '/wp-admin/menu.php' );
 		\Pressbooks\Admin\Laf\add_pb_cloner_page();
 		$this->assertArrayHasKey( 'index.php', $submenu );
