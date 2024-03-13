@@ -212,7 +212,7 @@ class SideBar {
 			$this->getContextSlug( 'customize.php', true ),
 			'',
 			'dashicons-admin-appearance',
-			4
+			5
 		);
 
 		add_menu_page(
@@ -222,7 +222,7 @@ class SideBar {
 			$this->getContextSlug( 'edit.php?post_type=page', true ),
 			'',
 			'dashicons-admin-page',
-			5
+			6
 		);
 
 		if ( is_restricted() && $this->isNetworkAnalyticsActive ) {
@@ -233,7 +233,7 @@ class SideBar {
 				'settings.php',
 				$this->settingsCallback,
 				'dashicons-admin-settings',
-				7
+				8
 			);
 			if ( ! is_network_admin() ) {
 				add_submenu_page(
@@ -257,7 +257,7 @@ class SideBar {
 					network_admin_url( 'admin.php?page=pb_network_analytics_admin' ),
 					'',
 					'dashicons-chart-area',
-					7
+					8
 				);
 			}
 
@@ -287,7 +287,7 @@ class SideBar {
 				'pressbooks_network_stats',
 				'',
 				'dashicons-chart-area',
-				7
+				8
 			);
 			add_submenu_page(
 				'pressbooks_network_stats',
