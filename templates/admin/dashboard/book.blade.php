@@ -21,7 +21,7 @@
 							@if( $book_info_url )
 								<li id="book_info">
 									<a href="{!! $book_info_url !!}">
-										<i class="pb-heroicons pb-heroicons-pencil-square"></i>
+										<i aria-hidden="true" class="pb-heroicons pb-heroicons-pencil-square"></i>
 										<span>{{ __( 'Edit book info', 'pressbooks' ) }}</span>
 									</a>
 								</li>
@@ -29,7 +29,7 @@
 							@if( $organize_url )
 								<li id="organize">
 									<a href="{{ $organize_url }}">
-										<i class="pb-heroicons pb-heroicons-book-open"></i>
+										<i aria-hidden="true" class="pb-heroicons pb-heroicons-book-open"></i>
 										<span>{{ __( 'Organize book', 'pressbooks' ) }}</span>
 									</a>
 								</li>
@@ -37,7 +37,7 @@
 							@if( $themes_url )
 								<li id="theme">
 									<a href="{{ $themes_url }}">
-										<i class="pb-heroicons pb-heroicons-sparkles"></i>
+										<i aria-hidden="true" class="pb-heroicons pb-heroicons-sparkles"></i>
 										<span>{{ __( 'Change theme', 'pressbooks' ) }}</span>
 									</a>
 								</li>
@@ -45,7 +45,7 @@
 							@if( $users_url )
 							<li id="users">
 								<a href="{{ $users_url }}">
-									<i class="pb-heroicons pb-heroicons-users"></i>
+									<i aria-hidden="true" class="pb-heroicons pb-heroicons-users"></i>
 									<span>{{ __( 'Manage users', 'pressbooks' ) }}</span>
 								</a>
 							</li>
@@ -53,7 +53,7 @@
 							@if( $analytics_url )
 								<li id="analytics">
 									<a href="{{ $analytics_url }}">
-										<i class="pb-heroicons pb-heroicons-presentation-chart-bar"></i>
+										<i aria-hidden="true" class="pb-heroicons pb-heroicons-presentation-chart-bar"></i>
 										<span>{{ __( 'View Analytics', 'pressbooks' ) }}</span>
 									</a>
 								</li>
@@ -61,7 +61,7 @@
 							@if( $delete_book_url )
 								<li id="delete">
 									<a href="{{ $delete_book_url }}">
-										<i class="pb-heroicons pb-heroicons-trash"></i>
+										<i aria-hidden="true" class="pb-heroicons pb-heroicons-trash"></i>
 										<span>{{ __( 'Delete book', 'pressbooks' ) }}</span>
 									</a>
 								</li>

@@ -98,7 +98,7 @@
 								<a
 									href="{!! admin_url( 'customize.php?return=' . network_admin_url() ) !!}"
 								>
-									<i class="pb-heroicons pb-heroicons-sparkles"></i>
+									<i aria-hidden="true" class="pb-heroicons pb-heroicons-sparkles"></i>
 									<span>{{ __( 'Customize network appearance', 'pressbooks' ) }}</span>
 								</a>
 							</li>
@@ -106,7 +106,7 @@
 								<a
 									href="{!! admin_url( 'edit.php?post_type=page' ) !!}"
 								>
-									<i class="pb-heroicons pb-heroicons-pencil-square"></i>
+									<i aria-hidden="true" class="pb-heroicons pb-heroicons-pencil-square"></i>
 									<span>{{ __( 'Create or edit pages', 'pressbooks' ) }}</span>
 								</a>
 							</li>
@@ -115,7 +115,7 @@
 									<a
 										href="{!! admin_url( 'index.php?page=koko-analytics' ) !!}"
 									>
-										<i class="pb-heroicons pb-heroicons-presentation-chart-bar"></i>
+										<i aria-hidden="true" class="pb-heroicons pb-heroicons-presentation-chart-bar"></i>
 										<span>{{ __( 'View homepage analytics', 'pressbooks' ) }}</span>
 									</a>
 								</li>
@@ -141,7 +141,7 @@
 								<a
 									href="{!! network_admin_url( $network_analytics_active ? 'settings.php?page=pb_network_analytics_options' : 'settings.php' ) !!}"
 								>
-									<i class="pb-heroicons pb-heroicons-cog-8-tooth"></i>
+									<i aria-hidden="true" class="pb-heroicons pb-heroicons-cog-8-tooth"></i>
 									<span>{{ __( 'Adjust network settings', 'pressbooks' ) }}</span>
 								</a>
 							</li>
@@ -149,7 +149,7 @@
 								<a
 									href="{!! network_admin_url( $network_analytics_active ? 'sites.php?page=pb_network_analytics_booklist' : 'sites.php' ) !!}"
 								>
-									<i class="pb-heroicons pb-heroicons-book-open"></i>
+									<i aria-hidden="true" class="pb-heroicons pb-heroicons-book-open"></i>
 									<span>{{ __( 'View book list', 'pressbooks' ) }}</span>
 								</a>
 							</li>
@@ -157,7 +157,7 @@
 								<a
 									href="{!! network_admin_url( $network_analytics_active ? 'users.php?page=pb_network_analytics_userlist' : 'users.php' ) !!}"
 								>
-									<i class="pb-heroicons pb-heroicons-users"></i>
+									<i aria-hidden="true" class="pb-heroicons pb-heroicons-users"></i>
 									<span>{{ __( 'View user list', 'pressbooks' ) }}</span>
 								</a>
 							</li>
@@ -168,55 +168,5 @@
 		</div>
 	</div>
 
-	<div class="pb-dashboard-row">
-		<div class="pb-dashboard-panel">
-			<div class="pb-dashboard-content">
-				<h2>{{ __('Support resources', 'pressbooks') }}</h2>
-				<ul class="horizontal">
-					<li class="resources" id="pressbooks-guide">
-						<a href="https://networkmanagerguide.pressbooks.com/" target="_blank">
-							<img
-								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-network-guide.png" }}"
-								alt=""
-							/>
-							{{ __('Network manager guide', 'pressbooks' )}}
-						</a>
-						<p>{{ __( 'Learn how to administer your Pressbooks network from our comprehensive how-to guide.', 'pressbooks' ) }}</p>
-					</li>
-					<li class="resources" id="forum">
-						<a href="https://pressbooks.community" target="_blank">
-							<img
-								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-forum.png" }}"
-								alt=""
-							/>
-							{{ __('Pressbooks community forum', 'pressbooks' ) }}
-						</a>
-						<p>{{ __( 'Discuss issues of interest with other network managers and Pressbooks support staff.', 'pressbooks' ) }}</p>
-					</li>
-					<li class="resources" id="spotlight">
-						<a href="https://pressbooks.com/webinars" target="_blank">
-							<img
-								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-spotlight-series.png" }}"
-								alt=""
-							/>
-							{{ __('Pressbooks webinars', 'pressbooks') }}
-						</a>
-						<p>{{ __( 'Become a confident Pressbooks user by attending a free, live webinar.', 'pressbooks' ) }}</p>
-					</li>
-					@if( $network_analytics_active )
-						<li class="resources" id="spotlight">
-							<a href="mailto:premiumsupport@pressbooks.com" target="_blank">
-								<img
-									src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-contact-support.png" }}"
-									alt=""
-								/>
-								{{ __('Contact Pressbooks Support', 'pressbooks') }}
-							</a>
-							<p>{{ __( 'Email Pressbooks’ Premium Support team to report bugs or get personalized help.', 'pressbooks' ) }}</p>
-						</li>
-					@endif
-				</ul>
-			</div>
-		</div>
-	</div>
+	@include('admin.dashboard.support')
 </div>

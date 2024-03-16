@@ -1,6 +1,6 @@
 /* global pb_ajax_dashboard, Alpine */
 
-let networkManagerDashboard = {
+const networkManagerDashboard = {
 	/**
 	 * This function perform the ajax call to update the checklist item.
 	 *
@@ -89,3 +89,5 @@ document.addEventListener( 'updateCompleted', function ( event ) {
 document.addEventListener( 'DOMContentLoaded', () => {
 	Alpine.store( 'checklist' ).updateCompleted();
 } );
+
+window.networkManagerDashboard = networkManagerDashboard;
