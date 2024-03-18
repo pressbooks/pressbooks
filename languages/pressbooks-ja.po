@@ -1,37 +1,42 @@
-# Copyright (C) 2023 Pressbooks (Book Oven Inc.)
+# Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
-# Eduardo Vera, 2023
+# Eduardo Vera, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks\n"
+"Project-Id-Version: Pressbooks 6.17.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2023-12-14T19:44:52+00:00\n"
-"PO-Revision-Date: 2013-12-21 21:04+0000\n"
-"Last-Translator: Eduardo Vera, 2023\n"
-"Language-Team: Japanese (http://app.transifex.com/pressbooks/pressbooks/language/ja/)\n"
+"POT-Creation-Date: 2024-02-13T22:57:10+00:00\n"
+"PO-Revision-Date: 2023-05-25 04:50+0000\n"
+"Last-Translator: Eduardo Vera, 2024\n"
+"Language-Team: Japanese (https://app.transifex.com/pressbooks/teams/9194/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Domain: pressbooks\n"
-"X-Generator: WP-CLI 2.9.0\n"
+"X-Generator: WP-CLI 2.10.0\n"
 
 #. Plugin Name of the plugin
+#: pressbooks.php
 msgid "Pressbooks"
 msgstr "Pressbooks"
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
+#: pressbooks.php
 msgid "https://pressbooks.org"
 msgstr "https://pressbooks.org"
 
 #. Description of the plugin
+#: pressbooks.php
 msgid "Simple Book Production"
 msgstr "本の簡単な制作"
 
 #. Author of the plugin
+#: pressbooks.php
 msgid "Pressbooks (Book Oven Inc.)"
 msgstr "Pressbooks (Book Oven Inc.)"
 
@@ -56,21 +61,27 @@ msgid ""
 "Pressbooks will not work with your version of PHP. Pressbooks requires PHP "
 "version %s or greater. Please upgrade PHP if you would like to use "
 "Pressbooks."
-msgstr "Pressbooks は現在使用中の PHP のバージョンでは動作しません。Pressbooks は PHP %s 以上が必要です。Pressbooks を使用する場合、PHP を更新してください。"
+msgstr ""
+"Pressbooks は現在使用中の PHP のバージョンでは動作しません。Pressbooks は PHP %s 以上が必要です。Pressbooks"
+" を使用する場合、PHP を更新してください。"
 
 #: compatibility.php:185
 msgid ""
 "Pressbooks will not work with your version of WordPress. Pressbooks requires"
 " a dedicated install of WordPress Multisite, version %s or greater. Please "
 "upgrade WordPress if you would like to use Pressbooks."
-msgstr "Pressbooks は現在使用中の WordPress のバージョンでは動作しません。Pressbooks は WordPress マルチサイトの専用インストール %s 以上が必要です。Pressbooks を使用する場合、WordPress を更新してください。"
+msgstr ""
+"Pressbooks は現在使用中の WordPress のバージョンでは動作しません。Pressbooks は WordPress "
+"マルチサイトの専用インストール %s 以上が必要です。Pressbooks を使用する場合、WordPress を更新してください。"
 
 #: compatibility.php:196
 msgid ""
 "The Pressbooks plugin is inactive, but you have active plugins that require "
 "Pressbooks. This is causing errors. Please go to the Plugins page, and "
 "activate Pressbooks."
-msgstr "Pressbooks プラグインは停止中ですが、Pressbooks を必要とする使用中のプラグインがある。これはエラーが発生しています。プラグインページへ移動し、Pressbooks を有効化してください。"
+msgstr ""
+"Pressbooks プラグインは停止中ですが、Pressbooks "
+"を必要とする使用中のプラグインがある。これはエラーが発生しています。プラグインページへ移動し、Pressbooks を有効化してください。"
 
 #: inc/admin/attachments/namespace.php:39
 msgid "ATTRIBUTIONS"
@@ -150,10 +161,10 @@ msgstr "表紙"
 
 #: inc/admin/class-catalog-list-table.php:231
 #: inc/admin/covergenerator/namespace.php:76
-#: inc/admin/metaboxes/namespace.php:204 templates/admin/import.php:90
-#: templates/admin/cloner/stats.blade.php:4
+#: inc/admin/metaboxes/class-generalinformation.php:39
+#: templates/admin/import.php:90 templates/admin/cloner/stats.blade.php:4
 msgid "Title"
-msgstr "書名"
+msgstr "タイトル"
 
 #: inc/admin/class-catalog-list-table.php:236 templates/pb-catalog.php:228
 msgid "Tag"
@@ -181,8 +192,8 @@ msgstr "非公開"
 msgid "Public"
 msgstr "公開"
 
-#: inc/admin/class-catalog-list-table.php:507 inc/admin/laf/namespace.php:433
-#: inc/admin/laf/namespace.php:613 inc/admin/laf/namespace.php:890
+#: inc/admin/class-catalog-list-table.php:507 inc/admin/laf/namespace.php:447
+#: inc/admin/laf/namespace.php:627 inc/admin/laf/namespace.php:904
 msgid "My Catalog"
 msgstr "自分のカタログ"
 
@@ -234,7 +245,9 @@ msgid ""
 "To add sorting ability, add your Tag names to your <a href=\"%s\">Catalog "
 "Profile</a> page (ex: Authors, Book Genre), then add the appropriate tags to"
 " each individual book."
-msgstr "並べ替え機能を追加するには、<a href=\"%s\">カタログプロファイル</a>ページでタグ名を追加し (例: 著者、ジャンル) 、各本に適切なタグを追加します。"
+msgstr ""
+"並べ替え機能を追加するには、<a href=\"%s\">カタログプロファイル</a>ページでタグ名を追加し (例: 著者、ジャンル) "
+"、各本に適切なタグを追加します。"
 
 #: inc/admin/class-catalog-list-table.php:539
 msgid "Share your catalog"
@@ -287,7 +300,7 @@ msgid ""
 " when themes are updated."
 msgstr "これにより、テーマが更新しても、本の外観とページ数を変更されるようにはなりません。"
 
-#: inc/admin/class-exportoptions.php:195 inc/admin/laf/namespace.php:398
+#: inc/admin/class-exportoptions.php:195 inc/admin/laf/namespace.php:412
 msgid "Export Settings"
 msgstr "エクスポート設定"
 
@@ -334,9 +347,11 @@ msgid ""
 "Enter the URLs for locations where your book can be purchased below. <a "
 "href=\"https://guide.pressbooks.com/chapter/publish/\">Our guide</a> "
 "provides additional information about selling and distributing your book."
-msgstr "以下に本の購入できる場所を入力します。<a href=\"https://guide.pressbooks.com/chapter/publish/\">ガイド</a>では、本の販売と配布に関する追加情報を提供します。"
+msgstr ""
+"以下に本の購入できる場所を入力します。<a "
+"href=\"https://guide.pressbooks.com/chapter/publish/\">ガイド</a>では、本の販売と配布に関する追加情報を提供します。"
 
-#: inc/admin/class-publishoptions.php:300 inc/admin/laf/namespace.php:382
+#: inc/admin/class-publishoptions.php:300 inc/admin/laf/namespace.php:396
 msgid "Publish"
 msgstr "公開"
 
@@ -349,7 +364,7 @@ msgstr "サイトマップ"
 msgid "Cover Generator"
 msgstr "表紙ジェネレーター"
 
-#: inc/admin/covergenerator/namespace.php:46 inc/admin/laf/namespace.php:362
+#: inc/admin/covergenerator/namespace.php:46 inc/admin/laf/namespace.php:376
 msgid "Saving settings"
 msgstr "設定を保存中"
 
@@ -359,9 +374,9 @@ msgid ""
 "Are you sure?"
 msgstr "表紙生成が完了していません。今このページから移動すると、問題が発生します。本当によろしいですか ?"
 
-#: inc/admin/covergenerator/namespace.php:50 inc/admin/laf/namespace.php:338
-#: inc/admin/laf/namespace.php:361 inc/admin/laf/namespace.php:422
-#: inc/admin/laf/namespace.php:634
+#: inc/admin/covergenerator/namespace.php:50 inc/admin/laf/namespace.php:352
+#: inc/admin/laf/namespace.php:375 inc/admin/laf/namespace.php:436
+#: inc/admin/laf/namespace.php:648
 msgid "Reload"
 msgstr "再読み込み"
 
@@ -374,7 +389,7 @@ msgid "Title (Spine)"
 msgstr "書名 (背)"
 
 #: inc/admin/covergenerator/namespace.php:98
-#: inc/admin/metaboxes/namespace.php:225
+#: inc/admin/metaboxes/class-generalinformation.php:50
 msgid "Subtitle"
 msgstr "サブタイトル"
 
@@ -395,7 +410,8 @@ msgstr "ISBN"
 msgid ""
 "If you have an ISBN, this will generate a barcode on the back of your print "
 "cover. If you do not have an ISBN, you should leave this field blank."
-msgstr "ISBN をお持ちの場合、これは印刷された表紙の裏でバーコードを生成します。ISBN をお持ちでないの場合、このフィールドを空白のままにしてください。"
+msgstr ""
+"ISBN をお持ちの場合、これは印刷された表紙の裏でバーコードを生成します。ISBN をお持ちでないの場合、このフィールドを空白のままにしてください。"
 
 #: inc/admin/covergenerator/namespace.php:154
 msgid "or SKU"
@@ -407,7 +423,9 @@ msgid ""
 "field will generate a barcode with that number on the back of your print "
 "cover. If you do not have a non-ISBN identifier, you should leave this field"
 " blank."
-msgstr "ISBN ではない13桁の識別子をお持ちでないの場合、このフィールドで入力としたら、その番号に印刷された表紙の裏でバーコードを生成します。ISBN ではない識別子をお持ちでないの場合、このフィールドを空白のままにしてください。"
+msgstr ""
+"ISBN ではない13桁の識別子をお持ちでないの場合、このフィールドで入力としたら、その番号に印刷された表紙の裏でバーコードを生成します。ISBN "
+"ではない識別子をお持ちでないの場合、このフィールドを空白のままにしてください。"
 
 #: inc/admin/covergenerator/namespace.php:166
 msgid "Design"
@@ -472,7 +490,9 @@ msgid ""
 " and is used to generate your cover(s). You can reformat the text below as "
 "needed. (<strong>IMPORTANT NOTE:</strong> Changes you make here will "
 "<strong>NOT</strong> be reflected on the Book Information page.)"
-msgstr "以下のテキストは<a href=\"%s\">本の情報</a>ページから取得して、表紙を生成するために使用されます。必要に応じて以下のテキストを再フォーマットできます。(<strong>重要な注意:</strong>ここで行った変更は本の情報ページに反映<strong>しません</strong>。"
+msgstr ""
+"以下のテキストは<a "
+"href=\"%s\">本の情報</a>ページから取得して、表紙を生成するために使用されます。必要に応じて以下のテキストを再フォーマットできます。(<strong>重要な注意:</strong>ここで行った変更は本の情報ページに反映<strong>しません</strong>。"
 
 #. translators: %s: URL to Appearance menu
 #: inc/admin/covergenerator/namespace.php:443
@@ -480,7 +500,9 @@ msgid ""
 "Below you can make small adjustments to the design of your cover. The look "
 "and feel of the cover will echo the theme you have chosen for your book. You"
 " can change your book theme in the <a href=\"%s\">Appearance</a> menu."
-msgstr "以下で表紙のデザインに小さい調整をできます。表紙のデザインは本の選択したテーマをエコーします。「<a href=\"%s\">外観</a>」メニューに本のテーマを変更できます。"
+msgstr ""
+"以下で表紙のデザインに小さい調整をできます。表紙のデザインは本の選択したテーマをエコーします。「<a "
+"href=\"%s\">外観</a>」メニューに本のテーマを変更できます。"
 
 #. translators: 1: pdf page width, 2: pdf page height, 3: URL to Theme Options
 #. page
@@ -489,7 +511,9 @@ msgid ""
 "Your PDF page size is set to %1$s &times; %2$s, and your PDF cover will be "
 "generated with the same dimensions. You can change the PDF page size in the "
 "<a href=\"%3$s\">Theme Options</a> menu."
-msgstr "PDF ページサイズは %1$s &times; %2$s に設定され、同じサイズに PDF 表紙が生成します。「<a href=\"%3$s\">テーマオプション</a>」メニューに PDF ページサイズを変更できます。"
+msgstr ""
+"PDF ページサイズは %1$s &times; %2$s に設定され、同じサイズに PDF 表紙が生成します。「<a "
+"href=\"%3$s\">テーマオプション</a>」メニューに PDF ページサイズを変更できます。"
 
 #: inc/admin/covergenerator/namespace.php:459
 #: templates/admin/export.blade.php:61
@@ -540,7 +564,8 @@ msgid ""
 "We can calculate the spine size based on CreateSpace and Ingram "
 "specifications, or you can enter your own custom pages per inch (PPI) "
 "defined by your printer."
-msgstr "CreateSpace と Ingram の詳細に基づいて計算できます。またはプリンターが設定したカスタムページ/インチ (PPI) を入力します。"
+msgstr ""
+"CreateSpace と Ingram の詳細に基づいて計算できます。またはプリンターが設定したカスタムページ/インチ (PPI) を入力します。"
 
 #: inc/admin/covergenerator/namespace.php:571
 #: inc/modules/themeoptions/class-pdfoptions.php:194
@@ -567,7 +592,8 @@ msgstr "以下に文字色と背景色を選択します。"
 msgid ""
 "Your image is too small. The image must be %1$d by %2$d pixels. Your image "
 "is %3$d by %4$d pixels."
-msgstr "自分の画像が小さすぎます。画像は%1$d &times; %2$dピクセルが必要です。自分の画像が%3$d &times; %4ピクセルです。"
+msgstr ""
+"自分の画像が小さすぎます。画像は%1$d &times; %2$dピクセルが必要です。自分の画像が%3$d &times; %4ピクセルです。"
 
 #. translators: 1: pdf page width, 2: pdf page height
 #: inc/admin/covergenerator/namespace.php:764
@@ -576,9 +602,9 @@ msgid ""
 " %1$s to %2$s."
 msgstr "自分の画像の縦横比が正しくありません。画像の縦横比は%1$s:%2$sが必要です。"
 
-#: inc/admin/dashboard/class-dashboard.php:54 inc/admin/laf/namespace.php:787
-#: inc/admin/laf/namespace.php:862 inc/admin/menus/class-sidebar.php:177
-#: inc/admin/menus/class-sidebar.php:178 inc/admin/menus/class-topbar.php:124
+#: inc/admin/dashboard/class-dashboard.php:54 inc/admin/laf/namespace.php:801
+#: inc/admin/laf/namespace.php:876 inc/admin/menus/class-sidebar.php:178
+#: inc/admin/menus/class-sidebar.php:179 inc/admin/menus/class-topbar.php:124
 msgid "Dashboard"
 msgstr "ダッシュボード"
 
@@ -661,21 +687,32 @@ msgid ""
 "\n"
 "Thanks for using Pressbooks,\n"
 "###SITE_NAME###"
-msgstr "こんにちは、###USERNAME### さん。\n\n本で「本を削除」リンクをクリックし、そのページ上のフォームに記入されたようです。\n\n本当に削除してもよい場合は、以下のリンクをクリックしてください。再確認はしませんので、本当に削除したい場合のみクリックしてください。\n###URL_DELETE###\n\n本を削除しても、またいつか新しい本プロジェクトを開始していただければと思います。(ただし、現在の本は永久に利用できなくなります)\n\nPressbooks のご利用ありがとうございました。\n###SITENAME###"
+msgstr ""
+"こんにちは、###USERNAME### さん。\n"
+"\n"
+"本で「本を削除」リンクをクリックし、そのページ上のフォームに記入されたようです。\n"
+"\n"
+"本当に削除してもよい場合は、以下のリンクをクリックしてください。再確認はしませんので、本当に削除したい場合のみクリックしてください。\n"
+"###URL_DELETE###\n"
+"\n"
+"本を削除しても、またいつか新しい本プロジェクトを開始していただければと思います。(ただし、現在の本は永久に利用できなくなります)\n"
+"\n"
+"Pressbooks のご利用ありがとうございました。\n"
+"###SITENAME###"
 
-#: inc/admin/diagnostics/namespace.php:34
-#: inc/admin/diagnostics/namespace.php:35 inc/admin/laf/namespace.php:110
+#: inc/admin/diagnostics/namespace.php:32
+#: inc/admin/diagnostics/namespace.php:33 inc/admin/laf/namespace.php:110
 #: templates/admin/diagnostics.blade.php:4
 msgid "Diagnostics"
 msgstr "診断"
 
-#: inc/admin/diagnostics/namespace.php:199
+#: inc/admin/diagnostics/namespace.php:197
 msgid "Stylesheet regenerated."
 msgstr "スタイルシートが再生成されました。"
 
 #: inc/admin/laf/namespace.php:76
 msgid "Contact"
-msgstr "連絡先"
+msgstr "お問い合わせ"
 
 #: inc/admin/laf/namespace.php:85
 msgid "Powered by %s"
@@ -702,10 +739,12 @@ msgid "public"
 msgstr "公開"
 
 #: inc/admin/laf/namespace.php:167
+#: templates/metaboxes/fields/reorderable-multiselect.blade.php:5
 msgid "Move Up"
 msgstr "上に移動"
 
 #: inc/admin/laf/namespace.php:168
+#: templates/metaboxes/fields/reorderable-multiselect.blade.php:6
 msgid "Move Down"
 msgstr "下に移動"
 
@@ -816,93 +855,93 @@ msgstr "用語集の種類"
 msgid "Book Info"
 msgstr "本の情報"
 
-#: inc/admin/laf/namespace.php:301
+#: inc/admin/laf/namespace.php:302
 msgid "Choose institution(s)... "
 msgstr "機関を選択… "
 
-#: inc/admin/laf/namespace.php:302
+#: inc/admin/laf/namespace.php:303
 msgid "Choose a subject…"
 msgstr "件名を選択…"
 
-#: inc/admin/laf/namespace.php:303
+#: inc/admin/laf/namespace.php:304
 msgid "Choose some subject(s)…"
 msgstr "いくつかの件名を選択…"
 
-#: inc/admin/laf/namespace.php:313 inc/admin/laf/namespace.php:314
+#: inc/admin/laf/namespace.php:327 inc/admin/laf/namespace.php:328
 msgid "Contributors"
 msgstr "寄稿者"
 
-#: inc/admin/laf/namespace.php:320 inc/admin/laf/namespace.php:398
+#: inc/admin/laf/namespace.php:334 inc/admin/laf/namespace.php:412
 #: templates/admin/export.blade.php:11 templates/admin/icon.blade.php:15
 #: templates/admin/organize.blade.php:57
 msgid "Export"
 msgstr "エクスポート"
 
-#: inc/admin/laf/namespace.php:333
+#: inc/admin/laf/namespace.php:347
 msgid "Are you sure you want to delete these export files?"
 msgstr "本当にこれらのエクスポートファイルを削除しますか ?"
 
-#: inc/admin/laf/namespace.php:334
+#: inc/admin/laf/namespace.php:348
 msgid "Up to 5 files can be pinned at once."
 msgstr "一度に最大5件のファイルを固定できます。"
 
-#: inc/admin/laf/namespace.php:335
+#: inc/admin/laf/namespace.php:349
 msgid "Cannot pin more than 3 of the same file type."
 msgstr "3件を超える同じファイルタイプを固定できません。"
 
-#: inc/admin/laf/namespace.php:339
+#: inc/admin/laf/namespace.php:353
 msgid ""
 "Too many pinned files. Deselect one of the pinned files before attempting to"
 " export."
 msgstr "固定したファイル数が多すぎます。エクスポートを試みる前にいずれかの固定したファイルの選択を解除します。"
 
-#: inc/admin/laf/namespace.php:340
+#: inc/admin/laf/namespace.php:354
 msgid ""
 "Exports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr "エクスポートが完了していません。今このページから移動すると、問題が発生します。本当によろしいですか ?"
 
-#: inc/admin/laf/namespace.php:352 inc/utility/class-handlestransfers.php:88
+#: inc/admin/laf/namespace.php:366 inc/utility/class-handlestransfers.php:88
 #: templates/admin/import.php:38 templates/admin/import.php:114
 msgid "Import"
 msgstr "インポート"
 
-#: inc/admin/laf/namespace.php:360
+#: inc/admin/laf/namespace.php:374
 msgid ""
 "Imports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr "インポートが完了していません。今このページから移動すると、問題が発生します。本当によろしいですか ?"
 
-#: inc/admin/laf/namespace.php:385 inc/admin/laf/namespace.php:581
-#: inc/admin/laf/namespace.php:1520
+#: inc/admin/laf/namespace.php:399 inc/admin/laf/namespace.php:595
+#: inc/admin/laf/namespace.php:1516
 #: inc/admin/network/class-sharingandprivacyoptions.php:473
 msgid "Sharing and Privacy Settings"
 msgstr "共有とプライバシー設定"
 
-#: inc/admin/laf/namespace.php:385 inc/admin/laf/namespace.php:581
+#: inc/admin/laf/namespace.php:399 inc/admin/laf/namespace.php:595
 msgid "Sharing &amp; Privacy"
 msgstr "共有とプライバシー"
 
-#: inc/admin/laf/namespace.php:403 inc/admin/laf/namespace.php:404
+#: inc/admin/laf/namespace.php:417 inc/admin/laf/namespace.php:418
 msgid "QuickLaTeX"
 msgstr "QuickLaTeX"
 
-#: inc/admin/laf/namespace.php:413 inc/admin/laf/namespace.php:619
-#: inc/admin/laf/namespace.php:620 templates/admin/cloner/page.blade.php:3
+#: inc/admin/laf/namespace.php:427 inc/admin/laf/namespace.php:633
+#: inc/admin/laf/namespace.php:634 templates/admin/cloner/page.blade.php:3
 msgid "Clone a Book"
 msgstr "本を複製"
 
-#: inc/admin/laf/namespace.php:421 inc/admin/laf/namespace.php:633
+#: inc/admin/laf/namespace.php:435 inc/admin/laf/namespace.php:647
 msgid ""
 "Cloning is not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr "複製が完了していません。今このページから移動すると、問題が発生します。本当によろしいですか ?"
 
-#: inc/admin/laf/namespace.php:646 inc/admin/laf/namespace.php:647
+#: inc/admin/laf/namespace.php:660 inc/admin/laf/namespace.php:661
 msgid "Cloning Stats"
 msgstr "複製統計"
 
-#: inc/admin/laf/namespace.php:664 inc/admin/metaboxes/namespace.php:649
+#: inc/admin/laf/namespace.php:678 inc/admin/metaboxes/namespace.php:180
 #: inc/api/endpoints/controller/class-toc.php:192
 #: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
 #: inc/posttype/namespace.php:548 templates/admin/import.php:91
@@ -910,15 +949,15 @@ msgstr "複製統計"
 msgid "Front Matter"
 msgstr "前付け"
 
-#: inc/admin/laf/namespace.php:672 inc/admin/metaboxes/namespace.php:650
+#: inc/admin/laf/namespace.php:686 inc/admin/metaboxes/namespace.php:184
 #: inc/api/endpoints/controller/class-toc.php:209 inc/class-sass.php:78
-#: inc/modules/themeoptions/class-globaloptions.php:599
+#: inc/modules/themeoptions/class-globaloptions.php:605
 #: inc/posttype/namespace.php:64 inc/posttype/namespace.php:545
 #: inc/posttype/namespace.php:584 templates/admin/import.php:92
 msgid "Chapter"
 msgstr "章"
 
-#: inc/admin/laf/namespace.php:682 inc/admin/metaboxes/namespace.php:651
+#: inc/admin/laf/namespace.php:696 inc/admin/metaboxes/namespace.php:188
 #: inc/api/endpoints/controller/class-toc.php:225
 #: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
 #: inc/posttype/namespace.php:551 templates/admin/import.php:96
@@ -926,152 +965,154 @@ msgstr "章"
 msgid "Back Matter"
 msgstr "後付け"
 
-#: inc/admin/laf/namespace.php:776
+#: inc/admin/laf/namespace.php:790
 msgid "Network Admin"
 msgstr "サイトネットワーク管理"
 
-#: inc/admin/laf/namespace.php:795 inc/admin/laf/namespace.php:1575
-#: inc/admin/laf/namespace.php:1585 inc/admin/menus/class-sidebar.php:188
-#: inc/admin/menus/class-sidebar.php:189 inc/admin/menus/class-topbar.php:129
+#: inc/admin/laf/namespace.php:809 inc/admin/laf/namespace.php:1571
+#: inc/admin/laf/namespace.php:1581 inc/admin/menus/class-sidebar.php:189
+#: inc/admin/menus/class-sidebar.php:190 inc/admin/menus/class-topbar.php:129
 msgid "Books"
 msgstr "本"
 
-#: inc/admin/laf/namespace.php:803 inc/admin/menus/class-sidebar.php:198
-#: inc/admin/menus/class-sidebar.php:199 inc/admin/menus/class-topbar.php:134
+#: inc/admin/laf/namespace.php:817 inc/admin/menus/class-sidebar.php:199
+#: inc/admin/menus/class-sidebar.php:200 inc/admin/menus/class-topbar.php:134
 msgid "Users"
 msgstr "ユーザー"
 
-#: inc/admin/laf/namespace.php:812
+#: inc/admin/laf/namespace.php:826
 msgid "Themes"
 msgstr "テーマ"
 
-#: inc/admin/laf/namespace.php:820 inc/admin/menus/class-sidebar.php:395
-#: inc/admin/menus/class-sidebar.php:396 inc/admin/menus/class-topbar.php:149
+#: inc/admin/laf/namespace.php:834 inc/admin/menus/class-sidebar.php:396
+#: inc/admin/menus/class-sidebar.php:397 inc/admin/menus/class-topbar.php:149
 msgid "Plugins"
 msgstr "プラグイン"
 
-#: inc/admin/laf/namespace.php:870
+#: inc/admin/laf/namespace.php:884
 msgid "Visit Website"
 msgstr "サイトを表示"
 
-#: inc/admin/laf/namespace.php:880 inc/admin/menus/class-topbar.php:191
+#: inc/admin/laf/namespace.php:894 inc/admin/menus/class-topbar.php:191
 msgid "My Books"
 msgstr "自分の本"
 
-#: inc/admin/laf/namespace.php:900
+#: inc/admin/laf/namespace.php:914
 msgid "Create A New Book"
 msgstr "新規本を作成"
 
-#: inc/admin/laf/namespace.php:912
+#: inc/admin/laf/namespace.php:926
 msgid "Clone A Book"
 msgstr "本を複製"
 
-#: inc/admin/laf/namespace.php:1139
+#: inc/admin/laf/namespace.php:1131
 msgid ""
 "Are you sure you want to unlock your theme? This will update your book to "
 "the most recent version of your selected theme, which may change your "
 "book&rsquo;s appearance and page count. Once you save your settings on this "
 "page, this action will NOT be reversable!"
-msgstr "本当にテーマをロック解除してもよいですか ? 選択したテーマの最新バージョンに本を更新し、本の外観とページ数を変更できます。このページに設定を保存すると、この操作は元に戻すことができません !"
+msgstr ""
+"本当にテーマをロック解除してもよいですか ? "
+"選択したテーマの最新バージョンに本を更新し、本の外観とページ数を変更できます。このページに設定を保存すると、この操作は元に戻すことができません !"
 
-#: inc/admin/laf/namespace.php:1236
+#: inc/admin/laf/namespace.php:1232
 msgid "Book Visibility"
 msgstr "本の表示状態"
 
-#: inc/admin/laf/namespace.php:1250
+#: inc/admin/laf/namespace.php:1246
 msgid "Private Content"
 msgstr "非公開コンテンツ"
 
-#: inc/admin/laf/namespace.php:1264
+#: inc/admin/laf/namespace.php:1260
 msgid "Disable Comments"
 msgstr "コメントを無効化"
 
-#: inc/admin/laf/namespace.php:1282
+#: inc/admin/laf/namespace.php:1278
 msgid "Share Latest Export Files"
 msgstr "最新のエクスポートファイルを共有"
 
-#: inc/admin/laf/namespace.php:1312
+#: inc/admin/laf/namespace.php:1308
 msgid "Pressbooks Directory"
 msgstr "Pressbooks ディレクトリ"
 
-#: inc/admin/laf/namespace.php:1329
+#: inc/admin/laf/namespace.php:1325
 msgid "Sharing and Privacy settings"
 msgstr "共有とプライバシー設定"
 
-#: inc/admin/laf/namespace.php:1344
+#: inc/admin/laf/namespace.php:1340
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "公開。この本は誰でも読めるようにします。"
 
-#: inc/admin/laf/namespace.php:1350
+#: inc/admin/laf/namespace.php:1346
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "非公開。この本は招待したユーザーしかアクセスすることができません。"
 
-#: inc/admin/laf/namespace.php:1374
+#: inc/admin/laf/namespace.php:1370
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr "非公開の前付け、章、後付けを表示できるユーザー"
 
-#: inc/admin/laf/namespace.php:1377
+#: inc/admin/laf/namespace.php:1373
 msgid "Only logged in editors and administrators."
 msgstr "ログインした編集者と管理者だけ。"
 
-#: inc/admin/laf/namespace.php:1379
+#: inc/admin/laf/namespace.php:1375
 msgid "All logged in users including subscribers."
 msgstr "すべてのログインしたユーザー、購読者を含む。"
 
-#: inc/admin/laf/namespace.php:1400
+#: inc/admin/laf/namespace.php:1396
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
 msgstr "はい。すべての前付け、章、後付けにコメント、トラックバック、ピンバックを自動無効化します。"
 
-#: inc/admin/laf/namespace.php:1406
+#: inc/admin/laf/namespace.php:1402
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
 msgstr "いいえ。手動で無効化しないと、すべての前付け、章、後付けにコメント、トラックバック、ピンバックを有効にします。"
 
-#: inc/admin/laf/namespace.php:1422
+#: inc/admin/laf/namespace.php:1418
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr "はい。最新のエクスポートファイルはホームページで善意に無料で利用可能にします。"
 
-#: inc/admin/laf/namespace.php:1428
+#: inc/admin/laf/namespace.php:1424
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
 msgstr "いいえ。最新のエクスポートファイルは管理者のみに利用可能にします。"
 
-#: inc/admin/laf/namespace.php:1447
+#: inc/admin/laf/namespace.php:1443
 msgid "Yes. I want this book to be listed in the Pressbooks directory."
 msgstr "はい。この本は Pressbooks ディレクトリに一覧表示します。"
 
-#: inc/admin/laf/namespace.php:1453
+#: inc/admin/laf/namespace.php:1449
 msgid "No. Exclude this book from the Pressbooks directory."
 msgstr "いいえ。この本は Pressbooks ディレクトリに除外します。"
 
-#: inc/admin/laf/namespace.php:1578
+#: inc/admin/laf/namespace.php:1574
 msgid "All Books"
 msgstr "すべての本"
 
-#: inc/admin/laf/namespace.php:1588
+#: inc/admin/laf/namespace.php:1584
 msgid "Search Books"
 msgstr "本を検索"
 
-#: inc/admin/laf/namespace.php:1594
+#: inc/admin/laf/namespace.php:1590
 msgid "Edit Book: %s"
 msgstr "本を編集: %s"
 
-#: inc/admin/laf/namespace.php:1597 inc/admin/laf/namespace.php:1606
+#: inc/admin/laf/namespace.php:1593 inc/admin/laf/namespace.php:1602
 msgid "Book Address (URL)"
 msgstr "本のアドレス (URL)"
 
-#: inc/admin/laf/namespace.php:1603
+#: inc/admin/laf/namespace.php:1599
 msgid "Add New Book"
 msgstr "新規本を追加"
 
-#: inc/admin/laf/namespace.php:1609
+#: inc/admin/laf/namespace.php:1605
 #: inc/modules/themeoptions/class-pdfoptions.php:408
 #: inc/modules/themeoptions/class-pdfoptions.php:427
 #: inc/modules/themeoptions/class-pdfoptions.php:446
@@ -1085,153 +1126,153 @@ msgstr "新規本を追加"
 msgid "Book Title"
 msgstr "書名"
 
-#: inc/admin/laf/namespace.php:1612
+#: inc/admin/laf/namespace.php:1608
 msgid "Book Language"
 msgstr "本の言語"
 
-#: inc/admin/laf/namespace.php:1615
+#: inc/admin/laf/namespace.php:1611
 msgid "Add Book"
 msgstr "本を追加"
 
-#: inc/admin/laf/namespace.php:1632
+#: inc/admin/laf/namespace.php:1628
 msgid "Edit previous or next item"
 msgstr "前または次の項目を編集"
 
-#: inc/admin/laf/namespace.php:1637
+#: inc/admin/laf/namespace.php:1633
 msgid "Edit Previous (%s)"
 msgstr "前を編集 (%s)"
 
-#: inc/admin/laf/namespace.php:1642
+#: inc/admin/laf/namespace.php:1638
 msgid "Edit Next (%s)"
 msgstr "次を編集 (%s)"
 
-#: inc/admin/laf/namespace.php:1657
+#: inc/admin/laf/namespace.php:1653
 msgid "Twitter URL"
 msgstr "Twitter URL"
 
-#: inc/admin/laf/namespace.php:1658
+#: inc/admin/laf/namespace.php:1654
 msgid "LinkedIn URL"
 msgstr "LinkedIn URL"
 
-#: inc/admin/laf/namespace.php:1659
+#: inc/admin/laf/namespace.php:1655
 msgid "GitHub URL"
 msgstr "GitHub URL"
 
-#: inc/admin/laf/namespace.php:1705
+#: inc/admin/laf/namespace.php:1701
 msgid ""
 "Your institutional affiliation, e.g. Rebus Foundation, Open University, "
 "Amnesty International."
 msgstr "所属機関 (例: Rebus Foundation、Open University、アムネスティ・インターナショナル)"
 
-#: inc/admin/menus/class-sidebar.php:208 inc/admin/menus/class-sidebar.php:209
+#: inc/admin/menus/class-sidebar.php:209 inc/admin/menus/class-sidebar.php:210
 #: inc/admin/menus/class-topbar.php:139
 msgid "Appearance"
 msgstr "外観"
 
-#: inc/admin/menus/class-sidebar.php:218 inc/admin/menus/class-sidebar.php:219
+#: inc/admin/menus/class-sidebar.php:219 inc/admin/menus/class-sidebar.php:220
 #: inc/admin/menus/class-topbar.php:144
 msgid "Pages"
 msgstr "固定ページ"
 
-#: inc/admin/menus/class-sidebar.php:229 inc/admin/menus/class-sidebar.php:230
-#: inc/admin/menus/class-sidebar.php:428 inc/admin/menus/class-sidebar.php:429
+#: inc/admin/menus/class-sidebar.php:230 inc/admin/menus/class-sidebar.php:231
+#: inc/admin/menus/class-sidebar.php:429 inc/admin/menus/class-sidebar.php:430
 #: inc/admin/menus/class-topbar.php:154
 msgid "Settings"
 msgstr "設定"
 
-#: inc/admin/menus/class-sidebar.php:240 inc/admin/menus/class-sidebar.php:241
-#: inc/admin/menus/class-sidebar.php:496 inc/admin/menus/class-sidebar.php:497
+#: inc/admin/menus/class-sidebar.php:241 inc/admin/menus/class-sidebar.php:242
+#: inc/admin/menus/class-sidebar.php:497 inc/admin/menus/class-sidebar.php:498
 msgid "Network Options"
 msgstr "サイトネットワーク設定"
 
-#: inc/admin/menus/class-sidebar.php:253 inc/admin/menus/class-sidebar.php:254
-#: inc/admin/menus/class-sidebar.php:283 inc/admin/menus/class-sidebar.php:284
-#: inc/admin/menus/class-sidebar.php:575 inc/admin/menus/class-sidebar.php:576
+#: inc/admin/menus/class-sidebar.php:254 inc/admin/menus/class-sidebar.php:255
+#: inc/admin/menus/class-sidebar.php:284 inc/admin/menus/class-sidebar.php:285
+#: inc/admin/menus/class-sidebar.php:576 inc/admin/menus/class-sidebar.php:577
 #: inc/admin/menus/class-topbar.php:159
 msgid "Stats"
 msgstr "統計"
 
-#: inc/admin/menus/class-sidebar.php:265 inc/admin/menus/class-sidebar.php:266
+#: inc/admin/menus/class-sidebar.php:266 inc/admin/menus/class-sidebar.php:267
 msgid "Network Stats"
 msgstr "サイトネットワーク統計"
 
-#: inc/admin/menus/class-sidebar.php:274 inc/admin/menus/class-sidebar.php:275
-#: inc/admin/menus/class-sidebar.php:293 inc/admin/menus/class-sidebar.php:294
+#: inc/admin/menus/class-sidebar.php:275 inc/admin/menus/class-sidebar.php:276
+#: inc/admin/menus/class-sidebar.php:294 inc/admin/menus/class-sidebar.php:295
 msgid "Analytics"
 msgstr "アナリティクス"
 
-#: inc/admin/menus/class-sidebar.php:313 inc/admin/menus/class-sidebar.php:314
+#: inc/admin/menus/class-sidebar.php:314 inc/admin/menus/class-sidebar.php:315
 msgid "Upgrade Network"
 msgstr "サイトネットワークをアップグレード"
 
-#: inc/admin/menus/class-sidebar.php:326 inc/admin/menus/class-sidebar.php:327
-#: inc/admin/menus/class-sidebar.php:335 inc/admin/menus/class-sidebar.php:336
+#: inc/admin/menus/class-sidebar.php:327 inc/admin/menus/class-sidebar.php:328
+#: inc/admin/menus/class-sidebar.php:336 inc/admin/menus/class-sidebar.php:337
 msgid "Network Users"
 msgstr "サイトネットワークユーザー"
 
-#: inc/admin/menus/class-sidebar.php:346 inc/admin/menus/class-sidebar.php:347
+#: inc/admin/menus/class-sidebar.php:347 inc/admin/menus/class-sidebar.php:348
 msgid "Root Site Users"
 msgstr "ルートサイトユーザー"
 
-#: inc/admin/menus/class-sidebar.php:357 inc/admin/menus/class-sidebar.php:358
+#: inc/admin/menus/class-sidebar.php:358 inc/admin/menus/class-sidebar.php:359
 msgid "User Activation Keys"
 msgstr "ユーザーの有効化キー"
 
-#: inc/admin/menus/class-sidebar.php:407 inc/admin/menus/class-sidebar.php:408
+#: inc/admin/menus/class-sidebar.php:408 inc/admin/menus/class-sidebar.php:409
 msgid "Network Plugins"
 msgstr "サイトネットワークのプラグイン"
 
-#: inc/admin/menus/class-sidebar.php:419 inc/admin/menus/class-sidebar.php:420
+#: inc/admin/menus/class-sidebar.php:420 inc/admin/menus/class-sidebar.php:421
 msgid "Root Site Plugins"
 msgstr "ルートサイトのプラグイン"
 
-#: inc/admin/menus/class-sidebar.php:441 inc/admin/menus/class-sidebar.php:442
+#: inc/admin/menus/class-sidebar.php:442 inc/admin/menus/class-sidebar.php:443
 msgid "Network Settings"
 msgstr "サイトネットワーク設定"
 
-#: inc/admin/menus/class-sidebar.php:449 inc/admin/menus/class-sidebar.php:450
+#: inc/admin/menus/class-sidebar.php:450 inc/admin/menus/class-sidebar.php:451
 msgid "Network Setup"
 msgstr "サイトネットワークの設置"
 
-#: inc/admin/menus/class-sidebar.php:457 inc/admin/menus/class-sidebar.php:458
+#: inc/admin/menus/class-sidebar.php:458 inc/admin/menus/class-sidebar.php:459
 #: inc/admin/networkmanagers/namespace.php:20
 #: inc/admin/networkmanagers/namespace.php:21
 msgid "Network Managers"
 msgstr "サイトネットワーク管理者"
 
-#: inc/admin/menus/class-sidebar.php:466 inc/admin/menus/class-sidebar.php:467
+#: inc/admin/menus/class-sidebar.php:467 inc/admin/menus/class-sidebar.php:468
 msgid "Whitelabel Settings"
 msgstr "Whitelabel 設定"
 
-#: inc/admin/menus/class-sidebar.php:476 inc/admin/menus/class-sidebar.php:477
+#: inc/admin/menus/class-sidebar.php:477 inc/admin/menus/class-sidebar.php:478
 msgid "Object Cache"
 msgstr "Object Cache"
 
-#: inc/admin/menus/class-sidebar.php:485 inc/admin/menus/class-sidebar.php:486
+#: inc/admin/menus/class-sidebar.php:486 inc/admin/menus/class-sidebar.php:487
 #: inc/class-googleanalytics.php:69 inc/class-googleanalytics.php:70
 #: inc/class-googleanalytics.php:79 inc/class-googleanalytics.php:80
 #: inc/class-googleanalytics.php:217 inc/class-googleanalytics.php:267
 msgid "Google Analytics"
 msgstr "Google アナリティクス"
 
-#: inc/admin/menus/class-sidebar.php:504 inc/admin/menus/class-sidebar.php:505
+#: inc/admin/menus/class-sidebar.php:505 inc/admin/menus/class-sidebar.php:506
 msgid "Sharing & Privacy"
 msgstr "共有とプライバシー"
 
-#: inc/admin/menus/class-sidebar.php:516 inc/admin/menus/class-sidebar.php:517
+#: inc/admin/menus/class-sidebar.php:517 inc/admin/menus/class-sidebar.php:518
 msgid "Root Site General Settings"
 msgstr "ルートサイト一般設定"
 
-#: inc/admin/menus/class-sidebar.php:529 inc/admin/menus/class-sidebar.php:530
+#: inc/admin/menus/class-sidebar.php:530 inc/admin/menus/class-sidebar.php:531
 msgid "Root Site Media Settings"
 msgstr "ルートサイトメディア設定"
 
-#: inc/admin/menus/class-sidebar.php:542 inc/admin/menus/class-sidebar.php:543
+#: inc/admin/menus/class-sidebar.php:543 inc/admin/menus/class-sidebar.php:544
 msgid "Root Site Privacy Settings"
 msgstr "ルートサイトプライバシー設定"
 
-#: inc/admin/menus/class-sidebar.php:554 inc/admin/menus/class-sidebar.php:555
-#: inc/admin/menus/class-sidebar.php:565 inc/admin/menus/class-sidebar.php:566
+#: inc/admin/menus/class-sidebar.php:555 inc/admin/menus/class-sidebar.php:556
+#: inc/admin/menus/class-sidebar.php:566 inc/admin/menus/class-sidebar.php:567
 msgid "PB Stats"
 msgstr "Pressbooks の統計"
 
@@ -1255,179 +1296,155 @@ msgstr "本を複製"
 msgid "Add Users"
 msgstr "ユーザーを追加"
 
-#: inc/admin/metaboxes/namespace.php:104
+#: inc/admin/metaboxes/class-about.php:16
+msgid "About the Book"
+msgstr "本について"
+
+#: inc/admin/metaboxes/class-about.php:27
+msgid "Book Tagline"
+msgstr "キャッチコピー"
+
+#: inc/admin/metaboxes/class-about.php:28
 msgid ""
-"Your cover image was not saved because it is too small (%1$s x %2$s). It "
-"should be at least 800px in height."
-msgstr "小さすぎて (%1$s &times; %2$s) 、表紙画像が保存しませんでした。高さは800ピクセル以上が必要です。"
+"A very short description of your book. It should fit in a Twitter post, and "
+"encapsulate your book in the briefest sentence."
+msgstr "本について非常に短い説明。Twitter ポストに収まり、本を最も短い文で要約する必要があります。"
 
-#: inc/admin/metaboxes/namespace.php:110
+#: inc/admin/metaboxes/class-about.php:32
+msgid "Short Description"
+msgstr "短い説明"
+
+#: inc/admin/metaboxes/class-about.php:33
 msgid ""
-"Your cover image was not saved because the aspect ratio (%s) is outside the "
-"permitted range (.66 to 1). We recommend an aspect ratio of .75."
-msgstr "縦横比 (%s) は有効な範囲 (0.66:1) にあることがなくて、表紙画像が保存しませんでした。0.75の縦横比が推奨します。"
+"A short paragraph about your book, for catalogs, reviewers etc. to quote."
+msgstr "カタログ、校閲者など引用するための、本について短い段落。"
 
-#: inc/admin/metaboxes/namespace.php:135 inc/admin/metaboxes/namespace.php:190
-#: inc/class-metadata.php:437
-msgid "Cover Image"
-msgstr "表紙画像"
+#: inc/admin/metaboxes/class-about.php:37
+msgid "Long Description"
+msgstr "長い説明"
 
-#: inc/admin/metaboxes/namespace.php:176 inc/admin/metaboxes/namespace.php:706
-#: inc/admin/metaboxes/namespace.php:768
-#: inc/api/endpoints/controller/class-toc.php:202 inc/class-sass.php:89
-#: inc/modules/export/epub/class-epub.php:1932
-#: inc/modules/themeoptions/class-globaloptions.php:598
-#: inc/posttype/namespace.php:87 inc/posttype/namespace.php:542
-#: inc/posttype/namespace.php:580 templates/admin/import.php:94
-msgid "Part"
-msgstr "編"
+#: inc/admin/metaboxes/class-about.php:38
+msgid "The full description of your book."
+msgstr "本に関する詳細を説明する文章。"
 
-#: inc/admin/metaboxes/namespace.php:180
-msgid "Save Part"
-msgstr "編を保存"
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:19
+msgid "Additional Catalog Information"
+msgstr "追加のカタログ情報"
 
-#: inc/admin/metaboxes/namespace.php:181
-msgid "Save Book Information"
-msgstr "本の情報を保存"
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:26
+msgid "Series Title"
+msgstr "シリーズのタイトル"
 
-#: inc/admin/metaboxes/namespace.php:182
-msgid "Status & Visibility"
-msgstr "状態と表示"
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:27
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:32
+msgid "Add if your book is part of a series."
+msgstr "本がシリーズの一部の場合、追加します。"
 
-#: inc/admin/metaboxes/namespace.php:196
-msgid "General Book Information"
-msgstr "本の一般情報"
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:31
+msgid "Series Number"
+msgstr "シリーズ番号"
 
-#: inc/admin/metaboxes/namespace.php:214
-msgid "Short Title"
-msgstr "副題"
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:36
+msgid "Keywords"
+msgstr "キーワード"
 
-#: inc/admin/metaboxes/namespace.php:215
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:37
 msgid ""
-"In case of long titles that might be truncated in running heads in the PDF "
-"export."
-msgstr "長すぎる書名が PDF エクスポートのランニングヘッドで切り詰められた場合。"
+"These are added to your webbook cover page, and in your ebook metadata. "
+"Keywords are used by online book stores and search engines."
+msgstr "それはウェブブックの表紙ページと電子書籍のメタデータに追加します。キーワードはオンライン書店と検索エンジンで使用します。"
 
-#: inc/admin/metaboxes/namespace.php:235
-msgid "Author(s)"
-msgstr "著者"
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:42
+msgid "Hashtag"
+msgstr "ハッシュタグ"
 
-#: inc/admin/metaboxes/namespace.php:239 inc/admin/metaboxes/namespace.php:251
-#: inc/admin/metaboxes/namespace.php:263 inc/admin/metaboxes/namespace.php:275
-#: inc/admin/metaboxes/namespace.php:287 inc/admin/metaboxes/namespace.php:299
-#: inc/admin/metaboxes/namespace.php:680
-msgid "Create New Contributor"
-msgstr "新規寄稿者を作成"
-
-#: inc/admin/metaboxes/namespace.php:240 inc/admin/metaboxes/namespace.php:681
-msgid "Choose author(s)..."
-msgstr "著者を選択…"
-
-#: inc/admin/metaboxes/namespace.php:247
-msgid "Editor(s)"
-msgstr "編集者"
-
-#: inc/admin/metaboxes/namespace.php:252
-msgid "Choose editor(s)..."
-msgstr "編集者を選択…"
-
-#: inc/admin/metaboxes/namespace.php:259
-msgid "Translator(s)"
-msgstr "翻訳者"
-
-#: inc/admin/metaboxes/namespace.php:264
-msgid "Choose translator(s)..."
-msgstr "翻訳者を選択…"
-
-#: inc/admin/metaboxes/namespace.php:271
-msgid "Reviewer(s)"
-msgstr "校閲者"
-
-#: inc/admin/metaboxes/namespace.php:276
-msgid "Choose reviewer(s)..."
-msgstr "校閲者を選択…"
-
-#: inc/admin/metaboxes/namespace.php:283
-msgid "Illustrator(s)"
-msgstr "イラストレーター"
-
-#: inc/admin/metaboxes/namespace.php:288
-msgid "Choose illustrator(s)..."
-msgstr "イラストレーターを選択…"
-
-#: inc/admin/metaboxes/namespace.php:295
-msgid "Contributor(s)"
-msgstr "寄稿者"
-
-#: inc/admin/metaboxes/namespace.php:300
-msgid "Choose contributor(s)..."
-msgstr "寄稿者を選択…"
-
-#: inc/admin/metaboxes/namespace.php:307
-msgid "Publisher"
-msgstr "出版社"
-
-#: inc/admin/metaboxes/namespace.php:308 inc/admin/metaboxes/namespace.php:319
-msgid "This text appears on the title page of your book."
-msgstr "このテキストは本のタイトルページに表示します。"
-
-#: inc/admin/metaboxes/namespace.php:318
-msgid "Publisher City"
-msgstr "出版社所在地"
-
-#: inc/admin/metaboxes/namespace.php:330
-msgid "Publication Date"
-msgstr "刊行日付"
-
-#: inc/admin/metaboxes/namespace.php:331 inc/admin/metaboxes/namespace.php:341
-msgid "This is added to the metadata in your ebook."
-msgstr "これは電子書籍のメタデータに追加されます。"
-
-#: inc/admin/metaboxes/namespace.php:340
-msgid "On-Sale Date"
-msgstr "販売日"
-
-#: inc/admin/metaboxes/namespace.php:349
-msgid "Ebook ISBN"
-msgstr "ISBN (電子書籍)"
-
-#: inc/admin/metaboxes/namespace.php:350
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:43
 msgid ""
-"ISBN is the International Standard Book Number, and you'll need one if you "
-"want to sell your book in some online ebook stores. This is added to the "
-"metadata in your ebook."
-msgstr "ISBN とは国際標準図書番号であり、オンライン電子書籍書店で本を販売するために必要な情報です。これは電子書籍のメタデータに追加されます。"
+"These are added to your webbook cover page. For those of you who like "
+"Twitter."
+msgstr "それはウェブブックの表紙ページに追加します。Twitter が好きな人のため。"
 
-#: inc/admin/metaboxes/namespace.php:360
-msgid "Print ISBN"
-msgstr "ISBN (紙の本)"
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:47
+msgid "List Price (Print)"
+msgstr "定価 (紙の本)"
 
-#: inc/admin/metaboxes/namespace.php:361
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:48
+msgid "The list price of your book in print."
+msgstr "印刷の本の定価。"
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:52
+msgid "List Price (PDF)"
+msgstr "定価 (PDF)"
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:53
+msgid "The list price of your book in PDF format."
+msgstr "PDF 形式の本の定価。"
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:57
+msgid "List Price (ebook)"
+msgstr "定価 (電子書籍)"
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:58
+msgid "The list price of your book in Ebook formats."
+msgstr "電子書籍の形式の本の定価。"
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:62
+msgid "List Price (Web)"
+msgstr "定価 (ウェブ)"
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:63
+msgid "The list price of your webbook."
+msgstr "ウェブブックの定価。"
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:67
+msgid "Audience"
+msgstr "対象者"
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:68
+msgid "The target audience for your book."
+msgstr "本の対象者。"
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:70
+msgid "Choose an audience&hellip;"
+msgstr "対象者を選択…"
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:71
+msgid "Juvenile"
+msgstr "子供"
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:72
+msgid "Young Adult"
+msgstr "少年・少女"
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:73
+msgid "Adult"
+msgstr "成年"
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:78
+msgid "BISAC Subject(s)"
+msgstr "BISAC 件名"
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:79
 msgid ""
-"ISBN is the International Standard Book Number, and you'll need one if you "
-"want to sell your book in online and physical book stores."
-msgstr "ISBN とは国際標準図書番号であり、オンラインと物理書店で本を販売するために必要な情報です。"
+"BISAC Subject Headings help libraries and bookstores properly classify your "
+"book. To select the appropriate subject heading for your book, consult %s."
+msgstr "BISAC の件名標目では、図書館と書店が適切に本を分類できます。自分の本に適切な件名標目を選択するには、%sを参照します。"
 
-#: inc/admin/metaboxes/namespace.php:371
-msgid "Digital Object Identifier (DOI)"
-msgstr "デジタルオブジェクト識別子 (DOI)"
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:79
+msgid "the BISAC Subject Headings list"
+msgstr "BISAC の件名標目表"
 
-#: inc/admin/metaboxes/namespace.php:383
-msgid "Language"
-msgstr "言語"
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:84
+msgid "BISAC Regional Theme"
+msgstr "BISAC の地域テーマ"
 
-#: inc/admin/metaboxes/namespace.php:384
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:85
 msgid ""
-"This sets metadata in your ebook, making it easier to find in some stores. "
-"It also changes some system generated content for supported languages, such "
-"as the \"Contents\" header."
-msgstr "いくつかの書店に見つかることを簡単にして、電子書籍にメタデータを設定します。また、「コンテンツ」ヘッダーといったいくつかのシステム生成したコンテンツをサポートしている言語に変更します。"
+"BISAC Regional Themes help libraries and bookstores properly classify your "
+"book."
+msgstr "BISAC の地域テーマでは、図書館と書店が適切に本を分類できます。"
 
-#: inc/admin/metaboxes/namespace.php:384
-msgid "Help translate Pressbooks into your language!"
-msgstr "自分の言語に Pressbooks の翻訳に助けて !"
-
-#: inc/admin/metaboxes/namespace.php:391 inc/class-licensing.php:333
+#: inc/admin/metaboxes/class-copyright.php:31 inc/class-licensing.php:333
 #: inc/modules/export/epub/class-epub.php:1423
 #: inc/modules/export/epub/class-epub.php:1445
 #: inc/modules/export/htmlbook/class-htmlbook.php:855
@@ -1435,338 +1452,362 @@ msgstr "自分の言語に Pressbooks の翻訳に助けて !"
 msgid "Copyright"
 msgstr "著作権"
 
-#: inc/admin/metaboxes/namespace.php:404
+#: inc/admin/metaboxes/class-copyright.php:41
 #: templates/admin/cloner/page.blade.php:7
 msgid "Source Book URL"
 msgstr "ソース本の URL"
 
-#: inc/admin/metaboxes/namespace.php:406
+#: inc/admin/metaboxes/class-copyright.php:42
 msgid ""
 "This book was cloned from a pre-existing book at the above URL. This "
 "information will be displayed on the webbook homepage."
 msgstr "この本は以上の URL に既存の本から複製されました。この情報はウェブブックのホームページに表示されます。"
 
-#: inc/admin/metaboxes/namespace.php:416
+#: inc/admin/metaboxes/class-copyright.php:47
 msgid "Copyright Year"
 msgstr "初版刊行年"
 
-#: inc/admin/metaboxes/namespace.php:417
+#: inc/admin/metaboxes/class-copyright.php:48
 msgid "Year that the book is/was published."
 msgstr "本の発行年。"
 
-#: inc/admin/metaboxes/namespace.php:429
+#: inc/admin/metaboxes/class-copyright.php:52
 msgid "Copyright Holder"
 msgstr "著作権保有者"
 
-#: inc/admin/metaboxes/namespace.php:430
+#: inc/admin/metaboxes/class-copyright.php:53
 msgid "Name of the copyright holder."
 msgstr "著作権保有者の名前。"
 
-#: inc/admin/metaboxes/namespace.php:442
+#: inc/admin/metaboxes/class-copyright.php:57
 msgid "Copyright License"
 msgstr "著作権ライセンス"
 
-#: inc/admin/metaboxes/namespace.php:443
+#: inc/admin/metaboxes/class-copyright.php:58
 msgid "You can select various licenses including Creative Commons."
 msgstr "クリエイティブ・コモンズを含め、様々なライセンスを選択できます。"
 
-#: inc/admin/metaboxes/namespace.php:451
+#: inc/admin/metaboxes/class-copyright.php:63
 msgid "Copyright Notice"
 msgstr "著作権表示"
 
-#: inc/admin/metaboxes/namespace.php:452
+#: inc/admin/metaboxes/class-copyright.php:64
 msgid ""
 "Enter a custom copyright notice, with whatever information you like. This "
 "will override the auto-generated copyright notice if All Rights Reserved or "
 "no license is selected, and will be inserted after the title page. If you "
 "select a Creative Commons license, the custom notice will appear after the "
 "license text in both the webbook and your exports."
-msgstr "どんな情報を含めて、カスタム著作権表示を入力します。選択が「All Rights Reserved」またはライセンスを選択しないの場合、自動生成した著作権表示を上書いて、タイトルページの後で挿入します。クリエイティブ・コモンズ ライセンスを選択するの場合、カスタム通知はウェブブックとエクスポートにライセンステキストの後で表示されます。"
+msgstr ""
+"どんな情報を含めて、カスタム著作権表示を入力します。選択が「All Rights "
+"Reserved」またはライセンスを選択しないの場合、自動生成した著作権表示を上書いて、タイトルページの後で挿入します。クリエイティブ・コモンズ "
+"ライセンスを選択するの場合、カスタム通知はウェブブックとエクスポートにライセンステキストの後で表示されます。"
 
-#: inc/admin/metaboxes/namespace.php:461
-msgid "About the Book"
-msgstr "本について"
+#: inc/admin/metaboxes/class-generalinformation.php:32
+msgid "General Book Information"
+msgstr "本の一般情報"
 
-#: inc/admin/metaboxes/namespace.php:469
-msgid "Book Tagline"
-msgstr "キャッチコピー"
+#: inc/admin/metaboxes/class-generalinformation.php:44
+msgid "Short Title"
+msgstr "副題"
 
-#: inc/admin/metaboxes/namespace.php:470
+#: inc/admin/metaboxes/class-generalinformation.php:45
 msgid ""
-"A very short description of your book. It should fit in a Twitter post, and "
-"encapsulate your book in the briefest sentence."
-msgstr "本について非常に短い説明。Twitter ポストに収まり、本を最も短い文で要約する必要があります。"
+"In case of long titles that might be truncated in running heads in the PDF "
+"export."
+msgstr "長すぎる書名が PDF エクスポートのランニングヘッドで切り詰められた場合。"
 
-#: inc/admin/metaboxes/namespace.php:481
-msgid "Short Description"
-msgstr "短い説明"
+#: inc/admin/metaboxes/class-generalinformation.php:55
+msgid "Author(s)"
+msgstr "著者"
 
-#: inc/admin/metaboxes/namespace.php:482
+#: inc/admin/metaboxes/class-generalinformation.php:57
+#: inc/admin/metaboxes/class-generalinformation.php:64
+#: inc/admin/metaboxes/class-generalinformation.php:71
+#: inc/admin/metaboxes/class-generalinformation.php:78
+#: inc/admin/metaboxes/class-generalinformation.php:85
+#: inc/admin/metaboxes/class-generalinformation.php:92
+#: inc/admin/metaboxes/class-sectionmetadata.php:51
+msgid "Create New Contributor"
+msgstr "新規寄稿者を作成"
+
+#: inc/admin/metaboxes/class-generalinformation.php:62
+msgid "Editor(s)"
+msgstr "編集者"
+
+#: inc/admin/metaboxes/class-generalinformation.php:69
+msgid "Translator(s)"
+msgstr "翻訳者"
+
+#: inc/admin/metaboxes/class-generalinformation.php:76
+msgid "Reviewer(s)"
+msgstr "校閲者"
+
+#: inc/admin/metaboxes/class-generalinformation.php:83
+msgid "Illustrator(s)"
+msgstr "イラストレーター"
+
+#: inc/admin/metaboxes/class-generalinformation.php:90
+msgid "Contributor(s)"
+msgstr "寄稿者"
+
+#: inc/admin/metaboxes/class-generalinformation.php:97
+msgid "Publisher"
+msgstr "出版社"
+
+#: inc/admin/metaboxes/class-generalinformation.php:98
+#: inc/admin/metaboxes/class-generalinformation.php:104
+msgid "This text appears on the title page of your book."
+msgstr "このテキストは本のタイトルページに表示します。"
+
+#: inc/admin/metaboxes/class-generalinformation.php:103
+msgid "Publisher City"
+msgstr "出版社所在地"
+
+#: inc/admin/metaboxes/class-generalinformation.php:109
+msgid "Publication Date"
+msgstr "刊行日付"
+
+#: inc/admin/metaboxes/class-generalinformation.php:110
+#: inc/admin/metaboxes/class-generalinformation.php:116
+msgid "This is added to the metadata in your ebook."
+msgstr "これは電子書籍のメタデータに追加されます。"
+
+#: inc/admin/metaboxes/class-generalinformation.php:115
+msgid "On-Sale Date"
+msgstr "販売日"
+
+#: inc/admin/metaboxes/class-generalinformation.php:121
+msgid "Ebook ISBN"
+msgstr "ISBN (電子書籍)"
+
+#: inc/admin/metaboxes/class-generalinformation.php:122
 msgid ""
-"A short paragraph about your book, for catalogs, reviewers etc. to quote."
-msgstr "カタログ、校閲者など引用するための、本について短い段落。"
+"ISBN is the International Standard Book Number, and you'll need one if you "
+"want to sell your book in some online ebook stores. This is added to the "
+"metadata in your ebook."
+msgstr "ISBN とは国際標準図書番号であり、オンライン電子書籍書店で本を販売するために必要な情報です。これは電子書籍のメタデータに追加されます。"
 
-#: inc/admin/metaboxes/namespace.php:493
-msgid "Long Description"
-msgstr "長い説明"
+#: inc/admin/metaboxes/class-generalinformation.php:127
+msgid "Print ISBN"
+msgstr "ISBN (紙の本)"
 
-#: inc/admin/metaboxes/namespace.php:494
-msgid "The full description of your book."
-msgstr "本に関する詳細を説明する文章。"
+#: inc/admin/metaboxes/class-generalinformation.php:128
+msgid ""
+"ISBN is the International Standard Book Number, and you'll need one if you "
+"want to sell your book in online and physical book stores."
+msgstr "ISBN とは国際標準図書番号であり、オンラインと物理書店で本を販売するために必要な情報です。"
 
-#: inc/admin/metaboxes/namespace.php:501
-msgid "Subject(s)"
-msgstr "件名"
+#: inc/admin/metaboxes/class-generalinformation.php:133
+msgid "Digital Object Identifier (DOI)"
+msgstr "デジタルオブジェクト識別子 (DOI)"
 
-#: inc/admin/metaboxes/namespace.php:503
+#: inc/admin/metaboxes/class-generalinformation.php:138
+msgid "Language"
+msgstr "言語"
+
+#: inc/admin/metaboxes/class-generalinformation.php:139
+msgid ""
+"This sets metadata in your ebook, making it easier to find in some stores. "
+"It also changes some system generated content for supported languages, such "
+"as the \"Contents\" header."
+msgstr ""
+"いくつかの書店に見つかることを簡単にして、電子書籍にメタデータを設定します。また、「コンテンツ」ヘッダーといったいくつかのシステム生成したコンテンツをサポートしている言語に変更します。"
+
+#: inc/admin/metaboxes/class-generalinformation.php:139
+msgid "Help translate Pressbooks into your language!"
+msgstr "自分の言語に Pressbooks の翻訳に助けて !"
+
+#: inc/admin/metaboxes/class-institutions.php:19
+#: inc/admin/metaboxes/class-institutions.php:26
 #: templates/admin/institutions.blade.php:2
 msgid "Institutions"
 msgstr "機関"
 
-#: inc/admin/metaboxes/namespace.php:508
-msgid "Additional Catalog Information"
-msgstr "追加のカタログ情報"
-
-#: inc/admin/metaboxes/namespace.php:516
-msgid "Series Title"
-msgstr "シリーズのタイトル"
-
-#: inc/admin/metaboxes/namespace.php:517 inc/admin/metaboxes/namespace.php:528
-msgid "Add if your book is part of a series."
-msgstr "本がシリーズの一部の場合、追加します。"
-
-#: inc/admin/metaboxes/namespace.php:527
-msgid "Series Number"
-msgstr "シリーズ番号"
-
-#: inc/admin/metaboxes/namespace.php:538
-msgid "Keywords"
-msgstr "キーワード"
-
-#: inc/admin/metaboxes/namespace.php:540
+#: inc/admin/metaboxes/class-institutions.php:27
+#: templates/admin/institutions.blade.php:10
 msgid ""
-"These are added to your webbook cover page, and in your ebook metadata. "
-"Keywords are used by online book stores and search engines."
-msgstr "それはウェブブックの表紙ページと電子書籍のメタデータに追加します。キーワードはオンライン書店と検索エンジンで使用します。"
+"This optional field can be used to display the institution(s) which created "
+"this resource. If your college or university is not listed, please contact "
+"your network manager."
+msgstr ""
+"このオプションフィールドを使えば、このリソースの作成した機関を表示できます。自分の機関または大学が一覧に表示されていない場合、サイトネットワーク管理者に連絡してください。"
 
-#: inc/admin/metaboxes/namespace.php:547
-msgid "Hashtag"
-msgstr "ハッシュタグ"
-
-#: inc/admin/metaboxes/namespace.php:548
-msgid ""
-"These are added to your webbook cover page. For those of you who like "
-"Twitter."
-msgstr "それはウェブブックの表紙ページに追加します。Twitter が好きな人のため。"
-
-#: inc/admin/metaboxes/namespace.php:558
-msgid "List Price (Print)"
-msgstr "定価 (紙の本)"
-
-#: inc/admin/metaboxes/namespace.php:559
-msgid "The list price of your book in print."
-msgstr "印刷の本の定価。"
-
-#: inc/admin/metaboxes/namespace.php:569
-msgid "List Price (PDF)"
-msgstr "定価 (PDF)"
-
-#: inc/admin/metaboxes/namespace.php:570
-msgid "The list price of your book in PDF format."
-msgstr "PDF 形式の本の定価。"
-
-#: inc/admin/metaboxes/namespace.php:580
-msgid "List Price (ebook)"
-msgstr "定価 (電子書籍)"
-
-#: inc/admin/metaboxes/namespace.php:581
-msgid "The list price of your book in Ebook formats."
-msgstr "電子書籍の形式の本の定価。"
-
-#: inc/admin/metaboxes/namespace.php:591
-msgid "List Price (Web)"
-msgstr "定価 (ウェブ)"
-
-#: inc/admin/metaboxes/namespace.php:592
-msgid "The list price of your webbook."
-msgstr "ウェブブックの定価。"
-
-#: inc/admin/metaboxes/namespace.php:604
-msgid "Choose an audience&hellip;"
-msgstr "対象者を選択…"
-
-#: inc/admin/metaboxes/namespace.php:605
-msgid "Juvenile"
-msgstr "子供"
-
-#: inc/admin/metaboxes/namespace.php:606
-msgid "Young Adult"
-msgstr "少年・少女"
-
-#: inc/admin/metaboxes/namespace.php:607
-msgid "Adult"
-msgstr "成年"
-
-#: inc/admin/metaboxes/namespace.php:609
-msgid "Audience"
-msgstr "対象者"
-
-#: inc/admin/metaboxes/namespace.php:610
-msgid "The target audience for your book."
-msgstr "本の対象者。"
-
-#: inc/admin/metaboxes/namespace.php:623
-msgid "BISAC Subject(s)"
-msgstr "BISAC 件名"
-
-#: inc/admin/metaboxes/namespace.php:625
-msgid ""
-"BISAC Subject Headings help libraries and bookstores properly classify your "
-"book. To select the appropriate subject heading for your book, consult %s."
-msgstr "BISAC の件名標目では、図書館と書店が適切に本を分類できます。自分の本に適切な件名標目を選択するには、%sを参照します。"
-
-#: inc/admin/metaboxes/namespace.php:625
-msgid "the BISAC Subject Headings list"
-msgstr "BISAC の件名標目表"
-
-#: inc/admin/metaboxes/namespace.php:639
-msgid "BISAC Regional Theme"
-msgstr "BISAC の地域テーマ"
-
-#: inc/admin/metaboxes/namespace.php:640
-msgid ""
-"BISAC Regional Themes help libraries and bookstores properly classify your "
-"book."
-msgstr "BISAC の地域テーマでは、図書館と書店が適切に本を分類できます。"
-
-#: inc/admin/metaboxes/namespace.php:655
-msgid "%s Metadata"
-msgstr "%sのメタデータ"
-
-#: inc/admin/metaboxes/namespace.php:662
-msgid ""
-"%s Short Title (appears in the PDF running header and webbook navigation)"
-msgstr "%sの副題 (PDF のランニングヘッドとウェブブックナビゲーションに表示されます)"
-
-#: inc/admin/metaboxes/namespace.php:669
-msgid "%s Subtitle (appears in the Web/ebook/PDF output)"
-msgstr "%sのサブタイトル (ウェブ/電子書籍/PDF 出力に表示されます)"
-
-#: inc/admin/metaboxes/namespace.php:676
-msgid "%s Author(s)"
-msgstr "%sの著者"
-
-#: inc/admin/metaboxes/namespace.php:690
-msgid "%s Copyright License (overrides book license on this page)"
-msgstr "%sの著作権ライセンス (このページに本のライセンスを上書き)"
-
-#: inc/admin/metaboxes/namespace.php:697
-msgid "%s Digital Object Identifier (DOI)"
-msgstr "%sのデジタルオブジェクト識別子 (DOI)"
-
-#: inc/admin/metaboxes/namespace.php:717
-msgid ""
-"Appears on part page. Parts will not appear if a book has only one part."
-msgstr "編のページに表示されます。本は1編のみがある場合、編が表示されません。"
-
-#: inc/admin/metaboxes/namespace.php:725
+#: inc/admin/metaboxes/class-partvisibility.php:25
 msgid "Part Visibility"
 msgstr "編の表示状態"
 
-#: inc/admin/metaboxes/namespace.php:735
+#: inc/admin/metaboxes/class-partvisibility.php:32
 msgid "Invisible"
 msgstr "非表示"
 
-#: inc/admin/metaboxes/namespace.php:736
+#: inc/admin/metaboxes/class-partvisibility.php:33
 msgid "Hide from table of contents and part numbering."
 msgstr "目次と編番号に非表示。"
 
-#: inc/admin/metaboxes/namespace.php:890
-msgid "Show in Glossary Lists"
-msgstr "用語集一覧に表示"
+#: inc/admin/metaboxes/class-sectionmetadata.php:30
+msgid "%s Metadata"
+msgstr "%sのメタデータ"
 
-#: inc/admin/metaboxes/namespace.php:901
-msgid "Preview"
-msgstr "プレビュー"
+#: inc/admin/metaboxes/class-sectionmetadata.php:37
+msgid "%s Short Title"
+msgstr "%sの副題"
 
-#. translators: accessibility text
-#: inc/admin/metaboxes/namespace.php:903
-msgid "(opens in a new window)"
-msgstr "(新しいウインドウで開く)"
+#: inc/admin/metaboxes/class-sectionmetadata.php:38
+msgid "Appears in the PDF running header and webbook navigation."
+msgstr "PDF のランニングヘッドとウェブブックナビゲーションに表示されます。"
 
-#: inc/admin/metaboxes/namespace.php:912
-#: templates/admin/organize.blade.php:137
-msgid "Show in Web"
-msgstr "ウェブで表示"
+#: inc/admin/metaboxes/class-sectionmetadata.php:43
+msgid "%s Subtitle"
+msgstr "%sのサブタイトル"
 
-#: inc/admin/metaboxes/namespace.php:916
-msgid "Require a Password"
-msgstr "パスワードが必要です。"
+#: inc/admin/metaboxes/class-sectionmetadata.php:44
+msgid "Appears in the Web/ebook/PDF output."
+msgstr "ウェブ/電子書籍/PDF 出力に表示されます。"
 
-#: inc/admin/metaboxes/namespace.php:917
-msgid "Password..."
-msgstr "パスワード…"
+#: inc/admin/metaboxes/class-sectionmetadata.php:49
+msgid "%s Author(s)"
+msgstr "%sの著者"
 
-#: inc/admin/metaboxes/namespace.php:921
-#: templates/admin/organize.blade.php:140
-msgid "Show in Exports"
-msgstr "エクスポートで表示"
+#: inc/admin/metaboxes/class-sectionmetadata.php:56
+msgid "%s Copyright License"
+msgstr "%sの著作権ライセンス"
 
-#: inc/admin/metaboxes/namespace.php:925
-#: templates/admin/organize.blade.php:144
-msgid "Show Title"
-msgstr "タイトルを表示"
+#: inc/admin/metaboxes/class-sectionmetadata.php:57
+msgid "Overrides book license on this page."
+msgstr "このページに本のライセンスを上書き。"
 
-#: inc/admin/metaboxes/namespace.php:1125
+#: inc/admin/metaboxes/class-sectionmetadata.php:63
+msgid "%s Digital Object Identifier (DOI)"
+msgstr "%sのデジタルオブジェクト識別子 (DOI)"
+
+#: inc/admin/metaboxes/class-subjects.php:19
+msgid "Subject(s)"
+msgstr "件名"
+
+#: inc/admin/metaboxes/class-subjects.php:26
 msgid "Primary Subject"
 msgstr "主要な件名"
 
-#: inc/admin/metaboxes/namespace.php:1129
+#: inc/admin/metaboxes/class-subjects.php:27
+#: inc/admin/metaboxes/class-subjects.php:33
 msgid ""
 "%1$s subject terms appear on the web homepage of your book and help "
 "categorize your book in your network catalog and Pressbooks Directory (if "
 "applicable). Use %2$s to determine which subject category is best for your "
 "book."
-msgstr "%1$s 件名用語は本のウェブホームページに表示されて、サイトネットワークのカタログと Pressbooks ディレクトリに分類に役立ちます。本が適切な件名カテゴリーを判別するには、%2$sを使用します。"
+msgstr ""
+"%1$s 件名用語は本のウェブホームページに表示されて、サイトネットワークのカタログと Pressbooks "
+"ディレクトリに分類に役立ちます。本が適切な件名カテゴリーを判別するには、%2$sを使用します。"
 
-#: inc/admin/metaboxes/namespace.php:1129
-#: inc/admin/metaboxes/namespace.php:1142
+#: inc/admin/metaboxes/class-subjects.php:27
+#: inc/admin/metaboxes/class-subjects.php:33
 msgid "Thema"
 msgstr "Thema"
 
-#: inc/admin/metaboxes/namespace.php:1129
-#: inc/admin/metaboxes/namespace.php:1142
+#: inc/admin/metaboxes/class-subjects.php:27
+#: inc/admin/metaboxes/class-subjects.php:33
 msgid "the Thema subject category list"
 msgstr "Thema の件名カテゴリーリスト"
 
-#: inc/admin/metaboxes/namespace.php:1132
+#: inc/admin/metaboxes/class-subjects.php:32
 msgid "Additional Subject(s)"
 msgstr "追加の件名"
 
-#: inc/admin/metaboxes/namespace.php:1142
+#: inc/admin/metaboxes/namespace.php:100
 msgid ""
-"%1$s subject terms appear on the web homepage of your book and help "
-"categorize your book in your network catalog and Pressbooks Directory (if "
-"applicable). Use %2$s to determine which additional subject categories are "
-"appropriate for your book."
-msgstr "%1$s 件名用語は本のウェブホームページに表示されて、サイトネットワークのカタログと Pressbooks ディレクトリに分類に役立ちます。本が適切な追加の件名カテゴリーを判別するには、%2$sを使用します。"
+"Your cover image was not saved because it is too small (%1$s x %2$s). It "
+"should be at least 800px in height."
+msgstr "小さすぎて (%1$s &times; %2$s) 、表紙画像が保存しませんでした。高さは800ピクセル以上が必要です。"
 
-#: inc/admin/metaboxes/namespace.php:1316
-#: inc/admin/metaboxes/namespace.php:1372
+#: inc/admin/metaboxes/namespace.php:106
+msgid ""
+"Your cover image was not saved because the aspect ratio (%s) is outside the "
+"permitted range (.66 to 1). We recommend an aspect ratio of .75."
+msgstr "縦横比 (%s) は有効な範囲 (0.66:1) にあることがなくて、表紙画像が保存しませんでした。0.75の縦横比が推奨します。"
+
+#: inc/admin/metaboxes/namespace.php:131 inc/admin/metaboxes/namespace.php:168
+#: inc/class-metadata.php:437
+msgid "Cover Image"
+msgstr "表紙画像"
+
+#: inc/admin/metaboxes/namespace.php:223 inc/admin/metaboxes/namespace.php:274
+#: inc/api/endpoints/controller/class-toc.php:202 inc/class-sass.php:89
+#: inc/modules/export/epub/class-epub.php:1932
+#: inc/modules/themeoptions/class-globaloptions.php:604
+#: inc/posttype/namespace.php:87 inc/posttype/namespace.php:542
+#: inc/posttype/namespace.php:580 templates/admin/import.php:94
+msgid "Part"
+msgstr "編"
+
+#: inc/admin/metaboxes/namespace.php:227
+msgid "Save Part"
+msgstr "編を保存"
+
+#: inc/admin/metaboxes/namespace.php:228
+msgid "Save Book Information"
+msgstr "本の情報を保存"
+
+#: inc/admin/metaboxes/namespace.php:229
+msgid "Status & Visibility"
+msgstr "状態と表示"
+
+#: inc/admin/metaboxes/namespace.php:240
+msgid ""
+"Appears on part page. Parts will not appear if a book has only one part."
+msgstr "編のページに表示されます。本は1編のみがある場合、編が表示されません。"
+
+#: inc/admin/metaboxes/namespace.php:396
+msgid "Show in Glossary Lists"
+msgstr "用語集一覧に表示"
+
+#: inc/admin/metaboxes/namespace.php:407
+msgid "Preview"
+msgstr "プレビュー"
+
+#. translators: accessibility text
+#: inc/admin/metaboxes/namespace.php:409
+msgid "(opens in a new window)"
+msgstr "(新しいウインドウで開く)"
+
+#: inc/admin/metaboxes/namespace.php:418
+#: templates/admin/organize.blade.php:137
+msgid "Show in Web"
+msgstr "ウェブで表示"
+
+#: inc/admin/metaboxes/namespace.php:422
+msgid "Require a Password"
+msgstr "パスワードが必要です。"
+
+#: inc/admin/metaboxes/namespace.php:423
+msgid "Password..."
+msgstr "パスワード…"
+
+#: inc/admin/metaboxes/namespace.php:427
+#: templates/admin/organize.blade.php:140
+msgid "Show in Exports"
+msgstr "エクスポートで表示"
+
+#: inc/admin/metaboxes/namespace.php:431
+#: templates/admin/organize.blade.php:144
+msgid "Show Title"
+msgstr "タイトルを表示"
+
+#: inc/admin/metaboxes/namespace.php:623 inc/admin/metaboxes/namespace.php:679
 msgid ""
 "Images should be square (400px x 400px). You will be allowed to crop images "
 "after upload."
 msgstr "画像は四角 (400 px &times; 400 px) が必要です。アップロードの後で画像の切り抜きを許可します。"
 
-#: inc/admin/metaboxes/namespace.php:1481
+#: inc/admin/metaboxes/namespace.php:788
 msgid "Name"
 msgstr "名前"
 
-#: inc/admin/metaboxes/namespace.php:1510
+#: inc/admin/metaboxes/namespace.php:817
 msgid "Name cannot be left blank."
 msgstr "名前はは空白にできません。"
 
-#: inc/admin/metaboxes/namespace.php:1544
+#: inc/admin/metaboxes/namespace.php:851
 msgid "Owner"
 msgstr "保有者"
 
@@ -1839,7 +1880,9 @@ msgid ""
 "To allowlist all content from a domain: <code>guide.pressbooks.com</code> To"
 " allowlist a path: <code>//guide.pressbooks.com/some/path/</code> One per "
 "line."
-msgstr "ドメインのすべてのコンテンツを許可リストに載せる: <code>guide.pressbooks.com</code>。パスを許可リストに載せる: <code>//guide.pressbooks.com/some/path/</code>。ドメインを改行で区切って入力してください。"
+msgstr ""
+"ドメインのすべてのコンテンツを許可リストに載せる: <code>guide.pressbooks.com</code>。パスを許可リストに載せる: "
+"<code>//guide.pressbooks.com/some/path/</code>。ドメインを改行で区切って入力してください。"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:176
 msgid "Sharing and Privacy settings."
@@ -1867,7 +1910,9 @@ msgid ""
 "plugin also includes an advanced setting which allows users to create and "
 "display SVG files, a format that may carry a higher security risk than other"
 " image formats."
-msgstr "WP QuickLaTeX のようなリモートサードパーティサービスで提供されたコンテンツは信頼できない場合があります。また、WP QuickLaTeX プラグインはユーザーに SVG ファイルを作成と表示を許可する高度な設定を含む。この形式は他の画像形式より高いセキュリティリスクを伴う場合があります。"
+msgstr ""
+"WP QuickLaTeX のようなリモートサードパーティサービスで提供されたコンテンツは信頼できない場合があります。また、WP QuickLaTeX "
+"プラグインはユーザーに SVG ファイルを作成と表示を許可する高度な設定を含む。この形式は他の画像形式より高いセキュリティリスクを伴う場合があります。"
 
 #: inc/admin/users/class-userbulk.php:68 inc/admin/users/class-userbulk.php:69
 msgid "Bulk Add"
@@ -1983,7 +2028,7 @@ msgstr "本文"
 
 #: inc/class-activation.php:210
 msgid "Introduction"
-msgstr "序文"
+msgstr "はじめに"
 
 #: inc/class-activation.php:212
 msgid "This is where you can write your introduction."
@@ -2032,7 +2077,10 @@ msgid ""
 "an account you can login <a href=\"/wp-login.php\">here</a>. You can also "
 "set up your own Pressbooks book at: <a "
 "href=\"http://pressbooks.com\">Pressbooks.com</a>."
-msgstr "この本は非表示であり、登録したユーザーのみがアクセスできます。アカウントがある場合、<a href=\"/wp-login.php\">ここ</a>にログインできます。自分の Pressbooks 本が作成することができます: <a href=\"http://pressbooks.com\">Pressbooks.com</a>。"
+msgstr ""
+"この本は非表示であり、登録したユーザーのみがアクセスできます。アカウントがある場合、<a href=\"/wp-"
+"login.php\">ここ</a>にログインできます。自分の Pressbooks 本が作成することができます: <a "
+"href=\"http://pressbooks.com\">Pressbooks.com</a>。"
 
 #: inc/class-activation.php:264 inc/class-customcss.php:91
 msgid "Custom CSS for Ebook"
@@ -2151,7 +2199,9 @@ msgstr "この寄稿者の GitHub プロファイル。有効な URL にする�
 msgid ""
 "Import multiple contributors at once by uploading a valid JSON file. See <a "
 "href=\"%s\" target=\"_blank\">our guide</a> for details."
-msgstr "有効な JSON ファイルをアップロードして一度に複数の寄稿者をインデントします。詳細については、<a href=\"%s\" target=\"_blank\">ガイド</a>を表示します。"
+msgstr ""
+"有効な JSON ファイルをアップロードして一度に複数の寄稿者をインデントします。詳細については、<a href=\"%s\" "
+"target=\"_blank\">ガイド</a>を表示します。"
 
 #: inc/class-contributors.php:578
 msgid "Import Contributors"
@@ -2214,7 +2264,9 @@ msgid ""
 " The source book's theme, '%1$s (%2$s)', was not available on this network "
 "and could not be applied. Contact your network manager with questions about "
 "theme availability."
-msgstr " 本のソーステーマ「%1$s (%2$s)」は、このサイトネットワークに利用可能ではなくて適用できませんでした。テーマの利用可能の質問についてサイトネットワーク管理者に連絡します。"
+msgstr ""
+" 本のソーステーマ「%1$s "
+"(%2$s)」は、このサイトネットワークに利用可能ではなくて適用できませんでした。テーマの利用可能の質問についてサイトネットワーク管理者に連絡します。"
 
 #: inc/class-eventstreams.php:220
 msgid ""
@@ -2364,7 +2416,9 @@ msgid ""
 "If enabled, the Google Analytics settings page will be visible to book "
 "administrators, allowing them to use their own Google Analytics accounts to "
 "track statistics at the book level."
-msgstr "有効にすると、Google アナリティクスの設定ページは本管理者に表示して、自分の Google アナリティクスのアカウントを使用して本の統計をトラックを許可します。"
+msgstr ""
+"有効にすると、Google アナリティクスの設定ページは本管理者に表示して、自分の Google "
+"アナリティクスのアカウントを使用して本の統計をトラックを許可します。"
 
 #: inc/class-googleanalytics.php:197
 msgid "Google Analytics settings."
@@ -2454,7 +2508,7 @@ msgstr "特に断りのない限ります。"
 
 #: inc/class-licensing.php:421 inc/class-licensing.php:446
 msgid "%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved."
-msgstr "%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved."
+msgstr "%1$s Copyright &copy;%2$s by %3$s.All Rights Reserved."
 
 #: inc/class-licensing.php:433
 msgid "Icon for the %s"
@@ -2680,7 +2734,9 @@ msgid ""
 "The source book contained H5P content that could not be cloned. Please "
 "review the cloned version of your book carefully, as missing H5P content "
 "will be indicated. You may want to remove or replace these elements."
-msgstr "ソース本は複製できませんではなく H5P コンテンツを含みました。見つからない H5P コンテンツは明記されるので、本の複製バージョンを慎重にレビューしてください。その要素を削除または置換するがよいかもしれません。"
+msgstr ""
+"ソース本は複製できませんではなく H5P コンテンツを含みました。見つからない H5P "
+"コンテンツは明記されるので、本の複製バージョンを慎重にレビューしてください。その要素を削除または置換するがよいかもしれません。"
 
 #: inc/cloner/class-cloner.php:798
 msgid "The source book&rsquo;s media could not be read."
@@ -2926,7 +2982,11 @@ msgid ""
 "resized upon upload. Read more in <a "
 "href=\"https://guide.pressbooks.com/chapter/how-to-design-your-book-cover/\""
 " target=\"_blank\">our guide</a>."
-msgstr "この画像はウェブブックのホームページに表示して、内部表紙によって電子書籍エクスポートに使用します。表紙画像は、800 px 以上の高さで縦横比が0.66から1にする必要があります。非常に大きい画像はアップロード中でリサイズします。<a href=\"https://guide.pressbooks.com/chapter/how-to-design-your-book-cover/\" target=\"_blank\">ガイド</a>に続きを読みます。"
+msgstr ""
+"この画像はウェブブックのホームページに表示して、内部表紙によって電子書籍エクスポートに使用します。表紙画像は、800 px "
+"以上の高さで縦横比が0.66から1にする必要があります。非常に大きい画像はアップロード中でリサイズします。<a "
+"href=\"https://guide.pressbooks.com/chapter/how-to-design-your-book-cover/\""
+" target=\"_blank\">ガイド</a>に続きを読みます。"
 
 #: inc/image/namespace.php:432 templates/admin/covergenerator.php:130
 msgid "Are you sure you want to delete this?"
@@ -2972,7 +3032,9 @@ msgstr "追加情報を入力が必要な場合、すべての利用可能なフ
 msgid ""
 "The %1$s Thema subject terms requested for this book could not be downloaded"
 " from %2$s. Please report this error to your network manager."
-msgstr "この本のリクエストされた%1$s語の Thema 件名用語は %2$s からダウンロードできませんでした。このエラーをサイトネットワーク管理者に報告してください。"
+msgstr ""
+"この本のリクエストされた%1$s語の Thema 件名用語は %2$s "
+"からダウンロードできませんでした。このエラーをサイトネットワーク管理者に報告してください。"
 
 #: inc/modules/export/class-export.php:740
 msgid "%s: Initializing"
@@ -2992,7 +3054,7 @@ msgstr "%s: ファイルを検証しています"
 
 #: inc/modules/export/class-export.php:754
 msgid "%s: Validation successful"
-msgstr "%s: 検証が成功しました"
+msgstr "%s: 検証に成功しました"
 
 #: inc/modules/export/class-export.php:758
 msgid "%s: Finishing up"
@@ -3004,7 +3066,7 @@ msgstr "エクスポートに失敗しました。詳細はログを表示しま
 
 #: inc/modules/export/class-export.php:832
 msgid "Warning: The export has validation errors. See logs for more details."
-msgstr "警告: エクスポートに検証エラーがあります。詳細はログを表示してください。"
+msgstr "警告: エクスポートに検証エラーがあります。詳細はログを表示します。"
 
 #: inc/modules/export/class-export.php:833
 msgid "Emailed to:"
@@ -3150,13 +3212,15 @@ msgstr "無効な権限のエラー。"
 msgid ""
 "Some dependencies for %1$s exports could not be found. Please verify that "
 "you have completed the <a href=\"%2$s\">installation instructions</a>."
-msgstr "%1$s エクスポートのいくつかの依存関係が見つかりませんでした。<a href=\"%2$s\">インストール手順</a>が完了していることを確認してください。"
+msgstr ""
+"%1$s エクスポートのいくつかの依存関係が見つかりませんでした。<a "
+"href=\"%2$s\">インストール手順</a>が完了していることを確認してください。"
 
 #: inc/modules/export/namespace.php:85
 #: inc/modules/themeoptions/class-globaloptions.php:455
-#: inc/utility/namespace.php:1321 inc/utility/namespace.php:1326
-#: inc/utility/namespace.php:1360 inc/utility/namespace.php:1370
-#: inc/utility/namespace.php:1376 templates/admin/covergenerator.php:53
+#: inc/utility/namespace.php:1308 inc/utility/namespace.php:1313
+#: inc/utility/namespace.php:1347 inc/utility/namespace.php:1357
+#: inc/utility/namespace.php:1363 templates/admin/covergenerator.php:53
 msgid "and"
 msgstr "および"
 
@@ -3206,7 +3270,7 @@ msgstr "ウェブリンクに Common Cartridge"
 #: inc/modules/export/namespace.php:192 inc/modules/export/namespace.php:229
 #: inc/modules/export/namespace.php:266 inc/modules/export/namespace.php:268
 msgid "Print PDF"
-msgstr "プリント PDF"
+msgstr "PDF (紙の本)"
 
 #: inc/modules/export/namespace.php:193 inc/modules/export/namespace.php:194
 #: inc/modules/export/namespace.php:267 inc/modules/export/namespace.php:269
@@ -3384,7 +3448,8 @@ msgid ""
 "Once you&rsquo;ve pressed &lsquo;Replace & Save&rsquo; there is no going "
 "back! Have you checked &lsquo;Preview Replacements&rsquo; to make sure this "
 "will do what you want it to do?"
-msgstr "「置換と保存」をクリックしたら、戻ることができません ! これでやりたいことが実行されていることを確認するには、「置換をプレビュー」て確認しますか ?"
+msgstr ""
+"「置換と保存」をクリックしたら、戻ることができません ! これでやりたいことが実行されていることを確認するには、「置換をプレビュー」て確認しますか ?"
 
 #: inc/modules/searchandreplace/class-searchandreplace.php:76
 #: inc/modules/searchandreplace/class-searchandreplace.php:77
@@ -3605,15 +3670,11 @@ msgstr "%sのテキストボックスの背景色。"
 msgid "These options apply universally to webbook, PDF and ebook exports."
 msgstr "このオプションはウェブブック、PDF、電子書籍のエクスポートに協定に適用します。"
 
-#: inc/modules/themeoptions/class-globaloptions.php:464
-msgid "Select languages&hellip;"
-msgstr "言語を選択…"
-
-#: inc/modules/themeoptions/class-globaloptions.php:472
+#: inc/modules/themeoptions/class-globaloptions.php:476
 msgid "This theme includes built-in support for %s."
 msgstr "このテーマは%sのサポートを含みます。"
 
-#: inc/modules/themeoptions/class-globaloptions.php:580
+#: inc/modules/themeoptions/class-globaloptions.php:586
 msgid "Global Options"
 msgstr "全般設定"
 
@@ -4186,7 +4247,9 @@ msgid ""
 "your book. It must be at least 4 characters, letters and numbers only. It "
 "<strong>cannot be changed</strong>, so choose carefully! We suggest using "
 "the title of your book with no spaces."
-msgstr "ウェブブックアドレスはアクセスと本を作成するウェブアドレスです。最低4文字の、半角英数字のみにする必要があります。<strong>変更できません</strong>ので、慎重に選択してください ! スペースを含めない書名を使用することをお勧めします。"
+msgstr ""
+"ウェブブックアドレスはアクセスと本を作成するウェブアドレスです。最低4文字の、半角英数字のみにする必要があります。<strong>変更できません</strong>ので、慎重に選択してください"
+" ! スペースを含めない書名を使用することをお勧めします。"
 
 #: inc/registration/namespace.php:49
 msgid "Book Title:"
@@ -4240,7 +4303,10 @@ msgid ""
 " not receive an email, please check your junk or spam folder. If you still "
 "do not receive an email within an hour, you can <a href=\"%4$s\">reset your "
 "password</a>."
-msgstr "アカウントが有効化されました。ユーザー名「%2$s」を使って<a href=\"%1$s\">ログイン</a>できます。%3$s のメールをチェックして、パスワードとログイン方法をお読みください。メールが見つからない場合は、スパムフォルダーを確認してください。それでも1時間以内にメールが届かなければ、<a href=\"%4$s\">パスワードをリセット</a>できます。"
+msgstr ""
+"アカウントが有効化されました。ユーザー名「%2$s」を使って<a href=\"%1$s\">ログイン</a>できます。%3$s "
+"のメールをチェックして、パスワードとログイン方法をお読みください。メールが見つからない場合は、スパムフォルダーを確認してください。それでも1時間以内にメールが届かなければ、<a"
+" href=\"%4$s\">パスワードをリセット</a>できます。"
 
 #: inc/registration/namespace.php:90
 msgid ""
@@ -4250,7 +4316,10 @@ msgid ""
 "receive an email, please check your junk or spam folder. If you still do not"
 " receive an email within an hour, you can <a href=\"%5$s\">reset your "
 "password</a>."
-msgstr "<a href=\"%1$s\">%2$s</a> の自分の本は有効化済みです。ユーザー名「%3$s」を使ってログインできます。%4$s のメールをチェックして、パスワードとログイン方法をお読みください。メールが見つからない場合は、スパムフォルダーを確認してください。それでも1時間以内にメールが届かなければ、<a href=\"%5$s\">パスワードをリセット</a>できます。"
+msgstr ""
+"<a href=\"%1$s\">%2$s</a> の自分の本は有効化済みです。ユーザー名「%3$s」を使ってログインできます。%4$s "
+"のメールをチェックして、パスワードとログイン方法をお読みください。メールが見つからない場合は、スパムフォルダーを確認してください。それでも1時間以内にメールが届かなければ、<a"
+" href=\"%5$s\">パスワードをリセット</a>できます。"
 
 #: inc/registration/namespace.php:93
 msgid ""
@@ -4325,6 +4394,14 @@ msgstr "無効な権限。"
 msgid "Select"
 msgstr "選択"
 
+#: inc/shortcodes/glossary/class-glossary.php:293
+msgid "definition"
+msgstr "定義"
+
+#: inc/shortcodes/glossary/class-glossary.php:297
+msgid "Close definition"
+msgstr "定義を閉じる"
+
 #: inc/theme/class-lock.php:96
 msgid ""
 "Your book&rsquo;s theme, %1$s, has been locked in its current state as of "
@@ -4345,7 +4422,8 @@ msgstr "本のテーマはロック解除されました。"
 msgid ""
 "Your book&rsquo;s theme, %1$s, was locked in its current state as of %2$s at"
 " %3$s. To select a new theme or change your theme options, please %4$s."
-msgstr "本のテーマ %1$s は、%2$s %3$s の現在状態にロックしていました。新しいテーマを選択したりテーマ設定を変更するには、%4$sしてください。"
+msgstr ""
+"本のテーマ %1$s は、%2$s %3$s の現在状態にロックしていました。新しいテーマを選択したりテーマ設定を変更するには、%4$sしてください。"
 
 #: inc/theme/namespace.php:41
 msgid ""
@@ -4357,7 +4435,9 @@ msgstr "テーマ %1$s はインストールしていません。インストー
 msgid ""
 "The Pressbooks Book theme is not installed, but Pressbooks needs it in order"
 " to function properly. Please visit %s for installation instructions."
-msgstr "Pressbooks Book テーマはインストールしていませんが Pressbooks が正しく機能するために必要です。インストール手順について、%sを表示してください。"
+msgstr ""
+"Pressbooks Book テーマはインストールしていませんが Pressbooks "
+"が正しく機能するために必要です。インストール手順について、%sを表示してください。"
 
 #: inc/theme/namespace.php:84
 msgid ""
@@ -4370,7 +4450,10 @@ msgid ""
 "Luther has been replaced with McLuhan as Pressbooks’ default book theme. To "
 "continue using Luther for your book, please ensure that the standalone <a "
 "href=\"%1$s\">Luther theme</a> is installed and network activated."
-msgstr "Luther は McLuhan が Pressbooks のデフォルト本のテーマにとって置換していました。本に Luther を引き続き使用するには、スタンドアロン <a href=\"%1$s\">Luther テーマ</a>がインストールしサイトネットワークで有効化したを確認してください。"
+msgstr ""
+"Luther は McLuhan が Pressbooks のデフォルト本のテーマにとって置換していました。本に Luther "
+"を引き続き使用するには、スタンドアロン <a href=\"%1$s\">Luther "
+"テーマ</a>がインストールしサイトネットワークで有効化したを確認してください。"
 
 #: inc/utility/class-handlestransfers.php:41
 msgid "Download JSON"
@@ -4396,20 +4479,20 @@ msgstr "インポートした寄稿者の1人以上の値は検証ルーチン�
 msgid " (%1$d of %2$d)"
 msgstr " (%1$d/%2$d)"
 
-#: inc/utility/namespace.php:580 inc/utility/namespace.php:591
-#: inc/utility/namespace.php:607
+#: inc/utility/namespace.php:567 inc/utility/namespace.php:578
+#: inc/utility/namespace.php:594
 msgid ""
 "An unexpected error occurred. Something may be wrong with the plugin "
 "recommendations server or your site&#8217;s server&#8217;s configuration."
 msgstr "予期なエラーが発生しました。プラグイン推奨サーバーまたはサイトのサーバー構成に問題がある可能性があります。"
 
-#: inc/utility/namespace.php:580
+#: inc/utility/namespace.php:567
 msgid ""
 "(Pressbooks could not establish a secure connection to the plugin "
 "recommendations server. Please contact your server administrator.)"
 msgstr "(Pressbooks はプラグイン推奨サーバーとの安全な接続を確立できませんでした。サーバー管理者に連絡してください) 。"
 
-#: inc/utility/namespace.php:631
+#: inc/utility/namespace.php:618
 msgid ""
 "These plugins have been created and/or recommended by the Pressbooks "
 "community."
@@ -4494,19 +4577,13 @@ msgid ""
 "Pressbooks dependencies are missing. Please make sure that your "
 "project&rsquo;s <a href=\"%1$s\">Composer autoload file</a> is being "
 "required, or use the <a href=\"%2$s\">latest release</a> instead."
-msgstr "Pressbooks の依存関係が見つかりません。プロジェクトの <a href=\"%1$s\">composer オートローダファイル</a>が必要ことを確認するか、代わりに<a href=\"%2$s\">最新リリース</a>を使用してください。"
+msgstr ""
+"Pressbooks の依存関係が見つかりません。プロジェクトの <a href=\"%1$s\">composer "
+"オートローダファイル</a>が必要ことを確認するか、代わりに<a href=\"%2$s\">最新リリース</a>を使用してください。"
 
 #: pressbooks.php:91
 msgid "Cannot find Pressbooks install."
 msgstr "Pressbooks のインストールが見つかりません。"
-
-#: symbionts/custom-metadata/custom_metadata.php:1288
-msgid "datetimepicker not supported by Pressbooks"
-msgstr "datetimepicker が Pressbooks にサポートされていません。"
-
-#: symbionts/custom-metadata/custom_metadata.php:1294
-msgid "timepicker not supported by Pressbooks"
-msgstr "timepicker が Pressbooks にサポートされていません。"
 
 #: templates/admin/catalog.php:27
 msgid "Tags For"
@@ -4542,7 +4619,9 @@ msgid ""
 "You are currently using the Custom CSS theme. To generate a cover, you will "
 "need to switch back to a base theme temporarily. You can then reapply your "
 "Custom CSS theme."
-msgstr "現在 Custom CSS テーマを使用しています。表紙を生成するには、一時的にベーステーマに切り替える必要があります。その後、Custom CSS テーマを再適用できます。"
+msgstr ""
+"現在 Custom CSS テーマを使用しています。表紙を生成するには、一時的にベーステーマに切り替える必要があります。その後、Custom CSS "
+"テーマを再適用できます。"
 
 #: templates/admin/covergenerator.php:69
 msgid ""
@@ -4550,7 +4629,9 @@ msgid ""
 "<strong>print</strong> book that will work with most Print on Demand "
 "services, as well as an <strong>ebook</strong> cover that will meet the "
 "specifications of Kindle, Apple and other ebook retailers."
-msgstr "表紙ジェネレーターを使って、ほとんどのオンデマンド印刷サービスで動作する<strong>紙の本</strong>のきれいな表紙および Kindle、Apple、他の電子書籍販売店の詳細を満たす<strong>電子書籍</strong>の表紙を簡単に作成できます。"
+msgstr ""
+"表紙ジェネレーターを使って、ほとんどのオンデマンド印刷サービスで動作する<strong>紙の本</strong>のきれいな表紙および "
+"Kindle、Apple、他の電子書籍販売店の詳細を満たす<strong>電子書籍</strong>の表紙を簡単に作成できます。"
 
 #: templates/admin/covergenerator.php:79
 msgid "Make Your Cover"
@@ -4717,14 +4798,16 @@ msgid ""
 "Search & Replace will find and replace ALL instances of the search pattern "
 "in your entire book. Replacements will only be saved if you click "
 "&lsquo;<strong>Replace &amp; Save</strong>&rsquo;."
-msgstr "「検索置換」は本全体に検索パターンのすべてのインスタンスを検索と置換します。「<strong>置換と保存</strong>」をクリックする場合のみ、置換が保存されます。"
+msgstr ""
+"「検索置換」は本全体に検索パターンのすべてのインスタンスを検索と置換します。「<strong>置換と保存</strong>」をクリックする場合のみ、置換が保存されます。"
 
 #: templates/admin/search.php:13
 msgid ""
 "Be careful replacing text. There is no undo button. However, you can revert "
 "your changes using the Revision History within each chapter, front matter or"
 " back matter."
-msgstr "文章を置換するには注意します。元に戻すボタンがありません。しかし、各章、前付け、後付けのリビジョン履歴を使って、変更を元に戻すことができます。"
+msgstr ""
+"文章を置換するには注意します。元に戻すボタンがありません。しかし、各章、前付け、後付けのリビジョン履歴を使って、変更を元に戻すことができます。"
 
 #: templates/admin/search.php:17
 msgid "Search Within"
@@ -4807,7 +4890,7 @@ msgstr "ログアウト"
 
 #: templates/pb-catalog.php:191
 msgid "Admin"
-msgstr "管理者"
+msgstr "管理"
 
 #: templates/pb-catalog.php:244
 msgid "Catalog"
@@ -4822,7 +4905,9 @@ msgid ""
 "Sorry, but no books matched your filtering criteria. Please <a "
 "class=\"clear-filters\" href=\"#\">clear your current filters</a> and try "
 "again."
-msgstr "絞り込みの基準に一致する本が見つかりませんでした。<a class=\"clear-filters\" href=\"#\">現在絞り込みをクリアして</a>もう一度お試しください。"
+msgstr ""
+"絞り込みの基準に一致する本が見つかりませんでした。<a class=\"clear-filters\" "
+"href=\"#\">現在絞り込みをクリアして</a>もう一度お試しください。"
 
 #: templates/pb-catalog.php:273
 msgid "Pressbooks: the CMS for Books."
@@ -4847,7 +4932,10 @@ msgid ""
 "for you to revise and redistribute as desired. You can enter the source book"
 " URL if you already know it, or find and select a suitable book from the "
 "Pressbooks Directory."
-msgstr "このツールでは、ある Pressbooks サイトネットワークから別の Pressbooks サイトネットワークへオープンライセンスした本を複製を許可します。複製プロセスは、原書から必要に応じて改訂して再配布するコピーを作成します。すでに知っている場合、ソース本の URL を入力するか、Pressbooks ディレクトリから適切な本を検索と選択できます。"
+msgstr ""
+"このツールでは、ある Pressbooks サイトネットワークから別の Pressbooks "
+"サイトネットワークへオープンライセンスした本を複製を許可します。複製プロセスは、原書から必要に応じて改訂して再配布するコピーを作成します。すでに知っている場合、ソース本の"
+" URL を入力するか、Pressbooks ディレクトリから適切な本を検索と選択できます。"
 
 #: templates/admin/cloner/page.blade.php:9
 msgid ""
@@ -4903,14 +4991,18 @@ msgstr "複製リスト"
 msgid ""
 "Pressbooks added the ability to reliably track successful clones in early "
 "2023. This list may not include all clones made before that time."
-msgstr "Pressbooks は2023年初頭に正常に複製を正しくトラック機能を追加しました。このリストではその前にすべての作成した複製含まれていない場合があります。"
+msgstr ""
+"Pressbooks "
+"は2023年初頭に正常に複製を正しくトラック機能を追加しました。このリストではその前にすべての作成した複製含まれていない場合があります。"
 
 #: templates/admin/cloner/stats.blade.php:13
 msgid ""
 "The URLs here refer to external web addresses which may no longer be active "
 "or which may be hosting other content. Please use caution if you choose to "
 "visit any of the URLs listed below."
-msgstr "ここの URL は、もう有効中ではないか、他のコンテンツをホストする可能性がある外部ウェブアドレスを指します。いずれかの以下に一覧した URL を表示するには注意してください。"
+msgstr ""
+"ここの URL は、もう有効中ではないか、他のコンテンツをホストする可能性がある外部ウェブアドレスを指します。いずれかの以下に一覧した URL "
+"を表示するには注意してください。"
 
 #: templates/admin/cloner/stats.blade.php:20
 msgid "Date of clone"
@@ -5148,7 +5240,8 @@ msgid ""
 "Use our cloning tool to make your own personalized copy of any of the "
 "thousands of openly licensed educational books already published with "
 "Pressbooks."
-msgstr "クローンツールを使って、Pressbooks から既に出版されているオープンライセンスの教育本の中から、自分のオリジナルコピーを作ることができます。"
+msgstr ""
+"クローンツールを使って、Pressbooks から既に出版されているオープンライセンスの教育本の中から、自分のオリジナルコピーを作ることができます。"
 
 #: templates/admin/diagnostics.blade.php:5
 msgid "Please submit this information with any bug reports."
@@ -5187,11 +5280,13 @@ msgid ""
 "You can select multiple formats below. Pressbooks keeps the last 3 exports "
 "of each file format. You can pin specific files to make sure they don't get "
 "deleted."
-msgstr "以下で複数の形式を選択できます。Pressbooks は各ファイル形式の最新の3件のエクスポートを保存します。削除しないように、特定のファイルを固定できます。"
+msgstr ""
+"以下で複数の形式を選択できます。Pressbooks "
+"は各ファイル形式の最新の3件のエクスポートを保存します。削除しないように、特定のファイルを固定できます。"
 
 #: templates/admin/export.blade.php:15
 msgid "Toggle panel: Export Options"
-msgstr "パネルを切り替え:エクスポート設定"
+msgstr "パネルを切り替え: エクスポート設定"
 
 #: templates/admin/export.blade.php:19
 msgid "Export Options"
@@ -5216,13 +5311,6 @@ msgstr "本をエクスポート"
 #: templates/admin/export.blade.php:85
 msgid "Latest Exports"
 msgstr "最新のエクスポート"
-
-#: templates/admin/institutions.blade.php:10
-msgid ""
-"This optional field can be used to display the institution(s) which created "
-"this resource. If your college or university is not listed, please contact "
-"your network manager."
-msgstr "このオプションフィールドを使えば、このリソースの作成した機関を表示できます。自分の機関または大学が一覧に表示されていない場合、サイトネットワーク管理者に連絡してください。"
 
 #: templates/admin/mathjax.blade.php:5
 msgid ""
@@ -5276,7 +5364,9 @@ msgstr "SVG/PNG フォント"
 msgid ""
 "Affects exports (PDF, EPUB, MOBI.) Webbook uses CommonHTML. CommonHTML "
 "currently only supports MathJax’s default TeX fonts."
-msgstr "エクスポートに影響します (PDF、EPUB、MOBI)ウェブブックが CommonHTML を使用します。現在 CommonHTML が MathJax のデフォルト TeX フォントのみをサポートしています。"
+msgstr ""
+"エクスポートに影響します (PDF、EPUB、MOBI)ウェブブックが CommonHTML を使用します。現在 CommonHTML が "
+"MathJax のデフォルト TeX フォントのみをサポートしています。"
 
 #: templates/admin/mathjax.blade.php:65
 msgid "Save Changes"
@@ -5291,7 +5381,9 @@ msgid ""
 "Anyone with the link can see your book. Public books are eligible to be "
 "listed in <a href=\"%s\">Pressbooks Directory</a>. Individual chapters can "
 "be set to private."
-msgstr "リンクを知っているすべてが本を表示できます。公開本は <a href=\"%s\">Pressbooks ディレクトリ</a>に一覧表示できます。各章は非公開に設定できます。"
+msgstr ""
+"リンクを知っているすべてが本を表示できます。公開本は <a href=\"%s\">Pressbooks "
+"ディレクトリ</a>に一覧表示できます。各章は非公開に設定できます。"
 
 #: templates/admin/organize.blade.php:39
 msgid ""
@@ -5317,6 +5409,7 @@ msgstr "%s (エクスポートするものとして選択された)"
 
 #: templates/admin/organize.blade.php:91
 #: templates/admin/organize.blade.php:100
+#: templates/metaboxes/fields/reorderable-multiselect.blade.php:3
 msgid "Add"
 msgstr "追加"
 
@@ -5398,6 +5491,26 @@ msgid ""
 "One or more interactive elements has been excluded from this version of the "
 "text. You can view them online here: "
 msgstr "1つ以上のインタラクティブ要素は文章のこのバージョンから除外しました。ここにオンラインでそれを表示できます: "
+
+#: templates/metaboxes/fields/reorderable-multiselect.blade.php:4
+msgid "Remove"
+msgstr "削除"
+
+#: templates/metaboxes/fields/reorderable-multiselect.blade.php:7
+msgid "Available options"
+msgstr "利用可能なオプション"
+
+#: templates/metaboxes/fields/reorderable-multiselect.blade.php:8
+msgid "Moved to position $1"
+msgstr "位置 $1 に移動しました"
+
+#: templates/metaboxes/fields/reorderable-multiselect.blade.php:9
+msgid "Removed $1 from selection"
+msgstr "選択から $1 を削除しました"
+
+#: templates/metaboxes/fields/reorderable-multiselect.blade.php:10
+msgid "Added $1 to selection"
+msgstr "選択に $1 が追加しました"
 
 #: assets/src/scripts/a11y.js:31 assets/src/scripts/a11y.js:32
 msgid "Gradient selector"
