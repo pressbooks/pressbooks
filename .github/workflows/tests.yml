@@ -119,10 +119,13 @@ jobs:
     - name: Trigger Bedrock Update
       if: (github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/production')  && matrix.experimental == false
       uses: pressbooks/composer-autoupdate-bedrock@main
-      with:
-        triggered-by: ${{ github.repository }}
-        token: ${{ secrets.PAT_COMPOSER_UPDATE }}
-        branch: ${{ github.ref }}
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_SNS_ARN_DEV: ${{ secrets.AWS_SNS_ARN_DEV }}
+        AWS_SNS_ARN_STAGING: ${{ secrets.AWS_SNS_ARN_STAGING }}
+        INPUT_TRIGGERED_BY: ${{ github.repository }}
+        INPUT_BRANCH: ${{ github.ref }}
 
   coverage:
     runs-on: ubuntu-latest
