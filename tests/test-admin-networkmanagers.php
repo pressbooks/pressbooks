@@ -21,6 +21,46 @@ class Admin_NetworkManagers extends \WP_UnitTestCase {
 		$this->assertContains( 'pb-network-managers', $wp_styles->queue );
 	}
 
+	public function test_it_returns_a_list_of_restricted_users(): void
+	{
+		$first_user = new WP_User(
+			$this->factory()->user->create()
+		);
+
+		$second_user = new WP_user(
+			$this->factory()->user->create()
+		);
+
+		grant_super_admin( $first_user->ID );
+		grant_super_admin( $second_user->ID );
+
+		update_site_option( 'pressbooks_network_managers', [$first_user->ID, $second_user->ID] );
+
+		// Check restricted users
+		$this->assertEquals( [
+			$first_user->ID,
+			$second_user->ID,
+		], \Pressbooks\Admin\NetworkManagers\_restricted_users() );
+
+		// Force delete the user since WP does not allow deleting super admins
+		global $wpdb;
+
+		$meta = $wpdb->get_col( $wpdb->prepare( "SELECT umeta_id FROM $wpdb->usermeta WHERE user_id = %d", $first_user->ID ) );
+
+		foreach ( $meta as $mid ) {
+			delete_metadata_by_mid( 'user', $mid );
+		}
+
+		$wpdb->delete( $wpdb->users, array( 'ID' => $first_user->ID ) );
+
+		clean_user_cache( $first_user );
+
+		// Check restricted users once again
+		$this->assertEquals( [
+			$second_user->ID,
+		], \Pressbooks\Admin\NetworkManagers\_restricted_users() );
+	}
+
 	/**
 	 * @group networkmanagers
 	 */
