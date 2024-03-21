@@ -54,6 +54,11 @@ function _restricted_users() {
 	$restricted_users_ids = [];
 	foreach ( $network_admins as $username ) {
 		$user = get_user_by( 'login', $username );
+
+		if ( ! $user ) {
+			continue;
+		}
+
 		$is_restricted = in_array( absint( $user->ID ), $network_managers, true );
 
 		if ( $is_restricted ) {
