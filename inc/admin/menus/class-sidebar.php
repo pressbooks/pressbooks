@@ -61,7 +61,7 @@ class SideBar {
 
 		if ( ! is_restricted() ) {
 			add_filter( 'custom_menu_order', '__return_true' );
-			add_filter( 'menu_order', [ $this, 'reorderSuperAdminMenu' ], 999 );
+			add_filter( 'menu_order', [ $this, 'reorderSuperAdminMenu' ], 998 );
 		}
 
 		remove_action( 'admin_init', '\Pressbooks\Admin\NetworkManagers\restrict_access' );
@@ -212,7 +212,7 @@ class SideBar {
 			$this->getContextSlug( 'customize.php', true ),
 			'',
 			'dashicons-admin-appearance',
-			5
+			4
 		);
 
 		add_menu_page(
@@ -222,7 +222,7 @@ class SideBar {
 			$this->getContextSlug( 'edit.php?post_type=page', true ),
 			'',
 			'dashicons-admin-page',
-			6
+			5
 		);
 
 		if ( is_restricted() && $this->isNetworkAnalyticsActive ) {
