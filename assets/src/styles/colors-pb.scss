@@ -16,7 +16,7 @@ $menu-icon: $mine-shaft;
 $menu-highlight-background: $gallery;
 $menu-highlight-text: $monza;
 $menu-highlight-icon: $monza;
-$menu-current-background: $boulder;
+$menu-current-background: darken($boulder, 5%);
 $menu-current-text: $white;
 $menu-current-icon: $white;
 $menu-submenu-background: $white;
