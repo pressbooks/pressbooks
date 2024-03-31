@@ -344,6 +344,36 @@ class Styles {
 	}
 
 	/**
+	 * Get the paragraph indent value for a Buckram v2 theme
+	 *
+	 * @param \WP_Theme $theme (optional)
+	 *
+	 * @return ?string The paragraph indent defined in the theme, or null if no paragraph indent is defined.
+	 */
+	public function getParaIndent( $theme = null ) {
+
+		if ( null === $theme ) {
+			$theme = wp_get_theme();
+		}
+
+		if ( $this->isCurrentThemeCompatible( 2, $theme ) ) {
+			$path = realpath( $this->getDir( $theme ) . '/assets/styles/components/_elements.scss' );
+
+			if ( file_exists( $path ) ) {
+				$string = file_get_contents( $path );
+				$regex = '/\$para-indent: ([0-9]*[a-z]*) \!default;/m';
+				preg_match( $regex, $string, $matches );
+
+				if ( isset( $matches[1] ) ) {
+					return $matches[1];
+				}
+			}
+		}
+
+		return null;
+	}
+
+	/**
 	 * Are the current theme's stylesheets SCSS compatible?
 	 *
 	 * @param int $with_version

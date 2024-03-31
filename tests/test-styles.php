@@ -98,6 +98,17 @@ class StylesTest extends \WP_UnitTestCase {
 	/**
 	 * @group styles
 	 */
+	public function test_getParaIndent() {
+		$v1 = wp_get_theme( 'pressbooks-luther' );
+		$this->assertNull( $this->cs->getParaIndent( $v1 ) );
+
+		$v2 = wp_get_theme( 'pressbooks-book' );
+		$this->assertEquals( $this->cs->getParaIndent( $v2 ), '1em' );
+	}
+
+	/**
+	 * @group styles
+	 */
 	public function test_isCurrentThemeCompatible() {
 		// V1
 		$v1 = wp_get_theme( 'pressbooks-luther' );
