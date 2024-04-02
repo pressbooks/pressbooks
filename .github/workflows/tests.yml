@@ -80,12 +80,13 @@ jobs:
       if: matrix.experimental == false
 
     - name: Save code coverage to artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: matrix.experimental == false
       with:
         name: code-coverage
         path: "coverage.xml"
         retention-days: 5
+        overwrite: true
 
     - name: Prepare Build
       if: startsWith(github.ref, 'refs/tags/') && matrix.experimental == false
@@ -133,8 +134,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Fetch code coverage artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: code-coverage
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
