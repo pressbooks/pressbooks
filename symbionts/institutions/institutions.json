@@ -3226,6 +3226,16 @@
           "code": "TR-XX-001",
           "name": "Boğaziçi University",
           "url": "https:\/\/bogazici.edu.tr\/"
+        },
+        {
+          "code": "TR-XX-002",
+          "name": "Ankara University",
+          "url": "https:\/\/ankara.edu.tr\/"
+        },
+        {
+          "code": "TR-XX-003",
+          "name": "Gazi University",
+          "url": "https:\/\/gazi.edu.tr\/"
         }
       ]
   },
