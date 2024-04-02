@@ -621,7 +621,7 @@ class WebOptions extends \Pressbooks\Options {
 				$styles->getSass()->setVariables(
 					[
 						'para-margin-top' => '0',
-						'para-indent' => '1em',
+						'para-indent' => $styles->getParaIndent() ?? '1em',
 					]
 				);
 			} else {
