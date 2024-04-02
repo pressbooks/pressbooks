@@ -16,7 +16,7 @@
 	},
 	"dependencies": {
 		"@duetds/date-picker": "^1.4.0",
-		"@pressbooks/multiselect": "^2.3.0",
+		"@pressbooks/multiselect": "^2.4.0",
 		"@pressbooks/reorderable-multiselect": "^0.0.3",
 		"algoliasearch": "^4.22.1",
 		"alpine": "^0.2.1",
