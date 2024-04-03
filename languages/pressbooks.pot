@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-13T18:23:58+00:00\n"
+"POT-Creation-Date: 2024-04-03T18:37:46+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: pressbooks\n"
@@ -1829,11 +1829,11 @@ msgstr ""
 msgid "Settings saved."
 msgstr ""
 
-#: inc/admin/networkmanagers/namespace.php:109
+#: inc/admin/networkmanagers/namespace.php:114
 msgid "Pressbooks Network Managers"
 msgstr ""
 
-#: inc/admin/networkmanagers/namespace.php:111
+#: inc/admin/networkmanagers/namespace.php:116
 msgid "Network administrators&rsquo; access to network administration menus can be restricted to leave only sites and users visible to them."
 msgstr ""
 
@@ -2396,7 +2396,7 @@ msgid "$title is deprecated. Method will automatically determine title from lice
 msgstr ""
 
 #: inc/class-licensing.php:335
-#: inc/class-styles.php:824
+#: inc/class-styles.php:854
 #: inc/modules/export/epub/class-epub.php:1432
 #: inc/modules/export/htmlbook/class-htmlbook.php:864
 #: inc/modules/export/xhtml/class-xhtml11.php:1083
@@ -2462,109 +2462,109 @@ msgstr ""
 msgid "Custom Style for Web"
 msgstr ""
 
-#: inc/class-styles.php:676
+#: inc/class-styles.php:706
 msgid "Cormorant Garamond"
 msgstr ""
 
-#: inc/class-styles.php:677
+#: inc/class-styles.php:707
 msgid "Crimson Text"
 msgstr ""
 
-#: inc/class-styles.php:678
+#: inc/class-styles.php:708
 msgid "GNU FreeFont Serif"
 msgstr ""
 
-#: inc/class-styles.php:679
+#: inc/class-styles.php:709
 msgid "New Athena Unicode"
 msgstr ""
 
-#: inc/class-styles.php:680
+#: inc/class-styles.php:710
 msgid "Noto Serif"
 msgstr ""
 
-#: inc/class-styles.php:681
+#: inc/class-styles.php:711
 msgid "Sorts Mill Goudy"
 msgstr ""
 
-#: inc/class-styles.php:682
+#: inc/class-styles.php:712
 msgid "Spectral"
 msgstr ""
 
-#: inc/class-styles.php:686
+#: inc/class-styles.php:716
 msgid "Alegreya Sans"
 msgstr ""
 
-#: inc/class-styles.php:687
+#: inc/class-styles.php:717
 msgid "Barlow"
 msgstr ""
 
-#: inc/class-styles.php:688
+#: inc/class-styles.php:718
 msgid "GNU FreeFont Sans"
 msgstr ""
 
-#: inc/class-styles.php:689
+#: inc/class-styles.php:719
 msgid "K2D"
 msgstr ""
 
-#: inc/class-styles.php:690
+#: inc/class-styles.php:720
 msgid "Lato"
 msgstr ""
 
-#: inc/class-styles.php:691
+#: inc/class-styles.php:721
 msgid "Libre Franklin"
 msgstr ""
 
-#: inc/class-styles.php:692
+#: inc/class-styles.php:722
 msgid "Montserrat"
 msgstr ""
 
-#: inc/class-styles.php:693
+#: inc/class-styles.php:723
 msgid "Noto Sans"
 msgstr ""
 
-#: inc/class-styles.php:694
+#: inc/class-styles.php:724
 msgid "Open Sans"
 msgstr ""
 
-#: inc/class-styles.php:695
+#: inc/class-styles.php:725
 msgid "Raleway"
 msgstr ""
 
-#: inc/class-styles.php:696
+#: inc/class-styles.php:726
 msgid "Roboto"
 msgstr ""
 
-#: inc/class-styles.php:697
+#: inc/class-styles.php:727
 msgid "Rubik"
 msgstr ""
 
-#: inc/class-styles.php:698
+#: inc/class-styles.php:728
 msgid "Source Sans Pro"
 msgstr ""
 
-#: inc/class-styles.php:702
+#: inc/class-styles.php:732
 msgid "Theme default"
 msgstr ""
 
-#: inc/class-styles.php:703
-#: inc/class-styles.php:717
+#: inc/class-styles.php:733
+#: inc/class-styles.php:747
 msgid "Serif"
 msgstr ""
 
-#: inc/class-styles.php:704
+#: inc/class-styles.php:734
 msgid "Sans serif"
 msgstr ""
 
-#: inc/class-styles.php:749
+#: inc/class-styles.php:779
 msgid "Unexpected Error: There was a problem trying to query slug: %s - Please contact technical support."
 msgstr ""
 
-#: inc/class-styles.php:789
+#: inc/class-styles.php:819
 #: templates/admin/custom-styles.php:20
 msgid "Web"
 msgstr ""
 
-#: inc/class-styles.php:821
+#: inc/class-styles.php:851
 msgid "Last 10 Revisions"
 msgstr ""
 
