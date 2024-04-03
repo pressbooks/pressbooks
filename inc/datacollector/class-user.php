@@ -98,23 +98,6 @@ class User {
 	}
 
 	/**
-	 * Updates the network manager's site meta data
-	 *
-	 * @return void
-	 */
-	public function updateNetworkManagers(): void {
-		$users = _restricted_users();
-
-		if ( is_array( $users ) && ! empty( $users ) ) {
-			update_site_option( 'pressbooks_network_managers_ids', implode( ',', $users ) );
-
-			return;
-		}
-
-		delete_site_option( 'pressbooks_network_managers_ids' );
-	}
-
-	/**
 	 * Sync user meta into wp_usermeta table.
 	 *
 	 * @param int $user_id
