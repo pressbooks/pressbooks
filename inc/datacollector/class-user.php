@@ -6,8 +6,6 @@
 
 namespace Pressbooks\DataCollector;
 
-use function Pressbooks\Admin\NetworkManagers\_restricted_users;
-
 class User {
 
 	// Meta Key Constants:
