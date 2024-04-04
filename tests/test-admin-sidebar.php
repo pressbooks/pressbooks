@@ -14,6 +14,8 @@ class testAdminSidebar extends \WP_UnitTestCase
 	 */
 	public function it_adds_hooks_for_book_context(): void
 	{
+		$this->_book();
+
 		global $wp_filter;
 
 		SideBar::init();
@@ -60,6 +62,22 @@ class testAdminSidebar extends \WP_UnitTestCase
 			(new SideBar)->restrictPatternsPageAccess();
 		} catch (WPDieException $e) {
 			$this->assertEquals('Sorry, you are not allowed to access this page.', $e->getMessage());
+		}
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_does_not_restrict_other_edit_pages(): void {
+		global $pagenow;
+		$pagenow = 'edit.php';
+		$_GET['post_type'] = 'another_post_type';
+
+		try {
+			(new SideBar)->restrictPatternsPageAccess();
+			$this->assertTrue(true);
+		} catch (WPDieException) {
+			$this->fail('Should not restrict access to other edit pages');
 		}
 	}
 }
