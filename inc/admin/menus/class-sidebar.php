@@ -53,6 +53,11 @@ class SideBar {
 	}
 
 	public function hooks(): void {
+		if ( ! is_main_site() ) {
+			add_action( 'admin_menu', [ $this, 'removePatternsSubMenuItem' ], 999 );
+			return;
+		}
+
 		if ( ! is_super_admin() ) {
 			return;
 		}
@@ -65,6 +70,10 @@ class SideBar {
 		}
 
 		remove_action( 'admin_init', '\Pressbooks\Admin\NetworkManagers\restrict_access' );
+	}
+
+	public function removePatternsSubMenuItem(): void {
+		remove_submenu_page( 'themes.php', 'edit.php?post_type=wp_block' );
 	}
 
 	public function manageNetworkAdminMenu(): void {
