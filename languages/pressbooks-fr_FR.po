@@ -107,9 +107,9 @@ msgstr "Adresse URL source"
 #: inc/admin/covergenerator/namespace.php:109 inc/class-contributors.php:828
 msgid "Author"
 msgid_plural "Authors"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Auteur"
+msgstr[1] "Auteurs"
+msgstr[2] "Auteurs"
 
 #: inc/admin/attachments/namespace.php:60
 msgid "Author URL"
