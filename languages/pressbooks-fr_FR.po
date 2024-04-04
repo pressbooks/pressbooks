@@ -5,9 +5,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 6.17.2\n"
+"Project-Id-Version: Pressbooks 6.18.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2024-04-04T14:35:04+00:00\n"
+"POT-Creation-Date: 2024-04-04T20:55:25+00:00\n"
 "PO-Revision-Date: 2023-05-25 04:50+0000\n"
 "Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2024\n"
 "Language-Team: French (France) (https://app.transifex.com/pressbooks/teams/9194/fr_FR/)\n"
@@ -104,9 +104,12 @@ msgstr "Adresse URL source"
 
 #: inc/admin/attachments/namespace.php:54
 #: inc/admin/class-catalog-list-table.php:232
-#: inc/admin/covergenerator/namespace.php:109
+#: inc/admin/covergenerator/namespace.php:109 inc/class-contributors.php:828
 msgid "Author"
-msgstr "Auteur"
+msgid_plural "Authors"
+msgstr[0] "Auteur"
+msgstr[1] "Auteurs"
+msgstr[2] "Auteurs"
 
 #: inc/admin/attachments/namespace.php:60
 msgid "Author URL"
@@ -2283,11 +2286,11 @@ msgstr "Adresse URL invalide."
 msgid "No book found."
 msgstr "Aucun livre trouvé."
 
-#: inc/class-contributors.php:436
+#: inc/class-contributors.php:435
 msgid "Prefix"
 msgstr "Préfixe"
 
-#: inc/class-contributors.php:439
+#: inc/class-contributors.php:438
 msgid ""
 "Prefix to be displayed before this contributor's name, e.g. Dr., Prof., Ms.,"
 " Rev., Capt."
@@ -2295,37 +2298,37 @@ msgstr ""
 "Préfixe à afficher devant le nom de ce contributeur, par exemple Dr, Prof, "
 "Mme, Rev, Capt."
 
-#: inc/class-contributors.php:443
+#: inc/class-contributors.php:442
 msgid "First Name"
 msgstr "Prénom"
 
-#: inc/class-contributors.php:449
+#: inc/class-contributors.php:448
 msgid "Last Name"
 msgstr "Nom de famille"
 
-#: inc/class-contributors.php:455
+#: inc/class-contributors.php:454
 msgid "Suffix"
 msgstr "Suffixe"
 
-#: inc/class-contributors.php:458
+#: inc/class-contributors.php:457
 msgid ""
 "Suffix to be displayed after this contributors's name, e.g. Jr., Sr., IV, "
 "PhD, MD, USN (Ret.)."
 msgstr "Suffixe à afficher après le nom de ce contributeur"
 
-#: inc/class-contributors.php:462
+#: inc/class-contributors.php:461
 msgid "Picture"
 msgstr "Photo"
 
-#: inc/class-contributors.php:468
+#: inc/class-contributors.php:467
 msgid "Biographical Info"
 msgstr "Informations biographiques"
 
-#: inc/class-contributors.php:473
+#: inc/class-contributors.php:472
 msgid "Institution"
 msgstr "Institution"
 
-#: inc/class-contributors.php:476
+#: inc/class-contributors.php:475
 msgid ""
 "Institution this contributor is associated with, e.g. Rebus Foundation, Open"
 " University, Amnesty International."
@@ -2333,43 +2336,78 @@ msgstr ""
 "Institution à laquelle ce contributeur est associé, par exemple la Fondation"
 " Rebus, l'Université ouverte, Amnesty International."
 
-#: inc/class-contributors.php:483
+#: inc/class-contributors.php:482
 msgid "Website for this contributor. Must be a valid URL."
 msgstr "Site Web de ce contributeur. Il doit s'agir d'une URL valide."
 
-#: inc/class-contributors.php:487
+#: inc/class-contributors.php:486
 msgid "Twitter"
 msgstr "Twitter"
 
-#: inc/class-contributors.php:490
+#: inc/class-contributors.php:489
 msgid "Twitter profile for this contributor. Must be a valid URL."
 msgstr "Profil Twitter de ce contributeur. Il doit s'agir d'une URL valide."
 
-#: inc/class-contributors.php:494
+#: inc/class-contributors.php:493
 msgid "LinkedIn"
 msgstr "LinkedIn"
 
-#: inc/class-contributors.php:497
+#: inc/class-contributors.php:496
 msgid "LinkedIn profile for this contributor. Must be a valid URL."
 msgstr "Profil LinkedIn de ce contributeur. Il doit s'agir d'une URL valide."
 
-#: inc/class-contributors.php:501
+#: inc/class-contributors.php:500
 msgid "GitHub"
 msgstr "GitHub"
 
-#: inc/class-contributors.php:504
+#: inc/class-contributors.php:503
 msgid "GitHub profile for this contributor. Must be a valid URL."
 msgstr "Profil GitHub de ce contributeur. Il doit s'agir d'une URL valide."
 
-#: inc/class-contributors.php:575
+#: inc/class-contributors.php:574
 msgid ""
 "Import multiple contributors at once by uploading a valid JSON file. See <a "
 "href=\"%s\" target=\"_blank\">our guide</a> for details."
 msgstr ""
 
-#: inc/class-contributors.php:578
+#: inc/class-contributors.php:577
 msgid "Import Contributors"
 msgstr "Importer des contributeurs"
+
+#: inc/class-contributors.php:827
+msgid "Editor"
+msgid_plural "Editors"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: inc/class-contributors.php:829
+msgid "Contributor"
+msgid_plural "Contributors"
+msgstr[0] "Contributeur"
+msgstr[1] "Contributeurs"
+msgstr[2] "Contributeurs"
+
+#: inc/class-contributors.php:830
+msgid "Translator"
+msgid_plural "Translators"
+msgstr[0] "Traducteur"
+msgstr[1] "Traducteurs"
+msgstr[2] "Traducteurs"
+
+#: inc/class-contributors.php:831
+msgid "Reviewer"
+msgid_plural "Reviewers"
+msgstr[0] "Évaluateur"
+msgstr[1] "Évaluateurs"
+msgstr[2] "Évaluateurs"
+
+#: inc/class-contributors.php:832
+msgid "Illustrator"
+msgid_plural "Illustrators"
+msgstr[0] "Illustrateur"
+msgstr[1] "Illustrateurs"
+msgstr[2] "Illustrateurs"
 
 #: inc/class-eventstreams.php:201
 msgid ""
