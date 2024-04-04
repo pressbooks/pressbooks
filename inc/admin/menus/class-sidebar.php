@@ -84,7 +84,7 @@ class SideBar {
 			return;
 		}
 
-		wp_die( __('Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 );
+		wp_die( __( 'Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 ); // phpcs:ignore Pressbooks.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	public function manageNetworkAdminMenu(): void {
