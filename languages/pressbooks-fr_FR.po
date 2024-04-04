@@ -2405,9 +2405,9 @@ msgstr[2] "Évaluateurs"
 #: inc/class-contributors.php:832
 msgid "Illustrator"
 msgid_plural "Illustrators"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Illustrateur"
+msgstr[1] "Illustrateurs"
+msgstr[2] "Illustrateurs"
 
 #: inc/class-eventstreams.php:201
 msgid ""
