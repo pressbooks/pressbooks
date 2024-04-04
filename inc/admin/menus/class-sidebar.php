@@ -54,7 +54,8 @@ class SideBar {
 
 	public function hooks(): void {
 		if ( ! is_main_site() ) {
-			add_action( 'admin_menu', [ $this, 'removePatternsSubMenuItem' ], 999 );
+			add_action( 'admin_menu', [ $this, 'removePatternsSubMenuItem' ] );
+			add_action( 'admin_init', [ $this, 'restrictPatternsPageAccess' ] );
 			return;
 		}
 
@@ -74,6 +75,16 @@ class SideBar {
 
 	public function removePatternsSubMenuItem(): void {
 		remove_submenu_page( 'themes.php', 'edit.php?post_type=wp_block' );
+	}
+
+	public function restrictPatternsPageAccess(): void {
+		global $pagenow;
+
+		if ( $pagenow !== 'edit.php' || ! isset( $_GET['post_type'] ) || $_GET['post_type'] !== 'wp_block' ) {
+			return;
+		}
+
+		wp_die( __('Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 );
 	}
 
 	public function manageNetworkAdminMenu(): void {
