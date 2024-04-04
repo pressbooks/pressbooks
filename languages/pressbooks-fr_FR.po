@@ -2398,9 +2398,9 @@ msgstr[2] "Traducteurs"
 #: inc/class-contributors.php:831
 msgid "Reviewer"
 msgid_plural "Reviewers"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Évaluateur"
+msgstr[1] "Évaluateurs"
+msgstr[2] "Évaluateurs"
 
 #: inc/class-contributors.php:832
 msgid "Illustrator"
