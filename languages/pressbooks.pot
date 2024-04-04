@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-04-03T18:37:46+00:00\n"
+"POT-Creation-Date: 2024-04-04T14:35:04+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: pressbooks\n"
@@ -541,8 +541,8 @@ msgstr ""
 #: inc/admin/dashboard/class-dashboard.php:54
 #: inc/admin/laf/namespace.php:803
 #: inc/admin/laf/namespace.php:878
-#: inc/admin/menus/class-sidebar.php:178
-#: inc/admin/menus/class-sidebar.php:179
+#: inc/admin/menus/class-sidebar.php:198
+#: inc/admin/menus/class-sidebar.php:199
 #: inc/admin/menus/class-topbar.php:124
 msgid "Dashboard"
 msgstr ""
@@ -928,15 +928,15 @@ msgstr ""
 #: inc/admin/laf/namespace.php:811
 #: inc/admin/laf/namespace.php:1573
 #: inc/admin/laf/namespace.php:1583
-#: inc/admin/menus/class-sidebar.php:189
-#: inc/admin/menus/class-sidebar.php:190
+#: inc/admin/menus/class-sidebar.php:209
+#: inc/admin/menus/class-sidebar.php:210
 #: inc/admin/menus/class-topbar.php:129
 msgid "Books"
 msgstr ""
 
 #: inc/admin/laf/namespace.php:819
-#: inc/admin/menus/class-sidebar.php:199
-#: inc/admin/menus/class-sidebar.php:200
+#: inc/admin/menus/class-sidebar.php:219
+#: inc/admin/menus/class-sidebar.php:220
 #: inc/admin/menus/class-topbar.php:134
 msgid "Users"
 msgstr ""
@@ -946,8 +946,8 @@ msgid "Themes"
 msgstr ""
 
 #: inc/admin/laf/namespace.php:836
-#: inc/admin/menus/class-sidebar.php:396
-#: inc/admin/menus/class-sidebar.php:397
+#: inc/admin/menus/class-sidebar.php:416
+#: inc/admin/menus/class-sidebar.php:417
 #: inc/admin/menus/class-topbar.php:149
 msgid "Plugins"
 msgstr ""
@@ -1112,116 +1112,120 @@ msgstr ""
 msgid "Your institutional affiliation, e.g. Rebus Foundation, Open University, Amnesty International."
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:209
-#: inc/admin/menus/class-sidebar.php:210
+#: inc/admin/menus/class-sidebar.php:87
+msgid "Sorry, you are not allowed to access this page."
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:229
+#: inc/admin/menus/class-sidebar.php:230
 #: inc/admin/menus/class-topbar.php:139
 msgid "Appearance"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:219
-#: inc/admin/menus/class-sidebar.php:220
+#: inc/admin/menus/class-sidebar.php:239
+#: inc/admin/menus/class-sidebar.php:240
 #: inc/admin/menus/class-topbar.php:144
 msgid "Pages"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:230
-#: inc/admin/menus/class-sidebar.php:231
-#: inc/admin/menus/class-sidebar.php:429
-#: inc/admin/menus/class-sidebar.php:430
+#: inc/admin/menus/class-sidebar.php:250
+#: inc/admin/menus/class-sidebar.php:251
+#: inc/admin/menus/class-sidebar.php:449
+#: inc/admin/menus/class-sidebar.php:450
 #: inc/admin/menus/class-topbar.php:154
 msgid "Settings"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:241
-#: inc/admin/menus/class-sidebar.php:242
-#: inc/admin/menus/class-sidebar.php:497
-#: inc/admin/menus/class-sidebar.php:498
+#: inc/admin/menus/class-sidebar.php:261
+#: inc/admin/menus/class-sidebar.php:262
+#: inc/admin/menus/class-sidebar.php:517
+#: inc/admin/menus/class-sidebar.php:518
 msgid "Network Options"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:254
-#: inc/admin/menus/class-sidebar.php:255
-#: inc/admin/menus/class-sidebar.php:284
-#: inc/admin/menus/class-sidebar.php:285
-#: inc/admin/menus/class-sidebar.php:576
-#: inc/admin/menus/class-sidebar.php:577
+#: inc/admin/menus/class-sidebar.php:274
+#: inc/admin/menus/class-sidebar.php:275
+#: inc/admin/menus/class-sidebar.php:304
+#: inc/admin/menus/class-sidebar.php:305
+#: inc/admin/menus/class-sidebar.php:596
+#: inc/admin/menus/class-sidebar.php:597
 #: inc/admin/menus/class-topbar.php:159
 msgid "Stats"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:266
-#: inc/admin/menus/class-sidebar.php:267
+#: inc/admin/menus/class-sidebar.php:286
+#: inc/admin/menus/class-sidebar.php:287
 msgid "Network Stats"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:275
-#: inc/admin/menus/class-sidebar.php:276
-#: inc/admin/menus/class-sidebar.php:294
 #: inc/admin/menus/class-sidebar.php:295
+#: inc/admin/menus/class-sidebar.php:296
+#: inc/admin/menus/class-sidebar.php:314
+#: inc/admin/menus/class-sidebar.php:315
 msgid "Analytics"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:314
-#: inc/admin/menus/class-sidebar.php:315
+#: inc/admin/menus/class-sidebar.php:334
+#: inc/admin/menus/class-sidebar.php:335
 msgid "Upgrade Network"
-msgstr ""
-
-#: inc/admin/menus/class-sidebar.php:327
-#: inc/admin/menus/class-sidebar.php:328
-#: inc/admin/menus/class-sidebar.php:336
-#: inc/admin/menus/class-sidebar.php:337
-msgid "Network Users"
 msgstr ""
 
 #: inc/admin/menus/class-sidebar.php:347
 #: inc/admin/menus/class-sidebar.php:348
+#: inc/admin/menus/class-sidebar.php:356
+#: inc/admin/menus/class-sidebar.php:357
+msgid "Network Users"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:367
+#: inc/admin/menus/class-sidebar.php:368
 msgid "Root Site Users"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:358
-#: inc/admin/menus/class-sidebar.php:359
+#: inc/admin/menus/class-sidebar.php:378
+#: inc/admin/menus/class-sidebar.php:379
 msgid "User Activation Keys"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:408
-#: inc/admin/menus/class-sidebar.php:409
+#: inc/admin/menus/class-sidebar.php:428
+#: inc/admin/menus/class-sidebar.php:429
 msgid "Network Plugins"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:420
-#: inc/admin/menus/class-sidebar.php:421
+#: inc/admin/menus/class-sidebar.php:440
+#: inc/admin/menus/class-sidebar.php:441
 msgid "Root Site Plugins"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:442
-#: inc/admin/menus/class-sidebar.php:443
+#: inc/admin/menus/class-sidebar.php:462
+#: inc/admin/menus/class-sidebar.php:463
 msgid "Network Settings"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:450
-#: inc/admin/menus/class-sidebar.php:451
+#: inc/admin/menus/class-sidebar.php:470
+#: inc/admin/menus/class-sidebar.php:471
 msgid "Network Setup"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:458
-#: inc/admin/menus/class-sidebar.php:459
+#: inc/admin/menus/class-sidebar.php:478
+#: inc/admin/menus/class-sidebar.php:479
 #: inc/admin/networkmanagers/namespace.php:20
 #: inc/admin/networkmanagers/namespace.php:21
 msgid "Network Managers"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:467
-#: inc/admin/menus/class-sidebar.php:468
+#: inc/admin/menus/class-sidebar.php:487
+#: inc/admin/menus/class-sidebar.php:488
 msgid "Whitelabel Settings"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:477
-#: inc/admin/menus/class-sidebar.php:478
+#: inc/admin/menus/class-sidebar.php:497
+#: inc/admin/menus/class-sidebar.php:498
 msgid "Object Cache"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:486
-#: inc/admin/menus/class-sidebar.php:487
+#: inc/admin/menus/class-sidebar.php:506
+#: inc/admin/menus/class-sidebar.php:507
 #: inc/class-googleanalytics.php:69
 #: inc/class-googleanalytics.php:70
 #: inc/class-googleanalytics.php:79
@@ -1231,30 +1235,30 @@ msgstr ""
 msgid "Google Analytics"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:505
-#: inc/admin/menus/class-sidebar.php:506
+#: inc/admin/menus/class-sidebar.php:525
+#: inc/admin/menus/class-sidebar.php:526
 msgid "Sharing & Privacy"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:517
-#: inc/admin/menus/class-sidebar.php:518
+#: inc/admin/menus/class-sidebar.php:537
+#: inc/admin/menus/class-sidebar.php:538
 msgid "Root Site General Settings"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:530
-#: inc/admin/menus/class-sidebar.php:531
+#: inc/admin/menus/class-sidebar.php:550
+#: inc/admin/menus/class-sidebar.php:551
 msgid "Root Site Media Settings"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:543
-#: inc/admin/menus/class-sidebar.php:544
+#: inc/admin/menus/class-sidebar.php:563
+#: inc/admin/menus/class-sidebar.php:564
 msgid "Root Site Privacy Settings"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:555
-#: inc/admin/menus/class-sidebar.php:556
-#: inc/admin/menus/class-sidebar.php:566
-#: inc/admin/menus/class-sidebar.php:567
+#: inc/admin/menus/class-sidebar.php:575
+#: inc/admin/menus/class-sidebar.php:576
+#: inc/admin/menus/class-sidebar.php:586
+#: inc/admin/menus/class-sidebar.php:587
 msgid "PB Stats"
 msgstr ""
 
