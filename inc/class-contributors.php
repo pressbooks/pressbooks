@@ -11,7 +11,6 @@ namespace Pressbooks;
 use function Pressbooks\Metadata\init_book_data_models;
 use function Pressbooks\Utility\explode_remove_and;
 use function Pressbooks\Utility\str_starts_with;
-use Illuminate\Support\Str;
 use Pressbooks\PostType\BackMatter;
 use Pressbooks\Utility\AutoDisplayable;
 use Pressbooks\Utility\HandlesTransfers;
@@ -814,12 +813,25 @@ class Contributors implements BackMatter, Transferable {
 			$contributors = $this->getContributorsWithMeta( $meta_post->ID, $contributor_type );
 			$contributors_count = count( $contributors );
 			if ( $contributors_count > 0 ) {
-				list( ,$title ) = explode( '_', $contributor_type );
-				$records[ $contributor_type ]['title'] = Str::ucfirst( $contributors_count > 1 ? $title : Str::singular( $title ) ); // ex. return Author or Authors
-				$records[ $contributor_type ]['records'] = $contributors;
+				$records[ $contributor_type ] = [
+					'title' => $this->getContributorTypeLabel( $contributor_type, $contributors_count ),
+					'records' => $contributors,
+				];
 			}
 		}
 		return $records;
+	}
+
+	public function getContributorTypeLabel( string $type, int $count ): string {
+		return match ($type) {
+			'pb_editors' => _n( 'Editor', 'Editors', $count, 'pressbooks' ),
+			'pb_authors' => _n( 'Author', 'Authors', $count, 'pressbooks' ),
+			'pb_contributors' => _n( 'Contributor', 'Contributors', $count, 'pressbooks' ),
+			'pb_translators' => _n( 'Translator', 'Translators', $count, 'pressbooks' ),
+			'pb_reviewers' => _n( 'Reviewer', 'Reviewers', $count, 'pressbooks' ),
+			'pb_illustrators' => _n( 'Illustrator', 'Illustrators', $count, 'pressbooks' ),
+			default => '',
+		};
 	}
 
 	/**
