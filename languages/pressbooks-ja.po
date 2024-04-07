@@ -97,7 +97,7 @@ msgstr "ソース URL"
 #: inc/admin/covergenerator/namespace.php:109 inc/class-contributors.php:828
 msgid "Author"
 msgid_plural "Authors"
-msgstr[0] ""
+msgstr[0] "著者"
 
 #: inc/admin/attachments/namespace.php:60
 msgid "Author URL"
