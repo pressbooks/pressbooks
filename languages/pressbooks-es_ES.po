@@ -2353,9 +2353,9 @@ msgstr "Importar colaboradores"
 #: inc/class-contributors.php:827
 msgid "Editor"
 msgid_plural "Editors"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Editor"
+msgstr[1] "Editores"
+msgstr[2] "Editores"
 
 #: inc/class-contributors.php:829
 msgid "Contributor"
