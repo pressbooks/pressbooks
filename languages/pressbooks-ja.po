@@ -2215,12 +2215,12 @@ msgstr "寄稿者をインポート"
 #: inc/class-contributors.php:827
 msgid "Editor"
 msgid_plural "Editors"
-msgstr[0] ""
+msgstr[0] "編集者"
 
 #: inc/class-contributors.php:829
 msgid "Contributor"
 msgid_plural "Contributors"
-msgstr[0] ""
+msgstr[0] "寄稿者"
 
 #: inc/class-contributors.php:830
 msgid "Translator"
