@@ -2225,12 +2225,12 @@ msgstr[0] "寄稿者"
 #: inc/class-contributors.php:830
 msgid "Translator"
 msgid_plural "Translators"
-msgstr[0] ""
+msgstr[0] "翻訳者"
 
 #: inc/class-contributors.php:831
 msgid "Reviewer"
 msgid_plural "Reviewers"
-msgstr[0] ""
+msgstr[0] "校閲者"
 
 #: inc/class-contributors.php:832
 msgid "Illustrator"
