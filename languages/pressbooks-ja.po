@@ -1167,7 +1167,7 @@ msgstr "所属機関 (例: Rebus Foundation、Open University、アムネステ�
 
 #: inc/admin/menus/class-sidebar.php:87
 msgid "Sorry, you are not allowed to access this page."
-msgstr ""
+msgstr "このページにアクセスする権限がありません。"
 
 #: inc/admin/menus/class-sidebar.php:229 inc/admin/menus/class-sidebar.php:230
 #: inc/admin/menus/class-topbar.php:139
