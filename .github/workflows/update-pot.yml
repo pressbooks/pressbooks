@@ -35,7 +35,7 @@ jobs:
         branch: chore/update-pot-file
     - name: Merge pull request with updated POT file
       if: ${{ steps.cprpot.outputs.pull-request-number }}
-      uses: "pascalgn/automerge-action@v0.16.2"
+      uses: "pascalgn/automerge-action@v0.16.3"
       env:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         MERGE_LABELS: automerge-pot
