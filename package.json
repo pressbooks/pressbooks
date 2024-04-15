@@ -18,7 +18,7 @@
 		"@duetds/date-picker": "^1.4.0",
 		"@pressbooks/multiselect": "^2.4.0",
 		"@pressbooks/reorderable-multiselect": "^0.0.3",
-		"algoliasearch": "^4.23.2",
+		"algoliasearch": "^4.23.3",
 		"alpine": "^0.2.1",
 		"alpinejs": "^3.13.8",
 		"block-ui": "^2.70.1",
