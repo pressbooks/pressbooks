@@ -103,9 +103,9 @@ msgstr "URL de la fuente"
 #: inc/admin/covergenerator/namespace.php:109 inc/class-contributors.php:828
 msgid "Author"
 msgid_plural "Authors"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Autor"
+msgstr[1] "Autores"
+msgstr[2] "Autores"
 
 #: inc/admin/attachments/namespace.php:60
 msgid "Author URL"
@@ -1234,7 +1234,7 @@ msgstr ""
 
 #: inc/admin/menus/class-sidebar.php:87
 msgid "Sorry, you are not allowed to access this page."
-msgstr ""
+msgstr "Lo siento, no tienes permisos para acceder a esta página."
 
 #: inc/admin/menus/class-sidebar.php:229 inc/admin/menus/class-sidebar.php:230
 #: inc/admin/menus/class-topbar.php:139
@@ -2353,37 +2353,37 @@ msgstr "Importar colaboradores"
 #: inc/class-contributors.php:827
 msgid "Editor"
 msgid_plural "Editors"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Editor"
+msgstr[1] "Editores"
+msgstr[2] "Editores"
 
 #: inc/class-contributors.php:829
 msgid "Contributor"
 msgid_plural "Contributors"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Colaborador"
+msgstr[1] "Colaboradores"
+msgstr[2] "Colaboradores"
 
 #: inc/class-contributors.php:830
 msgid "Translator"
 msgid_plural "Translators"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Traductor"
+msgstr[1] "Traductores"
+msgstr[2] "Traductores"
 
 #: inc/class-contributors.php:831
 msgid "Reviewer"
 msgid_plural "Reviewers"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Revisor"
+msgstr[1] "Revisores"
+msgstr[2] "Revisores"
 
 #: inc/class-contributors.php:832
 msgid "Illustrator"
 msgid_plural "Illustrators"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ilustrador"
+msgstr[1] "Ilustradores"
+msgstr[2] "Ilustradores"
 
 #: inc/class-eventstreams.php:201
 msgid ""
