@@ -1445,7 +1445,7 @@ msgstr "Numéro de la collection"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:36
 msgid "Keywords"
-msgstr ""
+msgstr "Mots-clés"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:37
 msgid ""
@@ -1482,7 +1482,7 @@ msgstr "Prix courant (PDF)"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:53
 msgid "The list price of your book in PDF format."
-msgstr ""
+msgstr "Le prix courant de votre livre en format PDF"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:57
 msgid "List Price (ebook)"
@@ -1494,7 +1494,7 @@ msgstr "Le prix courant de votre livre en format numérique"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:62
 msgid "List Price (Web)"
-msgstr ""
+msgstr "Prix courant (Web)"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:63
 msgid "The list price of your webbook."
@@ -1518,7 +1518,7 @@ msgstr "Jeunesse"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:72
 msgid "Young Adult"
-msgstr ""
+msgstr "Jeune adulte"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:73
 msgid "Adult"
@@ -1584,7 +1584,7 @@ msgstr "Année de publication du livre"
 
 #: inc/admin/metaboxes/class-copyright.php:52
 msgid "Copyright Holder"
-msgstr ""
+msgstr "Détenteur du droit d&rsquo;auteur"
 
 #: inc/admin/metaboxes/class-copyright.php:53
 msgid "Name of the copyright holder."
@@ -1769,7 +1769,7 @@ msgstr "Visibilité de la partie"
 
 #: inc/admin/metaboxes/class-partvisibility.php:32
 msgid "Invisible"
-msgstr ""
+msgstr "Invisible"
 
 #: inc/admin/metaboxes/class-partvisibility.php:33
 msgid "Hide from table of contents and part numbering."
@@ -1835,7 +1835,7 @@ msgstr ""
 #: inc/admin/metaboxes/class-subjects.php:27
 #: inc/admin/metaboxes/class-subjects.php:33
 msgid "Thema"
-msgstr ""
+msgstr "Thema"
 
 #: inc/admin/metaboxes/class-subjects.php:27
 #: inc/admin/metaboxes/class-subjects.php:33
@@ -1844,7 +1844,7 @@ msgstr "la liste des catégories de sujets Thema"
 
 #: inc/admin/metaboxes/class-subjects.php:32
 msgid "Additional Subject(s)"
-msgstr ""
+msgstr "Sujet(s) supplémentaire(s)"
 
 #: inc/admin/metaboxes/namespace.php:100
 msgid ""
@@ -1893,6 +1893,8 @@ msgstr "Statut et visibilité"
 msgid ""
 "Appears on part page. Parts will not appear if a book has only one part."
 msgstr ""
+"FIgure sur la page des parties. Ne figurera pas si le livre n&rsquo;a "
+"qu&rsquo;une partie."
 
 #: inc/admin/metaboxes/namespace.php:396
 msgid "Show in Glossary Lists"
@@ -1918,7 +1920,7 @@ msgstr "Exige un mot de passe"
 
 #: inc/admin/metaboxes/namespace.php:423
 msgid "Password..."
-msgstr ""
+msgstr "Mot de passe..."
 
 #: inc/admin/metaboxes/namespace.php:427
 #: templates/admin/organize.blade.php:140
@@ -1928,7 +1930,7 @@ msgstr "Montrer dans les exportations"
 #: inc/admin/metaboxes/namespace.php:431
 #: templates/admin/organize.blade.php:144
 msgid "Show Title"
-msgstr ""
+msgstr "Montrer le titre"
 
 #: inc/admin/metaboxes/namespace.php:623 inc/admin/metaboxes/namespace.php:679
 msgid ""
@@ -1982,7 +1984,7 @@ msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:107
 msgid "Enable network API"
-msgstr ""
+msgstr "Activer l&rsquo;interface réseau API"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:113
 msgid "Enable access to your network of books via the Pressbooks REST API."
@@ -2042,7 +2044,7 @@ msgstr "Paramètres sauvegardés"
 
 #: inc/admin/networkmanagers/namespace.php:114
 msgid "Pressbooks Network Managers"
-msgstr ""
+msgstr "Administrateurs de réseau Pressbooks"
 
 #: inc/admin/networkmanagers/namespace.php:116
 msgid ""
@@ -2061,6 +2063,11 @@ msgid ""
 "display SVG files, a format that may carry a higher security risk than other"
 " image formats."
 msgstr ""
+"Veuillez noter que tout contenu fourni par un service tiers distant, comme "
+"WP QuickLaTeX, peut ne pas être sécuritaire à 100 %. Le plugin WP QuickLaTeX"
+" comprend également un paramètre avancé qui permet aux utilisateurs de créer"
+" et d'afficher des fichiers SVG, un format qui peut présenter un risque de "
+"sécurité plus élevé que les autres formats d'image."
 
 #: inc/admin/users/class-userbulk.php:68 inc/admin/users/class-userbulk.php:69
 msgid "Bulk Add"
@@ -2100,7 +2107,7 @@ msgstr "Métadonnées"
 
 #: inc/api/endpoints/controller/books/class-books.php:133
 msgid "ID offset, overrides page."
-msgstr ""
+msgstr "Le décalage de l&rsquo;ID, remplace la page."
 
 #: inc/api/endpoints/controller/books/class-books.php:140
 msgid "Timestamp for updated field."
@@ -2135,7 +2142,7 @@ msgstr "Le statut de la publication."
 
 #: inc/api/endpoints/controller/class-toc.php:98
 msgid "Comment count"
-msgstr ""
+msgstr "Nombre de commentaires"
 
 #: inc/api/endpoints/controller/class-toc.php:123
 msgid "Include in exports."
@@ -2160,7 +2167,7 @@ msgstr "ID de partie"
 
 #: inc/api/namespace.php:232
 msgid "Invalid batch parameter(s)."
-msgstr ""
+msgstr "Paramètre(s) de lot invalide(s)"
 
 #: inc/api/namespace.php:387
 msgid "Part does not exist"
@@ -4253,7 +4260,7 @@ msgstr "Contenu courant de la page liminaire droite"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:441
 msgid "Introduction Left Page Running Content"
-msgstr ""
+msgstr "Contenu courant de la page d&rsquo;introduction gauche"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:449
 #: inc/modules/themeoptions/class-pdfoptions.php:468
@@ -4298,7 +4305,7 @@ msgstr "Contenu courant de la page droite de la partie"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:515
 msgid "Chapter Left Page Running Content"
-msgstr ""
+msgstr "Contenu courant de la page de gauche du chapitre"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:525
 #: inc/modules/themeoptions/class-pdfoptions.php:546
@@ -4313,11 +4320,11 @@ msgstr "Auteur du chapitre"
 #: inc/modules/themeoptions/class-pdfoptions.php:527
 #: inc/modules/themeoptions/class-pdfoptions.php:548
 msgid "Chapter Subtitle"
-msgstr ""
+msgstr "Sous-titre du chapitre"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:536
 msgid "Chapter Right Page Running Content"
-msgstr ""
+msgstr "Contenu courant de la page de droite du chapitre"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:557
 msgid "Back Matter Left Page Running Content"
@@ -4336,7 +4343,7 @@ msgstr "Auteur de la partie annexe"
 #: inc/modules/themeoptions/class-pdfoptions.php:567
 #: inc/modules/themeoptions/class-pdfoptions.php:586
 msgid "Back Matter Subtitle"
-msgstr ""
+msgstr "Sous-titre de la partie annexe"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:576
 msgid "Back Matter Right Page Running Content"
@@ -4349,6 +4356,8 @@ msgstr "Augmenter la police de caractères"
 #: inc/modules/themeoptions/class-pdfoptions.php:602
 msgid "Increases font size and line height for greater accessibility"
 msgstr ""
+"Augmenter la police de caractères et la hauteur de la ligne pour une "
+"meilleure accessibilité"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:628
 msgid "These options apply to PDF exports."
@@ -4378,11 +4387,11 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:149
 msgid "Webbook Width"
-msgstr ""
+msgstr "Largeur du livre Web"
 
 #: inc/modules/themeoptions/class-weboptions.php:154
 msgid "Narrow"
-msgstr ""
+msgstr "Étroit"
 
 #: inc/modules/themeoptions/class-weboptions.php:156
 msgid "Wide"
@@ -4403,16 +4412,20 @@ msgstr "Réduire les sections"
 #: inc/modules/themeoptions/class-weboptions.php:192
 msgid "Collapse sections within front matter, chapters, and back matter"
 msgstr ""
+"Réduire les sections dans les pages liminaires, les chapitres et les parties"
+" annexes"
 
 #: inc/modules/themeoptions/class-weboptions.php:200
 msgid "Enable Source Comparison"
-msgstr ""
+msgstr "Activer la comparaison avec la source"
 
 #: inc/modules/themeoptions/class-weboptions.php:205
 msgid ""
 "Add comparison tool to the end of each front matter, part, chapter, and back"
 " matter"
 msgstr ""
+"Ajouter l&rsquo;outil de comparaison à la fin de l&rsquo;ensemble des pages "
+"liminaires, parties, chapitres et parties annexes."
 
 #: inc/modules/themeoptions/class-weboptions.php:206
 msgid ""
@@ -4424,7 +4437,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:232
 msgid "These options apply to the webbook."
-msgstr ""
+msgstr "Ces options s&rsquo;appliquent au livre Web."
 
 #: inc/modules/themeoptions/class-weboptions.php:432
 msgid "Web Options"
@@ -4457,7 +4470,7 @@ msgstr ""
 
 #: inc/posttype/namespace.php:287
 msgid "Unlisted"
-msgstr ""
+msgstr "Ne figure pas dans la liste"
 
 #: inc/posttype/namespace.php:324
 msgid "Show title in exports"
@@ -4497,18 +4510,20 @@ msgstr "Auteur de la mention de la source du contenu multimédia"
 #: inc/posttype/namespace.php:402
 msgid "Media attribution author url"
 msgstr ""
+"Adresse URL de l&rsquo;auteur de la mention de la source du contenu "
+"multimédia"
 
 #: inc/posttype/namespace.php:411
 msgid "Media attribution adapted by"
-msgstr ""
+msgstr "Mention de la source du contenu multimédia adaptée par"
 
 #: inc/posttype/namespace.php:420
 msgid "Media attribution adapted by url"
-msgstr ""
+msgstr "URL de la mention de la source du contenu multimédia adaptée par"
 
 #: inc/posttype/namespace.php:429
 msgid "Media attribution license"
-msgstr ""
+msgstr "Licence de la mention de la source du contenu multimédia"
 
 #: inc/posttype/namespace.php:441
 msgctxt "post status"
@@ -4517,32 +4532,32 @@ msgstr ""
 
 #: inc/posttype/namespace.php:487
 msgid "parts"
-msgstr ""
+msgstr "parties"
 
 #: inc/posttype/namespace.php:488
 msgid "chapters"
-msgstr ""
+msgstr "chapitres"
 
 #: inc/posttype/namespace.php:489
 msgid "front matter"
-msgstr ""
+msgstr "pages liminaires"
 
 #: inc/posttype/namespace.php:490
 msgid "back matter"
-msgstr ""
+msgstr "parties annexes"
 
 #: inc/posttype/namespace.php:491
 msgid "glossary"
-msgstr ""
+msgstr "glossaire"
 
 #: inc/posttype/namespace.php:554 templates/admin/import.php:97
 #: templates/admin/organize.blade.php:53
 msgid "Glossary"
-msgstr ""
+msgstr "Glossaire"
 
 #: inc/redirect/namespace.php:147 inc/redirect/namespace.php:244
 msgid "Error: Unknown export format."
-msgstr ""
+msgstr "Erreur&nbsp;: format d&rsquo;exportation inconnu."
 
 #: inc/redirect/namespace.php:263
 msgid "File not found"
@@ -4550,15 +4565,16 @@ msgstr ""
 
 #: inc/redirect/namespace.php:350
 msgid "Unsupported post type."
-msgstr ""
+msgstr "Ce type de publication n&rsquo;est pas pris en charge."
 
 #: inc/redirect/namespace.php:384
 msgid "Unsupported taxonomy."
-msgstr ""
+msgstr "Cette taxonomie n&rsquo;est pas prise en charge."
 
 #: inc/redirect/namespace.php:408
 msgid "You do not have sufficient permissions to access that URL."
 msgstr ""
+"Vos droits d&rsquo;accès sont insuffisants pour consulter cette adresse URL."
 
 #: inc/registration/namespace.php:36
 msgid "Register my book now"
@@ -4566,11 +4582,11 @@ msgstr ""
 
 #: inc/registration/namespace.php:39
 msgid "Register my book later"
-msgstr ""
+msgstr "Enregistrer mon livre plus tard"
 
 #: inc/registration/namespace.php:43
 msgid "Webbook Address:"
-msgstr ""
+msgstr "Adresse du livre Web&nbsp;:"
 
 #: inc/registration/namespace.php:46 inc/registration/namespace.php:78
 msgid ""
@@ -4579,22 +4595,27 @@ msgid ""
 "<strong>cannot be changed</strong>, so choose carefully! We suggest using "
 "the title of your book with no spaces."
 msgstr ""
+"L&rsquo;adresse de votre livre Web est l&rsquo;adresse Web où vous pourrez "
+"créer votre livre et y accéder. Elle doit contenir au moins 4 caractères et "
+"ne contenir que des lettres et des chiffres. Vous ne <strong>pourrez pas la "
+"modifier</strong>, alors choisissez-la soigneusement. Nous vous suggérons "
+"d&rsquo;utiliser le titre de votre livre sans espaces."
 
 #: inc/registration/namespace.php:49
 msgid "Book Title:"
-msgstr ""
+msgstr "Titre du livre&nbsp;:"
 
 #: inc/registration/namespace.php:52
 msgid "Book Language:"
-msgstr ""
+msgstr "Langue du livre&nbsp;:"
 
 #: inc/registration/namespace.php:55
 msgid "Would you like your webbook to be visible to the public?"
-msgstr ""
+msgstr "Souhaitez-vous que votre livre Web soit visible au public?"
 
 #: inc/registration/namespace.php:62
 msgid "Register a %s account"
-msgstr ""
+msgstr "Enregistrer un compte %s"
 
 #: inc/registration/namespace.php:65
 msgid "Create a new book"
@@ -4605,24 +4626,28 @@ msgid ""
 "Welcome, %s. Fill out the form below to <strong>add a new book to your "
 "account</strong>."
 msgstr ""
+"Bienvenue, %s. Remplissez le formulaire ci-dessous pour <strong>ajouter un "
+"nouveau livre à votre compte</strong>."
 
 #: inc/registration/namespace.php:72
 msgid "yourwebbookname"
-msgstr ""
+msgstr "titredevotrelivreweb"
 
 #: inc/registration/namespace.php:75
 msgid "Books you are already a member of:"
-msgstr ""
+msgstr "Livres dont vous êtes déjà membre&nbsp;:"
 
 #: inc/registration/namespace.php:81
 msgid "Congratulations! Your new book, %s, is almost ready"
-msgstr ""
+msgstr "Félicitations! Votre nouveau livre, %s, est presque prêt."
 
 #: inc/registration/namespace.php:84
 msgid ""
 "But, before you can start writing your book, <strong>you must activate "
 "it</strong>."
 msgstr ""
+"Mais avant de commencer à écrire votre livre, <strong>vous devez "
+"l&rsquo;activer</strong>."
 
 #: inc/registration/namespace.php:87
 msgid ""
@@ -4633,6 +4658,14 @@ msgid ""
 "do not receive an email within an hour, you can <a href=\"%4$s\">reset your "
 "password</a>."
 msgstr ""
+"Votre compte a été activé. Vous pouvez maintenant vous <a "
+"href=\"%1$s\">connecter</a> à votre livre en utilisant le nom "
+"d&rsquo;utilisateur choisi&nbsp;: &#8220; %2$s&#8221;. Veuillez vérifier "
+"votre boîte de réception à %3$s votre mot de passe et les instructions de "
+"connexion vous ont été envoyés. Si vous n&rsquo;avez pas reçu de courriel, "
+"veuillez vérifier votre de courrier indésirable. Si vous n&rsquo;avez pas "
+"reçu de courriel dans l&rsquo;heure, vous pouvez <a "
+"href=\"%4$s\">réinitialiser votre mot de passe</a>."
 
 #: inc/registration/namespace.php:90
 msgid ""
@@ -4649,41 +4682,45 @@ msgid ""
 "Your account is now activated. <a href=\"%1$s\">View your book</a> or <a "
 "href=\"%2$s\">Log in</a>"
 msgstr ""
+"Votre compte est maintenant activé. <a href=\"%1$s\">Consultez votre "
+"livre</a> ou <a href=\"%2$s\">Connectez-vous</a>"
 
 #: inc/registration/namespace.php:113
 msgid "Password"
-msgstr ""
+msgstr "Mot de passe"
 
 #: inc/registration/namespace.php:118
 msgid "Type in your password."
-msgstr ""
+msgstr "Entrez votre mot de passe."
 
 #: inc/registration/namespace.php:119
 msgid "Confirm Password"
-msgstr ""
+msgstr "Confirmez votre mot de passe"
 
 #: inc/registration/namespace.php:121
 msgid "Type in your password again."
-msgstr ""
+msgstr "Entrez votre mot de passe à nouveau."
 
 #: inc/registration/namespace.php:122
 msgid ""
 "Password must be at least 12 characters in length, include at least one "
 "upper case letter, and have at least one number."
 msgstr ""
+"Le mot de passe doit comporter au moins 12 caractères, au moins une lettre "
+"majuscule et au moins un chiffre."
 
 #: inc/registration/namespace.php:136 inc/registration/namespace.php:176
 #: inc/registration/namespace.php:195 inc/registration/namespace.php:214
 msgid "Please try again."
-msgstr ""
+msgstr "Veuillez réessayer."
 
 #: inc/registration/namespace.php:146
 msgid "You have to enter a password."
-msgstr ""
+msgstr "Vous devez entrer un mot de passe."
 
 #: inc/registration/namespace.php:152
 msgid "Passwords do not match."
-msgstr ""
+msgstr "Les mots de passe ne sont pas identiques."
 
 #: inc/registration/namespace.php:341
 msgid "Password must be at least 12 characters."
@@ -4691,11 +4728,11 @@ msgstr ""
 
 #: inc/registration/namespace.php:345
 msgid "Password must include at least one upper case letter."
-msgstr ""
+msgstr "Le mot de passe doit comporter au moins une lettre majuscule."
 
 #: inc/registration/namespace.php:349
 msgid "Password must include at least one lower case letter."
-msgstr ""
+msgstr "Le mot de passe doit comprendre au moins une lettre minuscule."
 
 #: inc/registration/namespace.php:353
 msgid "Password must include at least one number."
@@ -4707,15 +4744,15 @@ msgstr ""
 
 #: inc/shortcodes/attributions/class-attachments.php:201
 msgid " adapted by "
-msgstr ""
+msgstr "adapté par"
 
 #: inc/shortcodes/footnotes/class-footnotes.php:187
 msgid "Invalid permissions."
-msgstr ""
+msgstr "Permissions invalides."
 
 #: inc/shortcodes/glossary/class-glossary.php:139
 msgid "Select"
-msgstr ""
+msgstr "Sélectionner"
 
 #: inc/shortcodes/glossary/class-glossary.php:293
 msgid "definition"
@@ -4736,6 +4773,8 @@ msgid ""
 "Your book&rsquo;s theme could not be locked. Please ensure that you have "
 "write access to the uploads directory."
 msgstr ""
+"Le thème de votre livre n&rsquo;a pu être verrouillé. Veuillez-vous assurer "
+"que vous avez l&rsquo;accès en écriture au registre des téléversements."
 
 #: inc/theme/class-lock.php:203
 msgid "Your book&rsquo;s theme has been unlocked."
@@ -4746,12 +4785,17 @@ msgid ""
 "Your book&rsquo;s theme, %1$s, was locked in its current state as of %2$s at"
 " %3$s. To select a new theme or change your theme options, please %4$s."
 msgstr ""
+"Le thème de votre livre %1$s a été verrouillé à son état actuel le %2$sà "
+"%3$s. Pour sélectionner un nouveau thème ou pour modifier vos options de "
+"thème, veuillez %4$s."
 
 #: inc/theme/namespace.php:41
 msgid ""
 "Your theme, %1$s, is not installed. Please visit %2$s for installation "
 "instructions."
 msgstr ""
+"Votre thème %1$s n&rsquo;est pas installé. Veuillez consulter%2$s pour les "
+"directives d&rsquo;installation."
 
 #: inc/theme/namespace.php:56
 msgid ""
@@ -4771,30 +4815,38 @@ msgid ""
 "continue using Luther for your book, please ensure that the standalone <a "
 "href=\"%1$s\">Luther theme</a> is installed and network activated."
 msgstr ""
+"Luther a été remplacé par McLuhan comme thème Pressbooks par défaut. Pour "
+"continuer à utiliser Luther pour votre livre, assurez-vous que le <a "
+"href=\"%1$s\">thème Luther</a> autonome soit installé et activé dans le "
+"réseau. "
 
 #: inc/utility/class-handlestransfers.php:41
 msgid "Download JSON"
-msgstr ""
+msgstr "Télécharger le fichier JSON"
 
 #: inc/utility/class-handlestransfers.php:119
 msgid "Successfully imported."
-msgstr ""
+msgstr "Importation réussie."
 
 #: inc/utility/class-handlestransfers.php:244
 msgid ""
 "One or more contributors could not be imported because they were missing a "
 "name or slug."
 msgstr ""
+"Un ou plusieurs contributeurs n'ont pas pu être importés car il leur "
+"manquait un nom ou un slug."
 
 #: inc/utility/class-handlestransfers.php:311
 msgid ""
 "Values for one or more of the imported contributors were altered by our "
 "validation routine. "
 msgstr ""
+"Les valeurs d'un ou plusieurs des contributeurs importés ont été modifiées "
+"par notre routine de validation."
 
 #: inc/utility/class-percentageyield.php:90
 msgid " (%1$d of %2$d)"
-msgstr ""
+msgstr "(%1$d de %2$d)"
 
 #: inc/utility/namespace.php:567 inc/utility/namespace.php:578
 #: inc/utility/namespace.php:594
@@ -4814,78 +4866,80 @@ msgid ""
 "These plugins have been created and/or recommended by the Pressbooks "
 "community."
 msgstr ""
+"Ces modules d&rsquo;extension ont été crées et/ou recommandés par la "
+"communauté Pressbooks."
 
 #: languages/tinymce.php:4
 msgid "Class"
-msgstr ""
+msgstr "Catégorie"
 
 #: languages/tinymce.php:5
 msgid "Textboxes"
-msgstr ""
+msgstr "Boîtes de texte"
 
 #: languages/tinymce.php:6
 msgid "Custom Textbox"
-msgstr ""
+msgstr "Boîte de texte personnalisée"
 
 #: languages/tinymce.php:8
 msgid "Standard (Sidebar)"
-msgstr ""
+msgstr "Normale (barre latérale)"
 
 #: languages/tinymce.php:9
 msgid "Type your textbox content here."
-msgstr ""
+msgstr "Entrez le contenu de votre boîte de texte ici."
 
 #: languages/tinymce.php:11
 msgid "Shaded (Sidebar)"
-msgstr ""
+msgstr "Ombragée (barre latérale)"
 
 #: languages/tinymce.php:13
 msgid "Learning Objectives (Sidebar)"
-msgstr ""
+msgstr "Objectifs d&rsquo;apprentissage (barre latérale)"
 
 #: languages/tinymce.php:14
 msgid "Type your learning objectives here."
-msgstr ""
+msgstr "Entrez vos objectifs d&rsquo;apprentissage ici."
 
 #: languages/tinymce.php:16
 msgid "Key Takeaways (Sidebar)"
-msgstr ""
+msgstr "Éléments clés à retenir (barre latérale)"
 
 #: languages/tinymce.php:17
 msgid "Type your key takeaways here."
-msgstr ""
+msgstr "Entrez les éléments clés à retenir ici."
 
 #: languages/tinymce.php:19
 msgid "Exercises (Sidebar)"
-msgstr ""
+msgstr "Exercices (barre latérale)"
 
 #: languages/tinymce.php:20
 msgid "Type your exercises here."
-msgstr ""
+msgstr "Entrez vos exercices ici."
 
 #: languages/tinymce.php:22
 msgid "Examples (Sidebar)"
-msgstr ""
+msgstr "Exemples (barre latérale)"
 
 #: languages/tinymce.php:23
 msgid "Type your examples here."
-msgstr ""
+msgstr "Entrez vos exemples ici."
 
 #: languages/tinymce.php:24
 msgid "Custom..."
-msgstr ""
+msgstr "Personnalisé..."
 
 #: languages/tinymce.php:25
 msgid "First"
-msgstr ""
+msgstr "Premier"
 
 #: languages/tinymce.php:26
 msgid "Second"
-msgstr ""
+msgstr "Second"
 
 #: languages/tinymce.php:27
 msgid "Apply Class"
-msgstr ""
+msgstr "Appliquer la catégorie"
 
 #. translators: 1: URL to Composer documentation, 2: URL to Pressbooks latest
 #. releases
@@ -4895,6 +4949,9 @@ msgid ""
 "project&rsquo;s <a href=\"%1$s\">Composer autoload file</a> is being "
 "required, or use the <a href=\"%2$s\">latest release</a> instead."
 msgstr ""
+"Dépendances Pressbooks manquantes. Veuillez vous assurer que le <a "
+"href=\"%1$s\">fichier d&rsquo;autochargement Composer</a> de votre projet "
+"soit obligatoire, ou utilisez la<a href=\"%2$s\">dernière version</a>."
 
 #: pressbooks.php:91
 msgid "Cannot find Pressbooks install."
@@ -4902,15 +4959,15 @@ msgstr ""
 
 #: templates/admin/catalog.php:27
 msgid "Tags For"
-msgstr ""
+msgstr "Mots-clés pour"
 
 #: templates/admin/catalog.php:50
 msgid "Tags"
-msgstr ""
+msgstr "Mots-clés"
 
 #: templates/admin/catalog.php:91
 msgid "My Catalog Profile"
-msgstr ""
+msgstr "Mon profil dans le catalogue"
 
 #: templates/admin/catalog.php:102 templates/admin/cloner/stats.blade.php:5
 #: templates/admin/cloner/stats.blade.php:19
@@ -4923,7 +4980,7 @@ msgstr ""
 
 #: templates/admin/catalog.php:115
 msgid "Sidebar Color"
-msgstr ""
+msgstr "Couleur de la barre latérale"
 
 #: templates/admin/catalog.php:118
 msgid "Logo Or Image"
@@ -5006,7 +5063,7 @@ msgstr ""
 
 #: templates/admin/custom-styles.php:50
 msgid "Your %s Styles"
-msgstr ""
+msgstr "Vos %s styles"
 
 #: templates/admin/custom-styles.php:52
 msgid "Save"
@@ -5030,7 +5087,7 @@ msgstr ""
 
 #: templates/admin/import.php:30
 msgid "OpenOffice (.odt)"
-msgstr ""
+msgstr "OpenOffice (.odt)"
 
 #: templates/admin/import.php:31
 msgid "Pressbooks/WordPress XML (.wxr or .xml)"
