@@ -1946,7 +1946,7 @@ msgstr "Nom"
 
 #: inc/admin/metaboxes/namespace.php:817
 msgid "Name cannot be left blank."
-msgstr ""
+msgstr "Nom ne peut pas être vide."
 
 #: inc/admin/metaboxes/namespace.php:851
 msgid "Owner"
@@ -2017,7 +2017,7 @@ msgstr "Répertoire de livres"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:149
 msgid "Exclude non-catalogued public books from Pressbooks Directory."
-msgstr ""
+msgstr "Exclure les livres publics non catalogués du répertoire Pressbooks."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:155
 msgid "Iframe Allowlist"
@@ -2135,6 +2135,8 @@ msgid ""
 "URL of a reference Web page that unambiguously indicates the item's "
 "identity."
 msgstr ""
+"L&rsquo;adresse URL d&rsquo;une page Web de référence qui indique clairement"
+" l&rsquo;identité de l&rsquo;article."
 
 #: inc/api/endpoints/controller/class-posts.php:197
 msgid "The status for the post."
@@ -2187,7 +2189,7 @@ msgstr "Corps du texte"
 
 #: inc/class-activation.php:210
 msgid "Introduction"
-msgstr ""
+msgstr "Introduction"
 
 #: inc/class-activation.php:212
 msgid "This is where you can write your introduction."
@@ -4297,7 +4299,7 @@ msgstr "Numéro de partie"
 #: inc/modules/themeoptions/class-pdfoptions.php:524
 #: inc/modules/themeoptions/class-pdfoptions.php:545
 msgid "Part Title"
-msgstr ""
+msgstr "Titre de partie"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:497
 msgid "Part Right Page Running Content"
@@ -4328,7 +4330,7 @@ msgstr "Contenu courant de la page de droite du chapitre"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:557
 msgid "Back Matter Left Page Running Content"
-msgstr ""
+msgstr "Contenu courant de la partie annexe de gauche"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:565
 #: inc/modules/themeoptions/class-pdfoptions.php:584
@@ -4361,13 +4363,16 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:628
 msgid "These options apply to PDF exports."
-msgstr ""
+msgstr "Ces options s&rsquo;appliquent aux exportations en PDF."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:970
 msgid ""
 "IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm "
 "on any side can cause your file to be rejected."
 msgstr ""
+"IMPORTANT&nbsp;: Si vous prévoyez utiliser le service d&rsquo;impression à "
+"la demande, les marges doivent avoir plus de 2 cm de chaque côté. Autrement "
+"votre fichier pourrait être rejeté."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:1534
 msgid "PDF Options"
@@ -4445,11 +4450,11 @@ msgstr "Options Web"
 
 #: inc/posttype/namespace.php:65 templates/admin/organize.blade.php:50
 msgid "Chapters"
-msgstr ""
+msgstr "Chapitres"
 
 #: inc/posttype/namespace.php:88 templates/admin/organize.blade.php:52
 msgid "Parts"
-msgstr ""
+msgstr "Parties"
 
 #: inc/posttype/namespace.php:194
 msgid "Glossary Term"
@@ -4467,6 +4472,8 @@ msgstr ""
 msgid ""
 "To display a list of contributors, leave this back matter's content blank."
 msgstr ""
+"Pour afficher la liste des contributeurs, laissez le contenu de cette page "
+"finale vide."
 
 #: inc/posttype/namespace.php:287
 msgid "Unlisted"
@@ -4488,6 +4495,7 @@ msgstr ""
 #: inc/posttype/namespace.php:355
 msgid "Chapter Author (appears in Web/ebook/PDF output)"
 msgstr ""
+"Auteur du chapitre (figure dans les formats Web, livre numérique et PDF)"
 
 #: inc/posttype/namespace.php:364
 msgid "Chapter Copyright License (overrides book license on this page)"
@@ -4528,7 +4536,7 @@ msgstr "Licence de la mention de la source du contenu multimédia"
 #: inc/posttype/namespace.php:441
 msgctxt "post status"
 msgid "Web Only"
-msgstr ""
+msgstr "Web seulement"
 
 #: inc/posttype/namespace.php:487
 msgid "parts"
@@ -4561,7 +4569,7 @@ msgstr "Erreur&nbsp;: format d&rsquo;exportation inconnu."
 
 #: inc/redirect/namespace.php:263
 msgid "File not found"
-msgstr ""
+msgstr "Fichier introuvable"
 
 #: inc/redirect/namespace.php:350
 msgid "Unsupported post type."
@@ -4578,7 +4586,7 @@ msgstr ""
 
 #: inc/registration/namespace.php:36
 msgid "Register my book now"
-msgstr ""
+msgstr "Enregistrer mon livre maintenant"
 
 #: inc/registration/namespace.php:39
 msgid "Register my book later"
@@ -4619,7 +4627,7 @@ msgstr "Enregistrer un compte %s"
 
 #: inc/registration/namespace.php:65
 msgid "Create a new book"
-msgstr ""
+msgstr "Créer un nouveau livre"
 
 #: inc/registration/namespace.php:68
 msgid ""
@@ -4676,6 +4684,14 @@ msgid ""
 " receive an email within an hour, you can <a href=\"%5$s\">reset your "
 "password</a>."
 msgstr ""
+"Votre livre à <a href=\"%1$s\">%2$s</a>est actif. Vous pouvez maintenant "
+"vous connecter à votre livre avec votre nom d&rsquo;utilisateur "
+"&#8220;%3$s&#8221;. Veuillez vérifier dans votre boîte de réception à "
+"%4$svotre mot de passe et les instructions de connexion vous ont été "
+"envoyés. Si vous n&rsquo;avez pas reçu de courriel, veuillez vérifier votre "
+"courrier indésirable. Si vous n&rsquo;avez toujours pas reçu de courriel "
+"dans l&rsquo;heure, vous pouvez <a href=\"%5$s\">réinitialiser votre mot de "
+"passe</a>."
 
 #: inc/registration/namespace.php:93
 msgid ""
@@ -4724,7 +4740,7 @@ msgstr "Les mots de passe ne sont pas identiques."
 
 #: inc/registration/namespace.php:341
 msgid "Password must be at least 12 characters."
-msgstr ""
+msgstr "Le mot de passe doit comporter au moins 12 caractères."
 
 #: inc/registration/namespace.php:345
 msgid "Password must include at least one upper case letter."
@@ -4736,7 +4752,7 @@ msgstr "Le mot de passe doit comprendre au moins une lettre minuscule."
 
 #: inc/registration/namespace.php:353
 msgid "Password must include at least one number."
-msgstr ""
+msgstr "Le mot de passe doit inclure au moins un numéro."
 
 #: inc/shortcodes/attributions/class-attachments.php:200
 msgid " &copy; "
@@ -4767,6 +4783,8 @@ msgid ""
 "Your book&rsquo;s theme, %1$s, has been locked in its current state as of "
 "%2$s at %3$s."
 msgstr ""
+"Le thème de votre livre %1$s a été verrouillé de son état actuel le %2$s à "
+"%3$s."
 
 #: inc/theme/class-lock.php:109
 msgid ""
@@ -4778,7 +4796,7 @@ msgstr ""
 
 #: inc/theme/class-lock.php:203
 msgid "Your book&rsquo;s theme has been unlocked."
-msgstr ""
+msgstr "Le thème de votre livre a été déverrouillé."
 
 #: inc/theme/class-lock.php:269
 msgid ""
@@ -4802,12 +4820,17 @@ msgid ""
 "The Pressbooks Book theme is not installed, but Pressbooks needs it in order"
 " to function properly. Please visit %s for installation instructions."
 msgstr ""
+"Le thème de livre Pressbooks n&rsquo;est pas installé et il est nécessaire "
+"au bon fonctionnement de Pressbooks. Veuillez consulter %s pour les "
+"directives d&rsquo;installation."
 
 #: inc/theme/namespace.php:84
 msgid ""
 "The Pressbooks Custom CSS theme must be upgraded. Please visit %s for "
 "installation instructions."
 msgstr ""
+"Le thème Pressbooks Custom CSS doit être mis à niveau. Veuillez consulter %s"
+" pour les directives d&rsquo;installation."
 
 #: inc/theme/namespace.php:138
 msgid ""
@@ -4854,12 +4877,18 @@ msgid ""
 "An unexpected error occurred. Something may be wrong with the plugin "
 "recommendations server or your site&#8217;s server&#8217;s configuration."
 msgstr ""
+"Erreur inattendue. Il pourrait y avoir un problème avec le  Plugin "
+"Recommendations Server ou avec la configuration du &#8217;s serveur&#8217;s "
+"de votre site."
 
 #: inc/utility/namespace.php:567
 msgid ""
 "(Pressbooks could not establish a secure connection to the plugin "
 "recommendations server. Please contact your server administrator.)"
 msgstr ""
+"(Pressbooks n&rsquo;a pas pu établir une connexion sécurisée avec le Plugin "
+"Recommendations Server. Veuillez contacter l&rsquo;administrateur du "
+"serveur.)"
 
 #: inc/utility/namespace.php:618
 msgid ""
@@ -4955,7 +4984,7 @@ msgstr ""
 
 #: pressbooks.php:91
 msgid "Cannot find Pressbooks install."
-msgstr ""
+msgstr "Erreur lors de ld&rsquo;installation de Pressbooks."
 
 #: templates/admin/catalog.php:27
 msgid "Tags For"
@@ -4972,11 +5001,11 @@ msgstr "Mon profil dans le catalogue"
 #: templates/admin/catalog.php:102 templates/admin/cloner/stats.blade.php:5
 #: templates/admin/cloner/stats.blade.php:19
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: templates/admin/catalog.php:106
 msgid "Tags Name"
-msgstr ""
+msgstr "Noms des mots-clés"
 
 #: templates/admin/catalog.php:115
 msgid "Sidebar Color"
@@ -4984,7 +5013,7 @@ msgstr "Couleur de la barre latérale"
 
 #: templates/admin/catalog.php:118
 msgid "Logo Or Image"
-msgstr ""
+msgstr "Logo ou image"
 
 #: templates/admin/covergenerator.php:65 templates/admin/covergenerator.php:85
 msgid ""
@@ -4992,6 +5021,9 @@ msgid ""
 "need to switch back to a base theme temporarily. You can then reapply your "
 "Custom CSS theme."
 msgstr ""
+"Vous utilisez actuellement le thème Custom CSS. Pour générer une page "
+"couverture, vous devrez le remplacer temporairement par un thème de base. "
+"Vous pourrez ensuite remettre votre thème Custom CSS."
 
 #: templates/admin/covergenerator.php:69
 msgid ""
@@ -5000,66 +5032,75 @@ msgid ""
 "services, as well as an <strong>ebook</strong> cover that will meet the "
 "specifications of Kindle, Apple and other ebook retailers."
 msgstr ""
+"En utilisant notre générateur de page couverture, vous pourrez facilement "
+"créer une superbe page couverture pour votre livre <strong> imprimé</strong>"
+" qui fonctionnera avec la majorité des services d&rsquo;impression à la "
+"demande. Vous pourrez aussi créer une page couverture pour le <strong>livre "
+"numérique</strong>conforme aux exigences de Kindle, Apple et autres "
+"détaillants de livres numériques."
 
 #: templates/admin/covergenerator.php:79
 msgid "Make Your Cover"
-msgstr ""
+msgstr "Créez votre page couverture"
 
 #: templates/admin/covergenerator.php:92
 msgid "Make PDF Cover"
-msgstr ""
+msgstr "Créez la page couverture de la version PDF"
 
 #: templates/admin/covergenerator.php:98
 msgid "Make Ebook Cover"
-msgstr ""
+msgstr "Créez la page couverture du livre numérique"
 
 #: templates/admin/covergenerator.php:100
 msgid "Download"
-msgstr ""
+msgstr "Télécharger"
 
 #: templates/admin/covergenerator.php:104
 msgid "Sorry! You have to generate some covers first."
-msgstr ""
+msgstr "Désolé! Vous devez d&rsquo;abord créer des pages couvertures."
 
 #. translators: %s date/time
 #: templates/admin/covergenerator.php:107
 msgid "Your latest covers were generated on %s."
-msgstr ""
+msgstr "Vos dernières couvertures ont été générées le %s."
 
 #. translators: %s file format
 #: templates/admin/covergenerator.php:120
 msgid "%s cover"
-msgstr ""
+msgstr "%s couverture"
 
 #. translators: %s file format
 #: templates/admin/covergenerator.php:127
 msgid "Download %s cover"
-msgstr ""
+msgstr "Télécharger %s couverture"
 
 #. translators: %s file format
 #: templates/admin/covergenerator.php:134
 msgid "Delete %s cover"
-msgstr ""
+msgstr "Supprimer %s couverture"
 
 #: templates/admin/covergenerator.php:151
 msgid "Are you sure you want to delete ALL your current covers?"
 msgstr ""
+"Voulez-vous vraiment supprimer TOUTES vos pages couvertures actuelles?"
 
 #: templates/admin/covergenerator.php:151
 msgid "Delete All Covers"
-msgstr ""
+msgstr "Supprimer toutes les pages couvertures"
 
 #: templates/admin/custom-styles.php:37
 msgid "Error: Something went wrong. See logs for more details."
 msgstr ""
+"Erreur&nbsp;: un problème est survenu. Consultez le journal des erreurs pour"
+" plus de renseignements."
 
 #: templates/admin/custom-styles.php:47
 msgid "You are currently editing styles for"
-msgstr ""
+msgstr "Vous êtes en train de changer les styles pour"
 
 #: templates/admin/custom-styles.php:48
 msgid "Theme %1$s Styles (%2$s)"
-msgstr ""
+msgstr "Thème %1$sStyles (%2$s)"
 
 #: templates/admin/custom-styles.php:50
 msgid "Your %s Styles"
@@ -5067,23 +5108,23 @@ msgstr "Vos %s styles"
 
 #: templates/admin/custom-styles.php:52
 msgid "Save"
-msgstr ""
+msgstr "Sauvegarder"
 
 #: templates/admin/import.php:18
 msgid "Web page or Pressbooks webbook (.html or URL)"
-msgstr ""
+msgstr "Page Web ou livre Web Pressbooks (.html ou URL)"
 
 #: templates/admin/import.php:18
 msgid "Web page (.html or URL)"
-msgstr ""
+msgstr "Page Web (.html ou URL)"
 
 #: templates/admin/import.php:28
 msgid "EPUB (.epub)"
-msgstr ""
+msgstr "EPUB (.epub)"
 
 #: templates/admin/import.php:29
 msgid "Microsoft Word (.docx)"
-msgstr ""
+msgstr "Microsoft Word (.docx)"
 
 #: templates/admin/import.php:30
 msgid "OpenOffice (.odt)"
@@ -5091,75 +5132,75 @@ msgstr "OpenOffice (.odt)"
 
 #: templates/admin/import.php:31
 msgid "Pressbooks/WordPress XML (.wxr or .xml)"
-msgstr ""
+msgstr "Pressbooks/WordPress XML (.wxr ou .xml)"
 
 #: templates/admin/import.php:44
 msgid "Select content below for import into Pressbooks."
-msgstr ""
+msgstr "Sélectionnez le contenu ci-dessous pour importer dans Pressbooks."
 
 #: templates/admin/import.php:45
 msgid "Source:"
-msgstr ""
+msgstr "Source&nbsp;:"
 
 #: templates/admin/import.php:63
 msgid "Selected all sections for import"
-msgstr ""
+msgstr "Sélection de toutes les sections pour l'importation"
 
 #: templates/admin/import.php:65
 msgid "Unselected all sections for import"
-msgstr ""
+msgstr "Désélectionner toutes les sections pour l'importation"
 
 #: templates/admin/import.php:70
 msgid "Are you sure you want to abort the import?"
-msgstr ""
+msgstr "Voulez-vous vraiment annuler l&rsquo;importation?"
 
 #: templates/admin/import.php:88 templates/admin/import.php:143
 msgid "Import all"
-msgstr ""
+msgstr "Importez tout"
 
 #: templates/admin/import.php:99
 msgid "Other"
-msgstr ""
+msgstr "Autre"
 
 #: templates/admin/import.php:149
 msgid "Show imported content in web"
-msgstr ""
+msgstr "Afficher le contenu importé dans le Web"
 
 #: templates/admin/import.php:154
 msgid "Import Selection"
-msgstr ""
+msgstr "Fichier à importer"
 
 #: templates/admin/import.php:165
 msgid "Maximum file size:"
-msgstr ""
+msgstr "Taille maximum de fichier&nbsp;:"
 
 #: templates/admin/import.php:174
 msgid "Import Type"
-msgstr ""
+msgstr "Type de l&rsquo;importation"
 
 #: templates/admin/import.php:186 templates/admin/import.php:190
 msgid "Import Source"
-msgstr ""
+msgstr "Source de l&rsquo;importation"
 
 #: templates/admin/import.php:201
 msgid "Choose file"
-msgstr ""
+msgstr "Choisir le fichier"
 
 #: templates/admin/import.php:214
 msgid "Begin Import"
-msgstr ""
+msgstr "Commencer l&rsquo;importation"
 
 #: templates/admin/results.php:4
 msgid "Results"
-msgstr ""
+msgstr "Résultats"
 
 #: templates/admin/results.php:6
 msgid "%1$s result(s) found."
-msgstr ""
+msgstr "%1$s résultat(s) trouvé(s)."
 
 #: templates/admin/results.php:21
 msgid "There are no results."
-msgstr ""
+msgstr "Aucun résultat"
 
 #: templates/admin/search.php:12
 msgid ""
@@ -5167,6 +5208,10 @@ msgid ""
 "in your entire book. Replacements will only be saved if you click "
 "&lsquo;<strong>Replace &amp; Save</strong>&rsquo;."
 msgstr ""
+"La fonction Rechercher et remplacer trouvera et remplacera TOUTES les "
+"occurrences d&rsquo;un mode de recherche dans l&rsquo;ensemble de votre "
+"livre. Les occurrences remplacées ne seront sauvegardées que si vous cliquez"
+" sur &lsquo;<strong>Remplacer &amp; Sauvegarder</strong>&rsquo;"
 
 #: templates/admin/search.php:13
 msgid ""
@@ -5174,51 +5219,57 @@ msgid ""
 "your changes using the Revision History within each chapter, front matter or"
 " back matter."
 msgstr ""
+"Faites attention lorsque vous remplacez du texte. Il n&rsquo;y a pas de "
+"bouton annuler. Vous pouvez toutefois annuler les changements en utilisant "
+"l&rsquo;historique de révision dans chaque chapitre, pages liminaires ou "
+"parties annexes."
 
 #: templates/admin/search.php:17
 msgid "Search Within"
-msgstr ""
+msgstr "Rechercher dans"
 
 #: templates/admin/search.php:41
 msgid "Result Order"
-msgstr ""
+msgstr "Ordre des résultats"
 
 #: templates/admin/search.php:50
 msgid "Ascending"
-msgstr ""
+msgstr "Croissant"
 
 #: templates/admin/search.php:51
 msgid "Descending"
-msgstr ""
+msgstr "Décroissant"
 
 #: templates/admin/search.php:56
 msgid "Search For"
-msgstr ""
+msgstr "Rechercher"
 
 #: templates/admin/search.php:62
 msgid "Replace With"
-msgstr ""
+msgstr "Remplacer par"
 
 #: templates/admin/search.php:69
 msgid "Regex"
-msgstr ""
+msgstr "Expression rationnelle"
 
 #: templates/admin/search.php:73
 msgid "Enable regular expressions"
-msgstr ""
+msgstr "Permettre les expressions rationnelles"
 
 #: templates/admin/search.php:84
 msgid "Preview Replacements"
-msgstr ""
+msgstr "Aperçu des remplacements"
 
 #: templates/admin/search.php:85
 msgid "Replace &amp; Save"
-msgstr ""
+msgstr "Remplacer et sauvegarder"
 
 #: templates/admin/trash.php:21
 msgid ""
 "Restore deleted chapters, parts, front and back matter, and glossary terms"
 msgstr ""
+"Restaurer les chapitres, parties, pages liminaires et les parties annexes et"
+" les termes du glossaire supprimés."
 
 #: templates/admin/trash.php:22
 msgid ""
