@@ -4743,7 +4743,7 @@ msgstr ""
 
 #: inc/theme/class-lock.php:203
 msgid "Your book&rsquo;s theme has been unlocked."
-msgstr ""
+msgstr "El tema de tu libro ha sido desbloqueado."
 
 #: inc/theme/class-lock.php:269
 msgid ""
@@ -4776,6 +4776,8 @@ msgid ""
 "The Pressbooks Custom CSS theme must be upgraded. Please visit %s for "
 "installation instructions."
 msgstr ""
+"Es necesario actualizar el tema Pressbooks Custom CSS. Visita %s para "
+"conocer las instrucciones de instalación."
 
 #: inc/theme/namespace.php:138
 msgid ""
@@ -5033,6 +5035,7 @@ msgstr "Borrar todas las cubiertas"
 #: templates/admin/custom-styles.php:37
 msgid "Error: Something went wrong. See logs for more details."
 msgstr ""
+"Error: Algo ha ido mal. Consulta el registro para obtener más detalles."
 
 #: templates/admin/custom-styles.php:47
 msgid "You are currently editing styles for"
@@ -5113,7 +5116,7 @@ msgstr "Importar la selección"
 
 #: templates/admin/import.php:165
 msgid "Maximum file size:"
-msgstr ""
+msgstr "Tamaño máximo de archivo:"
 
 #: templates/admin/import.php:174
 msgid "Import Type"
@@ -5189,7 +5192,7 @@ msgstr "Reemplazar con"
 
 #: templates/admin/search.php:69
 msgid "Regex"
-msgstr ""
+msgstr "Expresiones regulares"
 
 #: templates/admin/search.php:73
 msgid "Enable regular expressions"
