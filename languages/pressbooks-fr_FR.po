@@ -1168,34 +1168,37 @@ msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
 msgstr ""
+"Non. Je souhaite que les derniers fichiers exportés ne soient accessibles "
+"qu&rsquo;aux administrateurs."
 
 #: inc/admin/laf/namespace.php:1445
 msgid "Yes. I want this book to be listed in the Pressbooks directory."
 msgstr ""
+"Oui. Je veux que ce livre soit répertoirié dans l'annuaire Pressbooks."
 
 #: inc/admin/laf/namespace.php:1451
 msgid "No. Exclude this book from the Pressbooks directory."
-msgstr ""
+msgstr "Non. Exclure ce livre de l'annuaire Pressbooks."
 
 #: inc/admin/laf/namespace.php:1576
 msgid "All Books"
-msgstr ""
+msgstr "Tous les livres"
 
 #: inc/admin/laf/namespace.php:1586
 msgid "Search Books"
-msgstr ""
+msgstr "Rechercher dans les livres"
 
 #: inc/admin/laf/namespace.php:1592
 msgid "Edit Book: %s"
-msgstr ""
+msgstr "Modifier le livre&nbsp;: %s"
 
 #: inc/admin/laf/namespace.php:1595 inc/admin/laf/namespace.php:1604
 msgid "Book Address (URL)"
-msgstr ""
+msgstr "Adresse du livre (URL)"
 
 #: inc/admin/laf/namespace.php:1601
 msgid "Add New Book"
-msgstr ""
+msgstr "Ajouter un nouveau livre"
 
 #: inc/admin/laf/namespace.php:1607
 #: inc/modules/themeoptions/class-pdfoptions.php:408
@@ -1209,15 +1212,15 @@ msgstr ""
 #: inc/modules/themeoptions/class-pdfoptions.php:562
 #: inc/modules/themeoptions/class-pdfoptions.php:581
 msgid "Book Title"
-msgstr ""
+msgstr "Titre du livre"
 
 #: inc/admin/laf/namespace.php:1610
 msgid "Book Language"
-msgstr ""
+msgstr "Langue du livre"
 
 #: inc/admin/laf/namespace.php:1613
 msgid "Add Book"
-msgstr ""
+msgstr "Ajouter un livre"
 
 #: inc/admin/laf/namespace.php:1630
 msgid "Edit previous or next item"
@@ -1225,29 +1228,31 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:1635
 msgid "Edit Previous (%s)"
-msgstr ""
+msgstr "Modifier la section précédente (%s)"
 
 #: inc/admin/laf/namespace.php:1640
 msgid "Edit Next (%s)"
-msgstr ""
+msgstr "Modifier la section suivante (%s)"
 
 #: inc/admin/laf/namespace.php:1655
 msgid "Twitter URL"
-msgstr ""
+msgstr "URL de Twitter"
 
 #: inc/admin/laf/namespace.php:1656
 msgid "LinkedIn URL"
-msgstr ""
+msgstr "URL de LinkedIn "
 
 #: inc/admin/laf/namespace.php:1657
 msgid "GitHub URL"
-msgstr ""
+msgstr "URL de GitHub "
 
 #: inc/admin/laf/namespace.php:1703
 msgid ""
 "Your institutional affiliation, e.g. Rebus Foundation, Open University, "
 "Amnesty International."
 msgstr ""
+"Votre affiliation institutionnelle, par exemple la Fondation Rebus, "
+"l'Université ouverte, Amnesty International."
 
 #: inc/admin/menus/class-sidebar.php:87
 msgid "Sorry, you are not allowed to access this page."
@@ -1256,12 +1261,12 @@ msgstr ""
 #: inc/admin/menus/class-sidebar.php:229 inc/admin/menus/class-sidebar.php:230
 #: inc/admin/menus/class-topbar.php:139
 msgid "Appearance"
-msgstr ""
+msgstr "Apparence"
 
 #: inc/admin/menus/class-sidebar.php:239 inc/admin/menus/class-sidebar.php:240
 #: inc/admin/menus/class-topbar.php:144
 msgid "Pages"
-msgstr ""
+msgstr "Pages"
 
 #: inc/admin/menus/class-sidebar.php:250 inc/admin/menus/class-sidebar.php:251
 #: inc/admin/menus/class-sidebar.php:449 inc/admin/menus/class-sidebar.php:450
@@ -1327,7 +1332,7 @@ msgstr ""
 #: inc/admin/networkmanagers/namespace.php:20
 #: inc/admin/networkmanagers/namespace.php:21
 msgid "Network Managers"
-msgstr ""
+msgstr "Administrateurs de réseau"
 
 #: inc/admin/menus/class-sidebar.php:487 inc/admin/menus/class-sidebar.php:488
 msgid "Whitelabel Settings"
@@ -1342,7 +1347,7 @@ msgstr ""
 #: inc/class-googleanalytics.php:79 inc/class-googleanalytics.php:80
 #: inc/class-googleanalytics.php:217 inc/class-googleanalytics.php:267
 msgid "Google Analytics"
-msgstr ""
+msgstr "Google Analytics"
 
 #: inc/admin/menus/class-sidebar.php:525 inc/admin/menus/class-sidebar.php:526
 msgid "Sharing & Privacy"
@@ -1367,7 +1372,7 @@ msgstr ""
 
 #: inc/admin/menus/class-topbar.php:109
 msgid "About Pressbooks"
-msgstr ""
+msgstr "À propos de Pressbooks"
 
 #: inc/admin/menus/class-topbar.php:165
 msgid "Administer Network"
@@ -1375,7 +1380,7 @@ msgstr ""
 
 #: inc/admin/menus/class-topbar.php:244 inc/registration/namespace.php:59
 msgid "Create Book"
-msgstr ""
+msgstr "Créer un livre"
 
 #: inc/admin/menus/class-topbar.php:263
 msgid "Clone Book"
@@ -1387,21 +1392,24 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-about.php:16
 msgid "About the Book"
-msgstr ""
+msgstr "À propos du livre"
 
 #: inc/admin/metaboxes/class-about.php:27
 msgid "Book Tagline"
-msgstr ""
+msgstr "Titre d&rsquo;appel"
 
 #: inc/admin/metaboxes/class-about.php:28
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
 msgstr ""
+"Courte description de votre livre. Celle-ci ne devrait excéder la longueur "
+"d&rsquo;une publication Twitter et devrait résumer l&rsquo;ouvrage en une "
+"seule phrase."
 
 #: inc/admin/metaboxes/class-about.php:32
 msgid "Short Description"
-msgstr ""
+msgstr "Courte description"
 
 #: inc/admin/metaboxes/class-about.php:33
 msgid ""
@@ -1410,11 +1418,11 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-about.php:37
 msgid "Long Description"
-msgstr ""
+msgstr "Description longue"
 
 #: inc/admin/metaboxes/class-about.php:38
 msgid "The full description of your book."
-msgstr ""
+msgstr "Description complète de votre livre"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:19
 msgid "Additional Catalog Information"
@@ -1422,12 +1430,12 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:26
 msgid "Series Title"
-msgstr ""
+msgstr "Titre de la collection"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:27
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:32
 msgid "Add if your book is part of a series."
-msgstr ""
+msgstr "Ajouter si votre livre fait partie d&rsquo;une collection"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:31
 msgid "Series Number"
@@ -1445,17 +1453,19 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:42
 msgid "Hashtag"
-msgstr ""
+msgstr "Mot-clic"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:43
 msgid ""
 "These are added to your webbook cover page. For those of you who like "
 "Twitter."
 msgstr ""
+"Les mots-clics sont ajoutés à la page couverture de votre livre Web pour les"
+" utilisateurs de Twitter."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:47
 msgid "List Price (Print)"
-msgstr ""
+msgstr "Prix courant (livres imprimés)"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:48
 msgid "The list price of your book in print."
@@ -1463,7 +1473,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:52
 msgid "List Price (PDF)"
-msgstr ""
+msgstr "Prix courant (PDF)"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:53
 msgid "The list price of your book in PDF format."
@@ -1471,7 +1481,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:57
 msgid "List Price (ebook)"
-msgstr ""
+msgstr "Prix courant (livre numérique)"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:58
 msgid "The list price of your book in Ebook formats."
@@ -1483,11 +1493,11 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:63
 msgid "The list price of your webbook."
-msgstr ""
+msgstr "Le prix courant de votre livre Web."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:67
 msgid "Audience"
-msgstr ""
+msgstr "Public"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:68
 msgid "The target audience for your book."
@@ -1495,11 +1505,11 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:70
 msgid "Choose an audience&hellip;"
-msgstr ""
+msgstr "Choisir un public&hellip;"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:71
 msgid "Juvenile"
-msgstr ""
+msgstr "Jeunesse"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:72
 msgid "Young Adult"
@@ -1507,11 +1517,11 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:73
 msgid "Adult"
-msgstr ""
+msgstr "Adulte"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:78
 msgid "BISAC Subject(s)"
-msgstr ""
+msgstr "Sujet(s) BISAC"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:79
 msgid ""
@@ -1521,17 +1531,19 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:79
 msgid "the BISAC Subject Headings list"
-msgstr ""
+msgstr "la liste des vedettes-matière du BISAC"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:84
 msgid "BISAC Regional Theme"
-msgstr ""
+msgstr "Thème régional BISAC"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:85
 msgid ""
 "BISAC Regional Themes help libraries and bookstores properly classify your "
 "book."
 msgstr ""
+"Les thèmes régionaux BISAC aident les bibliothèques et les librairies à "
+"classer correctement votre livre."
 
 #: inc/admin/metaboxes/class-copyright.php:31 inc/class-licensing.php:333
 #: inc/modules/export/epub/class-epub.php:1423
@@ -1544,7 +1556,7 @@ msgstr ""
 #: inc/admin/metaboxes/class-copyright.php:41
 #: templates/admin/cloner/page.blade.php:7
 msgid "Source Book URL"
-msgstr ""
+msgstr "Adresse URL source du livre"
 
 #: inc/admin/metaboxes/class-copyright.php:42
 msgid ""
@@ -1554,11 +1566,11 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-copyright.php:47
 msgid "Copyright Year"
-msgstr ""
+msgstr "Année du droit d&rsquo;auteur"
 
 #: inc/admin/metaboxes/class-copyright.php:48
 msgid "Year that the book is/was published."
-msgstr ""
+msgstr "Année de publication du livre"
 
 #: inc/admin/metaboxes/class-copyright.php:52
 msgid "Copyright Holder"
@@ -1575,6 +1587,8 @@ msgstr ""
 #: inc/admin/metaboxes/class-copyright.php:58
 msgid "You can select various licenses including Creative Commons."
 msgstr ""
+"Vous pouvez sélectionner plusieurs licences différentes, y compris Creative "
+"Commons."
 
 #: inc/admin/metaboxes/class-copyright.php:63
 msgid "Copyright Notice"
@@ -1588,24 +1602,33 @@ msgid ""
 "select a Creative Commons license, the custom notice will appear after the "
 "license text in both the webbook and your exports."
 msgstr ""
+"Entrez une déclaration personnalisée relative au droit d&rsquo;auteur avec "
+"les renseignements de votre choix. Cette déclaration remplacera celle qui "
+"est générée automatiquement lorsque la mention Tous droits réservés ou "
+"Aucune licence est sélectionnée, et sera insérée après la page de titre. Si "
+"vous sélectionnez une licence Creative Commons, la déclaration personnalisée"
+" figurera après le texte de la licence dans le livre Web et dans vos "
+"fichiers exportés."
 
 #: inc/admin/metaboxes/class-generalinformation.php:32
 msgid "General Book Information"
-msgstr ""
+msgstr "Renseignements généraux sur le livre"
 
 #: inc/admin/metaboxes/class-generalinformation.php:44
 msgid "Short Title"
-msgstr ""
+msgstr "Titre abrégé"
 
 #: inc/admin/metaboxes/class-generalinformation.php:45
 msgid ""
 "In case of long titles that might be truncated in running heads in the PDF "
 "export."
 msgstr ""
+"Dans le cas où le titre serait trop long et pourrait être tronqué dans le "
+"titre courant lors de l&rsquo;exportation en format PDF. "
 
 #: inc/admin/metaboxes/class-generalinformation.php:55
 msgid "Author(s)"
-msgstr ""
+msgstr "Auteur(s)"
 
 #: inc/admin/metaboxes/class-generalinformation.php:57
 #: inc/admin/metaboxes/class-generalinformation.php:64
@@ -1615,7 +1638,7 @@ msgstr ""
 #: inc/admin/metaboxes/class-generalinformation.php:92
 #: inc/admin/metaboxes/class-sectionmetadata.php:51
 msgid "Create New Contributor"
-msgstr ""
+msgstr "Créer un nouveau collaborateur ou une nouvelle collaboratrice"
 
 #: inc/admin/metaboxes/class-generalinformation.php:62
 msgid "Editor(s)"
@@ -1623,28 +1646,28 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-generalinformation.php:69
 msgid "Translator(s)"
-msgstr ""
+msgstr "Traducteur(s)"
 
 #: inc/admin/metaboxes/class-generalinformation.php:76
 msgid "Reviewer(s)"
-msgstr ""
+msgstr "Réviseur(s)"
 
 #: inc/admin/metaboxes/class-generalinformation.php:83
 msgid "Illustrator(s)"
-msgstr ""
+msgstr "Illustrateur(s)"
 
 #: inc/admin/metaboxes/class-generalinformation.php:90
 msgid "Contributor(s)"
-msgstr ""
+msgstr "Collaborateur(s)"
 
 #: inc/admin/metaboxes/class-generalinformation.php:97
 msgid "Publisher"
-msgstr ""
+msgstr "Éditeur"
 
 #: inc/admin/metaboxes/class-generalinformation.php:98
 #: inc/admin/metaboxes/class-generalinformation.php:104
 msgid "This text appears on the title page of your book."
-msgstr ""
+msgstr "Ce texte figure sur la page titre de votre livre."
 
 #: inc/admin/metaboxes/class-generalinformation.php:103
 msgid "Publisher City"
@@ -1652,12 +1675,12 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-generalinformation.php:109
 msgid "Publication Date"
-msgstr ""
+msgstr "Date de publication"
 
 #: inc/admin/metaboxes/class-generalinformation.php:110
 #: inc/admin/metaboxes/class-generalinformation.php:116
 msgid "This is added to the metadata in your ebook."
-msgstr ""
+msgstr "Cela est ajouté aux métadonnées dans votre livre numérique."
 
 #: inc/admin/metaboxes/class-generalinformation.php:115
 msgid "On-Sale Date"
@@ -1665,7 +1688,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-generalinformation.php:121
 msgid "Ebook ISBN"
-msgstr ""
+msgstr "NINL du livre numérique"
 
 #: inc/admin/metaboxes/class-generalinformation.php:122
 msgid ""
@@ -1673,6 +1696,9 @@ msgid ""
 "want to sell your book in some online ebook stores. This is added to the "
 "metadata in your ebook."
 msgstr ""
+"Le NINL correspond au numéro international normalisé du livre. Certaines "
+"boutiques virtuelles de livres numériques l&rsquo;exige pour la vente de "
+"votre livre. Ce numéro est ajouté aux métadonnées de votre livre numérique."
 
 #: inc/admin/metaboxes/class-generalinformation.php:127
 msgid "Print ISBN"
@@ -1683,14 +1709,17 @@ msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
 msgstr ""
+"L&rsquo;ISBN correspond au numéro international normalisé du livre, il est "
+"nécessaire si vous voulez vendre votre livre dans les librairies virtuelles "
+"ou physiques."
 
 #: inc/admin/metaboxes/class-generalinformation.php:133
 msgid "Digital Object Identifier (DOI)"
-msgstr ""
+msgstr "identificateur d&rsquo;objets numériques (DOI)"
 
 #: inc/admin/metaboxes/class-generalinformation.php:138
 msgid "Language"
-msgstr ""
+msgstr "Langue"
 
 #: inc/admin/metaboxes/class-generalinformation.php:139
 msgid ""
@@ -1701,13 +1730,13 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-generalinformation.php:139
 msgid "Help translate Pressbooks into your language!"
-msgstr ""
+msgstr "Aidez à traduire Pressbooks dans votre langue!"
 
 #: inc/admin/metaboxes/class-institutions.php:19
 #: inc/admin/metaboxes/class-institutions.php:26
 #: templates/admin/institutions.blade.php:2
 msgid "Institutions"
-msgstr ""
+msgstr "Les institutions"
 
 #: inc/admin/metaboxes/class-institutions.php:27
 #: templates/admin/institutions.blade.php:10
@@ -1722,7 +1751,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-partvisibility.php:25
 msgid "Part Visibility"
-msgstr ""
+msgstr "Visibilité de la partie"
 
 #: inc/admin/metaboxes/class-partvisibility.php:32
 msgid "Invisible"
@@ -1730,7 +1759,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-partvisibility.php:33
 msgid "Hide from table of contents and part numbering."
-msgstr ""
+msgstr "Masquer de la table des matières et de la numérotation des parties."
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:30
 msgid "%s Metadata"
@@ -1770,7 +1799,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-subjects.php:19
 msgid "Subject(s)"
-msgstr ""
+msgstr "Sujet(s)"
 
 #: inc/admin/metaboxes/class-subjects.php:26
 msgid "Primary Subject"
@@ -1784,6 +1813,10 @@ msgid ""
 "applicable). Use %2$s to determine which subject category is best for your "
 "book."
 msgstr ""
+"%1$s termes de sujet apparaissent sur la page d'accueil de votre livre et "
+"aident à catégoriser votre livre dans votre catalogue de réseau et dans le "
+"Pressbooks Directory (le cas échéant). Utilisez %2$s pour déterminer quelle "
+"catégorie de sujet convient le mieux à votre livre."
 
 #: inc/admin/metaboxes/class-subjects.php:27
 #: inc/admin/metaboxes/class-subjects.php:33
@@ -1793,7 +1826,7 @@ msgstr ""
 #: inc/admin/metaboxes/class-subjects.php:27
 #: inc/admin/metaboxes/class-subjects.php:33
 msgid "the Thema subject category list"
-msgstr ""
+msgstr "la liste des catégories de sujets Thema"
 
 #: inc/admin/metaboxes/class-subjects.php:32
 msgid "Additional Subject(s)"
@@ -1810,11 +1843,14 @@ msgid ""
 "Your cover image was not saved because the aspect ratio (%s) is outside the "
 "permitted range (.66 to 1). We recommend an aspect ratio of .75."
 msgstr ""
+"Votre image de couverture n'a pas été enregistrée car le rapport "
+"hauteur/largeur (%s) est en dehors de la plage autorisée (.66 à 1). Nous "
+"recommandons un rapport d'aspect de .75."
 
 #: inc/admin/metaboxes/namespace.php:131 inc/admin/metaboxes/namespace.php:168
 #: inc/class-metadata.php:437
 msgid "Cover Image"
-msgstr ""
+msgstr "Image de couverture"
 
 #: inc/admin/metaboxes/namespace.php:223 inc/admin/metaboxes/namespace.php:274
 #: inc/api/endpoints/controller/class-toc.php:202 inc/class-sass.php:89
@@ -1823,19 +1859,19 @@ msgstr ""
 #: inc/posttype/namespace.php:87 inc/posttype/namespace.php:542
 #: inc/posttype/namespace.php:580 templates/admin/import.php:94
 msgid "Part"
-msgstr ""
+msgstr "Partie"
 
 #: inc/admin/metaboxes/namespace.php:227
 msgid "Save Part"
-msgstr ""
+msgstr "Enregistrer la partie"
 
 #: inc/admin/metaboxes/namespace.php:228
 msgid "Save Book Information"
-msgstr ""
+msgstr "Enregistrer les renseignements sur le livre"
 
 #: inc/admin/metaboxes/namespace.php:229
 msgid "Status & Visibility"
-msgstr ""
+msgstr "Statut et visibilité"
 
 #: inc/admin/metaboxes/namespace.php:240
 msgid ""
@@ -1844,7 +1880,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:396
 msgid "Show in Glossary Lists"
-msgstr ""
+msgstr "Afficher dans les listes du glossaire"
 
 #: inc/admin/metaboxes/namespace.php:407
 msgid "Preview"
@@ -1858,7 +1894,7 @@ msgstr ""
 #: inc/admin/metaboxes/namespace.php:418
 #: templates/admin/organize.blade.php:137
 msgid "Show in Web"
-msgstr ""
+msgstr "Montrer dans le Web"
 
 #: inc/admin/metaboxes/namespace.php:422
 msgid "Require a Password"
@@ -1883,10 +1919,12 @@ msgid ""
 "Images should be square (400px x 400px). You will be allowed to crop images "
 "after upload."
 msgstr ""
+"Les images doivent être carrées (400px x 400px). Vous serez autorisé à "
+"recadrer les images après le téléchargement."
 
 #: inc/admin/metaboxes/namespace.php:788
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #: inc/admin/metaboxes/namespace.php:817
 msgid "Name cannot be left blank."
@@ -1894,7 +1932,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:851
 msgid "Owner"
-msgstr ""
+msgstr "Propriétaire"
 
 #: inc/admin/network/class-networksettings.php:62
 msgid "Theme Settings"
@@ -1910,7 +1948,7 @@ msgstr ""
 
 #: inc/admin/network/class-networksettings.php:86
 msgid "CTA Banner"
-msgstr ""
+msgstr "Bannière d'appel à l'action"
 
 #: inc/admin/network/class-networksettings.php:91
 msgid "Display the CTA banner"
@@ -1918,7 +1956,7 @@ msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:95
 msgid "Allow Redistribution"
-msgstr ""
+msgstr "Autoriser la redistribution"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:101
 msgid "Allow book administrators to enable redistribution of export files."
@@ -1947,10 +1985,12 @@ msgstr ""
 #: inc/admin/network/class-sharingandprivacyoptions.php:137
 msgid "Allow users to produce Common Cartridge exports with simple Web Links."
 msgstr ""
+"Laisser les utilisateurs produire le format « Common Cartridge » avec liens "
+"web simples."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:143
 msgid "Book directory"
-msgstr ""
+msgstr "Répertoire de livres"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:149
 msgid "Exclude non-catalogued public books from Pressbooks Directory."
