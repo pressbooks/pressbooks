@@ -1147,26 +1147,28 @@ msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
 msgstr ""
+"No, me gustaría que los archivos exportados más recientes estén disponibles "
+"solamente para los administradores."
 
 #: inc/admin/laf/namespace.php:1445
 msgid "Yes. I want this book to be listed in the Pressbooks directory."
-msgstr ""
+msgstr "Sí, quiero que mi libro esté listado en el directorio de Pressbooks."
 
 #: inc/admin/laf/namespace.php:1451
 msgid "No. Exclude this book from the Pressbooks directory."
-msgstr ""
+msgstr "No, excluir este libro del directorio de Pressbooks."
 
 #: inc/admin/laf/namespace.php:1576
 msgid "All Books"
-msgstr ""
+msgstr "Todos los libros"
 
 #: inc/admin/laf/namespace.php:1586
 msgid "Search Books"
-msgstr ""
+msgstr "Buscar libros"
 
 #: inc/admin/laf/namespace.php:1592
 msgid "Edit Book: %s"
-msgstr ""
+msgstr "Editar el libro: %s"
 
 #: inc/admin/laf/namespace.php:1595 inc/admin/laf/namespace.php:1604
 msgid "Book Address (URL)"
@@ -1174,7 +1176,7 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:1601
 msgid "Add New Book"
-msgstr ""
+msgstr "Añadir un nuevo libro"
 
 #: inc/admin/laf/namespace.php:1607
 #: inc/modules/themeoptions/class-pdfoptions.php:408
@@ -1188,11 +1190,11 @@ msgstr ""
 #: inc/modules/themeoptions/class-pdfoptions.php:562
 #: inc/modules/themeoptions/class-pdfoptions.php:581
 msgid "Book Title"
-msgstr ""
+msgstr "Título del libro"
 
 #: inc/admin/laf/namespace.php:1610
 msgid "Book Language"
-msgstr ""
+msgstr "Idioma del libro"
 
 #: inc/admin/laf/namespace.php:1613
 msgid "Add Book"
@@ -1204,19 +1206,19 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:1635
 msgid "Edit Previous (%s)"
-msgstr ""
+msgstr "Editar anterior (%s)"
 
 #: inc/admin/laf/namespace.php:1640
 msgid "Edit Next (%s)"
-msgstr ""
+msgstr "Editar siguiente (%s)"
 
 #: inc/admin/laf/namespace.php:1655
 msgid "Twitter URL"
-msgstr ""
+msgstr "URL de Twitter"
 
 #: inc/admin/laf/namespace.php:1656
 msgid "LinkedIn URL"
-msgstr ""
+msgstr "URL de LinkedIn"
 
 #: inc/admin/laf/namespace.php:1657
 msgid "GitHub URL"
@@ -1235,7 +1237,7 @@ msgstr "Lo siento, no tienes permisos para acceder a esta página."
 #: inc/admin/menus/class-sidebar.php:229 inc/admin/menus/class-sidebar.php:230
 #: inc/admin/menus/class-topbar.php:139
 msgid "Appearance"
-msgstr ""
+msgstr "Apariencia"
 
 #: inc/admin/menus/class-sidebar.php:239 inc/admin/menus/class-sidebar.php:240
 #: inc/admin/menus/class-topbar.php:144
@@ -1251,18 +1253,18 @@ msgstr ""
 #: inc/admin/menus/class-sidebar.php:261 inc/admin/menus/class-sidebar.php:262
 #: inc/admin/menus/class-sidebar.php:517 inc/admin/menus/class-sidebar.php:518
 msgid "Network Options"
-msgstr ""
+msgstr "Opciones de red"
 
 #: inc/admin/menus/class-sidebar.php:274 inc/admin/menus/class-sidebar.php:275
 #: inc/admin/menus/class-sidebar.php:304 inc/admin/menus/class-sidebar.php:305
 #: inc/admin/menus/class-sidebar.php:596 inc/admin/menus/class-sidebar.php:597
 #: inc/admin/menus/class-topbar.php:159
 msgid "Stats"
-msgstr ""
+msgstr "Estadísticas"
 
 #: inc/admin/menus/class-sidebar.php:286 inc/admin/menus/class-sidebar.php:287
 msgid "Network Stats"
-msgstr ""
+msgstr "Estadísticas de la red"
 
 #: inc/admin/menus/class-sidebar.php:295 inc/admin/menus/class-sidebar.php:296
 #: inc/admin/menus/class-sidebar.php:314 inc/admin/menus/class-sidebar.php:315
@@ -1271,12 +1273,12 @@ msgstr ""
 
 #: inc/admin/menus/class-sidebar.php:334 inc/admin/menus/class-sidebar.php:335
 msgid "Upgrade Network"
-msgstr ""
+msgstr "Actualizar la red"
 
 #: inc/admin/menus/class-sidebar.php:347 inc/admin/menus/class-sidebar.php:348
 #: inc/admin/menus/class-sidebar.php:356 inc/admin/menus/class-sidebar.php:357
 msgid "Network Users"
-msgstr ""
+msgstr "Usuarios de la red"
 
 #: inc/admin/menus/class-sidebar.php:367 inc/admin/menus/class-sidebar.php:368
 msgid "Root Site Users"
@@ -1292,25 +1294,25 @@ msgstr ""
 
 #: inc/admin/menus/class-sidebar.php:440 inc/admin/menus/class-sidebar.php:441
 msgid "Root Site Plugins"
-msgstr ""
+msgstr "Plugins del sitio raíz"
 
 #: inc/admin/menus/class-sidebar.php:462 inc/admin/menus/class-sidebar.php:463
 msgid "Network Settings"
-msgstr ""
+msgstr "Ajustes de la red"
 
 #: inc/admin/menus/class-sidebar.php:470 inc/admin/menus/class-sidebar.php:471
 msgid "Network Setup"
-msgstr ""
+msgstr "Configuración de la red"
 
 #: inc/admin/menus/class-sidebar.php:478 inc/admin/menus/class-sidebar.php:479
 #: inc/admin/networkmanagers/namespace.php:20
 #: inc/admin/networkmanagers/namespace.php:21
 msgid "Network Managers"
-msgstr ""
+msgstr "Administradores de la red"
 
 #: inc/admin/menus/class-sidebar.php:487 inc/admin/menus/class-sidebar.php:488
 msgid "Whitelabel Settings"
-msgstr ""
+msgstr "Ajustes de Whitelabel"
 
 #: inc/admin/menus/class-sidebar.php:497 inc/admin/menus/class-sidebar.php:498
 msgid "Object Cache"
@@ -1342,15 +1344,15 @@ msgstr ""
 #: inc/admin/menus/class-sidebar.php:575 inc/admin/menus/class-sidebar.php:576
 #: inc/admin/menus/class-sidebar.php:586 inc/admin/menus/class-sidebar.php:587
 msgid "PB Stats"
-msgstr ""
+msgstr "Estadísticas de Pressbooks"
 
 #: inc/admin/menus/class-topbar.php:109
 msgid "About Pressbooks"
-msgstr ""
+msgstr "Acerca de Pressbooks"
 
 #: inc/admin/menus/class-topbar.php:165
 msgid "Administer Network"
-msgstr ""
+msgstr "Administrar la red"
 
 #: inc/admin/menus/class-topbar.php:244 inc/registration/namespace.php:59
 msgid "Create Book"
@@ -1362,7 +1364,7 @@ msgstr ""
 
 #: inc/admin/menus/class-topbar.php:277
 msgid "Add Users"
-msgstr ""
+msgstr "Añadir usuarios"
 
 #: inc/admin/metaboxes/class-about.php:16
 msgid "About the Book"
@@ -1554,6 +1556,7 @@ msgstr ""
 #: inc/admin/metaboxes/class-copyright.php:58
 msgid "You can select various licenses including Creative Commons."
 msgstr ""
+"Puedes elegir entre varias licencias, que incluyen las Creative Commons."
 
 #: inc/admin/metaboxes/class-copyright.php:63
 msgid "Copyright Notice"
@@ -1570,7 +1573,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-generalinformation.php:32
 msgid "General Book Information"
-msgstr ""
+msgstr "Información general del libro"
 
 #: inc/admin/metaboxes/class-generalinformation.php:44
 msgid "Short Title"
@@ -1584,7 +1587,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-generalinformation.php:55
 msgid "Author(s)"
-msgstr ""
+msgstr "Autor(es)"
 
 #: inc/admin/metaboxes/class-generalinformation.php:57
 #: inc/admin/metaboxes/class-generalinformation.php:64
@@ -1602,11 +1605,11 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-generalinformation.php:69
 msgid "Translator(s)"
-msgstr ""
+msgstr "Traductor(es)"
 
 #: inc/admin/metaboxes/class-generalinformation.php:76
 msgid "Reviewer(s)"
-msgstr ""
+msgstr "Revisor(es)"
 
 #: inc/admin/metaboxes/class-generalinformation.php:83
 msgid "Illustrator(s)"
@@ -1793,7 +1796,7 @@ msgstr ""
 #: inc/admin/metaboxes/namespace.php:131 inc/admin/metaboxes/namespace.php:168
 #: inc/class-metadata.php:437
 msgid "Cover Image"
-msgstr ""
+msgstr "Imagen de cubierta"
 
 #: inc/admin/metaboxes/namespace.php:223 inc/admin/metaboxes/namespace.php:274
 #: inc/api/endpoints/controller/class-toc.php:202 inc/class-sass.php:89
@@ -1806,7 +1809,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:227
 msgid "Save Part"
-msgstr ""
+msgstr "Guardar sección"
 
 #: inc/admin/metaboxes/namespace.php:228
 msgid "Save Book Information"
