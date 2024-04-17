@@ -1224,7 +1224,7 @@ msgstr "Ajouter un livre"
 
 #: inc/admin/laf/namespace.php:1630
 msgid "Edit previous or next item"
-msgstr ""
+msgstr "Modifier la section précédente ou suivante"
 
 #: inc/admin/laf/namespace.php:1635
 msgid "Edit Previous (%s)"
@@ -1272,7 +1272,7 @@ msgstr "Pages"
 #: inc/admin/menus/class-sidebar.php:449 inc/admin/menus/class-sidebar.php:450
 #: inc/admin/menus/class-topbar.php:154
 msgid "Settings"
-msgstr ""
+msgstr "Paramètres"
 
 #: inc/admin/menus/class-sidebar.php:261 inc/admin/menus/class-sidebar.php:262
 #: inc/admin/menus/class-sidebar.php:517 inc/admin/menus/class-sidebar.php:518
@@ -1415,6 +1415,8 @@ msgstr "Courte description"
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
 msgstr ""
+"Un court paragraphe au sujet de votre livre à citer dans les catalogues, les"
+" critiques, etc."
 
 #: inc/admin/metaboxes/class-about.php:37
 msgid "Long Description"
@@ -1426,7 +1428,7 @@ msgstr "Description complète de votre livre"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:19
 msgid "Additional Catalog Information"
-msgstr ""
+msgstr "Information supplémentaire du catalogue"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:26
 msgid "Series Title"
@@ -1439,7 +1441,7 @@ msgstr "Ajouter si votre livre fait partie d&rsquo;une collection"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:31
 msgid "Series Number"
-msgstr ""
+msgstr "Numéro de la collection"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:36
 msgid "Keywords"
@@ -1450,6 +1452,9 @@ msgid ""
 "These are added to your webbook cover page, and in your ebook metadata. "
 "Keywords are used by online book stores and search engines."
 msgstr ""
+"Les mots-clés sont ajoutés à la page couverture de votre livre Web et dans "
+"les métadonnées de votre livre numérique. Ils sont utilisés par les "
+"librairies en ligne et les moteurs de recherche."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:42
 msgid "Hashtag"
@@ -1469,7 +1474,7 @@ msgstr "Prix courant (livres imprimés)"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:48
 msgid "The list price of your book in print."
-msgstr ""
+msgstr "Le prix courant de votre livre imprimé"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:52
 msgid "List Price (PDF)"
@@ -1485,7 +1490,7 @@ msgstr "Prix courant (livre numérique)"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:58
 msgid "The list price of your book in Ebook formats."
-msgstr ""
+msgstr "Le prix courant de votre livre en format numérique"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:62
 msgid "List Price (Web)"
@@ -1501,7 +1506,7 @@ msgstr "Public"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:68
 msgid "The target audience for your book."
-msgstr ""
+msgstr "Le public cible de votre livre."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:70
 msgid "Choose an audience&hellip;"
@@ -1528,6 +1533,9 @@ msgid ""
 "BISAC Subject Headings help libraries and bookstores properly classify your "
 "book. To select the appropriate subject heading for your book, consult %s."
 msgstr ""
+"Les vedettes-matière BISAC aident les librairies et les bibliothèques à "
+"classer correctement votre livre. Pour sélectionner la vedette-matière "
+"appropriée pour votre livre, consultez %s."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:79
 msgid "the BISAC Subject Headings list"
@@ -1551,7 +1559,7 @@ msgstr ""
 #: inc/modules/export/htmlbook/class-htmlbook.php:855
 #: inc/modules/export/xhtml/class-xhtml11.php:1074
 msgid "Copyright"
-msgstr ""
+msgstr "Droit d&rsquo;auteur"
 
 #: inc/admin/metaboxes/class-copyright.php:41
 #: templates/admin/cloner/page.blade.php:7
@@ -1563,6 +1571,8 @@ msgid ""
 "This book was cloned from a pre-existing book at the above URL. This "
 "information will be displayed on the webbook homepage."
 msgstr ""
+"Ce livre est un duplicata d&rsquo;un livre existant à l&rsquo;URL ci-dessus."
+" Ces renseignements figureront sur la page d&rsquo;accueil du livre Web."
 
 #: inc/admin/metaboxes/class-copyright.php:47
 msgid "Copyright Year"
@@ -1578,11 +1588,11 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-copyright.php:53
 msgid "Name of the copyright holder."
-msgstr ""
+msgstr "Nom du titulaire du droit d&rsquo;auteur."
 
 #: inc/admin/metaboxes/class-copyright.php:57
 msgid "Copyright License"
-msgstr ""
+msgstr "Licence relative au droit d&rsquo;auteur"
 
 #: inc/admin/metaboxes/class-copyright.php:58
 msgid "You can select various licenses including Creative Commons."
@@ -1592,7 +1602,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-copyright.php:63
 msgid "Copyright Notice"
-msgstr ""
+msgstr "Déclaration relative au droit d&rsquo;auteur"
 
 #: inc/admin/metaboxes/class-copyright.php:64
 msgid ""
@@ -1642,7 +1652,7 @@ msgstr "Créer un nouveau collaborateur ou une nouvelle collaboratrice"
 
 #: inc/admin/metaboxes/class-generalinformation.php:62
 msgid "Editor(s)"
-msgstr ""
+msgstr "Directeur(s) de rédaction"
 
 #: inc/admin/metaboxes/class-generalinformation.php:69
 msgid "Translator(s)"
@@ -1671,7 +1681,7 @@ msgstr "Ce texte figure sur la page titre de votre livre."
 
 #: inc/admin/metaboxes/class-generalinformation.php:103
 msgid "Publisher City"
-msgstr ""
+msgstr "Ville de l&rsquo;éditeur"
 
 #: inc/admin/metaboxes/class-generalinformation.php:109
 msgid "Publication Date"
@@ -1684,7 +1694,7 @@ msgstr "Cela est ajouté aux métadonnées dans votre livre numérique."
 
 #: inc/admin/metaboxes/class-generalinformation.php:115
 msgid "On-Sale Date"
-msgstr ""
+msgstr "Date de mise en vente"
 
 #: inc/admin/metaboxes/class-generalinformation.php:121
 msgid "Ebook ISBN"
@@ -1702,7 +1712,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-generalinformation.php:127
 msgid "Print ISBN"
-msgstr ""
+msgstr "Imprimer le NINL"
 
 #: inc/admin/metaboxes/class-generalinformation.php:128
 msgid ""
@@ -1727,6 +1737,10 @@ msgid ""
 "It also changes some system generated content for supported languages, such "
 "as the \"Contents\" header."
 msgstr ""
+"Active les métadonnées dans votre livre numérique, ce qui le rend plus "
+"facile à trouver dans certaines boutiques. Cette action modifie aussi du "
+"contenu généré par le système dans certaines langues. Par exemple, "
+"l&rsquo;en-tête «&nbsp;Contenus&nbsp;»."
 
 #: inc/admin/metaboxes/class-generalinformation.php:139
 msgid "Help translate Pressbooks into your language!"
@@ -1763,7 +1777,7 @@ msgstr "Masquer de la table des matières et de la numérotation des parties."
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:30
 msgid "%s Metadata"
-msgstr ""
+msgstr "Métadonnées de %s"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:37
 msgid "%s Short Title"
@@ -1783,7 +1797,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:49
 msgid "%s Author(s)"
-msgstr ""
+msgstr "%s Auteur(s)"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:56
 msgid "%s Copyright License"
@@ -1795,7 +1809,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:63
 msgid "%s Digital Object Identifier (DOI)"
-msgstr ""
+msgstr "%sidentificateur d&rsquo;objets numériques (DOI) "
 
 #: inc/admin/metaboxes/class-subjects.php:19
 msgid "Subject(s)"
@@ -1803,7 +1817,7 @@ msgstr "Sujet(s)"
 
 #: inc/admin/metaboxes/class-subjects.php:26
 msgid "Primary Subject"
-msgstr ""
+msgstr "Sujet principal"
 
 #: inc/admin/metaboxes/class-subjects.php:27
 #: inc/admin/metaboxes/class-subjects.php:33
@@ -1837,6 +1851,8 @@ msgid ""
 "Your cover image was not saved because it is too small (%1$s x %2$s). It "
 "should be at least 800px in height."
 msgstr ""
+"Votre image de couverture n'a pas été enregistrée car elle est trop petite "
+"(%1$s x%2$s ). Elle doit avoir une hauteur d'au moins 800px."
 
 #: inc/admin/metaboxes/namespace.php:106
 msgid ""
@@ -1884,12 +1900,12 @@ msgstr "Afficher dans les listes du glossaire"
 
 #: inc/admin/metaboxes/namespace.php:407
 msgid "Preview"
-msgstr ""
+msgstr "Aperçu"
 
 #. translators: accessibility text
 #: inc/admin/metaboxes/namespace.php:409
 msgid "(opens in a new window)"
-msgstr ""
+msgstr "(ouvre dans une nouvelle fenêtre)"
 
 #: inc/admin/metaboxes/namespace.php:418
 #: templates/admin/organize.blade.php:137
@@ -1898,7 +1914,7 @@ msgstr "Montrer dans le Web"
 
 #: inc/admin/metaboxes/namespace.php:422
 msgid "Require a Password"
-msgstr ""
+msgstr "Exige un mot de passe"
 
 #: inc/admin/metaboxes/namespace.php:423
 msgid "Password..."
@@ -1907,7 +1923,7 @@ msgstr ""
 #: inc/admin/metaboxes/namespace.php:427
 #: templates/admin/organize.blade.php:140
 msgid "Show in Exports"
-msgstr ""
+msgstr "Montrer dans les exportations"
 
 #: inc/admin/metaboxes/namespace.php:431
 #: templates/admin/organize.blade.php:144
@@ -1936,15 +1952,15 @@ msgstr "Propriétaire"
 
 #: inc/admin/network/class-networksettings.php:62
 msgid "Theme Settings"
-msgstr ""
+msgstr "Paramètres du thème"
 
 #: inc/admin/network/class-networksettings.php:64
 msgid "Default Theme"
-msgstr ""
+msgstr "Thème par défaut"
 
 #: inc/admin/network/class-networksettings.php:84
 msgid "CTA banner settings"
-msgstr ""
+msgstr "Paramètres de la bannière d'appel à l'action"
 
 #: inc/admin/network/class-networksettings.php:86
 msgid "CTA Banner"
@@ -1952,7 +1968,7 @@ msgstr "Bannière d'appel à l'action"
 
 #: inc/admin/network/class-networksettings.php:91
 msgid "Display the CTA banner"
-msgstr ""
+msgstr "Afficher la bannière d'appel à l'action"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:95
 msgid "Allow Redistribution"
@@ -1961,6 +1977,8 @@ msgstr "Autoriser la redistribution"
 #: inc/admin/network/class-sharingandprivacyoptions.php:101
 msgid "Allow book administrators to enable redistribution of export files."
 msgstr ""
+"Autoriser les administrateurs du livre à activer la redistribution des "
+"fichiers exportés."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:107
 msgid "Enable network API"
@@ -1969,18 +1987,21 @@ msgstr ""
 #: inc/admin/network/class-sharingandprivacyoptions.php:113
 msgid "Enable access to your network of books via the Pressbooks REST API."
 msgstr ""
+"Autoriser l&rsquo;accès à votre réseau de livres au moyen de "
+"l&rsquo;interface REST API de Pressbooks."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:119
 msgid "Enable Cloning"
-msgstr ""
+msgstr "Activer le clonage"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:125
 msgid "Enable book cloning via the Pressbooks REST API."
 msgstr ""
+"Activer le clonage de livre par l&rsquo;interface REST API de Pressbooks."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:131
 msgid "Enable CC with Weblinks"
-msgstr ""
+msgstr "Activer CC avec liens web"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:137
 msgid "Allow users to produce Common Cartridge exports with simple Web Links."
@@ -1998,7 +2019,7 @@ msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:155
 msgid "Iframe Allowlist"
-msgstr ""
+msgstr "Liste de Iframe autorisées"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:160
 msgid ""
@@ -2006,15 +2027,18 @@ msgid ""
 " allowlist a path: <code>//guide.pressbooks.com/some/path/</code> One per "
 "line."
 msgstr ""
+"Pour autoriser tout le contenu d'un domaine<code>guide.pressbooks.com</code>"
+" Pour autoriser un chemin web "
+"<code>//guide.pressbooks.com/certain/chemin/</code> Un par ligne. "
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:176
 msgid "Sharing and Privacy settings."
-msgstr ""
+msgstr "Paramètres de partage et de confidentialité."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:202
 #: inc/class-googleanalytics.php:230
 msgid "Settings saved."
-msgstr ""
+msgstr "Paramètres sauvegardés"
 
 #: inc/admin/networkmanagers/namespace.php:114
 msgid "Pressbooks Network Managers"
@@ -2025,6 +2049,9 @@ msgid ""
 "Network administrators&rsquo; access to network administration menus can be "
 "restricted to leave only sites and users visible to them."
 msgstr ""
+"L&rsquo;accès des administrateurs de réseau aux menus d&rsquo;administration"
+" du réseau peut être restreint pour que les sites et les utilisateurs "
+"seulement soient visibles."
 
 #: inc/admin/plugins/namespace.php:94
 msgid ""
@@ -2037,19 +2064,19 @@ msgstr ""
 
 #: inc/admin/users/class-userbulk.php:68 inc/admin/users/class-userbulk.php:69
 msgid "Bulk Add"
-msgstr ""
+msgstr "Ajout en Vrac"
 
 #: inc/admin/users/class-userbulk.php:169
 msgid "Invalid email address"
-msgstr ""
+msgstr "Courriel invalide"
 
 #: inc/admin/users/class-userbulk.php:240
 msgid "The following user(s) could not be added."
-msgstr ""
+msgstr "Le ou les utilisateurs suivants n'ont pas pu être ajoutés."
 
 #: inc/admin/users/class-userbulk.php:244
 msgid "User(s) successfully added to this book."
-msgstr ""
+msgstr "Utilisateur(s) ajouté(s) avec succès à ce livre."
 
 #: inc/admin/users/class-userbulk.php:245
 msgid "User(s) successfully added to the network."
@@ -2060,13 +2087,16 @@ msgid ""
 "An invitation email has been sent to the user(s) below. A confirmation link "
 "must be clicked before their account is created."
 msgstr ""
+"Un courriel d'invitation a été envoyé à l'utilisateur ou aux utilisateurs "
+"ci-dessous. Un lien de confirmation doit être cliqué pour que leur compte "
+"soit créé."
 
 #: inc/api/endpoints/controller/books/class-books.php:108
 #: inc/api/endpoints/controller/class-toc.php:151
 #: inc/api/endpoints/controller/class-toc.php:164
 #: inc/api/endpoints/controller/class-toc.php:177
 msgid "Metadata"
-msgstr ""
+msgstr "Métadonnées"
 
 #: inc/api/endpoints/controller/books/class-books.php:133
 msgid "ID offset, overrides page."
@@ -2101,7 +2131,7 @@ msgstr ""
 
 #: inc/api/endpoints/controller/class-posts.php:197
 msgid "The status for the post."
-msgstr ""
+msgstr "Le statut de la publication."
 
 #: inc/api/endpoints/controller/class-toc.php:98
 msgid "Comment count"
@@ -2109,23 +2139,24 @@ msgstr ""
 
 #: inc/api/endpoints/controller/class-toc.php:123
 msgid "Include in exports."
-msgstr ""
+msgstr "Inclus dans les exportations."
 
 #: inc/api/endpoints/controller/class-toc.php:129
 msgid "Has post content, the content field is not empty."
 msgstr ""
+"Contient du contenu de publication, le champ de contenu comporte du texte."
 
 #: inc/api/endpoints/controller/class-toc.php:134
 msgid "Word count."
-msgstr ""
+msgstr "Nombre de mots"
 
 #: inc/api/endpoints/controller/class-toc.php:233
 msgid "Clone token."
-msgstr ""
+msgstr "Jeton pour dupliquer."
 
 #: inc/api/namespace.php:78
 msgid "Part ID."
-msgstr ""
+msgstr "ID de partie"
 
 #: inc/api/namespace.php:232
 msgid "Invalid batch parameter(s)."
@@ -2133,19 +2164,19 @@ msgstr ""
 
 #: inc/api/namespace.php:387
 msgid "Part does not exist"
-msgstr ""
+msgstr "La partie n&rsquo;existe pas"
 
 #: inc/api/namespace.php:394
 msgid "ID is not a part"
-msgstr ""
+msgstr "ID n&rsquo;est pas une partie"
 
 #: inc/api/namespace.php:408
 msgid "Failed to update chapter part"
-msgstr ""
+msgstr "Impossible de mettre à jour la partie"
 
 #: inc/class-activation.php:204
 msgid "Main Body"
-msgstr ""
+msgstr "Corps du texte"
 
 #: inc/class-activation.php:210
 msgid "Introduction"
@@ -2153,36 +2184,39 @@ msgstr ""
 
 #: inc/class-activation.php:212
 msgid "This is where you can write your introduction."
-msgstr ""
+msgstr "Vous pouvez écrire votre introduction ici."
 
 #: inc/class-activation.php:217
 msgid "Chapter 1"
-msgstr ""
+msgstr "Chapitre 1"
 
 #: inc/class-activation.php:219
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
 msgstr ""
+"Le premier chapitre du corps du texte est ici. Vous pouvez modifier le "
+"texte, renommer le chapitre, ajouter de nouveaux chapitres et ajouter de "
+"nouvelles parties."
 
 #: inc/class-activation.php:224
 msgid "Appendix"
-msgstr ""
+msgstr "Annexes"
 
 #: inc/class-activation.php:226
 msgid "This is where you can add appendices or other back matter."
-msgstr ""
+msgstr "Vous pouvez ajouter des annexes ou une parties annexes ici."
 
 #: inc/class-activation.php:232 templates/admin/organize.blade.php:131
 #: templates/admin/organize.blade.php:215
 msgid "Authors"
-msgstr ""
+msgstr "Auteurs"
 
 #: inc/class-activation.php:242
 #: inc/modules/themeoptions/class-pdfoptions.php:322
 #: templates/export/epub/toc.blade.php:13
 msgid "Table of Contents"
-msgstr ""
+msgstr "Table des matières"
 
 #: inc/class-activation.php:252
 msgid "Buy"
@@ -4211,11 +4245,11 @@ msgstr "Sous-titre des pages liminaires"
 #: inc/modules/themeoptions/class-pdfoptions.php:568
 #: inc/modules/themeoptions/class-pdfoptions.php:587
 msgid "Blank"
-msgstr ""
+msgstr "Vide"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:422
 msgid "Front Matter Right Page Running Content"
-msgstr ""
+msgstr "Contenu courant de la page liminaire droite"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:441
 msgid "Introduction Left Page Running Content"
@@ -4224,32 +4258,32 @@ msgstr ""
 #: inc/modules/themeoptions/class-pdfoptions.php:449
 #: inc/modules/themeoptions/class-pdfoptions.php:468
 msgid "Introduction Title"
-msgstr ""
+msgstr "Titre de l&rsquo;introduction"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:450
 #: inc/modules/themeoptions/class-pdfoptions.php:469
 msgid "Introduction Author"
-msgstr ""
+msgstr "Auteur de l&rsquo;introduction"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:451
 #: inc/modules/themeoptions/class-pdfoptions.php:470
 msgid "Introduction Subtitle"
-msgstr ""
+msgstr "Sous-titre de l&rsquo;introduction"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:460
 msgid "Introduction Right Page Running Content"
-msgstr ""
+msgstr "Contenu courant de la page d&rsquo;introduction gauche"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:479
 msgid "Part Left Page Running Content"
-msgstr ""
+msgstr "Contenu courant de la page gauche de la partie"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:487
 #: inc/modules/themeoptions/class-pdfoptions.php:505
 #: inc/modules/themeoptions/class-pdfoptions.php:523
 #: inc/modules/themeoptions/class-pdfoptions.php:544
 msgid "Part Number"
-msgstr ""
+msgstr "Numéro de partie"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:488
 #: inc/modules/themeoptions/class-pdfoptions.php:506
@@ -4260,7 +4294,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:497
 msgid "Part Right Page Running Content"
-msgstr ""
+msgstr "Contenu courant de la page droite de la partie"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:515
 msgid "Chapter Left Page Running Content"
@@ -4269,12 +4303,12 @@ msgstr ""
 #: inc/modules/themeoptions/class-pdfoptions.php:525
 #: inc/modules/themeoptions/class-pdfoptions.php:546
 msgid "Chapter Title"
-msgstr ""
+msgstr "Titre du chapitre"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:526
 #: inc/modules/themeoptions/class-pdfoptions.php:547
 msgid "Chapter Author"
-msgstr ""
+msgstr "Auteur du chapitre"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:527
 #: inc/modules/themeoptions/class-pdfoptions.php:548
@@ -4292,12 +4326,12 @@ msgstr ""
 #: inc/modules/themeoptions/class-pdfoptions.php:565
 #: inc/modules/themeoptions/class-pdfoptions.php:584
 msgid "Back Matter Title"
-msgstr ""
+msgstr "Titre de la partie annexe"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:566
 #: inc/modules/themeoptions/class-pdfoptions.php:585
 msgid "Back Matter Author"
-msgstr ""
+msgstr "Auteur de la partie annexe"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:567
 #: inc/modules/themeoptions/class-pdfoptions.php:586
@@ -4306,11 +4340,11 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:576
 msgid "Back Matter Right Page Running Content"
-msgstr ""
+msgstr "Contenu courant de la partie annexe de droite"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:597
 msgid "Increase Font Size"
-msgstr ""
+msgstr "Augmenter la police de caractères"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:602
 msgid "Increases font size and line height for greater accessibility"
@@ -4328,17 +4362,19 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:1534
 msgid "PDF Options"
-msgstr ""
+msgstr "Options PDF"
 
 #: inc/modules/themeoptions/class-weboptions.php:138
 msgid "Enable Social Media"
-msgstr ""
+msgstr "Activer les médias sociaux"
 
 #: inc/modules/themeoptions/class-weboptions.php:143
 msgid ""
 "Adds a button to cover page and each chapter which allows readers to share "
 "links to your book through Twitter"
 msgstr ""
+"Ajoute un bouton à la page de couverture et à chaque chapitre qui permet aux"
+" lecteurs de partager des liens vers votre livre via Twitter"
 
 #: inc/modules/themeoptions/class-weboptions.php:149
 msgid "Webbook Width"
@@ -4350,19 +4386,19 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:156
 msgid "Wide"
-msgstr ""
+msgstr "Large"
 
 #: inc/modules/themeoptions/class-weboptions.php:175
 msgid "Display Part Title"
-msgstr ""
+msgstr "Afficher le titre de la partie"
 
 #: inc/modules/themeoptions/class-weboptions.php:180
 msgid "Display the Part title on each chapter"
-msgstr ""
+msgstr "Afficher le titre de la partie sur chaque chapitre"
 
 #: inc/modules/themeoptions/class-weboptions.php:187
 msgid "Collapse Sections"
-msgstr ""
+msgstr "Réduire les sections"
 
 #: inc/modules/themeoptions/class-weboptions.php:192
 msgid "Collapse sections within front matter, chapters, and back matter"
@@ -4383,6 +4419,8 @@ msgid ""
 "Allows readers to compare content with the original book from which it was "
 "cloned."
 msgstr ""
+"Permet aux lecteurs de comparer le contenu du duplicata avec le livre "
+"original."
 
 #: inc/modules/themeoptions/class-weboptions.php:232
 msgid "These options apply to the webbook."
@@ -4390,7 +4428,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:432
 msgid "Web Options"
-msgstr ""
+msgstr "Options Web"
 
 #: inc/posttype/namespace.php:65 templates/admin/organize.blade.php:50
 msgid "Chapters"
@@ -4402,13 +4440,15 @@ msgstr ""
 
 #: inc/posttype/namespace.php:194
 msgid "Glossary Term"
-msgstr ""
+msgstr "Terme du glossaire"
 
 #: inc/posttype/namespace.php:233
 msgid ""
 "Links, bold text and italic text are supported in glossary terms. Other "
 "elements will be removed."
 msgstr ""
+"Les liens, le texte en gras ou en italique sont pris en charge dans les "
+"termes du glossaire, mais pas les autres éléments."
 
 #: inc/posttype/namespace.php:248
 msgid ""
@@ -4421,15 +4461,16 @@ msgstr ""
 
 #: inc/posttype/namespace.php:324
 msgid "Show title in exports"
-msgstr ""
+msgstr "Afficher le titre dans les versions exportées "
 
 #: inc/posttype/namespace.php:336
 msgid "Chapter Short Title (appears in the PDF running header)"
-msgstr ""
+msgstr "Titre abrégé du chapitre (figure dans le titre courant du PDF)"
 
 #: inc/posttype/namespace.php:345
 msgid "Chapter Subtitle (appears in the Web/ebook/PDF output)"
 msgstr ""
+"Sous-titre du chapitre (figure dans les format Web, livre numérique et PDF)"
 
 #: inc/posttype/namespace.php:355
 msgid "Chapter Author (appears in Web/ebook/PDF output)"
@@ -4438,18 +4479,20 @@ msgstr ""
 #: inc/posttype/namespace.php:364
 msgid "Chapter Copyright License (overrides book license on this page)"
 msgstr ""
+"Licence du droit d&rsquo;auteur pour le chapitre (remplace la licence du "
+"livre sur cette page)"
 
 #: inc/posttype/namespace.php:374
 msgid "Whether or not the part is shown in the table of contents"
-msgstr ""
+msgstr "Montre si cette partie est affichée ou non dans la table des matières"
 
 #: inc/posttype/namespace.php:384
 msgid "Media attribution source url"
-msgstr ""
+msgstr "Adresse URL source de la mention de la source du contenu multimédia"
 
 #: inc/posttype/namespace.php:393
 msgid "Media attribution author"
-msgstr ""
+msgstr "Auteur de la mention de la source du contenu multimédia"
 
 #: inc/posttype/namespace.php:402
 msgid "Media attribution author url"
