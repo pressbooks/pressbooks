@@ -1,0 +1,46 @@
+name: 🤖 Prepare for Release 🚀
+
+on:
+  workflow_call:
+    inputs:
+      github_token:
+        description: 'GitHub Token for operations'
+        required: true
+        type: secret
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: google-github-actions/release-please-action@v4
+        id: release
+        with:
+          token: ${{ inputs.github_token }}
+      - name: Set Environment Variables
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          echo "GITHUB_REPO_SLUG=$(basename $GITHUB_WORKSPACE)" >> $GITHUB_ENV
+          echo "GITHUB_TAG=${{ steps.release.outputs.tag_name }}" >> $GITHUB_ENV
+      - name: Prepare artifact
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          export COMPOSER_MEMORY_LIMIT=-1
+          export GITHUB_BUILD_PATH=${{ github.workspace }}
+          echo "File to be created : $GITHUB_BUILD_PATH/$GITHUB_REPO_SLUG-$GITHUB_TAG.zip"
+          curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+          chmod +x wp-cli.phar
+          mv wp-cli.phar /usr/local/bin/wp
+          wp package install wp-cli/dist-archive-command
+          npm install
+          npm run build
+          composer install --no-dev --optimize-autoloader
+          cd ..
+          wp dist-archive $GITHUB_REPO_SLUG $GITHUB_BUILD_PATH/$GITHUB_REPO_SLUG-$GITHUB_TAG.zip
+          cd $GITHUB_BUILD_PATH
+          ls $GITHUB_BUILD_PATH
+      - name: Upload release artifact
+        if: ${{ steps.release.outputs.release_created }}
+        env:
+          GITHUB_TOKEN: ${{ inputs.github_token }}
+        run: gh release upload ${{ steps.release.outputs.tag_name }} ${{github.workspace}}/$GITHUB_REPO_SLUG-$GITHUB_TAG.zip --clobber
