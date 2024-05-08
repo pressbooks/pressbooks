@@ -1,16 +1,17 @@
 # Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
-# Steel Wagstaff <steel@pressbooks.com>, 2023
-# 
+# Joan Junyent Tarrida <joan@junyent.org>, 2014
+# Joan Junyent Tarrida <joan.junyent@gmail.com>, 2016
+# Joan Junyent Tarrida <joan@junyent.org>, 2014,2017,2020
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 6.18.0\n"
+"Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2024-04-04T20:55:25+00:00\n"
-"PO-Revision-Date: 2023-05-25 04:50+0000\n"
-"Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2023\n"
-"Language-Team: Catalan (https://app.transifex.com/pressbooks/teams/9194/ca/)\n"
+"POT-Creation-Date: 2024-05-08T20:14:28+00:00\n"
+"PO-Revision-Date: 2013-12-21 21:04+0000\n"
+"Last-Translator: Joan Junyent Tarrida <joan@junyent.org>, 2014,2017,2020\n"
+"Language-Team: Catalan (http://app.transifex.com/pressbooks/pressbooks/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -61,21 +62,14 @@ msgid ""
 "Pressbooks will not work with your version of PHP. Pressbooks requires PHP "
 "version %s or greater. Please upgrade PHP if you would like to use "
 "Pressbooks."
-msgstr ""
-"Pressbooks no funcionarà amb la teva versió de PHP. Pressbooks requereix la "
-"versió de PHP %s o superior. Si us plau, actualitza la versió de PHP si vols"
-" fer servir PressBooks."
+msgstr "Pressbooks no funcionarà amb la teva versió de PHP. Pressbooks requereix la versió de PHP %s o superior. Si us plau, actualitza la versió de PHP si vols fer servir PressBooks."
 
 #: compatibility.php:185
 msgid ""
 "Pressbooks will not work with your version of WordPress. Pressbooks requires"
 " a dedicated install of WordPress Multisite, version %s or greater. Please "
 "upgrade WordPress if you would like to use Pressbooks."
-msgstr ""
-"Pressbooks no funcionarà amb la teva versió de WordPress. PressBooks "
-"requereix una instalació dedicada de WordPress Multisite, versió %s o "
-"superior. Si us plau, actualitza la versió de WordPress si vols fer servir "
-"PressBooks."
+msgstr "Pressbooks no funcionarà amb la teva versió de WordPress. PressBooks requereix una instalació dedicada de WordPress Multisite, versió %s o superior. Si us plau, actualitza la versió de WordPress si vols fer servir PressBooks."
 
 #: compatibility.php:196
 msgid ""
@@ -233,15 +227,11 @@ msgstr "Mostra/Amaga llibres"
 
 #: inc/admin/class-catalog-list-table.php:531
 msgid "To display a book in your catalog choose \"%s\" under Catalog Status. "
-msgstr ""
-"Per mostrar un llibre en el teu catàleg escull \"%s\" a l'status del "
-"catàleg. "
+msgstr "Per mostrar un llibre en el teu catàleg escull \"%s\" a l'status del catàleg. "
 
 #: inc/admin/class-catalog-list-table.php:533
 msgid "To hide a book in your catalog choose \"%s\" under Catalog Status."
-msgstr ""
-"Per amagar un llibre en el teu catàleg escull \"%s\" a l'status del catàleg."
-" "
+msgstr "Per amagar un llibre en el teu catàleg escull \"%s\" a l'status del catàleg. "
 
 #: inc/admin/class-catalog-list-table.php:536
 msgid "Catalog sorting"
@@ -602,7 +592,7 @@ msgstr "Tauler"
 
 #: inc/admin/dashboard/class-dashboard.php:55
 msgid "Home"
-msgstr ""
+msgstr "Inici"
 
 #: inc/admin/dashboard/class-invitations.php:29
 msgid "an"
@@ -976,7 +966,7 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:896 inc/admin/menus/class-topbar.php:191
 msgid "My Books"
-msgstr ""
+msgstr "Els meus llibres"
 
 #: inc/admin/laf/namespace.php:916
 msgid "Create A New Book"
@@ -1025,9 +1015,7 @@ msgstr "Públic. Vull que aquest llibre sigui visible per a tothom."
 #: inc/admin/laf/namespace.php:1348
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
-msgstr ""
-"Privat. Vull que aquest llibre sigui només accessible per a les persones que"
-" jo convidi."
+msgstr "Privat. Vull que aquest llibre sigui només accessible per a les persones que jo convidi."
 
 #: inc/admin/laf/namespace.php:1372
 msgid "Who can see private front matter, chapters and back matter?"
@@ -1163,7 +1151,7 @@ msgstr ""
 #: inc/admin/menus/class-sidebar.php:449 inc/admin/menus/class-sidebar.php:450
 #: inc/admin/menus/class-topbar.php:154
 msgid "Settings"
-msgstr ""
+msgstr "Configuració"
 
 #: inc/admin/menus/class-sidebar.php:261 inc/admin/menus/class-sidebar.php:262
 #: inc/admin/menus/class-sidebar.php:517 inc/admin/menus/class-sidebar.php:518
@@ -1293,9 +1281,7 @@ msgstr "Eslogan del llibre"
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
-msgstr ""
-"Un descripció molt breu del teu llibre. Hauria de d'encaixar en un twit i "
-"recollir el teu llibre en una única frase."
+msgstr "Un descripció molt breu del teu llibre. Hauria de d'encaixar en un twit i recollir el teu llibre en una única frase."
 
 #: inc/admin/metaboxes/class-about.php:32
 msgid "Short Description"
@@ -1304,9 +1290,7 @@ msgstr "Breu descripció"
 #: inc/admin/metaboxes/class-about.php:33
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
-msgstr ""
-"Un paràgraf curt sobre el teu llibre, per a que catàlegs, revisors, etc. el "
-"citin. "
+msgstr "Un paràgraf curt sobre el teu llibre, per a que catàlegs, revisors, etc. el citin. "
 
 #: inc/admin/metaboxes/class-about.php:37
 msgid "Long Description"
@@ -1501,8 +1485,7 @@ msgstr "Títol curt"
 msgid ""
 "In case of long titles that might be truncated in running heads in the PDF "
 "export."
-msgstr ""
-"En cas de títols llargs que poden veure's truncats en l'exportació a PDF."
+msgstr "En cas de títols llargs que poden veure's truncats en l'exportació a PDF."
 
 #: inc/admin/metaboxes/class-generalinformation.php:55
 msgid "Author(s)"
@@ -1583,9 +1566,7 @@ msgstr "ISBN per a llibre imprès"
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
-msgstr ""
-"L'ISBN és el Número Internacional Normalitzat per a Llibres, i en necessites"
-" un si vols vendre el teu llibre en una botiga de llibres electrònics."
+msgstr "L'ISBN és el Número Internacional Normalitzat per a Llibres, i en necessites un si vols vendre el teu llibre en una botiga de llibres electrònics."
 
 #: inc/admin/metaboxes/class-generalinformation.php:133
 msgid "Digital Object Identifier (DOI)"
@@ -2023,9 +2004,7 @@ msgstr "Capítol 1"
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
-msgstr ""
-"Aquest és el primer capítol del cos del text. Pots canviar el text, "
-"reanomenar el capítol i afegir nous capítols i noves parts."
+msgstr "Aquest és el primer capítol del cos del text. Pots canviar el text, reanomenar el capítol i afegir nous capítols i noves parts."
 
 #: inc/class-activation.php:224
 msgid "Appendix"
@@ -2153,7 +2132,7 @@ msgstr ""
 
 #: inc/class-contributors.php:486
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #: inc/class-contributors.php:489
 msgid "Twitter profile for this contributor. Must be a valid URL."
@@ -2298,7 +2277,7 @@ msgstr ""
 
 #: inc/class-eventstreams.php:310
 msgid "You do not have sufficient permissions to access this page."
-msgstr ""
+msgstr "No tens prous permisos per accedir a aquesta pàgina."
 
 #: inc/class-globaltypography.php:40
 msgid "Adlam"
@@ -2414,7 +2393,7 @@ msgstr ""
 
 #: inc/class-googleanalytics.php:27
 msgid "Google Analytics ID"
-msgstr ""
+msgstr "ID de Google Analytics"
 
 #: inc/class-googleanalytics.php:28
 msgid ""
@@ -2430,11 +2409,7 @@ msgid ""
 "If enabled, the Google Analytics settings page will be visible to book "
 "administrators, allowing them to use their own Google Analytics accounts to "
 "track statistics at the book level."
-msgstr ""
-"Si està activat, la pàgina de configuració de Google Analytics serà visible "
-"per a tots els administradors de llibres, permetent-los fer servir els seus "
-"propis comptes de Google Analytics per seguir les estadístiques a nivell de "
-"cada llibre."
+msgstr "Si està activat, la pàgina de configuració de Google Analytics serà visible per a tots els administradors de llibres, permetent-los fer servir els seus propis comptes de Google Analytics per seguir les estadístiques a nivell de cada llibre."
 
 #: inc/class-googleanalytics.php:197
 msgid "Google Analytics settings."
@@ -2671,9 +2646,7 @@ msgstr ""
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
-msgstr ""
-"Error inesperat: Hi ha hagut un problema amb la consulta: %s - Si us plau, "
-"consulta amb el suport tècnic."
+msgstr "Error inesperat: Hi ha hagut un problema amb la consulta: %s - Si us plau, consulta amb el suport tècnic."
 
 #: inc/class-styles.php:819 templates/admin/custom-styles.php:20
 msgid "Web"
@@ -3077,9 +3050,7 @@ msgstr ""
 
 #: inc/modules/export/class-export.php:832
 msgid "Warning: The export has validation errors. See logs for more details."
-msgstr ""
-"Alerta: l'exportació conté errors de validació. Revisa els registres per a "
-"més detalls."
+msgstr "Alerta: l'exportació conté errors de validació. Revisa els registres per a més detalls."
 
 #: inc/modules/export/class-export.php:833
 msgid "Emailed to:"
@@ -3091,7 +3062,7 @@ msgstr ""
 
 #: inc/modules/export/class-table.php:132
 msgid "File"
-msgstr ""
+msgstr "Arxiu"
 
 #: inc/modules/export/class-table.php:133
 msgid "Format"
@@ -3438,9 +3409,7 @@ msgstr ""
 #: inc/modules/import/wordpress/class-parser.php:79
 msgid ""
 "This does not appear to be a WXR file, missing/invalid WXR version number"
-msgstr ""
-"No sembla que sigui un arxiu WXR, fala número de versió WXR o aquest no és "
-"vàlid."
+msgstr "No sembla que sigui un arxiu WXR, fala número de versió WXR o aquest no és vàlid."
 
 #: inc/modules/import/wordpress/class-wxr.php:415
 msgctxt ""
@@ -3681,9 +3650,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:293
 msgid "These options apply universally to webbook, PDF and ebook exports."
-msgstr ""
-"Aquestes opcions s'apliquen universalment als formats web, PDF i llibre "
-"electrònic."
+msgstr "Aquestes opcions s'apliquen universalment als formats web, PDF i llibre electrònic."
 
 #: inc/modules/themeoptions/class-globaloptions.php:476
 msgid "This theme includes built-in support for %s."
@@ -3866,9 +3833,7 @@ msgstr "Mostrar com a notes al final del capítol"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:369
 msgid "Widows"
-msgstr ""
-"Finestres. NOTA: quan la darrera línia d'un paràgraf salta a una nova pàgina"
-" o columna."
+msgstr "Finestres. NOTA: quan la darrera línia d'un paràgraf salta a una nova pàgina o columna."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:380
 msgid "Orphans"
@@ -4158,8 +4123,7 @@ msgstr "Títol curt del capítol (apareix en la capçalera del PDF)"
 
 #: inc/posttype/namespace.php:345
 msgid "Chapter Subtitle (appears in the Web/ebook/PDF output)"
-msgstr ""
-"Subtítol del capítol (apareix en els formats Web/PDF/llibre electrònic)"
+msgstr "Subtítol del capítol (apareix en els formats Web/PDF/llibre electrònic)"
 
 #: inc/posttype/namespace.php:355
 msgid "Chapter Author (appears in Web/ebook/PDF output)"
@@ -4681,8 +4645,7 @@ msgstr ""
 
 #: templates/admin/custom-styles.php:37
 msgid "Error: Something went wrong. See logs for more details."
-msgstr ""
-"Error: alguna cosa no ha anat bé. Revisa els registres per a més detalls."
+msgstr "Error: alguna cosa no ha anat bé. Revisa els registres per a més detalls."
 
 #: templates/admin/custom-styles.php:47
 msgid "You are currently editing styles for"
@@ -4902,10 +4865,7 @@ msgid ""
 "Sorry, but no books matched your filtering criteria. Please <a "
 "class=\"clear-filters\" href=\"#\">clear your current filters</a> and try "
 "again."
-msgstr ""
-"Ho sento, no hi ha llibres que coincideixin amb la teva selecció. Si us "
-"plau,<a class=\"clear-filters\" href=\"#\">elimina els filtres actuals</a> i"
-" torna-ho a intentar."
+msgstr "Ho sento, no hi ha llibres que coincideixin amb la teva selecció. Si us plau,<a class=\"clear-filters\" href=\"#\">elimina els filtres actuals</a> i torna-ho a intentar."
 
 #: templates/pb-catalog.php:273
 msgid "Pressbooks: the CMS for Books."
@@ -5235,7 +5195,7 @@ msgstr ""
 
 #: templates/admin/diagnostics.blade.php:5
 msgid "Please submit this information with any bug reports."
-msgstr ""
+msgstr "Si us plau envia aquesta informació en cada informe d'errors."
 
 #: templates/admin/diagnostics.blade.php:6
 msgid ""
@@ -5308,7 +5268,7 @@ msgstr ""
 
 #: templates/admin/mathjax.blade.php:10
 msgid "Syntax"
-msgstr ""
+msgstr "Sintaxi"
 
 #: templates/admin/mathjax.blade.php:13
 msgid "LaTeX"
