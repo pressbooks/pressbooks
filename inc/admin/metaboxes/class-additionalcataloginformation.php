@@ -32,7 +32,7 @@ class AdditionalCatalogInformation extends Metabox {
 				description: __( 'Add if your book is part of a series.', 'pressbooks' ),
 			),
 			new Text(
-				name: 'pb_keyworks_tags',
+				name: 'pb_keywords_tags',
 				label:  __( 'Keywords', 'pressbooks' ),
 				description: __( 'These are added to your webbook cover page, and in your ebook metadata. Keywords are used by online book stores and search engines.', 'pressbooks' ),
 				multiple: true
