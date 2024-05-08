@@ -4384,7 +4384,7 @@ msgstr "Seleccionar"
 
 #: inc/shortcodes/glossary/class-glossary.php:293
 msgid "definition"
-msgstr ""
+msgstr "definición"
 
 #: inc/shortcodes/glossary/class-glossary.php:297
 msgid "Close definition"
