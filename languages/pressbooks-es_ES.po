@@ -10,6 +10,7 @@
 # Eduardo Vera, 2020-2021
 # Eduardo Vera, 2020
 # jorge santibañez <info@letrapixel.com>, 2017
+# Oscar Arzola, 2024
 # taskforsome <taskforsome@gmail.com>, 2014
 # taskforsome <taskforsome@gmail.com>, 2014
 # Antonio D., 2015-2016
@@ -20,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
 "POT-Creation-Date: 2024-05-08T20:14:28+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
-"Last-Translator: Eduardo Vera, 2023\n"
+"Last-Translator: Oscar Arzola, 2024\n"
 "Language-Team: Spanish (http://app.transifex.com/pressbooks/pressbooks/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1146,7 +1147,7 @@ msgstr "Tu afiliación institucional, por ejemplo, la Fundación Rebus, Open Uni
 
 #: inc/admin/menus/class-sidebar.php:87
 msgid "Sorry, you are not allowed to access this page."
-msgstr ""
+msgstr "Lo sentimos, no tienes autorización para ver esta página"
 
 #: inc/admin/menus/class-sidebar.php:229 inc/admin/menus/class-sidebar.php:230
 #: inc/admin/menus/class-topbar.php:139
