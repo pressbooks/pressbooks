@@ -4397,11 +4397,11 @@ msgstr "Seleccionar"
 
 #: inc/shortcodes/glossary/class-glossary.php:293
 msgid "definition"
-msgstr ""
+msgstr "definición"
 
 #: inc/shortcodes/glossary/class-glossary.php:297
 msgid "Close definition"
-msgstr ""
+msgstr "Cerrar definición"
 
 #: inc/theme/class-lock.php:96
 msgid ""
