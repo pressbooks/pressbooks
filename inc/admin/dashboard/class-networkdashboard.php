@@ -142,7 +142,7 @@ class NetworkDashboard extends Dashboard {
 			$items[] = [
 				'id' => 'network_checklist_join_forum',
 				'title' => __( 'Join the Pressbooks Community Forum', 'pressbooks' ),
-				'link' => 'https://pressbooks.community/invites/Rqa9J1wYUN',
+				'link' => 'https://pressbooks.community/invites/XNazgErCXb',
 				'description' => __( 'Chat with other network managers in a dedicated group' ),
 				'checked' => get_network_option( null, 'network_checklist_join_forum', false ),
 			];
