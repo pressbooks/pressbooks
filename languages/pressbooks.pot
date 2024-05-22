@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-22T13:29:04+00:00\n"
+"POT-Creation-Date: 2024-05-22T16:42:48+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: pressbooks\n"
@@ -4419,11 +4419,11 @@ msgid "Apply Class"
 msgstr ""
 
 #. translators: 1: URL to Composer documentation, 2: URL to Pressbooks latest releases
-#: pressbooks.php:80
+#: pressbooks.php:87
 msgid "Pressbooks dependencies are missing. Please make sure that your project&rsquo;s <a href=\"%1$s\">Composer autoload file</a> is being required, or use the <a href=\"%2$s\">latest release</a> instead."
 msgstr ""
 
-#: pressbooks.php:91
+#: pressbooks.php:98
 msgid "Cannot find Pressbooks install."
 msgstr ""
 
