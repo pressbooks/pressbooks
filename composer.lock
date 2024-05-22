@@ -1981,16 +1981,16 @@
         },
         {
             "name": "johnbillion/args",
-            "version": "1.9.0",
+            "version": "1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnbillion/args.git",
-                "reference": "78dd8408f61960784982fb55efd8b1bc88d4584c"
+                "reference": "ef670a14ce0b9221cee0a39f076f4810a200d1ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnbillion/args/zipball/78dd8408f61960784982fb55efd8b1bc88d4584c",
-                "reference": "78dd8408f61960784982fb55efd8b1bc88d4584c",
+                "url": "https://api.github.com/repos/johnbillion/args/zipball/ef670a14ce0b9221cee0a39f076f4810a200d1ac",
+                "reference": "ef670a14ce0b9221cee0a39f076f4810a200d1ac",
                 "shasum": ""
             },
             "require": {
@@ -2007,7 +2007,7 @@
                 "phpstan/phpstan-strict-rules": "^1.1",
                 "phpunit/phpunit": "^9.0",
                 "roots/wordpress-core-installer": "^1.0.0",
-                "roots/wordpress-full": "~6.4.0"
+                "roots/wordpress-full": "~6.5.0"
             },
             "type": "library",
             "extra": {
@@ -2081,7 +2081,7 @@
             "description": "I don't want to get into an argument about this.",
             "support": {
                 "issues": "https://github.com/johnbillion/args/issues",
-                "source": "https://github.com/johnbillion/args/tree/1.9.0"
+                "source": "https://github.com/johnbillion/args/tree/1.10.0"
             },
             "funding": [
                 {
@@ -2089,20 +2089,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-11-07T23:51:42+00:00"
+            "time": "2024-04-02T21:50:24+00:00"
         },
         {
             "name": "johnbillion/extended-cpts",
-            "version": "5.0.6",
+            "version": "5.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnbillion/extended-cpts.git",
-                "reference": "992bf43115fe81a07888bc2537432fb083c4e9f4"
+                "reference": "98cddd4d0f174ee6466c70ea067b154559dbdc4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnbillion/extended-cpts/zipball/992bf43115fe81a07888bc2537432fb083c4e9f4",
-                "reference": "992bf43115fe81a07888bc2537432fb083c4e9f4",
+                "url": "https://api.github.com/repos/johnbillion/extended-cpts/zipball/98cddd4d0f174ee6466c70ea067b154559dbdc4e",
+                "reference": "98cddd4d0f174ee6466c70ea067b154559dbdc4e",
                 "shasum": ""
             },
             "require": {
@@ -2114,7 +2114,7 @@
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
                 "johnbillion/falsey-assertequals-detector": "*",
                 "johnbillion/plugin-infrastructure": "dev-trunk",
-                "lucatume/wp-browser": "^3.0.21",
+                "lucatume/wp-browser": ">=3.0.21 <3.5",
                 "phpcompatibility/phpcompatibility-wp": "^2",
                 "phpstan/phpstan": "^1.0",
                 "phpstan/phpstan-phpunit": "^1.0",
@@ -2150,7 +2150,7 @@
             "homepage": "https://github.com/johnbillion/extended-cpts/",
             "support": {
                 "issues": "https://github.com/johnbillion/extended-cpts/issues",
-                "source": "https://github.com/johnbillion/extended-cpts/tree/5.0.6"
+                "source": "https://github.com/johnbillion/extended-cpts/tree/5.0.7"
             },
             "funding": [
                 {
@@ -2158,7 +2158,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-11-17T01:34:02+00:00"
+            "time": "2024-04-02T22:29:29+00:00"
         },
         {
             "name": "laravel/helpers",
