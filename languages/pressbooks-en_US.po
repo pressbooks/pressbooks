@@ -1,13 +1,14 @@
 # Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
+# Oscar Arzola, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2024-05-08T20:14:28+00:00\n"
+"POT-Creation-Date: 2024-05-22T13:29:04+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: Oscar Arzola, 2024\n"
 "Language-Team: English (United States) (http://app.transifex.com/pressbooks/pressbooks/language/en_US/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2510,7 +2511,7 @@ msgstr ""
 
 #: inc/class-licensing.php:455 inc/class-licensing.php:465
 msgid "Icon for the %s license"
-msgstr "Icon for the %s licence"
+msgstr "Icon for the %s license"
 
 #: inc/class-licensing.php:457
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
