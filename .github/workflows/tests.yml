@@ -16,6 +16,8 @@ jobs:
         php: [ 8.1, 8.2 ]
         wordpress: [ '6.5', 'latest' ]
         experimental: [ false ]
+        epubcheck: [ 4.2.6 ]
+        prince: [ 14.3-1 ]
         include:
           - php: 8.2
             wordpress: 6.5
