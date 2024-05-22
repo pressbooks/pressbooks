@@ -1,16 +1,15 @@
 # Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
-# Steel Wagstaff <steel@pressbooks.com>, 2023
-# 
+# Antonio D., 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 6.18.0\n"
+"Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2024-04-04T20:55:25+00:00\n"
-"PO-Revision-Date: 2023-05-25 04:50+0000\n"
-"Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2023\n"
-"Language-Team: Lithuanian (Lithuania) (https://app.transifex.com/pressbooks/teams/9194/lt_LT/)\n"
+"POT-Creation-Date: 2024-05-08T20:14:28+00:00\n"
+"PO-Revision-Date: 2013-12-21 21:04+0000\n"
+"Last-Translator: Antonio D., 2018\n"
+"Language-Team: Lithuanian (Lithuania) (http://app.transifex.com/pressbooks/pressbooks/language/lt_LT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -645,7 +644,7 @@ msgstr ""
 
 #: inc/admin/dashboard/namespace.php:21 inc/admin/dashboard/namespace.php:22
 msgid "Integrations"
-msgstr ""
+msgstr "Integracija"
 
 #: inc/admin/delete/class-book.php:52
 msgid "Delete Book"
@@ -1016,9 +1015,7 @@ msgstr "Viešinti. Noriu, kad ši knyga būtų matoma visiems."
 #: inc/admin/laf/namespace.php:1348
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
-msgstr ""
-"Privatinti. Noriu, kad ši knyga būtų prieinama tik žmonėms, kuriuos "
-"pakviečiu."
+msgstr "Privatinti. Noriu, kad ši knyga būtų prieinama tik žmonėms, kuriuos pakviečiu."
 
 #: inc/admin/laf/namespace.php:1372
 msgid "Who can see private front matter, chapters and back matter?"
@@ -1048,17 +1045,13 @@ msgstr ""
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
-msgstr ""
-"Taip. Norėčiau, kad naujausi eksporto failai pagrindiniame puslapyje būtų "
-"prieinami visiems nemokamai."
+msgstr "Taip. Norėčiau, kad naujausi eksporto failai pagrindiniame puslapyje būtų prieinami visiems nemokamai."
 
 #: inc/admin/laf/namespace.php:1426
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
-msgstr ""
-"Ne. Norėčiau, kad naujausi eksporto failai būtų prieinami tik "
-"administratoriams."
+msgstr "Ne. Norėčiau, kad naujausi eksporto failai būtų prieinami tik administratoriams."
 
 #: inc/admin/laf/namespace.php:1445
 msgid "Yes. I want this book to be listed in the Pressbooks directory."
@@ -1158,7 +1151,7 @@ msgstr ""
 #: inc/admin/menus/class-sidebar.php:449 inc/admin/menus/class-sidebar.php:450
 #: inc/admin/menus/class-topbar.php:154
 msgid "Settings"
-msgstr ""
+msgstr "Nustatymai"
 
 #: inc/admin/menus/class-sidebar.php:261 inc/admin/menus/class-sidebar.php:262
 #: inc/admin/menus/class-sidebar.php:517 inc/admin/menus/class-sidebar.php:518
@@ -1288,9 +1281,7 @@ msgstr ""
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
-msgstr ""
-"Labai trumpas jūsų knygos aprašymas. Tai turėtų tilpti į Twitter įrašą ir "
-"apibendrinti knygą trumpiausiu sakiniu."
+msgstr "Labai trumpas jūsų knygos aprašymas. Tai turėtų tilpti į Twitter įrašą ir apibendrinti knygą trumpiausiu sakiniu."
 
 #: inc/admin/metaboxes/class-about.php:32
 msgid "Short Description"
@@ -1299,8 +1290,7 @@ msgstr "Trumpas Aprašymas"
 #: inc/admin/metaboxes/class-about.php:33
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
-msgstr ""
-"Pateikiama trumpa pastraipa apie jūsų knygą, katalogus, recenzentus ir kt."
+msgstr "Pateikiama trumpa pastraipa apie jūsų knygą, katalogus, recenzentus ir kt."
 
 #: inc/admin/metaboxes/class-about.php:37
 msgid "Long Description"
@@ -1335,10 +1325,7 @@ msgstr "Raktiniai Žodžiai"
 msgid ""
 "These are added to your webbook cover page, and in your ebook metadata. "
 "Keywords are used by online book stores and search engines."
-msgstr ""
-"Jie pridedami prie jūsų internetinio puslapio viršelio ir elektroninių knygų"
-" metaduomenų. Raktinius žodžius naudoja internetinės knygų parduotuvės ir "
-"paieškos sistemos."
+msgstr "Jie pridedami prie jūsų internetinio puslapio viršelio ir elektroninių knygų metaduomenų. Raktinius žodžius naudoja internetinės knygų parduotuvės ir paieškos sistemos."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:42
 msgid "Hashtag"
@@ -1348,9 +1335,7 @@ msgstr "Hashtag"
 msgid ""
 "These are added to your webbook cover page. For those of you who like "
 "Twitter."
-msgstr ""
-"Jie pridedami prie jūsų tinklalapio viršelio. Tiems iš jūsų, kurie mėgsta "
-"Twitter."
+msgstr "Jie pridedami prie jūsų tinklalapio viršelio. Tiems iš jūsų, kurie mėgsta Twitter."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:47
 msgid "List Price (Print)"
@@ -1449,10 +1434,7 @@ msgstr ""
 msgid ""
 "This book was cloned from a pre-existing book at the above URL. This "
 "information will be displayed on the webbook homepage."
-msgstr ""
-"Ši knyga buvo klonuota iš anksčiau pateiktos knygos, esančios aukščiau "
-"pateiktame URL. Ši informacija bus rodoma žiniatinklio knygos pagrindiniame "
-"puslapyje."
+msgstr "Ši knyga buvo klonuota iš anksčiau pateiktos knygos, esančios aukščiau pateiktame URL. Ši informacija bus rodoma žiniatinklio knygos pagrindiniame puslapyje."
 
 #: inc/admin/metaboxes/class-copyright.php:47
 msgid "Copyright Year"
@@ -1489,13 +1471,7 @@ msgid ""
 "no license is selected, and will be inserted after the title page. If you "
 "select a Creative Commons license, the custom notice will appear after the "
 "license text in both the webbook and your exports."
-msgstr ""
-"Įveskite pasirinktiną pranešimą dėl autorių teisių su bet kokia jūsų norima "
-"informacija. Tai pakeis automatiškai sugeneruotą autorių teisių įspėjimą, "
-"jei bus pasirinkta \"Visos teisės saugomos\" arba nebus licencijos, ir bus "
-"įterpta po puslapio pavadinimu. Jei pasirinksite \"Creative Commons\" "
-"licenciją, pasirinktinis pranešimas bus rodomas po licencijos tekstu tiek "
-"žiniatinklio knygoje, tiek jūsų eksporte."
+msgstr "Įveskite pasirinktiną pranešimą dėl autorių teisių su bet kokia jūsų norima informacija. Tai pakeis automatiškai sugeneruotą autorių teisių įspėjimą, jei bus pasirinkta \"Visos teisės saugomos\" arba nebus licencijos, ir bus įterpta po puslapio pavadinimu. Jei pasirinksite \"Creative Commons\" licenciją, pasirinktinis pranešimas bus rodomas po licencijos tekstu tiek žiniatinklio knygoje, tiek jūsų eksporte."
 
 #: inc/admin/metaboxes/class-generalinformation.php:32
 msgid "General Book Information"
@@ -1565,7 +1541,7 @@ msgstr "Paskelbimo Data"
 #: inc/admin/metaboxes/class-generalinformation.php:110
 #: inc/admin/metaboxes/class-generalinformation.php:116
 msgid "This is added to the metadata in your ebook."
-msgstr ""
+msgstr "Tai pridedama prie jūsų e-knygos metaduomenų."
 
 #: inc/admin/metaboxes/class-generalinformation.php:115
 msgid "On-Sale Date"
@@ -1580,10 +1556,7 @@ msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in some online ebook stores. This is added to the "
 "metadata in your ebook."
-msgstr ""
-"ISBN yra tarptautinis standartinis knygų numeris, ir jums reikės jo, jei "
-"norėsite parduoti knygą kai kuriose internetinėse knygų parduotuvėse. Tai "
-"pridedama prie jūsų e-knygos metaduomenų."
+msgstr "ISBN yra tarptautinis standartinis knygų numeris, ir jums reikės jo, jei norėsite parduoti knygą kai kuriose internetinėse knygų parduotuvėse. Tai pridedama prie jūsų e-knygos metaduomenų."
 
 #: inc/admin/metaboxes/class-generalinformation.php:127
 msgid "Print ISBN"
@@ -1593,9 +1566,7 @@ msgstr "Atspaudinti ISBN"
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
-msgstr ""
-"ISBN yra tarptautinis standartinis knygų numeris, ir jums reikės jo, jei "
-"norėsite parduoti knygą internetinėse ir fizinėse knygų parduotuvėse."
+msgstr "ISBN yra tarptautinis standartinis knygų numeris, ir jums reikės jo, jei norėsite parduoti knygą internetinėse ir fizinėse knygų parduotuvėse."
 
 #: inc/admin/metaboxes/class-generalinformation.php:133
 msgid "Digital Object Identifier (DOI)"
@@ -1610,10 +1581,7 @@ msgid ""
 "This sets metadata in your ebook, making it easier to find in some stores. "
 "It also changes some system generated content for supported languages, such "
 "as the \"Contents\" header."
-msgstr ""
-"Tai nustato jūsų e-knygos metaduomenis, todėl jį lengviau rasti kai kuriose "
-"parduotuvėse. Tai taip pat pakeičia tam tikrą sistemos sukurtą turinį "
-"palaikomomis kalboms, pvz. turinio antraštę."
+msgstr "Tai nustato jūsų e-knygos metaduomenis, todėl jį lengviau rasti kai kuriose parduotuvėse. Tai taip pat pakeičia tam tikrą sistemos sukurtą turinį palaikomomis kalboms, pvz. turinio antraštę."
 
 #: inc/admin/metaboxes/class-generalinformation.php:139
 msgid "Help translate Pressbooks into your language!"
@@ -1753,9 +1721,7 @@ msgstr "Statusas ir Matomumas"
 #: inc/admin/metaboxes/namespace.php:240
 msgid ""
 "Appears on part page. Parts will not appear if a book has only one part."
-msgstr ""
-"Rodoma daliniame puslapyje. Dalys nebus rodomos, jei knyga turi tik vieną "
-"dalį."
+msgstr "Rodoma daliniame puslapyje. Dalys nebus rodomos, jei knyga turi tik vieną dalį."
 
 #: inc/admin/metaboxes/namespace.php:396
 msgid "Show in Glossary Lists"
@@ -1837,8 +1803,7 @@ msgstr "Leisti Perskirstymą"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:101
 msgid "Allow book administrators to enable redistribution of export files."
-msgstr ""
-"Leisti knygų administratoriams įgalinti eksporto rinkmenų perskirstymą."
+msgstr "Leisti knygų administratoriams įgalinti eksporto rinkmenų perskirstymą."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:107
 msgid "Enable network API"
@@ -1846,8 +1811,7 @@ msgstr "Įgalinti tinklo API"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:113
 msgid "Enable access to your network of books via the Pressbooks REST API."
-msgstr ""
-"Įgalinkite prieigą prie savo knygų tinklo, naudodamiesi Pressbooks REST API."
+msgstr "Įgalinkite prieigą prie savo knygų tinklo, naudodamiesi Pressbooks REST API."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:119
 msgid "Enable Cloning"
@@ -2040,9 +2004,7 @@ msgstr "1-as skyrius"
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
-msgstr ""
-"Tai pirmasis pagrindinės dalies skyrius. Galite pakeisti tekstą, pervadinti "
-"skyrių, pridėti naujus skyrius bei pridėti naujų dalių."
+msgstr "Tai pirmasis pagrindinės dalies skyrius. Galite pakeisti tekstą, pervadinti skyrių, pridėti naujus skyrius bei pridėti naujų dalių."
 
 #: inc/class-activation.php:224
 msgid "Appendix"
@@ -2341,7 +2303,7 @@ msgstr ""
 
 #: inc/class-eventstreams.php:310
 msgid "You do not have sufficient permissions to access this page."
-msgstr ""
+msgstr "Jūs neturite pakankamai teisių pasiekti šį puslapį."
 
 #: inc/class-globaltypography.php:40
 msgid "Adlam"
@@ -2457,7 +2419,7 @@ msgstr ""
 
 #: inc/class-googleanalytics.php:27
 msgid "Google Analytics ID"
-msgstr ""
+msgstr "Google Analytics ID"
 
 #: inc/class-googleanalytics.php:28
 msgid ""
@@ -2473,10 +2435,7 @@ msgid ""
 "If enabled, the Google Analytics settings page will be visible to book "
 "administrators, allowing them to use their own Google Analytics accounts to "
 "track statistics at the book level."
-msgstr ""
-"Jei įjungtas, Google Analytics nustatymų puslapis bus matomas knygų "
-"administratoriams, leidžiantis jiems naudoti Google Analytics paskyras tam, "
-"kad galėtų stebėti knygos statistinius duomenis. "
+msgstr "Jei įjungtas, Google Analytics nustatymų puslapis bus matomas knygų administratoriams, leidžiantis jiems naudoti Google Analytics paskyras tam, kad galėtų stebėti knygos statistinius duomenis. "
 
 #: inc/class-googleanalytics.php:197
 msgid "Google Analytics settings."
@@ -2530,9 +2489,7 @@ msgstr ""
 msgid ""
 "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International "
 "License"
-msgstr ""
-"Creative Commons Attribution-NonCommercial-ShareAlike 4.0 tarptautinė "
-"licencija"
+msgstr "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 tarptautinė licencija"
 
 #: inc/class-licensing.php:132
 msgid "CC BY-NC-ND (Attribution NonCommercial NoDerivatives)"
@@ -2542,9 +2499,7 @@ msgstr ""
 msgid ""
 "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International "
 "License"
-msgstr ""
-"Creative Commons Attribution-Noncommercial-NoDerivatives 4.0 tarptautinė "
-"licencija"
+msgstr "Creative Commons Attribution-Noncommercial-NoDerivatives 4.0 tarptautinė licencija"
 
 #: inc/class-licensing.php:139 inc/class-licensing.php:338
 msgid "All Rights Reserved"
@@ -2769,9 +2724,7 @@ msgstr ""
 msgid ""
 "You can only clone from a book hosted by Pressbooks 4.1 or later. Please "
 "ensure that your source book meets these requirements."
-msgstr ""
-"Galite klonuoti tik iš knygos, kurioje yra Pressbooks 4.1 ar naujesnė "
-"versija. Patikrinkite, ar šaltinio knyga atitinka šiuos reikalavimus."
+msgstr "Galite klonuoti tik iš knygos, kurioje yra Pressbooks 4.1 ar naujesnė versija. Patikrinkite, ar šaltinio knyga atitinka šiuos reikalavimus."
 
 #: inc/cloner/class-cloner.php:568
 msgid "Could not retrieve metadata from %s."
@@ -3081,17 +3034,13 @@ msgstr "Rodyti Papildomos Knygos Informaciją"
 msgid ""
 "The book information you enter here appears on your book’s cover and title "
 "pages and in the metadata of your webbook and exported files."
-msgstr ""
-"Čia pateikiama informacija apie knygą randasi knygos viršelio ir pavadinimo "
-"puslapiuose bei jūsų tinklalapio metaduomenyse ir eksportuojamose failuose."
+msgstr "Čia pateikiama informacija apie knygą randasi knygos viršelio ir pavadinimo puslapiuose bei jūsų tinklalapio metaduomenyse ir eksportuojamose failuose."
 
 #: inc/metadata/namespace.php:129
 msgid ""
 "If you need to enter additional information, click the button below to see "
 "all available fields."
-msgstr ""
-"Jei norite įvesti papildomą informaciją, spustelėkite žemiau esantį mygtuką,"
-" kad pamatytumėte visus galimus laukus."
+msgstr "Jei norite įvesti papildomą informaciją, spustelėkite žemiau esantį mygtuką, kad pamatytumėte visus galimus laukus."
 
 #: inc/metadata/namespace.php:1205
 msgid ""
@@ -3458,8 +3407,7 @@ msgstr "Jūsų URL nėra tinkamas"
 #: inc/modules/import/class-import.php:548
 #: inc/modules/import/class-import.php:577
 msgid "The URL you are trying to import is bigger than the maximum file size."
-msgstr ""
-"URL, kurį bandote importuoti, yra didesnis nei maksimalus failo dydis."
+msgstr "URL, kurį bandote importuoti, yra didesnis nei maksimalus failo dydis."
 
 #: inc/modules/import/class-import.php:570
 msgid ""
@@ -3491,8 +3439,7 @@ msgstr "HTML yra didesnis nei pcre.backtrack_limit."
 #: inc/modules/import/wordpress/class-parser.php:79
 msgid ""
 "This does not appear to be a WXR file, missing/invalid WXR version number"
-msgstr ""
-"Atrodo, kad tai nėra WXR failas, trūksta / neteisingas WXR versijos numeris"
+msgstr "Atrodo, kad tai nėra WXR failas, trūksta / neteisingas WXR versijos numeris"
 
 #: inc/modules/import/wordpress/class-wxr.php:415
 msgctxt ""
@@ -3640,8 +3587,7 @@ msgstr "Dviejų lygių TOC"
 #: inc/modules/themeoptions/class-globaloptions.php:158
 msgid ""
 "Enable two-level table of contents (displays headings under chapter titles)"
-msgstr ""
-"Įgalinti dviejų lygių turinį (rodomos antraštės pagal skyriaus pavadinimus)."
+msgstr "Įgalinti dviejų lygių turinį (rodomos antraštės pagal skyriaus pavadinimus)."
 
 #: inc/modules/themeoptions/class-globaloptions.php:164
 msgid "About the Author"
@@ -3734,8 +3680,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:293
 msgid "These options apply universally to webbook, PDF and ebook exports."
-msgstr ""
-"Šie pasirinkimai taikomi internetinių knygų, PDF ir e-knygų eksportui."
+msgstr "Šie pasirinkimai taikomi internetinių knygų, PDF ir e-knygų eksportui."
 
 #: inc/modules/themeoptions/class-globaloptions.php:476
 msgid "This theme includes built-in support for %s."
@@ -4103,9 +4048,7 @@ msgstr "Šios parinktys taikomos PDF eksportui."
 msgid ""
 "IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm "
 "on any side can cause your file to be rejected."
-msgstr ""
-"SVARBU: jei planuojate naudoti paslaugą \"spausdinti pagal pareikalavimą\", "
-"ribos iki 2 cm iš bet kurios pusės gali sukelti jūsų failo atmetimą."
+msgstr "SVARBU: jei planuojate naudoti paslaugą \"spausdinti pagal pareikalavimą\", ribos iki 2 cm iš bet kurios pusės gali sukelti jūsų failo atmetimą."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:1534
 msgid "PDF Options"
@@ -4157,17 +4100,13 @@ msgstr ""
 msgid ""
 "Add comparison tool to the end of each front matter, part, chapter, and back"
 " matter"
-msgstr ""
-"Pridėkite palyginimo įrankį prie kiekvienos priekinės dalies, dalies, "
-"skyriaus ir galinės dalies"
+msgstr "Pridėkite palyginimo įrankį prie kiekvienos priekinės dalies, dalies, skyriaus ir galinės dalies"
 
 #: inc/modules/themeoptions/class-weboptions.php:206
 msgid ""
 "Allows readers to compare content with the original book from which it was "
 "cloned."
-msgstr ""
-"Leidžia skaitytojams palyginti turinį su originalia knyga, iš kurios ji buvo"
-" klonuota."
+msgstr "Leidžia skaitytojams palyginti turinį su originalia knyga, iš kurios ji buvo klonuota."
 
 #: inc/modules/themeoptions/class-weboptions.php:232
 msgid "These options apply to the webbook."
@@ -4457,7 +4396,7 @@ msgstr "Neteisingi leidimai."
 
 #: inc/shortcodes/glossary/class-glossary.php:139
 msgid "Select"
-msgstr ""
+msgstr "Pasirinkti"
 
 #: inc/shortcodes/glossary/class-glossary.php:293
 msgid "definition"
@@ -4549,9 +4488,7 @@ msgstr ""
 msgid ""
 "(Pressbooks could not establish a secure connection to the plugin "
 "recommendations server. Please contact your server administrator.)"
-msgstr ""
-"(Pressbooks negalėjo nustatyti saugaus ryšio su įtaiso rekomendacijų "
-"serveriu. Susisiekite su serverio administratoriumi.)"
+msgstr "(Pressbooks negalėjo nustatyti saugaus ryšio su įtaiso rekomendacijų serveriu. Susisiekite su serverio administratoriumi.)"
 
 #: inc/utility/namespace.php:618
 msgid ""
@@ -4860,10 +4797,7 @@ msgid ""
 "Be careful replacing text. There is no undo button. However, you can revert "
 "your changes using the Revision History within each chapter, front matter or"
 " back matter."
-msgstr ""
-"Būkite atsargūs pakeisdami tekstą. Nėra atšaukimo mygtuko. Tačiau galite "
-"grąžinti savo pakeitimus naudodami peržiūros istoriją kiekviename skyriuje, "
-"priekinėje ar galinėje dalyje."
+msgstr "Būkite atsargūs pakeisdami tekstą. Nėra atšaukimo mygtuko. Tačiau galite grąžinti savo pakeitimus naudodami peržiūros istoriją kiekviename skyriuje, priekinėje ar galinėje dalyje."
 
 #: templates/admin/search.php:17
 msgid "Search Within"
@@ -5291,13 +5225,13 @@ msgstr ""
 
 #: templates/admin/diagnostics.blade.php:5
 msgid "Please submit this information with any bug reports."
-msgstr ""
+msgstr "Prašome pateikti šią informaciją su pranešimais apie klaidas."
 
 #: templates/admin/diagnostics.blade.php:6
 msgid ""
 "To copy the system info, click below then press Ctrl + C (PC) or Cmd + C "
 "(Mac)."
-msgstr ""
+msgstr "Norėdami kopijuoti sistemos informaciją, spustelėkite žemiau, tada paspauskite Ctrl + C (PC) arba Cmd + C (Mac)."
 
 #: templates/admin/diagnostics.blade.php:8
 msgid "View Source"
@@ -5364,7 +5298,7 @@ msgstr ""
 
 #: templates/admin/mathjax.blade.php:10
 msgid "Syntax"
-msgstr ""
+msgstr "Sintaksė"
 
 #: templates/admin/mathjax.blade.php:13
 msgid "LaTeX"
@@ -5429,9 +5363,7 @@ msgstr ""
 msgid ""
 "Only users you invite can see your book, regardless of individual chapter "
 "visibility below."
-msgstr ""
-"Tik jūsų pakviesti naudotojai gali matyti jūsų knygą, neatsižvelgiant į "
-"atskirą skyrių matomumą žemiau."
+msgstr "Tik jūsų pakviesti naudotojai gali matyti jūsų knygą, neatsižvelgiant į atskirą skyrių matomumą žemiau."
 
 #: templates/admin/organize.blade.php:63
 msgid "Add Glossary Term"

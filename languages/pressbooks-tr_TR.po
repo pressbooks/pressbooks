@@ -1,16 +1,21 @@
 # Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
-# Steel Wagstaff <steel@pressbooks.com>, 2023
-# 
+# Zeki Tuman (ztuman) <afuatdemir@gmail.com>, 2022
+# Antonio D., 2017
+# ayse tekbas <ayse.tekbas@gmail.com>, 2016
+# Hakan Demiralp, 2022
+# Mustafa Bulun <mustafa.bulun@bizimajans.com>, 2020-2021
+# Antonio D., 2016
+# Zeki Tuman (ztuman) <afuatdemir@gmail.com>, 2024
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 6.18.0\n"
+"Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2024-04-04T20:55:25+00:00\n"
-"PO-Revision-Date: 2023-05-25 04:50+0000\n"
-"Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2023\n"
-"Language-Team: Turkish (Turkey) (https://app.transifex.com/pressbooks/teams/9194/tr_TR/)\n"
+"POT-Creation-Date: 2024-05-08T20:14:28+00:00\n"
+"PO-Revision-Date: 2013-12-21 21:04+0000\n"
+"Last-Translator: Zeki Tuman (ztuman) <afuatdemir@gmail.com>, 2024\n"
+"Language-Team: Turkish (Turkey) (http://app.transifex.com/pressbooks/pressbooks/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -48,49 +53,34 @@ msgstr "Basit Kitap Yayıncılığı"
 msgid ""
 "Pressbooks could not create the mu-plugins folder. Please create the "
 "following directory: %s"
-msgstr ""
-"Pressbooks mu-plugins klasörünü oluşturamadı. Lütfen aşağıdaki dizini "
-"oluşturun: %s"
+msgstr "Pressbooks mu-plugins klasörünü oluşturamadı. Lütfen aşağıdaki dizini oluşturun: %s"
 
 #: compatibility.php:157
 msgid ""
 "Pressbooks could not copy the autoloader from %1$s to %2$s. Please copy the "
 "file manually."
-msgstr ""
-"Pressbooks, otomatik yükleyiciyi  %1$s'den %2$s'e kopyalayamadı. Lütfen "
-"dosyayı manuel olarak kopyalayın."
+msgstr "Pressbooks, otomatik yükleyiciyi  %1$s'den %2$s'e kopyalayamadı. Lütfen dosyayı manuel olarak kopyalayın."
 
 #: compatibility.php:172
 msgid ""
 "Pressbooks will not work with your version of PHP. Pressbooks requires PHP "
 "version %s or greater. Please upgrade PHP if you would like to use "
 "Pressbooks."
-msgstr ""
-"Pressbooks, WordPress sürümünüzle çalışmayacaktır. Pressbooks WordPress "
-"Multisite'ın özel bir kurulumunu %sveya daha yeni bir kurulumu "
-"gerektirmektedir. Pressbook'ları kullanmak istiyorsanız lütfen WordPress'in "
-"daha yeni bir sürümünü kullanın."
+msgstr "Pressbooks, WordPress sürümünüzle çalışmayacaktır. Pressbooks WordPress Multisite'ın özel bir kurulumunu %sveya daha yeni bir kurulumu gerektirmektedir. Pressbook'ları kullanmak istiyorsanız lütfen WordPress'in daha yeni bir sürümünü kullanın."
 
 #: compatibility.php:185
 msgid ""
 "Pressbooks will not work with your version of WordPress. Pressbooks requires"
 " a dedicated install of WordPress Multisite, version %s or greater. Please "
 "upgrade WordPress if you would like to use Pressbooks."
-msgstr ""
-"Pressbooks, WordPress sürümünüzle çalışmayacaktır. Pressbooks WordPress "
-"Multisite'ın özel bir kurulumunu %sveya daha yeni bir kurulumu "
-"gerektirmektedir. Pressbook'ları kullanmak istiyorsanız lütfen WordPress'in "
-"daha yeni bir sürümünü kullanın."
+msgstr "Pressbooks, WordPress sürümünüzle çalışmayacaktır. Pressbooks WordPress Multisite'ın özel bir kurulumunu %sveya daha yeni bir kurulumu gerektirmektedir. Pressbook'ları kullanmak istiyorsanız lütfen WordPress'in daha yeni bir sürümünü kullanın."
 
 #: compatibility.php:196
 msgid ""
 "The Pressbooks plugin is inactive, but you have active plugins that require "
 "Pressbooks. This is causing errors. Please go to the Plugins page, and "
 "activate Pressbooks."
-msgstr ""
-"Pressbooks eklentisi etkin değil, ancak Pressbooks gerektiren aktif "
-"eklentileriniz var. Bu hatalara neden oluyor. Lütfen Eklentiler sayfasına "
-"gidin ve Pressbooks'u etkinleştirin."
+msgstr "Pressbooks eklentisi etkin değil, ancak Pressbooks gerektiren aktif eklentileriniz var. Bu hatalara neden oluyor. Lütfen Eklentiler sayfasına gidin ve Pressbooks'u etkinleştirin."
 
 #: inc/admin/attachments/namespace.php:39
 msgid "ATTRIBUTIONS"
@@ -241,15 +231,11 @@ msgstr "Kitapları Göster/Gizle"
 
 #: inc/admin/class-catalog-list-table.php:531
 msgid "To display a book in your catalog choose \"%s\" under Catalog Status. "
-msgstr ""
-"Kataloğunuzda bir kitap görüntülemek için Katalog Durumu altındaki \"%s\" "
-"seçeneğini seçiniz."
+msgstr "Kataloğunuzda bir kitap görüntülemek için Katalog Durumu altındaki \"%s\" seçeneğini seçiniz."
 
 #: inc/admin/class-catalog-list-table.php:533
 msgid "To hide a book in your catalog choose \"%s\" under Catalog Status."
-msgstr ""
-"Kataloğunuzdaki bir kitabı gizlemek için Katalog Durumu altındaki \"%s\" "
-"seçeneğini seçiniz."
+msgstr "Kataloğunuzdaki bir kitabı gizlemek için Katalog Durumu altındaki \"%s\" seçeneğini seçiniz."
 
 #: inc/admin/class-catalog-list-table.php:536
 msgid "Catalog sorting"
@@ -260,10 +246,7 @@ msgid ""
 "To add sorting ability, add your Tag names to your <a href=\"%s\">Catalog "
 "Profile</a> page (ex: Authors, Book Genre), then add the appropriate tags to"
 " each individual book."
-msgstr ""
-"Sıralama kabiliyeti eklemek için, isimleri<a href=\"%s\">Katalog Profil</a> "
-"sayfasına (örn: Yazarlar, Kitap Türleri) etiketleyiniz, ve ardından her bir "
-"kitaba uygun etiketleri ekleyiniz."
+msgstr "Sıralama kabiliyeti eklemek için, isimleri<a href=\"%s\">Katalog Profil</a> sayfasına (örn: Yazarlar, Kitap Türleri) etiketleyiniz, ve ardından her bir kitaba uygun etiketleri ekleyiniz."
 
 #: inc/admin/class-catalog-list-table.php:539
 msgid "Share your catalog"
@@ -296,8 +279,7 @@ msgstr "Evet."
 
 #: inc/admin/class-exportoptions.php:81
 msgid "Email me validation error logs on export."
-msgstr ""
-"Dışa aktarma sırasında doğrulama hata günlüklerini bana e-postayla gönder."
+msgstr "Dışa aktarma sırasında doğrulama hata günlüklerini bana e-postayla gönder."
 
 #: inc/admin/class-exportoptions.php:88
 msgid "Lock Theme"
@@ -315,9 +297,7 @@ msgstr "Dışa aktarma ayarları"
 msgid ""
 "This will prevent any changes to your book&rsquo;s appearance and page count"
 " when themes are updated."
-msgstr ""
-"Bu, temalar güncellendiğinde kitap görünümündeki ve sayfa sayısındaki "
-"değişmeleri engelleyecektir."
+msgstr "Bu, temalar güncellendiğinde kitap görünümündeki ve sayfa sayısındaki değişmeleri engelleyecektir."
 
 #: inc/admin/class-exportoptions.php:195 inc/admin/laf/namespace.php:412
 msgid "Export Settings"
@@ -366,11 +346,7 @@ msgid ""
 "Enter the URLs for locations where your book can be purchased below. <a "
 "href=\"https://guide.pressbooks.com/chapter/publish/\">Our guide</a> "
 "provides additional information about selling and distributing your book."
-msgstr ""
-"Kitabınızın satın alınabileceği konumların URL'lerini aşağıki alana girin. "
-"<a "
-"href=\"https://guide.pressbooks.com/chapter/publish/\">href=\"https://guide.pressbooks.com/chapter/publish/\">"
-" Rehberimiz</a> kitabınızın satışı ve dağıtımı hakkında ek bilgiler sağlar."
+msgstr "Kitabınızın satın alınabileceği konumların URL'lerini aşağıki alana girin. <a href=\"https://guide.pressbooks.com/chapter/publish/\">href=\"https://guide.pressbooks.com/chapter/publish/\"> Rehberimiz</a> kitabınızın satışı ve dağıtımı hakkında ek bilgiler sağlar."
 
 #: inc/admin/class-publishoptions.php:300 inc/admin/laf/namespace.php:396
 msgid "Publish"
@@ -393,9 +369,7 @@ msgstr "Ayarları kaydet"
 msgid ""
 "Cover generation is not done. Leaving this page, now, will cause problems. "
 "Are you sure?"
-msgstr ""
-"Kapak oluşturma tamamlanmadı. Bu sayfadan şimdi ayrılmak sorunlara neden "
-"olacaktır. Emin misiniz?"
+msgstr "Kapak oluşturma tamamlanmadı. Bu sayfadan şimdi ayrılmak sorunlara neden olacaktır. Emin misiniz?"
 
 #: inc/admin/covergenerator/namespace.php:50 inc/admin/laf/namespace.php:352
 #: inc/admin/laf/namespace.php:375 inc/admin/laf/namespace.php:436
@@ -433,9 +407,7 @@ msgstr "ISBN"
 msgid ""
 "If you have an ISBN, this will generate a barcode on the back of your print "
 "cover. If you do not have an ISBN, you should leave this field blank."
-msgstr ""
-"Bir ISBN'niz varsa, bu, baskı kapağınızın arkasında bir barkod "
-"oluşturacaktır. ISBN'niz yoksa, bu alanı boş bırakmalısınız."
+msgstr "Bir ISBN'niz varsa, bu, baskı kapağınızın arkasında bir barkod oluşturacaktır. ISBN'niz yoksa, bu alanı boş bırakmalısınız."
 
 #: inc/admin/covergenerator/namespace.php:154
 msgid "or SKU"
@@ -447,10 +419,7 @@ msgid ""
 "field will generate a barcode with that number on the back of your print "
 "cover. If you do not have a non-ISBN identifier, you should leave this field"
 " blank."
-msgstr ""
-"ISBN olmayan 13 basamaklı bir tanımlayıcınız varsa, bu alana girdiğinizde "
-"basılı kapağınızın arkasında bu numarayla bir barkod oluşturacaktır. ISBN "
-"olmayan bir tanımlayıcınız yoksa, bu alanı boş bırakmalısınız."
+msgstr "ISBN olmayan 13 basamaklı bir tanımlayıcınız varsa, bu alana girdiğinizde basılı kapağınızın arkasında bu numarayla bir barkod oluşturacaktır. ISBN olmayan bir tanımlayıcınız yoksa, bu alanı boş bırakmalısınız."
 
 #: inc/admin/covergenerator/namespace.php:166
 msgid "Design"
@@ -515,12 +484,7 @@ msgid ""
 " and is used to generate your cover(s). You can reformat the text below as "
 "needed. (<strong>IMPORTANT NOTE:</strong> Changes you make here will "
 "<strong>NOT</strong> be reflected on the Book Information page.)"
-msgstr ""
-"Aşağıdaki metin sizden alınmıştır. <a href=\"%s\">Kitap bilgisi </a> sayfa, "
-"ve kapaklarınızı oluşturmak için kullanılır. Aşağıdaki metni gerektiği gibi "
-"yeniden biçimlendirebilirsiniz. (<strong>ÖNEMLİ NOT:</strong> Burada "
-"yaptığınız değişiklikler Kitap bilgisi "
-"sayfasına<strong>YANSITILMLAYACAKTIR</strong>.)"
+msgstr "Aşağıdaki metin sizden alınmıştır. <a href=\"%s\">Kitap bilgisi </a> sayfa, ve kapaklarınızı oluşturmak için kullanılır. Aşağıdaki metni gerektiği gibi yeniden biçimlendirebilirsiniz. (<strong>ÖNEMLİ NOT:</strong> Burada yaptığınız değişiklikler Kitap bilgisi sayfasına<strong>YANSITILMLAYACAKTIR</strong>.)"
 
 #. translators: %s: URL to Appearance menu
 #: inc/admin/covergenerator/namespace.php:443
@@ -528,10 +492,7 @@ msgid ""
 "Below you can make small adjustments to the design of your cover. The look "
 "and feel of the cover will echo the theme you have chosen for your book. You"
 " can change your book theme in the <a href=\"%s\">Appearance</a> menu."
-msgstr ""
-"Aşağıda kapağınızın tasarımında küçük değişiklikler yapabilirsiniz. Kapağın "
-"görünümü ve verdiği his, kitabınız için seçtiğiniz temayı yansıtır. Kitap "
-"temanızı <a href=\"%s\">Görünüm</a> menüsünden değiştirebilirsiniz."
+msgstr "Aşağıda kapağınızın tasarımında küçük değişiklikler yapabilirsiniz. Kapağın görünümü ve verdiği his, kitabınız için seçtiğiniz temayı yansıtır. Kitap temanızı <a href=\"%s\">Görünüm</a> menüsünden değiştirebilirsiniz."
 
 #. translators: 1: pdf page width, 2: pdf page height, 3: URL to Theme Options
 #. page
@@ -540,10 +501,7 @@ msgid ""
 "Your PDF page size is set to %1$s &times; %2$s, and your PDF cover will be "
 "generated with the same dimensions. You can change the PDF page size in the "
 "<a href=\"%3$s\">Theme Options</a> menu."
-msgstr ""
-"PDF sayfa boyutunuz %1$s x %2$s olarak ayarlandı ve PDF kapağınız aynı "
-"boyutlarla oluşturulacak. PDF sayfa boyutunu <a href=\"%3$s\">Tema "
-"Seçenekleri</a> menüsünden değiştirebilirsiniz."
+msgstr "PDF sayfa boyutunuz %1$s x %2$s olarak ayarlandı ve PDF kapağınız aynı boyutlarla oluşturulacak. PDF sayfa boyutunu <a href=\"%3$s\">Tema Seçenekleri</a> menüsünden değiştirebilirsiniz."
 
 #: inc/admin/covergenerator/namespace.php:459
 #: templates/admin/export.blade.php:61
@@ -564,9 +522,7 @@ msgstr "Buraya bir arka plan resmi yükleyebilirsiniz."
 msgid ""
 "Your image must be at least %1$s pixels in width by %2$s pixels in height, "
 "with an aspect ratio of %3$s to %4$s."
-msgstr ""
-"Resminiz en az %1$s piksel genişliği ve %2$s piksel yüksekliğinde, %3$s - "
-"%4$s en boy oranında olmalıdır."
+msgstr "Resminiz en az %1$s piksel genişliği ve %2$s piksel yüksekliğinde, %3$s - %4$s en boy oranında olmalıdır."
 
 #: inc/admin/covergenerator/namespace.php:503
 msgid "Delete Background Image"
@@ -576,36 +532,27 @@ msgstr "Arka Plan Resmini Sil"
 msgid ""
 "Spine size is calculated based on the number of pages in your book, and the "
 "weight of the paper used in printing."
-msgstr ""
-"Sırt kalınlığı, kitabınızdaki sayfa sayısına ve baskıda kullanılan kağıdın "
-"ağırlığına göre hesaplanır."
+msgstr "Sırt kalınlığı, kitabınızdaki sayfa sayısına ve baskıda kullanılan kağıdın ağırlığına göre hesaplanır."
 
 #: inc/admin/covergenerator/namespace.php:531
 msgid ""
 "You haven't exported any PDF copies of your book, so you will need to enter "
 "a page count below."
-msgstr ""
-"Kitabınızın hiçbir PDF kopyasını dışa aktarmadınız, bu nedenle aşağıya bir "
-"sayfa sayısı girmeniz gerekecek."
+msgstr "Kitabınızın hiçbir PDF kopyasını dışa aktarmadınız, bu nedenle aşağıya bir sayfa sayısı girmeniz gerekecek."
 
 #. translators: %s: number of pages in pdf
 #: inc/admin/covergenerator/namespace.php:534
 msgid ""
 "The last PDF you exported has %s pages (you can edit this below if you "
 "like)."
-msgstr ""
-"Dışa aktardığınız  son PDF dosyasında %s sayfa var (isterseniz bunu aşağıda "
-"düzenleyebilirsiniz)."
+msgstr "Dışa aktardığınız  son PDF dosyasında %s sayfa var (isterseniz bunu aşağıda düzenleyebilirsiniz)."
 
 #: inc/admin/covergenerator/namespace.php:538
 msgid ""
 "We can calculate the spine size based on CreateSpace and Ingram "
 "specifications, or you can enter your own custom pages per inch (PPI) "
 "defined by your printer."
-msgstr ""
-"Sırt boyutunu online baskı sitelerinde bulunan özelliklere göre "
-"hesaplayabilirsiniz veya matbaanız tarafından tanımlanan cm başına kendi "
-"sayfalarınızı girebilirsiniz."
+msgstr "Sırt boyutunu online baskı sitelerinde bulunan özelliklere göre hesaplayabilirsiniz veya matbaanız tarafından tanımlanan cm başına kendi sayfalarınızı girebilirsiniz."
 
 #: inc/admin/covergenerator/namespace.php:571
 #: inc/modules/themeoptions/class-pdfoptions.php:194
@@ -632,18 +579,14 @@ msgstr "Aşağıdaki metin rengini ve arka plan renklerini seçin."
 msgid ""
 "Your image is too small. The image must be %1$d by %2$d pixels. Your image "
 "is %3$d by %4$d pixels."
-msgstr ""
-"Resim çok küçük. Resim %1$d x %2$d piksel olmalıdır. Ancak sizin resminiz "
-"%3$d x %4$d pikseldir."
+msgstr "Resim çok küçük. Resim %1$d x %2$d piksel olmalıdır. Ancak sizin resminiz %3$d x %4$d pikseldir."
 
 #. translators: 1: pdf page width, 2: pdf page height
 #: inc/admin/covergenerator/namespace.php:764
 msgid ""
 "Your image is the wrong aspect ratio. The image must have an aspect ratio of"
 " %1$s to %2$s."
-msgstr ""
-"Resminiz yanlış en-boy oranına sahip. Resim en boy oranı %1$s -%2$s "
-"olmalıdır."
+msgstr "Resminiz yanlış en-boy oranına sahip. Resim en boy oranı %1$s -%2$s olmalıdır."
 
 #: inc/admin/dashboard/class-dashboard.php:54 inc/admin/laf/namespace.php:803
 #: inc/admin/laf/namespace.php:878 inc/admin/menus/class-sidebar.php:198
@@ -653,7 +596,7 @@ msgstr "Gösterge Panosu"
 
 #: inc/admin/dashboard/class-dashboard.php:55
 msgid "Home"
-msgstr ""
+msgstr "Anasayfa"
 
 #: inc/admin/dashboard/class-invitations.php:29
 msgid "an"
@@ -730,19 +673,7 @@ msgid ""
 "\n"
 "Thanks for using Pressbooks,\n"
 "###SITE_NAME###"
-msgstr ""
-"Merhaba ###USERNAME###,\n"
-"\n"
-"Yakın zamanda kitabınızdaki 'Kitabı Sil' bağlantısını tıkladınız ve \n"
-"o sayfadaki formu doldurdunuz.\n"
-"\n"
-"Kitabınızı gerçekten silmek istiyorsanız, aşağıdaki bağlantıyı tıklayın. Tekrar onaylamanız istenmeyecektir, bu nedenle yalnızca kesinlikle eminseniz bu bağlantıyı tıklayın:\n"
-"###URL_DELETE###\n"
-"\n"
-"Kitabınızı silerseniz, lütfen gelecekte bizimle yeni bir kitap projesi başlatmayı düşünün! (Ama şu anki kitabınızın sonsuza kadar gittiğini unutmayın.)\n"
-"\n"
-"Pressbooks kullandığınız için teşekkürler,\n"
-"###SITE_NAME###"
+msgstr "Merhaba ###USERNAME###,\n\nYakın zamanda kitabınızdaki 'Kitabı Sil' bağlantısını tıkladınız ve \no sayfadaki formu doldurdunuz.\n\nKitabınızı gerçekten silmek istiyorsanız, aşağıdaki bağlantıyı tıklayın. Tekrar onaylamanız istenmeyecektir, bu nedenle yalnızca kesinlikle eminseniz bu bağlantıyı tıklayın:\n###URL_DELETE###\n\nKitabınızı silerseniz, lütfen gelecekte bizimle yeni bir kitap projesi başlatmayı düşünün! (Ama şu anki kitabınızın sonsuza kadar gittiğini unutmayın.)\n\nPressbooks kullandığınız için teşekkürler,\n###SITE_NAME###"
 
 #: inc/admin/diagnostics/namespace.php:32
 #: inc/admin/diagnostics/namespace.php:33 inc/admin/laf/namespace.php:110
@@ -937,17 +868,13 @@ msgstr "Aynı dosya türünden 3'ten fazlası sabitlenemez."
 msgid ""
 "Too many pinned files. Deselect one of the pinned files before attempting to"
 " export."
-msgstr ""
-"Çok fazla sabitlenmiş dosya. Dışa aktarmayı denemeden önce sabitlenmiş "
-"dosyalardan birinin seçimini kaldırın."
+msgstr "Çok fazla sabitlenmiş dosya. Dışa aktarmayı denemeden önce sabitlenmiş dosyalardan birinin seçimini kaldırın."
 
 #: inc/admin/laf/namespace.php:354
 msgid ""
 "Exports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
-msgstr ""
-"Dışa aktarım tamamlanmadı. Bu sayfadan şimdi ayrılmak sorunlara neden "
-"olacaktır. Emin misiniz?"
+msgstr "Dışa aktarım tamamlanmadı. Bu sayfadan şimdi ayrılmak sorunlara neden olacaktır. Emin misiniz?"
 
 #: inc/admin/laf/namespace.php:366 inc/utility/class-handlestransfers.php:88
 #: templates/admin/import.php:38 templates/admin/import.php:114
@@ -958,9 +885,7 @@ msgstr "İçe aktar"
 msgid ""
 "Imports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
-msgstr ""
-"İçe aktarım tamamlamadı. Bu sayfadan şimdi ayrılmak sorunlara neden "
-"olacaktır. Emin misiniz?"
+msgstr "İçe aktarım tamamlamadı. Bu sayfadan şimdi ayrılmak sorunlara neden olacaktır. Emin misiniz?"
 
 #: inc/admin/laf/namespace.php:399 inc/admin/laf/namespace.php:595
 #: inc/admin/laf/namespace.php:1518
@@ -985,9 +910,7 @@ msgstr "Bir kitabı klonla"
 msgid ""
 "Cloning is not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
-msgstr ""
-"Klonlama yapılmadı. Bu sayfadan şimdi ayrılmak sorunlara neden olacaktır. "
-"Emin misiniz?"
+msgstr "Klonlama yapılmadı. Bu sayfadan şimdi ayrılmak sorunlara neden olacaktır. Emin misiniz?"
 
 #: inc/admin/laf/namespace.php:662 inc/admin/laf/namespace.php:663
 msgid "Cloning Stats"
@@ -1063,11 +986,7 @@ msgid ""
 "the most recent version of your selected theme, which may change your "
 "book&rsquo;s appearance and page count. Once you save your settings on this "
 "page, this action will NOT be reversable!"
-msgstr ""
-"Temanızın kilidini açmak istediğinizden emin misiniz? Kilidi açmanız halinde"
-" seçtiğiniz temanın en son sürümü kitabınıza güncellenecektir; bu durum, "
-"kitabınızın görünümünün ve sayfa sayısının değişmesine neden olabilir. "
-"Ayarlarınızı bu sayfaya kaydettiğinizde, bu işlem GERİ ALINAMAMAKTIR!"
+msgstr "Temanızın kilidini açmak istediğinizden emin misiniz? Kilidi açmanız halinde seçtiğiniz temanın en son sürümü kitabınıza güncellenecektir; bu durum, kitabınızın görünümünün ve sayfa sayısının değişmesine neden olabilir. Ayarlarınızı bu sayfaya kaydettiğinizde, bu işlem GERİ ALINAMAMAKTIR!"
 
 #: inc/admin/laf/namespace.php:1234
 msgid "Book Visibility"
@@ -1100,9 +1019,7 @@ msgstr "Genel. Bu kitabın herkes tarafından görünebilir olmasını istiyorum
 #: inc/admin/laf/namespace.php:1348
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
-msgstr ""
-"Gizli. Bu kitabın sadece davet ettiğim kişilerce ulaşılabilir olmasını "
-"istiyorum."
+msgstr "Gizli. Bu kitabın sadece davet ettiğim kişilerce ulaşılabilir olmasını istiyorum."
 
 #: inc/admin/laf/namespace.php:1372
 msgid "Who can see private front matter, chapters and back matter?"
@@ -1120,34 +1037,25 @@ msgstr "Takipçiler de dahil olmak üzere giriş yapmış tüm kullanıcılar."
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
-msgstr ""
-"Evet. Tüm ön konular, bölümler ve arka konular hakkındaki yorumları, geri "
-"izlemeleri ve pingbackleri otomatik olarak devre dışı bırakmak istiyorum."
+msgstr "Evet. Tüm ön konular, bölümler ve arka konular hakkındaki yorumları, geri izlemeleri ve pingbackleri otomatik olarak devre dışı bırakmak istiyorum."
 
 #: inc/admin/laf/namespace.php:1404
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
-msgstr ""
-"Hayır. Manüel olarak devre dışı bırakmadıkça tüm ön konular, bölümler ve "
-"arka konular üzerinde yapılan yorumları, geri izlemeleri ve pingbackleri "
-"bırakmak istiyorum."
+msgstr "Hayır. Manüel olarak devre dışı bırakmadıkça tüm ön konular, bölümler ve arka konular üzerinde yapılan yorumları, geri izlemeleri ve pingbackleri bırakmak istiyorum."
 
 #: inc/admin/laf/namespace.php:1420
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
-msgstr ""
-"Evet. En güncel dışa aktarım dosyalarının, ana sayfadan ücretsiz olarak, "
-"herkese açık olmasını istiyorum."
+msgstr "Evet. En güncel dışa aktarım dosyalarının, ana sayfadan ücretsiz olarak, herkese açık olmasını istiyorum."
 
 #: inc/admin/laf/namespace.php:1426
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
-msgstr ""
-"Hayır. En güncel dışa aktarım dosyalarının yalnızca yöneticilere açık "
-"olmasını istiyorum."
+msgstr "Hayır. En güncel dışa aktarım dosyalarının yalnızca yöneticilere açık olmasını istiyorum."
 
 #: inc/admin/laf/namespace.php:1445
 msgid "Yes. I want this book to be listed in the Pressbooks directory."
@@ -1227,9 +1135,7 @@ msgstr "GitHub URL"
 msgid ""
 "Your institutional affiliation, e.g. Rebus Foundation, Open University, "
 "Amnesty International."
-msgstr ""
-"Kurumsal ilişkiniz, örn. Rebus Foundation, Open University, Uluslararası Af "
-"Örgütü."
+msgstr "Kurumsal ilişkiniz, örn. Rebus Foundation, Open University, Uluslararası Af Örgütü."
 
 #: inc/admin/menus/class-sidebar.php:87
 msgid "Sorry, you are not allowed to access this page."
@@ -1249,7 +1155,7 @@ msgstr ""
 #: inc/admin/menus/class-sidebar.php:449 inc/admin/menus/class-sidebar.php:450
 #: inc/admin/menus/class-topbar.php:154
 msgid "Settings"
-msgstr ""
+msgstr "Ayarlar"
 
 #: inc/admin/menus/class-sidebar.php:261 inc/admin/menus/class-sidebar.php:262
 #: inc/admin/menus/class-sidebar.php:517 inc/admin/menus/class-sidebar.php:518
@@ -1365,7 +1271,7 @@ msgstr ""
 
 #: inc/admin/menus/class-topbar.php:277
 msgid "Add Users"
-msgstr ""
+msgstr "Kullanıcı Ekle"
 
 #: inc/admin/metaboxes/class-about.php:16
 msgid "About the Book"
@@ -1379,9 +1285,7 @@ msgstr "Kitap sloganı"
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
-msgstr ""
-"Kitabının çok kısa bir tanımı. Twitter gönderisine sığacak boyutta olmalı, "
-"ve kitabı kısa ve öz olacak şekilde açıklamalıdır."
+msgstr "Kitabının çok kısa bir tanımı. Twitter gönderisine sığacak boyutta olmalı, ve kitabı kısa ve öz olacak şekilde açıklamalıdır."
 
 #: inc/admin/metaboxes/class-about.php:32
 msgid "Short Description"
@@ -1390,9 +1294,7 @@ msgstr "Kısa Tanım"
 #: inc/admin/metaboxes/class-about.php:33
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
-msgstr ""
-"Katalogların, eleştirmenlerin vb.nin alıntı yapabilmesi için kısa bir "
-"paragraf."
+msgstr "Katalogların, eleştirmenlerin vb.nin alıntı yapabilmesi için kısa bir paragraf."
 
 #: inc/admin/metaboxes/class-about.php:37
 msgid "Long Description"
@@ -1427,10 +1329,7 @@ msgstr "Anahtar Kelimeler"
 msgid ""
 "These are added to your webbook cover page, and in your ebook metadata. "
 "Keywords are used by online book stores and search engines."
-msgstr ""
-"Bunlar webbook kapak sayfanıza ve ebook metaverinize eklendi. Anahtar "
-"kelimeler çevrimiçi kitap mağazaları ve arama motorları tarafından "
-"kullanılır."
+msgstr "Bunlar webbook kapak sayfanıza ve ebook metaverinize eklendi. Anahtar kelimeler çevrimiçi kitap mağazaları ve arama motorları tarafından kullanılır."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:42
 msgid "Hashtag"
@@ -1440,9 +1339,7 @@ msgstr "Etiket"
 msgid ""
 "These are added to your webbook cover page. For those of you who like "
 "Twitter."
-msgstr ""
-"Bunlar web kitabı kapak sayfanıza eklendi. Sizin gibi Twitter'ı sevenler "
-"için."
+msgstr "Bunlar web kitabı kapak sayfanıza eklendi. Sizin gibi Twitter'ı sevenler için."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:47
 msgid "List Price (Print)"
@@ -1508,10 +1405,7 @@ msgstr "BISAC konusu (ları)"
 msgid ""
 "BISAC Subject Headings help libraries and bookstores properly classify your "
 "book. To select the appropriate subject heading for your book, consult %s."
-msgstr ""
-"BISAC Konu Başlıkları, kitaplıkların ve kütüphanecilerin kitabınızı doğru "
-"şekilde tasnif etmesine yardımcı olur. Kitabınız için uygun konu başlığını "
-"seçmek için%s'e danışın."
+msgstr "BISAC Konu Başlıkları, kitaplıkların ve kütüphanecilerin kitabınızı doğru şekilde tasnif etmesine yardımcı olur. Kitabınız için uygun konu başlığını seçmek için%s'e danışın."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:79
 msgid "the BISAC Subject Headings list"
@@ -1525,9 +1419,7 @@ msgstr "BISAC Bölgesel Tema"
 msgid ""
 "BISAC Regional Themes help libraries and bookstores properly classify your "
 "book."
-msgstr ""
-"BISAC Bölgesel Temaları, kitaplıkların ve kütüphanecilerin kitabınızı doğru "
-"şekilde sınıflandırmasına yardımcı olur."
+msgstr "BISAC Bölgesel Temaları, kitaplıkların ve kütüphanecilerin kitabınızı doğru şekilde sınıflandırmasına yardımcı olur."
 
 #: inc/admin/metaboxes/class-copyright.php:31 inc/class-licensing.php:333
 #: inc/modules/export/epub/class-epub.php:1423
@@ -1546,9 +1438,7 @@ msgstr "Kaynak Kitap URL"
 msgid ""
 "This book was cloned from a pre-existing book at the above URL. This "
 "information will be displayed on the webbook homepage."
-msgstr ""
-"Bu kitap, yukarıdaki URL’de önceden var olan bir kitaptan klonlandı. Bu "
-"bilgiler webkitabı ana sayfasında gösterilecektir."
+msgstr "Bu kitap, yukarıdaki URL’de önceden var olan bir kitaptan klonlandı. Bu bilgiler webkitabı ana sayfasında gösterilecektir."
 
 #: inc/admin/metaboxes/class-copyright.php:47
 msgid "Copyright Year"
@@ -1572,9 +1462,7 @@ msgstr "Telif Hakkı Lisansı"
 
 #: inc/admin/metaboxes/class-copyright.php:58
 msgid "You can select various licenses including Creative Commons."
-msgstr ""
-"Creative Commons'da dahil olmak üzere farklı türlerde lisanslar "
-"seçebilirsiniz. "
+msgstr "Creative Commons'da dahil olmak üzere farklı türlerde lisanslar seçebilirsiniz. "
 
 #: inc/admin/metaboxes/class-copyright.php:63
 msgid "Copyright Notice"
@@ -1587,12 +1475,7 @@ msgid ""
 "no license is selected, and will be inserted after the title page. If you "
 "select a Creative Commons license, the custom notice will appear after the "
 "license text in both the webbook and your exports."
-msgstr ""
-"İstediğiniz bilgilerle birlikte özel bir telif hakkı bildirimi girin. Bu, "
-"Tüm Hakları Saklıdır veya lisans yok seçilirse, otomatik olarak oluşturulan "
-"telif hakkı bildirimini geçersiz kılar ve başlık sayfasından sonra eklenir. "
-"Bir Creative Commons lisansı seçerseniz, özel bildirim hem web kitabında hem"
-" de dışa aktardığınızda lisans metninden sonra görünecektir."
+msgstr "İstediğiniz bilgilerle birlikte özel bir telif hakkı bildirimi girin. Bu, Tüm Hakları Saklıdır veya lisans yok seçilirse, otomatik olarak oluşturulan telif hakkı bildirimini geçersiz kılar ve başlık sayfasından sonra eklenir. Bir Creative Commons lisansı seçerseniz, özel bildirim hem web kitabında hem de dışa aktardığınızda lisans metninden sonra görünecektir."
 
 #: inc/admin/metaboxes/class-generalinformation.php:32
 msgid "General Book Information"
@@ -1606,8 +1489,7 @@ msgstr "Kısa Başlık"
 msgid ""
 "In case of long titles that might be truncated in running heads in the PDF "
 "export."
-msgstr ""
-"PDF ihracında uzun isimlerin sayfa başlıklarında kırpılabilmesi durumunda."
+msgstr "PDF ihracında uzun isimlerin sayfa başlıklarında kırpılabilmesi durumunda."
 
 #: inc/admin/metaboxes/class-generalinformation.php:55
 msgid "Author(s)"
@@ -1663,7 +1545,7 @@ msgstr "Yayımlanma Tarihi"
 #: inc/admin/metaboxes/class-generalinformation.php:110
 #: inc/admin/metaboxes/class-generalinformation.php:116
 msgid "This is added to the metadata in your ebook."
-msgstr ""
+msgstr "Bu e-kitabında metaveriye eklendi."
 
 #: inc/admin/metaboxes/class-generalinformation.php:115
 msgid "On-Sale Date"
@@ -1678,10 +1560,7 @@ msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in some online ebook stores. This is added to the "
 "metadata in your ebook."
-msgstr ""
-"ISBN Uluslararası Standart Kitap Numarası'dır ve e-kitap mağazalarında "
-"kitaplarınızı online olarak satmak istiyorsanız bu kitap numarasına sahip "
-"olmanız gerekmektedir. Bu numara e-kitabınızın metaverisine eklenir."
+msgstr "ISBN Uluslararası Standart Kitap Numarası'dır ve e-kitap mağazalarında kitaplarınızı online olarak satmak istiyorsanız bu kitap numarasına sahip olmanız gerekmektedir. Bu numara e-kitabınızın metaverisine eklenir."
 
 #: inc/admin/metaboxes/class-generalinformation.php:127
 msgid "Print ISBN"
@@ -1691,9 +1570,7 @@ msgstr "ISBN'yi yazdır."
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
-msgstr ""
-"ISBN Uluslararası Standart Kitap Numarası'dır ve kitabınızı online veya "
-"basılı olarak satmak istediğinizde bu numarayı kullanmanız gerekmektedir."
+msgstr "ISBN Uluslararası Standart Kitap Numarası'dır ve kitabınızı online veya basılı olarak satmak istediğinizde bu numarayı kullanmanız gerekmektedir."
 
 #: inc/admin/metaboxes/class-generalinformation.php:133
 msgid "Digital Object Identifier (DOI)"
@@ -1708,10 +1585,7 @@ msgid ""
 "This sets metadata in your ebook, making it easier to find in some stores. "
 "It also changes some system generated content for supported languages, such "
 "as the \"Contents\" header."
-msgstr ""
-"Bu e-kitabınızdaki metaveriyi belirler ve mağazalarda bulunmasını "
-"kolaylaştırır. Ayrıca desteklenen diller için ''İçerikler'' başlığı gibi "
-"sistemce üretilen bazı içerikleri de değiştirir. "
+msgstr "Bu e-kitabınızdaki metaveriyi belirler ve mağazalarda bulunmasını kolaylaştırır. Ayrıca desteklenen diller için ''İçerikler'' başlığı gibi sistemce üretilen bazı içerikleri de değiştirir. "
 
 #: inc/admin/metaboxes/class-generalinformation.php:139
 msgid "Help translate Pressbooks into your language!"
@@ -1729,10 +1603,7 @@ msgid ""
 "This optional field can be used to display the institution(s) which created "
 "this resource. If your college or university is not listed, please contact "
 "your network manager."
-msgstr ""
-"Bu isteğe bağlı alan, bu kaynağı oluşturan kurum(lar)ı görüntülemek için "
-"kullanılabilir. Kolej veya üniversiteniz listede yoksa, lütfen ağ "
-"yöneticinizle iletişime geçin."
+msgstr "Bu isteğe bağlı alan, bu kaynağı oluşturan kurum(lar)ı görüntülemek için kullanılabilir. Kolej veya üniversiteniz listede yoksa, lütfen ağ yöneticinizle iletişime geçin."
 
 #: inc/admin/metaboxes/class-partvisibility.php:25
 msgid "Part Visibility"
@@ -1797,11 +1668,7 @@ msgid ""
 "categorize your book in your network catalog and Pressbooks Directory (if "
 "applicable). Use %2$s to determine which subject category is best for your "
 "book."
-msgstr ""
-"%1$s konu terimleri kitabınızın web ana sayfasında görünür ve kitabınızı ağ "
-"kataloğunuzda ve Pressbooks Dizininde (varsa) kategorilere ayırmanıza "
-"yardımcı olur. Kitabınız için hangi konu kategorisinin en iyi olduğunu "
-"belirlemek için %2$s kullanın."
+msgstr "%1$s konu terimleri kitabınızın web ana sayfasında görünür ve kitabınızı ağ kataloğunuzda ve Pressbooks Dizininde (varsa) kategorilere ayırmanıza yardımcı olur. Kitabınız için hangi konu kategorisinin en iyi olduğunu belirlemek için %2$s kullanın."
 
 #: inc/admin/metaboxes/class-subjects.php:27
 #: inc/admin/metaboxes/class-subjects.php:33
@@ -1821,17 +1688,13 @@ msgstr "Ek Konular"
 msgid ""
 "Your cover image was not saved because it is too small (%1$s x %2$s). It "
 "should be at least 800px in height."
-msgstr ""
-"Kapak resminiz çok küçük olduğu için kaydedilmedi (%1$s x%2$s). En az 800 "
-"piksel yüksekliğinde olmalıdır."
+msgstr "Kapak resminiz çok küçük olduğu için kaydedilmedi (%1$s x%2$s). En az 800 piksel yüksekliğinde olmalıdır."
 
 #: inc/admin/metaboxes/namespace.php:106
 msgid ""
 "Your cover image was not saved because the aspect ratio (%s) is outside the "
 "permitted range (.66 to 1). We recommend an aspect ratio of .75."
-msgstr ""
-"En boy oranı (%s) izin verilen aralığın (.66 - 1) dışında olduğu için kapak "
-"resminiz kaydedilmedi. 0,75 en boy oranı öneririz."
+msgstr "En boy oranı (%s) izin verilen aralığın (.66 - 1) dışında olduğu için kapak resminiz kaydedilmedi. 0,75 en boy oranı öneririz."
 
 #: inc/admin/metaboxes/namespace.php:131 inc/admin/metaboxes/namespace.php:168
 #: inc/class-metadata.php:437
@@ -1862,9 +1725,7 @@ msgstr "Durum ve Görünürlük"
 #: inc/admin/metaboxes/namespace.php:240
 msgid ""
 "Appears on part page. Parts will not appear if a book has only one part."
-msgstr ""
-"Metin parçasında görünür. Eğer kitap sadece bir parçaya sahipse parçalar "
-"görünmeyecektir."
+msgstr "Metin parçasında görünür. Eğer kitap sadece bir parçaya sahipse parçalar görünmeyecektir."
 
 #: inc/admin/metaboxes/namespace.php:396
 msgid "Show in Glossary Lists"
@@ -1906,9 +1767,7 @@ msgstr "Başlığı göster"
 msgid ""
 "Images should be square (400px x 400px). You will be allowed to crop images "
 "after upload."
-msgstr ""
-"Görüntüler kare olmalıdır (400px x 400px). Yüklemeden sonra görüntüleri "
-"kırpmanıza izin verilir."
+msgstr "Görüntüler kare olmalıdır (400px x 400px). Yüklemeden sonra görüntüleri kırpmanıza izin verilir."
 
 #: inc/admin/metaboxes/namespace.php:788
 msgid "Name"
@@ -1948,9 +1807,7 @@ msgstr "Yeniden Dağıtıma İzin Ver"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:101
 msgid "Allow book administrators to enable redistribution of export files."
-msgstr ""
-"Kitap yöneticilerinin, dışa aktarım dosyalarının yeniden dağıtılmasını "
-"etkinleştirmesine izin ver."
+msgstr "Kitap yöneticilerinin, dışa aktarım dosyalarının yeniden dağıtılmasını etkinleştirmesine izin ver."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:107
 msgid "Enable network API"
@@ -1974,9 +1831,7 @@ msgstr "Web Bağlantıları ile CC'yi etkinleştirin"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:137
 msgid "Allow users to produce Common Cartridge exports with simple Web Links."
-msgstr ""
-"Kullanıcıların basit Web Bağlantıları ile Ortak Kartuş dışa aktarmaları "
-"yapmasına izin verin."
+msgstr "Kullanıcıların basit Web Bağlantıları ile Ortak Kartuş dışa aktarmaları yapmasına izin verin."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:143
 msgid "Book directory"
@@ -1984,8 +1839,7 @@ msgstr "Kitap Dizini"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:149
 msgid "Exclude non-catalogued public books from Pressbooks Directory."
-msgstr ""
-"Kataloglanmamış halka açık kitapları Pressbooks Dizininden hariç tutun."
+msgstr "Kataloglanmamış halka açık kitapları Pressbooks Dizininden hariç tutun."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:155
 msgid "Iframe Allowlist"
@@ -1996,10 +1850,7 @@ msgid ""
 "To allowlist all content from a domain: <code>guide.pressbooks.com</code> To"
 " allowlist a path: <code>//guide.pressbooks.com/some/path/</code> One per "
 "line."
-msgstr ""
-"Bir etki alanındaki tüm içeriği izin vermek "
-"için<code>guide.pressbooks.com</code> yolun izin vermesini sağlamak "
-"için:<code> //guide.pressbooks.com/some/path/</code> satır başına bir adet."
+msgstr "Bir etki alanındaki tüm içeriği izin vermek için<code>guide.pressbooks.com</code> yolun izin vermesini sağlamak için:<code> //guide.pressbooks.com/some/path/</code> satır başına bir adet."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:176
 msgid "Sharing and Privacy settings."
@@ -2018,9 +1869,7 @@ msgstr "Pressbooks Ağ Yöneticileri"
 msgid ""
 "Network administrators&rsquo; access to network administration menus can be "
 "restricted to leave only sites and users visible to them."
-msgstr ""
-"Ağ yöneticilerinin ağ yönetimi menülerine erişimi, yalnızca siteleri ve "
-"kullanıcıları görebilecek şekilde sınırlandırılabilir."
+msgstr "Ağ yöneticilerinin ağ yönetimi menülerine erişimi, yalnızca siteleri ve kullanıcıları görebilecek şekilde sınırlandırılabilir."
 
 #: inc/admin/plugins/namespace.php:94
 msgid ""
@@ -2029,12 +1878,7 @@ msgid ""
 "plugin also includes an advanced setting which allows users to create and "
 "display SVG files, a format that may carry a higher security risk than other"
 " image formats."
-msgstr ""
-"WP QuickLaTeX gibi uzak bir üçüncü taraf hizmeti aracılığıyla sağlanan "
-"herhangi bir içeriğin güvenilir olmayabileceğini lütfen unutmayın. WP "
-"QuickLaTeX eklentisi, kullanıcıların diğer görüntü formatlarından daha "
-"yüksek güvenlik riski taşıyabilen bir format olan SVG dosyalarını "
-"oluşturmasına ve görüntülemesine olanak tanıyan gelişmiş bir ayar da içerir."
+msgstr "WP QuickLaTeX gibi uzak bir üçüncü taraf hizmeti aracılığıyla sağlanan herhangi bir içeriğin güvenilir olmayabileceğini lütfen unutmayın. WP QuickLaTeX eklentisi, kullanıcıların diğer görüntü formatlarından daha yüksek güvenlik riski taşıyabilen bir format olan SVG dosyalarını oluşturmasına ve görüntülemesine olanak tanıyan gelişmiş bir ayar da içerir."
 
 #: inc/admin/users/class-userbulk.php:68 inc/admin/users/class-userbulk.php:69
 msgid "Bulk Add"
@@ -2060,9 +1904,7 @@ msgstr ""
 msgid ""
 "An invitation email has been sent to the user(s) below. A confirmation link "
 "must be clicked before their account is created."
-msgstr ""
-"Aşağıdaki kullanıcılara bir davetiye e-postası gönderildi. Hesapları "
-"oluşturulmadan önce bir onay bağlantısı tıklanmalıdır."
+msgstr "Aşağıdaki kullanıcılara bir davetiye e-postası gönderildi. Hesapları oluşturulmadan önce bir onay bağlantısı tıklanmalıdır."
 
 #: inc/api/endpoints/controller/books/class-books.php:108
 #: inc/api/endpoints/controller/class-toc.php:151
@@ -2100,9 +1942,7 @@ msgstr ""
 msgid ""
 "URL of a reference Web page that unambiguously indicates the item's "
 "identity."
-msgstr ""
-"Öğenin kimliğini açık bir şekilde belirten bir referans Web sayfasının "
-"URL'si."
+msgstr "Öğenin kimliğini açık bir şekilde belirten bir referans Web sayfasının URL'si."
 
 #: inc/api/endpoints/controller/class-posts.php:197
 msgid "The status for the post."
@@ -2168,9 +2008,7 @@ msgstr "1. Bölüm"
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
-msgstr ""
-"Metinin ana gövdesindeki ilk bölüm budur. Metini değiştirebilir, bölümü "
-"yeniden adlandırabilir, yeni bölümler ve yeni parçalar ekleyebilirsiniz."
+msgstr "Metinin ana gövdesindeki ilk bölüm budur. Metini değiştirebilir, bölümü yeniden adlandırabilir, yeni bölümler ve yeni parçalar ekleyebilirsiniz."
 
 #: inc/class-activation.php:224
 msgid "Appendix"
@@ -2205,11 +2043,7 @@ msgid ""
 "an account you can login <a href=\"/wp-login.php\">here</a>. You can also "
 "set up your own Pressbooks book at: <a "
 "href=\"http://pressbooks.com\">Pressbooks.com</a>."
-msgstr ""
-"Bu kitap gizlidir, ve sadece üye olan kişiler ulaşabilir. Eğer üyeliğiniz "
-"varsa giriş yapabilirsiniz <a href=\"/wp-login.php\">buradan</a>. Ayrıca bu "
-"adresten kendi ait Pressbook'unuzu oluşturabilirsiniz: <a "
-"href=\"http://pressbooks.com\">Pressbooks.com</a>."
+msgstr "Bu kitap gizlidir, ve sadece üye olan kişiler ulaşabilir. Eğer üyeliğiniz varsa giriş yapabilirsiniz <a href=\"/wp-login.php\">buradan</a>. Ayrıca bu adresten kendi ait Pressbook'unuzu oluşturabilirsiniz: <a href=\"http://pressbooks.com\">Pressbooks.com</a>."
 
 #: inc/class-activation.php:264 inc/class-customcss.php:91
 msgid "Custom CSS for Ebook"
@@ -2258,9 +2092,7 @@ msgstr "Önek"
 msgid ""
 "Prefix to be displayed before this contributor's name, e.g. Dr., Prof., Ms.,"
 " Rev., Capt."
-msgstr ""
-"Ön ek, katkıda bulunanın adından önce görüntülenir, örn. DR., Prof., Bayan, "
-"Göz., Çev."
+msgstr "Ön ek, katkıda bulunanın adından önce görüntülenir, örn. DR., Prof., Bayan, Göz., Çev."
 
 #: inc/class-contributors.php:442
 msgid "First Name"
@@ -2278,9 +2110,7 @@ msgstr "Sonek"
 msgid ""
 "Suffix to be displayed after this contributors's name, e.g. Jr., Sr., IV, "
 "PhD, MD, USN (Ret.)."
-msgstr ""
-"Bu katılımcının adından sonra görüntülenecek sonek, örn.  IV, Dr, Doç, Gen "
-"(Emk.)"
+msgstr "Bu katılımcının adından sonra görüntülenecek sonek, örn.  IV, Dr, Doç, Gen (Emk.)"
 
 #: inc/class-contributors.php:461
 msgid "Picture"
@@ -2298,9 +2128,7 @@ msgstr "Kuruluş"
 msgid ""
 "Institution this contributor is associated with, e.g. Rebus Foundation, Open"
 " University, Amnesty International."
-msgstr ""
-"Katkıda bulunanan'ın ilişkili olduğu kuruluş, ör. Rebus Vakfı, Açık "
-"Üniversite, Uluslararası Af Örgütü."
+msgstr "Katkıda bulunanan'ın ilişkili olduğu kuruluş, ör. Rebus Vakfı, Açık Üniversite, Uluslararası Af Örgütü."
 
 #: inc/class-contributors.php:482
 msgid "Website for this contributor. Must be a valid URL."
@@ -2374,9 +2202,7 @@ msgstr[1] ""
 msgid ""
 "Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s, and %8$s"
 " to %9$s."
-msgstr ""
-"Klonlama başarılı oldu! Klonlanmış %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s,"
-" ve%8$s den %9$s a."
+msgstr "Klonlama başarılı oldu! Klonlanmış %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s, ve%8$s den %9$s a."
 
 #: inc/class-eventstreams.php:202
 msgid "%s term"
@@ -2437,17 +2263,13 @@ msgid ""
 " The source book's theme, '%1$s (%2$s)', was not available on this network "
 "and could not be applied. Contact your network manager with questions about "
 "theme availability."
-msgstr ""
-"Kaynak kitabın teması olan %1$s(%2$s) bu ağda mevcut değildi ve "
-"uygulanamadı. Tema kullanılabilirliği ile ilgili sorularınız için ağ "
-"yöneticinize başvurun."
+msgstr "Kaynak kitabın teması olan %1$s(%2$s) bu ağda mevcut değildi ve uygulanamadı. Tema kullanılabilirliği ile ilgili sorularınız için ağ yöneticinize başvurun."
 
 #: inc/class-eventstreams.php:220
 msgid ""
 "The source book's theme, theme settings, and custom styles were successfully"
 " applied."
-msgstr ""
-"Kaynak kitabın teması, tema ayarları ve özel stiller başarıyla uygulandı."
+msgstr "Kaynak kitabın teması, tema ayarları ve özel stiller başarıyla uygulandı."
 
 #: inc/class-eventstreams.php:242
 msgid "No export format was selected."
@@ -2575,7 +2397,7 @@ msgstr "Sizin %1$s yazı tipiniz %2$sadresinden indirilemedi"
 
 #: inc/class-googleanalytics.php:27
 msgid "Google Analytics ID"
-msgstr ""
+msgstr "Google Analitik ID"
 
 #: inc/class-googleanalytics.php:28
 msgid ""
@@ -2591,11 +2413,7 @@ msgid ""
 "If enabled, the Google Analytics settings page will be visible to book "
 "administrators, allowing them to use their own Google Analytics accounts to "
 "track statistics at the book level."
-msgstr ""
-"İzin verilmesi halinde Google Analytics ayarları sayfası kitap "
-"yöneticilerine görünür olacak, ve kendi Google Analytics hesaplarını "
-"kullanarak kitap seviyelerindeki istatistikleri takip etmelerine olanak "
-"sağlayacaktır."
+msgstr "İzin verilmesi halinde Google Analytics ayarları sayfası kitap yöneticilerine görünür olacak, ve kendi Google Analytics hesaplarını kullanarak kitap seviyelerindeki istatistikleri takip etmelerine olanak sağlayacaktır."
 
 #: inc/class-googleanalytics.php:197
 msgid "Google Analytics settings."
@@ -2649,9 +2467,7 @@ msgstr "CC BY-NC-SA (Atıf Gayri Ticari Aynı Şekilde Paylaş)"
 msgid ""
 "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International "
 "License"
-msgstr ""
-"Creative Commons Atıf-Gayri Ticari-Aynı Şekilde Paylaş 4.0 Uluslararası "
-"Lisansı"
+msgstr "Creative Commons Atıf-Gayri Ticari-Aynı Şekilde Paylaş 4.0 Uluslararası Lisansı"
 
 #: inc/class-licensing.php:132
 msgid "CC BY-NC-ND (Attribution NonCommercial NoDerivatives)"
@@ -2661,8 +2477,7 @@ msgstr "CCBY-NC-ND (Atıf-Gayri Ticari-Türetilemez)"
 msgid ""
 "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International "
 "License"
-msgstr ""
-"Creative Commons Atıf-Gayri Ticari-Türetilemez 4.0 Uluslararası Lisansı"
+msgstr "Creative Commons Atıf-Gayri Ticari-Türetilemez 4.0 Uluslararası Lisansı"
 
 #: inc/class-licensing.php:139 inc/class-licensing.php:338
 msgid "All Rights Reserved"
@@ -2672,9 +2487,7 @@ msgstr "Tüm hakları saklıdır"
 msgid ""
 "$title is deprecated. Method will automatically determine title from "
 "licenses"
-msgstr ""
-"$title ikullanımdan kaldırıldı. Yöntem, başlıkları otomatik olarak "
-"lisanslardan belirleyecektir"
+msgstr "$title ikullanımdan kaldırıldı. Yöntem, başlıkları otomatik olarak lisanslardan belirleyecektir"
 
 #: inc/class-licensing.php:335 inc/class-styles.php:854
 #: inc/modules/export/epub/class-epub.php:1432
@@ -2708,9 +2521,7 @@ msgstr "%s lisansı için ikon"
 
 #: inc/class-licensing.php:457
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
-msgstr ""
-"Bu çalışma, (%1$s tarafından %2$s) bilinen telif hakkı kısıtlamaları "
-"içermez."
+msgstr "Bu çalışma, (%1$s tarafından %2$s) bilinen telif hakkı kısıtlamaları içermez."
 
 #: inc/class-mathjax.php:162 inc/class-mathjax.php:163
 #: templates/admin/mathjax.blade.php:2
@@ -2725,9 +2536,7 @@ msgstr "<code>PB_MATHJAX_URL</code> konfigüre edilmemiş."
 msgid ""
 "There was a problem with SASS. Contact your site administrator. Error: %1$s "
 "%2$s"
-msgstr ""
-"SASS ile ilgili bir sorun vardı. Site yöneticinizle iletişime geçin. Hata: "
-"%1$s %2$s"
+msgstr "SASS ile ilgili bir sorun vardı. Site yöneticinizle iletişime geçin. Hata: %1$s %2$s"
 
 #: inc/class-styles.php:96 templates/admin/custom-styles.php:42
 msgid "Custom Styles"
@@ -2841,9 +2650,7 @@ msgstr "Sans serif"
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
-msgstr ""
-"Beklenmedik Hata: Slag: %s sorgulanırken bir hata oluştu - Lütfen teknik "
-"servis ile iletişime geçiniz."
+msgstr "Beklenmedik Hata: Slag: %s sorgulanırken bir hata oluştu - Lütfen teknik servis ile iletişime geçiniz."
 
 #: inc/class-styles.php:819 templates/admin/custom-styles.php:20
 msgid "Web"
@@ -2895,10 +2702,7 @@ msgstr "Tamamlanma"
 msgid ""
 "You can only clone from a book hosted by Pressbooks 4.1 or later. Please "
 "ensure that your source book meets these requirements."
-msgstr ""
-"Yalnızca Pressbooks 4.1 veya üzeri tarafından barındırılan bir kitaptan "
-"klonlayabilirsiniz. Lütfen kaynak kitabınızın bu gereksinimleri "
-"karşıladığından emin olun."
+msgstr "Yalnızca Pressbooks 4.1 veya üzeri tarafından barındırılan bir kitaptan klonlayabilirsiniz. Lütfen kaynak kitabınızın bu gereksinimleri karşıladığından emin olun."
 
 #: inc/cloner/class-cloner.php:568
 msgid "Could not retrieve metadata from %s."
@@ -2925,10 +2729,7 @@ msgid ""
 "The source book contained H5P content that could not be cloned. Please "
 "review the cloned version of your book carefully, as missing H5P content "
 "will be indicated. You may want to remove or replace these elements."
-msgstr ""
-"Kaynak kitap, klonlanamayan H5P içeriği içeriyordu. Eksik H5P içeriği "
-"belirtileceğinden, lütfen kitabınızın klonlanmış sürümünü dikkatlice "
-"inceleyin. Bu öğeleri çıkarmak veya değiştirmek isteyebilirsiniz."
+msgstr "Kaynak kitap, klonlanamayan H5P içeriği içeriyordu. Eksik H5P içeriği belirtileceğinden, lütfen kitabınızın klonlanmış sürümünü dikkatlice inceleyin. Bu öğeleri çıkarmak veya değiştirmek isteyebilirsiniz."
 
 #: inc/cloner/class-cloner.php:798
 msgid "The source book&rsquo;s media could not be read."
@@ -3000,13 +2801,11 @@ msgstr "PDF'niz alınamadı."
 
 #: inc/covergenerator/class-isbn.php:61
 msgid "There was a problem creating the barcode: Invalid ISBN number."
-msgstr ""
-"Barkod oluşturulurken bir sorun meydana geldi: Geçersiz ISBN numarası."
+msgstr "Barkod oluşturulurken bir sorun meydana geldi: Geçersiz ISBN numarası."
 
 #: inc/covergenerator/class-sku.php:43
 msgid "There was a problem creating the barcode: Invalid characters in SKU"
-msgstr ""
-"Barkod oluşturulurken bir sorunla karşılaşıldı: SKU'da geçersiz karakterler"
+msgstr "Barkod oluşturulurken bir sorunla karşılaşıldı: SKU'da geçersiz karakterler"
 
 #: inc/editor/namespace.php:110
 msgid "Insert Footnote"
@@ -3039,8 +2838,7 @@ msgstr "Ekle"
 #: inc/editor/namespace.php:137
 msgctxt "JS template string"
 msgid "Glossary term <em>${templateString1}</em> not found. Please create it."
-msgstr ""
-"Sözlük terimi <em>${templateString1}</em> bulunamadı. Lütfen onu oluşturun."
+msgstr "Sözlük terimi <em>${templateString1}</em> bulunamadı. Lütfen onu oluşturun."
 
 #: inc/editor/namespace.php:138
 msgid "Select a Term"
@@ -3069,9 +2867,7 @@ msgstr "Bir terim seçilmedi mi?"
 #: inc/editor/namespace.php:145 inc/posttype/namespace.php:243
 msgid ""
 "To display a list of glossary terms, leave this back matter's content blank."
-msgstr ""
-"Sözlük terimlerinin bir listesini görüntülemek için bu arka konunun "
-"içeriğini boş bırakın."
+msgstr "Sözlük terimlerinin bir listesini görüntülemek için bu arka konunun içeriğini boş bırakın."
 
 #: inc/editor/namespace.php:146
 msgid "Term"
@@ -3180,14 +2976,7 @@ msgid ""
 "resized upon upload. Read more in <a "
 "href=\"https://guide.pressbooks.com/chapter/how-to-design-your-book-cover/\""
 " target=\"_blank\">our guide</a>."
-msgstr ""
-"Bu resim web kitabı ana sayfasında görüntülenecek ve e-kitap Dışa "
-"aktarımları'nda dahili kapak olarak kullanılacaktır. Kapak resimleri en az "
-"800 piksel uzunluğunda olmalı ve 0,66 ile 1 arasında bir en boy oranına "
-"sahip olmalıdır. Çok büyük görüntüler yüklendikten sonra yeniden "
-"boyutlandırılır. Daha fazla bilgi için<a "
-"href=\"https://guide.pressbooks.com/chapter/how-to-design-your-book-cover/\""
-" target=\"_blank\">kılavuzumuzu</a> okuyun."
+msgstr "Bu resim web kitabı ana sayfasında görüntülenecek ve e-kitap Dışa aktarımları'nda dahili kapak olarak kullanılacaktır. Kapak resimleri en az 800 piksel uzunluğunda olmalı ve 0,66 ile 1 arasında bir en boy oranına sahip olmalıdır. Çok büyük görüntüler yüklendikten sonra yeniden boyutlandırılır. Daha fazla bilgi için<a href=\"https://guide.pressbooks.com/chapter/how-to-design-your-book-cover/\" target=\"_blank\">kılavuzumuzu</a> okuyun."
 
 #: inc/image/namespace.php:432 templates/admin/covergenerator.php:130
 msgid "Are you sure you want to delete this?"
@@ -3201,17 +2990,13 @@ msgstr "Sil"
 msgid ""
 "The original version of this chapter contained H5P content. You may want to "
 "remove or replace this element."
-msgstr ""
-"Bu bölümün orijinal versiyonu H5P içeriğine sahipti. Bu öğeyi çıkarmak veya "
-"değiştirmek isteyebilirsiniz."
+msgstr "Bu bölümün orijinal versiyonu H5P içeriğine sahipti. Bu öğeyi çıkarmak veya değiştirmek isteyebilirsiniz."
 
 #: inc/l10n/namespace.php:512 inc/l10n/namespace.php:535
 msgid ""
 "Please contact your system administrator if you would like them to install "
 "extended %s language support for the Pressbooks interface."
-msgstr ""
-"Pressbooks arayüzü için genişletilmiş %s dil desteği yüklemesini "
-"istiyorsanız, lütfen sistem yöneticinizle iletişime geçin."
+msgstr "Pressbooks arayüzü için genişletilmiş %s dil desteği yüklemesini istiyorsanız, lütfen sistem yöneticinizle iletişime geçin."
 
 #: inc/metadata/namespace.php:117
 msgid "Hide Additional Book Information"
@@ -3225,25 +3010,19 @@ msgstr "Ek Kitap Bilgilerini Göster"
 msgid ""
 "The book information you enter here appears on your book’s cover and title "
 "pages and in the metadata of your webbook and exported files."
-msgstr ""
-"Buraya girdiğiniz kitap bilgileri, kitabınızın kapak ve başlık sayfalarında "
-"ve web kitabınızın meta verilerinde ve dışa aktarılan dosyalarda görünür."
+msgstr "Buraya girdiğiniz kitap bilgileri, kitabınızın kapak ve başlık sayfalarında ve web kitabınızın meta verilerinde ve dışa aktarılan dosyalarda görünür."
 
 #: inc/metadata/namespace.php:129
 msgid ""
 "If you need to enter additional information, click the button below to see "
 "all available fields."
-msgstr ""
-"Ek bilgi girmeniz gerekirse, mevcut tüm alanları görmek için aşağıdaki "
-"düğmeyi tıklayın."
+msgstr "Ek bilgi girmeniz gerekirse, mevcut tüm alanları görmek için aşağıdaki düğmeyi tıklayın."
 
 #: inc/metadata/namespace.php:1205
 msgid ""
 "The %1$s Thema subject terms requested for this book could not be downloaded"
 " from %2$s. Please report this error to your network manager."
-msgstr ""
-"Bu kitap için istenen %1$s Tema konu terimleri %2$ss'den indirilemedi. "
-"Lütfen bu hatayı ağ yöneticinize bildirin."
+msgstr "Bu kitap için istenen %1$s Tema konu terimleri %2$ss'den indirilemedi. Lütfen bu hatayı ağ yöneticinize bildirin."
 
 #: inc/modules/export/class-export.php:740
 msgid "%s: Initializing"
@@ -3271,14 +3050,11 @@ msgstr "%s: Tamamlandı"
 
 #: inc/modules/export/class-export.php:823
 msgid "The export failed. See logs for more details."
-msgstr ""
-"Dışa aktarma başarısız oldu. Daha fazla ayrıntı için log kayıtlarına bakın."
+msgstr "Dışa aktarma başarısız oldu. Daha fazla ayrıntı için log kayıtlarına bakın."
 
 #: inc/modules/export/class-export.php:832
 msgid "Warning: The export has validation errors. See logs for more details."
-msgstr ""
-"Uyarı: Dışa aktarma, doğrulama hatası ile karşılaştı. Detaylar için log "
-"kayıtlarına bakınız."
+msgstr "Uyarı: Dışa aktarma, doğrulama hatası ile karşılaştı. Detaylar için log kayıtlarına bakınız."
 
 #: inc/modules/export/class-export.php:833
 msgid "Emailed to:"
@@ -3424,9 +3200,7 @@ msgstr "Geçersiz yetki hatası"
 msgid ""
 "Some dependencies for %1$s exports could not be found. Please verify that "
 "you have completed the <a href=\"%2$s\">installation instructions</a>."
-msgstr ""
-"%1$s dışa aktarımı için bazı bağımlılıklar bulunamadı. Lütfen <a "
-"href=\"%2$s\">kurulum talimatlarını</a> tamamladığınızı doğrulayın."
+msgstr "%1$s dışa aktarımı için bazı bağımlılıklar bulunamadı. Lütfen <a href=\"%2$s\">kurulum talimatlarını</a> tamamladığınızı doğrulayın."
 
 #: inc/modules/export/namespace.php:85
 #: inc/modules/themeoptions/class-globaloptions.php:455
@@ -3516,7 +3290,7 @@ msgstr ""
 
 #: inc/modules/export/namespace.php:237
 msgid "ODT"
-msgstr ""
+msgstr "ODT"
 
 #: inc/modules/export/namespace.php:238 inc/modules/export/namespace.php:239
 msgid "WXR"
@@ -3549,9 +3323,7 @@ msgstr[1] ""
 msgid ""
 "This book was produced with Pressbooks (https://pressbooks.com) and rendered"
 " with Prince."
-msgstr ""
-"Bu kitap Pressbooks (https://pressbooks.com) ile üretilmiş ve Prince ile "
-"oluşturulmuştur."
+msgstr "Bu kitap Pressbooks (https://pressbooks.com) ile üretilmiş ve Prince ile oluşturulmuştur."
 
 #: inc/modules/export/xhtml/class-xhtml11.php:178
 msgid "XHTML: "
@@ -3663,10 +3435,7 @@ msgid ""
 "Once you&rsquo;ve pressed &lsquo;Replace & Save&rsquo; there is no going "
 "back! Have you checked &lsquo;Preview Replacements&rsquo; to make sure this "
 "will do what you want it to do?"
-msgstr ""
-"\"Değiştir ve Kaydet\" e bastıktan sonra geri dönüş yoktur! Bunun yapmak "
-"istediğiniz şeyi yapacağından emin olmak için 'Değiştirmeleri Önizle'yi "
-"kontrol ettiniz mi?"
+msgstr "\"Değiştir ve Kaydet\" e bastıktan sonra geri dönüş yoktur! Bunun yapmak istediğiniz şeyi yapacağından emin olmak için 'Değiştirmeleri Önizle'yi kontrol ettiniz mi?"
 
 #: inc/modules/searchandreplace/class-searchandreplace.php:76
 #: inc/modules/searchandreplace/class-searchandreplace.php:77
@@ -3721,9 +3490,7 @@ msgstr "E-kitap Başlangıç Noktası"
 msgid ""
 "Note: This designated ebook start book may be overridden by some ereader "
 "devices."
-msgstr ""
-"Not: Bu belirlenmiş e-kitap başlangıç kitabı bazı e-okuyucu aygıtları "
-"tarafından geçersiz kılınabilir."
+msgstr "Not: Bu belirlenmiş e-kitap başlangıç kitabı bazı e-okuyucu aygıtları tarafından geçersiz kılınabilir."
 
 #: inc/modules/themeoptions/class-ebookoptions.php:146
 #: inc/modules/themeoptions/class-pdfoptions.php:297
@@ -3775,9 +3542,7 @@ msgstr "Parça Etiketi"
 msgid ""
 "The \"part\" label is used in the table of contents and in part titles in "
 "your webbook and exports."
-msgstr ""
-"\"Parça\" etiketi, web kitabınızda ve dışa aktardığınızda içindekiler "
-"bölümünde ve parça başlıklarında kullanılır."
+msgstr "\"Parça\" etiketi, web kitabınızda ve dışa aktardığınızda içindekiler bölümünde ve parça başlıklarında kullanılır."
 
 #: inc/modules/themeoptions/class-globaloptions.php:141
 msgid "Chapter Label"
@@ -3787,9 +3552,7 @@ msgstr "Bölüm Etiketi"
 msgid ""
 "The \"chapter\" label is used in the table of contents and in chapter titles"
 " in your webbook and exports."
-msgstr ""
-"\"Bölüm\" etiketi, web kitabınızdaki ve dışa aktarılan dosyalarınızdaki "
-"içindekiler ve bölüm başlıklarında kullanılır."
+msgstr "\"Bölüm\" etiketi, web kitabınızdaki ve dışa aktarılan dosyalarınızdaki içindekiler ve bölüm başlıklarında kullanılır."
 
 #: inc/modules/themeoptions/class-globaloptions.php:153
 msgid "Two-Level TOC"
@@ -3798,9 +3561,7 @@ msgstr "İki-Düzeyli TOC"
 #: inc/modules/themeoptions/class-globaloptions.php:158
 msgid ""
 "Enable two-level table of contents (displays headings under chapter titles)"
-msgstr ""
-"İki-düzeyli içindekiler tablosuna erişime izin ver (bölüm isimlerinin "
-"altında başlıkları gösterir)"
+msgstr "İki-düzeyli içindekiler tablosuna erişime izin ver (bölüm isimlerinin altında başlıkları gösterir)"
 
 #: inc/modules/themeoptions/class-globaloptions.php:164
 msgid "About the Author"
@@ -3825,8 +3586,7 @@ msgstr "Dil ve Alfabe Desteği"
 
 #: inc/modules/themeoptions/class-globaloptions.php:193
 msgid "Include fonts to support the following languages and scripts:"
-msgstr ""
-"Aşağıdaki dilleri ve alfabeleri desteklemek için yazı tiplerini ekleyin:"
+msgstr "Aşağıdaki dilleri ve alfabeleri desteklemek için yazı tiplerini ekleyin:"
 
 #: inc/modules/themeoptions/class-globaloptions.php:207
 msgid "Chapter Licenses"
@@ -3838,14 +3598,11 @@ msgstr "Bölüm düzeyinde telif hakkı lisansını görüntüleME"
 
 #: inc/modules/themeoptions/class-globaloptions.php:213
 msgid "Display section level license on table of contents in export formats"
-msgstr ""
-"Dışa aktarma formatları içindekiler bölümünde bölüm düzeyinde lisansı "
-"görüntüleyin"
+msgstr "Dışa aktarma formatları içindekiler bölümünde bölüm düzeyinde lisansı görüntüleyin"
 
 #: inc/modules/themeoptions/class-globaloptions.php:214
 msgid "Display section level license at end of chapter in export formats"
-msgstr ""
-"Bölüm düzeyindeki lisansı dışa aktarma formatları bölüm sonunda görüntüleyin"
+msgstr "Bölüm düzeyindeki lisansı dışa aktarma formatları bölüm sonunda görüntüleyin"
 
 #: inc/modules/themeoptions/class-globaloptions.php:220
 #: languages/tinymce.php:21
@@ -3869,8 +3626,7 @@ msgstr "Öğrenme hedefleri"
 
 #: inc/modules/themeoptions/class-globaloptions.php:232
 msgid "Customize colors for %s textboxes using the fields below."
-msgstr ""
-"Aşağıdaki alanları kullanarak %s metin kutuları için renkleri özelleştirin."
+msgstr "Aşağıdaki alanları kullanarak %s metin kutuları için renkleri özelleştirin."
 
 #: inc/modules/themeoptions/class-globaloptions.php:238
 msgid "Header Color"
@@ -3898,9 +3654,7 @@ msgstr "%s metin kutusu için arka plan rengi."
 
 #: inc/modules/themeoptions/class-globaloptions.php:293
 msgid "These options apply universally to webbook, PDF and ebook exports."
-msgstr ""
-"Bu seçenekler webbook, PDF ve e-kitapların dışa aktarımına küresel olarak "
-"uygulanır."
+msgstr "Bu seçenekler webbook, PDF ve e-kitapların dışa aktarımına küresel olarak uygulanır."
 
 #: inc/modules/themeoptions/class-globaloptions.php:476
 msgid "This theme includes built-in support for %s."
@@ -3918,9 +3672,7 @@ msgstr "Gövde Yazı Tipi"
 msgid ""
 "Heading sizes are proportional to the body font size and will also be "
 "affected by this setting."
-msgstr ""
-"Başlık boyutları gövde yazı tipi boyutuyla orantılıdır ve ayrıca bu ayardan "
-"etkilenecektir."
+msgstr "Başlık boyutları gövde yazı tipi boyutuyla orantılıdır ve ayrıca bu ayardan etkilenecektir."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:153
 msgid "Footnote Font Size"
@@ -3978,9 +3730,7 @@ msgstr "Sayfa Genişliği"
 msgid ""
 "Page width must be expressed in CSS-compatible units, e.g. "
 "&lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;."
-msgstr ""
-"Sayfa genişliği, CSS uyumlu birimlerle ifade edilmelidir. ör. 5.5in veya "
-"10cm,"
+msgstr "Sayfa genişliği, CSS uyumlu birimlerle ifade edilmelidir. ör. 5.5in veya 10cm,"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:213
 msgid "Page Height"
@@ -3990,9 +3740,7 @@ msgstr "Sayfa Yüksekliği"
 msgid ""
 "Page height must be expressed in CSS-compatible units, e.g. "
 "&lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;."
-msgstr ""
-"Sayfa yüksekliği, CSS uyumlu birimlerle ifade edilmelidir; ör. 8.5in veya "
-"10cm,"
+msgstr "Sayfa yüksekliği, CSS uyumlu birimlerle ifade edilmelidir; ör. 8.5in veya 10cm,"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:226
 msgid "Margins"
@@ -4000,8 +3748,7 @@ msgstr "Kenar Boşlukları"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:231
 msgid "Customize your book&rsquo;s margins using the fields below."
-msgstr ""
-"Aşağıdaki alanları kullanarak kitabınızın kenar boşluklarını özelleştirin."
+msgstr "Aşağıdaki alanları kullanarak kitabınızın kenar boşluklarını özelleştirin."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:237
 #: inc/modules/themeoptions/class-pdfoptions.php:962
@@ -4015,8 +3762,7 @@ msgstr "Dış Kenar Boşlukları"
 msgid ""
 "Margins must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo; "
 "or &lsquo;10cm&rsquo;."
-msgstr ""
-"Marjlar, CSS uyumlu birimlerle ifade edilmelidir (8.5in veya 10cm gibi)"
+msgstr "Marjlar, CSS uyumlu birimlerle ifade edilmelidir (8.5in veya 10cm gibi)"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:249
 #: inc/modules/themeoptions/class-pdfoptions.php:963
@@ -4105,9 +3851,7 @@ msgstr "Sayfa Başları & Sonları"
 msgid ""
 "Running content appears in either running heads or running feet (at the top "
 "or bottom of the page) depending on your theme."
-msgstr ""
-"Sayfanın içeriği, temanıza bağlı olarak sayfa başlığında veya sonunda "
-"(sayfanın üstünde veya altında) görülür."
+msgstr "Sayfanın içeriği, temanıza bağlı olarak sayfa başlığında veya sonunda (sayfanın üstünde veya altında) görülür."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:403
 msgid "Front Matter Left Page Running Content"
@@ -4278,9 +4022,7 @@ msgstr "Bu seçenekler PDF dışa aktarım için geçerlidir."
 msgid ""
 "IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm "
 "on any side can cause your file to be rejected."
-msgstr ""
-"ÖNEMLİ: İsteğe bağlı baskı kullanmayı planlıyorsanız, herhangi bir tarafta 2"
-" cm altındaki boşluklar dosyanızın reddedilmesine neden olabilir."
+msgstr "ÖNEMLİ: İsteğe bağlı baskı kullanmayı planlıyorsanız, herhangi bir tarafta 2 cm altındaki boşluklar dosyanızın reddedilmesine neden olabilir."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:1534
 msgid "PDF Options"
@@ -4294,9 +4036,7 @@ msgstr "Sosyal medyayı etkinleştir"
 msgid ""
 "Adds a button to cover page and each chapter which allows readers to share "
 "links to your book through Twitter"
-msgstr ""
-"Kapak sayfasına ve her bölüme okuyucuların kitabınızın bağlantılarını "
-"Twitter üzerinden paylaşmasına olanak tanıyan bir düğme ekler"
+msgstr "Kapak sayfasına ve her bölüme okuyucuların kitabınızın bağlantılarını Twitter üzerinden paylaşmasına olanak tanıyan bir düğme ekler"
 
 #: inc/modules/themeoptions/class-weboptions.php:149
 msgid "Webbook Width"
@@ -4334,17 +4074,13 @@ msgstr "Kaynak Karşılaştırmasını Etkinleştir"
 msgid ""
 "Add comparison tool to the end of each front matter, part, chapter, and back"
 " matter"
-msgstr ""
-"Her ön materyalin, parçanın, bölümün ve arka materyalin sonuna karşılaştırma"
-" aracı ekleyin"
+msgstr "Her ön materyalin, parçanın, bölümün ve arka materyalin sonuna karşılaştırma aracı ekleyin"
 
 #: inc/modules/themeoptions/class-weboptions.php:206
 msgid ""
 "Allows readers to compare content with the original book from which it was "
 "cloned."
-msgstr ""
-"Okuyucuların içeriği klonlandığı orijinal kitapla karşılaştırmasına olanak "
-"tanır."
+msgstr "Okuyucuların içeriği klonlandığı orijinal kitapla karşılaştırmasına olanak tanır."
 
 #: inc/modules/themeoptions/class-weboptions.php:232
 msgid "These options apply to the webbook."
@@ -4370,16 +4106,12 @@ msgstr "Sözlük Terimi"
 msgid ""
 "Links, bold text and italic text are supported in glossary terms. Other "
 "elements will be removed."
-msgstr ""
-"Bağlantılar, kalın metin ve italik metin sözlük terimlerinde "
-"desteklenmektedir. Diğer öğeler kaldırılacaktır."
+msgstr "Bağlantılar, kalın metin ve italik metin sözlük terimlerinde desteklenmektedir. Diğer öğeler kaldırılacaktır."
 
 #: inc/posttype/namespace.php:248
 msgid ""
 "To display a list of contributors, leave this back matter's content blank."
-msgstr ""
-"Katkıda bulunanların listesini görüntülemek için bu arka bölümün içeriğini "
-"boş bırakın."
+msgstr "Katkıda bulunanların listesini görüntülemek için bu arka bölümün içeriğini boş bırakın."
 
 #: inc/posttype/namespace.php:287
 msgid "Unlisted"
@@ -4501,11 +4233,7 @@ msgid ""
 "your book. It must be at least 4 characters, letters and numbers only. It "
 "<strong>cannot be changed</strong>, so choose carefully! We suggest using "
 "the title of your book with no spaces."
-msgstr ""
-"Web kitabı adresiniz, kitabınıza erişeceğiniz ve oluşturacağınız web "
-"adresidir. En az 4 karakter, harf ve rakamlardan oluşmalıdır. "
-"<strong>Değiştirilemez</strong>, bu yüzden dikkatli seçin! Kitabınızın "
-"başlığını boşluk olmadan kullanmanızı öneririz."
+msgstr "Web kitabı adresiniz, kitabınıza erişeceğiniz ve oluşturacağınız web adresidir. En az 4 karakter, harf ve rakamlardan oluşmalıdır. <strong>Değiştirilemez</strong>, bu yüzden dikkatli seçin! Kitabınızın başlığını boşluk olmadan kullanmanızı öneririz."
 
 #: inc/registration/namespace.php:49
 msgid "Book Title:"
@@ -4531,9 +4259,7 @@ msgstr "Yeni bir kitap yarat"
 msgid ""
 "Welcome, %s. Fill out the form below to <strong>add a new book to your "
 "account</strong>."
-msgstr ""
-"Hoşgeldiniz, %s. Hesabınıza yeni bir kitap eklemek için <strong>aşşağıdaki "
-"formu doldurunuz</strong>."
+msgstr "Hoşgeldiniz, %s. Hesabınıza yeni bir kitap eklemek için <strong>aşşağıdaki formu doldurunuz</strong>."
 
 #: inc/registration/namespace.php:72
 msgid "yourwebbookname"
@@ -4551,9 +4277,7 @@ msgstr "Tebrikler! Yeni kitabınız, %s, neredeyse hazır."
 msgid ""
 "But, before you can start writing your book, <strong>you must activate "
 "it</strong>."
-msgstr ""
-"Fakat, kitabınızı yazmaya başlamadan önce, <strong>aktif "
-"etmelisiniz</strong>."
+msgstr "Fakat, kitabınızı yazmaya başlamadan önce, <strong>aktif etmelisiniz</strong>."
 
 #: inc/registration/namespace.php:87
 msgid ""
@@ -4563,13 +4287,7 @@ msgid ""
 " not receive an email, please check your junk or spam folder. If you still "
 "do not receive an email within an hour, you can <a href=\"%4$s\">reset your "
 "password</a>."
-msgstr ""
-"Hesabınız aktive edildi. Şimdi kullanıcı adınızı &#8220;%2$s&#8221; "
-"kullanarak kitabınıza <a href=\"%1$s\">giriş yapabilirsiniz</a>. Lütfen "
-"email hesabınızı şifreniz ve giriş talimatları için kontrol ediniz %3$s. "
-"Eğer email gelmediyse lütfen önemsiz klasörünü kontrol ediniz. Eğer emaili "
-"bir saat içinde hala almadıysanız, şifrenizi değiştirebilirsiniz <a "
-"href=\"%4$s\"> </a>."
+msgstr "Hesabınız aktive edildi. Şimdi kullanıcı adınızı &#8220;%2$s&#8221; kullanarak kitabınıza <a href=\"%1$s\">giriş yapabilirsiniz</a>. Lütfen email hesabınızı şifreniz ve giriş talimatları için kontrol ediniz %3$s. Eğer email gelmediyse lütfen önemsiz klasörünü kontrol ediniz. Eğer emaili bir saat içinde hala almadıysanız, şifrenizi değiştirebilirsiniz <a href=\"%4$s\"> </a>."
 
 #: inc/registration/namespace.php:90
 msgid ""
@@ -4579,21 +4297,13 @@ msgid ""
 "receive an email, please check your junk or spam folder. If you still do not"
 " receive an email within an hour, you can <a href=\"%5$s\">reset your "
 "password</a>."
-msgstr ""
-"<a href=\"%1$s\">%2$s</a> 'daki kitabınız aktif. &#8220;%3$s&#8221; isimli "
-"kullanıcı adınızı seçerek kitabınıza giriş yapabilirsiniz. Lütfen %4$s 'da "
-"emailinizi şifreniz ve giriş talimatları için kontrol ediniz. Eğer email "
-"gelmediyse lütfen önemsiz klasörünü kontrol ediniz. Eğer emaili bir ssaat "
-"içinde hala almadıysanız, şifrenizi değiştirebilirsiniz. <a href=\"%5$s\"> "
-"</a>."
+msgstr "<a href=\"%1$s\">%2$s</a> 'daki kitabınız aktif. &#8220;%3$s&#8221; isimli kullanıcı adınızı seçerek kitabınıza giriş yapabilirsiniz. Lütfen %4$s 'da emailinizi şifreniz ve giriş talimatları için kontrol ediniz. Eğer email gelmediyse lütfen önemsiz klasörünü kontrol ediniz. Eğer emaili bir ssaat içinde hala almadıysanız, şifrenizi değiştirebilirsiniz. <a href=\"%5$s\"> </a>."
 
 #: inc/registration/namespace.php:93
 msgid ""
 "Your account is now activated. <a href=\"%1$s\">View your book</a> or <a "
 "href=\"%2$s\">Log in</a>"
-msgstr ""
-"Hesabınız şuan aktif. <a href=\"%1$s\">Kitabınızı inceleyin</a> veya <a "
-"href=\"%2$s\">giriş yapın</a>"
+msgstr "Hesabınız şuan aktif. <a href=\"%1$s\">Kitabınızı inceleyin</a> veya <a href=\"%2$s\">giriş yapın</a>"
 
 #: inc/registration/namespace.php:113
 msgid "Password"
@@ -4615,9 +4325,7 @@ msgstr "Şifrenizi tekrar giriniz."
 msgid ""
 "Password must be at least 12 characters in length, include at least one "
 "upper case letter, and have at least one number."
-msgstr ""
-"Parola en az 12 karakter uzunluğunda olmalı, en az bir büyük harf içermeli "
-"ve en az bir rakam içermelidir."
+msgstr "Parola en az 12 karakter uzunluğunda olmalı, en az bir büyük harf içermeli ve en az bir rakam içermelidir."
 
 #: inc/registration/namespace.php:136 inc/registration/namespace.php:176
 #: inc/registration/namespace.php:195 inc/registration/namespace.php:214
@@ -4682,9 +4390,7 @@ msgstr "Kitabınızın teması, %1$s, mevcut durumunda kilitlendi %2$s / %3$s."
 msgid ""
 "Your book&rsquo;s theme could not be locked. Please ensure that you have "
 "write access to the uploads directory."
-msgstr ""
-"Kitabınızın teması kilitlenemedi. Lütfen yükleme dizinine yazma erişiminiz "
-"olduğundan emin olun."
+msgstr "Kitabınızın teması kilitlenemedi. Lütfen yükleme dizinine yazma erişiminiz olduğundan emin olun."
 
 #: inc/theme/class-lock.php:203
 msgid "Your book&rsquo;s theme has been unlocked."
@@ -4694,44 +4400,32 @@ msgstr "Kitabınızın teması açıldı."
 msgid ""
 "Your book&rsquo;s theme, %1$s, was locked in its current state as of %2$s at"
 " %3$s. To select a new theme or change your theme options, please %4$s."
-msgstr ""
-"Kitabınızın teması, %1$s, mevcut durumunda kilitlendi %2$s / %3$s. Yeni bir "
-"tema seçmek veya tema seçeneklerinizi değiştirmek için lütfen %4$s."
+msgstr "Kitabınızın teması, %1$s, mevcut durumunda kilitlendi %2$s / %3$s. Yeni bir tema seçmek veya tema seçeneklerinizi değiştirmek için lütfen %4$s."
 
 #: inc/theme/namespace.php:41
 msgid ""
 "Your theme, %1$s, is not installed. Please visit %2$s for installation "
 "instructions."
-msgstr ""
-"Temanız, %1$s, yüklenmemiş. Kurulum talimatları için lütfen  %2$s ziyaret "
-"edin."
+msgstr "Temanız, %1$s, yüklenmemiş. Kurulum talimatları için lütfen  %2$s ziyaret edin."
 
 #: inc/theme/namespace.php:56
 msgid ""
 "The Pressbooks Book theme is not installed, but Pressbooks needs it in order"
 " to function properly. Please visit %s for installation instructions."
-msgstr ""
-"Pressbooks Book teması yüklenmedi, ancak Pressbooks'un düzgün çalışması için"
-" buna ihtiyacı var. Kurulum talimatları için lütfen %s ziyaret edin."
+msgstr "Pressbooks Book teması yüklenmedi, ancak Pressbooks'un düzgün çalışması için buna ihtiyacı var. Kurulum talimatları için lütfen %s ziyaret edin."
 
 #: inc/theme/namespace.php:84
 msgid ""
 "The Pressbooks Custom CSS theme must be upgraded. Please visit %s for "
 "installation instructions."
-msgstr ""
-"Pressbooks Özel CSS teması yükseltilmelidir. Kurulum talimatları için lütfen"
-" %s adresini ziyaret edin."
+msgstr "Pressbooks Özel CSS teması yükseltilmelidir. Kurulum talimatları için lütfen %s adresini ziyaret edin."
 
 #: inc/theme/namespace.php:138
 msgid ""
 "Luther has been replaced with McLuhan as Pressbooks’ default book theme. To "
 "continue using Luther for your book, please ensure that the standalone <a "
 "href=\"%1$s\">Luther theme</a> is installed and network activated."
-msgstr ""
-"Luther, Pressbooks’un varsayılan kitap teması olarak McLuhan ile "
-"değiştirildi. Kitabınız için Luther'i kullanmaya devam etmek için lütfen "
-"bağımsız <a href=\"%1$s\">Luther temasının</a> kurulu ve ağın "
-"etkinleştirildiğinden emin olun."
+msgstr "Luther, Pressbooks’un varsayılan kitap teması olarak McLuhan ile değiştirildi. Kitabınız için Luther'i kullanmaya devam etmek için lütfen bağımsız <a href=\"%1$s\">Luther temasının</a> kurulu ve ağın etkinleştirildiğinden emin olun."
 
 #: inc/utility/class-handlestransfers.php:41
 msgid "Download JSON"
@@ -4745,17 +4439,13 @@ msgstr "Başarıyla içe aktarıldı."
 msgid ""
 "One or more contributors could not be imported because they were missing a "
 "name or slug."
-msgstr ""
-"Bir veya daha fazla katkıda bulunanlar, bir ad veya bilgi eksik olduğundan "
-"içe aktarılamadı."
+msgstr "Bir veya daha fazla katkıda bulunanlar, bir ad veya bilgi eksik olduğundan içe aktarılamadı."
 
 #: inc/utility/class-handlestransfers.php:311
 msgid ""
 "Values for one or more of the imported contributors were altered by our "
 "validation routine. "
-msgstr ""
-"İçe aktarılan katkıda bulunanların bir veya daha fazlasının değerleri, "
-"doğrulama rutinimiz tarafından değiştirildi."
+msgstr "İçe aktarılan katkıda bulunanların bir veya daha fazlasının değerleri, doğrulama rutinimiz tarafından değiştirildi."
 
 #: inc/utility/class-percentageyield.php:90
 msgid " (%1$d of %2$d)"
@@ -4766,25 +4456,19 @@ msgstr " (%1$d / %2$d)"
 msgid ""
 "An unexpected error occurred. Something may be wrong with the plugin "
 "recommendations server or your site&#8217;s server&#8217;s configuration."
-msgstr ""
-"Beklenmedik bir sorun oluştu. Eklenti önerileri sunucusunda veya sitenizin "
-"sunucusunun yapılandırmasında bir sorun olabilir."
+msgstr "Beklenmedik bir sorun oluştu. Eklenti önerileri sunucusunda veya sitenizin sunucusunun yapılandırmasında bir sorun olabilir."
 
 #: inc/utility/namespace.php:567
 msgid ""
 "(Pressbooks could not establish a secure connection to the plugin "
 "recommendations server. Please contact your server administrator.)"
-msgstr ""
-"(Pressbooks eklenti önerileri sunucusuyla güvenli bir bağlantı oluşturamadı."
-" Lütfen hizmet yöneticinize başvurunuz.)"
+msgstr "(Pressbooks eklenti önerileri sunucusuyla güvenli bir bağlantı oluşturamadı. Lütfen hizmet yöneticinize başvurunuz.)"
 
 #: inc/utility/namespace.php:618
 msgid ""
 "These plugins have been created and/or recommended by the Pressbooks "
 "community."
-msgstr ""
-"Bu eklentiler Pressbooks topluluğu tarafından oluşturuldu ve/veya tavsiye "
-"edildi."
+msgstr "Bu eklentiler Pressbooks topluluğu tarafından oluşturuldu ve/veya tavsiye edildi."
 
 #: languages/tinymce.php:4
 msgid "Class"
@@ -4865,10 +4549,7 @@ msgid ""
 "Pressbooks dependencies are missing. Please make sure that your "
 "project&rsquo;s <a href=\"%1$s\">Composer autoload file</a> is being "
 "required, or use the <a href=\"%2$s\">latest release</a> instead."
-msgstr ""
-"Pressbooks bağımlılıkları eksik. Lütfen projenizin <a href=\"%1$s\">Composer"
-" otomatik yükleme dosyasının</a> gerekli olduğundan emin olun veya bunun "
-"yerine <a href=\"%2$s\">En son sürümü</a> kullanın."
+msgstr "Pressbooks bağımlılıkları eksik. Lütfen projenizin <a href=\"%1$s\">Composer otomatik yükleme dosyasının</a> gerekli olduğundan emin olun veya bunun yerine <a href=\"%2$s\">En son sürümü</a> kullanın."
 
 #: pressbooks.php:91
 msgid "Cannot find Pressbooks install."
@@ -4908,10 +4589,7 @@ msgid ""
 "You are currently using the Custom CSS theme. To generate a cover, you will "
 "need to switch back to a base theme temporarily. You can then reapply your "
 "Custom CSS theme."
-msgstr ""
-"Şu anda Özel CSS temasını kullanıyorsunuz. Bir kapak oluşturmak için geçici "
-"olarak bir temel temaya geri dönmeniz gerekecektir. Daha sonra Özel CSS "
-"temanızı yeniden uygulayabilirsiniz."
+msgstr "Şu anda Özel CSS temasını kullanıyorsunuz. Bir kapak oluşturmak için geçici olarak bir temel temaya geri dönmeniz gerekecektir. Daha sonra Özel CSS temanızı yeniden uygulayabilirsiniz."
 
 #: templates/admin/covergenerator.php:69
 msgid ""
@@ -4919,11 +4597,7 @@ msgid ""
 "<strong>print</strong> book that will work with most Print on Demand "
 "services, as well as an <strong>ebook</strong> cover that will meet the "
 "specifications of Kindle, Apple and other ebook retailers."
-msgstr ""
-"Kapak oluşturucumuzu kullanarak, <strong>kitabınız</strong> için güzel bir "
-"kapak oluşturabilirsiniz. Ayrıca, Kindle, Apple ve diğer e-kitap "
-"satıcılarının teknik özelliklerini karşılayacak bir <strong>e-kitap</strong>"
-" kapağı da oluşturabilirsiniz."
+msgstr "Kapak oluşturucumuzu kullanarak, <strong>kitabınız</strong> için güzel bir kapak oluşturabilirsiniz. Ayrıca, Kindle, Apple ve diğer e-kitap satıcılarının teknik özelliklerini karşılayacak bir <strong>e-kitap</strong> kapağı da oluşturabilirsiniz."
 
 #: templates/admin/covergenerator.php:79
 msgid "Make Your Cover"
@@ -4975,9 +4649,7 @@ msgstr "Tüm Kapakları Sil"
 
 #: templates/admin/custom-styles.php:37
 msgid "Error: Something went wrong. See logs for more details."
-msgstr ""
-"Hata: Birşeyler yanlış gitti. Daha fazla ayrıntı için sistem günlüklere "
-"bakın."
+msgstr "Hata: Birşeyler yanlış gitti. Daha fazla ayrıntı için sistem günlüklere bakın."
 
 #: templates/admin/custom-styles.php:47
 msgid "You are currently editing styles for"
@@ -5092,20 +4764,14 @@ msgid ""
 "Search & Replace will find and replace ALL instances of the search pattern "
 "in your entire book. Replacements will only be saved if you click "
 "&lsquo;<strong>Replace &amp; Save</strong>&rsquo;."
-msgstr ""
-"Ara ve Değiştir, kitabınızın tamamında arama modelinin TÜM örneklerini bulur"
-" ve değiştirir.  Değiştirmeler yalnızca \"Değiştir &amp; Kaydet</strong>\" "
-"seçeneğini tıklarsanız kaydedilecektir."
+msgstr "Ara ve Değiştir, kitabınızın tamamında arama modelinin TÜM örneklerini bulur ve değiştirir.  Değiştirmeler yalnızca \"Değiştir &amp; Kaydet</strong>\" seçeneğini tıklarsanız kaydedilecektir."
 
 #: templates/admin/search.php:13
 msgid ""
 "Be careful replacing text. There is no undo button. However, you can revert "
 "your changes using the Revision History within each chapter, front matter or"
 " back matter."
-msgstr ""
-"Metni değiştirirken dikkatli olun. Geri alma düğmesi yok. Bununla birlikte, "
-"değişikliklerinizi her bölüm içindeki Revizyon Geçmişin kullanarak ön "
-"bölümdeki veya arka bölümdeki değişiklikleri geri alabilirsiniz."
+msgstr "Metni değiştirirken dikkatli olun. Geri alma düğmesi yok. Bununla birlikte, değişikliklerinizi her bölüm içindeki Revizyon Geçmişin kullanarak ön bölümdeki veya arka bölümdeki değişiklikleri geri alabilirsiniz."
 
 #: templates/admin/search.php:17
 msgid "Search Within"
@@ -5150,17 +4816,13 @@ msgstr "Değiştir &amp; Kaydet"
 #: templates/admin/trash.php:21
 msgid ""
 "Restore deleted chapters, parts, front and back matter, and glossary terms"
-msgstr ""
-"Silinen bölümleri, parçaları, ön ve arka konuları ve sözlük terimlerini geri"
-" yükleyin"
+msgstr "Silinen bölümleri, parçaları, ön ve arka konuları ve sözlük terimlerini geri yükleyin"
 
 #: templates/admin/trash.php:22
 msgid ""
 "<strong>NOTE</strong>: Items in the trash will be permanently deleted after "
 "%d days."
-msgstr ""
-"<strong>NOT</strong>: Çöp kutusundaki öğeler %d gün sonra kalıcı olarak "
-"silinecek."
+msgstr "<strong>NOT</strong>: Çöp kutusundaki öğeler %d gün sonra kalıcı olarak silinecek."
 
 #: templates/admin/trash.php:27
 msgid "No trash found."
@@ -5207,10 +4869,7 @@ msgid ""
 "Sorry, but no books matched your filtering criteria. Please <a "
 "class=\"clear-filters\" href=\"#\">clear your current filters</a> and try "
 "again."
-msgstr ""
-"Üzgünüz, fakat hiçbir kitap sizin süzgeç kriterlerinize uymuyor. Lütfen <a "
-"class=\"clear-filters\" href=\"#\">süzgeçi temizleyin</a> ve tekrar "
-"deneyiniz."
+msgstr "Üzgünüz, fakat hiçbir kitap sizin süzgeç kriterlerinize uymuyor. Lütfen <a class=\"clear-filters\" href=\"#\">süzgeçi temizleyin</a> ve tekrar deneyiniz."
 
 #: templates/pb-catalog.php:273
 msgid "Pressbooks: the CMS for Books."
@@ -5546,9 +5205,7 @@ msgstr "Lütfen bu bilgileri herhangi bir hata raporuyla birlikte gönderin."
 msgid ""
 "To copy the system info, click below then press Ctrl + C (PC) or Cmd + C "
 "(Mac)."
-msgstr ""
-"Sistem bilgilerini kopyalamak için aşağıya tıklayın ve Ctrl + C (PC) veya "
-"Cmd + C (Mac) tuşlarına basın."
+msgstr "Sistem bilgilerini kopyalamak için aşağıya tıklayın ve Ctrl + C (PC) veya Cmd + C (Mac) tuşlarına basın."
 
 #: templates/admin/diagnostics.blade.php:8
 msgid "View Source"
@@ -5558,9 +5215,7 @@ msgstr "Kaynağı Görüntüle"
 msgid ""
 "<a href=\"%s\">View your book&rsquo;s XHTML source</a> to diagnose issues "
 "you may be encountering with your PDF exports."
-msgstr ""
-"PDF dışa aktarmalarınızda karşılaşabileceğiniz sorunları teşhis etmek için, "
-"<a href=\"%s\">kitabınızın XHTML kaynağını</a> görüntüleyin."
+msgstr "PDF dışa aktarmalarınızda karşılaşabileceğiniz sorunları teşhis etmek için, <a href=\"%s\">kitabınızın XHTML kaynağını</a> görüntüleyin."
 
 #: templates/admin/diagnostics.blade.php:10
 msgid "Regenerate Webbook Stylesheet"
@@ -5568,9 +5223,7 @@ msgstr "Web Kitabı Stil Sayfasını Yeniden Oluştur"
 
 #: templates/admin/diagnostics.blade.php:11
 msgid "If your webbook stylesheet has issues, it may help to regenerate it."
-msgstr ""
-"Web kitabı stil sayfanızda sorunlar varsa, onu yeniden oluşturmak yardımcı "
-"olabilir."
+msgstr "Web kitabı stil sayfanızda sorunlar varsa, onu yeniden oluşturmak yardımcı olabilir."
 
 #: templates/admin/diagnostics.blade.php:12
 msgid "Regenerate Stylesheet"
@@ -5581,10 +5234,7 @@ msgid ""
 "You can select multiple formats below. Pressbooks keeps the last 3 exports "
 "of each file format. You can pin specific files to make sure they don't get "
 "deleted."
-msgstr ""
-"Aşağıda birden çok format seçebilirsiniz. Pressbooks, her dosya formatının "
-"son 3 dışa aktarımını tutar. Silinmediklerinden emin olmak için belirli "
-"dosyaları sabitleyebilirsiniz."
+msgstr "Aşağıda birden çok format seçebilirsiniz. Pressbooks, her dosya formatının son 3 dışa aktarımını tutar. Silinmediklerinden emin olmak için belirli dosyaları sabitleyebilirsiniz."
 
 #: templates/admin/export.blade.php:15
 msgid "Toggle panel: Export Options"
@@ -5618,9 +5268,7 @@ msgstr "Son dışa aktarımlar"
 msgid ""
 "If you can see a big integral, then PB-MathJax is configured correctly, and "
 "all is well."
-msgstr ""
-"Eğer büyük bir integral görebiliyorsanız, PB-MathJax doğru "
-"yapılandırılmıştır ve her şey yolunda demektir."
+msgstr "Eğer büyük bir integral görebiliyorsanız, PB-MathJax doğru yapılandırılmıştır ve her şey yolunda demektir."
 
 #: templates/admin/mathjax.blade.php:10
 msgid "Syntax"
@@ -5658,9 +5306,7 @@ msgstr "Metin rengi"
 msgid ""
 "A six digit hexadecimal number like <code>000000</code> or "
 "<code>ffffff</code>"
-msgstr ""
-"<code>000000</code> veya <code>ffffff</code> gibi altı basamaklı onaltılık "
-"bir sayı."
+msgstr "<code>000000</code> veya <code>ffffff</code> gibi altı basamaklı onaltılık bir sayı."
 
 #: templates/admin/mathjax.blade.php:52
 msgid "SVG/PNG Fonts"
@@ -5670,10 +5316,7 @@ msgstr "SVG/PNG Fonts"
 msgid ""
 "Affects exports (PDF, EPUB, MOBI.) Webbook uses CommonHTML. CommonHTML "
 "currently only supports MathJax’s default TeX fonts."
-msgstr ""
-"Dışa aktarımı etkiler (PDF, EPUB, MOBI.) Web kitabı CommonHTML kullanır. "
-"CommonHTML şu anda yalnızca MathJax’ın varsayılan TeX yazı tiplerini "
-"desteklemektedir."
+msgstr "Dışa aktarımı etkiler (PDF, EPUB, MOBI.) Web kitabı CommonHTML kullanır. CommonHTML şu anda yalnızca MathJax’ın varsayılan TeX yazı tiplerini desteklemektedir."
 
 #: templates/admin/mathjax.blade.php:65
 msgid "Save Changes"
@@ -5688,18 +5331,13 @@ msgid ""
 "Anyone with the link can see your book. Public books are eligible to be "
 "listed in <a href=\"%s\">Pressbooks Directory</a>. Individual chapters can "
 "be set to private."
-msgstr ""
-"Bağlantıya sahip herkes kitabınızı görebilir. Genel kitaplar <a "
-"href=\"%s\">Pressbooks Dizini</a>inde listelenebilir. Ayrı bölümler özel "
-"olarak ayarlanabilir."
+msgstr "Bağlantıya sahip herkes kitabınızı görebilir. Genel kitaplar <a href=\"%s\">Pressbooks Dizini</a>inde listelenebilir. Ayrı bölümler özel olarak ayarlanabilir."
 
 #: templates/admin/organize.blade.php:39
 msgid ""
 "Only users you invite can see your book, regardless of individual chapter "
 "visibility below."
-msgstr ""
-"Aşağıdaki bölümlerin görünürlüğünden bağımsız olarak, yalnızca davet "
-"ettiğiniz kullanıcılar kitabınızı görebilir."
+msgstr "Aşağıdaki bölümlerin görünürlüğünden bağımsız olarak, yalnızca davet ettiğiniz kullanıcılar kitabınızı görebilir."
 
 #: templates/admin/organize.blade.php:63
 msgid "Add Glossary Term"
@@ -5795,17 +5433,13 @@ msgstr "Yayınevi Logosu"
 msgid ""
 "An interactive H5P element has been excluded from this version of the text. "
 "You can view it online here:"
-msgstr ""
-"Etkileşimli bir H5P öğesi, metnin bu sürümünde yer almadı. Buradan çevrimiçi"
-" görüntüleyebilirsiniz:"
+msgstr "Etkileşimli bir H5P öğesi, metnin bu sürümünde yer almadı. Buradan çevrimiçi görüntüleyebilirsiniz:"
 
 #: templates/interactive/media.blade.php:4
 msgid ""
 "One or more interactive elements has been excluded from this version of the "
 "text. You can view them online here: "
-msgstr ""
-"Bir veya daha fazla etkileşimli öğe, metnin bu sürümünde yer almadı. Bunları"
-" çevrimiçi olarak burada görüntüleyebilirsiniz:"
+msgstr "Bir veya daha fazla etkileşimli öğe, metnin bu sürümünde yer almadı. Bunları çevrimiçi olarak burada görüntüleyebilirsiniz:"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:4
 msgid "Remove"

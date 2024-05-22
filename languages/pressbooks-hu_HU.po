@@ -1,16 +1,17 @@
 # Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
-# Steel Wagstaff <steel@pressbooks.com>, 2023
-# 
+# Antonio D., 2018
+# ed1160fe3a1015066d1351c8a3b38361, 2014
+# ed1160fe3a1015066d1351c8a3b38361, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 6.18.0\n"
+"Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2024-04-04T20:55:25+00:00\n"
-"PO-Revision-Date: 2023-05-25 04:50+0000\n"
-"Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2023\n"
-"Language-Team: Hungarian (Hungary) (https://app.transifex.com/pressbooks/teams/9194/hu_HU/)\n"
+"POT-Creation-Date: 2024-05-08T20:14:28+00:00\n"
+"PO-Revision-Date: 2013-12-21 21:04+0000\n"
+"Last-Translator: Antonio D., 2018\n"
+"Language-Team: Hungarian (Hungary) (http://app.transifex.com/pressbooks/pressbooks/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -75,10 +76,7 @@ msgid ""
 "The Pressbooks plugin is inactive, but you have active plugins that require "
 "Pressbooks. This is causing errors. Please go to the Plugins page, and "
 "activate Pressbooks."
-msgstr ""
-"A Pressbooks pluginja inaktív, de aktív bővítményei vannak, amelyekhez "
-"Pressbooks szükséges. Ez hibákat okoz. Lépjen a Plugins oldalra, és "
-"aktiválja a Pressbooks-ot."
+msgstr "A Pressbooks pluginja inaktív, de aktív bővítményei vannak, amelyekhez Pressbooks szükséges. Ez hibákat okoz. Lépjen a Plugins oldalra, és aktiválja a Pressbooks-ot."
 
 #: inc/admin/attachments/namespace.php:39
 msgid "ATTRIBUTIONS"
@@ -277,8 +275,7 @@ msgstr "Igen."
 
 #: inc/admin/class-exportoptions.php:81
 msgid "Email me validation error logs on export."
-msgstr ""
-"Küldjön e-mailt az exportálással kapcsolatos érvényesítési hiba naplóba."
+msgstr "Küldjön e-mailt az exportálással kapcsolatos érvényesítési hiba naplóba."
 
 #: inc/admin/class-exportoptions.php:88
 msgid "Lock Theme"
@@ -378,7 +375,7 @@ msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:69
 msgid "Text"
-msgstr ""
+msgstr "Szöveg"
 
 #: inc/admin/covergenerator/namespace.php:87
 msgid "Title (Spine)"
@@ -1018,9 +1015,7 @@ msgstr "Nyilvános. Szeretném, ha ez a könyv mindenki számára látható lenn
 #: inc/admin/laf/namespace.php:1348
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
-msgstr ""
-"Privát. Szeretném, ha ez a könyv csak meghívottak számára lenne "
-"hozzáférhető."
+msgstr "Privát. Szeretném, ha ez a könyv csak meghívottak számára lenne hozzáférhető."
 
 #: inc/admin/laf/namespace.php:1372
 msgid "Who can see private front matter, chapters and back matter?"
@@ -1038,34 +1033,25 @@ msgstr "Minden bejelentkezett felhasználó, beleértve az előfizetőket."
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
-msgstr ""
-"Igen. Szeretném automatikusan letiltani a megjegyzéseket, a visszajelzéseket"
-" és a pingbackeket az összes előlapon, fejezeten és hátlapon."
+msgstr "Igen. Szeretném automatikusan letiltani a megjegyzéseket, a visszajelzéseket és a pingbackeket az összes előlapon, fejezeten és hátlapon."
 
 #: inc/admin/laf/namespace.php:1404
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
-msgstr ""
-"Nem. Aktiválva szeretném hagyni a kommenteket, trackbackeket és pingbackeket"
-" minden előlapon, fejezetben és hátlapon, kivéve ha manuálisan le nem "
-"letiltom őket."
+msgstr "Nem. Aktiválva szeretném hagyni a kommenteket, trackbackeket és pingbackeket minden előlapon, fejezetben és hátlapon, kivéve ha manuálisan le nem letiltom őket."
 
 #: inc/admin/laf/namespace.php:1420
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
-msgstr ""
-"Igen. Szeretném, ha a legújabb exportfájlok mindenki számára ingyen "
-"elérhetők lennének a honlapon."
+msgstr "Igen. Szeretném, ha a legújabb exportfájlok mindenki számára ingyen elérhetők lennének a honlapon."
 
 #: inc/admin/laf/namespace.php:1426
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
-msgstr ""
-"Nem. Szeretném, ha a legfrissebb exportfájlok csak a rendszergazdák számára "
-"lennének elérhetők."
+msgstr "Nem. Szeretném, ha a legfrissebb exportfájlok csak a rendszergazdák számára lennének elérhetők."
 
 #: inc/admin/laf/namespace.php:1445
 msgid "Yes. I want this book to be listed in the Pressbooks directory."
@@ -1165,7 +1151,7 @@ msgstr ""
 #: inc/admin/menus/class-sidebar.php:449 inc/admin/menus/class-sidebar.php:450
 #: inc/admin/menus/class-topbar.php:154
 msgid "Settings"
-msgstr ""
+msgstr "Beállítások"
 
 #: inc/admin/menus/class-sidebar.php:261 inc/admin/menus/class-sidebar.php:262
 #: inc/admin/menus/class-sidebar.php:517 inc/admin/menus/class-sidebar.php:518
@@ -1295,9 +1281,7 @@ msgstr ""
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
-msgstr ""
-"A könyvének egy nagyon rövid leírása. Be kellene férnie egy Twitter posztba,"
-" és a legrövidebb mondatban foglalja a könyvet."
+msgstr "A könyvének egy nagyon rövid leírása. Be kellene férnie egy Twitter posztba, és a legrövidebb mondatban foglalja a könyvet."
 
 #: inc/admin/metaboxes/class-about.php:32
 msgid "Short Description"
@@ -1306,9 +1290,7 @@ msgstr "Rövid leírás"
 #: inc/admin/metaboxes/class-about.php:33
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
-msgstr ""
-"Egy rövid bekezdés a könyvről, a katalógusok, a felülvizsgálók, stb. "
-"számára."
+msgstr "Egy rövid bekezdés a könyvről, a katalógusok, a felülvizsgálók, stb. számára."
 
 #: inc/admin/metaboxes/class-about.php:37
 msgid "Long Description"
@@ -1343,9 +1325,7 @@ msgstr "Kulcsszavak"
 msgid ""
 "These are added to your webbook cover page, and in your ebook metadata. "
 "Keywords are used by online book stores and search engines."
-msgstr ""
-"Ezeket a Webbook borítólaphoz és az ebook metaadataihoz adjuk hozzá. A "
-"kulcsszavakat az online könyvesboltok és keresőmotorok használják."
+msgstr "Ezeket a Webbook borítólaphoz és az ebook metaadataihoz adjuk hozzá. A kulcsszavakat az online könyvesboltok és keresőmotorok használják."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:42
 msgid "Hashtag"
@@ -1355,9 +1335,7 @@ msgstr "Hashtag"
 msgid ""
 "These are added to your webbook cover page. For those of you who like "
 "Twitter."
-msgstr ""
-"Ezeket a webbook borító oldalához adjuk hozzá. Azok számára, akik szeretik a"
-" Twitter-t."
+msgstr "Ezeket a webbook borító oldalához adjuk hozzá. Azok számára, akik szeretik a Twitter-t."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:47
 msgid "List Price (Print)"
@@ -1456,9 +1434,7 @@ msgstr "Könyv URL-jának keresése"
 msgid ""
 "This book was cloned from a pre-existing book at the above URL. This "
 "information will be displayed on the webbook homepage."
-msgstr ""
-"Ezt a könyvet egy már a fenti URL-címen létező könyvből klónozták. Ez az "
-"információ megjelenik a webbook honlapján."
+msgstr "Ezt a könyvet egy már a fenti URL-címen létező könyvből klónozták. Ez az információ megjelenik a webbook honlapján."
 
 #: inc/admin/metaboxes/class-copyright.php:47
 msgid "Copyright Year"
@@ -1565,7 +1541,7 @@ msgstr "Kiadás dátuma"
 #: inc/admin/metaboxes/class-generalinformation.php:110
 #: inc/admin/metaboxes/class-generalinformation.php:116
 msgid "This is added to the metadata in your ebook."
-msgstr ""
+msgstr "Ez hozzáadódik az ebook metaadataihoz."
 
 #: inc/admin/metaboxes/class-generalinformation.php:115
 msgid "On-Sale Date"
@@ -1580,10 +1556,7 @@ msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in some online ebook stores. This is added to the "
 "metadata in your ebook."
-msgstr ""
-"Az ISBN az International Standard Book Number rövidítése, és szüksége lesz "
-"rá, ha el szeretné adni a könyvet néhány online e-könyváruházban. Ez "
-"hozzáadódik az ebook metaadataihoz."
+msgstr "Az ISBN az International Standard Book Number rövidítése, és szüksége lesz rá, ha el szeretné adni a könyvet néhány online e-könyváruházban. Ez hozzáadódik az ebook metaadataihoz."
 
 #: inc/admin/metaboxes/class-generalinformation.php:127
 msgid "Print ISBN"
@@ -1593,9 +1566,7 @@ msgstr "Nyomtatott kötet ISBN"
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
-msgstr ""
-"Az ISBN az International Standard Book Number rövidítése, és szüksége lesz "
-"rá, ha el szeretné adni a könyvet online és könyvesboltokban."
+msgstr "Az ISBN az International Standard Book Number rövidítése, és szüksége lesz rá, ha el szeretné adni a könyvet online és könyvesboltokban."
 
 #: inc/admin/metaboxes/class-generalinformation.php:133
 msgid "Digital Object Identifier (DOI)"
@@ -1610,10 +1581,7 @@ msgid ""
 "This sets metadata in your ebook, making it easier to find in some stores. "
 "It also changes some system generated content for supported languages, such "
 "as the \"Contents\" header."
-msgstr ""
-"Ez metaadatokat állít be az ebookjában, így könnyebb megtalálni azt egyes "
-"üzletekben. Emellett megváltoztatja a rendszer által generált tartalmat a "
-"támogatott nyelvekhez, például a \"Tartalom\" fejléchez."
+msgstr "Ez metaadatokat állít be az ebookjában, így könnyebb megtalálni azt egyes üzletekben. Emellett megváltoztatja a rendszer által generált tartalmat a támogatott nyelvekhez, például a \"Tartalom\" fejléchez."
 
 #: inc/admin/metaboxes/class-generalinformation.php:139
 msgid "Help translate Pressbooks into your language!"
@@ -1753,9 +1721,7 @@ msgstr "Állapot & Láthatóság"
 #: inc/admin/metaboxes/namespace.php:240
 msgid ""
 "Appears on part page. Parts will not appear if a book has only one part."
-msgstr ""
-"A részoldalon jelenik meg. A részek nem jelennek meg, ha egy könyvnek csak "
-"egy része van."
+msgstr "A részoldalon jelenik meg. A részek nem jelennek meg, ha egy könyvnek csak egy része van."
 
 #: inc/admin/metaboxes/namespace.php:396
 msgid "Show in Glossary Lists"
@@ -2038,10 +2004,7 @@ msgstr "1. Fejezet"
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
-msgstr ""
-"Ez az első fejezet a szöveg fő szövegében. Megváltoztathatja a szöveget, "
-"átnevezheti a fejezetet, új fejezeteket adhat hozzá, és új részeket adhat "
-"hozzá."
+msgstr "Ez az első fejezet a szöveg fő szövegében. Megváltoztathatja a szöveget, átnevezheti a fejezetet, új fejezeteket adhat hozzá, és új részeket adhat hozzá."
 
 #: inc/class-activation.php:224
 msgid "Appendix"
@@ -2169,7 +2132,7 @@ msgstr ""
 
 #: inc/class-contributors.php:486
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #: inc/class-contributors.php:489
 msgid "Twitter profile for this contributor. Must be a valid URL."
@@ -2314,7 +2277,7 @@ msgstr ""
 
 #: inc/class-eventstreams.php:310
 msgid "You do not have sufficient permissions to access this page."
-msgstr ""
+msgstr "Nincs elég engedélye ezen oldal eléréséhez."
 
 #: inc/class-globaltypography.php:40
 msgid "Adlam"
@@ -2430,7 +2393,7 @@ msgstr ""
 
 #: inc/class-googleanalytics.php:27
 msgid "Google Analytics ID"
-msgstr ""
+msgstr "Google Analytics ID"
 
 #: inc/class-googleanalytics.php:28
 msgid ""
@@ -2446,11 +2409,7 @@ msgid ""
 "If enabled, the Google Analytics settings page will be visible to book "
 "administrators, allowing them to use their own Google Analytics accounts to "
 "track statistics at the book level."
-msgstr ""
-"Ha engedélyezve van, akkor a Google Analytics beállítási oldala látható lesz"
-" a könyv rendszergazdái számára, lehetővé téve számukra, hogy saját Google "
-"Analytics profiljaikat használva nyomon kövessék a statisztikákat a könyv "
-"szintjén."
+msgstr "Ha engedélyezve van, akkor a Google Analytics beállítási oldala látható lesz a könyv rendszergazdái számára, lehetővé téve számukra, hogy saját Google Analytics profiljaikat használva nyomon kövessék a statisztikákat a könyv szintjén."
 
 #: inc/class-googleanalytics.php:197
 msgid "Google Analytics settings."
@@ -2687,9 +2646,7 @@ msgstr ""
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
-msgstr ""
-"Váratlan hiba: A következő kérés futtatása problémába ütközött: %s - Kérjük,"
-" vegye fel a kapcsolatot a technikai ügyfélszolgálattal!"
+msgstr "Váratlan hiba: A következő kérés futtatása problémába ütközött: %s - Kérjük, vegye fel a kapcsolatot a technikai ügyfélszolgálattal!"
 
 #: inc/class-styles.php:819 templates/admin/custom-styles.php:20
 msgid "Web"
@@ -2741,10 +2698,7 @@ msgstr ""
 msgid ""
 "You can only clone from a book hosted by Pressbooks 4.1 or later. Please "
 "ensure that your source book meets these requirements."
-msgstr ""
-"Csak a 4.1-es vagy újabb Pressbook által tárolt könyvet tud klónozni. "
-"Kérjük, győződjön meg arról, hogy a forráskönyve megfelel ezeknek a "
-"követelményeknek."
+msgstr "Csak a 4.1-es vagy újabb Pressbook által tárolt könyvet tud klónozni. Kérjük, győződjön meg arról, hogy a forráskönyve megfelel ezeknek a követelményeknek."
 
 #: inc/cloner/class-cloner.php:568
 msgid "Could not retrieve metadata from %s."
@@ -3052,17 +3006,13 @@ msgstr "További könyvinformációk megjelenítése"
 msgid ""
 "The book information you enter here appears on your book’s cover and title "
 "pages and in the metadata of your webbook and exported files."
-msgstr ""
-"Az itt megadott könyvinformációk megjelennek a könyv borítóján és címlapján,"
-" valamint a webbook és az exportált fájlok metaadatain."
+msgstr "Az itt megadott könyvinformációk megjelennek a könyv borítóján és címlapján, valamint a webbook és az exportált fájlok metaadatain."
 
 #: inc/metadata/namespace.php:129
 msgid ""
 "If you need to enter additional information, click the button below to see "
 "all available fields."
-msgstr ""
-"Ha további információkat szeretne megadni, kattintson az alábbi gombra az "
-"összes elérhető mező megtekintéséhez."
+msgstr "Ha további információkat szeretne megadni, kattintson az alábbi gombra az összes elérhető mező megtekintéséhez."
 
 #: inc/metadata/namespace.php:1205
 msgid ""
@@ -3100,9 +3050,7 @@ msgstr ""
 
 #: inc/modules/export/class-export.php:832
 msgid "Warning: The export has validation errors. See logs for more details."
-msgstr ""
-"Figyelmeztetés: Az exportálásnak érvényesítési hibái vannak. További "
-"részletekért lásd a naplókat."
+msgstr "Figyelmeztetés: Az exportálásnak érvényesítési hibái vannak. További részletekért lásd a naplókat."
 
 #: inc/modules/export/class-export.php:833
 msgid "Emailed to:"
@@ -3114,7 +3062,7 @@ msgstr ""
 
 #: inc/modules/export/class-table.php:132
 msgid "File"
-msgstr ""
+msgstr "Fájl"
 
 #: inc/modules/export/class-table.php:133
 msgid "Format"
@@ -3609,9 +3557,7 @@ msgstr "Kétszintű TOC"
 #: inc/modules/themeoptions/class-globaloptions.php:158
 msgid ""
 "Enable two-level table of contents (displays headings under chapter titles)"
-msgstr ""
-"Kétszintű tartalomjegyzék engedélyezése (a fejlécek megjelenítése a "
-"fejezetcímek alatt)"
+msgstr "Kétszintű tartalomjegyzék engedélyezése (a fejlécek megjelenítése a fejezetcímek alatt)"
 
 #: inc/modules/themeoptions/class-globaloptions.php:164
 msgid "About the Author"
@@ -3636,8 +3582,7 @@ msgstr "Nyelv & szkript támogatás"
 
 #: inc/modules/themeoptions/class-globaloptions.php:193
 msgid "Include fonts to support the following languages and scripts:"
-msgstr ""
-"A következő nyelveket és szkripteket támogató betűkészletek beillesztése:"
+msgstr "A következő nyelveket és szkripteket támogató betűkészletek beillesztése:"
 
 #: inc/modules/themeoptions/class-globaloptions.php:207
 msgid "Chapter Licenses"
@@ -3705,9 +3650,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:293
 msgid "These options apply universally to webbook, PDF and ebook exports."
-msgstr ""
-"Ezek a beállítások általánosan érvényesek a webbookra, a PDF-re és az ebook "
-"exportra."
+msgstr "Ezek a beállítások általánosan érvényesek a webbookra, a PDF-re és az ebook exportra."
 
 #: inc/modules/themeoptions/class-globaloptions.php:476
 msgid "This theme includes built-in support for %s."
@@ -4065,8 +4008,7 @@ msgstr "Betűméret növelése"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:602
 msgid "Increases font size and line height for greater accessibility"
-msgstr ""
-"Betűméret és vonalmagasság növelése a nagyobb hozzáférhetőség érdekében"
+msgstr "Betűméret és vonalmagasság növelése a nagyobb hozzáférhetőség érdekében"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:628
 msgid "These options apply to PDF exports."
@@ -4076,9 +4018,7 @@ msgstr "Ezek a beállítások a PDF exportra vonatkoznak."
 msgid ""
 "IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm "
 "on any side can cause your file to be rejected."
-msgstr ""
-"FONTOS: Ha nyomtatási szolgáltatást szeretne igénybe venni, akkor bármelyik "
-"oldalon 2 cm alatt lévő margók okozhatják a fájl visszautasítását."
+msgstr "FONTOS: Ha nyomtatási szolgáltatást szeretne igénybe venni, akkor bármelyik oldalon 2 cm alatt lévő margók okozhatják a fájl visszautasítását."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:1534
 msgid "PDF Options"
@@ -4130,17 +4070,13 @@ msgstr "Forrásösszehasonlítás engedélyezése"
 msgid ""
 "Add comparison tool to the end of each front matter, part, chapter, and back"
 " matter"
-msgstr ""
-"Összehasonlító eszköz hozzáadása az egyes előlapok, részek, fejezetek és "
-"hátoldalak végéhez"
+msgstr "Összehasonlító eszköz hozzáadása az egyes előlapok, részek, fejezetek és hátoldalak végéhez"
 
 #: inc/modules/themeoptions/class-weboptions.php:206
 msgid ""
 "Allows readers to compare content with the original book from which it was "
 "cloned."
-msgstr ""
-"Lehetővé teszi az olvasók számára, hogy összehasonlítsák a tartalmat az "
-"eredeti könyvvel, ahonnan klónozták."
+msgstr "Lehetővé teszi az olvasók számára, hogy összehasonlítsák a tartalmat az eredeti könyvvel, ahonnan klónozták."
 
 #: inc/modules/themeoptions/class-weboptions.php:232
 msgid "These options apply to the webbook."
@@ -4430,7 +4366,7 @@ msgstr "Érvénytelen engedélyek."
 
 #: inc/shortcodes/glossary/class-glossary.php:139
 msgid "Select"
-msgstr ""
+msgstr "Kiválasztás"
 
 #: inc/shortcodes/glossary/class-glossary.php:293
 msgid "definition"
@@ -4522,9 +4458,7 @@ msgstr ""
 msgid ""
 "(Pressbooks could not establish a secure connection to the plugin "
 "recommendations server. Please contact your server administrator.)"
-msgstr ""
-"(A Pressbook nem tudott biztonságos kapcsolatot létesíteni a plugin "
-"ajánlások szerverével, kérjük, forduljon a szerver rendszergazdájához.)"
+msgstr "(A Pressbook nem tudott biztonságos kapcsolatot létesíteni a plugin ajánlások szerverével, kérjük, forduljon a szerver rendszergazdájához.)"
 
 #: inc/utility/namespace.php:618
 msgid ""
@@ -4833,10 +4767,7 @@ msgid ""
 "Be careful replacing text. There is no undo button. However, you can revert "
 "your changes using the Revision History within each chapter, front matter or"
 " back matter."
-msgstr ""
-"Legyen óvatos a szöveg módosításával. Nincs visszavonás gomb. Mindazonáltal "
-"vissza tudja állítani a változtatásokat az egyes fejezetekben, előlapokon "
-"vagy hátoldalakon a Revision History segítségével."
+msgstr "Legyen óvatos a szöveg módosításával. Nincs visszavonás gomb. Mindazonáltal vissza tudja állítani a változtatásokat az egyes fejezetekben, előlapokon vagy hátoldalakon a Revision History segítségével."
 
 #: templates/admin/search.php:17
 msgid "Search Within"
@@ -5264,7 +5195,7 @@ msgstr ""
 
 #: templates/admin/diagnostics.blade.php:5
 msgid "Please submit this information with any bug reports."
-msgstr ""
+msgstr "Kérjük, küldje be ezt az információt bármilyen hibajelentéssel."
 
 #: templates/admin/diagnostics.blade.php:6
 msgid ""
@@ -5337,7 +5268,7 @@ msgstr ""
 
 #: templates/admin/mathjax.blade.php:10
 msgid "Syntax"
-msgstr ""
+msgstr "Szintaxis"
 
 #: templates/admin/mathjax.blade.php:13
 msgid "LaTeX"

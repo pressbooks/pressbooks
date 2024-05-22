@@ -1,16 +1,18 @@
 # Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
-# Steel Wagstaff <steel@pressbooks.com>, 2023
-# 
+# Erwin de Ruiter <erwinderuiter@gmail.com>, 2015
+# Joomill <info@joomill.nl>, 2018
+# Nienke Coppens <nienke.coppens@gmail.com>, 2020
+# Antonio D., 2016
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 6.18.0\n"
+"Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2024-04-04T20:55:25+00:00\n"
-"PO-Revision-Date: 2023-05-25 04:50+0000\n"
-"Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2023\n"
-"Language-Team: Dutch (Netherlands) (https://app.transifex.com/pressbooks/teams/9194/nl_NL/)\n"
+"POT-Creation-Date: 2024-05-08T20:14:28+00:00\n"
+"PO-Revision-Date: 2013-12-21 21:04+0000\n"
+"Last-Translator: Nienke Coppens <nienke.coppens@gmail.com>, 2020\n"
+"Language-Team: Dutch (Netherlands) (http://app.transifex.com/pressbooks/pressbooks/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -48,47 +50,34 @@ msgstr "Eenvoudige Boekpublicatie"
 msgid ""
 "Pressbooks could not create the mu-plugins folder. Please create the "
 "following directory: %s"
-msgstr ""
-"Pressbooks kon de mu-plugins map niet aanmaken. Maak alstublieft de volgende"
-" map aan:%s"
+msgstr "Pressbooks kon de mu-plugins map niet aanmaken. Maak alstublieft de volgende map aan:%s"
 
 #: compatibility.php:157
 msgid ""
 "Pressbooks could not copy the autoloader from %1$s to %2$s. Please copy the "
 "file manually."
-msgstr ""
-"Pressbooks kon de autoloader van %1$s tot %2$s niet kopi&euml;ren. Kopieer "
-"het bestand handmatig."
+msgstr "Pressbooks kon de autoloader van %1$s tot %2$s niet kopi&euml;ren. Kopieer het bestand handmatig."
 
 #: compatibility.php:172
 msgid ""
 "Pressbooks will not work with your version of PHP. Pressbooks requires PHP "
 "version %s or greater. Please upgrade PHP if you would like to use "
 "Pressbooks."
-msgstr ""
-"Pressbooks zal niet werken met uw versie van PHP. Pressbooks vereist een "
-"versie %s of hoger van PHP. Upgrade de PHP als u Pressbooks wilt gebruiken. "
+msgstr "Pressbooks zal niet werken met uw versie van PHP. Pressbooks vereist een versie %s of hoger van PHP. Upgrade de PHP als u Pressbooks wilt gebruiken. "
 
 #: compatibility.php:185
 msgid ""
 "Pressbooks will not work with your version of WordPress. Pressbooks requires"
 " a dedicated install of WordPress Multisite, version %s or greater. Please "
 "upgrade WordPress if you would like to use Pressbooks."
-msgstr ""
-"Pressbooks zal niet werken met uw versie van WordPress. pressbooks vereist "
-"een dedicated installatie van WordPress Multisite, versie %sof hoger. Werk "
-"alstublieft uw WordPress versie bij indien u gebruik wil amken van "
-"Pressbooks"
+msgstr "Pressbooks zal niet werken met uw versie van WordPress. pressbooks vereist een dedicated installatie van WordPress Multisite, versie %sof hoger. Werk alstublieft uw WordPress versie bij indien u gebruik wil amken van Pressbooks"
 
 #: compatibility.php:196
 msgid ""
 "The Pressbooks plugin is inactive, but you have active plugins that require "
 "Pressbooks. This is causing errors. Please go to the Plugins page, and "
 "activate Pressbooks."
-msgstr ""
-"De Pressbooks plugin is inactief, maar u heeft actieve plugins die "
-"afhankelijk zijn van Pressbooks. Dit veroorzaakt foutmeldingen. Ga "
-"alstublieft naar de plugins pagina en activeer Pressbooks."
+msgstr "De Pressbooks plugin is inactief, maar u heeft actieve plugins die afhankelijk zijn van Pressbooks. Dit veroorzaakt foutmeldingen. Ga alstublieft naar de plugins pagina en activeer Pressbooks."
 
 #: inc/admin/attachments/namespace.php:39
 msgid "ATTRIBUTIONS"
@@ -243,8 +232,7 @@ msgstr "Om een boek in uw catalogus te tonen kies \"%s\" onder Catalogus Status.
 
 #: inc/admin/class-catalog-list-table.php:533
 msgid "To hide a book in your catalog choose \"%s\" under Catalog Status."
-msgstr ""
-"Om een boek in uw catalogus te verbergen kies \"%s\" onder Catalogus Status."
+msgstr "Om een boek in uw catalogus te verbergen kies \"%s\" onder Catalogus Status."
 
 #: inc/admin/class-catalog-list-table.php:536
 msgid "Catalog sorting"
@@ -255,10 +243,7 @@ msgid ""
 "To add sorting ability, add your Tag names to your <a href=\"%s\">Catalog "
 "Profile</a> page (ex: Authors, Book Genre), then add the appropriate tags to"
 " each individual book."
-msgstr ""
-"Voeg uw Tag namen toe aan uw  <a href=\"%s\">Catalog Profile</a> pagina, om "
-"sorteermogelijkheid toe te voegen (vb: Autheurs, Boek Genre) en voeg dan de "
-"passende tags toe aan elk individuele boek."
+msgstr "Voeg uw Tag namen toe aan uw  <a href=\"%s\">Catalog Profile</a> pagina, om sorteermogelijkheid toe te voegen (vb: Autheurs, Boek Genre) en voeg dan de passende tags toe aan elk individuele boek."
 
 #: inc/admin/class-catalog-list-table.php:539
 msgid "Share your catalog"
@@ -309,9 +294,7 @@ msgstr "Exporteer instellingen"
 msgid ""
 "This will prevent any changes to your book&rsquo;s appearance and page count"
 " when themes are updated."
-msgstr ""
-"Dit voorkomt wijzigingen aan uw boek&rsquo;s uiterlijk en paginatelling als "
-"thema&rsquo;s bijgewerkt worden."
+msgstr "Dit voorkomt wijzigingen aan uw boek&rsquo;s uiterlijk en paginatelling als thema&rsquo;s bijgewerkt worden."
 
 #: inc/admin/class-exportoptions.php:195 inc/admin/laf/namespace.php:412
 msgid "Export Settings"
@@ -383,9 +366,7 @@ msgstr "Opslaan van instellingen"
 msgid ""
 "Cover generation is not done. Leaving this page, now, will cause problems. "
 "Are you sure?"
-msgstr ""
-"Omslag generatie is niet voltooid. Deze pagina nu verlaten zal problemen "
-"verzoorzaken. Weet u het zeker?"
+msgstr "Omslag generatie is niet voltooid. Deze pagina nu verlaten zal problemen verzoorzaken. Weet u het zeker?"
 
 #: inc/admin/covergenerator/namespace.php:50 inc/admin/laf/namespace.php:352
 #: inc/admin/laf/namespace.php:375 inc/admin/laf/namespace.php:436
@@ -423,10 +404,7 @@ msgstr "ISBN"
 msgid ""
 "If you have an ISBN, this will generate a barcode on the back of your print "
 "cover. If you do not have an ISBN, you should leave this field blank."
-msgstr ""
-"Indien u een ISBN nummer heeft, zal dit een streepjescode genereren op de "
-"achterkant van de omslag. Indien u geen ISBN nummer heeft dient u dit veld "
-"leeg te laten."
+msgstr "Indien u een ISBN nummer heeft, zal dit een streepjescode genereren op de achterkant van de omslag. Indien u geen ISBN nummer heeft dient u dit veld leeg te laten."
 
 #: inc/admin/covergenerator/namespace.php:154
 msgid "or SKU"
@@ -438,11 +416,7 @@ msgid ""
 "field will generate a barcode with that number on the back of your print "
 "cover. If you do not have a non-ISBN identifier, you should leave this field"
 " blank."
-msgstr ""
-"Indien u een 13-cijferig indentifictienummer heeft dat geen ISBN nummer is "
-"en dit invoert in dit veld, zal een streepjescode met dit nummer op de "
-"achterkant van de omslag gedrukt worden. Indien u geen niet-ISBN "
-"indentificatienummer heeft dient u dit veld leeg te laten."
+msgstr "Indien u een 13-cijferig indentifictienummer heeft dat geen ISBN nummer is en dit invoert in dit veld, zal een streepjescode met dit nummer op de achterkant van de omslag gedrukt worden. Indien u geen niet-ISBN indentificatienummer heeft dient u dit veld leeg te laten."
 
 #: inc/admin/covergenerator/namespace.php:166
 msgid "Design"
@@ -507,12 +481,7 @@ msgid ""
 " and is used to generate your cover(s). You can reformat the text below as "
 "needed. (<strong>IMPORTANT NOTE:</strong> Changes you make here will "
 "<strong>NOT</strong> be reflected on the Book Information page.)"
-msgstr ""
-"De tekst hieronder wordt opgehaald uit uw   <a href=\"%s\">Boek "
-"Informatie</a> pagina en wordt gebruikt om uw omslag(en) te genereren.  U "
-"kunt de tekstopmaak aanpassen indien nodig. (</strong>BELANGRIJKE "
-"NOTITIE:</strong> Aanpassingen die u hier maakt worden  "
-"<strong>NIET</strong> weergegeven op de  Boek Information pagina.)"
+msgstr "De tekst hieronder wordt opgehaald uit uw   <a href=\"%s\">Boek Informatie</a> pagina en wordt gebruikt om uw omslag(en) te genereren.  U kunt de tekstopmaak aanpassen indien nodig. (</strong>BELANGRIJKE NOTITIE:</strong> Aanpassingen die u hier maakt worden  <strong>NIET</strong> weergegeven op de  Boek Information pagina.)"
 
 #. translators: %s: URL to Appearance menu
 #: inc/admin/covergenerator/namespace.php:443
@@ -560,26 +529,20 @@ msgstr "Verwijder Achtergrondafbeelding"
 msgid ""
 "Spine size is calculated based on the number of pages in your book, and the "
 "weight of the paper used in printing."
-msgstr ""
-"Rug formaat wordt berekend op basis van het aantal pagina&acute;s in uw boek"
-" en het gewicht van het papier gebruikt voor afdrukken."
+msgstr "Rug formaat wordt berekend op basis van het aantal pagina&acute;s in uw boek en het gewicht van het papier gebruikt voor afdrukken."
 
 #: inc/admin/covergenerator/namespace.php:531
 msgid ""
 "You haven't exported any PDF copies of your book, so you will need to enter "
 "a page count below."
-msgstr ""
-"U heeft geen enkele PDF kopie van uw boek ge&euml;xporteerd, dus dient u "
-"hieronder een pagina telling in te geven."
+msgstr "U heeft geen enkele PDF kopie van uw boek ge&euml;xporteerd, dus dient u hieronder een pagina telling in te geven."
 
 #. translators: %s: number of pages in pdf
 #: inc/admin/covergenerator/namespace.php:534
 msgid ""
 "The last PDF you exported has %s pages (you can edit this below if you "
 "like)."
-msgstr ""
-"De laatste PDF die u exporteerde heeft %s pagina&acute;s (u kunt dit  indien"
-" u wenst hieronder bewerken)"
+msgstr "De laatste PDF die u exporteerde heeft %s pagina&acute;s (u kunt dit  indien u wenst hieronder bewerken)"
 
 #: inc/admin/covergenerator/namespace.php:538
 msgid ""
@@ -902,17 +865,13 @@ msgstr "Kan niet meer dan 3 van hetzelfde type vast pinnen."
 msgid ""
 "Too many pinned files. Deselect one of the pinned files before attempting to"
 " export."
-msgstr ""
-"Tveel gepinde bestanden. Deselecteer een van de gepinde bestanden voor u een"
-" nieuwe export uitvoert."
+msgstr "Tveel gepinde bestanden. Deselecteer een van de gepinde bestanden voor u een nieuwe export uitvoert."
 
 #: inc/admin/laf/namespace.php:354
 msgid ""
 "Exports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
-msgstr ""
-"Exports zijn niet gereed. De pagina nu verlaten zal problemen veroorzaken. "
-"Weet u het zeker?"
+msgstr "Exports zijn niet gereed. De pagina nu verlaten zal problemen veroorzaken. Weet u het zeker?"
 
 #: inc/admin/laf/namespace.php:366 inc/utility/class-handlestransfers.php:88
 #: templates/admin/import.php:38 templates/admin/import.php:114
@@ -923,9 +882,7 @@ msgstr "Importeren"
 msgid ""
 "Imports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
-msgstr ""
-"Imports zijn niet gereed. De pagina nu verlaten zal problemen veroorzaken. "
-"Weet u het zeker?"
+msgstr "Imports zijn niet gereed. De pagina nu verlaten zal problemen veroorzaken. Weet u het zeker?"
 
 #: inc/admin/laf/namespace.php:399 inc/admin/laf/namespace.php:595
 #: inc/admin/laf/namespace.php:1518
@@ -950,9 +907,7 @@ msgstr "Dupliceer een Boek"
 msgid ""
 "Cloning is not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
-msgstr ""
-"Dupliceren is nog niet gereed. Nu de pagina verlaten veroorzaakt problemen. "
-"Weet u het zeker?"
+msgstr "Dupliceren is nog niet gereed. Nu de pagina verlaten veroorzaakt problemen. Weet u het zeker?"
 
 #: inc/admin/laf/namespace.php:662 inc/admin/laf/namespace.php:663
 msgid "Cloning Stats"
@@ -1061,14 +1016,11 @@ msgstr "Openbaar. Ik zou dit boek graag zichtbaar maken voor iedereen."
 #: inc/admin/laf/namespace.php:1348
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
-msgstr ""
-"Privé. Ik zou dit broek graag alleen zichtbaar maken voor de mensen die ik "
-"uitgenodigd heb."
+msgstr "Privé. Ik zou dit broek graag alleen zichtbaar maken voor de mensen die ik uitgenodigd heb."
 
 #: inc/admin/laf/namespace.php:1372
 msgid "Who can see private front matter, chapters and back matter?"
-msgstr ""
-"Wie kan het voorwerk, de hoofdstukken en het nawerk die privé zijn zien?"
+msgstr "Wie kan het voorwerk, de hoofdstukken en het nawerk die privé zijn zien?"
 
 #: inc/admin/laf/namespace.php:1375
 msgid "Only logged in editors and administrators."
@@ -1082,33 +1034,25 @@ msgstr "Alle ingelogde gebruikers, inclusief abonnees."
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
-msgstr ""
-"Ja. Ik wil commentaren, trackbacks en pingbacks automatisch uitschakelen "
-"voor alle voorwerken, hoofdstukken en nawerken."
+msgstr "Ja. Ik wil commentaren, trackbacks en pingbacks automatisch uitschakelen voor alle voorwerken, hoofdstukken en nawerken."
 
 #: inc/admin/laf/namespace.php:1404
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
-msgstr ""
-"Nee. Ik wil commentaren, trackbacks en pingbacks inschakelen voor alle "
-"voorerken, hoofdstukken en nawerken, tenzij ik ze handmatig uitschakel."
+msgstr "Nee. Ik wil commentaren, trackbacks en pingbacks inschakelen voor alle voorerken, hoofdstukken en nawerken, tenzij ik ze handmatig uitschakel."
 
 #: inc/admin/laf/namespace.php:1420
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
-msgstr ""
-"Ja. Ik wil dat de laatste exportbestanden op de website gratis voor iedereen"
-" beschikbaar zijn op de homepage."
+msgstr "Ja. Ik wil dat de laatste exportbestanden op de website gratis voor iedereen beschikbaar zijn op de homepage."
 
 #: inc/admin/laf/namespace.php:1426
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
-msgstr ""
-"Nee. Ik wil dat de laatste exportbestanden alleen beschikbaar zijn voor "
-"beheerders."
+msgstr "Nee. Ik wil dat de laatste exportbestanden alleen beschikbaar zijn voor beheerders."
 
 #: inc/admin/laf/namespace.php:1445
 msgid "Yes. I want this book to be listed in the Pressbooks directory."
@@ -1208,7 +1152,7 @@ msgstr ""
 #: inc/admin/menus/class-sidebar.php:449 inc/admin/menus/class-sidebar.php:450
 #: inc/admin/menus/class-topbar.php:154
 msgid "Settings"
-msgstr ""
+msgstr "Instellingen"
 
 #: inc/admin/menus/class-sidebar.php:261 inc/admin/menus/class-sidebar.php:262
 #: inc/admin/menus/class-sidebar.php:517 inc/admin/menus/class-sidebar.php:518
@@ -1338,9 +1282,7 @@ msgstr "Tagline van boek"
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
-msgstr ""
-"Een heel korte beschrijving van uw boek. Het moet kunnen passen in een "
-"Twitterbericht, en uw boek zo kort mogelijk samenvatten."
+msgstr "Een heel korte beschrijving van uw boek. Het moet kunnen passen in een Twitterbericht, en uw boek zo kort mogelijk samenvatten."
 
 #: inc/admin/metaboxes/class-about.php:32
 msgid "Short Description"
@@ -1349,9 +1291,7 @@ msgstr "Korte beschrijving"
 #: inc/admin/metaboxes/class-about.php:33
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
-msgstr ""
-"Een korte paragraaf over uw boek, voor catalogi, recensenten etc. om te "
-"citeren."
+msgstr "Een korte paragraaf over uw boek, voor catalogi, recensenten etc. om te citeren."
 
 #: inc/admin/metaboxes/class-about.php:37
 msgid "Long Description"
@@ -1396,9 +1336,7 @@ msgstr "Hashtag"
 msgid ""
 "These are added to your webbook cover page. For those of you who like "
 "Twitter."
-msgstr ""
-"Deze worden toegevoegd aan uw webboek omslag pagina. Voor diegenen die van "
-"Twitter houden."
+msgstr "Deze worden toegevoegd aan uw webboek omslag pagina. Voor diegenen die van Twitter houden."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:47
 msgid "List Price (Print)"
@@ -1548,9 +1486,7 @@ msgstr "Korte titel"
 msgid ""
 "In case of long titles that might be truncated in running heads in the PDF "
 "export."
-msgstr ""
-"In geval van lange titels die mogelijk afgebroken worden in lopende "
-"kopteksten in de PDF export."
+msgstr "In geval van lange titels die mogelijk afgebroken worden in lopende kopteksten in de PDF export."
 
 #: inc/admin/metaboxes/class-generalinformation.php:55
 msgid "Author(s)"
@@ -1606,7 +1542,7 @@ msgstr "Publicatiedatum"
 #: inc/admin/metaboxes/class-generalinformation.php:110
 #: inc/admin/metaboxes/class-generalinformation.php:116
 msgid "This is added to the metadata in your ebook."
-msgstr ""
+msgstr "Dit wordt toegevoegd aan de metadata in uw e-boek."
 
 #: inc/admin/metaboxes/class-generalinformation.php:115
 msgid "On-Sale Date"
@@ -1621,10 +1557,7 @@ msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in some online ebook stores. This is added to the "
 "metadata in your ebook."
-msgstr ""
-"ISBN is het Internationaal Standaard Boeknummer. U hebt er eentje nodig als "
-"u uw boek wilt verkopen in online e-boek winkels. Dit wordt toegevoegd aan "
-"de metadata in uw e-boek."
+msgstr "ISBN is het Internationaal Standaard Boeknummer. U hebt er eentje nodig als u uw boek wilt verkopen in online e-boek winkels. Dit wordt toegevoegd aan de metadata in uw e-boek."
 
 #: inc/admin/metaboxes/class-generalinformation.php:127
 msgid "Print ISBN"
@@ -1634,9 +1567,7 @@ msgstr "Druk ISBN"
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
-msgstr ""
-"ISBN is het Internationaal Standaard Boeknummer. U hebt er eentje nodig als "
-"u uw boek wilt verkopen in online e-boek winkels en fysieke boekenwinkels."
+msgstr "ISBN is het Internationaal Standaard Boeknummer. U hebt er eentje nodig als u uw boek wilt verkopen in online e-boek winkels en fysieke boekenwinkels."
 
 #: inc/admin/metaboxes/class-generalinformation.php:133
 msgid "Digital Object Identifier (DOI)"
@@ -1791,9 +1722,7 @@ msgstr "Status & Zichtbaarheid"
 #: inc/admin/metaboxes/namespace.php:240
 msgid ""
 "Appears on part page. Parts will not appear if a book has only one part."
-msgstr ""
-"Verschijnt op onderdeelpagina. Onderdelen zullen niet verschijnen als een "
-"boek enkel één onderdeel bevat."
+msgstr "Verschijnt op onderdeelpagina. Onderdelen zullen niet verschijnen als een boek enkel één onderdeel bevat."
 
 #: inc/admin/metaboxes/namespace.php:396
 msgid "Show in Glossary Lists"
@@ -2076,10 +2005,7 @@ msgstr "Hoofdstuk 1"
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
-msgstr ""
-"Dit is het eerste hoofdstuk in het hoofddeel van de tekst. Je kan de tekst "
-"wijzigen, het hoofdstuk hernoemen, nieuwe hoofdstukken toevoegen, en nieuwe "
-"onderdelen toevoegen."
+msgstr "Dit is het eerste hoofdstuk in het hoofddeel van de tekst. Je kan de tekst wijzigen, het hoofdstuk hernoemen, nieuwe hoofdstukken toevoegen, en nieuwe onderdelen toevoegen."
 
 #: inc/class-activation.php:224
 msgid "Appendix"
@@ -2468,7 +2394,7 @@ msgstr "Uw %1$s font kon niet worden gedownload van %2$s."
 
 #: inc/class-googleanalytics.php:27
 msgid "Google Analytics ID"
-msgstr ""
+msgstr "Google Analytics ID"
 
 #: inc/class-googleanalytics.php:28
 msgid ""
@@ -2484,11 +2410,7 @@ msgid ""
 "If enabled, the Google Analytics settings page will be visible to book "
 "administrators, allowing them to use their own Google Analytics accounts to "
 "track statistics at the book level."
-msgstr ""
-"Indien ingeschakeld zal de Google Analytics instellingen pagina zichtbaar "
-"zijn voor boek beheerders , waardoor ze in staat zijn hun eigen Google "
-"Analytics account te gebruiken om statistieken op boekniveau te kunnen "
-"volgen."
+msgstr "Indien ingeschakeld zal de Google Analytics instellingen pagina zichtbaar zijn voor boek beheerders , waardoor ze in staat zijn hun eigen Google Analytics account te gebruiken om statistieken op boekniveau te kunnen volgen."
 
 #: inc/class-googleanalytics.php:197
 msgid "Google Analytics settings."
@@ -2542,9 +2464,7 @@ msgstr "CC BY-NC-SA (Attribution NonCommercial ShareAlike)"
 msgid ""
 "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International "
 "License"
-msgstr ""
-"Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International "
-"License"
+msgstr "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License"
 
 #: inc/class-licensing.php:132
 msgid "CC BY-NC-ND (Attribution NonCommercial NoDerivatives)"
@@ -2554,9 +2474,7 @@ msgstr "CC BY-NC-ND (Attribution NonCommercial NoDerivatives)"
 msgid ""
 "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International "
 "License"
-msgstr ""
-"Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International "
-"License"
+msgstr "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License"
 
 #: inc/class-licensing.php:139 inc/class-licensing.php:338
 msgid "All Rights Reserved"
@@ -2566,8 +2484,7 @@ msgstr "Alle rechten voorbehouden"
 msgid ""
 "$title is deprecated. Method will automatically determine title from "
 "licenses"
-msgstr ""
-"$title is verouderd. Methode zal automatisch de titel van licenties bepalen."
+msgstr "$title is verouderd. Methode zal automatisch de titel van licenties bepalen."
 
 #: inc/class-licensing.php:335 inc/class-styles.php:854
 #: inc/modules/export/epub/class-epub.php:1432
@@ -2730,9 +2647,7 @@ msgstr "Sans serif"
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
-msgstr ""
-"Onverwachte Fout: Er was een probleem tijdens het verzoek naar slug: %s - "
-"Raadpleeg de technische ondersteuning."
+msgstr "Onverwachte Fout: Er was een probleem tijdens het verzoek naar slug: %s - Raadpleeg de technische ondersteuning."
 
 #: inc/class-styles.php:819 templates/admin/custom-styles.php:20
 msgid "Web"
@@ -2784,9 +2699,7 @@ msgstr "Afronden"
 msgid ""
 "You can only clone from a book hosted by Pressbooks 4.1 or later. Please "
 "ensure that your source book meets these requirements."
-msgstr ""
-"U kunt alleen dupliceren van een boek gehost op Pressbooks 4.1 of later. "
-"Zorg alstublieft dat uw bronboek aan deze voorwaarde voldoet."
+msgstr "U kunt alleen dupliceren van een boek gehost op Pressbooks 4.1 of later. Zorg alstublieft dat uw bronboek aan deze voorwaarde voldoet."
 
 #: inc/cloner/class-cloner.php:568
 msgid "Could not retrieve metadata from %s."
@@ -2885,15 +2798,11 @@ msgstr "Uw PDF kon niet worden opgevraagd."
 
 #: inc/covergenerator/class-isbn.php:61
 msgid "There was a problem creating the barcode: Invalid ISBN number."
-msgstr ""
-"Er was een probleem bij het aanmaken van de streepjescode: Ongeldig ISBN "
-"nummer."
+msgstr "Er was een probleem bij het aanmaken van de streepjescode: Ongeldig ISBN nummer."
 
 #: inc/covergenerator/class-sku.php:43
 msgid "There was a problem creating the barcode: Invalid characters in SKU"
-msgstr ""
-"Er was een probleem bij het aanmaken van de streepjescode: Ongeldige "
-"karakters in de SKU."
+msgstr "Er was een probleem bij het aanmaken van de streepjescode: Ongeldige karakters in de SKU."
 
 #: inc/editor/namespace.php:110
 msgid "Insert Footnote"
@@ -2926,9 +2835,7 @@ msgstr "Invoegen"
 #: inc/editor/namespace.php:137
 msgctxt "JS template string"
 msgid "Glossary term <em>${templateString1}</em> not found. Please create it."
-msgstr ""
-"Woordenboek term <em>${templateString1}</em> niet gevonden. Maak hem "
-"alstublieft aan."
+msgstr "Woordenboek term <em>${templateString1}</em> niet gevonden. Maak hem alstublieft aan."
 
 #: inc/editor/namespace.php:138
 msgid "Select a Term"
@@ -2957,9 +2864,7 @@ msgstr "Geen term geselcteerd?"
 #: inc/editor/namespace.php:145 inc/posttype/namespace.php:243
 msgid ""
 "To display a list of glossary terms, leave this back matter's content blank."
-msgstr ""
-"Om een een woordenlijst weer te geven dient u deze nawerkpagina leeg te "
-"laten."
+msgstr "Om een een woordenlijst weer te geven dient u deze nawerkpagina leeg te laten."
 
 #: inc/editor/namespace.php:146
 msgid "Term"
@@ -3088,10 +2993,7 @@ msgstr ""
 msgid ""
 "Please contact your system administrator if you would like them to install "
 "extended %s language support for the Pressbooks interface."
-msgstr ""
-"Neem alstublieft contact op met uw systeembeheerder indien u extra "
-"%staalondersteuneuning geinstalleerd wil hebben voor de Pressbooks "
-"interface."
+msgstr "Neem alstublieft contact op met uw systeembeheerder indien u extra %staalondersteuneuning geinstalleerd wil hebben voor de Pressbooks interface."
 
 #: inc/metadata/namespace.php:117
 msgid "Hide Additional Book Information"
@@ -3111,9 +3013,7 @@ msgstr ""
 msgid ""
 "If you need to enter additional information, click the button below to see "
 "all available fields."
-msgstr ""
-"Indien u extra informatie wilt toevoegen, klik op onderstaande knop om alle "
-"beschikbare velden te zien."
+msgstr "Indien u extra informatie wilt toevoegen, klik op onderstaande knop om alle beschikbare velden te zien."
 
 #: inc/metadata/namespace.php:1205
 msgid ""
@@ -3151,9 +3051,7 @@ msgstr "De export is mislukt. Zie logs voor meer details."
 
 #: inc/modules/export/class-export.php:832
 msgid "Warning: The export has validation errors. See logs for more details."
-msgstr ""
-"Waarschuwing: De export bevat valideerfouten. Zie de logboeken voor meer "
-"details."
+msgstr "Waarschuwing: De export bevat valideerfouten. Zie de logboeken voor meer details."
 
 #: inc/modules/export/class-export.php:833
 msgid "Emailed to:"
@@ -3299,10 +3197,7 @@ msgstr "Fout door ongeldige toestemming"
 msgid ""
 "Some dependencies for %1$s exports could not be found. Please verify that "
 "you have completed the <a href=\"%2$s\">installation instructions</a>."
-msgstr ""
-"Sommige afhankelijkheden voor %1$s exports konden niet worden gevonden. Kijk"
-" alstublieft na of u de <a href=\"%2$s\"> installatieinstructies </a> heeft "
-"voltooid."
+msgstr "Sommige afhankelijkheden voor %1$s exports konden niet worden gevonden. Kijk alstublieft na of u de <a href=\"%2$s\"> installatieinstructies </a> heeft voltooid."
 
 #: inc/modules/export/namespace.php:85
 #: inc/modules/themeoptions/class-globaloptions.php:455
@@ -3392,7 +3287,7 @@ msgstr ""
 
 #: inc/modules/export/namespace.php:237
 msgid "ODT"
-msgstr ""
+msgstr "ODT"
 
 #: inc/modules/export/namespace.php:238 inc/modules/export/namespace.php:239
 msgid "WXR"
@@ -3425,9 +3320,7 @@ msgstr[1] ""
 msgid ""
 "This book was produced with Pressbooks (https://pressbooks.com) and rendered"
 " with Prince."
-msgstr ""
-"Dit boek is geproduceerd met Pressbooks (https://pressbooks.com) and "
-"gerenderd met Prince."
+msgstr "Dit boek is geproduceerd met Pressbooks (https://pressbooks.com) and gerenderd met Prince."
 
 #: inc/modules/export/xhtml/class-xhtml11.php:178
 msgid "XHTML: "
@@ -3485,16 +3378,13 @@ msgstr "Uw URL blijkt niet geldig te zijn."
 #: inc/modules/import/class-import.php:548
 #: inc/modules/import/class-import.php:577
 msgid "The URL you are trying to import is bigger than the maximum file size."
-msgstr ""
-"De URL die u probeert te importeren is groter dan de maximaal toegestane "
-"bestandsgrootte."
+msgstr "De URL die u probeert te importeren is groter dan de maximaal toegestane bestandsgrootte."
 
 #: inc/modules/import/class-import.php:570
 msgid ""
 "The website you are attempting to reach is not returning a successful "
 "response code: "
-msgstr ""
-"De website die u probeert te bereiken retourneerd geen geldige reactiecode:"
+msgstr "De website die u probeert te bereiken retourneerd geen geldige reactiecode:"
 
 #: inc/modules/import/epub/class-epub201.php:152
 msgid "Opening EPUB file"
@@ -3520,9 +3410,7 @@ msgstr "De HTML is langer dan pcre.backtrack_limit."
 #: inc/modules/import/wordpress/class-parser.php:79
 msgid ""
 "This does not appear to be a WXR file, missing/invalid WXR version number"
-msgstr ""
-"Dit blijkt geen WXR-bestand te zijn, de WXR-versienummer ontbreekt/is "
-"ongeldig."
+msgstr "Dit blijkt geen WXR-bestand te zijn, de WXR-versienummer ontbreekt/is ongeldig."
 
 #: inc/modules/import/wordpress/class-wxr.php:415
 msgctxt ""
@@ -3670,8 +3558,7 @@ msgstr "Twee-Niveau Inhoudsopgave"
 #: inc/modules/themeoptions/class-globaloptions.php:158
 msgid ""
 "Enable two-level table of contents (displays headings under chapter titles)"
-msgstr ""
-"Inschakelen Twee-Niveau inhoudsopgave (toont kopteksten en ondertitels)"
+msgstr "Inschakelen Twee-Niveau inhoudsopgave (toont kopteksten en ondertitels)"
 
 #: inc/modules/themeoptions/class-globaloptions.php:164
 msgid "About the Author"
@@ -3696,8 +3583,7 @@ msgstr "Taal & Script Ondersteuning"
 
 #: inc/modules/themeoptions/class-globaloptions.php:193
 msgid "Include fonts to support the following languages and scripts:"
-msgstr ""
-"Includeer lettertypen om de volgende talen en scripts te ondersteunen:"
+msgstr "Includeer lettertypen om de volgende talen en scripts te ondersteunen:"
 
 #: inc/modules/themeoptions/class-globaloptions.php:207
 msgid "Chapter Licenses"
@@ -3713,9 +3599,7 @@ msgstr "Toon sectieniveau licentie in de inhoudsopgave van export formaten"
 
 #: inc/modules/themeoptions/class-globaloptions.php:214
 msgid "Display section level license at end of chapter in export formats"
-msgstr ""
-"Toon sectieniveau licenties aan het einde van hoofdstukken in "
-"exportformaten."
+msgstr "Toon sectieniveau licenties aan het einde van hoofdstukken in exportformaten."
 
 #: inc/modules/themeoptions/class-globaloptions.php:220
 #: languages/tinymce.php:21
@@ -3739,8 +3623,7 @@ msgstr "Leerdoelstellingen"
 
 #: inc/modules/themeoptions/class-globaloptions.php:232
 msgid "Customize colors for %s textboxes using the fields below."
-msgstr ""
-"Aangepaste kleuren voor %stekstboxen met gebruik van onderstaande velden."
+msgstr "Aangepaste kleuren voor %stekstboxen met gebruik van onderstaande velden."
 
 #: inc/modules/themeoptions/class-globaloptions.php:238
 msgid "Header Color"
@@ -3965,9 +3848,7 @@ msgstr "Lopende Kop & Voet"
 msgid ""
 "Running content appears in either running heads or running feet (at the top "
 "or bottom of the page) depending on your theme."
-msgstr ""
-"Lopende inhoud verschijnt in lopende koppen of lopende voeten (aan de "
-"onderkant van de pagina) afhankelijk van uw thema."
+msgstr "Lopende inhoud verschijnt in lopende koppen of lopende voeten (aan de onderkant van de pagina) afhankelijk van uw thema."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:403
 msgid "Front Matter Left Page Running Content"
@@ -4128,8 +4009,7 @@ msgstr "Vergroten Lettertypeformaat"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:602
 msgid "Increases font size and line height for greater accessibility"
-msgstr ""
-"Vergroot lettertypeformaat en regelhoogte voor betere toegangelijkheid"
+msgstr "Vergroot lettertypeformaat en regelhoogte voor betere toegangelijkheid"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:628
 msgid "These options apply to PDF exports."
@@ -4240,13 +4120,11 @@ msgstr "Toon titel in export"
 
 #: inc/posttype/namespace.php:336
 msgid "Chapter Short Title (appears in the PDF running header)"
-msgstr ""
-"Korte titel van hoofdstuk (verschijnt in de kopregel van het PDF-bestand) "
+msgstr "Korte titel van hoofdstuk (verschijnt in de kopregel van het PDF-bestand) "
 
 #: inc/posttype/namespace.php:345
 msgid "Chapter Subtitle (appears in the Web/ebook/PDF output)"
-msgstr ""
-"Ondertitel van hoofdstuk (verschijnt in de output van Web/e-boek/PDF) "
+msgstr "Ondertitel van hoofdstuk (verschijnt in de output van Web/e-boek/PDF) "
 
 #: inc/posttype/namespace.php:355
 msgid "Chapter Author (appears in Web/ebook/PDF output)"
@@ -4254,9 +4132,7 @@ msgstr "Auteur van hoofdstuk (verschijnt in de output van Web/e-boek/PDF)"
 
 #: inc/posttype/namespace.php:364
 msgid "Chapter Copyright License (overrides book license on this page)"
-msgstr ""
-"Licentie voor auteursrechten van hoofdstuk (heft de licentie van het boek op"
-" op deze pagina)"
+msgstr "Licentie voor auteursrechten van hoofdstuk (heft de licentie van het boek op op deze pagina)"
 
 #: inc/posttype/namespace.php:374
 msgid "Whether or not the part is shown in the table of contents"
@@ -4380,9 +4256,7 @@ msgstr "Maak een nieuw boek"
 msgid ""
 "Welcome, %s. Fill out the form below to <strong>add a new book to your "
 "account</strong>."
-msgstr ""
-"Welkom, %s. Vul onderstaand formulier in om <strong>een nieuw boek aan uw "
-"account toe te voegen</strong>."
+msgstr "Welkom, %s. Vul onderstaand formulier in om <strong>een nieuw boek aan uw account toe te voegen</strong>."
 
 #: inc/registration/namespace.php:72
 msgid "yourwebbookname"
@@ -4400,9 +4274,7 @@ msgstr "Gefeliciteerd! Uw nieuwe boek, %s, is bijna gereed"
 msgid ""
 "But, before you can start writing your book, <strong>you must activate "
 "it</strong>."
-msgstr ""
-"Maar, voor u kunt beginnen met schrijven van uw boek <strong>dient u het "
-"eerst te activeren</strong>."
+msgstr "Maar, voor u kunt beginnen met schrijven van uw boek <strong>dient u het eerst te activeren</strong>."
 
 #: inc/registration/namespace.php:87
 msgid ""
@@ -4428,9 +4300,7 @@ msgstr ""
 msgid ""
 "Your account is now activated. <a href=\"%1$s\">View your book</a> or <a "
 "href=\"%2$s\">Log in</a>"
-msgstr ""
-"Uw account is nu geactiveerd. <a href=\"%1$s\">Bekijk uw boek</a> of <a "
-"href=\"%2$s\">Log in</a>"
+msgstr "Uw account is nu geactiveerd. <a href=\"%1$s\">Bekijk uw boek</a> of <a href=\"%2$s\">Log in</a>"
 
 #: inc/registration/namespace.php:113
 msgid "Password"
@@ -4452,9 +4322,7 @@ msgstr "Type u wachtwoord nogmaals."
 msgid ""
 "Password must be at least 12 characters in length, include at least one "
 "upper case letter, and have at least one number."
-msgstr ""
-"Wachtwoord moet minimaal 12 karakters in lengte zijn en minimaal 1 "
-"hoofdletter en cijfer bevatten."
+msgstr "Wachtwoord moet minimaal 12 karakters in lengte zijn en minimaal 1 hoofdletter en cijfer bevatten."
 
 #: inc/registration/namespace.php:136 inc/registration/namespace.php:176
 #: inc/registration/namespace.php:195 inc/registration/namespace.php:214
