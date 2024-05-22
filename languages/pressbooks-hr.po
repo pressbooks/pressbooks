@@ -1,16 +1,15 @@
 # Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
-# Steel Wagstaff <steel@pressbooks.com>, 2023
-# 
+# Dubravko Cvikl <dcvikl@cvikl.hr>, 2019
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 6.18.0\n"
+"Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2024-04-04T20:55:25+00:00\n"
-"PO-Revision-Date: 2023-05-25 04:50+0000\n"
-"Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2023\n"
-"Language-Team: Croatian (Croatia) (https://app.transifex.com/pressbooks/teams/9194/hr_HR/)\n"
+"POT-Creation-Date: 2024-05-08T20:14:28+00:00\n"
+"PO-Revision-Date: 2013-12-21 21:04+0000\n"
+"Last-Translator: Dubravko Cvikl <dcvikl@cvikl.hr>, 2019\n"
+"Language-Team: Croatian (Croatia) (http://app.transifex.com/pressbooks/pressbooks/language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -48,47 +47,34 @@ msgstr "Jednostavno izdavanje knjiga"
 msgid ""
 "Pressbooks could not create the mu-plugins folder. Please create the "
 "following directory: %s"
-msgstr ""
-"Pressbooks nije mogao generirati mapu mu-plugins. Molimo kreirajte slijedeću"
-" mapu: %s"
+msgstr "Pressbooks nije mogao generirati mapu mu-plugins. Molimo kreirajte slijedeću mapu: %s"
 
 #: compatibility.php:157
 msgid ""
 "Pressbooks could not copy the autoloader from %1$s to %2$s. Please copy the "
 "file manually."
-msgstr ""
-"Pressbooks nije mogao kopirati autoloader iz %1$s u %2$s. Molimo da ga "
-"kopirate ručno."
+msgstr "Pressbooks nije mogao kopirati autoloader iz %1$s u %2$s. Molimo da ga kopirate ručno."
 
 #: compatibility.php:172
 msgid ""
 "Pressbooks will not work with your version of PHP. Pressbooks requires PHP "
 "version %s or greater. Please upgrade PHP if you would like to use "
 "Pressbooks."
-msgstr ""
-"Pressbooks neće raditi sa vašom inačicom PHP-a. Za Pressbooks potrebna je "
-"PHP inačica %s ili viša. Molimo nadogradite PHP u koliko želite koristiti "
-"Pressbooks."
+msgstr "Pressbooks neće raditi sa vašom inačicom PHP-a. Za Pressbooks potrebna je PHP inačica %s ili viša. Molimo nadogradite PHP u koliko želite koristiti Pressbooks."
 
 #: compatibility.php:185
 msgid ""
 "Pressbooks will not work with your version of WordPress. Pressbooks requires"
 " a dedicated install of WordPress Multisite, version %s or greater. Please "
 "upgrade WordPress if you would like to use Pressbooks."
-msgstr ""
-"Pressbooks neće raditi na Vašoj inačici Wordpressa. Pressbooks zahtjeva "
-"dediciranu inačicu Wordpress Multisite, inačice %s ili više. Molimo "
-"nadogradite Wordpress u koliko želite koristiti Pressbooks."
+msgstr "Pressbooks neće raditi na Vašoj inačici Wordpressa. Pressbooks zahtjeva dediciranu inačicu Wordpress Multisite, inačice %s ili više. Molimo nadogradite Wordpress u koliko želite koristiti Pressbooks."
 
 #: compatibility.php:196
 msgid ""
 "The Pressbooks plugin is inactive, but you have active plugins that require "
 "Pressbooks. This is causing errors. Please go to the Plugins page, and "
 "activate Pressbooks."
-msgstr ""
-"Pressbooks dodatak nije aktivan, ali imate aktivne dodatke koji zahtijevaju "
-"Pressbooks. To uzrokuje greške pri radu. Molimo posjetite stranicu dodataka "
-"i aktivirajte Pressbooks dodatak."
+msgstr "Pressbooks dodatak nije aktivan, ali imate aktivne dodatke koji zahtijevaju Pressbooks. To uzrokuje greške pri radu. Molimo posjetite stranicu dodataka i aktivirajte Pressbooks dodatak."
 
 #: inc/admin/attachments/namespace.php:39
 msgid "ATTRIBUTIONS"
@@ -244,9 +230,7 @@ msgstr "Za uvrštavanje knjige u Vaš katalog odaberite \"%s\" pod stanje katalo
 
 #: inc/admin/class-catalog-list-table.php:533
 msgid "To hide a book in your catalog choose \"%s\" under Catalog Status."
-msgstr ""
-"Da knjiga nije vidljiva u Vašem katalogu, pod Stanje kataloga odaberite "
-"\"%s\"."
+msgstr "Da knjiga nije vidljiva u Vašem katalogu, pod Stanje kataloga odaberite \"%s\"."
 
 #: inc/admin/class-catalog-list-table.php:536
 msgid "Catalog sorting"
@@ -257,10 +241,7 @@ msgid ""
 "To add sorting ability, add your Tag names to your <a href=\"%s\">Catalog "
 "Profile</a> page (ex: Authors, Book Genre), then add the appropriate tags to"
 " each individual book."
-msgstr ""
-"Da bi se omogućilo razvrstavanje u katalogu, dodajte oznake na Vašu stranicu"
-" <a href=\"%s\">profil kataloga</a> (npr.: Autori, žanr), zatim dodajte "
-"oznake svakoj pojedinoj knjizi."
+msgstr "Da bi se omogućilo razvrstavanje u katalogu, dodajte oznake na Vašu stranicu <a href=\"%s\">profil kataloga</a> (npr.: Autori, žanr), zatim dodajte oznake svakoj pojedinoj knjizi."
 
 #: inc/admin/class-catalog-list-table.php:539
 msgid "Share your catalog"
@@ -311,9 +292,7 @@ msgstr "Postavke izvoza."
 msgid ""
 "This will prevent any changes to your book&rsquo;s appearance and page count"
 " when themes are updated."
-msgstr ""
-"Ovime se sprječavaju izmjene u prikazu i broju stranica Vaše knjige uslijed "
-"ažuriranja izgleda (teme)."
+msgstr "Ovime se sprječavaju izmjene u prikazu i broju stranica Vaše knjige uslijed ažuriranja izgleda (teme)."
 
 #: inc/admin/class-exportoptions.php:195 inc/admin/laf/namespace.php:412
 msgid "Export Settings"
@@ -385,9 +364,7 @@ msgstr "Pohrana postavki"
 msgid ""
 "Cover generation is not done. Leaving this page, now, will cause problems. "
 "Are you sure?"
-msgstr ""
-"Izrada korica nije završena. Ako sada napustite stranicu doći će do problema"
-" u kasnijem radu. Jeste li sigurni?"
+msgstr "Izrada korica nije završena. Ako sada napustite stranicu doći će do problema u kasnijem radu. Jeste li sigurni?"
 
 #: inc/admin/covergenerator/namespace.php:50 inc/admin/laf/namespace.php:352
 #: inc/admin/laf/namespace.php:375 inc/admin/laf/namespace.php:436
@@ -425,9 +402,7 @@ msgstr "ISBN"
 msgid ""
 "If you have an ISBN, this will generate a barcode on the back of your print "
 "cover. If you do not have an ISBN, you should leave this field blank."
-msgstr ""
-"Ako imate ISBN broj ovime će se generirati bark&ocirc;d na poleđini tiskanih"
-" korica. Ako nemate ISBN broj ovo polje bi trebalo ostati prazno."
+msgstr "Ako imate ISBN broj ovime će se generirati bark&ocirc;d na poleđini tiskanih korica. Ako nemate ISBN broj ovo polje bi trebalo ostati prazno."
 
 #: inc/admin/covergenerator/namespace.php:154
 msgid "or SKU"
@@ -439,10 +414,7 @@ msgid ""
 "field will generate a barcode with that number on the back of your print "
 "cover. If you do not have a non-ISBN identifier, you should leave this field"
 " blank."
-msgstr ""
-"Ako imate drugi identifikacijski broj od 13 znamenki (ne ISBN), unosom u ovo"
-" polje izradit će se bark&ocirc;d na poleđini tiskanih korica. Ako nemate "
-"takav identifikacijski broj polje ostavite prazno."
+msgstr "Ako imate drugi identifikacijski broj od 13 znamenki (ne ISBN), unosom u ovo polje izradit će se bark&ocirc;d na poleđini tiskanih korica. Ako nemate takav identifikacijski broj polje ostavite prazno."
 
 #: inc/admin/covergenerator/namespace.php:166
 msgid "Design"
@@ -507,11 +479,7 @@ msgid ""
 " and is used to generate your cover(s). You can reformat the text below as "
 "needed. (<strong>IMPORTANT NOTE:</strong> Changes you make here will "
 "<strong>NOT</strong> be reflected on the Book Information page.)"
-msgstr ""
-"Donji tekst je preuzima se sa stranice <a href=\"%s\">Informacije o "
-"knjizi</a> i biti će korišten u izradi korice. Isti možete mijenjati po "
-"želji. (<strong>NAPOMENA:</strong> Izmjene koje napravite "
-"<strong>neće</strong> utjecati na izvorne informacije o knjizi.)"
+msgstr "Donji tekst je preuzima se sa stranice <a href=\"%s\">Informacije o knjizi</a> i biti će korišten u izradi korice. Isti možete mijenjati po želji. (<strong>NAPOMENA:</strong> Izmjene koje napravite <strong>neće</strong> utjecati na izvorne informacije o knjizi.)"
 
 #. translators: %s: URL to Appearance menu
 #: inc/admin/covergenerator/namespace.php:443
@@ -519,10 +487,7 @@ msgid ""
 "Below you can make small adjustments to the design of your cover. The look "
 "and feel of the cover will echo the theme you have chosen for your book. You"
 " can change your book theme in the <a href=\"%s\">Appearance</a> menu."
-msgstr ""
-"Ispod možete izvršiti manje izmjene/prilagodbe za korice. Sam izgled je "
-"određen temom koju koristite za svoju knjigu. Temu knjige možete izmijeniti "
-"u izborniku <a href=\"%s\">Izgled</a>."
+msgstr "Ispod možete izvršiti manje izmjene/prilagodbe za korice. Sam izgled je određen temom koju koristite za svoju knjigu. Temu knjige možete izmijeniti u izborniku <a href=\"%s\">Izgled</a>."
 
 #. translators: 1: pdf page width, 2: pdf page height, 3: URL to Theme Options
 #. page
@@ -531,10 +496,7 @@ msgid ""
 "Your PDF page size is set to %1$s &times; %2$s, and your PDF cover will be "
 "generated with the same dimensions. You can change the PDF page size in the "
 "<a href=\"%3$s\">Theme Options</a> menu."
-msgstr ""
-"Veličina stranice PDF-a je postavljena na %1$s &times;%2$s i veličina korica"
-" će biti izrađena sa tom veličinom. Veličinu stranice možete promijeniti "
-"putem izbornika <a href=\"%3$s\">Postavke izgleda/teme</a>."
+msgstr "Veličina stranice PDF-a je postavljena na %1$s &times;%2$s i veličina korica će biti izrađena sa tom veličinom. Veličinu stranice možete promijeniti putem izbornika <a href=\"%3$s\">Postavke izgleda/teme</a>."
 
 #: inc/admin/covergenerator/namespace.php:459
 #: templates/admin/export.blade.php:61
@@ -555,9 +517,7 @@ msgstr "Ovdje možete postaviti pozadinsku sliku."
 msgid ""
 "Your image must be at least %1$s pixels in width by %2$s pixels in height, "
 "with an aspect ratio of %3$s to %4$s."
-msgstr ""
-"Slika mora biti najmanje %1$s piksela široka i %2$s piksela visoka, te u "
-"omjeru %3$s na prema %4$s."
+msgstr "Slika mora biti najmanje %1$s piksela široka i %2$s piksela visoka, te u omjeru %3$s na prema %4$s."
 
 #: inc/admin/covergenerator/namespace.php:503
 msgid "Delete Background Image"
@@ -567,36 +527,27 @@ msgstr "Brisanje slike pozadine"
 msgid ""
 "Spine size is calculated based on the number of pages in your book, and the "
 "weight of the paper used in printing."
-msgstr ""
-"Debljina hrpta se računa prema broju stranica Vaše knjige, te debljini "
-"papira  na koji se tiska."
+msgstr "Debljina hrpta se računa prema broju stranica Vaše knjige, te debljini papira  na koji se tiska."
 
 #: inc/admin/covergenerator/namespace.php:531
 msgid ""
 "You haven't exported any PDF copies of your book, so you will need to enter "
 "a page count below."
-msgstr ""
-"Još niste izvršili izvoz niti jedne kopije Vaše knjige tako da će te morati "
-"unijeti broj stranica."
+msgstr "Još niste izvršili izvoz niti jedne kopije Vaše knjige tako da će te morati unijeti broj stranica."
 
 #. translators: %s: number of pages in pdf
 #: inc/admin/covergenerator/namespace.php:534
 msgid ""
 "The last PDF you exported has %s pages (you can edit this below if you "
 "like)."
-msgstr ""
-"Zadnja izvezena PDF inačica knjige sadrži %s stranica (dolje možete izvršiti"
-" izmjenu ako želite)."
+msgstr "Zadnja izvezena PDF inačica knjige sadrži %s stranica (dolje možete izvršiti izmjenu ako želite)."
 
 #: inc/admin/covergenerator/namespace.php:538
 msgid ""
 "We can calculate the spine size based on CreateSpace and Ingram "
 "specifications, or you can enter your own custom pages per inch (PPI) "
 "defined by your printer."
-msgstr ""
-"Veličinu hrpta možemo izračunati na osnovu specifikacija CreateSpacea ili "
-"Ingrama, ili možete unijeti vlastitu rezoluciju po inču (PPI) definiranu od "
-"strane Vaše tiskare."
+msgstr "Veličinu hrpta možemo izračunati na osnovu specifikacija CreateSpacea ili Ingrama, ili možete unijeti vlastitu rezoluciju po inču (PPI) definiranu od strane Vaše tiskare."
 
 #: inc/admin/covergenerator/namespace.php:571
 #: inc/modules/themeoptions/class-pdfoptions.php:194
@@ -623,9 +574,7 @@ msgstr "Odaberite boju teksta i pozadine."
 msgid ""
 "Your image is too small. The image must be %1$d by %2$d pixels. Your image "
 "is %3$d by %4$d pixels."
-msgstr ""
-"Vaša slika je pre mala. Slika mora biti %1$d &times; %2$d piksela. Vaša "
-"slika je %3$d &times; %4$d piksela."
+msgstr "Vaša slika je pre mala. Slika mora biti %1$d &times; %2$d piksela. Vaša slika je %3$d &times; %4$d piksela."
 
 #. translators: 1: pdf page width, 2: pdf page height
 #: inc/admin/covergenerator/namespace.php:764
@@ -719,22 +668,7 @@ msgid ""
 "\n"
 "Thanks for using Pressbooks,\n"
 "###SITE_NAME###"
-msgstr ""
-"Pozdrav ###USERNAME###,\n"
-"\n"
-"Nedavno ste kliknuli na poveznicu 'Obriši knjigu' na svojoj knjizi, te popunili \n"
-"obrazac na istoj stranici.\n"
-"\n"
-"U koliko stvarno želite obrisati svoju knjigu kliknite na dolje navedenu \n"
-"poveznicu. Više Vas nećemo pitati za dodatnu potvrdu tako da dobro \n"
-"razmislite i samo ako ste stvarno sigurni kliknete na:\n"
-"###URL_DELETE###\n"
-"\n"
-"Ako obrišete svoju knjigu, molimo da razmislite o početku nove knjige na našem portalu u bliskoj budućnosti! (Ne zaboravite Vaša knjiga će biti\n"
-"izbrisana zauvijek.)\n"
-"\n"
-"Hvala što koristite Pressbooks,\n"
-"###SITE_NAME###"
+msgstr "Pozdrav ###USERNAME###,\n\nNedavno ste kliknuli na poveznicu 'Obriši knjigu' na svojoj knjizi, te popunili \nobrazac na istoj stranici.\n\nU koliko stvarno želite obrisati svoju knjigu kliknite na dolje navedenu \npoveznicu. Više Vas nećemo pitati za dodatnu potvrdu tako da dobro \nrazmislite i samo ako ste stvarno sigurni kliknete na:\n###URL_DELETE###\n\nAko obrišete svoju knjigu, molimo da razmislite o početku nove knjige na našem portalu u bliskoj budućnosti! (Ne zaboravite Vaša knjiga će biti\nizbrisana zauvijek.)\n\nHvala što koristite Pressbooks,\n###SITE_NAME###"
 
 #: inc/admin/diagnostics/namespace.php:32
 #: inc/admin/diagnostics/namespace.php:33 inc/admin/laf/namespace.php:110
@@ -929,17 +863,13 @@ msgstr "Nije moguće zakačiti više od 3 zapisa istog formata."
 msgid ""
 "Too many pinned files. Deselect one of the pinned files before attempting to"
 " export."
-msgstr ""
-"Prevelik broj označenih zapisa. Uklonite oznaku sa jednog  prije ponovnog "
-"pokušaja izvoza."
+msgstr "Prevelik broj označenih zapisa. Uklonite oznaku sa jednog  prije ponovnog pokušaja izvoza."
 
 #: inc/admin/laf/namespace.php:354
 msgid ""
 "Exports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
-msgstr ""
-"Izvoz nije završen. Ako sada napustite stranicu doći će do grešaka. Jeste li"
-" sigurni?"
+msgstr "Izvoz nije završen. Ako sada napustite stranicu doći će do grešaka. Jeste li sigurni?"
 
 #: inc/admin/laf/namespace.php:366 inc/utility/class-handlestransfers.php:88
 #: templates/admin/import.php:38 templates/admin/import.php:114
@@ -950,9 +880,7 @@ msgstr "Uvoz"
 msgid ""
 "Imports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
-msgstr ""
-"Uvozi nisu završeni. Ako sada napustite stranicu doći će do grešaka. Jeste "
-"li sigurni?"
+msgstr "Uvozi nisu završeni. Ako sada napustite stranicu doći će do grešaka. Jeste li sigurni?"
 
 #: inc/admin/laf/namespace.php:399 inc/admin/laf/namespace.php:595
 #: inc/admin/laf/namespace.php:1518
@@ -977,9 +905,7 @@ msgstr "Kloniraj knjigu"
 msgid ""
 "Cloning is not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
-msgstr ""
-"Kloniranje nije završeno. Ako sada napustite stranicu doći će do grešaka. "
-"Jeste li sigurni?"
+msgstr "Kloniranje nije završeno. Ako sada napustite stranicu doći će do grešaka. Jeste li sigurni?"
 
 #: inc/admin/laf/namespace.php:662 inc/admin/laf/namespace.php:663
 msgid "Cloning Stats"
@@ -1055,11 +981,7 @@ msgid ""
 "the most recent version of your selected theme, which may change your "
 "book&rsquo;s appearance and page count. Once you save your settings on this "
 "page, this action will NOT be reversable!"
-msgstr ""
-"Jeste li sigurni da želite otključati izgled? Time će se izvršiti ažuriranje"
-" izgleda na najnoviju inačicu što može izmijeniti izgled i/ili broj stranica"
-" Vaše knjige. Jednom kada potvrdite izmjene postavki na ovoj stranici više "
-"nećete moći vratiti prethodno stanje knjige!"
+msgstr "Jeste li sigurni da želite otključati izgled? Time će se izvršiti ažuriranje izgleda na najnoviju inačicu što može izmijeniti izgled i/ili broj stranica Vaše knjige. Jednom kada potvrdite izmjene postavki na ovoj stranici više nećete moći vratiti prethodno stanje knjige!"
 
 #: inc/admin/laf/namespace.php:1234
 msgid "Book Visibility"
@@ -1110,32 +1032,25 @@ msgstr "Svi prijavljeni korisnici uključujući pretplatnike."
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
-msgstr ""
-"Da. Želim onemogućiti sve povratne veze i komentare za sve uvodne stranice, "
-"poglavlja i završne stranice knjige."
+msgstr "Da. Želim onemogućiti sve povratne veze i komentare za sve uvodne stranice, poglavlja i završne stranice knjige."
 
 #: inc/admin/laf/namespace.php:1404
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
-msgstr ""
-"Ne. Želim da povratne veze i komentari ostanu dostupni za sve uvodne "
-"stranice, poglavlja i završne stranice knjige, osim ako ih ručno onemogućim."
+msgstr "Ne. Želim da povratne veze i komentari ostanu dostupni za sve uvodne stranice, poglavlja i završne stranice knjige, osim ako ih ručno onemogućim."
 
 #: inc/admin/laf/namespace.php:1420
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
-msgstr ""
-"Da. Želim da su zadnje izvezeni zapisi knjige besplatno dostupni za "
-"preuzimanje na početnoj stranici za sve korisnike. "
+msgstr "Da. Želim da su zadnje izvezeni zapisi knjige besplatno dostupni za preuzimanje na početnoj stranici za sve korisnike. "
 
 #: inc/admin/laf/namespace.php:1426
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
-msgstr ""
-"Ne. Želim da su zadnje izvezeni zapisi dostupni samo administratorima."
+msgstr "Ne. Želim da su zadnje izvezeni zapisi dostupni samo administratorima."
 
 #: inc/admin/laf/namespace.php:1445
 msgid "Yes. I want this book to be listed in the Pressbooks directory."
@@ -1365,9 +1280,7 @@ msgstr "Slogan knjige"
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
-msgstr ""
-"Jako kratki opis Vaše knjige. Sadržaj bi trebao stati u objavu za Twitter i "
-"dati opis Vaše knjige u što manjoj rečenici."
+msgstr "Jako kratki opis Vaše knjige. Sadržaj bi trebao stati u objavu za Twitter i dati opis Vaše knjige u što manjoj rečenici."
 
 #: inc/admin/metaboxes/class-about.php:32
 msgid "Short Description"
@@ -1376,9 +1289,7 @@ msgstr "Kratki opis"
 #: inc/admin/metaboxes/class-about.php:33
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
-msgstr ""
-"Kratki odlomak o Vašoj knjizi za citiranje u katalozima, za recenzije i "
-"slično."
+msgstr "Kratki odlomak o Vašoj knjizi za citiranje u katalozima, za recenzije i slično."
 
 #: inc/admin/metaboxes/class-about.php:37
 msgid "Long Description"
@@ -1413,9 +1324,7 @@ msgstr "Ključne riječi"
 msgid ""
 "These are added to your webbook cover page, and in your ebook metadata. "
 "Keywords are used by online book stores and search engines."
-msgstr ""
-"Iste će se dodati na naslovnicu web knjige i u meta podatke e-knjige. "
-"Ključne riječi se koriste od strane e-trgovina i online tražilica."
+msgstr "Iste će se dodati na naslovnicu web knjige i u meta podatke e-knjige. Ključne riječi se koriste od strane e-trgovina i online tražilica."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:42
 msgid "Hashtag"
@@ -1425,8 +1334,7 @@ msgstr "Hashtag"
 msgid ""
 "These are added to your webbook cover page. For those of you who like "
 "Twitter."
-msgstr ""
-"Za ljubitelje Twittera. Dodaju se na početnu stranicu Vaše web knjige."
+msgstr "Za ljubitelje Twittera. Dodaju se na početnu stranicu Vaše web knjige."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:47
 msgid "List Price (Print)"
@@ -1525,9 +1433,7 @@ msgstr "URL izvorne knjige"
 msgid ""
 "This book was cloned from a pre-existing book at the above URL. This "
 "information will be displayed on the webbook homepage."
-msgstr ""
-"Ova knjiga je nastala kloniranjem već objavljene knjige na gore prikazanoj "
-"adresi. Ova informacija će biti prikazana na početnoj stranici knjige."
+msgstr "Ova knjiga je nastala kloniranjem već objavljene knjige na gore prikazanoj adresi. Ova informacija će biti prikazana na početnoj stranici knjige."
 
 #: inc/admin/metaboxes/class-copyright.php:47
 msgid "Copyright Year"
@@ -1564,12 +1470,7 @@ msgid ""
 "no license is selected, and will be inserted after the title page. If you "
 "select a Creative Commons license, the custom notice will appear after the "
 "license text in both the webbook and your exports."
-msgstr ""
-"Unesite vlastitu bilješku o autorskim pravima. Ista će prepisati automatski "
-"generirane obavijesti o autorskim pravima ako te odabrali \"Sva prava "
-"pridržana\" ili ako niste odabrali licencu o autorskom pravu. Ako odaberete "
-"Creative Commons licencu, tekst vlastite obavijesti o autorskim pravima će "
-"se pojaviti iza licence kako na web knjizi tako i u izvezenim formatima."
+msgstr "Unesite vlastitu bilješku o autorskim pravima. Ista će prepisati automatski generirane obavijesti o autorskim pravima ako te odabrali \"Sva prava pridržana\" ili ako niste odabrali licencu o autorskom pravu. Ako odaberete Creative Commons licencu, tekst vlastite obavijesti o autorskim pravima će se pojaviti iza licence kako na web knjizi tako i u izvezenim formatima."
 
 #: inc/admin/metaboxes/class-generalinformation.php:32
 msgid "General Book Information"
@@ -1583,9 +1484,7 @@ msgstr "Kratki naslov"
 msgid ""
 "In case of long titles that might be truncated in running heads in the PDF "
 "export."
-msgstr ""
-"Kod predugačkih naslova može doći do skraćivanja kod ispisa živih glava pri "
-"izvozu u PDF format zapisa."
+msgstr "Kod predugačkih naslova može doći do skraćivanja kod ispisa živih glava pri izvozu u PDF format zapisa."
 
 #: inc/admin/metaboxes/class-generalinformation.php:55
 msgid "Author(s)"
@@ -1656,10 +1555,7 @@ msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in some online ebook stores. This is added to the "
 "metadata in your ebook."
-msgstr ""
-"ISBN (International Standard Book Number) je međunarodni standardni knjižni "
-"broj. Isti će Vam trebati za neke online trgovine e-knjiga. Podatak se "
-"pohranjuje u meta podatke Vaše e-knjige."
+msgstr "ISBN (International Standard Book Number) je međunarodni standardni knjižni broj. Isti će Vam trebati za neke online trgovine e-knjiga. Podatak se pohranjuje u meta podatke Vaše e-knjige."
 
 #: inc/admin/metaboxes/class-generalinformation.php:127
 msgid "Print ISBN"
@@ -1669,10 +1565,7 @@ msgstr "Ispiši ISBN"
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
-msgstr ""
-"ISBN (International Standard Book Number) je međunarodni standardni knjižni "
-"broj. Trebati će te ga u koliko želite vršiti prodaju Vaše knjige u "
-"elektronskom ili tiskanom obliku."
+msgstr "ISBN (International Standard Book Number) je međunarodni standardni knjižni broj. Trebati će te ga u koliko želite vršiti prodaju Vaše knjige u elektronskom ili tiskanom obliku."
 
 #: inc/admin/metaboxes/class-generalinformation.php:133
 msgid "Digital Object Identifier (DOI)"
@@ -1687,10 +1580,7 @@ msgid ""
 "This sets metadata in your ebook, making it easier to find in some stores. "
 "It also changes some system generated content for supported languages, such "
 "as the \"Contents\" header."
-msgstr ""
-"Ovo postavlja meta podatke za Vašu knjigu pomoću kojih se ista lakše može "
-"pronaći putem tražilica. Također se mijenjaju neke postavke i sadržaji "
-"generirani od strane sustava kao na primjer zaglavlje sadržaja."
+msgstr "Ovo postavlja meta podatke za Vašu knjigu pomoću kojih se ista lakše može pronaći putem tražilica. Također se mijenjaju neke postavke i sadržaji generirani od strane sustava kao na primjer zaglavlje sadržaja."
 
 #: inc/admin/metaboxes/class-generalinformation.php:139
 msgid "Help translate Pressbooks into your language!"
@@ -1830,9 +1720,7 @@ msgstr "Status & Vidljivost"
 #: inc/admin/metaboxes/namespace.php:240
 msgid ""
 "Appears on part page. Parts will not appear if a book has only one part."
-msgstr ""
-"Pojavljuje se na stranicama dijelova knjige. Dijelovi neće biti prikazani "
-"ako knjiga sadrži samo jedan dio."
+msgstr "Pojavljuje se na stranicama dijelova knjige. Dijelovi neće biti prikazani ako knjiga sadrži samo jedan dio."
 
 #: inc/admin/metaboxes/namespace.php:396
 msgid "Show in Glossary Lists"
@@ -1914,8 +1802,7 @@ msgstr "Dozvoli dijeljenje"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:101
 msgid "Allow book administrators to enable redistribution of export files."
-msgstr ""
-"Dozvoli administratorima knjige omogućivanje dijeljenja izvezenih zapisa."
+msgstr "Dozvoli administratorima knjige omogućivanje dijeljenja izvezenih zapisa."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:107
 msgid "Enable network API"
@@ -1939,9 +1826,7 @@ msgstr "Omogući CC sa web poveznicama"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:137
 msgid "Allow users to produce Common Cartridge exports with simple Web Links."
-msgstr ""
-"Omogući korisnicima izradu Common Catridge izvoza sa jednostavnim web "
-"poveznicama."
+msgstr "Omogući korisnicima izradu Common Catridge izvoza sa jednostavnim web poveznicama."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:143
 msgid "Book directory"
@@ -1979,9 +1864,7 @@ msgstr "Upravitelji Pressbooks mreže"
 msgid ""
 "Network administrators&rsquo; access to network administration menus can be "
 "restricted to leave only sites and users visible to them."
-msgstr ""
-"Pristup mrežnih administratora može biti ograničen na način da su im "
-"vidljiva samo web mjesta i korisnici istih."
+msgstr "Pristup mrežnih administratora može biti ograničen na način da su im vidljiva samo web mjesta i korisnici istih."
 
 #: inc/admin/plugins/namespace.php:94
 msgid ""
@@ -2054,8 +1937,7 @@ msgstr ""
 msgid ""
 "URL of a reference Web page that unambiguously indicates the item's "
 "identity."
-msgstr ""
-"URL referentne web stranice koja nedvosmisleno označava identitet stavke."
+msgstr "URL referentne web stranice koja nedvosmisleno označava identitet stavke."
 
 #: inc/api/endpoints/controller/class-posts.php:197
 msgid "The status for the post."
@@ -2121,9 +2003,7 @@ msgstr "Poglavlje 1."
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
-msgstr ""
-"Ovo je prvo poglavlje Vaše knjige. Možete izmijeniti tekst, preimenovati "
-"poglavlje, dodavati poglavlja i/ili dodavati nove dijelove."
+msgstr "Ovo je prvo poglavlje Vaše knjige. Možete izmijeniti tekst, preimenovati poglavlje, dodavati poglavlja i/ili dodavati nove dijelove."
 
 #: inc/class-activation.php:224
 msgid "Appendix"
@@ -2158,11 +2038,7 @@ msgid ""
 "an account you can login <a href=\"/wp-login.php\">here</a>. You can also "
 "set up your own Pressbooks book at: <a "
 "href=\"http://pressbooks.com\">Pressbooks.com</a>."
-msgstr ""
-"Ovo je privatna knjiga i dostupna je samo registriranim korisnicima. Ako "
-"imate pristupne podatke možete se prijaviti <a href=\"/wp-"
-"login.php\">ovdje</a>. Također možete postaviti vlastitu Pressbooks knjigu "
-"na: <a href=\"http://pressbooks.com\">Pressbooks.com</a>."
+msgstr "Ovo je privatna knjiga i dostupna je samo registriranim korisnicima. Ako imate pristupne podatke možete se prijaviti <a href=\"/wp-login.php\">ovdje</a>. Također možete postaviti vlastitu Pressbooks knjigu na: <a href=\"http://pressbooks.com\">Pressbooks.com</a>."
 
 #: inc/class-activation.php:264 inc/class-customcss.php:91
 msgid "Custom CSS for Ebook"
@@ -2326,9 +2202,7 @@ msgstr[2] ""
 msgid ""
 "Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s, and %8$s"
 " to %9$s."
-msgstr ""
-"Kloniranje uspješno! Klonirano %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s i "
-"%8$s do %9$s."
+msgstr "Kloniranje uspješno! Klonirano %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s i %8$s do %9$s."
 
 #: inc/class-eventstreams.php:202
 msgid "%s term"
@@ -2531,7 +2405,7 @@ msgstr "Vaše pismo %1$s nije se moglo preuzeti sa %2$s."
 
 #: inc/class-googleanalytics.php:27
 msgid "Google Analytics ID"
-msgstr ""
+msgstr "Google Analytics ID"
 
 #: inc/class-googleanalytics.php:28
 msgid ""
@@ -2547,10 +2421,7 @@ msgid ""
 "If enabled, the Google Analytics settings page will be visible to book "
 "administrators, allowing them to use their own Google Analytics accounts to "
 "track statistics at the book level."
-msgstr ""
-"Ako je omogućeno, administratori knjiga vidjet će stranicu za postavke "
-"Google Analytics, te će moći postavljati i upravljati vlastitim Google "
-"Analytics računima za praćenje na razini knjiga (pojedinih web mjesta)."
+msgstr "Ako je omogućeno, administratori knjiga vidjet će stranicu za postavke Google Analytics, te će moći postavljati i upravljati vlastitim Google Analytics računima za praćenje na razini knjiga (pojedinih web mjesta)."
 
 #: inc/class-googleanalytics.php:197
 msgid "Google Analytics settings."
@@ -2604,9 +2475,7 @@ msgstr "CC BY-NC-SA (Attribution NonCommercial ShareAlike)"
 msgid ""
 "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International "
 "License"
-msgstr ""
-"Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Međunarodna "
-"licenca"
+msgstr "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Međunarodna licenca"
 
 #: inc/class-licensing.php:132
 msgid "CC BY-NC-ND (Attribution NonCommercial NoDerivatives)"
@@ -2616,9 +2485,7 @@ msgstr "CC BY-NC-ND (Attribution NonCommercial NoDerivatives)"
 msgid ""
 "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International "
 "License"
-msgstr ""
-"Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 Međunarodna "
-"licenca"
+msgstr "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 Međunarodna licenca"
 
 #: inc/class-licensing.php:139 inc/class-licensing.php:338
 msgid "All Rights Reserved"
@@ -2677,9 +2544,7 @@ msgstr ""
 msgid ""
 "There was a problem with SASS. Contact your site administrator. Error: %1$s "
 "%2$s"
-msgstr ""
-"Došlo je do sa SASS kodom. Kontaktirajte svog administratora web mjesta. "
-"Greška: %1$s %2$s"
+msgstr "Došlo je do sa SASS kodom. Kontaktirajte svog administratora web mjesta. Greška: %1$s %2$s"
 
 #: inc/class-styles.php:96 templates/admin/custom-styles.php:42
 msgid "Custom Styles"
@@ -2793,9 +2658,7 @@ msgstr ""
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
-msgstr ""
-"Nepredviđena greška. Došlo je do greške pri upitu: %s - Molimo kontaktirajte"
-" tehničku podršku."
+msgstr "Nepredviđena greška. Došlo je do greške pri upitu: %s - Molimo kontaktirajte tehničku podršku."
 
 #: inc/class-styles.php:819 templates/admin/custom-styles.php:20
 msgid "Web"
@@ -2847,9 +2710,7 @@ msgstr "Završavam"
 msgid ""
 "You can only clone from a book hosted by Pressbooks 4.1 or later. Please "
 "ensure that your source book meets these requirements."
-msgstr ""
-"Možete klonirati samo knjigu objavljenu na Pressbooks 4.1 ili kasnije. "
-"Molimo osigurajte da izvorna knjiga zadovoljava te uvijete."
+msgstr "Možete klonirati samo knjigu objavljenu na Pressbooks 4.1 ili kasnije. Molimo osigurajte da izvorna knjiga zadovoljava te uvijete."
 
 #: inc/cloner/class-cloner.php:568
 msgid "Could not retrieve metadata from %s."
@@ -2876,11 +2737,7 @@ msgid ""
 "The source book contained H5P content that could not be cloned. Please "
 "review the cloned version of your book carefully, as missing H5P content "
 "will be indicated. You may want to remove or replace these elements."
-msgstr ""
-"Izvorna knjiga sadrži H5P sadržaj koji nije mogao biti kloniran. Molimo "
-"pažljivo pregledajte kloniranu inačicu knjige pošto nedostaju H5P sadržaji "
-"koji će biti naznačeni. Vjerovatno želite izvršiti zamjenu ili ukloniti te "
-"elemente."
+msgstr "Izvorna knjiga sadrži H5P sadržaj koji nije mogao biti kloniran. Molimo pažljivo pregledajte kloniranu inačicu knjige pošto nedostaju H5P sadržaji koji će biti naznačeni. Vjerovatno želite izvršiti zamjenu ili ukloniti te elemente."
 
 #: inc/cloner/class-cloner.php:798
 msgid "The source book&rsquo;s media could not be read."
@@ -2953,14 +2810,11 @@ msgstr "Nije moguće dohvatiti Vaš PDF."
 
 #: inc/covergenerator/class-isbn.php:61
 msgid "There was a problem creating the barcode: Invalid ISBN number."
-msgstr ""
-"Došlo je do problema kod izrade bark&ocirc;oda: Ne ispravan ISBN broj."
+msgstr "Došlo je do problema kod izrade bark&ocirc;oda: Ne ispravan ISBN broj."
 
 #: inc/covergenerator/class-sku.php:43
 msgid "There was a problem creating the barcode: Invalid characters in SKU"
-msgstr ""
-"Došlo je do problema kod izrade bark&ocirc;oda: Ne dozvoljeni znakovi u "
-"skladišnom broju (SKU)"
+msgstr "Došlo je do problema kod izrade bark&ocirc;oda: Ne dozvoljeni znakovi u skladišnom broju (SKU)"
 
 #: inc/editor/namespace.php:110
 msgid "Insert Footnote"
@@ -2993,9 +2847,7 @@ msgstr "Unesi"
 #: inc/editor/namespace.php:137
 msgctxt "JS template string"
 msgid "Glossary term <em>${templateString1}</em> not found. Please create it."
-msgstr ""
-"Pojam pojmovnika <em>${templateString1}</em> nije pronađen. Molimo izradite "
-"ga."
+msgstr "Pojam pojmovnika <em>${templateString1}</em> nije pronađen. Molimo izradite ga."
 
 #: inc/editor/namespace.php:138
 msgid "Select a Term"
@@ -3024,9 +2876,7 @@ msgstr "Pojam nije odabran?"
 #: inc/editor/namespace.php:145 inc/posttype/namespace.php:243
 msgid ""
 "To display a list of glossary terms, leave this back matter's content blank."
-msgstr ""
-"Za prikaz popisa pojmova pojmovnika, ostavite sadržaj ovog dijela završnih "
-"stranica knjige praznim."
+msgstr "Za prikaz popisa pojmova pojmovnika, ostavite sadržaj ovog dijela završnih stranica knjige praznim."
 
 #: inc/editor/namespace.php:146
 msgid "Term"
@@ -3149,17 +2999,13 @@ msgstr "Obriši"
 msgid ""
 "The original version of this chapter contained H5P content. You may want to "
 "remove or replace this element."
-msgstr ""
-"Izvorna inačica ovog poglavlja sadržava H5P sadržaj. Isti bi ste trebali "
-"ukloniti ili zamijeniti."
+msgstr "Izvorna inačica ovog poglavlja sadržava H5P sadržaj. Isti bi ste trebali ukloniti ili zamijeniti."
 
 #: inc/l10n/namespace.php:512 inc/l10n/namespace.php:535
 msgid ""
 "Please contact your system administrator if you would like them to install "
 "extended %s language support for the Pressbooks interface."
-msgstr ""
-"Molimo kontaktirajte sistem administratora ako želite postaviti proširenu "
-"podršku jezika %s za Pressbooks sučelje."
+msgstr "Molimo kontaktirajte sistem administratora ako želite postaviti proširenu podršku jezika %s za Pressbooks sučelje."
 
 #: inc/metadata/namespace.php:117
 msgid "Hide Additional Book Information"
@@ -3173,17 +3019,13 @@ msgstr "Prikaži dodatne informacije o knjizi"
 msgid ""
 "The book information you enter here appears on your book’s cover and title "
 "pages and in the metadata of your webbook and exported files."
-msgstr ""
-"Informacije o knjizi koje ovdje unesete pojavljuju se na stranicama korica, "
-"naslovnicama i meta podacima vaše web knjige i u izvezenim zapisima."
+msgstr "Informacije o knjizi koje ovdje unesete pojavljuju se na stranicama korica, naslovnicama i meta podacima vaše web knjige i u izvezenim zapisima."
 
 #: inc/metadata/namespace.php:129
 msgid ""
 "If you need to enter additional information, click the button below to see "
 "all available fields."
-msgstr ""
-"Ako morate unijeti dodatne informacije, kliknite na donji gumb za prikaz "
-"dostupnih polja."
+msgstr "Ako morate unijeti dodatne informacije, kliknite na donji gumb za prikaz dostupnih polja."
 
 #: inc/metadata/namespace.php:1205
 msgid ""
@@ -3221,9 +3063,7 @@ msgstr "Izvoz nije uspio. Pogledajte zapisnik izvoza za više pojedinosti."
 
 #: inc/modules/export/class-export.php:832
 msgid "Warning: The export has validation errors. See logs for more details."
-msgstr ""
-"Upozorenje: Izvoz sadrži greške provjere. Pogledajte zapisnik izvoza za više"
-" pojedinosti."
+msgstr "Upozorenje: Izvoz sadrži greške provjere. Pogledajte zapisnik izvoza za više pojedinosti."
 
 #: inc/modules/export/class-export.php:833
 msgid "Emailed to:"
@@ -3369,9 +3209,7 @@ msgstr "Greška prava pristupa"
 msgid ""
 "Some dependencies for %1$s exports could not be found. Please verify that "
 "you have completed the <a href=\"%2$s\">installation instructions</a>."
-msgstr ""
-"Neki obavezni dijelovi za izvoz %1$s nisu pronađeni. Molimo provjerite da "
-"ste izvršili instalaciju prema <a href=\"%2$s\">uputama</a>."
+msgstr "Neki obavezni dijelovi za izvoz %1$s nisu pronađeni. Molimo provjerite da ste izvršili instalaciju prema <a href=\"%2$s\">uputama</a>."
 
 #: inc/modules/export/namespace.php:85
 #: inc/modules/themeoptions/class-globaloptions.php:455
@@ -3495,8 +3333,7 @@ msgstr[2] ""
 msgid ""
 "This book was produced with Pressbooks (https://pressbooks.com) and rendered"
 " with Prince."
-msgstr ""
-"Ova knjiga je izrađena pomoću Pressbooks (https://pressbooks.com) i Prince."
+msgstr "Ova knjiga je izrađena pomoću Pressbooks (https://pressbooks.com) i Prince."
 
 #: inc/modules/export/xhtml/class-xhtml11.php:178
 msgid "XHTML: "
@@ -3554,8 +3391,7 @@ msgstr "Izgleda da Vaš URL nije ispravan"
 #: inc/modules/import/class-import.php:548
 #: inc/modules/import/class-import.php:577
 msgid "The URL you are trying to import is bigger than the maximum file size."
-msgstr ""
-"URL koji pokušavate uvesti je veći od maksimalno dozvoljene veličine zapisa."
+msgstr "URL koji pokušavate uvesti je veći od maksimalno dozvoljene veličine zapisa."
 
 #: inc/modules/import/class-import.php:570
 msgid ""
@@ -3587,9 +3423,7 @@ msgstr "HTML je veći od pcre.backtrack_limit."
 #: inc/modules/import/wordpress/class-parser.php:79
 msgid ""
 "This does not appear to be a WXR file, missing/invalid WXR version number"
-msgstr ""
-"Izgleda da ovo nije spravni WXR zapis, nedostaje/neispravni broj inačice "
-"WXR-a"
+msgstr "Izgleda da ovo nije spravni WXR zapis, nedostaje/neispravni broj inačice WXR-a"
 
 #: inc/modules/import/wordpress/class-wxr.php:415
 msgctxt ""
@@ -3611,10 +3445,7 @@ msgid ""
 "Once you&rsquo;ve pressed &lsquo;Replace & Save&rsquo; there is no going "
 "back! Have you checked &lsquo;Preview Replacements&rsquo; to make sure this "
 "will do what you want it to do?"
-msgstr ""
-"Jednom kada pritisnete &lsquo;Zamijeni i pohrani&rsquo; više nema povratka. "
-"Jeste li provjerili sa &lsquo;Pred prikaz zamjena&rsquo; da će te dobiti "
-"traženi rezultat?"
+msgstr "Jednom kada pritisnete &lsquo;Zamijeni i pohrani&rsquo; više nema povratka. Jeste li provjerili sa &lsquo;Pred prikaz zamjena&rsquo; da će te dobiti traženi rezultat?"
 
 #: inc/modules/searchandreplace/class-searchandreplace.php:76
 #: inc/modules/searchandreplace/class-searchandreplace.php:77
@@ -3669,9 +3500,7 @@ msgstr "Početna točka eKnjige"
 msgid ""
 "Note: This designated ebook start book may be overridden by some ereader "
 "devices."
-msgstr ""
-"Napomena: Ova početno određena eKnjiga može biti prerađena od strane nekih "
-"uređaja za čitanje eKnjiga."
+msgstr "Napomena: Ova početno određena eKnjiga može biti prerađena od strane nekih uređaja za čitanje eKnjiga."
 
 #: inc/modules/themeoptions/class-ebookoptions.php:146
 #: inc/modules/themeoptions/class-pdfoptions.php:297
@@ -3723,9 +3552,7 @@ msgstr "Oznaka dijela"
 msgid ""
 "The \"part\" label is used in the table of contents and in part titles in "
 "your webbook and exports."
-msgstr ""
-"\"Oznaka dijela\" se koristi u tablici sadržaja i u naslovima dijelova vaše "
-"eb knjige i izvozima."
+msgstr "\"Oznaka dijela\" se koristi u tablici sadržaja i u naslovima dijelova vaše eb knjige i izvozima."
 
 #: inc/modules/themeoptions/class-globaloptions.php:141
 msgid "Chapter Label"
@@ -3735,9 +3562,7 @@ msgstr "Oznaka poglavlja"
 msgid ""
 "The \"chapter\" label is used in the table of contents and in chapter titles"
 " in your webbook and exports."
-msgstr ""
-"\"Oznaka poglavlja\" se koristi u tablici sadržaja i u naslovima poglavlja u"
-" Vašoj web knjizi i pri izvozu."
+msgstr "\"Oznaka poglavlja\" se koristi u tablici sadržaja i u naslovima poglavlja u Vašoj web knjizi i pri izvozu."
 
 #: inc/modules/themeoptions/class-globaloptions.php:153
 msgid "Two-Level TOC"
@@ -3746,9 +3571,7 @@ msgstr "Tablica sadržaja u dvije razine"
 #: inc/modules/themeoptions/class-globaloptions.php:158
 msgid ""
 "Enable two-level table of contents (displays headings under chapter titles)"
-msgstr ""
-"Omogući tablicu sadržaja sa dvije razine (prikaz naslova ispod naziva "
-"poglavlja)"
+msgstr "Omogući tablicu sadržaja sa dvije razine (prikaz naslova ispod naziva poglavlja)"
 
 #: inc/modules/themeoptions/class-globaloptions.php:164
 msgid "About the Author"
@@ -3789,9 +3612,7 @@ msgstr "Prikaži licence u tablici sadržaja u izvezenim zapisima"
 
 #: inc/modules/themeoptions/class-globaloptions.php:214
 msgid "Display section level license at end of chapter in export formats"
-msgstr ""
-"Prikaži licence dijelova poglavlja na kraju svakog poglavlja u izvezenim "
-"zapisima"
+msgstr "Prikaži licence dijelova poglavlja na kraju svakog poglavlja u izvezenim zapisima"
 
 #: inc/modules/themeoptions/class-globaloptions.php:220
 #: languages/tinymce.php:21
@@ -3861,9 +3682,7 @@ msgstr "Osnovna veličina pisma"
 msgid ""
 "Heading sizes are proportional to the body font size and will also be "
 "affected by this setting."
-msgstr ""
-"Ova postavka utječe i na veličinu pisma naslova koja je proporcionalna "
-"osnovnoj veličini pisma."
+msgstr "Ova postavka utječe i na veličinu pisma naslova koja je proporcionalna osnovnoj veličini pisma."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:153
 msgid "Footnote Font Size"
@@ -3953,9 +3772,7 @@ msgstr "Vanjska margina"
 msgid ""
 "Margins must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo; "
 "or &lsquo;10cm&rsquo;."
-msgstr ""
-"Margine moraju biti izražene u CSS kompatibilnim mjernim jedinicama, npr.: "
-"&lsquo;8.5in&rsquo; ili &lsquo;10cm&rsquo;."
+msgstr "Margine moraju biti izražene u CSS kompatibilnim mjernim jedinicama, npr.: &lsquo;8.5in&rsquo; ili &lsquo;10cm&rsquo;."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:249
 #: inc/modules/themeoptions/class-pdfoptions.php:963
@@ -4044,9 +3861,7 @@ msgstr "Žive glave i podnožja"
 msgid ""
 "Running content appears in either running heads or running feet (at the top "
 "or bottom of the page) depending on your theme."
-msgstr ""
-"Živi sadržaj se pojavljuje pri vrhu stranica (živa glava) ili pri dnu "
-"stranice ovisno o Vašem izboru izgleda."
+msgstr "Živi sadržaj se pojavljuje pri vrhu stranica (živa glava) ili pri dnu stranice ovisno o Vašem izboru izgleda."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:403
 msgid "Front Matter Left Page Running Content"
@@ -4217,10 +4032,7 @@ msgstr "Ove postavke se odnose na izvoz u PDF."
 msgid ""
 "IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm "
 "on any side can cause your file to be rejected."
-msgstr ""
-"VAŽNO: Ako planirate korištenje usluge tiska na zahtjev, margine ispod 2cm "
-"sa bilo koje strane mogu imati za posljedicu da se Vaša knjiga bude "
-"odbijena."
+msgstr "VAŽNO: Ako planirate korištenje usluge tiska na zahtjev, margine ispod 2cm sa bilo koje strane mogu imati za posljedicu da se Vaša knjiga bude odbijena."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:1534
 msgid "PDF Options"
@@ -4262,9 +4074,7 @@ msgstr "Sažmi naslove"
 
 #: inc/modules/themeoptions/class-weboptions.php:192
 msgid "Collapse sections within front matter, chapters, and back matter"
-msgstr ""
-"Sažimanje naslova na svim uvodnim stranicama, poglavljima i završnim "
-"stranicama"
+msgstr "Sažimanje naslova na svim uvodnim stranicama, poglavljima i završnim stranicama"
 
 #: inc/modules/themeoptions/class-weboptions.php:200
 msgid "Enable Source Comparison"
@@ -4274,17 +4084,13 @@ msgstr "Omogući uspoređivanje sa izvorom"
 msgid ""
 "Add comparison tool to the end of each front matter, part, chapter, and back"
 " matter"
-msgstr ""
-"Dodaj alat za usporedbu na kraju svih uvodnih stranica, dijelova, poglavlja "
-"i završnih stranica."
+msgstr "Dodaj alat za usporedbu na kraju svih uvodnih stranica, dijelova, poglavlja i završnih stranica."
 
 #: inc/modules/themeoptions/class-weboptions.php:206
 msgid ""
 "Allows readers to compare content with the original book from which it was "
 "cloned."
-msgstr ""
-"Dozvolite čitateljima uspoređivanje sa originalnom knjigom od koje je "
-"izvršeno kloniranje."
+msgstr "Dozvolite čitateljima uspoređivanje sa originalnom knjigom od koje je izvršeno kloniranje."
 
 #: inc/modules/themeoptions/class-weboptions.php:232
 msgid "These options apply to the webbook."
@@ -4310,9 +4116,7 @@ msgstr "Pojmovi pojmovnika"
 msgid ""
 "Links, bold text and italic text are supported in glossary terms. Other "
 "elements will be removed."
-msgstr ""
-"Od strane pojmova pojmovnika podržane su veze, masni i kurzivni tekst. "
-"Ostali elementi će biti uklonjeni."
+msgstr "Od strane pojmova pojmovnika podržane su veze, masni i kurzivni tekst. Ostali elementi će biti uklonjeni."
 
 #: inc/posttype/namespace.php:248
 msgid ""
@@ -4333,8 +4137,7 @@ msgstr "Kratki naziv poglavlja (pojavljuje se u živoj glavi PDF-a)"
 
 #: inc/posttype/namespace.php:345
 msgid "Chapter Subtitle (appears in the Web/ebook/PDF output)"
-msgstr ""
-"Podnaslov poglavlja (pojavljuje se u web knjizi/eKnjizi i PDF formatu )"
+msgstr "Podnaslov poglavlja (pojavljuje se u web knjizi/eKnjizi i PDF formatu )"
 
 #: inc/posttype/namespace.php:355
 msgid "Chapter Author (appears in Web/ebook/PDF output)"
@@ -4440,11 +4243,7 @@ msgid ""
 "your book. It must be at least 4 characters, letters and numbers only. It "
 "<strong>cannot be changed</strong>, so choose carefully! We suggest using "
 "the title of your book with no spaces."
-msgstr ""
-"Vaša adresa web knjige je web adresa putem koje ćete pristupati i stvarati "
-"Vašu knjigu. Mora sadržavati najmanje 4 znaka, samo slova i znamenke. "
-"<strong>Istu nije moguće mjenjati</strong>,  dakle birajte pažljivo! "
-"Predlažemo korištenje naslova bez razmaka."
+msgstr "Vaša adresa web knjige je web adresa putem koje ćete pristupati i stvarati Vašu knjigu. Mora sadržavati najmanje 4 znaka, samo slova i znamenke. <strong>Istu nije moguće mjenjati</strong>,  dakle birajte pažljivo! Predlažemo korištenje naslova bez razmaka."
 
 #: inc/registration/namespace.php:49
 msgid "Book Title:"
@@ -4470,9 +4269,7 @@ msgstr "Stvori novu knjigu"
 msgid ""
 "Welcome, %s. Fill out the form below to <strong>add a new book to your "
 "account</strong>."
-msgstr ""
-"Dobrodošao %s. Popunite donji obrazac za <strong>dodavanje nove knjige Vašem"
-" korisničkom računu</strong>."
+msgstr "Dobrodošao %s. Popunite donji obrazac za <strong>dodavanje nove knjige Vašem korisničkom računu</strong>."
 
 #: inc/registration/namespace.php:72
 msgid "yourwebbookname"
@@ -4490,9 +4287,7 @@ msgstr "Ćestitamo! Vaša nova knjiga, %s, je skoro spremna"
 msgid ""
 "But, before you can start writing your book, <strong>you must activate "
 "it</strong>."
-msgstr ""
-"Prije nego što možete započeti sa pisanjem <strong>morate izvršiti "
-"aktivaciju</strong>."
+msgstr "Prije nego što možete započeti sa pisanjem <strong>morate izvršiti aktivaciju</strong>."
 
 #: inc/registration/namespace.php:87
 msgid ""
@@ -4502,14 +4297,7 @@ msgid ""
 " not receive an email, please check your junk or spam folder. If you still "
 "do not receive an email within an hour, you can <a href=\"%4$s\">reset your "
 "password</a>."
-msgstr ""
-"Vaš račun je aktiviran. Sada se možete <a href=\"%1$s\">prijaviti</a> "
-"koristeći se korisničkim imenom &#8220;%2$s&#8221;. Molimo provjerite ulazni"
-" sandučić e-pošte na %3$s u kojem bi ste trebali imati poruku sa svojom "
-"lozinkom i uputama za prijavu. U koliko niste primili poruku provjerite "
-"sandučić neželjene pošte i spama. Ako ni tamo nemate poruku ili ako istu ne "
-"primite unutar sat vremena možete zatražiti <a href=\"%4$s\">resetiranje "
-"lozinke</a>. "
+msgstr "Vaš račun je aktiviran. Sada se možete <a href=\"%1$s\">prijaviti</a> koristeći se korisničkim imenom &#8220;%2$s&#8221;. Molimo provjerite ulazni sandučić e-pošte na %3$s u kojem bi ste trebali imati poruku sa svojom lozinkom i uputama za prijavu. U koliko niste primili poruku provjerite sandučić neželjene pošte i spama. Ako ni tamo nemate poruku ili ako istu ne primite unutar sat vremena možete zatražiti <a href=\"%4$s\">resetiranje lozinke</a>. "
 
 #: inc/registration/namespace.php:90
 msgid ""
@@ -4519,21 +4307,13 @@ msgid ""
 "receive an email, please check your junk or spam folder. If you still do not"
 " receive an email within an hour, you can <a href=\"%5$s\">reset your "
 "password</a>."
-msgstr ""
-"Vaša knjiga na<a href=\"%1$s\">%2$s</a> je aktivna. Možete izvršiti prijavu "
-"koristeći se svojim korisničkim imenom &#8220;%3$s&#8221;. Provjerite "
-"e-poštu pod %4$s kako bi ste doznali svoju lozinku i pročitali upute za "
-"prijavu. U koliko niste zaprimili poruku provjerite neželjenu poštu. Ako "
-"nakon najkasnije jednog sata ne primite poruku možete zatražiti <a "
-"href=\"%5$s\">resetiranje lozinke</a>."
+msgstr "Vaša knjiga na<a href=\"%1$s\">%2$s</a> je aktivna. Možete izvršiti prijavu koristeći se svojim korisničkim imenom &#8220;%3$s&#8221;. Provjerite e-poštu pod %4$s kako bi ste doznali svoju lozinku i pročitali upute za prijavu. U koliko niste zaprimili poruku provjerite neželjenu poštu. Ako nakon najkasnije jednog sata ne primite poruku možete zatražiti <a href=\"%5$s\">resetiranje lozinke</a>."
 
 #: inc/registration/namespace.php:93
 msgid ""
 "Your account is now activated. <a href=\"%1$s\">View your book</a> or <a "
 "href=\"%2$s\">Log in</a>"
-msgstr ""
-"Vaš korisnički račun je aktiviran. <a href=\"%1$s\">Pogledajte svoju "
-"knjigu</a> ili se <a href=\"%2$s\">prijavite</a>"
+msgstr "Vaš korisnički račun je aktiviran. <a href=\"%1$s\">Pogledajte svoju knjigu</a> ili se <a href=\"%2$s\">prijavite</a>"
 
 #: inc/registration/namespace.php:113
 msgid "Password"
@@ -4614,16 +4394,13 @@ msgstr ""
 msgid ""
 "Your book&rsquo;s theme, %1$s, has been locked in its current state as of "
 "%2$s at %3$s."
-msgstr ""
-"Izgled Vaše knjige, %1$s, je zaključan na trenutnom stanju od%2$s na %3$s."
+msgstr "Izgled Vaše knjige, %1$s, je zaključan na trenutnom stanju od%2$s na %3$s."
 
 #: inc/theme/class-lock.php:109
 msgid ""
 "Your book&rsquo;s theme could not be locked. Please ensure that you have "
 "write access to the uploads directory."
-msgstr ""
-"Izgled Vaše knjige nije moguće zaključati. Molimo provjerite da imate prava "
-"pisanja u mapu postavljanja."
+msgstr "Izgled Vaše knjige nije moguće zaključati. Molimo provjerite da imate prava pisanja u mapu postavljanja."
 
 #: inc/theme/class-lock.php:203
 msgid "Your book&rsquo;s theme has been unlocked."
@@ -4633,45 +4410,32 @@ msgstr "Izgled Vaše knjige je otključan."
 msgid ""
 "Your book&rsquo;s theme, %1$s, was locked in its current state as of %2$s at"
 " %3$s. To select a new theme or change your theme options, please %4$s."
-msgstr ""
-"Izgled Vaše knjige, %1$s, je zaključan u trenutnom stanju %2$s na %3$s. Za "
-"izbor drugog izgleda ili promjenu trenutnog molimo promijenite postavke "
-"%4$s."
+msgstr "Izgled Vaše knjige, %1$s, je zaključan u trenutnom stanju %2$s na %3$s. Za izbor drugog izgleda ili promjenu trenutnog molimo promijenite postavke %4$s."
 
 #: inc/theme/namespace.php:41
 msgid ""
 "Your theme, %1$s, is not installed. Please visit %2$s for installation "
 "instructions."
-msgstr ""
-"Vaš izgled, %1$s, nije ugrađen. Molimo posjetite %2$s za upute o "
-"instalaciji."
+msgstr "Vaš izgled, %1$s, nije ugrađen. Molimo posjetite %2$s za upute o instalaciji."
 
 #: inc/theme/namespace.php:56
 msgid ""
 "The Pressbooks Book theme is not installed, but Pressbooks needs it in order"
 " to function properly. Please visit %s for installation instructions."
-msgstr ""
-"Izgled Pressbooks Book nije ugrađen, bez njega Pressbooks neće raditi kako "
-"treba. Molimo posjetite %s za upute o instalaciji."
+msgstr "Izgled Pressbooks Book nije ugrađen, bez njega Pressbooks neće raditi kako treba. Molimo posjetite %s za upute o instalaciji."
 
 #: inc/theme/namespace.php:84
 msgid ""
 "The Pressbooks Custom CSS theme must be upgraded. Please visit %s for "
 "installation instructions."
-msgstr ""
-"Pressbooks prilagođeni CSS izgled mora biti nadograđen. Molimo posjetite %s "
-"za upute."
+msgstr "Pressbooks prilagođeni CSS izgled mora biti nadograđen. Molimo posjetite %s za upute."
 
 #: inc/theme/namespace.php:138
 msgid ""
 "Luther has been replaced with McLuhan as Pressbooks’ default book theme. To "
 "continue using Luther for your book, please ensure that the standalone <a "
 "href=\"%1$s\">Luther theme</a> is installed and network activated."
-msgstr ""
-"Luther je zamijenjen McLuhan kao ishodnim Pressbooks izgledom knjige. Za "
-"nastavak korištenja Luther izgleda za Vašu knjigu, molimo osigurajte "
-"samostalnu instalaciju i aktivaciju <a href=\"%1$s\">Luther izgleda</a> u "
-"Vašoj mreži."
+msgstr "Luther je zamijenjen McLuhan kao ishodnim Pressbooks izgledom knjige. Za nastavak korištenja Luther izgleda za Vašu knjigu, molimo osigurajte samostalnu instalaciju i aktivaciju <a href=\"%1$s\">Luther izgleda</a> u Vašoj mreži."
 
 #: inc/utility/class-handlestransfers.php:41
 msgid "Download JSON"
@@ -4702,24 +4466,19 @@ msgstr " (%1$d od %2$d)"
 msgid ""
 "An unexpected error occurred. Something may be wrong with the plugin "
 "recommendations server or your site&#8217;s server&#8217;s configuration."
-msgstr ""
-"Došlo je do neočekivane pogreške. Mogu će je da je greška do poslužitelja sa"
-" preporučenim dodacima ili sa postavkama Vašeg poslužitelja."
+msgstr "Došlo je do neočekivane pogreške. Mogu će je da je greška do poslužitelja sa preporučenim dodacima ili sa postavkama Vašeg poslužitelja."
 
 #: inc/utility/namespace.php:567
 msgid ""
 "(Pressbooks could not establish a secure connection to the plugin "
 "recommendations server. Please contact your server administrator.)"
-msgstr ""
-"(Pressbooks nije mogao ostvariti vezu sa poslužiteljem preporučenih "
-"dodataka. Molimo kontaktirajte administratora poslužitelja.)"
+msgstr "(Pressbooks nije mogao ostvariti vezu sa poslužiteljem preporučenih dodataka. Molimo kontaktirajte administratora poslužitelja.)"
 
 #: inc/utility/namespace.php:618
 msgid ""
 "These plugins have been created and/or recommended by the Pressbooks "
 "community."
-msgstr ""
-"Ovi dodaci su izrađeni i/ili preporučeni od strane Pressbooks zajednice."
+msgstr "Ovi dodaci su izrađeni i/ili preporučeni od strane Pressbooks zajednice."
 
 #: languages/tinymce.php:4
 msgid "Class"
@@ -4800,10 +4559,7 @@ msgid ""
 "Pressbooks dependencies are missing. Please make sure that your "
 "project&rsquo;s <a href=\"%1$s\">Composer autoload file</a> is being "
 "required, or use the <a href=\"%2$s\">latest release</a> instead."
-msgstr ""
-"Nedostaju potrebne stavke Pressbooksa. Molimo provjerite da se učitava <a "
-"href=\"%1$s\">Composer datoteka</a> ili koristite <a href=\"%2$s\">zadnju "
-"inačicu</a>."
+msgstr "Nedostaju potrebne stavke Pressbooksa. Molimo provjerite da se učitava <a href=\"%1$s\">Composer datoteka</a> ili koristite <a href=\"%2$s\">zadnju inačicu</a>."
 
 #: pressbooks.php:91
 msgid "Cannot find Pressbooks install."
@@ -4843,10 +4599,7 @@ msgid ""
 "You are currently using the Custom CSS theme. To generate a cover, you will "
 "need to switch back to a base theme temporarily. You can then reapply your "
 "Custom CSS theme."
-msgstr ""
-"Trenutno koristite prilagođen CSS izgled. Za izradu korica privremeno morate"
-" prebaciti na bazni izgled. Nakon izrade možete ponovno primijeniti "
-"prilagođeni CSS izgled."
+msgstr "Trenutno koristite prilagođen CSS izgled. Za izradu korica privremeno morate prebaciti na bazni izgled. Nakon izrade možete ponovno primijeniti prilagođeni CSS izgled."
 
 #: templates/admin/covergenerator.php:69
 msgid ""
@@ -4854,12 +4607,7 @@ msgid ""
 "<strong>print</strong> book that will work with most Print on Demand "
 "services, as well as an <strong>ebook</strong> cover that will meet the "
 "specifications of Kindle, Apple and other ebook retailers."
-msgstr ""
-"Koristeći se našim čarobnjakom za izradu korica možete izraditi korice za "
-"<strong>tiskano izdanje</strong> Vaše knjige koje će biti prihvatljive od "
-"većine pružatelja usluga digitalnog tiska, također možete izraditi i korice "
-"za <strong>eBook</strong> koje su prema specifikacijama za Kindle, Apple i "
-"druge eBook uređaje."
+msgstr "Koristeći se našim čarobnjakom za izradu korica možete izraditi korice za <strong>tiskano izdanje</strong> Vaše knjige koje će biti prihvatljive od većine pružatelja usluga digitalnog tiska, također možete izraditi i korice za <strong>eBook</strong> koje su prema specifikacijama za Kindle, Apple i druge eBook uređaje."
 
 #: templates/admin/covergenerator.php:79
 msgid "Make Your Cover"
@@ -4911,8 +4659,7 @@ msgstr "Izbriši sve korice"
 
 #: templates/admin/custom-styles.php:37
 msgid "Error: Something went wrong. See logs for more details."
-msgstr ""
-"Greška: Nešto je pošlo po zlu. Pregledajte zapisnike za više pojedinosti."
+msgstr "Greška: Nešto je pošlo po zlu. Pregledajte zapisnike za više pojedinosti."
 
 #: templates/admin/custom-styles.php:47
 msgid "You are currently editing styles for"
@@ -5027,20 +4774,14 @@ msgid ""
 "Search & Replace will find and replace ALL instances of the search pattern "
 "in your entire book. Replacements will only be saved if you click "
 "&lsquo;<strong>Replace &amp; Save</strong>&rsquo;."
-msgstr ""
-"Pronađi & zamijeni pronaći i zamijenit će SVE instance prema uzorku "
-"pretraživanja. Zamjene će se pohraniti samo nakon što kliknete na "
-"&lsquo;<strong>Zamijeni &amp; pohrani</strong>&rsquo;."
+msgstr "Pronađi & zamijeni pronaći i zamijenit će SVE instance prema uzorku pretraživanja. Zamjene će se pohraniti samo nakon što kliknete na &lsquo;<strong>Zamijeni &amp; pohrani</strong>&rsquo;."
 
 #: templates/admin/search.php:13
 msgid ""
 "Be careful replacing text. There is no undo button. However, you can revert "
 "your changes using the Revision History within each chapter, front matter or"
 " back matter."
-msgstr ""
-"Budite oprezni kod zamjenjivanja teksta. Ne postoji gumb za vraćanje. "
-"Vraćanje je moguće samo putem povijesti izmjena unutar svakog poglavlja, "
-"uvodnih stranica i završnih stranica."
+msgstr "Budite oprezni kod zamjenjivanja teksta. Ne postoji gumb za vraćanje. Vraćanje je moguće samo putem povijesti izmjena unutar svakog poglavlja, uvodnih stranica i završnih stranica."
 
 #: templates/admin/search.php:17
 msgid "Search Within"
@@ -5085,17 +4826,13 @@ msgstr "Zamjeni &amp; Pohrani"
 #: templates/admin/trash.php:21
 msgid ""
 "Restore deleted chapters, parts, front and back matter, and glossary terms"
-msgstr ""
-"Vratite izbrisana poglavlja, dijelove, uvodne i završne stranice, te pojmove"
-" pojmovnika"
+msgstr "Vratite izbrisana poglavlja, dijelove, uvodne i završne stranice, te pojmove pojmovnika"
 
 #: templates/admin/trash.php:22
 msgid ""
 "<strong>NOTE</strong>: Items in the trash will be permanently deleted after "
 "%d days."
-msgstr ""
-"<strong>NAPOMENA</strong>: Stavke u smeću biti će trajno obrisane za %d "
-"dan(s)."
+msgstr "<strong>NAPOMENA</strong>: Stavke u smeću biti će trajno obrisane za %d dan(s)."
 
 #: templates/admin/trash.php:27
 msgid "No trash found."
@@ -5142,10 +4879,7 @@ msgid ""
 "Sorry, but no books matched your filtering criteria. Please <a "
 "class=\"clear-filters\" href=\"#\">clear your current filters</a> and try "
 "again."
-msgstr ""
-"Nažalost niti jedna knjiga ne odgovara postavljenom filteru. Molimo Vas da "
-"<a class=\"clear-filters\" href=\"#\">izbrišete trenutni filter</a> i da "
-"pokušate ponovno."
+msgstr "Nažalost niti jedna knjiga ne odgovara postavljenom filteru. Molimo Vas da <a class=\"clear-filters\" href=\"#\">izbrišete trenutni filter</a> i da pokušate ponovno."
 
 #: templates/pb-catalog.php:273
 msgid "Pressbooks: the CMS for Books."
@@ -5481,9 +5215,7 @@ msgstr "Molimo da nam ovu informaciju pošaljete uz bilo koju prijavu greške."
 msgid ""
 "To copy the system info, click below then press Ctrl + C (PC) or Cmd + C "
 "(Mac)."
-msgstr ""
-"Za kopiranje informacija o sistemu, kliknite na donje područje i pritisnite "
-"Ctrl + C (PC) ili Cmd + C (Mac)."
+msgstr "Za kopiranje informacija o sistemu, kliknite na donje područje i pritisnite Ctrl + C (PC) ili Cmd + C (Mac)."
 
 #: templates/admin/diagnostics.blade.php:8
 msgid "View Source"
@@ -5493,10 +5225,7 @@ msgstr "Prikaži izvor"
 msgid ""
 "<a href=\"%s\">View your book&rsquo;s XHTML source</a> to diagnose issues "
 "you may be encountering with your PDF exports."
-msgstr ""
-"<a href=\"%s\">Pogledajte XHATML izvorni kod Vaše knjige</a> kako bi mogli "
-"izvršiti dijagnostiku eventualnih poteškoća pri izvozu knjige u PDF format "
-"zapisa."
+msgstr "<a href=\"%s\">Pogledajte XHATML izvorni kod Vaše knjige</a> kako bi mogli izvršiti dijagnostiku eventualnih poteškoća pri izvozu knjige u PDF format zapisa."
 
 #: templates/admin/diagnostics.blade.php:10
 msgid "Regenerate Webbook Stylesheet"
@@ -5504,8 +5233,7 @@ msgstr "Obnovite stilove web-knjige"
 
 #: templates/admin/diagnostics.blade.php:11
 msgid "If your webbook stylesheet has issues, it may help to regenerate it."
-msgstr ""
-"U koliko imate poteškoća sa stilovima web-knjige pokušajte iste obnoviti. "
+msgstr "U koliko imate poteškoća sa stilovima web-knjige pokušajte iste obnoviti. "
 
 #: templates/admin/diagnostics.blade.php:12
 msgid "Regenerate Stylesheet"
@@ -5516,10 +5244,7 @@ msgid ""
 "You can select multiple formats below. Pressbooks keeps the last 3 exports "
 "of each file format. You can pin specific files to make sure they don't get "
 "deleted."
-msgstr ""
-"Možete odabrati nekoliko formata. Pressbooks čuva 3 zadnja izvoza za svaki "
-"format. Možete prikvačiti određene zapise kako bi ste osigurali da neće biti"
-" obrisani."
+msgstr "Možete odabrati nekoliko formata. Pressbooks čuva 3 zadnja izvoza za svaki format. Možete prikvačiti određene zapise kako bi ste osigurali da neće biti obrisani."
 
 #: templates/admin/export.blade.php:15
 msgid "Toggle panel: Export Options"
@@ -5622,9 +5347,7 @@ msgstr ""
 msgid ""
 "Only users you invite can see your book, regardless of individual chapter "
 "visibility below."
-msgstr ""
-"Knjigu vide samo korisnici koje ste vi pozvali bez obzira na individualne "
-"postavke privatnosti pojedinih poglavlja."
+msgstr "Knjigu vide samo korisnici koje ste vi pozvali bez obzira na individualne postavke privatnosti pojedinih poglavlja."
 
 #: templates/admin/organize.blade.php:63
 msgid "Add Glossary Term"

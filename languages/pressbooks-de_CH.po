@@ -1,20 +1,19 @@
 # Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
-# Antonio D., 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
 "POT-Creation-Date: 2024-05-08T20:14:28+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
-"Last-Translator: Antonio D., 2018\n"
-"Language-Team: Latvian (http://app.transifex.com/pressbooks/pressbooks/language/lv/)\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: German (Switzerland) (http://app.transifex.com/pressbooks/pressbooks/language/de_CH/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: lv\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
+"Language: de_CH\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: pressbooks\n"
 "X-Generator: WP-CLI 2.10.0\n"
 
@@ -32,7 +31,7 @@ msgstr "https://pressbooks.org"
 #. Description of the plugin
 #: pressbooks.php
 msgid "Simple Book Production"
-msgstr "Vienkārša grāmatu ražošana"
+msgstr "Bücher erstellen leicht gemacht"
 
 #. Author of the plugin
 #: pressbooks.php
@@ -41,49 +40,49 @@ msgstr "Pressbooks (Book Oven Inc.)"
 
 #: compatibility.php:105 inc/class-activation.php:326
 msgid "Simple Book Publishing"
-msgstr "Vienkāršais grāmatizdevējdarbs"
+msgstr "Bücher erstellen leicht gemacht"
 
 #: compatibility.php:150
 msgid ""
 "Pressbooks could not create the mu-plugins folder. Please create the "
 "following directory: %s"
-msgstr ""
+msgstr "Pressbooks konnte das Verzeichnis mu-plugins nicht erstellen. Bitte erstellen Sie das folgende Verzeichnis: %s"
 
 #: compatibility.php:157
 msgid ""
 "Pressbooks could not copy the autoloader from %1$s to %2$s. Please copy the "
 "file manually."
-msgstr ""
+msgstr "Pressbooks konnte den Autoloader nicht von %1$s nach %2$s kopieren. Bitte kopieren Sie die Datei per Hand."
 
 #: compatibility.php:172
 msgid ""
 "Pressbooks will not work with your version of PHP. Pressbooks requires PHP "
 "version %s or greater. Please upgrade PHP if you would like to use "
 "Pressbooks."
-msgstr ""
+msgstr "Pressbooks ist mit Ihrer PHP-Version nicht kompatibel. Pressbooks benötigt PHP %s oder höher. Bitte führen Sie ein Upgrade durch, wenn Sie Pressbooks benutzen möchten."
 
 #: compatibility.php:185
 msgid ""
 "Pressbooks will not work with your version of WordPress. Pressbooks requires"
 " a dedicated install of WordPress Multisite, version %s or greater. Please "
 "upgrade WordPress if you would like to use Pressbooks."
-msgstr ""
+msgstr "Pressbooks ist mit Ihrer Version von WordPress nicht kompatibel. Pressbooks benötigt eine eigenständige Installation von WordPress Multi-Site in der Version %s oder höher. Bitte führen Sie ein Upgrade von WordPress durch, wenn Sie Pressbooks benutzen möchten. "
 
 #: compatibility.php:196
 msgid ""
 "The Pressbooks plugin is inactive, but you have active plugins that require "
 "Pressbooks. This is causing errors. Please go to the Plugins page, and "
 "activate Pressbooks."
-msgstr "Pressbooks vietnes spraudnis ir neaktīvs, bet Jums ir aktivizēti nepieciešami Pressbooks vietnes darbībai spraudņi. Tas izraisa kļūdas. Lūdzu, pārejiet uz spraudņu lapaspusi un aktivējiet Pressbooks vietnes spraudni."
+msgstr "Das Plugin für Pressbooks ist inaktiv, aber Sie haben aktive Plugins, die Pressbooks benötigen. Das verursacht Probleme. Bitte gehen Sie zur Plugin-Seite und aktivieren Sie Pressbooks."
 
 #: inc/admin/attachments/namespace.php:39
 msgid "ATTRIBUTIONS"
-msgstr "AUTORĪBAS NORĀDE"
+msgstr "ZUSCHREIBUNGEN"
 
 #: inc/admin/attachments/namespace.php:46 templates/admin/import.php:205
 #: templates/admin/import.php:206
 msgid "Source URL"
-msgstr "Avota tīmekļa adrese"
+msgstr "Quell-URL"
 
 #: inc/admin/attachments/namespace.php:54
 #: inc/admin/class-catalog-list-table.php:232
@@ -92,114 +91,113 @@ msgid "Author"
 msgid_plural "Authors"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: inc/admin/attachments/namespace.php:60
 msgid "Author URL"
-msgstr "Autora tīmekļa adrese"
+msgstr "Autor-URL"
 
 #: inc/admin/attachments/namespace.php:68
 msgid "License"
-msgstr "Licence"
+msgstr "Lizenz"
 
 #: inc/admin/attachments/namespace.php:75
 msgid "Adapted by"
-msgstr "Adaptēja"
+msgstr "Angepasst von"
 
 #: inc/admin/attachments/namespace.php:81
 msgid "Adapted by URL"
-msgstr "Tīmekļa adrese uz cilvēku, kurš adaptēja"
+msgstr "Angepasst von URL"
 
 #: inc/admin/branding/namespace.php:182
 msgid "Log In"
-msgstr "Ielogoties"
+msgstr "Anmelden"
 
 #: inc/admin/branding/namespace.php:183
 msgid "Lost Password"
-msgstr "Pazaudēta parole"
+msgstr "Passwort vergessen"
 
 #: inc/admin/branding/namespace.php:184
 msgid "Reset Password"
-msgstr "Atiestatīt paroli"
+msgstr "Passwort zurücksetzen"
 
 #: inc/admin/branding/namespace.php:185
 msgid "Password Reset"
-msgstr "Paroles atiestatīšana"
+msgstr "Passwort zurücksetzen"
 
 #: inc/admin/class-catalog-list-table.php:76
 msgid "Visit Admin"
-msgstr "Apmeklēt administrēšanas lapaspusi"
+msgstr "Admin ansehen"
 
 #: inc/admin/class-catalog-list-table.php:106
 #: inc/admin/class-catalog-list-table.php:271
 #: inc/admin/class-catalog-list-table.php:533
 msgid "Hide in Catalog"
-msgstr "Paslēpt katalogā"
+msgstr "Im Katalog verbergen"
 
 #: inc/admin/class-catalog-list-table.php:111
 #: inc/admin/class-catalog-list-table.php:270
 #: inc/admin/class-catalog-list-table.php:531
 msgid "Show in Catalog"
-msgstr "Rādīt katalogā"
+msgstr "Im Katalog zeigen"
 
 #: inc/admin/class-catalog-list-table.php:228
 msgid "Catalog Status"
-msgstr "Kataloga statuss "
+msgstr "Katalog-Status"
 
 #: inc/admin/class-catalog-list-table.php:229
 msgid "Privacy Status"
-msgstr "Konfidencialitātes statuss"
+msgstr "Privatsphäre-Status"
 
 #: inc/admin/class-catalog-list-table.php:230 inc/class-activation.php:237
 #: inc/modules/export/epub/class-epub.php:1233
 msgid "Cover"
-msgstr "Vāks"
+msgstr "Umschlag"
 
 #: inc/admin/class-catalog-list-table.php:231
 #: inc/admin/covergenerator/namespace.php:76
 #: inc/admin/metaboxes/class-generalinformation.php:39
 #: templates/admin/import.php:90 templates/admin/cloner/stats.blade.php:4
 msgid "Title"
-msgstr "Virsraksts "
+msgstr "Titel"
 
 #: inc/admin/class-catalog-list-table.php:236 templates/pb-catalog.php:228
 msgid "Tag"
-msgstr "Tags"
+msgstr "Tag"
 
 #: inc/admin/class-catalog-list-table.php:239 templates/admin/catalog.php:36
 msgid "Featured"
-msgstr "Sadarbība ar"
+msgstr "Featured"
 
 #: inc/admin/class-catalog-list-table.php:240
 msgid "Pub Date"
-msgstr "Publicēšanas datums"
+msgstr "Publikationsdatum"
 
 #: inc/admin/class-catalog-list-table.php:396
 msgid "Edit Tags"
-msgstr "Rediģēt tagus "
+msgstr "Tags bearbeiten"
 
 #: inc/admin/class-catalog-list-table.php:435
 #: templates/admin/organize.blade.php:18 templates/admin/organize.blade.php:38
 msgid "Private"
-msgstr "Privāts "
+msgstr "Privat"
 
 #: inc/admin/class-catalog-list-table.php:435
 #: templates/admin/organize.blade.php:13 templates/admin/organize.blade.php:25
 msgid "Public"
-msgstr "Publisks "
+msgstr "Öffentlich"
 
 #: inc/admin/class-catalog-list-table.php:507 inc/admin/laf/namespace.php:447
 #: inc/admin/laf/namespace.php:627 inc/admin/laf/namespace.php:906
 msgid "My Catalog"
-msgstr "Mans katalogs"
+msgstr "Mein Katalog"
 
 #: inc/admin/class-catalog-list-table.php:508
 msgid "Edit Profile"
-msgstr "Rediģēt profilu"
+msgstr "Profil bearbeiten"
 
 #: inc/admin/class-catalog-list-table.php:509
 msgid "Visit Catalog"
-msgstr "Apmeklēt katalogu"
+msgstr "Katalog ansehen"
 
 #. translators: %s: search keywords
 #: inc/admin/class-catalog-list-table.php:515
@@ -218,111 +216,111 @@ msgstr ""
 
 #: inc/admin/class-catalog-list-table.php:529
 msgid "Organize your public Catalog page."
-msgstr "Strukturēt Jūsu publiska kataloga lapaspusi."
+msgstr "Verwalten Sie Ihre öffentliche Katalogseite."
 
 #: inc/admin/class-catalog-list-table.php:530
 msgid "Show/Hide books"
-msgstr "Rādīt/Paslēpt grāmatas"
+msgstr "Bücher anzeigen/verbergen"
 
 #: inc/admin/class-catalog-list-table.php:531
 msgid "To display a book in your catalog choose \"%s\" under Catalog Status. "
-msgstr ""
+msgstr "Um ein Buch in Ihrem Katalog anzuzeigen wählen Sie \"%s\" bei Katalog-Status."
 
 #: inc/admin/class-catalog-list-table.php:533
 msgid "To hide a book in your catalog choose \"%s\" under Catalog Status."
-msgstr ""
+msgstr "Um ein Buch in Ihrem Katalog zu verstecken wählen Sie \"%s\" bei Katalog-Status."
 
 #: inc/admin/class-catalog-list-table.php:536
 msgid "Catalog sorting"
-msgstr "Kataloga kārtojums"
+msgstr "Katalogsortierung"
 
 #: inc/admin/class-catalog-list-table.php:537
 msgid ""
 "To add sorting ability, add your Tag names to your <a href=\"%s\">Catalog "
 "Profile</a> page (ex: Authors, Book Genre), then add the appropriate tags to"
 " each individual book."
-msgstr ""
+msgstr "Um eine Sortierung zu ermöglichen fügen Sie Ihre Tag-Namen zu Ihrer <a href=\"%s\">Katalog Profil</a>seite (z.B. Autoren, Genre) hinzu. Dann fügen Sie die passenden Tags zu jedem einzelnen Buch hinzu."
 
 #: inc/admin/class-catalog-list-table.php:539
 msgid "Share your catalog"
-msgstr "Dalīties ar Jūsu katalogu"
+msgstr "Katalog teilen"
 
 #: inc/admin/class-catalog-list-table.php:540
 msgid "The public link to your catalog page"
-msgstr "Publiska saite Jūsu kataloga lapaspusei "
+msgstr "Öffentlicher Link zur Katalogseite"
 
 #: inc/admin/class-catalog-list-table.php:553
 msgid "Add By URL"
-msgstr "Pievienot ar tīmekļa adresi"
+msgstr "Über URL hinzufügen"
 
 #: inc/admin/class-catalog-list-table.php:564 templates/admin/search.php:81
 #: templates/admin/cloner/page.blade.php:26
 msgid "Search"
-msgstr "Meklēt"
+msgstr "Suchen"
 
 #: inc/admin/class-exportoptions.php:75
 msgid "Email Validation Logs"
-msgstr "Epasta pārbaudes žurnāli"
+msgstr "E-Mail-Validierungs-Logs"
 
 #: inc/admin/class-exportoptions.php:80
 msgid "No. Ignore validation errors."
-msgstr "Nē. Ignorēt kļūdu ziņojumus."
+msgstr "Nein. Ignoriere Validierungsfehler."
 
 #: inc/admin/class-exportoptions.php:81
 msgid "Yes."
-msgstr "Jā."
+msgstr "Ja."
 
 #: inc/admin/class-exportoptions.php:81
 msgid "Email me validation error logs on export."
-msgstr "Sūtīt man uz epastu ziņojumus par kļūdām eksporta pārbaudes žurnālos."
+msgstr "Sende mir Validierungsfehler-Logs während dem Export."
 
 #: inc/admin/class-exportoptions.php:88
 msgid "Lock Theme"
-msgstr "Bloķēt tēmu"
+msgstr "Layout sperren"
 
 #: inc/admin/class-exportoptions.php:93
 msgid "Lock your theme at its current version."
-msgstr "Bloķējiet Jūsu tagadējas versijas tēmu."
+msgstr "Sperren Sie Ihr Layout in seiner jetzigen Version."
 
 #: inc/admin/class-exportoptions.php:109
 msgid "Export settings."
-msgstr "Eksportēt iestatījumus."
+msgstr "Einstellungen exportieren."
 
 #: inc/admin/class-exportoptions.php:175
 msgid ""
 "This will prevent any changes to your book&rsquo;s appearance and page count"
 " when themes are updated."
-msgstr "Tas novērsīs jebkādas Jūsu grāmatas vāka un lapaspušu skaita ārējā izskata izmaiņas pēc tēmu atjaunošanas."
+msgstr "Dies verhindert jedwede Änderungen an der Gestaltung Ihres Buches und der Seitenanzahl wenn Themes aktualisiert werden."
 
 #: inc/admin/class-exportoptions.php:195 inc/admin/laf/namespace.php:412
 msgid "Export Settings"
-msgstr "Eksporta iestatījumi"
+msgstr "Export Einstellungen"
 
 #: inc/admin/class-network-managers-list-table.php:79
 #: inc/admin/class-network-managers-list-table.php:83
 msgid "Restrict Access"
-msgstr "Ierobežot pieeju"
+msgstr "Zugriff einschränken"
 
 #: inc/admin/class-network-managers-list-table.php:79
 #: inc/admin/class-network-managers-list-table.php:83
 msgid "Unrestrict Access"
-msgstr "Atcelt pieejas ierobežojumu"
+msgstr "Zugriff freigeben"
 
 #: inc/admin/class-publishoptions.php:75
 msgid "Amazon URL"
-msgstr "Amazon vietnes tīmekļa adrese"
+msgstr "Amazon URL"
 
 #: inc/admin/class-publishoptions.php:84
 msgid "O'Reilly URL"
-msgstr "O'Reilly vietnes tīmekļa adrese"
+msgstr "O'Reilly URL"
 
 #: inc/admin/class-publishoptions.php:93
 msgid "Barnes and Noble URL"
-msgstr "Barnes and Noble vietnes tīmekļa adrese"
+msgstr "Barnes and Noble URL"
 
 #: inc/admin/class-publishoptions.php:102
 msgid "Kobo URL"
-msgstr "Kobo vietnes tīmekļa adrese"
+msgstr "Kobo URL"
 
 #: inc/admin/class-publishoptions.php:111
 msgid "Apple Books URL"
@@ -330,7 +328,7 @@ msgstr ""
 
 #: inc/admin/class-publishoptions.php:120
 msgid "Other Service URL"
-msgstr "Citu pakalpojumu vietnes tīmekļa adrese"
+msgstr "URL anderer Dienst"
 
 #: inc/admin/class-publishoptions.php:139
 msgid "Add BUY Links to Your Pressbooks Webbook"
@@ -345,54 +343,54 @@ msgstr ""
 
 #: inc/admin/class-publishoptions.php:300 inc/admin/laf/namespace.php:396
 msgid "Publish"
-msgstr "Publicēt"
+msgstr "Veröffentlichen"
 
 #: inc/admin/class-sitemap.php:58 inc/admin/class-sitemap.php:59
 msgid "Sitemap"
-msgstr ""
+msgstr "Sitemap"
 
 #: inc/admin/covergenerator/namespace.php:18
 #: templates/admin/covergenerator.php:63
 msgid "Cover Generator"
-msgstr "Vāku ģenerators"
+msgstr "Umschlag-Generator"
 
 #: inc/admin/covergenerator/namespace.php:46 inc/admin/laf/namespace.php:376
 msgid "Saving settings"
-msgstr ""
+msgstr "Einstellungen werden gespeichert"
 
 #: inc/admin/covergenerator/namespace.php:49
 msgid ""
 "Cover generation is not done. Leaving this page, now, will cause problems. "
 "Are you sure?"
-msgstr ""
+msgstr "Das Generieren des Umschlags ist nicht vollständig. Wenn Sie diese Seite jetzt verlassen, wird das zu Problemen führen. Sind Sie sich sicher?"
 
 #: inc/admin/covergenerator/namespace.php:50 inc/admin/laf/namespace.php:352
 #: inc/admin/laf/namespace.php:375 inc/admin/laf/namespace.php:436
 #: inc/admin/laf/namespace.php:649
 msgid "Reload"
-msgstr ""
+msgstr "Neu laden"
 
 #: inc/admin/covergenerator/namespace.php:69
 msgid "Text"
-msgstr "Teksts"
+msgstr "Text"
 
 #: inc/admin/covergenerator/namespace.php:87
 msgid "Title (Spine)"
-msgstr "Virsraksts (iesējumā)"
+msgstr "Titel (Buchrücken)"
 
 #: inc/admin/covergenerator/namespace.php:98
 #: inc/admin/metaboxes/class-generalinformation.php:50
 msgid "Subtitle"
-msgstr "Apakšvirsraksts"
+msgstr "Untertitel"
 
 #: inc/admin/covergenerator/namespace.php:120
 msgid "Author (Spine)"
-msgstr "Autors (iesējumā)"
+msgstr "Autor (Buchrücken)"
 
 #: inc/admin/covergenerator/namespace.php:131 inc/admin/laf/namespace.php:95
 #: inc/class-activation.php:247 templates/admin/catalog.php:98
 msgid "About"
-msgstr "Par"
+msgstr "Über"
 
 #: inc/admin/covergenerator/namespace.php:142
 msgid "ISBN"
@@ -402,11 +400,11 @@ msgstr "ISBN"
 msgid ""
 "If you have an ISBN, this will generate a barcode on the back of your print "
 "cover. If you do not have an ISBN, you should leave this field blank."
-msgstr "Ja Jums ir ISBN, norādiet to šeit un uz Jūsu grāmatas aizmugurējas daļas tiks ievietots noģenerēts svītrkods. Ja Jums nav ISBN, šis lauks ir jāatstāj tukšs."
+msgstr "Wenn Sie eine ISBN haben, dann wird daraus ein Strichcode auf der Rückseite des Druck-Umschlags erzeugt. Wenn Sie keine ISBN haben, dann sollten Sie dieses Feld leer lassen."
 
 #: inc/admin/covergenerator/namespace.php:154
 msgid "or SKU"
-msgstr "vai SKU"
+msgstr "oder Bestandseinheit (SKU)"
 
 #: inc/admin/covergenerator/namespace.php:159
 msgid ""
@@ -414,63 +412,63 @@ msgid ""
 "field will generate a barcode with that number on the back of your print "
 "cover. If you do not have a non-ISBN identifier, you should leave this field"
 " blank."
-msgstr "Ja Jums ir kaut kāds 13-ciparu identifikators, kas nav ISBN,\nnorādiet to šeit un uz Jūsu grāmatas aizmugurējas daļas tiks ievietots noģenerēts svītrkods. Ja Jums nav ne-ISBN identifikatora, šis lauks ir jāatstāj tukšs."
+msgstr "Wenn Sie eine Kennung mit 13 Ziffern haben, die keine ISBN ist, dann wird daraus ein Strichcode auf der Rückseite des Druck-Umschlags erzeugt. Wenn Sie keine Nicht-ISBN Kennung haben, dann sollten Sie dieses Feld leer lassen."
 
 #: inc/admin/covergenerator/namespace.php:166
 msgid "Design"
-msgstr "Noformējums"
+msgstr "Gestaltung"
 
 #: inc/admin/covergenerator/namespace.php:173
 msgid "Front Cover Background Image"
-msgstr "Priekšēja vāka fona attēls"
+msgstr "Hintergrundbild der Umschlagvorderseite"
 
 #: inc/admin/covergenerator/namespace.php:181
 msgid "Book Title Case"
-msgstr "Grāmatas virsraksts, kur katrs vārds sākas ar lielo sākumburtu"
+msgstr "Buchtitel"
 
 #: inc/admin/covergenerator/namespace.php:194
 msgid "Spine Size"
-msgstr "Iesējuma izmērs"
+msgstr "Größe des Buchrückens"
 
 #: inc/admin/covergenerator/namespace.php:201
 msgid "Page Count"
-msgstr "Lapaspušu skaits"
+msgstr "Seitenanzahl"
 
 #: inc/admin/covergenerator/namespace.php:212
 msgid "Paper Type"
-msgstr "Papīra tips"
+msgstr "Papierart"
 
 #: inc/admin/covergenerator/namespace.php:226
 msgid "Custom PPI"
-msgstr "Lietotāja lapaspušu izmērs collās"
+msgstr "Benutzerdefinierte Seiten pro Zoll (PPI)"
 
 #: inc/admin/covergenerator/namespace.php:237
 msgid "Text and Background Colors"
-msgstr "Teksta un fona krāsas"
+msgstr "Text- und Hintergrundfarben"
 
 #: inc/admin/covergenerator/namespace.php:244
 msgid "Front Cover Text"
-msgstr "Teksts priekšējā vākā"
+msgstr "Text der Umschlagvorderseite"
 
 #: inc/admin/covergenerator/namespace.php:255
 msgid "Front Cover Background"
-msgstr "Priekšēja vāka fons"
+msgstr "Hintergrund der Umschlagvorderseite"
 
 #: inc/admin/covergenerator/namespace.php:266
 msgid "Spine Text"
-msgstr "Teksts iesējumā"
+msgstr "Text des Buchrückens"
 
 #: inc/admin/covergenerator/namespace.php:277
 msgid "Spine Background"
-msgstr "Fons iesējumā"
+msgstr "Hintergrund des Buchrückens"
 
 #: inc/admin/covergenerator/namespace.php:288
 msgid "Back Cover Text"
-msgstr "Teksts aizmugurējā vākā"
+msgstr "Text der Umschlagrückseite"
 
 #: inc/admin/covergenerator/namespace.php:299
 msgid "Back Cover Background"
-msgstr "Aizmugurēja vāka fons"
+msgstr "Hintergrund der Umschlagrückseite"
 
 #. translators: %s: URL to Book Information page
 #: inc/admin/covergenerator/namespace.php:330
@@ -479,7 +477,7 @@ msgid ""
 " and is used to generate your cover(s). You can reformat the text below as "
 "needed. (<strong>IMPORTANT NOTE:</strong> Changes you make here will "
 "<strong>NOT</strong> be reflected on the Book Information page.)"
-msgstr ""
+msgstr "Der nachfolgende Text wird aus Ihrer <a href=\"%s\">Buch-Information</a> geholt und wird zur Generierung Ihres Umschlags verwendet. Sie können den nachfolgenden Text umformatieren so wie Sie ihn benötigen. (<strong>WICHTIGER HINWEIS:</strong> Ihre Änderungen hier werden <strong>NICHT</strong> in die Buch-Information übernommen.)"
 
 #. translators: %s: URL to Appearance menu
 #: inc/admin/covergenerator/namespace.php:443
@@ -487,7 +485,7 @@ msgid ""
 "Below you can make small adjustments to the design of your cover. The look "
 "and feel of the cover will echo the theme you have chosen for your book. You"
 " can change your book theme in the <a href=\"%s\">Appearance</a> menu."
-msgstr ""
+msgstr "Nachfolgend können Sie kleine Anpassungen an der Gestaltung Ihres Umschlags vornehmen. Die Darstellung des Umschlags wird von dem Layout, welches Sie für Ihr Buch ausgewählt haben, bestimmt. Sie können das Buch-Layout im Menü <a href=\"%s\">Aussehen</a> ändern."
 
 #. translators: 1: pdf page width, 2: pdf page height, 3: URL to Theme Options
 #. page
@@ -496,20 +494,20 @@ msgid ""
 "Your PDF page size is set to %1$s &times; %2$s, and your PDF cover will be "
 "generated with the same dimensions. You can change the PDF page size in the "
 "<a href=\"%3$s\">Theme Options</a> menu."
-msgstr ""
+msgstr "Ihre PDF-Seitengröße ist auf %1$s &times; %2$s eingestellt und Ihr PDF-Titelbild wird mit den selben Abmessungen erzeugt. Sie können die PDF-Seitengröße im Menü <a href=\"%3$s\">Layout-Optionen</a> ändern."
 
 #: inc/admin/covergenerator/namespace.php:459
 #: templates/admin/export.blade.php:61
 msgid "Change Theme"
-msgstr "Nomainīt tēmu"
+msgstr "Layout wechseln"
 
 #: inc/admin/covergenerator/namespace.php:460
 msgid "Options"
-msgstr "Iespējas"
+msgstr "Optionen"
 
 #: inc/admin/covergenerator/namespace.php:463
 msgid "You can upload a background image here."
-msgstr "Jūs varat ielādēt fona attēlu te."
+msgstr "Sie können ein Hintergrundbild hier hochladen."
 
 #. translators: 1: minimum width, 2: minimum height, 3: aspect ratio width, 4:
 #. aspect ratio height
@@ -517,37 +515,37 @@ msgstr "Jūs varat ielādēt fona attēlu te."
 msgid ""
 "Your image must be at least %1$s pixels in width by %2$s pixels in height, "
 "with an aspect ratio of %3$s to %4$s."
-msgstr ""
+msgstr "Ihr Bild muss mindestens %1$s Pixel breit und %2$s Pixel hoch sein. Es muss ein Seitenverhältnis von %3$s zu %4$s haben."
 
 #: inc/admin/covergenerator/namespace.php:503
 msgid "Delete Background Image"
-msgstr "Nodzēst fona attēlu"
+msgstr "Hintergrundbild löschen"
 
 #: inc/admin/covergenerator/namespace.php:525
 msgid ""
 "Spine size is calculated based on the number of pages in your book, and the "
 "weight of the paper used in printing."
-msgstr "Iesējuma izmērs aprēķinās izejot no lapaspušu skaita Jūsu grāmatā, un no izmantota izdrukai papīra svara."
+msgstr "Die Größe des Buchrückens wird auf Basis der Seitenzahl im Buch und dem Papiergewicht des Druckpapiers berechnet."
 
 #: inc/admin/covergenerator/namespace.php:531
 msgid ""
 "You haven't exported any PDF copies of your book, so you will need to enter "
 "a page count below."
-msgstr "Jūs neeksportējāt nekādas Jūsu grāmatas PDF kopijas, tāpēc turpmāk Jums ir nepieciešams ievadīt lapaspušu skaits."
+msgstr "Sie haben keine PDF-Versionen Ihres Buchs exportiert, daher müssen Sie die Seitenzahl unten eingeben."
 
 #. translators: %s: number of pages in pdf
 #: inc/admin/covergenerator/namespace.php:534
 msgid ""
 "The last PDF you exported has %s pages (you can edit this below if you "
 "like)."
-msgstr ""
+msgstr "Das letzte exportierte PDF hatte %s Seiten (Sie können das unten bearbeiten, wenn Sie möchten)."
 
 #: inc/admin/covergenerator/namespace.php:538
 msgid ""
 "We can calculate the spine size based on CreateSpace and Ingram "
 "specifications, or you can enter your own custom pages per inch (PPI) "
 "defined by your printer."
-msgstr "Mēs varam aprēķināt iesējuma izmēru izejot no CreateSpace un Ingram specifikācijām, vai Jūs varat ievadīt Jūsu pašu lietotāja lapaspušu izmēru collās (PPI), ko noteica Jūsu printeris."
+msgstr "Wir können die Größe des Buchrückens basierend auf den Spezifikationen von CreateSpace und Ingram berechnen oder Sie können einen eigenen Seiten pro Zoll-Wert (PPI) wie von Ihrer Druckerei definiert eingeben."
 
 #: inc/admin/covergenerator/namespace.php:571
 #: inc/modules/themeoptions/class-pdfoptions.php:194
@@ -562,11 +560,11 @@ msgstr "Mēs varam aprēķināt iesējuma izmēru izejot no CreateSpace un Ingra
 #: inc/modules/themeoptions/class-pdfoptions.php:569
 #: inc/modules/themeoptions/class-pdfoptions.php:588
 msgid "Custom&hellip;"
-msgstr ""
+msgstr "Benutzerdefiniert&hellip;"
 
 #: inc/admin/covergenerator/namespace.php:589
 msgid "Choose text color and background colors below."
-msgstr "Turpmāk izvēlējieties teksta un fona krāsas."
+msgstr "Wählen Sie nachfolgend die Text- und Hintegrundfarben."
 
 #. translators: 1: minimum width, 2: minimum height, 3: image width 4: image
 #. height
@@ -574,24 +572,24 @@ msgstr "Turpmāk izvēlējieties teksta un fona krāsas."
 msgid ""
 "Your image is too small. The image must be %1$d by %2$d pixels. Your image "
 "is %3$d by %4$d pixels."
-msgstr ""
+msgstr "Ihr Bild ist zu klein. Das Bild muss eine Abmessung von %1$d mal %2$d Pixeln haben. Ihr Bild hat eine Größe von %3$d mal %4$d Pixel."
 
 #. translators: 1: pdf page width, 2: pdf page height
 #: inc/admin/covergenerator/namespace.php:764
 msgid ""
 "Your image is the wrong aspect ratio. The image must have an aspect ratio of"
 " %1$s to %2$s."
-msgstr ""
+msgstr "Ihr Bild hat das falsche Seitenverhältnis. Das Bild muss ein Seitenverhältnis von %1$s zu %2$s besitzen."
 
 #: inc/admin/dashboard/class-dashboard.php:54 inc/admin/laf/namespace.php:803
 #: inc/admin/laf/namespace.php:878 inc/admin/menus/class-sidebar.php:198
 #: inc/admin/menus/class-sidebar.php:199 inc/admin/menus/class-topbar.php:124
 msgid "Dashboard"
-msgstr "Informācijas panelis"
+msgstr "Dashboard"
 
 #: inc/admin/dashboard/class-dashboard.php:55
 msgid "Home"
-msgstr ""
+msgstr "Anfang"
 
 #: inc/admin/dashboard/class-invitations.php:29
 msgid "an"
@@ -643,11 +641,11 @@ msgstr ""
 
 #: inc/admin/dashboard/namespace.php:21 inc/admin/dashboard/namespace.php:22
 msgid "Integrations"
-msgstr "Integrācijas"
+msgstr ""
 
 #: inc/admin/delete/class-book.php:52
 msgid "Delete Book"
-msgstr "Nodzēst grāmatu"
+msgstr "Buch löschen"
 
 #. translators: Do not translate USERNAME, URL_DELETE, SITE_NAME: those are
 #. placeholders.
@@ -668,162 +666,162 @@ msgid ""
 "\n"
 "Thanks for using Pressbooks,\n"
 "###SITE_NAME###"
-msgstr ""
+msgstr "Hallo ###USERNAME###,\n\nSie haben vor kurzem auf den  'Buch löschen'-Link bei Ihrem Buch geklickt und haben ein Formular auf dieser Seite ausgefüllt.\n\nWenn Sie Ihr Buch wirklich löschen möchten, klicken Sie bitte auf den Link weiter unten. Sie werden nicht nochmal um Bestätigung gefragt, daher klicken Sie bitte nur auf den Link wenn Sie sich absolut sicher sind:\n###URL_DELETE###\n\nWenn Sie Ihr Buch löschen ziehen Sie es doch bitte in Erwägung ein neues Buchprojekt in der Zukunft bei uns zu starten! (Bedenken Sie bitte, dass Ihr aktuelles Buch nicht wiederhergestellt werden kann.)\n\nDanke, dass Sie Pressbooks verwenden,\n###SITE_NAME###"
 
 #: inc/admin/diagnostics/namespace.php:32
 #: inc/admin/diagnostics/namespace.php:33 inc/admin/laf/namespace.php:110
 #: templates/admin/diagnostics.blade.php:4
 msgid "Diagnostics"
-msgstr "Diagnostika"
+msgstr "Fehlersuche"
 
 #: inc/admin/diagnostics/namespace.php:197
 msgid "Stylesheet regenerated."
-msgstr ""
+msgstr "Stylesheet wurde neu erstellt."
 
 #: inc/admin/laf/namespace.php:76
 msgid "Contact"
-msgstr "Saziņa"
+msgstr "Kontakt"
 
 #: inc/admin/laf/namespace.php:85
 msgid "Powered by %s"
-msgstr ""
+msgstr "Mit %s erstellt"
 
 #: inc/admin/laf/namespace.php:105
 msgid "Guides and Tutorials"
-msgstr ""
+msgstr "Anleitungen und Tutorials"
 
 #: inc/admin/laf/namespace.php:115 templates/admin/sitemap.blade.php:2
 msgid "Site Map"
-msgstr ""
+msgstr "Sitemap"
 
 #: inc/admin/laf/namespace.php:150
 msgid "Organize"
-msgstr "Organizēt"
+msgstr "Organisieren"
 
 #: inc/admin/laf/namespace.php:165
 msgid "private"
-msgstr "privāts"
+msgstr "privat"
 
 #: inc/admin/laf/namespace.php:166
 msgid "public"
-msgstr "publisks"
+msgstr "öffentlich"
 
 #: inc/admin/laf/namespace.php:167
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:5
 msgid "Move Up"
-msgstr "Augšup "
+msgstr "Nach oben"
 
 #: inc/admin/laf/namespace.php:168
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:6
 msgid "Move Down"
-msgstr "Lejup"
+msgstr "Nach unten"
 
 #: inc/admin/laf/namespace.php:170
 msgid "Updating book."
-msgstr "Grāmatas atjaunošana."
+msgstr "Aktualisiere Buch."
 
 #: inc/admin/laf/namespace.php:171
 msgid "Updating chapters."
-msgstr "Nodaļas atjaunošana."
+msgstr "Aktualisiere Kapitel."
 
 #: inc/admin/laf/namespace.php:172
 msgid "Updating part."
-msgstr "Daļas atjaunošana."
+msgstr "Aktualisiere Buchteil."
 
 #: inc/admin/laf/namespace.php:173
 msgid "Updating front matter."
-msgstr "Sākuma papildinformācijas atjaunošana."
+msgstr "Aktualisiere Titelei."
 
 #: inc/admin/laf/namespace.php:174
 msgid "Updating back matter."
-msgstr "Beigu papildinformācijas atjaunošana."
+msgstr "Aktualisiere Anhang."
 
 #: inc/admin/laf/namespace.php:177
 msgid "The book has been successfully updated!"
-msgstr "Grāmata bija veiksmīgi atjaunota."
+msgstr "Das Buch wurde erfolgreich aktualisiert!"
 
 #: inc/admin/laf/namespace.php:178
 msgid "The chapters has been successfully updated!"
-msgstr "Nodaļa bija veiksmīgi atjaunota."
+msgstr ""
 
 #: inc/admin/laf/namespace.php:179
 msgid "The part has been successfully updated!"
-msgstr "Daļa bija veiksmīgi atjaunota."
+msgstr "Der Buchteil wurde erfolgreich aktualisiert!"
 
 #: inc/admin/laf/namespace.php:180
 msgid "The front matter has been successfully updated!"
-msgstr "Sākuma papildinformācija bija veiksmīgi atjaunota."
+msgstr "Die Titelei wurde erfolgreich aktualisiert!"
 
 #: inc/admin/laf/namespace.php:181
 msgid "The back matter has been successfully updated!"
-msgstr "Beigu informācija bija veiksmīgi atjaunota."
+msgstr "Der Anhang wurde erfolgreich aktualisiert!"
 
 #: inc/admin/laf/namespace.php:184
 msgid "Sorry, the book could not be updated.!"
-msgstr "Atvainojiet, grāmata nevar būt atjaunota!"
+msgstr "Entschuldigung, das Buch konnte nicht aktualisiert werden."
 
 #: inc/admin/laf/namespace.php:185
 msgid "Sorry, the chapters could not be updated."
-msgstr "Atvainojiet, nodaļa nevar būt atjaunota!"
+msgstr "Entschuldigung, die Kapitel konnten nicht aktualisiert werden."
 
 #: inc/admin/laf/namespace.php:186
 msgid "Sorry, the part could not be updated."
-msgstr "Atvainojiet, daļa nevar būt atjaunota!"
+msgstr "Entschuldigung, der Buchteil konnte nicht aktualisiert werden."
 
 #: inc/admin/laf/namespace.php:187
 msgid "Sorry, the front matter could not be updated."
-msgstr "Atvainojiet, sākuma papildinformācija nevar būt atjaunota!"
+msgstr "Entschuldigung, die Titelei konnte nicht aktualisiert werden."
 
 #: inc/admin/laf/namespace.php:188
 msgid "Sorry, the back matter could not be updated."
-msgstr "Atvainojiet, beigu papildinformācija nevar būt atjaunota!"
+msgstr "Entschuldigung, der Anhang konnte nicht aktualisiert werden."
 
 #: inc/admin/laf/namespace.php:198 inc/admin/laf/namespace.php:199
 #: templates/admin/organize.blade.php:61 templates/admin/organize.blade.php:95
 msgid "Add Part"
-msgstr "Pievienot daļu"
+msgstr "Buchteil hinzufügen"
 
 #: inc/admin/laf/namespace.php:206 inc/admin/laf/namespace.php:207
 #: templates/admin/organize.blade.php:60
 msgid "Add Chapter"
-msgstr "Pievienot nodaļu"
+msgstr "Kapitel hinzufügen"
 
 #: inc/admin/laf/namespace.php:214 inc/admin/laf/namespace.php:215
 #: templates/admin/organize.blade.php:58
 msgid "Add Front Matter"
-msgstr "Pievienot sākuma papildinformāciju"
+msgstr "Titelei hinzufügen"
 
 #: inc/admin/laf/namespace.php:222 inc/admin/laf/namespace.php:223
 #: templates/admin/organize.blade.php:59
 msgid "Add Back Matter"
-msgstr "Pievienot beigu papildinforāciju"
+msgstr "Anhang hinzufügen"
 
 #: inc/admin/laf/namespace.php:230 inc/admin/laf/namespace.php:231
 #: inc/editor/namespace.php:147 inc/posttype/namespace.php:195
 msgid "Glossary Terms"
-msgstr "Glosārija termini"
+msgstr "Glossarbegriffe"
 
 #: inc/admin/laf/namespace.php:238 inc/admin/laf/namespace.php:239
 msgid "Chapter Types"
-msgstr "Nodaļu tipi"
+msgstr "Kapitel-Typen"
 
 #: inc/admin/laf/namespace.php:246 inc/admin/laf/namespace.php:247
 msgid "Front Matter Types"
-msgstr "Sākuma papildinformāciju tipi"
+msgstr "Titelei-Typen"
 
 #: inc/admin/laf/namespace.php:254 inc/admin/laf/namespace.php:255
 msgid "Back Matter Types"
-msgstr "Beigu papildinformāciju tipi"
+msgstr "Anhangs-Typen"
 
 #: inc/admin/laf/namespace.php:262 inc/admin/laf/namespace.php:263
 msgid "Glossary Types"
-msgstr "Glosāriju tipi"
+msgstr "Glossar-Typen"
 
 #: inc/admin/laf/namespace.php:289
 #: inc/modules/import/wordpress/class-wxr.php:542
 #: inc/posttype/namespace.php:151 templates/admin/cloner/stats.blade.php:3
 msgid "Book Info"
-msgstr "Informācija par grāmatu"
+msgstr "Buch-Info"
 
 #: inc/admin/laf/namespace.php:302
 msgid "Choose institution(s)... "
@@ -831,66 +829,66 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:303
 msgid "Choose a subject…"
-msgstr "Izvēlēties tēmu..."
+msgstr "Wählen Sie ein Thema..."
 
 #: inc/admin/laf/namespace.php:304
 msgid "Choose some subject(s)…"
-msgstr "Izvēlēties tēmu(-as)..."
+msgstr "Wählen Sie einige Themen..."
 
 #: inc/admin/laf/namespace.php:327 inc/admin/laf/namespace.php:328
 msgid "Contributors"
-msgstr "Līdzstrādnieki"
+msgstr "Mitarbeiter"
 
 #: inc/admin/laf/namespace.php:334 inc/admin/laf/namespace.php:412
 #: templates/admin/export.blade.php:11 templates/admin/icon.blade.php:15
 #: templates/admin/organize.blade.php:57
 msgid "Export"
-msgstr "Eksports"
+msgstr "Exportieren"
 
 #: inc/admin/laf/namespace.php:347
 msgid "Are you sure you want to delete these export files?"
-msgstr ""
+msgstr "Sind Sie sicher, dass Sie diese Export-Dateien löschen möchten?"
 
 #: inc/admin/laf/namespace.php:348
 msgid "Up to 5 files can be pinned at once."
-msgstr ""
+msgstr "Bis zu 5 Dateien können auf einmal angeheftet werden."
 
 #: inc/admin/laf/namespace.php:349
 msgid "Cannot pin more than 3 of the same file type."
-msgstr ""
+msgstr "Kann nicht mehr als 3 des selben Dateityps anheften."
 
 #: inc/admin/laf/namespace.php:353
 msgid ""
 "Too many pinned files. Deselect one of the pinned files before attempting to"
 " export."
-msgstr ""
+msgstr "Zu viele angeheftete Dateien. Wählen Sie eines der angehefteten Dateien ab bevor Sie den Export versuchen."
 
 #: inc/admin/laf/namespace.php:354
 msgid ""
 "Exports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
-msgstr ""
+msgstr "Exporte sind nicht vollständig. Wenn Sie diese Seite jetzt verlassen, wird das zu Problemen führen. Sind Sie sich sicher?"
 
 #: inc/admin/laf/namespace.php:366 inc/utility/class-handlestransfers.php:88
 #: templates/admin/import.php:38 templates/admin/import.php:114
 msgid "Import"
-msgstr "Imports"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:374
 msgid ""
 "Imports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
-msgstr ""
+msgstr "Importe sind nicht vollständig. Wenn Sie diese Seite jetzt verlassen, wird das zu Problemen führen. Sind Sie sich sicher?"
 
 #: inc/admin/laf/namespace.php:399 inc/admin/laf/namespace.php:595
 #: inc/admin/laf/namespace.php:1518
 #: inc/admin/network/class-sharingandprivacyoptions.php:473
 msgid "Sharing and Privacy Settings"
-msgstr "Dalīšanas un konfidencialitātes iestatījumi"
+msgstr "Freigaben und Datenschutzeinstellungen"
 
 #: inc/admin/laf/namespace.php:399 inc/admin/laf/namespace.php:595
 msgid "Sharing &amp; Privacy"
-msgstr "Dalīšana un konfidencialitāte"
+msgstr "Freigaben &amp; Datenschutz"
 
 #: inc/admin/laf/namespace.php:417 inc/admin/laf/namespace.php:418
 msgid "QuickLaTeX"
@@ -899,13 +897,13 @@ msgstr "QuickLaTeX"
 #: inc/admin/laf/namespace.php:427 inc/admin/laf/namespace.php:634
 #: inc/admin/laf/namespace.php:635 templates/admin/cloner/page.blade.php:3
 msgid "Clone a Book"
-msgstr "Klonēt grāmatu"
+msgstr "Ein Buch klonen"
 
 #: inc/admin/laf/namespace.php:435 inc/admin/laf/namespace.php:648
 msgid ""
 "Cloning is not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
-msgstr ""
+msgstr "Das Klonen ist nicht vollständig. Wenn Sie diese Seite jetzt verlassen, wird das zu Problemen führen. Sind Sie sich sicher?"
 
 #: inc/admin/laf/namespace.php:662 inc/admin/laf/namespace.php:663
 msgid "Cloning Stats"
@@ -917,7 +915,7 @@ msgstr ""
 #: inc/posttype/namespace.php:548 templates/admin/import.php:91
 #: templates/admin/organize.blade.php:49
 msgid "Front Matter"
-msgstr "Sākuma papildinformācija"
+msgstr "Titelei"
 
 #: inc/admin/laf/namespace.php:688 inc/admin/metaboxes/namespace.php:184
 #: inc/api/endpoints/controller/class-toc.php:209 inc/class-sass.php:78
@@ -925,7 +923,7 @@ msgstr "Sākuma papildinformācija"
 #: inc/posttype/namespace.php:64 inc/posttype/namespace.php:545
 #: inc/posttype/namespace.php:584 templates/admin/import.php:92
 msgid "Chapter"
-msgstr "Nodaļa"
+msgstr "Kapitel"
 
 #: inc/admin/laf/namespace.php:698 inc/admin/metaboxes/namespace.php:188
 #: inc/api/endpoints/controller/class-toc.php:225
@@ -933,47 +931,47 @@ msgstr "Nodaļa"
 #: inc/posttype/namespace.php:551 templates/admin/import.php:96
 #: templates/admin/organize.blade.php:51
 msgid "Back Matter"
-msgstr "Beigu papildinformācija"
+msgstr "Anhang"
 
 #: inc/admin/laf/namespace.php:792
 msgid "Network Admin"
-msgstr "Tīkla administrators"
+msgstr "Netzwerk-Verwalter"
 
 #: inc/admin/laf/namespace.php:811 inc/admin/laf/namespace.php:1573
 #: inc/admin/laf/namespace.php:1583 inc/admin/menus/class-sidebar.php:209
 #: inc/admin/menus/class-sidebar.php:210 inc/admin/menus/class-topbar.php:129
 msgid "Books"
-msgstr "Grāmatas"
+msgstr "Bücher"
 
 #: inc/admin/laf/namespace.php:819 inc/admin/menus/class-sidebar.php:219
 #: inc/admin/menus/class-sidebar.php:220 inc/admin/menus/class-topbar.php:134
 msgid "Users"
-msgstr "Lietotāji"
+msgstr "Nutzer"
 
 #: inc/admin/laf/namespace.php:828
 msgid "Themes"
-msgstr "Tēmas"
+msgstr "Layouts"
 
 #: inc/admin/laf/namespace.php:836 inc/admin/menus/class-sidebar.php:416
 #: inc/admin/menus/class-sidebar.php:417 inc/admin/menus/class-topbar.php:149
 msgid "Plugins"
-msgstr "Spraudņi"
+msgstr "Plugins"
 
 #: inc/admin/laf/namespace.php:886
 msgid "Visit Website"
-msgstr "Apmeklēt vietni"
+msgstr "Webseite ansehen"
 
 #: inc/admin/laf/namespace.php:896 inc/admin/menus/class-topbar.php:191
 msgid "My Books"
-msgstr ""
+msgstr "Meine Bücher"
 
 #: inc/admin/laf/namespace.php:916
 msgid "Create A New Book"
-msgstr "Izveidot jaunu grāmatu"
+msgstr "Ein neues Buch erstellen"
 
 #: inc/admin/laf/namespace.php:928
 msgid "Clone A Book"
-msgstr "Klonēt grāmatu"
+msgstr "Ein Buch klonen"
 
 #: inc/admin/laf/namespace.php:1133
 msgid ""
@@ -981,23 +979,23 @@ msgid ""
 "the most recent version of your selected theme, which may change your "
 "book&rsquo;s appearance and page count. Once you save your settings on this "
 "page, this action will NOT be reversable!"
-msgstr "Vai tiešām vēlaties atbloķēt Jūsu tēmu? Tas atjaunos Jūsu grāmatu līdz izvēlētas grāmatas visjaunākajai versijai, kas vārēs nomainīt Jūsu grāmatas ārējo izskatu un lapaspušu skaitu. Kad Jūs saglabāsiet iestatījumus šajā lapaspusē, šo rīcību NEBŪS iespējams atcelt! "
+msgstr "Sind Sie sicher, dass Sie Ihr Layout entsperren möchten? Das führt dazu, dass Ihr Buch auf die aktuellste Version des gewählten Layouts aktualisiert wird. Das wird möglicherweise das Aussehen und die Seitenzahl Ihres Buches ändern. Wenn Sie die Einstellungen auf dieser Seite speichern können Sie diese Änderungen NICHT mehr rückgängig machen!"
 
 #: inc/admin/laf/namespace.php:1234
 msgid "Book Visibility"
-msgstr "Grāmatas redzamība"
+msgstr "Sichtbarkeit des Buchs"
 
 #: inc/admin/laf/namespace.php:1248
 msgid "Private Content"
-msgstr "Privāts saturs"
+msgstr "Privater Inhalt"
 
 #: inc/admin/laf/namespace.php:1262
 msgid "Disable Comments"
-msgstr "Aizvērt komentārus"
+msgstr "Kommentare deaktivieren"
 
 #: inc/admin/laf/namespace.php:1280
 msgid "Share Latest Export Files"
-msgstr "Dalīties ar jaunākiem eksporta failiem"
+msgstr "Neueste Export-Dateien teilen"
 
 #: inc/admin/laf/namespace.php:1310
 msgid "Pressbooks Directory"
@@ -1005,52 +1003,52 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:1327
 msgid "Sharing and Privacy settings"
-msgstr "Dalīšanas un konfidencialitātes iestatījumi"
+msgstr "Freigabe und Datenschutzeinstellungen"
 
 #: inc/admin/laf/namespace.php:1342
 msgid "Public. I would like this book to be visible to everyone."
-msgstr "Publiskais. Es gribētu, lai grāmata būtu pieejama visiem."
+msgstr "Öffentlich. Ich möchte, dass das Buch für alle sichtbar ist."
 
 #: inc/admin/laf/namespace.php:1348
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
-msgstr "Privātais. Es gribētu, lai grāmata būtu pieejama tikai tiem cilvēkiem, ko es uzaicināju."
+msgstr "Privat. Ich möchte, dass das Buch nur für Leute zugänglich ist, die ich einlade."
 
 #: inc/admin/laf/namespace.php:1372
 msgid "Who can see private front matter, chapters and back matter?"
-msgstr "Kas var redzēt privātus sākuma papildinformāciju, nodaļas un beigu papildinformāciju?"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:1375
 msgid "Only logged in editors and administrators."
-msgstr "Tikai ielogotie redaktori un administratori."
+msgstr "Nur angemeldete Editoren und Administratoren."
 
 #: inc/admin/laf/namespace.php:1377
 msgid "All logged in users including subscribers."
-msgstr "Visi ielogotie lietotāji, ieskaitot abonentus."
+msgstr "Alle angemeldeten Benutzer inklusive Teilnehmer."
 
 #: inc/admin/laf/namespace.php:1398
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
-msgstr "Jā. Es gribu, lai komentāri, atsaučpaziņošanas un atbalspaziņošanas bija automātiski aizvērti sākuma papildinformācijā, nodaļās un beigu papildinformācijā."
+msgstr "Ja. Ich möchte automatisch Kommentare, Trackbacks und Pingbacks auf allen Titeleien, Kapiteln und Anhängen deaktivieren."
 
 #: inc/admin/laf/namespace.php:1404
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
-msgstr "Nē. Es gribu, lai komentāri, atsaučpaziņošanas un atbalspaziņošanas sākuma papildinformācijā, nodaļās un beigu papildinformācijā palika atvērti, kamēr es pats tos neaizvēršu."
+msgstr "Nein. Ich möchte Kommentare, Trackbacks und Pingbacks auf allen Titeleien, Kapiteln und Anhängen aktiviert lassen, außer ich deaktiviere sie per Hand."
 
 #: inc/admin/laf/namespace.php:1420
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
-msgstr "Jā. Es gribu, lai jaunāki eksporta faili bija bezmaksas pieejami visiem mājaslapā."
+msgstr "Ja. Ich möchte, dass die neuesten Exportdateien auf der Homepage für alle kostenlos zur Verfügung stehen."
 
 #: inc/admin/laf/namespace.php:1426
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
-msgstr "Nē. Es gribu, lai jaunāki eksporta faili bija pieejami tikai administratoriem."
+msgstr "Nein. Ich möchte, dass die neuesten Exportdateien nur für Administratoren zur Verfügung stehen."
 
 #: inc/admin/laf/namespace.php:1445
 msgid "Yes. I want this book to be listed in the Pressbooks directory."
@@ -1062,23 +1060,23 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:1576
 msgid "All Books"
-msgstr "Visas grāmatas"
+msgstr "Alle Bücher"
 
 #: inc/admin/laf/namespace.php:1586
 msgid "Search Books"
-msgstr "Meklēt grāmatas"
+msgstr "Bücher durchsuchen"
 
 #: inc/admin/laf/namespace.php:1592
 msgid "Edit Book: %s"
-msgstr ""
+msgstr "Buch bearbeiten: %s"
 
 #: inc/admin/laf/namespace.php:1595 inc/admin/laf/namespace.php:1604
 msgid "Book Address (URL)"
-msgstr "Grāmatas adrese (tīmekļa adrese)"
+msgstr "Buch-Adresse (URL)"
 
 #: inc/admin/laf/namespace.php:1601
 msgid "Add New Book"
-msgstr "Pievienot jaunu grāmatu"
+msgstr "Neues Buch hinzufügen"
 
 #: inc/admin/laf/namespace.php:1607
 #: inc/modules/themeoptions/class-pdfoptions.php:408
@@ -1092,27 +1090,27 @@ msgstr "Pievienot jaunu grāmatu"
 #: inc/modules/themeoptions/class-pdfoptions.php:562
 #: inc/modules/themeoptions/class-pdfoptions.php:581
 msgid "Book Title"
-msgstr "Grāmatas virsraksts"
+msgstr "Buchtitel"
 
 #: inc/admin/laf/namespace.php:1610
 msgid "Book Language"
-msgstr "Grāmatas valoda"
+msgstr "Sprache des Buchs"
 
 #: inc/admin/laf/namespace.php:1613
 msgid "Add Book"
-msgstr "Pievienot grāmatu"
+msgstr "Buch hinzufügen"
 
 #: inc/admin/laf/namespace.php:1630
 msgid "Edit previous or next item"
-msgstr "Rediģēt iepriekšējo vai nākamo priekšmetu"
+msgstr "Vorhergehendes oder nächstes Element bearbeiten"
 
 #: inc/admin/laf/namespace.php:1635
 msgid "Edit Previous (%s)"
-msgstr ""
+msgstr "Vorhergehendes bearbeiten (%s)"
 
 #: inc/admin/laf/namespace.php:1640
 msgid "Edit Next (%s)"
-msgstr ""
+msgstr "Nächstes bearbeiten (%s) "
 
 #: inc/admin/laf/namespace.php:1655
 msgid "Twitter URL"
@@ -1150,7 +1148,7 @@ msgstr ""
 #: inc/admin/menus/class-sidebar.php:449 inc/admin/menus/class-sidebar.php:450
 #: inc/admin/menus/class-topbar.php:154
 msgid "Settings"
-msgstr ""
+msgstr "Einstellungen"
 
 #: inc/admin/menus/class-sidebar.php:261 inc/admin/menus/class-sidebar.php:262
 #: inc/admin/menus/class-sidebar.php:517 inc/admin/menus/class-sidebar.php:518
@@ -1210,7 +1208,7 @@ msgstr ""
 #: inc/admin/networkmanagers/namespace.php:20
 #: inc/admin/networkmanagers/namespace.php:21
 msgid "Network Managers"
-msgstr "Tīkla pārvaldnieki"
+msgstr "Netzwerk-Verwalter"
 
 #: inc/admin/menus/class-sidebar.php:487 inc/admin/menus/class-sidebar.php:488
 msgid "Whitelabel Settings"
@@ -1225,7 +1223,7 @@ msgstr ""
 #: inc/class-googleanalytics.php:79 inc/class-googleanalytics.php:80
 #: inc/class-googleanalytics.php:217 inc/class-googleanalytics.php:267
 msgid "Google Analytics"
-msgstr "Google analītika "
+msgstr "Google Analytics"
 
 #: inc/admin/menus/class-sidebar.php:525 inc/admin/menus/class-sidebar.php:526
 msgid "Sharing & Privacy"
@@ -1250,7 +1248,7 @@ msgstr ""
 
 #: inc/admin/menus/class-topbar.php:109
 msgid "About Pressbooks"
-msgstr "Par Pressbooks vietni"
+msgstr "Über Pressbooks"
 
 #: inc/admin/menus/class-topbar.php:165
 msgid "Administer Network"
@@ -1258,7 +1256,7 @@ msgstr ""
 
 #: inc/admin/menus/class-topbar.php:244 inc/registration/namespace.php:59
 msgid "Create Book"
-msgstr "Izveidot grāmatu"
+msgstr "Buch erstellen"
 
 #: inc/admin/menus/class-topbar.php:263
 msgid "Clone Book"
@@ -1270,131 +1268,131 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-about.php:16
 msgid "About the Book"
-msgstr ""
+msgstr "Über das Buch"
 
 #: inc/admin/metaboxes/class-about.php:27
 msgid "Book Tagline"
-msgstr "Grāmatas apakšvirsraksts "
+msgstr "Slogan des Buchs"
 
 #: inc/admin/metaboxes/class-about.php:28
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
-msgstr "Ļoti īss Jūsu grāmatas apraksts. Tam jāiekļaujas vienā Twitter publikācijā un dažos teikumos jāapraksta Jūsu grāmatu."
+msgstr "Eine Kurzbeschreibung Ihres Buches. Es sollte in einen Twitter Tweet passen, und Ihr Buch auf kürzeste Weise beschreiben."
 
 #: inc/admin/metaboxes/class-about.php:32
 msgid "Short Description"
-msgstr "Īss apraksts"
+msgstr "Kurzbeschreibung"
 
 #: inc/admin/metaboxes/class-about.php:33
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
-msgstr "Īss paragrāfs par Jūsu grāmatu katalogiem, tehniskiem redaktoriem u.c. citēšanai."
+msgstr "Ein kurzer Abschnitt über Ihr Buch, für Kataloge, Rezensionen etc. für ein Zitat."
 
 #: inc/admin/metaboxes/class-about.php:37
 msgid "Long Description"
-msgstr "Garš apraksts."
+msgstr "Ausführliche Beschreibung"
 
 #: inc/admin/metaboxes/class-about.php:38
 msgid "The full description of your book."
-msgstr "Pilns Jūsu grāmatas apraksts."
+msgstr "Die ausführliche Beschreibung Ihres Buches."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:19
 msgid "Additional Catalog Information"
-msgstr "Papildus informācija par katalogu"
+msgstr "Zusätzliche Kataloginformationen"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:26
 msgid "Series Title"
-msgstr "Sērijas virsraksts."
+msgstr "Titel der Serie"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:27
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:32
 msgid "Add if your book is part of a series."
-msgstr "Pievienojiet, ja Jūsu grāmata ir sēriju daļa."
+msgstr "Fügen Sie das hinzu, wenn Ihr Buch Teil einer Serie ist."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:31
 msgid "Series Number"
-msgstr "Sēriju numurs"
+msgstr "Nummer der Serie"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:36
 msgid "Keywords"
-msgstr "Atslēgvārdi"
+msgstr "Schlagwörter"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:37
 msgid ""
 "These are added to your webbook cover page, and in your ebook metadata. "
 "Keywords are used by online book stores and search engines."
-msgstr "Tie būs pievienots Jūsu tiešsaistes grāmatas vākam un elektroniskas grāmatas metadatiem. Atslēgvārdi tiek izmantoti tiešsaistes grāmatu veikalos un meklētājprogrammās."
+msgstr "Diese werden zur Titelseite im Web und in den Metadaten Ihres E-Books hinzugefügt. Schlagwörter werden von Online-Buchläden und Suchmaschinen verwendet."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:42
 msgid "Hashtag"
-msgstr "Atsauces tags"
+msgstr "Hashtag"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:43
 msgid ""
 "These are added to your webbook cover page. For those of you who like "
 "Twitter."
-msgstr "Tie būs pievienoti Jūsu tiešsaistes grāmatas vākam. Tiem no Jums, kam patīk Twitter."
+msgstr "Werden der Titelseite Ihres Buches im Web hinzugefügt. Gedacht für diejenigen, die Twitter benutzen."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:47
 msgid "List Price (Print)"
-msgstr "Cenrādis (Izdruka)"
+msgstr "Listenpreis (Druck)"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:48
 msgid "The list price of your book in print."
-msgstr "Jūsu grāmatas cenrādis izdrukai."
+msgstr "Der Listenpreis Ihres Buches in gedruckter Form."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:52
 msgid "List Price (PDF)"
-msgstr "Cenrādis (PDF)"
+msgstr "Listenpreis (PDF)"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:53
 msgid "The list price of your book in PDF format."
-msgstr "Jūsu grāmatas cenrādis PDF formātam."
+msgstr "Der Listenpreis Ihres Buches im PDF-Format."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:57
 msgid "List Price (ebook)"
-msgstr "Cenrādis (elektroniskā grāmata)"
+msgstr "Listenpreis (E-Book)"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:58
 msgid "The list price of your book in Ebook formats."
-msgstr "Jūsu grāmatas cenrādis elektroniskajai grāmatai."
+msgstr "Der Listenpreis Ihres Buches in E-Book-Formaten"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:62
 msgid "List Price (Web)"
-msgstr "Cenrādis (tiešsaistes grāmata)"
+msgstr "Listenpreis (Web)"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:63
 msgid "The list price of your webbook."
-msgstr "Cenrādis Jūsu tiešsaistes grāmatai."
+msgstr "Der Listenpreis Ihres Buches im Web."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:67
 msgid "Audience"
-msgstr "Auditorija"
+msgstr "Zielpublikum"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:68
 msgid "The target audience for your book."
-msgstr "Jūsu grāmatas mērķauditorija."
+msgstr "Das Zielpublikum für Ihr Buch."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:70
 msgid "Choose an audience&hellip;"
-msgstr ""
+msgstr "Wählen Sie ein Zielpublikum&hellip;"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:71
 msgid "Juvenile"
-msgstr "Pusaudži"
+msgstr "Jugendliche"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:72
 msgid "Young Adult"
-msgstr "Jaunieši"
+msgstr "Junge Erwachsene"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:73
 msgid "Adult"
-msgstr "Pieaugušie"
+msgstr "Erwachsene"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:78
 msgid "BISAC Subject(s)"
-msgstr "BISAC tēma(s)"
+msgstr "BISAC Themen"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:79
 msgid ""
@@ -1408,7 +1406,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:84
 msgid "BISAC Regional Theme"
-msgstr "BISAC reģionālā tēma"
+msgstr "BISAC Regionales Thema"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:85
 msgid ""
@@ -1422,46 +1420,46 @@ msgstr ""
 #: inc/modules/export/htmlbook/class-htmlbook.php:855
 #: inc/modules/export/xhtml/class-xhtml11.php:1074
 msgid "Copyright"
-msgstr "Autortiesības"
+msgstr "Copyright"
 
 #: inc/admin/metaboxes/class-copyright.php:41
 #: templates/admin/cloner/page.blade.php:7
 msgid "Source Book URL"
-msgstr "Avotgrāmatas tīmekļa adrese"
+msgstr "Quell-URL des Buchs"
 
 #: inc/admin/metaboxes/class-copyright.php:42
 msgid ""
 "This book was cloned from a pre-existing book at the above URL. This "
 "information will be displayed on the webbook homepage."
-msgstr "Šī grāmata bija klonēta no jau eksistējošai grāmatai, ko var atrast pēc šajās tīmekļa adreses. Šī informācija būs redzama tiešsaistes grāmatas mājaslapā."
+msgstr "Dieses Buch wurde von einem existierenden Buch an der obigen URL geklont. Diese Information wird auf der Startseite des Buches im Web angezeigt."
 
 #: inc/admin/metaboxes/class-copyright.php:47
 msgid "Copyright Year"
-msgstr "Autortiesību reģistrācijas gads"
+msgstr "Jahr des Copyrights"
 
 #: inc/admin/metaboxes/class-copyright.php:48
 msgid "Year that the book is/was published."
-msgstr "Gads, kad grāmata ir/bija publicēta."
+msgstr "Jahr, in dem das Buch publiziert wird/wurde."
 
 #: inc/admin/metaboxes/class-copyright.php:52
 msgid "Copyright Holder"
-msgstr "Autortiesību īpašnieks"
+msgstr "Rechteinhaber"
 
 #: inc/admin/metaboxes/class-copyright.php:53
 msgid "Name of the copyright holder."
-msgstr "Autortiesību īpašnieka vārds."
+msgstr "Name des Rechteinhabers."
 
 #: inc/admin/metaboxes/class-copyright.php:57
 msgid "Copyright License"
-msgstr "Autortiesību licence"
+msgstr "Lizenz"
 
 #: inc/admin/metaboxes/class-copyright.php:58
 msgid "You can select various licenses including Creative Commons."
-msgstr "Jūs varat izvēlēties dažas licences, tai skaitā radošas apvienības licenci."
+msgstr "Sie können aus meheren Lizenzen auswählen, unter anderem die Creative Commons Lizenz."
 
 #: inc/admin/metaboxes/class-copyright.php:63
 msgid "Copyright Notice"
-msgstr "Paziņojums par autortiesībām"
+msgstr "Copyright Anmerkungen"
 
 #: inc/admin/metaboxes/class-copyright.php:64
 msgid ""
@@ -1470,25 +1468,25 @@ msgid ""
 "no license is selected, and will be inserted after the title page. If you "
 "select a Creative Commons license, the custom notice will appear after the "
 "license text in both the webbook and your exports."
-msgstr "Ievadiet lietotāja paziņojumu par autortiesībām, iekļaujot tur jebkuru informāciju Jūs gribējāt. Tas aizstāvēs automātiski noģenerēto paziņojumu par autortiesībām par to, ka visas tiesības paturētas, vai par to, ka nekāda licence nebija izvēlēta. Gadījumā, ja Jūs izvēlēsieties radošas apvienības licenci, lietotāja paziņojums tiks rādīts pēc licences teksta gan tiešsaistes grāmatā, gan eksporta failos."
+msgstr "Geben Sie einen benutzerdefinierten Copyright-Hinweis mit den gewünschten Informationen ein. Dadurch wird der automatisch generierte Urheberrechtshinweis überschrieben, wenn \"Alle Rechte vorbehalten\" oder keine Lizenz ausgewählt ist. Er wird nach der Titelseite eingefügt. Wenn Sie eine Creative Commons-Lizenz auswählen, wird der benutzerdefinierte Hinweis nach dem Lizenztext sowohl im Web als auch in Ihren Exporten angezeigt."
 
 #: inc/admin/metaboxes/class-generalinformation.php:32
 msgid "General Book Information"
-msgstr "Vispārēja informācija par grāmatu"
+msgstr "Allgemeine Buchinformationen"
 
 #: inc/admin/metaboxes/class-generalinformation.php:44
 msgid "Short Title"
-msgstr "Īss virsraksts"
+msgstr "Kurztitel"
 
 #: inc/admin/metaboxes/class-generalinformation.php:45
 msgid ""
 "In case of long titles that might be truncated in running heads in the PDF "
 "export."
-msgstr "Gadījumā, ja būs garš virsraksts, ko varēs saīsināt galvenē eksporta failos PDF formātā."
+msgstr "Falls sehr lange Titel benutzt werden, die in den Kopfzeilen beim PDF Export abgekürzt werden."
 
 #: inc/admin/metaboxes/class-generalinformation.php:55
 msgid "Author(s)"
-msgstr "Autors(-i)"
+msgstr "Autor(en)"
 
 #: inc/admin/metaboxes/class-generalinformation.php:57
 #: inc/admin/metaboxes/class-generalinformation.php:64
@@ -1498,93 +1496,93 @@ msgstr "Autors(-i)"
 #: inc/admin/metaboxes/class-generalinformation.php:92
 #: inc/admin/metaboxes/class-sectionmetadata.php:51
 msgid "Create New Contributor"
-msgstr "Izveidot jaunus līdzstrādniekus"
+msgstr "Neuen Mitarbeiter erstellen"
 
 #: inc/admin/metaboxes/class-generalinformation.php:62
 msgid "Editor(s)"
-msgstr "Redaktors(-i)"
+msgstr "Redakteur(e)"
 
 #: inc/admin/metaboxes/class-generalinformation.php:69
 msgid "Translator(s)"
-msgstr "Tulkotājs(-i)"
+msgstr "Übersetzer"
 
 #: inc/admin/metaboxes/class-generalinformation.php:76
 msgid "Reviewer(s)"
-msgstr "Tehniskais(-ie) redaktors(-i)"
+msgstr "Lektor(en)"
 
 #: inc/admin/metaboxes/class-generalinformation.php:83
 msgid "Illustrator(s)"
-msgstr "Ilustrators(-i)"
+msgstr "Illustrator(en)"
 
 #: inc/admin/metaboxes/class-generalinformation.php:90
 msgid "Contributor(s)"
-msgstr "Līdzstrādnieks(-i)"
+msgstr "Mitarbeiter"
 
 #: inc/admin/metaboxes/class-generalinformation.php:97
 msgid "Publisher"
-msgstr "Izdevējs"
+msgstr "Verlag"
 
 #: inc/admin/metaboxes/class-generalinformation.php:98
 #: inc/admin/metaboxes/class-generalinformation.php:104
 msgid "This text appears on the title page of your book."
-msgstr "Šīs teksts parādīsies Jūsu grāmatas titullapā."
+msgstr "Dieser Text erscheint auf der Titelseite Ihres Buches."
 
 #: inc/admin/metaboxes/class-generalinformation.php:103
 msgid "Publisher City"
-msgstr "Izdevēja pilsēta"
+msgstr "Ort des Verlages"
 
 #: inc/admin/metaboxes/class-generalinformation.php:109
 msgid "Publication Date"
-msgstr "Publicēšanas datums"
+msgstr "Datum der Veröffentlichung"
 
 #: inc/admin/metaboxes/class-generalinformation.php:110
 #: inc/admin/metaboxes/class-generalinformation.php:116
 msgid "This is added to the metadata in your ebook."
-msgstr "Tas būs pievienots Jūsu elektroniskas grāmatas metadatiem."
+msgstr "Dies wird zu den Metadaten Ihres Buchs hinzugefügt."
 
 #: inc/admin/metaboxes/class-generalinformation.php:115
 msgid "On-Sale Date"
-msgstr "Datums, kad sākas pārdošana "
+msgstr "Verkaufsdatum"
 
 #: inc/admin/metaboxes/class-generalinformation.php:121
 msgid "Ebook ISBN"
-msgstr "Elektroniskas grāmatas ISBN"
+msgstr "E-Book-ISBN"
 
 #: inc/admin/metaboxes/class-generalinformation.php:122
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in some online ebook stores. This is added to the "
 "metadata in your ebook."
-msgstr "ISBN ir  Starptautiskais grāmatas standartnumurs, viņš Jums būs nepieciešams, ja Jūs gribējāt pārdod savu grāmatu jebkādos elektronisku grāmatu veikalos. Tas būs pievienots Jūsu elektroniskas grāmatas metadatiem."
+msgstr "Die ISBN ist die Internationale Standard-Buchnummer, die Sie für den Verkauf in manchen E-Book-Läden benötigen. Sie wird den Metadaten in Ihrem E-Book hinzugefügt."
 
 #: inc/admin/metaboxes/class-generalinformation.php:127
 msgid "Print ISBN"
-msgstr "Drukāt ISBN"
+msgstr "Druck-ISBN"
 
 #: inc/admin/metaboxes/class-generalinformation.php:128
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
-msgstr "Tas būs pievienots Jūsu elektroniskas grāmatas metadatiem.ISBN ir Starptautiskais grāmatas standartnumurs, viņš Jums būs nepieciešams, ja Jūs gribējāt pārdod savu grāmatu jebkādos tiešsaistes un fiziskās grāmatu veikalos."
+msgstr "ISBN ist die Internationale Standard-Buchnummer, die für den Verkauf in Online- und lokalen Buchläden benötigt wird."
 
 #: inc/admin/metaboxes/class-generalinformation.php:133
 msgid "Digital Object Identifier (DOI)"
-msgstr "Digitālā objekta identifikators (DOI) "
+msgstr "Digitaler Objektbezeichner (DOI)"
 
 #: inc/admin/metaboxes/class-generalinformation.php:138
 msgid "Language"
-msgstr "Valoda"
+msgstr "Sprache"
 
 #: inc/admin/metaboxes/class-generalinformation.php:139
 msgid ""
 "This sets metadata in your ebook, making it easier to find in some stores. "
 "It also changes some system generated content for supported languages, such "
 "as the \"Contents\" header."
-msgstr "Tas uzstāda Jūsu grāmatas metadatus, pateicoties tiem būs vieglāk atrast grāmatu dažos veikalos. Tas arī maina atbalstītām valodām dažu saturu, ko noģenerēja sistēma, piemēram, virsrakstu \"Saturs\"."
+msgstr "Dies setzt Metadaten in Ihrem E-Book, so dass es einfacher ist, es in einigen Läden zu finden. Es ändert auch einige systemgenerierte Inhalte für unterstützte Sprachen, wie z.B. den \"Inhalt\"-Header."
 
 #: inc/admin/metaboxes/class-generalinformation.php:139
 msgid "Help translate Pressbooks into your language!"
-msgstr "Palīdziet pārtulkot Pressbooks vietni Jūsu valodā!"
+msgstr "Helfen Sie Pressbooks in Ihrer Sprache zu übersetzen!"
 
 #: inc/admin/metaboxes/class-institutions.php:19
 #: inc/admin/metaboxes/class-institutions.php:26
@@ -1602,19 +1600,19 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-partvisibility.php:25
 msgid "Part Visibility"
-msgstr "Daļas redzamība"
+msgstr "Buchteil Sichtbarkeit"
 
 #: inc/admin/metaboxes/class-partvisibility.php:32
 msgid "Invisible"
-msgstr ""
+msgstr "Unsichtbar"
 
 #: inc/admin/metaboxes/class-partvisibility.php:33
 msgid "Hide from table of contents and part numbering."
-msgstr "Nerādīt saturā un daļu skaitā."
+msgstr "Im Inhaltsverzeichnis nicht anzeigen und nicht nummerieren."
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:30
 msgid "%s Metadata"
-msgstr ""
+msgstr "%s Metadaten"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:37
 msgid "%s Short Title"
@@ -1634,7 +1632,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:49
 msgid "%s Author(s)"
-msgstr ""
+msgstr "%s Autoren"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:56
 msgid "%s Copyright License"
@@ -1646,15 +1644,15 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:63
 msgid "%s Digital Object Identifier (DOI)"
-msgstr ""
+msgstr "%s Digitaler Objektbezeichner (DOI)"
 
 #: inc/admin/metaboxes/class-subjects.php:19
 msgid "Subject(s)"
-msgstr "Tēma(s)..."
+msgstr "Themen"
 
 #: inc/admin/metaboxes/class-subjects.php:26
 msgid "Primary Subject"
-msgstr "Pamattēma"
+msgstr "Hauptthema"
 
 #: inc/admin/metaboxes/class-subjects.php:27
 #: inc/admin/metaboxes/class-subjects.php:33
@@ -1677,7 +1675,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-subjects.php:32
 msgid "Additional Subject(s)"
-msgstr "Papildus tēma(s)"
+msgstr "Zusätzliche Themen"
 
 #: inc/admin/metaboxes/namespace.php:100
 msgid ""
@@ -1694,7 +1692,7 @@ msgstr ""
 #: inc/admin/metaboxes/namespace.php:131 inc/admin/metaboxes/namespace.php:168
 #: inc/class-metadata.php:437
 msgid "Cover Image"
-msgstr "Vāka bilde"
+msgstr "Titelbild"
 
 #: inc/admin/metaboxes/namespace.php:223 inc/admin/metaboxes/namespace.php:274
 #: inc/api/endpoints/controller/class-toc.php:202 inc/class-sass.php:89
@@ -1703,60 +1701,60 @@ msgstr "Vāka bilde"
 #: inc/posttype/namespace.php:87 inc/posttype/namespace.php:542
 #: inc/posttype/namespace.php:580 templates/admin/import.php:94
 msgid "Part"
-msgstr "Daļa"
+msgstr "Buchteil"
 
 #: inc/admin/metaboxes/namespace.php:227
 msgid "Save Part"
-msgstr "Saglabāt daļu"
+msgstr "Buchteil speichern"
 
 #: inc/admin/metaboxes/namespace.php:228
 msgid "Save Book Information"
-msgstr "Saglabāt informāciju par grāmatu"
+msgstr "Buchinformationen speichern"
 
 #: inc/admin/metaboxes/namespace.php:229
 msgid "Status & Visibility"
-msgstr "Statuss un redzamība"
+msgstr "Status & Sichtbarkeit"
 
 #: inc/admin/metaboxes/namespace.php:240
 msgid ""
 "Appears on part page. Parts will not appear if a book has only one part."
-msgstr "Tiks rādīts daļas lapaspusē. Daļās netiks rādītas, ja grāmatai ir tikai viena daļa."
+msgstr "Erscheint auf der Buchteile-Seite. Die Buchteile-Seite erscheint nicht, wenn das Buch nur einen Teil hat."
 
 #: inc/admin/metaboxes/namespace.php:396
 msgid "Show in Glossary Lists"
-msgstr ""
+msgstr "In Glossarlisten anzeigen"
 
 #: inc/admin/metaboxes/namespace.php:407
 msgid "Preview"
-msgstr "Priekšskatījums"
+msgstr "Vorschau"
 
 #. translators: accessibility text
 #: inc/admin/metaboxes/namespace.php:409
 msgid "(opens in a new window)"
-msgstr "(atvērt jaunā logā)"
+msgstr "(öffnet in einem neuen Fenster)"
 
 #: inc/admin/metaboxes/namespace.php:418
 #: templates/admin/organize.blade.php:137
 msgid "Show in Web"
-msgstr "Rādīt tiešsaistē"
+msgstr "Im Web anzeigen"
 
 #: inc/admin/metaboxes/namespace.php:422
 msgid "Require a Password"
-msgstr "Nepieciešams ievadīt paroli"
+msgstr "Password verlangen"
 
 #: inc/admin/metaboxes/namespace.php:423
 msgid "Password..."
-msgstr "Parole..."
+msgstr "Passwort..."
 
 #: inc/admin/metaboxes/namespace.php:427
 #: templates/admin/organize.blade.php:140
 msgid "Show in Exports"
-msgstr "Rādīt eksporta failos"
+msgstr "In den Exporten anzeigen"
 
 #: inc/admin/metaboxes/namespace.php:431
 #: templates/admin/organize.blade.php:144
 msgid "Show Title"
-msgstr "Rādīt virsrakstu"
+msgstr "Titel anzeigen"
 
 #: inc/admin/metaboxes/namespace.php:623 inc/admin/metaboxes/namespace.php:679
 msgid ""
@@ -1770,11 +1768,11 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:817
 msgid "Name cannot be left blank."
-msgstr ""
+msgstr "Name kann nicht leer bleiben."
 
 #: inc/admin/metaboxes/namespace.php:851
 msgid "Owner"
-msgstr "Īpašnieks"
+msgstr "Besitzer"
 
 #: inc/admin/network/class-networksettings.php:62
 msgid "Theme Settings"
@@ -1798,35 +1796,35 @@ msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:95
 msgid "Allow Redistribution"
-msgstr "Atļaut atkārtotu izplatīšanu"
+msgstr "Weiterverteilung zulassen"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:101
 msgid "Allow book administrators to enable redistribution of export files."
-msgstr "Atļaut grāmatas administratoriem aktivēt eksporta failu atkārtotu izplatīšanu."
+msgstr "Erlaube Buch-Verwaltern, die Weiterverteilung von Exportdateien zu aktivieren."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:107
 msgid "Enable network API"
-msgstr "Aktivēt API tīklu"
+msgstr "Netzwerk-API aktivieren"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:113
 msgid "Enable access to your network of books via the Pressbooks REST API."
-msgstr "Atvērt pieeju Jūsu grāmatu tīklam caur Pressbooks vietnes REST API."
+msgstr "Ermöglichen Sie den Zugriff auf Ihr Netzwerk von Büchern über das Pressbooks REST API."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:119
 msgid "Enable Cloning"
-msgstr "Aktivēt klonēšanu"
+msgstr "Klonen aktivieren"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:125
 msgid "Enable book cloning via the Pressbooks REST API."
-msgstr "Aktivēt grāmatas klonēšanu caur Pressbooks vietnes REST API."
+msgstr "Ermöglichen Sie das Klonen von Büchern über das Pressbooks REST API."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:131
 msgid "Enable CC with Weblinks"
-msgstr ""
+msgstr "CC mit Weblinks aktivieren"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:137
 msgid "Allow users to produce Common Cartridge exports with simple Web Links."
-msgstr ""
+msgstr "Ermöglichen Sie es Nutzern Common Cartridge-Exporte mit einfachen Weblinks zu erstellen."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:143
 msgid "Book directory"
@@ -1849,22 +1847,22 @@ msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:176
 msgid "Sharing and Privacy settings."
-msgstr "Dalīšanas un konfidencialitātes iestatījumi"
+msgstr "Freigabe und Datenschutzeinstellungen."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:202
 #: inc/class-googleanalytics.php:230
 msgid "Settings saved."
-msgstr "Iestatījumi saglabāti"
+msgstr "Einstellungen gespeichert."
 
 #: inc/admin/networkmanagers/namespace.php:114
 msgid "Pressbooks Network Managers"
-msgstr "Pressbooks vietnes tīkla pārvaldnieki"
+msgstr "Pressbooks Netzwerk-Verwalter"
 
 #: inc/admin/networkmanagers/namespace.php:116
 msgid ""
 "Network administrators&rsquo; access to network administration menus can be "
 "restricted to leave only sites and users visible to them."
-msgstr "Tīkla administratoru pieeja tīkla administrēšanas izvēlnei var būt ierobežota līdz divām redzamām viņam funkcijām: saites un lietotāji"
+msgstr "Der Zugriff von Netzwerk-Verwaltern auf die Menüs der Netzwerkverwaltung kann eingeschränkt werden, damit nur noch Seiten und Benutzer für sie sichtbar sind."
 
 #: inc/admin/plugins/namespace.php:94
 msgid ""
@@ -1899,18 +1897,18 @@ msgstr ""
 msgid ""
 "An invitation email has been sent to the user(s) below. A confirmation link "
 "must be clicked before their account is created."
-msgstr ""
+msgstr "Erstellt"
 
 #: inc/api/endpoints/controller/books/class-books.php:108
 #: inc/api/endpoints/controller/class-toc.php:151
 #: inc/api/endpoints/controller/class-toc.php:164
 #: inc/api/endpoints/controller/class-toc.php:177
 msgid "Metadata"
-msgstr "Metadati"
+msgstr "Metadaten"
 
 #: inc/api/endpoints/controller/books/class-books.php:133
 msgid "ID offset, overrides page."
-msgstr "ID atvasinājums, lapaspuse aizstājums."
+msgstr "ID Versatz, überschreibt Seite."
 
 #: inc/api/endpoints/controller/books/class-books.php:140
 msgid "Timestamp for updated field."
@@ -1937,7 +1935,7 @@ msgstr ""
 msgid ""
 "URL of a reference Web page that unambiguously indicates the item's "
 "identity."
-msgstr "Atsauču tiešsaistes lapaspuses tīmekļa adrese, kas skaidri norāda uz elementa identitāti."
+msgstr "URL einer Referenz-Webseite, die die Identität des Elements unzweifelsfrei kennzeichnet."
 
 #: inc/api/endpoints/controller/class-posts.php:197
 msgid "The status for the post."
@@ -1945,19 +1943,19 @@ msgstr ""
 
 #: inc/api/endpoints/controller/class-toc.php:98
 msgid "Comment count"
-msgstr "Komentāru skaits"
+msgstr "Kommentaranzahl"
 
 #: inc/api/endpoints/controller/class-toc.php:123
 msgid "Include in exports."
-msgstr "Pievienot eksportam."
+msgstr "In Exporte einschließen."
 
 #: inc/api/endpoints/controller/class-toc.php:129
 msgid "Has post content, the content field is not empty."
-msgstr "Satur publikācijas saturu, satura lauks nav tukšs."
+msgstr "Hat Beitragsinhalt, das Inhaltsfeld ist nicht leer."
 
 #: inc/api/endpoints/controller/class-toc.php:134
 msgid "Word count."
-msgstr "Vārdu skaits."
+msgstr "Wortanzahl"
 
 #: inc/api/endpoints/controller/class-toc.php:233
 msgid "Clone token."
@@ -1965,72 +1963,72 @@ msgstr ""
 
 #: inc/api/namespace.php:78
 msgid "Part ID."
-msgstr "Daļas ID."
+msgstr "Buchteil ID."
 
 #: inc/api/namespace.php:232
 msgid "Invalid batch parameter(s)."
-msgstr "Nepareizs(-i) datu paketes parametrs(-i)."
+msgstr "Ungültige Stapel-Parameter."
 
 #: inc/api/namespace.php:387
 msgid "Part does not exist"
-msgstr "Daļa neeksistē"
+msgstr "Buchteil existiert nicht."
 
 #: inc/api/namespace.php:394
 msgid "ID is not a part"
-msgstr "ID nav daļa"
+msgstr "ID ist kein Buchteil"
 
 #: inc/api/namespace.php:408
 msgid "Failed to update chapter part"
-msgstr "Neizdevās atjaunot nodaļas daļu"
+msgstr "Die Aktualisierung des Kapitelteils ist fehlgeschlagen"
 
 #: inc/class-activation.php:204
 msgid "Main Body"
-msgstr "Galvenā daļa"
+msgstr "Hauptteil"
 
 #: inc/class-activation.php:210
 msgid "Introduction"
-msgstr "Ievaddaļa "
+msgstr "Einführung"
 
 #: inc/class-activation.php:212
 msgid "This is where you can write your introduction."
-msgstr "Te Jūs varat uzrakstīt Jūsu ievaddaļu."
+msgstr "Hier können Sie Ihre Einführung schreiben."
 
 #: inc/class-activation.php:217
 msgid "Chapter 1"
-msgstr "1. nodaļa"
+msgstr "1. Kapitel"
 
 #: inc/class-activation.php:219
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
-msgstr "Tas ir pirmā nodaļa galvenā teksta daļā. Jūs varat mainīt tekstu, pārdēvēt nodaļu, pievienot jaunas nodaļas vai daļās."
+msgstr "Dies ist das 1. Kapitel des Hauptteils. Sie können den Text ändern, das Kapitel umbenennen, neue Kapitel und neue Buchteile hinzufügen."
 
 #: inc/class-activation.php:224
 msgid "Appendix"
-msgstr "Pielikums"
+msgstr "Anhang"
 
 #: inc/class-activation.php:226
 msgid "This is where you can add appendices or other back matter."
-msgstr "Te Jūs varat pievienot pielikumus vai citu beigu papildinformāciju."
+msgstr "Hier können Sie verschiedene Arten von Anhängen hinzufügen."
 
 #: inc/class-activation.php:232 templates/admin/organize.blade.php:131
 #: templates/admin/organize.blade.php:215
 msgid "Authors"
-msgstr "Autori"
+msgstr "Autoren"
 
 #: inc/class-activation.php:242
 #: inc/modules/themeoptions/class-pdfoptions.php:322
 #: templates/export/epub/toc.blade.php:13
 msgid "Table of Contents"
-msgstr "Saturs"
+msgstr "Inhaltsverzeichnis"
 
 #: inc/class-activation.php:252
 msgid "Buy"
-msgstr "Pirkt"
+msgstr "Kaufen"
 
 #: inc/class-activation.php:257
 msgid "Access Denied"
-msgstr "Piekļuve nav atļauta"
+msgstr "Zugriff verweigert"
 
 #: inc/class-activation.php:259
 msgid ""
@@ -2038,46 +2036,46 @@ msgid ""
 "an account you can login <a href=\"/wp-login.php\">here</a>. You can also "
 "set up your own Pressbooks book at: <a "
 "href=\"http://pressbooks.com\">Pressbooks.com</a>."
-msgstr ""
+msgstr "Dies ist ein privates Buch und nur für registrierte Benutzer zugänglich. Wenn Sie ein Benutzerkonto haben, können Sie sich <a href=\"/wp-login.php\">hier</a> anmelden. "
 
 #: inc/class-activation.php:264 inc/class-customcss.php:91
 msgid "Custom CSS for Ebook"
-msgstr "Lietotāja CSS elektroniskajai grāmatai."
+msgstr "Benutzerdefiniertes CSS für das E-Book"
 
 #: inc/class-activation.php:269 inc/class-customcss.php:96
 msgid "Custom CSS for PDF"
-msgstr "Lietotāja CSS PDF formāta failiem"
+msgstr "Benutzerdefiniertes CSS für das PDF"
 
 #: inc/class-activation.php:274 inc/class-customcss.php:101
 msgid "Custom CSS for Web"
-msgstr "Lietotāja CSS tiešsaistes grāmatai"
+msgstr "Benutzerdefiniertes CSS für Web"
 
 #: inc/class-activation.php:280 inc/posttype/namespace.php:165
 #: inc/posttype/namespace.php:166 inc/posttype/namespace.php:539
 #: templates/admin/import.php:118
 msgid "Book Information"
-msgstr "Informācija par grāmatu"
+msgstr "Buchinformationen"
 
 #: inc/class-activation.php:311
 msgid "Default Data"
-msgstr "Noklusējuma dati"
+msgstr "Standard-Daten"
 
 #: inc/class-catalog.php:803
 msgid "Catalog Logo"
-msgstr "Kataloga logotips"
+msgstr "Katalog Logo"
 
 #: inc/class-catalog.php:1143 inc/class-catalog.php:1197
 #: inc/class-catalog.php:1244 templates/admin/catalog.php:19
 msgid "You do not have permission to do that."
-msgstr "Jums nav pieejas šitai darbībai."
+msgstr "Sie besitzen die dafür erforderlichen Rechte nicht."
 
 #: inc/class-catalog.php:1290
 msgid "Invalid URL."
-msgstr "Nepareiza tīmekļa adrese."
+msgstr "Ungültige URL."
 
 #: inc/class-catalog.php:1310
 msgid "No book found."
-msgstr "Grāmatas nav atrastas."
+msgstr "Kein Buch gefunden."
 
 #: inc/class-contributors.php:435
 msgid "Prefix"
@@ -2091,11 +2089,11 @@ msgstr ""
 
 #: inc/class-contributors.php:442
 msgid "First Name"
-msgstr "Vārds"
+msgstr "Vorname"
 
 #: inc/class-contributors.php:448
 msgid "Last Name"
-msgstr "Uzvārds"
+msgstr "Nachname"
 
 #: inc/class-contributors.php:454
 msgid "Suffix"
@@ -2131,7 +2129,7 @@ msgstr ""
 
 #: inc/class-contributors.php:486
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #: inc/class-contributors.php:489
 msgid "Twitter profile for this contributor. Must be a valid URL."
@@ -2168,103 +2166,90 @@ msgid "Editor"
 msgid_plural "Editors"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: inc/class-contributors.php:829
 msgid "Contributor"
 msgid_plural "Contributors"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: inc/class-contributors.php:830
 msgid "Translator"
 msgid_plural "Translators"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: inc/class-contributors.php:831
 msgid "Reviewer"
 msgid_plural "Reviewers"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: inc/class-contributors.php:832
 msgid "Illustrator"
 msgid_plural "Illustrators"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: inc/class-eventstreams.php:201
 msgid ""
 "Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s, and %8$s"
 " to %9$s."
-msgstr ""
+msgstr "Das Klonen war erfolgreich! Geklont: %1$s, %2$s, %3$s, %4$s, %5$s, und %6$s nach %7$s. "
 
 #: inc/class-eventstreams.php:202
 msgid "%s term"
 msgid_plural "%s terms"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%s Begriff"
+msgstr[1] "%s Begriffe"
 
 #: inc/class-eventstreams.php:203
 #: inc/modules/import/wordpress/class-wxr.php:416
 msgid "%s front matter"
 msgid_plural "%s front matter"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%s Titelei"
+msgstr[1] "%s Titeleien"
 
 #: inc/class-eventstreams.php:204
 #: inc/modules/import/wordpress/class-wxr.php:417
 msgid "%s part"
 msgid_plural "%s parts"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%s Buchteil"
+msgstr[1] "%s Buchteile"
 
 #: inc/class-eventstreams.php:205
 #: inc/modules/import/wordpress/class-wxr.php:418
 msgid "%s chapter"
 msgid_plural "%s chapters"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%s Kapitel"
+msgstr[1] "%s Kapitel"
 
 #: inc/class-eventstreams.php:206
 #: inc/modules/import/wordpress/class-wxr.php:419
 msgid "%s back matter"
 msgid_plural "%s back matter"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%s Anhang"
+msgstr[1] "%s Anhänge"
 
 #: inc/class-eventstreams.php:207
 #: inc/modules/import/wordpress/class-wxr.php:420
 msgid "%s media attachment"
 msgid_plural "%s media attachments"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%s Medien-Anhang"
+msgstr[1] "%s Medien-Anhänge"
 
 #: inc/class-eventstreams.php:208
 msgid "%s H5P element"
 msgid_plural "%s H5P elements"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%s HSP Element"
+msgstr[1] "%s HSP Elemente"
 
 #: inc/class-eventstreams.php:209
 #: inc/modules/import/wordpress/class-wxr.php:421
 msgid "%s glossary term"
 msgid_plural "%s glossary terms"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%s Glossarbegriff"
+msgstr[1] "%s Glossarbegriffe"
 
 #: inc/class-eventstreams.php:216
 msgid ""
@@ -2281,15 +2266,15 @@ msgstr ""
 
 #: inc/class-eventstreams.php:242
 msgid "No export format was selected."
-msgstr ""
+msgstr "Es wurde kein Export-Format ausgewählt."
 
 #: inc/class-eventstreams.php:286
 msgid "No chapters were selected for import."
-msgstr ""
+msgstr "Es wurden keine Kapitel für den Import ausgewählt."
 
 #: inc/class-eventstreams.php:310
 msgid "You do not have sufficient permissions to access this page."
-msgstr "Jums nav pietiekamas pieejas šitai darbībai."
+msgstr "Sie besitzen nicht die erforderlichen Rechte, um auf diese Seite zuzugreifen."
 
 #: inc/class-globaltypography.php:40
 msgid "Adlam"
@@ -2297,7 +2282,7 @@ msgstr ""
 
 #: inc/class-globaltypography.php:41
 msgid "Ancient Greek"
-msgstr "Sengrieķu valoda"
+msgstr "Altgriechisch"
 
 #: inc/class-globaltypography.php:42
 msgid "Armenian"
@@ -2305,19 +2290,19 @@ msgstr ""
 
 #: inc/class-globaltypography.php:43
 msgid "Arabic"
-msgstr "Arābu valoda"
+msgstr "Arabisch"
 
 #: inc/class-globaltypography.php:44
 msgid "Bengali"
-msgstr "Bengāļu valoda"
+msgstr "Bengalisch"
 
 #: inc/class-globaltypography.php:45
 msgid "Biblical Hebrew"
-msgstr "Bibliskais ivrits"
+msgstr "Biblisches Häbraisch"
 
 #: inc/class-globaltypography.php:46
 msgid "Canadian Indigenous Syllabics"
-msgstr "Kanādas zilbju valoda"
+msgstr "Kanadische Silbenschrift"
 
 #: inc/class-globaltypography.php:47
 msgid "Cherokee"
@@ -2325,39 +2310,39 @@ msgstr ""
 
 #: inc/class-globaltypography.php:48
 msgid "Chinese (Simplified)"
-msgstr "Ķīnu valoda (vienkāršots)"
+msgstr "Einfaches Chinesisch"
 
 #: inc/class-globaltypography.php:49
 msgid "Chinese (Traditional)"
-msgstr "Ķīnu valoda (tradicionāla)"
+msgstr "Traditionelles Chinesisch"
 
 #: inc/class-globaltypography.php:50
 msgid "Coptic"
-msgstr "Koptu valoda"
+msgstr "Koptisch"
 
 #: inc/class-globaltypography.php:51
 msgid "Devanagari (Hindi and Sanskrit)"
-msgstr "Devangaru valoda (hindi un sanskrits)"
+msgstr "Devanagari (Hindi und Sanskrit)"
 
 #: inc/class-globaltypography.php:52
 msgid "Gujarati"
-msgstr "Gudžarati valoda"
+msgstr "Gujarati"
 
 #: inc/class-globaltypography.php:53
 msgid "Punjabi (Gurmukhi)"
-msgstr "Pandžabi valoda (gurmuki)"
+msgstr "Punjabi (Gurmukhi)"
 
 #: inc/class-globaltypography.php:54
 msgid "Japanese"
-msgstr "Japāņu valoda"
+msgstr "Japanisch"
 
 #: inc/class-globaltypography.php:55
 msgid "Kannada"
-msgstr "Kannadu valoda"
+msgstr "Kannada"
 
 #: inc/class-globaltypography.php:56
 msgid "Korean"
-msgstr "Korejiešu valoda"
+msgstr "Koreanisch"
 
 #: inc/class-globaltypography.php:57
 msgid "Khmer"
@@ -2365,7 +2350,7 @@ msgstr ""
 
 #: inc/class-globaltypography.php:58
 msgid "Malayalam"
-msgstr "Malajalama"
+msgstr "Malayalam"
 
 #: inc/class-globaltypography.php:59
 msgid "Musical Notation"
@@ -2377,15 +2362,15 @@ msgstr ""
 
 #: inc/class-globaltypography.php:61
 msgid "Odia"
-msgstr "Odija"
+msgstr "Odia"
 
 #: inc/class-globaltypography.php:62
 msgid "Syriac"
-msgstr "Sīriešu valoda"
+msgstr "Syrisch"
 
 #: inc/class-globaltypography.php:63
 msgid "Tamil"
-msgstr "Tamilu valoda"
+msgstr "Tamilisch"
 
 #: inc/class-globaltypography.php:64
 msgid "Telugu"
@@ -2393,19 +2378,19 @@ msgstr "Telugu"
 
 #: inc/class-globaltypography.php:65
 msgid "Tibetan"
-msgstr "Tibetiešu valoda"
+msgstr "Tibetisch"
 
 #: inc/class-globaltypography.php:66
 msgid "Turkish"
-msgstr "Turku valoda"
+msgstr "Türkisch"
 
 #: inc/class-globaltypography.php:470
 msgid "Your %1$s font could not be downloaded from %2$s."
-msgstr ""
+msgstr "Ihre %1$s Schrift konnte nicht von %2$s heruntergeladen werden."
 
 #: inc/class-googleanalytics.php:27
 msgid "Google Analytics ID"
-msgstr "Google analītikas identifikācija "
+msgstr "Google Analytics ID"
 
 #: inc/class-googleanalytics.php:28
 msgid ""
@@ -2414,88 +2399,88 @@ msgstr ""
 
 #: inc/class-googleanalytics.php:118
 msgid "Site-Specific Tracking"
-msgstr "Noteiktas vietnes izsekošana"
+msgstr "Seiten-spezifisches Tracking"
 
 #: inc/class-googleanalytics.php:123
 msgid ""
 "If enabled, the Google Analytics settings page will be visible to book "
 "administrators, allowing them to use their own Google Analytics accounts to "
 "track statistics at the book level."
-msgstr "Ja šī funkcija ir ieslēgta, Google analītikas iestatījumu lapaspusē būs redzams ielūgums administratoriem, kas ļaus viņiem izmantot savus Google analītikas kontus, lai izsekotu grāmatas statistiku."
+msgstr "Wenn aktiviert wird die Einstellungs-Seite von Google Analytics für Bücher-Administratoren sichtbar sein und erlaubt ihnen ihr eigenes Google Analytics-Konto zu verwenden, um Statistiken auf Buchebene zu erheben."
 
 #: inc/class-googleanalytics.php:197
 msgid "Google Analytics settings."
-msgstr "Google analītikas iestatījumi."
+msgstr "Google Analytics Einstellungen."
 
 #: inc/class-licensing.php:57
 msgid "Public Domain"
-msgstr "Publisks domēns"
+msgstr "Gemeinfrei (Public Domain)"
 
 #: inc/class-licensing.php:67
 msgid "CC0 (Creative Commons Zero)"
-msgstr "CC0 (radošas apvienības nullēs licence)"
+msgstr "CC0 (Creative Commons Zero)"
 
 #: inc/class-licensing.php:77
 msgid "CC BY (Attribution)"
-msgstr "CC BY (ar norādi)"
+msgstr "CC BY (Namensnennung)"
 
 #: inc/class-licensing.php:78
 msgid "Creative Commons Attribution 4.0 International License"
-msgstr "Starptautiskā radošas apvienības licence ar norādi 4.0"
+msgstr ""
 
 #: inc/class-licensing.php:88
 msgid "CC BY-SA (Attribution ShareAlike)"
-msgstr "CC BY-SA (ar norādi ar tādiem pašiem noteikumiem)"
+msgstr "CC BY-SA (Namensnennung-Weitergabe unter gleichen Bedingungen)"
 
 #: inc/class-licensing.php:89
 msgid "Creative Commons Attribution-ShareAlike 4.0 International License"
-msgstr "Starptautiskā radošas apvienības licence ar norādi ar tādiem pašiem noteikumiem 4.0"
+msgstr "Creative Commons Namensnennung-Weitergabe unter gleichen Bedinungen 4.0 International"
 
 #: inc/class-licensing.php:99
 msgid "CC BY-ND (Attribution NoDerivatives)"
-msgstr "CC BY-ND (ar norādi bez atvasinājumiem)"
+msgstr "CC BY-ND (Namensnennun-Keine Bearbeitung)"
 
 #: inc/class-licensing.php:100
 msgid "Creative Commons Attribution-NoDerivatives 4.0 International License"
-msgstr "Starptautiskā radošas apvienības licence ar norādi bez atvasinājumiem 4.0"
+msgstr "Creative Commons Namensnennung-Keine Bearbeitung 4.0 International"
 
 #: inc/class-licensing.php:110
 msgid "CC BY-NC (Attribution NonCommercial)"
-msgstr "CC BY-NC (ar norādi bezpeļņas)"
+msgstr "CC BY-NC (Namensnennung-Nicht kommerziell)"
 
 #: inc/class-licensing.php:111
 msgid "Creative Commons Attribution-NonCommercial 4.0 International License"
-msgstr "Starptautiskā radošas apvienības licence ar norādi bezpeļņas 4.0"
+msgstr "Creative Commons Namensnennung-Nicht kommerziell 4.0 International"
 
 #: inc/class-licensing.php:121
 msgid "CC BY-NC-SA (Attribution NonCommercial ShareAlike)"
-msgstr "CC BY-NC-SA (ar norādi bezpeļņas ar tādiem pašiem noteikumiem)"
+msgstr "CC BY-NC-SA (Namensnennung-Nicht kommerziell-Weitergabe unter gleichen Bedingungen)"
 
 #: inc/class-licensing.php:122
 msgid ""
 "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International "
 "License"
-msgstr "Starptautiskā radošas apvienības licence ar norādibezpeļņas ar tādiem pašiem noteikumiem 4.0"
+msgstr "Creative Commons Namensnennung-Nicht kommerziell-Weitergabe unter gleichen Bedinungen 4.0 International"
 
 #: inc/class-licensing.php:132
 msgid "CC BY-NC-ND (Attribution NonCommercial NoDerivatives)"
-msgstr "CC BY-NC-ND (ar norādi bezpeļņās bez atvasinājumiem)"
+msgstr "CC BY-NC-ND (Namensnennung-Nicht kommerziell-Keine Bearbeitung)"
 
 #: inc/class-licensing.php:133
 msgid ""
 "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International "
 "License"
-msgstr "Starptautiskā radošas apvienības licence ar norādi bezpeļņās bez atvasinājumiem 4.0"
+msgstr "Creative Commons Namensnennung-Nicht kommerziell-Keine Bearbeitung 4.0 International"
 
 #: inc/class-licensing.php:139 inc/class-licensing.php:338
 msgid "All Rights Reserved"
-msgstr "Visas tiesības paturētas."
+msgstr "Alle Rechte vorbehalten"
 
 #: inc/class-licensing.php:217
 msgid ""
 "$title is deprecated. Method will automatically determine title from "
 "licenses"
-msgstr ""
+msgstr "$title ist veraltet. Die Methode wird den Titel automatisch von den Lizenzen ermitteln"
 
 #: inc/class-licensing.php:335 inc/class-styles.php:854
 #: inc/modules/export/epub/class-epub.php:1432
@@ -2503,19 +2488,19 @@ msgstr ""
 #: inc/modules/export/xhtml/class-xhtml11.php:1083
 #: templates/export/epub/opf.blade.php:100
 msgid "by"
-msgstr "ar"
+msgstr "von"
 
 #: inc/class-licensing.php:394
 msgid "except where otherwise noted."
-msgstr "izņemot gadījumus, kad norādīts citādi."
+msgstr "sofern nichts anderes angegeben ist."
 
 #: inc/class-licensing.php:421 inc/class-licensing.php:446
 msgid "%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved."
-msgstr ""
+msgstr "%1$s Copyright &copy;%2$s %3$s. Alle Rechte vorbehalten."
 
 #: inc/class-licensing.php:433
 msgid "Icon for the %s"
-msgstr ""
+msgstr "Icon für %s"
 
 #: inc/class-licensing.php:435 inc/class-licensing.php:482
 msgid ""
@@ -2525,54 +2510,54 @@ msgstr ""
 
 #: inc/class-licensing.php:455 inc/class-licensing.php:465
 msgid "Icon for the %s license"
-msgstr ""
+msgstr "Icon für die %s Lizenz"
 
 #: inc/class-licensing.php:457
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
-msgstr ""
+msgstr "Dieses Werk (%1$s von %2$s) ist frei von bekannten Urheberrechtseinschränkungen."
 
 #: inc/class-mathjax.php:162 inc/class-mathjax.php:163
 #: templates/admin/mathjax.blade.php:2
 msgid "MathJax"
-msgstr ""
+msgstr "MathJax"
 
 #: inc/class-mathjax.php:183
 msgid "<code>PB_MATHJAX_URL</code> is not configured."
-msgstr ""
+msgstr "<code>PB_MATHJAX_URL</code> ist nicht konfiguriert."
 
 #: inc/class-sass.php:197
 msgid ""
 "There was a problem with SASS. Contact your site administrator. Error: %1$s "
 "%2$s"
-msgstr ""
+msgstr "Es gab ein Problem mit SASS. Kontaktieren Sie Ihren Seiten-Verwalter. Fehler: %1$s %2$s"
 
 #: inc/class-styles.php:96 templates/admin/custom-styles.php:42
 msgid "Custom Styles"
-msgstr "Lietotāja stili"
+msgstr "Benutzerdefinierte Stile"
 
 #: inc/class-styles.php:118
 msgid "Custom Style for Ebook"
-msgstr "Elektroniskās grāmatas lietotāja stils"
+msgstr "Benutzerdefinierter Stil für E-Book"
 
 #: inc/class-styles.php:123
 msgid "Custom Style for PDF"
-msgstr "PDF formāta faila lietotāja stils"
+msgstr "Benutzerdefinierter Stil für PDF"
 
 #: inc/class-styles.php:128
 msgid "Custom Style for Web"
-msgstr "Tiešsaistes grāmatas lietotāja stils"
+msgstr "Benutzerdefinierter Stil für Web"
 
 #: inc/class-styles.php:706
 msgid "Cormorant Garamond"
-msgstr ""
+msgstr "Cormorant Garamond"
 
 #: inc/class-styles.php:707
 msgid "Crimson Text"
-msgstr ""
+msgstr "Crimson Text"
 
 #: inc/class-styles.php:708
 msgid "GNU FreeFont Serif"
-msgstr ""
+msgstr "GNU FreeFont Serif"
 
 #: inc/class-styles.php:709
 msgid "New Athena Unicode"
@@ -2588,7 +2573,7 @@ msgstr ""
 
 #: inc/class-styles.php:712
 msgid "Spectral"
-msgstr ""
+msgstr "Spectral"
 
 #: inc/class-styles.php:716
 msgid "Alegreya Sans"
@@ -2596,47 +2581,47 @@ msgstr ""
 
 #: inc/class-styles.php:717
 msgid "Barlow"
-msgstr ""
+msgstr "Barlow"
 
 #: inc/class-styles.php:718
 msgid "GNU FreeFont Sans"
-msgstr ""
+msgstr "GNU FreeFont Sans"
 
 #: inc/class-styles.php:719
 msgid "K2D"
-msgstr ""
+msgstr "K2D"
 
 #: inc/class-styles.php:720
 msgid "Lato"
-msgstr ""
+msgstr "Lato"
 
 #: inc/class-styles.php:721
 msgid "Libre Franklin"
-msgstr ""
+msgstr "Libre Franklin"
 
 #: inc/class-styles.php:722
 msgid "Montserrat"
-msgstr ""
+msgstr "Montserrat"
 
 #: inc/class-styles.php:723
 msgid "Noto Sans"
-msgstr ""
+msgstr "Noto Sans"
 
 #: inc/class-styles.php:724
 msgid "Open Sans"
-msgstr ""
+msgstr "Open Sans"
 
 #: inc/class-styles.php:725
 msgid "Raleway"
-msgstr ""
+msgstr "Raleway"
 
 #: inc/class-styles.php:726
 msgid "Roboto"
-msgstr ""
+msgstr "Roboto"
 
 #: inc/class-styles.php:727
 msgid "Rubik"
-msgstr ""
+msgstr "Rubik"
 
 #: inc/class-styles.php:728
 msgid "Source Sans Pro"
@@ -2644,185 +2629,184 @@ msgstr ""
 
 #: inc/class-styles.php:732
 msgid "Theme default"
-msgstr ""
+msgstr "Layout-Standard"
 
 #: inc/class-styles.php:733 inc/class-styles.php:747
 msgid "Serif"
-msgstr ""
+msgstr "mit Serifen"
 
 #: inc/class-styles.php:734
 msgid "Sans serif"
-msgstr ""
+msgstr "Serifenlos"
 
 #: inc/class-styles.php:779
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
-msgstr ""
+msgstr "Unerwarteter Fehler: Bei der Abfrage ist ein Fehler aufgetreten: %s - Bitte setzen Sie sich mit dem Support in Verbindung."
 
 #: inc/class-styles.php:819 templates/admin/custom-styles.php:20
 msgid "Web"
-msgstr "Tiešsaistes "
+msgstr "Web"
 
 #: inc/class-styles.php:851
 msgid "Last 10 Revisions"
-msgstr "Pēdējās 10 versijas"
+msgstr "Letzte 10 Überarbeitungen"
 
 #: inc/cloner/class-cloner.php:443 inc/modules/import/api/class-api.php:115
 msgid "Looking up the source book"
-msgstr ""
+msgstr "Schlage das Quell-Buch nach"
 
 #: inc/cloner/class-cloner.php:445
 msgid "Failed to setup source"
-msgstr ""
+msgstr "Einrichtung der Quelle fehlgeschlagen"
 
 #: inc/cloner/class-cloner.php:449
 msgid "Creating the target book"
-msgstr ""
+msgstr "Erstelle das Ziel-Buch"
 
 #: inc/cloner/class-cloner.php:460
 msgid "Cloning metadata"
-msgstr ""
+msgstr "Klone Metadaten"
 
 #: inc/cloner/class-cloner.php:467
 msgid "Cloning contributors and licenses"
-msgstr ""
+msgstr "Klone Mitarbeiter und Lizenzen"
 
 #: inc/cloner/class-cloner.php:478
 msgid "Cloning front matter"
-msgstr ""
+msgstr "Klone Titeleien"
 
 #: inc/cloner/class-cloner.php:493 inc/cloner/class-cloner.php:499
 msgid "Cloning parts and chapters"
-msgstr ""
+msgstr "Klone Buchteile und Kapitel"
 
 #: inc/cloner/class-cloner.php:512
 msgid "Cloning back matter"
-msgstr ""
+msgstr "Klone Anhänge"
 
 #: inc/cloner/class-cloner.php:545 inc/covergenerator/class-generator.php:298
 #: inc/modules/export/epub/class-epub.php:663
 #: inc/modules/import/class-import.php:373
 msgid "Finishing up"
-msgstr ""
+msgstr "Werde fertig"
 
 #: inc/cloner/class-cloner.php:561
 msgid ""
 "You can only clone from a book hosted by Pressbooks 4.1 or later. Please "
 "ensure that your source book meets these requirements."
-msgstr "Jūs varat klonēt tikai tādu grāmatu, kas ir publicēta Pressbooks vietnes 4.1 vai jaunākā versijā. Lūdzu, pārliecinieties, ka Jūsu avotgrāmata atbilst tiem prasījumiem."
+msgstr "Sie können nur von einem Buch klonen, welches von Pressbooks 4.1 oder höher bereitgestellt wird. Bitte stellen Sie sicher, dass das Quell-Buch diese Voraussetzungen erfüllt."
 
 #: inc/cloner/class-cloner.php:568
 msgid "Could not retrieve metadata from %s."
-msgstr ""
+msgstr "Konnte die Metadaten nicht von %s holen."
 
 #: inc/cloner/class-cloner.php:576
 msgid "%s is not licensed for cloning."
-msgstr ""
+msgstr "%s hat keine für das Klonen entsprechende Lizenz."
 
 #: inc/cloner/class-cloner.php:585
 msgid "Could not retrieve contents and structure from %s."
-msgstr ""
+msgstr "Konnte die Inhalte und Struktur von %s nicht holen."
 
 #: inc/cloner/class-cloner.php:593
 msgid "Could not retrieve taxonomies from %s."
-msgstr ""
+msgstr "Konnte die Taxonomien von %s nicht holen."
 
 #: inc/cloner/class-cloner.php:601
 msgid "Could not retrieve media from %s."
-msgstr ""
+msgstr "Konnte Mediendaten von %s nicht holen."
 
 #: inc/cloner/class-cloner.php:776
 msgid ""
 "The source book contained H5P content that could not be cloned. Please "
 "review the cloned version of your book carefully, as missing H5P content "
 "will be indicated. You may want to remove or replace these elements."
-msgstr ""
+msgstr "Das Quell-Buch enthielt H5P Inhalte, die nicht geklont werden konnten. Bitte überprüfen Sie die geklonte Version Ihres Buches gründlich, da fehlende H5P Inhalte hervorgehoben werden. Sie möchten diese Elemente möglicherweise entfernen oder ersetzen."
 
 #: inc/cloner/class-cloner.php:798
 msgid "The source book&rsquo;s media could not be read."
-msgstr "Avotgrāmatas plašsaziņas dati nevar būt atrasti."
+msgstr "Die Mediendaten des Quell-Buchs konnten nicht gelesen werden."
 
 #: inc/cloner/class-cloner.php:894
 msgid "The source book&rsquo;s metadata could not be read."
-msgstr "Avotgrāmatas metadati nevar būt atrasti."
+msgstr "Die Metadaten des Quell-Buchs konnten nicht gelesen werden."
 
 #: inc/cloner/class-cloner.php:925
 msgid "The source book&rsquo;s structure and contents could not be read."
-msgstr "Avotgrāmatas struktūra un saturs nevar būt atrasti."
+msgstr "Die Struktur und Inhalte des Quell-Buchs konnten nicht gelesen werden."
 
 #: inc/cloner/class-cloner.php:970
 msgid "The source book&rsquo;s taxonomies could not be read."
-msgstr "Avotgrāmatas taksonomija nevar būt atrasti."
+msgstr "Die Taxonomien des Quell-Buchs konnten nicht gelesen werden."
 
 #: inc/cloner/class-cloner.php:2054
 msgid "Your book URL can only contain lowercase letters (a-z) and numbers."
-msgstr "Jūsu tīmekļa adrese var saturēt tikai mazus burtus (a-z) un ciparus."
+msgstr "Die URL Ihres Buches kann nur Kleinbuchstaben (a-z) und Zahlen enthalten."
 
 #: inc/cloner/class-cloner.php:2056
 msgid "Your book URL must contain at least some letters."
-msgstr "Jūsu grāmatas tīmekļa adresei jāsatur vismaz kādus burtus."
+msgstr "Die URL Ihres Buches muss mindestens ein paar Buchstaben enthalten."
 
 #: inc/cloner/class-cloner.php:2058
 msgid "That book URL is not allowed."
-msgstr "Šāda grāmatas tīmekļa adrese nav atļauta."
+msgstr "Diese Buch-URL ist nicht erlaubt."
 
 #: inc/cloner/class-cloner.php:2060
 msgid "Your book URL must be at least %s character."
 msgid_plural "Your book URL must be at least %s characters."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Die URL Ihres Buches muss mindestens %s Zeichen enthalten."
+msgstr[1] "Die URL Ihres Buches muss mindestens %s Zeichen enthalten."
 
 #: inc/cloner/class-cloner.php:2062
 msgid "Sorry, you may not use that book URL."
-msgstr "Atvainojiet, Jums nedrīkst izmantot šo grāmatas tīmekļa adresi."
+msgstr "Entschuldigung, Sie dürfen diese Buch-URL nicht verwenden."
 
 #: inc/cloner/class-cloner.php:2064
 msgid "Sorry, that book URL already exists!"
-msgstr "Atvainojiet, šī grāmatas tīmekļa adrese jau eksistē!"
+msgstr "Entschuldigung, diese Buch-URL existiert bereits!"
 
 #: inc/covergenerator/class-generator.php:201
 msgid "Calculating spine width"
-msgstr ""
+msgstr "Berechne Breite des Buchrückens"
 
 #: inc/covergenerator/class-generator.php:217
 msgid "Creating barcode"
-msgstr ""
+msgstr "Erzeuge Strichcode"
 
 #: inc/covergenerator/class-generator.php:225
 msgid "Loading metadata"
-msgstr ""
+msgstr "Lade Metadaten"
 
 #: inc/covergenerator/class-generator.php:283
 msgid "Generating cover"
-msgstr ""
+msgstr "Generiere Umschlag"
 
 #: inc/covergenerator/class-generator.php:363
 #: inc/modules/export/class-export.php:331
 msgid "book"
-msgstr "grāmata"
+msgstr "Buch"
 
 #: inc/covergenerator/class-generator.php:453
 #: inc/modules/export/prince/class-docraptor.php:116
 msgid "Your PDF could not be retrieved."
-msgstr "Jūsu PDF formāta fails nevar būt atjaunots."
+msgstr "Ihr PDF konnte nicht geholt werden."
 
 #: inc/covergenerator/class-isbn.php:61
 msgid "There was a problem creating the barcode: Invalid ISBN number."
-msgstr "Ir problēma ar svītrkoda rādīšanu: Nepareizs ISBN numurs."
+msgstr "Es gab ein Problem beim Erzeugen des Strichcodes: Ungültige ISBN-Nummer."
 
 #: inc/covergenerator/class-sku.php:43
 msgid "There was a problem creating the barcode: Invalid characters in SKU"
-msgstr "Ir problēma ar svītrkoda rādīšanu: Nepareizas SKU zīmes"
+msgstr "Es gab ein Problem beim Erzeugen des Strichcodes: Ungültige Zeichen in der Bestandseinheit (SKU)"
 
 #: inc/editor/namespace.php:110
 msgid "Insert Footnote"
-msgstr "Ievadīt zemteksta piezīmi"
+msgstr "Fußnote einfügen"
 
 #: inc/editor/namespace.php:112
 msgid "Convert MS Word Footnotes"
-msgstr "Konvertēt MS Word zemteksta piezīmēs"
+msgstr "MS Word Fußnoten konvertieren"
 
 #: inc/editor/namespace.php:119
 msgid "Insert LaTeX"
@@ -2830,69 +2814,69 @@ msgstr ""
 
 #: inc/editor/namespace.php:132 templates/admin/import.php:156
 msgid "Cancel"
-msgstr "Atcelt"
+msgstr "Abbrechen"
 
 #: inc/editor/namespace.php:133
 msgid "Description"
-msgstr "Apraksts"
+msgstr "Beschreibung"
 
 #: inc/editor/namespace.php:134
 msgid "Insert Glossary Term"
-msgstr "Ievietot glosārija terminu"
+msgstr "Glossarbegriff einfügen"
 
 #: inc/editor/namespace.php:135
 msgid "Insert"
-msgstr "Ievietot"
+msgstr "Einfügen"
 
 #: inc/editor/namespace.php:137
 msgctxt "JS template string"
 msgid "Glossary term <em>${templateString1}</em> not found. Please create it."
-msgstr ""
+msgstr "Der Glossarbegriff <em>${templateString1}</em> wurde nicht gefunden. Bitte erstellen Sie ihn."
 
 #: inc/editor/namespace.php:138
 msgid "Select a Term"
-msgstr "Izvēlēties terminu"
+msgstr "Wählen Sie einen Begriff aus"
 
 #: inc/editor/namespace.php:139
 msgid "Create and Insert Term"
-msgstr "Izveidot un ievietot terminu"
+msgstr "Erstelle und füge Begriff ein"
 
 #: inc/editor/namespace.php:140
 msgid "Choose Existing Term"
-msgstr "Izvēlēties eksistējošo terminu"
+msgstr "Bestehenden Begriff wählen"
 
 #: inc/editor/namespace.php:141
 msgid "Glossary term already exists."
-msgstr "Glosārija termins jau eksistē."
+msgstr "Der Glossarbegriff existiert bereits."
 
 #: inc/editor/namespace.php:143
 msgid "Cannot submit empty Glossary term."
-msgstr "Nevar iesniegt tukšo glosārija terminu."
+msgstr "Ein leerer Glossarbegriff kann nicht eingefügt werden."
 
 #: inc/editor/namespace.php:144
 msgid "A term was not selected?"
-msgstr "Vai termins tika izvēlēts?"
+msgstr "Es wurde kein Begriff ausgewählt?"
 
 #: inc/editor/namespace.php:145 inc/posttype/namespace.php:243
 msgid ""
 "To display a list of glossary terms, leave this back matter's content blank."
-msgstr "Lai attēlotu glosārija terminu sarakstu, atstājiet šī beigu papildinformācijas lauku tukšu."
+msgstr "Lassen Sie den Inhalt dieses Anhangs leer, um eine automatisch erzeugte Liste der Glossarbegriffe anzuzeigen."
 
 #: inc/editor/namespace.php:146
 msgid "Term"
-msgstr "Termins"
+msgstr "Begriff"
 
 #: inc/editor/namespace.php:204
 msgid "Indent"
-msgstr "Atkāpe"
+msgstr "Einzug"
 
 #: inc/editor/namespace.php:210
 msgid "Hanging indent"
-msgstr "Pārkaru atkāpe"
+msgstr "Hängender Einzug"
 
 #: inc/editor/namespace.php:216
 msgid "No indent"
-msgstr "Nav atkāpes"
+msgstr "Kein Einzug"
 
 #: inc/editor/namespace.php:222
 msgid "Write right to left"
@@ -2904,78 +2888,78 @@ msgstr ""
 
 #: inc/editor/namespace.php:238
 msgid "Tight tracking"
-msgstr "Stingra izsekošana"
+msgstr "Enger Zeichenabstand"
 
 #: inc/editor/namespace.php:244
 msgid "Very tight tracking"
-msgstr "Ļoti stingra izsekošana"
+msgstr "Sehr enger Zeichenabstand"
 
 #: inc/editor/namespace.php:250
 msgid "Loose tracking"
-msgstr "Brīva izsekošana"
+msgstr "Weiter Zeichenabstand"
 
 #: inc/editor/namespace.php:256
 msgid "Very loose tracking"
-msgstr "Ļoti brīva izsekošana"
+msgstr "Sehr weiter Zeichenabstand"
 
 #: inc/editor/namespace.php:262
 msgid "Pullquote (left)"
-msgstr "Izvilkuma citāts (kreisā pusē)"
+msgstr "Zitat (linksbündig)"
 
 #: inc/editor/namespace.php:268
 msgid "Pullquote (right)"
-msgstr "Izvilkuma citāts (labā pusē)"
+msgstr "Zitat (rechtsbündig)"
 
 #: inc/editor/namespace.php:318 inc/editor/namespace.php:360
 #: inc/editor/namespace.php:374
 #: inc/modules/themeoptions/class-weboptions.php:155 languages/tinymce.php:7
 msgid "Standard"
-msgstr "Standarts"
+msgstr "Standard"
 
 #: inc/editor/namespace.php:322
 msgid "No lines"
-msgstr "Nav līniju"
+msgstr "Keine Lineatur"
 
 #: inc/editor/namespace.php:326
 msgid "Lines"
-msgstr "Līnijas"
+msgstr "Lineatur"
 
 #: inc/editor/namespace.php:330 inc/editor/namespace.php:368
 #: inc/editor/namespace.php:382 languages/tinymce.php:10
 msgid "Shaded"
-msgstr "Aizēnots"
+msgstr "Schattiert"
 
 #: inc/editor/namespace.php:334
 msgid "Full Grid"
-msgstr ""
+msgstr "Vollständige Lineatur"
 
 #: inc/editor/namespace.php:338
 msgid "Standard Landscape*"
-msgstr ""
+msgstr "Standard Querformat*"
 
 #: inc/editor/namespace.php:342
 msgid "No lines Landscape*"
-msgstr ""
+msgstr "Keine Lineatur Querformat*"
 
 #: inc/editor/namespace.php:346
 msgid "Lines Landscape*"
-msgstr ""
+msgstr "Lineatur Querformat*"
 
 #: inc/editor/namespace.php:350
 msgid "Shaded Landscape*"
-msgstr ""
+msgstr "Schattiert Querformat*"
 
 #: inc/editor/namespace.php:354
 msgid "Full Grid Landscape*"
-msgstr ""
+msgstr "Vollständige Lineatur Querformat*"
 
 #: inc/editor/namespace.php:364 inc/editor/namespace.php:378
 msgid "Border"
-msgstr "Apmale"
+msgstr "Rahmen"
 
 #: inc/editor/namespace.php:495
 msgid "Internal Link"
-msgstr "Iekšēja saite"
+msgstr "Interner Verweis"
 
 #: inc/image/namespace.php:394
 msgid ""
@@ -2989,43 +2973,43 @@ msgstr ""
 
 #: inc/image/namespace.php:432 templates/admin/covergenerator.php:130
 msgid "Are you sure you want to delete this?"
-msgstr "Vai tiešām vēlaties to nodzēst?"
+msgstr "Sind Sie sicher, dass Sie das löschen wollen?"
 
 #: inc/image/namespace.php:464
 msgid "Delete"
-msgstr "Dzēst"
+msgstr "Löschen"
 
 #: inc/interactive/class-h5p.php:182
 msgid ""
 "The original version of this chapter contained H5P content. You may want to "
 "remove or replace this element."
-msgstr ""
+msgstr "Die ursprüngliche Version dieses Kapitels enthielt H5P Inhalte. Sie möchten dieses Element möglicherweise entfernen oder ersetzen."
 
 #: inc/l10n/namespace.php:512 inc/l10n/namespace.php:535
 msgid ""
 "Please contact your system administrator if you would like them to install "
 "extended %s language support for the Pressbooks interface."
-msgstr ""
+msgstr "Bitte kontaktieren Sie Ihren System-Verwalter damit er Ihnen erweiterte %s Sprachunterstützung für die Pressbooks Benutzeroberfläche installiert."
 
 #: inc/metadata/namespace.php:117
 msgid "Hide Additional Book Information"
-msgstr "Paslēpt papildus informāciju par gramatu"
+msgstr "Zusätzliche Buch-Informationen verstecken"
 
 #: inc/metadata/namespace.php:120
 msgid "Show Additional Book Information"
-msgstr "Rādīt papildus informāciju par grāmatu"
+msgstr "Zusätzliche Buch-Informationen anzeigen"
 
 #: inc/metadata/namespace.php:127
 msgid ""
 "The book information you enter here appears on your book’s cover and title "
 "pages and in the metadata of your webbook and exported files."
-msgstr "Informācija par grāmatu, ko Jūs ievadīsiet te, tiks rādīta Jūsu grāmatas vākā un titullapā, kā arī Jūsu elektroniskās grāmatas un eksporta failu metadatos."
+msgstr "Die Buch-Informationen, die hier eingegeben werden, erscheinen auf dem Buchumschlag und Titelseiten und in den Metainformationen des Buchs im Web und der exportierten Dateien."
 
 #: inc/metadata/namespace.php:129
 msgid ""
 "If you need to enter additional information, click the button below to see "
 "all available fields."
-msgstr "Gadījuma, ja Jums ir nepieciešami ievadīt papildinformāciju, noklikšķiet turpmāk, lai ieraudzītu pieejamus laukus."
+msgstr "Wenn Sie zusätzliche Informationen eingeben müssen, klicken Sie auf die Schaltfläche unten, um alle verfügbaren Felder anzuzeigen."
 
 #: inc/metadata/namespace.php:1205
 msgid ""
@@ -3035,130 +3019,130 @@ msgstr ""
 
 #: inc/modules/export/class-export.php:740
 msgid "%s: Initializing"
-msgstr ""
+msgstr "%s: Initialisiere"
 
 #: inc/modules/export/class-export.php:742
 msgid "%s: Exporting"
-msgstr ""
+msgstr "%s: Exportiere"
 
 #: inc/modules/export/class-export.php:747
 msgid "%s: Export successful"
-msgstr ""
+msgstr "%s: Export erfolgreich"
 
 #: inc/modules/export/class-export.php:749
 msgid "%s: Validating file"
-msgstr ""
+msgstr "%s: Überprüfe Datei"
 
 #: inc/modules/export/class-export.php:754
 msgid "%s: Validation successful"
-msgstr ""
+msgstr "%s: Überprüfung erfolgreich"
 
 #: inc/modules/export/class-export.php:758
 msgid "%s: Finishing up"
-msgstr ""
+msgstr "%s: Werde fertig"
 
 #: inc/modules/export/class-export.php:823
 msgid "The export failed. See logs for more details."
-msgstr ""
+msgstr "Der Export ist fehlgeschlagen. In den Log-Dateien finden Sie weitere Details."
 
 #: inc/modules/export/class-export.php:832
 msgid "Warning: The export has validation errors. See logs for more details."
-msgstr "Brīdinājums: Eksports neizdevās apstiprināšanas kļūdas dēļ. Paskatieties žurnālus, lai saņemtu vairāk informācijas."
+msgstr "Warnung: Der Export hat Validierungsfehler. In den Log-Dateien finden Sie weitere Details."
 
 #: inc/modules/export/class-export.php:833
 msgid "Emailed to:"
-msgstr "Atsūtīts uz:"
+msgstr "Per E-Mail versandt an:"
 
 #: inc/modules/export/class-table.php:82
 msgid "Are you sure you want to delete this export file?"
-msgstr ""
+msgstr "Sind Sie sicher, dass Sie diese Export-Datei löschen möchten?"
 
 #: inc/modules/export/class-table.php:132
 msgid "File"
-msgstr ""
+msgstr "Datei"
 
 #: inc/modules/export/class-table.php:133
 msgid "Format"
-msgstr ""
+msgstr "Format"
 
 #: inc/modules/export/class-table.php:134
 msgid "Size"
-msgstr ""
+msgstr "Größe"
 
 #: inc/modules/export/class-table.php:135
 msgid "Pin"
-msgstr ""
+msgstr "Anheften"
 
 #: inc/modules/export/class-table.php:136
 msgid "Date Exported"
-msgstr ""
+msgstr "Datum des Exports"
 
 #: inc/modules/export/epub/class-epub.php:386
 msgid "EPUB %s: "
-msgstr ""
+msgstr "EPUB %s: "
 
 #: inc/modules/export/epub/class-epub.php:496
 #: inc/modules/export/xhtml/class-xhtml11.php:204
 msgid "Initializing"
-msgstr ""
+msgstr "Initialisiere"
 
 #: inc/modules/export/epub/class-epub.php:510
 msgid "Preparing book contents"
-msgstr ""
+msgstr "Bereite Buch-Inhalte vor"
 
 #: inc/modules/export/epub/class-epub.php:521
 msgid "Creating container"
-msgstr ""
+msgstr "Erstelle Container"
 
 #: inc/modules/export/epub/class-epub.php:531
 #: inc/modules/export/xhtml/class-xhtml11.php:212
 msgid "Saving file to exports folder"
-msgstr ""
+msgstr "Speichere Datei im Export-Verzeichnis"
 
 #: inc/modules/export/epub/class-epub.php:539
 #: inc/modules/export/xhtml/class-xhtml11.php:216
 msgid "Export successful"
-msgstr ""
+msgstr "Export erfolgreich"
 
 #: inc/modules/export/epub/class-epub.php:636
 #: inc/modules/export/xhtml/class-xhtml11.php:242
 msgid "Validating file"
-msgstr ""
+msgstr "Überprüfe Datei"
 
 #: inc/modules/export/epub/class-epub.php:662
 #: inc/modules/export/xhtml/class-xhtml11.php:258
 msgid "Validation successful"
-msgstr ""
+msgstr "Überprüfung erfolgreich"
 
 #: inc/modules/export/epub/class-epub.php:959
 msgid "Compiling styles"
-msgstr ""
+msgstr "Kompiliere Stile"
 
 #: inc/modules/export/epub/class-epub.php:968
 #: inc/modules/export/xhtml/class-xhtml11.php:431
 msgid "Creating cover"
-msgstr ""
+msgstr "Erstelle Umschlag"
 
 #: inc/modules/export/epub/class-epub.php:975
 #: inc/modules/export/xhtml/class-xhtml11.php:435
 msgid "Creating title page"
-msgstr ""
+msgstr "Erstelle Titelseite"
 
 #: inc/modules/export/epub/class-epub.php:979
 #: inc/modules/export/xhtml/class-xhtml11.php:439
 msgid "Creating copyright page"
-msgstr ""
+msgstr "Erstelle Copyright-Seite"
 
 #: inc/modules/export/epub/class-epub.php:983
 msgid "Exporting dedication and epigraph"
-msgstr ""
+msgstr "Exportiere Widmung und Motto"
 
 #: inc/modules/export/epub/class-epub.php:987
 #: inc/modules/export/epub/class-epub.php:1577
 #: inc/modules/export/xhtml/class-xhtml11.php:451
 #: inc/modules/export/xhtml/class-xhtml11.php:1255
 msgid "Exporting front matter"
-msgstr ""
+msgstr "Exportiere Titeleien"
 
 #: inc/modules/export/epub/class-epub.php:994
 #: inc/modules/export/epub/class-epub.php:1678
@@ -3167,49 +3151,49 @@ msgstr ""
 #: inc/modules/export/xhtml/class-xhtml11.php:1321
 #: inc/modules/export/xhtml/class-xhtml11.php:1361
 msgid "Exporting parts and chapters"
-msgstr ""
+msgstr "Exportiere Buchteile und Kapitel"
 
 #: inc/modules/export/epub/class-epub.php:998
 #: inc/modules/export/epub/class-epub.php:1839
 #: inc/modules/export/xhtml/class-xhtml11.php:462
 #: inc/modules/export/xhtml/class-xhtml11.php:1461
 msgid "Exporting back matter"
-msgstr ""
+msgstr "Exportiere Anhänge"
 
 #: inc/modules/export/epub/class-epub.php:1003
 #: inc/modules/export/xhtml/class-xhtml11.php:447
 msgid "Creating table of contents"
-msgstr ""
+msgstr "Erstelle Inhaltsverzeichnis"
 
 #: inc/modules/export/epub/class-epub.php:1368
 msgid "Title Page"
-msgstr "Titullapa"
+msgstr "Titelseite"
 
 #: inc/modules/export/epub/class-epub.php:1633
 msgid "Make your own books using Pressbooks"
-msgstr ""
+msgstr "Erstellen Sie Ihre eigene Bücher mit Pressbooks"
 
 #: inc/modules/export/epub/class-epub.php:1891
 msgid "Table Of Contents"
-msgstr "Saturs"
+msgstr "Inhaltsverzeichnis"
 
 #: inc/modules/export/epub/class-epub.php:1964
 #: inc/modules/export/htmlbook/class-htmlbook.php:979
 #: inc/modules/export/xhtml/class-xhtml11.php:1237
 msgid "Contents"
-msgstr "Saturs"
+msgstr "Inhalt"
 
 #: inc/modules/export/htmlbook/class-htmlbook.php:190
 #: inc/modules/export/wordpress/class-wxr.php:81
 #: inc/modules/export/xhtml/class-xhtml11.php:289
 msgid "Invalid permission error"
-msgstr "Nepareizas atļaujas kļūda"
+msgstr "Fehler wegen ungültigen Berechtigungen"
 
 #: inc/modules/export/namespace.php:84 templates/admin/covergenerator.php:52
 msgid ""
 "Some dependencies for %1$s exports could not be found. Please verify that "
 "you have completed the <a href=\"%2$s\">installation instructions</a>."
-msgstr ""
+msgstr "Einige Abhängigkeiten für %1$s Exporte wurden nicht gefunden. Bitte überprüfen Sie, dass Sie die <a href=\"%2$s\">Installationsanleitung</a> komplett durchgearbeitet haben."
 
 #: inc/modules/export/namespace.php:85
 #: inc/modules/themeoptions/class-globaloptions.php:455
@@ -3217,22 +3201,22 @@ msgstr ""
 #: inc/utility/namespace.php:1347 inc/utility/namespace.php:1357
 #: inc/utility/namespace.php:1363 templates/admin/covergenerator.php:53
 msgid "and"
-msgstr "un"
+msgstr "und"
 
 #: inc/modules/export/namespace.php:98
 #: inc/modules/export/prince/class-filters.php:74
 msgid "PDF (for print)"
-msgstr "PDF (izdrukai)"
+msgstr "PDF (für Druck)"
 
 #: inc/modules/export/namespace.php:99
 #: inc/modules/export/prince/class-filters.php:75
 msgid "PDF (for digital distribution)"
-msgstr "PDF (digitālā izplatīšana)"
+msgstr "PDF (für digitale Verteilung)"
 
 #: inc/modules/export/namespace.php:100 inc/modules/export/namespace.php:196
 #: inc/modules/export/namespace.php:233 inc/modules/export/namespace.php:271
 msgid "EPUB"
-msgstr ""
+msgstr "EPUB"
 
 #: inc/modules/export/namespace.php:101 inc/modules/export/namespace.php:201
 #: inc/modules/export/namespace.php:274
@@ -3265,20 +3249,20 @@ msgstr ""
 #: inc/modules/export/namespace.php:192 inc/modules/export/namespace.php:229
 #: inc/modules/export/namespace.php:266 inc/modules/export/namespace.php:268
 msgid "Print PDF"
-msgstr ""
+msgstr "Druck-PDF"
 
 #: inc/modules/export/namespace.php:193 inc/modules/export/namespace.php:194
 #: inc/modules/export/namespace.php:267 inc/modules/export/namespace.php:269
 msgid "Digital PDF"
-msgstr ""
+msgstr "Digital-PDF"
 
 #: inc/modules/export/namespace.php:197 inc/modules/export/namespace.php:234
 msgid "MOBI"
-msgstr ""
+msgstr "MOBI"
 
 #: inc/modules/export/namespace.php:198 inc/modules/export/namespace.php:235
 msgid "EPUB3"
-msgstr ""
+msgstr "EPUB3"
 
 #: inc/modules/export/namespace.php:203 inc/modules/export/namespace.php:276
 msgid "Common Cartridge (Web Links)"
@@ -3299,7 +3283,7 @@ msgstr ""
 
 #: inc/modules/export/namespace.php:237
 msgid "ODT"
-msgstr ""
+msgstr "ODT"
 
 #: inc/modules/export/namespace.php:238 inc/modules/export/namespace.php:239
 msgid "WXR"
@@ -3312,266 +3296,265 @@ msgstr ""
 
 #: inc/modules/export/namespace.php:312
 msgid "The file %1$s has been %2$s successfully."
-msgstr ""
+msgstr "Die Datei %1$s wurde erfolgreich %2$s."
 
 #: inc/modules/export/namespace.php:314
 msgid "pinned"
-msgstr ""
+msgstr "angeheftet"
 
 #: inc/modules/export/namespace.php:314
 msgid "unpinned"
-msgstr ""
+msgstr "losgelöst"
 
 #: inc/modules/export/namespace.php:333
 msgid "About the author"
 msgid_plural "About the authors"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: inc/modules/export/prince/class-pdf.php:278
 msgid ""
 "This book was produced with Pressbooks (https://pressbooks.com) and rendered"
 " with Prince."
-msgstr ""
+msgstr "Dieses Buch wurde mit Pressbooks (https://pressbooks.com) erstellt. Die Druckdaten wurden mit Prince erzeugt."
 
 #: inc/modules/export/xhtml/class-xhtml11.php:178
 msgid "XHTML: "
-msgstr ""
+msgstr "XHTML: "
 
 #: inc/modules/export/xhtml/class-xhtml11.php:423
 msgid "Creating before title page"
-msgstr ""
+msgstr "Erzeuge Vortitel-Seite"
 
 #: inc/modules/export/xhtml/class-xhtml11.php:427
 msgid "Creating half title page"
-msgstr ""
+msgstr "Erzeuge Schmutztitel-Seite"
 
 #: inc/modules/export/xhtml/class-xhtml11.php:443
 msgid "Creating dedication and epigraph"
-msgstr ""
+msgstr "Erzeuge Widmung und Motto"
 
 #: inc/modules/export/xhtml/class-xhtml11.php:553
 msgid "Notes"
-msgstr "Piezīmes"
+msgstr "Anmerkungen"
 
 #: inc/modules/import/api/class-api.php:83
 msgid "No chapters in %s are licensed for cloning."
-msgstr ""
+msgstr "Keine Kapitel in %s haben eine Lizenz, die das Klonen erlaubt."
 
 #: inc/modules/import/api/class-api.php:141
 msgid "Importing front matter"
-msgstr ""
+msgstr "Importiere Titeleien"
 
 #: inc/modules/import/api/class-api.php:164
 msgid "Importing parts and chapters"
-msgstr ""
+msgstr "Importiere Buchteile und Kapitel"
 
 #: inc/modules/import/api/class-api.php:189
 msgid "Importing back matter"
-msgstr ""
+msgstr "Importiere Anhänge"
 
 #: inc/modules/import/api/class-api.php:205
 msgid "Importing glossary terms"
-msgstr ""
+msgstr "Importiere Glossarbegriffe"
 
 #: inc/modules/import/class-import.php:371
 #: inc/modules/import/epub/class-epub201.php:211
 msgid "Importing"
-msgstr ""
+msgstr "Importiere"
 
 #: inc/modules/import/class-import.php:503
 msgid "Your file does not appear to be a valid %s."
-msgstr ""
+msgstr "Ihre Datei scheint keine gültige %s zu sein."
 
 #: inc/modules/import/class-import.php:541
 msgid "Your URL does not appear to be valid"
-msgstr "Šķiet, Jūsu tīmekļa adrese nav derīga."
+msgstr "Ihre URL scheint nicht gültig zu sein."
 
 #: inc/modules/import/class-import.php:548
 #: inc/modules/import/class-import.php:577
 msgid "The URL you are trying to import is bigger than the maximum file size."
-msgstr "Tīmekļa adrese, ko Jūs cenšaties importēt, ir garākā, neka maksimāls failu izmērs."
+msgstr "Die URL, die Sie importieren möchten, ist größer als die maximale Dateigröße."
 
 #: inc/modules/import/class-import.php:570
 msgid ""
 "The website you are attempting to reach is not returning a successful "
 "response code: "
-msgstr "Tīmekļa vietne, kuru Jūs mēģināt sasniegt, neatgriež veiksmīgu atbildes kodu:"
+msgstr "Die Webseite, die Sie aufrufen möchten, liefert keinen Erfolgs-Antwort-Code zurück:"
 
 #: inc/modules/import/epub/class-epub201.php:152
 msgid "Opening EPUB file"
-msgstr ""
+msgstr "Öffne EPUB-Datei"
 
 #: inc/modules/import/epub/class-epub201.php:159
 msgid "Reading metadata"
-msgstr ""
+msgstr "Lese Metadaten"
 
 #: inc/modules/import/epub/class-epub201.php:165
 msgid "Deleting temporary files"
-msgstr ""
+msgstr "Lösche temporäre Dateien"
 
 #: inc/modules/import/epub/class-epub201.php:216
 msgid "Imported %s chapters."
-msgstr ""
+msgstr "%s Kapitel importiert."
 
 #: inc/modules/import/html/class-xhtml.php:45
 msgid "The HTML is larger than pcre.backtrack_limit."
-msgstr "HTML adrese ir garākā, neka pcre.backtrack_limit."
+msgstr "Das HTML ist größer als pcre.backtrack_limit."
 
 #: inc/modules/import/wordpress/class-parser.php:73
 #: inc/modules/import/wordpress/class-parser.php:79
 msgid ""
 "This does not appear to be a WXR file, missing/invalid WXR version number"
-msgstr "Šķiet, tas nav WXR fails, nepietiek/nepareizs WXR versijas numurs"
+msgstr "Dies scheint keine gültige WXR-Datei zu sein, WXR-Versionsnummer fehlt oder ist ungültig."
 
 #: inc/modules/import/wordpress/class-wxr.php:415
 msgctxt ""
 "String which tells user how many front matter, parts, chapters, back matter,"
 " media attachments, and glossary terms were imported."
 msgid "Imported %1$s, %2$s, %3$s, %4$s, %5$s, and %6$s."
-msgstr ""
+msgstr "Importiert: %1$s, %2$s, %3$s, %4$s, %5$s und %6$s."
 
 #: inc/modules/searchandreplace/class-search.php:140
 msgid "Invalid regular expression"
-msgstr "Nepareiza regulāra izteiksme"
+msgstr "Ungültiger regulärer Ausdruck"
 
 #: inc/modules/searchandreplace/class-search.php:148
 msgid "No search pattern."
-msgstr "Nav meklējuma modeles."
+msgstr "Kein Such-Muster"
 
 #: inc/modules/searchandreplace/class-searchandreplace.php:66
 msgid ""
 "Once you&rsquo;ve pressed &lsquo;Replace & Save&rsquo; there is no going "
 "back! Have you checked &lsquo;Preview Replacements&rsquo; to make sure this "
 "will do what you want it to do?"
-msgstr "Kad tikai Jūs uzspiežat uz \"Aizstāvēt un saglabāt\", atpakaļceļa nebūs! Vai Jūs pārbaudījāt \"Aizstāvēšanas priekšskatījumu\", lai pārliecināties, ka šī darbība izdarīs to, ko Jūs gribat?"
+msgstr "Wenn Sie einmal auf &lsquo;Ersetzen & Speichern&rsquo; gedrückt haben, dann gibt es kein Zurück mehr! Haben Sie &lsquo;Zeige Ersetzungen&rsquo; ausgeführt, um sicher zu gehen, dass es macht was Sie möchten?"
 
 #: inc/modules/searchandreplace/class-searchandreplace.php:76
 #: inc/modules/searchandreplace/class-searchandreplace.php:77
 #: templates/admin/search.php:11
 msgid "Search & Replace"
-msgstr "Atrast un aizstāt"
+msgstr ""
 
 #: inc/modules/searchandreplace/types/class-content.php:60
 msgid "view"
-msgstr "skatīties"
+msgstr "Ansehen"
 
 #: inc/modules/searchandreplace/types/class-content.php:62
 msgid "edit"
-msgstr "rediģēt "
+msgstr "Bearbeiten"
 
 #: inc/modules/searchandreplace/types/class-content.php:72
 msgid "%1$s ID #%2$d: %3$s"
-msgstr ""
+msgstr "%1$s ID #%2$d: %3$s"
 
 #: inc/modules/searchandreplace/types/class-content.php:100
 msgid "Content Text"
-msgstr "Satura teksts"
+msgstr "Inhaltstext"
 
 #: inc/modules/themeoptions/class-admin.php:94
 #: inc/modules/themeoptions/class-admin.php:95
 #: inc/modules/themeoptions/class-admin.php:149
 #: templates/admin/export.blade.php:62
 msgid "Theme Options"
-msgstr "Tēmas iespējas"
+msgstr "Layout-Optionen"
 
 #: inc/modules/themeoptions/class-admin.php:152
 msgid "Theme Options Tabs"
-msgstr ""
+msgstr "Layout-Optionen Reiter"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:116
 #: inc/modules/themeoptions/class-pdfoptions.php:121
 #: inc/modules/themeoptions/class-weboptions.php:120
 msgid "Header Font"
-msgstr ""
+msgstr "Schriftart für Überschriften"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:124
 #: inc/modules/themeoptions/class-pdfoptions.php:129
 #: inc/modules/themeoptions/class-weboptions.php:128
 msgid "Body Font"
-msgstr ""
+msgstr "Schriftart für Fließtext"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:134
 msgid "Ebook Start Point"
-msgstr "Elektroniskās grāmatas sākuma punkts "
+msgstr "E-Book Anfangspunkt"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:139
 msgid ""
 "Note: This designated ebook start book may be overridden by some ereader "
 "devices."
-msgstr "Piezīme: Šo specializēto grāmatu dažas elektronisko grāmatu lasīšanas ierīces var izlasīt nepareizi. "
+msgstr "Anmerkung: Dieser festgelegte E-Book Anfangspunkt kann von manchen E-Reader-Geräten überschrieben werden."
 
 #: inc/modules/themeoptions/class-ebookoptions.php:146
 #: inc/modules/themeoptions/class-pdfoptions.php:297
 #: inc/modules/themeoptions/class-weboptions.php:163
 msgid "Paragraph Separation"
-msgstr "Paragrāfa sadalīšana"
+msgstr "Trennung von Absätzen"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:151
 #: inc/modules/themeoptions/class-pdfoptions.php:302
 #: inc/modules/themeoptions/class-weboptions.php:168
 msgid "Indent paragraphs"
-msgstr "Paragrāfa atkāpe"
+msgstr "Einzug von Absätzen"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:152
 #: inc/modules/themeoptions/class-pdfoptions.php:303
 #: inc/modules/themeoptions/class-weboptions.php:169
 msgid "Skip lines between paragraphs"
-msgstr "Izlaist rindas starp paragrāfiem"
+msgstr "Zeilen zwischen Absätzen überspringen"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:158
 msgid "Compress Images"
-msgstr "Saspiest attēlus"
+msgstr "Komprimiere Bilder"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:163
 msgid "Reduce image size and quality"
-msgstr "Samazināt attēla izmēru un kvalitāti"
+msgstr "Bildgröße und Bildqualität verringern"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:188
 msgid "These options apply to ebook exports."
-msgstr "Šī iespējas piemīt tikai elektroniskās grāmatas eksporta failiem."
+msgstr "Diese Optionen gelten für den E-Book-Export"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:389
 msgid "Ebook Options"
-msgstr "Elektroniskās grāmatas iestatījumi"
+msgstr "E-Book-Optionen"
 
 #: inc/modules/themeoptions/class-globaloptions.php:118
 msgid "Part and Chapter Numbers"
-msgstr "Daļu un nodaļu skaits "
+msgstr "Buchteil- und Kapitelnummern"
 
 #: inc/modules/themeoptions/class-globaloptions.php:123
 msgid "Display part and chapter numbers"
-msgstr "Rādīt daļu un nodaļu skaitu"
+msgstr "Buchteil- und Kapitelnummern anzeigen"
 
 #: inc/modules/themeoptions/class-globaloptions.php:129
 msgid "Part Label"
-msgstr "Daļas zīme"
+msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:134
 msgid ""
 "The \"part\" label is used in the table of contents and in part titles in "
 "your webbook and exports."
-msgstr "\"Daļas\" zīme tiek izmantota Jūsu tiešsaistes grāmatas un eksporta failu saturā un daļu virsrakstos."
+msgstr "Die Buchteil-Bezeichnung wird im Inhaltsverzeichnis und in Buchteil-Überschriften in Ihrem Buch im Web und in Exporten verwendet."
 
 #: inc/modules/themeoptions/class-globaloptions.php:141
 msgid "Chapter Label"
-msgstr "Nodaļās zīme"
+msgstr "Kapitelbezeichnung"
 
 #: inc/modules/themeoptions/class-globaloptions.php:146
 msgid ""
 "The \"chapter\" label is used in the table of contents and in chapter titles"
 " in your webbook and exports."
-msgstr "\"Nodaļas\" zīme tiek izmantota Jūsu tiešsaistes grāmatas un eksporta failu saturā un daļu virsrakstos."
+msgstr "Die Kapitelbezeichnung wird im Inhaltsverzeichnis und in Kapitelüberschriften in Ihrem Buch im Web und in Exporten verwendet."
 
 #: inc/modules/themeoptions/class-globaloptions.php:153
 msgid "Two-Level TOC"
-msgstr "Divlīmeņa saturs"
+msgstr "Inhaltsverzeichnis mit zwei Ebenen"
 
 #: inc/modules/themeoptions/class-globaloptions.php:158
 msgid ""
 "Enable two-level table of contents (displays headings under chapter titles)"
-msgstr "Aktivēt divlīmeņa saturu (daļu virsraksti tiks rādīti pēc nodaļu virsrakstiem)"
+msgstr "Aktivieren Sie das hierarchische Inhaltsverzeichnis (Überschriften werden unter Kapitelüberschriften angezeigt)"
 
 #: inc/modules/themeoptions/class-globaloptions.php:164
 msgid "About the Author"
@@ -3584,105 +3567,105 @@ msgstr ""
 #: inc/modules/themeoptions/class-globaloptions.php:175
 #: inc/shortcodes/attributions/class-attachments.php:262
 msgid "Media Attributions"
-msgstr "Plašsaziņas līdzekļi ar autorības norādi"
+msgstr "Medien-Attributierungen"
 
 #: inc/modules/themeoptions/class-globaloptions.php:180
 msgid "Display attributions at the end of a chapter"
-msgstr "Rādīt autorības norādi nodaļu beigās"
+msgstr "Zeige Attributierungen am Ende eines Kapitels"
 
 #: inc/modules/themeoptions/class-globaloptions.php:188
 msgid "Language & Script Support"
-msgstr "Valodas un skripta atbalsts"
+msgstr "Sprach- & Schriftunterstützung"
 
 #: inc/modules/themeoptions/class-globaloptions.php:193
 msgid "Include fonts to support the following languages and scripts:"
-msgstr "Iekļaujot fontus, lai atbalstītu turpmākas valodas un skriptus:"
+msgstr "Schriftarten einbinden, um folgende Sprachen und Schriften zu unterstützen:"
 
 #: inc/modules/themeoptions/class-globaloptions.php:207
 msgid "Chapter Licenses"
-msgstr "Nodaļas licence"
+msgstr "Kapitel-Lizenzen"
 
 #: inc/modules/themeoptions/class-globaloptions.php:212
 msgid "Do not display section level copyright license"
-msgstr "Nerādīt autortiesības licenci sadaļu līmenī"
+msgstr "Abschnittsbasierte Lizenz nicht anzeigen"
 
 #: inc/modules/themeoptions/class-globaloptions.php:213
 msgid "Display section level license on table of contents in export formats"
-msgstr "Rādīt licenci sadaļu līmenī saturā eksporta formāta failos"
+msgstr "Abschnittsbasierte Lizenz im Inhaltsverzeichnis und in Exporten anzeigen"
 
 #: inc/modules/themeoptions/class-globaloptions.php:214
 msgid "Display section level license at end of chapter in export formats"
-msgstr "Rādīt licenci sadaļu līmeni nodaļu beigās eksporta formāta failos"
+msgstr "Abschnittsbasierte Lizenzen am Ende eines Kapitels in Exporten anzeigen"
 
 #: inc/modules/themeoptions/class-globaloptions.php:220
 #: languages/tinymce.php:21
 msgid "Examples"
-msgstr "Piemēri"
+msgstr "Beispiele"
 
 #: inc/modules/themeoptions/class-globaloptions.php:221
 #: languages/tinymce.php:18
 msgid "Exercises"
-msgstr "Uzdevumi"
+msgstr "Aufgaben"
 
 #: inc/modules/themeoptions/class-globaloptions.php:222
 #: languages/tinymce.php:15
 msgid "Key Takeaways"
-msgstr "Pamattēzes"
+msgstr "Zusammenfassung"
 
 #: inc/modules/themeoptions/class-globaloptions.php:223
 #: languages/tinymce.php:12
 msgid "Learning Objectives"
-msgstr "Mācību mērķi"
+msgstr "Lernziele"
 
 #: inc/modules/themeoptions/class-globaloptions.php:232
 msgid "Customize colors for %s textboxes using the fields below."
-msgstr ""
+msgstr "Passen Sie Farben für %s Textfelder mittels der Felder unten an."
 
 #: inc/modules/themeoptions/class-globaloptions.php:238
 msgid "Header Color"
-msgstr "Galvenes krāsa"
+msgstr "Farbe des Kopfbereichs"
 
 #: inc/modules/themeoptions/class-globaloptions.php:244
 msgid "The header text color for a %s textbox."
-msgstr ""
+msgstr "Die Schriftfarbe des Kopfbereichs für ein %s Textfeld."
 
 #: inc/modules/themeoptions/class-globaloptions.php:249
 msgid "Header Background"
-msgstr "Galvenes fons"
+msgstr "Hintergrund des Kopfbereichs"
 
 #: inc/modules/themeoptions/class-globaloptions.php:255
 msgid "The header background color for a %s textbox."
-msgstr ""
+msgstr "Die Hintergrundfarbe des Kopfbereichs für ein %s Textfeld."
 
 #: inc/modules/themeoptions/class-globaloptions.php:260
 msgid "Background"
-msgstr "Fons"
+msgstr "Hintergrund"
 
 #: inc/modules/themeoptions/class-globaloptions.php:266
 msgid "The background color for a %s textbox."
-msgstr ""
+msgstr "Die Hintergrundfarbe für ein %s Textfeld."
 
 #: inc/modules/themeoptions/class-globaloptions.php:293
 msgid "These options apply universally to webbook, PDF and ebook exports."
-msgstr "Šī iespēja ir universāla un piemīt tiešsaistes grāmatai, PDF formāta failiem un elektroniskās grāmatas eksporta failiem."
+msgstr "Diese Optionen gelten universell für Webbook, PDF und Ebook Exporte."
 
 #: inc/modules/themeoptions/class-globaloptions.php:476
 msgid "This theme includes built-in support for %s."
-msgstr ""
+msgstr "Dieses Layout enthält eingebauten Support für %s."
 
 #: inc/modules/themeoptions/class-globaloptions.php:586
 msgid "Global Options"
-msgstr "Vispārējas iespējas"
+msgstr "Allgemeine Einstellungen"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:140
 msgid "Body Font Size"
-msgstr "Galvenās daļās fonta izmērs"
+msgstr "Schriftgröße Fließtext"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:145
 msgid ""
 "Heading sizes are proportional to the body font size and will also be "
 "affected by this setting."
-msgstr "Galvenes izmēri ir proporcionāli galvenās daļas fonta izmēram un ietekmes uz tiem iestatījumiem."
+msgstr "Größen der Überschriften sind proportional zur Schriftgröße des Fließtextes und werden auch durch diese Einstellung beeinflusst."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:153
 msgid "Footnote Font Size"
@@ -3690,80 +3673,80 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:166
 msgid "Body Line Height"
-msgstr "Galvenās daļas rindas augstums"
+msgstr "Zeilenabstand Fließtext"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:180
 msgid "Page Size"
-msgstr "Lapaspuses izmērs"
+msgstr "Seitengröße"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:185
 msgid "Digest (5.5&quot; &times; 8.5&quot;)"
-msgstr ""
+msgstr "Digest/Taschenbuch (5.5&quot; &times; 8.5&quot;)"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:186
 msgid "US Trade (6&quot; &times; 9&quot;)"
-msgstr ""
+msgstr "US Taschenbuch (6&quot; &times; 9&quot;)"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:187
 msgid "US Letter (8.5&quot; &times; 11&quot;)"
-msgstr ""
+msgstr "US Brief (8.5&quot; &times; 11&quot;)"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:188
 msgid "Custom (8.5&quot; &times; 9.25&quot;)"
-msgstr ""
+msgstr "Benutzerdefiniert (8.5&quot; &times; 9.25&quot;)"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:189
 msgid "Duodecimo (5&quot; &times; 7.75&quot;)"
-msgstr ""
+msgstr "Duodecimo (5&quot; &times; 7.75&quot;)"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:190
 msgid "Pocket (4.25&quot; &times; 7&quot;)"
-msgstr ""
+msgstr "Pocket (4.25&quot; &times; 7&quot;)"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:191
 msgid "A4 (21cm &times; 29.7cm)"
-msgstr ""
+msgstr "A4 (21cm &times; 29.7cm)"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:192
 msgid "A5 (14.8cm &times; 21cm)"
-msgstr ""
+msgstr "A5 (14.8cm &times; 21cm)"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:193
 msgid "5&quot; &times; 8&quot;"
-msgstr ""
+msgstr "5&quot; &times; 8&quot;"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:201
 msgid "Page Width"
-msgstr "Lapaspuses platums"
+msgstr "Seitenbreite"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:206
 msgid ""
 "Page width must be expressed in CSS-compatible units, e.g. "
 "&lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;."
-msgstr ""
+msgstr "Die Seitenbreite muss in CSS-kompatiblen Einheiten angegeben werden, z.B. &lsquo;5.5in&rsquo; oder &lsquo;10cm&rsquo;."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:213
 msgid "Page Height"
-msgstr "Lapaspuses augstums"
+msgstr "Seitenhöhe"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:218
 msgid ""
 "Page height must be expressed in CSS-compatible units, e.g. "
 "&lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;."
-msgstr ""
+msgstr "Die Seitenhöhe muss in CSS-kompatiblen Einheiten angegeben werden, z.B. &lsquo;8.5in&rsquo; oder &lsquo;10cm&rsquo;."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:226
 msgid "Margins"
-msgstr "Piemales"
+msgstr "Seitenränder"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:231
 msgid "Customize your book&rsquo;s margins using the fields below."
-msgstr "Pielāgojiet Jūsu grāmatas piemales, izmantojot laukus turpmāk."
+msgstr "Passen Sie die Seitenränder Ihres Buches mit den Felder unten an."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:237
 #: inc/modules/themeoptions/class-pdfoptions.php:962
 msgid "Outside Margin"
-msgstr "Ārpus piemale"
+msgstr "Äußerer Seitenrand"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:242
 #: inc/modules/themeoptions/class-pdfoptions.php:254
@@ -3772,100 +3755,100 @@ msgstr "Ārpus piemale"
 msgid ""
 "Margins must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo; "
 "or &lsquo;10cm&rsquo;."
-msgstr ""
+msgstr "Seitenränder müssen in CSS Einheiten angegeben werden, z.B. &lsquo;8.5in&rsquo; oder &lsquo;10cm&rsquo;."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:249
 #: inc/modules/themeoptions/class-pdfoptions.php:963
 msgid "Inside Margin"
-msgstr "Iekšēja apmale"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:261
 #: inc/modules/themeoptions/class-pdfoptions.php:964
 msgid "Top Margin"
-msgstr "Augšēja apmale"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:273
 #: inc/modules/themeoptions/class-pdfoptions.php:965
 msgid "Bottom Margin"
-msgstr "Apakšēja apmale"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:286
 msgid "Hyphens"
-msgstr "Defise"
+msgstr "Bindestriche"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:291
 msgid "Enable hyphenation"
-msgstr "Aktivēt zilbjdales"
+msgstr "Silbentrennung aktivieren"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:309
 msgid "Section Openings"
-msgstr "Sadaļu sākums"
+msgstr "Kapitelstart"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:314
 msgid "Left or right page section opening (for print PDF)"
-msgstr "Kreisas vai labas lapaspuses sadaļu sākums (PDF formāta failu izdrukai)"
+msgstr "Kapitelstart auf der linken oder rechten Seite (im Print-PDF)"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:315
 msgid "Right page section openings (for print PDF)"
-msgstr "Kreisas lapaspuses sadaļu sākums (PDF formāta failu izdrukai)"
+msgstr "Kapitelstart auf der rechten Seite (im Print-PDF)"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:316
 msgid "No blank pages (for web PDF)"
-msgstr "Nav tukšu lapaspušu (tiešsaistes PDF formāta failiem)"
+msgstr "Keine Leerseiten (für Web-PDF)"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:327
 msgid "Display table of contents"
-msgstr "Rādīt saturu"
+msgstr "Inhaltsverzeichnis anzeigen"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:333
 msgid "Crop Marks"
-msgstr "Griezuma atzīmes"
+msgstr "Beschnittlinien"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:338
 msgid "Display crop marks"
-msgstr "Rādīt griezuma atzīmes"
+msgstr "Beschnittlinien anzeigen"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:345
 msgid "Romanize Part Numbers"
-msgstr "Uzrakstīt daļu numurus ar romiešu cipariem"
+msgstr "Römische Ziffern für Buchteile"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:350
 msgid "Convert part numbers into Roman numerals"
-msgstr "Konvertēt daļu numurus romiešu ciparos"
+msgstr "Nummern für Buchteile in römische Ziffern konvertieren"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:357
 msgid "Footnote Style"
-msgstr "Zemteksta piezīmju stils"
+msgstr "Fußnoten-Stil"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:362
 msgid "Regular footnotes"
-msgstr "Regulāras zemteksta piezīmes "
+msgstr "Normale Fußnoten"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:363
 msgid "Display as chapter endnotes"
-msgstr "Rādīt kā daļās beigu vēres"
+msgstr "Als Kapitel-Endnoten anzeigen"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:369
 msgid "Widows"
-msgstr "Atraitnes"
+msgstr "Witwen"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:380
 msgid "Orphans"
-msgstr "Bāreni"
+msgstr "Waisen"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:392
 msgid "Running Heads & Feet"
-msgstr "Galvenes un kājenes"
+msgstr "Kopfzeile & Fußzeile"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:397
 msgid ""
 "Running content appears in either running heads or running feet (at the top "
 "or bottom of the page) depending on your theme."
-msgstr "atkarīgi no Jūsu tēmas, saturs tiks rādīts vai nu galvenē, vai nu kājenē (lapaspuses sākumā vai beigās)."
+msgstr "Kurzinhalte erscheinen abhängig von Ihrem Layout entweder in Kopfzeilen oder Fußzeilen (am Beginn oder Ende der Seite)."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:403
 msgid "Front Matter Left Page Running Content"
-msgstr "Kreisas lapaspuses sākuma papildinformācijas saturs"
+msgstr "Kurzinhalt Titelei auf linker Seite"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:409
 #: inc/modules/themeoptions/class-pdfoptions.php:428
@@ -3878,7 +3861,7 @@ msgstr "Kreisas lapaspuses sākuma papildinformācijas saturs"
 #: inc/modules/themeoptions/class-pdfoptions.php:563
 #: inc/modules/themeoptions/class-pdfoptions.php:582
 msgid "Book Subtitle"
-msgstr "Grāmatas apakšvirsraksts"
+msgstr "Buchuntertitel"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:410
 #: inc/modules/themeoptions/class-pdfoptions.php:429
@@ -3891,22 +3874,22 @@ msgstr "Grāmatas apakšvirsraksts"
 #: inc/modules/themeoptions/class-pdfoptions.php:564
 #: inc/modules/themeoptions/class-pdfoptions.php:583
 msgid "Book Author"
-msgstr "Grāmatas autors"
+msgstr "Buchautor"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:411
 #: inc/modules/themeoptions/class-pdfoptions.php:430
 msgid "Front Matter Title"
-msgstr "Sākuma papildinformācijas virsraksts"
+msgstr "Titelei-Titel"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:412
 #: inc/modules/themeoptions/class-pdfoptions.php:431
 msgid "Front Matter Author"
-msgstr "Sākuma papildinformācijas autors"
+msgstr "Titelei-Autor"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:413
 #: inc/modules/themeoptions/class-pdfoptions.php:432
 msgid "Front Matter Subtitle"
-msgstr "Sākuma papildinformācijas apakšvirsraksts"
+msgstr "Titelei-Untertitel"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:414
 #: inc/modules/themeoptions/class-pdfoptions.php:433
@@ -3919,128 +3902,128 @@ msgstr "Sākuma papildinformācijas apakšvirsraksts"
 #: inc/modules/themeoptions/class-pdfoptions.php:568
 #: inc/modules/themeoptions/class-pdfoptions.php:587
 msgid "Blank"
-msgstr "Tukšs "
+msgstr "Leerseite"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:422
 msgid "Front Matter Right Page Running Content"
-msgstr "Labas lapaspuses sākuma papildinformācijas saturs"
+msgstr "Kurzinhalt Titeleien auf rechter Seite"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:441
 msgid "Introduction Left Page Running Content"
-msgstr "Kreisas lapaspuses ievaddaļas saturs"
+msgstr "Kurzinhalt Einleitung auf linker Seite"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:449
 #: inc/modules/themeoptions/class-pdfoptions.php:468
 msgid "Introduction Title"
-msgstr "Ievaddaļas virsraksts"
+msgstr "Einleitungs-Titel"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:450
 #: inc/modules/themeoptions/class-pdfoptions.php:469
 msgid "Introduction Author"
-msgstr "Ievaddaļas autors"
+msgstr "Einleitungs-Autor"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:451
 #: inc/modules/themeoptions/class-pdfoptions.php:470
 msgid "Introduction Subtitle"
-msgstr "Ievaddaļas apakšvirsraksts "
+msgstr "Einleitungs-Untertitel"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:460
 msgid "Introduction Right Page Running Content"
-msgstr "Labas lapaspuses ievaddaļas saturs"
+msgstr "Kurzinhalt Einleitung auf rechter Seite"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:479
 msgid "Part Left Page Running Content"
-msgstr "Kreisas lapaspuses daļas saturs"
+msgstr "Kurzinhalt Buchteil auf linker Seite"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:487
 #: inc/modules/themeoptions/class-pdfoptions.php:505
 #: inc/modules/themeoptions/class-pdfoptions.php:523
 #: inc/modules/themeoptions/class-pdfoptions.php:544
 msgid "Part Number"
-msgstr "Daļas numurs"
+msgstr "Buchtitel-Nummer"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:488
 #: inc/modules/themeoptions/class-pdfoptions.php:506
 #: inc/modules/themeoptions/class-pdfoptions.php:524
 #: inc/modules/themeoptions/class-pdfoptions.php:545
 msgid "Part Title"
-msgstr "Daļas virsraksts"
+msgstr "Buchtitel-Titel"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:497
 msgid "Part Right Page Running Content"
-msgstr "Labas lapaspuses daļas saturs"
+msgstr "Kurzinhalt Buchteil auf rechter Seite"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:515
 msgid "Chapter Left Page Running Content"
-msgstr "Kreisas lapaspuses nodaļas saturs"
+msgstr "Kurzinhalt Kapitel auf linker Seite"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:525
 #: inc/modules/themeoptions/class-pdfoptions.php:546
 msgid "Chapter Title"
-msgstr "Nodaļas virsraksts"
+msgstr "Kapitel-Titel"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:526
 #: inc/modules/themeoptions/class-pdfoptions.php:547
 msgid "Chapter Author"
-msgstr "Nodaļas autors"
+msgstr "Kapitel-Autor"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:527
 #: inc/modules/themeoptions/class-pdfoptions.php:548
 msgid "Chapter Subtitle"
-msgstr "Nodaļas apakšvirsraksts"
+msgstr "Kapitel-Untertitel"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:536
 msgid "Chapter Right Page Running Content"
-msgstr "Labas lapaspuses nodaļas saturs"
+msgstr "Kurzinhalt Kapitel auf rechter Seite"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:557
 msgid "Back Matter Left Page Running Content"
-msgstr "Kreisas lapaspuses beigu papildinformācijas saturs"
+msgstr "Kurzinhalt Anhang auf linker Seite"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:565
 #: inc/modules/themeoptions/class-pdfoptions.php:584
 msgid "Back Matter Title"
-msgstr "Beigu papildinformācijas virsraksts"
+msgstr "Anhangs-Titel"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:566
 #: inc/modules/themeoptions/class-pdfoptions.php:585
 msgid "Back Matter Author"
-msgstr "Beigu papildinformācijas autors"
+msgstr "Anhangs-Autor"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:567
 #: inc/modules/themeoptions/class-pdfoptions.php:586
 msgid "Back Matter Subtitle"
-msgstr "Beigu papildinformācijas apakšvirsraksts"
+msgstr "Anhangs-Untertitel"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:576
 msgid "Back Matter Right Page Running Content"
-msgstr "Labas lapaspuses beigu papildinformācijas saturs"
+msgstr "Kurzinhalt Anhang auf rechter Seite"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:597
 msgid "Increase Font Size"
-msgstr "Palielināt fonta izmēru"
+msgstr "Schriftgröße vergrößern"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:602
 msgid "Increases font size and line height for greater accessibility"
-msgstr "Palieliniet fonta izmēru un rindas augstumu labākai pieejamībai"
+msgstr "Schriftgröße und Zeilenabstand für bessere Lesbarkeit vergrößern"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:628
 msgid "These options apply to PDF exports."
-msgstr "Šī iespējas piemīt PDF formāta eksporta failiem."
+msgstr "Diese Optionen gelten für den PDF Export."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:970
 msgid ""
 "IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm "
 "on any side can cause your file to be rejected."
-msgstr "SVARĪGI: Gadījumā, ja Jūs planējat izmantot izdrukas pēc pieprasījuma pakalpojumu, piemales, mazākas neka 2 cm katrā pusē, var rādīt Jūsu faila bloķēšanu."
+msgstr "WICHTIG: Wenn Sie einen Print-on-Demand-Service verwenden möchten können Seitenränder an beliebiger Stelle unter 2 cm dazu führen, dass Ihre Datei abgelehnt wird."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:1534
 msgid "PDF Options"
-msgstr "PDF formāta failu iespējas"
+msgstr "PDF-Optionen"
 
 #: inc/modules/themeoptions/class-weboptions.php:138
 msgid "Enable Social Media"
-msgstr "Aktivēt sociālus plašsaziņas līdzekļus"
+msgstr "Soziale Medien aktivieren"
 
 #: inc/modules/themeoptions/class-weboptions.php:143
 msgid ""
@@ -4050,73 +4033,73 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:149
 msgid "Webbook Width"
-msgstr "Tiešsaistes grāmatas platums"
+msgstr "Breite des Buchs im Web"
 
 #: inc/modules/themeoptions/class-weboptions.php:154
 msgid "Narrow"
-msgstr "Šaurums"
+msgstr "Schmal"
 
 #: inc/modules/themeoptions/class-weboptions.php:156
 msgid "Wide"
-msgstr "Platums"
+msgstr "Breit"
 
 #: inc/modules/themeoptions/class-weboptions.php:175
 msgid "Display Part Title"
-msgstr "Rādīt daļas virsrakstu"
+msgstr "Buchteil-Titel anzeigen"
 
 #: inc/modules/themeoptions/class-weboptions.php:180
 msgid "Display the Part title on each chapter"
-msgstr "Rādīt daļu virsrakstus katrā nodaļā"
+msgstr "Den Titel des Buchteils in jedem Kapitel anzeigen"
 
 #: inc/modules/themeoptions/class-weboptions.php:187
 msgid "Collapse Sections"
-msgstr "Sakļaušanas sadaļa"
+msgstr "Abschnitte einklappen"
 
 #: inc/modules/themeoptions/class-weboptions.php:192
 msgid "Collapse sections within front matter, chapters, and back matter"
-msgstr "Sakļaušanas sadaļa sākuma papildinformācijā, nodaļās un beigu papildinformācijā"
+msgstr "Abschnitte in Titeleien, Kapitel und Anhängen einklappen"
 
 #: inc/modules/themeoptions/class-weboptions.php:200
 msgid "Enable Source Comparison"
-msgstr "Aktivēt satura salīdzinājumu"
+msgstr "Quellen-Vergleich aktivieren"
 
 #: inc/modules/themeoptions/class-weboptions.php:205
 msgid ""
 "Add comparison tool to the end of each front matter, part, chapter, and back"
 " matter"
-msgstr "Pievienot salīdzinājuma rīku katras sākuma papildinformācijas, nodaļu un beigu informācijas beigās."
+msgstr "Füge ein Vergleichswerkzeug zum Ende jeder Titelei, Buchteil, Kapitel und Anhang hinzu"
 
 #: inc/modules/themeoptions/class-weboptions.php:206
 msgid ""
 "Allows readers to compare content with the original book from which it was "
 "cloned."
-msgstr "Ļauj lasītājiem salīdzināt saturu ar oriģinālo grāmato, no kuras tika klonēts."
+msgstr "Ermöglicht es Lesern den Inhalt mit dem Originalbuch, von dem es geklont wurde, zu vergleichen."
 
 #: inc/modules/themeoptions/class-weboptions.php:232
 msgid "These options apply to the webbook."
-msgstr "Šī iespējas piemīt tikai tiešsaistes grāmatai."
+msgstr "Diese Optionen gelten für das Buch im Web."
 
 #: inc/modules/themeoptions/class-weboptions.php:432
 msgid "Web Options"
-msgstr "Tiešsaistes grāmatu iespējas."
+msgstr "Web-Optionen"
 
 #: inc/posttype/namespace.php:65 templates/admin/organize.blade.php:50
 msgid "Chapters"
-msgstr "Nodaļas"
+msgstr "Kapitel"
 
 #: inc/posttype/namespace.php:88 templates/admin/organize.blade.php:52
 msgid "Parts"
-msgstr "Daļas"
+msgstr "Buchteile"
 
 #: inc/posttype/namespace.php:194
 msgid "Glossary Term"
-msgstr "Glosārija termini"
+msgstr "Glossarbegriff"
 
 #: inc/posttype/namespace.php:233
 msgid ""
 "Links, bold text and italic text are supported in glossary terms. Other "
 "elements will be removed."
-msgstr ""
+msgstr "Links, fetter Text und kursiver Text werden in Glossarbegriffen unterstützt. Andere Formatierungen werden entfernt."
 
 #: inc/posttype/namespace.php:248
 msgid ""
@@ -4125,117 +4108,117 @@ msgstr ""
 
 #: inc/posttype/namespace.php:287
 msgid "Unlisted"
-msgstr "Neuzskaitīts"
+msgstr "Nicht aufgeführt"
 
 #: inc/posttype/namespace.php:324
 msgid "Show title in exports"
-msgstr "Rādīt virsrakstus eksporta failos"
+msgstr "Titel in Exporten anzeigen"
 
 #: inc/posttype/namespace.php:336
 msgid "Chapter Short Title (appears in the PDF running header)"
-msgstr "Nodaļas īsais virsraksts (tiks rādīts PDF formāta faila galvenē)"
+msgstr "Kapitel-Kurztitel (erscheinen in der PDF-Kopfzeile)"
 
 #: inc/posttype/namespace.php:345
 msgid "Chapter Subtitle (appears in the Web/ebook/PDF output)"
-msgstr "Nodaļas apakšvirsraksts (tiks rādīts tiešsaistes/elektroniskā grāmatā, kā arī PDF formāta failos)"
+msgstr "Kapitel-Untertitel (erscheint im Web/E-Book/PDF-Export)"
 
 #: inc/posttype/namespace.php:355
 msgid "Chapter Author (appears in Web/ebook/PDF output)"
-msgstr "Nodaļas autors (tiks rādīts tiešsaistes/elektroniskā grāmatā, kā arī PDF formāta failos)"
+msgstr "Kapitel-Autor (erscheint in Web/E-Book/PDF-Export)"
 
 #: inc/posttype/namespace.php:364
 msgid "Chapter Copyright License (overrides book license on this page)"
-msgstr "Nodaļas autortiesību licence (aizstāvēs grāmatas licenci šajā lapaspusē)"
+msgstr "Kapitel-Copyright (überschreibt das Buch-Copyright auf dieser Seite)"
 
 #: inc/posttype/namespace.php:374
 msgid "Whether or not the part is shown in the table of contents"
-msgstr "Vai daļa tiek rādīta saturā"
+msgstr "Ob der Buchteil im Inhaltsverzeichnis angezeigt wird oder nicht"
 
 #: inc/posttype/namespace.php:384
 msgid "Media attribution source url"
-msgstr "Plašsaziņas līdzekļa ar autorības norādi avota tīmekļa adrese"
+msgstr "Medien-Attribution Quell-URL"
 
 #: inc/posttype/namespace.php:393
 msgid "Media attribution author"
-msgstr "Plašsaziņas līdzekļa ar autorības norādi autors"
+msgstr "Medien-Attribution Autor"
 
 #: inc/posttype/namespace.php:402
 msgid "Media attribution author url"
-msgstr "Plašsaziņas līdzekļa ar autorības norādi autora tīmekļa adrese"
+msgstr "Medien-Attribution Autor-URL"
 
 #: inc/posttype/namespace.php:411
 msgid "Media attribution adapted by"
-msgstr "Plašsaziņas līdzekļi ar autorības norādi adaptēja"
+msgstr "Medien-Attribution Bearbeitet-Von"
 
 #: inc/posttype/namespace.php:420
 msgid "Media attribution adapted by url"
-msgstr "Plašsaziņas līdzekļa ar autorības norādi adoptētāja tīmekļa adrese"
+msgstr "Medien-Attribution Bearbeitet-Von-URL"
 
 #: inc/posttype/namespace.php:429
 msgid "Media attribution license"
-msgstr "Plašsaziņas līdzekļa ar autorības norādi licence "
+msgstr "Medien-Attribution Lizenz"
 
 #: inc/posttype/namespace.php:441
 msgctxt "post status"
 msgid "Web Only"
-msgstr "Tikai tiešsaistei"
+msgstr "Nur für Web"
 
 #: inc/posttype/namespace.php:487
 msgid "parts"
-msgstr "daļas"
+msgstr "Buchteile"
 
 #: inc/posttype/namespace.php:488
 msgid "chapters"
-msgstr "nodaļas"
+msgstr "Kapitel"
 
 #: inc/posttype/namespace.php:489
 msgid "front matter"
-msgstr "sākuma papildinformācija"
+msgstr "Titeleien"
 
 #: inc/posttype/namespace.php:490
 msgid "back matter"
-msgstr "beigu papildinformācija"
+msgstr "Anhänge"
 
 #: inc/posttype/namespace.php:491
 msgid "glossary"
-msgstr "glosārijs "
+msgstr "Glossar"
 
 #: inc/posttype/namespace.php:554 templates/admin/import.php:97
 #: templates/admin/organize.blade.php:53
 msgid "Glossary"
-msgstr "Glosārijs"
+msgstr "Glossar"
 
 #: inc/redirect/namespace.php:147 inc/redirect/namespace.php:244
 msgid "Error: Unknown export format."
-msgstr "Kļūda: Nezināms eksporta faila formāts."
+msgstr "Fehler: Unbekanntes Export-Format."
 
 #: inc/redirect/namespace.php:263
 msgid "File not found"
-msgstr "Fails nebija atrasts"
+msgstr "Datei nicht gefunden"
 
 #: inc/redirect/namespace.php:350
 msgid "Unsupported post type."
-msgstr "Neatbalstīts publikācijas tips."
+msgstr "Nicht unterstützter Beitrags-Typ."
 
 #: inc/redirect/namespace.php:384
 msgid "Unsupported taxonomy."
-msgstr "Neatbalstīta taksonomija."
+msgstr "Nicht unterstützte Taxonomie."
 
 #: inc/redirect/namespace.php:408
 msgid "You do not have sufficient permissions to access that URL."
-msgstr "Jums nav atbilstošas atļaujas pieejai šitai tīmekļa adresei."
+msgstr "Sie besitzen nicht die erforderlichen Rechte um diese URL aufzurufen."
 
 #: inc/registration/namespace.php:36
 msgid "Register my book now"
-msgstr "Reģistrēt manu grāmatu"
+msgstr "Mein Buch jetzt registrieren"
 
 #: inc/registration/namespace.php:39
 msgid "Register my book later"
-msgstr "Reģistrēt manu grāmatu vēlāk"
+msgstr "Mein Buch später registrieren"
 
 #: inc/registration/namespace.php:43
 msgid "Webbook Address:"
-msgstr "Tiešsaistes grāmatas adrese:"
+msgstr "Adresse des Buchs im Web:"
 
 #: inc/registration/namespace.php:46 inc/registration/namespace.php:78
 msgid ""
@@ -4243,51 +4226,51 @@ msgid ""
 "your book. It must be at least 4 characters, letters and numbers only. It "
 "<strong>cannot be changed</strong>, so choose carefully! We suggest using "
 "the title of your book with no spaces."
-msgstr ""
+msgstr "Die Adresse Ihres Buchs im Web ist die Web-Adresse wo Sie Ihr Buch erstellen und aufrufen. Sie muss mindestens 4 Zeichen enthalten, nur Buchstaben und Zahlen. Sie <strong>kann nicht geändert werden</strong>, also wählen Sie sorgfältig! Wir empfehlen den Titel Ihres Buchs ohne Leerzeichen zu benutzen."
 
 #: inc/registration/namespace.php:49
 msgid "Book Title:"
-msgstr "Grāmatas virsraksts:"
+msgstr "Buchtitel:"
 
 #: inc/registration/namespace.php:52
 msgid "Book Language:"
-msgstr "Grāmatas valoda:"
+msgstr "Buchsprache:"
 
 #: inc/registration/namespace.php:55
 msgid "Would you like your webbook to be visible to the public?"
-msgstr "Vai Jūs gribētu, lai Jūsu grāmata būtu pieejama visiem?"
+msgstr "Soll das Buch im Web öffentlich sichtbar sein?"
 
 #: inc/registration/namespace.php:62
 msgid "Register a %s account"
-msgstr ""
+msgstr "Ein %s Konto anlegen"
 
 #: inc/registration/namespace.php:65
 msgid "Create a new book"
-msgstr "Izveidot jaunu grāmatu"
+msgstr "Neues Buch erstellen"
 
 #: inc/registration/namespace.php:68
 msgid ""
 "Welcome, %s. Fill out the form below to <strong>add a new book to your "
 "account</strong>."
-msgstr ""
+msgstr "Willkommen, %s. Füllen Sie das Formular unten aus, um <strong>ein neues Buch Ihrem Konto hinzuzufügen</strong>."
 
 #: inc/registration/namespace.php:72
 msgid "yourwebbookname"
-msgstr "jūsutiešsaistesgrāmatasvārds"
+msgstr "nameihresbuchesimweb"
 
 #: inc/registration/namespace.php:75
 msgid "Books you are already a member of:"
-msgstr "Grāmatas, kurās Jūs jau piedalījāties:"
+msgstr "Bücher, bei denen Sie bereits Mitglied sind:"
 
 #: inc/registration/namespace.php:81
 msgid "Congratulations! Your new book, %s, is almost ready"
-msgstr ""
+msgstr "Gratulation! Ihr neues Buch %s ist beinahe fertig"
 
 #: inc/registration/namespace.php:84
 msgid ""
 "But, before you can start writing your book, <strong>you must activate "
 "it</strong>."
-msgstr ""
+msgstr "Allerdings <strong>müssen Sie es freischalten</strong>, bevor Sie mit dem Schreiben Ihres Buchs starten können."
 
 #: inc/registration/namespace.php:87
 msgid ""
@@ -4297,7 +4280,7 @@ msgid ""
 " not receive an email, please check your junk or spam folder. If you still "
 "do not receive an email within an hour, you can <a href=\"%4$s\">reset your "
 "password</a>."
-msgstr ""
+msgstr "Ihr Account wurde freigeschaltet. Sie können sich nun bei Ihrem Buch mit Ihrem gewählten Nutzernamen von &#8220;%2$s&#8221; <a href=\"%1$s\">anmelden</a>. Bitte überprüfen Sie den Inhalt Ihres E-Mail-Postfachs bei %3$s auf Ihr Passwort und die Anmeldeanleitung. Falls Sie keine E-Mail erhalten, bitte überprüfen Sie auch Ihren Spam-Ordner. Wenn Sie nach einer Stunde noch immer keine E-Mail erhalten haben, können Sie <a href=\"%4$s\">ihr Passwort zurücksetzen</a>."
 
 #: inc/registration/namespace.php:90
 msgid ""
@@ -4307,64 +4290,64 @@ msgid ""
 "receive an email, please check your junk or spam folder. If you still do not"
 " receive an email within an hour, you can <a href=\"%5$s\">reset your "
 "password</a>."
-msgstr ""
+msgstr "Ihr Buch unter <a href=\"%1$s\">%2$s</a> ist freigeschaltet. Sie können sich nun bei Ihrem Buch mit Ihrem gewählten Nutzernamen von &#8220;%3$s&#8221; anmelden. Bitte überprüfen Sie den Inhalt Ihres E-Mail-Postfachs bei %4$s auf Ihr Passwort und die Anmeldeanleitung. Falls Sie keine E-Mail erhalten, bitte überprüfen Sie auch Ihren Spam-Ordner. Wenn Sie nach einer Stunde noch immer keine E-Mail erhalten haben, können Sie <a href=\"%5$s\">ihr Passwort zurücksetzen</a>."
 
 #: inc/registration/namespace.php:93
 msgid ""
 "Your account is now activated. <a href=\"%1$s\">View your book</a> or <a "
 "href=\"%2$s\">Log in</a>"
-msgstr ""
+msgstr "Ihr Konto wurde aktiviert. <a href=\"%1$s\">Betrachten Sie Ihr Buch</a> oder <a href=\"%2$s\">melden Sie sich an</a>"
 
 #: inc/registration/namespace.php:113
 msgid "Password"
-msgstr "Parole"
+msgstr "Passwort"
 
 #: inc/registration/namespace.php:118
 msgid "Type in your password."
-msgstr "Ievadiet Jūsu paroli."
+msgstr "Geben Sie Ihr Passwort ein."
 
 #: inc/registration/namespace.php:119
 msgid "Confirm Password"
-msgstr "Apstipriniet paroli"
+msgstr "Passwort bestätigen"
 
 #: inc/registration/namespace.php:121
 msgid "Type in your password again."
-msgstr "Ievadiet Jūsu paroli vēlreiz."
+msgstr "Geben Sie Ihr Passwort nochmal ein."
 
 #: inc/registration/namespace.php:122
 msgid ""
 "Password must be at least 12 characters in length, include at least one "
 "upper case letter, and have at least one number."
-msgstr ""
+msgstr "Das Passwort muss mindestens 12 Zeichen lang sein und mindestens einen Großbuchstaben und mindestens eine Zahl enthalten."
 
 #: inc/registration/namespace.php:136 inc/registration/namespace.php:176
 #: inc/registration/namespace.php:195 inc/registration/namespace.php:214
 msgid "Please try again."
-msgstr "Lūdzu, mēģiniet vēlreiz."
+msgstr "Bitte versuchen Sie es noch einmal."
 
 #: inc/registration/namespace.php:146
 msgid "You have to enter a password."
-msgstr "Jums jāievada paroli."
+msgstr "Sie müssen ein Passwort eingeben."
 
 #: inc/registration/namespace.php:152
 msgid "Passwords do not match."
-msgstr "Paroles nesakrīt."
+msgstr "Die Passwörter stimmen nicht überein."
 
 #: inc/registration/namespace.php:341
 msgid "Password must be at least 12 characters."
-msgstr ""
+msgstr "Das Passwort muss mindestens 12 Zeichen lang sein."
 
 #: inc/registration/namespace.php:345
 msgid "Password must include at least one upper case letter."
-msgstr ""
+msgstr "Das Passwort muss mindestens einen Großbuchstaben enthalten."
 
 #: inc/registration/namespace.php:349
 msgid "Password must include at least one lower case letter."
-msgstr ""
+msgstr "Das Passwort muss mindestens einen Kleinbuchstaben enthalten."
 
 #: inc/registration/namespace.php:353
 msgid "Password must include at least one number."
-msgstr ""
+msgstr "Das Passwort muss mindestens eine Zahl enthalten."
 
 #: inc/shortcodes/attributions/class-attachments.php:200
 msgid " &copy; "
@@ -4372,15 +4355,15 @@ msgstr ""
 
 #: inc/shortcodes/attributions/class-attachments.php:201
 msgid " adapted by "
-msgstr "adaptēja "
+msgstr "bearbeitet von"
 
 #: inc/shortcodes/footnotes/class-footnotes.php:187
 msgid "Invalid permissions."
-msgstr "Nepareiza atļauja."
+msgstr "Ungültige Berechtigungen"
 
 #: inc/shortcodes/glossary/class-glossary.php:139
 msgid "Select"
-msgstr "Izvēlēties"
+msgstr "Auswählen"
 
 #: inc/shortcodes/glossary/class-glossary.php:293
 msgid "definition"
@@ -4394,48 +4377,48 @@ msgstr ""
 msgid ""
 "Your book&rsquo;s theme, %1$s, has been locked in its current state as of "
 "%2$s at %3$s."
-msgstr ""
+msgstr "Das Layout Ihres Buchs %1$s wurde in seinem aktuellen Zustand vom %2$s um %3$s gesperrt."
 
 #: inc/theme/class-lock.php:109
 msgid ""
 "Your book&rsquo;s theme could not be locked. Please ensure that you have "
 "write access to the uploads directory."
-msgstr ""
+msgstr "Das Layout Ihres Buchs konnte nicht gesperrt werden. Bitte stellen Sie sicher, dass Sie Schreibberechtigungen auf das uploads Verzeichnis besitzen."
 
 #: inc/theme/class-lock.php:203
 msgid "Your book&rsquo;s theme has been unlocked."
-msgstr "Jūsu grāmatas tēma bija atbloķēta."
+msgstr "Das Layout Ihres Buchs wurde entsperrt."
 
 #: inc/theme/class-lock.php:269
 msgid ""
 "Your book&rsquo;s theme, %1$s, was locked in its current state as of %2$s at"
 " %3$s. To select a new theme or change your theme options, please %4$s."
-msgstr ""
+msgstr "Das Layout Ihres Buchs %1$s wurde in seinem aktuellen Zustand vom %2$s um %3$s gesperrt. Um ein neues Layout auszuwählen oder die Layout-Optionen zu ändern %4$s Sie bitte."
 
 #: inc/theme/namespace.php:41
 msgid ""
 "Your theme, %1$s, is not installed. Please visit %2$s for installation "
 "instructions."
-msgstr ""
+msgstr "Ihr Layout %1$s ist nicht installiert. Bitte besuchen Sie %2$s für Installationsanweisungen."
 
 #: inc/theme/namespace.php:56
 msgid ""
 "The Pressbooks Book theme is not installed, but Pressbooks needs it in order"
 " to function properly. Please visit %s for installation instructions."
-msgstr ""
+msgstr "Das Pressbooks Book-Layout ist nicht installiert, aber Pressbooks benötigt es um korrekt zu funktionieren. Bitte besuchen Sie %s für Installationsanweisungen."
 
 #: inc/theme/namespace.php:84
 msgid ""
 "The Pressbooks Custom CSS theme must be upgraded. Please visit %s for "
 "installation instructions."
-msgstr ""
+msgstr "Das Pressbooks Benutzerdefiniertes CSS-Layout muss aktualisiert werden. Bitte besuchen Sie %s für Installationsanweisungen."
 
 #: inc/theme/namespace.php:138
 msgid ""
 "Luther has been replaced with McLuhan as Pressbooks’ default book theme. To "
 "continue using Luther for your book, please ensure that the standalone <a "
 "href=\"%1$s\">Luther theme</a> is installed and network activated."
-msgstr ""
+msgstr "Luther wurde mit McLuhan als Pressbooks Standard-Buch-Layout ersetzt. Um Luther weiterhin für Ihr Buch zu verwenden, stellen Sie sicher, dass das eigenständige <a href=\"%1$s\">Luther Layout</a> installiert und netzwerkweit aktiviert ist."
 
 #: inc/utility/class-handlestransfers.php:41
 msgid "Download JSON"
@@ -4459,98 +4442,98 @@ msgstr ""
 
 #: inc/utility/class-percentageyield.php:90
 msgid " (%1$d of %2$d)"
-msgstr ""
+msgstr " (%1$d von %2$d)"
 
 #: inc/utility/namespace.php:567 inc/utility/namespace.php:578
 #: inc/utility/namespace.php:594
 msgid ""
 "An unexpected error occurred. Something may be wrong with the plugin "
 "recommendations server or your site&#8217;s server&#8217;s configuration."
-msgstr "Negaidīta kļūda. Kaut kas notika ar rekomendēta servera spraudni vai ar Jūsu vietnes servera konfigurācijām."
+msgstr "Ein unerwarteter Fehler ist aufgetreten. Möglicherweise ist etwas mit dem Server für Plugin-Empfehlungen oder der Konfiguration des Servers Ihrer Seite nicht in Ordnung."
 
 #: inc/utility/namespace.php:567
 msgid ""
 "(Pressbooks could not establish a secure connection to the plugin "
 "recommendations server. Please contact your server administrator.)"
-msgstr "(Pressbooks nevar izveidot drošu savienojumu ar rekomendēta servera spraudni.  Lūdzu, sazinieties ar Jūsu servera administratoru.)"
+msgstr "(Pressbooks konnte keine sichere Verbindung zum Server für Plugin-Empfehlungen herstellen. Bitte kontaktieren Sie Ihren Server-Verwalter.)"
 
 #: inc/utility/namespace.php:618
 msgid ""
 "These plugins have been created and/or recommended by the Pressbooks "
 "community."
-msgstr "Šos spraudņus rādīja un/vai rekomendēja Pressbooks kopiena."
+msgstr "Diese Plugins wurden von der Pressbooks Gemeinschaft erstellt und/oder empfohlen."
 
 #: languages/tinymce.php:4
 msgid "Class"
-msgstr "Klase"
+msgstr "Klasse"
 
 #: languages/tinymce.php:5
 msgid "Textboxes"
-msgstr "Tekstlodziņi"
+msgstr "Textfelder"
 
 #: languages/tinymce.php:6
 msgid "Custom Textbox"
-msgstr "Lietotāja tekstlodziņš"
+msgstr "Eigenes Textfeld"
 
 #: languages/tinymce.php:8
 msgid "Standard (Sidebar)"
-msgstr "Standarts (sānjosla)"
+msgstr "Standard (Seitenleiste)"
 
 #: languages/tinymce.php:9
 msgid "Type your textbox content here."
-msgstr "Ierakstiet Jūsu tekstlodziņa saturu te."
+msgstr "Ergänzen Sie Ihren Textfeld-Inhalt hier."
 
 #: languages/tinymce.php:11
 msgid "Shaded (Sidebar)"
-msgstr "Aizēnots (sānjosla)"
+msgstr "Schattiert (Seitenleiste)"
 
 #: languages/tinymce.php:13
 msgid "Learning Objectives (Sidebar)"
-msgstr "Mācību mērķi (sānjosla)"
+msgstr "Lernziele (Seitenleiste)"
 
 #: languages/tinymce.php:14
 msgid "Type your learning objectives here."
-msgstr "Ievadiet Jūsu mācību mērķus te."
+msgstr "Ergänzen Sie Ihre Lernziele hier."
 
 #: languages/tinymce.php:16
 msgid "Key Takeaways (Sidebar)"
-msgstr "Pamatrezultāti (sānjosla)"
+msgstr "Zusammenfassung (Seitenleiste)"
 
 #: languages/tinymce.php:17
 msgid "Type your key takeaways here."
-msgstr "Ierakstiet Jūsu pamatrezultātus te."
+msgstr "Ergänzen Sie Ihre Zusammenfassung hier."
 
 #: languages/tinymce.php:19
 msgid "Exercises (Sidebar)"
-msgstr "Uzdevumi (sānjosla)"
+msgstr "Aufgaben (Seitenleiste)"
 
 #: languages/tinymce.php:20
 msgid "Type your exercises here."
-msgstr "Ierakstiet Jūsu uzdevumus te."
+msgstr "Ergänzen Sie Ihre Aufgaben hier."
 
 #: languages/tinymce.php:22
 msgid "Examples (Sidebar)"
-msgstr "Piemēri (sānjosla)"
+msgstr "Beispiele (Seitenleiste)"
 
 #: languages/tinymce.php:23
 msgid "Type your examples here."
-msgstr "Ierakstiet Jūsu piemērus te."
+msgstr "Ergänzen Sie Ihre Beispiele hier."
 
 #: languages/tinymce.php:24
 msgid "Custom..."
-msgstr "Lietotāja..."
+msgstr "Eigene..."
 
 #: languages/tinymce.php:25
 msgid "First"
-msgstr "Pirmais"
+msgstr "Erstens"
 
 #: languages/tinymce.php:26
 msgid "Second"
-msgstr "Otrais"
+msgstr "Zeitens"
 
 #: languages/tinymce.php:27
 msgid "Apply Class"
-msgstr "Piemērot klasi"
+msgstr "Klasse anwenden"
 
 #. translators: 1: URL to Composer documentation, 2: URL to Pressbooks latest
 #. releases
@@ -4559,47 +4542,47 @@ msgid ""
 "Pressbooks dependencies are missing. Please make sure that your "
 "project&rsquo;s <a href=\"%1$s\">Composer autoload file</a> is being "
 "required, or use the <a href=\"%2$s\">latest release</a> instead."
-msgstr ""
+msgstr "Abhängigkeiten für Pressbooks fehlen. Bitte stellen Sie sicher, dass die <a href=\"%1$s\">Autoload-Datei von Composer</a> Ihres Projekts eingebunden wird oder verwenden Sie stattdessen die <a href=\"%2$s\">neueste Version</a>."
 
 #: pressbooks.php:91
 msgid "Cannot find Pressbooks install."
-msgstr "Nevar atrast Pressbooks vietnes instalētāju."
+msgstr "Konnte Pressbooks-Installation nicht finden."
 
 #: templates/admin/catalog.php:27
 msgid "Tags For"
-msgstr "Tagi"
+msgstr "Tags für"
 
 #: templates/admin/catalog.php:50
 msgid "Tags"
-msgstr "Tagi"
+msgstr "Tags"
 
 #: templates/admin/catalog.php:91
 msgid "My Catalog Profile"
-msgstr "Mans kataloga profils"
+msgstr "Mein Katalogprofil"
 
 #: templates/admin/catalog.php:102 templates/admin/cloner/stats.blade.php:5
 #: templates/admin/cloner/stats.blade.php:19
 msgid "URL"
-msgstr "Tīmekļa adrese"
+msgstr "URL"
 
 #: templates/admin/catalog.php:106
 msgid "Tags Name"
-msgstr "Tagu vārds"
+msgstr "Tags Bezeichnung"
 
 #: templates/admin/catalog.php:115
 msgid "Sidebar Color"
-msgstr "Sānjoslas krāsa"
+msgstr "Farbe der Seitenleiste"
 
 #: templates/admin/catalog.php:118
 msgid "Logo Or Image"
-msgstr "Logotips vai bilde"
+msgstr "Logo oder Bild"
 
 #: templates/admin/covergenerator.php:65 templates/admin/covergenerator.php:85
 msgid ""
 "You are currently using the Custom CSS theme. To generate a cover, you will "
 "need to switch back to a base theme temporarily. You can then reapply your "
 "Custom CSS theme."
-msgstr "Pašlaik Jūs izmantojat lietotāja CSS tēmu. Lai ģenerētu vāku, Jums uz laiku vajag pārslēgties atpakaļ uz pamattēmu. Vēlāk Jūs varat atkārtoti piemērot lietotāja CSS tēmu."
+msgstr "Sie verwenden derzeit das Benutzerdefniertes CSS Layout. Um einen Umschlag zu generieren müssen Sie vorübergehend auf ein Basis-Layout wechseln. Sie können dann Ihr Benutzerdefiniertes CSS Layout wieder anwenden."
 
 #: templates/admin/covergenerator.php:69
 msgid ""
@@ -4607,27 +4590,27 @@ msgid ""
 "<strong>print</strong> book that will work with most Print on Demand "
 "services, as well as an <strong>ebook</strong> cover that will meet the "
 "specifications of Kindle, Apple and other ebook retailers."
-msgstr ""
+msgstr "Mit unserem Umschlag-Generator können Sie ganz einfach einen schönen Umschlag für Ihr <strong>gedrucktes</strong> Buch erstellen, welcher mit den meisten Print-on-Demand-Services funktionieren wird. Weiters erhalten Sie einen Umschlag für ein <strong>E-Book</strong>, welcher die Spezifikationen von Kindle, Apple und anderen E-Book-Händlern erfüllen wird."
 
 #: templates/admin/covergenerator.php:79
 msgid "Make Your Cover"
-msgstr "Izveidojiet savu vāku"
+msgstr "Erstellen Sie Ihren Umschlag"
 
 #: templates/admin/covergenerator.php:92
 msgid "Make PDF Cover"
-msgstr "Izveidojiet PDF formāta faila vāku"
+msgstr "Erstellen Sie Ihren PDF-Umschlag"
 
 #: templates/admin/covergenerator.php:98
 msgid "Make Ebook Cover"
-msgstr "Izveidojiet elektroniskās grāmatas vāku"
+msgstr "Erstellen Sie Ihren E-Book-Umschlag"
 
 #: templates/admin/covergenerator.php:100
 msgid "Download"
-msgstr "Lejuplādēt"
+msgstr "Herunterladen"
 
 #: templates/admin/covergenerator.php:104
 msgid "Sorry! You have to generate some covers first."
-msgstr "Atvainojiet! No sākuma Jums jāģenerē vākus."
+msgstr "Entschuldigung! Sie müssen zuerst ein paar Umschläge generieren."
 
 #. translators: %s date/time
 #: templates/admin/covergenerator.php:107
@@ -4651,39 +4634,39 @@ msgstr ""
 
 #: templates/admin/covergenerator.php:151
 msgid "Are you sure you want to delete ALL your current covers?"
-msgstr "Vai esat droši, ka gribējāt nodzēst VISUS Jūsu pašreizējus vākus?"
+msgstr "Sind Sie sicher, dass Sie ALLE Ihren aktuellen Umschläge löschen möchten?"
 
 #: templates/admin/covergenerator.php:151
 msgid "Delete All Covers"
-msgstr "Nodzēst visus vākus"
+msgstr "Alle Umschläge löschen"
 
 #: templates/admin/custom-styles.php:37
 msgid "Error: Something went wrong. See logs for more details."
-msgstr "Kļūda: Kaut kas ir nepareizs. Paskatieties žurnālus, lai saņemtu vairāk informācijas."
+msgstr "Fehler: Irgendetwas ist schiefgelaufen. Sehen Sie sich die Log-Dateien für weitere Details an."
 
 #: templates/admin/custom-styles.php:47
 msgid "You are currently editing styles for"
-msgstr "Jūs pašlaik rediģējat stilus "
+msgstr "Sie bearbeiten derzeit Stile für"
 
 #: templates/admin/custom-styles.php:48
 msgid "Theme %1$s Styles (%2$s)"
-msgstr ""
+msgstr "Layout %1$s Stile (%2$s)"
 
 #: templates/admin/custom-styles.php:50
 msgid "Your %s Styles"
-msgstr ""
+msgstr "Ihre %s Stile"
 
 #: templates/admin/custom-styles.php:52
 msgid "Save"
-msgstr "Saglabāt"
+msgstr "Speichern"
 
 #: templates/admin/import.php:18
 msgid "Web page or Pressbooks webbook (.html or URL)"
-msgstr "Tiešsaistes vietne vai Pressbooks tiešsaistes grāmata (.html vai tīmekļa adrese)"
+msgstr "Webseite oder Pressbooks Buch im Web (.html oder URL)"
 
 #: templates/admin/import.php:18
 msgid "Web page (.html or URL)"
-msgstr ""
+msgstr "Webseite (.html oder URL)"
 
 #: templates/admin/import.php:28
 msgid "EPUB (.epub)"
@@ -4699,15 +4682,15 @@ msgstr "OpenOffice (.odt)"
 
 #: templates/admin/import.php:31
 msgid "Pressbooks/WordPress XML (.wxr or .xml)"
-msgstr "Pressbooks/WordPress XML (.wxr vai .xml)"
+msgstr "Pressbooks/WordPress XML (.wxr oder .xml)"
 
 #: templates/admin/import.php:44
 msgid "Select content below for import into Pressbooks."
-msgstr ""
+msgstr "Wählen Sie unten die Inhalte für den Import nach Pressbooks."
 
 #: templates/admin/import.php:45
 msgid "Source:"
-msgstr ""
+msgstr "Quelle:"
 
 #: templates/admin/import.php:63
 msgid "Selected all sections for import"
@@ -4719,7 +4702,7 @@ msgstr ""
 
 #: templates/admin/import.php:70
 msgid "Are you sure you want to abort the import?"
-msgstr "Vai esat droši, ka gribējāt nodzēst visus importa failus?"
+msgstr "Sind Sie sicher, dass Sie den Import abbrechen wollen?"
 
 #: templates/admin/import.php:88 templates/admin/import.php:143
 msgid "Import all"
@@ -4727,27 +4710,27 @@ msgstr ""
 
 #: templates/admin/import.php:99
 msgid "Other"
-msgstr "Cits"
+msgstr "Andere"
 
 #: templates/admin/import.php:149
 msgid "Show imported content in web"
-msgstr "Rādīt importētu saturu tiešsaistē"
+msgstr "Importierte Inhalte im Buch im Web anzeigen"
 
 #: templates/admin/import.php:154
 msgid "Import Selection"
-msgstr "Importēt atlasīšanu"
+msgstr "Import-Auswahl"
 
 #: templates/admin/import.php:165
 msgid "Maximum file size:"
-msgstr "Maksimāls faila izmērs:"
+msgstr "Maximale Dateigröße"
 
 #: templates/admin/import.php:174
 msgid "Import Type"
-msgstr "Importa tips"
+msgstr "Import-Typ"
 
 #: templates/admin/import.php:186 templates/admin/import.php:190
 msgid "Import Source"
-msgstr "Importa avots"
+msgstr "Import-Quelle"
 
 #: templates/admin/import.php:201
 msgid "Choose file"
@@ -4755,135 +4738,135 @@ msgstr ""
 
 #: templates/admin/import.php:214
 msgid "Begin Import"
-msgstr "Sākt importēšanu "
+msgstr "Import starten"
 
 #: templates/admin/results.php:4
 msgid "Results"
-msgstr "Rezultāti"
+msgstr "Ergebnisse"
 
 #: templates/admin/results.php:6
 msgid "%1$s result(s) found."
-msgstr ""
+msgstr "%1$s Ergebnis(se) gefunden."
 
 #: templates/admin/results.php:21
 msgid "There are no results."
-msgstr "Nav rezultātu"
+msgstr "Keine Ergebnisse."
 
 #: templates/admin/search.php:12
 msgid ""
 "Search & Replace will find and replace ALL instances of the search pattern "
 "in your entire book. Replacements will only be saved if you click "
 "&lsquo;<strong>Replace &amp; Save</strong>&rsquo;."
-msgstr ""
+msgstr "Suchen & Ersetzen findet und ersetzt ALLE Vorkommnisse des Suchmusters in Ihrem gesamten Buch. Ersetzungen werden nur gespeichert, wenn Sie auf  &lsquo;<strong>Ersetzen &amp; Speichern</strong>&rsquo; klicken."
 
 #: templates/admin/search.php:13
 msgid ""
 "Be careful replacing text. There is no undo button. However, you can revert "
 "your changes using the Revision History within each chapter, front matter or"
 " back matter."
-msgstr "Esiet uzmanīgi, pārvietojot tekstu. Te nav darbību atsaukšanas pogas. Lai gan katras nodaļas, sākuma papildinformācijas un beigu papildinformācijas ietvaros, izmantojot pārskatīšanas vēsturi, Jūs varat atgriezties pie iepriekšējās versijas."
+msgstr "Seien Sie vorsichtig beim Ersetzen von Text. Es gibt keine Schaltfläche, um Änderungen rückgängig zu machen. Sie können Ihre Änderungen jedoch mithilfe des Änderungsprotokolls in jedem Kapitel, jeder Titelseite oder jedem Anhang rückgängig machen."
 
 #: templates/admin/search.php:17
 msgid "Search Within"
-msgstr "Meklēt ietvaros"
+msgstr "Suche im"
 
 #: templates/admin/search.php:41
 msgid "Result Order"
-msgstr "Rezultāta kārtība"
+msgstr "Sortierung der Ergebnisse"
 
 #: templates/admin/search.php:50
 msgid "Ascending"
-msgstr "Kāpjošs "
+msgstr "Aufsteigend"
 
 #: templates/admin/search.php:51
 msgid "Descending"
-msgstr "Nokāpjošs"
+msgstr "Absteigend"
 
 #: templates/admin/search.php:56
 msgid "Search For"
-msgstr "Meklēt"
+msgstr "Suche nach"
 
 #: templates/admin/search.php:62
 msgid "Replace With"
-msgstr "Aizstāvēt ar"
+msgstr "Ersetze mit"
 
 #: templates/admin/search.php:69
 msgid "Regex"
-msgstr "Regulāra izteiksme"
+msgstr "Regex"
 
 #: templates/admin/search.php:73
 msgid "Enable regular expressions"
-msgstr "Aktivēt regulāro izteiksmi"
+msgstr "Aktiviere reguläre Ausdrücke"
 
 #: templates/admin/search.php:84
 msgid "Preview Replacements"
-msgstr "Aizstāvēšanas priekšskatījums "
+msgstr "Vorschau der Ersetzungen"
 
 #: templates/admin/search.php:85
 msgid "Replace &amp; Save"
-msgstr "Aizstāvēt un saglabāt"
+msgstr "Ersetzen &amp; Speichern"
 
 #: templates/admin/trash.php:21
 msgid ""
 "Restore deleted chapters, parts, front and back matter, and glossary terms"
-msgstr "Atjaunot nodzēstas nodaļas, daļas, sākuma un beigu papildinformāciju, kā arī glosārija terminus "
+msgstr "Gelöschte Kapitel, Buchteile, Titeleien, Anhänge und Glossarbegriffe wiederherstellen"
 
 #: templates/admin/trash.php:22
 msgid ""
 "<strong>NOTE</strong>: Items in the trash will be permanently deleted after "
 "%d days."
-msgstr ""
+msgstr "<strong>ANMERKUNG</strong>: Elemente im Papierkorb werden nach %d Tagen vollständig gelöscht."
 
 #: templates/admin/trash.php:27
 msgid "No trash found."
-msgstr "Atkritumi nav atrasti."
+msgstr "Kein Papierkorb gefunden."
 
 #: templates/admin/trash.php:37
 msgid "Last Modified"
-msgstr "Pēdējo reizi mainīts"
+msgstr "Letzte Änderung"
 
 #: templates/admin/trash.php:38
 msgid "Type"
-msgstr "Tips"
+msgstr "Typ"
 
 #: templates/admin/trash.php:39
 msgid "Action"
-msgstr "Darbība"
+msgstr "Aktion"
 
 #: templates/pb-catalog.php:160
 msgid "'s Catalog Page"
-msgstr "kataloga lapaspuse"
+msgstr "s Katalogseite"
 
 #: templates/pb-catalog.php:181
 msgid "login"
-msgstr "ielogoties"
+msgstr "Anmelden"
 
 #: templates/pb-catalog.php:183
 msgid "logout"
-msgstr "iziet "
+msgstr "Abmelden"
 
 #: templates/pb-catalog.php:191
 msgid "Admin"
-msgstr "Administrēšana"
+msgstr "Admin"
 
 #: templates/pb-catalog.php:244
 msgid "Catalog"
-msgstr "Katalogs "
+msgstr "Katalog"
 
 #: templates/pb-catalog.php:244
 msgid "filtering by"
-msgstr "filtrēt pēc"
+msgstr "filtern mit"
 
 #: templates/pb-catalog.php:269
 msgid ""
 "Sorry, but no books matched your filtering criteria. Please <a "
 "class=\"clear-filters\" href=\"#\">clear your current filters</a> and try "
 "again."
-msgstr ""
+msgstr "Entschuldigung, aber es existiert kein Buch mit dieser Filtereinstellung. Bitte <a class=\"clear-filters\" href=\"#\">löschen Sie Ihre aktuellen Filter</a> und versuchen Sie es noch einmal."
 
 #: templates/pb-catalog.php:273
 msgid "Pressbooks: the CMS for Books."
-msgstr "Pressbooks vietne: grāmatu CMS"
+msgstr "Pressbooks: das CMS für Bücher."
 
 #: templates/admin/cloner/book-card.blade.php:9
 msgid "H5P Activities"
@@ -4904,27 +4887,27 @@ msgid ""
 "for you to revise and redistribute as desired. You can enter the source book"
 " URL if you already know it, or find and select a suitable book from the "
 "Pressbooks Directory."
-msgstr ""
+msgstr "Mit diesem Tool können Sie offen lizenzierte Bücher von einem Pressbooks-Netzwerk in ein anderes klonen. Beim Klonen wird eine Kopie des Originalbuchs erstellt, die Sie nach Belieben überarbeiten und weitergeben können. Sie können die Quellbuch-URL eingeben, wenn Sie sie bereits kennen, oder ein geeignetes Buch aus dem Pressbooks-Verzeichnis suchen und auswählen."
 
 #: templates/admin/cloner/page.blade.php:9
 msgid ""
 "Enter the URL of a Pressbooks book with an open license which permits "
 "cloning."
-msgstr ""
+msgstr "Geben Sie die URL eines Pressbooks-Buchs mit einer offenen Lizenz ein, die das Klonen erlaubt."
 
 #: templates/admin/cloner/page.blade.php:10
 msgid "New Book URL"
-msgstr ""
+msgstr "URL des neues Buchs"
 
 #: templates/admin/cloner/page.blade.php:16
 msgid ""
 "Enter the URL where you want this book to be cloned. This URL cannot be "
 "changed later, so choose carefully."
-msgstr ""
+msgstr "Geben Sie die URL ein, unter der dieses Buch geklont werden soll. Diese URL kann später nicht mehr geändert werden, wählen Sie sie also sorgfältig aus."
 
 #: templates/admin/cloner/page.blade.php:17
 msgid "Clone book"
-msgstr ""
+msgstr "Buch klonen"
 
 #: templates/admin/cloner/page.blade.php:24
 msgid "Search the Pressbooks Directory"
@@ -4950,7 +4933,7 @@ msgstr ""
 
 #: templates/admin/cloner/stats.blade.php:7
 msgid "Total # of clones"
-msgstr ""
+msgstr "Gesamtzahl der Klone "
 
 #: templates/admin/cloner/stats.blade.php:11
 msgid "List of clones"
@@ -4975,43 +4958,43 @@ msgstr ""
 
 #: templates/admin/dashboard/book.blade.php:7
 msgid "Visit book"
-msgstr ""
+msgstr "Buch ansehen"
 
 #: templates/admin/dashboard/book.blade.php:26
 msgid "Edit book info"
-msgstr ""
+msgstr "Buch-Info bearbeiten"
 
 #: templates/admin/dashboard/book.blade.php:34
 msgid "Organize book"
-msgstr ""
+msgstr "Organisieren"
 
 #: templates/admin/dashboard/book.blade.php:42
 msgid "Change theme"
-msgstr ""
+msgstr "Layout wechseln"
 
 #: templates/admin/dashboard/book.blade.php:50
 msgid "Manage users"
-msgstr ""
+msgstr "Benutzer administrieren"
 
 #: templates/admin/dashboard/book.blade.php:58
 msgid "View Analytics"
-msgstr ""
+msgstr "Analytics anzeigen"
 
 #: templates/admin/dashboard/book.blade.php:66
 msgid "Delete book"
-msgstr ""
+msgstr "Buch löschen"
 
 #: templates/admin/dashboard/book.blade.php:78
 msgid "Write a new chapter art"
-msgstr ""
+msgstr "Ein neues Kapitel erstellen"
 
 #: templates/admin/dashboard/book.blade.php:85
 msgid "Write a new chapter"
-msgstr ""
+msgstr "Ein neues Kapitel erstellen"
 
 #: templates/admin/dashboard/book.blade.php:91
 msgid "Import Content"
-msgstr ""
+msgstr "Inhalte importieren"
 
 #: templates/admin/dashboard/book.blade.php:105
 #: templates/admin/dashboard/support.blade.php:4
@@ -5020,40 +5003,40 @@ msgstr ""
 
 #: templates/admin/dashboard/book.blade.php:114
 msgid "Getting started with Pressbooks"
-msgstr ""
+msgstr "Erste Schritte mit Pressbooks"
 
 #: templates/admin/dashboard/book.blade.php:117
 msgid "Watch a short video series on how to get started with Pressbooks."
-msgstr ""
+msgstr "Sehen Sie sich kurze Videos zu den ersten Schritten mit Pressbooks an."
 
 #: templates/admin/dashboard/book.blade.php:125
 msgid "Pressbooks user guide"
-msgstr ""
+msgstr "Pressbooks-Benutzerhandbuch"
 
 #: templates/admin/dashboard/book.blade.php:128
 msgid ""
 "Find help and how-tos for your publishing project in this detailed handbook."
-msgstr ""
+msgstr "In diesem ausführlichen Handbuch finden Sie Hilfe und Anleitungen für Ihr Publishing-Projekt."
 
 #: templates/admin/dashboard/book.blade.php:136
 #: templates/admin/dashboard/support.blade.php:23
 msgid "Pressbooks community forum"
-msgstr ""
+msgstr "Pressbooks-Community-Forum"
 
 #: templates/admin/dashboard/book.blade.php:139
 msgid ""
 "Discuss Pressbooks related questions with other users in our public forum."
-msgstr ""
+msgstr "Diskutieren Sie mit anderen Benutzern Fragen zu Pressbooks im öffentlichen Pressbooks Forum."
 
 #: templates/admin/dashboard/book.blade.php:147
 msgid "Pressbooks training webinars"
-msgstr ""
+msgstr "Pressbooks-Schulungs-Webinare"
 
 #: templates/admin/dashboard/book.blade.php:150
 msgid ""
 "Register for free webinars to learn about Pressbooks features and best "
 "practices."
-msgstr ""
+msgstr "Melden Sie sich für kostenlose Webinare an, um mehr über die Funktionen und Best Practices in Pressbooks zu erfahren."
 
 #: templates/admin/dashboard/network.blade.php:5
 msgid "Network Manager Dashboard"
@@ -5062,7 +5045,7 @@ msgstr ""
 #: templates/admin/dashboard/network.blade.php:7
 #: templates/admin/dashboard/user.blade.php:6
 msgid "Welcome to"
-msgstr ""
+msgstr "Willkommen im"
 
 #: templates/admin/dashboard/network.blade.php:12
 msgid "Visit network homepage"
@@ -5182,14 +5165,14 @@ msgstr ""
 #: templates/admin/dashboard/user.blade.php:53
 #: templates/admin/dashboard/user.blade.php:58
 msgid "Create a book"
-msgstr ""
+msgstr "Buch erstellen"
 
 #: templates/admin/dashboard/user.blade.php:47
 msgid ""
 "Create a new book full of engaging content: words, images, audio, video, "
 "footnotes, glossary terms, mathematical formula, interactive quizzes, and "
 "more."
-msgstr ""
+msgstr "Erstellen Sie ein neues Buch mit Bildern, Audios, Videos, Fussnoten, Glossarbegriffen, Formeln und Interaktivitäten."
 
 #: templates/admin/dashboard/user.blade.php:71
 msgid "Adapt a book art"
@@ -5198,139 +5181,139 @@ msgstr ""
 #: templates/admin/dashboard/user.blade.php:76
 #: templates/admin/dashboard/user.blade.php:83
 msgid "Adapt a book"
-msgstr ""
+msgstr "Ein Buch adaptieren"
 
 #: templates/admin/dashboard/user.blade.php:78
 msgid ""
 "Use our cloning tool to make your own personalized copy of any of the "
 "thousands of openly licensed educational books already published with "
 "Pressbooks."
-msgstr ""
+msgstr "Verwenden Sie das Klonen-Tool, um eine  Kopie eines bestehenden Pressbooks Buchs zu erstellen."
 
 #: templates/admin/diagnostics.blade.php:5
 msgid "Please submit this information with any bug reports."
-msgstr "Lūdzu, iesniedziet šo informāciju ar jebkādiem kļūdu ziņojumiem."
+msgstr "Bitte reichen Sie diese Informationen mit allen Fehlermeldungen ein."
 
 #: templates/admin/diagnostics.blade.php:6
 msgid ""
 "To copy the system info, click below then press Ctrl + C (PC) or Cmd + C "
 "(Mac)."
-msgstr "Lai nokopētu sistēmas informāciju, noklikšķiniet turpmāk un pēc tām uzspiediet Ctrl + C (PD) vai Cmd + C (Mac)."
+msgstr "Um die Systeminformation zu kopieren, klicken Sie unten und drücken dann Strg + C (PC) oder Cmd + C (Mac)."
 
 #: templates/admin/diagnostics.blade.php:8
 msgid "View Source"
-msgstr "Skatīties avotu"
+msgstr "Quelle anzeigen"
 
 #: templates/admin/diagnostics.blade.php:9
 msgid ""
 "<a href=\"%s\">View your book&rsquo;s XHTML source</a> to diagnose issues "
 "you may be encountering with your PDF exports."
-msgstr ""
+msgstr "<a href=\"%s\">Zeigen Sie den XHTML-Quellcode Ihres Buchs an</a>, um Fehler mit den PDF-Exporten zu diagnostizieren."
 
 #: templates/admin/diagnostics.blade.php:10
 msgid "Regenerate Webbook Stylesheet"
-msgstr ""
+msgstr "Generiere Stylesheet des Buchs im Web neu"
 
 #: templates/admin/diagnostics.blade.php:11
 msgid "If your webbook stylesheet has issues, it may help to regenerate it."
-msgstr ""
+msgstr "Wenn das Stylesheet Ihres Buchs im Web Probleme hat, hilft es vielleicht es neu zu generieren."
 
 #: templates/admin/diagnostics.blade.php:12
 msgid "Regenerate Stylesheet"
-msgstr ""
+msgstr "Stylesheet neu generieren"
 
 #: templates/admin/export.blade.php:12
 msgid ""
 "You can select multiple formats below. Pressbooks keeps the last 3 exports "
 "of each file format. You can pin specific files to make sure they don't get "
 "deleted."
-msgstr ""
+msgstr "Sie können unten mehrere Formate auswählen. Pressbooks speichert die letzten 3 Exporte jedes Dateiformats. Sie können bestimmte Dateien anheften, um sicherzustellen, dass sie nicht gelöscht werden."
 
 #: templates/admin/export.blade.php:15
 msgid "Toggle panel: Export Options"
-msgstr ""
+msgstr "Panel umschalten: Export-Optionen"
 
 #: templates/admin/export.blade.php:19
 msgid "Export Options"
-msgstr ""
+msgstr "Export-Optionen"
 
 #: templates/admin/export.blade.php:28
 msgid "Supported formats"
-msgstr "Atbalstītie formāti"
+msgstr "Unterstützte Formate"
 
 #: templates/admin/export.blade.php:40
 msgid "Other formats"
-msgstr "Citi formāti "
+msgstr "Andere Formate"
 
 #: templates/admin/export.blade.php:60
 msgid "Your Theme"
-msgstr ""
+msgstr "Ihr Layout"
 
 #: templates/admin/export.blade.php:80
 msgid "Export Your Book"
-msgstr "Eksportēt Jūsu grāmatu"
+msgstr "Buch exportieren"
 
 #: templates/admin/export.blade.php:85
 msgid "Latest Exports"
-msgstr ""
+msgstr "Letzte Exporte"
 
 #: templates/admin/mathjax.blade.php:5
 msgid ""
 "If you can see a big integral, then PB-MathJax is configured correctly, and "
 "all is well."
-msgstr ""
+msgstr "Wenn Sie ein großes Integral sehen, dann ist PB-MathJax korrekt konfiguriert und alles ist in Ordnung."
 
 #: templates/admin/mathjax.blade.php:10
 msgid "Syntax"
-msgstr ""
+msgstr "Syntax"
 
 #: templates/admin/mathjax.blade.php:13
 msgid "LaTeX"
-msgstr ""
+msgstr "LaTeX"
 
 #: templates/admin/mathjax.blade.php:15 templates/admin/mathjax.blade.php:26
 msgid "Shortcode syntax: %s"
-msgstr ""
+msgstr "Shortcode-Syntax: %s"
 
 #: templates/admin/mathjax.blade.php:19 templates/admin/mathjax.blade.php:30
 msgid "Dollar sign syntax: %s"
-msgstr ""
+msgstr "Dollar-Sign-Syntax: %s"
 
 #: templates/admin/mathjax.blade.php:24
 msgid "AsciiMath"
-msgstr ""
+msgstr "AsciiMath"
 
 #: templates/admin/mathjax.blade.php:35
 msgid "MathML"
-msgstr ""
+msgstr "MathML"
 
 #: templates/admin/mathjax.blade.php:37
 msgid "Markup syntax: %s"
-msgstr ""
+msgstr "Markup-Syntax: %s"
 
 #: templates/admin/mathjax.blade.php:44
 msgid "Text color"
-msgstr ""
+msgstr "Textfarbe"
 
 #: templates/admin/mathjax.blade.php:47
 msgid ""
 "A six digit hexadecimal number like <code>000000</code> or "
 "<code>ffffff</code>"
-msgstr ""
+msgstr "Eine sechsstellige Hexadezimalzahl wie <code>000000</code> oder <code>ffffff</code>"
 
 #: templates/admin/mathjax.blade.php:52
 msgid "SVG/PNG Fonts"
-msgstr ""
+msgstr "SVG/PNG-Schriftarten"
 
 #: templates/admin/mathjax.blade.php:59
 msgid ""
 "Affects exports (PDF, EPUB, MOBI.) Webbook uses CommonHTML. CommonHTML "
 "currently only supports MathJax’s default TeX fonts."
-msgstr ""
+msgstr "Betrifft Exporte (PDF, EPUB, MOBI). Webboks verwendet CommonHTML. CommonHTML unterstützt derzeit nur die Standard-TeX-Schriftarten von MathJax."
 
 #: templates/admin/mathjax.blade.php:65
 msgid "Save Changes"
-msgstr ""
+msgstr "Änderungen speichern"
 
 #: templates/admin/organize.blade.php:11 templates/admin/organize.blade.php:16
 msgid "This book’s global privacy is set to"
@@ -5347,29 +5330,29 @@ msgstr ""
 msgid ""
 "Only users you invite can see your book, regardless of individual chapter "
 "visibility below."
-msgstr "tikai lietotāji, ko Jūs uzaicinājāt, var skatīties Jūsu grāmatu, neatkarīgi no turpmākiem atsevišķu nodaļu redzamības iestatījumiem."
+msgstr "Nur von Ihnen eingeladene Benutzer können Ihr Buch sehen, unabhängig von der Sichtbarkeit einzelner Kapitel."
 
 #: templates/admin/organize.blade.php:63
 msgid "Add Glossary Term"
-msgstr "Pievienot glosārija terminu"
+msgstr "Glossarbegriff hinzufügen"
 
 #: templates/admin/organize.blade.php:67
 msgid "Word Count:"
-msgstr "Vārdu skaits:"
+msgstr "Anzahl Worte:"
 
 #: templates/admin/organize.blade.php:67
 msgid "%s (whole book)"
-msgstr ""
+msgstr "%s (Ganzes Buch)"
 
 #: templates/admin/organize.blade.php:69
 msgid "%s (selected for export)"
-msgstr ""
+msgstr "%s (Für den Export ausgewählt)"
 
 #: templates/admin/organize.blade.php:91
 #: templates/admin/organize.blade.php:100
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:3
 msgid "Add"
-msgstr "Pievienot"
+msgstr "Hinzufügen"
 
 #: templates/admin/organize.blade.php:109
 #: templates/admin/organize.blade.php:175
@@ -5386,12 +5369,12 @@ msgstr ""
 
 #: templates/admin/organize.blade.php:133
 msgid "Comments"
-msgstr "Komentāri"
+msgstr "Kommentare"
 
 #: templates/admin/organize.blade.php:160
 #: templates/admin/organize.blade.php:168
 msgid "Ebook start point"
-msgstr "Elektroniskās grāmatas sākuma punkts"
+msgstr "E-Book Anfangspunkt"
 
 #: templates/admin/organize.blade.php:182
 msgid "Trash%s"
@@ -5414,7 +5397,6 @@ msgid "comment"
 msgid_plural "comments"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: templates/admin/organize.blade.php:236
 msgid "Show %s in Web"
@@ -5430,15 +5412,15 @@ msgstr ""
 
 #: templates/admin/sitemap.blade.php:3
 msgid "Admin Bar"
-msgstr ""
+msgstr "Admin-Leiste"
 
 #: templates/admin/sitemap.blade.php:6
 msgid "Side Menu"
-msgstr ""
+msgstr "Seitenmenü"
 
 #: templates/export/title.blade.php:16
 msgid "Publisher Logo"
-msgstr "Izdevēja logotips"
+msgstr "Logo des Verlags"
 
 #: templates/interactive/h5p.blade.php:3
 msgid ""
@@ -5474,36 +5456,36 @@ msgstr ""
 
 #: assets/src/scripts/a11y.js:31 assets/src/scripts/a11y.js:32
 msgid "Gradient selector"
-msgstr ""
+msgstr "Gradient-Auswahl"
 
 #: assets/src/scripts/a11y.js:45
 msgid "Black"
-msgstr ""
+msgstr "Schwarz"
 
 #: assets/src/scripts/a11y.js:48
 msgid "White"
-msgstr ""
+msgstr "Weiß"
 
 #: assets/src/scripts/a11y.js:51
 msgid "Red"
-msgstr ""
+msgstr "Rot"
 
 #: assets/src/scripts/a11y.js:54
 msgid "Orange"
-msgstr ""
+msgstr "Orange"
 
 #: assets/src/scripts/a11y.js:57
 msgid "Yellow"
-msgstr ""
+msgstr "Gelb"
 
 #: assets/src/scripts/a11y.js:60
 msgid "Green"
-msgstr ""
+msgstr "Grün"
 
 #: assets/src/scripts/a11y.js:63
 msgid "Blue"
-msgstr ""
+msgstr "Blau"
 
 #: assets/src/scripts/a11y.js:66
 msgid "Purple"
-msgstr ""
+msgstr "Violett"
