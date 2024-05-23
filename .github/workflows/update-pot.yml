@@ -17,3 +17,4 @@ jobs:
       slug: "pressbooks"
       package_name: "Pressbooks"
       headers: '{"Report-Msgid-Bugs-To": "https://github.com/pressbooks/pressbooks/issues"}'
+      pull_request_number: ${{ github.event.pull_request.number }}
