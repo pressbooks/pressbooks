@@ -7,31 +7,6 @@ on:
       - "src/assets/**/*"
 
 jobs:
-  check-runs:
-    runs-on: ubuntu-latest
-    outputs:
-      should_run: ${{ steps.check.outputs.should_run }}
-    steps:
-      - name: Check if there are any checks running
-        id: check
-        run: |
-          # Get the latest commit SHA
-          latest_commit=$(git rev-parse HEAD)
-
-          # Get the check runs for the latest commit
-          check_runs=$(curl -s -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/${{ github.repository }}/commits/$latest_commit/check-runs")
-
-          # Check if there are any check runs in progress
-          in_progress=$(echo "$check_runs" | jq '.check_runs[] | select(.status == "in_progress")')
-
-          if [ -z "$in_progress" ]; then
-            echo "::set-output name=should_run::true"
-          else
-            echo "::set-output name=should_run::false"
-          fi
-
   update-npm-build:
-    needs: check-runs
     if: ${{ github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]' && needs.check-runs.outputs.should_run == 'true' }}
     uses: pressbooks/reusable-workflows/.github/workflows/npm-build.yml@main
