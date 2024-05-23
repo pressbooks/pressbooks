@@ -8,5 +8,4 @@ on:
 
 jobs:
   update-npm-build:
-    if: ${{ github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]' && needs.check-runs.outputs.should_run == 'true' }}
     uses: pressbooks/reusable-workflows/.github/workflows/npm-build.yml@main
