@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [dev]
     paths:
-      - "src/assets/**/*"
+      - "assets/**/*"
 
 jobs:
   update-npm-build:
