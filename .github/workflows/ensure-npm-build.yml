@@ -2,7 +2,9 @@ name: Npm build ⚙️
 
 on:
   pull_request:
-    branches: [ dev ]
+    branches: [dev]
+    paths:
+      - "src/assets/**/*"
 
 jobs:
   update-npm-build:
