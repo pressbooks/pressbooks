@@ -1,0 +1,11 @@
+name: Prepare Release 🚀
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy:
+    uses: pressbooks/reusable-workflows/.github/workflows/prepare-release.yml@main
+    secrets: inherit

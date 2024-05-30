@@ -1,35 +1,48 @@
 version: 2
 updates:
-  # Maintain dependencies for npm
-  - package-ecosystem: "npm"
-    # Look for `package.json` and `package-lock.json` files in the root directory
-    directory: "/"
-    # Check for updates weekly
-    schedule:
-      interval: "weekly"
-    allow:
-      # Allow direct updates only (for packages named in package.json)
-      - dependency-type: "direct"
-    # Allow up to 10 open pull requests for npm dependencies
-    open-pull-requests-limit: 10
-
   # Maintain dependencies for Composer
   - package-ecosystem: "composer"
-    # Look for `composer.json` and `composer.lock` files in the root directory
     directory: "/"
-    # Check for updates weekly
     schedule:
       interval: "weekly"
     allow:
-      # Allow direct updates only (for packages named in composer.json)
       - dependency-type: "direct"
-    # Allow up to 10 open pull requests for composer dependencies
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 5
+    versioning-strategy: "increase-if-necessary"
+    ignore:
+      - dependency-name: "*"
+        update-types: [ "version-update:semver-major" ]
+    groups:
+      composer-dependencies:
+        dependency-type: "production"
+      composer-dev-dependencies:
+        dependency-type: "development"
 
+  # Maintain dependencies for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    allow:
+      - dependency-type: "direct"
+    open-pull-requests-limit: 5
+    versioning-strategy: "increase-if-necessary"
+    ignore:
+      - dependency-name: "*"
+        update-types: [ "version-update:semver-major" ]
+    groups:
+      npm-dependencies:
+        dependency-type: "production"
+      npm-dev-dependencies:
+        dependency-type: "development"
+
+  # Maintain dependencies for GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
-    allow:
-      - dependency-type: "direct"
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 5
+    groups:
+      all-github-actions:
+        patterns:
+          - ".*"

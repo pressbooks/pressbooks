@@ -215,7 +215,6 @@ if ( $is_book ) {
 	add_action( 'admin_enqueue_scripts', '\Pressbooks\Editor\admin_enqueue_scripts' );
 	add_action( 'admin_init', '\Pressbooks\Editor\add_editor_style' );
 }
-
 if ( ! defined( 'PB_GUTENBERG_TESTING' ) || ! PB_GUTENBERG_TESTING ) {
 	// Hide Gutenberg
 	add_action( 'plugins_loaded', '\Pressbooks\Editor\hide_gutenberg', 1000 );

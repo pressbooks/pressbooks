@@ -1,20 +1,25 @@
 <?php
-/*
-Plugin Name:        Pressbooks
-Plugin URI:         https://pressbooks.org
-GitHub Plugin URI:  pressbooks/pressbooks
-Release Asset:      true
-Description:        Simple Book Production
-Version:            6.18.1
-Requires at least:  6.5
-Requires PHP:       8.1
-Author:             Pressbooks (Book Oven Inc.)
-Author URI:         https://pressbooks.org
-License:            GPL v3 or later
-License URI:        https://www.gnu.org/licenses/gpl-3.0.html
-Text Domain:        pressbooks
-Network:            True
-*/
+/**
+ * Plugin Name: Pressbooks
+ * Plugin URI: https://pressbooks.org
+ * GitHub Plugin URI: pressbooks/pressbooks
+ * Release Asset: true
+ * Description: Simple Book Production
+ * x-release-please-start-version
+ * Version: 6.18.1
+ * x-release-please-end
+ * Requires at least: WordPress 6.5
+ * Requires PHP: 8.1
+ * Author: Pressbooks (Book Oven Inc.)
+ * Author URI: https://pressbooks.org
+ * License: GPL v3 or later
+ * Text Domain: pressbooks
+ * Network: True
+ *
+ * @package Pressbooks
+ * @author Pressbooks (Book Oven Inc.)
+ * @license GPL-3.0-or-later
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	return;
