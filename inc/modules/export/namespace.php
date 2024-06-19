@@ -43,18 +43,6 @@ function dependency_errors() {
 	} else {
 		set_site_transient( 'pb_xhtml_compatible', true );
 	}
-
-	if ( false === (bool) get_site_transient( 'pb_odt_compatible' ) && false === (bool) \Pressbooks\Modules\Export\Odt\Odt::hasDependencies() ) {
-		$dependency_errors['odt'] = 'OpenDocument';
-	} else {
-		set_site_transient( 'pb_odt_compatible', true );
-	}
-
-	if ( false === (bool) get_site_transient( 'pb_htmlbook_compatible' ) && false === (bool) \Pressbooks\Modules\Export\HTMLBook\HTMLBook::hasDependencies() ) {
-		$dependency_errors['htmlbook'] = 'HTMLBook';
-	} else {
-		set_site_transient( 'pb_htmlbook_compatible', true );
-	}
 	/**
 	 * Filter the array of dependency errors, remove unwanted formats.
 	 *
@@ -78,7 +66,7 @@ function dependency_errors_msg() {
 
 	$formats = implode( ', ', $dependency_errors );
 	$pos = strrpos( $formats, ', ' );
-	$dependency_errors_msg = sprintf(
+	return sprintf(
 		'<div class="error" role="alert"><p>%s</p></div>',
 		sprintf(
 			__( 'Some dependencies for %1$s exports could not be found. Please verify that you have completed the <a href="%2$s">installation instructions</a>.', 'pressbooks' ),
@@ -86,7 +74,6 @@ function dependency_errors_msg() {
 			'https://pressbooks.org/user-docs/installation/'
 		)
 	);
-	return $dependency_errors_msg;
 }
 
 /**
@@ -102,8 +89,6 @@ function formats() {
 		],
 		'exotic' => [
 			'xhtml' => __( 'XHTML', 'pressbooks' ),
-			'htmlbook' => __( 'HTMLBook', 'pressbooks' ),
-			'odt' => __( 'OpenDocument', 'pressbooks' ),
 			'vanillawxr' => __( 'WordPress XML', 'pressbooks' ),
 		],
 	];
@@ -157,12 +142,10 @@ function filetypes() {
 			'print_pdf' => '._print.pdf',
 			'mobi' => '.mobi',
 			'icml' => '.icml',
-			'htmlbook' => '.-htmlbook.html',
 			'xhtml' => '.html',
 			'wxr' => '.xml',
 			'vanillawxr' => '._vanilla.xml',
 			'mpdf' => '._oss.pdf',
-			'odf' => '.odt',
 			'weblinks' => '._1_1_weblinks.imscc',
 			'thincc11' => '._1_1.imscc',
 			'thincc12' => '._1_2.imscc',
@@ -192,12 +175,10 @@ function get_name_from_filetype_slug( $filetype ) {
 			'print_pdf' => __( 'Print PDF', 'pressbooks' ),
 			'pdf' => __( 'Digital PDF', 'pressbooks' ),
 			'mpdf' => __( 'Digital PDF', 'pressbooks' ),
-			'htmlbook' => __( 'HTMLBook', 'pressbooks' ),
 			'epub' => __( 'EPUB', 'pressbooks' ),
 			'mobi' => __( 'MOBI', 'pressbooks' ),
 			'epub3' => __( 'EPUB3', 'pressbooks' ),
 			'xhtml' => __( 'XHTML', 'presbooks' ),
-			'odf' => __( 'OpenDocument', 'pressbooks' ),
 			'wxr' => __( 'Pressbooks XML', 'pressbooks' ),
 			'vanillawxr' => __( 'WordPress XML', 'pressbooks' ),
 			'weblinks' => __( 'Common Cartridge (Web Links)', 'pressbooks' ),
@@ -229,12 +210,10 @@ function get_shortname_from_filetype_slug( $filetype ) {
 			'print_pdf' => __( 'Print PDF', 'pressbooks' ),
 			'pdf' => __( 'PDF', 'pressbooks' ),
 			'mpdf' => __( 'PDF', 'pressbooks' ),
-			'htmlbook' => __( 'HTML5', 'pressbooks' ),
 			'epub' => __( 'EPUB', 'pressbooks' ),
 			'mobi' => __( 'MOBI', 'pressbooks' ),
 			'epub3' => __( 'EPUB3', 'pressbooks' ),
 			'xhtml' => __( 'XHTML', 'presbooks' ),
-			'odf' => __( 'ODT', 'pressbooks' ),
 			'wxr' => __( 'WXR', 'pressbooks' ),
 			'vanillawxr' => __( 'WXR', 'pressbooks' ),
 			'weblinks' => __( 'IMSCC', 'pressbooks' ),
@@ -267,10 +246,8 @@ function get_name_from_module_classname( $classname ) {
 			'\Pressbooks\Modules\Export\Prince\Docraptor' => __( 'Digital PDF', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\Prince\PrintPdf' => __( 'Print PDF', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\Prince\Pdf' => __( 'Digital PDF', 'pressbooks' ),
-			'\Pressbooks\Modules\Export\HTMLBook\HTMLBook' => __( 'HTMLBook', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\Epub\Epub' => __( 'EPUB', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\Xhtml\Xhtml11' => __( 'XHTML', 'presbooks' ),
-			'\Pressbooks\Modules\Export\Odt\Odt' => __( 'OpenDocument', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\WordPress\Wxr' => __( 'Pressbooks XML', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\WordPress\VanillaWxr' => __( 'WordPress XML', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\ThinCC\WebLinks' => __( 'Common Cartridge (Web Links)', 'pressbooks' ),
