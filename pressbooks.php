@@ -44,7 +44,7 @@ function _pb_default_book_theme() {
 		if ( defined( 'PB_BOOK_THEME' ) ) {
 			define( 'WP_DEFAULT_THEME', PB_BOOK_THEME );
 		} else {
-			define( 'WP_DEFAULT_THEME', get_site_option( 'pressbooks_default_book_theme', 'pressbooks-book' ) );
+			define( 'WP_DEFAULT_THEME', get_site_option( 'pressbooks_default_book_theme', 'pressbooks-malala' ) );
 		}
 	}
 }
