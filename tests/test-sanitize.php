@@ -469,6 +469,49 @@ RAW;
 		$this->assertStringContainsString( '<p style="text-align: center">This should be centered.</p>', $result );
 	}
 
+	public function test_sanitize_webbook_content_spec_filter(): void
+	{
+		$content = <<< RAW
+<iframe src="https://example.org" allow="fullscreen"></iframe>
+RAW;
+
+		$result = \Pressbooks\Sanitize\sanitize_webbook_content( $content );
+
+		$this->assertEquals('<iframe src="https://example.org"></iframe>', $result);
+
+		add_filter('pb_sanitize_webbook_content_spec', function (string $spec) {
+			$spec .= 'iframe=allow;';
+
+			return $spec;
+		});
+
+		$result = \Pressbooks\Sanitize\sanitize_webbook_content( $content );
+
+		$this->assertEquals('<iframe src="https://example.org" allow="fullscreen"></iframe>', $result);
+	}
+
+	public function test_sanitize_webbook_content_config_filter(): void
+	{
+		$content = <<< RAW
+<p style="text-align: center">This should be centered.</p>
+RAW;
+
+		$result = \Pressbooks\Sanitize\sanitize_webbook_content( $content );
+
+		$this->assertStringContainsString('<p style="text-align: center">This should be centered.</p>', $result);
+
+		add_filter('pb_sanitize_webbook_content_config', function (array $config) {
+			return [
+				...$config,
+				'deny_attribute' => 'style'
+			];
+		});
+
+		$result = \Pressbooks\Sanitize\sanitize_webbook_content( $content );
+
+		$this->assertEquals('<p>This should be centered.</p>', $result);
+	}
+
 	/**
 	 * @group sanitize
 	 */
