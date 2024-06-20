@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.19.0](https://github.com/pressbooks/pressbooks/compare/6.18.2...6.19.0) (2024-06-20)
+
+
+### Features
+
+* add filters for pb_sanitize_webbook_content config and spec ([#3609](https://github.com/pressbooks/pressbooks/issues/3609)) ([4a968c7](https://github.com/pressbooks/pressbooks/commit/4a968c77fa786f97af5b9894cd8d47bd28b049cd))
+
 ## [6.18.2](https://github.com/pressbooks/pressbooks/compare/6.18.1...6.18.2) (2024-06-19)
 
 
