@@ -364,9 +364,6 @@ class Table extends \WP_List_Table {
 			case 'pdf':
 				$pre_suffix = strstr( $file, '._print.pdf' );
 				break;
-			case 'html':
-				$pre_suffix = strstr( $file, '.-htmlbook.html' );
-				break;
 			case 'xml':
 				$pre_suffix = strstr( $file, '._vanilla.xml' );
 				break;
@@ -376,9 +373,7 @@ class Table extends \WP_List_Table {
 			default:
 				$pre_suffix = false;
 		}
-		if ( 'html' === $file_extension && '.-htmlbook.html' === $pre_suffix ) {
-			$file_class = 'htmlbook';
-		} elseif ( 'html' === $file_extension && false === $pre_suffix ) {
+		if ( 'html' === $file_extension && false === $pre_suffix ) {
 			$file_class = 'xhtml';
 		} elseif ( 'xml' === $file_extension && '._vanilla.xml' === $pre_suffix ) {
 			$file_class = 'vanillawxr';
@@ -390,8 +385,6 @@ class Table extends \WP_List_Table {
 			$file_class = 'print_pdf';
 		} elseif ( 'imscc' === $file_extension && '._1_1_weblinks.imscc' === $pre_suffix ) {
 			$file_class = 'weblinks';
-		} elseif ( 'odt' === $file_extension ) {
-			$file_class = 'odf';
 		} else {
 			/**
 			 * Map custom export format file extensions to their CSS class.

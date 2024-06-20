@@ -124,19 +124,6 @@ function do_format() {
 		exit;
 	}
 
-	if ( 'htmlbook' === $format ) {
-
-		$args = [];
-		add_filter( 'pre_determine_locale', '\Pressbooks\L10n\get_locale' );
-		$switched_locale = switch_to_locale( \Pressbooks\Modules\Export\Export::locale() );
-		$foo = new \Pressbooks\Modules\Export\HTMLBook\HTMLBook( $args );
-		$foo->transform();
-		if ( $switched_locale ) {
-			restore_previous_locale();
-		}
-		exit;
-	}
-
 	/**
 	 * @since 5.3.0
 	 *

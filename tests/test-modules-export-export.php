@@ -41,8 +41,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			[ '\Pressbooks\Modules\Export\Epub\Epub', false ],
 			[ '\Pressbooks\Modules\Export\WordPress\Wxr', false ],
 			[ '\Pressbooks\Modules\Export\WordPress\VanillaWxr', false ],
-			// [ '\Pressbooks\Modules\Export\Odt\Odt', false ], // TODO: Download/install Saxon-HE in Travis build script
-			[ '\Pressbooks\Modules\Export\HTMLBook\HTMLBook', false ],
 			[ '\Pressbooks\Modules\Export\ThinCc\WebLinks', false ],
 		];
 	}
@@ -52,8 +50,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 */
 	public function moduleProviderHtml() {
 		return [
-			[ '\Pressbooks\Modules\Export\Xhtml\Xhtml11', false ],
-			[ '\Pressbooks\Modules\Export\HTMLBook\HTMLBook', false ],
+			[ '\Pressbooks\Modules\Export\Xhtml\Xhtml11', false ]
 		];
 	}
 
@@ -368,21 +365,16 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			/** @var \Pressbooks\Modules\Export\Export $exporter */
 			$exporter = new $format( [] );
 
-			if (
-				strpos( $format, '\Prince\\' ) !== false ||
-				strpos( $format, '\Odt\\' ) !== false
-			) {
+			if (str_contains($format, '\Prince\\')) {
 				$exporter->url = $xhtml_path;
 			}
 
 			$this->assertTrue( $exporter->convert(), "Could not convert with {$module}" );
 			$paths[] = $exporter->getOutputPath();
-			if ( strpos( $format, '\Xhtml\Xhtml11' ) !== false ) {
+			if (str_contains($format, '\Xhtml\Xhtml11')) {
 				$xhtml_path = $exporter->getOutputPath();
 			}
-			if ( strpos( $format, '\HTMLBook\HTMLBook' ) !== false ) {
-				// TODO: HTMLBook is too strict we don't pass the validation
-			} elseif ( strpos( $format, '\Epub\Epub' ) !== false ) {
+			if (str_contains($format, '\Epub\Epub')) {
 				// TODO: exec(): Unable to fork [/usr/bin/java -jar /opt/epubcheck/epubcheck.jar -q /path/to.epub 2>&1]
 			} else {
 				$this->assertTrue( $exporter->validate(), "Could not validate with {$format}" );
@@ -568,27 +560,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( $contributor_metadata['description'], $contributors_print );
 		$this->assertStringContainsString( "<h3 class=\"about-authors\">About the author</h3>", $contributors_print );
 	}
-
-	/**
-	 * @group export
-	 */
-	public function test_HTMLBookConstructor() {
-		$html_book = new Pressbooks\Modules\Export\HTMLBook\HTMLBook( [ 'endnotes' => true ] );
-		$this->assertArrayHasKey( 'endnotes', $_GET );
-		$this->assertTrue( $_GET['endnotes'] );
-	}
-
-	/**
-	 * @group export
-	 */
-	public function test_endnoteShortcode() {
-		$html_book = new Pressbooks\Modules\Export\HTMLBook\HTMLBook( [ 'endnotes' => true ] );
-		$end_note = $html_book->endnoteShortcode( [] , 'I am a endnote, see you!');
-		$attributes = $end_note->getAttributes();
-		$this->assertArrayHasKey( 'class', $attributes );
-		$this->assertEquals( 'endnote', $attributes['class'] );
-	}
-
 
 	/**
 	 * @group export

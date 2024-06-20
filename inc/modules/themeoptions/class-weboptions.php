@@ -194,19 +194,6 @@ class WebOptions extends \Pressbooks\Options {
 			);
 		}
 
-		if ( get_post_meta( $meta->getMetaPostId(), 'pb_is_based_on', true ) ) {
-			add_settings_field(
-				'enable_source_comparison',
-				__( 'Enable Source Comparison', 'pressbooks' ),
-				[ $this, 'renderEnableSourceComparison' ],
-				$_page,
-				$_section,
-				[
-					__( 'Add comparison tool to the end of each front matter, part, chapter, and back matter', 'pressbooks' ),
-					__( 'Allows readers to compare content with the original book from which it was cloned.', 'pressbooks' ),
-				]
-			);
-		}
 
 		/**
 		 * Add custom settings fields.
@@ -360,25 +347,6 @@ class WebOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Render the allow_comparison checkbox.
-	 *
-	 * @param array $args
-	 */
-	function renderEnableSourceComparison( $args ) {
-		unset( $args['label_for'], $args['class'] );
-		$this->renderCheckbox(
-			[
-				'id' => 'enable_source_comparison',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'enable_source_comparison',
-				'value' => ( isset( $this->options['enable_source_comparison'] ) ) ? $this->options['enable_source_comparison'] : '',
-				'label' => $args[0],
-				'description' => $args[1],
-			]
-		);
-	}
-
-	/**
 	 * Render the webbook_header_font input.
 	 *
 	 * @param array $args
@@ -452,7 +420,6 @@ class WebOptions extends \Pressbooks\Options {
 				'part_title' => 0,
 				'webbook_width' => '40em',
 				'collapse_sections' => 0,
-				'enable_source_comparison' => 0,
 			]
 		);
 	}
@@ -486,7 +453,6 @@ class WebOptions extends \Pressbooks\Options {
 				'social_media',
 				'part_title',
 				'collapse_sections',
-				'enable_source_comparison',
 			]
 		);
 	}

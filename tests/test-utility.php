@@ -97,7 +97,6 @@ class UtilityTest extends \WP_UnitTestCase {
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
 		wp_set_current_user( $user_id );
 		foreach ( [
-			'\Pressbooks\Modules\Export\HTMLBook\HTMLBook',
 			'\Pressbooks\Modules\Export\WordPress\Wxr',
 		] as $module ) {
 			/** @var \Pressbooks\Modules\Export\Export $exporter */
@@ -105,7 +104,6 @@ class UtilityTest extends \WP_UnitTestCase {
 			$exporter->convert();
 		}
 		$latest = \Pressbooks\Utility\latest_exports();
-		$this->assertArrayHasKey( 'htmlbook', $latest );
 		$this->assertArrayHasKey( 'wxr', $latest );
 	}
 
