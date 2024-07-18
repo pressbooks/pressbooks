@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.19.1](https://github.com/pressbooks/pressbooks/compare/6.19.0...6.19.1) (2024-07-18)
+
+
+### Bug Fixes
+
+* remove patterns submenu item ([#3742](https://github.com/pressbooks/pressbooks/issues/3742)) ([c4578c6](https://github.com/pressbooks/pressbooks/commit/c4578c6f1c0af0d97fc35e121ca25e58329f8fdd))
+
 ## [6.19.0](https://github.com/pressbooks/pressbooks/compare/6.18.2...6.19.0) (2024-06-20)
 
 
