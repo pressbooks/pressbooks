@@ -75,6 +75,7 @@ class SideBar {
 
 	public function removePatternsSubMenuItem(): void {
 		remove_submenu_page( 'themes.php', 'edit.php?post_type=wp_block' );
+		remove_submenu_page( 'themes.php', 'site-editor.php?path=/patterns' );
 	}
 
 	public function restrictPatternsPageAccess(): void {
