@@ -30,9 +30,9 @@ class TopBar {
 	}
 
 	public function hooks(): void {
-		add_action( 'admin_bar_menu', [ $this, 'reset' ], 999 );
-		add_action( 'admin_bar_menu', [ $this, 'add' ], 999 );
-		add_action( 'admin_bar_menu', [ $this, 'reorder' ], 999 );
+		add_action( 'admin_bar_menu', [ $this, 'reset' ], 9999 );
+		add_action( 'admin_bar_menu', [ $this, 'add' ], 9999 );
+		add_action( 'admin_bar_menu', [ $this, 'reorder' ], 9999 );
 	}
 
 	public function reset( WP_Admin_Bar $bar ): void {
