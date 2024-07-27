@@ -4944,11 +4944,11 @@ msgstr "克隆日期"
 
 #: templates/admin/dashboard/book.blade.php:7
 msgid "Visit book"
-msgstr "访问书记"
+msgstr "访问书籍"
 
 #: templates/admin/dashboard/book.blade.php:26
 msgid "Edit book info"
-msgstr ""
+msgstr "编辑书籍信息"
 
 #: templates/admin/dashboard/book.blade.php:34
 msgid "Organize book"
