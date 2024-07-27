@@ -606,11 +606,11 @@ msgstr "为您的网络上传logo/banner"
 
 #: inc/admin/dashboard/class-networkdashboard.php:81
 msgid "Display your institutional logos and colors across your network"
-msgstr ""
+msgstr "在您的网络中显示机构的logo和主色"
 
 #: inc/admin/dashboard/class-networkdashboard.php:86
 msgid "Customize your homepage"
-msgstr ""
+msgstr "定制您的首页"
 
 #: inc/admin/dashboard/class-networkdashboard.php:93
 msgid "Review network settings"
