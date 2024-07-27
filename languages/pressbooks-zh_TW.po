@@ -1193,11 +1193,11 @@ msgstr "网络插件"
 
 #: inc/admin/menus/class-sidebar.php:440 inc/admin/menus/class-sidebar.php:441
 msgid "Root Site Plugins"
-msgstr ""
+msgstr "根站点插件"
 
 #: inc/admin/menus/class-sidebar.php:462 inc/admin/menus/class-sidebar.php:463
 msgid "Network Settings"
-msgstr ""
+msgstr "网络设置"
 
 #: inc/admin/menus/class-sidebar.php:470 inc/admin/menus/class-sidebar.php:471
 msgid "Network Setup"
