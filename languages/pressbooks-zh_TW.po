@@ -5135,7 +5135,7 @@ msgstr "图书邀请"
 
 #: templates/admin/dashboard/user.blade.php:23
 msgid "You have been invited to join %1$s as %2$s"
-msgstr ""
+msgstr "您已被邀请作为%2$s加入%1$s。"
 
 #: templates/admin/dashboard/user.blade.php:24
 msgid "Accept"
@@ -5143,24 +5143,24 @@ msgstr "同意"
 
 #: templates/admin/dashboard/user.blade.php:40
 msgid "Create a new book art"
-msgstr ""
+msgstr "新建书籍art"
 
 #: templates/admin/dashboard/user.blade.php:45
 #: templates/admin/dashboard/user.blade.php:53
 #: templates/admin/dashboard/user.blade.php:58
 msgid "Create a book"
-msgstr ""
+msgstr "新建书籍"
 
 #: templates/admin/dashboard/user.blade.php:47
 msgid ""
 "Create a new book full of engaging content: words, images, audio, video, "
 "footnotes, glossary terms, mathematical formula, interactive quizzes, and "
 "more."
-msgstr ""
+msgstr "创建一本充满吸引力内容的新书：文字、图像、音频、视频、脚注、术语、数学公式、互动测验等等。"
 
 #: templates/admin/dashboard/user.blade.php:71
 msgid "Adapt a book art"
-msgstr ""
+msgstr "改编书籍art"
 
 #: templates/admin/dashboard/user.blade.php:76
 #: templates/admin/dashboard/user.blade.php:83
