@@ -4954,15 +4954,15 @@ msgstr "组织书籍"
 
 #: templates/admin/dashboard/book.blade.php:42
 msgid "Change theme"
-msgstr ""
+msgstr "更改主题"
 
 #: templates/admin/dashboard/book.blade.php:50
 msgid "Manage users"
-msgstr ""
+msgstr "管理用户"
 
 #: templates/admin/dashboard/book.blade.php:58
 msgid "View Analytics"
-msgstr ""
+msgstr "查看分析"
 
 #: templates/admin/dashboard/book.blade.php:66
 msgid "Delete book"
