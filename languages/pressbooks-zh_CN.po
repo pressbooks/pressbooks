@@ -3262,19 +3262,19 @@ msgstr "Common Cartridge (LTI 链接)"
 
 #: inc/modules/export/namespace.php:230 inc/modules/export/namespace.php:231
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #: inc/modules/export/namespace.php:232
 msgid "HTML5"
-msgstr ""
+msgstr "HTML5"
 
 #: inc/modules/export/namespace.php:237
 msgid "ODT"
-msgstr ""
+msgstr "ODT"
 
 #: inc/modules/export/namespace.php:238 inc/modules/export/namespace.php:239
 msgid "WXR"
-msgstr ""
+msgstr "WXR"
 
 #: inc/modules/export/namespace.php:240 inc/modules/export/namespace.php:241
 #: inc/modules/export/namespace.php:242 inc/modules/export/namespace.php:243
