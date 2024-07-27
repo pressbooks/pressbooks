@@ -1177,7 +1177,7 @@ msgstr "升级网络"
 #: inc/admin/menus/class-sidebar.php:347 inc/admin/menus/class-sidebar.php:348
 #: inc/admin/menus/class-sidebar.php:356 inc/admin/menus/class-sidebar.php:357
 msgid "Network Users"
-msgstr ""
+msgstr "网络用户"
 
 #: inc/admin/menus/class-sidebar.php:367 inc/admin/menus/class-sidebar.php:368
 msgid "Root Site Users"
