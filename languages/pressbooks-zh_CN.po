@@ -1621,11 +1621,11 @@ msgstr "%s 短标题"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:38
 msgid "Appears in the PDF running header and webbook navigation."
-msgstr ""
+msgstr "出现在 PDF 页眉和书籍网页导航中。"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:43
 msgid "%s Subtitle"
-msgstr ""
+msgstr "%s 副标题"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:44
 msgid "Appears in the Web/ebook/PDF output."
