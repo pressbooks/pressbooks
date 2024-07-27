@@ -5097,7 +5097,7 @@ msgstr "查看用户列表"
 
 #: templates/admin/dashboard/support.blade.php:12
 msgid "Network manager guide"
-msgstr ""
+msgstr "网络管理员指南"
 
 #: templates/admin/dashboard/support.blade.php:15
 msgid ""
