@@ -1187,7 +1187,7 @@ msgstr "根站点用户"
 
 #: inc/admin/menus/class-sidebar.php:378 inc/admin/menus/class-sidebar.php:379
 msgid "User Activation Keys"
-msgstr ""
+msgstr "用户激活Key"
 
 #: inc/admin/menus/class-sidebar.php:428 inc/admin/menus/class-sidebar.php:429
 msgid "Network Plugins"
