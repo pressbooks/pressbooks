@@ -5016,13 +5016,13 @@ msgstr "在我们的公共论坛上与其他用户讨论 Pressbooks 相关的问
 
 #: templates/admin/dashboard/book.blade.php:147
 msgid "Pressbooks training webinars"
-msgstr ""
+msgstr "Pressbooks 培训网络研讨会"
 
 #: templates/admin/dashboard/book.blade.php:150
 msgid ""
 "Register for free webinars to learn about Pressbooks features and best "
 "practices."
-msgstr ""
+msgstr "注册免费网络研讨会，了解 Pressbooks 的功能和最佳实践。"
 
 #: templates/admin/dashboard/network.blade.php:5
 msgid "Network Manager Dashboard"
