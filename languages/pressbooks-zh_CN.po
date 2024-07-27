@@ -2494,7 +2494,7 @@ msgstr "%s的图标"
 msgid ""
 "%1$s Copyright &copy;%2$s by %3$s is licensed under a %4$s, except where "
 "otherwise noted."
-msgstr ""
+msgstr "%1$s版权&copy;%2$s %2$s属于%3$s，授权协议是%4$s，有特殊说明除外。"
 
 #: inc/class-licensing.php:455 inc/class-licensing.php:465
 msgid "Icon for the %s license"
@@ -2565,7 +2565,7 @@ msgstr "Spectral"
 
 #: inc/class-styles.php:716
 msgid "Alegreya Sans"
-msgstr ""
+msgstr "Alegreya Sans"
 
 #: inc/class-styles.php:717
 msgid "Barlow"
