@@ -5129,7 +5129,7 @@ msgstr "联系Pressbooks技术支持"
 msgid ""
 "Email Pressbooks’ Premium Support team to report bugs or get personalized "
 "help."
-msgstr ""
+msgstr "通过电子邮件向 Pressbooks 的高级支持团队报告错误或获取个性化帮助。"
 
 #: templates/admin/dashboard/user.blade.php:18
 msgid "Book Invitations"
