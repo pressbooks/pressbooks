@@ -5047,7 +5047,7 @@ msgstr "导出状态"
 
 #: templates/admin/dashboard/network.blade.php:44
 msgid "Ready to Launch Checklist"
-msgstr ""
+msgstr "准备启动检查表"
 
 #: templates/admin/dashboard/network.blade.php:80
 msgid "Congratulations!"
