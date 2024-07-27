@@ -1791,7 +1791,7 @@ msgstr "CTA 横幅"
 
 #: inc/admin/network/class-networksettings.php:91
 msgid "Display the CTA banner"
-msgstr ""
+msgstr "显示CTA 横幅"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:95
 msgid "Allow Redistribution"
