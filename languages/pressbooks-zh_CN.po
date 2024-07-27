@@ -5115,7 +5115,7 @@ msgstr "与其他网络管理员和 Pressbooks 支持人员讨论感兴趣的问
 
 #: templates/admin/dashboard/support.blade.php:34
 msgid "Pressbooks webinars"
-msgstr ""
+msgstr "Pressbooks 网络研讨会"
 
 #: templates/admin/dashboard/support.blade.php:37
 msgid "Become a confident Pressbooks user by attending a free, live webinar."
