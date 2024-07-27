@@ -2183,7 +2183,7 @@ msgstr[0] "审核人"
 #: inc/class-contributors.php:832
 msgid "Illustrator"
 msgid_plural "Illustrators"
-msgstr[0] ""
+msgstr[0] "插画师"
 
 #: inc/class-eventstreams.php:201
 msgid ""
