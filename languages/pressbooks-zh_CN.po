@@ -5083,29 +5083,29 @@ msgstr "管理网络"
 
 #: templates/admin/dashboard/network.blade.php:142
 msgid "Administer network art"
-msgstr ""
+msgstr "管理网络art"
 
 #: templates/admin/dashboard/network.blade.php:151
 msgid "Adjust network settings"
-msgstr ""
+msgstr "调整网络设置"
 
 #: templates/admin/dashboard/network.blade.php:159
 msgid "View book list"
-msgstr ""
+msgstr "查看书籍列表"
 
 #: templates/admin/dashboard/network.blade.php:167
 msgid "View user list"
-msgstr ""
+msgstr "查看用户列表"
 
 #: templates/admin/dashboard/support.blade.php:12
 msgid "Network manager guide"
-msgstr ""
+msgstr "网络管理员指南"
 
 #: templates/admin/dashboard/support.blade.php:15
 msgid ""
 "Learn how to administer your Pressbooks network from our comprehensive how-"
 "to guide."
-msgstr ""
+msgstr "从我们全面的操作指南中了解如何管理您的 Pressbooks 网络。"
 
 #: templates/admin/dashboard/support.blade.php:26
 msgid ""
