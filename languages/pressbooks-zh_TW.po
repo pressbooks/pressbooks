@@ -2381,7 +2381,7 @@ msgstr "Google Analytics ID"
 #: inc/class-googleanalytics.php:28
 msgid ""
 "The Google Analytics ID for your network, e.g &lsquo;G-A123B4C5DE6&rsquo;."
-msgstr ""
+msgstr "您的网络的 Google Analytics ID，例如“G-A123B4C5DE6”。"
 
 #: inc/class-googleanalytics.php:118
 msgid "Site-Specific Tracking"
