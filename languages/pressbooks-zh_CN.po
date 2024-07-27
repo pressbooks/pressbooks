@@ -1940,7 +1940,7 @@ msgstr "明确指示项目身份的参考网页的 URL。"
 
 #: inc/api/endpoints/controller/class-posts.php:197
 msgid "The status for the post."
-msgstr ""
+msgstr "文章的状态。"
 
 #: inc/api/endpoints/controller/class-toc.php:98
 msgid "Comment count"
@@ -1960,7 +1960,7 @@ msgstr "词汇量"
 
 #: inc/api/endpoints/controller/class-toc.php:233
 msgid "Clone token."
-msgstr ""
+msgstr "克隆占位符。"
 
 #: inc/api/namespace.php:78
 msgid "Part ID."
