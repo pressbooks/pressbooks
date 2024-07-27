@@ -3258,7 +3258,7 @@ msgstr "Common Cartridge (Web Links)"
 #: inc/modules/export/namespace.php:204 inc/modules/export/namespace.php:205
 #: inc/modules/export/namespace.php:206
 msgid "Common Cartridge (LTI Links)"
-msgstr ""
+msgstr "Common Cartridge (LTI 链接)"
 
 #: inc/modules/export/namespace.php:230 inc/modules/export/namespace.php:231
 msgid "PDF"
