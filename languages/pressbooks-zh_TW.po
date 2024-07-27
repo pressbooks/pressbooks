@@ -5020,11 +5020,11 @@ msgstr "Pressbooks 培训网络研讨会"
 msgid ""
 "Register for free webinars to learn about Pressbooks features and best "
 "practices."
-msgstr ""
+msgstr "注册免费网络研讨会，了解 Pressbooks 的功能和最佳实践。"
 
 #: templates/admin/dashboard/network.blade.php:5
 msgid "Network Manager Dashboard"
-msgstr ""
+msgstr "网络管理员仪表盘"
 
 #: templates/admin/dashboard/network.blade.php:7
 #: templates/admin/dashboard/user.blade.php:6
