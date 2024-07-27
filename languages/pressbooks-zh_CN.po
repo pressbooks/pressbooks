@@ -4929,7 +4929,7 @@ msgstr "列出克隆"
 msgid ""
 "Pressbooks added the ability to reliably track successful clones in early "
 "2023. This list may not include all clones made before that time."
-msgstr ""
+msgstr "Pressbooks 在 2023 年初增加了可靠追踪成功克隆的功能。此列表可能不包括在此时间之前制作的所有克隆。"
 
 #: templates/admin/cloner/stats.blade.php:13
 msgid ""
