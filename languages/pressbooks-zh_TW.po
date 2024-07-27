@@ -4604,7 +4604,7 @@ msgstr "您最近的封面生成于%s。"
 #. translators: %s file format
 #: templates/admin/covergenerator.php:120
 msgid "%s cover"
-msgstr ""
+msgstr "%s封面"
 
 #. translators: %s file format
 #: templates/admin/covergenerator.php:127
