@@ -1251,7 +1251,7 @@ msgstr "关于 "
 
 #: inc/admin/menus/class-topbar.php:165
 msgid "Administer Network"
-msgstr ""
+msgstr "管理网络"
 
 #: inc/admin/menus/class-topbar.php:244 inc/registration/namespace.php:59
 msgid "Create Book"
@@ -1259,11 +1259,11 @@ msgstr "创建书籍"
 
 #: inc/admin/menus/class-topbar.php:263
 msgid "Clone Book"
-msgstr ""
+msgstr "克隆书籍"
 
 #: inc/admin/menus/class-topbar.php:277
 msgid "Add Users"
-msgstr ""
+msgstr "添加用户"
 
 #: inc/admin/metaboxes/class-about.php:16
 msgid "About the Book"
@@ -1587,7 +1587,7 @@ msgstr "帮助我们一起将Pressbooks翻译成您的本地化语言！"
 #: inc/admin/metaboxes/class-institutions.php:26
 #: templates/admin/institutions.blade.php:2
 msgid "Institutions"
-msgstr ""
+msgstr "机构"
 
 #: inc/admin/metaboxes/class-institutions.php:27
 #: templates/admin/institutions.blade.php:10
