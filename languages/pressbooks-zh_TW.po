@@ -4921,7 +4921,7 @@ msgstr "克隆总数"
 
 #: templates/admin/cloner/stats.blade.php:11
 msgid "List of clones"
-msgstr ""
+msgstr "列出克隆的书籍"
 
 #: templates/admin/cloner/stats.blade.php:12
 msgid ""
