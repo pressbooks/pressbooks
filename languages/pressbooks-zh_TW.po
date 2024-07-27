@@ -4599,7 +4599,7 @@ msgstr "抱歉！您必须先生成封面。"
 #. translators: %s date/time
 #: templates/admin/covergenerator.php:107
 msgid "Your latest covers were generated on %s."
-msgstr ""
+msgstr "您最近的封面生成于%s。"
 
 #. translators: %s file format
 #: templates/admin/covergenerator.php:120
