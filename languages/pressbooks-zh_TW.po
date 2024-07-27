@@ -1211,11 +1211,11 @@ msgstr "网络管理员"
 
 #: inc/admin/menus/class-sidebar.php:487 inc/admin/menus/class-sidebar.php:488
 msgid "Whitelabel Settings"
-msgstr ""
+msgstr "白标设置"
 
 #: inc/admin/menus/class-sidebar.php:497 inc/admin/menus/class-sidebar.php:498
 msgid "Object Cache"
-msgstr ""
+msgstr "对象缓存"
 
 #: inc/admin/menus/class-sidebar.php:506 inc/admin/menus/class-sidebar.php:507
 #: inc/class-googleanalytics.php:69 inc/class-googleanalytics.php:70
@@ -1226,15 +1226,15 @@ msgstr "Google Analytics"
 
 #: inc/admin/menus/class-sidebar.php:525 inc/admin/menus/class-sidebar.php:526
 msgid "Sharing & Privacy"
-msgstr ""
+msgstr "共享 & 隐私"
 
 #: inc/admin/menus/class-sidebar.php:537 inc/admin/menus/class-sidebar.php:538
 msgid "Root Site General Settings"
-msgstr ""
+msgstr "根站点通用设置"
 
 #: inc/admin/menus/class-sidebar.php:550 inc/admin/menus/class-sidebar.php:551
 msgid "Root Site Media Settings"
-msgstr ""
+msgstr "根站点媒体设置"
 
 #: inc/admin/menus/class-sidebar.php:563 inc/admin/menus/class-sidebar.php:564
 msgid "Root Site Privacy Settings"
