@@ -598,7 +598,7 @@ msgstr "一项"
 
 #: inc/admin/dashboard/class-invitations.php:30
 msgid "a"
-msgstr ""
+msgstr "一项"
 
 #: inc/admin/dashboard/class-networkdashboard.php:79
 msgid "Brand your network"
