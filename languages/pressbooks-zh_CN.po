@@ -634,7 +634,7 @@ msgstr "完成新手培训"
 
 #: inc/admin/dashboard/class-networkdashboard.php:161
 msgid "Take the 'Readiness to Launch' survey"
-msgstr ""
+msgstr "参加“启动就绪”调查问卷"
 
 #: inc/admin/dashboard/class-networkdashboard.php:163
 msgid "Complete a brief survey about your onboarding experience"
