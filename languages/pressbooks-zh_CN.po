@@ -2334,7 +2334,7 @@ msgstr "朝鲜语"
 
 #: inc/class-globaltypography.php:57
 msgid "Khmer"
-msgstr ""
+msgstr "高棉语"
 
 #: inc/class-globaltypography.php:58
 msgid "Malayalam"
