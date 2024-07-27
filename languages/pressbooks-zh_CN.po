@@ -5137,7 +5137,7 @@ msgstr "图书邀请"
 
 #: templates/admin/dashboard/user.blade.php:23
 msgid "You have been invited to join %1$s as %2$s"
-msgstr ""
+msgstr "您已被邀请作为%2$s加入%1$s。"
 
 #: templates/admin/dashboard/user.blade.php:24
 msgid "Accept"
