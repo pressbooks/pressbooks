@@ -5119,11 +5119,11 @@ msgstr "Pressbooks 网络研讨会"
 
 #: templates/admin/dashboard/support.blade.php:37
 msgid "Become a confident Pressbooks user by attending a free, live webinar."
-msgstr ""
+msgstr "通过参加免费的现场网络研讨会，成为一名自信的 Pressbooks 用户。"
 
 #: templates/admin/dashboard/support.blade.php:46
 msgid "Contact Pressbooks Support"
-msgstr ""
+msgstr "联系Pressbooks技术支持"
 
 #: templates/admin/dashboard/support.blade.php:49
 msgid ""
