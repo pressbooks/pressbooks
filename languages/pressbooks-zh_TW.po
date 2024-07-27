@@ -1201,7 +1201,7 @@ msgstr "网络设置"
 
 #: inc/admin/menus/class-sidebar.php:470 inc/admin/menus/class-sidebar.php:471
 msgid "Network Setup"
-msgstr ""
+msgstr "网络设置"
 
 #: inc/admin/menus/class-sidebar.php:478 inc/admin/menus/class-sidebar.php:479
 #: inc/admin/networkmanagers/namespace.php:20
