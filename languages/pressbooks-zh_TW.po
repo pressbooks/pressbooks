@@ -5103,31 +5103,31 @@ msgstr "网络管理员指南"
 msgid ""
 "Learn how to administer your Pressbooks network from our comprehensive how-"
 "to guide."
-msgstr ""
+msgstr "从我们全面的操作指南中了解如何管理您的 Pressbooks 网络。"
 
 #: templates/admin/dashboard/support.blade.php:26
 msgid ""
 "Discuss issues of interest with other network managers and Pressbooks "
 "support staff."
-msgstr ""
+msgstr "与其他网络管理员和 Pressbooks 支持人员讨论感兴趣的问题。"
 
 #: templates/admin/dashboard/support.blade.php:34
 msgid "Pressbooks webinars"
-msgstr ""
+msgstr "Pressbooks 网络研讨会"
 
 #: templates/admin/dashboard/support.blade.php:37
 msgid "Become a confident Pressbooks user by attending a free, live webinar."
-msgstr ""
+msgstr "通过参加免费的现场网络研讨会，成为一名自信的 Pressbooks 用户。"
 
 #: templates/admin/dashboard/support.blade.php:46
 msgid "Contact Pressbooks Support"
-msgstr ""
+msgstr "联系Pressbooks技术支持"
 
 #: templates/admin/dashboard/support.blade.php:49
 msgid ""
 "Email Pressbooks’ Premium Support team to report bugs or get personalized "
 "help."
-msgstr ""
+msgstr "通过电子邮件向 Pressbooks 的高级支持团队报告错误或获取个性化帮助。"
 
 #: templates/admin/dashboard/user.blade.php:18
 msgid "Book Invitations"
