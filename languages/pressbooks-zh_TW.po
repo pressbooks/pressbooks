@@ -4877,21 +4877,21 @@ msgstr "此工具允许您将公开许可的书籍从一个 Pressbooks 网络克
 msgid ""
 "Enter the URL of a Pressbooks book with an open license which permits "
 "cloning."
-msgstr ""
+msgstr "输入具有允许克隆的开放许可证的 Pressbooks 书籍的 URL。"
 
 #: templates/admin/cloner/page.blade.php:10
 msgid "New Book URL"
-msgstr ""
+msgstr "新建书籍 URL"
 
 #: templates/admin/cloner/page.blade.php:16
 msgid ""
 "Enter the URL where you want this book to be cloned. This URL cannot be "
 "changed later, so choose carefully."
-msgstr ""
+msgstr "输入要克隆此书的 URL。此 URL 以后无法更改，因此请谨慎选择。"
 
 #: templates/admin/cloner/page.blade.php:17
 msgid "Clone book"
-msgstr ""
+msgstr "克隆书籍"
 
 #: templates/admin/cloner/page.blade.php:24
 msgid "Search the Pressbooks Directory"
