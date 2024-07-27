@@ -1165,25 +1165,25 @@ msgstr "状态"
 
 #: inc/admin/menus/class-sidebar.php:286 inc/admin/menus/class-sidebar.php:287
 msgid "Network Stats"
-msgstr ""
+msgstr "网络状态"
 
 #: inc/admin/menus/class-sidebar.php:295 inc/admin/menus/class-sidebar.php:296
 #: inc/admin/menus/class-sidebar.php:314 inc/admin/menus/class-sidebar.php:315
 msgid "Analytics"
-msgstr ""
+msgstr "分析"
 
 #: inc/admin/menus/class-sidebar.php:334 inc/admin/menus/class-sidebar.php:335
 msgid "Upgrade Network"
-msgstr ""
+msgstr "升级网络"
 
 #: inc/admin/menus/class-sidebar.php:347 inc/admin/menus/class-sidebar.php:348
 #: inc/admin/menus/class-sidebar.php:356 inc/admin/menus/class-sidebar.php:357
 msgid "Network Users"
-msgstr ""
+msgstr "网络用户"
 
 #: inc/admin/menus/class-sidebar.php:367 inc/admin/menus/class-sidebar.php:368
 msgid "Root Site Users"
-msgstr ""
+msgstr "根站点用户"
 
 #: inc/admin/menus/class-sidebar.php:378 inc/admin/menus/class-sidebar.php:379
 msgid "User Activation Keys"
