@@ -1635,11 +1635,11 @@ msgstr "%s作者"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:56
 msgid "%s Copyright License"
-msgstr ""
+msgstr "%s 版权"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:57
 msgid "Overrides book license on this page."
-msgstr ""
+msgstr "覆写此页面中的书籍授权。"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:63
 msgid "%s Digital Object Identifier (DOI)"
@@ -1775,11 +1775,11 @@ msgstr "拥有者"
 
 #: inc/admin/network/class-networksettings.php:62
 msgid "Theme Settings"
-msgstr ""
+msgstr "主题设置"
 
 #: inc/admin/network/class-networksettings.php:64
 msgid "Default Theme"
-msgstr ""
+msgstr "默认主题"
 
 #: inc/admin/network/class-networksettings.php:84
 msgid "CTA banner settings"
