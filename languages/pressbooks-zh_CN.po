@@ -5111,7 +5111,7 @@ msgstr "从我们全面的操作指南中了解如何管理您的 Pressbooks 网
 msgid ""
 "Discuss issues of interest with other network managers and Pressbooks "
 "support staff."
-msgstr ""
+msgstr "与其他网络管理员和 Pressbooks 支持人员讨论感兴趣的问题。"
 
 #: templates/admin/dashboard/support.blade.php:34
 msgid "Pressbooks webinars"
