@@ -5057,7 +5057,7 @@ msgstr "返回检查列表"
 
 #: templates/admin/dashboard/network.blade.php:93
 msgid "Update homepage"
-msgstr ""
+msgstr "更新首页"
 
 #: templates/admin/dashboard/network.blade.php:99
 msgid "Update homepage art"
@@ -5065,7 +5065,7 @@ msgstr ""
 
 #: templates/admin/dashboard/network.blade.php:108
 msgid "Customize network appearance"
-msgstr ""
+msgstr "定制网络外貌"
 
 #: templates/admin/dashboard/network.blade.php:116
 msgid "Create or edit pages"
