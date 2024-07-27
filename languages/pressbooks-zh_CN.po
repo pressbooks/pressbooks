@@ -2250,7 +2250,7 @@ msgstr "源书的主题'%1$s (%2$s)'在此网络上不可用，因此无法应�
 msgid ""
 "The source book's theme, theme settings, and custom styles were successfully"
 " applied."
-msgstr ""
+msgstr "源书的主题、主题设置和自定义样式已成功应用。"
 
 #: inc/class-eventstreams.php:242
 msgid "No export format was selected."
