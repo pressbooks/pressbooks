@@ -5012,7 +5012,7 @@ msgstr "Pressbooks社区论坛"
 #: templates/admin/dashboard/book.blade.php:139
 msgid ""
 "Discuss Pressbooks related questions with other users in our public forum."
-msgstr ""
+msgstr "在我们的公共论坛上与其他用户讨论 Pressbooks 相关的问题。"
 
 #: templates/admin/dashboard/book.blade.php:147
 msgid "Pressbooks training webinars"
