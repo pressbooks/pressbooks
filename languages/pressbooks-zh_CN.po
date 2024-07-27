@@ -618,7 +618,7 @@ msgstr "检查网络设置"
 
 #: inc/admin/dashboard/class-networkdashboard.php:100
 msgid "Learn about analytics options"
-msgstr ""
+msgstr "学习跟踪分析选项"
 
 #: inc/admin/dashboard/class-networkdashboard.php:128
 msgid "Configure Single Sign On (SSO)"
