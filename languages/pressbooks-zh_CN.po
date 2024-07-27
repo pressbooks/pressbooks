@@ -4883,7 +4883,7 @@ msgstr "输入具有允许克隆的开放许可证的 Pressbooks 书籍的 URL�
 
 #: templates/admin/cloner/page.blade.php:10
 msgid "New Book URL"
-msgstr ""
+msgstr "新建书籍 URL"
 
 #: templates/admin/cloner/page.blade.php:16
 msgid ""
