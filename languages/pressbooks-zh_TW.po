@@ -5005,16 +5005,16 @@ msgstr "在此详细的手册中查找有关您的出版项目的帮助和操作
 #: templates/admin/dashboard/book.blade.php:136
 #: templates/admin/dashboard/support.blade.php:23
 msgid "Pressbooks community forum"
-msgstr ""
+msgstr "Pressbooks社区论坛"
 
 #: templates/admin/dashboard/book.blade.php:139
 msgid ""
 "Discuss Pressbooks related questions with other users in our public forum."
-msgstr ""
+msgstr "在我们的公共论坛上与其他用户讨论 Pressbooks 相关的问题。"
 
 #: templates/admin/dashboard/book.blade.php:147
 msgid "Pressbooks training webinars"
-msgstr ""
+msgstr "Pressbooks 培训网络研讨会"
 
 #: templates/admin/dashboard/book.blade.php:150
 msgid ""
