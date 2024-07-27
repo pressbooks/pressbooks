@@ -2156,7 +2156,7 @@ msgstr "该投稿人的GitHub简介。必须是一个有效的URL。"
 msgid ""
 "Import multiple contributors at once by uploading a valid JSON file. See <a "
 "href=\"%s\" target=\"_blank\">our guide</a> for details."
-msgstr ""
+msgstr "通过上传有效的 JSON 文件一次性导入多个贡献者。详情请参阅 <a href=\"%s\" target=\"_blank\">我们的指南 </a> 。"
 
 #: inc/class-contributors.php:577
 msgid "Import Contributors"
@@ -2165,7 +2165,7 @@ msgstr "导入投稿人"
 #: inc/class-contributors.php:827
 msgid "Editor"
 msgid_plural "Editors"
-msgstr[0] ""
+msgstr[0] "编辑"
 
 #: inc/class-contributors.php:829
 msgid "Contributor"
