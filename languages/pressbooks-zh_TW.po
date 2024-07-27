@@ -4895,7 +4895,7 @@ msgstr "克隆书籍"
 
 #: templates/admin/cloner/page.blade.php:24
 msgid "Search the Pressbooks Directory"
-msgstr ""
+msgstr "在Pressbooks 录里搜索"
 
 #: templates/admin/cloner/results.blade.php:1
 msgid "of"
