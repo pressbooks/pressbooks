@@ -5063,11 +5063,11 @@ msgstr "更新首页"
 
 #: templates/admin/dashboard/network.blade.php:99
 msgid "Update homepage art"
-msgstr ""
+msgstr "更新首页艺术图"
 
 #: templates/admin/dashboard/network.blade.php:108
 msgid "Customize network appearance"
-msgstr "定制网络外貌"
+msgstr "定制网络外观"
 
 #: templates/admin/dashboard/network.blade.php:116
 msgid "Create or edit pages"
