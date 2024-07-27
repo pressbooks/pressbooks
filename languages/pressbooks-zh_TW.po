@@ -2332,7 +2332,7 @@ msgstr "朝鲜语"
 
 #: inc/class-globaltypography.php:57
 msgid "Khmer"
-msgstr ""
+msgstr "高棉语"
 
 #: inc/class-globaltypography.php:58
 msgid "Malayalam"
@@ -5165,14 +5165,14 @@ msgstr "改编书籍art"
 #: templates/admin/dashboard/user.blade.php:76
 #: templates/admin/dashboard/user.blade.php:83
 msgid "Adapt a book"
-msgstr ""
+msgstr "改编书籍"
 
 #: templates/admin/dashboard/user.blade.php:78
 msgid ""
 "Use our cloning tool to make your own personalized copy of any of the "
 "thousands of openly licensed educational books already published with "
 "Pressbooks."
-msgstr ""
+msgstr "使用我们的克隆工具，可以对 Pressbooks 已出版的数千本开放授权的教育书籍制作您自己的个性化副本。"
 
 #: templates/admin/diagnostics.blade.php:5
 msgid "Please submit this information with any bug reports."
