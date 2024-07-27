@@ -1785,15 +1785,15 @@ msgstr "默认主题"
 
 #: inc/admin/network/class-networksettings.php:84
 msgid "CTA banner settings"
-msgstr ""
+msgstr "CTA 横幅设置"
 
 #: inc/admin/network/class-networksettings.php:86
 msgid "CTA Banner"
-msgstr ""
+msgstr "CTA 横幅"
 
 #: inc/admin/network/class-networksettings.php:91
 msgid "Display the CTA banner"
-msgstr ""
+msgstr "显示CTA 横幅"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:95
 msgid "Allow Redistribution"
@@ -1892,7 +1892,7 @@ msgstr "成功添加用户至此书籍。"
 
 #: inc/admin/users/class-userbulk.php:245
 msgid "User(s) successfully added to the network."
-msgstr ""
+msgstr "已成功将用户加入网络。"
 
 #: inc/admin/users/class-userbulk.php:248
 msgid ""
