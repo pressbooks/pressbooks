@@ -1925,7 +1925,7 @@ msgstr "过滤书籍的标题数组。"
 
 #: inc/api/endpoints/controller/books/class-books.php:177
 msgid "Boolean value to filter books by directory exclusion."
-msgstr ""
+msgstr "通过目录排除来过滤书籍的布尔值。"
 
 #: inc/api/endpoints/controller/books/class-books.php:183
 msgid "String value to filter books by word count range."
