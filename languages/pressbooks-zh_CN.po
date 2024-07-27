@@ -5002,12 +5002,12 @@ msgstr "Pressbooks用户指南"
 #: templates/admin/dashboard/book.blade.php:128
 msgid ""
 "Find help and how-tos for your publishing project in this detailed handbook."
-msgstr ""
+msgstr "在此详细的手册中查找有关您的出版项目的帮助和操作方法。"
 
 #: templates/admin/dashboard/book.blade.php:136
 #: templates/admin/dashboard/support.blade.php:23
 msgid "Pressbooks community forum"
-msgstr ""
+msgstr "Pressbooks社区论坛"
 
 #: templates/admin/dashboard/book.blade.php:139
 msgid ""
