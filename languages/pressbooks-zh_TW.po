@@ -1238,7 +1238,7 @@ msgstr "根站点媒体设置"
 
 #: inc/admin/menus/class-sidebar.php:563 inc/admin/menus/class-sidebar.php:564
 msgid "Root Site Privacy Settings"
-msgstr ""
+msgstr "根站点隐私设置"
 
 #: inc/admin/menus/class-sidebar.php:575 inc/admin/menus/class-sidebar.php:576
 #: inc/admin/menus/class-sidebar.php:586 inc/admin/menus/class-sidebar.php:587
