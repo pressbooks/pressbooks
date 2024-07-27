@@ -4980,12 +4980,12 @@ msgstr "撰写新篇章"
 
 #: templates/admin/dashboard/book.blade.php:91
 msgid "Import Content"
-msgstr ""
+msgstr "导入内容"
 
 #: templates/admin/dashboard/book.blade.php:105
 #: templates/admin/dashboard/support.blade.php:4
 msgid "Support resources"
-msgstr ""
+msgstr "支持资源"
 
 #: templates/admin/dashboard/book.blade.php:114
 msgid "Getting started with Pressbooks"
