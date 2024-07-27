@@ -1627,7 +1627,7 @@ msgstr "%s 副标题"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:44
 msgid "Appears in the Web/ebook/PDF output."
-msgstr ""
+msgstr "出现在 网页/PDF/电子书等导出材料中。"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:49
 msgid "%s Author(s)"
