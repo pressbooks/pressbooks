@@ -1927,7 +1927,7 @@ msgstr "通过目录排除来过滤书籍的布尔值。"
 
 #: inc/api/endpoints/controller/books/class-books.php:183
 msgid "String value to filter books by word count range."
-msgstr ""
+msgstr "用于按字数范围过滤书籍的字符串值。"
 
 #: inc/api/endpoints/controller/class-metadata.php:549
 #: inc/api/endpoints/controller/class-sectionmetadata.php:453
