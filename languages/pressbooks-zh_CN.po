@@ -1913,7 +1913,7 @@ msgstr "ID偏离，覆盖页面。"
 
 #: inc/api/endpoints/controller/books/class-books.php:140
 msgid "Timestamp for updated field."
-msgstr ""
+msgstr "字段更新时间戳"
 
 #: inc/api/endpoints/controller/books/class-books.php:146
 msgid "Array of license codes to filter books."
