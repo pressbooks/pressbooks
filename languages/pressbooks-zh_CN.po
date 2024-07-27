@@ -5158,16 +5158,16 @@ msgid ""
 "Create a new book full of engaging content: words, images, audio, video, "
 "footnotes, glossary terms, mathematical formula, interactive quizzes, and "
 "more."
-msgstr ""
+msgstr "创建一本充满吸引力内容的新书：文字、图像、音频、视频、脚注、术语、数学公式、互动测验等等。"
 
 #: templates/admin/dashboard/user.blade.php:71
 msgid "Adapt a book art"
-msgstr ""
+msgstr "改编书籍art"
 
 #: templates/admin/dashboard/user.blade.php:76
 #: templates/admin/dashboard/user.blade.php:83
 msgid "Adapt a book"
-msgstr ""
+msgstr "改编书籍"
 
 #: templates/admin/dashboard/user.blade.php:78
 msgid ""
