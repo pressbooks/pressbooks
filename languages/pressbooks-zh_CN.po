@@ -1236,16 +1236,16 @@ msgstr "根站点通用设置"
 
 #: inc/admin/menus/class-sidebar.php:550 inc/admin/menus/class-sidebar.php:551
 msgid "Root Site Media Settings"
-msgstr ""
+msgstr "根站点媒体设置"
 
 #: inc/admin/menus/class-sidebar.php:563 inc/admin/menus/class-sidebar.php:564
 msgid "Root Site Privacy Settings"
-msgstr ""
+msgstr "根站点隐私设置"
 
 #: inc/admin/menus/class-sidebar.php:575 inc/admin/menus/class-sidebar.php:576
 #: inc/admin/menus/class-sidebar.php:586 inc/admin/menus/class-sidebar.php:587
 msgid "PB Stats"
-msgstr ""
+msgstr "PB状态"
 
 #: inc/admin/menus/class-topbar.php:109
 msgid "About Pressbooks"
@@ -1253,7 +1253,7 @@ msgstr "关于 "
 
 #: inc/admin/menus/class-topbar.php:165
 msgid "Administer Network"
-msgstr ""
+msgstr "管理网络"
 
 #: inc/admin/menus/class-topbar.php:244 inc/registration/namespace.php:59
 msgid "Create Book"
@@ -1261,7 +1261,7 @@ msgstr "创建书籍"
 
 #: inc/admin/menus/class-topbar.php:263
 msgid "Clone Book"
-msgstr ""
+msgstr "克隆书籍"
 
 #: inc/admin/menus/class-topbar.php:277
 msgid "Add Users"
