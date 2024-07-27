@@ -1777,11 +1777,11 @@ msgstr "拥有者"
 
 #: inc/admin/network/class-networksettings.php:62
 msgid "Theme Settings"
-msgstr ""
+msgstr "主题设置"
 
 #: inc/admin/network/class-networksettings.php:64
 msgid "Default Theme"
-msgstr ""
+msgstr "默认主题"
 
 #: inc/admin/network/class-networksettings.php:84
 msgid "CTA banner settings"
