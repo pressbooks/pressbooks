@@ -5045,15 +5045,15 @@ msgstr "导出状态"
 
 #: templates/admin/dashboard/network.blade.php:44
 msgid "Ready to Launch Checklist"
-msgstr ""
+msgstr "准备启动检查表"
 
 #: templates/admin/dashboard/network.blade.php:80
 msgid "Congratulations!"
-msgstr ""
+msgstr "恭喜！"
 
 #: templates/admin/dashboard/network.blade.php:82
 msgid "Return to checklist"
-msgstr ""
+msgstr "返回检查列表"
 
 #: templates/admin/dashboard/network.blade.php:93
 msgid "Update homepage"
