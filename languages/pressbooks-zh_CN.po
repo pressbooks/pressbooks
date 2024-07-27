@@ -5067,7 +5067,7 @@ msgstr ""
 
 #: templates/admin/dashboard/network.blade.php:108
 msgid "Customize network appearance"
-msgstr ""
+msgstr "定制网络外貌"
 
 #: templates/admin/dashboard/network.blade.php:116
 msgid "Create or edit pages"
