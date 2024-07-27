@@ -1783,11 +1783,11 @@ msgstr "默认主题"
 
 #: inc/admin/network/class-networksettings.php:84
 msgid "CTA banner settings"
-msgstr ""
+msgstr "CTA 横幅设置"
 
 #: inc/admin/network/class-networksettings.php:86
 msgid "CTA Banner"
-msgstr ""
+msgstr "CTA 横幅"
 
 #: inc/admin/network/class-networksettings.php:91
 msgid "Display the CTA banner"
