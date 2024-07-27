@@ -4915,15 +4915,15 @@ msgstr "访问目录"
 
 #: templates/admin/cloner/stats.blade.php:6
 msgid "Created"
-msgstr ""
+msgstr "创建于"
 
 #: templates/admin/cloner/stats.blade.php:7
 msgid "Total # of clones"
-msgstr ""
+msgstr "克隆总数"
 
 #: templates/admin/cloner/stats.blade.php:11
 msgid "List of clones"
-msgstr ""
+msgstr "列出克隆"
 
 #: templates/admin/cloner/stats.blade.php:12
 msgid ""
