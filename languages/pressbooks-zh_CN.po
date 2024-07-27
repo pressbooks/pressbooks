@@ -4972,11 +4972,11 @@ msgstr "删除书籍"
 
 #: templates/admin/dashboard/book.blade.php:78
 msgid "Write a new chapter art"
-msgstr ""
+msgstr "撰写新篇章"
 
 #: templates/admin/dashboard/book.blade.php:85
 msgid "Write a new chapter"
-msgstr ""
+msgstr "撰写新篇章"
 
 #: templates/admin/dashboard/book.blade.php:91
 msgid "Import Content"
