@@ -4854,15 +4854,15 @@ msgstr "Pressbooks：书籍内容管理系统。"
 
 #: templates/admin/cloner/book-card.blade.php:9
 msgid "H5P Activities"
-msgstr ""
+msgstr "H5P 活动"
 
 #: templates/admin/cloner/book-card.blade.php:14
 msgid "By"
-msgstr ""
+msgstr "By"
 
 #: templates/admin/cloner/book-card.blade.php:29
 msgid "Select this book"
-msgstr ""
+msgstr "选择该书籍"
 
 #: templates/admin/cloner/page.blade.php:4
 msgid ""
