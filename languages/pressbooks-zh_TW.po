@@ -2178,7 +2178,7 @@ msgstr[0] "译者"
 #: inc/class-contributors.php:831
 msgid "Reviewer"
 msgid_plural "Reviewers"
-msgstr[0] ""
+msgstr[0] "审核人"
 
 #: inc/class-contributors.php:832
 msgid "Illustrator"
