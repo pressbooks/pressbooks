@@ -2292,7 +2292,7 @@ msgstr "加拿大土著语言"
 
 #: inc/class-globaltypography.php:47
 msgid "Cherokee"
-msgstr ""
+msgstr "切诺基"
 
 #: inc/class-globaltypography.php:48
 msgid "Chinese (Simplified)"
