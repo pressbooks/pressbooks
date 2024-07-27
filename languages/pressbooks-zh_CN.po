@@ -1191,19 +1191,19 @@ msgstr "用户激活Key"
 
 #: inc/admin/menus/class-sidebar.php:428 inc/admin/menus/class-sidebar.php:429
 msgid "Network Plugins"
-msgstr ""
+msgstr "网络插件"
 
 #: inc/admin/menus/class-sidebar.php:440 inc/admin/menus/class-sidebar.php:441
 msgid "Root Site Plugins"
-msgstr ""
+msgstr "根站点插件"
 
 #: inc/admin/menus/class-sidebar.php:462 inc/admin/menus/class-sidebar.php:463
 msgid "Network Settings"
-msgstr ""
+msgstr "网络设置"
 
 #: inc/admin/menus/class-sidebar.php:470 inc/admin/menus/class-sidebar.php:471
 msgid "Network Setup"
-msgstr ""
+msgstr "设置网络"
 
 #: inc/admin/menus/class-sidebar.php:478 inc/admin/menus/class-sidebar.php:479
 #: inc/admin/networkmanagers/namespace.php:20
