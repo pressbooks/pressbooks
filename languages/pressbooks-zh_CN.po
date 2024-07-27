@@ -4901,7 +4901,7 @@ msgstr "在Pressbooks 录里搜索"
 
 #: templates/admin/cloner/results.blade.php:1
 msgid "of"
-msgstr "的"
+msgstr "of"
 
 #: templates/admin/cloner/results.blade.php:2
 msgid ""
