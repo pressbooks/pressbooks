@@ -4609,12 +4609,12 @@ msgstr "%s封面"
 #. translators: %s file format
 #: templates/admin/covergenerator.php:127
 msgid "Download %s cover"
-msgstr ""
+msgstr "下载%s封面"
 
 #. translators: %s file format
 #: templates/admin/covergenerator.php:134
 msgid "Delete %s cover"
-msgstr ""
+msgstr "删除%s封面"
 
 #: templates/admin/covergenerator.php:151
 msgid "Are you sure you want to delete ALL your current covers?"
@@ -4718,7 +4718,7 @@ msgstr "导入来源"
 
 #: templates/admin/import.php:201
 msgid "Choose file"
-msgstr ""
+msgstr "选择文件"
 
 #: templates/admin/import.php:214
 msgid "Begin Import"
