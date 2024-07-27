@@ -614,7 +614,7 @@ msgstr "定制您的首页"
 
 #: inc/admin/dashboard/class-networkdashboard.php:93
 msgid "Review network settings"
-msgstr ""
+msgstr "检查网络设置"
 
 #: inc/admin/dashboard/class-networkdashboard.php:100
 msgid "Learn about analytics options"
