@@ -5069,23 +5069,23 @@ msgstr "定制网络外貌"
 
 #: templates/admin/dashboard/network.blade.php:116
 msgid "Create or edit pages"
-msgstr ""
+msgstr "创建或编辑页面"
 
 #: templates/admin/dashboard/network.blade.php:125
 msgid "View homepage analytics"
-msgstr ""
+msgstr "查看首页分析"
 
 #: templates/admin/dashboard/network.blade.php:136
 msgid "Administer network"
-msgstr ""
+msgstr "管理网络"
 
 #: templates/admin/dashboard/network.blade.php:142
 msgid "Administer network art"
-msgstr ""
+msgstr "管理网络art"
 
 #: templates/admin/dashboard/network.blade.php:151
 msgid "Adjust network settings"
-msgstr ""
+msgstr "调整网络设置"
 
 #: templates/admin/dashboard/network.blade.php:159
 msgid "View book list"
