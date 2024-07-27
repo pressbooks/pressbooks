@@ -1136,12 +1136,12 @@ msgstr "对不起，您无权访问此页面。"
 #: inc/admin/menus/class-sidebar.php:229 inc/admin/menus/class-sidebar.php:230
 #: inc/admin/menus/class-topbar.php:139
 msgid "Appearance"
-msgstr ""
+msgstr "外贸"
 
 #: inc/admin/menus/class-sidebar.php:239 inc/admin/menus/class-sidebar.php:240
 #: inc/admin/menus/class-topbar.php:144
 msgid "Pages"
-msgstr ""
+msgstr "页面"
 
 #: inc/admin/menus/class-sidebar.php:250 inc/admin/menus/class-sidebar.php:251
 #: inc/admin/menus/class-sidebar.php:449 inc/admin/menus/class-sidebar.php:450
