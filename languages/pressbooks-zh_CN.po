@@ -626,7 +626,7 @@ msgstr "配置单点登录SSO"
 
 #: inc/admin/dashboard/class-networkdashboard.php:144
 msgid "Join the Pressbooks Community Forum"
-msgstr ""
+msgstr "加入Pressbooks社区论坛"
 
 #: inc/admin/dashboard/class-networkdashboard.php:152
 msgid "Complete your onboarding"
