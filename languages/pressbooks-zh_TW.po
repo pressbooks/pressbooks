@@ -628,7 +628,7 @@ msgstr "加入Pressbooks社区论坛"
 
 #: inc/admin/dashboard/class-networkdashboard.php:152
 msgid "Complete your onboarding"
-msgstr ""
+msgstr "完成新手培训"
 
 #: inc/admin/dashboard/class-networkdashboard.php:161
 msgid "Take the 'Readiness to Launch' survey"
