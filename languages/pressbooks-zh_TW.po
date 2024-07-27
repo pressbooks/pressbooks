@@ -1595,7 +1595,7 @@ msgid ""
 "This optional field can be used to display the institution(s) which created "
 "this resource. If your college or university is not listed, please contact "
 "your network manager."
-msgstr ""
+msgstr "此可选字段可用于显示创建此资源的机构。如果您的学院或大学未被列出，请联系您的网络管理员。"
 
 #: inc/admin/metaboxes/class-partvisibility.php:25
 msgid "Part Visibility"
