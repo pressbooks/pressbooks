@@ -622,7 +622,7 @@ msgstr "学习跟踪分析选项"
 
 #: inc/admin/dashboard/class-networkdashboard.php:128
 msgid "Configure Single Sign On (SSO)"
-msgstr ""
+msgstr "配置单点登录SSO"
 
 #: inc/admin/dashboard/class-networkdashboard.php:144
 msgid "Join the Pressbooks Community Forum"
