@@ -2170,12 +2170,12 @@ msgstr[0] "编辑"
 #: inc/class-contributors.php:829
 msgid "Contributor"
 msgid_plural "Contributors"
-msgstr[0] ""
+msgstr[0] "贡献者"
 
 #: inc/class-contributors.php:830
 msgid "Translator"
 msgid_plural "Translators"
-msgstr[0] ""
+msgstr[0] "译者"
 
 #: inc/class-contributors.php:831
 msgid "Reviewer"
