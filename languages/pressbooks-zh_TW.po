@@ -5061,7 +5061,7 @@ msgstr "更新首页"
 
 #: templates/admin/dashboard/network.blade.php:99
 msgid "Update homepage art"
-msgstr ""
+msgstr "更新首页艺术图"
 
 #: templates/admin/dashboard/network.blade.php:108
 msgid "Customize network appearance"
