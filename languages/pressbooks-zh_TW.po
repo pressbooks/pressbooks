@@ -1152,27 +1152,27 @@ msgstr "设置"
 #: inc/admin/menus/class-sidebar.php:261 inc/admin/menus/class-sidebar.php:262
 #: inc/admin/menus/class-sidebar.php:517 inc/admin/menus/class-sidebar.php:518
 msgid "Network Options"
-msgstr ""
+msgstr "网络选项"
 
 #: inc/admin/menus/class-sidebar.php:274 inc/admin/menus/class-sidebar.php:275
 #: inc/admin/menus/class-sidebar.php:304 inc/admin/menus/class-sidebar.php:305
 #: inc/admin/menus/class-sidebar.php:596 inc/admin/menus/class-sidebar.php:597
 #: inc/admin/menus/class-topbar.php:159
 msgid "Stats"
-msgstr ""
+msgstr "状态"
 
 #: inc/admin/menus/class-sidebar.php:286 inc/admin/menus/class-sidebar.php:287
 msgid "Network Stats"
-msgstr ""
+msgstr "网络状态"
 
 #: inc/admin/menus/class-sidebar.php:295 inc/admin/menus/class-sidebar.php:296
 #: inc/admin/menus/class-sidebar.php:314 inc/admin/menus/class-sidebar.php:315
 msgid "Analytics"
-msgstr ""
+msgstr "分析"
 
 #: inc/admin/menus/class-sidebar.php:334 inc/admin/menus/class-sidebar.php:335
 msgid "Upgrade Network"
-msgstr ""
+msgstr "升级网络"
 
 #: inc/admin/menus/class-sidebar.php:347 inc/admin/menus/class-sidebar.php:348
 #: inc/admin/menus/class-sidebar.php:356 inc/admin/menus/class-sidebar.php:357
