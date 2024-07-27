@@ -1958,7 +1958,7 @@ msgstr "词汇量"
 
 #: inc/api/endpoints/controller/class-toc.php:233
 msgid "Clone token."
-msgstr ""
+msgstr "克隆占位符。"
 
 #: inc/api/namespace.php:78
 msgid "Part ID."
