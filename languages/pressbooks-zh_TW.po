@@ -906,7 +906,7 @@ msgstr "复制尚未完成。现在离开该页面会出现一些问题，您确
 
 #: inc/admin/laf/namespace.php:662 inc/admin/laf/namespace.php:663
 msgid "Cloning Stats"
-msgstr ""
+msgstr "克隆状态"
 
 #: inc/admin/laf/namespace.php:680 inc/admin/metaboxes/namespace.php:180
 #: inc/api/endpoints/controller/class-toc.php:192
