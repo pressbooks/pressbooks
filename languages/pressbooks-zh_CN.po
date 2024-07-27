@@ -4989,7 +4989,7 @@ msgstr "支持资源"
 
 #: templates/admin/dashboard/book.blade.php:114
 msgid "Getting started with Pressbooks"
-msgstr ""
+msgstr "开始使用Pressbooks"
 
 #: templates/admin/dashboard/book.blade.php:117
 msgid "Watch a short video series on how to get started with Pressbooks."
