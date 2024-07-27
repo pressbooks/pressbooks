@@ -1,15 +1,15 @@
 # Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
-# fish free <winofchina@hotmail.com>, 2017,2021
+# fish free <winofchina@hotmail.com>, 2017,2021,2024
 # 佳宁 马, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2024-05-08T20:14:28+00:00\n"
+"POT-Creation-Date: 2024-05-23T02:06:32+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
-"Last-Translator: fish free <winofchina@hotmail.com>, 2017,2021\n"
+"Last-Translator: fish free <winofchina@hotmail.com>, 2017,2021,2024\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/pressbooks/pressbooks/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -91,7 +91,7 @@ msgstr "来源网址"
 #: inc/admin/covergenerator/namespace.php:109 inc/class-contributors.php:828
 msgid "Author"
 msgid_plural "Authors"
-msgstr[0] ""
+msgstr[0] "作者"
 
 #: inc/admin/attachments/namespace.php:60
 msgid "Author URL"
@@ -4523,14 +4523,14 @@ msgstr "应用CSS类"
 
 #. translators: 1: URL to Composer documentation, 2: URL to Pressbooks latest
 #. releases
-#: pressbooks.php:80
+#: pressbooks.php:85
 msgid ""
 "Pressbooks dependencies are missing. Please make sure that your "
 "project&rsquo;s <a href=\"%1$s\">Composer autoload file</a> is being "
 "required, or use the <a href=\"%2$s\">latest release</a> instead."
 msgstr "缺少 Pressbooks 依赖项。 请确保您的项目。Composer 自动加载文件是必需的，或者您可以改用最新版本。"
 
-#: pressbooks.php:91
+#: pressbooks.php:96
 msgid "Cannot find Pressbooks install."
 msgstr "未能找到Pressbooks安装。"
 
