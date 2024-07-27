@@ -4353,11 +4353,11 @@ msgstr "选择"
 
 #: inc/shortcodes/glossary/class-glossary.php:293
 msgid "definition"
-msgstr ""
+msgstr "定义"
 
 #: inc/shortcodes/glossary/class-glossary.php:297
 msgid "Close definition"
-msgstr ""
+msgstr "关闭定义"
 
 #: inc/theme/class-lock.php:96
 msgid ""
@@ -4601,22 +4601,22 @@ msgstr "抱歉！您必须先生成封面。"
 #. translators: %s date/time
 #: templates/admin/covergenerator.php:107
 msgid "Your latest covers were generated on %s."
-msgstr ""
+msgstr "您最近的封面生成于%s。"
 
 #. translators: %s file format
 #: templates/admin/covergenerator.php:120
 msgid "%s cover"
-msgstr ""
+msgstr "%s封面"
 
 #. translators: %s file format
 #: templates/admin/covergenerator.php:127
 msgid "Download %s cover"
-msgstr ""
+msgstr "下载%s封面"
 
 #. translators: %s file format
 #: templates/admin/covergenerator.php:134
 msgid "Delete %s cover"
-msgstr ""
+msgstr "删除%s封面"
 
 #: templates/admin/covergenerator.php:151
 msgid "Are you sure you want to delete ALL your current covers?"
@@ -4720,7 +4720,7 @@ msgstr "导入来源"
 
 #: templates/admin/import.php:201
 msgid "Choose file"
-msgstr ""
+msgstr "选择文件"
 
 #: templates/admin/import.php:214
 msgid "Begin Import"
@@ -4856,7 +4856,7 @@ msgstr "Pressbooks：书籍内容管理系统。"
 
 #: templates/admin/cloner/book-card.blade.php:9
 msgid "H5P Activities"
-msgstr ""
+msgstr "H5P 活动"
 
 #: templates/admin/cloner/book-card.blade.php:14
 msgid "By"
