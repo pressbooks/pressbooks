@@ -636,11 +636,11 @@ msgstr "参加“启动就绪”调查问卷"
 
 #: inc/admin/dashboard/class-networkdashboard.php:163
 msgid "Complete a brief survey about your onboarding experience"
-msgstr ""
+msgstr "完成关于您的新手培训中的体验的简短问卷"
 
 #: inc/admin/dashboard/namespace.php:21 inc/admin/dashboard/namespace.php:22
 msgid "Integrations"
-msgstr ""
+msgstr "集成"
 
 #: inc/admin/delete/class-book.php:52
 msgid "Delete Book"
@@ -824,7 +824,7 @@ msgstr "書籍資訊"
 
 #: inc/admin/laf/namespace.php:302
 msgid "Choose institution(s)... "
-msgstr ""
+msgstr "选择机构..."
 
 #: inc/admin/laf/namespace.php:303
 msgid "Choose a subject…"
