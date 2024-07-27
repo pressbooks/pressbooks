@@ -1228,11 +1228,11 @@ msgstr "Google Analytics"
 
 #: inc/admin/menus/class-sidebar.php:525 inc/admin/menus/class-sidebar.php:526
 msgid "Sharing & Privacy"
-msgstr ""
+msgstr "共享 & 隐私"
 
 #: inc/admin/menus/class-sidebar.php:537 inc/admin/menus/class-sidebar.php:538
 msgid "Root Site General Settings"
-msgstr ""
+msgstr "根站点通用设置"
 
 #: inc/admin/menus/class-sidebar.php:550 inc/admin/menus/class-sidebar.php:551
 msgid "Root Site Media Settings"
