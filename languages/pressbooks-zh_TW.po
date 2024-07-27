@@ -4905,15 +4905,15 @@ msgstr "的"
 msgid ""
 "results shown. To see more results, or use advanced search and filtering "
 "capabilities, %s."
-msgstr ""
+msgstr "结果已显示。要查看更多结果，可使用高级搜索和过滤功能，%s 。"
 
 #: templates/admin/cloner/results.blade.php:2
 msgid "visit the Directory itself"
-msgstr ""
+msgstr "访问目录"
 
 #: templates/admin/cloner/stats.blade.php:6
 msgid "Created"
-msgstr ""
+msgstr "创建于"
 
 #: templates/admin/cloner/stats.blade.php:7
 msgid "Total # of clones"
