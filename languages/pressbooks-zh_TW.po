@@ -2242,13 +2242,13 @@ msgid ""
 " The source book's theme, '%1$s (%2$s)', was not available on this network "
 "and could not be applied. Contact your network manager with questions about "
 "theme availability."
-msgstr ""
+msgstr "源书的主题'%1$s (%2$s)'在此网络上不可用，因此无法应用。如需了解有关主题可用性的问题，请联系您的网络管理员。"
 
 #: inc/class-eventstreams.php:220
 msgid ""
 "The source book's theme, theme settings, and custom styles were successfully"
 " applied."
-msgstr ""
+msgstr "源书的主题、主题设置和自定义样式已成功应用。"
 
 #: inc/class-eventstreams.php:242
 msgid "No export format was selected."
