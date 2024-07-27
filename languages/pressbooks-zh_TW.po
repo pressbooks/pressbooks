@@ -1915,11 +1915,11 @@ msgstr "字段更新时间戳"
 
 #: inc/api/endpoints/controller/books/class-books.php:146
 msgid "Array of license codes to filter books."
-msgstr ""
+msgstr "过滤书籍的授权代码数组。"
 
 #: inc/api/endpoints/controller/books/class-books.php:166
 msgid "Array of title filters to filter books."
-msgstr ""
+msgstr "过滤书籍的标题数组。"
 
 #: inc/api/endpoints/controller/books/class-books.php:177
 msgid "Boolean value to filter books by directory exclusion."
