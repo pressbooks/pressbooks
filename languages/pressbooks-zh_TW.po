@@ -5301,7 +5301,7 @@ msgstr "保存修改"
 
 #: templates/admin/organize.blade.php:11 templates/admin/organize.blade.php:16
 msgid "This book’s global privacy is set to"
-msgstr ""
+msgstr "本书的全局隐私设置为"
 
 #: templates/admin/organize.blade.php:27
 msgid ""
@@ -5341,7 +5341,7 @@ msgstr "添加"
 #: templates/admin/organize.blade.php:109
 #: templates/admin/organize.blade.php:175
 msgid "Edit​%s"
-msgstr ""
+msgstr "编辑%s"
 
 #: templates/admin/organize.blade.php:112
 msgid "Trash​%s"
