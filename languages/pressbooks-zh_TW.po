@@ -5089,11 +5089,11 @@ msgstr "调整网络设置"
 
 #: templates/admin/dashboard/network.blade.php:159
 msgid "View book list"
-msgstr ""
+msgstr "查看书籍列表"
 
 #: templates/admin/dashboard/network.blade.php:167
 msgid "View user list"
-msgstr ""
+msgstr "查看用户列表"
 
 #: templates/admin/dashboard/support.blade.php:12
 msgid "Network manager guide"
