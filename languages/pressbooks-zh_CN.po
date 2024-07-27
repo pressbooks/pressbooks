@@ -5145,7 +5145,7 @@ msgstr "同意"
 
 #: templates/admin/dashboard/user.blade.php:40
 msgid "Create a new book art"
-msgstr ""
+msgstr "新建书籍art"
 
 #: templates/admin/dashboard/user.blade.php:45
 #: templates/admin/dashboard/user.blade.php:53
