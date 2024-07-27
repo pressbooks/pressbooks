@@ -4927,30 +4927,30 @@ msgstr "列出克隆的书籍"
 msgid ""
 "Pressbooks added the ability to reliably track successful clones in early "
 "2023. This list may not include all clones made before that time."
-msgstr ""
+msgstr "Pressbooks 在 2023 年初增加了可靠追踪成功克隆的功能。此列表可能不包括在此时间之前制作的所有克隆。"
 
 #: templates/admin/cloner/stats.blade.php:13
 msgid ""
 "The URLs here refer to external web addresses which may no longer be active "
 "or which may be hosting other content. Please use caution if you choose to "
 "visit any of the URLs listed below."
-msgstr ""
+msgstr "此处的 URL 指的是外部网址，这些网址可能不再有效或可能托管其他内容。如果您选择访问下面列出的任何 URL，请谨慎行事。"
 
 #: templates/admin/cloner/stats.blade.php:20
 msgid "Date of clone"
-msgstr ""
+msgstr "克隆日期"
 
 #: templates/admin/dashboard/book.blade.php:7
 msgid "Visit book"
-msgstr ""
+msgstr "访问书记"
 
 #: templates/admin/dashboard/book.blade.php:26
 msgid "Edit book info"
-msgstr ""
+msgstr "编辑书籍信息"
 
 #: templates/admin/dashboard/book.blade.php:34
 msgid "Organize book"
-msgstr ""
+msgstr "组织书籍"
 
 #: templates/admin/dashboard/book.blade.php:42
 msgid "Change theme"
