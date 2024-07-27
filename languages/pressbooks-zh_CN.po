@@ -1213,7 +1213,7 @@ msgstr "网络管理员"
 
 #: inc/admin/menus/class-sidebar.php:487 inc/admin/menus/class-sidebar.php:488
 msgid "Whitelabel Settings"
-msgstr ""
+msgstr "白标设置"
 
 #: inc/admin/menus/class-sidebar.php:497 inc/admin/menus/class-sidebar.php:498
 msgid "Object Cache"
