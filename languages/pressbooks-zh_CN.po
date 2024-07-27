@@ -3279,7 +3279,7 @@ msgstr "WXR"
 #: inc/modules/export/namespace.php:240 inc/modules/export/namespace.php:241
 #: inc/modules/export/namespace.php:242 inc/modules/export/namespace.php:243
 msgid "IMSCC"
-msgstr ""
+msgstr "IMSCC"
 
 #: inc/modules/export/namespace.php:312
 msgid "The file %1$s has been %2$s successfully."
@@ -3296,7 +3296,7 @@ msgstr "未选定"
 #: inc/modules/export/namespace.php:333
 msgid "About the author"
 msgid_plural "About the authors"
-msgstr[0] ""
+msgstr[0] "关于作者"
 
 #: inc/modules/export/prince/class-pdf.php:278
 msgid ""
