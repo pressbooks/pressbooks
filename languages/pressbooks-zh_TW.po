@@ -4970,24 +4970,24 @@ msgstr "删除书籍"
 
 #: templates/admin/dashboard/book.blade.php:78
 msgid "Write a new chapter art"
-msgstr ""
+msgstr "撰写新篇章"
 
 #: templates/admin/dashboard/book.blade.php:85
 msgid "Write a new chapter"
-msgstr ""
+msgstr "撰写新篇章"
 
 #: templates/admin/dashboard/book.blade.php:91
 msgid "Import Content"
-msgstr ""
+msgstr "导入内容"
 
 #: templates/admin/dashboard/book.blade.php:105
 #: templates/admin/dashboard/support.blade.php:4
 msgid "Support resources"
-msgstr ""
+msgstr "支持资源"
 
 #: templates/admin/dashboard/book.blade.php:114
 msgid "Getting started with Pressbooks"
-msgstr ""
+msgstr "开始使用Pressbooks"
 
 #: templates/admin/dashboard/book.blade.php:117
 msgid "Watch a short video series on how to get started with Pressbooks."
