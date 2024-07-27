@@ -4889,19 +4889,19 @@ msgstr "新建书籍 URL"
 msgid ""
 "Enter the URL where you want this book to be cloned. This URL cannot be "
 "changed later, so choose carefully."
-msgstr ""
+msgstr "输入要克隆此书的 URL。此 URL 以后无法更改，因此请谨慎选择。"
 
 #: templates/admin/cloner/page.blade.php:17
 msgid "Clone book"
-msgstr ""
+msgstr "克隆书籍"
 
 #: templates/admin/cloner/page.blade.php:24
 msgid "Search the Pressbooks Directory"
-msgstr ""
+msgstr "在Pressbooks 录里搜索"
 
 #: templates/admin/cloner/results.blade.php:1
 msgid "of"
-msgstr ""
+msgstr "的"
 
 #: templates/admin/cloner/results.blade.php:2
 msgid ""
