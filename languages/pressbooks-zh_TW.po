@@ -4871,7 +4871,7 @@ msgid ""
 "for you to revise and redistribute as desired. You can enter the source book"
 " URL if you already know it, or find and select a suitable book from the "
 "Pressbooks Directory."
-msgstr ""
+msgstr "此工具允许您将公开许可的书籍从一个 Pressbooks 网络克隆到另一个。克隆过程会复制原始书籍，以便您根据需要进行修改和重新分发。如果您已经知道源书籍 URL，则可以输入它，或者从 Pressbooks 目录中查找并选择合适的书籍。"
 
 #: templates/admin/cloner/page.blade.php:9
 msgid ""
