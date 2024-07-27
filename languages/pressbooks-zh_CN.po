@@ -5026,16 +5026,16 @@ msgstr "注册免费网络研讨会，了解 Pressbooks 的功能和最佳实践
 
 #: templates/admin/dashboard/network.blade.php:5
 msgid "Network Manager Dashboard"
-msgstr ""
+msgstr "网络管理员仪表盘"
 
 #: templates/admin/dashboard/network.blade.php:7
 #: templates/admin/dashboard/user.blade.php:6
 msgid "Welcome to"
-msgstr ""
+msgstr "欢迎来到"
 
 #: templates/admin/dashboard/network.blade.php:12
 msgid "Visit network homepage"
-msgstr ""
+msgstr "访问网络首页"
 
 #: templates/admin/dashboard/network.blade.php:23
 msgid "Your network has %s books and %s users. "
