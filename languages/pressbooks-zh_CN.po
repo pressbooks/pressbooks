@@ -5039,11 +5039,11 @@ msgstr "访问网络首页"
 
 #: templates/admin/dashboard/network.blade.php:23
 msgid "Your network has %s books and %s users. "
-msgstr ""
+msgstr "您的网络含有%s本书和%s个用户。"
 
 #: templates/admin/dashboard/network.blade.php:31
 msgid "Explore stats"
-msgstr ""
+msgstr "导出状态"
 
 #: templates/admin/dashboard/network.blade.php:44
 msgid "Ready to Launch Checklist"
