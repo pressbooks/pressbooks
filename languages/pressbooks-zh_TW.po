@@ -5427,7 +5427,7 @@ msgstr "可用选项"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:8
 msgid "Moved to position $1"
-msgstr ""
+msgstr "移动到位置 $1"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:9
 msgid "Removed $1 from selection"
