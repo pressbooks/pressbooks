@@ -190,7 +190,7 @@ msgstr "公开"
 #: inc/admin/class-catalog-list-table.php:507 inc/admin/laf/namespace.php:447
 #: inc/admin/laf/namespace.php:627 inc/admin/laf/namespace.php:906
 msgid "My Catalog"
-msgstr "我的编目"
+msgstr "我的目录"
 
 #: inc/admin/class-catalog-list-table.php:508
 msgid "Edit Profile"
@@ -198,7 +198,7 @@ msgstr "编辑个人资料"
 
 #: inc/admin/class-catalog-list-table.php:509
 msgid "Visit Catalog"
-msgstr " 访问编目"
+msgstr " 访问目录"
 
 #. translators: %s: search keywords
 #: inc/admin/class-catalog-list-table.php:515
@@ -217,7 +217,7 @@ msgstr " &#8220;%1$s&#8221的搜索结果，反馈%2$d条"
 
 #: inc/admin/class-catalog-list-table.php:529
 msgid "Organize your public Catalog page."
-msgstr "组织公开的编目页。"
+msgstr "组织公开的目录页。"
 
 #: inc/admin/class-catalog-list-table.php:530
 msgid "Show/Hide books"
@@ -225,7 +225,7 @@ msgstr "显示/隐藏书籍"
 
 #: inc/admin/class-catalog-list-table.php:531
 msgid "To display a book in your catalog choose \"%s\" under Catalog Status. "
-msgstr "在编目状态下选择“%s”以显示一本书。"
+msgstr "在目录状态下选择“%s”以显示一本书。"
 
 #: inc/admin/class-catalog-list-table.php:533
 msgid "To hide a book in your catalog choose \"%s\" under Catalog Status."
