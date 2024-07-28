@@ -2063,7 +2063,7 @@ msgstr "默认数据"
 
 #: inc/class-catalog.php:803
 msgid "Catalog Logo"
-msgstr "编目Logo"
+msgstr "目录Logo"
 
 #: inc/class-catalog.php:1143 inc/class-catalog.php:1197
 #: inc/class-catalog.php:1244 templates/admin/catalog.php:19
@@ -4544,7 +4544,7 @@ msgstr "标签"
 
 #: templates/admin/catalog.php:91
 msgid "My Catalog Profile"
-msgstr "我的编目资料"
+msgstr "我的目录资料"
 
 #: templates/admin/catalog.php:102 templates/admin/cloner/stats.blade.php:5
 #: templates/admin/cloner/stats.blade.php:19
@@ -4821,7 +4821,7 @@ msgstr "操作"
 
 #: templates/pb-catalog.php:160
 msgid "'s Catalog Page"
-msgstr "的编目页"
+msgstr "的目录页"
 
 #: templates/pb-catalog.php:181
 msgid "login"
