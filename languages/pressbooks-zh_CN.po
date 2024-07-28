@@ -133,17 +133,17 @@ msgstr "管理书籍"
 #: inc/admin/class-catalog-list-table.php:271
 #: inc/admin/class-catalog-list-table.php:533
 msgid "Hide in Catalog"
-msgstr "在编目中隐藏"
+msgstr "在目录中隐藏"
 
 #: inc/admin/class-catalog-list-table.php:111
 #: inc/admin/class-catalog-list-table.php:270
 #: inc/admin/class-catalog-list-table.php:531
 msgid "Show in Catalog"
-msgstr "在编目中显示"
+msgstr "在目录中显示"
 
 #: inc/admin/class-catalog-list-table.php:228
 msgid "Catalog Status"
-msgstr "编目状态"
+msgstr "目录状态"
 
 #: inc/admin/class-catalog-list-table.php:229
 msgid "Privacy Status"
