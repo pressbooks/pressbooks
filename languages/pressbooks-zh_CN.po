@@ -229,11 +229,11 @@ msgstr "在目录状态下选择“%s”以显示一本书。"
 
 #: inc/admin/class-catalog-list-table.php:533
 msgid "To hide a book in your catalog choose \"%s\" under Catalog Status."
-msgstr "在编目状态下选择“%s”以隐藏一本书。"
+msgstr "在目录状态下选择“%s”以隐藏一本书。"
 
 #: inc/admin/class-catalog-list-table.php:536
 msgid "Catalog sorting"
-msgstr "编目排序"
+msgstr "目录排序"
 
 #: inc/admin/class-catalog-list-table.php:537
 msgid ""
