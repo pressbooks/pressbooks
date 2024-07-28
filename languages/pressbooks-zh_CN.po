@@ -5347,11 +5347,11 @@ msgstr "编辑%s"
 
 #: templates/admin/organize.blade.php:112
 msgid "Trash​%s"
-msgstr ""
+msgstr "将%s删除至垃圾箱"
 
 #: templates/admin/organize.blade.php:114
 msgid "View​%s"
-msgstr ""
+msgstr "查看%s"
 
 #: templates/admin/organize.blade.php:133
 msgid "Comments"
@@ -5364,24 +5364,24 @@ msgstr "电子书起读点"
 
 #: templates/admin/organize.blade.php:182
 msgid "Trash%s"
-msgstr ""
+msgstr "将%s删除至垃圾箱"
 
 #: templates/admin/organize.blade.php:187
 msgid "View%s"
-msgstr ""
+msgstr "查看%s"
 
 #: templates/admin/organize.blade.php:198
 msgid "Move%s Up"
-msgstr ""
+msgstr "上移%s"
 
 #: templates/admin/organize.blade.php:204
 msgid "Move%s Down"
-msgstr ""
+msgstr "下移%s"
 
 #: templates/admin/organize.blade.php:224
 msgid "comment"
 msgid_plural "comments"
-msgstr[0] ""
+msgstr[0] "评论"
 
 #: templates/admin/organize.blade.php:236
 msgid "Show %s in Web"
