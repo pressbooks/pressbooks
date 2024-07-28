@@ -5387,11 +5387,11 @@ msgstr "在网页中显示%s"
 
 #: templates/admin/organize.blade.php:246
 msgid "Show %s in Exports"
-msgstr ""
+msgstr "在导出中显示%s"
 
 #: templates/admin/organize.blade.php:255
 msgid "Show title for %s"
-msgstr ""
+msgstr "显示%s的标题"
 
 #: templates/admin/sitemap.blade.php:3
 msgid "Admin Bar"
