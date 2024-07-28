@@ -248,7 +248,7 @@ msgstr "分享您的目录"
 
 #: inc/admin/class-catalog-list-table.php:540
 msgid "The public link to your catalog page"
-msgstr "可访问您的编目页的公开超链接"
+msgstr "可访问您的目录页的公开超链接"
 
 #: inc/admin/class-catalog-list-table.php:553
 msgid "Add By URL"
@@ -1288,7 +1288,7 @@ msgstr "简短描述"
 #: inc/admin/metaboxes/class-about.php:33
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
-msgstr "一段关于您的书籍的文字，可用于编目、审稿来引用。"
+msgstr "一段关于您的书籍的文字，可用于目录、审稿来引用。"
 
 #: inc/admin/metaboxes/class-about.php:37
 msgid "Long Description"
@@ -1300,7 +1300,7 @@ msgstr "对您的书籍的完整描述。"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:19
 msgid "Additional Catalog Information"
-msgstr "扩展的编目信息"
+msgstr "扩展的目录信息"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:26
 msgid "Series Title"
