@@ -4837,7 +4837,7 @@ msgstr "管理"
 
 #: templates/pb-catalog.php:244
 msgid "Catalog"
-msgstr "编目"
+msgstr "目录"
 
 #: templates/pb-catalog.php:244
 msgid "filtering by"
