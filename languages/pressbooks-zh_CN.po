@@ -5429,15 +5429,15 @@ msgstr "可用选项"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:8
 msgid "Moved to position $1"
-msgstr ""
+msgstr "移动到位置 $1"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:9
 msgid "Removed $1 from selection"
-msgstr ""
+msgstr "从选中项目中删除 $1"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:10
 msgid "Added $1 to selection"
-msgstr ""
+msgstr "将 $1加入到选中项目中"
 
 #: assets/src/scripts/a11y.js:31 assets/src/scripts/a11y.js:32
 msgid "Gradient selector"
