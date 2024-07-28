@@ -5385,15 +5385,15 @@ msgstr[0] "评论"
 
 #: templates/admin/organize.blade.php:236
 msgid "Show %s in Web"
-msgstr ""
+msgstr "在网页中显示%s"
 
 #: templates/admin/organize.blade.php:246
 msgid "Show %s in Exports"
-msgstr ""
+msgstr "在导出中显示%s"
 
 #: templates/admin/organize.blade.php:255
 msgid "Show title for %s"
-msgstr ""
+msgstr "显示%s的标题"
 
 #: templates/admin/sitemap.blade.php:3
 msgid "Admin Bar"
@@ -5421,11 +5421,11 @@ msgstr "此版本的文本已排除一个或多个交互元素。 您可以在�
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:4
 msgid "Remove"
-msgstr ""
+msgstr "删除"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:7
 msgid "Available options"
-msgstr ""
+msgstr "可用选项"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:8
 msgid "Moved to position $1"
