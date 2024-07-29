@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2024-05-08T20:14:28+00:00\n"
+"POT-Creation-Date: 2024-05-23T02:06:32+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Chinese (Taiwan) (http://app.transifex.com/pressbooks/pressbooks/language/zh_TW/)\n"
@@ -89,7 +89,7 @@ msgstr "来源网址"
 #: inc/admin/covergenerator/namespace.php:109 inc/class-contributors.php:828
 msgid "Author"
 msgid_plural "Authors"
-msgstr[0] ""
+msgstr[0] "作者"
 
 #: inc/admin/attachments/namespace.php:60
 msgid "Author URL"
@@ -592,55 +592,55 @@ msgstr "首頁"
 
 #: inc/admin/dashboard/class-invitations.php:29
 msgid "an"
-msgstr ""
+msgstr "一项"
 
 #: inc/admin/dashboard/class-invitations.php:30
 msgid "a"
-msgstr ""
+msgstr "一项"
 
 #: inc/admin/dashboard/class-networkdashboard.php:79
 msgid "Brand your network"
-msgstr ""
+msgstr "为您的网络上传logo/banner"
 
 #: inc/admin/dashboard/class-networkdashboard.php:81
 msgid "Display your institutional logos and colors across your network"
-msgstr ""
+msgstr "在您的网络中显示机构的logo和主色"
 
 #: inc/admin/dashboard/class-networkdashboard.php:86
 msgid "Customize your homepage"
-msgstr ""
+msgstr "定制您的首页"
 
 #: inc/admin/dashboard/class-networkdashboard.php:93
 msgid "Review network settings"
-msgstr ""
+msgstr "检查网络设置"
 
 #: inc/admin/dashboard/class-networkdashboard.php:100
 msgid "Learn about analytics options"
-msgstr ""
+msgstr "学习跟踪分析选项"
 
 #: inc/admin/dashboard/class-networkdashboard.php:128
 msgid "Configure Single Sign On (SSO)"
-msgstr ""
+msgstr "配置单点登录SSO"
 
 #: inc/admin/dashboard/class-networkdashboard.php:144
 msgid "Join the Pressbooks Community Forum"
-msgstr ""
+msgstr "加入Pressbooks社区论坛"
 
 #: inc/admin/dashboard/class-networkdashboard.php:152
 msgid "Complete your onboarding"
-msgstr ""
+msgstr "完成新手培训"
 
 #: inc/admin/dashboard/class-networkdashboard.php:161
 msgid "Take the 'Readiness to Launch' survey"
-msgstr ""
+msgstr "参加“启动就绪”调查问卷"
 
 #: inc/admin/dashboard/class-networkdashboard.php:163
 msgid "Complete a brief survey about your onboarding experience"
-msgstr ""
+msgstr "完成关于您的新手培训中的体验的简短问卷"
 
 #: inc/admin/dashboard/namespace.php:21 inc/admin/dashboard/namespace.php:22
 msgid "Integrations"
-msgstr ""
+msgstr "集成"
 
 #: inc/admin/delete/class-book.php:52
 msgid "Delete Book"
@@ -824,7 +824,7 @@ msgstr "書籍資訊"
 
 #: inc/admin/laf/namespace.php:302
 msgid "Choose institution(s)... "
-msgstr ""
+msgstr "选择机构..."
 
 #: inc/admin/laf/namespace.php:303
 msgid "Choose a subject…"
@@ -906,7 +906,7 @@ msgstr "复制尚未完成。现在离开该页面会出现一些问题，您确
 
 #: inc/admin/laf/namespace.php:662 inc/admin/laf/namespace.php:663
 msgid "Cloning Stats"
-msgstr ""
+msgstr "克隆状态"
 
 #: inc/admin/laf/namespace.php:680 inc/admin/metaboxes/namespace.php:180
 #: inc/api/endpoints/controller/class-toc.php:192
@@ -1131,17 +1131,17 @@ msgstr "您的机构隶属关系，例如 Rebus 基金会、开放大学、国�
 
 #: inc/admin/menus/class-sidebar.php:87
 msgid "Sorry, you are not allowed to access this page."
-msgstr ""
+msgstr "对不起，您无权访问此页面。"
 
 #: inc/admin/menus/class-sidebar.php:229 inc/admin/menus/class-sidebar.php:230
 #: inc/admin/menus/class-topbar.php:139
 msgid "Appearance"
-msgstr ""
+msgstr "外贸"
 
 #: inc/admin/menus/class-sidebar.php:239 inc/admin/menus/class-sidebar.php:240
 #: inc/admin/menus/class-topbar.php:144
 msgid "Pages"
-msgstr ""
+msgstr "页面"
 
 #: inc/admin/menus/class-sidebar.php:250 inc/admin/menus/class-sidebar.php:251
 #: inc/admin/menus/class-sidebar.php:449 inc/admin/menus/class-sidebar.php:450
@@ -1152,56 +1152,56 @@ msgstr "设置"
 #: inc/admin/menus/class-sidebar.php:261 inc/admin/menus/class-sidebar.php:262
 #: inc/admin/menus/class-sidebar.php:517 inc/admin/menus/class-sidebar.php:518
 msgid "Network Options"
-msgstr ""
+msgstr "网络选项"
 
 #: inc/admin/menus/class-sidebar.php:274 inc/admin/menus/class-sidebar.php:275
 #: inc/admin/menus/class-sidebar.php:304 inc/admin/menus/class-sidebar.php:305
 #: inc/admin/menus/class-sidebar.php:596 inc/admin/menus/class-sidebar.php:597
 #: inc/admin/menus/class-topbar.php:159
 msgid "Stats"
-msgstr ""
+msgstr "状态"
 
 #: inc/admin/menus/class-sidebar.php:286 inc/admin/menus/class-sidebar.php:287
 msgid "Network Stats"
-msgstr ""
+msgstr "网络状态"
 
 #: inc/admin/menus/class-sidebar.php:295 inc/admin/menus/class-sidebar.php:296
 #: inc/admin/menus/class-sidebar.php:314 inc/admin/menus/class-sidebar.php:315
 msgid "Analytics"
-msgstr ""
+msgstr "分析"
 
 #: inc/admin/menus/class-sidebar.php:334 inc/admin/menus/class-sidebar.php:335
 msgid "Upgrade Network"
-msgstr ""
+msgstr "升级网络"
 
 #: inc/admin/menus/class-sidebar.php:347 inc/admin/menus/class-sidebar.php:348
 #: inc/admin/menus/class-sidebar.php:356 inc/admin/menus/class-sidebar.php:357
 msgid "Network Users"
-msgstr ""
+msgstr "网络用户"
 
 #: inc/admin/menus/class-sidebar.php:367 inc/admin/menus/class-sidebar.php:368
 msgid "Root Site Users"
-msgstr ""
+msgstr "根站点用户"
 
 #: inc/admin/menus/class-sidebar.php:378 inc/admin/menus/class-sidebar.php:379
 msgid "User Activation Keys"
-msgstr ""
+msgstr "用户激活Key"
 
 #: inc/admin/menus/class-sidebar.php:428 inc/admin/menus/class-sidebar.php:429
 msgid "Network Plugins"
-msgstr ""
+msgstr "网络插件"
 
 #: inc/admin/menus/class-sidebar.php:440 inc/admin/menus/class-sidebar.php:441
 msgid "Root Site Plugins"
-msgstr ""
+msgstr "根站点插件"
 
 #: inc/admin/menus/class-sidebar.php:462 inc/admin/menus/class-sidebar.php:463
 msgid "Network Settings"
-msgstr ""
+msgstr "网络设置"
 
 #: inc/admin/menus/class-sidebar.php:470 inc/admin/menus/class-sidebar.php:471
 msgid "Network Setup"
-msgstr ""
+msgstr "网络设置"
 
 #: inc/admin/menus/class-sidebar.php:478 inc/admin/menus/class-sidebar.php:479
 #: inc/admin/networkmanagers/namespace.php:20
@@ -1211,11 +1211,11 @@ msgstr "网络管理员"
 
 #: inc/admin/menus/class-sidebar.php:487 inc/admin/menus/class-sidebar.php:488
 msgid "Whitelabel Settings"
-msgstr ""
+msgstr "白标设置"
 
 #: inc/admin/menus/class-sidebar.php:497 inc/admin/menus/class-sidebar.php:498
 msgid "Object Cache"
-msgstr ""
+msgstr "对象缓存"
 
 #: inc/admin/menus/class-sidebar.php:506 inc/admin/menus/class-sidebar.php:507
 #: inc/class-googleanalytics.php:69 inc/class-googleanalytics.php:70
@@ -1226,24 +1226,24 @@ msgstr "Google Analytics"
 
 #: inc/admin/menus/class-sidebar.php:525 inc/admin/menus/class-sidebar.php:526
 msgid "Sharing & Privacy"
-msgstr ""
+msgstr "共享 & 隐私"
 
 #: inc/admin/menus/class-sidebar.php:537 inc/admin/menus/class-sidebar.php:538
 msgid "Root Site General Settings"
-msgstr ""
+msgstr "根站点通用设置"
 
 #: inc/admin/menus/class-sidebar.php:550 inc/admin/menus/class-sidebar.php:551
 msgid "Root Site Media Settings"
-msgstr ""
+msgstr "根站点媒体设置"
 
 #: inc/admin/menus/class-sidebar.php:563 inc/admin/menus/class-sidebar.php:564
 msgid "Root Site Privacy Settings"
-msgstr ""
+msgstr "根站点隐私设置"
 
 #: inc/admin/menus/class-sidebar.php:575 inc/admin/menus/class-sidebar.php:576
 #: inc/admin/menus/class-sidebar.php:586 inc/admin/menus/class-sidebar.php:587
 msgid "PB Stats"
-msgstr ""
+msgstr "PB状态"
 
 #: inc/admin/menus/class-topbar.php:109
 msgid "About Pressbooks"
@@ -1251,7 +1251,7 @@ msgstr "关于 "
 
 #: inc/admin/menus/class-topbar.php:165
 msgid "Administer Network"
-msgstr ""
+msgstr "管理网络"
 
 #: inc/admin/menus/class-topbar.php:244 inc/registration/namespace.php:59
 msgid "Create Book"
@@ -1259,11 +1259,11 @@ msgstr "创建书籍"
 
 #: inc/admin/menus/class-topbar.php:263
 msgid "Clone Book"
-msgstr ""
+msgstr "克隆书籍"
 
 #: inc/admin/menus/class-topbar.php:277
 msgid "Add Users"
-msgstr ""
+msgstr "添加用户"
 
 #: inc/admin/metaboxes/class-about.php:16
 msgid "About the Book"
@@ -1587,7 +1587,7 @@ msgstr "帮助我们一起将Pressbooks翻译成您的本地化语言！"
 #: inc/admin/metaboxes/class-institutions.php:26
 #: templates/admin/institutions.blade.php:2
 msgid "Institutions"
-msgstr ""
+msgstr "机构"
 
 #: inc/admin/metaboxes/class-institutions.php:27
 #: templates/admin/institutions.blade.php:10
@@ -1595,7 +1595,7 @@ msgid ""
 "This optional field can be used to display the institution(s) which created "
 "this resource. If your college or university is not listed, please contact "
 "your network manager."
-msgstr ""
+msgstr "此可选字段可用于显示创建此资源的机构。如果您的学院或大学未被列出，请联系您的网络管理员。"
 
 #: inc/admin/metaboxes/class-partvisibility.php:25
 msgid "Part Visibility"
@@ -1615,19 +1615,19 @@ msgstr "%s元数据"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:37
 msgid "%s Short Title"
-msgstr ""
+msgstr "%s 短标题"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:38
 msgid "Appears in the PDF running header and webbook navigation."
-msgstr ""
+msgstr "出现在 PDF 页眉和书籍网页导航中。"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:43
 msgid "%s Subtitle"
-msgstr ""
+msgstr "%s 副标题"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:44
 msgid "Appears in the Web/ebook/PDF output."
-msgstr ""
+msgstr "出现在 网页/PDF/电子书等导出材料中。"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:49
 msgid "%s Author(s)"
@@ -1635,11 +1635,11 @@ msgstr "%s作者"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:56
 msgid "%s Copyright License"
-msgstr ""
+msgstr "%s 版权"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:57
 msgid "Overrides book license on this page."
-msgstr ""
+msgstr "覆写此页面中的书籍授权。"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:63
 msgid "%s Digital Object Identifier (DOI)"
@@ -1775,23 +1775,23 @@ msgstr "拥有者"
 
 #: inc/admin/network/class-networksettings.php:62
 msgid "Theme Settings"
-msgstr ""
+msgstr "主题设置"
 
 #: inc/admin/network/class-networksettings.php:64
 msgid "Default Theme"
-msgstr ""
+msgstr "默认主题"
 
 #: inc/admin/network/class-networksettings.php:84
 msgid "CTA banner settings"
-msgstr ""
+msgstr "CTA 横幅设置"
 
 #: inc/admin/network/class-networksettings.php:86
 msgid "CTA Banner"
-msgstr ""
+msgstr "CTA 横幅"
 
 #: inc/admin/network/class-networksettings.php:91
 msgid "Display the CTA banner"
-msgstr ""
+msgstr "显示CTA 横幅"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:95
 msgid "Allow Redistribution"
@@ -1890,7 +1890,7 @@ msgstr "成功添加用户至此书籍。"
 
 #: inc/admin/users/class-userbulk.php:245
 msgid "User(s) successfully added to the network."
-msgstr ""
+msgstr "已成功将用户加入网络。"
 
 #: inc/admin/users/class-userbulk.php:248
 msgid ""
@@ -1911,23 +1911,23 @@ msgstr "ID偏离，覆盖页面。"
 
 #: inc/api/endpoints/controller/books/class-books.php:140
 msgid "Timestamp for updated field."
-msgstr ""
+msgstr "字段更新时间戳"
 
 #: inc/api/endpoints/controller/books/class-books.php:146
 msgid "Array of license codes to filter books."
-msgstr ""
+msgstr "过滤书籍的授权代码数组。"
 
 #: inc/api/endpoints/controller/books/class-books.php:166
 msgid "Array of title filters to filter books."
-msgstr ""
+msgstr "过滤书籍的标题数组。"
 
 #: inc/api/endpoints/controller/books/class-books.php:177
 msgid "Boolean value to filter books by directory exclusion."
-msgstr ""
+msgstr "通过目录排除来过滤书籍的布尔值。"
 
 #: inc/api/endpoints/controller/books/class-books.php:183
 msgid "String value to filter books by word count range."
-msgstr ""
+msgstr "用于按字数范围过滤书籍的字符串值。"
 
 #: inc/api/endpoints/controller/class-metadata.php:549
 #: inc/api/endpoints/controller/class-sectionmetadata.php:453
@@ -1938,7 +1938,7 @@ msgstr "明确指示项目身份的参考网页的 URL。"
 
 #: inc/api/endpoints/controller/class-posts.php:197
 msgid "The status for the post."
-msgstr ""
+msgstr "文章的状态。"
 
 #: inc/api/endpoints/controller/class-toc.php:98
 msgid "Comment count"
@@ -1958,7 +1958,7 @@ msgstr "词汇量"
 
 #: inc/api/endpoints/controller/class-toc.php:233
 msgid "Clone token."
-msgstr ""
+msgstr "克隆占位符。"
 
 #: inc/api/namespace.php:78
 msgid "Part ID."
@@ -2154,7 +2154,7 @@ msgstr "该投稿人的GitHub简介。必须是一个有效的URL。"
 msgid ""
 "Import multiple contributors at once by uploading a valid JSON file. See <a "
 "href=\"%s\" target=\"_blank\">our guide</a> for details."
-msgstr ""
+msgstr "通过上传有效的 JSON 文件一次性导入多个贡献者。详情请参阅 <a href=\"%s\" target=\"_blank\">我们的指南 </a> 。"
 
 #: inc/class-contributors.php:577
 msgid "Import Contributors"
@@ -2163,27 +2163,27 @@ msgstr "导入投稿人"
 #: inc/class-contributors.php:827
 msgid "Editor"
 msgid_plural "Editors"
-msgstr[0] ""
+msgstr[0] "编辑"
 
 #: inc/class-contributors.php:829
 msgid "Contributor"
 msgid_plural "Contributors"
-msgstr[0] ""
+msgstr[0] "贡献者"
 
 #: inc/class-contributors.php:830
 msgid "Translator"
 msgid_plural "Translators"
-msgstr[0] ""
+msgstr[0] "译者"
 
 #: inc/class-contributors.php:831
 msgid "Reviewer"
 msgid_plural "Reviewers"
-msgstr[0] ""
+msgstr[0] "审核人"
 
 #: inc/class-contributors.php:832
 msgid "Illustrator"
 msgid_plural "Illustrators"
-msgstr[0] ""
+msgstr[0] "插画师"
 
 #: inc/class-eventstreams.php:201
 msgid ""
@@ -2242,13 +2242,13 @@ msgid ""
 " The source book's theme, '%1$s (%2$s)', was not available on this network "
 "and could not be applied. Contact your network manager with questions about "
 "theme availability."
-msgstr ""
+msgstr "源书的主题'%1$s (%2$s)'在此网络上不可用，因此无法应用。如需了解有关主题可用性的问题，请联系您的网络管理员。"
 
 #: inc/class-eventstreams.php:220
 msgid ""
 "The source book's theme, theme settings, and custom styles were successfully"
 " applied."
-msgstr ""
+msgstr "源书的主题、主题设置和自定义样式已成功应用。"
 
 #: inc/class-eventstreams.php:242
 msgid "No export format was selected."
@@ -2292,7 +2292,7 @@ msgstr "加拿大土著语言"
 
 #: inc/class-globaltypography.php:47
 msgid "Cherokee"
-msgstr ""
+msgstr "切诺基"
 
 #: inc/class-globaltypography.php:48
 msgid "Chinese (Simplified)"
@@ -2332,7 +2332,7 @@ msgstr "朝鲜语"
 
 #: inc/class-globaltypography.php:57
 msgid "Khmer"
-msgstr ""
+msgstr "高棉语"
 
 #: inc/class-globaltypography.php:58
 msgid "Malayalam"
@@ -2381,7 +2381,7 @@ msgstr "Google Analytics ID"
 #: inc/class-googleanalytics.php:28
 msgid ""
 "The Google Analytics ID for your network, e.g &lsquo;G-A123B4C5DE6&rsquo;."
-msgstr ""
+msgstr "您的网络的 Google Analytics ID，例如“G-A123B4C5DE6”。"
 
 #: inc/class-googleanalytics.php:118
 msgid "Site-Specific Tracking"
@@ -2492,7 +2492,7 @@ msgstr "%s的图标"
 msgid ""
 "%1$s Copyright &copy;%2$s by %3$s is licensed under a %4$s, except where "
 "otherwise noted."
-msgstr ""
+msgstr "%1$s版权&copy;%2$s %2$s属于%3$s，授权协议是%4$s，有特殊说明除外。"
 
 #: inc/class-licensing.php:455 inc/class-licensing.php:465
 msgid "Icon for the %s license"
@@ -2563,7 +2563,7 @@ msgstr "Spectral"
 
 #: inc/class-styles.php:716
 msgid "Alegreya Sans"
-msgstr ""
+msgstr "Alegreya Sans"
 
 #: inc/class-styles.php:717
 msgid "Barlow"
@@ -3256,28 +3256,28 @@ msgstr "Common Cartridge (Web Links)"
 #: inc/modules/export/namespace.php:204 inc/modules/export/namespace.php:205
 #: inc/modules/export/namespace.php:206
 msgid "Common Cartridge (LTI Links)"
-msgstr ""
+msgstr "Common Cartridge (LTI 链接)"
 
 #: inc/modules/export/namespace.php:230 inc/modules/export/namespace.php:231
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #: inc/modules/export/namespace.php:232
 msgid "HTML5"
-msgstr ""
+msgstr "HTML5"
 
 #: inc/modules/export/namespace.php:237
 msgid "ODT"
-msgstr ""
+msgstr "ODT"
 
 #: inc/modules/export/namespace.php:238 inc/modules/export/namespace.php:239
 msgid "WXR"
-msgstr ""
+msgstr "WXR"
 
 #: inc/modules/export/namespace.php:240 inc/modules/export/namespace.php:241
 #: inc/modules/export/namespace.php:242 inc/modules/export/namespace.php:243
 msgid "IMSCC"
-msgstr ""
+msgstr "IMSCC"
 
 #: inc/modules/export/namespace.php:312
 msgid "The file %1$s has been %2$s successfully."
@@ -3294,7 +3294,7 @@ msgstr "未选定"
 #: inc/modules/export/namespace.php:333
 msgid "About the author"
 msgid_plural "About the authors"
-msgstr[0] ""
+msgstr[0] "关于作者"
 
 #: inc/modules/export/prince/class-pdf.php:278
 msgid ""
@@ -4351,11 +4351,11 @@ msgstr "选择"
 
 #: inc/shortcodes/glossary/class-glossary.php:293
 msgid "definition"
-msgstr ""
+msgstr "定义"
 
 #: inc/shortcodes/glossary/class-glossary.php:297
 msgid "Close definition"
-msgstr ""
+msgstr "关闭定义"
 
 #: inc/theme/class-lock.php:96
 msgid ""
@@ -4521,14 +4521,14 @@ msgstr "应用CSS类"
 
 #. translators: 1: URL to Composer documentation, 2: URL to Pressbooks latest
 #. releases
-#: pressbooks.php:80
+#: pressbooks.php:85
 msgid ""
 "Pressbooks dependencies are missing. Please make sure that your "
 "project&rsquo;s <a href=\"%1$s\">Composer autoload file</a> is being "
 "required, or use the <a href=\"%2$s\">latest release</a> instead."
 msgstr "缺少 Pressbooks 依赖项。 请确保您的项目。Composer 自动加载文件是必需的，或者您可以改用最新版本。"
 
-#: pressbooks.php:91
+#: pressbooks.php:96
 msgid "Cannot find Pressbooks install."
 msgstr "未能找到Pressbooks安装。"
 
@@ -4599,22 +4599,22 @@ msgstr "抱歉！您必须先生成封面。"
 #. translators: %s date/time
 #: templates/admin/covergenerator.php:107
 msgid "Your latest covers were generated on %s."
-msgstr ""
+msgstr "您最近的封面生成于%s。"
 
 #. translators: %s file format
 #: templates/admin/covergenerator.php:120
 msgid "%s cover"
-msgstr ""
+msgstr "%s封面"
 
 #. translators: %s file format
 #: templates/admin/covergenerator.php:127
 msgid "Download %s cover"
-msgstr ""
+msgstr "下载%s封面"
 
 #. translators: %s file format
 #: templates/admin/covergenerator.php:134
 msgid "Delete %s cover"
-msgstr ""
+msgstr "删除%s封面"
 
 #: templates/admin/covergenerator.php:151
 msgid "Are you sure you want to delete ALL your current covers?"
@@ -4718,7 +4718,7 @@ msgstr "导入来源"
 
 #: templates/admin/import.php:201
 msgid "Choose file"
-msgstr ""
+msgstr "选择文件"
 
 #: templates/admin/import.php:214
 msgid "Begin Import"
@@ -4854,15 +4854,15 @@ msgstr "Pressbooks：书籍内容管理系统。"
 
 #: templates/admin/cloner/book-card.blade.php:9
 msgid "H5P Activities"
-msgstr ""
+msgstr "H5P 活动"
 
 #: templates/admin/cloner/book-card.blade.php:14
 msgid "By"
-msgstr ""
+msgstr "By"
 
 #: templates/admin/cloner/book-card.blade.php:29
 msgid "Select this book"
-msgstr ""
+msgstr "选择该书籍"
 
 #: templates/admin/cloner/page.blade.php:4
 msgid ""
@@ -4871,263 +4871,263 @@ msgid ""
 "for you to revise and redistribute as desired. You can enter the source book"
 " URL if you already know it, or find and select a suitable book from the "
 "Pressbooks Directory."
-msgstr ""
+msgstr "此工具允许您将公开许可的书籍从一个 Pressbooks 网络克隆到另一个。克隆过程会复制原始书籍，以便您根据需要进行修改和重新分发。如果您已经知道源书籍 URL，则可以输入它，或者从 Pressbooks 目录中查找并选择合适的书籍。"
 
 #: templates/admin/cloner/page.blade.php:9
 msgid ""
 "Enter the URL of a Pressbooks book with an open license which permits "
 "cloning."
-msgstr ""
+msgstr "输入具有允许克隆的开放许可证的 Pressbooks 书籍的 URL。"
 
 #: templates/admin/cloner/page.blade.php:10
 msgid "New Book URL"
-msgstr ""
+msgstr "新建书籍 URL"
 
 #: templates/admin/cloner/page.blade.php:16
 msgid ""
 "Enter the URL where you want this book to be cloned. This URL cannot be "
 "changed later, so choose carefully."
-msgstr ""
+msgstr "输入要克隆此书的 URL。此 URL 以后无法更改，因此请谨慎选择。"
 
 #: templates/admin/cloner/page.blade.php:17
 msgid "Clone book"
-msgstr ""
+msgstr "克隆书籍"
 
 #: templates/admin/cloner/page.blade.php:24
 msgid "Search the Pressbooks Directory"
-msgstr ""
+msgstr "在Pressbooks 录里搜索"
 
 #: templates/admin/cloner/results.blade.php:1
 msgid "of"
-msgstr ""
+msgstr "的"
 
 #: templates/admin/cloner/results.blade.php:2
 msgid ""
 "results shown. To see more results, or use advanced search and filtering "
 "capabilities, %s."
-msgstr ""
+msgstr "结果已显示。要查看更多结果，可使用高级搜索和过滤功能，%s 。"
 
 #: templates/admin/cloner/results.blade.php:2
 msgid "visit the Directory itself"
-msgstr ""
+msgstr "访问目录"
 
 #: templates/admin/cloner/stats.blade.php:6
 msgid "Created"
-msgstr ""
+msgstr "创建于"
 
 #: templates/admin/cloner/stats.blade.php:7
 msgid "Total # of clones"
-msgstr ""
+msgstr "克隆总数"
 
 #: templates/admin/cloner/stats.blade.php:11
 msgid "List of clones"
-msgstr ""
+msgstr "列出克隆的书籍"
 
 #: templates/admin/cloner/stats.blade.php:12
 msgid ""
 "Pressbooks added the ability to reliably track successful clones in early "
 "2023. This list may not include all clones made before that time."
-msgstr ""
+msgstr "Pressbooks 在 2023 年初增加了可靠追踪成功克隆的功能。此列表可能不包括在此时间之前制作的所有克隆。"
 
 #: templates/admin/cloner/stats.blade.php:13
 msgid ""
 "The URLs here refer to external web addresses which may no longer be active "
 "or which may be hosting other content. Please use caution if you choose to "
 "visit any of the URLs listed below."
-msgstr ""
+msgstr "此处的 URL 指的是外部网址，这些网址可能不再有效或可能托管其他内容。如果您选择访问下面列出的任何 URL，请谨慎行事。"
 
 #: templates/admin/cloner/stats.blade.php:20
 msgid "Date of clone"
-msgstr ""
+msgstr "克隆日期"
 
 #: templates/admin/dashboard/book.blade.php:7
 msgid "Visit book"
-msgstr ""
+msgstr "访问书记"
 
 #: templates/admin/dashboard/book.blade.php:26
 msgid "Edit book info"
-msgstr ""
+msgstr "编辑书籍信息"
 
 #: templates/admin/dashboard/book.blade.php:34
 msgid "Organize book"
-msgstr ""
+msgstr "组织书籍"
 
 #: templates/admin/dashboard/book.blade.php:42
 msgid "Change theme"
-msgstr ""
+msgstr "更改主题"
 
 #: templates/admin/dashboard/book.blade.php:50
 msgid "Manage users"
-msgstr ""
+msgstr "管理用户"
 
 #: templates/admin/dashboard/book.blade.php:58
 msgid "View Analytics"
-msgstr ""
+msgstr "查看分析"
 
 #: templates/admin/dashboard/book.blade.php:66
 msgid "Delete book"
-msgstr ""
+msgstr "删除书籍"
 
 #: templates/admin/dashboard/book.blade.php:78
 msgid "Write a new chapter art"
-msgstr ""
+msgstr "撰写新篇章"
 
 #: templates/admin/dashboard/book.blade.php:85
 msgid "Write a new chapter"
-msgstr ""
+msgstr "撰写新篇章"
 
 #: templates/admin/dashboard/book.blade.php:91
 msgid "Import Content"
-msgstr ""
+msgstr "导入内容"
 
 #: templates/admin/dashboard/book.blade.php:105
 #: templates/admin/dashboard/support.blade.php:4
 msgid "Support resources"
-msgstr ""
+msgstr "支持资源"
 
 #: templates/admin/dashboard/book.blade.php:114
 msgid "Getting started with Pressbooks"
-msgstr ""
+msgstr "开始使用Pressbooks"
 
 #: templates/admin/dashboard/book.blade.php:117
 msgid "Watch a short video series on how to get started with Pressbooks."
-msgstr ""
+msgstr "观看Pressbooks使用视频教程"
 
 #: templates/admin/dashboard/book.blade.php:125
 msgid "Pressbooks user guide"
-msgstr ""
+msgstr "Pressbooks用户指南"
 
 #: templates/admin/dashboard/book.blade.php:128
 msgid ""
 "Find help and how-tos for your publishing project in this detailed handbook."
-msgstr ""
+msgstr "在此详细的手册中查找有关您的出版项目的帮助和操作方法。"
 
 #: templates/admin/dashboard/book.blade.php:136
 #: templates/admin/dashboard/support.blade.php:23
 msgid "Pressbooks community forum"
-msgstr ""
+msgstr "Pressbooks社区论坛"
 
 #: templates/admin/dashboard/book.blade.php:139
 msgid ""
 "Discuss Pressbooks related questions with other users in our public forum."
-msgstr ""
+msgstr "在我们的公共论坛上与其他用户讨论 Pressbooks 相关的问题。"
 
 #: templates/admin/dashboard/book.blade.php:147
 msgid "Pressbooks training webinars"
-msgstr ""
+msgstr "Pressbooks 培训网络研讨会"
 
 #: templates/admin/dashboard/book.blade.php:150
 msgid ""
 "Register for free webinars to learn about Pressbooks features and best "
 "practices."
-msgstr ""
+msgstr "注册免费网络研讨会，了解 Pressbooks 的功能和最佳实践。"
 
 #: templates/admin/dashboard/network.blade.php:5
 msgid "Network Manager Dashboard"
-msgstr ""
+msgstr "网络管理员仪表盘"
 
 #: templates/admin/dashboard/network.blade.php:7
 #: templates/admin/dashboard/user.blade.php:6
 msgid "Welcome to"
-msgstr ""
+msgstr "欢迎来到"
 
 #: templates/admin/dashboard/network.blade.php:12
 msgid "Visit network homepage"
-msgstr ""
+msgstr "访问网络首页"
 
 #: templates/admin/dashboard/network.blade.php:23
 msgid "Your network has %s books and %s users. "
-msgstr ""
+msgstr "您的网络含有%s本书和%s个用户。"
 
 #: templates/admin/dashboard/network.blade.php:31
 msgid "Explore stats"
-msgstr ""
+msgstr "导出状态"
 
 #: templates/admin/dashboard/network.blade.php:44
 msgid "Ready to Launch Checklist"
-msgstr ""
+msgstr "准备启动检查表"
 
 #: templates/admin/dashboard/network.blade.php:80
 msgid "Congratulations!"
-msgstr ""
+msgstr "恭喜！"
 
 #: templates/admin/dashboard/network.blade.php:82
 msgid "Return to checklist"
-msgstr ""
+msgstr "返回检查列表"
 
 #: templates/admin/dashboard/network.blade.php:93
 msgid "Update homepage"
-msgstr ""
+msgstr "更新首页"
 
 #: templates/admin/dashboard/network.blade.php:99
 msgid "Update homepage art"
-msgstr ""
+msgstr "更新首页艺术图"
 
 #: templates/admin/dashboard/network.blade.php:108
 msgid "Customize network appearance"
-msgstr ""
+msgstr "定制网络外貌"
 
 #: templates/admin/dashboard/network.blade.php:116
 msgid "Create or edit pages"
-msgstr ""
+msgstr "创建或编辑页面"
 
 #: templates/admin/dashboard/network.blade.php:125
 msgid "View homepage analytics"
-msgstr ""
+msgstr "查看首页分析"
 
 #: templates/admin/dashboard/network.blade.php:136
 msgid "Administer network"
-msgstr ""
+msgstr "管理网络"
 
 #: templates/admin/dashboard/network.blade.php:142
 msgid "Administer network art"
-msgstr ""
+msgstr "管理网络art"
 
 #: templates/admin/dashboard/network.blade.php:151
 msgid "Adjust network settings"
-msgstr ""
+msgstr "调整网络设置"
 
 #: templates/admin/dashboard/network.blade.php:159
 msgid "View book list"
-msgstr ""
+msgstr "查看书籍列表"
 
 #: templates/admin/dashboard/network.blade.php:167
 msgid "View user list"
-msgstr ""
+msgstr "查看用户列表"
 
 #: templates/admin/dashboard/support.blade.php:12
 msgid "Network manager guide"
-msgstr ""
+msgstr "网络管理员指南"
 
 #: templates/admin/dashboard/support.blade.php:15
 msgid ""
 "Learn how to administer your Pressbooks network from our comprehensive how-"
 "to guide."
-msgstr ""
+msgstr "从我们全面的操作指南中了解如何管理您的 Pressbooks 网络。"
 
 #: templates/admin/dashboard/support.blade.php:26
 msgid ""
 "Discuss issues of interest with other network managers and Pressbooks "
 "support staff."
-msgstr ""
+msgstr "与其他网络管理员和 Pressbooks 支持人员讨论感兴趣的问题。"
 
 #: templates/admin/dashboard/support.blade.php:34
 msgid "Pressbooks webinars"
-msgstr ""
+msgstr "Pressbooks 网络研讨会"
 
 #: templates/admin/dashboard/support.blade.php:37
 msgid "Become a confident Pressbooks user by attending a free, live webinar."
-msgstr ""
+msgstr "通过参加免费的现场网络研讨会，成为一名自信的 Pressbooks 用户。"
 
 #: templates/admin/dashboard/support.blade.php:46
 msgid "Contact Pressbooks Support"
-msgstr ""
+msgstr "联系Pressbooks技术支持"
 
 #: templates/admin/dashboard/support.blade.php:49
 msgid ""
 "Email Pressbooks’ Premium Support team to report bugs or get personalized "
 "help."
-msgstr ""
+msgstr "通过电子邮件向 Pressbooks 的高级支持团队报告错误或获取个性化帮助。"
 
 #: templates/admin/dashboard/user.blade.php:18
 msgid "Book Invitations"
@@ -5135,7 +5135,7 @@ msgstr "图书邀请"
 
 #: templates/admin/dashboard/user.blade.php:23
 msgid "You have been invited to join %1$s as %2$s"
-msgstr ""
+msgstr "您已被邀请作为%2$s加入%1$s。"
 
 #: templates/admin/dashboard/user.blade.php:24
 msgid "Accept"
@@ -5143,36 +5143,36 @@ msgstr "同意"
 
 #: templates/admin/dashboard/user.blade.php:40
 msgid "Create a new book art"
-msgstr ""
+msgstr "新建书籍art"
 
 #: templates/admin/dashboard/user.blade.php:45
 #: templates/admin/dashboard/user.blade.php:53
 #: templates/admin/dashboard/user.blade.php:58
 msgid "Create a book"
-msgstr ""
+msgstr "新建书籍"
 
 #: templates/admin/dashboard/user.blade.php:47
 msgid ""
 "Create a new book full of engaging content: words, images, audio, video, "
 "footnotes, glossary terms, mathematical formula, interactive quizzes, and "
 "more."
-msgstr ""
+msgstr "创建一本充满吸引力内容的新书：文字、图像、音频、视频、脚注、术语、数学公式、互动测验等等。"
 
 #: templates/admin/dashboard/user.blade.php:71
 msgid "Adapt a book art"
-msgstr ""
+msgstr "改编书籍art"
 
 #: templates/admin/dashboard/user.blade.php:76
 #: templates/admin/dashboard/user.blade.php:83
 msgid "Adapt a book"
-msgstr ""
+msgstr "改编书籍"
 
 #: templates/admin/dashboard/user.blade.php:78
 msgid ""
 "Use our cloning tool to make your own personalized copy of any of the "
 "thousands of openly licensed educational books already published with "
 "Pressbooks."
-msgstr ""
+msgstr "使用我们的克隆工具，可以对 Pressbooks 已出版的数千本开放授权的教育书籍制作您自己的个性化副本。"
 
 #: templates/admin/diagnostics.blade.php:5
 msgid "Please submit this information with any bug reports."
@@ -5301,7 +5301,7 @@ msgstr "保存修改"
 
 #: templates/admin/organize.blade.php:11 templates/admin/organize.blade.php:16
 msgid "This book’s global privacy is set to"
-msgstr ""
+msgstr "本书的全局隐私设置为"
 
 #: templates/admin/organize.blade.php:27
 msgid ""
@@ -5341,15 +5341,15 @@ msgstr "添加"
 #: templates/admin/organize.blade.php:109
 #: templates/admin/organize.blade.php:175
 msgid "Edit​%s"
-msgstr ""
+msgstr "编辑%s"
 
 #: templates/admin/organize.blade.php:112
 msgid "Trash​%s"
-msgstr ""
+msgstr "将%s删除至垃圾箱"
 
 #: templates/admin/organize.blade.php:114
 msgid "View​%s"
-msgstr ""
+msgstr "查看%s"
 
 #: templates/admin/organize.blade.php:133
 msgid "Comments"
@@ -5362,36 +5362,36 @@ msgstr "电子书起读点"
 
 #: templates/admin/organize.blade.php:182
 msgid "Trash%s"
-msgstr ""
+msgstr "将%s删除至垃圾箱"
 
 #: templates/admin/organize.blade.php:187
 msgid "View%s"
-msgstr ""
+msgstr "查看%s"
 
 #: templates/admin/organize.blade.php:198
 msgid "Move%s Up"
-msgstr ""
+msgstr "上移%s"
 
 #: templates/admin/organize.blade.php:204
 msgid "Move%s Down"
-msgstr ""
+msgstr "下移%s"
 
 #: templates/admin/organize.blade.php:224
 msgid "comment"
 msgid_plural "comments"
-msgstr[0] ""
+msgstr[0] "评论"
 
 #: templates/admin/organize.blade.php:236
 msgid "Show %s in Web"
-msgstr ""
+msgstr "在网页中显示%s"
 
 #: templates/admin/organize.blade.php:246
 msgid "Show %s in Exports"
-msgstr ""
+msgstr "在导出中显示%s"
 
 #: templates/admin/organize.blade.php:255
 msgid "Show title for %s"
-msgstr ""
+msgstr "显示%s的标题"
 
 #: templates/admin/sitemap.blade.php:3
 msgid "Admin Bar"
@@ -5419,23 +5419,23 @@ msgstr "此版本的文本已排除一个或多个交互元素。 您可以在�
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:4
 msgid "Remove"
-msgstr ""
+msgstr "删除"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:7
 msgid "Available options"
-msgstr ""
+msgstr "可用选项"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:8
 msgid "Moved to position $1"
-msgstr ""
+msgstr "移动到位置 $1"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:9
 msgid "Removed $1 from selection"
-msgstr ""
+msgstr "从选中项目中删除 $1"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:10
 msgid "Added $1 to selection"
-msgstr ""
+msgstr "将 $1加入到选中项目中"
 
 #: assets/src/scripts/a11y.js:31 assets/src/scripts/a11y.js:32
 msgid "Gradient selector"
