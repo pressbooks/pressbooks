@@ -1,41 +1,18 @@
 # Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
-# Amelie Roberge <aroberge@tciinc.ca>, 2019
-# Dac Chartrand <dac.chartrand@gmail.com>, 2017-2018,2020
-# Dac Chartrand <dac@pressbooks.com>, 2019
-# Eric Lord <elord@tciinc.ca>, 2019
-# fgerber <gerber.francois@gmail.com>, 2015
-# Florence Piron <flopir08@gmail.com>, 2018
-# b4f3455abd4d66f106359cbc500cf675_94c4d22 <7be3db9508098be02998a41355a3c938_169610>, 2014
-# b4f3455abd4d66f106359cbc500cf675_94c4d22 <7be3db9508098be02998a41355a3c938_169610>, 2014
-# fgerber <gerber.francois@gmail.com>, 2015
-# Gilbert MOISIO <gmoisio@gmail.com>, 2017
-# Hubert GB <hgblouin@tciinc.ca>, 2019
-# Hugh McGuire <hugh@pressbooks.com>, 2018
-# Ian Curtis, 2022
-# Mich Spieler, 2024
-# MMOUNA MOUM, 2022
-# Ned Zimmerman <ned@bight.dev>, 2014
-# Ned Zimmerman, 2014-2015
-# Ned Zimmerman <ned@bight.dev>, 2015
-# Richelle Chartrand <richellechartrand@yahoo.ca>, 2017
-# Steel Wagstaff <steel@pressbooks.com>, 2019,2023-2024
-# Steel Wagstaff <steelwagstaff@gmail.com>, 2020
-# Steel Wagstaff <steel@pressbooks.com>, 2019
-# Zoe Wake Hyde <zoe@pressbooks.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
 "POT-Creation-Date: 2024-05-23T02:06:32+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
-"Last-Translator: Mich Spieler, 2024\n"
-"Language-Team: French (http://app.transifex.com/pressbooks/pressbooks/language/fr/)\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: French (France) (http://app.transifex.com/pressbooks/pressbooks/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
+"Language: fr_FR\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 "X-Domain: pressbooks\n"
 "X-Generator: WP-CLI 2.10.0\n"
@@ -112,9 +89,9 @@ msgstr "Adresse URL source"
 #: inc/admin/covergenerator/namespace.php:109 inc/class-contributors.php:828
 msgid "Author"
 msgid_plural "Authors"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Auteur"
+msgstr[1] "Auteurs"
+msgstr[2] "Auteurs"
 
 #: inc/admin/attachments/namespace.php:60
 msgid "Author URL"
@@ -400,7 +377,7 @@ msgstr "Texte"
 
 #: inc/admin/covergenerator/namespace.php:87
 msgid "Title (Spine)"
-msgstr "Titre (dos)"
+msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:98
 #: inc/admin/metaboxes/class-generalinformation.php:50
@@ -409,7 +386,7 @@ msgstr "Sous-titre"
 
 #: inc/admin/covergenerator/namespace.php:120
 msgid "Author (Spine)"
-msgstr "Auteur (dos)"
+msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:131 inc/admin/laf/namespace.php:95
 #: inc/class-activation.php:247 templates/admin/catalog.php:98
@@ -733,12 +710,12 @@ msgstr "public"
 #: inc/admin/laf/namespace.php:167
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:5
 msgid "Move Up"
-msgstr "Monter"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:168
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:6
 msgid "Move Down"
-msgstr "Descendre"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:170
 msgid "Updating book."
@@ -959,7 +936,7 @@ msgstr "Section finale"
 
 #: inc/admin/laf/namespace.php:792
 msgid "Network Admin"
-msgstr "Administrateur de réseau"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:811 inc/admin/laf/namespace.php:1573
 #: inc/admin/laf/namespace.php:1583 inc/admin/menus/class-sidebar.php:209
@@ -1048,7 +1025,7 @@ msgstr "Seulement les éditeurs et les administrateurs connectés."
 
 #: inc/admin/laf/namespace.php:1377
 msgid "All logged in users including subscribers."
-msgstr "Toutes les personnes connectées, y compris les abonnés."
+msgstr ""
 
 #: inc/admin/laf/namespace.php:1398
 msgid ""
@@ -1306,7 +1283,7 @@ msgstr "Courte description de votre livre. Celle-ci ne devrait excéder la longu
 
 #: inc/admin/metaboxes/class-about.php:32
 msgid "Short Description"
-msgstr "Courte description"
+msgstr ""
 
 #: inc/admin/metaboxes/class-about.php:33
 msgid ""
@@ -1796,7 +1773,7 @@ msgstr "Nom ne peut pas être vide."
 
 #: inc/admin/metaboxes/namespace.php:851
 msgid "Owner"
-msgstr "Propriétaire"
+msgstr ""
 
 #: inc/admin/network/class-networksettings.php:62
 msgid "Theme Settings"
@@ -2044,7 +2021,7 @@ msgstr "Auteurs"
 #: inc/modules/themeoptions/class-pdfoptions.php:322
 #: templates/export/epub/toc.blade.php:13
 msgid "Table of Contents"
-msgstr "Table des matières"
+msgstr ""
 
 #: inc/class-activation.php:252
 msgid "Buy"
@@ -3213,13 +3190,13 @@ msgstr "Créez vos propres livre avec Pressbooks"
 
 #: inc/modules/export/epub/class-epub.php:1891
 msgid "Table Of Contents"
-msgstr "Table des matières"
+msgstr ""
 
 #: inc/modules/export/epub/class-epub.php:1964
 #: inc/modules/export/htmlbook/class-htmlbook.php:979
 #: inc/modules/export/xhtml/class-xhtml11.php:1237
 msgid "Contents"
-msgstr "Table des matières"
+msgstr ""
 
 #: inc/modules/export/htmlbook/class-htmlbook.php:190
 #: inc/modules/export/wordpress/class-wxr.php:81
@@ -3578,7 +3555,7 @@ msgstr "L&rsquo;étiquette de la partie est utilisée dans la table des matière
 
 #: inc/modules/themeoptions/class-globaloptions.php:141
 msgid "Chapter Label"
-msgstr "Étiquette de chapitre"
+msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:146
 msgid ""
