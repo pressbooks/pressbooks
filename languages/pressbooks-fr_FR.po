@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2024-05-08T20:14:28+00:00\n"
+"POT-Creation-Date: 2024-05-23T02:06:32+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French (France) (http://app.transifex.com/pressbooks/pressbooks/language/fr_FR/)\n"
@@ -89,9 +89,9 @@ msgstr "Adresse URL source"
 #: inc/admin/covergenerator/namespace.php:109 inc/class-contributors.php:828
 msgid "Author"
 msgid_plural "Authors"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Auteur"
+msgstr[1] "Auteurs"
+msgstr[2] "Auteurs"
 
 #: inc/admin/attachments/namespace.php:60
 msgid "Author URL"
@@ -2165,9 +2165,9 @@ msgstr "Importer des contributeurs"
 #: inc/class-contributors.php:827
 msgid "Editor"
 msgid_plural "Editors"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Directeur de rédaction"
+msgstr[1] "Directeurs de rédaction"
+msgstr[2] "Directeurs de rédaction"
 
 #: inc/class-contributors.php:829
 msgid "Contributor"
@@ -4553,14 +4553,14 @@ msgstr "Appliquer la catégorie"
 
 #. translators: 1: URL to Composer documentation, 2: URL to Pressbooks latest
 #. releases
-#: pressbooks.php:80
+#: pressbooks.php:85
 msgid ""
 "Pressbooks dependencies are missing. Please make sure that your "
 "project&rsquo;s <a href=\"%1$s\">Composer autoload file</a> is being "
 "required, or use the <a href=\"%2$s\">latest release</a> instead."
 msgstr "Dépendances Pressbooks manquantes. Veuillez vous assurer que le <a href=\"%1$s\">fichier d&rsquo;autochargement Composer</a> de votre projet soit obligatoire, ou utilisez la<a href=\"%2$s\">dernière version</a>."
 
-#: pressbooks.php:91
+#: pressbooks.php:96
 msgid "Cannot find Pressbooks install."
 msgstr "Erreur lors de ld&rsquo;installation de Pressbooks."
 
