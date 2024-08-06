@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.19.2](https://github.com/pressbooks/pressbooks/compare/6.19.1...6.19.2) (2024-08-05)
+
+
+### Bug Fixes
+
+* user menu priority ([#3747](https://github.com/pressbooks/pressbooks/issues/3747)) ([9c5c1ea](https://github.com/pressbooks/pressbooks/commit/9c5c1ea42abfc413757d22f6c8cc346b46a8820c))
+
 ## [6.19.1](https://github.com/pressbooks/pressbooks/compare/6.19.0...6.19.1) (2024-07-18)
 
 
