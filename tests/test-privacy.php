@@ -213,8 +213,14 @@ class GdprTest extends \WP_UnitTestCase {
 	 * @test
 	 */
 	public function it_sets_default_permissive_private_content() {
-		$site = new WP_Site( (object) [ 'blog_id' => 2 ] );
+		$this->_book();
+		$blog_id = get_current_blog_id();
+
+		$site = new WP_Site( (object) [ 'blog_id' => $blog_id ] );
 		$this->privacy->setDefaultPermissivePrivateContent( $site );
-		$this->assertEquals( get_option( 'permissive_private_content' ), 0 );
+
+		switch_to_blog( $blog_id );
+		$this->assertEquals( get_option( 'permissive_private_content' ), 1 );
+		restore_current_blog();
 	}
 }
