@@ -4,6 +4,9 @@ use Pressbooks\DataCollector\Book as DataCollector;
 use function Pressbooks\Admin\Laf\book_directory_excluded_callback;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 
+/**
+ * @group privacy
+ */
 class GdprTest extends \WP_UnitTestCase {
 	use utilsTrait;
 
@@ -204,5 +207,14 @@ class GdprTest extends \WP_UnitTestCase {
 				'blogs_not_updated' => [ 9876 ],
 			]
 		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_sets_default_permissive_private_content() {
+		$site = new WP_Site( (object) [ 'blog_id' => 2 ] );
+		$this->privacy->setDefaultPermissivePrivateContent( $site );
+		$this->assertEquals( get_option( 'permissive_private_content' ), 0 );
 	}
 }
