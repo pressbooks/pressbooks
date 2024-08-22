@@ -6,6 +6,8 @@
 
 namespace Pressbooks;
 
+use WP_Site;
+
 class Privacy {
 
 	/**
@@ -85,5 +87,11 @@ class Privacy {
 			}
 			return $query;
 		});
+	}
+
+	public static function setDefaultPermissivePrivateContent( WP_Site $site ): void {
+		switch_to_blog( $site->blog_id );
+		update_option( 'permissive_private_content', 1 );
+		restore_current_blog();
 	}
 }

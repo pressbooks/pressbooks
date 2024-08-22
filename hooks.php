@@ -348,3 +348,5 @@ add_filter( 'init', [ '\Pressbooks\Utility\ErrorHandler', 'init' ] );
 
 // Open up private content to subscribers and collaborators when permissive_private_content is enabled
 add_filter( 'init', [ Privacy::class, 'showPermissivePrivateContent' ] );
+
+add_action( 'wp_initialize_site', [ Privacy::class, 'setDefaultPermissivePrivateContent' ], 100, 1 );
