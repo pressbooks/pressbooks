@@ -194,7 +194,6 @@ class WebOptions extends \Pressbooks\Options {
 			);
 		}
 
-
 		/**
 		 * Add custom settings fields.
 		 *

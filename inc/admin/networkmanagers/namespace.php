@@ -258,3 +258,16 @@ function restrict_access() {
 		}
 	}
 }
+
+function remove_from_pressbooks_network_managers( $user_id ) {
+	$current_network_managers = get_site_option( 'pressbooks_network_managers', [] );
+
+	$key = array_search( $user_id, $current_network_managers, true );
+	if ( $key !== false ) {
+		unset( $current_network_managers[ $key ] );
+
+		$current_network_managers = array_values( $current_network_managers );
+
+		update_site_option( 'pressbooks_network_managers', $current_network_managers );
+	}
+}
