@@ -189,4 +189,57 @@ class Admin_NetworkManagers extends \WP_UnitTestCase {
 		$restricted_users = get_site_option( 'pressbooks_network_managers' );
 		$this->assertNotContains( $user_id, $restricted_users );
 	}
+
+	public function test_if_orphan_ids_gets_removed_from_pressbooks_network_managers() {
+
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		grant_super_admin( $user_id );
+		wp_set_current_user( $user_id );
+
+		$_REQUEST['_ajax_nonce'] = wp_create_nonce( 'pb-network-managers' );
+		$_POST['admin_id'] = $user_id;
+		$_POST['status'] = '1';
+		update_admin_status();
+		$this->assertTrue( \Pressbooks\Admin\NetworkManagers\is_restricted() );
+
+		$restricted_users = get_site_option( 'pressbooks_network_managers' );
+		$this->assertContains( $user_id, $restricted_users );
+
+		add_action( 'revoked_super_admin', '\Pressbooks\Admin\NetworkManagers\remove_from_pressbooks_network_managers' );
+
+		// Revoke super admin privileges
+		revoke_super_admin( $user_id );
+
+		// User should no longer be restricted and should be removed from the list of restricted users
+		$restricted_users = get_site_option( 'pressbooks_network_managers' );
+		$this->assertNotContains( $user_id, $restricted_users );
+
+		grant_super_admin( $user_id );
+		update_admin_status();
+
+		// Add an orphaned user ID to the list of restricted users
+		$restricted_users[] = 999999999;
+		$restricted_users[] = 443;
+		$restricted_users[] = 545;
+
+		update_site_option( 'pressbooks_network_managers', $restricted_users );
+
+		$restricted_users = get_site_option( 'pressbooks_network_managers' );
+
+		$this->assertContains( 999999999, $restricted_users );
+		$this->assertContains( 443, $restricted_users );
+		$this->assertContains( 545, $restricted_users );
+
+		add_action( 'revoked_super_admin', '\Pressbooks\Admin\NetworkManagers\remove_from_pressbooks_network_managers' );
+
+		// Revoke super admin privileges
+		revoke_super_admin( $user_id );
+
+		$restricted_users = get_site_option( 'pressbooks_network_managers' );
+
+		$this->assertNotContains( 999999999, $restricted_users );
+		$this->assertNotContains( 443, $restricted_users );
+		$this->assertNotContains( 545, $restricted_users );
+
+	}
 }

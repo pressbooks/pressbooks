@@ -120,7 +120,7 @@ add_filter( 'admin_body_class', '\Pressbooks\Admin\NetworkManagers\admin_body_cl
 add_action( 'network_admin_menu', '\Pressbooks\Admin\NetworkManagers\add_menu', 1 );
 add_action( 'wp_ajax_pb_update_admin_status', '\Pressbooks\Admin\NetworkManagers\update_admin_status' );
 add_action( 'revoked_super_admin', '\Pressbooks\Admin\NetworkManagers\remove_from_pressbooks_network_managers' );
-add_action('deleted_user', '\Pressbooks\Admin\NetworkManagers\remove_from_pressbooks_network_managers');
+add_action( 'deleted_user', '\Pressbooks\Admin\NetworkManagers\remove_from_pressbooks_network_managers' );
 
 // Interfaces around Custom Post Types and Taxonomies
 add_filter( 'post_row_actions', '\Pressbooks\PostType\row_actions', 10, 2 );
