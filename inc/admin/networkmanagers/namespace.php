@@ -258,3 +258,23 @@ function restrict_access() {
 		}
 	}
 }
+
+function remove_from_pressbooks_network_managers( $user_id ): void {
+	$current_network_managers = get_site_option( 'pressbooks_network_managers', [] );
+
+	// Check if the user is in the current network managers array and remove if found
+	$key = array_search( $user_id, $current_network_managers, true );
+	if ( $key !== false ) {
+		unset( $current_network_managers[ $key ] );
+	}
+
+	// Remove any IDs that are not super admins or do not exist
+	$current_network_managers = array_filter($current_network_managers, function( $id ) {
+		$user = get_userdata( $id );
+		return $user !== false && is_super_admin( $id );
+	});
+
+	$current_network_managers = array_values( $current_network_managers );
+
+	update_site_option( 'pressbooks_network_managers', $current_network_managers );
+}

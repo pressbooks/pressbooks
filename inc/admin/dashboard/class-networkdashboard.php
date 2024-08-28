@@ -4,7 +4,6 @@
  */
 namespace Pressbooks\Admin\Dashboard;
 
-use PressbooksMix\Assets;
 use Pressbooks\Container;
 
 class NetworkDashboard extends Dashboard {
