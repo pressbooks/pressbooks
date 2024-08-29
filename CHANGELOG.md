@@ -1,5 +1,17 @@
 # Changelog
 
+## [6.20.0](https://github.com/pressbooks/pressbooks/compare/6.19.2...6.20.0) (2024-08-29)
+
+
+### Features
+
+* add default value for permissive_private_content option ([#3767](https://github.com/pressbooks/pressbooks/issues/3767)) ([96f7a26](https://github.com/pressbooks/pressbooks/commit/96f7a263a55a4a6df625ed847edbf93c5bf5fa6e))
+
+
+### Bug Fixes
+
+* remove user from pb_network_managers on super admin revoke or de… ([#3771](https://github.com/pressbooks/pressbooks/issues/3771)) ([d32705b](https://github.com/pressbooks/pressbooks/commit/d32705b6c901dfb1f10df01f8ec66844349d98f3))
+
 ## [6.19.2](https://github.com/pressbooks/pressbooks/compare/6.19.1...6.19.2) (2024-08-05)
 
 
