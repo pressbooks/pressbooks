@@ -350,3 +350,7 @@ add_filter( 'init', [ '\Pressbooks\Utility\ErrorHandler', 'init' ] );
 add_filter( 'init', [ Privacy::class, 'showPermissivePrivateContent' ] );
 
 add_action( 'wp_initialize_site', [ Privacy::class, 'setDefaultPermissivePrivateContent' ], 100, 1 );
+
+//Network Managers hooks via CLI
+add_action( 'revoked_super_admin', '\Pressbooks\Admin\NetworkManagers\remove_from_pressbooks_network_managers' );
+add_action( 'deleted_user', '\Pressbooks\Admin\NetworkManagers\remove_from_pressbooks_network_managers' );
