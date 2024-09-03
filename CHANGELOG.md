@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.20.1](https://github.com/pressbooks/pressbooks/compare/6.20.0...6.20.1) (2024-08-29)
+
+
+### Bug Fixes
+
+* append hooks in noon admin context ([#3773](https://github.com/pressbooks/pressbooks/issues/3773)) ([346a51b](https://github.com/pressbooks/pressbooks/commit/346a51b5fbfa8054983222f56f6b83169f03bd01))
+
 ## [6.20.0](https://github.com/pressbooks/pressbooks/compare/6.19.2...6.20.0) (2024-08-29)
 
 
