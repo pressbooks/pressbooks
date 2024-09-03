@@ -363,10 +363,14 @@ class H5P {
 			return null;
 		}
 
-		// Use WordPress upload dir for temporary H5PExtractor files
-		$h5pExtractor = new \H5PExtractor\H5PExtractor(
-			['uploadsPath' => wp_upload_dir()['basedir']]
-		);
+		// Custom CSS for font size. Should probably be configurable.
+		$customCss  = '.h5p-iframe .h5p-content { font-size: 10px; }';
+
+  	// Use WordPress upload dir for temporary H5PExtractor files
+		$h5pExtractor = new \H5PExtractor\H5PExtractor([
+			'uploadsPath' => wp_upload_dir()['basedir'],
+			'customCss' => $customCss
+		]);
 
 		$extract = $h5pExtractor->extract( ['file' => $path, 'format' => 'html'] );
 
