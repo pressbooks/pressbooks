@@ -363,19 +363,16 @@ class H5P {
 			return null;
 		}
 
-		// Guard against CSS spill-over from Pressbooks
-		$customCssPre  = '.h5p-iframe { font-family: sans-serif; }';
-		$customCssPre .= '.h5p-iframe .h5p-content p { text-indent: 0; }';
-		$customCssPre .= '.h5p-iframe .h5p-content div + div { text-indent: 0; }';
-
-		// Custom CSS for font size. Should probably be configurable.
-		$customCssPost = '.h5p-iframe .h5p-content { font-size: 10px; }';
+		// Guards against CSS spill-over from Pressbooks. !important is necessary here, unfortunately.
+		$customCssPre  = '.h5p-extractor .h5p-iframe .h5p-content { font-size: 10px !important; }';
+		$customCssPre .= '.h5p-extractor .h5p-iframe { font-family: sans-serif; }';
+		$customCssPre .= '.h5p-extractor .h5p-iframe .h5p-content p { text-indent: 0; }';
+		$customCssPre .= '.h5p-extractor .h5p-iframe .h5p-content div + div { text-indent: 0; }';
 
   	// Use WordPress upload dir for temporary H5PExtractor files
 		$h5pExtractor = new \H5PExtractor\H5PExtractor([
 			'uploadsPath' => wp_upload_dir()['basedir'],
-			'customCssPre' => $customCssPre,
-			'customCssPost' => $customCssPost
+			'customCssPre' => $customCssPre
 		]);
 
 		$extract = $h5pExtractor->extract( ['file' => $path, 'format' => 'html'] );
