@@ -21,7 +21,7 @@ use function Pressbooks\add_notice;
  */
 
 function filter_plugins( $plugins ) {
-	if ( ! is_super_admin() ) {
+	if ( ! is_super_admin() || is_restricted() ) {
 		$slugs = [
 			'h5p',
 			'hypothesis',
