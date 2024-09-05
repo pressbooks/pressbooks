@@ -11,7 +11,7 @@ namespace Pressbooks\Admin\Plugins;
 use function Pressbooks\add_notice;
 
 /**
- * Hide plugins that aren't prefixed with `pressbooks-` (only applies to books).
+ * Hide unapproved plugins for book admins & network managers (only applies to books).
  * To show all plugins to all users, place the following in a plugin that loads before Pressbooks:
  * `remove_filter( 'all_plugins', '\Pressbooks\Admin\Plugins\filter_plugins', 10 );`
  *
@@ -31,7 +31,7 @@ function filter_plugins( $plugins ) {
 		];
 		$approved = [];
 		foreach ( $plugins as $slug => $value ) {
-			if ( strpos( $slug, 'pressbooks-' ) !== false || in_array( explode( '/', $slug )[0], $slugs, true ) ) {
+			if ( in_array( explode( '/', $slug )[0], $slugs, true ) ) {
 				$approved[ $slug ] = $value;
 			}
 		}
