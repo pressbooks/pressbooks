@@ -9,6 +9,8 @@
 namespace Pressbooks\Admin\Plugins;
 
 use function Pressbooks\add_notice;
+use function Pressbooks\Admin\NetworkManagers\is_restricted;
+
 
 /**
  * Hide unapproved plugins for book admins & network managers (only applies to books).
