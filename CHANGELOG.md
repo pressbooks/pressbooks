@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.20.2](https://github.com/pressbooks/pressbooks/compare/6.20.1...6.20.2) (2024-09-05)
+
+
+### Bug Fixes
+
+* hide full plugin menu in books for network managers ([#3777](https://github.com/pressbooks/pressbooks/issues/3777)) ([c5197a9](https://github.com/pressbooks/pressbooks/commit/c5197a98f2492e9c2c68a95e9a92d5ca69b6815e))
+* Update Yukon University name ([#3776](https://github.com/pressbooks/pressbooks/issues/3776)) ([922cef4](https://github.com/pressbooks/pressbooks/commit/922cef4727bee662e102a568db05987ffd45addd))
+
 ## [6.20.1](https://github.com/pressbooks/pressbooks/compare/6.20.0...6.20.1) (2024-08-29)
 
 
