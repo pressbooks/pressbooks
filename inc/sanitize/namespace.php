@@ -775,7 +775,18 @@ function sanitize_webbook_content( $content ) {
 
 function filter_export_content( $content ) {
 	remove_filter( 'the_content', '\Pressbooks\Sanitize\sanitize_webbook_content' );
+
+	// Content can be very large which can cause convert_smilies in formatting.php to crash. It runs preg_replace which
+	// can return false in case of failure (which it will if the content is too large). The return value is assumed to
+	// be an array and not guarded against being a boolean.
+
+	$pcre_limit = ini_get( 'pcre.backtrack_limit' );
+	ini_set( 'pcre.backtrack_limit', PHP_INT_MAX );
+
 	$content = apply_filters( 'the_content', $content );
+
+	ini_set('pcre.backtrack_limit', $pcre_limit);
+
 	add_filter( 'the_content', '\Pressbooks\Sanitize\sanitize_webbook_content' );
 	return $content;
 }
