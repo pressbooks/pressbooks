@@ -369,9 +369,19 @@ class H5P {
 		$customCssPre .= '.h5p-extractor .h5p-iframe .h5p-content p { text-indent: 0; }';
 		$customCssPre .= '.h5p-extractor .h5p-iframe .h5p-content div + div { text-indent: 0; }';
 
-  	// Use WordPress upload dir for temporary H5PExtractor files
+  	/*
+		 * Used for configuration of H5PExtraction:
+		 * uploadsPath: Use WordPress `uploads` folder to use for extracted files
+		 * h5pContentUrl: URL to H5P content folder to use assets from server, not base64 encoded representations
+		 * h5pCoreUrl: URL to H5P core library files to use assets from server, not base64 encoded representations
+		 * h5pLibrariesUrl: URL to H5P libraries folder to use assets from server, not base64 encoded representations
+		 * customCssPre: Custom CSS to be added to the beginning of the CSS file to guard against Pressbooks CSS spill-over
+		 */
 		$h5pExtractor = new \H5PExtractor\H5PExtractor([
 			'uploadsPath' => wp_upload_dir()['basedir'],
+			'h5pContentUrl' => wp_upload_dir()['baseurl'] . '/h5p/content/' . $h5p_id . '/',
+			'h5pCoreUrl' => plugins_url() . '/h5p/h5p-php-library/',
+			'h5pLibrariesUrl' => wp_upload_dir()['baseurl'] . '/h5p/libraries/',
 			'customCssPre' => $customCssPre
 		]);
 
