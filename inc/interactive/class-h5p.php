@@ -368,8 +368,14 @@ class H5P {
 		$customCssPre .= '.h5p-extractor .h5p-iframe { font-family: sans-serif; }';
 		$customCssPre .= '.h5p-extractor .h5p-iframe .h5p-content p { text-indent: 0; }';
 		$customCssPre .= '.h5p-extractor .h5p-iframe .h5p-content div + div { text-indent: 0; }';
+
+		// Guard for Question Set
 		$customCssPre .= '.h5p-extractor .h5p-iframe .h5p-content .h5p-question-container + .qs-footer ' .
 			'.progress-dot:not(.current):not(.unanswered) { background: #cecece; }';
+
+		// Guard for Old Accordion version used in Pressbooks
+		$customCssPre .= '.h5p-extractor .h5p-accordion .h5p-panel-title:before {content: "";}';
+		$customCssPre .= '.h5p-extractor .h5p-accordion .h5p-panel-title { padding-left: 0; font-size: unset;}';
 
   	/*
 		 * Used for configuration of H5PExtraction:
@@ -384,7 +390,10 @@ class H5P {
 			'h5pContentUrl' => wp_upload_dir()['baseurl'] . '/h5p/content/' . $h5p_id . '/',
 			'h5pCoreUrl' => plugins_url() . '/h5p/h5p-php-library/',
 			'h5pLibrariesUrl' => wp_upload_dir()['baseurl'] . '/h5p/libraries/',
-			'customCssPre' => $customCssPre
+			'customCssPre' => $customCssPre,
+			'renderWidths' => [
+				'H5P.FindTheWords' => 480
+			]
 		]);
 
 		$extract = $h5pExtractor->extract( ['file' => $path, 'format' => 'html'] );
