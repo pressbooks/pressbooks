@@ -368,6 +368,8 @@ class H5P {
 		$customCssPre .= '.h5p-extractor .h5p-iframe { font-family: sans-serif; }';
 		$customCssPre .= '.h5p-extractor .h5p-iframe .h5p-content p { text-indent: 0; }';
 		$customCssPre .= '.h5p-extractor .h5p-iframe .h5p-content div + div { text-indent: 0; }';
+		$customCssPre .= '.h5p-extractor .h5p-iframe .h5p-content .h5p-question-container + .qs-footer ' .
+			'.progress-dot:not(.current):not(.unanswered) { background: #cecece; }';
 
   	/*
 		 * Used for configuration of H5PExtraction:
