@@ -392,7 +392,8 @@ class H5P {
 			'h5pLibrariesUrl' => wp_upload_dir()['baseurl'] . '/h5p/libraries/',
 			'customCssPre' => $customCssPre,
 			'renderWidths' => [
-				'H5P.FindTheWords' => 480
+				'H5P.FindTheWords' => 370, // TODO: Will need to be set according to PDF page width - margins
+				'H5P.DragQuestion' => 370 // TODO: Will need to be set according to PDF page width - margins
 			]
 		]);
 
