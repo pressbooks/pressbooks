@@ -27,6 +27,11 @@ class H5P {
 	protected $blade;
 
 	/**
+	 * @var float DPI for rendering H5P content
+	 */
+	protected $dpi = 96;
+
+	/**
 	 * @param \Jenssegers\Blade\Blade $blade
 	 */
 	public function __construct( $blade ) {
@@ -363,14 +368,19 @@ class H5P {
 			return null;
 		}
 
+		// Calculate render width in pixels
+		$pdf_options = get_option('pressbooks_theme_options_pdf');
+		$pageWidth = \Pressbooks\Utility\cssToInches($pdf_options['pdf_page_width'], $this->dpi) -
+			\Pressbooks\Utility\cssToInches( $pdf_options['pdf_page_margin_inside'], $this->dpi) -
+			\Pressbooks\Utility\cssToInches($pdf_options['pdf_page_margin_outside'], $this->dpi);
+		$renderWidth = $pageWidth * $this->dpi;
+
 		// Guards against CSS spill-over from Pressbooks. !important is necessary here, unfortunately.
 		$customCssPre  = '.h5p-extractor .h5p-iframe .h5p-content p { text-indent: 0; }';
 		$customCssPre .= '.h5p-extractor .h5p-iframe .h5p-content div + div { text-indent: 0; }';
-
 		// Guard for Question Set
 		$customCssPre .= '.h5p-extractor .h5p-iframe .h5p-content .h5p-question-container + .qs-footer ' .
 			'.progress-dot:not(.current):not(.unanswered) { background: #cecece; }';
-
 		// Guard for Old Accordion version used in Pressbooks
 		$customCssPre .= '.h5p-extractor .h5p-accordion .h5p-panel-title:before {content: "";}';
 		$customCssPre .= '.h5p-extractor .h5p-accordion .h5p-panel-title { padding-left: 0; font-size: unset;}';
@@ -390,10 +400,7 @@ class H5P {
 			'h5pLibrariesUrl' => wp_upload_dir()['baseurl'] . '/h5p/libraries/',
 			'customCssPre' => $customCssPre,
 			'baseFontSize' => 10,
-			'renderWidths' => [
-				'H5P.DragQuestion' => 370, // TODO: Will depend on paper size!
-				'H5P.FindTheWords' => 370 // TODO: Will depend on paper size!
-			]
+			'renderWidth' => $renderWidth,
 		]);
 
 		$extract = $h5pExtractor->extract( ['file' => $path, 'format' => 'html'] );
