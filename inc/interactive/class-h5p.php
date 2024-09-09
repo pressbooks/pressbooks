@@ -364,9 +364,7 @@ class H5P {
 		}
 
 		// Guards against CSS spill-over from Pressbooks. !important is necessary here, unfortunately.
-		$customCssPre  = '.h5p-extractor .h5p-iframe .h5p-content { font-size: 10px !important; }';
-		$customCssPre .= '.h5p-extractor .h5p-iframe { font-family: sans-serif; }';
-		$customCssPre .= '.h5p-extractor .h5p-iframe .h5p-content p { text-indent: 0; }';
+		$customCssPre  = '.h5p-extractor .h5p-iframe .h5p-content p { text-indent: 0; }';
 		$customCssPre .= '.h5p-extractor .h5p-iframe .h5p-content div + div { text-indent: 0; }';
 
 		// Guard for Question Set
@@ -391,9 +389,10 @@ class H5P {
 			'h5pCoreUrl' => plugins_url() . '/h5p/h5p-php-library/',
 			'h5pLibrariesUrl' => wp_upload_dir()['baseurl'] . '/h5p/libraries/',
 			'customCssPre' => $customCssPre,
+			'baseFontSize' => 10,
 			'renderWidths' => [
-				'H5P.FindTheWords' => 370, // TODO: Will need to be set according to PDF page width - margins
-				'H5P.DragQuestion' => 370 // TODO: Will need to be set according to PDF page width - margins
+				'H5P.DragQuestion' => 370, // TODO: Will depend on paper size!
+				'H5P.FindTheWords' => 370 // TODO: Will depend on paper size!
 			]
 		]);
 
