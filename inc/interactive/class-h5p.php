@@ -385,6 +385,15 @@ class H5P {
 		$customCssPre .= '.h5p-extractor .h5p-accordion .h5p-panel-title:before {content: "";}';
 		$customCssPre .= '.h5p-extractor .h5p-accordion .h5p-panel-title { padding-left: 0; font-size: unset;}';
 
+		// Workaround for Advanced Text, the > selector in the original CSS will be replaced by &gt; for XML
+		$customCssPre .= '.h5p-extractor .h5p-advanced-text ul li { list-style-type: disc; margin: 0 0 1em 1.5em; padding: 0;}';
+		$customCssPre .= '.h5p-extractor .h5p-advanced-text ol li { list-style-type: decimal; margin: 0 0 1em 1.5em; padding: 0;}';
+		$customCssPre .= '.h5p-extractor .h5p-advanced-text ul li:last-child { margin-bottom: 0; }';
+		$customCssPre .= '.h5p-extractor .h5p-advanced-text ol li:last-child { margin-bottom: 0; }';
+
+		// Workaround for Image, the > selector in the original CSS will be replaced by &gt; for XML
+		$customCssPre .= '.h5p-extractor .h5p-image img { display: block; width: 100%; height: 100%; }';
+
   	/*
 		 * Used for configuration of H5PExtraction:
 		 * uploadsPath: Use WordPress `uploads` folder to use for extracted files
