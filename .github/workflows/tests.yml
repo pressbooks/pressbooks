@@ -14,13 +14,13 @@ jobs:
       fail-fast: false
       matrix:
         php: [ 8.1, 8.2 ]
-        wordpress: [ '6.6.1', 'latest' ]
+        wordpress: [ '6.6.2', 'latest' ]
         experimental: [ false ]
         epubcheck: [ 4.2.6 ]
         prince: [ 14.3-1 ]
         include:
           - php: 8.2
-            wordpress: 6.6.1
+            wordpress: 6.6.2
             prince: 14.3-1
             epubcheck: 4.2.6
             experimental: true
