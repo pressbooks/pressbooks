@@ -493,6 +493,10 @@ class Epub extends ExportGenerator {
 	 * @throws \Exception
 	 */
 	public function convertGenerator(): \Generator {
+		if ( ! has_filter( 'the_export_content', 'do_shortcode' ) ) {
+			add_filter( 'the_export_content', 'do_shortcode', 11 ); // After wpautop
+		}
+
 		yield 1 => $this->generatorPrefix . __( 'Initializing', 'pressbooks' );
 
 		// Sanity check

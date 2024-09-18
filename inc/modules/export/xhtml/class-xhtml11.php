@@ -313,7 +313,6 @@ class Xhtml11 extends ExportGenerator {
 	 * @throws \Exception
 	 */
 	public function transformGenerator() : \Generator {
-
 		do_action( 'pb_pre_export' );
 
 		// Override footnote shortcode
@@ -570,16 +569,22 @@ class Xhtml11 extends ExportGenerator {
 	 * @return string
 	 */
 	function doFootnotes( $id ) {
-		// TODO: convert to blade
 		if ( ! isset( $this->footnotes[ $id ] ) || ! count( $this->footnotes[ $id ] ) ) {
 			return '';
+		}
+
+		if ( ! has_filter( 'the_content', 'do_shortcode' ) ) {
+			add_filter( 'the_content', 'do_shortcode', 11 );
 		}
 
 		$e = '<div class="footnotes">';
 		foreach ( $this->footnotes[ $id ] as $k => $footnote ) {
 			$key = $k + 1;
 			$id_attr = $id . '-' . $key;
-			$e .= "<div id='$id_attr'>" . $this->fixInternalLinks( $footnote ) . '</div>';
+
+			$footnote_content = apply_filters( 'the_content', $footnote );
+
+			$e .= "<div id='$id_attr'>" . $this->fixInternalLinks( $footnote_content ) . '</div>';
 		}
 		$e .= '</div>';
 
@@ -651,11 +656,11 @@ class Xhtml11 extends ExportGenerator {
 
 	/**
 	 * @param string $content
-	 * @param int    $id
+	 * @param int|null $id
 	 *
 	 * @return string
 	 */
-	protected function preProcessPostContent( $content, $id = null ) {
+	protected function preProcessPostContent( string $content, int $id = null ): string {
 		$content = apply_filters( 'the_export_content', $content );
 		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
 		$content = $this->fixInternalLinks( $content, $id );
@@ -664,9 +669,7 @@ class Xhtml11 extends ExportGenerator {
 		if ( ! empty( $_GET['optimize-for-print'] ) ) {
 			$content = $this->fixImages( $content );
 		}
-		$content = $this->tidy( $content );
-
-		return $content;
+		return $this->tidy( $content );
 	}
 
 	protected function fixImageAttributes( $content ) {
