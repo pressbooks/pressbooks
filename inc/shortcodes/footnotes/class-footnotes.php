@@ -133,6 +133,10 @@ class Footnotes {
 
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 
+		if ( ! has_filter( 'the_content', 'do_shortcode' ) ) {
+			add_filter( 'the_content', 'do_shortcode', 11 );
+		}
+
 		if ( ! empty( $this->footnotes ) && isset( $this->footnotes[ $id ] ) ) {
 			$footnotes = $this->footnotes[ $id ];
 		} else {
