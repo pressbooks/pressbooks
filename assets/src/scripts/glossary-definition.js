@@ -1,3 +1,5 @@
+/* global MathJax */
+
 const glossaryTerms = document.querySelectorAll( '#content .glossary-term' );
 
 Array.prototype.forEach.call( glossaryTerms, glossaryTerm => {
@@ -8,10 +10,11 @@ Array.prototype.forEach.call( glossaryTerms, glossaryTerm => {
 			const template = document.querySelector(
 				glossaryTerm.getAttribute( 'href' )
 			);
+
 			showDefinition( template );
 
 			if ( typeof MathJax !== 'undefined' ) {
-				MathJax.Hub.Queue( [ "Typeset", MathJax.Hub ] );
+				MathJax.Hub.Queue( [ 'Typeset', MathJax.Hub ] );
 			}
 		}
 
@@ -53,7 +56,6 @@ Array.prototype.forEach.call( glossaryTerms, glossaryTerm => {
 	 */
 	function removeDefinition() {
 		const definition = document.querySelector( '.glossary__definition' );
-		const glossaryTermId = definition.dataset.id;
 		const glossaryTerm = document.querySelector( '.glossary-term[data-source]' );
 		const overlay = document.querySelector( '.overlay' );
 
@@ -71,7 +73,9 @@ Array.prototype.forEach.call( glossaryTerms, glossaryTerm => {
 			elem.removeAttribute( 'inert' );
 		} );
 
-		glossaryTerm.focus();
-		glossaryTerm.removeAttribute( 'data-source' );
+		if ( glossaryTerm !== null ) {
+			glossaryTerm.focus();
+			glossaryTerm.removeAttribute( 'data-source' );
+		}
 	}
 } );
