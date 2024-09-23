@@ -9,6 +9,8 @@ Array.prototype.forEach.call( glossaryTerms, glossaryTerm => {
 				glossaryTerm.getAttribute( 'href' )
 			);
 			showDefinition( template );
+
+			MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
 		}
 
 		if (
