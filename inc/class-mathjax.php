@@ -12,6 +12,8 @@
 
 namespace Pressbooks;
 
+use Pressbooks\Shortcodes\Glossary\Glossary;
+
 /**
  * Heavily inspired by JetPack Latex and MathJax-LaTeX
  *
@@ -238,22 +240,28 @@ class MathJax {
 	 *
 	 * @return bool
 	 */
-	public function sectionHasMath() {
+	public function sectionHasMath(): bool {
 		$has_math = false;
 		$post = get_post();
+
+		if ( Glossary::isGlossaryPost( $post ) ) {
+			return true;
+		}
+
 		if ( $post ) {
 			$id = $post->ID;
 			if ( isset( $this->sectionHasMath[ $id ] ) ) {
 				$has_math = $this->sectionHasMath[ $id ];
 			} else {
-				$content = $post->post_content;
+				$content = apply_shortcodes( $post->post_content );
 				$math_tags = [ '[/latex]', '$latex', '[/asciimath]', '$asciimath', '</math>' ];
 				foreach ( $math_tags as $math_tag ) {
-					if ( strpos( $content, $math_tag ) !== false ) {
+					if ( str_contains( $content, $math_tag ) ) {
 						$has_math = true;
 						break;
 					}
 				}
+
 				$this->sectionHasMath[ $id ] = $has_math;
 			}
 		}
