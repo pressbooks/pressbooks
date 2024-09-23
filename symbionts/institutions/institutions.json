@@ -3167,6 +3167,21 @@
             "url": "https:\/\/www.yorksj.ac.uk\/"
           }
         ]
+      },
+      {
+        "name": "Spain",
+        "institutions": [
+          {
+            "code": "EU-ESP-001",
+            "name": "University of Burgos",
+            "url": "https:\/\/www.ubu.es\/"
+          },
+          {
+            "code": "EU-ESP-002",
+            "name": "University of Valladolid",
+            "url": "https:\/\/www.uva.es\/"
+          }
+        ]
       }
     ]
   },
