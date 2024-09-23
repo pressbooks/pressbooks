@@ -10,7 +10,9 @@ Array.prototype.forEach.call( glossaryTerms, glossaryTerm => {
 			);
 			showDefinition( template );
 
-			MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+			if ( typeof MathJax !== 'undefined' ) {
+				MathJax.Hub.Queue( [ "Typeset", MathJax.Hub ] );
+			}
 		}
 
 		if (

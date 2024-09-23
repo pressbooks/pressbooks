@@ -253,7 +253,7 @@ class MathJax {
 			if ( isset( $this->sectionHasMath[ $id ] ) ) {
 				$has_math = $this->sectionHasMath[ $id ];
 			} else {
-				$content = $post->post_content;
+				$content = apply_shortcodes( $post->post_content );
 				$math_tags = [ '[/latex]', '$latex', '[/asciimath]', '$asciimath', '</math>' ];
 				foreach ( $math_tags as $math_tag ) {
 					if ( str_contains( $content, $math_tag ) ) {
@@ -261,6 +261,7 @@ class MathJax {
 						break;
 					}
 				}
+
 				$this->sectionHasMath[ $id ] = $has_math;
 			}
 		}
