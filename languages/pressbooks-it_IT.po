@@ -4,13 +4,14 @@
 # Antonio D., 2017-2018
 # Giuseppe Pignataro (Fastbyte01) <rogepix@gmail.com>, 2014
 # Giuseppe Pignataro (Fastbyte01) <rogepix@gmail.com>, 2014,2021
+# Steel Wagstaff <steel@pressbooks.com>, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2024-05-08T20:14:28+00:00\n"
+"POT-Creation-Date: 2024-05-23T02:06:32+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
-"Last-Translator: Giuseppe Pignataro (Fastbyte01) <rogepix@gmail.com>, 2014,2021\n"
+"Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2024\n"
 "Language-Team: Italian (http://app.transifex.com/pressbooks/pressbooks/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -92,9 +93,9 @@ msgstr ""
 #: inc/admin/covergenerator/namespace.php:109 inc/class-contributors.php:828
 msgid "Author"
 msgid_plural "Authors"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Autore"
+msgstr[1] "Autori"
+msgstr[2] "Autori"
 
 #: inc/admin/attachments/namespace.php:60
 msgid "Author URL"
@@ -4556,14 +4557,14 @@ msgstr "Adopera Categoria"
 
 #. translators: 1: URL to Composer documentation, 2: URL to Pressbooks latest
 #. releases
-#: pressbooks.php:80
+#: pressbooks.php:85
 msgid ""
 "Pressbooks dependencies are missing. Please make sure that your "
 "project&rsquo;s <a href=\"%1$s\">Composer autoload file</a> is being "
 "required, or use the <a href=\"%2$s\">latest release</a> instead."
 msgstr ""
 
-#: pressbooks.php:91
+#: pressbooks.php:96
 msgid "Cannot find Pressbooks install."
 msgstr "Non riesco a trovare Pressbooks Install."
 
