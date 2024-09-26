@@ -253,8 +253,8 @@ class MathJax {
 			if ( isset( $this->sectionHasMath[ $id ] ) ) {
 				$has_math = $this->sectionHasMath[ $id ];
 			} else {
-				$content = apply_shortcodes( $post->post_content );
-				$math_tags = [ '[/latex]', '$latex', '[/asciimath]', '$asciimath', '</math>' ];
+				$content = $post->post_content;
+				$math_tags = [ '[table id=', '[/latex]', '$latex', '[/asciimath]', '$asciimath', '</math>' ];
 				foreach ( $math_tags as $math_tag ) {
 					if ( str_contains( $content, $math_tag ) ) {
 						$has_math = true;
