@@ -1,5 +1,15 @@
 # Changelog
 
+## [6.20.3](https://github.com/pressbooks/pressbooks/compare/6.20.2...6.20.3) (2024-09-26)
+
+
+### Bug Fixes
+
+* apply the_content filter before rendering footnotes for EPUB and PDF export routines ([#3788](https://github.com/pressbooks/pressbooks/issues/3788)) ([c65187c](https://github.com/pressbooks/pressbooks/commit/c65187c4747faa45c73b9d64965b16cc2db83fe5))
+* avoid applying shortcodes during mathjax content analysis ([#3795](https://github.com/pressbooks/pressbooks/issues/3795)) ([05d9d21](https://github.com/pressbooks/pressbooks/commit/05d9d21024794bc3c56a3efa36332ce8142a08da))
+* do not apply shortcodes during mathjax content analysis ([05d9d21](https://github.com/pressbooks/pressbooks/commit/05d9d21024794bc3c56a3efa36332ce8142a08da))
+* render mathjax formulas within glossary terms & tablepress tables ([#3793](https://github.com/pressbooks/pressbooks/issues/3793)) ([6b1862e](https://github.com/pressbooks/pressbooks/commit/6b1862e7289f180811b054b5ebeae5d186a27c50))
+
 ## [6.20.2](https://github.com/pressbooks/pressbooks/compare/6.20.1...6.20.2) (2024-09-05)
 
 
