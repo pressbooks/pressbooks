@@ -62,16 +62,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.322.2",
+            "version": "3.323.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "6a329cf111a4e54f2ca0e87ce07dd0b9e0befdad"
+                "reference": "1b393c41a73e1ef4c493c60c5eee0bb4b0632264"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6a329cf111a4e54f2ca0e87ce07dd0b9e0befdad",
-                "reference": "6a329cf111a4e54f2ca0e87ce07dd0b9e0befdad",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/1b393c41a73e1ef4c493c60c5eee0bb4b0632264",
+                "reference": "1b393c41a73e1ef4c493c60c5eee0bb4b0632264",
                 "shasum": ""
             },
             "require": {
@@ -154,9 +154,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.322.2"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.323.1"
             },
-            "time": "2024-09-20T18:08:53+00:00"
+            "time": "2024-10-04T18:07:17+00:00"
         },
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -1985,85 +1985,283 @@
         },
         {
             "name": "johnbillion/args",
-            "version": "1.10.0",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnbillion/args.git",
-                "reference": "ef670a14ce0b9221cee0a39f076f4810a200d1ac"
+                "reference": "464f53c1eff41eaa7e7aec9d5e03a2c8cfb2b783"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnbillion/args/zipball/ef670a14ce0b9221cee0a39f076f4810a200d1ac",
-                "reference": "ef670a14ce0b9221cee0a39f076f4810a200d1ac",
+                "url": "https://api.github.com/repos/johnbillion/args/zipball/464f53c1eff41eaa7e7aec9d5e03a2c8cfb2b783",
+                "reference": "464f53c1eff41eaa7e7aec9d5e03a2c8cfb2b783",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.4"
+                "php": ">=8.0"
             },
             "require-dev": {
                 "ergebnis/json-printer": "^3.2",
                 "ergebnis/phpstan-rules": "^1.0",
-                "humanmade/coding-standards": "^1.1",
+                "humanmade/coding-standards": "1.2.1",
                 "johnbillion/falsey-assertequals-detector": "^3",
                 "phpdocumentor/reflection": "~4.0 || ~5.0",
-                "phpstan/phpstan": "^1.0",
-                "phpstan/phpstan-phpunit": "^1.0",
-                "phpstan/phpstan-strict-rules": "^1.1",
+                "phpstan/phpstan": "1.12.5",
+                "phpstan/phpstan-phpunit": "1.4.0",
+                "phpstan/phpstan-strict-rules": "1.6.1",
                 "phpunit/phpunit": "^9.0",
                 "roots/wordpress-core-installer": "^1.0.0",
-                "roots/wordpress-full": "~6.5.0"
+                "roots/wordpress-full": "6.6",
+                "szepeviktor/phpstan-wordpress": "1.3.5"
             },
             "type": "library",
             "extra": {
                 "args-shapes": [
-                    "--function=\"\\get_categories()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/category.php",
-                    "--function=\"\\get_comments()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/comment.php",
-                    "--function=\"\\get_posts()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/post.php",
-                    "--function=\"\\get_tags()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/category.php",
-                    "--function=\"\\get_terms()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/taxonomy.php",
-                    "--function=\"\\get_users()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/user.php",
-                    "--function=\"\\paginate_links()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/general-template.php",
-                    "--function=\"\\register_block_type()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/blocks.php",
-                    "--function=\"\\register_meta()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/meta.php",
-                    "--function=\"\\register_post_meta()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/post.php",
-                    "--function=\"\\register_post_status()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/post.php",
-                    "--function=\"\\register_post_type()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/post.php",
-                    "--function=\"\\register_rest_field()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/rest-api.php",
-                    "--function=\"\\register_taxonomy()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/taxonomy.php",
-                    "--function=\"\\register_term_meta()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/taxonomy.php",
-                    "--function=\"\\wp_count_terms()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/taxonomy.php",
-                    "--function=\"\\wp_die()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/functions.php",
-                    "--function=\"\\wp_dropdown_categories()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/category-template.php",
-                    "--function=\"\\wp_dropdown_languages()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/l10n.php",
-                    "--function=\"\\wp_generate_tag_cloud()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/category-template.php",
-                    "--function=\"\\wp_get_nav_menus()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/nav-menu.php",
-                    "--function=\"\\wp_get_object_terms()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/taxonomy.php",
-                    "--function=\"\\wp_insert_post()\" --param=postarr --file=vendor/wordpress/wordpress/wp-includes/post.php",
-                    "--function=\"\\wp_insert_term()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/taxonomy.php",
-                    "--function=\"\\wp_insert_user()\" --param=userdata --file=vendor/wordpress/wordpress/wp-includes/user.php",
-                    "--function=\"\\wp_nav_menu()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/nav-menu-template.php",
-                    "--function=\"\\wp_remote_get()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/http.php",
-                    "--function=\"\\wp_remote_head()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/http.php",
-                    "--function=\"\\wp_remote_post()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/http.php",
-                    "--function=\"\\wp_remote_request()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/http.php",
-                    "--function=\"\\wp_safe_remote_get()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/http.php",
-                    "--function=\"\\wp_safe_remote_head()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/http.php",
-                    "--function=\"\\wp_safe_remote_post()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/http.php",
-                    "--function=\"\\wp_safe_remote_request()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/http.php",
-                    "--function=\"\\wp_update_post()\" --param=postarr --file=vendor/wordpress/wordpress/wp-includes/post.php",
-                    "--function=\"\\wp_update_term()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/taxonomy.php",
-                    "--function=\"\\wp_update_user()\" --param=userdata --file=vendor/wordpress/wordpress/wp-includes/user.php",
-                    "--method=\"\\WP_Block_Type::__construct()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/class-wp-block-type.php",
-                    "--method=\"\\WP_Comment_Query::__construct()\" --param=query --file=vendor/wordpress/wordpress/wp-includes/class-wp-comment-query.php",
-                    "--method=\"\\WP_Customize_Control::__construct()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/class-wp-customize-control.php",
-                    "--method=\"\\WP_Customize_Manager::__construct()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/class-wp-customize-manager.php",
-                    "--method=\"\\WP_Customize_Panel::__construct()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/class-wp-customize-panel.php",
-                    "--method=\"\\WP_Customize_Section::__construct()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/class-wp-customize-section.php",
-                    "--method=\"\\WP_Customize_Setting::__construct()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/class-wp-customize-setting.php",
-                    "--method=\"\\WP_Http::request()\" --param=args --file=vendor/wordpress/wordpress/wp-includes/class-wp-http.php",
-                    "--method=\"\\WP_Query::parse_query()\" --param=query --file=vendor/wordpress/wordpress/wp-includes/class-wp-query.php",
-                    "--method=\"\\WP_Term_Query::__construct()\" --param=query --file=vendor/wordpress/wordpress/wp-includes/class-wp-term-query.php",
-                    "--method=\"\\WP_User_Query::prepare_query()\" --param=query --file=vendor/wordpress/wordpress/wp-includes/class-wp-user-query.php"
+                    {
+                        "function": "\\get_categories()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/category.php"
+                    },
+                    {
+                        "function": "\\get_comments()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/comment.php"
+                    },
+                    {
+                        "function": "\\get_posts()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/post.php"
+                    },
+                    {
+                        "function": "\\get_tags()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/category.php"
+                    },
+                    {
+                        "function": "\\get_terms()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/taxonomy.php"
+                    },
+                    {
+                        "function": "\\get_users()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/user.php"
+                    },
+                    {
+                        "function": "\\paginate_links()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/general-template.php"
+                    },
+                    {
+                        "function": "\\register_block_type()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/blocks.php"
+                    },
+                    {
+                        "function": "\\register_meta()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/meta.php"
+                    },
+                    {
+                        "function": "\\register_post_meta()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/post.php"
+                    },
+                    {
+                        "function": "\\register_post_status()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/post.php"
+                    },
+                    {
+                        "function": "\\register_post_type()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/post.php"
+                    },
+                    {
+                        "function": "\\register_rest_field()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/rest-api.php"
+                    },
+                    {
+                        "function": "\\register_setting()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/option.php"
+                    },
+                    {
+                        "function": "\\register_taxonomy()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/taxonomy.php"
+                    },
+                    {
+                        "function": "\\register_term_meta()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/taxonomy.php"
+                    },
+                    {
+                        "function": "\\wp_count_terms()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/taxonomy.php"
+                    },
+                    {
+                        "function": "\\wp_die()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/functions.php"
+                    },
+                    {
+                        "function": "\\wp_dropdown_categories()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/category-template.php"
+                    },
+                    {
+                        "function": "\\wp_dropdown_languages()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/l10n.php"
+                    },
+                    {
+                        "function": "\\wp_generate_tag_cloud()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/category-template.php"
+                    },
+                    {
+                        "function": "\\wp_get_nav_menus()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/nav-menu.php"
+                    },
+                    {
+                        "function": "\\wp_get_object_terms()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/taxonomy.php"
+                    },
+                    {
+                        "function": "\\wp_insert_post()",
+                        "param": "postarr",
+                        "file": "vendor/wordpress/wordpress/wp-includes/post.php"
+                    },
+                    {
+                        "function": "\\wp_insert_term()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/taxonomy.php"
+                    },
+                    {
+                        "function": "\\wp_insert_user()",
+                        "param": "userdata",
+                        "file": "vendor/wordpress/wordpress/wp-includes/user.php"
+                    },
+                    {
+                        "function": "\\wp_nav_menu()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/nav-menu-template.php"
+                    },
+                    {
+                        "function": "\\wp_remote_get()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/http.php"
+                    },
+                    {
+                        "function": "\\wp_remote_head()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/http.php"
+                    },
+                    {
+                        "function": "\\wp_remote_post()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/http.php"
+                    },
+                    {
+                        "function": "\\wp_remote_request()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/http.php"
+                    },
+                    {
+                        "function": "\\wp_safe_remote_get()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/http.php"
+                    },
+                    {
+                        "function": "\\wp_safe_remote_head()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/http.php"
+                    },
+                    {
+                        "function": "\\wp_safe_remote_post()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/http.php"
+                    },
+                    {
+                        "function": "\\wp_safe_remote_request()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/http.php"
+                    },
+                    {
+                        "function": "\\wp_update_post()",
+                        "param": "postarr",
+                        "file": "vendor/wordpress/wordpress/wp-includes/post.php"
+                    },
+                    {
+                        "function": "\\wp_update_term()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/taxonomy.php"
+                    },
+                    {
+                        "function": "\\wp_update_user()",
+                        "param": "userdata",
+                        "file": "vendor/wordpress/wordpress/wp-includes/user.php"
+                    },
+                    {
+                        "method": "\\WP_Block_Type::__construct()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-block-type.php"
+                    },
+                    {
+                        "method": "\\WP_Comment_Query::__construct()",
+                        "param": "query",
+                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-comment-query.php"
+                    },
+                    {
+                        "method": "\\WP_Customize_Control::__construct()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-customize-control.php"
+                    },
+                    {
+                        "method": "\\WP_Customize_Manager::__construct()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-customize-manager.php"
+                    },
+                    {
+                        "method": "\\WP_Customize_Panel::__construct()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-customize-panel.php"
+                    },
+                    {
+                        "method": "\\WP_Customize_Section::__construct()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-customize-section.php"
+                    },
+                    {
+                        "method": "\\WP_Customize_Setting::__construct()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-customize-setting.php"
+                    },
+                    {
+                        "method": "\\WP_Http::request()",
+                        "param": "args",
+                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-http.php"
+                    },
+                    {
+                        "method": "\\WP_Query::parse_query()",
+                        "param": "query",
+                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-query.php"
+                    },
+                    {
+                        "method": "\\WP_Term_Query::__construct()",
+                        "param": "query",
+                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-term-query.php"
+                    },
+                    {
+                        "method": "\\WP_User_Query::prepare_query()",
+                        "param": "query",
+                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-user-query.php"
+                    }
                 ],
                 "wordpress-install-dir": "vendor/wordpress/wordpress"
             },
@@ -2085,7 +2283,7 @@
             "description": "I don't want to get into an argument about this.",
             "support": {
                 "issues": "https://github.com/johnbillion/args/issues",
-                "source": "https://github.com/johnbillion/args/tree/1.10.0"
+                "source": "https://github.com/johnbillion/args/tree/2.1.0"
             },
             "funding": [
                 {
@@ -2093,24 +2291,24 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-04-02T21:50:24+00:00"
+            "time": "2024-10-05T15:23:39+00:00"
         },
         {
             "name": "johnbillion/extended-cpts",
-            "version": "5.0.8",
+            "version": "5.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnbillion/extended-cpts.git",
-                "reference": "904daa7095e72bcecd52b019123c78dece959205"
+                "reference": "98e974fd972205b419d658a18afa5f22350f477d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnbillion/extended-cpts/zipball/904daa7095e72bcecd52b019123c78dece959205",
-                "reference": "904daa7095e72bcecd52b019123c78dece959205",
+                "url": "https://api.github.com/repos/johnbillion/extended-cpts/zipball/98e974fd972205b419d658a18afa5f22350f477d",
+                "reference": "98e974fd972205b419d658a18afa5f22350f477d",
                 "shasum": ""
             },
             "require": {
-                "johnbillion/args": "^1.4.1",
+                "johnbillion/args": "^1.4.1 || ^2.0",
                 "php": ">= 7.4.0"
             },
             "require-dev": {
@@ -2118,10 +2316,11 @@
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
                 "johnbillion/falsey-assertequals-detector": "*",
                 "johnbillion/plugin-infrastructure": "dev-trunk",
+                "johnbillion/wp-compat": "0.1.0",
                 "lucatume/wp-browser": ">=3.0.21 <3.5",
                 "phpcompatibility/phpcompatibility-wp": "^2",
-                "phpstan/phpstan": "^1.0",
-                "phpstan/phpstan-phpunit": "^1.0",
+                "phpstan/phpstan": "1.12.2",
+                "phpstan/phpstan-phpunit": "1.4.0",
                 "roots/wordpress-core-installer": "^1.0.0",
                 "roots/wordpress-full": "*",
                 "szepeviktor/phpstan-wordpress": "1.1.6",
@@ -2154,7 +2353,7 @@
             "homepage": "https://github.com/johnbillion/extended-cpts/",
             "support": {
                 "issues": "https://github.com/johnbillion/extended-cpts/issues",
-                "source": "https://github.com/johnbillion/extended-cpts/tree/5.0.8"
+                "source": "https://github.com/johnbillion/extended-cpts/tree/5.0.9"
             },
             "funding": [
                 {
@@ -2162,7 +2361,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-07-08T13:16:43+00:00"
+            "time": "2024-09-29T16:07:18+00:00"
         },
         {
             "name": "laravel/helpers",
@@ -2290,16 +2489,16 @@
         },
         {
             "name": "matomo/device-detector",
-            "version": "6.4.0",
+            "version": "6.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matomo-org/device-detector.git",
-                "reference": "05dca429cfe7b6a59947a0d449dbeb60cddc02f2"
+                "reference": "0d364e0dd6c177da3c24cd4049178026324fd7ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matomo-org/device-detector/zipball/05dca429cfe7b6a59947a0d449dbeb60cddc02f2",
-                "reference": "05dca429cfe7b6a59947a0d449dbeb60cddc02f2",
+                "url": "https://api.github.com/repos/matomo-org/device-detector/zipball/0d364e0dd6c177da3c24cd4049178026324fd7ac",
+                "reference": "0d364e0dd6c177da3c24cd4049178026324fd7ac",
                 "shasum": ""
             },
             "require": {
@@ -2355,7 +2554,7 @@
                 "source": "https://github.com/matomo-org/matomo",
                 "wiki": "https://dev.matomo.org/"
             },
-            "time": "2024-09-10T08:27:24+00:00"
+            "time": "2024-09-24T13:50:04+00:00"
         },
         {
             "name": "maxbanton/cwh",
