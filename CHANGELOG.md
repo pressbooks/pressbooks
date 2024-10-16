@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.20.4](https://github.com/pressbooks/pressbooks/compare/6.20.3...6.20.4) (2024-10-16)
+
+
+### Bug Fixes
+
+* default book theme needs to be accessible ([#3809](https://github.com/pressbooks/pressbooks/issues/3809)) ([92ecf71](https://github.com/pressbooks/pressbooks/commit/92ecf71924cebe94c18d1fb7bd52c83643bf3dfb))
+
 ## [6.20.3](https://github.com/pressbooks/pressbooks/compare/6.20.2...6.20.3) (2024-09-26)
 
 
