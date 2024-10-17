@@ -678,7 +678,7 @@ class SideBar {
 				return $item;
 			}
 		}
-		return $submenu[0];
+		return array_values( $submenu )[0] ?? [];
 	}
 
 	private function manageIntegrationsAdminMenuItem(): void {
