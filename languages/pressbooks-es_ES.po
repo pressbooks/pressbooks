@@ -1651,11 +1651,11 @@ msgstr "%s: Autor(es)"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:56
 msgid "%s Copyright License"
-msgstr ""
+msgstr "%s: Licencia de copyright"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:57
 msgid "Overrides book license on this page."
-msgstr ""
+msgstr "Reemplaza la licencia del libro en esta página."
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:63
 msgid "%s Digital Object Identifier (DOI)"
@@ -2179,9 +2179,9 @@ msgstr "Importar colaboradores"
 #: inc/class-contributors.php:827
 msgid "Editor"
 msgid_plural "Editors"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Editor"
+msgstr[1] "Editores"
+msgstr[2] "Editores"
 
 #: inc/class-contributors.php:829
 msgid "Contributor"
