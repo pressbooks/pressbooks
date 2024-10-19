@@ -2207,9 +2207,9 @@ msgstr[2] "Revisores"
 #: inc/class-contributors.php:832
 msgid "Illustrator"
 msgid_plural "Illustrators"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ilustrador"
+msgstr[1] "Ilustradores"
+msgstr[2] "Ilustradores"
 
 #: inc/class-eventstreams.php:201
 msgid ""
@@ -5471,7 +5471,7 @@ msgstr "Quitar"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:7
 msgid "Available options"
-msgstr ""
+msgstr "Opciones disponibles"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:8
 msgid "Moved to position $1"
