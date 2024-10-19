@@ -5420,15 +5420,15 @@ msgstr "1つ以上のインタラクティブ要素は文章のこのバージ�
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:4
 msgid "Remove"
-msgstr ""
+msgstr "削除"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:7
 msgid "Available options"
-msgstr ""
+msgstr "利用可能なオプション"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:8
 msgid "Moved to position $1"
-msgstr ""
+msgstr "位置 $1 に移動しました"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:9
 msgid "Removed $1 from selection"
