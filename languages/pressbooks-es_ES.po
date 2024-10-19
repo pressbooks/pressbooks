@@ -1643,7 +1643,7 @@ msgstr "%s: Subtítulo"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:44
 msgid "Appears in the Web/ebook/PDF output."
-msgstr ""
+msgstr "Aparece en los formatos web, PDF y de libro electrónico."
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:49
 msgid "%s Author(s)"
