@@ -5432,11 +5432,11 @@ msgstr "位置 $1 に移動しました"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:9
 msgid "Removed $1 from selection"
-msgstr ""
+msgstr "選択から $1 を削除しました"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:10
 msgid "Added $1 to selection"
-msgstr ""
+msgstr "選択に $1 が追加しました"
 
 #: assets/src/scripts/a11y.js:31 assets/src/scripts/a11y.js:32
 msgid "Gradient selector"
