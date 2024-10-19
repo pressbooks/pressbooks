@@ -1631,7 +1631,7 @@ msgstr "%s: Metadatos"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:37
 msgid "%s Short Title"
-msgstr ""
+msgstr "%s: Título corto"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:38
 msgid "Appears in the PDF running header and webbook navigation."
