@@ -1616,15 +1616,15 @@ msgstr "%sのメタデータ"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:37
 msgid "%s Short Title"
-msgstr ""
+msgstr "%sの副題"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:38
 msgid "Appears in the PDF running header and webbook navigation."
-msgstr ""
+msgstr "PDF のランニングヘッドとウェブブックナビゲーションに表示されます。"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:43
 msgid "%s Subtitle"
-msgstr ""
+msgstr "%sのサブタイトル"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:44
 msgid "Appears in the Web/ebook/PDF output."
