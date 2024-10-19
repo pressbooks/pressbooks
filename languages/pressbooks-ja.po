@@ -4356,7 +4356,7 @@ msgstr "定義"
 
 #: inc/shortcodes/glossary/class-glossary.php:297
 msgid "Close definition"
-msgstr ""
+msgstr "定義を閉じる"
 
 #: inc/theme/class-lock.php:96
 msgid ""
