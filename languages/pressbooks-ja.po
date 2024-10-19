@@ -2179,12 +2179,12 @@ msgstr[0] "翻訳者"
 #: inc/class-contributors.php:831
 msgid "Reviewer"
 msgid_plural "Reviewers"
-msgstr[0] ""
+msgstr[0] "校閲者"
 
 #: inc/class-contributors.php:832
 msgid "Illustrator"
 msgid_plural "Illustrators"
-msgstr[0] ""
+msgstr[0] "イラストレーター"
 
 #: inc/class-eventstreams.php:201
 msgid ""
@@ -4352,7 +4352,7 @@ msgstr "選択"
 
 #: inc/shortcodes/glossary/class-glossary.php:293
 msgid "definition"
-msgstr ""
+msgstr "定義"
 
 #: inc/shortcodes/glossary/class-glossary.php:297
 msgid "Close definition"
