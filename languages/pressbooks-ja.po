@@ -1,14 +1,14 @@
 # Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
-# Eduardo Vera, 2023
+# Eduardo Vera, 2023-2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2024-05-08T20:14:28+00:00\n"
+"POT-Creation-Date: 2024-05-23T02:06:32+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
-"Last-Translator: Eduardo Vera, 2023\n"
+"Last-Translator: Eduardo Vera, 2023-2024\n"
 "Language-Team: Japanese (http://app.transifex.com/pressbooks/pressbooks/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -90,7 +90,7 @@ msgstr "ソース URL"
 #: inc/admin/covergenerator/namespace.php:109 inc/class-contributors.php:828
 msgid "Author"
 msgid_plural "Authors"
-msgstr[0] ""
+msgstr[0] "著者"
 
 #: inc/admin/attachments/namespace.php:60
 msgid "Author URL"
@@ -1132,7 +1132,7 @@ msgstr "所属機関 (例: Rebus Foundation、Open University、アムネステ�
 
 #: inc/admin/menus/class-sidebar.php:87
 msgid "Sorry, you are not allowed to access this page."
-msgstr ""
+msgstr "このページにアクセスする権限がありません。"
 
 #: inc/admin/menus/class-sidebar.php:229 inc/admin/menus/class-sidebar.php:230
 #: inc/admin/menus/class-topbar.php:139
@@ -1616,19 +1616,19 @@ msgstr "%sのメタデータ"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:37
 msgid "%s Short Title"
-msgstr ""
+msgstr "%sの副題"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:38
 msgid "Appears in the PDF running header and webbook navigation."
-msgstr ""
+msgstr "PDF のランニングヘッドとウェブブックナビゲーションに表示されます。"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:43
 msgid "%s Subtitle"
-msgstr ""
+msgstr "%sのサブタイトル"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:44
 msgid "Appears in the Web/ebook/PDF output."
-msgstr ""
+msgstr "ウェブ/電子書籍/PDF 出力に表示されます。"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:49
 msgid "%s Author(s)"
@@ -1636,11 +1636,11 @@ msgstr "%sの著者"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:56
 msgid "%s Copyright License"
-msgstr ""
+msgstr "%sの著作権ライセンス"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:57
 msgid "Overrides book license on this page."
-msgstr ""
+msgstr "このページに本のライセンスを上書き。"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:63
 msgid "%s Digital Object Identifier (DOI)"
@@ -2164,27 +2164,27 @@ msgstr "寄稿者をインポート"
 #: inc/class-contributors.php:827
 msgid "Editor"
 msgid_plural "Editors"
-msgstr[0] ""
+msgstr[0] "編集者"
 
 #: inc/class-contributors.php:829
 msgid "Contributor"
 msgid_plural "Contributors"
-msgstr[0] ""
+msgstr[0] "寄稿者"
 
 #: inc/class-contributors.php:830
 msgid "Translator"
 msgid_plural "Translators"
-msgstr[0] ""
+msgstr[0] "翻訳者"
 
 #: inc/class-contributors.php:831
 msgid "Reviewer"
 msgid_plural "Reviewers"
-msgstr[0] ""
+msgstr[0] "校閲者"
 
 #: inc/class-contributors.php:832
 msgid "Illustrator"
 msgid_plural "Illustrators"
-msgstr[0] ""
+msgstr[0] "イラストレーター"
 
 #: inc/class-eventstreams.php:201
 msgid ""
@@ -4352,11 +4352,11 @@ msgstr "選択"
 
 #: inc/shortcodes/glossary/class-glossary.php:293
 msgid "definition"
-msgstr ""
+msgstr "定義"
 
 #: inc/shortcodes/glossary/class-glossary.php:297
 msgid "Close definition"
-msgstr ""
+msgstr "定義を閉じる"
 
 #: inc/theme/class-lock.php:96
 msgid ""
@@ -4522,14 +4522,14 @@ msgstr "クラスを適用"
 
 #. translators: 1: URL to Composer documentation, 2: URL to Pressbooks latest
 #. releases
-#: pressbooks.php:80
+#: pressbooks.php:85
 msgid ""
 "Pressbooks dependencies are missing. Please make sure that your "
 "project&rsquo;s <a href=\"%1$s\">Composer autoload file</a> is being "
 "required, or use the <a href=\"%2$s\">latest release</a> instead."
 msgstr "Pressbooks の依存関係が見つかりません。プロジェクトの <a href=\"%1$s\">composer オートローダファイル</a>が必要ことを確認するか、代わりに<a href=\"%2$s\">最新リリース</a>を使用してください。"
 
-#: pressbooks.php:91
+#: pressbooks.php:96
 msgid "Cannot find Pressbooks install."
 msgstr "Pressbooks のインストールが見つかりません。"
 
@@ -5420,23 +5420,23 @@ msgstr "1つ以上のインタラクティブ要素は文章のこのバージ�
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:4
 msgid "Remove"
-msgstr ""
+msgstr "削除"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:7
 msgid "Available options"
-msgstr ""
+msgstr "利用可能なオプション"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:8
 msgid "Moved to position $1"
-msgstr ""
+msgstr "位置 $1 に移動しました"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:9
 msgid "Removed $1 from selection"
-msgstr ""
+msgstr "選択から $1 を削除しました"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:10
 msgid "Added $1 to selection"
-msgstr ""
+msgstr "選択に $1 が追加しました"
 
 #: assets/src/scripts/a11y.js:31 assets/src/scripts/a11y.js:32
 msgid "Gradient selector"
