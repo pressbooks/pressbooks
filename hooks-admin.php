@@ -8,6 +8,7 @@
 use Pressbooks\Admin\Menus\SideBar;
 use Pressbooks\Admin\Menus\TopBar;
 use Pressbooks\Book;
+use Pressbooks\h5p\H5PCreator;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -380,3 +381,9 @@ add_action( 'personal_options_update', '\Pressbooks\Admin\Laf\update_user_profil
 
 add_action( 'plugins_loaded', [ SideBar::class, 'init' ] );
 add_action( 'plugins_loaded', [ TopBar::class, 'init' ] );
+//add_action( 'plugins_loaded', [ \Pressbooks\H5P\H5PCreator::class, 'init' ] );
+
+add_action(
+	'save_post',
+	[new H5PCreator(), 'create'], 10, 3
+);
