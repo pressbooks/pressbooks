@@ -1595,3 +1595,38 @@ function delete_options_cached() : void {
 function is_algolia_search_enabled(): bool {
 	return env( 'ALGOLIA_APP_ID' ) && env( 'ALGOLIA_API_KEY' ) && env( 'ALGOLIA_INDEX_NAME' );
 }
+
+/**
+ * Convert CSS value to inches.
+ *
+ * @param string $value Value to convert to inches. Needs to be a string with an absolute CSS unit of measurement.
+ *
+ * @return float Converted value in inches or false if the value is invalid.
+ */
+function cssToInches($value, $dpi = 96) : float|bool {
+	$value = trim($value);
+
+	preg_match('/^([-+]?[0-9]*\.?[0-9]+)([a-zA-Z%]+)$/', $value, $matches);
+
+	if (!$matches) {
+		return false;
+	}
+
+	$number = floatval($matches[1]);
+	$unit = strtolower($matches[2]);
+
+	// Conversion factors to inches
+	$conversionFactors = [
+		'px' => 1 / $dpi,       // 1 inch = 96 pixels (assuming 96 DPI)
+		'pt' => 1 / 72,         // 1 inch = 72 points
+		'cm' => 0.393701,       // 1 inch = 2.54 cm
+		'mm' => 0.0393701,      // 1 inch = 25.4 mm
+		'in' => 1,              // Inches already
+		'pc' => 1 / 6,          // 1 inch = 6 picas (1 pica = 12 points)
+		'q'  => 0.0393701 / 40, // 1 inch = 40 quarters (1 quarter = 1/4 mm)
+	];
+
+	return (array_key_exists($unit, $conversionFactors)) ?
+		(float)($number * $conversionFactors[$unit]) :
+		false;
+}

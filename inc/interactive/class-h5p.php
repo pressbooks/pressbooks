@@ -2,6 +2,8 @@
 
 namespace Pressbooks\Interactive;
 
+use function \Pressbooks\Utility\debug_error_log;
+
 /**
  * This class wedges itself in between Pressbooks and the H5P WordPress Plugin
  *
@@ -23,6 +25,11 @@ class H5P {
 	 * @var \Jenssegers\Blade\Blade
 	 */
 	protected $blade;
+
+	/**
+	 * @var float DPI for rendering H5P content
+	 */
+	protected $dpi = 96;
 
 	/**
 	 * @param \Jenssegers\Blade\Blade $blade
@@ -105,6 +112,319 @@ class H5P {
 	}
 
 	/**
+	 * Get composer vendor path.
+	 *
+	 * @param string $startDir The directory to start the search from.
+	 *
+	 * @return string|null The vendor path or null if not found.
+	 */
+	private static function getVendorPath( $startDir ) {
+		while ( ! file_exists( $startDir . DIRECTORY_SEPARATOR . 'vendor' ) ) {
+			$startDir = dirname( $startDir );
+			if ( DIRECTORY_SEPARATOR === $startDir ) {
+				return null;
+			}
+		}
+
+		return $startDir . DIRECTORY_SEPARATOR . 'vendor';
+	}
+
+  /**
+   * Determine if params contain any match.
+	 * Private function taken from H5P core, required to create H5P export.
+   *
+   * @param mixed $params The parameters to search.
+	 * @param string $pattern The pattern to match.
+	 * @param bool $found (optional) Whether a match has been found.
+	 * @return bool Whether a match has been found.
+   */
+  private function textAddonMatches( $params, $pattern, $found = false ) {
+    $type = gettype( $params );
+    if ( $type === 'string' ) {
+      if ( preg_match( $pattern, $params ) === 1 ) {
+        return true;
+      }
+    } elseif ( $type === 'array' || $type === 'object' ) {
+      foreach ( $params as $value ) {
+        $found = $this->textAddonMatches( $value, $pattern, $found );
+        if ( true === $found ) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * Generate content slug.
+	 * Private function taken from H5P core, required to create H5P export.
+   *
+   * @param array $content Object with content data.
+   * @return string Unique content slug.
+   */
+  private function generateContentSlug( $content ) {
+    $slug = \H5PCore::slugify( $content['title'] );
+		$core = \H5P_Plugin::get_instance()->get_h5p_instance( 'core' );
+
+    $available = null;
+    while ( !$available ) {
+      if ( false === $available ) {
+        // If not available, add number suffix.
+        $matches = array();
+        if ( preg_match( '/(.+-)([0-9]+)$/', $slug, $matches ) ) {
+          $slug = $matches[1] . ( intval( $matches[2] ) + 1 );
+        } else {
+          $slug .=  '-2';
+        }
+      }
+      $available = $core->h5pF->isContentSlugAvailable( $slug );
+    }
+
+    return $slug;
+  }
+
+	/**
+	 * Create H5P export.
+	 * Part of filterParameters function taken from H5P core. We cannot use that
+	 * function, because the `h5p_export` option could be set to false in order to
+	 * prevent downloading the H5P files - we need it temporarily though.
+	 *
+	 * @param array $content Object with content data.
+	 *
+	 * @return bool Whether the export was created successfully.
+	 */
+	private function createH5PExport( $content ) {
+		if ( ! ( isset( $content['library'] ) && isset( $content['params'] ) ) ) {
+      return false;
+    }
+
+		$params = (object) array(
+			'library' => \H5PCore::libraryToString( $content['library'] ),
+			'params' => json_decode( $content['params'] )
+		);
+
+		if (!$params->params) {
+			return false;
+		}
+
+		$core = \H5P_Plugin::get_instance()->get_h5p_instance( 'core' );
+
+		// Validate and filter against main library semantics.
+		$validator = new \H5PContentValidator( $core->h5pF, $core );
+		$validator->validateLibrary(
+			$params, (object) array( 'options' => array( $params->library ) )
+		);
+
+    // Handle addons
+    $addons = $core->h5pF->loadAddons();
+    foreach ( $addons as $addon ) {
+      $add_to = json_decode( $addon['addTo'] );
+
+      if ( isset( $add_to->content->types ) ) {
+        foreach( $add_to->content->types as $type ) {
+
+          if ( isset( $type->text->regex ) &&
+              $this->textAddonMatches( $params->params, $type->text->regex )
+					) {
+            $validator->addon( $addon );
+
+            // An addon shall only be added once
+            break;
+          }
+        }
+      }
+    }
+
+		$params = json_encode( $params->params );
+
+    // Update content dependencies.
+    $content['dependencies'] = $validator->getDependencies();
+
+    // Sometimes the parameters are filtered before content has been created
+    if ( ! isset( $content['id'] ) ) {
+			return false;
+    }
+
+		$core->h5pF->deleteLibraryUsage( $content['id'] );
+		$core->h5pF->saveLibraryUsage( $content['id'], $content['dependencies'] );
+
+		if ( ! $content['slug'] ) {
+			$content['slug'] = $this->generateContentSlug( $content );
+
+			// Remove old export file
+			$core->fs->deleteExport( $content['id'] . '.h5p' );
+		}
+
+		$exporter = new \H5PExport( $core->h5pF, $core );
+		$content['filtered'] = $params;
+
+		$exporter->createExportFile( $content );
+
+		// Cache.
+		$core->h5pF->updateContentFields(
+			$content['id'],
+			array(
+				'filtered' => $params,
+				'slug' => $content['slug']
+			)
+		);
+
+		return true;
+	}
+
+	/**
+	 * Ensure the H5P export file exists.
+	 *
+	 * @param int $h5p_id ID of H5P content to ensure export for.
+	 *
+	 * @return callable Cleanup function that needs to be called later to remove
+	 *                  the export file if it had not existed before.
+	 */
+	private function ensureH5Export( $h5p_id ) {
+		$core = \H5P_Plugin::get_instance()->get_h5p_instance( 'core' );
+		$content = $core->loadContent( $h5p_id );
+
+		$exportFileName = $content['slug'] . '-' . $content['id'] . '.h5p';
+
+		if ( $core->fs->hasExport( $exportFileName ) ) {
+			return function ( $h5p_id ) {
+				// File exists already, nothing to do
+			};
+		}
+
+    if ( ! $this->createH5PExport( $content ) ) {
+			return function ( $h5p_id ) {
+				// Could not create export file, nothing to do.
+			};
+		}
+
+		/*
+		 * Cleanup function that needs to be called later to remove the export file
+		 * if it had not existed before - leaving everything as we found it.
+		 */
+		return function ( $h5p_id ) {
+			$core = \H5P_Plugin::get_instance()->get_h5p_instance( 'core' );
+			$content = $core->loadContent( $h5p_id );
+			$exportFileName = $content['slug'] . '-' . $content['id'] . '.h5p';
+			$core->fs->deleteExport( $exportFileName );
+		};
+	}
+
+	/**
+	 * Get H5P representation
+	 *
+	 * @param int $h5p_id ID of H5P content to get representation of.
+	 *
+	 * @return string|null HTML representation of H5P content or null.
+	 */
+	private function getH5PRepresentation( $h5p_id ) {
+		/*
+		 * Dynamically load H5PExtractor. Could be done via autloader as well, but
+		 * why load this unconditionally if if's only needed for printing?
+		 */
+		$vendorPath = self::getVendorPath( __DIR__ );
+		if ( ! isset( $vendorPath )) {
+			debug_error_log( 'H5P Extractor error: Could not load H5PExtractor' );
+			return null; // Could not load H5PExtractor
+		}
+
+		$H5PExtractorPath = $vendorPath .
+			DIRECTORY_SEPARATOR . 'snordian' .
+			DIRECTORY_SEPARATOR . 'h5p-extractor' .
+			DIRECTORY_SEPARATOR . 'app' .
+			DIRECTORY_SEPARATOR . 'H5PExtractor.php';
+
+		try {
+			require_once $H5PExtractorPath;
+		} catch ( \Throwable $e ) {
+			debug_error_log( 'H5P Extractor error: ' . $e->getMessage() );
+			return null; // Could not load H5PExtractor
+		}
+
+		try {
+			$exportCleanupCallback = $this->ensureH5Export( $h5p_id );
+			$content = \H5P_Plugin::get_instance()->get_content( $h5p_id );
+
+			// Try to get H5P export file for H5P ID
+			if ( is_array( $content ) ) {
+				$path =
+					wp_upload_dir()['basedir'] . DIRECTORY_SEPARATOR .
+						'h5p' . DIRECTORY_SEPARATOR .
+						'exports' . DIRECTORY_SEPARATOR .
+						( $content['slug'] ? $content['slug'] . '-' : '' ) .
+						$content['id'] .
+						'.h5p';
+			}
+		} catch ( \Throwable $e ) {
+			debug_error_log( 'H5P Extractor error: ' . $e->getMessage() );
+			return null;
+		}
+
+		if ( ! isset( $path ) || ! file_exists( $path ) ) {
+			debug_error_log(
+				'H5P Extractor error: ' . _( 'Could not find H5P export file' )
+			);
+			return null;
+		}
+
+		// Calculate render width in pixels
+		$pdf_options = get_option('pressbooks_theme_options_pdf');
+		$pageWidth = \Pressbooks\Utility\cssToInches($pdf_options['pdf_page_width'], $this->dpi) -
+			\Pressbooks\Utility\cssToInches( $pdf_options['pdf_page_margin_inside'], $this->dpi) -
+			\Pressbooks\Utility\cssToInches($pdf_options['pdf_page_margin_outside'], $this->dpi);
+		$renderWidth = $pageWidth * $this->dpi;
+
+		// Guards against CSS spill-over from Pressbooks. !important is necessary here, unfortunately.
+		$customCssPre  = '.h5p-extractor .h5p-iframe .h5p-content p { text-indent: 0; }';
+		$customCssPre .= '.h5p-extractor .h5p-iframe .h5p-content div + div { text-indent: 0; }';
+		// Guard for Question Set
+		$customCssPre .= '.h5p-extractor .h5p-iframe .h5p-content .h5p-question-container + .qs-footer ' .
+			'.progress-dot:not(.current):not(.unanswered) { background: #cecece; }';
+		// Guard for Old Accordion version used in Pressbooks
+		$customCssPre .= '.h5p-extractor .h5p-accordion .h5p-panel-title:before {content: "";}';
+		$customCssPre .= '.h5p-extractor .h5p-accordion .h5p-panel-title { padding-left: 0; font-size: unset;}';
+
+		// Workaround for Advanced Text, the > selector in the original CSS will be replaced by &gt; for XML
+		$customCssPre .= '.h5p-extractor .h5p-advanced-text ul li { list-style-type: disc; margin: 0 0 1em 1.5em; padding: 0;}';
+		$customCssPre .= '.h5p-extractor .h5p-advanced-text ol li { list-style-type: decimal; margin: 0 0 1em 1.5em; padding: 0;}';
+		$customCssPre .= '.h5p-extractor .h5p-advanced-text ul li:last-child { margin-bottom: 0; }';
+		$customCssPre .= '.h5p-extractor .h5p-advanced-text ol li:last-child { margin-bottom: 0; }';
+
+		// Workaround for Image, the > selector in the original CSS will be replaced by &gt; for XML
+		$customCssPre .= '.h5p-extractor .h5p-image img { display: block; width: 100%; height: 100%; }';
+
+  	/*
+		 * Used for configuration of H5PExtraction:
+		 * uploadsPath: Use WordPress `uploads` folder to use for extracted files
+		 * h5pContentUrl: URL to H5P content folder to use assets from server, not base64 encoded representations
+		 * h5pCoreUrl: URL to H5P core library files to use assets from server, not base64 encoded representations
+		 * h5pLibrariesUrl: URL to H5P libraries folder to use assets from server, not base64 encoded representations
+		 * customCssPre: Custom CSS to be added to the beginning of the CSS file to guard against Pressbooks CSS spill-over
+		 */
+		$h5pExtractor = new \H5PExtractor\H5PExtractor([
+			'uploadsPath' => wp_upload_dir()['basedir'],
+			'h5pContentUrl' => wp_upload_dir()['baseurl'] . '/h5p/content/' . $h5p_id . '/',
+			'h5pCoreUrl' => plugins_url() . '/h5p/h5p-php-library/',
+			'h5pLibrariesUrl' => wp_upload_dir()['baseurl'] . '/h5p/libraries/',
+			'customCssPre' => $customCssPre,
+			'baseFontSize' => 10,
+			'renderWidth' => $renderWidth,
+		]);
+
+		$extract = $h5pExtractor->extract( ['file' => $path, 'format' => 'html'] );
+
+		if ( isset( $extract['error'] ) ) {
+			debug_error_log( 'H5P Extractor error: ' . $extract['error'] );
+		}
+
+		// Ensure to delete export file if it had not existed before
+		$exportCleanupCallback( $h5p_id );
+
+		return $extract['result'] ?? null;
+	}
+
+	/**
 	 * Override H5P shortcode
 	 */
 	public function override() {
@@ -158,13 +478,26 @@ class H5P {
 				// Do nothing
 			}
 		}
+
+		$representation = $this->getH5PRepresentation( $h5p_id );
+
+		$bladeRenderParams = [
+			'id' => $h5p_id,
+			'title' => $h5p_title,
+			'url' => $h5p_url,
+		];
+
+		if ( isset( $representation ) ) {
+			$bladeTemplate = 'interactive.h5pextractor';
+			$bladeRenderParams['representation'] = $representation;
+		} else {
+			$bladeTemplate = 'interactive.h5p';
+		}
+
 		// HTML
 		return $this->blade->render(
-			'interactive.h5p', [
-				'title' => $h5p_title,
-				'url' => $h5p_url,
-				'id' => $h5p_id ? '#' . self::SHORTCODE . '-' . $h5p_id : '',
-			]
+			$bladeTemplate,
+			$bladeRenderParams
 		);
 	}
 
