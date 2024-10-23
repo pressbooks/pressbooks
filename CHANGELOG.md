@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.20.5](https://github.com/pressbooks/pressbooks/compare/6.20.4...6.20.5) (2024-10-23)
+
+
+### Bug Fixes
+
+* avoid null return in getSubmenuBySlug method ([#3812](https://github.com/pressbooks/pressbooks/issues/3812)) ([64ad8ab](https://github.com/pressbooks/pressbooks/commit/64ad8ab18afe181875543faeec3e48642a07ec94))
+
 ## [6.20.4](https://github.com/pressbooks/pressbooks/compare/6.20.3...6.20.4) (2024-10-16)
 
 
