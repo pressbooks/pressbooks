@@ -7,5 +7,23 @@
     ".": {
       "extra-files": ["pressbooks.php", "README.md"]
     }
-  }
+  },
+  "changelog-sections": [
+		{
+			"type": "feat",
+			"section": "Features"
+		},
+		{
+			"type": "fix",
+			"section": "Bug Fixes"
+		},
+		{
+			"type": "docs",
+			"section": "Documentation"
+		},
+		{
+			"type": "chore",
+			"section": "Chores"
+		}
+	]
 }
