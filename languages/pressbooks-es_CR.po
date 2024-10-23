@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2024-05-08T20:14:28+00:00\n"
+"POT-Creation-Date: 2024-05-23T02:06:32+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
 "Last-Translator: Mario Badilla <mario.badilla@gmail.com>, 2024\n"
 "Language-Team: Spanish (Costa Rica) (http://app.transifex.com/pressbooks/pressbooks/language/es_CR/)\n"
@@ -90,9 +90,9 @@ msgstr "URL de la fuente"
 #: inc/admin/covergenerator/namespace.php:109 inc/class-contributors.php:828
 msgid "Author"
 msgid_plural "Authors"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Autor"
+msgstr[1] "Autores"
+msgstr[2] "Autores"
 
 #: inc/admin/attachments/namespace.php:60
 msgid "Author URL"
@@ -1618,19 +1618,19 @@ msgstr "%s: Metadatos"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:37
 msgid "%s Short Title"
-msgstr ""
+msgstr "%s: Título corto"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:38
 msgid "Appears in the PDF running header and webbook navigation."
-msgstr ""
+msgstr "Aparece en el encabezado del PDF y en la navegación del libro web."
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:43
 msgid "%s Subtitle"
-msgstr ""
+msgstr "%s: Subtítulo"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:44
 msgid "Appears in the Web/ebook/PDF output."
-msgstr ""
+msgstr "Aparece en los formatos web, PDF y de libro electrónico."
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:49
 msgid "%s Author(s)"
@@ -1638,11 +1638,11 @@ msgstr "%s: Autor(es)"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:56
 msgid "%s Copyright License"
-msgstr ""
+msgstr "%s: Licencia de copyright"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:57
 msgid "Overrides book license on this page."
-msgstr ""
+msgstr "Reemplaza la licencia del libro en esta página."
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:63
 msgid "%s Digital Object Identifier (DOI)"
@@ -2166,37 +2166,37 @@ msgstr "Importar colaboradores"
 #: inc/class-contributors.php:827
 msgid "Editor"
 msgid_plural "Editors"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Editor"
+msgstr[1] "Editores"
+msgstr[2] "Editores"
 
 #: inc/class-contributors.php:829
 msgid "Contributor"
 msgid_plural "Contributors"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Colaborador"
+msgstr[1] "Colaboradores"
+msgstr[2] "Colaboradores"
 
 #: inc/class-contributors.php:830
 msgid "Translator"
 msgid_plural "Translators"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Traductor"
+msgstr[1] "Traductores"
+msgstr[2] "Traductores"
 
 #: inc/class-contributors.php:831
 msgid "Reviewer"
 msgid_plural "Reviewers"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Revisor"
+msgstr[1] "Revisores"
+msgstr[2] "Revisores"
 
 #: inc/class-contributors.php:832
 msgid "Illustrator"
 msgid_plural "Illustrators"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ilustrador"
+msgstr[1] "Ilustradores"
+msgstr[2] "Ilustradores"
 
 #: inc/class-eventstreams.php:201
 msgid ""
@@ -4554,14 +4554,14 @@ msgstr "Aplicar clase"
 
 #. translators: 1: URL to Composer documentation, 2: URL to Pressbooks latest
 #. releases
-#: pressbooks.php:80
+#: pressbooks.php:85
 msgid ""
 "Pressbooks dependencies are missing. Please make sure that your "
 "project&rsquo;s <a href=\"%1$s\">Composer autoload file</a> is being "
 "required, or use the <a href=\"%2$s\">latest release</a> instead."
 msgstr "Faltan las dependencias de Pressbooks. Comprueba si el <a href=\"%1$s\">archivo de carga automática de composer</a> de tu proyecto está siendo requerido o usa la <a href=\"%2$s\">versión mas reciente</a> en su lugar."
 
-#: pressbooks.php:91
+#: pressbooks.php:96
 msgid "Cannot find Pressbooks install."
 msgstr "No se puede encontrar la instalación de Pressbooks."
 
@@ -5458,19 +5458,19 @@ msgstr "Quitar"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:7
 msgid "Available options"
-msgstr ""
+msgstr "Opciones disponibles"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:8
 msgid "Moved to position $1"
-msgstr ""
+msgstr "Se movió a la posición $1"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:9
 msgid "Removed $1 from selection"
-msgstr ""
+msgstr "Se quitó $1 de la selección"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:10
 msgid "Added $1 to selection"
-msgstr ""
+msgstr "Se añadió $1 a la selección"
 
 #: assets/src/scripts/a11y.js:31 assets/src/scripts/a11y.js:32
 msgid "Gradient selector"
