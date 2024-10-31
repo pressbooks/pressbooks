@@ -5057,31 +5057,36 @@
           },
           {
             "code": "US-CO-029",
+            "name": "University of Colorado Anschutz Medical Campus",
+            "url": "https:\/\/www.cuanschutz.edu\/"
+          },
+          {
+            "code": "US-CO-030",
             "name": "University of Colorado Boulder",
             "url": "https:\/\/www.colorado.edu\/"
           },
           {
-            "code": "US-CO-030",
+            "code": "US-CO-031",
             "name": "University of Colorado Colorado Springs",
             "url": "https:\/\/www.uccs.edu\/"
           },
           {
-            "code": "US-CO-031",
+            "code": "US-CO-032",
             "name": "University of Colorado Denver",
             "url": "https:\/\/www.ucdenver.edu\/"
           },
           {
-            "code": "US-CO-032",
+            "code": "US-CO-033",
             "name": "University of Denver",
             "url": "https:\/\/www.du.edu\/"
           },
           {
-            "code": "US-CO-033",
+            "code": "US-CO-034",
             "name": "University of Northern Colorado",
             "url": "https:\/\/www.unco.edu\/"
           },
           {
-            "code": "US-CO-034",
+            "code": "US-CO-035",
             "name": "Western Colorado University",
             "url": "https:\/\/western.edu\/"
           }
