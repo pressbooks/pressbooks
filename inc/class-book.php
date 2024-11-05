@@ -978,20 +978,26 @@ class Book {
 				$new = absint( $new );
 			}
 
+			$updated_at = current_time('mysql');
+
 			$success = $wpdb->query(
 				$wpdb->prepare(
 					"UPDATE {$wpdb->posts}
-					SET {$wpdb->posts}.menu_order = %d
+					SET {$wpdb->posts}.menu_order = %d,
+					    {$wpdb->posts}.post_modified = %s,
+					    {$wpdb->posts}.post_modified_gmt = %s
 					WHERE {$wpdb->posts}.ID = %d ",
 					$new,
-					$post->ID
+					$updated_at,
+					get_gmt_from_date( $updated_at ),
+					$post->ID,
 				)
 			);
 			clean_post_cache( $post );
 
 		}
 
-		return $success ? true : false;
+		return (bool)$success;
 	}
 
 	/**
@@ -1017,11 +1023,18 @@ class Book {
 		$order = $post_to_delete->menu_order;
 		$type = $post_to_delete->post_type;
 		$parent = $post_to_delete->post_parent;
+		$updated_at = current_time('mysql');
 
 		if ( 'chapter' === $type ) {
 			$success = $wpdb->query(
 				$wpdb->prepare(
-					"UPDATE {$wpdb->posts} SET menu_order = menu_order - 1 WHERE menu_order > %d AND post_type = %s AND post_parent = %d ",
+					"UPDATE {$wpdb->posts}
+					SET menu_order = menu_order - 1,
+					    post_modified = %s,
+					    post_modified_gmt = %s
+					WHERE menu_order > %d AND post_type = %s AND post_parent = %d ",
+					$updated_at,
+					get_gmt_from_date( $updated_at ),
 					$order,
 					$type,
 					$parent
@@ -1060,9 +1073,14 @@ class Book {
 				);
 				$success = $wpdb->query(
 					$wpdb->prepare(
-						"UPDATE {$wpdb->posts} SET post_parent = %d, menu_order = menu_order + %d WHERE post_parent = %d AND post_type = 'chapter' ",
+						"UPDATE {$wpdb->posts}
+							SET post_parent = %d, menu_order = menu_order + %d ,
+                 			    post_modified = %s, post_modified_gmt = %s
+            			 	WHERE post_parent = %d AND post_type = 'chapter' ",
 						$new_parent_id,
 						$existing_numposts,
+						$updated_at,
+						get_gmt_from_date( $updated_at ),
 						$pid
 					)
 				);
@@ -1080,7 +1098,7 @@ class Book {
 
 		static::deleteBookObjectCache();
 
-		return $success ? true : false;
+		return (bool)$success;
 	}
 
 	/**
