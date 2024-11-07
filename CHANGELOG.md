@@ -1,5 +1,19 @@
 # Changelog
 
+## [6.20.6](https://github.com/pressbooks/pressbooks/compare/6.20.5...6.20.6) (2024-11-07)
+
+
+### Chores
+
+* add requested Colorado institution ([#3822](https://github.com/pressbooks/pressbooks/issues/3822)) ([9c4a841](https://github.com/pressbooks/pressbooks/commit/9c4a841c488210a9dee72e608f108e65fca0425d))
+* bump elliptic from 6.5.7 to 6.6.0 in the npm_and_yarn group ([#3821](https://github.com/pressbooks/pressbooks/issues/3821)) ([1638917](https://github.com/pressbooks/pressbooks/commit/163891728c102c4038abd2ea0292d81e1bcb339b))
+* bump instantsearch.js from 4.75.1 to 4.75.3 in the npm-dependencies group ([#3820](https://github.com/pressbooks/pressbooks/issues/3820)) ([4f86310](https://github.com/pressbooks/pressbooks/commit/4f86310205b5ee1b6b9c45a600116960bcb49368))
+* bump symfony/http-foundation from 5.4.42 to 5.4.46 in the composer group ([#3838](https://github.com/pressbooks/pressbooks/issues/3838)) ([013e292](https://github.com/pressbooks/pressbooks/commit/013e29289b6a037e9f521bd17ee5ad809d8352ca))
+* bump symfony/process from 6.4.13 to 6.4.14 in the composer group ([#3836](https://github.com/pressbooks/pressbooks/issues/3836)) ([c14562a](https://github.com/pressbooks/pressbooks/commit/c14562a46b62ec07f7bbc52376c99a470622f8c5))
+* bump the composer-dependencies group with 2 updates ([#3824](https://github.com/pressbooks/pressbooks/issues/3824)) ([20a1116](https://github.com/pressbooks/pressbooks/commit/20a1116025d175d44f7f86252cf879145ed8f1b9))
+* revert previous commit, put Colorado Anschutz Medical at the bottom of the list ([#3823](https://github.com/pressbooks/pressbooks/issues/3823)) ([5c51166](https://github.com/pressbooks/pressbooks/commit/5c51166d969b6fad0ff5a83f4cf139e9e900fd00))
+* update Lemoore College name  ([#3834](https://github.com/pressbooks/pressbooks/issues/3834)) ([4588fc5](https://github.com/pressbooks/pressbooks/commit/4588fc59282b065e5f58c7fd87cebf2a4affbdb6))
+
 ## [6.20.5](https://github.com/pressbooks/pressbooks/compare/6.20.4...6.20.5) (2024-10-23)
 
 
