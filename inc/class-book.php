@@ -978,7 +978,7 @@ class Book {
 				$new = absint( $new );
 			}
 
-			$updated_at = current_time('mysql');
+			$updated_at = current_time( 'mysql' );
 
 			$success = $wpdb->query(
 				$wpdb->prepare(
@@ -997,7 +997,7 @@ class Book {
 
 		}
 
-		return (bool)$success;
+		return (bool) $success;
 	}
 
 	/**
@@ -1023,7 +1023,7 @@ class Book {
 		$order = $post_to_delete->menu_order;
 		$type = $post_to_delete->post_type;
 		$parent = $post_to_delete->post_parent;
-		$updated_at = current_time('mysql');
+		$updated_at = current_time( 'mysql' );
 
 		if ( 'chapter' === $type ) {
 			$success = $wpdb->query(
@@ -1098,7 +1098,7 @@ class Book {
 
 		static::deleteBookObjectCache();
 
-		return (bool)$success;
+		return (bool) $success;
 	}
 
 	/**
