@@ -438,11 +438,21 @@ class Activation {
 	}
 
 	public function addUserDefaultRole( $id ) {
-		if ( is_numeric( $id ) ) {
-			$user_id = $id;
-			$user = get_userdata( $user_id );
-			$user->add_role( 'subscriber' );
+		if ( ! is_numeric( $id ) ) {
+			return;
 		}
+
+		$user = get_userdata( $id );
+
+		if ( ! $user ) {
+			return;
+		}
+
+		if ( ! empty( $user->roles ) ) {
+			return;
+		}
+
+		$user->add_role( 'subscriber' );
 	}
 
 	/**
