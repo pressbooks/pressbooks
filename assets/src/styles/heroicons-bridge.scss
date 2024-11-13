@@ -20,84 +20,84 @@
   }
 }
 
-.dashicons-admin-multisite::before {
-  @extend .pb-heroicons-book-open;
+.dashicons-admin-multisite {
+  @extend .pb-heroicons-Heroicons-outline_book-open;
 }
 
-.dashicons-book-alt{
-  @extend .pb-heroicons-book-open;
+.dashicons-book-alt {
+  @extend .pb-heroicons-Heroicons-outline_book-open;
 }
 
 .dashicons-book {
-  @extend .pb-heroicons-book-open;
+  @extend .pb-heroicons-Heroicons-outline_book-open;
 }
 
 .dashicons-admin-users {
-  @extend .pb-heroicons-users;
+  @extend .pb-heroicons-Heroicons-outline_users;
 }
 
 .dashicons-info {
-  @extend .pb-heroicons-pencil-square;
+  @extend .pb-heroicons-Heroicons-outline_pencil-square;
 }
 
 .dashicons-admin-appearance {
-  @extend .pb-heroicons-sparkles;
+  @extend .pb-heroicons-Heroicons-outline_sparkles;
 }
 
 .dashicons-migrate {
-  @extend .pb-heroicons-arrow-right-on-rectangle;
+  @extend .pb-heroicons-Heroicons-outline_arrow-right-start-on-rectangle;
 }
 
 .dashicons-admin-tools {
-  @extend .pb-heroicons-wrench;
+  @extend .pb-heroicons-Heroicons-outline_wrench;
 }
 
 .dashicons-chart-area {
-  @extend .pb-heroicons-presentation-chart-bar;
+  @extend .pb-heroicons-Heroicons-outline_presentation-char-bar;
 }
 
 .dashicons-products {
-  @extend .pb-heroicons-link;
+  @extend .pb-heroicons-Heroicons-outline_link;
 }
 
 .dashicons-admin-plugins {
-  @extend .pb-heroicons-bolt;
+  @extend .pb-heroicons-Heroicons-outline_bolt;
 }
 
 .dashicons-admin-page {
-  @extend .pb-heroicons-pencil-square;
+  @extend .pb-heroicons-Heroicons-outline_pencil-square;
 }
 
 .dashicons-admin-media {
-  @extend .pb-heroicons-camera;
+  @extend .pb-heroicons-Heroicons-outline_camera;
 }
 
 .dashicons-cart {
-  @extend .pb-heroicons-shopping-cart;
+  @extend .pb-heroicons-Heroicons-outline_shopping-cart;
 }
 
 /* stylelint-disable-next-line selector-id-pattern */
 #toplevel_page_h5p .wp-menu-image {
-  @extend .pb-heroicons-h5p;
+  @extend .pb-heroicons-PBIcons-H5P;
 }
 
 /* stylelint-disable-next-line selector-id-pattern */
 #toplevel_page_tablepress .wp-menu-image {
-  @extend .pb-heroicons-table-cells;
+  @extend .pb-heroicons-Heroicons-outline_table-cells;
 }
 
 .dashicons-networking {
-  @extend .pb-heroicons-rocket-launch;
+  @extend .pb-heroicons-Heroicons-outline_rocket-launch;
 }
 
 .dashicons-admin-settings {
-  @extend .pb-heroicons-cog-8-tooth;
+  @extend .pb-heroicons-Heroicons-outline_cog-8-tooth;
 }
 
 .dashicons-dashboard {
-  @extend .pb-heroicons-home;
+  @extend .pb-heroicons-Heroicons-outline_home;
 }
 
 .dashicons-building {
-  @extend .pb-heroicons-building-office;
+  @extend .pb-heroicons-Heroicons-outline_building-office;
 }
