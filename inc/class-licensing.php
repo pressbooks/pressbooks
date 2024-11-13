@@ -249,8 +249,8 @@ class Licensing {
 		}
 
 		// Copyright holder, set in order of precedence
-		if ( ! empty( $section_author ) ) {
-			// section author higher priority than book author, copyrightholder
+		if ( ! empty( $section_author ) && ! empty ( $section_license ) ) {
+			// section author higher priority than book author when there's a custom license
 			$copyright_holder = $section_author;
 		} elseif ( isset( $metadata['pb_copyright_holder'] ) ) {
 			// book copyright holder higher priority than book author
