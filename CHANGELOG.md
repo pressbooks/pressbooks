@@ -1,5 +1,19 @@
 # Changelog
 
+## [6.21.1](https://github.com/pressbooks/pressbooks/compare/6.21.0...6.21.1) (2024-11-14)
+
+
+### Bug Fixes
+
+* copyright attribution ([#3843](https://github.com/pressbooks/pressbooks/issues/3843)) ([c6f5059](https://github.com/pressbooks/pressbooks/commit/c6f505968d955707a312a55c5d1fcdd3560c5117))
+
+
+### Chores
+
+* remove duplicated prefix ([#3847](https://github.com/pressbooks/pressbooks/issues/3847)) ([51db88b](https://github.com/pressbooks/pressbooks/commit/51db88b2b5009b9bb53d692ef4c5ca4e12af7cb5))
+* update heroicons webfont, includes entire solid and outline ([#3844](https://github.com/pressbooks/pressbooks/issues/3844)) ([bf5a8d1](https://github.com/pressbooks/pressbooks/commit/bf5a8d1f4e7f93ce7155fb99a42e8964e2415952))
+* update heroicons webfont, includes entire solid and outline iconset ([bf5a8d1](https://github.com/pressbooks/pressbooks/commit/bf5a8d1f4e7f93ce7155fb99a42e8964e2415952))
+
 ## [6.21.0](https://github.com/pressbooks/pressbooks/compare/6.20.6...6.21.0) (2024-11-12)
 
 
