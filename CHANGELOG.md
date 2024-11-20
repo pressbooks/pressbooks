@@ -1,5 +1,14 @@
 # Changelog
 
+## [6.21.2](https://github.com/pressbooks/pressbooks/compare/6.21.1...6.21.2) (2024-11-20)
+
+
+### Chores
+
+* bump codecov/codecov-action from 4 to 5 ([#3850](https://github.com/pressbooks/pressbooks/issues/3850)) ([62ba145](https://github.com/pressbooks/pressbooks/commit/62ba1456e5ceaa7355fc2321a85aa1e5586361a7))
+* bump instantsearch.js from 4.75.4 to 4.75.5 in the npm-dependencies group ([#3849](https://github.com/pressbooks/pressbooks/issues/3849)) ([be49048](https://github.com/pressbooks/pressbooks/commit/be49048e41b781c99b8df3ba681c1f65317deee9))
+* bump the composer-dependencies group with 4 updates ([#3848](https://github.com/pressbooks/pressbooks/issues/3848)) ([c85e43b](https://github.com/pressbooks/pressbooks/commit/c85e43b18b03def81009580032832409bf239f3c))
+
 ## [6.21.1](https://github.com/pressbooks/pressbooks/compare/6.21.0...6.21.1) (2024-11-14)
 
 
