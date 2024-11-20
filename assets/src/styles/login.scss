@@ -119,8 +119,8 @@ body.pressbooks.login {
     }
 
     p.subtitle {
-      margin-bottom: 1.5rem;
-      font-size: 1.875rem;
+      margin-bottom: 1rem;
+      font-size: 2rem;
       font-weight: 600;
       line-height: 1;
       text-align: center;
@@ -140,9 +140,8 @@ body.pressbooks.login {
           width: 75px;
         }
       }
-
-      @media screen and (min-width: 768px) {
-        font-size: 2.25rem;
+      .wp-login-logo {
+        order: -1; /* Moves the H1 element above the subtitle */
       }
     }
 

@@ -61,7 +61,9 @@ function custom_login_logo() {
 	if ( has_custom_logo() ) {
 		$custom_logo_id = get_theme_mod( 'custom_logo' );
 		$logo = sprintf(
-			'<style>.login .wp-login-logo a {background-image: url(%s);}</style>',
+			'<style>
+					.login .wp-login-logo a {background-image: url(%s);}
+					</style>',
 			wp_get_attachment_image_src( $custom_logo_id, 'logo' )[0]
 		);
 	} else {
