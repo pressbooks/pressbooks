@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.21.3](https://github.com/pressbooks/pressbooks/compare/6.21.2...6.21.3) (2024-11-25)
+
+
+### Chores
+
+* bump aws/aws-sdk-php from 3.328.0 to 3.330.0 in the composer-dependencies group ([#3854](https://github.com/pressbooks/pressbooks/issues/3854)) ([12a8db5](https://github.com/pressbooks/pressbooks/commit/12a8db583e1df74eb27d6c1877fbbb5edf79c3f1))
+* bump test matrix wp version ([#3856](https://github.com/pressbooks/pressbooks/issues/3856)) ([6eaa8f1](https://github.com/pressbooks/pressbooks/commit/6eaa8f1e921419add29b8a0fceaff39837ce5c77))
+
 ## [6.21.2](https://github.com/pressbooks/pressbooks/compare/6.21.1...6.21.2) (2024-11-20)
 
 
