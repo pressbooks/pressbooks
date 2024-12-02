@@ -62,16 +62,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.330.0",
+            "version": "3.332.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "dd1b65a4329f91d5e282a92fab2be7bdf6e2adea"
+                "reference": "3b4972a465b66fe3da461a3febdcc363954a0969"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/dd1b65a4329f91d5e282a92fab2be7bdf6e2adea",
-                "reference": "dd1b65a4329f91d5e282a92fab2be7bdf6e2adea",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3b4972a465b66fe3da461a3febdcc363954a0969",
+                "reference": "3b4972a465b66fe3da461a3febdcc363954a0969",
                 "shasum": ""
             },
             "require": {
@@ -100,7 +100,7 @@
                 "nette/neon": "^2.3",
                 "paragonie/random_compat": ">= 2",
                 "phpunit/phpunit": "^5.6.3 || ^8.5 || ^9.5",
-                "psr/cache": "^1.0",
+                "psr/cache": "^1.0 || ^2.0 || ^3.0",
                 "psr/simple-cache": "^1.0 || ^2.0 || ^3.0",
                 "sebastian/comparator": "^1.2.3 || ^4.0",
                 "yoast/phpunit-polyfills": "^1.0"
@@ -154,9 +154,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.330.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.332.0"
             },
-            "time": "2024-11-22T19:10:26+00:00"
+            "time": "2024-12-02T03:48:16+00:00"
         },
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -1985,32 +1985,32 @@
         },
         {
             "name": "johnbillion/args",
-            "version": "2.2.0",
+            "version": "2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnbillion/args.git",
-                "reference": "9db0a12de9f1198db0f3f319644a3a216a48fe68"
+                "reference": "ef9b110c4379ded08300c5484e4fa67455697c5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnbillion/args/zipball/9db0a12de9f1198db0f3f319644a3a216a48fe68",
-                "reference": "9db0a12de9f1198db0f3f319644a3a216a48fe68",
+                "url": "https://api.github.com/repos/johnbillion/args/zipball/ef9b110c4379ded08300c5484e4fa67455697c5b",
+                "reference": "ef9b110c4379ded08300c5484e4fa67455697c5b",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.0"
             },
             "require-dev": {
-                "ergebnis/json-printer": "^3.2",
-                "ergebnis/phpstan-rules": "^1.0",
+                "ergebnis/json-printer": "3.7.0",
+                "ergebnis/phpstan-rules": "1.0.0",
                 "humanmade/coding-standards": "1.2.1",
                 "johnbillion/falsey-assertequals-detector": "^3",
                 "phpdocumentor/reflection": "~4.0 || ~5.0",
-                "phpstan/phpstan": "1.12.5",
-                "phpstan/phpstan-phpunit": "1.4.0",
+                "phpstan/phpstan": "1.12.12",
+                "phpstan/phpstan-phpunit": "1.4.1",
                 "phpstan/phpstan-strict-rules": "1.6.1",
                 "phpunit/phpunit": "^9.0",
-                "roots/wordpress-core-installer": "^1.0.0",
+                "roots/wordpress-core-installer": "1.100.0",
                 "roots/wordpress-full": "6.7",
                 "szepeviktor/phpstan-wordpress": "1.3.5"
             },
@@ -2018,249 +2018,249 @@
             "extra": {
                 "args-shapes": [
                     {
-                        "function": "\\get_categories()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/category.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/category.php"
+                        "function": "\\get_categories()"
                     },
                     {
-                        "function": "\\get_comments()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/comment.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/comment.php"
+                        "function": "\\get_comments()"
                     },
                     {
-                        "function": "\\get_posts()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/post.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/post.php"
+                        "function": "\\get_posts()"
                     },
                     {
-                        "function": "\\get_tags()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/category.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/category.php"
+                        "function": "\\get_tags()"
                     },
                     {
-                        "function": "\\get_terms()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/taxonomy.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/taxonomy.php"
+                        "function": "\\get_terms()"
                     },
                     {
-                        "function": "\\get_users()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/user.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/user.php"
+                        "function": "\\get_users()"
                     },
                     {
-                        "function": "\\paginate_links()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/general-template.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/general-template.php"
+                        "function": "\\paginate_links()"
                     },
                     {
-                        "function": "\\register_block_type()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/blocks.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/blocks.php"
+                        "function": "\\register_block_type()"
                     },
                     {
-                        "function": "\\register_meta()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/meta.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/meta.php"
+                        "function": "\\register_meta()"
                     },
                     {
-                        "function": "\\register_post_meta()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/post.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/post.php"
+                        "function": "\\register_post_meta()"
                     },
                     {
-                        "function": "\\register_post_status()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/post.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/post.php"
+                        "function": "\\register_post_status()"
                     },
                     {
-                        "function": "\\register_post_type()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/post.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/post.php"
+                        "function": "\\register_post_type()"
                     },
                     {
-                        "function": "\\register_rest_field()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/rest-api.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/rest-api.php"
+                        "function": "\\register_rest_field()"
                     },
                     {
-                        "function": "\\register_setting()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/option.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/option.php"
+                        "function": "\\register_setting()"
                     },
                     {
-                        "function": "\\register_taxonomy()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/taxonomy.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/taxonomy.php"
+                        "function": "\\register_taxonomy()"
                     },
                     {
-                        "function": "\\register_term_meta()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/taxonomy.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/taxonomy.php"
+                        "function": "\\register_term_meta()"
                     },
                     {
-                        "function": "\\wp_count_terms()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/taxonomy.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/taxonomy.php"
+                        "function": "\\wp_count_terms()"
                     },
                     {
-                        "function": "\\wp_die()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/functions.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/functions.php"
+                        "function": "\\wp_die()"
                     },
                     {
-                        "function": "\\wp_dropdown_categories()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/category-template.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/category-template.php"
+                        "function": "\\wp_dropdown_categories()"
                     },
                     {
-                        "function": "\\wp_dropdown_languages()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/l10n.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/l10n.php"
+                        "function": "\\wp_dropdown_languages()"
                     },
                     {
-                        "function": "\\wp_generate_tag_cloud()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/category-template.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/category-template.php"
+                        "function": "\\wp_generate_tag_cloud()"
                     },
                     {
-                        "function": "\\wp_get_nav_menus()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/nav-menu.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/nav-menu.php"
+                        "function": "\\wp_get_nav_menus()"
                     },
                     {
-                        "function": "\\wp_get_object_terms()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/taxonomy.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/taxonomy.php"
+                        "function": "\\wp_get_object_terms()"
                     },
                     {
-                        "function": "\\wp_insert_post()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/post.php",
                         "param": "postarr",
-                        "file": "vendor/wordpress/wordpress/wp-includes/post.php"
+                        "function": "\\wp_insert_post()"
                     },
                     {
-                        "function": "\\wp_insert_term()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/taxonomy.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/taxonomy.php"
+                        "function": "\\wp_insert_term()"
                     },
                     {
-                        "function": "\\wp_insert_user()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/user.php",
                         "param": "userdata",
-                        "file": "vendor/wordpress/wordpress/wp-includes/user.php"
+                        "function": "\\wp_insert_user()"
                     },
                     {
-                        "function": "\\wp_nav_menu()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/nav-menu-template.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/nav-menu-template.php"
+                        "function": "\\wp_nav_menu()"
                     },
                     {
-                        "function": "\\wp_remote_get()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/http.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/http.php"
+                        "function": "\\wp_remote_get()"
                     },
                     {
-                        "function": "\\wp_remote_head()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/http.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/http.php"
+                        "function": "\\wp_remote_head()"
                     },
                     {
-                        "function": "\\wp_remote_post()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/http.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/http.php"
+                        "function": "\\wp_remote_post()"
                     },
                     {
-                        "function": "\\wp_remote_request()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/http.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/http.php"
+                        "function": "\\wp_remote_request()"
                     },
                     {
-                        "function": "\\wp_safe_remote_get()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/http.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/http.php"
+                        "function": "\\wp_safe_remote_get()"
                     },
                     {
-                        "function": "\\wp_safe_remote_head()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/http.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/http.php"
+                        "function": "\\wp_safe_remote_head()"
                     },
                     {
-                        "function": "\\wp_safe_remote_post()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/http.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/http.php"
+                        "function": "\\wp_safe_remote_post()"
                     },
                     {
-                        "function": "\\wp_safe_remote_request()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/http.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/http.php"
+                        "function": "\\wp_safe_remote_request()"
                     },
                     {
-                        "function": "\\wp_update_post()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/post.php",
                         "param": "postarr",
-                        "file": "vendor/wordpress/wordpress/wp-includes/post.php"
+                        "function": "\\wp_update_post()"
                     },
                     {
-                        "function": "\\wp_update_term()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/taxonomy.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/taxonomy.php"
+                        "function": "\\wp_update_term()"
                     },
                     {
-                        "function": "\\wp_update_user()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/user.php",
                         "param": "userdata",
-                        "file": "vendor/wordpress/wordpress/wp-includes/user.php"
+                        "function": "\\wp_update_user()"
                     },
                     {
-                        "method": "\\WP_Block_Type::__construct()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-block-type.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-block-type.php"
+                        "method": "\\WP_Block_Type::__construct()"
                     },
                     {
-                        "method": "\\WP_Comment_Query::__construct()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-comment-query.php",
                         "param": "query",
-                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-comment-query.php"
+                        "method": "\\WP_Comment_Query::__construct()"
                     },
                     {
-                        "method": "\\WP_Customize_Control::__construct()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-customize-control.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-customize-control.php"
+                        "method": "\\WP_Customize_Control::__construct()"
                     },
                     {
-                        "method": "\\WP_Customize_Manager::__construct()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-customize-manager.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-customize-manager.php"
+                        "method": "\\WP_Customize_Manager::__construct()"
                     },
                     {
-                        "method": "\\WP_Customize_Panel::__construct()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-customize-panel.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-customize-panel.php"
+                        "method": "\\WP_Customize_Panel::__construct()"
                     },
                     {
-                        "method": "\\WP_Customize_Section::__construct()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-customize-section.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-customize-section.php"
+                        "method": "\\WP_Customize_Section::__construct()"
                     },
                     {
-                        "method": "\\WP_Customize_Setting::__construct()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-customize-setting.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-customize-setting.php"
+                        "method": "\\WP_Customize_Setting::__construct()"
                     },
                     {
-                        "method": "\\WP_Http::request()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-http.php",
                         "param": "args",
-                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-http.php"
+                        "method": "\\WP_Http::request()"
                     },
                     {
-                        "method": "\\WP_Query::parse_query()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-query.php",
                         "param": "query",
-                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-query.php"
+                        "method": "\\WP_Query::parse_query()"
                     },
                     {
-                        "method": "\\WP_Term_Query::__construct()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-term-query.php",
                         "param": "query",
-                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-term-query.php"
+                        "method": "\\WP_Term_Query::__construct()"
                     },
                     {
-                        "method": "\\WP_User_Query::prepare_query()",
+                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-user-query.php",
                         "param": "query",
-                        "file": "vendor/wordpress/wordpress/wp-includes/class-wp-user-query.php"
+                        "method": "\\WP_User_Query::prepare_query()"
                     }
                 ],
                 "wordpress-install-dir": "vendor/wordpress/wordpress"
@@ -2283,7 +2283,7 @@
             "description": "I don't want to get into an argument about this.",
             "support": {
                 "issues": "https://github.com/johnbillion/args/issues",
-                "source": "https://github.com/johnbillion/args/tree/2.2.0"
+                "source": "https://github.com/johnbillion/args/tree/2.2.1"
             },
             "funding": [
                 {
@@ -2291,20 +2291,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-11-14T13:38:35+00:00"
+            "time": "2024-11-30T23:22:24+00:00"
         },
         {
             "name": "johnbillion/extended-cpts",
-            "version": "5.0.10",
+            "version": "5.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnbillion/extended-cpts.git",
-                "reference": "9a4bdc9d25a649376376ae46af4c830686f136d0"
+                "reference": "57f2e74155a12e7a37d07250e6739dbab5a732b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnbillion/extended-cpts/zipball/9a4bdc9d25a649376376ae46af4c830686f136d0",
-                "reference": "9a4bdc9d25a649376376ae46af4c830686f136d0",
+                "url": "https://api.github.com/repos/johnbillion/extended-cpts/zipball/57f2e74155a12e7a37d07250e6739dbab5a732b3",
+                "reference": "57f2e74155a12e7a37d07250e6739dbab5a732b3",
                 "shasum": ""
             },
             "require": {
@@ -2316,14 +2316,14 @@
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
                 "johnbillion/falsey-assertequals-detector": "*",
                 "johnbillion/plugin-infrastructure": "dev-trunk",
-                "johnbillion/wp-compat": "0.3.0",
-                "lucatume/wp-browser": ">=3.0.21 <3.5",
-                "phpcompatibility/phpcompatibility-wp": "^2",
-                "phpstan/phpstan": "1.12.2",
-                "phpstan/phpstan-phpunit": "1.4.0",
-                "roots/wordpress-core-installer": "^1.0.0",
+                "johnbillion/wp-compat": "0.3.1",
+                "lucatume/wp-browser": "3.2.3",
+                "phpcompatibility/phpcompatibility-wp": "2.1.5",
+                "phpstan/phpstan": "1.12.12",
+                "phpstan/phpstan-phpunit": "1.4.1",
+                "roots/wordpress-core-installer": "1.100.0",
                 "roots/wordpress-full": "*",
-                "szepeviktor/phpstan-wordpress": "1.1.6",
+                "szepeviktor/phpstan-wordpress": "1.3.5",
                 "wp-coding-standards/wpcs": "2.3.0"
             },
             "type": "library",
@@ -2353,28 +2353,22 @@
             "homepage": "https://github.com/johnbillion/extended-cpts/",
             "support": {
                 "issues": "https://github.com/johnbillion/extended-cpts/issues",
-                "source": "https://github.com/johnbillion/extended-cpts/tree/5.0.10"
+                "source": "https://github.com/johnbillion/extended-cpts/tree/5.0.11"
             },
-            "funding": [
-                {
-                    "url": "https://github.com/johnbillion",
-                    "type": "github"
-                }
-            ],
-            "time": "2024-11-14T14:59:43+00:00"
+            "time": "2024-11-30T23:16:17+00:00"
         },
         {
             "name": "laravel/helpers",
-            "version": "v1.7.0",
+            "version": "v1.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/helpers.git",
-                "reference": "6caaa242a23bc39b4e3cf57304b5409260a7a346"
+                "reference": "f28907033d7edf8a0525cfb781ab30ce6d531c35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/helpers/zipball/6caaa242a23bc39b4e3cf57304b5409260a7a346",
-                "reference": "6caaa242a23bc39b4e3cf57304b5409260a7a346",
+                "url": "https://api.github.com/repos/laravel/helpers/zipball/f28907033d7edf8a0525cfb781ab30ce6d531c35",
+                "reference": "f28907033d7edf8a0525cfb781ab30ce6d531c35",
                 "shasum": ""
             },
             "require": {
@@ -2416,9 +2410,9 @@
                 "laravel"
             ],
             "support": {
-                "source": "https://github.com/laravel/helpers/tree/v1.7.0"
+                "source": "https://github.com/laravel/helpers/tree/v1.7.1"
             },
-            "time": "2023-11-30T14:09:05+00:00"
+            "time": "2024-11-26T14:56:25+00:00"
         },
         {
             "name": "masterminds/html5",
@@ -3883,16 +3877,16 @@
         },
         {
             "name": "symfony/deprecation-contracts",
-            "version": "v3.5.0",
+            "version": "v3.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1"
+                "reference": "74c71c939a79f7d5bf3c1ce9f5ea37ba0114c6f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1",
-                "reference": "0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/74c71c939a79f7d5bf3c1ce9f5ea37ba0114c6f6",
+                "reference": "74c71c939a79f7d5bf3c1ce9f5ea37ba0114c6f6",
                 "shasum": ""
             },
             "require": {
@@ -3930,7 +3924,7 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.5.0"
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.5.1"
             },
             "funding": [
                 {
@@ -3946,7 +3940,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-04-18T09:32:20+00:00"
+            "time": "2024-09-25T14:20:29+00:00"
         },
         {
             "name": "symfony/error-handler",
@@ -4109,16 +4103,16 @@
         },
         {
             "name": "symfony/event-dispatcher-contracts",
-            "version": "v3.5.0",
+            "version": "v3.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher-contracts.git",
-                "reference": "8f93aec25d41b72493c6ddff14e916177c9efc50"
+                "reference": "7642f5e970b672283b7823222ae8ef8bbc160b9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher-contracts/zipball/8f93aec25d41b72493c6ddff14e916177c9efc50",
-                "reference": "8f93aec25d41b72493c6ddff14e916177c9efc50",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher-contracts/zipball/7642f5e970b672283b7823222ae8ef8bbc160b9f",
+                "reference": "7642f5e970b672283b7823222ae8ef8bbc160b9f",
                 "shasum": ""
             },
             "require": {
@@ -4165,7 +4159,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/event-dispatcher-contracts/tree/v3.5.0"
+                "source": "https://github.com/symfony/event-dispatcher-contracts/tree/v3.5.1"
             },
             "funding": [
                 {
@@ -4181,7 +4175,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-04-18T09:32:20+00:00"
+            "time": "2024-09-25T14:20:29+00:00"
         },
         {
             "name": "symfony/finder",
@@ -5140,16 +5134,16 @@
         },
         {
             "name": "symfony/service-contracts",
-            "version": "v3.5.0",
+            "version": "v3.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/service-contracts.git",
-                "reference": "bd1d9e59a81d8fa4acdcea3f617c581f7475a80f"
+                "reference": "e53260aabf78fb3d63f8d79d69ece59f80d5eda0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/bd1d9e59a81d8fa4acdcea3f617c581f7475a80f",
-                "reference": "bd1d9e59a81d8fa4acdcea3f617c581f7475a80f",
+                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/e53260aabf78fb3d63f8d79d69ece59f80d5eda0",
+                "reference": "e53260aabf78fb3d63f8d79d69ece59f80d5eda0",
                 "shasum": ""
             },
             "require": {
@@ -5203,7 +5197,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/service-contracts/tree/v3.5.0"
+                "source": "https://github.com/symfony/service-contracts/tree/v3.5.1"
             },
             "funding": [
                 {
@@ -5219,7 +5213,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-04-18T09:32:20+00:00"
+            "time": "2024-09-25T14:20:29+00:00"
         },
         {
             "name": "symfony/string",
@@ -5309,16 +5303,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v6.4.10",
+            "version": "v6.4.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "94041203f8ac200ae9e7c6a18fa6137814ccecc9"
+                "reference": "bee9bfabfa8b4045a66bf82520e492cddbaffa66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/94041203f8ac200ae9e7c6a18fa6137814ccecc9",
-                "reference": "94041203f8ac200ae9e7c6a18fa6137814ccecc9",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/bee9bfabfa8b4045a66bf82520e492cddbaffa66",
+                "reference": "bee9bfabfa8b4045a66bf82520e492cddbaffa66",
                 "shasum": ""
             },
             "require": {
@@ -5384,7 +5378,7 @@
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/translation/tree/v6.4.10"
+                "source": "https://github.com/symfony/translation/tree/v6.4.13"
             },
             "funding": [
                 {
@@ -5400,20 +5394,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-26T12:30:32+00:00"
+            "time": "2024-09-27T18:14:25+00:00"
         },
         {
             "name": "symfony/translation-contracts",
-            "version": "v3.5.0",
+            "version": "v3.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation-contracts.git",
-                "reference": "b9d2189887bb6b2e0367a9fc7136c5239ab9b05a"
+                "reference": "4667ff3bd513750603a09c8dedbea942487fb07c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/b9d2189887bb6b2e0367a9fc7136c5239ab9b05a",
-                "reference": "b9d2189887bb6b2e0367a9fc7136c5239ab9b05a",
+                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/4667ff3bd513750603a09c8dedbea942487fb07c",
+                "reference": "4667ff3bd513750603a09c8dedbea942487fb07c",
                 "shasum": ""
             },
             "require": {
@@ -5462,7 +5456,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/translation-contracts/tree/v3.5.0"
+                "source": "https://github.com/symfony/translation-contracts/tree/v3.5.1"
             },
             "funding": [
                 {
@@ -5478,7 +5472,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-04-18T09:32:20+00:00"
+            "time": "2024-09-25T14:20:29+00:00"
         },
         {
             "name": "symfony/var-dumper",
