@@ -1,5 +1,7 @@
 <?php
 
+use function Pressbooks\Utility\objects_to_csv;
+
 class UtilityTest extends \WP_UnitTestCase {
 	use utilsTrait;
 
@@ -770,7 +772,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	/**
 	 * @group utility
 	 */
-	public function test_contractAndTraits() {
+	public function test_contracts_and_traits() {
 		$contributors = new \Pressbooks\Contributors();
 		$glossary = new Pressbooks\Shortcodes\Glossary\Glossary();
 
@@ -782,5 +784,30 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$this->assertTrue( is_a( $class1->getMethod( 'display' ), '\ReflectionMethod' ) );
 		$this->assertTrue( is_a( $class2->getMethod( 'display' ), '\ReflectionMethod' ) );
+	}
+
+	/**
+	 * @group utility
+	 */
+	public function test_objects_to_csv() {
+		
+		$data = [
+			(object) [
+				'title' => 'foo',
+				'author' => 'bar',
+				'isbn' => 'baz',
+			],
+			(object) [
+				'title' => 'foo2',
+				'author' => 'bar2',
+				'isbn' => 'baz2',
+			],
+		];
+
+
+		$csv = objects_to_csv( $data );
+
+		$this->assertStringContainsString( 'title,author,isbn', $csv );
+		$this->assertStringContainsString( 'foo,bar,baz', $csv );
 	}
 }
