@@ -14,6 +14,7 @@
 // @phpcs:disable WordPress.PHP.DontExtract.extract_extract
 
 namespace Pressbooks\Utility;
+use RuntimeException;
 
 /**
  * Return a value for a given key even if not set
@@ -1594,4 +1595,38 @@ function delete_options_cached() : void {
  */
 function is_algolia_search_enabled(): bool {
 	return env( 'ALGOLIA_APP_ID' ) && env( 'ALGOLIA_API_KEY' ) && env( 'ALGOLIA_INDEX_NAME' );
+}
+
+/**
+ * Convert an array of objects to a CSV string.
+ *
+ * @param array $array Array of objects to be converted.
+ * @return string CSV representation of the array.
+ */
+function objects_to_csv(array $array): string
+{
+	if (count($array) === 0) {
+		return '';
+	}
+
+	$output = fopen('php://memory', 'w');
+	if ($output === false) {
+		throw new RuntimeException('Failed to open memory stream for CSV conversion.');
+	}
+
+	// Extract headers from the first object
+	$headers = array_keys(get_object_vars($array[0]));
+	fputcsv($output, $headers);
+
+	// Extract each row
+	foreach ($array as $obj) {
+		$row = array_values(get_object_vars($obj));
+		fputcsv($output, $row);
+	}
+
+	rewind($output);
+	$csv = stream_get_contents($output);
+	fclose($output);
+
+	return $csv ?: '';
 }

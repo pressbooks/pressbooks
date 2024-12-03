@@ -770,7 +770,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	/**
 	 * @group utility
 	 */
-	public function test_contractAndTraits() {
+	public function test_contracts_and_traits() {
 		$contributors = new \Pressbooks\Contributors();
 		$glossary = new Pressbooks\Shortcodes\Glossary\Glossary();
 
@@ -782,5 +782,9 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$this->assertTrue( is_a( $class1->getMethod( 'display' ), '\ReflectionMethod' ) );
 		$this->assertTrue( is_a( $class2->getMethod( 'display' ), '\ReflectionMethod' ) );
+	}
+
+	public function test_objects_to_csv() {
+		
 	}
 }
