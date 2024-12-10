@@ -635,6 +635,8 @@ SQL;
 			$cover_path = wp_get_attachment_image_url( $cover_id, 'pb_cover_large', false );
 		}
 
+		restore_current_blog();
+
 		return  is_ssl() ? str_replace( 'http://', 'https://', $cover_path ) : $cover_path;
 	}
 
