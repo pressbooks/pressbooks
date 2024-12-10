@@ -629,7 +629,7 @@ SQL;
 
 		switch_to_blog( $book_id );
 
-		$cover_id = $attachment_id ? $attachment_id : attachment_id_from_url( $cover_path );
+		$cover_id = $attachment_id ?: attachment_id_from_url( $cover_path );
 
 		if ( $cover_id ) {
 			$cover_path = wp_get_attachment_image_url( $cover_id, 'pb_cover_large', false );
