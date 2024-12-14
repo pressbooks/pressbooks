@@ -132,6 +132,7 @@ function admin_title( $admin_title ) {
  */
 function get_customizer_colors() {
 	$colors = [
+		'header_bg',
 		'primary',
 		'accent',
 		'primary_fg',
