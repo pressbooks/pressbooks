@@ -134,13 +134,13 @@ class WebOptions extends \Pressbooks\Options {
 		}
 
 		add_settings_field(
-			'social_media',
-			__( 'Enable Social Media', 'pressbooks' ),
-			[ $this, 'renderSocialMediaField' ],
+			'social_media_options',
+			__( 'Social Media Options', 'pressbooks' ),
+			[ $this, 'renderSocialMediaOptionsField' ],
 			$_page,
 			$_section,
 			[
-				__( 'Adds a button to cover page and each chapter which allows readers to share links to your book through Twitter', 'pressbooks' ),
+				__( 'Select which social media buttons to display.', 'pressbooks' ),
 			]
 		);
 
@@ -244,6 +244,7 @@ class WebOptions extends \Pressbooks\Options {
 		$deprecated = [
 			'toc_collapse',
 			'accessibility_fontsize',
+			'social_media'
 		];
 
 		foreach ( $options as $key => $value ) {
@@ -255,22 +256,23 @@ class WebOptions extends \Pressbooks\Options {
 		update_option( 'pressbooks_theme_options_' . $_option, $options );
 	}
 
-	/**
-	 * Render the social_media checkbox.
-	 *
-	 * @param array $args
-	 */
-	function renderSocialMediaField( $args ) {
-		unset( $args['label_for'], $args['class'] );
-		$this->renderCheckbox(
-			[
-				'id' => 'social_media',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'social_media',
-				'value' => ( isset( $this->options['social_media'] ) ) ? $this->options['social_media'] : '',
-				'label' => $args[0],
-			]
-		);
+	function renderSocialMediaOptionsField( $args ) {
+		$options = isset( $this->options['social_media_options'] ) ? $this->options['social_media_options'] : [];
+		$all_options = [
+			'twitter' => __( 'X (formerly Twitter)', 'pressbooks' ),
+			'linkedin' => __( 'LinkedIn', 'pressbooks' ),
+			'email' => __( 'Email', 'pressbooks' ),
+		];
+
+		foreach ( $all_options as $key => $label ) {
+			printf(
+				'<label><input type="checkbox" name="pressbooks_theme_options_%1$s[social_media_options][]" value="%2$s" %3$s /> %4$s</label><br>',
+				esc_attr( $this->getSlug() ),
+				esc_attr( $key ),
+				in_array( $key, $options, true ) ? 'checked' : '',
+				esc_html( $label )
+			);
+		}
 	}
 
 	/**
@@ -414,7 +416,7 @@ class WebOptions extends \Pressbooks\Options {
 			'pb_theme_options_web_defaults', [
 				'webbook_header_font' => '',
 				'webbook_body_font' => '',
-				'social_media' => 1,
+				'social_media_options' => [ 'twitter', 'linkedin', 'email' ],
 				'paragraph_separation' => 'skiplines',
 				'part_title' => 0,
 				'webbook_width' => '40em',
@@ -449,7 +451,6 @@ class WebOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_web_booleans', [
-				'social_media',
 				'part_title',
 				'collapse_sections',
 			]
@@ -516,7 +517,7 @@ class WebOptions extends \Pressbooks\Options {
 	 */
 	static function getPredefinedOptions() {
 		/**
-		 * Allow custom predifined options to be passed to sanitization routines.
+		 * Allow custom predefined options to be passed to sanitization routines.
 		 *
 		 * @param array $value
 		 *
@@ -526,6 +527,7 @@ class WebOptions extends \Pressbooks\Options {
 			'pb_theme_options_web_predefined', [
 				'paragraph_separation',
 				'webbook_width',
+				'social_media_options'
 			]
 		);
 	}
