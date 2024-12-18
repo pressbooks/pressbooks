@@ -89,8 +89,6 @@ class Book {
 
 	const BOOK_INFORMATION_ARRAY = 'pb_book_information_array';
 
-	const LTI_GRADING_ENABLED = 'pb_lti_grading_enabled';
-
 	const BOOK_DIRECTORY_EXCLUDED = 'pb_book_directory_excluded';
 
 	const AUTHORS = 'pb_authors';
