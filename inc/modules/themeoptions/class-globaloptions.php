@@ -604,7 +604,7 @@ class GlobalOptions extends \Pressbooks\Options {
 				'part_label' => __( 'Part', 'pressbooks' ),
 				'chapter_label' => __( 'Chapter', 'pressbooks' ),
 				'about_the_author' => 0,
-				'attachment_attributions' => 0,
+				'attachment_attributions' => 1,
 				'copyright_license' => 0,
 				'edu_textbox_examples_header_color' => '#fff',
 				'edu_textbox_examples_header_background' => '#7a333a',
