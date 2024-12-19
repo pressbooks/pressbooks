@@ -112,19 +112,19 @@
                 </caption>
                 <thead>
                     <tr>
-                        <th scope="col" class="title">{{ __('Title') }}</th>
-                        <th scope="col" class="authors">{{ __('Authors', 'pressbooks') }}</th>
+                        <th scope="col">{{ __('Title') }}</th>
+                        <th scope="col">{{ __('Authors', 'pressbooks') }}</th>
                         @if (false === $disable_comments)
-                            <th scope="col" class="comments">{{ __('Comments', 'pressbooks') }}</th>
+                            <th scope="col">{{ __('Comments', 'pressbooks') }}</th>
                         @endif
-                        <th scope="col" class="show web"><button class="button"
+                        <th scope="col"><button class="button"
                                 id="{{ str_contains($slug, 'part') ? 'chapters' : $slug }}_web_visibility"
                                 type="button" aria-pressed="false">{{ __('Show in Web', 'pressbooks') }}</button></th>
-                        <th scope="col" class="show exports"><button class="button"
+                        <th scope="col"><button class="button"
                                 id="{{ str_contains($slug, 'part') ? 'chapters' : $slug }}_export_visibility"
                                 type="button" aria-pressed="false">{{ __('Show in Exports', 'pressbooks') }}</button>
                         </th>
-                        <th scope="col" class="show title"><button class="button"
+                        <th scope="col"><button class="button"
                                 id="{{ str_contains($slug, 'part') ? 'chapters' : $slug }}_show_title" type="button"
                                 aria-pressed="false">{{ __('Show Title', 'pressbooks') }}</button></th>
                     </tr>
