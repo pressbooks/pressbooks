@@ -1652,7 +1652,7 @@ function edit_screen_navigation( $post ) {
  */
 function get_user_contact_fields() {
 	$methods = [];
-	$methods['twitter'] = esc_html__( 'Twitter URL', 'pressbooks' );
+	$methods['twitter'] = esc_html__( 'X/Twitter URL', 'pressbooks' );
 	$methods['linkedin'] = esc_html__( 'LinkedIn URL', 'pressbooks' );
 	$methods['github'] = esc_html__( 'GitHub URL', 'pressbooks' );
 	return $methods;
