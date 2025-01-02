@@ -228,16 +228,27 @@ function updateControls( table ) {
 function reorder( row ) {
 	let item = getRowData( row );
 
+	const id = item.id;
+	const old_parent = pb.organize.oldParent.replace( /^part_([0-9]+)$/i, '$1' );
+	const new_parent = pb.organize.newParent.replace( /^part_([0-9]+)$/i, '$1' );
+	let old_order = $( `#${ pb.organize.oldParent }` ).sortable( 'serialize' );
+	let new_order = $( `#${ pb.organize.newParent }` ).sortable( 'serialize' );
+
+	const regex = /part_([0-9]+)/g;
+
+	old_order = old_order.replaceAll( regex, 'part' );
+	new_order = new_order.replaceAll( regex, 'part' );
+
 	$.ajax( {
 		url: ajaxurl,
 		type: 'POST',
 		data: {
 			action: 'pb_reorder',
-			id: item.id,
-			old_order: $( `#${ pb.organize.oldParent }` ).sortable( 'serialize' ),
-			new_order: $( `#${ pb.organize.newParent }` ).sortable( 'serialize' ),
-			old_parent: pb.organize.oldParent.replace( /^part_([0-9]+)$/i, '$1' ),
-			new_parent: pb.organize.newParent.replace( /^part_([0-9]+)$/i, '$1' ),
+			id: id,
+			old_order: old_order,
+			new_order: new_order,
+			old_parent: old_parent,
+			new_parent: new_parent,
 			_ajax_nonce: PB_OrganizeToken.reorderNonce,
 		},
 		/**
