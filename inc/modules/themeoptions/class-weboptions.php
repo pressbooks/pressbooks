@@ -244,7 +244,7 @@ class WebOptions extends \Pressbooks\Options {
 		$deprecated = [
 			'toc_collapse',
 			'accessibility_fontsize',
-			'social_media'
+			'social_media',
 		];
 
 		foreach ( $options as $key => $value ) {
@@ -527,7 +527,7 @@ class WebOptions extends \Pressbooks\Options {
 			'pb_theme_options_web_predefined', [
 				'paragraph_separation',
 				'webbook_width',
-				'social_media_options'
+				'social_media_options',
 			]
 		);
 	}

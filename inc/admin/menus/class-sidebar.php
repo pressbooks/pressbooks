@@ -710,35 +710,6 @@ class SideBar {
 		if ( is_plugin_active( 'pressbooks-oidc-sso/pressbooks-oidc-sso.php' ) ) {
 			\PressbooksOidcSso\Admin::init()->addMenu();
 		}
-
-		if ( is_plugin_active( 'pressbooks-lti-provider-1p3/pressbooks-lti-provider.php' ) ) {
-			$lti_admin = \PressbooksLtiProvider1p3\Admin::init();
-			$lti_admin->addConsumersMenu();
-			$lti_admin->addSettingsMenu();
-
-			// Move LTI settings menu item to network admin menu page
-			if ( ! is_network_admin() && isset( $submenu['pb_network_integrations'] ) ) {
-				$submenu[ network_admin_url( 'admin.php?page=pb_lti_settings' ) ] = $submenu['pb_network_integrations'];
-				unset( $submenu['pb_network_integrations'] );
-			}
-
-			if (
-				isset( $submenu[ network_admin_url( 'admin.php?page=pb_network_integrations' ) ] ) &&
-				$submenu[ network_admin_url( 'admin.php?page=pb_network_integrations' ) ][0][2] === network_admin_url( 'admin.php?page=pb_network_integrations' )
-			) {
-				unset( $submenu[ network_admin_url( 'admin.php?page=pb_network_integrations' ) ][0] );
-			}
-		}
-
-		if ( is_plugin_active( 'pressbooks-lti/pressbooks-lti.php' ) ) {
-			( new \PressbooksLti\Bootstrap() )->registerMenus();
-
-			// Move LTI settings menu item to network admin menu page
-			if ( ! is_network_admin() && isset( $submenu['pb_network_integrations'] ) ) {
-				$submenu[ network_admin_url( 'admin.php?page=pb_lti_settings' ) ] = $submenu['pb_network_integrations'];
-				unset( $submenu['pb_network_integrations'] );
-			}
-		}
 	}
 
 	private function getKokoAnalyticsSlug(): string {
