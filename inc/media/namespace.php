@@ -30,6 +30,7 @@ function add_mime_types( $existing_mimes = [] ) {
 		'vorbis' => 'audio/vorbis',
 		'wav' => 'audio/wav',
 		'webm' => 'video/webm',
+		'webp' => 'image/webp',
 	];
 
 	return array_merge( $add_mimes, $existing_mimes );
