@@ -483,10 +483,10 @@ class Contributors implements BackMatter, Transferable {
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 			self::TAXONOMY . '_twitter' => [
-				'label' => esc_html__( 'Twitter', 'pressbooks' ),
+				'label' => esc_html__( 'X/Twitter', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-twitter',
 				'input_type' => 'text',
-				'description' => esc_html__( 'Twitter profile for this contributor. Must be a valid URL.', 'pressbooks' ),
+				'description' => esc_html__( 'X/Twitter profile for this contributor. Must be a valid URL.', 'pressbooks' ),
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 			self::TAXONOMY . '_linkedin' => [

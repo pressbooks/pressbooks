@@ -340,7 +340,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 
 		$this->assertCount( 3, $fields );
 
-		$this->assertEquals( 'Twitter URL', $fields['twitter'] );
+		$this->assertEquals( 'X/Twitter URL', $fields['twitter'] );
 	}
 
 	/**

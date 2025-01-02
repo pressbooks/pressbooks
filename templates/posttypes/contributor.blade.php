@@ -35,9 +35,9 @@
 							</p>
 						@else
 							<a href="{{$contributor['contributor_twitter']}}" target="_blank">
-								<svg role="img" aria-labelledby="twitter-logo-{{ $key }}" class="contributor__icon-svg">
-									<title id="twitter-logo-{{ $key }}">Twitter logo</title>
-									<use href="#twitter-icon"/>
+								<svg role="img" aria-labelledby="x-logo-{{ $key }}" class="contributor__icon-svg">
+									<title id="x-logo-{{ $key }}">X logo</title>
+									<use href="#twitter"/>
 								</svg>
 							</a>
 						@endif

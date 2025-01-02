@@ -40,7 +40,7 @@ class AdditionalCatalogInformation extends Metabox {
 			new Text(
 				name: 'pb_hashtag',
 				label: __( 'Hashtag', 'pressbooks' ),
-				description: __( 'These are added to your webbook cover page. For those of you who like Twitter.', 'pressbooks' ),
+				description: __( 'This hashtag is added to your webbook cover page and can be referenced on social media. Will also be included in social shares to X.', 'pressbooks' ),
 			),
 			new Text(
 				name: 'pb_list_price_print',

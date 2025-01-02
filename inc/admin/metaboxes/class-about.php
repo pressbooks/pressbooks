@@ -25,7 +25,7 @@ class About extends Metabox {
 			new Text(
 				name: 'pb_about_140',
 				label: __( 'Book Tagline', 'pressbooks' ),
-				description: __( 'A very short description of your book. It should fit in a Twitter post, and encapsulate your book in the briefest sentence.', 'pressbooks' )
+				description: __( 'A very short description of your book. It should fit in a social media post, and encapsulate your book in the briefest sentence.', 'pressbooks' )
 			),
 			new TextArea(
 				name: 'pb_about_50',
