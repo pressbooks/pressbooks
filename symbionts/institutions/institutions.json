@@ -1345,6 +1345,11 @@
             "code": "EU-BEL-005",
             "name": "Université de Mons",
             "url": "https:\/\/web.umons.ac.be\/"
+          },
+          {
+            "code": "EU-BEL-006",
+            "name": "Education for an Independent World",
+            "url": "https:\/\/ediw.net\/"
           }
         ]
       },
@@ -1810,6 +1815,16 @@
             "code": "EU-DEU-092",
             "name": "Zeppelin University",
             "url": "https:\/\/www.zu.de\/"
+          }
+        ]
+      },
+      {
+        "name": "France",
+        "institutions": [
+          {
+            "code": "EU-FRA-001",
+            "name": "University of Poitiers",
+            "url": "https:\/\/www.univ-poitiers.fr\/"
           }
         ]
       },
@@ -3169,6 +3184,16 @@
         ]
       },
       {
+        "name": "Slovenia",
+        "institutions": [
+          {
+            "code": "EU-SVN-001",
+            "name": "University of Ljubljana",
+            "url": "https:\/\/www.uni-lj.si\/"
+          }
+        ]
+      },
+      {
         "name": "Spain",
         "institutions": [
           {
@@ -3180,6 +3205,11 @@
             "code": "EU-ESP-002",
             "name": "University of Valladolid",
             "url": "https:\/\/www.uva.es\/"
+          },
+          {
+            "code": "EU-ESP-003",
+            "name": "Universidad Politécnica de Madrid",
+            "url": "https:\/\/www.upm.es\/"
           }
         ]
       }
