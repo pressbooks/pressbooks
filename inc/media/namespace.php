@@ -79,7 +79,9 @@ function add_lord_of_the_files_types( $existing_mimes = [] ) {
 	$lord_of_the_files_activated = ( is_plugin_active_for_network( 'blob-mimes/index.php' ) || is_plugin_active( 'blob-mimes/h5p.php' ) ) && class_exists( 'blobfolio\\wp\\bm\\mime\\aliases' );
 	if ( $lord_of_the_files_activated ) {
 		foreach ( unknown_upload_types( $existing_mimes ) as $k => $v ) {
-			if ( isset( \blobfolio\wp\bm\mime\aliases::TYPES[ $k ] ) ) {
+			if ( $k === 'nlogo' )
+				$upload_filetype_mimes[ $k ] = 'text/plain';
+			elseif ( isset( \blobfolio\wp\bm\mime\aliases::TYPES[ $k ] ) ) {
 				$upload_filetype_mimes[ $k ] = \blobfolio\wp\bm\mime\aliases::TYPES[ $k ][0];
 			}
 		}
@@ -89,32 +91,6 @@ function add_lord_of_the_files_types( $existing_mimes = [] ) {
 	}
 
 	return $existing_mimes;
-}
-
-/**
- * Override the list of MIME aliases matching a particular file extension.
- * Hooked into blobmimes_get_mime_aliases (Lord Of The Files)
- *
- * @param mixed $match
- * @param string $ext
- *
- * @return array|bool
- * @see https://github.com/Blobfolio/blob-mimes/blob/master/wp/lib/blobfolio/wp/bm/mime/aliases.php
- */
-function get_lord_of_the_files_mime_aliases( $match, $ext ) {
-	if ( $match === false ) {
-		$match = []; // Recast
-	}
-
-	if ( $ext === 'nlogo' ) {
-		$match[] = 'text/plain';
-	}
-
-	if ( empty( $match ) ) {
-		return false;
-	} else {
-		return array_unique( $match );
-	}
 }
 
 /**
