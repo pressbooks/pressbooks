@@ -1,5 +1,39 @@
 # Changelog
 
+## [6.22.0](https://github.com/pressbooks/pressbooks/compare/6.21.3...6.22.0) (2025-01-06)
+
+
+### Features
+
+* add LinkedIn and Email sharing options, update Twitter, allow users to choose which to display ([#3870](https://github.com/pressbooks/pressbooks/issues/3870)) ([6a4cad9](https://github.com/pressbooks/pressbooks/commit/6a4cad9e4998d718fff60c7e96b9e1352a560cf6))
+* remove LTI references ([#3871](https://github.com/pressbooks/pressbooks/issues/3871)) ([5b05891](https://github.com/pressbooks/pressbooks/commit/5b058914113d62f683a1374461216caed7dcd8bc))
+
+
+### Bug Fixes
+
+* add header_bg to customizer colors array ([#3867](https://github.com/pressbooks/pressbooks/issues/3867)) ([4d79dc0](https://github.com/pressbooks/pressbooks/commit/4d79dc06c6775f16a7d3ea75802183a6601eda64))
+* allow webp uploads ([#3888](https://github.com/pressbooks/pressbooks/issues/3888)) ([36a3f33](https://github.com/pressbooks/pressbooks/commit/36a3f33a4624188a68a1ae48dae043063c7ba8de))
+* drag and drop menu order ([#3872](https://github.com/pressbooks/pressbooks/issues/3872)) ([1f85f88](https://github.com/pressbooks/pressbooks/commit/1f85f880bc4bff63361833d5a7ef7ed77186ef7d))
+* missing restore_current_blog call in getCoverThumbnail ([#3860](https://github.com/pressbooks/pressbooks/issues/3860)) ([20e81ca](https://github.com/pressbooks/pressbooks/commit/20e81ca29b9cae87b27e5ae6e9438b5ba9763b6c))
+* remove unneeded filters & functions ([#3891](https://github.com/pressbooks/pressbooks/issues/3891)) ([cc19923](https://github.com/pressbooks/pressbooks/commit/cc19923f492443c8482e99278c62be29c9f2a838))
+* replace Twitter references ([#3874](https://github.com/pressbooks/pressbooks/issues/3874)) ([47ce282](https://github.com/pressbooks/pressbooks/commit/47ce282744cbc763c5131cd6e1c16f8719761fc4))
+* set media attributions to display by default ([#3875](https://github.com/pressbooks/pressbooks/issues/3875)) ([67c965b](https://github.com/pressbooks/pressbooks/commit/67c965b660b278a6ea1df6c4f1d686e351eecd43))
+
+
+### Chores
+
+* add requested institutions ([#3890](https://github.com/pressbooks/pressbooks/issues/3890)) ([69dbc49](https://github.com/pressbooks/pressbooks/commit/69dbc495142e8d500763b4bbc278e77c58169848))
+* bump alpinejs from 3.14.3 to 3.14.5 in the npm-dependencies group ([#3859](https://github.com/pressbooks/pressbooks/issues/3859)) ([049b686](https://github.com/pressbooks/pressbooks/commit/049b68642686f28035c104dc9e38951885a1cbaf))
+* bump alpinejs from 3.14.5 to 3.14.7 in the npm-dependencies group ([#3863](https://github.com/pressbooks/pressbooks/issues/3863)) ([e35e641](https://github.com/pressbooks/pressbooks/commit/e35e6410a9e2c8adccc61ffaf860b27c500e02ae))
+* bump alpinejs from 3.14.7 to 3.14.8 in the npm-dependencies group ([#3885](https://github.com/pressbooks/pressbooks/issues/3885)) ([0a8413a](https://github.com/pressbooks/pressbooks/commit/0a8413ae6b68cab8f78a899896aef9dc4ef53987))
+* bump aws/aws-sdk-php from 3.332.0 to 3.334.1 in the composer-dependencies group ([#3864](https://github.com/pressbooks/pressbooks/issues/3864)) ([4295475](https://github.com/pressbooks/pressbooks/commit/42954750631c34d42a2381a011ba1e8f82c1754c))
+* bump aws/aws-sdk-php from 3.334.1 to 3.334.6 in the composer-dependencies group ([#3869](https://github.com/pressbooks/pressbooks/issues/3869)) ([8e512c4](https://github.com/pressbooks/pressbooks/commit/8e512c4ff0c969b919b37a9e83d20967b4c6bd12))
+* bump aws/aws-sdk-php from 3.336.6 to 3.336.8 in the composer-dependencies group ([#3892](https://github.com/pressbooks/pressbooks/issues/3892)) ([dda069f](https://github.com/pressbooks/pressbooks/commit/dda069fa9d9d06792e6b23a8f5dd86722be3a85c))
+* bump instantsearch.js from 4.75.5 to 4.75.6 in the npm-dependencies group ([#3868](https://github.com/pressbooks/pressbooks/issues/3868)) ([c946e69](https://github.com/pressbooks/pressbooks/commit/c946e697d55ca270970a3b8e9272a97ae48526d2))
+* bump the composer-dependencies group across 1 directory with 2 updates ([#3884](https://github.com/pressbooks/pressbooks/issues/3884)) ([da0e487](https://github.com/pressbooks/pressbooks/commit/da0e487f9c70b60255ffd7ccbe7fcb40fc2dfac6))
+* bump the composer-dependencies group with 3 updates ([#3858](https://github.com/pressbooks/pressbooks/issues/3858)) ([8c27049](https://github.com/pressbooks/pressbooks/commit/8c27049f867d2ffde73425e879f1b7992ec1a382))
+* reuse objects to csv function ([#3862](https://github.com/pressbooks/pressbooks/issues/3862)) ([06f7615](https://github.com/pressbooks/pressbooks/commit/06f7615a20952832ebb0e71b210bef30ba57d2eb))
+
 ## [6.21.3](https://github.com/pressbooks/pressbooks/compare/6.21.2...6.21.3) (2024-11-25)
 
 
