@@ -79,9 +79,7 @@ function add_lord_of_the_files_types( $existing_mimes = [] ) {
 	$lord_of_the_files_activated = ( is_plugin_active_for_network( 'blob-mimes/index.php' ) || is_plugin_active( 'blob-mimes/h5p.php' ) ) && class_exists( 'blobfolio\\wp\\bm\\mime\\aliases' );
 	if ( $lord_of_the_files_activated ) {
 		foreach ( unknown_upload_types( $existing_mimes ) as $k => $v ) {
-			if ( $k === 'nlogo' )
-				$upload_filetype_mimes[ $k ] = 'text/plain';
-			elseif ( isset( \blobfolio\wp\bm\mime\aliases::TYPES[ $k ] ) ) {
+			if ( isset( \blobfolio\wp\bm\mime\aliases::TYPES[ $k ] ) ) {
 				$upload_filetype_mimes[ $k ] = \blobfolio\wp\bm\mime\aliases::TYPES[ $k ][0];
 			}
 		}
