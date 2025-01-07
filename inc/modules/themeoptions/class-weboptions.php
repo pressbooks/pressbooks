@@ -416,7 +416,6 @@ class WebOptions extends \Pressbooks\Options {
 			'pb_theme_options_web_defaults', [
 				'webbook_header_font' => '',
 				'webbook_body_font' => '',
-				'social_media_options' => [ 'twitter', 'linkedin', 'email' ],
 				'paragraph_separation' => 'skiplines',
 				'part_title' => 0,
 				'webbook_width' => '40em',
