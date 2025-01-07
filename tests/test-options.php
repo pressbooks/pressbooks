@@ -503,8 +503,11 @@ class OptionsTest extends \WP_UnitTestCase {
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString('name="pressbooks_theme_options_web[social_media_options][]"', $buffer);
 		$this->assertStringContainsString('value="twitter"', $buffer);
+		$this->assertStringContainsString('checked', $buffer);
 		$this->assertStringContainsString('value="email"', $buffer);
+		$this->assertStringContainsString('checked', $buffer);
 		$this->assertStringContainsString('value="linkedin"', $buffer);
+		$this->assertStringContainsString('checked', $buffer);
 	}
 
 	/**

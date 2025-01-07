@@ -258,6 +258,11 @@ class WebOptions extends \Pressbooks\Options {
 
 	function renderSocialMediaOptionsField( $args ) {
 		$options = isset( $this->options['social_media_options'] ) ? $this->options['social_media_options'] : [];
+		$stored_options = get_option( 'pressbooks_theme_options_' . $this->getSlug() );
+		// if empty, override default values with empty array for displaying purposes
+		if ( $stored_options && empty( $stored_options['social_media_options'] ) ) {
+			$options = [];
+		}
 		$all_options = [
 			'twitter' => __( 'X (formerly Twitter)', 'pressbooks' ),
 			'linkedin' => __( 'LinkedIn', 'pressbooks' ),
@@ -417,6 +422,7 @@ class WebOptions extends \Pressbooks\Options {
 				'webbook_header_font' => '',
 				'webbook_body_font' => '',
 				'paragraph_separation' => 'skiplines',
+				'social_media_options' => [ 'twitter', 'linkedin', 'email' ],
 				'part_title' => 0,
 				'webbook_width' => '40em',
 				'collapse_sections' => 0,
