@@ -1,5 +1,21 @@
 # Changelog
 
+## [6.22.1](https://github.com/pressbooks/pressbooks/compare/6.22.0...6.22.1) (2025-01-15)
+
+
+### Bug Fixes
+
+* social media default values when empty ([#3893](https://github.com/pressbooks/pressbooks/issues/3893)) ([eea98e5](https://github.com/pressbooks/pressbooks/commit/eea98e5b93ca71a0bb0284822bb6cb8e8b86d910))
+
+
+### Chores
+
+* bump aws/aws-sdk-php from 3.336.8 to 3.336.13 in the composer-dependencies group ([#3896](https://github.com/pressbooks/pressbooks/issues/3896)) ([ff0fbf3](https://github.com/pressbooks/pressbooks/commit/ff0fbf332bd181fea9e368eec46f06f2aeea58d6))
+* bump instantsearch.js from 4.75.6 to 4.75.7 in the npm-dependencies group ([#3895](https://github.com/pressbooks/pressbooks/issues/3895)) ([433bf68](https://github.com/pressbooks/pressbooks/commit/433bf68f417b034b1a9cc676b4372c830ccce286))
+* bump nesbot/carbon from 2.72.5 to 2.72.6 in the composer group ([#3901](https://github.com/pressbooks/pressbooks/issues/3901)) ([387addf](https://github.com/pressbooks/pressbooks/commit/387addf2fb200f2f3b44c7ed8bca608b624bd384))
+* bump yoast/phpunit-polyfills from 1.1.2 to 1.1.3 in the composer-dev-dependencies group ([#3897](https://github.com/pressbooks/pressbooks/issues/3897)) ([6300eac](https://github.com/pressbooks/pressbooks/commit/6300eac7deff20bd91bef2d600f8ce26207647e4))
+* update matrix ([#3903](https://github.com/pressbooks/pressbooks/issues/3903)) ([971f1a0](https://github.com/pressbooks/pressbooks/commit/971f1a08da4ef13ac288c9a7decb22ff9ed319f7))
+
 ## [6.22.0](https://github.com/pressbooks/pressbooks/compare/6.21.3...6.22.0) (2025-01-06)
 
 
