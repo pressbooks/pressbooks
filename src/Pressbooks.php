@@ -4,11 +4,6 @@ namespace Pressbooks;
 
 final class Pressbooks
 {
-    public function __construct()
-    {
-        (new Support\Compatibility)->run();
-    }
-
     public function boot(): void
     {
         (new Support\Boot)->run();

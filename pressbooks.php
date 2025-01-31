@@ -21,11 +21,25 @@
  * @license GPL-3.0-or-later
  */
 
+use Pressbooks\Support\Activation;
 use Pressbooks\Pressbooks;
+use Pressbooks\Support\Compatibility;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	return;
 }
+
+register_activation_hook(__FILE__, function () {
+	(new Activation())->run();
+});
+
+$compatibility = new Compatibility();
+
+if (! $compatibility->meetsMinimumRequirements()) {
+	return;
+}
+
+$compatibility->check();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Initialize

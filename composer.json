@@ -107,10 +107,10 @@
 			"vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml --coverage-html=./coverage-reports"
 		],
 		"standards": [
-			"vendor/bin/pint"
+			"vendor/bin/pint --test"
 		],
 		"fix": [
-			"vendor/bin/pint --fix"
+			"vendor/bin/pint"
 		]
 	}
 }

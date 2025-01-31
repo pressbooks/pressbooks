@@ -4,7 +4,7 @@ namespace Pressbooks\Support;
 
 class Session
 {
-    public function run()
+    public function run(): void
     {
         add_action('plugins_loaded', [$this, 'start'], 1);
         add_action('wp_logout', [$this, 'kill']);
@@ -57,7 +57,7 @@ class Session
         }
     }
 
-    private function useNonBlockingSession()
+    private function useNonBlockingSession(): bool
     {
         if (wp_doing_ajax()) {
             return true;
@@ -69,7 +69,7 @@ class Session
         return false;
     }
 
-    public function kill()
+    public function kill(): void
     {
         $_SESSION = [];
         @session_destroy(); // @codingStandardsIgnoreLine
