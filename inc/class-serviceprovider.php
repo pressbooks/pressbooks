@@ -89,8 +89,6 @@ class ServiceProvider {
 
 		/**
 		 * TODO: how to fetch environment variables from a config class,
-		 * roots config won't be accessible in the pipeline
-		 * Mantle POC
 		 * This would only create one connection that would be able in other plugins that tries to use Eloquent ORM
 		 */
 		$db->addConnection( [
