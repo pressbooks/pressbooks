@@ -15,7 +15,10 @@
   "autoload": {
     "psr-4": {
       "Pressbooks\\": "src/"
-    }
+    },
+    "files": [
+      "src/helpers.php"
+    ]
   },
 	"keywords": ["ebooks", "publishing", "webbooks"],
 	"support": {
