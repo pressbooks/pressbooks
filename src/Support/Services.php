@@ -2,4 +2,6 @@
 
 namespace Pressbooks\Support;
 
-class Services {}
+class Services
+{
+}

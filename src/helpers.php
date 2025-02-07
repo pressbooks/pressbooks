@@ -3,6 +3,7 @@
 use Pressbooks\Book;
 use Pressbooks\Container;
 use Pressbooks\CustomCss;
+
 use function Pressbooks\Sanitize\decode;
 use function Pressbooks\Sanitize\strip_br;
 
@@ -11,9 +12,10 @@ use function Pressbooks\Sanitize\strip_br;
  *
  * @return string URL of previous post
  */
-function pb_get_prev() {
+function pb_get_prev()
+{
 
-	return Book::get( 'prev' );
+    return Book::get('prev');
 }
 
 /**
@@ -21,9 +23,10 @@ function pb_get_prev() {
  *
  * @return int|false
  */
-function pb_get_prev_post_id() {
+function pb_get_prev_post_id()
+{
 
-	return Book::get( 'prev', true );
+    return Book::get('prev', true);
 }
 
 /**
@@ -31,9 +34,10 @@ function pb_get_prev_post_id() {
  *
  * @return string URL of next post
  */
-function pb_get_next() {
+function pb_get_next()
+{
 
-	return Book::get( 'next' );
+    return Book::get('next');
 }
 
 /**
@@ -41,9 +45,10 @@ function pb_get_next() {
  *
  * @return int|false
  */
-function pb_get_next_post_id() {
+function pb_get_next_post_id()
+{
 
-	return Book::get( 'next', true );
+    return Book::get('next', true);
 }
 
 /**
@@ -51,9 +56,10 @@ function pb_get_next_post_id() {
  *
  * @return string URL of first post
  */
-function pb_get_first() {
+function pb_get_first()
+{
 
-	return Book::get( 'first' );
+    return Book::get('first');
 }
 
 /**
@@ -61,9 +67,10 @@ function pb_get_first() {
  *
  * @return int|false
  */
-function pb_get_first_post_id() {
+function pb_get_first_post_id()
+{
 
-	return Book::get( 'first', true );
+    return Book::get('first', true);
 }
 
 /**
@@ -71,9 +78,10 @@ function pb_get_first_post_id() {
  *
  * @return array
  */
-function pb_get_book_information() {
+function pb_get_book_information()
+{
 
-	return Book::getBookInformation();
+    return Book::getBookInformation();
 }
 
 /**
@@ -81,9 +89,10 @@ function pb_get_book_information() {
  *
  * @return array
  */
-function pb_get_book_structure() {
+function pb_get_book_structure()
+{
 
-	return Book::getBookStructure();
+    return Book::getBookStructure();
 }
 
 /**
@@ -93,9 +102,10 @@ function pb_get_book_structure() {
  *
  * @return mixed
  */
-function pb_decode( $val ) {
+function pb_decode($val)
+{
 
-	return decode( $val );
+    return decode($val);
 }
 
 /**
@@ -105,9 +115,10 @@ function pb_decode( $val ) {
  *
  * @return string
  */
-function pb_strip_br( $val ) {
+function pb_strip_br($val)
+{
 
-	return strip_br( $val );
+    return strip_br($val);
 }
 
 /**
@@ -117,9 +128,10 @@ function pb_strip_br( $val ) {
  *
  * @return bool
  */
-function pb_is_custom_theme() {
+function pb_is_custom_theme()
+{
 
-	return CustomCss::isCustomCss();
+    return CustomCss::isCustomCss();
 }
 
 /**
@@ -127,13 +139,14 @@ function pb_is_custom_theme() {
  *
  * @return bool
  */
-function pb_is_scss( $version = 1 ) {
+function pb_is_scss($version = 1)
+{
 
-	if ( Container::get( 'Styles' )->isCurrentThemeCompatible( $version ) ) {
-		return true;
-	}
+    if (Container::get('Styles')->isCurrentThemeCompatible($version)) {
+        return true;
+    }
 
-	return false;
+    return false;
 }
 
 /**
@@ -143,8 +156,9 @@ function pb_is_scss( $version = 1 ) {
  *
  * @return string
  */
-function pb_get_seo_meta_elements() {
-	_deprecated_function( 'pb_get_seo_meta_elements', '5.7.0' );
+function pb_get_seo_meta_elements()
+{
+    _deprecated_function('pb_get_seo_meta_elements', '5.7.0');
 }
 
 /**
@@ -154,8 +168,9 @@ function pb_get_seo_meta_elements() {
  *
  * @return string
  */
-function pb_get_microdata_elements() {
-	_deprecated_function( 'pb_get_microdata_elements', '5.7.0' );
+function pb_get_microdata_elements()
+{
+    _deprecated_function('pb_get_microdata_elements', '5.7.0');
 }
 
 /**
@@ -166,17 +181,18 @@ function pb_get_microdata_elements() {
  * @see: \Pressbooks\CustomCss
  * @return string
  */
-function pb_get_custom_stylesheet_url() {
+function pb_get_custom_stylesheet_url()
+{
 
-	$current_blog_id = get_current_blog_id();
+    $current_blog_id = get_current_blog_id();
 
-	if ( is_file( WP_CONTENT_DIR . "/blogs.dir/{$current_blog_id}/files/custom-css/web.css" ) ) {
-		return \Pressbooks\Sanitize\maybe_https( content_url( "/blogs.dir/{$current_blog_id}/files/custom-css/web.css" ) );
-	} elseif ( is_file( WP_CONTENT_DIR . "/uploads/sites/{$current_blog_id}/custom-css/web.css" ) ) {
-		return \Pressbooks\Sanitize\maybe_https( content_url( "/uploads/sites/{$current_blog_id}/custom-css/web.css" ) );
-	} else {
-		return PB_PLUGIN_URL . 'themes-book/pressbooks-custom-css/style.css';
-	}
+    if (is_file(WP_CONTENT_DIR . "/blogs.dir/{$current_blog_id}/files/custom-css/web.css")) {
+        return \Pressbooks\Sanitize\maybe_https(content_url("/blogs.dir/{$current_blog_id}/files/custom-css/web.css"));
+    } elseif (is_file(WP_CONTENT_DIR . "/uploads/sites/{$current_blog_id}/custom-css/web.css")) {
+        return \Pressbooks\Sanitize\maybe_https(content_url("/uploads/sites/{$current_blog_id}/custom-css/web.css"));
+    } else {
+        return PB_PLUGIN_URL . 'themes-book/pressbooks-custom-css/style.css';
+    }
 }
 
 /**
@@ -186,9 +202,10 @@ function pb_get_custom_stylesheet_url() {
  *
  * @return int
  */
-function pb_get_chapter_number( $post_id ) {
+function pb_get_chapter_number($post_id)
+{
 
-	return Book::getChapterNumber( $post_id );
+    return Book::getChapterNumber($post_id);
 }
 
 /**
@@ -198,24 +215,26 @@ function pb_get_chapter_number( $post_id ) {
  *
  * @return string
  */
-function pb_get_section_type( $post ) {
-	$type = $post->post_type;
-	$taxonomy = \Pressbooks\Taxonomy::init();
-	switch ( $type ) {
-		case 'chapter':
-			$type = $taxonomy->getChapterType( $post->ID );
-			break;
-		case 'front-matter':
-			$type = $taxonomy->getFrontMatterType( $post->ID );
-			break;
-		case 'back-matter':
-			$type = $taxonomy->getBackMatterType( $post->ID );
-			break;
-		case 'glossary':
-			$type = $taxonomy->getGlossaryType( $post->ID );
-			break;  }
+function pb_get_section_type($post)
+{
+    $type = $post->post_type;
+    $taxonomy = \Pressbooks\Taxonomy::init();
+    switch ($type) {
+        case 'chapter':
+            $type = $taxonomy->getChapterType($post->ID);
+            break;
+        case 'front-matter':
+            $type = $taxonomy->getFrontMatterType($post->ID);
+            break;
+        case 'back-matter':
+            $type = $taxonomy->getBackMatterType($post->ID);
+            break;
+        case 'glossary':
+            $type = $taxonomy->getGlossaryType($post->ID);
+            break;
+    }
 
-	return $type;
+    return $type;
 }
 
 /**
@@ -225,8 +244,9 @@ function pb_get_section_type( $post ) {
  *
  * @return array
  */
-function pb_get_subsections( $id ) {
-	return Book::getSubsections( $id );
+function pb_get_subsections($id)
+{
+    return Book::getSubsections($id);
 }
 
 /**
@@ -236,8 +256,9 @@ function pb_get_subsections( $id ) {
  *
  * @return array
  */
-function pb_get_sections( $id ) {
-	return pb_get_subsections( $id );
+function pb_get_sections($id)
+{
+    return pb_get_subsections($id);
 }
 
 /**
@@ -246,8 +267,9 @@ function pb_get_sections( $id ) {
  * @param array $book_structure The book structure from getBookStructure()
  * @return array The subsections, grouped by parent post type
  */
-function pb_get_all_subsections( $book_structure ) {
-	return Book::getAllSubsections( $book_structure );
+function pb_get_all_subsections($book_structure)
+{
+    return Book::getAllSubsections($book_structure);
 }
 
 /**
@@ -255,8 +277,9 @@ function pb_get_all_subsections( $book_structure ) {
  *
  * @return boolean
  */
-function pb_should_parse_subsections() {
-	return \Pressbooks\Modules\Export\Export::shouldParseSubsections();
+function pb_should_parse_subsections()
+{
+    return \Pressbooks\Modules\Export\Export::shouldParseSubsections();
 }
 
 /**
@@ -264,8 +287,9 @@ function pb_should_parse_subsections() {
  *
  * @return boolean
  */
-function pb_should_parse_sections() {
-	return pb_should_parse_subsections();
+function pb_should_parse_sections()
+{
+    return pb_should_parse_subsections();
 }
 
 /**
@@ -275,9 +299,10 @@ function pb_should_parse_sections() {
  *
  * @return string
  */
-function pb_tag_subsections( $content, $id ) {
-	$tagged_content = Book::tagSubsections( $content, $id );
-	return ( $tagged_content === false ) ? $content : $tagged_content;
+function pb_tag_subsections($content, $id)
+{
+    $tagged_content = Book::tagSubsections($content, $id);
+    return ($tagged_content === false) ? $content : $tagged_content;
 }
 
 /**
@@ -287,8 +312,9 @@ function pb_tag_subsections( $content, $id ) {
  *
  * @return string
  */
-function pb_tag_sections( $content, $id ) {
-	return pb_tag_subsections( $content, $id );
+function pb_tag_sections($content, $id)
+{
+    return pb_tag_subsections($content, $id);
 }
 
 /**
@@ -299,6 +325,7 @@ function pb_tag_sections( $content, $id ) {
  *
  * @return string
  */
-function pb_thumbify( $thumb, $path ) {
-	return \Pressbooks\Image\thumbify( $thumb, $path );
+function pb_thumbify($thumb, $path)
+{
+    return \Pressbooks\Image\thumbify($thumb, $path);
 }
