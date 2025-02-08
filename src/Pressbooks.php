@@ -12,7 +12,7 @@ final class Pressbooks
 
     public function setupHooks()
     {
-        dump(app('db')->table('users')->get());
+        //dump(app('db')->table('users')->get());
     }
 
     public function setupAdminHooks()

@@ -10,11 +10,11 @@ return [
 	 */
 	'sass' => [],
 	/*
-	 * The environment in which the application is running.
+	 * Typography configuration.
 	 */
 	'global_typography' => [],
 	/*
-	 * The environment in which the application is running.
+	 * Styles configuration.
 	 */
 	'styles' => [],
 	/*
