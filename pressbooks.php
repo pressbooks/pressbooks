@@ -29,6 +29,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	return;
 }
 
+require_once __DIR__ . '/vendor/autoload.php';
+
 register_activation_hook(__FILE__, function () {
 	(new Activation())->run();
 });
@@ -46,3 +48,5 @@ $compatibility->check();
 // -------------------------------------------------------------------------------------------------------------------
 
 $GLOBALS['pressbooks'] = new Pressbooks();
+
+$GLOBALS['pressbooks']->boot();

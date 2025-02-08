@@ -142,7 +142,7 @@ function pb_is_custom_theme()
 function pb_is_scss($version = 1)
 {
 
-    if (Container::get('Styles')->isCurrentThemeCompatible($version)) {
+    if ((new Pressbooks\Container)->get('Styles')->isCurrentThemeCompatible($version)) {
         return true;
     }
 
@@ -328,4 +328,23 @@ function pb_tag_sections($content, $id)
 function pb_thumbify($thumb, $path)
 {
     return \Pressbooks\Image\thumbify($thumb, $path);
+}
+
+if (!function_exists('app')) {
+    /**
+     * Get the available container instance.
+     *
+     * @param string|null $abstract
+     * @param array $parameters
+     * @return mixed|\Illuminate\Contracts\Foundation\Application
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    function app($abstract = null, array $parameters = []): mixed
+    {
+        if (is_null($abstract)) {
+            return Container::getInstance();
+        }
+
+        return Container::getInstance()->make($abstract, $parameters);
+    }
 }

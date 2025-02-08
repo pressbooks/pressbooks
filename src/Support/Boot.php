@@ -2,6 +2,9 @@
 
 namespace Pressbooks\Support;
 
+// TODO: WP-new-era Replace function calls with proper Notice and Session class methods and remove this file when done
+use Pressbooks\Core\ServiceProvider;
+
 class Boot
 {
     public function run(): void
@@ -16,6 +19,7 @@ class Boot
         $this->setupTheme();
         $this->setupLocale();
         $this->setupSession();
+        ServiceProvider::init();
     }
 
     private function setupTheme(): void

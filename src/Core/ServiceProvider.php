@@ -1,8 +1,8 @@
 <?php
 
-namespace Pressbook\Core;
+namespace Pressbooks\Core;
 
-use Illuminate\Container\Container;
+use Pressbooks\Container;
 use Pressbooks\Contracts\ServiceProviderInterface;
 
 /**
@@ -14,7 +14,7 @@ class ServiceProvider
     public static function init(): void
     {
         $container = Container::getInstance();
-        $providersPath = dirname(__DIR__) . '/src/Providers';
+        $providersPath = dirname(__DIR__) . '/Providers';
 
         foreach (scandir($providersPath) as $file) {
             if (str_ends_with($file, 'ServiceProvider.php')) {
