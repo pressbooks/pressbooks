@@ -49,7 +49,7 @@ class Boot
         (new Session)->run();
     }
 
-    private function setDefaultBooksTheme(): void
+    public function setDefaultBooksTheme(): void
     {
         if (! defined('WP_DEFAULT_THEME')) {
             define('WP_DEFAULT_THEME', defined('PB_BOOK_THEME') ? PB_BOOK_THEME : get_site_option('pressbooks_default_book_theme', 'pressbooks-book'));

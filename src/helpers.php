@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Contracts\Foundation\Application;
 use Pressbooks\Book;
 use Pressbooks\Container;
 use Pressbooks\CustomCss;
@@ -336,10 +338,10 @@ if (!function_exists('app')) {
      *
      * @param string|null $abstract
      * @param array $parameters
-     * @return mixed|\Illuminate\Contracts\Foundation\Application
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @return mixed|Application
+     * @throws BindingResolutionException
      */
-    function app($abstract = null, array $parameters = []): mixed
+    function app(string $abstract = null, array $parameters = []): mixed
     {
         if (is_null($abstract)) {
             return Container::getInstance();

@@ -7,11 +7,12 @@ final class Pressbooks
     public function boot(): void
     {
         (new Support\Boot)->run();
+		$this->setupHooks();
     }
 
     public function setupHooks()
     {
-        // TODO: Add hooks
+        dump(app('db')->table('users')->get());
     }
 
     public function setupAdminHooks()
