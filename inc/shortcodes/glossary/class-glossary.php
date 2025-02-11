@@ -212,7 +212,7 @@ class Glossary implements BackMatter {
 	 *@since 5.5.0
 	 *
 	 */
-	public function glossaryTooltip( int $glossary_term_id, string $content ): string {
+	public function glossaryTooltip( int|string $glossary_term_id, string $content ): string {
 
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 

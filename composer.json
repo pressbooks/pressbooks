@@ -12,6 +12,14 @@
 			"homepage": "https://pressbooks.com"
 		}
 	],
+  "autoload": {
+    "psr-4": {
+      "Pressbooks\\": "src/"
+    },
+    "files": [
+      "src/helpers.php"
+    ]
+  },
 	"keywords": ["ebooks", "publishing", "webbooks"],
 	"support": {
 		"email": "code@pressbooks.com",
@@ -28,7 +36,7 @@
 		}
 	},
 	"require": {
-		"php": "^8.1",
+		"php": "^8.2",
 		"aws/aws-sdk-php": "^3.173",
 		"composer/installers": "^2.1",
 		"davidgorges/human-name-parser": "^1.0",
@@ -68,8 +76,8 @@
 		"codeception/module-webdriver": "^1.2",
 		"dms/phpunit-arraysubset-asserts": "^0.5.0",
 		"lucatume/wp-browser": "^3.0",
-		"pressbooks/coding-standards": "^1.1",
-		"yoast/phpunit-polyfills": "^1.1"
+		"yoast/phpunit-polyfills": "^1.1",
+		"laravel/pint": "^1.20"
 	},
 	"suggest": {
 		"pressbooks/pressbooks-book":
@@ -102,10 +110,10 @@
 			"vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml --coverage-html=./coverage-reports"
 		],
 		"standards": [
-			"vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/"
+			"vendor/bin/pint --test"
 		],
 		"fix": [
-			"vendor/bin/phpcbf --standard=phpcs.ruleset.xml *.php inc/ bin/"
+			"vendor/bin/pint"
 		]
 	}
 }
