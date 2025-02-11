@@ -1,5 +1,14 @@
 # Changelog
 
+## [6.22.2](https://github.com/pressbooks/pressbooks/compare/6.22.1...6.22.2) (2025-02-10)
+
+
+### Chores
+
+* bump instantsearch.js from 4.75.7 to 4.77.3 in the npm-dependencies group across 1 directory ([#3909](https://github.com/pressbooks/pressbooks/issues/3909)) ([21944a1](https://github.com/pressbooks/pressbooks/commit/21944a107c753ee2a369398f56d361bb2df03157))
+* bump the composer-dependencies group across 1 directory with 3 updates ([#3916](https://github.com/pressbooks/pressbooks/issues/3916)) ([c52ff87](https://github.com/pressbooks/pressbooks/commit/c52ff87a6fac55e75baff566049a9e0c5f5983e1))
+* bump yoast/phpunit-polyfills from 1.1.3 to 1.1.4 in the composer-dev-dependencies group ([#3915](https://github.com/pressbooks/pressbooks/issues/3915)) ([0da5456](https://github.com/pressbooks/pressbooks/commit/0da545687bb0b77eb12c29a0a0b4cd07a49dcf7c))
+
 ## [6.22.1](https://github.com/pressbooks/pressbooks/compare/6.22.0...6.22.1) (2025-01-15)
 
 
