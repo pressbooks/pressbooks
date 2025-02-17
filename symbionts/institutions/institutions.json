@@ -273,6 +273,11 @@
         "code": "AU-XX-001",
         "name": "Australian Catholic University",
         "url": "https:\/\/www.acu.edu.au\/"
+      },
+      {
+        "code": "AU-XX-002",
+        "name": "Torrens University Australia",
+        "url": "https:\/\/www.torrens.edu.au\/"
       }
     ]
   },
