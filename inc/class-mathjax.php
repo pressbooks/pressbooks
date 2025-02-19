@@ -248,34 +248,47 @@ class MathJax
      *
      * @return bool
      */
-    public function sectionHasMath(): bool
-    {
-        $has_math = false;
-        $post = get_post();
+	public function sectionHasMath(): bool
+	{
+		$has_math = false;
+		$post = get_post();
 
-        if (Glossary::isGlossaryPost($post) ) {
-            return true;
-        }
+		if (Glossary::isGlossaryPost($post)) {
+			return true;
+		}
 
-        if ($post ) {
-            $id = $post->ID;
-            if (isset($this->sectionHasMath[ $id ]) ) {
-                $has_math = $this->sectionHasMath[ $id ];
-            } else {
-                $content = $post->post_content;
-                $math_tags = [ '[table id=', '[/latex]', '$latex', '[/asciimath]', '$asciimath', '</math>' ];
-                foreach ( $math_tags as $math_tag ) {
-                    if (str_contains($content, $math_tag) ) {
-                        $has_math = true;
-                        break;
-                    }
-                }
+		if ($post) {
+			$id = $post->ID;
+			if (isset($this->sectionHasMath[$id])) {
+				$has_math = $this->sectionHasMath[$id];
+			} else {
+				$content = $post->post_content;
+				$math_tags = [
+					'[table id=',
+					'[/latex]',
+					'$latex',
+					'[/asciimath]',
+					'$asciimath',
+					'</math>',
+					'\\(',      // Inline math opening
+					'\\)',      // Inline math closing
+					'\\[',      // Display math opening
+					'\\]',      // Display math closing
+					'$'         // Single dollar math
+				];
 
-                $this->sectionHasMath[ $id ] = $has_math;
-            }
-        }
-        return $has_math;
-    }
+				foreach ($math_tags as $math_tag) {
+					if (str_contains($content, $math_tag)) {
+						$has_math = true;
+						break;
+					}
+				}
+
+				$this->sectionHasMath[$id] = $has_math;
+			}
+		}
+		return $has_math;
+	}
 
     /**
      * @see http://docs.mathjax.org/en/latest/configuration.html
@@ -449,40 +462,42 @@ window.MathJax = {
      *
      * @return string
      */
-    public function latexRender( $latex )
-    {
-        $latex = trim($latex);
-        /**
-         * Use PB-MathJax micro-service
-         *
-         * @param bool $var
-         *
-         * @return bool
-         * @since  5.9.0
-         */
-        if (apply_filters('pb_mathjax_use', $this->usePbMathJax) && PB_MATHJAX_URL ) {
-            $options = $this->getOptions();
-            $url = rtrim(PB_MATHJAX_URL, '/');
-            $url .= '/latex?latex=' . rawurlencode($latex) . '&fg=' . $options['fg'] . '&font=' . $options['font'];
-            /**
-             * Return an SVG instead of a PNG
-             *
-             * @param bool $var
-             *
-             * @return bool
-             * @since  5.9.0
-             */
-            if (apply_filters('pb_mathjax_use_svg', $this->useSVG) ) {
-                $url .= '&svg=1';
-            }
-            $url = esc_url($url);
-            $alt = str_replace('\\', '&#92;', esc_attr($latex));
-            return '<img src="' . $url . '" alt="' . $alt . '" title="' . $alt . '" class="latex mathjax" />';
-        } else {
-            // Return simplified shortcode. Used as MathJax delimiters.
-            return "[latex]{$latex}[/latex]";
-        }
-    }
+	public function latexRender($latex)
+	{
+		$latex = trim($latex);
+
+		if (apply_filters('pb_mathjax_use', $this->usePbMathJax) && PB_MATHJAX_URL) {
+			$options = $this->getOptions();
+			$url = rtrim(PB_MATHJAX_URL, '/');
+
+			// Build the URL with encoded parameters
+			$url .= '/latex?' . http_build_query([
+					'latex' => $latex,
+					'fg' => $options['fg'],
+					'font' => $options['font']
+				]);
+
+			if (apply_filters('pb_mathjax_use_svg', $this->useSVG)) {
+				$url .= '&svg=1';
+			}
+
+			$time = time();
+
+			file_put_contents(WP_CONTENT_DIR."/file-$time.txt", $url);
+
+			// Create safe alt/title text
+			$alt = htmlspecialchars($latex, ENT_QUOTES, 'UTF-8');
+
+			return sprintf(
+				'<img src="%s" alt="%s" title="%s" class="latex mathjax" />',
+				$url,
+				$alt,
+				$alt
+			);
+		} else {
+			return sprintf('[latex]%s[/latex]', $latex);
+		}
+	}
 
     /**
      * The shortcode way.
