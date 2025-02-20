@@ -322,6 +322,8 @@ if ( $is_book ) {
 		}
 	);
 
+	add_action( 'admin_init', [ SideBar::class, 'handleH5pMenu' ] );
+
 	// Hide welcome screen
 	add_action(
 		'load-index.php', function () {
