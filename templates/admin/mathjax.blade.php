@@ -10,6 +10,15 @@
                 <td class="syntax">
                     <section>
                         <h2>{{ __( 'LaTeX' ,'pressbooks' ) }}</h2>
+						<p>{!! sprintf(
+							__( 'Parenthesis delimiter: %s', 'pressbooks' ),
+	                        '<code>\(e^{i \pi} + 1 = 0\)</code>'
+						) !!} </p>
+						<p>{!! sprintf(
+						   __( 'Square bracket delimiter: %s', 'pressbooks' ),
+	                         '<code>\[e^{i \pi} + 1 = 0\]</code>'
+	                         					    ) !!}
+						</p>
                         <p>{!! sprintf(
                            __( 'Shortcode syntax: %s', 'pressbooks' ),
 	                         '<code>[latex]e^{i \pi} + 1 = 0[/latex]</code>'
@@ -44,17 +53,6 @@
                 <td>
                     <input type='text' name='fg' value='{{ $fg }}' id='mathjax-fg'/>
                     <p>{!!  __( 'A six digit hexadecimal number like <code>000000</code> or <code>ffffff</code>', 'pressbooks' )  !!}</p>
-                </td>
-            </tr>
-            <tr>
-                <!-- TODO: Use foreach and $this->possibleFonts -->
-                <th scope="row"><label for="mathjax-font">{{ __('SVG/PNG Fonts', 'pressbooks') }}</label></th>
-                <td><select name="font" id="mathjax-font">
-                        @foreach ($possible_fonts as $possible_font)
-                            <option value="{!! $possible_font !!}" {!! selected( $font, $possible_font ) !!} >{{ $possible_font }}</option>
-                        @endforeach
-                    </select>
-                    <p>{!!  __( 'Affects exports (PDF, EPUB, MOBI.) Webbook uses CommonHTML. CommonHTML currently only supports MathJax’s default TeX fonts.', 'pressbooks' )  !!}</p>
                 </td>
             </tr>
             </tbody>

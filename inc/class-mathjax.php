@@ -31,26 +31,10 @@ class MathJax
     private static $instance = null;
 
     /**
-     * @var array{fg: string, font: string}
+     * @var array{fg: string}
      */
     private $defaultOptions = [
     'fg' => '000000',
-    'font' => 'TeX',
-    ];
-
-    /**
-     * @see http://docs.mathjax.org/en/latest/options/output-processors/SVG.html#configure-svg
-     *
-     * @var array
-     */
-    private $possibleFonts = [
-    'TeX',
-    'STIX-Web',
-    'Asana-Math',
-    'Neo-Euler',
-    'Gyre-Pagella',
-    'Gyre-Termes',
-    'Latin-Modern',
     ];
 
     /**
@@ -106,19 +90,19 @@ class MathJax
     /**
      * @param MathJax $obj
      */
-    static public function hooks( MathJax $obj )
+    public static function hooks( MathJax $obj )
     {
         if (Book::isBook() ) {
             add_action('admin_menu', [ $obj, 'addMenu' ]);
         }
 
-        // LaTeX
-        add_shortcode('latex', [ $obj, 'latexShortcode' ]);
-        add_filter('the_content', [ $obj, 'latexMarkup' ], 9, 1); // before wptexturize
-
         // AsciiMath
         add_shortcode('asciimath', [ $obj, 'asciiMathShortcode' ]);
         add_filter('the_content', [ $obj, 'dollarSignAsciiMathMarkup' ], 9); // before wptexturize
+
+        // LaTeX
+        add_shortcode('latex', [ $obj, 'latexShortcode' ]);
+        add_filter('the_content', [ $obj, 'latexMarkup' ], 10, 1); // before wptexturize
 
         // MathML
         $obj->allowMathmlTags();
@@ -198,9 +182,7 @@ class MathJax
             [
             'wp_nonce_field' => wp_nonce_field('save', 'pb-mathjax-nonce', true, false),
             'test_image' => $test_image,
-            'possible_fonts' => $this->possibleFonts,
             'fg' => $options['fg'],
-            'font' => $options['font'],
             ]
         );
     }
@@ -223,15 +205,7 @@ class MathJax
             $fg .= str_repeat('0', 6 - $l);
         }
 
-        // Font
-        if (in_array($_POST['font'], $this->possibleFonts, true) ) {
-            $font = $_POST['font'];
-        } else {
-            $font = $this->possibleFonts[0];
-        }
-
         $options = [
-        'font' => $font,
         'fg' => $fg,
         ];
 
@@ -245,53 +219,54 @@ class MathJax
 
     /**
      * Does post_content have maths?
+     * This removes the need to load MathJax on every page.
      *
      * @return bool
      */
-	public function sectionHasMath(): bool
-	{
-		$has_math = false;
-		$post = get_post();
+    public function sectionHasMath(): bool
+    {
+        $has_math = false;
+        $post = get_post();
 
-		if (Glossary::isGlossaryPost($post)) {
-			return true;
-		}
+        if (Glossary::isGlossaryPost($post)) {
+            return true;
+        }
 
-		if ($post) {
-			$id = $post->ID;
-			if (isset($this->sectionHasMath[$id])) {
-				$has_math = $this->sectionHasMath[$id];
-			} else {
-				$content = $post->post_content;
-				$math_tags = [
-					'[table id=',
-					'[/latex]',
-					'$latex',
-					'[/asciimath]',
-					'$asciimath',
-					'</math>',
-					'\\(',      // Inline math opening
-					'\\)',      // Inline math closing
-					'\\[',      // Display math opening
-					'\\]',      // Display math closing
-					'$'         // Single dollar math
-				];
+        if ($post) {
+            $id = $post->ID;
+            if (isset($this->sectionHasMath[$id])) {
+                $has_math = $this->sectionHasMath[$id];
+            } else {
+                $content = $post->post_content;
+                $math_tags = [
+                '[table id=',
+                '[/latex]',
+                '$latex',
+                '[/asciimath]',
+                '$asciimath',
+                '</math>',
+                '\\(', // Recognize LaTeX delimiters
+                '\\)',
+                '\\[',
+                '\\]',
+                '$'
+                ];
 
-				foreach ($math_tags as $math_tag) {
-					if (str_contains($content, $math_tag)) {
-						$has_math = true;
-						break;
-					}
-				}
+                foreach ($math_tags as $math_tag) {
+                    if (str_contains($content, $math_tag)) {
+                        $has_math = true;
+                        break;
+                    }
+                }
 
-				$this->sectionHasMath[$id] = $has_math;
-			}
-		}
-		return $has_math;
-	}
+                $this->sectionHasMath[$id] = $has_math;
+            }
+        }
+        return $has_math;
+    }
 
     /**
-     * @see http://docs.mathjax.org/en/latest/configuration.html
+     * @see https://docs.mathjax.org/en/latest/options/index.html
      */
     public function addScripts()
     {
@@ -304,18 +279,21 @@ class MathJax
     }
 
     /**
-     * @see http://docs.mathjax.org/en/latest/configuration.html
+     * @see https://docs.mathjax.org/en/latest/options/index.html
      */
     public function addHeaders()
     {
         // Only load MathJax if there's math to process (Improves browser performance)
-        if (! is_admin() && $this->sectionHasMath() ) {
-            // Font colors & size
+        if (!is_admin() && $this->sectionHasMath()) {
+            // Colors and size
             $options = $this->getOptions();
             echo "<script>
 window.MathJax = {
+	versionWarnings: false,
     loader: {
         load: [
+			'input/asciimath',
+			'output/chtml',
             '[tex]/ams',
             '[tex]/bbox',
             '[tex]/boldsymbol',
@@ -333,14 +311,17 @@ window.MathJax = {
             '[tex]/unicode'
         ]
     },
+	asciimath: {
+			delimiters: [['$','$'], ['`','`'],['[asciimath]','[/asciimath]']]
+		},
     tex: {
         inlineMath: [['$', '$'], ['\\\\(', '\\\\)']],
         displayMath: [['$$', '$$'], ['\\\\[', '\\\\]']],
         packages: {
             '[+]': [
                 'ams',        // AMS math features
-                'autobold',   // Automatic bold support for Greek letters
                 'bbox',       // Boxed expressions
+                'boldsymbol', // Bold symbols
                 'braket',     // Quantum mechanics notation
                 'cancel',     // Strike-through notation
                 'color',      // Colored text
@@ -354,28 +335,38 @@ window.MathJax = {
                 'physics',    // Physics notation
                 'unicode'     // Unicode math symbols
             ]
-        }
+        },
+        tags: 'all',
+            formatError: function (message) {
+				return '\\\\color{red}{\\\\text{MathJax error: ' + message + '}}';
+			}
     },
     svg: {
         fontCache: 'global'
     }
 };
 </script>";
+            echo <<<STYLES
+<style>
+.MathJax {
+    color: #{$options['fg']} !important;
+}
+</style>
+STYLES;
+
         }
     }
 
     /**
      * @return array{fg: string}
-     * @see    \Pressbooks\MathJax::$defaultOptions
+     * @see    MathJax
      */
     public function getOptions()
     {
         $options = get_option(self::OPTION, []);
         $fg = trim($options['fg'] ?? $this->defaultOptions['fg']);
-        $font = trim($options['font'] ?? $this->defaultOptions['font']);
         return [
         'fg' => $fg,
-        'font' => $font,
         ];
     }
 
@@ -434,7 +425,6 @@ window.MathJax = {
             }
         }
 
-        // Handle [latex]...[/latex] shortcodes
         $content = implode('', $textarr);
         return preg_replace_callback(
             '/\[latex](.*?)\[\/latex]/is',
@@ -456,48 +446,50 @@ window.MathJax = {
     }
 
     /**
-     * Render image (SVG/PNG) for exports, simplified shortcode for webbook
+     * Render image (SVG/PNG) for exports
      *
      * @param string $latex
      *
      * @return string
      */
-	public function latexRender($latex)
-	{
-		$latex = trim($latex);
+    public function latexRender($latex)
+    {
+        $latex = trim($latex);
+        $latex = $this->latexEntityDecode($latex);
 
-		if (apply_filters('pb_mathjax_use', $this->usePbMathJax) && PB_MATHJAX_URL) {
-			$options = $this->getOptions();
-			$url = rtrim(PB_MATHJAX_URL, '/');
+        if (apply_filters('pb_mathjax_use', $this->usePbMathJax) && PB_MATHJAX_URL) {
+            $options = $this->getOptions();
+            $url = rtrim(PB_MATHJAX_URL, '/');
 
-			// Build the URL with encoded parameters
-			$url .= '/latex?' . http_build_query([
-					'latex' => $latex,
-					'fg' => $options['fg'],
-					'font' => $options['font']
-				]);
+            // Build the URL with encoded parameters
+            $url .= '/latex?' . http_build_query(
+                [
+                'latex' => $latex,
+                'fg' => $options['fg'],
+                ]
+            );
 
-			if (apply_filters('pb_mathjax_use_svg', $this->useSVG)) {
-				$url .= '&svg=1';
-			}
+            if (apply_filters('pb_mathjax_use_svg', $this->useSVG)) {
+                   $url .= '&svg=1';
+            }
 
-			$time = time();
+            $time = time();
 
-			file_put_contents(WP_CONTENT_DIR."/file-$time.txt", $url);
+            file_put_contents(WP_CONTENT_DIR."/file-$time.txt", $url);
 
-			// Create safe alt/title text
-			$alt = htmlspecialchars($latex, ENT_QUOTES, 'UTF-8');
+            // Create safe alt/title text
+            $alt = htmlspecialchars($latex, ENT_QUOTES, 'UTF-8');
 
-			return sprintf(
-				'<img src="%s" alt="%s" title="%s" class="latex mathjax" />',
-				$url,
-				$alt,
-				$alt
-			);
-		} else {
-			return sprintf('[latex]%s[/latex]', $latex);
-		}
-	}
+            return sprintf(
+                '<img src="%s" alt="%s" title="%s" class="latex mathjax" />',
+                $url,
+                $alt,
+                $alt
+            );
+        } else {
+            return sprintf('[latex]%s[/latex]', $latex);
+        }
+    }
 
     /**
      * The shortcode way.
@@ -513,7 +505,6 @@ window.MathJax = {
     {
         $latex = trim($this->latexEntityDecode($content));
 
-        // Ensure MathJax recognizes it as LaTeX
         return '<span class="mathjax-latex">\\(' . $latex . '\\)</span>';
     }
 
@@ -537,26 +528,24 @@ window.MathJax = {
     {
         $textarr = wp_html_split($content);
 
-        $regex = '%
-			\$asciimath(?:=\s*|\s+)
-			((?:
-				[^$]+ # Not a dollar
-			|
-				(?<=(?<!\\\\)\\\\)\$ # Dollar preceded by exactly one slash
-			)+)
-			(?<!\\\\)\$ # Dollar preceded by zero slashes
-		%ix';
+        $regex = '/\$asciimath\s+([^$]+?)\s*\$/i';
 
-        foreach ( $textarr as &$element ) {
-            if ('' === $element || '<' === $element[0] ) {
+        foreach ($textarr as &$element) {
+            if ('' === $element || '<' === $element[0]) {
                 continue;
             }
 
-            if (false === stripos($element, '$asciimath') ) {
+            if (false === stripos($element, '$asciimath')) {
                 continue;
             }
 
-            $element = preg_replace_callback($regex, [ $this, '_dollarSignAsciiMathSrc' ], $element);
+            $element = preg_replace_callback(
+                $regex,
+                function ($matches) {
+                    return $this->asciiMathRender(trim($matches[1]));
+                },
+                $element
+            );
         }
 
         return implode('', $textarr);
@@ -618,7 +607,7 @@ window.MathJax = {
         if (apply_filters('pb_mathjax_use', $this->usePbMathJax) && PB_MATHJAX_URL ) {
             $options = $this->getOptions();
             $url = rtrim(PB_MATHJAX_URL, '/');
-            $url .= '/asciimath?asciimath=' . rawurlencode($asciimath) . '&fg=' . $options['fg'] . '&font=' . $options['font'];
+            $url .= '/asciimath?asciimath=' . rawurlencode($asciimath) . '&fg=' . $options['fg'];
             /**
              * Return a SVG instead of a PNG
              *
@@ -970,7 +959,7 @@ window.MathJax = {
                 if (apply_filters('pb_mathjax_use', $this->usePbMathJax) && PB_MATHJAX_URL ) {
                     $options = $this->getOptions();
                     $url = rtrim(PB_MATHJAX_URL, '/');
-                    $url .= '/mathml?mathml=' . rawurlencode($mathml) . '&fg=' . $options['fg'] . '&font=' . $options['font'];
+                    $url .= '/mathml?mathml=' . rawurlencode($mathml) . '&fg=' . $options['fg'];
                     /**
                      * Return a SVG instead of a PNG
                      *

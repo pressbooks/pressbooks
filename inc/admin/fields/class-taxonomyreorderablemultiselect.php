@@ -6,53 +6,62 @@
 
 namespace Pressbooks\Admin\Fields;
 
-class TaxonomyReorderableMultiselect extends Field {
-	public array $options = [];
+class TaxonomyReorderableMultiselect extends Field
+{
+    public array $options = [];
 
-	public string $taxonomy = '';
+    public string $taxonomy = '';
 
-	public string $view = 'reorderable-multiselect';
+    public string $view = 'reorderable-multiselect';
 
-	public function __construct( string $name, string $label, ?string $description = null, ?string $id = null, string $taxonomy = null ) {
-		parent::__construct( $name, $label, $description, $id );
+    public function __construct( string $name, string $label, ?string $description = null, ?string $id = null, string $taxonomy = null )
+    {
+        parent::__construct($name, $label, $description, $id);
 
-		$this->taxonomy = $taxonomy;
-		$this->options = $this->getOptions();
-	}
+        $this->taxonomy = $taxonomy;
+        $this->options = $this->getOptions();
+    }
 
-	public function getValue() {
-		global $post;
+    public function getValue()
+    {
+        global $post;
 
-		$value = get_post_meta( $post->ID, $this->name, false );
+        if (! $post ) {
+            return null;
+        }
 
-		return is_array( $value ) ? implode( ',', array_filter( $value ) ) : $value;
-	}
+        $value = get_post_meta($post->ID, $this->name, false);
 
-	public function getOptions(): array {
-		$terms = get_terms( $this->taxonomy, [ 'hide_empty' => false ] );
+        return is_array($value) ? implode(',', array_filter($value)) : $value;
+    }
 
-		$options = [];
+    public function getOptions(): array
+    {
+        $terms = get_terms($this->taxonomy, [ 'hide_empty' => false ]);
 
-		foreach ( $terms as $term ) {
-			$options[ $term->slug ] = $term->name;
-		}
+        $options = [];
 
-		return $options;
-	}
+        foreach ( $terms as $term ) {
+            $options[ $term->slug ] = $term->name;
+        }
 
-	public function save( int $post_id, mixed $value ): void {
-		$values = explode( ',', implode( '', $value ) );
+        return $options;
+    }
 
-		wp_set_object_terms( $post_id, $values, $this->taxonomy );
+    public function save( int $post_id, mixed $value ): void
+    {
+        $values = explode(',', implode('', $value));
 
-		$this->delete( $post_id );
-		foreach ( $values as $v ) {
-			$v = trim( $this->sanitize( $v ) );
-			if ( $v ) {
-				add_post_meta( $post_id, $this->name, $v, false );
-			}
-		}
+        wp_set_object_terms($post_id, $values, $this->taxonomy);
 
-	}
+        $this->delete($post_id);
+        foreach ( $values as $v ) {
+            $v = trim($this->sanitize($v));
+            if ($v ) {
+                add_post_meta($post_id, $this->name, $v, false);
+            }
+        }
+
+    }
 }
 
