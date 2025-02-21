@@ -40,28 +40,23 @@ class MathJaxTest extends \WP_UnitTestCase {
 	public function test_options() {
 		$options = $this->mathjax->getOptions();
 		$this->assertEquals( $options['fg'], '000000' );
-		$this->assertEquals( $options['font'], 'TeX' );
 
 		$_POST = [
 			'pb-mathjax-nonce' => wp_create_nonce( 'save' ),
 			'fg' => 'ff0000',
-			'font' => 'Asana-Math',
 		];
 		$this->mathjax->saveOptions();
 		$options = $this->mathjax->getOptions();
 		$this->assertEquals( $options['fg'], 'ff0000' );
-		$this->assertEquals( $options['font'], 'Asana-Math' );
 
 		// No junk allowed
 		$_POST = [
 			'pb-mathjax-nonce' => wp_create_nonce( 'save' ),
 			'fg' => 'zzzzzz',
-			'font' => 'FAKE-FONT',
 		];
 		$this->mathjax->saveOptions();
 		$options = $this->mathjax->getOptions();
 		$this->assertEquals( $options['fg'], '000000' );
-		$this->assertEquals( $options['font'], 'TeX' );
 	}
 
 	public function test_sectionHasMath() {
@@ -113,20 +108,39 @@ class MathJaxTest extends \WP_UnitTestCase {
 		ob_start();
 		$this->mathjax->addHeaders();
 		$buffer = ob_get_clean();
-		$this->assertStringContainsString('MathJax.Hub.Config', $buffer);
+		$this->assertStringContainsString('window.MathJax', $buffer);
 	}
 
-	public function test_dollarSignLatexMarkup() {
+	public function test_latexMarkup() {
 		$this->mathjax->usePbMathJax = false;
-		$s = $this->mathjax->dollarSignLatexMarkup( '$latex \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
+		$s = $this->mathjax->latexMarkup( '$latex \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
 		$this->assertEquals( '[latex]\boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}[/latex]', $s );
 
 		$this->mathjax->usePbMathJax = true;
-		$s = $this->mathjax->dollarSignLatexMarkup( '$latex \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
+		$s = $this->mathjax->latexMarkup( '$latex \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
 		$this->assertStringStartsWith( '<img src="http://localhost:3000/latex?latex=%5Cboldsymbol%7B%5Cfrac%7Bm_%7B%5Ctextbf%7Bdrop%7D%7Dgd%7D%7BV%7D%7D', $s );
 
-		$s = $this->mathjax->dollarSignLatexMarkup( 'latex not found$' );
+		$s = $this->mathjax->latexMarkup( 'latex not found$' );
 		$this->assertEquals( 'latex not found$', $s );
+	}
+
+	public function test_mathJaxDelimiters() {
+		$this->mathjax->usePbMathJax = false;
+		$s = $this->mathjax->latexMarkup( '\( e^{i \pi} + 1 = 0 \)' );
+		$this->assertEquals( '[latex]e^{i \pi} + 1 = 0[/latex]', $s );
+
+		$this->mathjax->usePbMathJax = true;
+		$s = $this->mathjax->latexMarkup( '\( e^{i \pi} + 1 = 0 \)' );
+		$this->assertStringStartsWith( '<img src="http://localhost:3000/latex?latex=e%5E%7Bi+%5Cpi%7D+%2B+1+%3D+0&fg=000000', $s );
+
+		$s = $this->mathjax->latexMarkup( '\[ e^{i \pi} + 1 = 0 \]' );
+		$this->assertStringStartsWith( '<img src="http://localhost:3000/latex?latex=e%5E%7Bi+%5Cpi%7D+%2B+1+%3D+0&fg=000000', $s );
+
+		$this->mathjax->usePbMathJax = false;
+		$s = $this->mathjax->latexMarkup( '\[ e^{i \pi} + 1 = 0 \]' );
+		$this->assertEquals( '[latex]e^{i \pi} + 1 = 0[/latex]', $s );
+
+
 	}
 
 	public function test_dollarSignAsciiMathMarkup() {
