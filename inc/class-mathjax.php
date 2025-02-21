@@ -304,7 +304,7 @@ window.MathJax = {
 			delimiters: [['$','$'], ['`','`'],['[asciimath]','[/asciimath]']]
 		},
     tex: {
-        inlineMath: [['$', '$'], ['\\\\(', '\\\\)']],
+        inlineMath: [['$', '$'], ['\\\\(', '\\\\)'], ['[latex]','[/latex]']],
         displayMath: [['$$', '$$'], ['\\\\[', '\\\\]']],
         packages: {
             '[+]': [
@@ -412,14 +412,7 @@ STYLES;
 			}
 		}
 
-		$content = implode( '', $textarr );
-		return preg_replace_callback(
-			'/\[latex](.*?)\[\/latex]/is',
-			function ( $matches ) {
-				return $this->latexRender( trim( $matches[1] ) );
-			},
-			$content
-		);
+		return implode( '', $textarr );
 	}
 
 	/**
@@ -468,7 +461,7 @@ STYLES;
 				$alt
 			);
 		} else {
-			return sprintf( '[latex]%s[/latex]', $latex );
+			return "[latex]{$latex}[/latex]";
 		}
 	}
 
@@ -484,8 +477,7 @@ STYLES;
 	 */
 	public function latexShortcode( $atts, $content = '' ) {
 		$latex = trim( $this->latexEntityDecode( $content ) );
-
-		return '<span class="mathjax-latex">\\(' . $latex . '\\)</span>';
+		return $this->latexRender( $this->latexEntityDecode( $latex ) );
 	}
 
 	// ------------------------------------------------------------------------
