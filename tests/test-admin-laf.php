@@ -181,13 +181,13 @@ class Admin_LafTest extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * @group branding
 	 * @test
+	 * @group branding
 	 */
-	function cloning_stats_submenu_is_added() {
+	public function it_adds_cloning_stats_submenu(): void {
 		$user_id = $this->factory()->user->create();
 		$user = get_userdata( $user_id );
-		$user->add_role( 'subscriber' );
+		$user->add_role( 'contributor' );
 		wp_set_current_user( $user_id );
 		global $submenu;
 		include_once( ABSPATH . '/wp-admin/menu.php' );
