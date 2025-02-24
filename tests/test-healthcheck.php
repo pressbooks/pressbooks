@@ -61,9 +61,7 @@ class HealthCheckTest extends \WP_UnitTestCase {
 
 		/** @var \Illuminate\Support\Collection $data */
 		$data = $response->get_data();
-
-		dump($response);
-
+		
 		$this->assertEquals( 200, $response->status );
 
 		$this->assertEquals( [
