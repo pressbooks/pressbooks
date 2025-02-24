@@ -621,7 +621,7 @@ abstract class Export {
 	/**
 	 * Pre-Export
 	 */
-	static function preExport() {
+	public static function preExport() {
 		/**
 		 * Let other plugins tweak things before exporting
 		 *
@@ -634,9 +634,8 @@ abstract class Export {
 
 		$last_export = get_option( 'pressbooks_last_export' );
 		$within_range = time() - $last_export;
-		// TODO: remove this before PR and moving it inside the if
-		Book::deleteBookObjectCache();
 		if ( $within_range > ( HOUR_IN_SECONDS ) ) {
+			Book::deleteBookObjectCache();
 			update_option( 'pressbooks_last_export', time() );
 		}
 
