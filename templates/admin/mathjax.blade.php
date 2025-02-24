@@ -11,12 +11,12 @@
                     <section>
                         <h2>{{ __( 'LaTeX' ,'pressbooks' ) }}</h2>
 						<p>{!! sprintf(
-							__( 'Parenthesis delimiter: %s', 'pressbooks' ),
-	                        '<code>\(e^{i \pi} + 1 = 0\)</code>'
+							__( 'Inline math delimiter: %s', 'pressbooks' ),
+	                        '<code>\ (e^{i \pi} + 1 = 0 \)</code>'
 						) !!} </p>
 						<p>{!! sprintf(
-						   __( 'Square bracket delimiter: %s', 'pressbooks' ),
-	                         '<code>\[e^{i \pi} + 1 = 0\]</code>'
+						   __( 'Display math delimiter: %s', 'pressbooks' ),
+	                         '<code>\[ e^{i \pi} + 1 = 0 \]</code>'
 	                         					    ) !!}
 						</p>
                         <p>{!! sprintf(
