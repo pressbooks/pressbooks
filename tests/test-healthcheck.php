@@ -54,13 +54,15 @@ class HealthCheckTest extends \WP_UnitTestCase {
 		$request = new WP_REST_Request( 'GET', '/pressbooks/v2/health-check' );
 
 		$request->set_query_params( [
-			'_token' => env( 'PB_HEALTH_CHECK_TOKEN' ),
+			'_token' => env( '``PB_HEALTH_CHECK_TOKEN``' ),
 		] );
 
 		$response = $server->dispatch( $request );
 
 		/** @var \Illuminate\Support\Collection $data */
 		$data = $response->get_data();
+
+		dump($response);
 
 		$this->assertEquals( 200, $response->status );
 

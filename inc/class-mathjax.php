@@ -95,7 +95,7 @@ class MathJax {
 
 		// AsciiMath
 		add_shortcode( 'asciimath', [ $obj, 'asciiMathShortcode' ] );
-		add_filter( 'the_content', [ $obj, 'dollarSignAsciiMathMarkup' ], 9 ); // before wptexturize
+		add_filter( 'the_content', [ $obj, 'asciiMathMarkup' ], 9 ); // before wptexturize
 
 		// LaTeX
 		add_shortcode( 'latex', [ $obj, 'latexShortcode' ] );
@@ -164,7 +164,7 @@ class MathJax {
 			$this->usePbMathJax = true;
 			$this->useSVG = true;
 			$test_formula = '\displaystyle P_\nu^{-\mu}(z)=\frac{\left(z^2-1\right)^{\frac{\mu}{2}}}{2^\mu \sqrt{\pi}\Gamma\left(\mu+\frac{1}{2}\right)}\int_{-1}^1\frac{\left(1-t^2\right)^{\mu -\frac{1}{2}}}{\left(z+t\sqrt{z^2-1}\right)^{\mu-\nu}}dt';
-			$test_image = $this->latexRender( $test_formula );
+			$test_image = $this->renderFormula( $test_formula, 'latex' );
 		} else {
 			$test_image = '<p class="latex mathjax">' . __( '<code>PB_MATHJAX_URL</code> is not configured.', 'pressbooks' ) . '</p>';
 		}
@@ -358,6 +358,35 @@ STYLES;
 		];
 	}
 
+	/**
+	 * Render image (SVG/PNG) for exports, simplified shortcode for webbook
+	 *
+	 * @param string $formula
+	 * @param string $type
+	 *
+	 * @return string
+	 */
+	public function renderFormula( $formula, $type ) {
+		$formula = trim( $formula );
+		$formula = $this->latexEntityDecode( $formula );
+
+		if ( apply_filters( 'pb_mathjax_use', $this->usePbMathJax ) && PB_MATHJAX_URL ) {
+			$options = $this->getOptions();
+			$url = rtrim( PB_MATHJAX_URL, '/' );
+			$url .= '/' . $type . '?' . $type . '=' . rawurlencode( $formula ) . '&fg=' . $options['fg'];
+
+			if ( apply_filters( 'pb_mathjax_use_svg', $this->useSVG ) ) {
+				$url .= '&svg=1';
+			}
+			$url = esc_url( $url );
+			$alt = str_replace( '\\', '&#92;', esc_attr( $formula ) );
+			return '<img src="' . $url . '" alt="' . $alt . '" title="' . $alt . '" class="' . $type . ' mathjax" />';
+		} else {
+			// Return simplified shortcode. Used as MathJax delimiters.
+			return "[{$type}]{$formula}[/$type]";
+		}
+	}
+
 	// ------------------------------------------------------------------------
 	// LaTeX
 	// ------------------------------------------------------------------------
@@ -376,7 +405,7 @@ STYLES;
 	 */
 	public function latexMarkup( $content ) {
 
-		$textarr = wp_html_split( $content );
+		$text_elements = wp_html_split( $content );
 
 		// Collection of regex patterns for different LaTeX delimiters
 		$patterns = [
@@ -390,29 +419,7 @@ STYLES;
 			'%(?<=\s|\n|\r|\(|^)\$([^\$]+?)\$(?=\s|\n|\r|\)|$)%s',
 		];
 
-		foreach ( $textarr as &$element ) {
-			if ( '' === $element || '<' === $element[0] ) {
-				continue;
-			}
-
-			// Process each pattern
-			foreach ( $patterns as $pattern ) {
-				if ( $pattern === $patterns[0] && false === stripos( $element, '$latex' ) ) {
-					continue;
-				}
-
-				$element = preg_replace_callback(
-					$pattern,
-					function ( $matches ) {
-						$latex = trim( $matches[1] );
-						return $this->latexRender( $latex );
-					},
-					$element
-				);
-			}
-		}
-
-		return implode( '', $textarr );
+		return implode( '', $this->getValues( $text_elements, $patterns ) );
 	}
 
 	/**
@@ -422,47 +429,6 @@ STYLES;
 	 */
 	public function latexEntityDecode( $latex ) {
 		return str_replace( [ '&lt;', '&gt;', '&quot;', '&#039;', '&#038;', '&amp;', "\n", "\r" ], [ '<', '>', '"', "'", '&', '&', ' ', ' ' ], $latex );
-	}
-
-	/**
-	 * Render image (SVG/PNG) for exports
-	 *
-	 * @param string $latex
-	 *
-	 * @return string
-	 */
-	public function latexRender( $latex ) {
-		$latex = trim( $latex );
-		$latex = $this->latexEntityDecode( $latex );
-
-		if ( apply_filters( 'pb_mathjax_use', $this->usePbMathJax ) && PB_MATHJAX_URL ) {
-			$options = $this->getOptions();
-			$url = rtrim( PB_MATHJAX_URL, '/' );
-
-			// Build the URL with encoded parameters
-			$url .= '/latex?' . http_build_query(
-				[
-					'latex' => $latex,
-					'fg' => $options['fg'],
-				]
-			);
-
-			if ( apply_filters( 'pb_mathjax_use_svg', $this->useSVG ) ) {
-				$url .= '&svg=1';
-			}
-
-			// Create safe alt/title text
-			$alt = htmlspecialchars( $latex, ENT_QUOTES, 'UTF-8' );
-
-			return sprintf(
-				'<img src="%s" alt="%s" title="%s" class="latex mathjax" />',
-				$url,
-				$alt,
-				$alt
-			);
-		} else {
-			return "[latex]{$latex}[/latex]";
-		}
 	}
 
 	/**
@@ -477,7 +443,7 @@ STYLES;
 	 */
 	public function latexShortcode( $atts, $content = '' ) {
 		$latex = trim( $this->latexEntityDecode( $content ) );
-		return $this->latexRender( $this->latexEntityDecode( $latex ) );
+		return $this->renderFormula( $this->latexEntityDecode( $latex ), 'latex' );
 	}
 
 	// ------------------------------------------------------------------------
@@ -496,54 +462,13 @@ STYLES;
 	 *
 	 * @return string
 	 */
-	public function dollarSignAsciiMathMarkup( $content ) {
-		$textarr = wp_html_split( $content );
+	public function asciiMathMarkup( $content ) {
 
-		$regex = '/\$asciimath\s+([^$]+?)\s*\$/i';
+		$text_elements = wp_html_split( $content );
 
-		foreach ( $textarr as &$element ) {
-			if ( '' === $element || '<' === $element[0] ) {
-				continue;
-			}
+		$pattern = '/\$asciimath\s+([^$]+?)\s*\$/i';
 
-			if ( false === stripos( $element, '$asciimath' ) ) {
-				continue;
-			}
-
-			$element = preg_replace_callback(
-				$regex,
-				function ( $matches ) {
-					return $this->asciiMathRender( trim( $matches[1] ) );
-				},
-				$element
-			);
-		}
-
-		return implode( '', $textarr );
-	}
-
-	/**
-	 * Basically, a private method used by `preg_replace_callback` in `$this->dollarSignAsciiMathMarkup`
-	 * (Can't be a real private method because `callable $callback`)
-	 *
-	 * @param $matches
-	 *
-	 * @return string
-	 */
-	public function _dollarSignAsciiMathSrc( $matches ) {
-		$latex = $matches[1];
-		$latex = $this->latexEntityDecode( $latex );
-		// Remove unsupported fg, bg, size attributes
-		if ( preg_match( '/.+(&fg=[0-9a-f]{6}).*/i', $latex, $fg_matches ) ) {
-			$latex = str_replace( $fg_matches[1], '', $latex );
-		}
-		if ( preg_match( '/.+(&bg=[0-9a-f]{6}).*/i', $latex, $bg_matches ) ) {
-			$latex = str_replace( $bg_matches[1], '', $latex );
-		}
-		if ( preg_match( '/.+(&s=[0-9-]{1,2}).*/i', $latex, $s_matches ) ) {
-			$latex = str_replace( $s_matches[1], '', $latex );
-		}
-		return $this->asciiMathRender( $latex );
+		return implode( '', $this->getValues( $text_elements, [ $pattern ], 'asciimath' ) );
 	}
 
 	/**
@@ -553,47 +478,6 @@ STYLES;
 	 */
 	public function asciiMathEntityDecode( $asciimath ) {
 		return str_replace( [ '&lt;', '&gt;', '&quot;', '&#039;', '&#038;', '&amp;', "\n", "\r" ], [ '<', '>', '"', "'", '&', '&', ' ', ' ' ], $asciimath );
-	}
-
-	/**
-	 * Render image (SVG/PNG) for exports, simplified shortcode for webbook
-	 *
-	 * @param string $asciimath
-	 *
-	 * @return string
-	 */
-	public function asciiMathRender( $asciimath ) {
-		$asciimath = trim( $asciimath );
-		/**
-		 * Use PB-MathJax micro-service
-		 *
-		 * @param bool $var
-		 *
-		 * @return bool
-		 * @since  5.9.0
-		 */
-		if ( apply_filters( 'pb_mathjax_use', $this->usePbMathJax ) && PB_MATHJAX_URL ) {
-			$options = $this->getOptions();
-			$url = rtrim( PB_MATHJAX_URL, '/' );
-			$url .= '/asciimath?asciimath=' . rawurlencode( $asciimath ) . '&fg=' . $options['fg'];
-			/**
-			 * Return a SVG instead of a PNG
-			 *
-			 * @param bool $var
-			 *
-			 * @return bool
-			 * @since  5.9.0
-			 */
-			if ( apply_filters( 'pb_mathjax_use_svg', $this->useSVG ) ) {
-				$url .= '&svg=1';
-			}
-			$url = esc_url( $url );
-			$alt = str_replace( '\\', '&#92;', esc_attr( $asciimath ) );
-			return '<img src="' . $url . '" alt="' . $alt . '" title="' . $alt . '" class="asciimath mathjax" />';
-		} else {
-			// Return simplified shortcode. Used as MathJax delimiters.
-			return "[asciimath]{$asciimath}[/asciimath]";
-		}
 	}
 
 	/**
@@ -608,7 +492,7 @@ STYLES;
 	 */
 	function asciiMathShortcode( $atts, $content = '' ) {
 		// No attributes are supported by our code
-		return $this->asciiMathRender( $this->asciiMathEntityDecode( $content ) );
+		return $this->renderFormula( $this->asciiMathEntityDecode( $content ), 'asciimath' );
 	}
 
 	// ------------------------------------------------------------------------
@@ -944,6 +828,37 @@ STYLES;
 
 		return null === $filtered_content ? $content : $filtered_content;
 
+	}
+
+	/**
+	 * @param array $text_elements
+	 * @param array $patterns
+	 * @param string $formula_type
+	 * @return array|mixed|string|string[]|null
+	 */
+	public function getValues( array $text_elements, array $patterns, string $formula_type = 'latex' ): mixed {
+		foreach ( $text_elements as &$element ) {
+			if ( '' === $element || '<' === $element[0] ) {
+				continue;
+			}
+
+			// Process each pattern
+			foreach ( $patterns as $pattern ) {
+				if ( $pattern === $patterns[0] && false === stripos( $element, "\$$formula_type" ) ) {
+					continue;
+				}
+
+				$element = preg_replace_callback(
+					$pattern,
+					function ( $matches ) use ( $formula_type ) {
+						$formula = trim( $matches[1] );
+						return $this->renderFormula( $formula, $formula_type );
+					},
+					$element
+				);
+			}
+		}
+		return $text_elements;
 	}
 
 }
