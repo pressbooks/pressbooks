@@ -10,7 +10,6 @@ use function Pressbooks\Sanitize\sanitize_string;
 use Pressbooks\Container;
 
 abstract class Field {
-
 	/* The name attribute of the field. */
 	public string $name;
 
@@ -63,9 +62,7 @@ abstract class Field {
 	}
 
 	public function sanitize( mixed $value ): mixed {
-		return $this->allowHtml ?
-		sanitize_string( $value, $this->allowHtml ) :
-		sanitize_text_field( $value );
+		return $this->allowHtml ? sanitize_string( $value, $this->allowHtml ) : sanitize_text_field( $value );
 	}
 
 	public function save( int $post_id, mixed $value ): void {

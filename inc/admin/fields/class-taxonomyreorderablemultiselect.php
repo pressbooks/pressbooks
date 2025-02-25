@@ -7,7 +7,6 @@
 namespace Pressbooks\Admin\Fields;
 
 class TaxonomyReorderableMultiselect extends Field {
-
 	public array $options = [];
 
 	public string $taxonomy = '';

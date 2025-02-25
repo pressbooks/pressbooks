@@ -10,34 +10,26 @@
                 <td class="syntax">
                     <section>
                         <h2>{{ __( 'LaTeX' ,'pressbooks' ) }}</h2>
-						<p>{!! sprintf(
-							__( 'Inline math delimiter: %s', 'pressbooks' ),
-	                        '<code>\ (e^{i \pi} + 1 = 0 \)</code>'
-						) !!} </p>
-						<p>{!! sprintf(
-						   __( 'Display math delimiter: %s', 'pressbooks' ),
-	                         '<code>\[ e^{i \pi} + 1 = 0 \]</code>'
-	                         					    ) !!}
+						<p>
+							{!! sprintf( __( 'Inline math delimiter: %s', 'pressbooks' ), '<code>\ (e^{i \pi} + 1 = 0 \)</code>') !!}
 						</p>
-                        <p>{!! sprintf(
-                           __( 'Shortcode syntax: %s', 'pressbooks' ),
-	                         '<code>[latex]e^{i \pi} + 1 = 0[/latex]</code>'
-					    ) !!} </p>
-                        <p>{!! sprintf(
-                           __( 'Dollar sign syntax: %s', 'pressbooks' ),
-	                         '<code>$latex e^{i \pi} + 1 = 0$</code>'
-					    ) !!} </p>
+						<p>
+							{!! sprintf( __( 'Display math delimiter: %s', 'pressbooks' ), '<code>\[ e^{i \pi} + 1 = 0 \]</code>' ) !!}
+						</p>
+                        <p>
+							{!! sprintf( __( 'Shortcode syntax: %s', 'pressbooks' ),'<code>[latex]e^{i \pi} + 1 = 0[/latex]</code>' ) !!} </p>
+                        <p>
+							{!! sprintf( __( 'Dollar sign syntax: %s', 'pressbooks' ),'<code>$latex e^{i \pi} + 1 = 0$</code>' ) !!}
+						</p>
                     </section>
                     <section>
                         <h2>{{ __( 'AsciiMath' ,'pressbooks' ) }}</h2>
-                        <p>{!! sprintf(
-                            __( 'Shortcode syntax: %s', 'pressbooks' ),
-	                        '<code>[asciimath]e^{i \pi} + 1 = 0[/asciimath]</code>'
-                        ) !!} </p>
-                        <p>{!! sprintf(
-                           __( 'Dollar sign syntax: %s', 'pressbooks' ),
-	                         '<code>$asciimath e^{i \pi} + 1 = 0$</code>'
-					    ) !!} </p>
+                        <p>
+							{!! sprintf( __( 'Shortcode syntax: %s', 'pressbooks' ),'<code>[asciimath]e^{i \pi} + 1 = 0[/asciimath]</code>' ) !!}
+						</p>
+                        <p>
+							{!! sprintf( __( 'Dollar sign syntax: %s', 'pressbooks' ),'<code>$asciimath e^{i \pi} + 1 = 0$</code>' ) !!}
+						</p>
                     </section>
                     <section>
                         <h2>{{ __( 'MathML' ,'pressbooks' ) }}</h2>
