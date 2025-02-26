@@ -11,15 +11,15 @@
                     <section>
                         <h2>{{ __( 'LaTeX' ,'pressbooks' ) }}</h2>
 						<p>
-							{!! sprintf( __( 'Inline math delimiter: %s', 'pressbooks' ), '<code>\ (e^{i \pi} + 1 = 0 \)</code>') !!}
+							{!! sprintf( __( 'Inline math delimiter: %s', 'pressbooks' ), '<code>\( e^{i \pi} + 1 = 0 \)</code>') !!}
 						</p>
 						<p>
 							{!! sprintf( __( 'Display math delimiter: %s', 'pressbooks' ), '<code>\[ e^{i \pi} + 1 = 0 \]</code>' ) !!}
 						</p>
                         <p>
-							{!! sprintf( __( 'Shortcode syntax: %s', 'pressbooks' ),'<code>[latex]e^{i \pi} + 1 = 0[/latex]</code>' ) !!} </p>
+							{!! sprintf( __( 'Shortcode syntax: %s', 'pressbooks' ), '<code>[latex]e^{i \pi} + 1 = 0[/latex]</code>' ) !!} </p>
                         <p>
-							{!! sprintf( __( 'Dollar sign syntax: %s', 'pressbooks' ),'<code>$latex e^{i \pi} + 1 = 0$</code>' ) !!}
+							{!! sprintf( __( 'Dollar sign syntax: %s', 'pressbooks' ), '<code>$latex e^{i \pi} + 1 = 0$</code>' ) !!}
 						</p>
                     </section>
                     <section>
