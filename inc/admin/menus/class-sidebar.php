@@ -728,10 +728,13 @@ class SideBar {
 	}
 
 	public static function handleH5pMenu(): void {
-		$user = get_user_by( 'id', get_current_user_id() );
+		$user_id = get_current_user_id();
+		if ($user_id === 0) {
+			return;
+		}
+		$user = get_user_by( 'id', $user_id );
 		if (
-			is_plugin_active( 'h5p/h5p.php' ) && $user && isset( $user->roles ) &&
-			in_array( 'subscriber', $user->roles, true )
+			$user && is_plugin_active( 'h5p/h5p.php' ) && !is_super_admin($user->ID) && $user->roles === ['subscriber']
 		) {
 			remove_menu_page( 'h5p' );
 		}
