@@ -727,13 +727,19 @@ class SideBar {
 			( $is_main_site_page ? $page : network_admin_url( $page ) );
 	}
 
-	public static function handleH5pMenu(): void {
-		$user = get_user_by( 'id', get_current_user_id() );
+	public static function removeH5pMenuForSubscribers(): void {
+		$user = get_user_by( 'ID', get_current_user_id() );
+
 		if (
-			is_plugin_active( 'h5p/h5p.php' ) &&
-			in_array( 'subscriber', $user->roles, true )
+			! $user ||
+			! is_admin() ||
+			is_super_admin( $user->ID ) ||
+			$user->roles !== [ 'subscriber' ] ||
+			! is_plugin_active( 'h5p/h5p.php' )
 		) {
-			remove_menu_page( 'h5p' );
+			return;
 		}
+
+		remove_menu_page( 'h5p' );
 	}
 }

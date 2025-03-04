@@ -322,7 +322,7 @@ if ( $is_book ) {
 		}
 	);
 
-	add_action( 'admin_init', [ SideBar::class, 'handleH5pMenu' ] );
+	add_action( 'admin_init', [ SideBar::class, 'removeH5pMenuForSubscribers' ] );
 
 	// Hide welcome screen
 	add_action(
