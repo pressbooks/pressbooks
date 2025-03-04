@@ -1,5 +1,18 @@
 # Changelog
 
+## [6.22.4](https://github.com/pressbooks/pressbooks/compare/6.22.3...6.22.4) (2025-03-04)
+
+
+### Bug Fixes
+
+* improve conditional before removing H5P menu ([#3937](https://github.com/pressbooks/pressbooks/issues/3937)) ([83b2ab1](https://github.com/pressbooks/pressbooks/commit/83b2ab19b0c7b91477193cebc807521894824a7a))
+
+
+### Chores
+
+* bump php 8.2 tests matrix ([#3934](https://github.com/pressbooks/pressbooks/issues/3934)) ([ed86ad9](https://github.com/pressbooks/pressbooks/commit/ed86ad93172a245e8df2d58a64946b3b5bac5320))
+* bump the composer-dependencies group with 3 updates ([#3933](https://github.com/pressbooks/pressbooks/issues/3933)) ([2fbd7d4](https://github.com/pressbooks/pressbooks/commit/2fbd7d4a75601df387a9a1a9751caed8ba80a39f))
+
 ## [6.22.3](https://github.com/pressbooks/pressbooks/compare/6.22.2...6.22.3) (2025-02-24)
 
 
