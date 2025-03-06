@@ -95,11 +95,11 @@ class MathJax {
 
 		// AsciiMath
 		add_shortcode( 'asciimath', [ $obj, 'asciiMathShortcode' ] );
-		add_filter( 'the_content', [ $obj, 'asciiMathMarkup' ], 9 ); // before wptexturize
+		add_filter( 'the_content', [ $obj, 'parseAsciiMathMarkup' ], 9 ); // before wptexturize
 
-		// LaTeX
+		// old LaTeX support
 		add_shortcode( 'latex', [ $obj, 'latexShortcode' ] );
-		add_filter( 'the_content', [ $obj, 'latexMarkup' ], 10, 1 ); // before wptexturize
+		add_filter( 'the_content', [ $obj, 'parseLatexMarkup' ], 9 ); // before wptexturize
 
 		// MathML
 		$obj->allowMathmlTags();
@@ -138,6 +138,7 @@ class MathJax {
 	public function beforeExport() {
 		$this->usePbMathJax = true;
 		add_filter( 'the_content', [ $this, 'replaceMathML' ], 999 );
+		add_filter( 'the_content', [ $this, 'replaceLatexDelimitersOnExports'], 8 ); // before wpautop and wptexturize
 	}
 
 	/**
@@ -210,50 +211,30 @@ class MathJax {
 	}
 
 	/**
-	 * Does post_content have maths?
-	 * This removes the need to load MathJax on every page.
+	 * Checks if the current post has MathJax-related content.
+	 * More efficient than looping over multiple strings.
 	 *
 	 * @return bool
 	 */
 	public function sectionHasMath(): bool {
-		$has_math = false;
 		$post = get_post();
+		if ( ! $post ) {
+			return false;
+		}
 
 		if ( Glossary::isGlossaryPost( $post ) ) {
 			return true;
 		}
 
-		if ( $post ) {
-			$id = $post->ID;
-			if ( isset( $this->sectionHasMath[ $id ] ) ) {
-				$has_math = $this->sectionHasMath[ $id ];
-			} else {
-				$content = $post->post_content;
-				$math_tags = [
-					'[table id=',
-					'[/latex]',
-					'$latex',
-					'[/asciimath]',
-					'$asciimath',
-					'</math>',
-					'\\(', // Recognize LaTeX delimiters
-					'\\)',
-					'\\[',
-					'\\]',
-					'$',
-				];
+		$content = $post->post_content;
 
-				foreach ( $math_tags as $math_tag ) {
-					if ( str_contains( $content, $math_tag ) ) {
-						$has_math = true;
-						break;
-					}
-				}
-
-				$this->sectionHasMath[ $id ] = $has_math;
-			}
+		// Check for shortcodes (better than searching manually)
+		if ( has_shortcode( $content, 'latex' ) || has_shortcode( $content, 'asciimath' ) ) {
+			return true;
 		}
-		return $has_math;
+
+		// Use a single regex to check for LaTeX delimiters
+		return (bool) preg_match( '/(?:\\\\\[|\\\\\]|\\\\\(|\\\\\)|\$\$)/', $content );
 	}
 
 	/**
@@ -263,18 +244,17 @@ class MathJax {
 		// Only load MathJax if there's math to process (Improves browser performance)
 		if ( ! is_admin() && $this->sectionHasMath() ) {
 			// If the file ends in _CHTML, then it is the CommonHTML output processor
-			// The "-full" configuration is substantially larger (on the order of 70KB more)
 			wp_enqueue_script( 'pb_mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js', [], null, true );
 		}
 	}
 
 	/**
+	 * Only load MathJax if there's math to process (Improves browser performance)
 	 * @see https://docs.mathjax.org/en/latest/options/index.html
 	 */
 	public function addHeaders() {
-		// Only load MathJax if there's math to process (Improves browser performance)
 		if ( ! is_admin() && $this->sectionHasMath() ) {
-			// Colors and size
+			// Color
 			$options = $this->getOptions();
 			echo "<script>
 window.MathJax = {
@@ -301,10 +281,10 @@ window.MathJax = {
         ]
     },
 	asciimath: {
-			delimiters: [['$','$'], ['`','`'],['[asciimath]','[/asciimath]']]
+			delimiters: [['`','`'],['[asciimath]','[/asciimath]']]
 		},
     tex: {
-        inlineMath: [['$', '$'], ['\\\\(', '\\\\)'], ['[latex]','[/latex]']],
+        inlineMath: [['\\\\(', '\\\\)'], ['[latex]','[/latex]']],
         displayMath: [['$$', '$$'], ['\\\\[', '\\\\]']],
         packages: {
             '[+]': [
@@ -325,7 +305,7 @@ window.MathJax = {
                 'unicode'     // Unicode math symbols
             ]
         },
-        tags: 'all',
+        tags: 'ams',
             formatError: function (message) {
 				return '\\\\color{red}{\\\\text{MathJax error: ' + message + '}}';
 			}
@@ -366,7 +346,7 @@ STYLES;
 	 *
 	 * @return string
 	 */
-	public function renderFormula( $formula, $type ) {
+	public function renderFormula( $formula, $type = 'latex' ) {
 		$formula = trim( $formula );
 		$formula = $this->latexEntityDecode( $formula );
 
@@ -392,34 +372,30 @@ STYLES;
 	// ------------------------------------------------------------------------
 
 	/**
-	 * LaTeX support.
+	 * Old LaTeX support.
+	 * This function will search-replace old LaTeX shortcodes with new ones.
 	 *
-	 * Supports multiple LaTeX delimiters:
+	 * Supports for old-style "$latex $" shortcodes.
 	 * - $latex e^{i \pi} + 1 = 0$ -> [latex]e^{i \pi} + 1 = 0[/latex]
-	 * - \( e^{i \pi} + 1 = 0 \)
-	 * - \[ e^{i \pi} + 1 = 0 \]
-	 * - $ e^{i \pi} + 1 = 0 $
+	 * - $$ e^{i \pi} + 1 = 0 $$ -> [latex]e^{i \pi} + 1 = 0[/latex]
 	 *
 	 * @param  string $content
 	 * @return string
 	 */
-	public function latexMarkup( $content ) {
+	public function parseLatexMarkup( $content ) {
 
-		$text_elements = wp_html_split( $content );
-
-		// Collection of regex patterns for different LaTeX delimiters
 		$patterns = [
-			// Original $latex ...$
 			'%\$latex(?:=\s*|\s+)((?:[^$]+|(?<=(?<!\\\\)\\\\)\$)+)(?<!\\\\)\$%ix',
-			// \( ... \) for inline math
-			'%\\\\\((.*?)\\\\\)%s',
-			// \[ ... \] for displayed math
-			'%\\\\\[(.*?)\\\\\]%s',
-			// Single $ ... $ (must have spaces around)
-			'%(?<=\s|\n|\r|\(|^)\$([^\$]+?)\$(?=\s|\n|\r|\)|$)%s',
+			'%\$\$(.*?)\$\$%s',
 		];
 
-		return implode( '', $this->getValues( $text_elements, $patterns ) );
+		foreach ( $patterns as $pattern ) {
+			$content = preg_replace_callback($pattern, function ( $matches ) {
+				return $this->renderFormula( $matches[1], 'latex' );
+			}, $content);
+		}
+		return $content;
+
 	}
 
 	/**
@@ -446,6 +422,21 @@ STYLES;
 		return $this->renderFormula( $this->latexEntityDecode( $latex ), 'latex' );
 	}
 
+	public function replaceLatexDelimitersOnExports( $content ) {
+		$patterns = [
+			// Match block LaTeX equations: \[ ... \] or $$ ... $$
+			'%\\\\\[(.*?)\\\\\]%s', // \[ ... \]
+			// Match inline LaTeX equations: \( ... \)
+			'%\\\\\((.*?)\\\\\)%s',
+		];
+		foreach ( $patterns as $pattern ) {
+			$content = preg_replace_callback($pattern, function ( $matches ) {
+				return $this->renderFormula( $matches[1], 'latex' );
+			}, $content);
+		}
+		return $content;
+	}
+
 	// ------------------------------------------------------------------------
 	// AsciiMath
 	// ------------------------------------------------------------------------
@@ -462,13 +453,14 @@ STYLES;
 	 *
 	 * @return string
 	 */
-	public function asciiMathMarkup( $content ) {
-
-		$text_elements = wp_html_split( $content );
+	public function parseAsciiMathMarkup( $content ) {
 
 		$pattern = '/\$asciimath\s+([^$]+?)\s*\$/i';
 
-		return implode( '', $this->getValues( $text_elements, [ $pattern ], 'asciimath' ) );
+		return preg_replace_callback( $pattern, function ( $matches ) {
+			return $this->renderFormula( $matches[1], 'asciimath' );
+		}, $content );
+
 	}
 
 	/**
@@ -828,37 +820,6 @@ STYLES;
 
 		return null === $filtered_content ? $content : $filtered_content;
 
-	}
-
-	/**
-	 * @param array $text_elements
-	 * @param array $patterns
-	 * @param string $formula_type
-	 * @return array|mixed|string|string[]|null
-	 */
-	public function getValues( array $text_elements, array $patterns, string $formula_type = 'latex' ): mixed {
-		foreach ( $text_elements as &$element ) {
-			if ( '' === $element || '<' === $element[0] ) {
-				continue;
-			}
-
-			// Process each pattern
-			foreach ( $patterns as $pattern ) {
-				if ( $pattern === $patterns[0] && false === stripos( $element, "\$$formula_type" ) ) {
-					continue;
-				}
-
-				$element = preg_replace_callback(
-					$pattern,
-					function ( $matches ) use ( $formula_type ) {
-						$formula = trim( $matches[1] );
-						return $this->renderFormula( $formula, $formula_type );
-					},
-					$element
-				);
-			}
-		}
-		return $text_elements;
 	}
 
 }
