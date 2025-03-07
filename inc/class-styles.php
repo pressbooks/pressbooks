@@ -631,6 +631,58 @@ class Styles {
 		\Pressbooks\Utility\put_contents( $css_file, $css );
 	}
 
+	public function updatePdfStyleSheet($stylesheet = null) {
+		if (CustomCss::isCustomCss()) {
+			// Compile pressbooks-book web stylesheet when using the *DEPRECATED* Custom CSS theme
+			$theme = wp_get_theme( 'pressbooks-book' );
+		} else {
+			$theme = wp_get_theme( $stylesheet );
+		}
+
+		// Populate the $url-base variable so links to images and other assets remain intact
+		$overrides = ['$url-base: "' . $theme->get_stylesheet_directory_uri() . '";'];
+
+		// Check compatibility of the current theme
+		if ($this->isCurrentThemeCompatible(1)) {
+			$scss = \Pressbooks\Utility\get_contents(realpath($this->getDir($theme) . '/style.scss'));
+		} elseif ($this->isCurrentThemeCompatible(2) || CustomCss::isCustomCss()) {
+			$scss = \Pressbooks\Utility\get_contents(realpath($this->getDir($theme) . '/assets/styles/prince/style.scss'));
+		} else {
+			return;
+		}
+
+		// Add custom styles (if any)
+		$custom_styles = $this->getPrincePost();
+		if ($custom_styles && !empty( $custom_styles->post_content )) {
+			// Append the user's custom styles to the theme stylesheet prior to compilation
+			$scss .= "\n" . $custom_styles->post_content;
+		}
+
+		// Compile the SCSS to CSS
+		$css = $this->customize('prince', $scss, $overrides);
+
+		// Normalize CSS URLs
+		$css = normalize_css_urls($css);
+
+		$timestamp = time();
+
+		// Define the PDF CSS file location
+		$css_file = $this->sass->pathToUserGeneratedCss() . "/prince-$timestamp.css";
+
+		// Remove previous PDF stylesheets
+		$pdf_stylesheets = glob(Container::get('Sass')->pathToUserGeneratedCss() . '/prince-*.css');
+		foreach ($pdf_stylesheets as $file) {
+			if (is_file($file)) {
+				unlink($file);
+			}
+		}
+
+		// Save the generated PDF CSS
+		\Pressbooks\Utility\put_contents($css_file, $css);
+
+	}
+
+
 	/**
 	 * If the current theme's version or Buckram's version has increased, do SCSS stuff
 	 *

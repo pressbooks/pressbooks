@@ -48,6 +48,7 @@ function render_page() {
 	$is_book = Book::isBook();
 	$lock = Lock::init();
 	$regenerate_webbook_stylesheet_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin-post.php?action=pb_regenerate_webbook_stylesheet' ), 'pb-regenerate-webbook-stylesheet' );
+	$pdf_preview_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin-post.php?action=pdf_preview' ), 'pdf-preview' );
 	$output = "### System Information\n\n";
 	if ( Book::isBook() ) {
 		$output .= "#### Book Info\n\n";
@@ -176,6 +177,7 @@ function render_page() {
 			'admin.diagnostics', [
 				'output' => $output,
 				'regenerate_webbook_stylesheet_url' => HtmLawed::filter( $regenerate_webbook_stylesheet_url, [ 'safe' => 1 ] ),
+				'pdf_preview_url' => HtmLawed::filter( $pdf_preview_url, [ 'safe' => 1 ] ),
 				'is_book' => $is_book,
 			]
 		);
@@ -198,3 +200,22 @@ function handle_stylesheet_regeneration() {
 	}
 	\Pressbooks\Redirect\location( admin_url( 'options.php?page=pressbooks_diagnostics' ) );
 }
+
+/**
+ * @since 6.23.0
+ *
+ * Handle form submission on the diagnostics page which generates a PDF preview.
+ *
+ * @return null
+ */
+function handle_pdf_preview() {
+	if ( check_admin_referer( 'pdf-preview' ) ) {
+		( new Admin() )->clearCache();
+		Container::get( 'Styles' )->updatePdfStyleSheet();
+	}
+	\Pressbooks\Redirect\location( get_site_url( get_current_blog_id() ) . '/format/xhtml?debug=prince' );
+
+}
+
+
+
