@@ -8,8 +8,8 @@
     {!! do_action( 'pb_top_of_export_page' ) !!}
     <h1>{{ __( 'Export', 'pressbooks') }}</h1>
     <p>{{ __( 'You can select multiple formats below. Pressbooks keeps the last 3 exports of each file format. You can pin specific files to make sure they don\'t get deleted.', 'pressbooks') }}</p>
-	<p>{{ __( 'You can also generate a PDF Preview in your browser to get an idea of how the digital PDF export of your book will look. When used with the inspect tool, this can help you find and fix certain aspects of your PDF files.') }}
-	<p><form id="pdf-preview-form" action="{!! $pdf_preview !!}" method="POST"><input type="submit" name="submit" id="submit" class="button button-primary" value="{{ __( 'View PDF Preview', 'pressbooks' ) }}" /></form></p>
+	<p>{{ __( 'Generating a PDF Preview can provide you with an idea of how the digital PDF export of your book will look. When used with the inspect tool, this can also help you find and fix certain aspects of your PDF files.') }}
+	<p><form id="pdf-preview-form" action="{!! $pdf_preview_url !!}" method="POST"><input type="submit" name="submit" id="submit" class="button button-primary" value="{{ __( 'View PDF Preview', 'pressbooks' ) }}" /></form></p>
 	</p>
     <div id="export-options" class="postbox">
 		<button type="button" class="handlediv" aria-expanded="true">

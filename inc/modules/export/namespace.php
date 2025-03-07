@@ -260,6 +260,8 @@ function get_name_from_module_classname( $classname ) {
  * @return array
  */
 function template_data() {
+
+	$pdf_preview_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin-post.php?action=pdf_preview' ), 'pdf-preview' );
 	$export_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export&export=yes' ), 'pb-export' );
 
 	$theme_name = wp_get_theme()->display( 'Name' ) . ' ' . wp_get_theme()->display( 'Version' );
@@ -268,6 +270,7 @@ function template_data() {
 	}
 
 	return [
+		'pdf_preview_url' => $pdf_preview_url,
 		'export_form_url' => $export_form_url,
 		'dependency_errors' => dependency_errors(),
 		'dependency_errors_msg' => dependency_errors_msg(),
