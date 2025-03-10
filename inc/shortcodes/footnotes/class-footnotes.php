@@ -46,13 +46,14 @@ class Footnotes {
 	 */
 	static public function hooks( Footnotes $obj ) {
 		add_shortcode( 'footnote', [ $obj, 'shortcodeHandler' ] );
-		add_filter(
-			'no_texturize_shortcodes',
-			function ( $excluded_shortcodes ) {
-				$excluded_shortcodes[] = 'footnote';
-				return $excluded_shortcodes;
-			}
-		);
+		// This filter is no longer needed and it now blocks the WP feature that creates smart quotes. See https://pressbooks.community/t/smart-quotes-in-footnotes/2432/7.
+//		add_filter(
+//			'no_texturize_shortcodes',
+//			function ( $excluded_shortcodes ) {
+//				$excluded_shortcodes[] = 'footnote';
+//				return $excluded_shortcodes;
+//			}
+//		);
 		// do_shortcode() is registered as a default filter on 'the_content' with a priority of 11.
 		// We need to run $this->footNoteContent() after this, and after attributions which is set to 12
 		add_filter( 'the_content', [ $obj, 'footnoteContent' ], 13 );
