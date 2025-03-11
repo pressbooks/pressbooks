@@ -62,16 +62,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.339.14",
+            "version": "3.342.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "532eb5e502c5b1181456023e41d61445b2c7101d"
+                "reference": "ef66e0fdba9e7f786a7b1e522f847d76d0320e89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/532eb5e502c5b1181456023e41d61445b2c7101d",
-                "reference": "532eb5e502c5b1181456023e41d61445b2c7101d",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ef66e0fdba9e7f786a7b1e522f847d76d0320e89",
+                "reference": "ef66e0fdba9e7f786a7b1e522f847d76d0320e89",
                 "shasum": ""
             },
             "require": {
@@ -153,9 +153,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.339.14"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.342.2"
             },
-            "time": "2025-02-14T19:11:38+00:00"
+            "time": "2025-03-07T19:12:43+00:00"
         },
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -2482,16 +2482,16 @@
         },
         {
             "name": "matomo/device-detector",
-            "version": "6.4.3",
+            "version": "6.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matomo-org/device-detector.git",
-                "reference": "aa4586d495a7f59029d46d976f160b13eb769bb0"
+                "reference": "270bbc41f80994e80805ac377b67324eba53c412"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matomo-org/device-detector/zipball/aa4586d495a7f59029d46d976f160b13eb769bb0",
-                "reference": "aa4586d495a7f59029d46d976f160b13eb769bb0",
+                "url": "https://api.github.com/repos/matomo-org/device-detector/zipball/270bbc41f80994e80805ac377b67324eba53c412",
+                "reference": "270bbc41f80994e80805ac377b67324eba53c412",
                 "shasum": ""
             },
             "require": {
@@ -2508,6 +2508,7 @@
                 "phpunit/phpunit": "^8.5.8",
                 "psr/cache": "^1.0.1",
                 "psr/simple-cache": "^1.0.1",
+                "slevomat/coding-standard": "<8.16.0",
                 "symfony/yaml": "^5.1.7"
             },
             "suggest": {
@@ -2547,7 +2548,7 @@
                 "source": "https://github.com/matomo-org/matomo",
                 "wiki": "https://dev.matomo.org/"
             },
-            "time": "2025-01-17T09:59:39+00:00"
+            "time": "2025-02-26T17:37:32+00:00"
         },
         {
             "name": "maxbanton/cwh",
@@ -5072,16 +5073,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v6.4.15",
+            "version": "v6.4.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "3cb242f059c14ae08591c5c4087d1fe443564392"
+                "reference": "7a1c12e87b08ec9c97abdd188c9b3f5a40e37fc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/3cb242f059c14ae08591c5c4087d1fe443564392",
-                "reference": "3cb242f059c14ae08591c5c4087d1fe443564392",
+                "url": "https://api.github.com/repos/symfony/process/zipball/7a1c12e87b08ec9c97abdd188c9b3f5a40e37fc3",
+                "reference": "7a1c12e87b08ec9c97abdd188c9b3f5a40e37fc3",
                 "shasum": ""
             },
             "require": {
@@ -5113,7 +5114,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v6.4.15"
+                "source": "https://github.com/symfony/process/tree/v6.4.19"
             },
             "funding": [
                 {
@@ -5129,7 +5130,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-11-06T14:19:14+00:00"
+            "time": "2025-02-04T13:35:48+00:00"
         },
         {
             "name": "symfony/service-contracts",

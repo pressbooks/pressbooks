@@ -1,5 +1,31 @@
 # Changelog
 
+## [6.22.4](https://github.com/pressbooks/pressbooks/compare/6.22.3...6.22.4) (2025-03-04)
+
+
+### Bug Fixes
+
+* improve conditional before removing H5P menu ([#3937](https://github.com/pressbooks/pressbooks/issues/3937)) ([83b2ab1](https://github.com/pressbooks/pressbooks/commit/83b2ab19b0c7b91477193cebc807521894824a7a))
+
+
+### Chores
+
+* bump php 8.2 tests matrix ([#3934](https://github.com/pressbooks/pressbooks/issues/3934)) ([ed86ad9](https://github.com/pressbooks/pressbooks/commit/ed86ad93172a245e8df2d58a64946b3b5bac5320))
+* bump the composer-dependencies group with 3 updates ([#3933](https://github.com/pressbooks/pressbooks/issues/3933)) ([2fbd7d4](https://github.com/pressbooks/pressbooks/commit/2fbd7d4a75601df387a9a1a9751caed8ba80a39f))
+
+## [6.22.3](https://github.com/pressbooks/pressbooks/compare/6.22.2...6.22.3) (2025-02-24)
+
+
+### Bug Fixes
+
+* remove cloning stats and h5p permissions for subscribers ([#3927](https://github.com/pressbooks/pressbooks/issues/3927)) ([116b3e0](https://github.com/pressbooks/pressbooks/commit/116b3e030bd0774c1854080985480a90c4624d6f))
+
+
+### Chores
+
+* bump aws/aws-sdk-php from 3.339.14 to 3.339.19 in the composer-dependencies group ([#3928](https://github.com/pressbooks/pressbooks/issues/3928)) ([1f54cbd](https://github.com/pressbooks/pressbooks/commit/1f54cbd646d01bf5721c1161827acbb218ce5988))
+* bump aws/aws-sdk-php from 3.339.9 to 3.339.14 in the composer-dependencies group ([#3922](https://github.com/pressbooks/pressbooks/issues/3922)) ([44b3abd](https://github.com/pressbooks/pressbooks/commit/44b3abdb5188a46237a9b78090513bd2ba752c73))
+
 ## [6.22.2](https://github.com/pressbooks/pressbooks/compare/6.22.1...6.22.2) (2025-02-10)
 
 
