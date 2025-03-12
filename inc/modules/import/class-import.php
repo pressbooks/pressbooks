@@ -332,6 +332,10 @@ abstract class Import {
 				$importer = new Html\Xhtml();
 				break;
 
+			case GoogleDocs\GoogleDocs::TYPE_OF:
+				$importer = new GoogleDocs\GoogleDocs();
+				break;
+
 			default:
 				/**
 				 * Allows users to add a custom import routine for custom import type.

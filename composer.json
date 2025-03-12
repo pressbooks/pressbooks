@@ -34,6 +34,7 @@
 		"davidgorges/human-name-parser": "^1.0",
 		"docraptor/docraptor": "^4.0",
 		"fale/isbn": "^3.0",
+		"google/apiclient": "^2.15",
 		"gridonic/princexml-php": "^1.2",
 		"illuminate/container": "^8.0",
 		"illuminate/contracts": "^8.0",

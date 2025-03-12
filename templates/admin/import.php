@@ -2,6 +2,7 @@
 
 use Pressbooks\Cloner\Cloner;
 use Pressbooks\Modules\Import\Epub\Epub201;
+use Pressbooks\Modules\Import\GoogleDocs\GoogleDocs;
 use Pressbooks\Modules\Import\Html\Xhtml;
 use Pressbooks\Modules\Import\Odf\Odt;
 use Pressbooks\Modules\Import\Ooxml\Docx;
@@ -30,6 +31,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 	Odt::TYPE_OF => __( 'OpenOffice (.odt)', 'pressbooks' ),
 	Wxr::TYPE_OF => __( 'Pressbooks/WordPress XML (.wxr or .xml)', 'pressbooks' ),
 	Xhtml::TYPE_OF => $html_type_of,
+	GoogleDocs::TYPE_OF => __( 'Google Docs (URL)', 'pressbooks' ),
 ] );
 
 ?>
