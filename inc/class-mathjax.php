@@ -429,6 +429,8 @@ STYLES;
 			'%\\\\\[(.*?)\\\\\]%s', // \[ ... \]
 			// Match inline LaTeX equations: \( ... \)
 			'%\\\\\((.*?)\\\\\)%s',
+			// Match $$ ... $$ LaTeX equations
+			'%\$\$(.*?)\$\$%s', // $$ ... $$
 		];
 		foreach ( $patterns as $pattern ) {
 			$content = preg_replace_callback($pattern, function ( $matches ) {
