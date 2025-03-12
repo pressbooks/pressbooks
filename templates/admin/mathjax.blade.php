@@ -19,7 +19,7 @@
                         <p>
 							{!! sprintf( __( 'Shortcode syntax: %s', 'pressbooks' ), '<code>[latex]e^{i \pi} + 1 = 0[/latex]</code>' ) !!} </p>
                         <p>
-							{!! sprintf( __( 'Dollar sign syntax: %s', 'pressbooks' ), '<code>$latex e^{i \pi} + 1 = 0$</code>' ) !!}
+							{!! sprintf( __( 'Double dollar sign syntax: %s', 'pressbooks' ), '<code>$$ e^{i \pi} + 1 = 0 $$</code>' ) !!}
 						</p>
                     </section>
                     <section>
