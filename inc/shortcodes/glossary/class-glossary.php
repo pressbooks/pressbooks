@@ -6,6 +6,7 @@
 
 namespace Pressbooks\Shortcodes\Glossary;
 
+use Pressbooks\MathJax;
 use PressbooksMix\Assets;
 use Pressbooks\PostType\BackMatter;
 use Pressbooks\Utility\AutoDisplayable;
@@ -44,7 +45,7 @@ class Glossary implements BackMatter {
 	/**
 	 * @param Glossary $obj
 	 */
-	static public function hooks( Glossary $obj ): void {
+	public static function hooks( Glossary $obj ): void {
 		add_shortcode( self::SHORTCODE, [ $obj, 'webShortcodeHandler' ] );
 		add_action(
 			'pb_pre_export', function () use ( $obj ) {
@@ -52,6 +53,10 @@ class Glossary implements BackMatter {
 				remove_shortcode( self::SHORTCODE );
 				add_shortcode( self::SHORTCODE, [ $obj, 'exportShortcodeHandler' ] );
 				remove_filter( 'the_content', [ $obj, 'tooltipContent' ], 13 ); // Only for the webbook!
+				// Add MathJax filter to replace new LaTeX delimiters on export
+				$mathJax = new MathJax();
+				$mathJax->usePbMathJax = true;
+				add_filter('the_content', [$mathJax, 'replaceLatexDelimitersOnExports'], 14);
 			}
 		);
 		add_filter(

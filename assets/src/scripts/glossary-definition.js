@@ -14,7 +14,8 @@ Array.prototype.forEach.call( glossaryTerms, glossaryTerm => {
 			showDefinition( template );
 
 			if ( typeof MathJax !== 'undefined' ) {
-				MathJax.Hub.Queue( [ 'Typeset', MathJax.Hub ] );
+				// Parse dynamically added MathJax content
+				MathJax.typeset(Array.from(document.querySelectorAll('.glossary__definition')));
 			}
 		}
 

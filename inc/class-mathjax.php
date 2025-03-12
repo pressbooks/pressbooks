@@ -62,7 +62,7 @@ class MathJax {
 	/**
 	 * @return MathJax
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 
@@ -138,7 +138,8 @@ class MathJax {
 	public function beforeExport() {
 		$this->usePbMathJax = true;
 		add_filter( 'the_content', [ $this, 'replaceMathML' ], 999 );
-		add_filter( 'the_content', [ $this, 'replaceLatexDelimitersOnExports'], 8 ); // before wpautop and wptexturize
+		// This should run before wpautop and wptexturize because formulas can contain line breaks
+		add_filter( 'the_content', [ $this, 'replaceLatexDelimitersOnExports'], 8 );
 	}
 
 	/**
@@ -299,7 +300,7 @@ window.MathJax = {
                 'mathtools',  // Extended math tools
                 'mhchem',     // Chemistry formulas
                 'textmacros', // Text formatting macros
-                'newcommand', // Define custom LaTeX commands
+                'newcommand', // Define custom LaTeX commands useful for macros
                 'noerrors',   // Suppresses errors
                 'physics',    // Physics notation
                 'unicode'     // Unicode math symbols
@@ -424,7 +425,7 @@ STYLES;
 
 	public function replaceLatexDelimitersOnExports( $content ) {
 		$patterns = [
-			// Match block LaTeX equations: \[ ... \] or $$ ... $$
+			// Match block LaTeX equations: \[ ... \]
 			'%\\\\\[(.*?)\\\\\]%s', // \[ ... \]
 			// Match inline LaTeX equations: \( ... \)
 			'%\\\\\((.*?)\\\\\)%s',
