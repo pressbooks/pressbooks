@@ -55,10 +55,11 @@
 
   input {
     margin-right: 7px;
+  }
 
-    &.generate {
-      text-transform: uppercase;
-    }
+  .export-control {
+    display: flex;
+    gap: 1rem;
   }
 
   .grid {

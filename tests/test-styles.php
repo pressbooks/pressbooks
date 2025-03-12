@@ -193,6 +193,29 @@ class StylesTest extends \WP_UnitTestCase {
 
 	/**
 	 * @group styles
+	 * @test
+	 */
+	public function it_updates_the_pdf_stylesheet(): void {
+		$this->_book( 'pressbooks-clarke' );
+
+		$this->cs->updatePdfStyleSheet();
+
+		$cssDir = $this->cs->getSass()->pathToUserGeneratedCss();
+
+		$files = glob( $cssDir . '/prince-*.css' );
+
+		$this->assertNotEmpty( $files, "No PDF stylesheet file was created in $cssDir." );
+
+		$this->assertCount( 1, $files, 'More than one PDF stylesheet file was created.' );
+
+		$file = reset( $files );
+
+		$this->assertFileExists( $file );
+		$this->assertNotEmpty( file_get_contents( $file ) );
+	}
+
+	/**
+	 * @group styles
 	 */
 	public function test_maybeUpdateStyleSheets() {
 		$this->_book( 'pressbooks-book' );

@@ -12,6 +12,7 @@
 namespace Pressbooks\Admin\Diagnostics;
 
 use DeviceDetector\DeviceDetector;
+use function Pressbooks\Redirect\location;
 use function Pressbooks\Utility\check_epubcheck_install;
 use function Pressbooks\Utility\check_prince_install;
 use function Pressbooks\Utility\check_saxonhe_install;
@@ -198,7 +199,7 @@ function handle_stylesheet_regeneration() {
 		// Ok!
 		\Pressbooks\add_notice( __( 'Stylesheet regenerated.', 'pressbooks' ) );
 	}
-	\Pressbooks\Redirect\location( admin_url( 'options.php?page=pressbooks_diagnostics' ) );
+	location( admin_url( 'options.php?page=pressbooks_diagnostics' ) );
 }
 
 /**
@@ -206,15 +207,14 @@ function handle_stylesheet_regeneration() {
  *
  * Handle form submission on the diagnostics page which generates a PDF preview.
  *
- * @return null
+ * @return void
  */
-function handle_pdf_preview() {
+function handle_pdf_preview(): void {
 	if ( check_admin_referer( 'pdf-preview' ) ) {
 		( new Admin() )->clearCache();
 		Container::get( 'Styles' )->updatePdfStyleSheet();
 	}
-	\Pressbooks\Redirect\location( get_site_url( get_current_blog_id() ) . '/format/xhtml?debug=prince' );
-
+	location( get_site_url( get_current_blog_id() ) . '/format/xhtml?debug=prince' );
 }
 
 
