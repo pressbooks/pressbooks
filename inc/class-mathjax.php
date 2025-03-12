@@ -419,8 +419,7 @@ STYLES;
 	 * @return string
 	 */
 	public function latexShortcode( $atts, $content = '' ) {
-		$latex = trim( $this->latexEntityDecode( $content ) );
-		return $this->renderFormula( $this->latexEntityDecode( $latex ), 'latex' );
+		return $this->renderFormula( $content, 'latex' );
 	}
 
 	public function replaceLatexDelimitersOnExports( $content ) {
