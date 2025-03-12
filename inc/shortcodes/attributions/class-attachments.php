@@ -246,7 +246,7 @@ class Attachments {
 						sprintf(
 							'%1$s %2$s %3$s',
 							$license_prefix,
-							( isset( $attribution['license'] ) ) ?
+							( isset( $attribution['license'] ) && isset( $supported[ $attribution['license'] ] ) ) ?
 								sprintf(
 									'<a rel="license" href="%1$s">%2$s</a>',
 									$licensing->getUrlForLicense( $attribution['license'] ),
