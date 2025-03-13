@@ -6,8 +6,8 @@
 
 namespace Pressbooks\Shortcodes\Glossary;
 
-use Pressbooks\MathJax;
 use PressbooksMix\Assets;
+use Pressbooks\MathJax;
 use Pressbooks\PostType\BackMatter;
 use Pressbooks\Utility\AutoDisplayable;
 use WP_Post;
@@ -56,7 +56,7 @@ class Glossary implements BackMatter {
 				// Add MathJax filter to replace new LaTeX delimiters on export
 				$mathJax = new MathJax();
 				$mathJax->usePbMathJax = true;
-				add_filter('the_content', [$mathJax, 'replaceLatexDelimitersOnExports'], 14);
+				add_filter( 'the_content', [ $mathJax, 'replaceLatexDelimitersOnExports' ], 14 );
 			}
 		);
 		add_filter(

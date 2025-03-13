@@ -139,7 +139,7 @@ class MathJax {
 		$this->usePbMathJax = true;
 		add_filter( 'the_content', [ $this, 'replaceMathML' ], 999 );
 		// This should run before wpautop and wptexturize because formulas can contain line breaks
-		add_filter( 'the_content', [ $this, 'replaceLatexDelimitersOnExports'], 8 );
+		add_filter( 'the_content', [ $this, 'replaceLatexDelimitersOnExports' ], 8 );
 	}
 
 	/**
@@ -354,12 +354,16 @@ STYLES;
 		if ( apply_filters( 'pb_mathjax_use', $this->usePbMathJax ) && PB_MATHJAX_URL ) {
 			$options = $this->getOptions();
 			$url = rtrim( PB_MATHJAX_URL, '/' );
-			$url .= '/' . $type . '?' . $type . '=' . rawurlencode( $formula ) . '&fg=' . $options['fg'];
+			// Safe base64 encoding for URL
+			$url .= '/' . $type . '?' . $type . '=' . str_replace( '=', '', strtr( base64_encode( $formula ), '+/', '-_' ) ) . '&fg=' . $options['fg'];
 
 			if ( apply_filters( 'pb_mathjax_use_svg', $this->useSVG ) ) {
 				$url .= '&svg=1';
 			}
-			$url = esc_url( $url );
+
+			// Base64 encode parameter for better PB MathJax parsing
+			$url .= '&isBase64=1';
+
 			$alt = str_replace( '\\', '&#92;', esc_attr( $formula ) );
 			return '<img src="' . $url . '" alt="' . $alt . '" title="' . $alt . '" class="' . $type . ' mathjax" />';
 		} else {
