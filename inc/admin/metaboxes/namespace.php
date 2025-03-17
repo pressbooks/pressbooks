@@ -748,8 +748,9 @@ function save_contributor_meta( $term_id, $tt_id, $taxonomy ) {
 			$value = false;
 			// Delete image from media library?
 			$attachment_id = attachment_id_from_url( get_term_meta( $term_id, $term, true ) );
-			error_log( 'attachment_id: ' . $attachment_id );
-			wp_delete_attachment( $attachment_id, true );
+			if( $attachment_id ) {
+				wp_delete_attachment( $attachment_id, true );
+			}
 		}
 		$value ? update_term_meta( $term_id, $term, $value ) : delete_term_meta( $term_id, $term );
 	}
