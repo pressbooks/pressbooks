@@ -5,6 +5,27 @@ jQuery( function ( $ ) {
 		contributorPictureElement = jQuery( '#contributor-picture' ),
 		contributorPictureThumbnailElement = jQuery( '#contributor-picture-thumbnail' );
 
+	const removeButton = $('<button>', {
+		class: 'remove-contributor-picture',
+		type: 'button',
+		html: '<span><i class="pb-heroicons pb-heroicons-solid_x-mark"></i></span>',
+		css: {
+			position: 'absolute',
+			right: '-10px',
+			fontSize: '20px',
+			top: '-10px',
+			background: '#d4002d',
+			color: 'white',
+			border: 'none',
+			borderRadius: '50%',
+			width: '20px',
+			height: '20px',
+			padding: '0',
+			cursor: 'pointer',
+			display: 'none',
+		}
+	});
+
 	/**
 	 * Add read only property for slug input
 	 */
@@ -123,6 +144,7 @@ jQuery( function ( $ ) {
 	} );
 	jQuery( '#plupload-browse-button' ).on( 'click', function ( e ) {
 		// Cropper
+		$('#remove_picture').remove();
 		let Cropp = wp.media.controller.CustomizeImageCropper.extend( {
 			/**
 			 * Creates an object with the image attachment and crop properties.
@@ -194,31 +216,9 @@ jQuery( function ( $ ) {
 				contributorPictureThumbnailElement.attr( 'src', attachment.url ).show();
 				pictureLibrary.close();
 			}
+			removeButton.show();
 		} );
 	} );
-
-	// Remove picture
-
-	const removeButton = $('<button>', {
-		class: 'remove-contributor-picture',
-		type: 'button',
-		html: '<span><i class="pb-heroicons pb-heroicons-solid_x-mark"></i></span>',
-		css: {
-			position: 'absolute',
-			right: '-10px',
-			fontSize: '20px',
-			top: '-10px',
-			background: '#d4002d',
-			color: 'white',
-			border: 'none',
-			borderRadius: '50%',
-			width: '20px',
-			height: '20px',
-			padding: '0',
-			cursor: 'pointer',
-			display: 'none',
-		}
-	});
 
 	if (contributorPictureThumbnailElement.attr('src')) {
 		contributorPictureThumbnailElement.show();
