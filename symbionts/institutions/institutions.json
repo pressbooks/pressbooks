@@ -273,6 +273,11 @@
         "code": "AU-XX-001",
         "name": "Australian Catholic University",
         "url": "https:\/\/www.acu.edu.au\/"
+      },
+      {
+        "code": "AU-XX-002",
+        "name": "Torrens University Australia",
+        "url": "https:\/\/www.torrens.edu.au\/"
       }
     ]
   },
@@ -3210,6 +3215,11 @@
             "code": "EU-ESP-003",
             "name": "Universidad Politécnica de Madrid",
             "url": "https:\/\/www.upm.es\/"
+          },
+          {
+            "code": "EU-ESP-004",
+            "name": "University of Huelva",
+            "url": "https:\/\/www.uhu.es\/"
           }
         ]
       }

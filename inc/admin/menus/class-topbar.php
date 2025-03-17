@@ -106,8 +106,8 @@ class TopBar {
 		$bar->add_menu(
 			[
 				'id' => 'pb-logo',
-				'title' => '<span class="ab-icon"></span><span class="screen-reader-text">' . __( 'About Pressbooks', 'pressbooks' ) . '</span>',
-				'href' => 'https://pressbooks.com',
+				'title' => '<span class="ab-icon"></span><span class="screen-reader-text">' . __( 'Pressbooks logo', 'pressbooks' ) . '</span>',
+				'href' => '#',
 			]
 		);
 	}

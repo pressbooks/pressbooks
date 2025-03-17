@@ -661,7 +661,7 @@ function add_cloning_stats_page() {
 	add_management_page(
 		esc_html__( 'Cloning Stats', 'pressbooks' ),
 		esc_html__( 'Cloning Stats', 'pressbooks' ),
-		'read',
+		'edit_posts',
 		'pb_cloner_stats',
 		__NAMESPACE__ . '\display_cloning_stats'
 	);

@@ -308,6 +308,7 @@ add_action( 'init', [ '\Pressbooks\Covergenerator\Covergenerator', 'init' ] );
 
 if ( $is_book ) {
 	add_action( 'admin_post_pb_regenerate_webbook_stylesheet', '\Pressbooks\Admin\Diagnostics\handle_stylesheet_regeneration' );
+	add_action( 'admin_post_pdf_preview', 'Pressbooks\Admin\Diagnostics\handle_pdf_preview' );
 
 	add_action(
 		'post_edit_form_tag', function () {
@@ -321,6 +322,8 @@ if ( $is_book ) {
 			remove_action( 'admin_enqueue_scripts', [ 'WP_Internal_Pointers', 'enqueue_scripts' ] );
 		}
 	);
+
+	add_action( 'admin_init', [ SideBar::class, 'removeH5pMenuForSubscribers' ] );
 
 	// Hide welcome screen
 	add_action(

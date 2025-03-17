@@ -727,4 +727,19 @@ class SideBar {
 			( $is_main_site_page ? $page : network_admin_url( $page ) );
 	}
 
+	public static function removeH5pMenuForSubscribers(): void {
+		$user = get_user_by( 'ID', get_current_user_id() );
+
+		if (
+			! $user ||
+			! is_admin() ||
+			is_super_admin( $user->ID ) ||
+			$user->roles !== [ 'subscriber' ] ||
+			! is_plugin_active( 'h5p/h5p.php' )
+		) {
+			return;
+		}
+
+		remove_menu_page( 'h5p' );
+	}
 }

@@ -72,7 +72,12 @@
         </div>
     </div>
     <div class="export-control">
-        <p><input id="pb-export-button" type="button" class="button button-hero button-primary generate" value="{{ __( 'Export Your Book', 'pressbooks' ) }}"/></p>
+        <div class="export-control">
+			<form id="pdf-preview-form" class="pdf-preview-form" action="{!! $pdf_preview_url !!}" method="POST">
+				<input type="submit" name="submit" id="submit" class="button button-hero" value="{{ __( 'Preview PDF', 'pressbooks' ) }}" />
+			</form>
+			<input id="pb-export-button" type="button" class="button button-hero button-primary generate" value="{{ __( 'Export Book', 'pressbooks' ) }}"/>
+		</div>
 		<progress id="pb-sse-progressbar" max="100"></progress>
 		<p><b><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></b> <span id="pb-sse-info" aria-live="polite"></span></p>
     </div>
