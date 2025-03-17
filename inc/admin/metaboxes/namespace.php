@@ -13,6 +13,7 @@ namespace Pressbooks\Admin\Metaboxes;
 
 use PressbooksMix\Assets;
 use Pressbooks\Contributors;
+use function Pressbooks\Image\attachment_id_from_url;
 
 // phpcs:ignore
 define( 'METADATA_CALLBACK_INDEX', 4 );
@@ -725,6 +726,7 @@ function get_editor_settings() {
  * @since 5.0.0
  */
 function save_contributor_meta( $term_id, $tt_id, $taxonomy ) {
+
 	if ( $taxonomy !== 'contributor' ) {
 		return;
 	}
@@ -733,6 +735,7 @@ function save_contributor_meta( $term_id, $tt_id, $taxonomy ) {
 	}
 
 	$contributors_fields = Contributors::getContributorFields();
+
 	foreach ( $contributors_fields as $term => $meta_tags ) {
 		$value = false;
 		if ( isset( $_POST[ $term ] ) ) {
@@ -740,6 +743,13 @@ function save_contributor_meta( $term_id, $tt_id, $taxonomy ) {
 			if ( array_key_exists( 'sanitization_method', $meta_tags ) ) {
 				$value = $meta_tags['sanitization_method']( $value );
 			}
+		}
+		if( isset( $_POST['remove_picture'] ) && $term === 'contributor_picture' ) {
+			$value = false;
+			// Delete image from media library?
+			$attachment_id = attachment_id_from_url( get_term_meta( $term_id, $term, true ) );
+			error_log( 'attachment_id: ' . $attachment_id );
+			wp_delete_attachment( $attachment_id, true );
 		}
 		$value ? update_term_meta( $term_id, $term, $value ) : delete_term_meta( $term_id, $term );
 	}
