@@ -11,9 +11,9 @@
 // @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotValidated
 namespace Pressbooks\Admin\Metaboxes;
 
+use function Pressbooks\Image\attachment_id_from_url;
 use PressbooksMix\Assets;
 use Pressbooks\Contributors;
-use function Pressbooks\Image\attachment_id_from_url;
 
 // phpcs:ignore
 define( 'METADATA_CALLBACK_INDEX', 4 );
@@ -744,11 +744,11 @@ function save_contributor_meta( $term_id, $tt_id, $taxonomy ) {
 				$value = $meta_tags['sanitization_method']( $value );
 			}
 		}
-		if( isset( $_POST['remove_picture'] ) && $term === 'contributor_picture' ) {
+		if ( isset( $_POST['remove_picture'] ) && $term === 'contributor_picture' ) {
 			$value = false;
 			// Delete image from media library?
 			$attachment_id = attachment_id_from_url( get_term_meta( $term_id, $term, true ) );
-			if( $attachment_id ) {
+			if ( $attachment_id ) {
 				wp_delete_attachment( $attachment_id, true );
 			}
 		}
