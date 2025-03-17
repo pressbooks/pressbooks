@@ -1,5 +1,8 @@
 <?php
 
+use Pressbooks\Contributors;
+use function Pressbooks\Admin\Metaboxes\save_contributor_meta;
+
 
 /**
  * @group metaboxes
@@ -121,5 +124,75 @@ class Admin_Metaboxes extends \WP_UnitTestCase {
 
 		$this->assertEquals( 'Or, the Whale', get_post_meta( $post->ID, 'pb_subtitle', true ) );
 
+	}
+
+	/**
+	 * @test
+	 * @group metaboxes
+	 */
+	public function it_saves_contributor_meta(): void {
+		$term_id = wp_insert_term( 'Test Contributor', Contributors::TAXONOMY )['term_id'];
+
+		$_POST = [
+			'contributor_meta_nonce' => wp_create_nonce( 'contributor-meta' ),
+			'contributor_institution' => 'Test Institution',
+			'contributor_description' => 'A test description',
+			'contributor_picture' => 'http://example.com/test-picture.jpg',
+		];
+
+		save_contributor_meta( $term_id, null, Contributors::TAXONOMY );
+
+		$this->assertSame(
+			'Test Institution',
+			get_term_meta( $term_id, 'contributor_institution', true )
+		);
+		$this->assertSame(
+			'A test description',
+			get_term_meta( $term_id, 'contributor_description', true )
+		);
+		$this->assertSame(
+			'http://example.com/test-picture.jpg',
+			get_term_meta( $term_id, 'contributor_picture', true )
+		);
+	}
+
+	/**
+	 * @test
+	 * @group metaboxes
+	 */
+	public function it_save_contributor_meta_wrong_taxonomy(): void {
+		$term_id = wp_insert_term( 'Test Contributor', Contributors::TAXONOMY )['term_id'];
+
+		$_POST = [
+			'contributor_meta_nonce' => wp_create_nonce( 'contributor-meta' ),
+			'contributor_institution' => 'Institution should not save',
+		];
+
+		save_contributor_meta( $term_id, null, 'wrong_taxonomy' );
+
+		$this->assertEmpty(
+			get_term_meta( $term_id, 'contributor_institution', true )
+		);
+	}
+
+	/**
+	 * @test
+	 * @group metaboxes
+	 */
+	public function it_removes_contributor_picture(): void {
+		$term_id = wp_insert_term( 'Test Contributor', Contributors::TAXONOMY )['term_id'];
+
+		update_term_meta( $term_id, 'contributor_picture', 'http://example.com/test-picture.jpg' );
+
+		$_POST = [
+			'contributor_meta_nonce' => wp_create_nonce( 'contributor-meta' ),
+			'remove_picture' => '1',
+		];
+
+		save_contributor_meta( $term_id, null, Contributors::TAXONOMY );
+
+		$this->assertEmpty(
+			get_term_meta( $term_id, 'contributor_picture', true )
+		);
 	}
 }
