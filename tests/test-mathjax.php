@@ -118,7 +118,7 @@ class MathJaxTest extends \WP_UnitTestCase {
 
 		$this->mathjax->usePbMathJax = true;
 		$s = $this->mathjax->parseLatexMarkup( '$latex \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
-		$this->assertStringStartsWith( '<img src="http://localhost:3000/latex?latex=%5Cboldsymbol%7B%5Cfrac%7Bm_%7B%5Ctextbf%7Bdrop%7D%7Dgd%7D%7BV%7D%7D', $s );
+		$this->assertStringStartsWith( '<img src="http://localhost:3000/latex?latex=XGJvbGRzeW1ib2x7XGZyYWN7bV97XHRleHRiZntkcm9wfX1nZH17Vn19', $s );
 
 		$s = $this->mathjax->parseLatexMarkup( 'latex not found$' );
 		$this->assertEquals( 'latex not found$', $s );
@@ -132,10 +132,10 @@ class MathJaxTest extends \WP_UnitTestCase {
 
 		$this->mathjax->usePbMathJax = true;
 		$s = $this->mathjax->replaceLatexDelimitersOnExports( '\( e^{i \pi} + 1 = 0 \)' );
-		$this->assertStringStartsWith( '<img src="http://localhost:3000/latex?latex=e%5E%7Bi%20%5Cpi%7D%20%2B%201%20%3D%200&#038;fg=000000', $s );
+		$this->assertStringStartsWith( '<img src="http://localhost:3000/latex?latex=ZV57aSBccGl9ICsgMSA9IDA&fg=000000', $s );
 
 		$s = $this->mathjax->replaceLatexDelimitersOnExports( '\[ e^{i \pi} + 1 = 0 \]' );
-		$this->assertStringStartsWith( '<img src="http://localhost:3000/latex?latex=e%5E%7Bi%20%5Cpi%7D%20%2B%201%20%3D%200&#038;fg=000000', $s );
+		$this->assertStringStartsWith( '<img src="http://localhost:3000/latex?latex=ZV57aSBccGl9ICsgMSA9IDA&fg=000000', $s );
 
 		$this->mathjax->usePbMathJax = false;
 		$s = $this->mathjax->parseLatexMarkup( '\[ e^{i \pi} + 1 = 0 \]' );
@@ -151,7 +151,7 @@ class MathJaxTest extends \WP_UnitTestCase {
 
 		$this->mathjax->usePbMathJax = true;
 		$s = $this->mathjax->parseAsciiMathMarkup( '$asciimath \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
-		$this->assertStringStartsWith( '<img src="http://localhost:3000/asciimath?asciimath=%5Cboldsymbol%7B%5Cfrac%7Bm_%7B%5Ctextbf%7Bdrop%7D%7Dgd%7D%7BV%7D%7D', $s );
+		$this->assertStringStartsWith( '<img src="http://localhost:3000/asciimath?asciimath=XGJvbGRzeW1ib2x7XGZyYWN7bV97XHRleHRiZntkcm9wfX1nZH17Vn19&fg=000000', $s );
 
 		$s = $this->mathjax->parseAsciiMathMarkup( 'asciimath not found$' );
 		$this->assertEquals( 'asciimath not found$', $s );

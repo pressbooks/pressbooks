@@ -40,16 +40,20 @@ class HtmlParser {
 	 *
 	 * @return \DOMDocument
 	 */
-	public function loadHTML( $html, $options = [] ) {
+	public function loadHTML($html, $options = []) {
 		$html = '<div><!-- pb_fixme -->' . $html . '<!-- pb_fixme --></div>';
-		if ( $this->parser instanceof \DOMDocument ) {
-			libxml_use_internal_errors( true );
-			$this->parser->loadHTML( mb_convert_encoding( $html, 'HTML-ENTITIES', 'UTF-8' ), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+		if ($this->parser instanceof \DOMDocument) {
+			libxml_use_internal_errors(true);
+
+			// Modern replacement for mb_convert_encoding
+			$html = htmlspecialchars_decode(htmlentities($html, ENT_QUOTES, 'UTF-8', false));
+
+			$this->parser->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 			$this->errors = libxml_get_errors();
 			libxml_clear_errors();
 			return $this->parser;
 		} else {
-			return $this->parser->loadHTML( $html, $options );
+			return $this->parser->loadHTML($html, $options);
 		}
 	}
 

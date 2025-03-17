@@ -133,7 +133,7 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 	public function test_equationShortcodeHandler() {
 		add_filter( 'pb_mathjax_use', '__return_true' );
 		$content = $this->complex->equationShortCodeHandler( [], 'e^{\i \pi} + 1 = 0', 'equation' );
-		$this->assertEquals( '<p><img src="http://localhost:3000/latex?latex=e%5E%7B%5Ci%20%5Cpi%7D%20%2B%201%20%3D%200&#038;fg=000000" alt="e^{&#92;i &#92;pi} + 1 = 0" title="e^{&#92;i &#92;pi} + 1 = 0" class="latex mathjax" /></p>', trim($content) );
+		$this->assertEquals( '<p><img src="http://localhost:3000/latex?latex=ZV57XGkgXHBpfSArIDEgPSAw&fg=000000&isBase64=1" alt="e^{&#92;i &#92;pi} + 1 = 0" title="e^{&#92;i &#92;pi} + 1 = 0" class="latex mathjax" /></p>', trim($content) );
 	}
 
 	/**
