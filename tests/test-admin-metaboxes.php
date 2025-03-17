@@ -10,6 +10,10 @@ use function Pressbooks\Admin\Metaboxes\save_contributor_meta;
 class Admin_Metaboxes extends \WP_UnitTestCase {
 	use utilsTrait;
 
+	private $book;
+	private $structure;
+	private $metadata;
+
 	public function set_up() {
 		parent::set_up();
 		$this->book = \Pressbooks\Book::getInstance();

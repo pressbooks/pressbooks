@@ -1,15 +1,18 @@
 <?php
 /**
  * @author  Pressbooks <code@pressbooks.com>
- * @license GPLv3 (or any later version))
+ * @license GPLv3 (or any later version)
  */
 
 namespace Pressbooks\Modules\Export\Prince;
 
 use function Pressbooks\Sanitize\normalize_css_urls;
+use function Pressbooks\Utility\get_contents;
+use function Pressbooks\Utility\put_contents;
 use PressbooksMix\Assets;
 use Pressbooks\Container;
 use Pressbooks\Modules\Export\Export;
+use PrinceXMLPhp\PrinceWrapper;
 
 class Pdf extends Export {
 
@@ -84,6 +87,8 @@ class Pdf extends Export {
 	 * Create $this->outputPath
 	 *
 	 * @return bool
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
 	function convert() {
 
@@ -108,12 +113,12 @@ class Pdf extends Export {
 		$timestamp = time();
 		$css = $this->kneadCss();
 		$css_file = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp.css";
-		\Pressbooks\Utility\put_contents( $css_file, $css );
+		put_contents( $css_file, $css );
 
 		// --------------------------------------------------------------------
 		// Save PDF as file in exports folder
 
-		$prince = new \PrinceXMLPhp\PrinceWrapper( PB_PRINCE_COMMAND );
+		$prince = new PrinceWrapper( PB_PRINCE_COMMAND );
 		$prince->setHTML( true );
 		$prince->setCompress( true );
 		$prince->setHttpTimeout( max( ini_get( 'max_execution_time' ), 30 ) );
@@ -144,7 +149,7 @@ class Pdf extends Export {
 		// Prince XML is very flexible. There could be errors but Prince will still render a PDF.
 		// We want to log those errors but we won't alert the user.
 		if ( is_countable( $msg ) && count( $msg ) ) {
-			$this->logError( \Pressbooks\Utility\get_contents( $this->logfile ), [ 'warning' => 1 ] );
+			$this->logError( get_contents( $this->logfile ), [ 'warning' => 1 ] );
 		}
 
 		return $retval;
@@ -158,7 +163,7 @@ class Pdf extends Export {
 	function validate() {
 		// Is this a PDF?
 		if ( ! $this->isPdf( $this->outputPath ) ) {
-			$this->logError( \Pressbooks\Utility\get_contents( $this->logfile ) );
+			$this->logError( get_contents( $this->logfile ) );
 			return false;
 		}
 		return true;
@@ -227,7 +232,7 @@ class Pdf extends Export {
 
 		$styles = Container::get( 'Styles' );
 
-		$scss = \Pressbooks\Utility\get_contents( $this->exportStylePath );
+		$scss = get_contents( $this->exportStylePath );
 
 		$custom_styles = $styles->getPrincePost();
 		if ( $custom_styles && ! empty( $custom_styles->post_content ) ) {
@@ -256,9 +261,7 @@ class Pdf extends Export {
 		$dir = str_replace( Container::get( 'Styles' )->getDir(), '', pathinfo( $this->exportStylePath, PATHINFO_DIRNAME ) );
 		$dir = ltrim( $dir, '/' );
 		$url_path = trailingslashit( get_stylesheet_directory_uri() ) . $dir;
-		$url_path = set_url_scheme( $url_path );
-
-		return $url_path;
+		return set_url_scheme( $url_path );
 	}
 
 	/**
