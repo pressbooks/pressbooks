@@ -384,7 +384,6 @@ STYLES;
 	 *
 	 * Supports for old-style "$latex $" shortcodes.
 	 * - $latex e^{i \pi} + 1 = 0$ -> [latex]e^{i \pi} + 1 = 0[/latex]
-	 * - $$ e^{i \pi} + 1 = 0 $$ -> [latex]e^{i \pi} + 1 = 0[/latex]
 	 *
 	 * @param  string $content
 	 * @return string
@@ -393,7 +392,6 @@ STYLES;
 
 		$patterns = [
 			'%\$latex(?:=\s*|\s+)((?:[^$]+|(?<=(?<!\\\\)\\\\)\$)+)(?<!\\\\)\$%ix',
-			'%\$\$(.*?)\$\$%s',
 		];
 
 		foreach ( $patterns as $pattern ) {
