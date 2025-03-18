@@ -15,8 +15,8 @@ use Pressbooks\Sanitize;
 trait ExportHelpers {
 
 	/**
-	 * @param $post_type_identifier
-	 * @param $id
+	 * @param  $post_type_identifier
+	 * @param  $id
 	 * @return mixed
 	 */
 	public function getPostSubClass( $post_type_identifier, $id ) {
@@ -29,10 +29,11 @@ trait ExportHelpers {
 	/**
 	 * Map Book contents
 	 * This trait should be used in classes that are ExportGenerators (black magic traits stuff)
-	 * @param array $post_data
-	 * @param array $metadata
-	 * @param int $post_number
-	 * @param array $options post_type,needs_sanitization,endnotes,footnotes
+	 *
+	 * @param  array $post_data
+	 * @param  array $metadata
+	 * @param  int   $post_number
+	 * @param  array $options     post_type,needs_sanitization,endnotes,footnotes
 	 * @return array
 	 */
 	public function mapBookDataAndContent( array $post_data, array $metadata, int $post_number, array $options = [] ) {
@@ -63,8 +64,10 @@ trait ExportHelpers {
 			$data['content'] = $this->kneadHtml( $data['content'], $post_type_identifier, $post_number );
 
 			if ( $section_license ) {
-				$data['append_post_content'] .= $this->kneadHtml($this->tidy( $section_license ), $post_type_identifier,
-				$post_number);
+				$data['append_post_content'] .= $this->kneadHtml(
+					$this->tidy( $section_license ), $post_type_identifier,
+					$post_number
+				);
 			}
 		} else {
 			$data['append_post_content'] .= $this->removeAttributionLink( $section_license );
@@ -87,7 +90,7 @@ trait ExportHelpers {
 		}
 
 		if ( ! $is_epub ) { // Print contributors in PDF after the content
-			$data['content'] .= $this->displayAboutTheAuthors ? \Pressbooks\Modules\Export\get_contributors_section( $post_data['ID'] ) : '';
+			$data['content'] .= $this->displayAboutTheAuthors ? get_contributors_section( $post_data['ID'] ) : '';
 		}
 
 		$data['is_new_buckram'] = $this->wrapHeaderElements;
@@ -98,7 +101,7 @@ trait ExportHelpers {
 	}
 
 	/**
-	 * @param  array  $book_contents
+	 * @param  array $book_contents
 	 * @return int
 	 */
 	public function countPartsAndChapters( $book_contents ) {
@@ -114,9 +117,9 @@ trait ExportHelpers {
 	/**
 	 * getPostInformation
 	 *
-	 * @param $post_type
-	 * @param $post
-	 * @param  null  $alias
+	 * @param  $post_type
+	 * @param  $post
+	 * @param  null $alias
 	 * @return array
 	 */
 	public function getPostInformation( $post_type, $post, $alias = null ) {
@@ -132,8 +135,8 @@ trait ExportHelpers {
 	}
 
 	/**
-	 * @param $post_type
-	 * @param $post
+	 * @param  $post_type
+	 * @param  $post
 	 * @return array
 	 */
 	public function getExtendedPostInformation( $post_type, $post ) {
@@ -146,10 +149,10 @@ trait ExportHelpers {
 	}
 
 	/**
-	 * @param string $post_type
-	 * @param array $data
-	 * @param bool $is_slug
-	 * @param bool $exclude_ampersand
+	 * @param  string $post_type
+	 * @param  array  $data
+	 * @param  bool   $is_slug
+	 * @param  bool   $exclude_ampersand
 	 * @return string
 	 */
 	public function renderTocItem( string $post_type, array $data, bool $is_slug = true, bool $exclude_ampersand = false ) {
@@ -170,15 +173,17 @@ trait ExportHelpers {
 			}
 		}
 
-		return $this->blade->render('export/bullet-toc-item', array_merge(
-			$data,
-			[
-				'title' => Sanitize\decode( $data['title'], $exclude_ampersand ),
-				'subclass' => trim( $data['subclass'] ) !== '' ? ' ' . $data['subclass'] : '', //css class space between toc item and subclasses
-				'post_type' => $post_type,
-				'href' => $is_slug ? '#' . $data['href'] : $data['href'],
-				'subsections' => $subsections,
-			]
-		));
+		return $this->blade->render(
+			'export/bullet-toc-item', array_merge(
+				$data,
+				[
+					'title' => Sanitize\decode( $data['title'], $exclude_ampersand ),
+					'subclass' => trim( $data['subclass'] ) !== '' ? ' ' . $data['subclass'] : '', //css class space between toc item and subclasses
+					'post_type' => $post_type,
+					'href' => $is_slug ? '#' . $data['href'] : $data['href'],
+					'subsections' => $subsections,
+				]
+			)
+		);
 	}
 }

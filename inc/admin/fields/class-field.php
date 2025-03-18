@@ -54,13 +54,15 @@ abstract class Field {
 	public function getValue() {
 		global $post;
 
+		if ( ! $post ) {
+			return null;
+		}
+
 		return get_post_meta( $post->ID, $this->name, ! $this->multiple );
 	}
 
 	public function sanitize( mixed $value ): mixed {
-		return $this->allowHtml ?
-			sanitize_string( $value, $this->allowHtml ) :
-			sanitize_text_field( $value );
+		return $this->allowHtml ? sanitize_string( $value, $this->allowHtml ) : sanitize_text_field( $value );
 	}
 
 	public function save( int $post_id, mixed $value ): void {

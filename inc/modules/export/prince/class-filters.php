@@ -16,7 +16,7 @@ class Filters {
 	/**
 	 * @return Filters
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -70,10 +70,10 @@ class Filters {
 	 */
 	public function addToFormats( $formats ) {
 		$formats['standard'] =
-			[
-				'docraptor_print' => __( 'PDF (for print)', 'pressbooks' ),
-				'docraptor' => __( 'PDF (for digital distribution)', 'pressbooks' ),
-			] + $formats['standard'];
+		[
+			'docraptor_print' => __( 'PDF (for print)', 'pressbooks' ),
+			'docraptor' => __( 'PDF (for digital distribution)', 'pressbooks' ),
+		] + $formats['standard'];
 
 		unset( $formats['standard']['pdf'] );
 		unset( $formats['standard']['print_pdf'] );

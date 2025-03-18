@@ -1,5 +1,6 @@
 <?php
 
+use function Pressbooks\Utility\do_shortcode_by_tags;
 use function Pressbooks\Utility\objects_to_csv;
 
 class UtilityTest extends \WP_UnitTestCase {
@@ -749,14 +750,14 @@ class UtilityTest extends \WP_UnitTestCase {
 		add_filter( 'pb_mathjax_use', '__return_true' );
 		$content = '[latex]e^{\i \pi} + 1 = 0[/latex][embed]https://image.png[/embed]';
 
-		$expected = '<img src="http://localhost:3000/latex?latex=e%5E%7B%5Ci%20%5Cpi%7D%20%2B%201%20%3D%200&#038;fg=000000&#038;font=TeX" alt="e^{&#92;i &#92;pi} + 1 = 0" title="e^{&#92;i &#92;pi} + 1 = 0" class="latex mathjax" />[embed]https://image.png[/embed]';
-		$this->assertEquals( $expected, \Pressbooks\Utility\do_shortcode_by_tags( $content, [ 'latex' ] ) );
+		$expected = '<img src="http://localhost:3000/latex?latex=ZV57XGkgXHBpfSArIDEgPSAw&fg=000000&isBase64=1" alt="e^{&#92;i &#92;pi} + 1 = 0" title="e^{&#92;i &#92;pi} + 1 = 0" class="latex mathjax" />[embed]https://image.png[/embed]';
+		$this->assertEquals( $expected, do_shortcode_by_tags( $content, [ 'latex' ] ) );
 
 		$expected = '[latex]e^{\i \pi} + 1 = 0[/latex]';
-		$this->assertEquals( $expected, \Pressbooks\Utility\do_shortcode_by_tags( $content, [ 'embed' ] ) );
+		$this->assertEquals( $expected, do_shortcode_by_tags( $content, [ 'embed' ] ) );
 
-		$expected = '<img src="http://localhost:3000/latex?latex=e%5E%7B%5Ci%20%5Cpi%7D%20%2B%201%20%3D%200&#038;fg=000000&#038;font=TeX" alt="e^{&#92;i &#92;pi} + 1 = 0" title="e^{&#92;i &#92;pi} + 1 = 0" class="latex mathjax" />';
-		$this->assertEquals( $expected, \Pressbooks\Utility\do_shortcode_by_tags( $content, [ 'latex', 'embed' ] ) );
+		$expected = '<img src="http://localhost:3000/latex?latex=ZV57XGkgXHBpfSArIDEgPSAw&fg=000000&isBase64=1" alt="e^{&#92;i &#92;pi} + 1 = 0" title="e^{&#92;i &#92;pi} + 1 = 0" class="latex mathjax" />';
+		$this->assertEquals( $expected, do_shortcode_by_tags( $content, [ 'latex', 'embed' ] ) );
 	}
 
 	public function test_https_swap() {
@@ -790,7 +791,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_objects_to_csv() {
-		
+
 		$data = [
 			(object) [
 				'title' => 'foo',

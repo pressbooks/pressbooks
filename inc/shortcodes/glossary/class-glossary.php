@@ -1,12 +1,13 @@
 <?php
 /**
- * @author   Brad Payne, Alex Paredes
- * @license  GPLv3 (or any later version)
+ * @author  Brad Payne, Alex Paredes
+ * @license GPLv3 (or any later version)
  */
 
 namespace Pressbooks\Shortcodes\Glossary;
 
 use PressbooksMix\Assets;
+use Pressbooks\MathJax;
 use Pressbooks\PostType\BackMatter;
 use Pressbooks\Utility\AutoDisplayable;
 use WP_Post;
@@ -44,7 +45,7 @@ class Glossary implements BackMatter {
 	/**
 	 * @param Glossary $obj
 	 */
-	static public function hooks( Glossary $obj ): void {
+	public static function hooks( Glossary $obj ): void {
 		add_shortcode( self::SHORTCODE, [ $obj, 'webShortcodeHandler' ] );
 		add_action(
 			'pb_pre_export', function () use ( $obj ) {
@@ -52,6 +53,10 @@ class Glossary implements BackMatter {
 				remove_shortcode( self::SHORTCODE );
 				add_shortcode( self::SHORTCODE, [ $obj, 'exportShortcodeHandler' ] );
 				remove_filter( 'the_content', [ $obj, 'tooltipContent' ], 13 ); // Only for the webbook!
+				// Add MathJax filter to replace new LaTeX delimiters on export
+				$mathJax = new MathJax();
+				$mathJax->usePbMathJax = true;
+				add_filter( 'the_content', [ $mathJax, 'replaceLatexDelimitersOnExports' ], 14 );
 			}
 		);
 		add_filter(
@@ -89,8 +94,7 @@ class Glossary implements BackMatter {
 	 * @param bool $reset (optional, default is false)
 	 *
 	 * @return array
-	 *@since 5.5.0
-	 *
+	 * @since  5.5.0
 	 */
 	public function getGlossaryTerms( bool $reset = false ): ?array {
 		// Cheap cache
@@ -99,13 +103,15 @@ class Glossary implements BackMatter {
 			$glossary_terms = [];
 			$args = [
 				'post_type' => 'glossary',
-				'posts_per_page' => -1, // @codingStandardsIgnoreLine
+          'posts_per_page' => -1, // @codingStandardsIgnoreLine
 				'post_status' => [ 'private', 'publish' ],
 				'order' => 'ASC',
 				'orderby' => 'title',
 			];
 			$posts = get_posts( $args );
-			/** @var \WP_Post $post */
+			/**
+			 * @var WP_Post $post
+			*/
 			foreach ( $posts as $post ) {
 				$type = '';
 				$terms = get_the_terms( $post->ID, 'glossary-type' );
@@ -182,7 +188,7 @@ class Glossary implements BackMatter {
 					// Type was not found. Skip this glossary term.
 					continue;
 				}
-				$gContent = apply_shortcodes( $glossary_term['content'] );
+				$g_content = apply_shortcodes( $glossary_term['content'] );
 
 				$glossary .= sprintf(
 					'<dt data-type="glossterm"><dfn id="%1$s">%2$s</dfn></dt><dd data-type="glossdef">%3$s</dd>',
@@ -191,7 +197,7 @@ class Glossary implements BackMatter {
 						\Pressbooks\Sanitize\sanitize_xml_id( \Pressbooks\Utility\str_lowercase_dash( $glossary_term_id ) )
 					),
 					$glossary_term_id,
-					wpautop( $gContent )
+					wpautop( $g_content )
 				);
 			}
 		}
@@ -205,14 +211,13 @@ class Glossary implements BackMatter {
 	/**
 	 * Returns the tooltip markup and content
 	 *
-	 * @param int $glossary_term_id
+	 * @param int    $glossary_term_id
 	 * @param string $content
 	 *
 	 * @return string
-	 *@since 5.5.0
-	 *
+	 * @since  5.5.0
 	 */
-	public function glossaryTooltip( int $glossary_term_id, string $content ): string {
+	public function glossaryTooltip( int|string $glossary_term_id, string $content ): string {
 
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 
@@ -233,12 +238,11 @@ class Glossary implements BackMatter {
 	 * Gets the tooltip if the param contains the post id,
 	 * or a list of terms if it's just the short-code
 	 *
-	 * @param array $atts
+	 * @param array  $atts
 	 * @param string $content
 	 *
 	 * @return string
-	 *@since 5.5.0
-	 *
+	 * @since  5.5.0
 	 */
 	public function webShortcodeHandler( array $atts, string $content ): string {
 
@@ -303,7 +307,7 @@ class Glossary implements BackMatter {
 	/**
 	 * Export shortcode
 	 *
-	 * @param array $atts
+	 * @param array  $atts
 	 * @param string $content
 	 *
 	 * @return string
@@ -347,7 +351,7 @@ class Glossary implements BackMatter {
 	public function overrideDisplay( $content ): string {
 
 		return $this->display(
-			$content, function() {
+			$content, function () {
 				return $this->glossaryTerms();
 			}
 		);
@@ -357,12 +361,18 @@ class Glossary implements BackMatter {
 	public static function isGlossaryPost( ?WP_Post $post ): bool {
 		$post = $post ?? get_post();
 
-		$is_glossary_type = ! empty( array_filter(
-			wp_get_post_terms( $post->ID, 'back-matter-type' ),
-			function( $term ) {
-				return $term->slug === 'glossary';
-			}
-		) );
+		if ( ! $post ) {
+			return false;
+		}
+
+		$is_glossary_type = ! empty(
+			array_filter(
+				wp_get_post_terms( $post->ID, 'back-matter-type' ),
+				function ( $term ) {
+						return $term->slug === 'glossary';
+				}
+			)
+		);
 
 		return $post->post_type === 'back-matter' && $is_glossary_type;
 	}
