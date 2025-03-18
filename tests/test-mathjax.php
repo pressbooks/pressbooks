@@ -135,7 +135,7 @@ class MathJaxTest extends \WP_UnitTestCase {
 		$this->assertStringStartsWith( '<img src="http://localhost:3000/latex?latex=ZV57aSBccGl9ICsgMSA9IDA&fg=000000', $s );
 
 		$s = $this->mathjax->replaceLatexDelimitersOnExports( '\[ e^{i \pi} + 1 = 0 \]' );
-		$this->assertStringStartsWith( '<img src="http://localhost:3000/latex?latex=ZV57aSBccGl9ICsgMSA9IDA&fg=000000', $s );
+		$this->assertStringStartsWith( '<div class="display-math"><img src="http://localhost:3000/latex?latex=ZV57aSBccGl9ICsgMSA9IDA&fg=000000', $s );
 
 		$this->mathjax->usePbMathJax = false;
 		$s = $this->mathjax->parseLatexMarkup( '\[ e^{i \pi} + 1 = 0 \]' );
