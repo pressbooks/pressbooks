@@ -33,7 +33,7 @@ class TaxonomySelect extends Field {
 		}
 
 		foreach ( $terms as $term ) {
-			$options[ $term->slug ] = $term->name;
+			$options[ urldecode( $term->slug ) ] = $term->name;
 		}
 
 		return $options;
