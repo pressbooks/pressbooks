@@ -188,7 +188,15 @@ $pb-icon-lg-size: 36px;
         padding: 0;
 
         span:not(.ab-icon) {
-          display: none;
+          border: 0;
+          clip-path: inset(50%);
+          height: 1px;
+          margin: -1px;
+          overflow: hidden;
+          padding: 0;
+          position: absolute;
+          width: 1px;
+          word-wrap: normal !important;
         }
       }
     }
@@ -198,7 +206,15 @@ $pb-icon-lg-size: 36px;
       width: 32px !important;
 
       span {
-        display: none;
+          border: 0;
+          clip-path: inset(50%);
+          height: 1px;
+          margin: -1px;
+          overflow: hidden;
+          padding: 0;
+          position: absolute;
+          width: 1px;
+          word-wrap: normal !important;
       }
     }
 
