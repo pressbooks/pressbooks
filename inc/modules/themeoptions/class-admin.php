@@ -149,10 +149,14 @@ class Admin {
 			<h1><?php echo wp_get_theme(); ?> <?php _e( 'Theme Options', 'pressbooks' ); ?></h1>
 			<?php settings_errors(); ?>
 			<?php $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'global'; ?>
-			<nav class="nav-tab-wrapper" aria-label="<?php esc_attr_e( 'Theme Options Tabs', 'pressbooks' ); ?>">
+			<nav class="nav-tab-wrapper" aria-label="<?php esc_attr_e( 'Theme Options', 'pressbooks' ); ?>">
 				<?php foreach ( $this->getTabs() as $slug => $subclass ) { ?>
 					<a href="<?php echo admin_url( '/themes.php' ); ?>?page=pressbooks_theme_options&tab=<?php echo $slug; ?>"
-						class="nav-tab <?php echo $active_tab === $slug ? 'nav-tab-active' : ''; ?>"><?php echo $subclass::getTitle(); ?></a>
+					   class="nav-tab <?php echo ( $active_tab === $slug ) ? 'nav-tab-active' : ''; ?>"
+						<?php echo ( $active_tab === $slug ) ? 'aria-current="page"' : ''; ?>
+					>
+						<?php echo $subclass::getTitle(); ?>
+					</a>
 				<?php } ?>
 			</nav>
 			<form method="post" action="options.php">
