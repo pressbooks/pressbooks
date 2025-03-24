@@ -1,5 +1,42 @@
 # Changelog
 
+## [6.23.0](https://github.com/pressbooks/pressbooks/compare/6.22.4...6.23.0) (2025-03-24)
+
+
+### Features
+
+* Add PDF preview option to export page (and improve PDF preview on diagnostics page) ([#3939](https://github.com/pressbooks/pressbooks/issues/3939)) ([0344735](https://github.com/pressbooks/pressbooks/commit/034473547467b8e7a94f298e822d7c983726a11c))
+* upgrade pb-mathjax, support for new inline delimiters ([#3925](https://github.com/pressbooks/pressbooks/issues/3925)) ([4f80bda](https://github.com/pressbooks/pressbooks/commit/4f80bdae222277ac278c51f97dcaf5dd2d02a3e9))
+
+
+### Bug Fixes
+
+* add aria-current to theme options page ([#3963](https://github.com/pressbooks/pressbooks/issues/3963)) ([1aba988](https://github.com/pressbooks/pressbooks/commit/1aba9888420cfcb4a0ecf4fba5a20ba17de432a4))
+* add role presentation to license renderization image ([#3944](https://github.com/pressbooks/pressbooks/issues/3944)) ([32592ad](https://github.com/pressbooks/pressbooks/commit/32592adb1140603271337bc026602cad00da2bd2))
+* contributor image removal ([#3958](https://github.com/pressbooks/pressbooks/issues/3958)) ([14b1bd7](https://github.com/pressbooks/pressbooks/commit/14b1bd78b043f7578ae913e9076c4fe10fcfe8bf))
+* **deps:** update @pressbooks/reorderable-multiselect ([#3962](https://github.com/pressbooks/pressbooks/issues/3962)) ([040c080](https://github.com/pressbooks/pressbooks/commit/040c08095ea1121593cf6c7f181e8fa55f5ebab8))
+* display math wrapper ([#3960](https://github.com/pressbooks/pressbooks/issues/3960)) ([8a1ef12](https://github.com/pressbooks/pressbooks/commit/8a1ef126b642ca7077777a43ba84377a447236fa))
+* ensure that top nav items are accessible in mobile ([#3965](https://github.com/pressbooks/pressbooks/issues/3965)) ([795fa61](https://github.com/pressbooks/pressbooks/commit/795fa6107b81d164e633b1a12bebf9a310462693))
+* properly label checkboxes on export page ([#3966](https://github.com/pressbooks/pressbooks/issues/3966)) ([571c82d](https://github.com/pressbooks/pressbooks/commit/571c82d92f00dd3f73aa1a4178a63d49c0854b79))
+* remove link to Pressbooks.com from admin top nav-bar ([#3938](https://github.com/pressbooks/pressbooks/issues/3938)) ([41a2c30](https://github.com/pressbooks/pressbooks/commit/41a2c3097b766fcb609cc71fcf71cb03fa144182))
+* resolve bug with taxonomy terms that use non-latin characters ([#3961](https://github.com/pressbooks/pressbooks/issues/3961)) ([d74b16d](https://github.com/pressbooks/pressbooks/commit/d74b16d446b654d1b0abf68059685469c6cd20b5))
+
+
+### Chores
+
+* add institution ([#3956](https://github.com/pressbooks/pressbooks/issues/3956)) ([01032ec](https://github.com/pressbooks/pressbooks/commit/01032ec7472f82b7e0bbc2b5609681352aaedc6e))
+* bump @babel/runtime from 7.26.0 to 7.26.10 in the npm_and_yarn group ([#3957](https://github.com/pressbooks/pressbooks/issues/3957)) ([1c22eab](https://github.com/pressbooks/pressbooks/commit/1c22eaba00d223e8926dcb9ef2fdf900f49d56eb))
+* bump @babel/runtime in the npm_and_yarn group ([1c22eab](https://github.com/pressbooks/pressbooks/commit/1c22eaba00d223e8926dcb9ef2fdf900f49d56eb))
+* bump alpinejs from 3.14.8 to 3.14.9 in the npm-dependencies group ([#3952](https://github.com/pressbooks/pressbooks/issues/3952)) ([9aee8b2](https://github.com/pressbooks/pressbooks/commit/9aee8b227705153b71d17fe319f6a8323b305643))
+* bump aws/aws-sdk-php from 3.340.4 to 3.342.2 in the composer-dependencies group ([#3941](https://github.com/pressbooks/pressbooks/issues/3941)) ([4438d7a](https://github.com/pressbooks/pressbooks/commit/4438d7a6f225ef8928fbef9570d7d62d6e948e11))
+* bump aws/aws-sdk-php from 3.342.2 to 3.342.6 in the composer-dependencies group ([#3953](https://github.com/pressbooks/pressbooks/issues/3953)) ([22f9441](https://github.com/pressbooks/pressbooks/commit/22f9441d1d7837a822da5b0c2fb43a6fedfdd8d6))
+* bump aws/aws-sdk-php from 3.342.6 to 3.342.11 in the composer-dependencies group ([#3967](https://github.com/pressbooks/pressbooks/issues/3967)) ([386586e](https://github.com/pressbooks/pressbooks/commit/386586ef151f27f59b67dcd1f44af15e13b6e1ff))
+* bump aws/aws-sdk-php in the composer-dependencies group ([386586e](https://github.com/pressbooks/pressbooks/commit/386586ef151f27f59b67dcd1f44af15e13b6e1ff))
+* bump aws/aws-sdk-php in the composer-dependencies group ([22f9441](https://github.com/pressbooks/pressbooks/commit/22f9441d1d7837a822da5b0c2fb43a6fedfdd8d6))
+* bump aws/aws-sdk-php in the composer-dependencies group ([4438d7a](https://github.com/pressbooks/pressbooks/commit/4438d7a6f225ef8928fbef9570d7d62d6e948e11))
+* bump instantsearch.js from 4.77.3 to 4.78.0 in the npm-dependencies group ([#3940](https://github.com/pressbooks/pressbooks/issues/3940)) ([c241080](https://github.com/pressbooks/pressbooks/commit/c241080e5547d7ff90ec88e8b26402705ba0ba45))
+* bump instantsearch.js in the npm-dependencies group ([c241080](https://github.com/pressbooks/pressbooks/commit/c241080e5547d7ff90ec88e8b26402705ba0ba45))
+
 ## [6.22.4](https://github.com/pressbooks/pressbooks/compare/6.22.3...6.22.4) (2025-03-04)
 
 
