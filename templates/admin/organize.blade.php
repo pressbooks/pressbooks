@@ -133,7 +133,7 @@
                 <tbody id="the-list-{{ $slug }}">
                     @foreach ($group['items'] as $content)
                         <tr id="{{ $slug }}_{{ $content['ID'] }}">
-                            <td class="title column-title has-row-actions">
+                            <th class="title column-title has-row-actions">
                                 <div class="row-title">
                                     @if (current_user_can('edit_post', $content['ID']))
                                         <a href="{!! admin_url('post.php?post=' . $content['ID'] . '&action=edit') !!}">
@@ -192,7 +192,7 @@
                                         @endif
                                     </div>
                                 </div>
-                            </td>
+                            </th>
                             <td class="author column-author">
                                 <span class="author-label">{{ __('Authors', 'pressbooks') }}:</span>
                                 {!! $contributors->get($content['ID'], 'pb_authors') ?: '—' !!}
