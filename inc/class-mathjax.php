@@ -120,6 +120,8 @@ class MathJax {
 		);
 		add_action( 'wp_enqueue_scripts', [ $obj, 'addScripts' ] );
 		add_action( 'wp_head', [ $obj, 'addHeaders' ] );
+		add_filter('pb_pdf_css_override', [ $obj, 'displayMathHandler' ] );
+		add_filter('pb_epub_css_override', [ $obj, 'displayMathHandler' ] );
 		add_action( 'pb_pre_export', [ $obj, 'beforeExport' ] );
 	}
 
@@ -382,7 +384,6 @@ STYLES;
 	 *
 	 * Supports for old-style "$latex $" shortcodes.
 	 * - $latex e^{i \pi} + 1 = 0$ -> [latex]e^{i \pi} + 1 = 0[/latex]
-	 * - $$ e^{i \pi} + 1 = 0 $$ -> [latex]e^{i \pi} + 1 = 0[/latex]
 	 *
 	 * @param  string $content
 	 * @return string
@@ -391,7 +392,6 @@ STYLES;
 
 		$patterns = [
 			'%\$latex(?:=\s*|\s+)((?:[^$]+|(?<=(?<!\\\\)\\\\)\$)+)(?<!\\\\)\$%ix',
-			'%\$\$(.*?)\$\$%s',
 		];
 
 		foreach ( $patterns as $pattern ) {
@@ -435,9 +435,14 @@ STYLES;
 			// Match $$ ... $$ LaTeX equations
 			'%\$\$(.*?)\$\$%s', // $$ ... $$
 		];
-		foreach ( $patterns as $pattern ) {
-			$content = preg_replace_callback($pattern, function ( $matches ) {
-				return $this->renderFormula( $matches[1], 'latex' );
+		foreach ( $patterns as $index => $pattern ) {
+			$content = preg_replace_callback($pattern, function ( $matches ) use ($index) {
+				$rendered = $this->renderFormula( $matches[1], 'latex' );
+				// Wrap in div if it's display math (\[...\]) or $$...$$
+				if ($index === 0 || $index === 2) {
+					return '<div class="display-math">' . $rendered . '</div>';
+				}
+				return $rendered;
 			}, $content);
 		}
 		return $content;
@@ -826,6 +831,11 @@ STYLES;
 
 		return null === $filtered_content ? $content : $filtered_content;
 
+	}
+
+	public function displayMathHandler($scss) {
+		$scss.= ".display-math { display: block; text-align:center; padding-top: 20px; padding-bottom:20px; } \n";
+		return $scss;
 	}
 
 }
