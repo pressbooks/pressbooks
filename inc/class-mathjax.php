@@ -229,15 +229,32 @@ class MathJax {
 			return true;
 		}
 
+		$id = $post->ID;
+		if ( isset( $this->sectionHasMath[ $id ] ) ) {
+			return $this->sectionHasMath[ $id ];
+		}
+
 		$content = $post->post_content;
 
 		// Check for shortcodes (better than searching manually)
 		if ( has_shortcode( $content, 'latex' ) || has_shortcode( $content, 'asciimath' ) ) {
+			$this->sectionHasMath[ $id ] = true;
 			return true;
 		}
 
-		// Use a single regex to check for LaTeX delimiters
-		return (bool) preg_match( '/(?:\\\\\[|\\\\\]|\\\\\(|\\\\\)|\$\$)/', $content );
+		// Check for specific math tags
+		$math_tags = [ '[table id=', '[/latex]', '$latex', '[/asciimath]', '$asciimath', '</math>' ];
+		foreach ( $math_tags as $math_tag ) {
+			if ( str_contains( $content, $math_tag ) ) {
+				$this->sectionHasMath[ $id ] = true;
+				return true;
+			}
+		}
+
+		// Use regex to check for LaTeX delimiters
+		$has_math = (bool) preg_match( '/(?:\\\\\[|\\\\\]|\\\\\(|\\\\\)|\$\$|\$latex\s+[^$]+\$|\$\s+[^$]+\s+\$)/', $content );
+		$this->sectionHasMath[ $id ] = $has_math;
+		return $has_math;
 	}
 
 	/**
