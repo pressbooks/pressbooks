@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.23.1](https://github.com/pressbooks/pressbooks/compare/6.23.0...6.23.1) (2025-03-26)
+
+
+### Bug Fixes
+
+* add `th` to row headers in the organize page for better a11y ([#3968](https://github.com/pressbooks/pressbooks/issues/3968)) ([754e6f7](https://github.com/pressbooks/pressbooks/commit/754e6f7bb25d89d9dbe4493f49e6d219255be8c8))
+* recognize all supported math delimiters in web book interface ([#3969](https://github.com/pressbooks/pressbooks/issues/3969)) ([89c4869](https://github.com/pressbooks/pressbooks/commit/89c4869be6580b190fdaa2a1356c548b25f5f54f))
+
 ## [6.23.0](https://github.com/pressbooks/pressbooks/compare/6.22.4...6.23.0) (2025-03-24)
 
 
