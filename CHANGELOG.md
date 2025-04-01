@@ -1,5 +1,18 @@
 # Changelog
 
+## [6.23.2](https://github.com/pressbooks/pressbooks/compare/6.23.1...6.23.2) (2025-04-01)
+
+
+### Bug Fixes
+
+* conditionally require physics ([#3973](https://github.com/pressbooks/pressbooks/issues/3973)) ([b9e77a2](https://github.com/pressbooks/pressbooks/commit/b9e77a218c605a865c6fb372bfc1ee10248ea342))
+
+
+### Chores
+
+* bump instantsearch.js from 4.78.0 to 4.78.1 in the npm-dependencies group ([#3971](https://github.com/pressbooks/pressbooks/issues/3971)) ([8dffa1b](https://github.com/pressbooks/pressbooks/commit/8dffa1bcfe5639541777ea41f997300335a048a8))
+* bump instantsearch.js in the npm-dependencies group ([8dffa1b](https://github.com/pressbooks/pressbooks/commit/8dffa1bcfe5639541777ea41f997300335a048a8))
+
 ## [6.23.1](https://github.com/pressbooks/pressbooks/compare/6.23.0...6.23.1) (2025-03-26)
 
 
