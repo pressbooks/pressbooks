@@ -321,7 +321,6 @@ window.MathJax = {
                 'textmacros', // Text formatting macros
                 'newcommand', // Define custom LaTeX commands useful for macros
                 'noerrors',   // Suppresses errors
-                'physics',    // Physics notation
                 'unicode'     // Unicode math symbols
             ]
         },
