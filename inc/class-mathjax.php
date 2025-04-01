@@ -321,7 +321,6 @@ window.MathJax = {
                 'textmacros', // Text formatting macros
                 'newcommand', // Define custom LaTeX commands useful for macros
                 'noerrors',   // Suppresses errors
-                'physics',    // Physics notation
                 'unicode'     // Unicode math symbols
             ]
         },
@@ -382,6 +381,8 @@ STYLES;
 
 			// Base64 encode parameter for better PB MathJax parsing
 			$url .= '&isBase64=1';
+
+			error_log( 'MathJax URL: ' . $url );
 
 			$alt = str_replace( '\\', '&#92;', esc_attr( $formula ) );
 			return '<img src="' . $url . '" alt="' . $alt . '" title="' . $alt . '" class="' . $type . ' mathjax" />';
