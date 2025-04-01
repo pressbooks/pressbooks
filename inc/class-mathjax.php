@@ -382,8 +382,6 @@ STYLES;
 			// Base64 encode parameter for better PB MathJax parsing
 			$url .= '&isBase64=1';
 
-			error_log( 'MathJax URL: ' . $url );
-
 			$alt = str_replace( '\\', '&#92;', esc_attr( $formula ) );
 			return '<img src="' . $url . '" alt="' . $alt . '" title="' . $alt . '" class="' . $type . ' mathjax" />';
 		} else {
