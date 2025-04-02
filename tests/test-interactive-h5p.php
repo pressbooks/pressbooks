@@ -1,8 +1,11 @@
 <?php
 
+use Pressbooks\Container;
+use Pressbooks\Interactive\H5P;
+
 class Interactive_H5PTest extends \WP_UnitTestCase {
 	/**
-	 * @var \Pressbooks\Interactive\H5P
+	 * @var H5P
 	 * @group interactivecontent
 	 */
 	protected $h5p;
@@ -12,8 +15,8 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 	 */
 	public function set_up() {
 		parent::set_up();
-		$blade = \Pressbooks\Container::get( 'Blade' );
-		$this->h5p = new \Pressbooks\Interactive\H5P( $blade );
+		$blade = Container::get( 'Blade' );
+		$this->h5p = new H5P( $blade );
 	}
 
 	/**
@@ -86,4 +89,19 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 
 		$this->assertEquals( $expected, $result );
 	}
+
+	/**
+	 * @group interactivecontent
+	 */
+	public function test_text_addon_matches() {
+		$params = [ 'text' => 'This is a test content' ];
+		$pattern = '/test/';
+		$result = $this->h5p->textAddonMatches( $params, $pattern );
+		$this->assertTrue( $result );
+
+		$params = [ 'text' => 'No match here' ];
+		$result = $this->h5p->textAddonMatches( $params, $pattern );
+		$this->assertFalse( $result );
+	}
+
 }

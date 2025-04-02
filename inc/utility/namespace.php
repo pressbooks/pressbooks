@@ -1635,10 +1635,10 @@ function objects_to_csv( array $array ): string {
  * Convert CSS value to inches.
  *
  * @param string $value Value to convert to inches. Needs to be a string with an absolute CSS unit of measurement.
- *
- * @return float Converted value in inches or false if the value is invalid.
+ * @param int $dpi
+ * @return float|bool Converted value in inches or false if the value is invalid.
  */
-function css_to_inches( $value, $dpi = 96 ) : float|bool {
+function length_to_inches( $value, $dpi = 96 ) : float|bool {
 	$value = trim( $value );
 
 	preg_match( '/^([-+]?[0-9]*\.?[0-9]+)([a-zA-Z%]+)$/', $value, $matches );

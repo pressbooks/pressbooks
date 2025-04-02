@@ -2,6 +2,7 @@
 
 namespace Pressbooks\Interactive;
 
+use function Pressbooks\Utility\length_to_inches;
 use function \Pressbooks\Utility\debug_error_log;
 use H5PExtractor\H5PExtractor;
 
@@ -132,14 +133,14 @@ class H5P {
 
 	/**
 	 * Determine if params contain any match.
-	 * Private function taken from H5P core, required to create H5P export.
+	 * Function taken from H5P core, required to create H5P export.
 	 *
 	 * @param mixed $params The parameters to search.
 	 * @param string $pattern The pattern to match.
 	 * @param bool $found (optional) Whether a match has been found.
 	 * @return bool Whether a match has been found.
 	 */
-	private function textAddonMatches( $params, $pattern, $found = false ) {
+	public function textAddonMatches( $params, $pattern, $found = false ) {
 		$type = gettype( $params );
 		if ( $type === 'string' ) {
 			if ( preg_match( $pattern, $params ) === 1 ) {
@@ -159,7 +160,7 @@ class H5P {
 
 	/**
 	 * Generate content slug.
-	   * Private function taken from H5P core, required to create H5P export.
+	 * Private function taken from H5P core, required to create H5P export.
 	 *
 	 * @param array $content Object with content data.
 	 * @return string Unique content slug.
@@ -371,9 +372,9 @@ class H5P {
 
 		// Calculate render width in pixels
 		$pdf_options = get_option( 'pressbooks_theme_options_pdf' );
-		$page_width = \Pressbooks\Utility\css_to_inches( $pdf_options['pdf_page_width'], $this->dpi ) -
-			\Pressbooks\Utility\css_to_inches( $pdf_options['pdf_page_margin_inside'], $this->dpi ) -
-			\Pressbooks\Utility\css_to_inches( $pdf_options['pdf_page_margin_outside'], $this->dpi );
+		$page_width = length_to_inches( $pdf_options['pdf_page_width'], $this->dpi ) -
+			length_to_inches( $pdf_options['pdf_page_margin_inside'], $this->dpi ) -
+			length_to_inches( $pdf_options['pdf_page_margin_outside'], $this->dpi );
 		$render_width = $page_width * $this->dpi;
 
 		// Guards against CSS spill-over from Pressbooks. !important is necessary here, unfortunately.
