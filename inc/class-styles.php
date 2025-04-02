@@ -638,7 +638,7 @@ class Styles {
 	}
 
 	public function updatePdfStyleSheet( string|null $stylesheet = null ): void {
-		$css = $this->getCssFile( $stylesheet, princePost: true );
+		$css = $this->getCssFile( $stylesheet, prince_post: true );
 
 		if ( ! $css ) {
 			return;
