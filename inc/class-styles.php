@@ -594,20 +594,20 @@ class Styles {
 		return $css;
 	}
 
-	private function getCssFile( string|null $stylesheet, bool $princePost = false ): string {
+	private function getCssFile( string|null $stylesheet, bool $prince_post = false ): string {
 		$theme = CustomCss::isCustomCss() ? wp_get_theme( 'pressbooks-book' ) : wp_get_theme( $stylesheet );
 
 		// Populate $url-base variable so that links to images and other assets remain intact
 		if ( $this->isCurrentThemeCompatible( 1 ) ) {
 			$scss = get_contents( realpath( $this->getDir( $theme ) . '/style.scss' ) );
 		} elseif ( $this->isCurrentThemeCompatible( 2 ) || CustomCss::isCustomCss() ) {
-			$style_path = $princePost ? '/assets/styles/prince/style.scss' : '/assets/styles/web/style.scss';
+			$style_path = $prince_post ? '/assets/styles/prince/style.scss' : '/assets/styles/web/style.scss';
 			$scss = get_contents( realpath( $this->getDir( $theme ) . $style_path ) );
 		} else {
 			return '';
 		}
 
-		$custom_styles = $princePost ? $this->getPrincePost() : $this->getWebPost();
+		$custom_styles = $prince_post ? $this->getPrincePost() : $this->getWebPost();
 		if ( $custom_styles && ! empty( $custom_styles->post_content ) ) {
 			// append the user's custom styles to the theme stylesheet prior to compilation
 			$scss .= "\n" . $custom_styles->post_content;
@@ -615,7 +615,7 @@ class Styles {
 
 		$overrides = [ '$url-base: "' . $theme->get_stylesheet_directory_uri() . '";' ];
 
-		$css = $this->customize( $princePost ? 'prince' : 'web', $scss, $overrides );
+		$css = $this->customize( $prince_post ? 'prince' : 'web', $scss, $overrides );
 
 		return normalize_css_urls( $css );
 	}
