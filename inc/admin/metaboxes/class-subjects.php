@@ -40,7 +40,7 @@ class Subjects extends Metabox {
 	public function getSubjects(): array {
 		$data = [];
 
-		foreach ( get_thema_subjects() as $subject_group ) {
+		foreach ( get_thema_subjects( true ) as $subject_group ) {
 			$group = $subject_group['label'];
 			$children = [];
 			foreach ( $subject_group['children'] as $key => $value ) {
