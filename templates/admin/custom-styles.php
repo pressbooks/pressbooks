@@ -67,5 +67,6 @@ if ( ! empty( $_GET['custom_styles_error'] ) ) {
 		matchBrackets: true,
 		mode: 'text/x-scss'
 	} );
+	$( e2.display.input.textarea ).attr({ 'aria-label': '<?php printf( __( 'Your %s Styles', 'pressbooks' ), $current_label ); ?>' })
 })( window.jQuery, window.wp );
 </script>
