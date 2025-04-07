@@ -612,7 +612,7 @@ function render_custom_fonts_page() {
     $blade = \Pressbooks\Container::get( 'Blade' );
 
     // Get the list of fonts if available
-    $fonts = get_site_option('pressbooks_custom_fonts', []);
+    $fonts = get_option('pressbooks_custom_fonts', []);
 
     // Ensure Blade rendering system is available
     echo $blade->render(
@@ -624,77 +624,98 @@ function render_custom_fonts_page() {
 }
 
 function handle_form_submission() {
-    error_log('Handle form submission started');
-
     // Verify the nonce
     if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'pb_save_custom_fonts' ) ) {
         die( 'Permission denied' );
     }
-    error_log('Nonce verified successfully');
 
     // Check if the user has the correct permissions
     if ( ! current_user_can( 'manage_network' ) ) {
         die( 'Permission denied' );
     }
 
-    // Check if a font file is uploaded
-    if ( isset( $_FILES['font_file'] ) && ! empty( $_FILES['font_file']['name'] ) ) {
-        // Get the uploaded file
-        $uploaded_file = $_FILES['font_file'];
+    // Define the target directory
+    $target_dir = WP_CONTENT_DIR . '/uploads/assets/fonts/';
 
-        // Define the target directory
-        $target_dir = WP_CONTENT_DIR . '/uploads/assets/fonts/';
+    // Ensure the directory exists, create if necessary
+    if ( ! is_dir( $target_dir ) ) {
+        wp_mkdir_p( $target_dir, 0755, true);
+    }
 
-        // Ensure the directory exists, create if necessary
-        if ( ! is_dir( $target_dir ) ) {
-            wp_mkdir_p( $target_dir, 0755, true);
-        }
+    // Check and process each font file (regular, bold, italic, bold italic)
+    $font_files = [
+        'regular'        => $_FILES['font_file_regular'] ?? null,
+        'bold'           => $_FILES['font_file_bold'] ?? null,
+        'italic'         => $_FILES['font_file_italic'] ?? null,
+        'bold_italic'    => $_FILES['font_file_bold_italic'] ?? null,
+    ];
 
-        // Generate a unique file name to avoid conflicts
-        $target_file = $target_dir . basename( $uploaded_file['name'] );
+    $font_data = [];
 
-        // Check the file type (you can add more checks here if needed)
-        $allowed_types = [ 'woff', 'woff2', 'ttf', 'otf' ];
-        $file_extension = pathinfo( $target_file, PATHINFO_EXTENSION );
-        if ( ! in_array( $file_extension, $allowed_types ) ) {
-            die( 'Invalid font file type.' );
-        }
+    // Loop through each font variation to validate and move the files
+    foreach ( $font_files as $key => $file ) {
+        if ( isset( $file ) && ! empty( $file['name'] ) ) {
+            // Generate a unique file name to avoid conflicts
+            $target_file = $target_dir . basename( $file['name'] );
 
-        error_log('Font file successfully validated');
+            // Check the file type
+            $allowed_types = [ 'woff', 'woff2', 'ttf', 'otf' ];
+            $file_extension = pathinfo( $target_file, PATHINFO_EXTENSION );
+            if ( ! in_array( $file_extension, $allowed_types ) ) {
+                die( 'Invalid font file type.' );
+            }
 
-        // Move the uploaded file to the correct location
-        if ( move_uploaded_file( $uploaded_file['tmp_name'], $target_file ) ) {
-            // Get the URL of the uploaded file
-            $font_url = content_url( '/uploads/assets/fonts/' . basename( $target_file ) );
+            // Move the uploaded file to the correct location
+            if ( move_uploaded_file( $file['tmp_name'], $target_file ) ) {
+                // Get the URL of the uploaded file
+                $font_url = content_url( '/uploads/assets/fonts/' . basename( $target_file ) );
 
-            // Store font data in the options table
-            $fonts = get_site_option('pressbooks_custom_fonts', []);
-            $slug = sanitize_title( $_POST['font_name'] );
-
-            // Add the uploaded font info to the fonts array
-            $fonts[$slug] = [
-                'name'     => sanitize_text_field( $_POST['font_name'] ),
-                'file'     => esc_url_raw( $font_url ),
-                'weight'   => sanitize_text_field( $_POST['font_weight'] ),
-                'style'    => sanitize_text_field( $_POST['font_style'] ),
-                'fallback' => sanitize_text_field( $_POST['font_fallback'] ),
-            ];
-
-            // Update the site option with the new font list
-            update_site_option( 'pressbooks_custom_fonts', $fonts );
-
-            error_log('Font list updated: ' . $fonts );
-
-            // Redirect with success message
-            wp_safe_redirect( network_admin_url( 'settings.php?page=pb-custom-fonts&updated=true' ) );
-            exit;
-        } else {
-            // Handle upload error
-            die( 'Font upload failed.' );
-            error_log('Font upload failed');
-
+                // Add the uploaded font info to the font data array
+                $font_data[$key] = [
+                    'file' => esc_url_raw( $font_url ),
+                    'variation' => $key, // Save the variant type
+                ];
+                error_log("Font file for $key uploaded: $font_url");
+            } else {
+                die( 'Font upload failed for ' . $key );
+            }
         }
     }
+
+    // Store font data in the options table
+    $fonts = get_option('pressbooks_custom_fonts', []);
+    $slug = sanitize_title( $_POST['font_name'] );
+
+    if ( isset( $fonts[$slug] ) ) {
+        // If the family exists, merge the new variants without overwriting existing ones
+        foreach ( $font_data as $key => $data ) {
+            // Only add or update variants that aren't already present in the family
+            if ( !isset( $fonts[$slug]['files'][$key] ) ) {
+                $fonts[$slug]['files'][$key] = $data;
+            } else {
+                // If the variant already exists, update the file URL
+                if ( !empty($data['file']) ) {
+                    $fonts[$slug]['files'][$key]['file'] = $data['file'];
+                }
+            }
+        }
+    } else {
+        // If font family does not exist, create a new entry
+        if ( ! empty( $font_data ) ) {
+            $fonts[$slug] = [
+                'name'     => sanitize_text_field( $_POST['font_name'] ),
+                'fallback' => sanitize_text_field( $_POST['font_fallback'] ),
+                'files'    => $font_data, // Each variation (regular, bold, italic, bold_italic)
+            ];
+        }
+    }
+
+    // Update the site option with the new font list
+    update_option( 'pressbooks_custom_fonts', $fonts );
+
+    // Redirect with success message
+    wp_safe_redirect( network_admin_url( 'settings.php?page=pb-custom-fonts&updated=true' ) );
+    exit;
 }
 
 /**
