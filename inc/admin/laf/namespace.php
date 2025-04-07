@@ -1389,7 +1389,9 @@ function privacy_disable_comments_callback( $args ) {
  * @param $args
  */
 function privacy_latest_files_public_callback( $args ) {
-	$options = get_option( 'pbt_redistribute_settings', [] );
+	$options = get_option( 'pbt_redistribute_settings', [
+		'latest_files_public' => 0,
+	] );
 
 	$blade = Container::get( 'Blade' );
 	echo $blade->render('admin/settings/share-latest-export-files', [
