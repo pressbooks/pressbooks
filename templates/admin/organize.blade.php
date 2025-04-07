@@ -77,15 +77,24 @@
             @if ($can_edit_posts)
                 <div class="page-title-actions">
                     @if (str_contains($slug, 'part'))
-						<a class="page-title-action" href="{!! admin_url("post-new.php?post_type={$group['abbreviation']}&startparent={$group['id']}") !!}">
-							{{ __('Add', 'pressbooks') }} {{ $group['name'] }}
+						<a
+							class="page-title-action"
+							href="{!! admin_url("post-new.php?post_type={$group['abbreviation']}&startparent={$group['id']}") !!}"
+							aria-label="{{ sprintf( __( 'Add %s to %s', 'pressbooks' ), $group['name'], $group['title'] ) }}"
+						>
+							{{ sprintf( __( 'Add %s', 'pressbooks' ), $group['name'] ) }}
 						</a>
-                        <a class="page-title-action" href="{!! admin_url('post-new.php?post_type=part') !!}">
+                        <a
+							class="page-title-action" href="{!! admin_url('post-new.php?post_type=part') !!}"
+							aria-label="{{ sprintf( __( 'Add a new part below to %s part', 'pressbooks' ), $group['title'] ) }}"
+						>
 							{{ __('Add Part', 'pressbooks') }}
 						</a>
 					@else
-						<a class="page-title-action" href="{!! admin_url('post-new.php?post_type=' . $slug) !!}">
-							{{ __('Add', 'pressbooks') }} {{ $group['name'] }}
+						<a
+							class="page-title-action" href="{!! admin_url('post-new.php?post_type=' . $slug) !!}"
+							aria-label="{{ sprintf( __( 'Add a new %s', 'pressbooks' ), $group['name'] ) }}">
+							{{ sprintf( __( 'Add %s', 'pressbooks' ), $group['name'] ) }}
 						</a>
                     @endif
                 </div>
@@ -133,7 +142,7 @@
                 <tbody id="the-list-{{ $slug }}">
                     @foreach ($group['items'] as $content)
                         <tr id="{{ $slug }}_{{ $content['ID'] }}">
-                            <td class="title column-title has-row-actions">
+                            <th class="title column-title has-row-actions">
                                 <div class="row-title">
                                     @if (current_user_can('edit_post', $content['ID']))
                                         <a href="{!! admin_url('post.php?post=' . $content['ID'] . '&action=edit') !!}">
@@ -192,7 +201,7 @@
                                         @endif
                                     </div>
                                 </div>
-                            </td>
+                            </th>
                             <td class="author column-author">
                                 <span class="author-label">{{ __('Authors', 'pressbooks') }}:</span>
                                 {!! $contributors->get($content['ID'], 'pb_authors') ?: '—' !!}

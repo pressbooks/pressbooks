@@ -120,8 +120,8 @@ class MathJax {
 		);
 		add_action( 'wp_enqueue_scripts', [ $obj, 'addScripts' ] );
 		add_action( 'wp_head', [ $obj, 'addHeaders' ] );
-		add_filter('pb_pdf_css_override', [ $obj, 'displayMathHandler' ] );
-		add_filter('pb_epub_css_override', [ $obj, 'displayMathHandler' ] );
+		add_filter( 'pb_pdf_css_override', [ $obj, 'displayMathHandler' ] );
+		add_filter( 'pb_epub_css_override', [ $obj, 'displayMathHandler' ] );
 		add_action( 'pb_pre_export', [ $obj, 'beforeExport' ] );
 	}
 
@@ -229,15 +229,32 @@ class MathJax {
 			return true;
 		}
 
+		$id = $post->ID;
+		if ( isset( $this->sectionHasMath[ $id ] ) ) {
+			return $this->sectionHasMath[ $id ];
+		}
+
 		$content = $post->post_content;
 
 		// Check for shortcodes (better than searching manually)
 		if ( has_shortcode( $content, 'latex' ) || has_shortcode( $content, 'asciimath' ) ) {
+			$this->sectionHasMath[ $id ] = true;
 			return true;
 		}
 
-		// Use a single regex to check for LaTeX delimiters
-		return (bool) preg_match( '/(?:\\\\\[|\\\\\]|\\\\\(|\\\\\)|\$\$)/', $content );
+		// Check for specific math tags
+		$math_tags = [ '[table id=', '[/latex]', '$latex', '[/asciimath]', '$asciimath', '</math>' ];
+		foreach ( $math_tags as $math_tag ) {
+			if ( str_contains( $content, $math_tag ) ) {
+				$this->sectionHasMath[ $id ] = true;
+				return true;
+			}
+		}
+
+		// Use regex to check for LaTeX delimiters
+		$has_math = (bool) preg_match( '/(?:\\\\\[|\\\\\]|\\\\\(|\\\\\)|\$\$|\$latex\s+[^$]+\$|\$\s+[^$]+\s+\$)/', $content );
+		$this->sectionHasMath[ $id ] = $has_math;
+		return $has_math;
 	}
 
 	/**
@@ -304,7 +321,6 @@ window.MathJax = {
                 'textmacros', // Text formatting macros
                 'newcommand', // Define custom LaTeX commands useful for macros
                 'noerrors',   // Suppresses errors
-                'physics',    // Physics notation
                 'unicode'     // Unicode math symbols
             ]
         },
@@ -436,10 +452,10 @@ STYLES;
 			'%\$\$(.*?)\$\$%s', // $$ ... $$
 		];
 		foreach ( $patterns as $index => $pattern ) {
-			$content = preg_replace_callback($pattern, function ( $matches ) use ($index) {
+			$content = preg_replace_callback($pattern, function ( $matches ) use ( $index ) {
 				$rendered = $this->renderFormula( $matches[1], 'latex' );
 				// Wrap in div if it's display math (\[...\]) or $$...$$
-				if ($index === 0 || $index === 2) {
+				if ( $index === 0 || $index === 2 ) {
 					return '<div class="display-math">' . $rendered . '</div>';
 				}
 				return $rendered;
@@ -833,8 +849,8 @@ STYLES;
 
 	}
 
-	public function displayMathHandler($scss) {
-		$scss.= ".display-math { display: block; text-align:center; padding-top: 20px; padding-bottom:20px; } \n";
+	public function displayMathHandler( $scss ) {
+		$scss .= ".display-math { display: block; text-align:center; padding-top: 20px; padding-bottom:20px; } \n";
 		return $scss;
 	}
 

@@ -1,5 +1,26 @@
 # Changelog
 
+## [6.23.2](https://github.com/pressbooks/pressbooks/compare/6.23.1...6.23.2) (2025-04-01)
+
+
+### Bug Fixes
+
+* conditionally require physics ([#3973](https://github.com/pressbooks/pressbooks/issues/3973)) ([b9e77a2](https://github.com/pressbooks/pressbooks/commit/b9e77a218c605a865c6fb372bfc1ee10248ea342))
+
+
+### Chores
+
+* bump instantsearch.js from 4.78.0 to 4.78.1 in the npm-dependencies group ([#3971](https://github.com/pressbooks/pressbooks/issues/3971)) ([8dffa1b](https://github.com/pressbooks/pressbooks/commit/8dffa1bcfe5639541777ea41f997300335a048a8))
+* bump instantsearch.js in the npm-dependencies group ([8dffa1b](https://github.com/pressbooks/pressbooks/commit/8dffa1bcfe5639541777ea41f997300335a048a8))
+
+## [6.23.1](https://github.com/pressbooks/pressbooks/compare/6.23.0...6.23.1) (2025-03-26)
+
+
+### Bug Fixes
+
+* add `th` to row headers in the organize page for better a11y ([#3968](https://github.com/pressbooks/pressbooks/issues/3968)) ([754e6f7](https://github.com/pressbooks/pressbooks/commit/754e6f7bb25d89d9dbe4493f49e6d219255be8c8))
+* recognize all supported math delimiters in web book interface ([#3969](https://github.com/pressbooks/pressbooks/issues/3969)) ([89c4869](https://github.com/pressbooks/pressbooks/commit/89c4869be6580b190fdaa2a1356c548b25f5f54f))
+
 ## [6.23.0](https://github.com/pressbooks/pressbooks/compare/6.22.4...6.23.0) (2025-03-24)
 
 
