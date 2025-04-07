@@ -597,6 +597,104 @@ function network_admin_menu() {
 			'render',
 		]
 	);
+
+    add_submenu_page(
+        'settings.php',
+        __( 'Custom Fonts', 'pressbooks' ),
+        __( 'Custom Fonts', 'pressbooks' ),
+        'manage_network',
+        'pb-custom-fonts',
+        __NAMESPACE__ . '\render_custom_fonts_page'
+    );
+}
+
+function render_custom_fonts_page() {
+    $blade = \Pressbooks\Container::get( 'Blade' );
+
+    // Get the list of fonts if available
+    $fonts = get_site_option('pressbooks_custom_fonts', []);
+
+    // Ensure Blade rendering system is available
+    echo $blade->render(
+        'admin.custom-fonts', [
+            'fonts' => $fonts,
+            'nonce' => wp_create_nonce( 'pb_save_custom_fonts' )
+        ]
+    );
+}
+
+function handle_form_submission() {
+    error_log('Handle form submission started');
+
+    // Verify the nonce
+    if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'pb_save_custom_fonts' ) ) {
+        die( 'Permission denied' );
+    }
+    error_log('Nonce verified successfully');
+
+    // Check if the user has the correct permissions
+    if ( ! current_user_can( 'manage_network' ) ) {
+        die( 'Permission denied' );
+    }
+
+    // Check if a font file is uploaded
+    if ( isset( $_FILES['font_file'] ) && ! empty( $_FILES['font_file']['name'] ) ) {
+        // Get the uploaded file
+        $uploaded_file = $_FILES['font_file'];
+
+        // Define the target directory
+        $target_dir = WP_CONTENT_DIR . '/uploads/assets/fonts/';
+
+        // Ensure the directory exists, create if necessary
+        if ( ! is_dir( $target_dir ) ) {
+            wp_mkdir_p( $target_dir, 0755, true);
+        }
+
+        // Generate a unique file name to avoid conflicts
+        $target_file = $target_dir . basename( $uploaded_file['name'] );
+
+        // Check the file type (you can add more checks here if needed)
+        $allowed_types = [ 'woff', 'woff2', 'ttf', 'otf' ];
+        $file_extension = pathinfo( $target_file, PATHINFO_EXTENSION );
+        if ( ! in_array( $file_extension, $allowed_types ) ) {
+            die( 'Invalid font file type.' );
+        }
+
+        error_log('Font file successfully validated');
+
+        // Move the uploaded file to the correct location
+        if ( move_uploaded_file( $uploaded_file['tmp_name'], $target_file ) ) {
+            // Get the URL of the uploaded file
+            $font_url = content_url( '/uploads/assets/fonts/' . basename( $target_file ) );
+
+            // Store font data in the options table
+            $fonts = get_site_option('pressbooks_custom_fonts', []);
+            $slug = sanitize_title( $_POST['font_name'] );
+
+            // Add the uploaded font info to the fonts array
+            $fonts[$slug] = [
+                'name'     => sanitize_text_field( $_POST['font_name'] ),
+                'file'     => esc_url_raw( $font_url ),
+                'weight'   => sanitize_text_field( $_POST['font_weight'] ),
+                'style'    => sanitize_text_field( $_POST['font_style'] ),
+                'fallback' => sanitize_text_field( $_POST['font_fallback'] ),
+            ];
+
+            // Update the site option with the new font list
+            update_site_option( 'pressbooks_custom_fonts', $fonts );
+
+            error_log('Font list updated: ' . $fonts );
+
+            // Redirect with success message
+            wp_safe_redirect( network_admin_url( 'settings.php?page=pb-custom-fonts&updated=true' ) );
+            exit;
+        } else {
+            // Handle upload error
+            die( 'Font upload failed.' );
+            error_log('Font upload failed');
+
+        }
+    }
 }
 
 /**
@@ -623,8 +721,6 @@ function fix_root_admin_menu() {
 			remove_action( 'admin_menu', [ \H5P_Plugin_Admin::get_instance(), 'add_plugin_admin_menu' ] );
 		}
 	}
-	// Catalog
-	add_submenu_page( 'index.php', esc_html__( 'My Catalog', 'pressbooks' ), esc_html__( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\Pressbooks\Catalog::addMenu' );
 }
 
 function add_pb_cloner_page() {
