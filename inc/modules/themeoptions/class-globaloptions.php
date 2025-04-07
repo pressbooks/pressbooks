@@ -495,6 +495,7 @@ class GlobalOptions extends \Pressbooks\Options {
 				'option' => 'copyright_license',
 				'value' => getset( $this->options, 'copyright_license', 0 ),
 				'choices' => $args,
+				'legend' => __( 'Chapter Licenses', 'pressbooks' ),
 			]
 		);
 	}
