@@ -310,7 +310,7 @@ class Sass {
 	}
 
 	/**
-	 * Write CSS to a a debug dir
+	 * Write CSS to a debug dir
 	 *
 	 * @param string $css
 	 * @param string $scss
