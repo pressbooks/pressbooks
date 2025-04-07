@@ -1084,6 +1084,7 @@ class PDFOptions extends \Pressbooks\Options {
 				'option' => 'pdf_paragraph_separation',
 				'value' => getset( $this->options, 'pdf_paragraph_separation' ),
 				'choices' => $args,
+				'legend' => __( 'Paragraph Separation', 'pressbooks' ),
 			]
 		);
 	}
@@ -1102,6 +1103,7 @@ class PDFOptions extends \Pressbooks\Options {
 				'option' => 'pdf_sectionopenings',
 				'value' => getset( $this->options, 'pdf_sectionopenings' ),
 				'choices' => $args,
+				'legend' => __( 'Section Openings', 'pressbooks' ),
 			]
 		);
 	}
@@ -1174,6 +1176,7 @@ class PDFOptions extends \Pressbooks\Options {
 				'option' => 'pdf_footnotes_style',
 				'value' => getset( $this->options, 'pdf_footnotes_style' ),
 				'choices' => $args,
+				'legend' => __( 'Footnote Style', 'pressbooks' ),
 			]
 		);
 	}
