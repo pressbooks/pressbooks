@@ -69,9 +69,7 @@
                     <td>{{ $font['name'] }}</td> <!-- Font Family Name -->
                     <td>
                         @foreach ($font['files'] as $variant => $file)
-                            <a href="{{ $file['file'] }}" target="_blank">
-                                {{ ucwords(str_replace('_', ' ', $variant)) }}
-                            </a><br> <!-- Links for each variant -->
+                            {{ ucwords(str_replace('_', ' ', $variant)) }}: <a href="{{ $file['file'] }}" target="_blank">{{ $file['file'] }}</a>                            </a><br> <!-- Links for each variant -->
                         @endforeach
                     </td>
                     <td>{{ $font['fallback'] ?? 'sans-serif' }}</td> <!-- Fallback stack -->

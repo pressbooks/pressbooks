@@ -23,6 +23,32 @@ function render_custom_fonts_page() {
     );
 }
 
+function handle_font_file_upload( $slug, $file_key, $file ) {
+    // Sanitize and process the uploaded file (e.g., move to appropriate directory)
+    if ( empty( $file ) || empty( $file['tmp_name'] ) ) {
+        return null; // No file uploaded
+    }
+
+    // Define the upload directory
+    $upload_dir = wp_upload_dir()['basedir'] . '/custom-fonts/';
+    if ( ! file_exists( $upload_dir ) ) {
+        wp_mkdir_p( $upload_dir );
+    }
+
+    $file_name = $file['name'];
+    $file_tmp  = $file['tmp_name'];
+    $file_path = $upload_dir . $file_name;
+
+    // Move the file to the upload directory
+    if ( move_uploaded_file( $file_tmp, $file_path ) ) {
+        return [
+            'file' => $file_path,
+        ];
+    } else {
+        error_log( "Failed to upload font file: $file_name" );
+        return null; // Return null if the file upload fails
+    }
+}
 function handle_form_submission() {
     // Verify the nonce
     if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'pb_save_custom_fonts' ) ) {
@@ -34,15 +60,11 @@ function handle_form_submission() {
         die( 'Permission denied' );
     }
 
-    // Define the target directory
-    $target_dir = WP_CONTENT_DIR . '/uploads/assets/fonts/';
+    // Store font data in the options table
+    $fonts = get_site_option('pressbooks_custom_fonts', []);
 
-    // Ensure the directory exists, create if necessary
-    if ( ! is_dir( $target_dir ) ) {
-        wp_mkdir_p( $target_dir, 0755, true);
-    }
-
-    // Check and process each font file (regular, bold, italic, bold italic)
+    $slug = sanitize_title( $_POST['font_name'] );
+    $fallback = sanitize_text_field( $_POST['font_fallback'] );
     $font_files = [
         'regular'        => $_FILES['font_file_regular'] ?? null,
         'bold'           => $_FILES['font_file_bold'] ?? null,
@@ -50,77 +72,66 @@ function handle_form_submission() {
         'bold_italic'    => $_FILES['font_file_bold_italic'] ?? null,
     ];
 
-    $font_data = [];
-
-    // Loop through each font variation to validate and move the files
-    foreach ( $font_files as $key => $file ) {
-        if ( isset( $file ) && ! empty( $file['name'] ) ) {
-            // Generate a unique file name to avoid conflicts
-            $target_file = $target_dir . basename( $file['name'] );
-
-            // Check the file type
-            $allowed_types = [ 'woff', 'woff2', 'ttf', 'otf' ];
-            $file_extension = pathinfo( $target_file, PATHINFO_EXTENSION );
-            if ( ! in_array( $file_extension, $allowed_types ) ) {
-                die( 'Invalid font file type.' );
-            }
-
-            // Move the uploaded file to the correct location
-            if ( move_uploaded_file( $file['tmp_name'], $target_file ) ) {
-                // Get the URL of the uploaded file
-                $font_url = content_url( '/uploads/assets/fonts/' . basename( $target_file ) );
-
-                // Add the uploaded font info to the font data array
-                $font_data[$key] = [
-                    'file' => esc_url_raw( $font_url ),
-                    'variation' => $key, // Save the variant type
-                ];
-            } else {
-                die( 'Font upload failed for ' . $key );
-            }
-        }
+    if ( ! isset( $fonts[$slug]) ) {
+        $fonts[$slug] = [
+            'name'     => $slug,
+            'fallback' => $fallback,
+            'files'    => [],
+        ];
+    }
+    else {
+        $fonts[$slug]['fallback'] = $fallback;
+        // If the font does not exist, create a new entry
     }
 
-    // Store font data in the options table
-    $fonts = get_site_option('pressbooks_custom_fonts', []);
-    $slug = sanitize_title( $_POST['font_name'] );
+    if ( array_filter( $font_files ) ) {
+        $target_dir = WP_CONTENT_DIR . '/uploads/assets/fonts/';
 
-    if ( isset( $fonts[$slug] ) ) {
-        // If the family exists, merge the new variants without overwriting existing ones
-        foreach ( $font_data as $key => $data ) {
-            // Update the fallback value, if changed
-            if ( $data['fallback'] !== $fonts[$slug]['fallback'] ) {
-                $fonts[$slug]['fallback'] = $data['fallback'];
-            }
-            // Only add or update variants that aren't already present in the family
-            if ( !isset( $fonts[$slug]['files'][$key] ) ) {
-                $fonts[$slug]['files'][$key] = $data;
-            } else {
-                // If the variant already exists, update the file URL
-                if ( !empty($data['file']) ) {
-                    $fonts[$slug]['files'][$key]['file'] = $data['file'];
+        // Ensure the directory exists, create if necessary
+        if ( ! is_dir( $target_dir ) ) {
+            wp_mkdir_p( $target_dir, 0755, true);
+        }
+
+        foreach ( $font_files as $key => $file ) {
+            if ( ! empty( $file['tmp_name'] ) ) {
+                $result = handle_uploaded_font( $file, $key, $target_dir);
+                if ( is_wp_error( $result ) ) {
+                    die( $result->get_error_message() );
                 }
-            }
+                $fonts[$slug]['files'][$key] = $result;
         }
-    } else {
-        // If font family does not exist, create a new entry
-        if ( ! empty( $font_data ) ) {
-            $fonts[$slug] = [
-                'name'     => sanitize_text_field( $_POST['font_name'] ),
-                'fallback' => sanitize_text_field( $_POST['font_fallback'] ),
-                'files'    => $font_data, // Each variation (regular, bold, italic, bold_italic)
-            ];
-        }
+    }
+        // TODO: save generated SCSS to the theme stylesheets (function currently just returns the CSS)
+        generate_custom_font_css();
     }
 
     // Update the site option with the new font list
     update_site_option( 'pressbooks_custom_fonts', $fonts );
-    // Make font-face declarations available across the network
-    generate_custom_font_css();
 
     // Redirect with success message
     wp_safe_redirect( network_admin_url( 'settings.php?page=pb-custom-fonts&updated=true' ) );
     exit;
+}
+
+function handle_uploaded_font( $file, $key, $target_dir ) {
+    $allowed_types = [ 'woff', 'woff2', 'ttf', 'otf' ];
+    $file_name = basename( $file['name'] );
+    $file_extension = pathinfo( $file_name, PATHINFO_EXTENSION );
+
+    if ( ! in_array( $file_extension, $allowed_types ) ) {
+        return new WP_Error( 'invalid_type', 'Invalid font file type.' );
+    }
+
+    $target_file = $target_dir . $file_name;
+
+    if ( move_uploaded_file( $file['tmp_name'], $target_file ) ) {
+        $url = content_url( '/uploads/assets/fonts/' . $file_name );
+        return [
+            'file' => esc_url_raw( $url ),
+            'variation' => $key,
+        ];
+    }
+    return new WP_Error( 'upload_failed', 'Font upload failed for ' . $key );
 }
 
 function generate_custom_font_css() {
@@ -139,27 +150,13 @@ function generate_custom_font_css() {
 
         foreach ( $files as $variation => $data ) {
             $url = $data['file'];
-            $style = 'normal';
-            $weight = '400';
-
-            switch ($variation) {
-                case 'regular':
-                    $style = 'normal';
-                    $weight = '400';
-                    break;
-                case 'bold':
-                    $style = 'normal';
-                    $weight = '700';
-                    break;
-                case 'italic':
-                    $style = 'italic';
-                    $weight = '400';
-                    break;
-                case 'bold_italic':
-                    $style = 'italic';
-                    $weight = '700';
-                    break;
-            }
+            $style_map = [
+                'regular' => ['normal', '400'],
+                'bold' => ['normal', '700'],
+                'italic' => ['italic', '400'],
+                'bold_italic' => ['italic', '700'],
+            ];
+            [$style, $weight] = $style_map[$variation] ?? ['normal', '400'];
 
             // Infer format from file extension
             $ext = pathinfo($url, PATHINFO_EXTENSION);
