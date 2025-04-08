@@ -8,6 +8,7 @@
 
 namespace Pressbooks\Modules\ThemeOptions;
 
+use function cli\err;
 use function \Pressbooks\Utility\getset;
 use Pressbooks\Container;
 use Pressbooks\CustomCss;
@@ -2219,6 +2220,20 @@ class PDFOptions extends \Pressbooks\Options {
 			}
 		}
 
-		return $scss;
+        // Custom Fonts
+        $custom_fonts = get_site_option( 'pressbooks_custom_fonts', [] );
+        $vars = $styles->getSass()->getVariables();
+        error_log( print_r( $vars, true ) );
+        if ( ! empty( $custom_fonts ) ) {
+            $styles->getSass()->setVariables(
+                [
+                    'custom-fonts-imported' => 'true',
+                ]
+            );
+        }
+        $vars = $styles->getSass()->getVariables();
+        error_log( print_r( $vars, true ) );
+
+        return $scss;
 	}
 }

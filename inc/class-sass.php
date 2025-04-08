@@ -34,6 +34,13 @@ class Sass {
 		$this->vars = array_merge( $this->vars, $vars );
 	}
 
+    /**
+     * Get variables. Helpful for debugging.
+     */
+    public function getVariables() {
+        return $this->vars;
+    }
+
 	/**
 	 * Get default include paths
 	 *

@@ -603,7 +603,7 @@ function network_admin_menu() {
 		__( 'Custom Fonts', 'pressbooks' ),
 		__( 'Custom Fonts', 'pressbooks' ),
 		'manage_network',
-		'pb-custom-fonts',
+		'pb_custom_fonts',
 		'\Pressbooks\Admin\CustomFonts\render_custom_fonts_page'
 	);
 }

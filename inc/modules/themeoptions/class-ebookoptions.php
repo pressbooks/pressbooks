@@ -627,6 +627,16 @@ class EbookOptions extends \Pressbooks\Options {
 			}
 		}
 
+        // Custom Fonts
+        $custom_fonts = get_site_option( 'pressbooks_custom_fonts', [] );
+        if ( isset( $custom_fonts ) && ! empty( $custom_fonts ) ) {
+            $styles->getSass()->setVariables(
+                [
+                    'custom-fonts-imported' => true
+                ]
+            );
+        }
+
 		return $scss;
 	}
 }
