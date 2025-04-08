@@ -111,7 +111,7 @@ class MathjaxTest extends \WP_UnitTestCase {
 
 		$this->mathjax->usePbMathJax = true;
 		$s = $this->mathjax->parseLatexMarkup( '$latex \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
-		$this->assertStringStartsWith( 'http://localhost:3000/latex?latex=XGJvbGRzeW1ib2x7XGZyYWN7bV97XHRleHRiZntkcm9wfX1nZH17Vn19', $s );
+		$this->assertStringStartsWith( '<img src="http://localhost:3000/latex?latex=XGJvbGRzeW1ib2x7XGZyYWN7bV97XHRleHRiZntkcm9wfX1nZH17Vn19&', $s );
 
 		$s = $this->mathjax->parseLatexMarkup( 'latex not found$' );
 		$this->assertEquals( 'latex not found$', $s );
