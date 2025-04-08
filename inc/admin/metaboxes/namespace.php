@@ -604,7 +604,7 @@ function contributor_add_form() {
 	$contributors_fields = Contributors::getContributorFields();
 
 	foreach ( $contributors_fields as $term => $meta_tags ) {
-		$autocomplete = $meta_tags['autocomplete'] ? "autocomplete='{$meta_tags['autocomplete']}'" : '';
+		$autocomplete = isset( $meta_tags['autocomplete'] ) ? "autocomplete='{$meta_tags['autocomplete']}'" : '';
 
 		switch ( $meta_tags['input_type'] ) {
 			case 'tinymce':
@@ -654,7 +654,7 @@ function contributor_edit_form( $term ) {
 
 	foreach ( $contributors_fields as $term => $meta_tags ) {
 		$value = $terms_meta[ $term ][0] ?? '';
-		$autocomplete = $meta_tags['autocomplete'] ? "autocomplete='{$meta_tags['autocomplete']}'" : '';
+		$autocomplete = isset( $meta_tags['autocomplete'] ) ? "autocomplete='{$meta_tags['autocomplete']}'" : '';
 
 		switch ( $meta_tags['input_type'] ) {
 			case 'tinymce':
