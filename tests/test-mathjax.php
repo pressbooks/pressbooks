@@ -125,7 +125,7 @@ class MathjaxTest extends \WP_UnitTestCase {
 
 		$this->mathjax->usePbMathJax = true;
 		$s = $this->mathjax->replaceLatexDelimitersOnExports( '\( e^{i \pi} + 1 = 0 \)' );
-		$this->assertStringStartsWith( 'http://localhost:3000/latex?latex=ZV57aSBccGl9ICsgMSA9IDA&fg=000000', $s );
+		$this->assertStringStartsWith( '<img src="http://localhost:3000/latex?latex=ZV57aSBccGl9ICsgMSA9IDA', $s );
 
 		$s = $this->mathjax->replaceLatexDelimitersOnExports( '\[ e^{i \pi} + 1 = 0 \]' );
 		$this->assertStringStartsWith( '<div class="display-math"><img src="http://localhost:3000/latex?latex=ZV57aSBccGl9ICsgMSA9IDA&fg=000000', $s );
@@ -142,7 +142,7 @@ class MathjaxTest extends \WP_UnitTestCase {
 
 		$this->mathjax->usePbMathJax = true;
 		$s = $this->mathjax->parseAsciiMathMarkup( '$asciimath \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
-		$this->assertStringStartsWith( 'http://localhost:3000/asciimath?asciimath=XGJvbGRzeW1ib2x7XGZyYWN7bV97XHRleHRiZntkcm9wfX1nZH17Vn19&fg=000000', $s );
+		$this->assertStringStartsWith( '<img src="http://localhost:3000/asciimath?asciimath=XGJvbGRzeW1ib2x7XGZyYWN7bV97XHRleHRiZntkcm9wfX1nZH17Vn19', $s );
 
 		$s = $this->mathjax->parseAsciiMathMarkup( 'asciimath not found$' );
 		$this->assertEquals( 'asciimath not found$', $s );
