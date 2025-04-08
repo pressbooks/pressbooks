@@ -151,8 +151,7 @@ class Admin {
 			<?php $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'global'; ?>
 			<nav class="nav-tab-wrapper" aria-label="<?php esc_attr_e( 'Theme Options', 'pressbooks' ); ?>">
 				<?php foreach ( $this->getTabs() as $slug => $subclass ) { ?>
-					<a href="<?php echo admin_url( '/themes.php' ); ?>?page=pressbooks_theme_options&tab=<?php echo $slug; ?>"
-					   class="nav-tab <?php echo ( $active_tab === $slug ) ? 'nav-tab-active' : ''; ?>"
+					<a href="<?php echo admin_url( '/themes.php' ); ?>?page=pressbooks_theme_options&tab=<?php echo $slug; ?>" class="nav-tab <?php echo ( $active_tab === $slug ) ? 'nav-tab-active' : ''; ?>"
 						<?php echo ( $active_tab === $slug ) ? 'aria-current="page"' : ''; ?>
 					>
 						<?php echo $subclass::getTitle(); ?>

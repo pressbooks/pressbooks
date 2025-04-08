@@ -54,9 +54,9 @@ class Glossary implements BackMatter {
 				add_shortcode( self::SHORTCODE, [ $obj, 'exportShortcodeHandler' ] );
 				remove_filter( 'the_content', [ $obj, 'tooltipContent' ], 13 ); // Only for the webbook!
 				// Add MathJax filter to replace new LaTeX delimiters on export
-				$mathJax = new MathJax();
-				$mathJax->usePbMathJax = true;
-				add_filter( 'the_content', [ $mathJax, 'replaceLatexDelimitersOnExports' ], 14 );
+				$mathjax = new MathJax();
+				$mathjax->usePbMathJax = true;
+				add_filter( 'the_content', [ $mathjax, 'replaceLatexDelimitersOnExports' ], 14 );
 			}
 		);
 		add_filter(
