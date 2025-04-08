@@ -8,7 +8,6 @@
 
 namespace Pressbooks\Modules\ThemeOptions;
 
-use function Pressbooks\Admin\CustomFonts\generate_custom_font_css;
 use Pressbooks\Container;
 use Pressbooks\Metadata;
 
@@ -634,8 +633,6 @@ class WebOptions extends \Pressbooks\Options {
 				);
 			}
 		}
-
-		$scss = generate_custom_font_css() . $scss;
 
 		return $scss;
 	}
