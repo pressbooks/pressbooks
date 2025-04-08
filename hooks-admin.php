@@ -5,6 +5,7 @@
  * @license GPLv3 (or any later version)
  */
 
+use PressbooksMix\Assets;
 use Pressbooks\Admin\Menus\SideBar;
 use Pressbooks\Admin\Menus\TopBar;
 use Pressbooks\Book;
@@ -380,6 +381,16 @@ add_action( 'show_user_profile', '\Pressbooks\Admin\Laf\add_user_profile_fields'
 add_action( 'edit_user_profile', '\Pressbooks\Admin\Laf\add_user_profile_fields', 11 );
 add_action( 'edit_user_profile_update', '\Pressbooks\Admin\Laf\update_user_profile_fields', 11 );
 add_action( 'personal_options_update', '\Pressbooks\Admin\Laf\update_user_profile_fields', 11 );
+
+add_action('admin_enqueue_scripts', function ( string $hook ) {
+	if ( $hook !== 'profile.php' && $hook !== 'user-edit.php' ) {
+		return;
+	}
+
+	$assets = new Assets( 'pressbooks', 'plugin' );
+
+	wp_enqueue_script( 'pb-profile-page', $assets->getPath( 'scripts/profile.js' ) );
+});
 
 add_action( 'plugins_loaded', [ SideBar::class, 'init' ] );
 add_action( 'plugins_loaded', [ TopBar::class, 'init' ] );

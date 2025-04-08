@@ -1659,7 +1659,6 @@ function sanitize_user_profile( WP_Error $errors, $update, $user ) {
  * @param \WP_User $user
  */
 function add_user_profile_fields( \WP_User $user ) {
-
 	$institution = esc_html__( 'Institution' );
 	$value = esc_attr( get_the_author_meta( 'institution', $user->ID ) );
 	$helper = esc_html__( 'Your institutional affiliation, e.g. Rebus Foundation, Open University, Amnesty International.', 'pressbooks' );
