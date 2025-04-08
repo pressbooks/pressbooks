@@ -598,14 +598,14 @@ function network_admin_menu() {
 		]
 	);
 
-    add_submenu_page(
-        'settings.php',
-        __( 'Custom Fonts', 'pressbooks' ),
-        __( 'Custom Fonts', 'pressbooks' ),
-        'manage_network',
-        'pb-custom-fonts',
-        '\Pressbooks\Admin\CustomFonts\render_custom_fonts_page'
-    );
+	add_submenu_page(
+		'settings.php',
+		__( 'Custom Fonts', 'pressbooks' ),
+		__( 'Custom Fonts', 'pressbooks' ),
+		'manage_network',
+		'pb-custom-fonts',
+		'\Pressbooks\Admin\CustomFonts\render_custom_fonts_page'
+	);
 }
 
 /**

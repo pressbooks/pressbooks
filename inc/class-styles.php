@@ -758,18 +758,18 @@ class Styles {
 			'Source Sans Pro' => __( 'Source Sans Pro', 'pressbooks' ),
 		];
 
-        $custom_fonts = get_site_option('pressbooks_custom_fonts', []);
+		$custom_fonts = get_site_option( 'pressbooks_custom_fonts', [] );
 
-        if ( !empty( $custom_fonts ) ) {
-            foreach ($custom_fonts as $slug => $font) {
-                $font_name = $font['name'];
-                if ( $font['fallback'] === 'sans-serif' ) {
-                    $sans_serif[ $font_name ] = $font_name;
-                } else {
-                    $serif[ $font_name ] = $font_name;
-                }
-            }
-        }
+		if ( ! empty( $custom_fonts ) ) {
+			foreach ( $custom_fonts as $slug => $font ) {
+				$font_name = $font['name'];
+				if ( $font['fallback'] === 'sans-serif' ) {
+					$sans_serif[ $font_name ] = $font_name;
+				} else {
+					$serif[ $font_name ] = $font_name;
+				}
+			}
+		}
 
 		return [
 			'' => __( 'Theme default', 'pressbooks' ),
@@ -777,7 +777,6 @@ class Styles {
 			__( 'Sans serif', 'pressbooks' ) => $sans_serif,
 		];
 	}
-
 
 	/**
 	 * Is the font serif? If no, then it's sans-serif...
