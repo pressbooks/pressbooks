@@ -76,7 +76,6 @@ function handle_form_submission() {
 	}
 	// Update the site option with the new font list
 	update_site_option( 'pressbooks_custom_fonts', $fonts );
-    // TODO: include/make generated SCSS available to themes
     generate_custom_font_css();
 	// Redirect with success message
 	wp_safe_redirect( network_admin_url( 'settings.php?page=pb_custom_fonts&updated=true' ) );
