@@ -7,8 +7,8 @@ use Pressbooks\MathJax;
 class MathjaxTest extends \WP_UnitTestCase {
 
 	protected $mathjax;
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->mathjax = new MathJax();
 	}
 
