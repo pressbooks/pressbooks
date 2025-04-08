@@ -2,7 +2,7 @@
 
 <div class="wrap">
     <h1>{{ __('Upload Custom Font', 'pressbooks') }}</h1>
-    <p>Use the form below to upload up to four variants from a font family and declare whether the fallback font used should be serif or sans-serif.</p>
+    <p>Upload custom font files for any additional font families you want to make available for books on your network. Permitted file types: .otf, .ttf, .woff, .woff2.</p>
 
     @if (isset($_GET['updated']) && $_GET['updated'] === 'true')
         <div class="notice notice-success is-dismissible">
@@ -40,7 +40,7 @@
 
             <!-- Font Fallback Options -->
             <tr>
-                <th><label for="font_fallback">{{ __('Fallback Stack', 'pressbooks') }}</label></th>
+                <th><label for="font_fallback">{{ __('Font Fallback', 'pressbooks') }}</label></th>
                 <td>
                     <select name="font_fallback" id="font_fallback" required>
                         <option value="sans-serif">{{ __('Sans-serif', 'pressbooks') }}</option>
@@ -59,8 +59,8 @@
             <thead>
             <tr>
                 <th>{{ __('Font Family Name', 'pressbooks') }}</th>
-                <th>{{ __('Font Variant(s)', 'pressbooks') }}</th>
-                <th>{{ __('Fallback', 'pressbooks') }}</th>
+                <th>{{ __('Font Variants', 'pressbooks') }}</th>
+                <th>{{ __('Font Fallback', 'pressbooks') }}</th>
             </tr>
             </thead>
             <tbody>
@@ -69,10 +69,10 @@
                     <td>{{ $font['name'] }}</td> <!-- Font Family Name -->
                     <td>
                         @foreach ($font['files'] as $variant => $file)
-                            {{ ucwords(str_replace('_', ' ', $variant)) }}: <a href="{{ $file['file'] }}" target="_blank">{{ $file['file'] }}</a>                            </a><br> <!-- Links for each variant -->
+                            <a href="{{ $file['file'] }}" target="_blank">{{ ucwords(str_replace('_', ' ', $variant)) }}</a><br> <!-- Links for each variant -->
                         @endforeach
                     </td>
-                    <td>{{ $font['fallback'] ?? 'sans-serif' }}</td> <!-- Fallback stack -->
+                    <td>{{ $font['fallback'] ?? '' }}</td>
                 </tr>
             @endforeach
             </tbody>

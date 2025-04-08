@@ -14,7 +14,7 @@ use Pressbooks\Container;
 function render_custom_fonts_page() {
 	$blade = Container::get( 'Blade' );
 	$fonts = get_site_option( 'pressbooks_custom_fonts', [] );
-    echo $blade->render(
+	echo $blade->render(
 		'admin.custom-fonts', [
 			'fonts' => $fonts,
 			'nonce' => wp_create_nonce( 'pb_save_custom_fonts' ),
@@ -76,7 +76,7 @@ function handle_form_submission() {
 	}
 	// Update the site option with the new font list
 	update_site_option( 'pressbooks_custom_fonts', $fonts );
-    generate_custom_font_css();
+	generate_custom_font_css();
 	// Redirect with success message
 	wp_safe_redirect( network_admin_url( 'settings.php?page=pb_custom_fonts&updated=true' ) );
 	exit;
@@ -92,24 +92,24 @@ function handle_form_submission() {
  * @return array|WP_Error The URL of the uploaded font file and its variation or an error object
  */
 function handle_uploaded_font( $file, $key, $target_dir ) {
-    $allowed_types = [ 'woff', 'woff2', 'ttf', 'otf' ];
-    $file_name = basename( $file['name'] );
-    $file_extension = pathinfo( $file_name, PATHINFO_EXTENSION );
+	$allowed_types = [ 'woff', 'woff2', 'ttf', 'otf' ];
+	$file_name = basename( $file['name'] );
+	$file_extension = pathinfo( $file_name, PATHINFO_EXTENSION );
 
-    if ( ! in_array( $file_extension, $allowed_types ) ) {
-        return new WP_Error( 'invalid_type', 'Invalid font file type.' );
-    }
+	if ( ! in_array( $file_extension, $allowed_types ) ) {
+		return new WP_Error( 'invalid_type', 'Invalid font file type.' );
+	}
 
-    $target_file = $target_dir . $file_name;
+	$target_file = $target_dir . $file_name;
 
-    if ( move_uploaded_file( $file['tmp_name'], $target_file ) ) {
-        $url = content_url( '/uploads/assets/custom-fonts/' . $file_name );
-        return [
-            'file' => esc_url_raw( $url ),
-            'variation' => $key,
-        ];
-    }
-    return new WP_Error( 'upload_failed', 'Font upload failed for ' . $key );
+	if ( move_uploaded_file( $file['tmp_name'], $target_file ) ) {
+		$url = content_url( '/uploads/assets/custom-fonts/' . $file_name );
+		return [
+			'file' => esc_url_raw( $url ),
+			'variation' => $key,
+		];
+	}
+	return new WP_Error( 'upload_failed', 'Font upload failed for ' . $key );
 }
 
 /**
@@ -156,8 +156,8 @@ function generate_custom_font_css() {
         }\n\n";
 		}
 
-        $css_file_path = WP_CONTENT_DIR . '/uploads/assets/custom-fonts/_custom-fonts.scss';
-        file_put_contents( $css_file_path, $custom_css );
+		$css_file_path = WP_CONTENT_DIR . '/uploads/assets/custom-fonts/_custom-fonts.scss';
+		file_put_contents( $css_file_path, $custom_css );
 
 	}
 }

@@ -632,8 +632,8 @@ function fix_root_admin_menu() {
 			remove_action( 'admin_menu', [ \H5P_Plugin_Admin::get_instance(), 'add_plugin_admin_menu' ] );
 		}
 	}
-    // Catalog
-    add_submenu_page( 'index.php', esc_html__( 'My Catalog', 'pressbooks' ), esc_html__( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\Pressbooks\Catalog::addMenu' );
+	// Catalog
+	add_submenu_page( 'index.php', esc_html__( 'My Catalog', 'pressbooks' ), esc_html__( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\Pressbooks\Catalog::addMenu' );
 }
 
 function add_pb_cloner_page() {
