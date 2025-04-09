@@ -377,6 +377,7 @@ abstract class Options {
 			'choices' => [],
 			'custom' => false,
 			'disabled' => false,
+			'legend' => '',
 		];
 
 		$args = wp_parse_args( $args, $defaults );
@@ -386,6 +387,7 @@ abstract class Options {
 			$is_custom = true;
 		}
 		echo '<fieldset>';
+		echo '<legend class="screen-reader-text">' . $args['legend'] . '</legend>';
 		foreach ( $args['choices'] as $key => $label ) {
 			printf(
 				'<label for="%s"><input type="radio" id="%s" name="%s[%s]" value="%s" %s%s/>%s</label><br />',

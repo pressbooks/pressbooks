@@ -1,5 +1,23 @@
 # Changelog
 
+## [6.24.0](https://github.com/pressbooks/pressbooks/compare/6.23.2...6.24.0) (2025-04-07)
+
+
+### Features
+
+* ensure checkbox groups use fieldset and legend ([#3982](https://github.com/pressbooks/pressbooks/issues/3982)) ([35e9daa](https://github.com/pressbooks/pressbooks/commit/35e9daaf5ecc324021dcf8230ec5afffe1f0999b))
+
+
+### Bug Fixes
+
+* apply accessible name to custom styles editor ([#3983](https://github.com/pressbooks/pressbooks/issues/3983)) ([e09c781](https://github.com/pressbooks/pressbooks/commit/e09c781842066fd303c265607e98b52bec65b68d))
+* display Thema qualifiers in Subjects metaboxes ([#3979](https://github.com/pressbooks/pressbooks/issues/3979)) ([aed7bff](https://github.com/pressbooks/pressbooks/commit/aed7bff7fe23108917f090f57289ef55a9fb51cd))
+
+
+### Chores
+
+* update to Thema 1.6 terms ([#3981](https://github.com/pressbooks/pressbooks/issues/3981)) ([a7a9953](https://github.com/pressbooks/pressbooks/commit/a7a99538e9edd09f798c69451b68365d64abb02b))
+
 ## [6.23.2](https://github.com/pressbooks/pressbooks/compare/6.23.1...6.23.2) (2025-04-01)
 
 
