@@ -1655,13 +1655,22 @@ function sanitize_user_profile( WP_Error $errors, $update, $user ) {
 	}
 }
 
+function enqueue_user_profile_scripts( string $hook ) {
+	if ( $hook !== 'profile.php' && $hook !== 'user-edit.php' ) {
+		return;
+	}
+
+	$assets = new Assets( 'pressbooks', 'plugin' );
+
+	wp_enqueue_script( 'pb-profile-page', $assets->getPath( 'scripts/profile.js' ) );
+}
+
 /**
  *
  * @since 5.27.0
  * @param \WP_User $user
  */
 function add_user_profile_fields( \WP_User $user ) {
-
 	$institution = esc_html__( 'Institution' );
 	$value = esc_attr( get_the_author_meta( 'institution', $user->ID ) );
 	$helper = esc_html__( 'Your institutional affiliation, e.g. Rebus Foundation, Open University, Amnesty International.', 'pressbooks' );
