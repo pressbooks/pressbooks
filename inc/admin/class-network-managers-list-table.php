@@ -16,7 +16,7 @@ namespace Pressbooks\Admin;
 /**
  * @see http://codex.wordpress.org/Class_Reference/WP_List_Table
  */
-class Network_Managers_List_Table extends \WP_List_Table {
+class Network_Managers_List_Table extends PressbooksTable {
 
 	/** ************************************************************************
 	 * Constructor.
@@ -196,5 +196,4 @@ class Network_Managers_List_Table extends \WP_List_Table {
 
 		$this->items = $network_admins; // Return our data
 	}
-
 }

@@ -33,6 +33,7 @@ function admin_enqueues() {
 	$assets = new Assets( 'pressbooks', 'plugin' );
 
 	wp_enqueue_style( 'pb-network-managers', $assets->getPath( 'styles/network-managers.css' ) );
+	wp_enqueue_style( 'pb-table', $assets->getPath( 'styles/pressbooks-table.css' ) );
 	wp_enqueue_script( 'pb-network-managers', $assets->getPath( 'scripts/network-managers.js' ), [ 'jquery' ] );
 	wp_localize_script(
 		'pb-network-managers', 'PB_NetworkManagerToken', [
