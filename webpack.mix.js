@@ -54,6 +54,7 @@ mix
 	.js( 'assets/src/scripts/post-back-matter.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/post-visibility.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/post-mathjax.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/profile.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/quicktags.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/search-and-replace.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/small-menu.js', 'assets/dist/scripts/' )

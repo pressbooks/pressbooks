@@ -15,7 +15,7 @@ Array.prototype.forEach.call( glossaryTerms, glossaryTerm => {
 
 			if ( typeof MathJax !== 'undefined' ) {
 				// Parse dynamically added MathJax content
-				MathJax.typeset(Array.from(document.querySelectorAll('.glossary__definition')));
+				MathJax.typeset( Array.from( document.querySelectorAll( '.glossary__definition' ) ) );
 			}
 		}
 

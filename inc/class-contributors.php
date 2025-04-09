@@ -429,9 +429,10 @@ class Contributors implements BackMatter, Transferable {
 	 * @param string $field
 	 * @return array
 	 */
-	public static function getContributorFields( $field = '' ) {
+	public static function getContributorFields( string $field = '' ) {
 		$allowed_fields = [
 			self::TAXONOMY . '_prefix' => [
+				'autocomplete' => 'honorific-prefix',
 				'label' => esc_html__( 'Prefix', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-prefix',
 				'input_type' => 'text',
@@ -439,18 +440,21 @@ class Contributors implements BackMatter, Transferable {
 				'sanitization_method' => 'sanitize_text_field',
 			],
 			self::TAXONOMY . '_first_name' => [
+				'autocomplete' => 'given-name',
 				'label' => esc_html__( 'First Name', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-first-name',
 				'input_type' => 'text',
 				'sanitization_method' => 'sanitize_text_field',
 			],
 			self::TAXONOMY . '_last_name' => [
+				'autocomplete' => 'family-name',
 				'label' => esc_html__( 'Last Name', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-last-name',
 				'input_type' => 'text',
 				'sanitization_method' => 'sanitize_text_field',
 			],
 			self::TAXONOMY . '_suffix' => [
+				'autocomplete' => 'honorific-suffix',
 				'label' => esc_html__( 'Suffix', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-suffix',
 				'input_type' => 'text',
@@ -476,6 +480,7 @@ class Contributors implements BackMatter, Transferable {
 				'sanitization_method' => 'sanitize_text_field',
 			],
 			self::TAXONOMY . '_user_url' => [
+				'autocomplete' => 'url',
 				'label' => esc_html__( 'Website', 'presbooks' ),
 				'tag' => self::TAXONOMY . '-website',
 				'input_type' => 'text',
