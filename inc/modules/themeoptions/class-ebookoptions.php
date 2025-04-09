@@ -313,6 +313,7 @@ class EbookOptions extends \Pressbooks\Options {
 				'option' => 'ebook_paragraph_separation',
 				'value' => ( isset( $this->options['ebook_paragraph_separation'] ) ) ? $this->options['ebook_paragraph_separation'] : '',
 				'choices' => $args,
+				'legend' => __( 'Paragraph Separation', 'pressbooks' ),
 			]
 		);
 	}
