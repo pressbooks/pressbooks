@@ -12,8 +12,9 @@
 
 namespace Pressbooks\Modules\Export;
 
-class Table extends \WP_List_Table {
+use Pressbooks\Container;
 
+class Table extends \WP_List_Table {
 	const PIN = 'pb_export_pins';
 
 	private $_pins = [];
@@ -61,7 +62,7 @@ class Table extends \WP_List_Table {
 	 * @return string
 	 */
 	public function column_cb( $item ) {
-		return sprintf( '<input type="checkbox" name="ID[]" value="%s" />', $item['ID'] );
+		return sprintf( '<input type="checkbox" name="ID[]" value="%s" aria-label="%s" />', $item['ID'], __( sprintf( 'Select %s', $item['file'] ) ) );
 	}
 
 	/**
@@ -118,7 +119,7 @@ class Table extends \WP_List_Table {
 	public function column_pin( $item ) {
 		$format = $this->getTinyHash( $item['format'] );
 		$html = "<input type='checkbox' id='pin[{$item['ID']}]' name='pin[{$item['ID']}]' value='{$format}' " . checked( $item['pin'], true, false ) . '/>';
-		$html .= "<label for='pin[{$item['ID']}]'>Pin this file</label>";
+		$html .= "<label for='pin[{$item['ID']}]'>" . __( sprintf( 'Pin %s', $item['file'] ) ) . '</label>';
 		return $html;
 	}
 
@@ -363,9 +364,6 @@ class Table extends \WP_List_Table {
 			case 'pdf':
 				$pre_suffix = strstr( $file, '._print.pdf' );
 				break;
-			case 'html':
-				$pre_suffix = strstr( $file, '.-htmlbook.html' );
-				break;
 			case 'xml':
 				$pre_suffix = strstr( $file, '._vanilla.xml' );
 				break;
@@ -375,9 +373,7 @@ class Table extends \WP_List_Table {
 			default:
 				$pre_suffix = false;
 		}
-		if ( 'html' === $file_extension && '.-htmlbook.html' === $pre_suffix ) {
-			$file_class = 'htmlbook';
-		} elseif ( 'html' === $file_extension && false === $pre_suffix ) {
+		if ( 'html' === $file_extension && false === $pre_suffix ) {
 			$file_class = 'xhtml';
 		} elseif ( 'xml' === $file_extension && '._vanilla.xml' === $pre_suffix ) {
 			$file_class = 'vanillawxr';
@@ -419,7 +415,10 @@ class Table extends \WP_List_Table {
 	 */
 	protected function getIcon( $file, $size = 'large' ) {
 		$file_class = $this->getCssClass( $file );
-		$html = "<div class='export-file-icon {$size} {$file_class}' title='" . esc_attr( $file ) . "'></div>";
+
+		$file_type = \Pressbooks\Modules\Export\get_shortname_from_filetype_slug( $file_class );
+
+		$html = "<div class='export-file-icon {$size} {$file_class}'>" . Container::get( 'Blade' )->render( 'admin.icon', [ 'file_type' => $file_type ] ) . '</div>';
 		return $html;
 	}
 

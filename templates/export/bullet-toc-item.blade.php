@@ -5,7 +5,7 @@
 			<span class="chapter-subtitle">{{ $subtitle }}</span>
 		@endif
 		@if( $author )
-			<span class="chapter-author">{{ $author }}</span>
+			<span class="chapter-author">{!! $author !!}</span>
 		@endif
 		@if( $license )
 			<span class="chapter-license">{{ $license }}</span>

@@ -93,8 +93,6 @@ class S3StorageProvider implements StorageProvider {
 				}
 			}
 			return true;
-		} else {
-			debug_error_log( 'Error initializing S3 Storage Provider: Some environment variables are not present.' );
 		}
 		return ! is_null( $this->client );
 	}
@@ -122,9 +120,8 @@ class S3StorageProvider implements StorageProvider {
 				putenv( 'AWS_CONFIG_FILE=' . __DIR__ . '/' . self::AWS_CONFIG_FILENAME );
 			}
 			return true;
-		} else {
-			debug_error_log( 'Error initializing S3 Storage Provider: Some environment variables are not present.' );
 		}
+
 		return false;
 	}
 

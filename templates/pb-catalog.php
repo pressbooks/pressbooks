@@ -167,7 +167,7 @@ $_current_user_id = $catalog->getUserId();
 	<script src="<?php echo $assets->getPath( 'scripts/small-menu.js' ); ?>" type="text/javascript"></script>
 	<script src="<?php echo $assets->getPath( 'scripts/catalog.js' ); ?>" type="text/javascript"></script>
 	<?php // @codingStandardsIgnoreEnd ?>
-	<?php \Pressbooks\analytics\print_analytics(); ?>
+	<?php \Pressbooks\GoogleAnalytics::init()->printScripts(); ?>
 </head>
 <?php if ( ! empty( $profile['pb_catalog_color'] ) ) : ?>
 <body style="background-image: none !important;">

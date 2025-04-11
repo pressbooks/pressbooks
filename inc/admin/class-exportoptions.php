@@ -32,6 +32,13 @@ class ExportOptions extends \Pressbooks\Options {
 	public $defaults;
 
 	/**
+	 * Export booleans.
+	 *
+	 * @var array
+	 */
+	public $booleans;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param array $options
@@ -148,6 +155,7 @@ class ExportOptions extends \Pressbooks\Options {
 				'option' => 'email_validation_logs',
 				'value' => ( isset( $this->options['email_validation_logs'] ) ) ? $this->options['email_validation_logs'] : '',
 				'choices' => $args,
+				'legend' => __( 'Email Validation Logs', 'pressbooks' ),
 			]
 		);
 	}

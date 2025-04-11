@@ -1,0 +1,114 @@
+@font-face {
+  font-family: "heroicons";
+  src: url("../fonts/heroicons.eot?5f1356133d2cc4ee0704181a2af7c9ff#iefix") format("embedded-opentype"), url("../fonts/heroicons.woff2?5f1356133d2cc4ee0704181a2af7c9ff") format("woff2"), url("../fonts/heroicons.woff?5f1356133d2cc4ee0704181a2af7c9ff") format("woff");
+}
+div[class^=pb-heroicons-]:before, i[class^=pb-heroicons-]:before, i[class*=" pb-heroicons-"]:before {
+  font-family: heroicons, serif !important;
+  font-style: normal;
+  font-weight: normal !important;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.pb-heroicons-arrow-left-on-rectangle:before {
+  content: "\f101";
+}
+
+.pb-heroicons-arrow-right-on-rectangle:before {
+  content: "\f102";
+}
+
+.pb-heroicons-bolt:before {
+  content: "\f103";
+}
+
+.pb-heroicons-book-open:before {
+  content: "\f104";
+}
+
+.pb-heroicons-building-library:before {
+  content: "\f105";
+}
+
+.pb-heroicons-camera:before {
+  content: "\f106";
+}
+
+.pb-heroicons-clone-book:before {
+  content: "\f107";
+}
+
+.pb-heroicons-cog-8-tooth:before {
+  content: "\f108";
+}
+
+.pb-heroicons-globe-alt:before {
+  content: "\f109";
+}
+
+.pb-heroicons-home:before {
+  content: "\f10a";
+}
+
+.pb-heroicons-link:before {
+  content: "\f10b";
+}
+
+.pb-heroicons-my-books:before {
+  content: "\f10c";
+}
+
+.pb-heroicons-pencil-square:before {
+  content: "\f10d";
+}
+
+.pb-heroicons-plus-circle-filled:before {
+  content: "\f10e";
+}
+
+.pb-heroicons-plus-circle:before {
+  content: "\f10f";
+}
+
+.pb-heroicons-presentation-chart-bar:before {
+  content: "\f110";
+}
+
+.pb-heroicons-rocket-launch:before {
+  content: "\f111";
+}
+
+.pb-heroicons-share:before {
+  content: "\f112";
+}
+
+.pb-heroicons-shopping-cart:before {
+  content: "\f113";
+}
+
+.pb-heroicons-sparkles:before {
+  content: "\f114";
+}
+
+.pb-heroicons-trash:before {
+  content: "\f115";
+}
+
+.pb-heroicons-user-circle:before {
+  content: "\f116";
+}
+
+.pb-heroicons-user:before {
+  content: "\f117";
+}
+
+.pb-heroicons-users:before {
+  content: "\f118";
+}
+
+.pb-heroicons-wrench:before {
+  content: "\f119";
+}

@@ -61,13 +61,15 @@ function custom_login_logo() {
 	if ( has_custom_logo() ) {
 		$custom_logo_id = get_theme_mod( 'custom_logo' );
 		$logo = sprintf(
-			'<style type="text/css">.login h1 a {background-image: url(%s);}</style>',
+			'<style>
+					.login .wp-login-logo a {background-image: url(%s);}
+					</style>',
 			wp_get_attachment_image_src( $custom_logo_id, 'logo' )[0]
 		);
 	} else {
 		$logo = sprintf(
-			'<style type="text/css">.login h1 a {background-image: url(%s);}</style>',
-			PB_PLUGIN_URL . 'assets/dist/images/PB-logo.svg'
+			'<style>.login .wp-login-logo a {background-image: url(%s);}</style>',
+			PB_PLUGIN_URL . 'assets/dist/images/pb-logo.svg'
 		);
 	}
 	$style = '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karla:400,400i,700|Spectral:400,400i,600" />';
@@ -130,6 +132,7 @@ function admin_title( $admin_title ) {
  */
 function get_customizer_colors() {
 	$colors = [
+		'header_bg',
 		'primary',
 		'accent',
 		'primary_fg',

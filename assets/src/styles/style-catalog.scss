@@ -87,9 +87,6 @@ video {
 
 /* apply a natural box layout model to all elements */
 * {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -102,7 +99,7 @@ html {
 }
 
 body {
-  background: url(../images/sidebar-bg.png) 20% 0 repeat-y;
+  background: url("../images/sidebar-bg.png") 20% 0 repeat-y;
   font: 0.8125em/1.4em 'Open Sans', sans-serif;
   text-align: left;
   color: #333;
@@ -124,9 +121,6 @@ a:visited {
 
 a:hover {
   color: #65cef5;
-  -webkit-transition: color 0.3s linear;
-  -moz-transition: color 0.3s linear;
-  -o-transition: color 0.3s linear;
   transition: color 0.3s linear;
 }
 
@@ -239,7 +233,7 @@ img {
 * Sidebar Syling
 **************************************************************/
 .pressbooks-logo {
-  font: 1.2em/2.6em 'Oswald', Arial, Helvetica, sans-serif;
+  font: 1.2em/2.6em Oswald, Arial, Helvetica, sans-serif;
   margin: 0 0 3em;
   padding: 0 10px 1px 15px;
   text-transform: uppercase;
@@ -300,7 +294,7 @@ img {
   border-radius: 2px;
   color: #333;
   display: inline;
-  font: 0.93em 'Oswald', sans-serif;
+  font: 0.93em Oswald, sans-serif;
   padding: 4px 10px;
   text-align: center;
   text-transform: uppercase;
@@ -333,8 +327,7 @@ img {
 }
 
 .book-description {
-  background-color: #e9e7e4;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgb(255 255 255 / 80%);
   opacity: 0;
   height: 100%;
   display: block;
@@ -344,9 +337,6 @@ img {
   top: 0;
   left: 0;
   max-width: 225px;
-  -webkit-transition: opacity 0.3s linear;
-  -moz-transition: opacity 0.3s linear;
-  -o-transition: opacity 0.3s linear;
   transition: opacity 0.3s linear;
   width: 100%;
 }
@@ -356,9 +346,6 @@ img {
   color: #0094cc;
   display: block;
   opacity: 1;
-  -webkit-transition: opacity 0.3s linear;
-  -moz-transition: opacity 0.3s linear;
-  -o-transition: opacity 0.3s linear;
   transition: opacity 0.3s linear;
 }
 
@@ -390,7 +377,7 @@ img {
 
 @media screen and (max-width: 1020px) {
   body {
-    background: url(../images/sidebar-bg-2.png) 30% 0 repeat-y;
+    background: url("../images/sidebar-bg-2.png") 30% 0 repeat-y;
   }
 
   .catalog-content-wrap {

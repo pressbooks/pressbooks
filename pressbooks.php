@@ -1,20 +1,26 @@
 <?php
-/*
-Plugin Name: Pressbooks
-Plugin URI: https://pressbooks.org
-GitHub Plugin URI: pressbooks/pressbooks
-Release Asset: true
-Description: Simple Book Production
-Version: 5.33.0-dev
-Author: Pressbooks (Book Oven Inc.)
-Author URI: https://pressbooks.org
-Text Domain: pressbooks
-License: GPL v3 or later
-Network: True
-*/
-// TODO: Security audit
-// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
-// @phpcs:disable WordPress.PHP.NoSilencedErrors.Discouraged
+/**
+ * Plugin Name: Pressbooks
+ * Plugin URI: https://pressbooks.org
+ * GitHub Plugin URI: pressbooks/pressbooks
+ * Release Asset: true
+ * Description: Simple Book Production
+ * x-release-please-start-version
+ * Version: 6.24.0
+ * x-release-please-end
+ * Requires at least: WordPress 6.6.1
+ * Requires PHP: 8.1
+ * Author: Pressbooks (Book Oven Inc.)
+ * Author URI: https://pressbooks.org
+ * License: GPL v3 or later
+ * Text Domain: pressbooks
+ * Network: True
+ *
+ * @package Pressbooks
+ * @author Pressbooks (Book Oven Inc.)
+ * @license GPL-3.0-or-later
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	return;
 }
@@ -76,7 +82,7 @@ if ( file_exists( $composer ) ) {
 } else {
 	if ( ! class_exists( '\Illuminate\Container\Container' ) ) {
 		/* translators: 1: URL to Composer documentation, 2: URL to Pressbooks latest releases */
-		die( sprintf( __( 'Pressbooks dependencies are missing. Please make sure that your project&rsquo;s <a href="%1$s">Composer autoload file</a> is being required, or use the <a href="%2$s">latest release</a> instead.', 'pressbooks' ), 'https://getcomposer.org/doc/01-basic-usage.md#autoloading', 'https://github.com/pressbooks/pressbooks/releases/latest/' ) );
+		die( sprintf( esc_html__( 'Pressbooks dependencies are missing. Please make sure that your project&rsquo;s <a href="%1$s">Composer autoload file</a> is being required, or use the <a href="%2$s">latest release</a> instead.', 'pressbooks' ), 'https://getcomposer.org/doc/01-basic-usage.md#autoloading', 'https://github.com/pressbooks/pressbooks/releases/latest/' ) );
 	}
 }
 
@@ -87,7 +93,7 @@ if ( file_exists( $composer ) ) {
 if ( ! function_exists( 'pb_meets_minimum_requirements' ) && ! @include_once( PB_PLUGIN_DIR . 'compatibility.php' ) ) { // @codingStandardsIgnoreLine
 	return add_action(
 		'admin_notices', function () {
-			echo '<div id="message" role="alert" class="error fade"><p>' . __( 'Cannot find Pressbooks install.', 'pressbooks' ) . '</p></div>';
+			echo '<div id="message" role="alert" class="error fade"><p>' . esc_html__( 'Cannot find Pressbooks install.', 'pressbooks' ) . '</p></div>';
 		}
 	);
 } elseif ( ! pb_meets_minimum_requirements() ) {
@@ -121,5 +127,3 @@ if ( is_admin() ) {
 // --------------------------------------------------------------------------------------------------------------------
 
 require( PB_PLUGIN_DIR . 'functions.php' );
-
-/* The distinction between "the internet" & "books" will disappear in 5 years. Start adjusting now. */

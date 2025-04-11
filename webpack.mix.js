@@ -14,7 +14,7 @@ let mix = require( 'laravel-mix' );
  */
 
 const assets = 'assets';
-const dist = `${assets}/dist`;
+const dist = `${ assets }/dist`;
 const templates = 'templates';
 
 // BrowserSync
@@ -24,9 +24,9 @@ mix.browserSync( {
 	port: 3100,
 	files: [
 		'*.php',
-		`${templates}/**/*.php`,
-		`${dist}/styles/*.css`,
-		`${dist}/scripts/*.js`,
+		`${ templates }/**/*.php`,
+		`${ dist }/styles/*.css`,
+		`${ dist }/scripts/*.js`,
 	],
 } );
 
@@ -46,7 +46,7 @@ mix
 	.js( 'assets/src/scripts/ftnref-convert.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/latex.js', 'assets/dist/scripts' )
 	.js( 'assets/src/scripts/glossary.js', 'assets/dist/scripts/' )
-	.js( 'assets/src/scripts/glossary-tooltip.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/glossary-definition.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/import.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/login.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/network-managers.js', 'assets/dist/scripts/' )
@@ -54,6 +54,7 @@ mix
 	.js( 'assets/src/scripts/post-back-matter.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/post-visibility.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/post-mathjax.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/profile.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/quicktags.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/search-and-replace.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/small-menu.js', 'assets/dist/scripts/' )
@@ -64,6 +65,9 @@ mix
 	.js( 'assets/src/scripts/a11y.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/export-footnotes.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/contributors.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/algolia-search.js', 'assets/dist/scripts/' )
+	.js( 'node_modules/@pressbooks/multiselect/pressbooks-multiselect.js', 'assets/dist/scripts/' )
+	.js( 'node_modules/@pressbooks/reorderable-multiselect/pressbooks-reorderable-multiselect.js', 'assets/dist/scripts/' )
 	.scripts(
 		'node_modules/event-source-polyfill/src/eventsource.js',
 		'assets/dist/scripts/eventsource.polyfill.js'
@@ -89,10 +93,9 @@ mix
 		'assets/dist/scripts/sticky.js'
 	)
 	.scripts(
-		'node_modules/js-cookie/src/js.cookie.js',
+		'node_modules/js-cookie/dist/js.cookie.js',
 		'assets/dist/scripts/js-cookie.js'
 	)
-
 	.scripts(
 		'node_modules/select2/dist/js/select2.js',
 		'assets/dist/scripts/select2.js'
@@ -109,16 +112,23 @@ mix
 	.sass( 'assets/src/styles/colors-pb.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/colors-pb-a11y.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/covergenerator.scss', 'assets/dist/styles/' )
+	.css( 'assets/src/styles/duet.css', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/export.scss', 'assets/dist/styles/' )
-	.sass( 'assets/src/styles/glossary-tooltip.scss', 'assets/dist/styles' )
+	.sass( 'assets/src/styles/glossary-definition.scss', 'assets/dist/styles' )
 	.sass( 'assets/src/styles/login.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/metadata.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/network-managers.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/organize.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/pressbooks.scss', 'assets/dist/styles/' )
+	.sass( 'assets/src/styles/pressbooks-dashboard.scss', 'assets/dist/styles/' )
+	.sass( 'assets/src/styles/pressbooks-table.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/search-and-replace.scss', 'assets/dist/styles/' )
-	.sass( 'assets/src/styles/select2.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/style-catalog.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/theme-options.scss', 'assets/dist/styles/' )
+	.sass( 'assets/src/styles/cloner.scss', 'assets/dist/styles/' )
+	.copy( 'node_modules/alpinejs/dist/cdn.min.js', 'assets/dist/scripts/alpine.min.js' )
+	.copy( 'node_modules/instantsearch.js/dist/instantsearch.production.min.js', 'assets/dist/scripts/instantsearch.production.min.js' )
+	.copy( 'node_modules/algoliasearch/dist/algoliasearch-lite.umd.js', 'assets/dist/scripts/algoliasearch-lite.umd.js' )
+	.copyDirectory( 'node_modules/@duetds/date-picker/dist/duet/', 'assets/dist/scripts/duet/' )
 	.copyDirectory( 'assets/src/fonts', 'assets/dist/fonts' )
 	.copyDirectory( 'assets/src/images', 'assets/dist/images' );

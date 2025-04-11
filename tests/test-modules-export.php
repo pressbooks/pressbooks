@@ -3,7 +3,6 @@
 require_once( PB_PLUGIN_DIR . 'inc/modules/export/namespace.php' );
 
 class Modules_ExportTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -52,6 +51,20 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Print PDF', $type );
 		$type = \Pressbooks\Modules\Export\get_name_from_filetype_slug( 'wtfbbq' );
 		$this->assertEquals( 'Wtfbbq', $type );
+		$type = \Pressbooks\Modules\Export\get_name_from_filetype_slug( 'thincc11' );
+		$this->assertEquals( 'Common Cartridge (LTI Links)', $type );
+	}
+
+	/**
+	 * @group export
+	 */
+	public function test_get_shortname_from_filetype_slug() {
+		$type = \Pressbooks\Modules\Export\get_shortname_from_filetype_slug( 'print_pdf' );
+		$this->assertEquals( 'Print PDF', $type );
+		$type = \Pressbooks\Modules\Export\get_shortname_from_filetype_slug( 'wtfbbq' );
+		$this->assertEquals( 'Wtfbbq', $type );
+		$type = \Pressbooks\Modules\Export\get_shortname_from_filetype_slug( 'thincc11' );
+		$this->assertEquals( 'IMSCC', $type );
 	}
 
 	/**
@@ -77,7 +90,6 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_isFormSubmission() {
-
 		$this->assertFalse( \Pressbooks\Modules\Export\Export::isFormSubmission() );
 
 		$_REQUEST['page'] = 'pb_export';

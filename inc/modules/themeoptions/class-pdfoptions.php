@@ -37,6 +37,41 @@ class PDFOptions extends \Pressbooks\Options {
 	public $defaults;
 
 	/**
+	 * PDF theme booleans.
+	 *
+	 * @var array
+	 */
+	public $booleans;
+
+	/**
+	 * PDF theme strings.
+	 *
+	 * @var array
+	 */
+	public $strings;
+
+	/**
+	 * PDF theme integers.
+	 *
+	 * @var array
+	 */
+	public $integers;
+
+	/**
+	 * PDF theme floats.
+	 *
+	 * @var array
+	 */
+	public $floats;
+
+	/**
+	 * PDF theme predefined options.
+	 *
+	 * @var array
+	 */
+	public $predefined;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param array $options
@@ -1059,6 +1094,7 @@ class PDFOptions extends \Pressbooks\Options {
 				'option' => 'pdf_paragraph_separation',
 				'value' => getset( $this->options, 'pdf_paragraph_separation' ),
 				'choices' => $args,
+				'legend' => __( 'Paragraph Separation', 'pressbooks' ),
 			]
 		);
 	}
@@ -1077,6 +1113,7 @@ class PDFOptions extends \Pressbooks\Options {
 				'option' => 'pdf_sectionopenings',
 				'value' => getset( $this->options, 'pdf_sectionopenings' ),
 				'choices' => $args,
+				'legend' => __( 'Section Openings', 'pressbooks' ),
 			]
 		);
 	}
@@ -1149,6 +1186,7 @@ class PDFOptions extends \Pressbooks\Options {
 				'option' => 'pdf_footnotes_style',
 				'value' => getset( $this->options, 'pdf_footnotes_style' ),
 				'choices' => $args,
+				'legend' => __( 'Footnote Style', 'pressbooks' ),
 			]
 		);
 	}
@@ -2055,7 +2093,7 @@ class PDFOptions extends \Pressbooks\Options {
 				$styles->getSass()->setVariables(
 					[
 						'para-margin-top' => '0',
-						'para-indent' => '1em',
+						'para-indent' => $styles->getParaIndent() ?? '1em',
 					]
 				);
 			} else {

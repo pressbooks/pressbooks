@@ -19,18 +19,53 @@ class EbookOptions extends \Pressbooks\Options {
 	const VERSION = 2;
 
 	/**
-	 * Web theme options.
+	 * Ebook theme options.
 	 *
 	 * @var array
 	 */
 	public $options;
 
 	/**
-	 * Web theme defaults.
+	 * Ebook theme defaults.
 	 *
 	 * @var array
 	 */
 	public $defaults;
+
+	/**
+	 * Ebook theme booleans.
+	 *
+	 * @var array
+	 */
+	public $booleans;
+
+	/**
+	 * Ebook theme strings.
+	 *
+	 * @var array
+	 */
+	public $strings;
+
+	/**
+	 * Ebook theme integers.
+	 *
+	 * @var array
+	 */
+	public $integers;
+
+	/**
+	 * Ebook theme floats.
+	 *
+	 * @var array
+	 */
+	public $floats;
+
+	/**
+	 * Ebook theme predefined options.
+	 *
+	 * @var array
+	 */
+	public $predefined;
 
 	/**
 	 * Constructor.
@@ -278,6 +313,7 @@ class EbookOptions extends \Pressbooks\Options {
 				'option' => 'ebook_paragraph_separation',
 				'value' => ( isset( $this->options['ebook_paragraph_separation'] ) ) ? $this->options['ebook_paragraph_separation'] : '',
 				'choices' => $args,
+				'legend' => __( 'Paragraph Separation', 'pressbooks' ),
 			]
 		);
 	}
@@ -562,7 +598,7 @@ class EbookOptions extends \Pressbooks\Options {
 				$styles->getSass()->setVariables(
 					[
 						'para-margin-top' => '0',
-						'para-indent' => '1em',
+						'para-indent' => $styles->getParaIndent() ?? '1em',
 					]
 				);
 			} else {

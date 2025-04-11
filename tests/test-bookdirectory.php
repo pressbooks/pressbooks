@@ -2,7 +2,6 @@
 
 use Pressbooks\BookDirectory;
 
-
 /**
  * @group bookDirectory
  */
@@ -36,5 +35,4 @@ class BookDirectoryTest extends \WP_UnitTestCase {
 	public function test_deleteAction() {
 		$this->assertFalse( $this->book_directory->deleteAction( get_site() ) );
 	}
-
 }

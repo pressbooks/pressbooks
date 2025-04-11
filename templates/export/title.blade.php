@@ -2,10 +2,10 @@
 	@if( isset( $content ) )
 		{!! $content !!}
 	@else
-		<h1 class="title">{{ $title }}</h1>
-		<h2 class="subtitle">{{ $subtitle }}</h2>
+		<h1 class="title">{!! $title !!}</h1>
+		<h2 class="subtitle">{!! $subtitle !!}</h2>
 		@if( $authors )
-			<p class="author">{{ $authors }}</p>
+			<p class="author">{!! $authors !!}</p>
 		@endif
 		@if( $editors )
 			<p class="author">{{ $editors }}</p>
@@ -17,7 +17,7 @@
 			<p class="author">{{ $illustrators }}</p>
 		@endif
 		@if( $contributors )
-			<p class="author">{{ $contributors }}</p>
+			<p class="author">{!! $contributors !!}</p>
 		@endif
 		@if( $logo )
 			<div class="publisher-logo">

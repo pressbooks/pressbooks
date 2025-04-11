@@ -3,14 +3,11 @@
 use Pressbooks\CustomCss;
 
 class CustomCssTest extends \WP_UnitTestCase {
-
 	/**
 	 * @group customcss
 	 */
 	public function test_getCustomCssFolder() {
-		$path = CustomCss::getCustomCssFolder();
-		$this->assertStringEndsWith( '/custom-css/', $path );
-
+		$this->assertStringEndsWith( '/custom-css/', CustomCss::getCustomCssFolder() );
 	}
 
 	/**
@@ -31,7 +28,6 @@ class CustomCssTest extends \WP_UnitTestCase {
 	 * @group customcss
 	 */
 	public function test_getBaseTheme() {
-
 		$input = file_get_contents( WP_CONTENT_DIR . '/themes/pressbooks-book/style.css' );
 		$output = CustomCss::getCustomCssFolder() . sanitize_file_name( 'web.css' );
 
@@ -39,11 +35,10 @@ class CustomCssTest extends \WP_UnitTestCase {
 
 		$web = CustomCss::getBaseTheme( 'web' );
 
-		$this->assertTrue( 'pressbooks-book' == $web );
+		$this->assertEquals( 'pressbooks-book', $web );
 
 		$prince = CustomCss::getBaseTheme( 'prince' );
 
-		$this->assertFalse( 'pressbooks-book' == $prince );
+		$this->assertNotEquals( 'pressbooks-book', $prince );
 	}
-
 }

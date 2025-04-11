@@ -10,6 +10,6 @@ function moveFootnotes() {
 		}
 	}
 }
-if ( typeof Prince != 'undefined' ) {
+if ( typeof Prince !== 'undefined' ) {
 	moveFootnotes();
 }

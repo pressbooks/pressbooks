@@ -1,4 +1,6 @@
+@import 'https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200;0,400;0,700;1,200;1,400;1,700&family=Spectral:ital,wght@0,200;0,400;0,700;1,200;1,400;1,700&display=swap';
 @import "partials/colors";
+@import "admin";
 
 // TODO: Use our colors!
 
@@ -8,7 +10,7 @@
   transform: translateZ(0);
 }
 
-#toplevel_page_pb_import {
+#toplevel_page_pb_import { /* stylelint-disable-line */
   .wp-menu-image {
     transform: rotate(180deg);
   }
@@ -19,7 +21,7 @@
 /* Admin Bar */
 
 @font-face {
-  font-family: "PBFont";
+  font-family: PBFont;
   src: url("../fonts/PBFont.eot");
   src: url("../fonts/PBFont.eot?#iefix") format("embedded-opentype"),
     url("../fonts/PBFont.ttf") format("truetype"),
@@ -27,95 +29,6 @@
     url("../fonts/PBFont.svg#PBFont") format("svg");
   font-weight: normal;
   font-style: normal;
-}
-
-#wpadminbar {
-  .quicklinks li .blavatar {
-    margin: 0 8px 4px 0;
-  }
-
-   .quicklinks li .blavatar::before {
-    font: 14px/1 "PBFont", sans-serif !important;
-    -webkit-font-smoothing: antialiased;
-    background: none;
-    content: "\e600" !important;
-  }
-
-  #wp-admin-bar-pb-network-admin > .ab-item::before {
-    -webkit-font-smoothing: antialiased;
-    background: none;
-    content: "\f325" !important;
-  }
-
-  #wp-admin-bar-pb-site-admin > .ab-item::before {
-    -webkit-font-smoothing: antialiased;
-    background: none;
-    content: "\f102" !important;
-  }
-
-  #wp-admin-bar-my-books > .ab-item::before {
-    -webkit-font-smoothing: antialiased;
-    background: none;
-    content: "\f318" !important;
-  }
-
-  #wp-admin-bar-site-name > .ab-item::before {
-    -webkit-font-smoothing: antialiased;
-    background: none;
-    content: "\f330" !important;
-  }
-
-  #wp-admin-bar-wp-logo > .ab-item .ab-icon::before {
-    font: 20px/1 "PBFont", sans-serif !important;
-    -webkit-font-smoothing: antialiased;
-    background: none;
-    content: "\e600" !important;
-  }
-
-  #wp-admin-bar-my-books-list {
-    min-height: 100px;
-    max-height: calc(100vh - 150px);
-    overflow-y: auto;
-    padding-right: 5px;
-  }
-
-  @media screen and (max-width: 782px) {
-    #wp-admin-bar-pb-network-admin, #wp-admin-bar-pb-site-admin, #wp-admin-bar-my-books {
-      display: block;
-
-      a.ab-item {
-        text-overflow: clip;
-     }
-
-      & > .ab-item {
-        text-indent: 100%;
-        white-space: nowrap;
-        overflow: hidden;
-        width: 55px;
-        padding: 0;
-        color: #999;
-        position: relative;
-
-        &::before {
-          font: 400 34px/1 "dashicons", sans-serif !important;
-          text-align: center;
-          text-indent: 0;
-          top: 7px;
-          width: 55px;
-          -webkit-font-smoothing: antialiased;
-          background: none;
-        }
-      }
-    }
-
-    .quicklinks li .blavatar::before {
-      display: inline-block;
-    }
-
-    #wp-admin-bar-wp-logo > .ab-item .ab-icon::before {
-      font: 28px/1 "PBFont", sans-serif !important;
-    }
-  }
 }
 
 .post-type-metadata #wp-admin-bar-view {
@@ -131,7 +44,7 @@
 /* Dashboard Widgets */
 
 #dashboard-widgets {
-  #pb_dashboard_widget_book {
+  #pb_dashboard_widget_book { /* stylelint-disable-line */
     h4 {
       font-weight: bold;
     }
@@ -154,6 +67,16 @@
       top: 0;
     }
   }
+}
+
+.wp-core-ui .button.button-hero.create-book, .wp-core-ui .button.button-hero.clone-book {
+  width: 140px;
+  padding: 0;
+  text-align: center;
+}
+
+.wp-core-ui .button.button-hero.create-book {
+  margin-right: 20px;
 }
 
 /* User Screen */
@@ -188,7 +111,7 @@ div.taxonomy_multi_select span.description a.button {
 i.mce-i-icon {
   padding: 0 2px 0 0;
   margin-left: -2px;
-  font: 400 20px/1 "dashicons", sans-serif;
+  font: 400 20px/1 dashicons, sans-serif;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   vertical-align: top;
@@ -214,11 +137,13 @@ i.mce-i-icon {
     p {
       text-align: left;
     }
+
     p#pb-password-protected {
       text-align: left;
       margin-left: 1em;
       display: none;
-      #post_password {
+
+      #post_password { /* stylelint-disable-line */
         margin-top: 0.5em;
         display: none;
       }
@@ -229,13 +154,13 @@ i.mce-i-icon {
 // Edit Screen Navigation
 
 #pb-edit-screen-navigation {
-  margin: 1em 0 0 0;
+  margin: 1em 0 0;
 
   @media (min-width: 851px) {
     margin-right: 300px;
   }
 
-  &:after {
+  &::after {
     /* clearfix */
     content: "";
     display: table;
@@ -273,6 +198,7 @@ $wp-spinner-anim-duration: 1.08s;
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -287,7 +213,7 @@ $wp-spinner-anim-duration: 1.08s;
     background: $wp-spinner-bg;
     animation: infinite-spinning $wp-spinner-anim-duration linear infinite;
 
-    &:after {
+    &::after {
       content: "";
       position: absolute;
       top: 2px;
@@ -301,7 +227,7 @@ $wp-spinner-anim-duration: 1.08s;
   }
 }
 
-#toplevel_page_quicklatex-settings {
+#toplevel_page_quicklatex-settings { /* stylelint-disable-line */
   display: none;
 }
 
@@ -320,6 +246,16 @@ $wp-spinner-anim-duration: 1.08s;
   }
 }
 
+@media screen and (max-width: 782px) {
+  .column-contributor_picture {
+    display: none;
+  }
+
+  .column-contributor_picture img {
+    margin-top: 1.5rem
+  }
+}
+
 .column-contributor_picture img {
   float: left;
   max-width: 60px;
@@ -327,7 +263,6 @@ $wp-spinner-anim-duration: 1.08s;
   border-radius: 50%;
   margin-right: 1.5rem;
 }
-
 
 .mce-window[aria-label="Table properties"] .mce-formitem:nth-child(6) {
   display: none;
@@ -338,8 +273,140 @@ $wp-spinner-anim-duration: 1.08s;
 }
 
 // Progress Bars
-
 #pb-sse-progressbar {
   display: none;
   width: 100%;
+  margin-top: 1rem;
+}
+
+// WordPress search fields
+.plugins-php .search-form .search-box,
+.themes-php .search-form {
+  align-items: center;
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.plugins-php .search-form label,
+.themes-php .search-form label {
+  border: unset;
+  clip-path: unset;
+  -webkit-clip-path: unset; /* stylelint-disable-line */
+  height: unset;
+  font-size: 14px;
+  margin: unset;
+  margin-right: 0.75rem;
+  overflow: unset;
+  padding: unset;
+  position: unset;
+  width: unset;
+  word-wrap: unset;
+}
+
+.themes-php .search-form .wp-filter-search {
+  left: 0;
+  top: 0;
+}
+
+// Toggle checkboxes
+
+input.toggle[type="checkbox"] {
+  appearance: none;
+  background: $white;
+  border-radius: 9px;
+  border: 1px solid $mine-shaft;
+  box-shadow: none;
+  box-sizing: border-box;
+  content: "";
+  display: inline-block;
+  height: 18px;
+  position: relative;
+  transition: 0.2s background ease;
+  vertical-align: top;
+  width: 36px;
+
+  &::before {
+    background-color: $mine-shaft;
+    border-radius: 50%;
+    border: 5px solid $mine-shaft;
+    box-sizing: border-box;
+    content: "";
+    display: block;
+    height: 12px;
+    left: 2px;
+    margin: 0;
+    position: relative;
+    top: 2px;
+    transition: 0.1s transform ease;
+    width: 12px;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 2px $white, 0 0 0 4px $monza;
+  }
+
+  &:checked {
+    background: $monza;
+    border-color: $monza;
+
+    &::before {
+      background-color: $white;
+      border-color: $white;
+      content: "";
+      height: 12px;
+      margin: 0;
+      transform: translateX(18px);
+      width: 12px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  input.toggle[type="checkbox"]::before {
+    transition-delay: 0s;
+    transition-duration: 0s;
+  }
+}
+
+// Button with pressed state
+.wp-core-ui .button[aria-pressed="true"],
+.wp-core-ui .button[aria-pressed="true"]:focus {
+  box-shadow: -1px -1px 0 1px $monza;
+  left: 2px;
+  position: relative;
+  top: 2px;
+}
+
+// Heading as inline-block
+.wrap h2.wp-heading-inline {
+  display: inline-block;
+}
+
+// Page title actions
+.page-title-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 1.5rem;
+}
+
+
+@media screen and (min-width: 768px) {
+  .page-title-actions {
+    display: inline-block;
+  }
+}
+
+// Section title with actions
+h2 + .page-title-actions {
+  margin-bottom: 0.5rem;
+}
+
+h2 + .page-title-actions .page-title-action {
+  top: -1px;
+}
+
+// Space between regions on an admin page
+.wrap [role="region"] + [role="region"] {
+  margin-top: 1.5rem;
 }

@@ -24,7 +24,9 @@ use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Admin\PublishOptions;
 use Pressbooks\Book;
 use Pressbooks\BookDirectory;
+use Pressbooks\CloneComplete;
 use Pressbooks\Cloner\Cloner;
+use Pressbooks\Container;
 use Pressbooks\DataCollector\Book as DataCollector;
 use Pressbooks\Metadata;
 use WP_Error;
@@ -71,7 +73,7 @@ function add_footer_link() {
 		$contact_link_href = sprintf(
 			'&bull; <a href="%1$s">%2$s</a>',
 			$contact_link,
-			__( 'Contact', 'pressbooks' )
+			esc_html__( 'Contact', 'pressbooks' )
 		);
 	} else {
 		$contact_link_href = '';
@@ -80,7 +82,7 @@ function add_footer_link() {
 	printf(
 		'<span id="footer-thankyou">%1$s</span> &bull; %2$s &bull; %3$s &bull; %4$s &bull; %5$s %6$s <br/>',
 		sprintf(
-			__( 'Powered by %s', 'pressbooks' ),
+			esc_html__( 'Powered by %s', 'pressbooks' ),
 			sprintf(
 				'<a href="%1$s">%2$s</a>',
 				'https://pressbooks.com/',
@@ -90,7 +92,7 @@ function add_footer_link() {
 		sprintf(
 			'<a href="%1$s">%2$s</a>',
 			'https://pressbooks.com/about/',
-			__( 'About', 'pressbooks' )
+			esc_html__( 'About', 'pressbooks' )
 		),
 		sprintf(
 			'<a href="%1$s">%2$s</a>',
@@ -100,17 +102,17 @@ function add_footer_link() {
 			 * @since 5.6.0
 			 */
 			apply_filters( 'pb_help_link', 'https://pressbooks.com/support/' ),
-			__( 'Guides and Tutorials', 'pressbooks' )
+			esc_html__( 'Guides and Tutorials', 'pressbooks' )
 		),
 		sprintf(
 			'<a href="%1$s">%2$s</a>',
 			admin_url( 'options.php?page=pressbooks_diagnostics' ),
-			__( 'Diagnostics', 'pressbooks' )
+			esc_html__( 'Diagnostics', 'pressbooks' )
 		),
 		sprintf(
 			'<a href="%1$s">%2$s</a>',
 			admin_url( 'options.php?page=pressbooks_sitemap' ),
-			__( 'Site Map', 'pressbooks' )
+			esc_html__( 'Site Map', 'pressbooks' )
 		),
 		$contact_link_href
 	);
@@ -145,7 +147,7 @@ function replace_book_admin_menu() {
 	remove_submenu_page( 'tools.php', 'site-health.php' );
 
 	// Organize
-	$organize_page = add_menu_page( __( 'Organize', 'pressbooks' ), __( 'Organize', 'pressbooks' ), 'edit_posts', 'pb_organize', __NAMESPACE__ . '\display_organize', 'dashicons-book' );
+	$organize_page = add_menu_page( esc_html__( 'Organize', 'pressbooks' ), esc_html__( 'Organize', 'pressbooks' ), 'edit_posts', 'pb_organize', __NAMESPACE__ . '\display_organize', 'dashicons-book' );
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) use ( $organize_page ) {
 			if ( $hook === $organize_page ) {
@@ -160,28 +162,30 @@ function replace_book_admin_menu() {
 						'postVisibilityNonce' => wp_create_nonce( 'pb-organize-visibility' ),
 						'privacyNonce' => wp_create_nonce( 'pb-organize-book-privacy' ),
 						'wordCountNonce' => wp_create_nonce( 'pb-update-word-count-for-export' ),
-						'bookPrivate' => __( 'private', 'pressbooks' ),
-						'bookPublic' => __( 'public', 'pressbooks' ),
+						'bookPrivate' => esc_html__( 'private', 'pressbooks' ),
+						'bookPublic' => esc_html__( 'public', 'pressbooks' ),
+						'moveUp' => esc_html__( 'Move Up', 'pressbooks' ),
+						'moveDown' => esc_html__( 'Move Down', 'pressbooks' ),
 						'updating' => [
-							'book' => __( 'Updating book.', 'pressbooks' ),
-							'chapter' => __( 'Updating chapters.', 'pressbooks' ),
-							'part' => __( 'Updating part.', 'pressbooks' ),
-							'frontmatter' => __( 'Updating front matter.', 'pressbooks' ),
-							'backmatter' => __( 'Updating back matter.', 'pressbooks' ),
+							'book' => esc_html__( 'Updating book.', 'pressbooks' ),
+							'chapter' => esc_html__( 'Updating chapters.', 'pressbooks' ),
+							'part' => esc_html__( 'Updating part.', 'pressbooks' ),
+							'frontmatter' => esc_html__( 'Updating front matter.', 'pressbooks' ),
+							'backmatter' => esc_html__( 'Updating back matter.', 'pressbooks' ),
 						],
 						'success' => [
-							'book' => __( 'The book has been successfully updated!', 'pressbooks' ),
-							'chapter' => __( 'The chapters has been successfully updated!', 'pressbooks' ),
-							'part' => __( 'The part has been successfully updated!', 'pressbooks' ),
-							'frontmatter' => __( 'The front matter has been successfully updated!', 'pressbooks' ),
-							'backmatter' => __( 'The back matter has been successfully updated!', 'pressbooks' ),
+							'book' => esc_html__( 'The book has been successfully updated!', 'pressbooks' ),
+							'chapter' => esc_html__( 'The chapters has been successfully updated!', 'pressbooks' ),
+							'part' => esc_html__( 'The part has been successfully updated!', 'pressbooks' ),
+							'frontmatter' => esc_html__( 'The front matter has been successfully updated!', 'pressbooks' ),
+							'backmatter' => esc_html__( 'The back matter has been successfully updated!', 'pressbooks' ),
 						],
 						'failure' => [
-							'book' => __( 'Sorry, the book could not be updated.!', 'pressbooks' ),
-							'chapter' => __( 'Sorry, the chapters could not be updated.', 'pressbooks' ),
-							'part' => __( 'Sorry, the part could not be updated.', 'pressbooks' ),
-							'frontmatter' => __( 'Sorry, the front matter could not be updated.', 'pressbooks' ),
-							'backmatter' => __( 'Sorry, the back matter could not be updated.', 'pressbooks' ),
+							'book' => esc_html__( 'Sorry, the book could not be updated.!', 'pressbooks' ),
+							'chapter' => esc_html__( 'Sorry, the chapters could not be updated.', 'pressbooks' ),
+							'part' => esc_html__( 'Sorry, the part could not be updated.', 'pressbooks' ),
+							'frontmatter' => esc_html__( 'Sorry, the front matter could not be updated.', 'pressbooks' ),
+							'backmatter' => esc_html__( 'Sorry, the back matter could not be updated.', 'pressbooks' ),
 						],
 					]
 				);
@@ -191,77 +195,77 @@ function replace_book_admin_menu() {
 
 	add_submenu_page(
 		'pb_organize',
-		__( 'Add Part', 'pressbooks' ),
-		__( 'Add Part', 'pressbooks' ),
+		esc_html__( 'Add Part', 'pressbooks' ),
+		esc_html__( 'Add Part', 'pressbooks' ),
 		'edit_pages',
 		'post-new.php?post_type=part'
 	);
 
 	add_submenu_page(
 		'pb_organize',
-		__( 'Add Chapter', 'pressbooks' ),
-		__( 'Add Chapter', 'pressbooks' ),
+		esc_html__( 'Add Chapter', 'pressbooks' ),
+		esc_html__( 'Add Chapter', 'pressbooks' ),
 		'edit_posts',
 		'post-new.php?post_type=chapter'
 	);
 
 	add_submenu_page(
 		'pb_organize',
-		__( 'Add Front Matter', 'pressbooks' ),
-		__( 'Add Front Matter', 'pressbooks' ),
+		esc_html__( 'Add Front Matter', 'pressbooks' ),
+		esc_html__( 'Add Front Matter', 'pressbooks' ),
 		'edit_posts',
 		'post-new.php?post_type=front-matter'
 	);
 
 	add_submenu_page(
 		'pb_organize',
-		__( 'Add Back Matter', 'pressbooks' ),
-		__( 'Add Back Matter', 'pressbooks' ),
+		esc_html__( 'Add Back Matter', 'pressbooks' ),
+		esc_html__( 'Add Back Matter', 'pressbooks' ),
 		'edit_posts',
 		'post-new.php?post_type=back-matter'
 	);
 
 	add_submenu_page(
 		'pb_organize',
-		__( 'Glossary Terms', 'pressbooks' ),
-		__( 'Glossary Terms', 'pressbooks' ),
+		esc_html__( 'Glossary Terms', 'pressbooks' ),
+		esc_html__( 'Glossary Terms', 'pressbooks' ),
 		'edit_posts',
 		'edit.php?post_type=glossary'
 	);
 
 	add_submenu_page(
 		'pb_organize',
-		__( 'Chapter Types', 'pressbooks' ),
-		__( 'Chapter Types', 'pressbooks' ),
+		esc_html__( 'Chapter Types', 'pressbooks' ),
+		esc_html__( 'Chapter Types', 'pressbooks' ),
 		'manage_network',
 		'edit-tags.php?taxonomy=chapter-type&amp;post_type=chapter'
 	);
 
 	add_submenu_page(
 		'pb_organize',
-		__( 'Front Matter Types', 'pressbooks' ),
-		__( 'Front Matter Types', 'pressbooks' ),
+		esc_html__( 'Front Matter Types', 'pressbooks' ),
+		esc_html__( 'Front Matter Types', 'pressbooks' ),
 		'manage_network',
 		'edit-tags.php?taxonomy=front-matter-type&amp;post_type=front-matter'
 	);
 
 	add_submenu_page(
 		'pb_organize',
-		__( 'Back Matter Types', 'pressbooks' ),
-		__( 'Back Matter Types', 'pressbooks' ),
+		esc_html__( 'Back Matter Types', 'pressbooks' ),
+		esc_html__( 'Back Matter Types', 'pressbooks' ),
 		'manage_network',
 		'edit-tags.php?taxonomy=back-matter-type&amp;post_type=back-matter'
 	);
 
 	add_submenu_page(
 		'pb_organize',
-		__( 'Glossary Types', 'pressbooks' ),
-		__( 'Glossary Types', 'pressbooks' ),
+		esc_html__( 'Glossary Types', 'pressbooks' ),
+		esc_html__( 'Glossary Types', 'pressbooks' ),
 		'manage_network',
 		'edit-tags.php?taxonomy=glossary-type&amp;post_type=glossary'
 	);
 
-	add_submenu_page( 'pb_organize', __( 'Trash' ), __( 'Trash' ), 'delete_posts', 'pb_trash', __NAMESPACE__ . '\display_trash' );
+	add_submenu_page( 'pb_organize', esc_html__( 'Trash' ), esc_html__( 'Trash' ), 'delete_posts', 'pb_trash', __NAMESPACE__ . '\display_trash' );
 
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) {
@@ -282,23 +286,37 @@ function replace_book_admin_menu() {
 
 	// Book Information
 	$book_info_url = book_info_slug();
-	$bookinfo_page = add_menu_page( __( 'Book Info', 'pressbooks' ), __( 'Book Info', 'pressbooks' ), 'manage_options', $book_info_url, '', 'dashicons-info', 12 );
+	$bookinfo_page = add_menu_page( esc_html__( 'Book Info', 'pressbooks' ), esc_html__( 'Book Info', 'pressbooks' ), 'manage_options', $book_info_url, '', 'dashicons-info', 12 );
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) use ( $bookinfo_page ) {
 			if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
 				$post_type = get_post_type();
 				if ( 'metadata' === $post_type ) {
+					wp_enqueue_script( 'duet-date-picker' );
 					wp_enqueue_script( 'pb-metadata' );
 					wp_localize_script(
 						'pb-metadata', 'PB_BookInfoToken', [
 							'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=pb_get_thema_subjects' ), 'pb-metadata' ),
 							'institutionsAPI' => wp_nonce_url( admin_url( 'admin-ajax.php?action=pb_get_institutions' ), 'pb-metadata' ),
 							'bookInfoMenuId' => preg_replace( '|[^a-zA-Z0-9_:.]|', '-', $bookinfo_page ),
-							'selectInstitutionsText' => __( 'Choose institution(s)... ', 'pressbooks' ),
-							'selectSubjectText' => __( 'Choose a subject…', 'pressbooks' ),
-							'selectSubjectsText' => __( 'Choose some subject(s)…', 'pressbooks' ),
+							'selectInstitutionsText' => esc_html__( 'Choose institution(s)... ', 'pressbooks' ),
+							'selectSubjectText' => esc_html__( 'Choose a subject…', 'pressbooks' ),
+							'selectSubjectsText' => esc_html__( 'Choose some subject(s)…', 'pressbooks' ),
 						]
 					);
+					wp_enqueue_style( 'duet-date-picker' );
+				}
+			}
+		}
+	);
+
+	add_action(
+		'admin_enqueue_scripts', function ( $hook ) use ( $bookinfo_page ) {
+			if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
+				$post_type = get_post_type();
+				if ( in_array( $post_type, [ 'metadata', 'front-matter', 'chapter', 'back-matter' ], true ) ) {
+					wp_enqueue_script( 'pressbooks-multiselect' );
+					wp_enqueue_script( 'pressbooks-reorderable-multiselect' );
 				}
 			}
 		}
@@ -306,14 +324,14 @@ function replace_book_admin_menu() {
 
 	add_submenu_page(
 		$book_info_url,
-		__( 'Contributors', 'pressbooks' ),
-		__( 'Contributors', 'pressbooks' ),
+		esc_html__( 'Contributors', 'pressbooks' ),
+		esc_html__( 'Contributors', 'pressbooks' ),
 		'manage_options',
 		'edit-tags.php?taxonomy=contributor'
 	);
 
 	// Export
-	$export_page = add_menu_page( __( 'Export', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'edit_posts', 'pb_export', __NAMESPACE__ . '\display_export', 'dashicons-migrate', 14 );
+	$export_page = add_menu_page( esc_html__( 'Export', 'pressbooks' ), esc_html__( 'Export', 'pressbooks' ), 'edit_posts', 'pb_export', __NAMESPACE__ . '\display_export', 'dashicons-migrate', 14 );
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) use ( $export_page ) {
 			if ( $hook === $export_page ) {
@@ -326,14 +344,14 @@ function replace_book_admin_menu() {
 				wp_localize_script(
 					'pb-export', 'PB_ExportToken', [
 						'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=export-book' ), 'pb-export' ),
-						'bulkDeleteWarning' => __( 'Are you sure you want to delete these export files?', 'pressbooks' ),
-						'maximumFilesWarning' => __( 'Up to 5 files can be pinned at once.', 'pressbooks' ),
-						'maximumFileTypeWarning' => __( 'Cannot pin more than 3 of the same file type.', 'pressbooks' ),
+						'bulkDeleteWarning' => esc_html__( 'Are you sure you want to delete these export files?', 'pressbooks' ),
+						'maximumFilesWarning' => esc_html__( 'Up to 5 files can be pinned at once.', 'pressbooks' ),
+						'maximumFileTypeWarning' => esc_html__( 'Cannot pin more than 3 of the same file type.', 'pressbooks' ),
 						'pinsNonce' => wp_create_nonce( 'pb-export-pins' ),
 						'redirectUrl' => admin_url( 'options.php?page=pb_export' ),
-						'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . __( 'Reload', 'pressbooks' ) . '</a>)</em>',
-						'tooManyExportsWarning' => __( 'Too many pinned files. Deselect one of the pinned files before attempting to export.', 'pressbooks' ),
-						'unloadWarning' => __( 'Exports are not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
+						'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . esc_html__( 'Reload', 'pressbooks' ) . '</a>)</em>',
+						'tooManyExportsWarning' => esc_html__( 'Too many pinned files. Deselect one of the pinned files before attempting to export.', 'pressbooks' ),
+						'unloadWarning' => esc_html__( 'Exports are not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
 					]
 				);
 				wp_enqueue_style( 'pb-export' );
@@ -345,7 +363,7 @@ function replace_book_admin_menu() {
 	);
 
 	// Import
-	$import_page = add_menu_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import', 'dashicons-migrate', 16 );
+	$import_page = add_menu_page( esc_html__( 'Import', 'pressbooks' ), esc_html__( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import', 'dashicons-migrate', 16 );
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) use ( $import_page ) {
 			if ( $hook === $import_page ) {
@@ -353,9 +371,9 @@ function replace_book_admin_menu() {
 					'pb-import', 'PB_ImportToken', [
 						'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=import-book' ), 'pb-import' ),
 						'redirectUrl' => admin_url( 'admin.php?page=pb_organize' ),
-						'unloadWarning' => __( 'Imports are not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
-						'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . __( 'Reload', 'pressbooks' ) . '</a>)</em>',
-						'ajaxSubmitMsg' => __( 'Saving settings', 'pressbooks' ),
+						'unloadWarning' => esc_html__( 'Imports are not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
+						'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . esc_html__( 'Reload', 'pressbooks' ) . '</a>)</em>',
+						'ajaxSubmitMsg' => esc_html__( 'Saving settings', 'pressbooks' ),
 					]
 				);
 				wp_enqueue_script( 'pb-import' );
@@ -375,10 +393,10 @@ function replace_book_admin_menu() {
 		update_option( 'pressbooks_ecommerce_links_version', $page::VERSION, false );
 	}
 
-	add_menu_page( __( 'Publish', 'pressbooks' ), __( 'Publish', 'pressbooks' ), 'edit_posts', 'pb_publish', [ $page, 'render' ], 'dashicons-products', 17 );
+	add_menu_page( esc_html__( 'Publish', 'pressbooks' ), esc_html__( 'Publish', 'pressbooks' ), 'edit_posts', 'pb_publish', [ $page, 'render' ], 'dashicons-products', 17 );
 
 	// Privacy
-	add_options_page( __( 'Sharing and Privacy Settings', 'pressbooks' ), __( 'Sharing &amp; Privacy', 'pressbooks' ), 'manage_options', 'pressbooks_sharingandprivacy_options', __NAMESPACE__ . '\display_privacy_settings' );
+	add_options_page( esc_html__( 'Sharing and Privacy Settings', 'pressbooks' ), esc_html__( 'Sharing &amp; Privacy', 'pressbooks' ), 'manage_options', 'pressbooks_sharingandprivacy_options', __NAMESPACE__ . '\display_privacy_settings' );
 
 	// Export
 	$option = get_option( 'pressbooks_export_options', ExportOptions::getDefaults() );
@@ -391,13 +409,13 @@ function replace_book_admin_menu() {
 		update_option( 'pressbooks_export_options_version', $page::VERSION, false );
 	}
 
-	add_options_page( __( 'Export Settings', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'manage_options', 'pressbooks_export_options', [ $page, 'render' ] );
+	add_options_page( esc_html__( 'Export Settings', 'pressbooks' ), esc_html__( 'Export', 'pressbooks' ), 'manage_options', 'pressbooks_export_options', [ $page, 'render' ] );
 
 	// QuickLaTeX
 	if ( function_exists( 'quicklatex_options_do_page' ) ) {
 		add_options_page(
-			__( 'QuickLaTeX', 'pressbooks' ),
-			__( 'QuickLaTeX', 'pressbooks' ),
+			esc_html__( 'QuickLaTeX', 'pressbooks' ),
+			esc_html__( 'QuickLaTeX', 'pressbooks' ),
 			'manage_options',
 			'quicklatex-settings',
 			'quicklatex_options_do_page'
@@ -406,7 +424,7 @@ function replace_book_admin_menu() {
 
 	// Clone a Book
 	if ( Cloner::isEnabled() && ( can_create_new_books() || is_super_admin() ) ) {
-		$cloner_page = add_submenu_page( 'admin.php', __( 'Clone a Book', 'pressbooks' ), __( 'Clone a Book', 'pressbooks' ), 'read', 'pb_cloner', __NAMESPACE__ . '\display_cloner' );
+		$cloner_page = add_submenu_page( 'admin.php', esc_html__( 'Clone a Book', 'pressbooks' ), esc_html__( 'Clone a Book', 'pressbooks' ), 'read', 'pb_cloner', __NAMESPACE__ . '\display_cloner' );
 		add_action(
 			'admin_enqueue_scripts', function ( $hook ) use ( $cloner_page ) {
 				if ( $hook === $cloner_page ) {
@@ -414,8 +432,8 @@ function replace_book_admin_menu() {
 						'pb-cloner', 'PB_ClonerToken', [
 							'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=clone-book' ), 'pb-cloner' ),
 							'redirectUrl' => admin_url( 'options.php?page=pb_cloner' ),
-							'unloadWarning' => __( 'Cloning is not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
-							'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . __( 'Reload', 'pressbooks' ) . '</a>)</em>',
+							'unloadWarning' => esc_html__( 'Cloning is not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
+							'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . esc_html__( 'Reload', 'pressbooks' ) . '</a>)</em>',
 						]
 					);
 					wp_enqueue_script( 'pb-cloner' );
@@ -426,7 +444,7 @@ function replace_book_admin_menu() {
 	}
 
 	// Catalog
-	add_submenu_page( 'index.php', __( 'My Catalog', 'pressbooks' ), __( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\Pressbooks\Catalog::addMenu' );
+	add_submenu_page( 'index.php', esc_html__( 'My Catalog', 'pressbooks' ), esc_html__( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\Pressbooks\Catalog::addMenu' );
 }
 
 /**
@@ -574,7 +592,7 @@ function network_admin_menu() {
 	}
 
 	add_submenu_page(
-		'settings.php', __( 'Sharing and Privacy Settings', 'pressbooks' ), __( 'Sharing &amp; Privacy', 'pressbooks' ), 'manage_network', 'pressbooks_sharingandprivacy_options', [
+		'settings.php', esc_html__( 'Sharing and Privacy Settings', 'pressbooks' ), esc_html__( 'Sharing &amp; Privacy', 'pressbooks' ), 'manage_network', 'pressbooks_sharingandprivacy_options', [
 			$page,
 			'render',
 		]
@@ -604,36 +622,48 @@ function fix_root_admin_menu() {
 		if ( class_exists( '\H5P_Plugin_Admin' ) ) {
 			remove_action( 'admin_menu', [ \H5P_Plugin_Admin::get_instance(), 'add_plugin_admin_menu' ] );
 		}
-		return true;
 	}
 	// Catalog
-	add_submenu_page( 'index.php', __( 'My Catalog', 'pressbooks' ), __( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\Pressbooks\Catalog::addMenu' );
+	add_submenu_page( 'index.php', esc_html__( 'My Catalog', 'pressbooks' ), esc_html__( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\Pressbooks\Catalog::addMenu' );
 }
 
 function add_pb_cloner_page() {
-	add_submenu_page(
-		null,
-		__( 'Clone a Book', 'pressbooks' ),
-		__( 'Clone a Book', 'pressbooks' ),
-		'read',
-		'pb_cloner',
-		__NAMESPACE__ . '\display_cloner'
-	);
-	add_action(
-		'admin_enqueue_scripts',
-		function () {
-			wp_localize_script(
-				'pb-cloner', 'PB_ClonerToken', [
-					'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=clone-book' ), 'pb-cloner' ),
-					'redirectUrl' => admin_url( 'admin.php?page=pb_cloner' ),
-					'unloadWarning' => __( 'Cloning is not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
-					'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . __( 'Reload', 'pressbooks' ) . '</a>)</em>',
-				]
-			);
-			global $wp_scripts;
-			wp_enqueue_script( 'pb-cloner' );
-			wp_deregister_script( 'heartbeat' );
-		}
+	if ( Cloner::isEnabled() && ( can_create_new_books() || is_super_admin() ) ) {
+		$cloner_page = add_submenu_page(
+			'pb-null',
+			esc_html__( 'Clone a Book', 'pressbooks' ),
+			esc_html__( 'Clone a Book', 'pressbooks' ),
+			'read',
+			'pb_cloner',
+			__NAMESPACE__ . '\display_cloner'
+		);
+		add_action(
+			'admin_enqueue_scripts',
+			function ( $hook ) use ( $cloner_page ) {
+				if ( $hook === $cloner_page ) {
+					wp_localize_script(
+						'pb-cloner', 'PB_ClonerToken', [
+							'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=clone-book' ), 'pb-cloner' ),
+							'redirectUrl' => admin_url( 'admin.php?page=pb_cloner' ),
+							'unloadWarning' => esc_html__( 'Cloning is not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
+							'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . esc_html__( 'Reload', 'pressbooks' ) . '</a>)</em>',
+						]
+					);
+					wp_enqueue_script( 'pb-cloner' );
+					wp_deregister_script( 'heartbeat' );
+				}
+			}
+		);
+	}
+}
+
+function add_cloning_stats_page() {
+	add_management_page(
+		esc_html__( 'Cloning Stats', 'pressbooks' ),
+		esc_html__( 'Cloning Stats', 'pressbooks' ),
+		'edit_posts',
+		'pb_cloner_stats',
+		__NAMESPACE__ . '\display_cloning_stats'
 	);
 }
 
@@ -641,7 +671,57 @@ function add_pb_cloner_page() {
  * Displays the Organize page.
  */
 function display_organize() {
-	require( PB_PLUGIN_DIR . 'templates/admin/organize.php' );
+	$blade = \Pressbooks\Container::get( 'Blade' );
+	$book_structure = \Pressbooks\Book::getBookStructure();
+	$ebook_options = get_option( 'pressbooks_theme_options_ebook' );
+	$structure = [];
+
+	$structure['front-matter'] = [
+		'name' => esc_html__( 'Front Matter', 'pressbooks' ),
+		'abbreviation' => 'fm',
+		'index' => null,
+		'items' => $book_structure['front-matter'],
+	];
+
+	foreach ( $book_structure['part'] as $key => $part ) {
+		$structure[ 'part_' . $part['ID'] ] = [
+			'name' => esc_html__( 'Chapter', 'pressbooks' ),
+			'abbreviation' => 'chapter',
+			'title' => $part['post_title'],
+			'id' => $part['ID'],
+			'index' => $key + 1,
+			'items' => $part['chapters'],
+		];
+	}
+
+	$structure['back-matter'] = [
+		'name' => esc_html__( 'Back Matter', 'pressbooks' ),
+		'abbreviation' => 'bm',
+		'index' => null,
+		'items' => $book_structure['back-matter'],
+	];
+
+	echo $blade->render(
+		'admin.organize',
+		[
+			'statuses' => get_post_stati( [], 'objects' ),
+			'parts' => count( $book_structure['part'] ),
+			'meta_post' => ( new \Pressbooks\Metadata() )->getMetaPost(),
+			'book_is_public' => ( ! empty( get_option( 'blog_public' ) ) ) ? 1 : 0,
+			'disable_comments' => \Pressbooks\Utility\disable_comments(),
+			'wc' => \Pressbooks\Book::wordCount(),
+			'wc_selected_for_export' => \Pressbooks\Book::wordCount( true ),
+			'can_manage_options' => current_user_can( 'manage_options' ),
+			'can_edit_posts' => current_user_can( 'edit_posts' ),
+			'can_edit_others_posts' => current_user_can( 'edit_others_posts' ),
+			'contributors' => new \Pressbooks\Contributors(),
+			'ebook_options' => $ebook_options,
+			'start_point' => ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['ebook_start_point'] ) )
+				? (int) $ebook_options['ebook_start_point']
+				: false,
+			'structure' => $structure,
+		]
+	);
 }
 
 /**
@@ -655,7 +735,7 @@ function display_trash() {
  * Displays the Export Admin Page
  */
 function display_export() {
-	$blade = \Pressbooks\Container::get( 'Blade' );
+	$blade = Container::get( 'Blade' );
 	echo $blade->render(
 		'admin.export',
 		\Pressbooks\Modules\Export\template_data()
@@ -666,7 +746,23 @@ function display_export() {
  * Displays the Clone a Book Page
  */
 function display_cloner() {
-	require( PB_PLUGIN_DIR . 'templates/admin/cloner.php' );
+	$blade = Container::get( 'Blade' );
+	echo $blade->render( 'admin.cloner.page',
+		[
+			'base_url' => network_home_url(),
+			'domain' => wp_parse_url( network_home_url(), PHP_URL_HOST ),
+		]
+	);
+}
+
+function display_cloning_stats() {
+	$blade = Container::get( 'Blade' );
+	echo $blade->render( 'admin.cloner.stats',
+		[
+			'book' => get_blog_details(),
+			'cloning_stats' => CloneComplete::getCloningStats(),
+		]
+	);
 }
 
 /**
@@ -674,78 +770,6 @@ function display_cloner() {
  */
 function display_import() {
 	require( PB_PLUGIN_DIR . 'templates/admin/import.php' );
-}
-
-/**
- * Replace WP logo in menu bar with PB one and add links to About page, Contact page, and forums
- *
- * @param \WP_Admin_Bar $wp_admin_bar The admin bar object as it currently exists
- */
-function replace_menu_bar_branding( $wp_admin_bar ) {
-
-	$wp_admin_bar->remove_menu( 'wp-logo' );
-	$wp_admin_bar->remove_menu( 'documentation' );
-	$wp_admin_bar->remove_menu( 'feedback' );
-	$wp_admin_bar->add_menu(
-		[
-			'id' => 'wp-logo',
-			'title' => '<span class="ab-icon"></span><span class="screen-reader-text">' . __( 'About Pressbooks', 'pressbooks' ) . '</span>',
-			'href' => ( 'https://pressbooks.com/about/' ),
-		]
-	);
-
-	if ( is_user_logged_in() ) {
-		// Add "About WordPress" link
-		$wp_admin_bar->add_menu(
-			[
-				'parent' => 'wp-logo',
-				'id' => 'about',
-				'title' => __( 'About Pressbooks', 'pressbooks' ),
-				'href' => 'https://pressbooks.com/about/',
-			]
-		);
-	}
-
-	// Add WordPress.org link
-	$wp_admin_bar->add_menu(
-		[
-			'parent' => 'wp-logo-external',
-			'id' => 'wporg',
-			'title' => __( 'Pressbooks.com', 'pressbooks' ),
-			'href' => 'https://pressbooks.com/',
-		]
-	);
-
-	// Add forums link
-	$wp_admin_bar->add_menu(
-		[
-			'parent' => 'wp-logo-external',
-			'id' => 'support-forums',
-			'title' => __( 'Help', 'pressbooks' ),
-			/**
-			 * Filter the "Help" link.
-			 *
-			 * @since 5.6.0
-			 */
-			'href' => apply_filters( 'pb_help_link', 'https://pressbooks.community/' ),
-		]
-	);
-
-	// Add feedback link
-	$wp_admin_bar->add_menu(
-		[
-			'parent' => 'wp-logo-external',
-			'id' => 'contact',
-			'title' => __( 'Contact', 'pressbooks' ),
-			/**
-			 * Filter the "Contact" link.
-			 *
-			 * @since 5.6.0
-			 */
-			'href' => apply_filters( 'pb_contact_link', 'https://pressbooks.org/support-pressbooks/' ),
-		]
-	);
-
 }
 
 /**
@@ -765,7 +789,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 		$wp_admin_bar->add_menu(
 			[
 				'id' => 'pb-network-admin',
-				'title' => __( 'Network Admin', 'pressbooks' ),
+				'title' => esc_html__( 'Network Admin', 'pressbooks' ),
 				'href' => network_admin_url(),
 				'meta' => is_network_admin() ? [
 					'class' => 'you-are-here',
@@ -776,7 +800,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 			[
 				'parent' => 'pb-network-admin',
 				'id' => 'pb-network-admin-d',
-				'title' => __( 'Dashboard', 'pressbooks' ),
+				'title' => esc_html__( 'Dashboard', 'pressbooks' ),
 				'href' => network_admin_url(),
 			]
 		);
@@ -784,7 +808,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 			[
 				'parent' => 'pb-network-admin',
 				'id' => 'pb-network-admin-s',
-				'title' => __( 'Books', 'pressbooks' ),
+				'title' => esc_html__( 'Books', 'pressbooks' ),
 				'href' => network_admin_url( 'sites.php' ),
 			]
 		);
@@ -792,7 +816,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 			[
 				'parent' => 'pb-network-admin',
 				'id' => 'pb-network-admin-u',
-				'title' => __( 'Users', 'pressbooks' ),
+				'title' => esc_html__( 'Users', 'pressbooks' ),
 				'href' => network_admin_url( 'users.php' ),
 			]
 		);
@@ -801,7 +825,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 				[
 					'parent' => 'pb-network-admin',
 					'id' => 'pb-network-admin-t',
-					'title' => __( 'Themes', 'pressbooks' ),
+					'title' => esc_html__( 'Themes', 'pressbooks' ),
 					'href' => network_admin_url( 'themes.php' ),
 				]
 			);
@@ -809,7 +833,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 				[
 					'parent' => 'pb-network-admin',
 					'id' => 'pb-network-admin-p',
-					'title' => __( 'Plugins', 'pressbooks' ),
+					'title' => esc_html__( 'Plugins', 'pressbooks' ),
 					'href' => network_admin_url( 'plugins.php' ),
 				]
 			);
@@ -851,7 +875,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 			[
 				'parent' => 'pb-site-admin',
 				'id' => $menu_id . '-d',
-				'title' => __( 'Dashboard', 'pressbooks' ),
+				'title' => esc_html__( 'Dashboard', 'pressbooks' ),
 				'href' => $admin_url,
 			]
 		);
@@ -859,7 +883,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 			[
 				'parent' => 'pb-site-admin',
 				'id' => $menu_id . '-v',
-				'title' => __( 'Visit Website', 'pressbooks' ),
+				'title' => esc_html__( 'Visit Website', 'pressbooks' ),
 				'href' => get_home_url( $website_id, '/' ),
 			]
 		);
@@ -869,7 +893,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 	$wp_admin_bar->add_menu(
 		[
 			'id' => 'my-books',
-			'title' => __( 'My Books', 'pressbooks' ),
+			'title' => esc_html__( 'My Books', 'pressbooks' ),
 			'href' => last_book( $wp_admin_bar, 'wp-admin/index.php?page=pb_catalog' ),
 		]
 	);
@@ -879,7 +903,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 		[
 			'parent' => 'my-books',
 			'id' => 'my-catalog',
-			'title' => __( 'My Catalog', 'pressbooks' ),
+			'title' => esc_html__( 'My Catalog', 'pressbooks' ),
 			'href' => last_book( $wp_admin_bar, 'wp-admin/index.php?page=pb_catalog' ),
 		]
 	);
@@ -889,7 +913,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 			[
 				'parent' => 'my-books',
 				'id' => 'add-new-book',
-				'title' => __( 'Create A New Book', 'pressbooks' ),
+				'title' => esc_html__( 'Create A New Book', 'pressbooks' ),
 				'href' => network_home_url( 'wp-signup.php' ),
 			]
 		);
@@ -901,7 +925,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 			[
 				'parent' => 'my-books',
 				'id' => 'clone-a-book',
-				'title' => __( 'Clone A Book', 'pressbooks' ),
+				'title' => esc_html__( 'Clone A Book', 'pressbooks' ),
 				'href' => admin_url( 'admin.php?page=pb_cloner' ),
 			]
 		);
@@ -1054,6 +1078,11 @@ function disable_customizer() {
  * Instantiates various sub-classes, remove meta boxes from post pages & registers custom post status.
  */
 function init_css_js() {
+	// Reset admin css colors so we only provide Pressbooks' options.
+	global $_wp_admin_css_colors;
+
+	$_wp_admin_css_colors = [];
+
 	$assets = new Assets( 'pressbooks', 'plugin' );
 
 	wp_admin_css_color(
@@ -1084,7 +1113,6 @@ function init_css_js() {
 
 	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pb_catalog' ) {
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_style( 'select2', $assets->getPath( 'styles/select2.css' ) );
 		wp_enqueue_style( 'pressbooks-catalog', $assets->getPath( 'styles/catalog.css' ) );
 		wp_enqueue_script( 'color-picker', $assets->getPath( 'scripts/color-picker.js' ), [ 'wp-color-picker' ] );
 		wp_enqueue_script( 'select2-js', $assets->getPath( 'scripts/select2.js' ), [ 'jquery' ] );
@@ -1092,38 +1120,17 @@ function init_css_js() {
 
 	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pressbooks_theme_options' ) {
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_style( 'select2', $assets->getPath( 'styles/select2.css' ) );
 		wp_enqueue_style( 'theme-options', $assets->getPath( 'styles/theme-options.css' ) );
-		wp_enqueue_script( 'select2-js', $assets->getPath( 'scripts/select2.js' ), [ 'jquery' ] );
+		wp_enqueue_script( 'pressbooks-multiselect' );
 		wp_enqueue_script( 'theme-options-js', $assets->getPath( 'scripts/theme-options.js' ), [ 'jquery', 'wp-color-picker' ] );
 	}
-
-	// Upgrade Select2 in Custom Metadata Manager
-	add_filter(
-		'custom_metadata_manager_select2_js',
-		function ( $path ) use ( $assets ) {
-			return $assets->getPath( 'scripts/select2.js' );
-		}
-	);
-	add_filter(
-		'custom_metadata_manager_select2_js_version',
-		function ( $version ) {
-			return get_bloginfo( 'version' );
-		}
-	);
-	add_filter(
-		'custom_metadata_manager_select2_css',
-		function ( $path ) use ( $assets ) {
-			return $assets->getPath( 'styles/select2.css' );
-		}
-	);
 
 	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pressbooks_export_options' ) {
 		wp_enqueue_script( 'pressbooks/theme-lock', $assets->getPath( 'scripts/theme-lock.js' ), [ 'jquery' ] );
 		wp_localize_script(
 			'pressbooks/theme-lock', 'PB_ThemeLockToken', [
 				// Strings
-				'confirmation' => __( 'Are you sure you want to unlock your theme? This will update your book to the most recent version of your selected theme, which may change your book&rsquo;s appearance and page count. Once you save your settings on this page, this action will NOT be reversable!', 'pressbooks' ),
+				'confirmation' => esc_html__( 'Are you sure you want to unlock your theme? This will update your book to the most recent version of your selected theme, which may change your book&rsquo;s appearance and page count. Once you save your settings on this page, this action will NOT be reversable!', 'pressbooks' ),
 			]
 		);
 	}
@@ -1149,14 +1156,52 @@ function init_css_js() {
 	wp_register_script( 'pb-post-visibility', $assets->getPath( 'scripts/post-visibility.js' ), [ 'jquery' ], false, true );
 	wp_register_script( 'pb-post-mathjax', $assets->getPath( 'scripts/post-mathjax.js' ), [ 'jquery' ], false, true );
 	wp_register_script( 'pb-post-back-matter', $assets->getPath( 'scripts/post-back-matter.js' ), [ 'jquery', 'editor' ], false, true );
+	wp_register_script( 'duet-date-picker', $assets->getPath( 'scripts/duet/duet.js' ), [], false, true );
+	wp_register_script( 'pressbooks-multiselect', $assets->getPath( 'scripts/pressbooks-multiselect.js' ), [], false, true );
+	wp_register_script( 'pressbooks-reorderable-multiselect', $assets->getPath( 'scripts/pressbooks-reorderable-multiselect.js' ), [], false, true );
 
 	// Register styles for later, on-the-fly, using action: admin_print_scripts- (or other tricks of the shade)
 	wp_register_style( 'pb-export', $assets->getPath( 'styles/export.css' ) );
 	wp_register_style( 'pb-organize', $assets->getPath( 'styles/organize.css' ) );
+	wp_register_style( 'duet-date-picker', $assets->getPath( 'styles/duet.css' ) );
 
-	// Always enqueue jquery and jquery-ui-core because we use them all over the place
+	// Always enqueue jquery and jquery-ui-core.
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ui-core' );
+
+	// Always enqueue AlpineJS.
+	wp_register_script( 'alpinejs', $assets->getPath( 'scripts/alpine.min.js' ), [], false, true );
+	wp_enqueue_script( 'alpinejs' );
+
+	// Enqueue styles for cloner page
+	if ( isset( $_REQUEST['page'] ) && str_starts_with( $_REQUEST['page'], 'pb_cloner' ) ) {
+		wp_register_style( 'cloner-page', $assets->getPath( 'styles/cloner.css' ) );
+		wp_enqueue_style( 'cloner-page' );
+
+		$blade = Container::get( 'Blade' );
+
+		// Enqueue Algolia & Instantsearch scripts only if required env values are present.
+		if ( \Pressbooks\Utility\is_algolia_search_enabled() ) {
+			// Algolia
+			wp_register_script( 'algolia', $assets->getPath( 'scripts/algoliasearch-lite.umd.js' ), [], false, true );
+			wp_enqueue_script( 'algolia' );
+
+			// InstantSearch
+			wp_register_script( 'instantsearch', $assets->getPath( 'scripts/instantsearch.production.min.js' ), [ 'algolia' ], false, true );
+			wp_enqueue_script( 'instantsearch' );
+
+			wp_register_script( 'cloner-page', $assets->getPath( 'scripts/algolia-search.js' ), [], false, true );
+			wp_enqueue_script( 'cloner-page' );
+
+			wp_localize_script('cloner-page', 'PBAlgolia', [
+				'applicationId' => env( 'ALGOLIA_APP_ID' ),
+				'apiKey' => env( 'ALGOLIA_API_KEY' ),
+				'indexName' => env( 'ALGOLIA_INDEX_NAME' ),
+				'hitsTemplate' => $blade->render( 'admin.cloner.book-card' ),
+				'resultsTemplate' => $blade->render( 'admin.cloner.results' ),
+			]);
+		}
+	}
 
 	// A11y
 	wp_register_script( 'pb-a11y', $assets->getPath( 'scripts/a11y.js' ), [ 'jquery', 'wp-i18n' ], false, true );
@@ -1186,7 +1231,7 @@ function privacy_settings_init() {
 	if ( apply_filters( 'pb_permissive_webbooks', true ) ) {
 		add_settings_field(
 			'blog_public',
-			__( 'Book Visibility', 'pressbooks' ),
+			esc_html__( 'Book Visibility', 'pressbooks' ),
 			__NAMESPACE__ . '\privacy_blog_public_callback',
 			'privacy_settings',
 			'privacy_settings_section'
@@ -1200,7 +1245,7 @@ function privacy_settings_init() {
 
 	add_settings_field(
 		'permissive_private_content',
-		__( 'Private Content', 'pressbooks' ),
+		esc_html__( 'Private Content', 'pressbooks' ),
 		__NAMESPACE__ . '\privacy_permissive_private_content_callback',
 		'privacy_settings',
 		'privacy_settings_section'
@@ -1211,24 +1256,28 @@ function privacy_settings_init() {
 		__NAMESPACE__ . '\privacy_permissive_private_content_sanitize'
 	);
 
-	add_settings_field(
-		'disable_comments',
-		__( 'Disable Comments', 'pressbooks' ),
-		__NAMESPACE__ . '\privacy_disable_comments_callback',
-		'privacy_settings',
-		'privacy_settings_section'
-	);
-	register_setting(
-		'privacy_settings',
-		'pressbooks_sharingandprivacy_options',
-		__NAMESPACE__ . '\privacy_disable_comments_sanitize'
-	);
+	if ( apply_filters( 'pb_comments_management', true ) ) {
+		add_settings_field(
+			'disable_comments',
+			esc_html__( 'Disable Comments', 'pressbooks' ),
+			__NAMESPACE__ . '\privacy_disable_comments_callback',
+			'privacy_settings',
+			'privacy_settings_section'
+		);
+		register_setting(
+			'privacy_settings',
+			'pressbooks_sharingandprivacy_options',
+			__NAMESPACE__ . '\privacy_disable_comments_sanitize'
+		);
+	}
 
 	$sharingandprivacy = get_site_option( 'pressbooks_sharingandprivacy_options' );
-	if ( ! empty( $sharingandprivacy['allow_redistribution'] ) ) {
+	$allows_downloads = apply_filters( 'pb_allows_downloads', true );
+
+	if ( ! empty( $sharingandprivacy['allow_redistribution'] ) && $allows_downloads ) {
 		add_settings_field(
 			'latest_files_public',
-			__( 'Share Latest Export Files', 'pressbooks' ),
+			esc_html__( 'Share Latest Export Files', 'pressbooks' ),
 			__NAMESPACE__ . '\privacy_latest_files_public_callback',
 			'privacy_settings',
 			'privacy_settings_section'
@@ -1258,7 +1307,7 @@ function privacy_settings_init() {
 
 		add_settings_field(
 			'pb_book_directory_excluded',
-			__( 'Pressbooks Directory', 'pressbooks' ),
+			esc_html__( 'Pressbooks Directory', 'pressbooks' ),
 			__NAMESPACE__ . '\book_directory_excluded_callback',
 			'privacy_settings',
 			'privacy_settings_section'
@@ -1275,7 +1324,7 @@ function privacy_settings_init() {
  * Privacy settings section callback
  */
 function privacy_settings_section_callback() {
-	echo '<p>' . __( 'Sharing and Privacy settings', 'pressbooks' ) . '.</p>'; // TK
+	echo '<p>' . esc_html__( 'Sharing and Privacy settings', 'pressbooks' ) . '.</p>'; // TK
 }
 
 /**
@@ -1284,20 +1333,10 @@ function privacy_settings_section_callback() {
  * @param $args
  */
 function privacy_blog_public_callback( $args ) {
-	$blog_public = get_option( 'blog_public' );
-	$html = '<input type="radio" id="blog-public" name="blog_public" value="1" ';
-	if ( $blog_public ) {
-		$html .= 'checked="checked" ';
-	}
-	$html .= '/>';
-	$html .= '<label for="blog-public"> ' . __( 'Public. I would like this book to be visible to everyone.', 'pressbooks' ) . '</label><br />';
-	$html .= '<input type="radio" id="blog-public" name="blog_public" value="0" ';
-	if ( ! $blog_public ) {
-		$html .= 'checked="checked" ';
-	}
-	$html .= '/>';
-	$html .= '<label for="blog-norobots"> ' . __( 'Private. I would like this book to be accessible only to people I invite.', 'pressbooks' ) . '</label>';
-	echo $html;
+	$blade = Container::get( 'Blade' );
+	echo $blade->render('admin/settings/book-visibility', [
+		'blog_public' => absint( get_option( 'blog_public' ) ),
+	] );
 }
 
 /**
@@ -1319,15 +1358,11 @@ function privacy_permissive_private_content_callback( $args ) {
 		$contributor->remove_cap( 'read_private_posts' );
 		$author->remove_cap( 'read_private_posts' );
 	}
-	?>
-	<p><?php _e( 'Who can see private front matter, chapters and back matter?', 'pressbooks' ); ?></p>
-	<fieldgroup>
-		<input type="radio" id="standard-private-content" name="permissive_private_content" value="0" <?php checked( $permissive_private_content, 0 ); ?>/>
-		<label for="standard-private-content"><?php _e( 'Only logged in editors and administrators.', 'pressbooks' ); ?></label><br/>
-		<input type="radio" id="permissive-private-content" name="permissive_private_content" value="1" <?php checked( $permissive_private_content, 1 ); ?>/>
-		<label for="permissive-private-content"><?php _e( 'All logged in users including subscribers.', 'pressbooks' ); ?></label>
-	</fieldgroup>
-	<?php
+
+	$blade = Container::get( 'Blade' );
+	echo $blade->render('admin/settings/private-content', [
+		'permissive_private_content' => $permissive_private_content,
+	]);
 }
 
 /**
@@ -1341,19 +1376,11 @@ function privacy_disable_comments_callback( $args ) {
 			'disable_comments' => 1,
 		]
 	);
-	$html = '<input type="radio" id="disable-comments" name="pressbooks_sharingandprivacy_options[disable_comments]" value="1" ';
-	if ( $options['disable_comments'] ) {
-		$html .= 'checked="checked" ';
-	}
-	$html .= '/>';
-	$html .= '<label for="disable-comments"> ' . __( 'Yes. I want to automatically disable comments, trackbacks and pingbacks on all front matter, chapters and back matter.', 'pressbooks' ) . '</label><br />';
-	$html .= '<input type="radio" id="enable-comments" name="pressbooks_sharingandprivacy_options[disable_comments]" value="0" ';
-	if ( ! $options['disable_comments'] ) {
-		$html .= 'checked="checked" ';
-	}
-	$html .= '/>';
-	$html .= '<label for="enable-comments"> ' . __( 'No. I want to leave comments, trackbacks and pingbacks enabled on all front matter, chapters and back matter unless I disable them manually.', 'pressbooks' ) . '</label>';
-	echo $html;
+
+	$blade = Container::get( 'Blade' );
+	echo $blade->render('admin/settings/disable-comments', [
+		'disable_comments' => $options['disable_comments'],
+	]);
 }
 
 /**
@@ -1362,20 +1389,14 @@ function privacy_disable_comments_callback( $args ) {
  * @param $args
  */
 function privacy_latest_files_public_callback( $args ) {
-	$blog_public = get_option( 'pbt_redistribute_settings' );
-	$html = '<input type="radio" id="latest_files_public" name="pbt_redistribute_settings[latest_files_public]" value="1" ';
-	if ( $blog_public['latest_files_public'] ) {
-		$html .= 'checked="checked" ';
-	}
-	$html .= '/>';
-	$html .= '<label for="latest_files_public"> ' . __( 'Yes. I would like the latest export files to be available on the homepage for free, to everyone.', 'pressbooks' ) . '</label><br />';
-	$html .= '<input type="radio" id="latest_files_private" name="pbt_redistribute_settings[latest_files_public]" value="0" ';
-	if ( ! $blog_public['latest_files_public'] ) {
-		$html .= 'checked="checked" ';
-	}
-	$html .= '/>';
-	$html .= '<label for="latest_files_private"> ' . __( 'No. I would like the latest export files to only be available to administrators.', 'pressbooks' ) . '</label>';
-	echo $html;
+	$options = get_option( 'pbt_redistribute_settings', [
+		'latest_files_public' => 0,
+	] );
+
+	$blade = Container::get( 'Blade' );
+	echo $blade->render('admin/settings/share-latest-export-files', [
+		'latest_files_public' => $options['latest_files_public'],
+	]);
 }
 
 /**
@@ -1388,19 +1409,11 @@ function book_directory_excluded_callback( $args ) {
 		add_option( 'pb_book_directory_excluded', 0 );
 	}
 	$exclude_book = get_option( 'pb_book_directory_excluded' );
-	$html = '<input type="radio" id="include-in-directory" name="pb_book_directory_excluded" value="0" ';
-	if ( ! $exclude_book ) {
-		$html .= 'checked="checked" ';
-	}
-	$html .= '/>';
-	$html .= '<label for="include-in-directory"> ' . __( 'Yes. I want this book to be listed in the Pressbooks directory.', 'pressbooks' ) . '</label><br />';
-	$html .= '<input type="radio" id="exclude-from-directory" name="pb_book_directory_excluded" value="1" ';
-	if ( $exclude_book ) {
-		$html .= 'checked="checked" ';
-	}
-	$html .= '/>';
-	$html .= '<label for="exclude-from-directory"> ' . __( 'No. Exclude this book from the Pressbooks directory.', 'pressbooks' ) . '</label>';
-	echo $html;
+
+	$blade = Container::get( 'Blade' );
+	echo $blade->render('admin/settings/pressbooks-directory', [
+		'pb_book_directory_excluded' => $exclude_book,
+	]);
 }
 
 /**
@@ -1521,47 +1534,47 @@ function sites_to_books( $translated_text, $untranslated_text, $domain ) {
 
 	switch ( $untranslated_text ) {
 		case 'Sites':
-			$translated_text = __( 'Books', 'pressbooks' );
+			$translated_text = esc_html__( 'Books', 'pressbooks' );
 			break;
 		case 'All Sites':
-			$translated_text = __( 'All Books', 'pressbooks' );
+			$translated_text = esc_html__( 'All Books', 'pressbooks' );
 			break;
 	}
 
 	if ( $pagenow === 'sites.php' ) {
 		switch ( $untranslated_text ) {
 			case 'Sites':
-				$translated_text = __( 'Books', 'pressbooks' );
+				$translated_text = esc_html__( 'Books', 'pressbooks' );
 				break;
 			case 'Search Sites':
-				$translated_text = __( 'Search Books', 'pressbooks' );
+				$translated_text = esc_html__( 'Search Books', 'pressbooks' );
 				break;
 		}
 	} elseif ( $pagenow === 'site-info.php' ) {
 		switch ( $untranslated_text ) {
 			case 'Edit Site: %s':
-				$translated_text = __( 'Edit Book: %s', 'pressbooks' );
+				$translated_text = esc_html__( 'Edit Book: %s', 'pressbooks' );
 				break;
 			case 'Site Address (URL)':
-				$translated_text = __( 'Book Address (URL)', 'pressbooks' );
+				$translated_text = esc_html__( 'Book Address (URL)', 'pressbooks' );
 				break;
 		}
 	} elseif ( $pagenow === 'site-new.php' ) {
 		switch ( $untranslated_text ) {
 			case 'Add New Site':
-				$translated_text = __( 'Add New Book', 'pressbooks' );
+				$translated_text = esc_html__( 'Add New Book', 'pressbooks' );
 				break;
 			case 'Site Address (URL)':
-				$translated_text = __( 'Book Address (URL)', 'pressbooks' );
+				$translated_text = esc_html__( 'Book Address (URL)', 'pressbooks' );
 				break;
 			case 'Site Title':
-				$translated_text = __( 'Book Title', 'pressbooks' );
+				$translated_text = esc_html__( 'Book Title', 'pressbooks' );
 				break;
 			case 'Site Language':
-				$translated_text = __( 'Book Language', 'pressbooks' );
+				$translated_text = esc_html__( 'Book Language', 'pressbooks' );
 				break;
 			case 'Add Site':
-				$translated_text = __( 'Add Book', 'pressbooks' );
+				$translated_text = esc_html__( 'Add Book', 'pressbooks' );
 				break;
 		}
 	}
@@ -1578,17 +1591,17 @@ function edit_screen_navigation( $post ) {
 	global $pagenow;
 	if ( 'post.php' === $pagenow && in_array( $post->post_type, [ 'front-matter', 'part', 'chapter', 'back-matter' ], true ) ) {
 		// We're in the edit screen (not the new post screen because we don't know the position of a new post)
-		echo sprintf( '<nav id="pb-edit-screen-navigation" role="navigation" aria-label="%s">', __( 'Edit previous or next item', 'pressbooks' ) );
+		echo sprintf( '<nav id="pb-edit-screen-navigation" role="navigation" aria-label="%s">', esc_html__( 'Edit previous or next item', 'pressbooks' ) );
 
 		$prev_id = Book::get( 'prev', true, true );
 		if ( $prev_id ) {
 			$prev_url = admin_url( 'post.php?post=' . $prev_id . '&action=edit' );
-			echo "<a href='{$prev_url}' rel='previous'><span aria-hidden='true'>&larr;</span> " . sprintf( __( 'Edit Previous (%s)', 'pressbooks' ), get_post_type_label( get_post_type( $prev_id ) ) ) . '</a>';
+			echo "<a href='{$prev_url}' rel='previous'><span aria-hidden='true'>&larr;</span> " . sprintf( esc_html__( 'Edit Previous (%s)', 'pressbooks' ), get_post_type_label( get_post_type( $prev_id ) ) ) . '</a>';
 		}
 		$next_id = Book::get( 'next', true, true );
 		if ( $next_id ) {
 			$next_url = admin_url( 'post.php?post=' . $next_id . '&action=edit' );
-			echo "<a href='{$next_url}' rel='next'>" . sprintf( __( 'Edit Next (%s)', 'pressbooks' ), get_post_type_label( get_post_type( $next_id ) ) ) . ' <span aria-hidden="true">&rarr;</span></a>';
+			echo "<a href='{$next_url}' rel='next'>" . sprintf( esc_html__( 'Edit Next (%s)', 'pressbooks' ), get_post_type_label( get_post_type( $next_id ) ) ) . ' <span aria-hidden="true">&rarr;</span></a>';
 		}
 
 		echo '</nav>';
@@ -1603,9 +1616,9 @@ function edit_screen_navigation( $post ) {
  */
 function get_user_contact_fields() {
 	$methods = [];
-	$methods['twitter'] = __( 'Twitter URL', 'pressbooks' );
-	$methods['linkedin'] = __( 'LinkedIn URL', 'pressbooks' );
-	$methods['github'] = __( 'GitHub URL', 'pressbooks' );
+	$methods['twitter'] = esc_html__( 'X/Twitter URL', 'pressbooks' );
+	$methods['linkedin'] = esc_html__( 'LinkedIn URL', 'pressbooks' );
+	$methods['github'] = esc_html__( 'GitHub URL', 'pressbooks' );
 	return $methods;
 }
 
@@ -1642,16 +1655,25 @@ function sanitize_user_profile( WP_Error $errors, $update, $user ) {
 	}
 }
 
+function enqueue_user_profile_scripts( string $hook ) {
+	if ( $hook !== 'profile.php' && $hook !== 'user-edit.php' ) {
+		return;
+	}
+
+	$assets = new Assets( 'pressbooks', 'plugin' );
+
+	wp_enqueue_script( 'pb-profile-page', $assets->getPath( 'scripts/profile.js' ) );
+}
+
 /**
  *
  * @since 5.27.0
  * @param \WP_User $user
  */
 function add_user_profile_fields( \WP_User $user ) {
-
-	$institution = __( 'Institution' );
+	$institution = esc_html__( 'Institution' );
 	$value = esc_attr( get_the_author_meta( 'institution', $user->ID ) );
-	$helper = __( 'Your institutional affiliation, e.g. Rebus Foundation, Open University, Amnesty International.', 'pressbooks' );
+	$helper = esc_html__( 'Your institutional affiliation, e.g. Rebus Foundation, Open University, Amnesty International.', 'pressbooks' );
 
 	$row = <<<HTML
 	<tr class="institution">
@@ -1681,4 +1703,26 @@ function update_user_profile_fields( $user_id ) {
 	}
 
 	update_user_meta( $user_id, 'institution', sanitize_string( $_REQUEST['institution'] ) );
+}
+
+/**
+ *
+ * @since 5.35.0
+ */
+function remove_emoji() {
+	remove_action( 'admin_print_styles', 'print_emoji_styles' );
+	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+	remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+	remove_action( 'wp_print_styles', 'print_emoji_styles' );
+	remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+	remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+	remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
+	add_filter( 'emoji_svg_url', '__return_false' );
+	add_filter('tiny_mce_plugins', function ( $plugins ) {
+		if ( is_array( $plugins ) ) {
+			return array_diff( $plugins, [ 'wpemoji' ] );
+		} else {
+			return [];
+		}
+	});
 }

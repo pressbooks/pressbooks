@@ -653,7 +653,7 @@ abstract class Import {
 	}
 
 	/**
-	 * Log something using wp_mail() and error_log(), include useful WordPress info.
+	 * Log something using wp_mail() and trigger_error(), include useful WordPress info.
 	 *
 	 * Note: This method is here temporarily. We are using it to find & fix bugs for the first iterations of import.
 	 * Do not count on this method being here in the future.
@@ -671,7 +671,7 @@ abstract class Import {
 		$subject = '[ Import Log ]';
 
 		$info = [
-			'time' => strftime( '%c' ),
+			'time' => date( 'D M H:i:s Y' ),
 			'user' => ( isset( $current_user ) ? $current_user->user_login : '__UNKNOWN__' ),
 			'site_url' => site_url(),
 			'blog_id' => get_current_blog_id(),

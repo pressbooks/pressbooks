@@ -1,4 +1,5 @@
 .idea/
+.nova/
 .DS_Store
 coverage.xml
 node_modules
@@ -11,3 +12,6 @@ coverage-reports
 
 .env.*
 !.env.*.example
+tx
+.transifexrc
+LICENSE

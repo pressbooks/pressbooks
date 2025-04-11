@@ -6,7 +6,9 @@
 
 use function \Pressbooks\Utility\include_plugins as include_symbionts;
 use Pressbooks\Book;
+use Pressbooks\CloneComplete;
 use Pressbooks\Container;
+use Pressbooks\Privacy;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -30,11 +32,7 @@ $enable_network_api = \Pressbooks\Api\is_enabled();
 // Initialize services
 // -------------------------------------------------------------------------------------------------------------------
 
-if ( ! empty( $GLOBALS['PB_PIMPLE_OVERRIDE'] ) ) {
-	Container::init( $GLOBALS['PB_PIMPLE_OVERRIDE'] );
-} else {
-	Container::init();
-}
+\Pressbooks\ServiceProvider::init();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Activation
@@ -59,7 +57,7 @@ if ( $is_book ) {
 	add_filter( 'rest_prepare_attachment', '\Pressbooks\Api\fix_attachment', 10, 3 );
 } elseif ( $enable_network_api ) {
 	add_action( 'rest_api_init', '\Pressbooks\Api\init_book' );
-	add_action( 'rest_api_init', '\Pressbooks\Api\init_root' );
+	add_action( 'rest_api_init', '\Pressbooks\Api\init_root', 9 );
 }
 
 add_action( 'plugins_loaded', [ '\Pressbooks\DataCollector\User', 'init' ] );
@@ -81,22 +79,13 @@ add_action( 'login_footer', '\Pressbooks\Admin\Branding\login_scripts' );
 // -------------------------------------------------------------------------------------------------------------------
 // Analytics
 // -------------------------------------------------------------------------------------------------------------------
-
-add_action( 'init', '\Pressbooks\Analytics\migrate' );
-add_action( 'wp_head', '\Pressbooks\Analytics\print_analytics' );
+add_action( 'init', [ '\Pressbooks\GoogleAnalytics', 'init' ] );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Tracking
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action( 'init', [ '\Pressbooks\Tracking\BookDownload', 'init' ] );
-
-// -------------------------------------------------------------------------------------------------------------------
-// Custom Metadata plugin
-// -------------------------------------------------------------------------------------------------------------------
-
-add_filter( 'custom_metadata_manager_wysiwyg_args_field_pb_custom_copyright', '\Pressbooks\Editor\metadata_manager_default_editor_args' );
-add_filter( 'custom_metadata_manager_wysiwyg_args_field_pb_about_unlimited', '\Pressbooks\Editor\metadata_manager_default_editor_args' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Languages
@@ -141,7 +130,6 @@ add_filter( 'plupload_default_params', '\Pressbooks\Media\force_attach_media' );
 
 add_filter( 'upload_mimes', '\Pressbooks\Media\add_mime_types' );
 add_filter( 'upload_mimes', '\Pressbooks\Media\add_lord_of_the_files_types', 11 );
-add_filter( 'lotf_get_mime_aliases', '\Pressbooks\Media\get_lord_of_the_files_mime_aliases', 10, 2 );
 add_action( 'plugins_loaded', [ '\Pressbooks\Interactive\Content', 'init' ] );
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -184,6 +172,7 @@ add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_catalog', 1 );
 add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_open', 1 );
 add_action( 'plugins_loaded', '\Pressbooks\Redirect\migrate_generated_content', 1 );
 add_filter( 'login_redirect', '\Pressbooks\Redirect\break_reset_password_loop', 10, 3 );
+add_filter( 'login_redirect', '\Pressbooks\Redirect\handle_dashboard_redirect', 10, 3 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Sitemap
@@ -261,11 +250,9 @@ add_action( 'init', '\Pressbooks\Theme\update_template_root' );
 // Regenerate stylesheets
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action(
-	'init', function() {
-		Container::get( 'Styles' )->maybeUpdateStylesheets();
-	}
-);
+add_action( 'init', function() {
+	Container::get( 'Styles' )->maybeUpdateStylesheets();
+} );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Force Flush
@@ -349,3 +336,20 @@ add_filter( 'admin_email_check_interval', '__return_false' );
 // Book directory event actions
 // -------------------------------------------------------------------------------------------------------------------
 add_filter( 'init', [ '\Pressbooks\BookDirectory', 'init' ], 10, 2 );
+
+add_action( 'activated_plugin', '\Pressbooks\Utility\delete_options_cached' );
+
+// Clone complete table
+register_deactivation_hook( 'pressbooks/pressbooks.php', [ CloneComplete::class, 'uninstall' ] );
+add_action( 'init', [ CloneComplete::class, 'install' ] );
+
+add_filter( 'init', [ '\Pressbooks\Utility\ErrorHandler', 'init' ] );
+
+// Open up private content to subscribers and collaborators when permissive_private_content is enabled
+add_filter( 'init', [ Privacy::class, 'showPermissivePrivateContent' ] );
+
+add_action( 'wp_initialize_site', [ Privacy::class, 'setDefaultPermissivePrivateContent' ], 100, 1 );
+
+//Network Managers hooks via CLI
+add_action( 'revoked_super_admin', '\Pressbooks\Admin\NetworkManagers\remove_from_pressbooks_network_managers' );
+add_action( 'deleted_user', '\Pressbooks\Admin\NetworkManagers\remove_from_pressbooks_network_managers' );

@@ -45,11 +45,12 @@ function init_book() {
 	// Register Theme Options
 	( new Endpoints\Controller\Theme() )->register_routes();
 
-	// Register Section Metadata
-	( new Endpoints\Controller\SectionMetadata( 'front-matter' ) )->register_routes();
-	( new Endpoints\Controller\SectionMetadata( 'back-matter' ) )->register_routes();
-	( new Endpoints\Controller\SectionMetadata( 'chapter' ) )->register_routes();
-	( new Endpoints\Controller\SectionMetadata( 'glossary' ) )->register_routes();
+	// Register Clone Complete
+	( new Endpoints\Controller\CloneComplete( new \Pressbooks\CloneTokens() ) )->register_routes();
+
+	foreach ( [ 'front-matter', 'back-matter', 'chapter', 'glossary' ] as $post_type ) {
+		( new Endpoints\Controller\SectionMetadata( $post_type ) )->register_routes();
+	}
 
 	foreach ( get_custom_post_types() as $post_type ) {
 		// Override Revisions routes for our custom post types
@@ -140,10 +141,40 @@ function init_root() {
 	\Pressbooks\Metadata\init_book_data_models();
 
 	// Register Books
-	( new Endpoints\Controller\Books() )->register_routes();
+	( new Endpoints\Controller\Books\Books() )->register_routes();
 
 	// Register Directory endpoints
 	( new Endpoints\Controller\Directory() )->register_routes();
+
+	( new Endpoints\Controller\HealthCheck() )->register_routes();
+
+	add_filter(
+		'rest_endpoints', function ( $endpoints ) {
+			foreach ( $endpoints as $route => $endpoint ) {
+				if ( ! str_contains( $route, 'wp/v2/users' ) ) {
+					continue;
+				}
+
+				foreach ( $endpoint as $index => $handler ) {
+					if ( ! is_array( $handler ) ) {
+						continue;
+					}
+
+					if ( ! isset( $handler['methods'] ) ) {
+						continue;
+					}
+
+					if ( $handler['methods'] !== 'GET' ) {
+						continue;
+					}
+
+					unset( $endpoints[ $route ][ $index ] );
+				}
+			}
+
+			return $endpoints;
+		}
+	);
 }
 
 /**

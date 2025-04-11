@@ -1,7 +1,6 @@
 <?php
 
 class Interactive_PhetTest extends \WP_UnitTestCase {
-
 	/**
 	 * @var \Pressbooks\Interactive\Phet
 	 * @group interactivecontent
@@ -80,5 +79,4 @@ class Interactive_PhetTest extends \WP_UnitTestCase {
 			$iframe_html
 		);
 	}
-
 }

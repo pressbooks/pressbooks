@@ -1,8 +1,6 @@
 <?php
 
 class HTMLBook_ValidatorTest extends \WP_UnitTestCase {
-
-
 	/**
 	 * @group htmlbook
 	 */

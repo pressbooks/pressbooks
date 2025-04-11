@@ -1,13 +1,11 @@
 <?php
 
 class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
-
 	/**
 	 * @var \Pressbooks\Shortcodes\Wikipublisher\Glyphs
 	 * @group shortcodes
 	 */
 	protected $glyphs;
-
 
 	/**
 	 * @group shortcodes
@@ -16,16 +14,15 @@ class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 		parent::set_up();
 
 		$this->glyphs = $this->getMockBuilder( '\Pressbooks\Shortcodes\Wikipublisher\Glyphs' )
-							->setMethods( null )// pass null to setMethods() to avoid mocking any method
-							->disableOriginalConstructor()// disable private constructor
-							->getMock();
+			->setMethods( null )// pass null to setMethods() to avoid mocking any method
+			->disableOriginalConstructor()// disable private constructor
+			->getMock();
 	}
 
 	/**
 	 * @group shortcodes
 	 */
 	public function test_langShortcode_grk() {
-
 		$content = $this->glyphs->langShortcode(
 			[ 'lang' => 'grc' ],
 			'aeiou'
@@ -61,7 +58,6 @@ class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 	 * @group shortcodes
 	 */
 	public function test_langShortcode_bad() {
-
 		$content = $this->glyphs->langShortcode(
 			[ 'lang' => 'foobar' ],
 			'aeiou'
@@ -69,5 +65,4 @@ class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 
 		$this->assertStringContainsString( 'ERROR', $content );
 	}
-
 }

@@ -36,6 +36,41 @@ class GlobalOptions extends \Pressbooks\Options {
 	public $defaults;
 
 	/**
+	 * Global theme booleans.
+	 *
+	 * @var array
+	 */
+	public $booleans;
+
+	/**
+	 * Global theme strings.
+	 *
+	 * @var array
+	 */
+	public $strings;
+
+	/**
+	 * Global theme integers.
+	 *
+	 * @var array
+	 */
+	public $integers;
+
+	/**
+	 * Global theme floats.
+	 *
+	 * @var array
+	 */
+	public $floats;
+
+	/**
+	 * Global theme predefined options.
+	 *
+	 * @var array
+	 */
+	public $predefined;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param array $options
@@ -425,8 +460,12 @@ class GlobalOptions extends \Pressbooks\Options {
 			$i++;
 		}
 
-		$html = '<label id="global_typography_label" for="global_typography"> ' . $args[0] . '</label><br /><br />';
-		$html .= '<select id="global_typography" class="select2" style="width: 75%" data-placeholder="' . __( 'Select languages&hellip;', 'pressbooks' ) . '" name="pressbooks_global_typography[]" multiple>';
+		$html = '<pressbooks-multiselect><label id="global_typography_label" for="global_typography"> ' . $args[0] . '</label>';
+		if ( $already_supported_languages_string ) {
+			$html .= '<select id="global_typography" name="pressbooks_global_typography[]" aria-describedby="global_typography-description" multiple>';
+		} else {
+			$html .= '<select id="global_typography" name="pressbooks_global_typography[]" multiple>';
+		}
 		foreach ( $languages as $key => $value ) {
 			$selected = ( in_array( $key, $foreign_languages, true ) || in_array( $key, $already_supported_languages, true ) ) ? ' selected' : '';
 			$html .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option>';
@@ -434,8 +473,10 @@ class GlobalOptions extends \Pressbooks\Options {
 		$html .= '</select>';
 
 		if ( $already_supported_languages_string ) {
-			$html .= '<br /><br />' . sprintf( __( 'This theme includes built-in support for %s.', 'pressbooks' ), $already_supported_languages_string );
+			$html .= '<p class="description" id="global_typography-description">' . sprintf( __( 'This theme includes built-in support for %s.', 'pressbooks' ), $already_supported_languages_string ) . '</p>';
 		}
+
+		$html .= '</pressbooks-multiselect>';
 
 		echo $html;
 	}
@@ -454,6 +495,7 @@ class GlobalOptions extends \Pressbooks\Options {
 				'option' => 'copyright_license',
 				'value' => getset( $this->options, 'copyright_license', 0 ),
 				'choices' => $args,
+				'legend' => __( 'Chapter Licenses', 'pressbooks' ),
 			]
 		);
 	}
@@ -563,7 +605,7 @@ class GlobalOptions extends \Pressbooks\Options {
 				'part_label' => __( 'Part', 'pressbooks' ),
 				'chapter_label' => __( 'Chapter', 'pressbooks' ),
 				'about_the_author' => 0,
-				'attachment_attributions' => 0,
+				'attachment_attributions' => 1,
 				'copyright_license' => 0,
 				'edu_textbox_examples_header_color' => '#fff',
 				'edu_textbox_examples_header_background' => '#7a333a',

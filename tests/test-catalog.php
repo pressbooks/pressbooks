@@ -3,12 +3,10 @@
 // Legacy "My Catalog" code
 
 class CatalogTest extends \WP_UnitTestCase {
-
 	/**
 	 * @group my_catalog
 	 */
 	public function test_saveProfile() {
-
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
 		$c = new \Pressbooks\Catalog( $user_id );

@@ -68,10 +68,18 @@ class H5P {
 	 */
 	public function apiInit() {
 		try {
-			if ( ! is_plugin_active( 'h5p/h5p.php' ) ) {
+			$plugin = 'h5p/h5p.php';
+			// Initialize H5P REST API only if the plugin is not already initialized or is network disabled
+			if ( ! is_plugin_active( $plugin ) || ! is_plugin_active_for_network( $plugin ) ) {
 				\H5P_Plugin::get_instance()->rest_api_init();
 			}
-			if ( get_option( 'blog_public' ) ) {
+			if (
+				(
+					has_filter( 'pb_set_api_items_permission' ) &&
+					apply_filters( 'pb_set_api_items_permission', 'h5p' )
+				) ||
+				get_option( 'blog_public' )
+			) {
 				add_filter( 'h5p_rest_api_all_permission', '__return_true' );
 			}
 		} catch ( \Throwable $e ) {

@@ -1,7 +1,6 @@
 <?php
 
 class HTMLBook_ElementTest extends \WP_UnitTestCase {
-
 	/**
 	 * @group htmlbook
 	 */

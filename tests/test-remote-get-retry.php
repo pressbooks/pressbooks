@@ -1,7 +1,6 @@
 <?php
 
 class RemoteGetRetryTest extends \WP_UnitTestCase {
-
 	/**
 	 * @group utility
 	 */
@@ -31,7 +30,6 @@ class RemoteGetRetryTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_remote_get_retry() {
-
 		$response = \Pressbooks\Utility\remote_get_retry( 'http://example.com', [] );
 
 		$this->assertEquals( $response['response']['code'], 200 );
@@ -41,7 +39,6 @@ class RemoteGetRetryTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_remote_get_single_retry() {
-
 		$response = \Pressbooks\Utility\remote_get_retry( 'http://example.com', [], 1 );
 
 		$this->assertEquals( $response['response']['code'], 400 );

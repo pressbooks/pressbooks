@@ -4,8 +4,10 @@ use Pressbooks\DataCollector\Book as DataCollector;
 use function Pressbooks\Admin\Laf\book_directory_excluded_callback;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 
+/**
+ * @group privacy
+ */
 class GdprTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -25,8 +27,7 @@ class GdprTest extends \WP_UnitTestCase {
 	/**
 	 * @group privacy
 	 */
-	public static function set_up_before_class()
-	{
+	public static function set_up_before_class() {
 		parent::set_up_before_class();
 		$blog_ids = get_sites( [ 'site__not_in' => 1 ] );
 
@@ -99,18 +100,25 @@ class GdprTest extends \WP_UnitTestCase {
 		ob_start();
 		book_directory_excluded_callback( [] );
 		$buffer = ob_get_clean();
-		$html_group = '<input type="radio" id="include-in-directory" name="pb_book_directory_excluded" value="0" checked="checked" /><label for="include-in-directory"> Yes. I want this book to be listed in the Pressbooks directory.</label><br /><input type="radio" id="exclude-from-directory" name="pb_book_directory_excluded" value="1" /><label for="exclude-from-directory"> No. Exclude this book from the Pressbooks directory.</label>';
+		$html_group = <<<EOT
+<fieldset>
+	<legend class="screen-reader-text">Pressbooks Directory</legend>
+	<input type="radio" id="include-in-directory" name="pb_book_directory_excluded" value="0"  checked=&#039;checked&#039; />
+	<label for="include-in-directory">Yes. I want this book to be listed in the Pressbooks directory.</label><br />
+	<input type="radio" id="exclude-from-directory" name="pb_book_directory_excluded" value="1"  />
+	<label for="exclude-from-directory">No. Exclude this book from the Pressbooks directory.</label>
+</fieldset>
+
+EOT;
 		$this->assertEquals( $buffer, $html_group );
 
 		$this->assertEquals( get_option( 'pb_book_directory_excluded' ), 0 );
-
 	}
 
 	/**
 	 * @group privacy
 	 */
 	public function test_getPublicBooks_zero_to_one_non_catalog_books() {
-
 		// assume the first blog is the main wp site and not a book
 		$this->assertIsArray( SharingAndPrivacyOptions::getPublicBooks() );
 		$this->assertCount( 0, SharingAndPrivacyOptions::getPublicBooks() );
@@ -149,14 +157,12 @@ class GdprTest extends \WP_UnitTestCase {
 		$this->assertCount( 2, SharingAndPrivacyOptions::getPublicBooks() );
 		$this->assertCount( 2, SharingAndPrivacyOptions::getPublicBooks( false ) );
 		$this->assertCount( 1, SharingAndPrivacyOptions::getPublicBooks( true ) );
-
 	}
 
 	/**
 	 * @group privacy
 	 */
 	public function test_excludeNonCatalogBooksFromDirectoryAction() {
-
 		$books = $this->factory()->blog->create_many( 2 );
 
 		$this->assertEquals(
@@ -212,4 +218,18 @@ class GdprTest extends \WP_UnitTestCase {
 		);
 	}
 
+	/**
+	 * @test
+	 */
+	public function it_sets_default_permissive_private_content() {
+		$this->_book();
+		$blog_id = get_current_blog_id();
+
+		$site = new WP_Site( (object) [ 'blog_id' => $blog_id ] );
+		$this->privacy->setDefaultPermissivePrivateContent( $site );
+
+		switch_to_blog( $blog_id );
+		$this->assertEquals( get_option( 'permissive_private_content' ), 1 );
+		restore_current_blog();
+	}
 }

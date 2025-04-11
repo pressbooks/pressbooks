@@ -8,8 +8,7 @@
 		init: function ( ed ) {
 			ed.addButton( 'latex', {
 				title: PB_LaTeXToken.fn_title,
-				text: 'LaTeX',
-				icon: false,
+				icon: 'icon dashicons-calculator',
 				/**
 				 *
 				 */

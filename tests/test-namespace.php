@@ -1,7 +1,6 @@
 <?php
 
 class NamespaceTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -38,5 +37,4 @@ class NamespaceTest extends \WP_UnitTestCase {
 			$this->assertNotEmpty( $wp_filter );
 		}
 	}
-
 }

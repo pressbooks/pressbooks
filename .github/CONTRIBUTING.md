@@ -28,13 +28,13 @@ Please report unacceptable behavior to [code@pressbooks.com](mailto:code@pressbo
 
 ### Installing for Development
 
-Pressbooks uses [Composer](https://getcomposer.org) for dependency management and [Webpack](https://webpack.github.io/) for asset compilation. The local development setup for Pressbooks is based on [Bedrock](https://roots.io/bedrock/) and [Trellis](https://roots.io/trellis/). If you are cloning this repository for local development, please read our [local development guide](https://docs.pressbooks.org/local-development/).
+Pressbooks uses [Composer](https://getcomposer.org) for dependency management and [Webpack](https://webpack.github.io/) for asset compilation. The local development setup for Pressbooks is based on [Bedrock](https://roots.io/bedrock/) and [Trellis](https://roots.io/trellis/). If you are cloning this repository for local development, please read our [local development guide](https://pressbooks.org/dev-docs/local-development/).
 
 ### Reporting Bugs
 
 #### Before Submitting A Bug Report
 
-* **Check the [debugging guide](http://docs.pressbooks.org/debugging).** You might be able to find the cause of the problem and fix things yourself. Most importantly, check if you can reproduce the problem [in the latest version of Pressbooks](http://github.com/pressbooks/pressbooks/releases/latest/) running on the [latest version of WordPress](http://codex.wordpress.org/Upgrading_WordPress) and if the problem happens with [all other plugins deactivated at the network level](http://codex.wordpress.org/Multisite_Network_Administration#Plugins).
+* **Check the [debugging docs with PHPStorm](https://pressbooks.org/dev-docs/phpstorm/).** You might be able to find the cause of the problem and fix things yourself. Most importantly, check if you can reproduce the problem [in the latest version of Pressbooks](http://github.com/pressbooks/pressbooks/releases/latest/) running on the [latest version of WordPress](http://codex.wordpress.org/Upgrading_WordPress) and if the problem happens with [all other plugins deactivated at the network level](http://codex.wordpress.org/Multisite_Network_Administration#Plugins).
 * **Perform a [cursory search](https://github.com/issues?q=+is%3Aissue+repo%3Apressbooks%2Fpressbooks)** to see if the problem has already been reported. If it has, add a comment to the existing issue instead of opening a new one.
 
 #### How Do I Submit A (Good) Bug Report?
@@ -103,7 +103,7 @@ Both issue lists are sorted by total number of comments. While not perfect, numb
 * Please follow our [Code Styleguide](#code-styleguide) in writing your new code.
 * Please document your new code as stipulated in our [Documentation Styleguide](#documentation-styleguide).
 
-**NB:** We are making an effort to expand [unit testing](http://docs.pressbooks.org/unit-testing) in Pressbooks. As such, we ask that any pull requests that add new functions include corresponding tests for those functions. If you submit a pull request which does not do this, you *will* be asked to revise the pull requests to add tests.
+**NB:** We are making an effort to expand [unit testing](https://pressbooks.org/dev-docs/unit-testing/) in Pressbooks. As such, we ask that any pull requests that add new functions include corresponding tests for those functions. If you submit a pull request which does not do this, you *will* be asked to revise the pull requests to add tests.
 
 ## Styleguides
 
@@ -111,7 +111,7 @@ We are in the process of creating comprehensive style guides for [code](#code-st
 
 ### Code Styleguide
 
-Our code styleguide can be found [here](http://docs.pressbooks.org/coding-standards).
+Our code styleguide can be found [here](https://pressbooks.org/dev-docs/coding-standards/).
 
 ### Documentation Styleguide
 

@@ -7,13 +7,17 @@
 namespace Pressbooks\DataCollector;
 
 use function Pressbooks\Image\attachment_id_from_url;
+use function Pressbooks\Metadata\get_institution_by_code;
 use function \Pressbooks\Metadata\get_in_catalog_option;
+use Pressbooks\Licensing;
 
 class Book {
 
 	// Meta Key Constants:
 
 	const COVER = 'pb_cover_image';
+
+	const THUMBNAIL = 'pb_thumbnail_image';
 
 	const TITLE = 'pb_title';
 
@@ -31,17 +35,25 @@ class Book {
 
 	const LANGUAGE = 'pb_language';
 
+	const LANGUAGE_NAME = 'pb_language_name';
+
 	const SUBJECT = 'pb_subject';
 
 	const THEME = 'pb_theme';
 
 	const LICENSE = 'pb_book_license';
 
+	const LICENSE_CODE = 'pb_license_code';
+
+	const LICENSE_NAME = 'pb_license_name';
+
 	const PUBLIC = 'pb_is_public';
 
 	const IN_CATALOG = 'pb_in_catalog';
 
 	const IS_CLONE = 'pb_is_clone';
+
+	const IS_BASED_ON = 'pb_is_based_on';
 
 	const HAS_EXPORTS = 'pb_has_exports';
 
@@ -77,9 +89,28 @@ class Book {
 
 	const BOOK_INFORMATION_ARRAY = 'pb_book_information_array';
 
-	const LTI_GRADING_ENABLED = 'pb_lti_grading_enabled';
-
 	const BOOK_DIRECTORY_EXCLUDED = 'pb_book_directory_excluded';
+
+	const AUTHORS = 'pb_authors';
+
+	const EDITORS = 'pb_editors';
+
+	const CONTRIBUTORS = 'pb_contributors';
+
+	const SHORT_DESCRIPTION = 'pb_about_50';
+
+	const LONG_DESCRIPTION = 'pb_about_unlimited';
+
+	const INSTITUTIONS = 'pb_institutions';
+
+	const PUBLISHER = 'pb_publisher';
+
+	const SUBJECTS_CODES = 'pb_subjects_code';
+
+	/**
+	 * Thema subjects strings with main site language applied.
+	 */
+	const SUBJECTS_STRINGS = 'pb_subjects_string';
 
 	/**
 	 * @var Book
@@ -181,7 +212,6 @@ class Book {
 	 * @param int $book_id
 	 */
 	public function copyBookMetaIntoSiteTable( $book_id ) {
-
 		// TODO:
 		//  Override \Pressbooks\L10n\get_book_language() so that all info collected appears in Admin language
 
@@ -192,7 +222,7 @@ class Book {
 		// --------------------------------------------------------------------
 
 		// Book info
-		$metadata = \Pressbooks\Book::getBookInformation();
+		$metadata = \Pressbooks\Book::getBookInformation( null, false );
 		update_site_meta( $book_id, self::BOOK_INFORMATION_ARRAY, $metadata );
 
 		// pb_cover_image
@@ -201,6 +231,9 @@ class Book {
 		}
 		$cover = \Pressbooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'pb_cover_medium' );
 		update_site_meta( $book_id, self::COVER, $cover );
+
+		// pb_thumbnail
+		update_site_meta( $book_id, self::THUMBNAIL, $this->getCoverThumbnail( $book_id, $metadata['pb_cover_image'] ) );
 
 		// pb_title
 		update_site_meta( $book_id, self::TITLE, $metadata['pb_title'] ?? '' );
@@ -221,13 +254,17 @@ class Book {
 		// pb_total_readers
 		$count_users = count_users();
 		$total_readers = 0;
+
 		if ( isset( $count_users['avail_roles'], $count_users['avail_roles']['none'] ) ) {
 			$total_readers += $count_users['avail_roles']['none'];
 		}
+
 		if ( isset( $count_users['avail_roles'], $count_users['avail_roles']['subscriber'] ) ) {
 			$total_readers += $count_users['avail_roles']['subscriber'];
 		}
+
 		$total_authors = $count_users['total_users'] - $total_readers;
+
 		update_site_meta( $book_id, self::TOTAL_AUTHORS, $total_authors );
 		update_site_meta( $book_id, self::TOTAL_READERS, $total_readers );
 
@@ -236,15 +273,40 @@ class Book {
 		update_site_meta( $book_id, self::STORAGE_SIZE, $space_used );
 
 		// pb_language
-		update_site_meta( $book_id, self::LANGUAGE, $metadata['pb_language'] ?? 'en' );
+		$book_language = $metadata['pb_language'] ?? 'en';
+		update_site_meta( $book_id, self::LANGUAGE, $book_language );
+
+		$languages = \Pressbooks\L10n\supported_languages();
+		// pb_language_name
+		update_site_meta( $book_id, self::LANGUAGE_NAME, $languages[ $book_language ] ?? 'English' );
 
 		// pb_subject
+		$subject_list = '';
+
 		if ( ! empty( $metadata['pb_primary_subject'] ) ) {
 			add_filter( 'pb_thema_subjects_locale', [ $this, 'themaSubjectsLocale' ] );
 			$subject = \Pressbooks\Metadata\get_subject_from_thema( $metadata['pb_primary_subject'] );
 			remove_filter( 'pb_thema_subjects_locale', [ $this, 'themaSubjectsLocale' ] );
+			$subject_list .= $metadata['pb_primary_subject'];
 		}
+
 		update_site_meta( $book_id, self::SUBJECT, $subject ?? $metadata['pb_subject'] ?? null );
+
+		if ( ! empty( $metadata['pb_additional_subjects'] ) ) {
+			$subject_list .= ', ' . $metadata['pb_additional_subjects'];
+		}
+
+		// clean up subject codes and strings before adding
+		delete_site_meta( $book_id, self::SUBJECTS_CODES );
+		delete_site_meta( $book_id, self::SUBJECTS_STRINGS );
+
+		if ( $subject_list ) {
+			$subjects = explode( ', ', $subject_list );
+			foreach ( $subjects as $subject ) {
+				add_site_meta( $book_id, self::SUBJECTS_CODES, $subject );
+				add_site_meta( $book_id, self::SUBJECTS_STRINGS, \Pressbooks\Metadata\get_subject_from_thema( $subject, true ) );
+			}
+		}
 
 		// pb_theme
 		$theme_name = wp_get_theme()->display( 'Name' );
@@ -252,6 +314,25 @@ class Book {
 
 		// pb_book_license
 		update_site_meta( $book_id, self::LICENSE, $metadata['pb_book_license'] ?? 'all-rights-reserved' );
+
+		$licensing = new Licensing;
+		$supported_types = $licensing->getSupportedTypes();
+
+		// pb_license_code
+		$book_license = $metadata['pb_book_license'] ?? 'all-rights-reserved';
+
+		update_site_meta(
+			$book_id,
+			self::LICENSE_CODE,
+			$supported_types[ $book_license ]['abbreviation'] ?? 'All Rights Reserved'
+		);
+
+		// pb_license_name
+		update_site_meta(
+			$book_id,
+			self::LICENSE_NAME,
+			$supported_types[ $book_license ]['desc'] ?? 'all-rights-reserved'
+		);
 
 		// pb_is_public
 		$is_public = empty( get_option( 'blog_public' ) ) ? 0 : 1;
@@ -262,12 +343,36 @@ class Book {
 		$in_catalog = empty( get_option( get_in_catalog_option() ) ) ? 0 : 1;
 		update_site_meta( $book_id, self::IN_CATALOG, $in_catalog );
 
+		$this->saveArrayMetadata( $book_id, self::AUTHORS, 'name', $metadata );
+
+		$this->saveArrayMetadata( $book_id, self::EDITORS, 'name', $metadata );
+
+		$this->saveArrayMetadata( $book_id, self::CONTRIBUTORS, 'name', $metadata );
+
+		// pb_institutions
+		// clean up institutions before adding
+		delete_site_meta( $book_id, self::INSTITUTIONS );
+
+		foreach ( $metadata['pb_institutions'] ?? [] as $institution ) {
+			$institution_data = get_institution_by_code( $institution );
+			if ( isset( $institution_data['name'] ) ) {
+				add_site_meta( $book_id, self::INSTITUTIONS, $institution_data['name'] );
+			}
+		}
+
+		update_site_meta( $book_id, self::SHORT_DESCRIPTION, $metadata['pb_about_50'] ?? '' );
+
+		update_site_meta( $book_id, self::LONG_DESCRIPTION, $metadata['pb_about_unlimited'] ?? '' );
+
+		update_site_meta( $book_id, self::PUBLISHER, $metadata['pb_publisher'] ?? '' );
+
 		// --------------------------------------------------------------------
 		// Network Analytic Filters
 		// --------------------------------------------------------------------
 
 		// pb_is_based_on
 		update_site_meta( $book_id, self::IS_CLONE, empty( $metadata['pb_is_based_on'] ) ? 0 : 1 );
+		update_site_meta( $book_id, self::IS_BASED_ON, $metadata['pb_is_based_on'] ?? null );
 
 		// pb_total_revisions
 		$revisions = $this->revisions();
@@ -292,7 +397,7 @@ class Book {
 		$exports_by_format = '';
 		$latest_exports = \Pressbooks\Utility\latest_exports();
 		foreach ( $latest_exports as $filetype => $filename ) {
-			$filetype = str_replace( '_', '-', $filetype );
+			$filetype = ! str_contains( $filetype, 'print' ) ? str_replace( '_', '-', $filetype ) : $filetype;
 			$name = \Pressbooks\Modules\Export\get_name_from_filetype_slug( $filetype );
 			$exports_by_format .= "{$name},";
 		}
@@ -348,6 +453,27 @@ class Book {
 		update_site_meta( $book_id, self::TIMESTAMP, gmdate( 'Y-m-d H:i:s' ) );
 
 		restore_current_blog();
+	}
+
+	/**
+	 * Save array metadata in multiple meta keys with the same name.
+	 *
+	 * @param int $blog_id
+	 * @param string $meta_key
+	 * @param string $array_key
+	 * @param array $metadata
+	 *
+	 * @return void
+	 */
+	private function saveArrayMetadata( int $blog_id, string $meta_key, string $array_key, array $metadata ): void {
+		if ( isset( $metadata[ $meta_key ] ) && is_array( $metadata[ $meta_key ] ) ) {
+			delete_site_meta( $blog_id, $meta_key );
+			foreach ( $metadata[ $meta_key ] as $value ) {
+				if ( is_array( $value ) ) {
+					add_site_meta( $blog_id, $meta_key, $value[ $array_key ] );
+				}
+			}
+		}
 	}
 
 	/**
@@ -427,12 +553,27 @@ class Book {
 
 	/**
 	 * @param string $meta_key
-	 *
+	 * @param bool $in_catalog If true, will only consider books added to the network catalog.
 	 * @return array
 	 */
-	public function getPossibleValuesFor( $meta_key ) {
+	public function getPossibleValuesFor( string $meta_key, bool $in_catalog = false ): array {
 		global $wpdb;
-		return $wpdb->get_col( $wpdb->prepare( "SELECT meta_value FROM {$wpdb->blogmeta} WHERE meta_key = %s AND meta_value <> '' GROUP BY meta_value ORDER BY meta_value ", $meta_key ) );
+
+		$filter = $in_catalog ?
+			"AND blog_id IN (SELECT blog_id FROM {$wpdb->blogmeta} WHERE meta_key = 'pb_in_catalog' AND meta_value = 1)"
+			: '';
+
+		$query = <<<SQL
+SELECT meta_value
+FROM {$wpdb->blogmeta}
+WHERE meta_key = %s
+  AND meta_value <> ''
+  {$filter}
+GROUP BY meta_value
+ORDER BY meta_value
+SQL;
+
+		return $wpdb->get_col( $wpdb->prepare( $query, $meta_key ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 	}
 
 	/**
@@ -486,11 +627,13 @@ class Book {
 
 		switch_to_blog( $book_id );
 
-		$cover_id = $attachment_id ? $attachment_id : attachment_id_from_url( $cover_path );
+		$cover_id = $attachment_id ?: attachment_id_from_url( $cover_path );
 
 		if ( $cover_id ) {
 			$cover_path = wp_get_attachment_image_url( $cover_id, 'pb_cover_large', false );
 		}
+
+		restore_current_blog();
 
 		return  is_ssl() ? str_replace( 'http://', 'https://', $cover_path ) : $cover_path;
 	}

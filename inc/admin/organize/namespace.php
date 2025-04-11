@@ -122,6 +122,7 @@ function reorder() {
 		parse_str( $_POST['old_order'], $old_order );
 		$new_parent = (int) $_POST['new_parent'];
 		$old_parent = (int) $_POST['old_parent'];
+		$updated_at = current_time( 'mysql' );
 		// If the parent changed, set new parent for chapter
 		// and new order for parent
 		if ( $new_parent !== $old_parent ) {
@@ -136,6 +137,8 @@ function reorder() {
 						$wpdb->update(
 							$wpdb->posts, [
 								'menu_order' => $position,
+								'post_modified' => $updated_at,
+								'post_modified_gmt' => get_gmt_from_date( $updated_at ),
 							], [
 								'ID' => $id,
 							]
@@ -153,6 +156,8 @@ function reorder() {
 					$wpdb->update(
 						$wpdb->posts, [
 							'menu_order' => $position,
+							'post_modified' => $updated_at,
+							'post_modified_gmt' => get_gmt_from_date( $updated_at ),
 						], [
 							'ID' => $id,
 						]

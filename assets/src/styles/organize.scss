@@ -30,24 +30,49 @@
     }
 
     .publicize-form {
-      label {
-        display: block;
+      div + div {
+        margin-top: 10px;
+      }
 
-        &:first-child {
-          margin-bottom: 10px;
-        }
+      div {
+        align-items: center;
+        display: flex;
+      }
 
-        input:checked + span {
-          font-weight: bold;
-        }
+      input:checked + label span {
+        font-weight: bold;
       }
     }
+  }
+
+  .row-actions,
+  .part-actions {
+    font-weight: normal;
+    margin-left: 0;
+
+    button {
+      padding: 0;
+      border: 0;
+      color: darken($monza, 5%);
+      background-color: transparent;
+      cursor: pointer;
+
+      &:focus,
+      &:hover {
+        color: $monza;
+      }
+    }
+  }
+
+  .part-actions {
+    padding-bottom: 1em;
   }
 
   table {
     th {
       vertical-align: top;
       padding-top: 8px;
+
       span {
         &[id$="show_title"],
         &[id$="visibility"] {
@@ -58,22 +83,11 @@
     }
 
     td {
-      .row-actions {
-        font-weight: normal;
-
-        button {
-          padding: 0;
-          border: 0;
-          color: darken($monza, 5%);
-          background-color: transparent;
-          cursor: pointer;
-
-          &:focus,
-          &:hover {
-            color: $monza;
-          }
-        }
+      .row-title:focus-within .row-actions {
+        left: 0;
       }
+
+
     }
 
     & + table {
@@ -81,18 +95,34 @@
     }
   }
 
+  tfoot {
+    display: none;
+  }
+
+  tr {
+    display: flex;
+    flex-direction: column;
+  }
+
   [role="alert"] {
     &.visually-hidden {
-      @include visually-hidden();
+      @include visually-hidden;
     }
   }
-}
+  @media (min-width: 783px) {
+    table {
+      .author-label,
+      input + label {
+        @include visually-hidden;
+      }
+    }
 
-@media (min-width: 783px) {
-  table {
-    .author-label,
-    input + label {
-      @include visually-hidden();
+    tr {
+      display: table-row;
+    }
+
+    tfoot {
+      display: table-footer-group;
     }
   }
 }

@@ -249,7 +249,7 @@ jQuery( function ( $ ) {
 			if ( $( this ).prop( 'checked' ) ) {
 				let tr = $( this ).closest( 'tr' );
 				let id = tr.attr( 'data-id' );
-				let cb = $( `input[name='ID[]'][value='${id}']` );
+				let cb = $( `input[name='ID[]'][value='${ id }']` );
 				$( this ).prop( 'checked', true );
 				cb.prop( 'checked', false );
 				cb.prop( 'disabled', true );
@@ -261,7 +261,7 @@ jQuery( function ( $ ) {
 			let name =  $( this ).attr( 'name' );
 			let tr = $( this ).closest( 'tr' );
 			let id = tr.attr( 'data-id' );
-			let cb = $( `input[name='ID[]'][value='${id}']` );
+			let cb = $( `input[name='ID[]'][value='${ id }']` );
 			let format = tr.attr( 'data-format' );
 			let file = tr.attr( 'data-file' );
 			let pinned = $( this ).prop( 'checked' ) ? 1 : 0;

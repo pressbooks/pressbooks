@@ -27,6 +27,41 @@ class OptionsMock extends \Pressbooks\Options {
 	public $defaults;
 
 	/**
+	 * Export booleans.
+	 *
+	 * @var array
+	 */
+	public $booleans;
+
+	/**
+	 * Export strings.
+	 *
+	 * @var array
+	 */
+	public $strings;
+
+	/**
+	 * Export integers.
+	 *
+	 * @var array
+	 */
+	public $integers;
+
+	/**
+	 * Export floats.
+	 *
+	 * @var array
+	 */
+	public $floats;
+
+	/**
+	 * Export predefined options.
+	 *
+	 * @var array
+	 */
+	public $predefined;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param array $options The retrieved options.
@@ -186,7 +221,6 @@ class OptionsMock extends \Pressbooks\Options {
 }
 
 class OptionsTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -267,7 +301,6 @@ class OptionsTest extends \WP_UnitTestCase {
 	 * @group options
 	 */
 	public function test_sanitize() {
-
 		// Test empty boolean.
 		$input = [];
 		$result = $this->options->sanitize( $input );
@@ -405,7 +438,6 @@ class OptionsTest extends \WP_UnitTestCase {
 	 * @group options
 	 */
 	public function test_renderBodyFontField() {
-
 		$fonts = \Pressbooks\Container::get( 'Styles' )->getShapeShifterFonts();
 
 		$options = new \Pressbooks\Modules\ThemeOptions\EbookOptions( [] );
@@ -429,14 +461,12 @@ class OptionsTest extends \WP_UnitTestCase {
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '</optgroup>', $buffer );
 		$this->assertStringContainsString( '<select name="pressbooks_theme_options_web[webbook_body_font]"', $buffer );
-
 	}
 
 	/**
 	 * @group options
 	 */
 	public function test_renderHeaderFontField() {
-
 		$fonts = \Pressbooks\Container::get( 'Styles' )->getShapeShifterFonts();
 
 		$options = new \Pressbooks\Modules\ThemeOptions\EbookOptions( [] );
@@ -460,6 +490,24 @@ class OptionsTest extends \WP_UnitTestCase {
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '</optgroup>', $buffer );
 		$this->assertStringContainsString( '<select name="pressbooks_theme_options_web[webbook_header_font]"', $buffer );
+	}
+
+	/**
+	 * @group options
+	 * Test the renderSocialMediaOptionsField function.
+	 */
+	public function test_renderSocialMediaOptionsField() {
+		$options = new Pressbooks\Modules\ThemeOptions\WebOptions( [ ] );
+		ob_start();
+		$options->renderSocialMediaOptionsField([]);
+		$buffer = ob_get_clean();
+		$this->assertStringContainsString('name="pressbooks_theme_options_web[social_media_options][]"', $buffer);
+		$this->assertStringContainsString('value="twitter"', $buffer);
+		$this->assertStringContainsString('checked', $buffer);
+		$this->assertStringContainsString('value="email"', $buffer);
+		$this->assertStringContainsString('checked', $buffer);
+		$this->assertStringContainsString('value="linkedin"', $buffer);
+		$this->assertStringContainsString('checked', $buffer);
 	}
 
 	/**

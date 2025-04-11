@@ -9,8 +9,7 @@
 		init: function ( ed, url ) {
 			ed.addButton( 'footnote', {
 				title: PB_FootnotesToken.fn_title,
-				text: 'FN',
-				icon: false,
+				image: PB_FootnotesToken.fn_icon,
 				/**
 				 *
 				 */

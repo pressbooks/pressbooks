@@ -8,7 +8,7 @@ body.pressbooks.login {
   height: auto;
   width: 100%;
   margin-top: 4rem;
-  font-family: "Karla", sans-serif;
+  font-family: Karla, sans-serif;
 
   @media (min-width: 48rem) {
     margin-top: 10rem;
@@ -31,9 +31,8 @@ body.pressbooks.login {
     background: var(--primary, #b01109);
     border-color: var(--primary, #b01109);
     color: var(--primary-fg, #fff);
-    box-shadow: none;
     display: inline-block;
-    font-family: "Karla", sans-serif;
+    font-family: Karla, sans-serif;
     font-weight: 500;
     letter-spacing: math.div(2, 18) * 1em;
     min-height: 59px;
@@ -55,12 +54,6 @@ body.pressbooks.login {
       text-decoration: none;
     }
 
-    &:focus,
-    &.focus {
-      outline: 0;
-      box-shadow: 0 0 0 3px rgba(#b01109, 0.25);
-    }
-
     &.disabled,
     &:disabled,
     [disabled] {
@@ -68,14 +61,11 @@ body.pressbooks.login {
       border-color: var(--primary, #b01109) !important;
       color: var(--primary-fg, #fff) !important;
       opacity: 0.65;
-      box-shadow: none;
     }
 
     &:active,
     &.active {
       background-image: none;
-      box-shadow: 0 0 0 3px var(--primary, #b01109),
-        inset 0 3px 5px rgba(0, 0, 0, 0.125);
     }
   }
 
@@ -106,11 +96,10 @@ body.pressbooks.login {
     }
   }
 
-  .message,
-  #login_error {
+
+  .message, #login_error { /* stylelint-disable-line */
     margin-bottom: 2rem;
     background: #eee;
-    box-shadow: none;
   }
 
   #login {
@@ -124,15 +113,14 @@ body.pressbooks.login {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    box-shadow: -3px 5px 4px 2px rgba(149, 149, 149, 0.2);
 
     @media (min-width: 768px) {
       padding: 60px 132px 40px;
     }
 
     p.subtitle {
-      margin-bottom: 1.5rem;
-      font-size: 1.875rem;
+      margin-bottom: 1rem;
+      font-size: 2rem;
       font-weight: 600;
       line-height: 1;
       text-align: center;
@@ -153,8 +141,8 @@ body.pressbooks.login {
         }
       }
 
-      @media screen and (min-width: 768px) {
-        font-size: 2.25rem;
+      .wp-login-logo {
+        order: -1; /* Moves the H1 element above the subtitle */
       }
     }
 
@@ -201,7 +189,7 @@ body.pressbooks.login {
         background: #fff;
         font-size: 1rem;
         box-shadow: none;
-        border-radius: 0px;
+        border-radius: 0;
 
         label & {
           position: absolute;
@@ -212,9 +200,8 @@ body.pressbooks.login {
 
       [type="checkbox"] {
         border: solid 2px var(--primary, #b01109);
-        box-shadow: none;
 
-        &:checked:before {
+        &:checked::before {
           color: var(--primary, #b01109);
         }
       }
@@ -238,6 +225,7 @@ body.pressbooks.login {
     #nav,
     #backtoblog {
       text-align: center;
+
       a {
         color: var(--primary, #b01109);
         font-weight: 600;

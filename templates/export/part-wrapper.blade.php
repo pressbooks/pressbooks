@@ -1,3 +1,3 @@
-<div class="part-wrapper" id="{{ $id  }}-wrapper">
+<div class="part-wrapper" id="{{ $id }}-wrapper">
     {!! $content !!}
 </div>

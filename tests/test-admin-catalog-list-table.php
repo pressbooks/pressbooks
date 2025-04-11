@@ -3,7 +3,6 @@
 // Legacy "My Catalog" code, WP_List_Table
 
 class Admin_CatalogListTableTest extends \WP_UnitTestCase {
-
 	/**
 	 * @var \Pressbooks\Admin\Catalog_List_Table
 	 * @group my_catalog
@@ -43,5 +42,4 @@ class Admin_CatalogListTableTest extends \WP_UnitTestCase {
 		$this->assertEquals( '', $cols['tag_1'] );
 		$this->assertEquals( '', $cols['tag_2'] );
 	}
-
 }

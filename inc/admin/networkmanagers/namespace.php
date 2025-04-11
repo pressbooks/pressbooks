@@ -9,7 +9,6 @@
 
 namespace Pressbooks\Admin\NetworkManagers;
 
-use function Pressbooks\Sanitize\safer_unserialize;
 use PressbooksMix\Assets;
 
 /**
@@ -34,6 +33,7 @@ function admin_enqueues() {
 	$assets = new Assets( 'pressbooks', 'plugin' );
 
 	wp_enqueue_style( 'pb-network-managers', $assets->getPath( 'styles/network-managers.css' ) );
+	wp_enqueue_style( 'pb-table', $assets->getPath( 'styles/pressbooks-table.css' ) );
 	wp_enqueue_script( 'pb-network-managers', $assets->getPath( 'scripts/network-managers.js' ), [ 'jquery' ] );
 	wp_localize_script(
 		'pb-network-managers', 'PB_NetworkManagerToken', [
@@ -45,29 +45,28 @@ function admin_enqueues() {
 /**
  * Get a list of restricted super users
  * (A network manager is a restricted super user)
- * Cheap cached in a static variable to improve i/o performance
  *
- * @param bool $reset
  *
  * @return array
  */
-function _restricted_users( $reset = false ) {
-	// Cheap cache
-	static $restricted = false;
-	if ( $reset ) {
-		$restricted = false;
-	}
-	if ( $restricted === false ) {
-		global $wpdb;
-		$restricted = $wpdb->get_results( "SELECT * FROM {$wpdb->sitemeta} WHERE meta_key = 'pressbooks_network_managers'" );
-		if ( $restricted ) {
-			$restricted = safer_unserialize( $restricted[0]->meta_value );
+function _restricted_users() {
+	$network_admins = get_site_option( 'site_admins' );
+	$network_managers = get_network_option( null, 'pressbooks_network_managers', [] );
+	$restricted_users_ids = [];
+	foreach ( $network_admins as $username ) {
+		$user = get_user_by( 'login', $username );
+
+		if ( ! $user ) {
+			continue;
 		}
-		if ( empty( $restricted ) ) {
-			$restricted = [];
+
+		$is_restricted = in_array( absint( $user->ID ), $network_managers, true );
+
+		if ( $is_restricted ) {
+			$restricted_users_ids[] = $user->ID;
 		}
 	}
-	return $restricted;
+	return $restricted_users_ids;
 }
 
 /**
@@ -75,7 +74,7 @@ function _restricted_users( $reset = false ) {
  */
 function update_admin_status() {
 	if ( check_ajax_referer( 'pb-network-managers' ) ) {
-		$restricted = _restricted_users( true );
+		$restricted = _restricted_users();
 		$id = absint( $_POST['admin_id'] );
 
 		if ( 1 === absint( $_POST['status'] ) ) {
@@ -95,7 +94,7 @@ function update_admin_status() {
 			delete_site_option( 'pressbooks_network_managers' );
 		}
 		// Reset the cheap cache after updating the option
-		_restricted_users( true );
+		_restricted_users();
 	}
 
 }
@@ -259,4 +258,24 @@ function restrict_access() {
 			\Pressbooks\Redirect\location( $redirect_url );
 		}
 	}
+}
+
+function remove_from_pressbooks_network_managers( $user_id ): void {
+	$current_network_managers = get_site_option( 'pressbooks_network_managers', [] );
+
+	// Check if the user is in the current network managers array and remove if found
+	$key = array_search( $user_id, $current_network_managers, true );
+	if ( $key !== false ) {
+		unset( $current_network_managers[ $key ] );
+	}
+
+	// Remove any IDs that are not super admins or do not exist
+	$current_network_managers = array_filter($current_network_managers, function( $id ) {
+		$user = get_userdata( $id );
+		return $user !== false && is_super_admin( $id );
+	});
+
+	$current_network_managers = array_values( $current_network_managers );
+
+	update_site_option( 'pressbooks_network_managers', $current_network_managers );
 }

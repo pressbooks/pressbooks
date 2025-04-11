@@ -1,7 +1,6 @@
 <?php
 
 class HtmLawedTest extends \WP_UnitTestCase {
-
 	/**
 	 * @group sanitize
 	 */

@@ -1,10 +1,11 @@
 <?php
 
+use function Pressbooks\Admin\Laf\can_create_new_books;
+
 require_once( PB_PLUGIN_DIR . 'inc/admin/laf/namespace.php' );
 
 
 class Admin_LafTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	function test_can_create_new_book() {
@@ -27,7 +28,6 @@ class Admin_LafTest extends \WP_UnitTestCase {
 	 * @group branding
 	 */
 	function test_add_footer_link() {
-
 		ob_start();
 		\Pressbooks\Admin\Laf\add_footer_link();
 		$buffer = ob_get_clean();
@@ -59,7 +59,6 @@ class Admin_LafTest extends \WP_UnitTestCase {
 	 * @group branding
 	 */
 	function test_replace_book_admin_menu_AND_init_css_js() {
-
 		global $menu, $submenu;
 
 		// Fake load the admin menu
@@ -123,13 +122,11 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertContains( 'pb-import', $wp_scripts->queue );
 
 		unset( $GLOBALS['post'], $GLOBALS['current_screen'] ); // Cleanup
-
 	}
 
 	/**
 	 * @group branding
 	 */
-
 	function test_fix_root_admin_menu() {
 		$user_id = $this->factory()->user->create();
 		$user = get_userdata( $user_id );
@@ -146,7 +143,6 @@ class Admin_LafTest extends \WP_UnitTestCase {
 	/**
 	 * @group branding
 	 */
-
 	function test_add_pb_cloner_page() {
 		$user_id = $this->factory()->user->create();
 		$user = get_userdata( $user_id );
@@ -156,16 +152,48 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		include_once( ABSPATH . '/wp-admin/menu.php' );
 		\Pressbooks\Admin\Laf\add_pb_cloner_page();
 		$this->assertArrayHasKey( 'index.php', $submenu );
-		$this->assertArrayHasKey( '', $submenu );
-		$this->assertContains( 'Clone a Book', $submenu[''][0] );
+		$this->assertArrayHasKey( 'pb-null', $submenu );
+		$this->assertContains( 'Clone a Book', $submenu['pb-null'][0] );
 		$new_post['post_type'] = 'post';
 		$GLOBALS['post'] = get_post( $this->factory()->post->create_object( $new_post ) );
 		$GLOBALS['current_screen'] = WP_Screen::get( 'post' );
 		\Pressbooks\Admin\Laf\init_css_js();
-		do_action( 'admin_enqueue_scripts' );
+		do_action( 'admin_enqueue_scripts', 'admin_page_pb_cloner' );
 		$this->assertContains( 'pb-cloner', $wp_scripts->queue );
-
+		unset( $submenu['pb-null'] );
 		unset( $GLOBALS['post'], $GLOBALS['current_screen'] ); // Cleanup
+	}
+
+	/**
+	 * @group branding
+	 */
+	function test_cloning_page_is_not_shown_if_new_books_are_not_allowed() {
+		update_site_option( 'registration', 'none' ); // No new books allowed
+		$user_id = $this->factory()->user->create();
+		$user = get_userdata( $user_id );
+		$user->add_role( 'subscriber' );
+		wp_set_current_user( $user_id );
+		global $submenu;
+		include_once( ABSPATH . '/wp-admin/menu.php' );
+		\Pressbooks\Admin\Laf\add_pb_cloner_page();
+		$this->assertArrayHasKey( 'index.php', $submenu );
+		$this->assertArrayNotHasKey( 'pb-null', $submenu );
+	}
+
+	/**
+	 * @test
+	 * @group branding
+	 */
+	public function it_adds_cloning_stats_submenu(): void {
+		$user_id = $this->factory()->user->create();
+		$user = get_userdata( $user_id );
+		$user->add_role( 'contributor' );
+		wp_set_current_user( $user_id );
+		global $submenu;
+		include_once( ABSPATH . '/wp-admin/menu.php' );
+		\Pressbooks\Admin\Laf\add_cloning_stats_page();
+		$this->assertArrayHasKey( 'tools.php', $submenu );
+		$this->assertContains( 'Cloning Stats', $submenu['tools.php'][36] );
 	}
 
 	/**
@@ -283,7 +311,6 @@ class Admin_LafTest extends \WP_UnitTestCase {
 	 * @group branding
 	 */
 	function test_edit_screen_navigation() {
-
 		$this->_book();
 
 		// Mock
@@ -308,37 +335,18 @@ class Admin_LafTest extends \WP_UnitTestCase {
 	/**
 	 * @group branding
 	 */
-	function test_replace_menu_bar_branding() {
-		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
-		wp_set_current_user( $user_id );
-		require_once ABSPATH . WPINC . '/class-wp-admin-bar.php';
-		$wp_admin_bar = new \WP_Admin_Bar();
-		$wp_admin_bar->initialize();
-		\Pressbooks\Admin\Laf\replace_menu_bar_branding( $wp_admin_bar );
-
-		$node = $wp_admin_bar->get_node( 'contact' );
-		$this->assertTrue( is_object( $node ) );
-		$this->assertStringContainsString( 'pressbooks.org', $node->href );
-	}
-
-	/**
-	 * @group branding
-	 */
 	function test_user_contact_fields() {
-
 		$fields = \Pressbooks\Admin\Laf\get_user_contact_fields();
 
 		$this->assertCount( 3, $fields );
 
-		$this->assertEquals( 'Twitter URL', $fields['twitter'] );
-
+		$this->assertEquals( 'X/Twitter URL', $fields['twitter'] );
 	}
 
 	/**
 	 * @group branding
 	 */
 	function test_modify_user_fields() {
-
 		$methods = [
 			'aim' => '',
 			'yim' => '',
@@ -348,13 +356,11 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$fields = \Pressbooks\Admin\Laf\modify_user_contact_fields( $methods );
 
 		$this->assertCount( 3, $fields );
-
 	}
 	/**
 	 * @group branding
 	 */
 	function test_sanitize_user_profile() {
-
 		$_POST['twitter'] = 'https://twitter.com/pb';
 		$_POST['linkedin'] = 'htd';
 		$_POST['github'] = 'https://github.com/pressbooks';
@@ -367,11 +373,12 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertTrue( $error_handler->has_errors() );
 
 		$this->assertEquals( 'The LinkedIn URL field is not a valid URL.', $error_handler->get_error_message( 'linkedin' ) );
-
 	}
 
+	/**
+	 * @group branding
+	 */
 	function test_institution_fields_hooks() {
-
 		global $post, $pagenow;
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
@@ -396,7 +403,20 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$result = \Pressbooks\Admin\Laf\update_user_profile_fields( $user_id );
 
 		$this->assertNull( $result );
-
 	}
 
+	/**
+	 * @group branding
+	 */
+	function test_remove_emoji() {
+		\Pressbooks\Admin\Laf\remove_emoji();
+
+		$this->assertFalse( has_action( 'print_emoji_detection_script', 'wp_head' ) );
+		$this->assertFalse( has_action( 'print_emoji_styles', 'wp_print_styles' ) );
+		$this->assertFalse( has_action( 'print_emoji_detection_script', 'admin_print_scripts', ) );
+		$this->assertFalse( has_action( 'admin_print_styles', 'print_emoji_styles' ) );
+		$this->assertFalse( has_filter( 'wp_mail', 'wp_staticize_emoji_for_email' ) );
+		$this->assertFalse( has_filter( 'wp_staticize_emoji', 'the_content_feed' ) );
+		$this->assertFalse( has_filter( 'wp_staticize_emoji', 'comment_text_css' ) );
+	}
 }

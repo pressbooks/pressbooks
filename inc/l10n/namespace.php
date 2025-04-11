@@ -326,7 +326,7 @@ function wplang_codes() {
  */
 function get_locale() {
 	// If the user has set a locale, use it
-	if ( function_exists( 'wp_get_current_user' ) ) {
+	if ( function_exists( 'wp_get_current_user' ) && is_admin() ) {
 		$user = wp_get_current_user();
 		if ( $user->locale ) {
 			return $user->locale;
@@ -384,6 +384,10 @@ function load_plugin_textdomain( $locale = '' ) {
  * @return mixed
  */
 function override_core_strings( $translated, $original, $domain ) {
+	if ( $original === 'put your unique phrase here' ) {
+		return $original;
+	}
+
 	$overrides = include_core_overrides();
 
 	if ( isset( $overrides[ $original ] ) ) {

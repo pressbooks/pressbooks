@@ -7,7 +7,6 @@ use Monolog\Logger;
 use Pressbooks\Log;
 
 class LogTest extends \WP_UnitTestCase {
-
 	/**
 	 * @var Log\S3StorageProvider
 	 */

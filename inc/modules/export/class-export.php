@@ -12,8 +12,19 @@
 
 namespace Pressbooks\Modules\Export;
 
+use function Pressbooks\add_error;
+use function Pressbooks\L10n\get_book_language;
+use function Pressbooks\L10n\wplang_codes;
+use function Pressbooks\Redirect\force_download;
+use function Pressbooks\Sanitize\sanitize_xml_id;
+use function Pressbooks\Utility\create_tmp_file;
+use function Pressbooks\Utility\email_error_log;
+use function Pressbooks\Utility\get_media_prefix;
+use function Pressbooks\Utility\put_contents;
+use function Pressbooks\Utility\template;
 use function \Pressbooks\Utility\getset;
 use function \Pressbooks\Utility\scandir_by_date;
+use Pressbooks\Book;
 use Pressbooks\Container;
 use Pressbooks\CustomCss;
 
@@ -179,7 +190,7 @@ abstract class Export {
 	 * Remove all but the most recent compiled stylesheet.
 	 *
 	 * @param string $type
-	 * @param int $max
+	 * @param int    $max
 	 */
 	function truncateExportStylesheets( $type, $max = 1 ) {
 		// This method only supports Prince stylesheets at the moment.
@@ -276,17 +287,19 @@ abstract class Export {
 	 * Log errors using wp_mail() and error_log(), include useful WordPress info.
 	 *
 	 * @param string $message
-	 * @param array $more_info
+	 * @param array  $more_info
 	 */
 	function logError( $message, array $more_info = [] ) {
 
-		/** $var \WP_User $current_user */
+		/**
+	* $var \WP_User $current_user
+*/
 		global $current_user;
 
 		$subject = get_class( $this );
 
 		$info = [
-			'time' => strftime( '%c' ),
+			'time' => date( 'D M H:i:s Y' ),
 			'user' => ( isset( $current_user ) ? $current_user->user_login : '__UNKNOWN__' ),
 			'site_url' => site_url(),
 			'blog_id' => get_current_blog_id(),
@@ -305,7 +318,7 @@ abstract class Export {
 				error_log( "\n{$subject}\n{$message}\n" ); // @codingStandardsIgnoreLine
 			}
 		} else {
-			\Pressbooks\Utility\email_error_log( $this->errorsEmail, $subject, $message );
+			email_error_log( $this->errorsEmail, $subject, $message );
 		}
 	}
 
@@ -316,14 +329,14 @@ abstract class Export {
 	 */
 	function createTmpFile() {
 
-		return \Pressbooks\Utility\create_tmp_file();
+		return create_tmp_file();
 	}
 
 	/**
 	 * Create a timestamped filename.
 	 *
 	 * @param string $extension
-	 * @param bool $fullpath
+	 * @param bool   $fullpath
 	 *
 	 * @return string
 	 */
@@ -415,7 +428,7 @@ abstract class Export {
 			$id = uniqid( "$id-" );
 		}
 
-		return \Pressbooks\Sanitize\sanitize_xml_id( $id );
+		return sanitize_xml_id( $id );
 	}
 
 	/**
@@ -439,9 +452,9 @@ abstract class Export {
 	/**
 	 * Will create an html blob of copyright, returns empty string if something goes wrong
 	 *
-	 * @param array $metadata
-	 * @param string $title (optional)
-	 * @param int $id (optional)
+	 * @param array  $metadata
+	 * @param string $title          (optional)
+	 * @param int    $id             (optional)
 	 * @param string $section_author (deprecated)
 	 *
 	 * @return string $html blob
@@ -495,7 +508,7 @@ abstract class Export {
 	 * returns empty string if user doesn't want it displayed
 	 *
 	 * @param array $metadata
-	 * @param int $post_id Post ID.
+	 * @param int   $post_id  Post ID.
 	 *
 	 * @return string
 	 */
@@ -523,13 +536,13 @@ abstract class Export {
 	 * Simple template system.
 	 *
 	 * @param string $path
-	 * @param array $vars (optional)
+	 * @param array  $vars (optional)
 	 *
 	 * @return string
 	 */
 	protected function loadTemplate( $path, array $vars = [] ) {
 		try {
-			return \Pressbooks\Utility\template( $path, $vars );
+			return template( $path, $vars );
 		} catch ( \Exception $e ) {
 			if ( WP_DEBUG ) {
 				return "File not found: {$path}";
@@ -558,7 +571,7 @@ abstract class Export {
 	 */
 	static function getExportFolder() {
 
-		$path = \Pressbooks\Utility\get_media_prefix() . 'exports/';
+		$path = get_media_prefix() . 'exports/';
 		if ( ! file_exists( $path ) ) {
 			wp_mkdir_p( $path );
 		}
@@ -566,7 +579,7 @@ abstract class Export {
 		$path_to_htaccess = $path . '.htaccess';
 		if ( ! file_exists( $path_to_htaccess ) ) {
 			// Restrict access
-			\Pressbooks\Utility\put_contents( $path_to_htaccess, "deny from all\n" );
+			put_contents( $path_to_htaccess, "deny from all\n" );
 		}
 
 		/**
@@ -608,7 +621,7 @@ abstract class Export {
 	/**
 	 * Pre-Export
 	 */
-	static function preExport() {
+	public static function preExport() {
 		/**
 		 * Let other plugins tweak things before exporting
 		 *
@@ -622,7 +635,7 @@ abstract class Export {
 		$last_export = get_option( 'pressbooks_last_export' );
 		$within_range = time() - $last_export;
 		if ( $within_range > ( HOUR_IN_SECONDS ) ) {
-			\Pressbooks\Book::deleteBookObjectCache();
+			Book::deleteBookObjectCache();
 			update_option( 'pressbooks_last_export', time() );
 		}
 
@@ -661,12 +674,6 @@ abstract class Export {
 			if ( isset( $x['vanillawxr'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\WordPress\VanillaWxr';
 			}
-			if ( isset( $x['odt'] ) ) {
-				$modules[] = '\Pressbooks\Modules\Export\Odt\Odt';
-			}
-			if ( isset( $x['htmlbook'] ) ) {
-				$modules[] = '\Pressbooks\Modules\Export\HTMLBook\HTMLBook';
-			}
 			if ( isset( $x['weblinks'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\ThinCC\WebLinks';
 			}
@@ -701,7 +708,7 @@ abstract class Export {
 	 *
 	 * @return \Generator
 	 */
-	static function exportGenerator( $modules ) : \Generator {
+	public static function exportGenerator( $modules ) : \Generator {
 		/**
 		 * Maximum execution time, in seconds. If set to zero, no time limit
 		 * Overrides PHP's max_execution_time of a Nginx->PHP-FPM->PHP configuration
@@ -714,7 +721,7 @@ abstract class Export {
 		 *
 		 * @return int
 		 */
-		@set_time_limit( apply_filters( 'pb_set_time_limit', 600, 'export' ) ); // @codingStandardsIgnoreLine
+		set_time_limit( apply_filters( 'pb_set_time_limit', 600, 'export' ) );
 
 		static::$exportConversionError = [];
 		static::$exportValidationWarning = [];
@@ -723,7 +730,9 @@ abstract class Export {
 		foreach ( $modules as $module ) {
 			$exporter = new $module( [] );
 			if ( is_subclass_of( $exporter, '\Pressbooks\Modules\Export\ExportGenerator' ) ) {
-				/** @var \Pressbooks\Modules\Export\ExportGenerator $exporter */
+				/**
+				 * @var ExportGenerator $exporter
+				 */
 				try {
 					yield from $exporter->convertGenerator();
 					try {
@@ -735,8 +744,10 @@ abstract class Export {
 					static::$exportConversionError[ $module ] = $exporter->getOutputPath();
 				}
 			} else {
-				/** @var \Pressbooks\Modules\Export\Export $exporter */
-				$short_module_name = \Pressbooks\Modules\Export\get_name_from_module_classname( $module );
+				/**
+				 * @var Export $exporter
+				 */
+				$short_module_name = get_name_from_module_classname( $module );
 				$msg = sprintf( __( '%s: Initializing', 'pressbooks' ), $short_module_name );
 				yield 1 => $msg;
 				$msg = sprintf( __( '%s: Exporting', 'pressbooks' ), $short_module_name );
@@ -774,13 +785,15 @@ abstract class Export {
 	/**
 	 * Post Export
 	 */
-	static function postExport() {
+	public static function postExport() {
 
 		$conversion_error = static::$exportConversionError;
 		$validation_warning = static::$exportValidationWarning;
 		$outputs = static::$exportOutputs;
 
-		delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
+		delete_transient( 'dirsize_cache' ); /**
+ * @see get_dirsize()
+*/
 
 		if ( static::$switchedLocale ) {
 			restore_previous_locale();
@@ -820,19 +833,19 @@ abstract class Export {
 
 		if ( is_countable( $conversion_error ) && count( $conversion_error ) ) {
 			// Conversion error
-			\Pressbooks\add_error( __( 'The export failed. See logs for more details.', 'pressbooks' ) );
+			add_error( __( 'The export failed. See logs for more details.', 'pressbooks' ) );
 		}
 
 		if ( is_countable( $validation_warning ) && count( $validation_warning ) ) {
 			// Validation warning
-			$exportoptions = get_option( 'pressbooks_export_options' );
-			if ( 1 === (int) $exportoptions['email_validation_logs'] || is_super_admin() ) {
+			$exportoptions = get_option( 'pressbooks_export_options', [] );
+			if ( ! empty( $exportoptions ) && 1 === (int) $exportoptions['email_validation_logs'] || is_super_admin() ) {
 				$export_warning = sprintf(
 					'<p>%s</p>%s',
 					__( 'Warning: The export has validation errors. See logs for more details.', 'pressbooks' ),
 					( isset( $exportoptions['email_validation_logs'] ) && 1 === (int) $exportoptions['email_validation_logs'] ) ? '<p>' . __( 'Emailed to:', 'pressbooks' ) . ' ' . wp_get_current_user()->user_email . '</p>' : ''
 				);
-				\Pressbooks\add_error( $export_warning );
+				add_error( $export_warning );
 			}
 		}
 	}
@@ -844,11 +857,11 @@ abstract class Export {
 		$loc = 'en_US';
 		if ( function_exists( 'get_available_languages' ) ) {
 			$compare_with = get_available_languages( PB_PLUGIN_DIR . '/languages/' );
-			$codes = \Pressbooks\L10n\wplang_codes();
-			$book_lang = $codes[ \Pressbooks\L10n\get_book_language() ];
+			$codes = wplang_codes();
+			$book_lang = $codes[ get_book_language() ];
 			foreach ( $compare_with as $compare ) {
 				$compare = str_replace( 'pressbooks-', '', $compare );
-				if ( strpos( $book_lang, $compare ) === 0 ) {
+				if ( str_starts_with( $book_lang, $compare ) ) {
 					$loc = $compare;
 					break;
 				}
@@ -901,10 +914,10 @@ abstract class Export {
 	 * Download an .htaccess protected file from the exports directory.
 	 *
 	 * @param string $filename sanitized $_GET['download_export_file']
-	 * @param bool $inline
+	 * @param bool   $inline
 	 */
 	protected static function downloadExportFile( $filename, $inline ) {
 		$filepath = static::getExportFolder() . $filename;
-		\Pressbooks\Redirect\force_download( $filepath, $inline );
+		force_download( $filepath, $inline );
 	}
 }

@@ -1,7 +1,6 @@
 <?php
 
 class EventStreamsTest extends \WP_UnitTestCase {
-
 	/**
 	 * @var \Pressbooks\EventStreams
 	 * @group eventstreams
@@ -107,5 +106,4 @@ class EventStreamsTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( 'event: message', $buffer );
 		$this->assertStringContainsString( 'data: {"action":"complete","error":"No chapters were selected for import."}', $buffer );
 	}
-
 }

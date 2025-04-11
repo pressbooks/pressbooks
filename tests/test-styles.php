@@ -3,7 +3,6 @@
 use Pressbooks\Container;
 
 class StylesTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -66,7 +65,6 @@ class StylesTest extends \WP_UnitTestCase {
 			$this->assertArrayHasKey( $slug, $all_styles_posts );
 			$this->assertStringContainsString( $custom_styles, $all_styles_posts[ $slug ] );
 		}
-
 	}
 
 	/**
@@ -95,6 +93,17 @@ class StylesTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '/assets/styles/', $this->cs->getPathToWebScss( $v2 ) );
 		$this->assertStringContainsString( '/assets/styles/', $this->cs->getPathToEpubScss( $v2 ) );
 		$this->assertStringContainsString( '/assets/styles/', $this->cs->getPathToPrinceScss( $v2 ) );
+	}
+
+	/**
+	 * @group styles
+	 */
+	public function test_getParaIndent() {
+		$v1 = wp_get_theme( 'pressbooks-luther' );
+		$this->assertNull( $this->cs->getParaIndent( $v1 ) );
+
+		$v2 = wp_get_theme( 'pressbooks-book' );
+		$this->assertEquals( $this->cs->getParaIndent( $v2 ), '1em' );
 	}
 
 	/**
@@ -172,7 +181,6 @@ class StylesTest extends \WP_UnitTestCase {
 	 * @group styles
 	 */
 	public function test_updateWebBookStyleSheet() {
-
 		$this->_book( 'pressbooks-clarke' ); // Pick a theme with some built-in $supported_languages
 
 		$this->cs->updateWebBookStyleSheet();
@@ -185,9 +193,31 @@ class StylesTest extends \WP_UnitTestCase {
 
 	/**
 	 * @group styles
+	 * @test
+	 */
+	public function it_updates_the_pdf_stylesheet(): void {
+		$this->_book( 'pressbooks-clarke' );
+
+		$this->cs->updatePdfStyleSheet();
+
+		$cssDir = $this->cs->getSass()->pathToUserGeneratedCss();
+
+		$files = glob( $cssDir . '/prince-*.css' );
+
+		$this->assertNotEmpty( $files, "No PDF stylesheet file was created in $cssDir." );
+
+		$this->assertCount( 1, $files, 'More than one PDF stylesheet file was created.' );
+
+		$file = reset( $files );
+
+		$this->assertFileExists( $file );
+		$this->assertNotEmpty( file_get_contents( $file ) );
+	}
+
+	/**
+	 * @group styles
 	 */
 	public function test_maybeUpdateStyleSheets() {
-
 		$this->_book( 'pressbooks-book' );
 
 		update_option( 'pressbooks_theme_version', 2.0 );

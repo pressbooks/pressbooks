@@ -1,7 +1,6 @@
 <?php
 
 class SearchResultTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -41,7 +40,6 @@ class SearchResultTest extends \WP_UnitTestCase {
 	 * @group searchandreplace
 	 */
 	public function test_regexValidate() {
-
 		$expr = "/known/i";
 		$result = $this->content->regexValidate( $expr );
 		$this->assertEquals( null, $result );
@@ -63,7 +61,6 @@ class SearchResultTest extends \WP_UnitTestCase {
 	 * @group searchandreplace
 	 */
 	public function test_searchAndReplace() {
-
 		$this->_book();
 
 		$this->content->regex = false;
@@ -84,5 +81,4 @@ class SearchResultTest extends \WP_UnitTestCase {
 			$this->assertStringContainsString( '<img src="#" alt="image" />', $result->content );
 		}
 	}
-
 }

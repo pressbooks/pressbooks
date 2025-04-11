@@ -11,15 +11,26 @@
 
 namespace Pressbooks\Modules\Export\Xhtml;
 
+use function Pressbooks\Image\maybe_swap_with_bigger;
+use function Pressbooks\Modules\Export\get_contributors_section;
 use function Pressbooks\Sanitize\clean_filename;
+use function Pressbooks\Sanitize\decode;
+use function Pressbooks\Utility\check_xmllint_install;
 use function Pressbooks\Utility\get_contributors_name_imploded;
+use function Pressbooks\Utility\put_contents;
 use function Pressbooks\Utility\str_starts_with;
 use PressbooksMix\Assets;
+use Pressbooks\Book;
 use Pressbooks\Container;
+use Pressbooks\Contributors;
+use Pressbooks\HtmLawed;
 use Pressbooks\HtmlParser;
+use Pressbooks\Interactive\Content;
+use Pressbooks\Modules\Export\Export;
 use Pressbooks\Modules\Export\ExportGenerator;
 use Pressbooks\Modules\Export\ExportHelpers;
 use Pressbooks\Sanitize;
+use Pressbooks\Taxonomy;
 use Pressbooks\Utility\PercentageYield;
 
 class Xhtml11 extends ExportGenerator {
@@ -109,12 +120,12 @@ class Xhtml11 extends ExportGenerator {
 	protected $generatorPrefix;
 
 	/**
-	 * @var \Pressbooks\Taxonomy
+	 * @var Taxonomy
 	 */
 	protected $taxonomy;
 
 	/**
-	 * @var \Pressbooks\Contributors
+	 * @var Contributors
 	 */
 	protected $contributors;
 
@@ -135,8 +146,8 @@ class Xhtml11 extends ExportGenerator {
 
 		// Some defaults
 
-		$this->taxonomy = \Pressbooks\Taxonomy::init();
-		$this->contributors = new \Pressbooks\Contributors();
+		$this->taxonomy = Taxonomy::init();
+		$this->contributors = new Contributors();
 		$this->blade = Container::get( 'Blade' );
 
 		if ( Container::get( 'Styles' )->hasBuckram( '0.3.0' ) ) {
@@ -211,7 +222,7 @@ class Xhtml11 extends ExportGenerator {
 
 		yield 75 => $this->generatorPrefix . __( 'Saving file to exports folder', 'pressbooks' );
 		$filename = $this->timestampedFileName( '.html' );
-		\Pressbooks\Utility\put_contents( $filename, $this->transformOutput );
+		put_contents( $filename, $this->transformOutput );
 		$this->outputPath = $filename;
 		yield 80 => $this->generatorPrefix . __( 'Export successful', 'pressbooks' );
 	}
@@ -274,7 +285,7 @@ class Xhtml11 extends ExportGenerator {
 	 * @see \Pressbooks\Redirect\do_format
 	 *
 	 * @param bool $return (optional) If you would like to capture the output of transform, use the return parameter. If this parameter is set
-	 * to true, transform will return its output, instead of printing it.
+	 *                     to true, transform will return its output, instead of printing it.
 	 *
 	 * @return mixed
 	 */
@@ -313,7 +324,6 @@ class Xhtml11 extends ExportGenerator {
 	 * @throws \Exception
 	 */
 	public function transformGenerator() : \Generator {
-
 		do_action( 'pb_pre_export' );
 
 		// Override footnote shortcode
@@ -328,7 +338,7 @@ class Xhtml11 extends ExportGenerator {
 		// ------------------------------------------------------------------------------------------------------------
 		// XHTML, Start!
 
-		$metadata = \Pressbooks\Book::getBookInformation( null, false, false );
+		$metadata = Book::getBookInformation( null, false, false );
 		$_unused = [];
 
 		// Set two letter language code
@@ -414,7 +424,7 @@ class Xhtml11 extends ExportGenerator {
 			// The $_GET parameters haven't changed since the last request so the output will be the same
 			$buffer_inner_html = $cache[1];
 		} else {
-			$book_contents = $this->preProcessBookContents( \Pressbooks\Book::getBookContents() );
+			$book_contents = $this->preProcessBookContents( Book::getBookContents() );
 			ob_start();
 
 			$this->displayAboutTheAuthors = ! empty( get_option( 'pressbooks_theme_options_global', [] )['about_the_author'] );
@@ -497,8 +507,8 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @see http://www.princexml.com/doc/8.1/footnotes/
 	 *
-	 * @param       $atts
-	 * @param null  $content
+	 * @param $atts
+	 * @param null $content
 	 *
 	 * @return string
 	 */
@@ -516,7 +526,7 @@ class Xhtml11 extends ExportGenerator {
 	 * @see doEndnotes
 	 *
 	 * @param array $atts
-	 * @param null $content
+	 * @param null  $content
 	 *
 	 * @return string
 	 */
@@ -570,16 +580,22 @@ class Xhtml11 extends ExportGenerator {
 	 * @return string
 	 */
 	function doFootnotes( $id ) {
-		// TODO: convert to blade
 		if ( ! isset( $this->footnotes[ $id ] ) || ! count( $this->footnotes[ $id ] ) ) {
 			return '';
+		}
+
+		if ( ! has_filter( 'the_content', 'do_shortcode' ) ) {
+			add_filter( 'the_content', 'do_shortcode', 11 );
 		}
 
 		$e = '<div class="footnotes">';
 		foreach ( $this->footnotes[ $id ] as $k => $footnote ) {
 			$key = $k + 1;
 			$id_attr = $id . '-' . $key;
-			$e .= "<div id='$id_attr'>" . $this->fixInternalLinks( $footnote ) . '</div>';
+
+			$footnote_content = apply_filters( 'the_content', $footnote );
+
+			$e .= "<div id='$id_attr'>" . $this->fixInternalLinks( $footnote_content ) . '</div>';
 		}
 		$e .= '</div>';
 
@@ -650,12 +666,12 @@ class Xhtml11 extends ExportGenerator {
 	}
 
 	/**
-	 * @param string $content
-	 * @param int    $id
+	 * @param string   $content
+	 * @param int|null $id
 	 *
 	 * @return string
 	 */
-	protected function preProcessPostContent( $content, $id = null ) {
+	protected function preProcessPostContent( string $content, int $id = null ): string {
 		$content = apply_filters( 'the_export_content', $content );
 		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
 		$content = $this->fixInternalLinks( $content, $id );
@@ -664,9 +680,7 @@ class Xhtml11 extends ExportGenerator {
 		if ( ! empty( $_GET['optimize-for-print'] ) ) {
 			$content = $this->fixImages( $content );
 		}
-		$content = $this->tidy( $content );
-
-		return $content;
+		return $this->tidy( $content );
 	}
 
 	protected function fixImageAttributes( $content ) {
@@ -717,7 +731,9 @@ class Xhtml11 extends ExportGenerator {
 		$links = $dom->getElementsByTagName( 'a' );
 
 		foreach ( $links as $link ) {
-			/** @var \DOMElement $link */
+			/**
+			 * @var \DOMElement $link
+			*/
 			$href = $link->getAttribute( 'href' );
 
 			if ( str_starts_with( $href, '#' ) && ! empty( $id ) ) {
@@ -739,7 +755,7 @@ class Xhtml11 extends ExportGenerator {
 				}
 				if ( $fragment ) {
 					// Check if a fragment is considered external, don't change the URL if we find a match
-					$external_anchors = [ \Pressbooks\Interactive\Content::ANCHOR ];
+					$external_anchors = [ Content::ANCHOR ];
 					if ( in_array( "#{$fragment}", $external_anchors, true ) || str_starts_with( $fragment, 'h5p' ) ) {
 						continue;
 					} else {
@@ -749,8 +765,7 @@ class Xhtml11 extends ExportGenerator {
 			}
 		}
 
-		$content = $html5->saveHTML( $dom );
-		return $content;
+		return $html5->saveHTML( $dom );
 	}
 
 	/**
@@ -774,8 +789,10 @@ class Xhtml11 extends ExportGenerator {
 
 		$urls = $dom->getElementsByTagName( 'a' );
 		foreach ( $urls as $url ) {
-			/** @var \DOMElement $url */
-			// Is this the the attributionUrl?
+			/**
+			 * @var \DOMElement $url
+			 */
+			// Is this the attributionUrl?
 			if ( $url->getAttribute( 'rel' ) === 'cc:attributionURL' ) {
 				$url->parentNode->replaceChild(
 					$dom->createTextNode( $url->nodeValue ),
@@ -785,13 +802,11 @@ class Xhtml11 extends ExportGenerator {
 			}
 		}
 
-		if ( ! $changed ) {
-			return $content;
-		} else {
+		if ( $changed ) {
 			$content = $html5->saveHTML( $dom );
 			$content = $this->html5ToXhtml( $content );
-			return $content;
 		}
+		return $content;
 	}
 
 	/**
@@ -812,13 +827,11 @@ class Xhtml11 extends ExportGenerator {
 
 		$images = $dom->getElementsByTagName( 'img' );
 		foreach ( $images as $image ) {
-			/** @var \DOMElement $image */
+			/**
+			 * @var \DOMElement $image
+			*/
 			$old_src = $image->getAttribute( 'src' );
-			if ( isset( $already_done[ $old_src ] ) ) {
-				$new_src = $already_done[ $old_src ];
-			} else {
-				$new_src = \Pressbooks\Image\maybe_swap_with_bigger( $old_src );
-			}
+			$new_src = $already_done[ $old_src ] ?? maybe_swap_with_bigger( $old_src );
 			if ( $old_src !== $new_src ) {
 				$image->setAttribute( 'src', $new_src );
 				$image->removeAttribute( 'srcset' );
@@ -845,7 +858,7 @@ class Xhtml11 extends ExportGenerator {
 
 		// Make XHTML 1.1 strict using htmlLawed
 
-		$html = \Pressbooks\Interactive\Content::init()->replaceInteractiveTags( $html );
+		$html = Content::init()->replaceInteractiveTags( $html );
 
 		$config = [
 			'valid_xhtml' => 1,
@@ -855,11 +868,10 @@ class Xhtml11 extends ExportGenerator {
 			'tidy' => -1,
 		];
 
-		$spec = '';
-		$spec .= 'table=-border;';
+		$spec = 'table=-border;';
 		$spec .= 'div=title;';
 
-		return \Pressbooks\HtmLawed::filter( $html, $config, $spec );
+		return HtmLawed::filter( $html, $config, $spec );
 	}
 
 	/**
@@ -874,8 +886,7 @@ class Xhtml11 extends ExportGenerator {
 			'valid_xhtml' => 1,
 			'unique_ids' => 0,
 		];
-		$html = \Pressbooks\HtmLawed::filter( $html, $config );
-		return $html;
+		return HtmLawed::filter( $html, $config );
 	}
 
 	// ----------------------------------------------------------------------------------------------------------------
@@ -959,7 +970,7 @@ class Xhtml11 extends ExportGenerator {
 						'subclass' => $subclass,
 						'slug' => $slug,
 						'post_number' => $i,
-						'title' => Sanitize\decode( $title ),
+						'title' => decode( $title ),
 						'content' => $content,
 						'endnotes' => $this->doEndnotes( $front_matter_id ),
 						'footnotes' => $this->doFootnotes( $front_matter_id ),
@@ -1099,7 +1110,7 @@ class Xhtml11 extends ExportGenerator {
 			if ( ! empty( $meta['pb_copyright_year'] ) ) {
 				$default_copyright_date = $meta['pb_copyright_year'] . ' ';
 			} elseif ( ! empty( $meta['pb_publication_date'] ) ) {
-				$default_copyright_date = strftime( '%Y', $meta['pb_publication_date'] );
+				$default_copyright_date = date( 'Y', $meta['pb_publication_date'] );
 			} else {
 				$default_copyright_date = date( 'Y' );
 			}
@@ -1131,7 +1142,7 @@ class Xhtml11 extends ExportGenerator {
 	protected function renderDedicationAndEpigraph( $book_contents ) {
 
 		$index = $this->frontMatterPos;
-		$parse_subsections = \Pressbooks\Modules\Export\Export::shouldParseSubsections();
+		$parse_subsections = Export::shouldParseSubsections();
 
 		foreach ( [ 'dedication', 'epigraph' ] as $compare ) {
 			foreach ( $book_contents['front-matter'] as $front_matter ) {
@@ -1157,7 +1168,7 @@ class Xhtml11 extends ExportGenerator {
 						'subclass' => $subclass,
 						'slug' => $slug,
 						'front_matter_number' => $index,
-						'title' => Sanitize\decode( $title ),
+						'title' => decode( $title ),
 						'content' => $content,
 						'endnotes' => $this->doEndnotes( $front_matter_id ),
 						'footnotes' => $this->doFootnotes( $front_matter_id ),
@@ -1172,7 +1183,7 @@ class Xhtml11 extends ExportGenerator {
 	}
 
 	/**
-	 * @param  array  $book_contents
+	 * @param array $book_contents
 	 */
 	protected function renderToc( $book_contents ) {
 
@@ -1196,17 +1207,19 @@ class Xhtml11 extends ExportGenerator {
 
 					$part_data = $this->getPostInformation( 'chapter', $part, 'part' );
 
-					$rendered_items[] = $this->blade->render('export/bullet-toc-part', [
-						'bullet_class' => 'part',
-						'is_visible' => get_post_meta( $part['ID'], 'pb_part_invisible', true ) !== 'on',
-						'has_content' => trim( $part_data['content'] ), // show in TOC
-						'has_at_least_one_chapter' => $this->atLeastOneExport( $part['chapters'] ), // show in TOC
-						'item' => [
-							'is_epub' => false,
-							'slug' => '#' . $part_data['href'],
-							'title' => Sanitize\decode( $part_data['title'] ),
-						],
-					]);
+					$rendered_items[] = $this->blade->render(
+						'export/bullet-toc-part', [
+							'bullet_class' => 'part',
+							'is_visible' => get_post_meta( $part['ID'], 'pb_part_invisible', true ) !== 'on',
+							'has_content' => trim( $part_data['content'] ), // show in TOC
+							'has_at_least_one_chapter' => $this->atLeastOneExport( $part['chapters'] ), // show in TOC
+							'item' => [
+								'is_epub' => false,
+								'slug' => '#' . $part_data['href'],
+								'title' => decode( $part_data['title'] ),
+							],
+						]
+					);
 
 					foreach ( $part['chapters'] as $chapter ) {
 
@@ -1257,17 +1270,19 @@ class Xhtml11 extends ExportGenerator {
 				}
 			}
 		}
-		echo $this->blade->render('export/toc', [
-			'title' => __( 'Contents', 'pressbooks' ),
-			'toc' => $rendered_items,
-		]);
+		echo $this->blade->render(
+			'export/toc', [
+				'title' => __( 'Contents', 'pressbooks' ),
+				'toc' => $rendered_items,
+			]
+		);
 	}
 
 	/**
 	 * Yields an estimated percentage slice of: 50 to 60
 	 *
-	 * @param array $book_contents
-	 * @param array $metadata
+	 * @param  array $book_contents
+	 * @param  array $metadata
 	 * @return \Generator
 	 */
 	protected function renderFrontMatterGenerator( $book_contents, $metadata ) : \Generator {
@@ -1282,11 +1297,13 @@ class Xhtml11 extends ExportGenerator {
 				continue; // Skip
 			}
 
-			$data = $this->mapBookDataAndContent( $front_matter, $metadata, $index, [
-				'type' => 'front_matter',
-				'endnotes' => true,
-				'footnotes' => true,
-			] );
+			$data = $this->mapBookDataAndContent(
+				$front_matter, $metadata, $index, [
+					'type' => 'front_matter',
+					'endnotes' => true,
+					'footnotes' => true,
+				]
+			);
 
 			$skip_classes = [
 				'dedication',
@@ -1329,8 +1346,8 @@ class Xhtml11 extends ExportGenerator {
 	/**
 	 * Yields an estimated percentage slice of: 60 to 70
 	 *
-	 * @param array $book_contents
-	 * @param array $metadata
+	 * @param  array $book_contents
+	 * @param  array $metadata
 	 * @return \Generator
 	 */
 	protected function renderPartsAndChaptersGenerator( $book_contents, $metadata ) : \Generator {
@@ -1339,7 +1356,7 @@ class Xhtml11 extends ExportGenerator {
 		$part_index = 1;
 		$chapter_index = 1;
 		$parts_amount = count( $book_contents['part'] );
-		$parse_subsections = \Pressbooks\Modules\Export\Export::shouldParseSubsections();
+		$parse_subsections = Export::shouldParseSubsections();
 
 		foreach ( $book_contents['part'] as $part ) {
 			yield from $yield->tick( $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' ) );
@@ -1372,7 +1389,7 @@ class Xhtml11 extends ExportGenerator {
 					'introduction' => $part_is_introduction ? 'introduction' : '',
 					'slug' => $part_slug,
 					'number' => \Pressbooks\L10n\romanize( $part_number ),
-					'title' => \Pressbooks\Sanitize\decode( $part_title ),
+					'title' => decode( $part_title ),
 					'content' => $part_content,
 					'endnotes' => $this->doEndnotes( $part['ID'] ),
 					'footnotes' => $this->doFootnotes( $part['ID'] ),
@@ -1382,6 +1399,7 @@ class Xhtml11 extends ExportGenerator {
 			$rendered_chapters = '';
 
 			foreach ( $part['chapters'] as $chapter ) {
+
 				yield from $yield->tick( $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' ) );
 
 				if ( ! $chapter['export'] ) {
@@ -1398,8 +1416,8 @@ class Xhtml11 extends ExportGenerator {
 				$chapter_subtitle = trim( get_post_meta( $chapter_id, 'pb_subtitle', true ) );
 				$chapter_author = $this->contributors->get( $chapter_id, 'pb_authors' );
 
-				if ( $parse_subsections && \Pressbooks\Book::getSubsections( $chapter_id ) !== false ) {
-					$chapter_content = \Pressbooks\Book::tagSubsections( $chapter_content, $chapter_id );
+				if ( $parse_subsections && Book::getSubsections( $chapter_id ) !== false ) {
+					$chapter_content = Book::tagSubsections( $chapter_content, $chapter_id );
 				}
 
 				if ( ! $this->hasIntroduction ) {
@@ -1410,19 +1428,19 @@ class Xhtml11 extends ExportGenerator {
 				$append_chapter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $chapter_id ) );
 
 				$chapter_content .= $this->displayAboutTheAuthors
-					? \Pressbooks\Modules\Export\get_contributors_section( $chapter_id )
+					? get_contributors_section( $chapter_id )
 					: '';
 
-				$chapter_number = strpos( $chapter_subclass, 'numberless' ) === false ? $chapter_index : '';
+				$chapter_number = ! str_contains( $chapter_subclass, 'numberless' ) ? $chapter_index : '';
 
 				$rendered_chapters .= $this->blade->render(
 					'export/chapter',
 					[
 						'subclass' => $chapter_subclass,
 						'slug' => $chapter_slug,
-						'sanitized_title' => $chapter_short_title ?: wp_strip_all_tags( \Pressbooks\Sanitize\decode( $chapter['post_title'] ) ),
+						'sanitized_title' => $chapter_short_title ?: wp_strip_all_tags( decode( $chapter['post_title'] ) ),
 						'number' => $chapter_number,
-						'title' => \Pressbooks\Sanitize\decode( $chapter_title ),
+						'title' => decode( $chapter_title, false ),
 						'is_new_buckram' => $this->wrapHeaderElements,
 						'output_short_title' => $this->outputShortTitle,
 						'author' => $chapter_author,
@@ -1449,8 +1467,8 @@ class Xhtml11 extends ExportGenerator {
 
 			if ( $parts_amount === 1 ) {
 				$content = $part_content
-					? $rendered_part . $rendered_chapters
-					: $rendered_chapters;
+				? $rendered_part . $rendered_chapters
+				: $rendered_chapters;
 
 				$this->renderPart( $part_slug, $content );
 			} else {
@@ -1472,8 +1490,8 @@ class Xhtml11 extends ExportGenerator {
 	/**
 	 * Yields an estimated percentage slice of: 70 to 80
 	 *
-	 * @param array $book_contents
-	 * @param array $metadata
+	 * @param  array $book_contents
+	 * @param  array $metadata
 	 * @return \Generator
 	 */
 	protected function renderBackMatterGenerator( $book_contents, $metadata ) : \Generator {
@@ -1488,11 +1506,13 @@ class Xhtml11 extends ExportGenerator {
 				continue;
 			}
 
-			$data = $this->mapBookDataAndContent( $back_matter, $metadata, $i, [
-				'type' => 'back_matter',
-				'endnotes' => true,
-				'footnotes' => true,
-			] );
+			$data = $this->mapBookDataAndContent(
+				$back_matter, $metadata, $i, [
+					'type' => 'back_matter',
+					'endnotes' => true,
+					'footnotes' => true,
+				]
+			);
 
 			echo $this->blade->render( 'export/generic-post-type', $data );
 
@@ -1504,8 +1524,8 @@ class Xhtml11 extends ExportGenerator {
 	/**
 	 * Renders the complete part wrapper
 	 *
-	 * @param string $id
-	 * @param string $content
+	 * @param  string $id
+	 * @param  string $content
 	 * @return void
 	 */
 	protected function renderPart( string $id, string $content ): void {
@@ -1549,7 +1569,7 @@ class Xhtml11 extends ExportGenerator {
 	 * @return bool
 	 */
 	static function hasDependencies() {
-		if ( true === \Pressbooks\Utility\check_xmllint_install() ) {
+		if ( true === check_xmllint_install() ) {
 			return true;
 		}
 

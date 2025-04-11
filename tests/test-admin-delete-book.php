@@ -1,7 +1,6 @@
 <?php
 
 class Admin_DeleteBookTest extends \WP_UnitTestCase {
-
 	/**
 	 * @group deletebook
 	 */

@@ -13,6 +13,8 @@ namespace Pressbooks;
 use function \Pressbooks\Editor\update_editor_style;
 use function \Pressbooks\Sanitize\normalize_css_urls;
 use function \Pressbooks\Utility\debug_error_log;
+use function \Pressbooks\Utility\get_contents;
+use function \Pressbooks\Utility\put_contents;
 
 /**
  * Custom Styles Feature(s)
@@ -344,6 +346,36 @@ class Styles {
 	}
 
 	/**
+	 * Get the paragraph indent value for a Buckram v2 theme
+	 *
+	 * @param \WP_Theme $theme (optional)
+	 *
+	 * @return ?string The paragraph indent defined in the theme, or null if no paragraph indent is defined.
+	 */
+	public function getParaIndent( $theme = null ) {
+
+		if ( null === $theme ) {
+			$theme = wp_get_theme();
+		}
+
+		if ( $this->isCurrentThemeCompatible( 2, $theme ) ) {
+			$path = realpath( $this->getDir( $theme ) . '/assets/styles/components/_elements.scss' );
+
+			if ( file_exists( $path ) ) {
+				$string = file_get_contents( $path );
+				$regex = '/\$para-indent: ([0-9]*[a-z]*) \!default;/m';
+				preg_match( $regex, $string, $matches );
+
+				if ( isset( $matches[1] ) ) {
+					return $matches[1];
+				}
+			}
+		}
+
+		return null;
+	}
+
+	/**
 	 * Are the current theme's stylesheets SCSS compatible?
 	 *
 	 * @param int $with_version
@@ -432,7 +464,7 @@ class Styles {
 	public function customizeWeb( $overrides = [] ) {
 		$path = $this->getPathToWebScss();
 		if ( $path ) {
-			return $this->customize( 'web', \Pressbooks\Utility\get_contents( $path ), $overrides );
+			return $this->customize( 'web', get_contents( $path ), $overrides );
 		}
 		return '';
 	}
@@ -445,7 +477,7 @@ class Styles {
 	public function customizePrince( $overrides = [] ) {
 		$path = $this->getPathToPrinceScss();
 		if ( $path ) {
-			return $this->customize( 'prince', \Pressbooks\Utility\get_contents( $path ), $overrides );
+			return $this->customize( 'prince', get_contents( $path ), $overrides );
 		}
 		return '';
 	}
@@ -458,7 +490,7 @@ class Styles {
 	public function customizeEpub( $overrides = [] ) {
 		$path = $this->getPathToEpubScss();
 		if ( $path ) {
-			return $this->customize( 'epub', \Pressbooks\Utility\get_contents( $path ), $overrides );
+			return $this->customize( 'epub', get_contents( $path ), $overrides );
 		}
 		return '';
 	}
@@ -555,50 +587,78 @@ class Styles {
 
 		foreach ( $scan as $token => $replace_with ) {
 			if ( is_file( $replace_with ) ) {
-				$css = str_replace( $token, \Pressbooks\Utility\get_contents( $replace_with ), $css );
+				$css = str_replace( $token, get_contents( $replace_with ), $css );
 			}
 		}
 
 		return $css;
 	}
 
-	/**
-	 * Update and save the supplementary webBook stylesheet which incorporates user options, etc.
-	 *
-	 * @param string $stylesheet Directory name for the theme. Defaults to current theme.
-	 * @return void
-	 */
-	public function updateWebBookStyleSheet( $stylesheet = null ) {
-
-		if ( CustomCss::isCustomCss() ) {
-			// Compile pressbooks-book web stylesheet when using the *DEPRECATED* Custom CSS theme
-			$theme = wp_get_theme( 'pressbooks-book' );
-		} else {
-			$theme = wp_get_theme( $stylesheet );
-		}
+	private function getCssFile( string|null $stylesheet, bool $princePost = false ): string {
+		$theme = CustomCss::isCustomCss() ? wp_get_theme( 'pressbooks-book' ) : wp_get_theme( $stylesheet );
 
 		// Populate $url-base variable so that links to images and other assets remain intact
-		$overrides = [ '$url-base: "' . $theme->get_stylesheet_directory_uri() . '";' ];
 		if ( $this->isCurrentThemeCompatible( 1 ) ) {
-			$scss = \Pressbooks\Utility\get_contents( realpath( $this->getDir( $theme ) . '/style.scss' ) );
+			$scss = get_contents( realpath( $this->getDir( $theme ) . '/style.scss' ) );
 		} elseif ( $this->isCurrentThemeCompatible( 2 ) || CustomCss::isCustomCss() ) {
-			$scss = \Pressbooks\Utility\get_contents( realpath( $this->getDir( $theme ) . '/assets/styles/web/style.scss' ) );
+			$style_path = $princePost ? '/assets/styles/prince/style.scss' : '/assets/styles/web/style.scss';
+			$scss = get_contents( realpath( $this->getDir( $theme ) . $style_path ) );
 		} else {
-			return;
+			return '';
 		}
 
-		$custom_styles = $this->getWebPost();
+		$custom_styles = $princePost ? $this->getPrincePost() : $this->getWebPost();
 		if ( $custom_styles && ! empty( $custom_styles->post_content ) ) {
 			// append the user's custom styles to the theme stylesheet prior to compilation
 			$scss .= "\n" . $custom_styles->post_content;
 		}
 
-		$css = $this->customize( 'web', $scss, $overrides );
+		$overrides = [ '$url-base: "' . $theme->get_stylesheet_directory_uri() . '";' ];
 
-		$css = normalize_css_urls( $css );
+		$css = $this->customize( $princePost ? 'prince' : 'web', $scss, $overrides );
+
+		return normalize_css_urls( $css );
+	}
+
+	/**
+	 * Update and save the supplementary webBook stylesheet which incorporates user options, etc.
+	 *
+	 * @param string|null $stylesheet Directory name for the theme. Defaults to current theme.
+	 * @return void
+	 */
+	public function updateWebBookStyleSheet( string|null $stylesheet = null ): void {
+		$css = $this->getCssFile( $stylesheet );
+
+		if ( ! $css ) {
+			return;
+		}
 
 		$css_file = $this->sass->pathToUserGeneratedCss() . '/style.css';
-		\Pressbooks\Utility\put_contents( $css_file, $css );
+		put_contents( $css_file, $css );
+	}
+
+	public function updatePdfStyleSheet( string|null $stylesheet = null ): void {
+		$css = $this->getCssFile( $stylesheet, princePost: true );
+
+		if ( ! $css ) {
+			return;
+		}
+
+		$timestamp = time();
+
+		// Define the PDF CSS file location
+		$css_file = $this->sass->pathToUserGeneratedCss() . "/prince-$timestamp.css";
+
+		// Remove previous PDF stylesheets
+		$pdf_stylesheets = glob( Container::get( 'Sass' )->pathToUserGeneratedCss() . '/prince-*.css' );
+		foreach ( $pdf_stylesheets as $file ) {
+			if ( is_file( $file ) ) {
+				unlink( $file );
+			}
+		}
+
+		// Save the generated PDF CSS
+		put_contents( $css_file, $css );
 	}
 
 	/**
@@ -607,8 +667,14 @@ class Styles {
 	 * @return bool
 	 */
 	public function maybeUpdateStylesheets() {
+		global $wp_query;
+
 		// If this is ajax/cron/404, don't update right now
-		if ( wp_doing_ajax() || wp_doing_cron() || is_404() ) {
+		if ( wp_doing_ajax() || wp_doing_cron() ) {
+			return false;
+		}
+
+		if ( isset( $wp_query ) && is_404() ) {
 			return false;
 		}
 
@@ -656,7 +722,7 @@ class Styles {
 	 * @return bool
 	 */
 	public function isShapeShifterCompatible() {
-		return apply_filters( 'pb_is_shape_shifter_compatible', ( 'pressbooks-malala' === get_stylesheet() || 'pressbooks-book' === get_stylesheet() ) );
+		return apply_filters( 'pb_is_shape_shifter_compatible', 'pressbooks-book' === get_stylesheet() );
 	}
 
 	/**
@@ -667,7 +733,6 @@ class Styles {
 	 */
 	public function getShapeShifterFonts() {
 		$serif = [
-			'Alegreya' => __( 'Alegreya', 'pressbooks' ),
 			'Cormorant Garamond' => __( 'Cormorant Garamond', 'pressbooks' ),
 			'Crimson Text' => __( 'Crimson Text', 'pressbooks' ),
 			'FreeSerif' => __( 'GNU FreeFont Serif', 'pressbooks' ),
@@ -678,6 +743,7 @@ class Styles {
 		];
 
 		$sans_serif = [
+			'Alegreya Sans' => __( 'Alegreya Sans', 'pressbooks' ),
 			'Barlow' => __( 'Barlow', 'pressbooks' ),
 			'FreeSans' => __( 'GNU FreeFont Sans', 'pressbooks' ),
 			'K2D' => __( 'K2D', 'pressbooks' ),

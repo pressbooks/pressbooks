@@ -2,9 +2,7 @@
 
 require_once( PB_PLUGIN_DIR . 'inc/admin/metaboxes/namespace.php' );
 
-
 class MetaboxesTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -21,25 +19,6 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Metaboxes\title_update( null, null, 'pb_title', $title );
 		$option = get_option( 'blogname' );
 		$this->assertEquals( $option, $title );
-	}
-
-	/**
-	 * @group metaboxes
-	 */
-	public function test_add_meta_boxes() {
-
-		global $wp_meta_boxes;
-		$c = custom_metadata_manager::instance();
-
-		update_option( 'pressbooks_show_expanded_metadata', 1 );
-
-		\Pressbooks\Admin\Metaboxes\add_meta_boxes();
-
-		$this->assertArrayHasKey( 'chapter', $wp_meta_boxes );
-		$this->assertArrayHasKey( 'part', $wp_meta_boxes );
-		$this->assertArrayHasKey( 'metadata', $c->metadata );
-		$this->assertArrayHasKey( 'general-book-information', $c->metadata['metadata'] );
-		$this->assertArrayHasKey( 'additional-catalog-information', $c->metadata['metadata'] );
 	}
 
 	/**
@@ -92,7 +71,6 @@ class MetaboxesTest extends \WP_UnitTestCase {
 	 * @group metaboxes
 	 */
 	public function test_publish_fields_save() {
-
 		\Pressbooks\Metadata\init_book_data_models();
 
 		global $pagenow;
@@ -243,49 +221,6 @@ class MetaboxesTest extends \WP_UnitTestCase {
 	/**
 	 * @group metaboxes
 	 */
-	public function test_institutions_metabox(): void {
-		$this->_book();
-
-		$metadata = new \Pressbooks\Metadata();
-
-		ob_start();
-		\Pressbooks\Admin\Metaboxes\institutions_metabox( $metadata->getMetaPost() );
-		$result = ob_get_clean();
-
-		$this->assertStringContainsString( '<div class="custom-metadata-field institutions">', $result );
-		$this->assertStringContainsString( '<label for="pb-institutions">Institutions</label>', $result);
-		$this->assertStringContainsString( '<select id="pb-institutions" name="pb_institutions[]" multiple>', $result);
-	}
-
-	/**
-	 * @group metaboxes
-	 */
-	public function test_get_thema_subjects() {
-		$reporting = $this->_fakeAjax();
-		$_REQUEST['_ajax_nonce'] = wp_create_nonce( 'pb-metadata' );
-
-		ob_start();
-		\Pressbooks\Admin\Metaboxes\get_thema_subjects();
-		$buffer = json_decode( ob_get_clean(), true );
-		$this->assertNotEmpty( $buffer['results'] );
-		// Test Select2 data format
-		$this->assertArrayHasKey( 'text', $buffer['results'][0] );
-		$this->assertArrayHasKey( 'id', $buffer['results'][0]['children'][0] );
-		$this->assertArrayHasKey( 'text', $buffer['results'][0]['children'][0] );
-
-		// Test searching for something that can't be found
-		$_REQUEST['q'] = 'xxxxxxxxxxxxxx';
-		ob_start();
-		\Pressbooks\Admin\Metaboxes\get_thema_subjects();
-		$buffer = json_decode( ob_get_clean(), true );
-		$this->assertEmpty( $buffer['results'] );
-
-		$this->_fakeAjaxDone( $reporting );
-	}
-
-	/**
-	 * @group metaboxes
-	 */
 	public function test_a11y_contributor_tweaks() {
 		// Mock Screen for taxonomy editor
 		global $current_screen;
@@ -301,7 +236,6 @@ class MetaboxesTest extends \WP_UnitTestCase {
 	 * @group metaboxes
 	 */
 	public function test_contributor_metaboxes() {
-
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
 		ob_start();
@@ -395,5 +329,4 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( 'Sorry, there is not picture! :/', $buffer );
 	}
-
 }

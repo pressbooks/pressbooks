@@ -62,6 +62,7 @@ jQuery( function ( $ ) {
 						bar.val( 0 ).hide();
 						button.attr( 'disabled', false ).show();
 						displayNotice( 'error', data.error, true );
+						info.html( '' );
 						if ( clock ) {
 							resetClock( clock );
 						}

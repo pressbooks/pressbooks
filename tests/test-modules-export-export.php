@@ -1,14 +1,19 @@
 <?php
 
 use Pressbooks\Container;
+use Pressbooks\Contributors;
+use Pressbooks\Metadata;
+use Pressbooks\Modules\Export\Export;
+use SebastianBergmann\Environment\Runtime;
+use function Pressbooks\Utility\create_tmp_file;
+use function Pressbooks\Utility\put_contents;
 
-class ExportMock extends \Pressbooks\Modules\Export\Export {
-
+class ExportMock extends Export {
 	/**
 	 * @group export
 	 */
 	function convert() {
-		$this->outputPath = \Pressbooks\Utility\create_tmp_file();
+		$this->outputPath = create_tmp_file();
 		return true;
 	}
 
@@ -21,11 +26,10 @@ class ExportMock extends \Pressbooks\Modules\Export\Export {
 }
 
 class Modules_Export_ExportTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
-	 * @var \ExportMock
+	 * @var ExportMock
 	 * @group export
 	 */
 	protected $export;
@@ -43,11 +47,8 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			[ '\Pressbooks\Modules\Export\Epub\Epub', false ],
 			[ '\Pressbooks\Modules\Export\WordPress\Wxr', false ],
 			[ '\Pressbooks\Modules\Export\WordPress\VanillaWxr', false ],
-			// [ '\Pressbooks\Modules\Export\Odt\Odt', false ], // TODO: Download/install Saxon-HE in Travis build script
-			[ '\Pressbooks\Modules\Export\HTMLBook\HTMLBook', false ],
 			[ '\Pressbooks\Modules\Export\ThinCc\WebLinks', false ],
 		];
-
 	}
 
 	/**
@@ -55,8 +56,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 */
 	public function moduleProviderHtml() {
 		return [
-			[ '\Pressbooks\Modules\Export\Xhtml\Xhtml11', false ],
-			[ '\Pressbooks\Modules\Export\HTMLBook\HTMLBook', false ],
+			[ '\Pressbooks\Modules\Export\Xhtml\Xhtml11', false ]
 		];
 	}
 
@@ -65,7 +65,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 */
 	public function set_up() {
 		parent::set_up();
-		$this->export = new \ExportMock();
+		$this->export = new ExportMock();
 		do_action( 'pb_pre_export' );
 	}
 
@@ -73,7 +73,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_getExportStylePath() {
-
 		$this->_book( 'pressbooks-luther' );
 
 		$path = $this->export->getExportStylePath( 'epub' );
@@ -89,16 +88,10 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$this->assertFalse( $path );
 	}
 
-	//  public function test_getGlobalTypographyMixinPath() {
-	//      // TODO: Testing this as-is triggers updateGlobalTypographyMixin, generates _mixins.css, generates _global-font-stack.scss... Code needs to be decoupled?
-	//      $this->markTestIncomplete();
-	//  }
-
 	/**
 	 * @group export
 	 */
 	public function test_getExportScriptPath() {
-
 		$this->_book( 'pressbooks-luther' );
 
 		$path = $this->export->getExportScriptPath( 'epub' );
@@ -115,21 +108,14 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_shouldParseSubsections() {
-
 		$val = $this->export->shouldParseSubsections();
 		$this->assertIsBool( $val );
 	}
-
-	//  public function test_logError() {
-	//      // TODO: Testing this as-is would send emails, writes to error log... Need to be refactored.
-	//      $this->markTestIncomplete();
-	//  }
 
 	/**
 	 * @group export
 	 */
 	public function test_createTmpFile() {
-
 		$file = $this->export->createTmpFile();
 		$this->assertFileExists( $file );
 
@@ -141,7 +127,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_timestampedFileName() {
-
 		$this->_book();
 
 		$file = $this->export->timestampedFileName( 'epub', true );
@@ -160,7 +145,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_nonce_AND_verifyNonce() {
-
 		$time1 = time();
 		$nonce1 = $this->export->nonce( $time1 );
 		$this->assertIsString( $nonce1 );
@@ -181,7 +165,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_mimeType() {
-
 		$i = $this->export;
 		$mime = $i::mimeType( __DIR__ . '/data/pb.png' );
 		$this->assertStringStartsWith( 'image/png', $mime );
@@ -191,7 +174,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_getExportFolder() {
-
 		$this->_book();
 
 		$i = $this->export;
@@ -205,7 +187,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_getLatestExportStylePath() {
-
 		$this->_book();
 
 		$i = $this->export;
@@ -216,12 +197,12 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 
 		$timestamp1 = time();
 		$css_file1 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp1.css";
-		$this->assertTrue( \Pressbooks\Utility\put_contents( $css_file1, $css ) );
+		$this->assertTrue( put_contents( $css_file1, $css ) );
 		$css_files[] = $css_file1;
 
 		$timestamp2 = time();
 		$css_file2 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp2.css";
-		$this->assertTrue( \Pressbooks\Utility\put_contents( $css_file1, $css ) );
+		$this->assertTrue( put_contents( $css_file1, $css ) );
 		$css_files[] = $css_file2;
 
 		$latest = $i->getLatestExportStylePath( 'prince' );
@@ -244,7 +225,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_getLatestExportStyleUrl() {
-
 		$this->_book();
 
 		$i = $this->export;
@@ -255,12 +235,12 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 
 		$timestamp1 = time();
 		$css_file1 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp1.css";
-		\Pressbooks\Utility\put_contents( $css_file1, $css );
+		put_contents( $css_file1, $css );
 		$css_files[] = $css_file1;
 
 		$timestamp2 = time();
 		$css_file2 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp2.css";
-		\Pressbooks\Utility\put_contents( $css_file2, $css );
+		put_contents( $css_file2, $css );
 		$css_files[] = $css_file2;
 
 		$latest = $i->getLatestExportStyleUrl( 'prince' );
@@ -283,7 +263,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_truncateExportStylesheets() {
-
 		$this->_book();
 
 		$i = $this->export;
@@ -293,21 +272,21 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$css_files = [];
 
 		$webbook_css = Container::get( 'Sass' )->pathToUserGeneratedCss() . '/style.css';
-		\Pressbooks\Utility\put_contents( $webbook_css, $css );
+		put_contents( $webbook_css, $css );
 
 		$timestamp1 = time();
 		$css_file1 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp1.css";
-		\Pressbooks\Utility\put_contents( $css_file1, $css );
+		put_contents( $css_file1, $css );
 		$css_files[] = $css_file1;
 
 		$timestamp2 = time();
 		$css_file2 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp2.css";
-		\Pressbooks\Utility\put_contents( $css_file2, $css );
+		put_contents( $css_file2, $css );
 		$css_files[] = $css_file2;
 
 		$timestamp3 = time();
 		$css_file3 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp3.css";
-		\Pressbooks\Utility\put_contents( $css_file3, $css );
+		put_contents( $css_file3, $css );
 		$css_files[] = $css_file3;
 
 		$timestamps = [ $timestamp1, $timestamp2, $timestamp3 ];
@@ -356,11 +335,10 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_sanityChecks( $module, $prerequisite ) {
-
-		$runtime = new \SebastianBergmann\Environment\Runtime();
+		new Runtime();
 
 		$this->_book();
-		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
+		$meta_post = ( new Metadata() )->getMetaPost();
 		$contributor = [
 			'slug' => 'patmetheny',
 			'name' => 'Pat Metheny',
@@ -368,7 +346,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			'contributor_last_name' => 'Metheny',
 			'contributor_description' => 'The <strong>drummer</strong> is the leader of any band',
 		];
-		( new \Pressbooks\Contributors() )->insert( $contributor, $meta_post->ID );
+		( new Contributors() )->insert( $contributor, $meta_post->ID );
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
 		wp_set_current_user( $user_id );
 		update_option( 'pressbooks_theme_options_global', [ 'parse_subsections' => 1 ] );
@@ -380,24 +358,19 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$modules = ( $prerequisite ) ? [ $prerequisite, $module ] : [ $module ];
 
 		foreach ( $modules as $format ) {
-			/** @var \Pressbooks\Modules\Export\Export $exporter */
+			/** @var Export $exporter */
 			$exporter = new $format( [] );
 
-			if (
-				strpos( $format, '\Prince\\' ) !== false ||
-				strpos( $format, '\Odt\\' ) !== false
-			) {
+			if (str_contains($format, '\Prince\\')) {
 				$exporter->url = $xhtml_path;
 			}
 
 			$this->assertTrue( $exporter->convert(), "Could not convert with {$module}" );
 			$paths[] = $exporter->getOutputPath();
-			if ( strpos( $format, '\Xhtml\Xhtml11' ) !== false ) {
+			if (str_contains($format, '\Xhtml\Xhtml11')) {
 				$xhtml_path = $exporter->getOutputPath();
 			}
-			if ( strpos( $format, '\HTMLBook\HTMLBook' ) !== false ) {
-				// TODO: HTMLBook is too strict we don't pass the validation
-			} elseif ( strpos( $format, '\Epub\Epub' ) !== false ) {
+			if (str_contains($format, '\Epub\Epub')) {
 				// TODO: exec(): Unable to fork [/usr/bin/java -jar /opt/epubcheck/epubcheck.jar -q /path/to.epub 2>&1]
 			} else {
 				$this->assertTrue( $exporter->validate(), "Could not validate with {$format}" );
@@ -430,10 +403,9 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_sanityCheckXhtmlWithoutBuckram() {
-
 		$this->_book( 'pressbooks-luther' ); // Use an old book.
-		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
-		( new \Pressbooks\Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
+		$meta_post = ( new Metadata() )->getMetaPost();
+		( new Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
 		wp_set_current_user( $user_id );
 		add_filter( 'pb_mathjax_use', '__return_false' );
@@ -461,8 +433,8 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 */
 	public function test_sanityCheckXhtmlDebug() {
 		$this->_book();
-		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
-		( new \Pressbooks\Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
+		$meta_post = ( new Metadata() )->getMetaPost();
+		( new Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
 		wp_set_current_user( $user_id );
 		$_GET['debug'] = 'prince';
@@ -473,7 +445,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$timestamp = time();
 		$css = '/* Silence is golden. */';
 		$css_file = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp.css";
-		\Pressbooks\Utility\put_contents( $css_file, $css );
+		put_contents( $css_file, $css );
 
 		$module = '\Pressbooks\Modules\Export\Xhtml\Xhtml11';
 		$exporter = new $module( [] );
@@ -491,15 +463,15 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 */
 	public function test_sanityCheckOptimizeForPrint( $module, $prerequisite ) {
 		$this->_book();
-		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
-		( new \Pressbooks\Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
+		$meta_post = ( new Metadata() )->getMetaPost();
+		( new Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
 		wp_set_current_user( $user_id );
 		$modules = ( $prerequisite ) ? [ $prerequisite, $module ] : [ $module ];
 
 		$_GET['optimize-for-print'] = 1;
 		foreach ( $modules as $format ) {
-			/** @var \Pressbooks\Modules\Export\Export $exporter */
+			/** @var Export $exporter */
 			$exporter = new $format( [] );
 			$this->assertTrue( $exporter->convert(), "Could not convert with {$module}" );
 			$dom = new \DOMDocument();
@@ -513,7 +485,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 
 		$_GET['optimize-for-print'] = 0;
 		foreach ( $modules as $format ) {
-			/** @var \Pressbooks\Modules\Export\Export $exporter */
+			/** @var Export $exporter */
 			$exporter = new $format( [] );
 			$this->assertTrue( $exporter->convert(), "Could not convert with {$module}" );
 			$dom = new \DOMDocument();
@@ -531,7 +503,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 */
 	public function test_getContributorsForSectionXHTML() {
 		$this->_book();
-		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
+		$meta_post = ( new Metadata() )->getMetaPost();
 		$contributor_metadata = [
 			'name' => 'Pat Metheny',
 			'institution' => 'Pressbooks University',
@@ -542,35 +514,35 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			'github' => 'https://github.com/pat',
 			'description' => '<strong>I am a description</strong>',
 		];
-		$contributor = ( new \Pressbooks\Contributors() )->insert( $contributor_metadata['name'], $meta_post->ID );
+		$contributor = ( new Contributors() )->insert( $contributor_metadata['name'], $meta_post->ID );
 
 		$term = get_term_by( 'term_id', $contributor['term_id'], 'contributor' );
 		add_term_meta( $term->term_id,
-			\Pressbooks\Contributors::TAXONOMY . '_description',
+			Contributors::TAXONOMY . '_description',
 			$contributor_metadata['description']
 		);
 		add_term_meta( $term->term_id,
-			\Pressbooks\Contributors::TAXONOMY . '_institution',
+			Contributors::TAXONOMY . '_institution',
 			$contributor_metadata['institution']
 		);
 		add_term_meta( $term->term_id,
-			\Pressbooks\Contributors::TAXONOMY . '_picture',
+			Contributors::TAXONOMY . '_picture',
 			$contributor_metadata['picture']
 		);
 		add_term_meta( $term->term_id,
-			\Pressbooks\Contributors::TAXONOMY . '_user_url',
+			Contributors::TAXONOMY . '_user_url',
 			$contributor_metadata['url']
 		);
 		add_term_meta( $term->term_id,
-			\Pressbooks\Contributors::TAXONOMY . '_twitter',
+			Contributors::TAXONOMY . '_twitter',
 			$contributor_metadata['twitter']
 		);
 		add_term_meta( $term->term_id,
-			\Pressbooks\Contributors::TAXONOMY . '_linkedin',
+			Contributors::TAXONOMY . '_linkedin',
 			$contributor_metadata['linkedin']
 		);
 		add_term_meta( $term->term_id,
-			\Pressbooks\Contributors::TAXONOMY . '_github',
+			Contributors::TAXONOMY . '_github',
 			$contributor_metadata['github']
 		);
 
@@ -582,27 +554,25 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( $contributor_metadata['url'], $contributors_print );
 		$this->assertStringContainsString( $contributor_metadata['institution'], $contributors_print );
 		$this->assertStringContainsString( $contributor_metadata['description'], $contributors_print );
-		$this->assertStringContainsString( "<h3 class=\"about-authors\">About the Author</h3>", $contributors_print );
+		$this->assertStringContainsString( "<h3 class=\"about-authors\">About the author</h3>", $contributors_print );
 	}
 
 	/**
 	 * @group export
+	 * @test
 	 */
-	public function test_HTMLBookConstructor() {
-		$html_book = new Pressbooks\Modules\Export\HTMLBook\HTMLBook( [ 'endnotes' => true ] );
-		$this->assertArrayHasKey( 'endnotes', $_GET );
-		$this->assertTrue( $_GET['endnotes'] );
-	}
+	public function normalize_external_url_references():void  {
+		$epub = new \Pressbooks\Modules\Export\Epub\Epub( [] );
+		$css_font_import_1 = "@import \"https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i\";\n";
+		$css_font_import_2 = "@import \"https://fonts.googleapis.com/css?family=Roboto+Slab:400,700\";\n";
+		$css = $css_font_import_1 . $css_font_import_2 . "body { font-family: 'Roboto', sans-serif; }";
 
-	/**
-	 * @group export
-	 */
-	public function test_endnoteShortcode() {
-		$html_book = new Pressbooks\Modules\Export\HTMLBook\HTMLBook( [ 'endnotes' => true ] );
-		$end_note = $html_book->endnoteShortcode( [] , 'I am a endnote, see you!');
-		$attributes = $end_note->getAttributes();
-		$this->assertArrayHasKey( 'class', $attributes );
-		$this->assertEquals( 'endnote', $attributes['class'] );
-	}
+		$css = $epub->normalizeExternalFontsUrls( $css, 'epub/assets/' );
 
+		$this->assertStringNotContainsString( $css_font_import_1, $css );
+		$this->assertStringNotContainsString( $css_font_import_2, $css );
+
+		$this->assertStringContainsString( '@import url(assets/Roboto.css);', $css );
+		$this->assertStringContainsString( '@import url(assets/Roboto-Slab.css);', $css );
+	}
 }

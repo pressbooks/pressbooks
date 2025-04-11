@@ -43,18 +43,6 @@ function dependency_errors() {
 	} else {
 		set_site_transient( 'pb_xhtml_compatible', true );
 	}
-
-	if ( false === (bool) get_site_transient( 'pb_odt_compatible' ) && false === (bool) \Pressbooks\Modules\Export\Odt\Odt::hasDependencies() ) {
-		$dependency_errors['odt'] = 'OpenDocument';
-	} else {
-		set_site_transient( 'pb_odt_compatible', true );
-	}
-
-	if ( false === (bool) get_site_transient( 'pb_htmlbook_compatible' ) && false === (bool) \Pressbooks\Modules\Export\HTMLBook\HTMLBook::hasDependencies() ) {
-		$dependency_errors['htmlbook'] = 'HTMLBook';
-	} else {
-		set_site_transient( 'pb_htmlbook_compatible', true );
-	}
 	/**
 	 * Filter the array of dependency errors, remove unwanted formats.
 	 *
@@ -78,15 +66,14 @@ function dependency_errors_msg() {
 
 	$formats = implode( ', ', $dependency_errors );
 	$pos = strrpos( $formats, ', ' );
-	$dependency_errors_msg = sprintf(
+	return sprintf(
 		'<div class="error" role="alert"><p>%s</p></div>',
 		sprintf(
 			__( 'Some dependencies for %1$s exports could not be found. Please verify that you have completed the <a href="%2$s">installation instructions</a>.', 'pressbooks' ),
 			( $pos ) ? substr_replace( $formats, ', ' . __( 'and', 'pressbooks' ) . ' ', $pos, strlen( ', ' ) ) : $formats,
-			'http://docs.pressbooks.org/installation'
+			'https://pressbooks.org/user-docs/installation/'
 		)
 	);
-	return $dependency_errors_msg;
 }
 
 /**
@@ -102,8 +89,6 @@ function formats() {
 		],
 		'exotic' => [
 			'xhtml' => __( 'XHTML', 'pressbooks' ),
-			'htmlbook' => __( 'HTMLBook', 'pressbooks' ),
-			'odt' => __( 'OpenDocument', 'pressbooks' ),
 			'vanillawxr' => __( 'WordPress XML', 'pressbooks' ),
 		],
 	];
@@ -157,13 +142,14 @@ function filetypes() {
 			'print_pdf' => '._print.pdf',
 			'mobi' => '.mobi',
 			'icml' => '.icml',
-			'htmlbook' => '.-htmlbook.html',
 			'xhtml' => '.html',
 			'wxr' => '.xml',
 			'vanillawxr' => '._vanilla.xml',
 			'mpdf' => '._oss.pdf',
-			'odf' => '.odt',
 			'weblinks' => '._1_1_weblinks.imscc',
+			'thincc11' => '._1_1.imscc',
+			'thincc12' => '._1_2.imscc',
+			'thincc13' => '._1_3.imscc',
 		]
 	);
 	return $filetypes;
@@ -189,15 +175,51 @@ function get_name_from_filetype_slug( $filetype ) {
 			'print_pdf' => __( 'Print PDF', 'pressbooks' ),
 			'pdf' => __( 'Digital PDF', 'pressbooks' ),
 			'mpdf' => __( 'Digital PDF', 'pressbooks' ),
-			'htmlbook' => __( 'HTMLBook', 'pressbooks' ),
 			'epub' => __( 'EPUB', 'pressbooks' ),
 			'mobi' => __( 'MOBI', 'pressbooks' ),
 			'epub3' => __( 'EPUB3', 'pressbooks' ),
 			'xhtml' => __( 'XHTML', 'presbooks' ),
-			'odf' => __( 'OpenDocument', 'pressbooks' ),
 			'wxr' => __( 'Pressbooks XML', 'pressbooks' ),
 			'vanillawxr' => __( 'WordPress XML', 'pressbooks' ),
 			'weblinks' => __( 'Common Cartridge (Web Links)', 'pressbooks' ),
+			'thincc11' => __( 'Common Cartridge (LTI Links)', 'pressbooks' ),
+			'thincc12' => __( 'Common Cartridge (LTI Links)', 'pressbooks' ),
+			'thincc13' => __( 'Common Cartridge (LTI Links)', 'pressbooks' ),
+		]
+	);
+	return isset( $formats[ $filetype ] ) ? $formats[ $filetype ] : ucfirst( $filetype );
+}
+
+/**
+ * Return a human-readable short filetype for a given filetype slug. Used on icon badges.
+ *
+ * @since 6.1.0
+ *
+ * @param string $filetype The filetype slug.
+ *
+ * @return string A human-readable short filetype.
+ */
+function get_shortname_from_filetype_slug( $filetype ) {
+	/**
+	 * Add custom export file type slugs to the array of file type slugs and corresponding human-readable short filetypes.
+	 *
+	 * @since 6.1.0
+	 */
+	$formats = apply_filters(
+		'pb_export_filetype_shortnames', [
+			'print_pdf' => __( 'Print PDF', 'pressbooks' ),
+			'pdf' => __( 'PDF', 'pressbooks' ),
+			'mpdf' => __( 'PDF', 'pressbooks' ),
+			'epub' => __( 'EPUB', 'pressbooks' ),
+			'mobi' => __( 'MOBI', 'pressbooks' ),
+			'epub3' => __( 'EPUB3', 'pressbooks' ),
+			'xhtml' => __( 'XHTML', 'presbooks' ),
+			'wxr' => __( 'WXR', 'pressbooks' ),
+			'vanillawxr' => __( 'WXR', 'pressbooks' ),
+			'weblinks' => __( 'IMSCC', 'pressbooks' ),
+			'thincc11' => __( 'IMSCC', 'pressbooks' ),
+			'thincc12' => __( 'IMSCC', 'pressbooks' ),
+			'thincc13' => __( 'IMSCC', 'pressbooks' ),
 		]
 	);
 	return isset( $formats[ $filetype ] ) ? $formats[ $filetype ] : ucfirst( $filetype );
@@ -224,10 +246,8 @@ function get_name_from_module_classname( $classname ) {
 			'\Pressbooks\Modules\Export\Prince\Docraptor' => __( 'Digital PDF', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\Prince\PrintPdf' => __( 'Print PDF', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\Prince\Pdf' => __( 'Digital PDF', 'pressbooks' ),
-			'\Pressbooks\Modules\Export\HTMLBook\HTMLBook' => __( 'HTMLBook', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\Epub\Epub' => __( 'EPUB', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\Xhtml\Xhtml11' => __( 'XHTML', 'presbooks' ),
-			'\Pressbooks\Modules\Export\Odt\Odt' => __( 'OpenDocument', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\WordPress\Wxr' => __( 'Pressbooks XML', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\WordPress\VanillaWxr' => __( 'WordPress XML', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\ThinCC\WebLinks' => __( 'Common Cartridge (Web Links)', 'pressbooks' ),
@@ -240,6 +260,8 @@ function get_name_from_module_classname( $classname ) {
  * @return array
  */
 function template_data() {
+
+	$pdf_preview_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin-post.php?action=pdf_preview' ), 'pdf-preview' );
 	$export_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export&export=yes' ), 'pb-export' );
 
 	$theme_name = wp_get_theme()->display( 'Name' ) . ' ' . wp_get_theme()->display( 'Version' );
@@ -248,6 +270,7 @@ function template_data() {
 	}
 
 	return [
+		'pdf_preview_url' => $pdf_preview_url,
 		'export_form_url' => $export_form_url,
 		'dependency_errors' => dependency_errors(),
 		'dependency_errors_msg' => dependency_errors_msg(),
@@ -287,7 +310,7 @@ function get_contributors_section( $post_id ) {
 	if ( empty( $chapter_contributors ) ) {
 		return '';
 	}
-	$title = sprintf( _n( '%s Author', '%s Authors', count( $chapter_contributors ), 'pressbooks' ), 'About the' );
+	$title = _n( 'About the author', 'About the authors', count( $chapter_contributors ), 'pressbooks' );
 	$print = '<div class="contributors">';
 	$print .= "<h3 class=\"about-authors\">{$title}</h3>";
 	$blade_engine = Container::get( 'Blade' );

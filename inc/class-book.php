@@ -59,7 +59,7 @@ class Book {
 	/**
 	 * Prevent from being unserialized (which would create a second instance of it)
 	 */
-	private function __wakeup() {
+	public function __wakeup() {
 	}
 
 	/**
@@ -67,14 +67,8 @@ class Book {
 	 *
 	 * @return bool
 	 */
-	static function isBook() {
-
-		// Currently, the main site is considered a "blog/landing page" whereas everything else is considered a "book".
-		// We might improve this in the future.
-
-		$is_book = ( is_main_site() === false );
-
-		return $is_book;
+	static function isBook(): bool {
+		return ! is_main_site();
 	}
 
 	/**
@@ -120,7 +114,7 @@ class Book {
 						break;
 					}
 				}
-				if ( ! $read_contributors_from_cache || $contributors_cached_as_string !== $contributors_as_string ) {
+				if ( $meta_post && ( ! $read_contributors_from_cache || $contributors_cached_as_string !== $contributors_as_string ) ) {
 					$cached_book_information = array_merge(
 						$cached_book_information,
 						$contributors->getAll(
@@ -206,7 +200,8 @@ class Book {
 				include( ABSPATH . 'wp-includes/pluggable.php' );
 			}
 			$author = get_user_by( 'email', get_bloginfo( 'admin_email' ) );
-			$book_information['pb_authors'] = isset( $author->display_name ) ? $author->display_name : '';
+			$author_metadata = $author->display_name ?? '';
+			$book_information['pb_authors'] = $contributors_as_string ? $author_metadata : [ [ 'name' => $author_metadata ] ];
 			$book_information['pb_cover_image'] = \Pressbooks\Image\default_cover_url();
 		}
 
@@ -256,7 +251,7 @@ class Book {
 		global $blog_id;
 		$book_data_collector = BookDataCollector::init();
 		$book_information_array = $book_data_collector->get( $blog_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
-		if ( self::removeInvalidatedBisacCodes( $blog_id, $book_information_array ) ) {
+		if ( is_array( $book_information_array ) && self::removeInvalidatedBisacCodes( $blog_id, $book_information_array ) ) {
 			add_error( __(
 				"This book was using a <a href='https://bisg.org/page/InactivatedCodes' target='_blank'> retired BISAC subject term </a>, which has been replaced in your book with a recommended BISAC replacement. You may wish to check the BISAC subject terms manually to confirm that you are satisfied with these replacements."
 			) );
@@ -983,20 +978,26 @@ class Book {
 				$new = absint( $new );
 			}
 
+			$updated_at = current_time( 'mysql' );
+
 			$success = $wpdb->query(
 				$wpdb->prepare(
 					"UPDATE {$wpdb->posts}
-					SET {$wpdb->posts}.menu_order = %d
+					SET {$wpdb->posts}.menu_order = %d,
+					    {$wpdb->posts}.post_modified = %s,
+					    {$wpdb->posts}.post_modified_gmt = %s
 					WHERE {$wpdb->posts}.ID = %d ",
 					$new,
-					$post->ID
+					$updated_at,
+					get_gmt_from_date( $updated_at ),
+					$post->ID,
 				)
 			);
 			clean_post_cache( $post );
 
 		}
 
-		return $success ? true : false;
+		return (bool) $success;
 	}
 
 	/**
@@ -1022,11 +1023,18 @@ class Book {
 		$order = $post_to_delete->menu_order;
 		$type = $post_to_delete->post_type;
 		$parent = $post_to_delete->post_parent;
+		$updated_at = current_time( 'mysql' );
 
 		if ( 'chapter' === $type ) {
 			$success = $wpdb->query(
 				$wpdb->prepare(
-					"UPDATE {$wpdb->posts} SET menu_order = menu_order - 1 WHERE menu_order > %d AND post_type = %s AND post_parent = %d ",
+					"UPDATE {$wpdb->posts}
+					SET menu_order = menu_order - 1,
+					    post_modified = %s,
+					    post_modified_gmt = %s
+					WHERE menu_order > %d AND post_type = %s AND post_parent = %d ",
+					$updated_at,
+					get_gmt_from_date( $updated_at ),
 					$order,
 					$type,
 					$parent
@@ -1065,9 +1073,14 @@ class Book {
 				);
 				$success = $wpdb->query(
 					$wpdb->prepare(
-						"UPDATE {$wpdb->posts} SET post_parent = %d, menu_order = menu_order + %d WHERE post_parent = %d AND post_type = 'chapter' ",
+						"UPDATE {$wpdb->posts}
+							SET post_parent = %d, menu_order = menu_order + %d ,
+                 			    post_modified = %s, post_modified_gmt = %s
+            			 	WHERE post_parent = %d AND post_type = 'chapter' ",
 						$new_parent_id,
 						$existing_numposts,
+						$updated_at,
+						get_gmt_from_date( $updated_at ),
 						$pid
 					)
 				);
@@ -1085,7 +1098,7 @@ class Book {
 
 		static::deleteBookObjectCache();
 
-		return $success ? true : false;
+		return (bool) $success;
 	}
 
 	/**
@@ -1122,112 +1135,3 @@ class Book {
 	}
 
 }
-
-/* --------------------------------------------------------------------------------------------------------------------
-
-getBookStructure() and getBookContents() will return a multidimensional array or an (air quotes) "book object" that
-contains everything Pressbooks considers a book. This book object is returned in the correct order so that, with
-straightforward foreach() loops, a programmer or template designer can render a book however they see fit.
-
- * getBookStructure() returns a minimal subset of get_post( $post->ID, ARRAY_A ) plus our own custom key/values
- * getBookContents() returns the entirety of get_post( $post->ID, ARRAY_A ) plus our own custom key/values
-
-getBookStructure() and getBookContents() will cache results using wp_cache_* functions. If you change the book, make
-sure to call static::deleteBookObjectCache() for a sane user experience.
-
-The book object looks something like this:
-
-	$book_structure = [
-		'front-matter' => [
-			0 => [
-				'export' => true,
-				'has_post_content' => true,
-				'word_count' => 999,
-				// key/values from: get_post( $post->ID, ARRAY_A ),
-			],
-			1 => [
-				'export' => false,
-				'has_post_content' => true,
-				'word_count' => 999,
-				// key/values from: get_post( $post->ID, ARRAY_A ),
-			],
-			// ...
-		],
-		'part' => [
-			0 => [
-				'export' => true,
-				'has_post_content' => true,
-				'word_count' => 999,
-				// key/values from: get_post( $post->ID, ARRAY_A ),
-				'chapters' => [
-					0 => [
-						'export' => true,
-						'has_post_content' => true,
-						'word_count' => 999,
-						// key/values from: get_post( $post->ID, ARRAY_A ),
-					],
-					1 => [
-						'export' => false,
-						'has_post_content' => true,
-						'word_count' => 999,
-						// key/values from: get_post( $post->ID, ARRAY_A ),
-					],
-					// ...
-				],
-			],
-			1 => [
-				'export' => true,
-				'has_post_content' => true,
-				'word_count' => 999,
-				// key/values from: get_post( $post->ID, ARRAY_A ),
-				'chapters' => [
-					0 => [
-						'export' => true,
-						'has_post_content' => true,
-						'word_count' => 999,
-						// key/values from: get_post( $post->ID, ARRAY_A ),
-					],
-					1 => [
-						'export' => false,
-						'has_post_content' => true,
-						'word_count' => 999,
-						// key/values from: get_post( $post->ID, ARRAY_A ),
-					],
-				],
-				// ...
-			],
-			// ...
-		],
-		'back-matter' => [
-			0 => [
-				'export' => true,
-				'has_post_content' => true,
-				'word_count' => 999,
-				// key/values from: get_post( $post->ID, ARRAY_A ),
-			],
-			1 => [
-				'export' => false,
-				'has_post_content' => true,
-				'word_count' => 999,
-				// key/values from: get_post( $post->ID, ARRAY_A ),
-			],
-			// ...
-		],
-		'__order' => [
-			$post->ID => [
-				'export' => true,
-				'post_status' => 'publish',
-				'post_name' => 'introduction',
-				'post_type' => 'front-matter',
-			],
-			$post->ID => [
-				'export' => false,
-				'post_status' => 'publish',
-				'post_name' => 'chapter-1',
-				'post_type' => 'chapter',
-			],
-			// ...
-		],
-	];
-
-*/

@@ -75,7 +75,7 @@ class Generics {
 	public function __construct() {
 	}
 
-	public function blockShortcodeHandler( $atts, $content = '', $shortcode ) {
+	public function blockShortcodeHandler( $atts, $content = '', $shortcode = '' ) {
 		$tag = $this->blockShortcodes[ $shortcode ];
 
 		if ( ! $content ) {
@@ -97,7 +97,7 @@ class Generics {
 		return '<' . $tag . $class . '>' . do_shortcode( $content ) . '</' . $tag . '>';
 	}
 
-	public function multilineBlockShortcodeHandler( $atts, $content = '', $shortcode ) {
+	public function multilineBlockShortcodeHandler( $atts, $content = '', $shortcode = '' ) {
 		$tag = $this->multilineBlockShortcodes[ $shortcode ];
 
 		if ( ! $content ) {
@@ -119,7 +119,7 @@ class Generics {
 		return '<' . $tag . $class . '>' . do_shortcode( $content ) . '</' . $tag . '>';
 	}
 
-	public function inlineShortcodeHandler( $atts, $content = '', $shortcode ) {
+	public function inlineShortcodeHandler( $atts, $content = '', $shortcode = '' ) {
 		$tag = $this->inlineShortcodes[ $shortcode ];
 
 		if ( ! $content ) {

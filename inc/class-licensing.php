@@ -140,6 +140,13 @@ class Licensing {
 			],
 		];
 
+		// Merge custom licenses to the supported ones if we have any
+		$extended = apply_filters( 'extend_custom_licenses', [] );
+
+		$supported = is_array( $extended )
+			? array_merge( $supported, $extended )
+			: $supported;
+
 		// Custom
 		if ( ! $disable_custom && ! has_filter( 'extend_custom_licenses' ) ) {
 			$custom = get_terms(
@@ -148,6 +155,7 @@ class Licensing {
 					'hide_empty' => false,
 				]
 			);
+
 			if ( is_array( $custom ) ) {
 				foreach ( $custom as $custom_term ) {
 					if ( ! isset( $supported[ $custom_term->slug ] ) ) {
@@ -166,6 +174,10 @@ class Licensing {
 		}
 
 		return $supported;
+	}
+
+	public function getSupportedCodes(): array {
+		return array_map( fn ( $license ) => $license['abbreviation'], $this->getSupportedTypes() );
 	}
 
 	/**
@@ -237,8 +249,8 @@ class Licensing {
 		}
 
 		// Copyright holder, set in order of precedence
-		if ( ! empty( $section_author ) ) {
-			// section author higher priority than book author, copyrightholder
+		if ( ! empty( $section_author ) && ! empty( $section_license ) ) {
+			// section author higher priority than book author when there's a custom license
 			$copyright_holder = $section_author;
 		} elseif ( isset( $metadata['pb_copyright_holder'] ) ) {
 			// book copyright holder higher priority than book author
@@ -261,7 +273,7 @@ class Licensing {
 		if ( ! empty( $metadata['pb_copyright_year'] ) ) {
 			$copyright_year = $metadata['pb_copyright_year'];
 		} elseif ( ! empty( $metadata['pb_publication_date'] ) ) {
-			$copyright_year = strftime( '%Y', absint( $metadata['pb_publication_date'] ) );
+			$copyright_year = date( 'Y', absint( $metadata['pb_publication_date'] ) );
 		} else {
 			$copyright_year = 0;
 		}
@@ -415,13 +427,14 @@ class Licensing {
 		} elseif ( $this->isSupportedType( $license ) ) {
 			$name = $this->getNameForLicense( $license );
 			$url  = $this->getUrlForLicense( $license );
-			if ( \Pressbooks\Utility\str_starts_with( $license, 'cc' ) && $license !== 'cc-zero' ) {
+			if ( str_starts_with( $license, 'cc' ) && $license !== 'cc-zero' ) {
 				return sprintf(
 					'<div class="license-attribution"><p>%1$s</p><p>%2$s</p></div>',
-					sprintf( '<img src="%1$s" alt="%2$s" />', get_template_directory_uri() . '/packages/buckram/assets/images/' . $license . '.svg', sprintf( __( 'Icon for the %s', 'pressbooks' ), $name ) ),
+					sprintf( '<img src="%1$s" alt="%2$s" role="presentation" />', get_template_directory_uri() . '/packages/buckram/assets/images/' . $license . '.svg', sprintf( __( 'Icon for the %s', 'pressbooks' ), $name ) ),
 					sprintf(
-						__( '%1$s by %2$s is licensed under a %3$s, except where otherwise noted.', 'pressbooks' ),
+						__( '%1$s Copyright &copy;%2$s by %3$s is licensed under a %4$s, except where otherwise noted.', 'pressbooks' ),
 						sprintf( '<a rel="cc:attributionURL" href="%1$s" property="dc:title">%2$s</a>', $link, $title ),
+						( $copyright_year ) ? ' ' . $copyright_year : '',
 						sprintf( '<span property="cc:attributionName">%1$s</span>', $copyright_holder ),
 						sprintf( '<a rel="license" href="%1$s">%2$s</a>', $url, $name )
 					)
@@ -439,7 +452,7 @@ class Licensing {
 			} elseif ( $license === 'public-domain' ) {
 				return sprintf(
 					'<div class="license-attribution"><p>%1$s</p><p>%2$s</p></div>',
-					sprintf( '<img src="%1$s" alt="%2$s" />', get_template_directory_uri() . '/packages/buckram/assets/images/' . $license . '.svg', sprintf( __( 'Icon for the %s license', 'pressbooks' ), $name ) ),
+					sprintf( '<img src="%1$s" alt="%2$s" role="presentation" />', get_template_directory_uri() . '/packages/buckram/assets/images/' . $license . '.svg', sprintf( __( 'Icon for the %s license', 'pressbooks' ), $name ) ),
 					sprintf(
 						__( 'This work (%1$s by %2$s) is free of known copyright restrictions.', 'pressbooks' ),
 						sprintf( '<a href="%1$s">%2$s</a>', $link, $title ),
@@ -449,7 +462,7 @@ class Licensing {
 			} elseif ( $license === 'cc-zero' ) {
 				return sprintf(
 					'<div class="license-attribution"><p>%1$s</p><p>%2$s</p></div>',
-					sprintf( '<img src="%1$s" alt="%2$s" />', get_template_directory_uri() . '/packages/buckram/assets/images/' . $license . '.svg', sprintf( __( 'Icon for the %s license', 'pressbooks' ), $name ) ),
+					sprintf( '<img src="%1$s" alt="%2$s" role="presentation" />', get_template_directory_uri() . '/packages/buckram/assets/images/' . $license . '.svg', sprintf( __( 'Icon for the %s license', 'pressbooks' ), $name ) ),
 					sprintf(
 						translate_nooped_plural(
 							_n_noop(
@@ -463,6 +476,14 @@ class Licensing {
 						$copyright_holder,
 						sprintf( '<a href="%1$s">%2$s</a>', $link, $title )
 					)
+				);
+			} else {
+				return sprintf(
+					__( '%1$s Copyright &copy;%2$s by %3$s is licensed under a %4$s, except where otherwise noted.', 'pressbooks' ),
+					sprintf( '<a href="%1$s" property="dc:title">%2$s</a>', $link, $title ),
+					( $copyright_year ) ? ' ' . $copyright_year : '',
+					sprintf( '<span>%1$s</span>', $copyright_holder ),
+					sprintf( '<a rel="license" href="%1$s">%2$s</a>', $url, $name )
 				);
 			}
 		}

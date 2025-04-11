@@ -3,7 +3,6 @@
 use Pressbooks\MathJax;
 
 class MathJaxTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -18,7 +17,6 @@ class MathJaxTest extends \WP_UnitTestCase {
 		parent::set_up();
 		$this->mathjax = new Mathjax();
 	}
-
 
 	function test_beforeExport() {
 		$this->assertFalse( $this->mathjax->usePbMathJax );
@@ -42,28 +40,23 @@ class MathJaxTest extends \WP_UnitTestCase {
 	public function test_options() {
 		$options = $this->mathjax->getOptions();
 		$this->assertEquals( $options['fg'], '000000' );
-		$this->assertEquals( $options['font'], 'TeX' );
 
 		$_POST = [
 			'pb-mathjax-nonce' => wp_create_nonce( 'save' ),
 			'fg' => 'ff0000',
-			'font' => 'Asana-Math',
 		];
 		$this->mathjax->saveOptions();
 		$options = $this->mathjax->getOptions();
 		$this->assertEquals( $options['fg'], 'ff0000' );
-		$this->assertEquals( $options['font'], 'Asana-Math' );
 
 		// No junk allowed
 		$_POST = [
 			'pb-mathjax-nonce' => wp_create_nonce( 'save' ),
 			'fg' => 'zzzzzz',
-			'font' => 'FAKE-FONT',
 		];
 		$this->mathjax->saveOptions();
 		$options = $this->mathjax->getOptions();
 		$this->assertEquals( $options['fg'], '000000' );
-		$this->assertEquals( $options['font'], 'TeX' );
 	}
 
 	public function test_sectionHasMath() {
@@ -115,32 +108,52 @@ class MathJaxTest extends \WP_UnitTestCase {
 		ob_start();
 		$this->mathjax->addHeaders();
 		$buffer = ob_get_clean();
-		$this->assertStringContainsString('MathJax.Hub.Config', $buffer);
+		$this->assertStringContainsString('window.MathJax', $buffer);
 	}
 
-	public function test_dollarSignLatexMarkup() {
+	public function test_latexMarkup() {
 		$this->mathjax->usePbMathJax = false;
-		$s = $this->mathjax->dollarSignLatexMarkup( '$latex \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
+		$s = $this->mathjax->parseLatexMarkup( '$latex \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
 		$this->assertEquals( '[latex]\boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}[/latex]', $s );
 
 		$this->mathjax->usePbMathJax = true;
-		$s = $this->mathjax->dollarSignLatexMarkup( '$latex \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
-		$this->assertStringStartsWith( '<img src="http://localhost:3000/latex?latex=%5Cboldsymbol%7B%5Cfrac%7Bm_%7B%5Ctextbf%7Bdrop%7D%7Dgd%7D%7BV%7D%7D', $s );
+		$s = $this->mathjax->parseLatexMarkup( '$latex \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
+		$this->assertStringStartsWith( '<img src="http://localhost:3000/latex?latex=XGJvbGRzeW1ib2x7XGZyYWN7bV97XHRleHRiZntkcm9wfX1nZH17Vn19', $s );
 
-		$s = $this->mathjax->dollarSignLatexMarkup( 'latex not found$' );
+		$s = $this->mathjax->parseLatexMarkup( 'latex not found$' );
 		$this->assertEquals( 'latex not found$', $s );
 	}
 
-	public function test_dollarSignAsciiMathMarkup() {
+	public function test_mathJaxDelimiters() {
 		$this->mathjax->usePbMathJax = false;
-		$s = $this->mathjax->dollarSignAsciiMathMarkup( '$asciimath \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
+		//This should not be converted unless is an export
+		$s = $this->mathjax->parseLatexMarkup( '\( e^{i \pi} + 1 = 0 \)' );
+		$this->assertEquals( '\( e^{i \pi} + 1 = 0 \)', $s );
+
+		$this->mathjax->usePbMathJax = true;
+		$s = $this->mathjax->replaceLatexDelimitersOnExports( '\( e^{i \pi} + 1 = 0 \)' );
+		$this->assertStringStartsWith( '<img src="http://localhost:3000/latex?latex=ZV57aSBccGl9ICsgMSA9IDA&fg=000000', $s );
+
+		$s = $this->mathjax->replaceLatexDelimitersOnExports( '\[ e^{i \pi} + 1 = 0 \]' );
+		$this->assertStringStartsWith( '<div class="display-math"><img src="http://localhost:3000/latex?latex=ZV57aSBccGl9ICsgMSA9IDA&fg=000000', $s );
+
+		$this->mathjax->usePbMathJax = false;
+		$s = $this->mathjax->parseLatexMarkup( '\[ e^{i \pi} + 1 = 0 \]' );
+		$this->assertEquals( '\[ e^{i \pi} + 1 = 0 \]', $s );
+
+
+	}
+
+	public function test_asciiMathMarkup() {
+		$this->mathjax->usePbMathJax = false;
+		$s = $this->mathjax->parseAsciiMathMarkup( '$asciimath \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
 		$this->assertEquals( '[asciimath]\boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}[/asciimath]', $s );
 
 		$this->mathjax->usePbMathJax = true;
-		$s = $this->mathjax->dollarSignAsciiMathMarkup( '$asciimath \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
-		$this->assertStringStartsWith( '<img src="http://localhost:3000/asciimath?asciimath=%5Cboldsymbol%7B%5Cfrac%7Bm_%7B%5Ctextbf%7Bdrop%7D%7Dgd%7D%7BV%7D%7D', $s );
+		$s = $this->mathjax->parseAsciiMathMarkup( '$asciimath \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
+		$this->assertStringStartsWith( '<img src="http://localhost:3000/asciimath?asciimath=XGJvbGRzeW1ib2x7XGZyYWN7bV97XHRleHRiZntkcm9wfX1nZH17Vn19&fg=000000', $s );
 
-		$s = $this->mathjax->dollarSignAsciiMathMarkup( 'asciimath not found$' );
+		$s = $this->mathjax->parseAsciiMathMarkup( 'asciimath not found$' );
 		$this->assertEquals( 'asciimath not found$', $s );
 	}
 
@@ -193,5 +206,4 @@ class MathJaxTest extends \WP_UnitTestCase {
 		$content = $this->mathjax->replaceMathML( $mathml_content );
 		$this->assertStringContainsString( '<img src="http://localhost:3000/mathml', $content );
 	}
-
 }

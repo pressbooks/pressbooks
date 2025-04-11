@@ -3,7 +3,6 @@
 require_once( PB_PLUGIN_DIR . 'inc/admin/plugins/namespace.php' );
 
 class Admin_PluginsTest extends \WP_UnitTestCase {
-
 	/**
 	 * @group plugins
 	 */
@@ -15,11 +14,10 @@ class Admin_PluginsTest extends \WP_UnitTestCase {
 			'wordpress-seo/wordpress-seo.php' => [],
 		];
 		$filtered_plugins = \Pressbooks\Admin\Plugins\filter_plugins( $plugins );
-		$this->assertArrayHasKey( 'pressbooks-textbook/pressbooks-textbook.php', $filtered_plugins );
 		$this->assertArrayHasKey( 'parsedown-party/parsedownparty.php', $filtered_plugins );
+		$this->assertArrayNotHasKey( 'pressbooks-textbook/pressbooks-textbook.php', $filtered_plugins );
 		$this->assertArrayNotHasKey( 'hello-dolly/hello.php', $filtered_plugins );
 		$this->assertArrayNotHasKey( 'wordpress-seo/wordpress-seo.php', $filtered_plugins );
-
 	}
 
 	/**
@@ -83,5 +81,4 @@ class Admin_PluginsTest extends \WP_UnitTestCase {
 		$notices = \Pressbooks\get_all_notices();
 		$this->assertStringContainsString( 'a format that may carry a higher security risk', $notices[0] );
 	}
-
 }

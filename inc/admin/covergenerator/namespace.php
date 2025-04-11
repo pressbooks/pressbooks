@@ -9,6 +9,7 @@ namespace Pressbooks\Admin\Covergenerator;
 // @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
 
 use PressbooksMix\Assets;
+use Pressbooks\Modules\ThemeOptions\PDFOptions;
 
 /**
  * Add menu to pb_export
@@ -335,8 +336,8 @@ function pressbooks_cg_text_callback() {
 function pressbooks_cg_title_callback( $args ) {
 	unset( $args['label_for'], $args['class'] );
 	$metadata = \Pressbooks\Book::getBookInformation();
-	$option = get_option( 'pressbooks_cg_options' );
-	if ( empty( $option['pb_title'] ) ) {
+	$option = get_option( 'pressbooks_cg_options', [] );
+	if ( empty( $option ) || empty( $option['pb_title'] ) ) {
 		$option['pb_title'] = $metadata['pb_title'];
 	}
 
@@ -347,8 +348,8 @@ function pressbooks_cg_title_callback( $args ) {
 function pressbooks_cg_title_spine_callback( $args ) {
 	unset( $args['label_for'], $args['class'] );
 	$metadata = \Pressbooks\Book::getBookInformation();
-	$option = get_option( 'pressbooks_cg_options' );
-	if ( empty( $option['pb_title_spine'] ) ) {
+	$option = get_option( 'pressbooks_cg_options', [] );
+	if ( empty( $option ) || empty( $option['pb_title_spine'] ) ) {
 		$option['pb_title_spine'] = $metadata['pb_title'];
 	}
 
@@ -359,8 +360,8 @@ function pressbooks_cg_title_spine_callback( $args ) {
 function pressbooks_cg_subtitle_callback( $args ) {
 	unset( $args['label_for'], $args['class'] );
 	$metadata = \Pressbooks\Book::getBookInformation();
-	$option = get_option( 'pressbooks_cg_options' );
-	if ( empty( $option['pb_subtitle'] ) ) {
+	$option = get_option( 'pressbooks_cg_options', [] );
+	if ( empty( $option ) || empty( $option['pb_subtitle'] ) ) {
 		$option['pb_subtitle'] = ! empty( $metadata['pb_subtitle'] ) ? $metadata['pb_subtitle'] : '';
 	}
 
@@ -371,8 +372,8 @@ function pressbooks_cg_subtitle_callback( $args ) {
 function pressbooks_cg_author_callback( $args ) {
 	unset( $args['label_for'], $args['class'] );
 	$metadata = \Pressbooks\Book::getBookInformation();
-	$option = get_option( 'pressbooks_cg_options' );
-	if ( empty( $option['pb_author'] ) ) {
+	$option = get_option( 'pressbooks_cg_options', [] );
+	if ( empty( $option ) || empty( $option['pb_author'] ) ) {
 		$option['pb_author'] = $metadata['pb_authors'];
 	}
 
@@ -383,8 +384,8 @@ function pressbooks_cg_author_callback( $args ) {
 function pressbooks_cg_author_spine_callback( $args ) {
 	unset( $args['label_for'], $args['class'] );
 	$metadata = \Pressbooks\Book::getBookInformation();
-	$option = get_option( 'pressbooks_cg_options' );
-	if ( empty( $option['pb_author_spine'] ) ) {
+	$option = get_option( 'pressbooks_cg_options', [] );
+	if ( empty( $option ) || empty( $option['pb_author_spine'] ) ) {
 		$option['pb_author_spine'] = $metadata['pb_authors'];
 	}
 
@@ -395,8 +396,8 @@ function pressbooks_cg_author_spine_callback( $args ) {
 function pressbooks_cg_about_callback( $args ) {
 	unset( $args['label_for'], $args['class'] );
 	$metadata = \Pressbooks\Book::getBookInformation();
-	$option = get_option( 'pressbooks_cg_options' );
-	if ( empty( $option['pb_about_unlimited'] ) ) {
+	$option = get_option( 'pressbooks_cg_options', [] );
+	if ( empty( $option ) || empty( $option['pb_about_unlimited'] ) ) {
 		$option['pb_about_unlimited'] = ! empty( $metadata['pb_about_unlimited'] ) ? $metadata['pb_about_unlimited'] : '';
 	}
 
@@ -411,8 +412,8 @@ function pressbooks_cg_about_callback( $args ) {
 function pressbooks_cg_isbn_callback( $args ) {
 	unset( $args['label_for'], $args['class'] );
 	$metadata = \Pressbooks\Book::getBookInformation();
-	$option = get_option( 'pressbooks_cg_options' );
-	if ( empty( $option['pb_print_isbn'] ) ) {
+	$option = get_option( 'pressbooks_cg_options', [] );
+	if ( empty( $option ) || empty( $option['pb_print_isbn'] ) ) {
 		$option['pb_print_isbn'] = ! empty( $metadata['pb_print_isbn'] ) ? $metadata['pb_print_isbn'] : '';
 	}
 
@@ -424,8 +425,8 @@ function pressbooks_cg_isbn_callback( $args ) {
 function pressbooks_cg_sku_callback( $args ) {
 	unset( $args['label_for'], $args['class'] );
 	$metadata = \Pressbooks\Book::getBookInformation();
-	$option = get_option( 'pressbooks_cg_options' );
-	if ( empty( $option['pb_print_sku'] ) ) {
+	$option = get_option( 'pressbooks_cg_options', [] );
+	if ( empty( $option ) || empty( $option['pb_print_sku'] ) ) {
 		$option['pb_print_sku'] = ! empty( $metadata['pb_print_sku'] ) ? $metadata['pb_print_sku'] : '';
 	}
 
@@ -444,7 +445,7 @@ function pressbooks_cg_design_callback() {
 		</p>
 	<p>
 	<?php
-		$options = get_option( 'pressbooks_theme_options_pdf' );
+		$options = get_option( 'pressbooks_theme_options_pdf', PDFOptions::getDefaults() );
 		/* translators: 1: pdf page width, 2: pdf page height, 3: URL to Theme Options page */
 		printf( __( 'Your PDF page size is set to %1$s &times; %2$s, and your PDF cover will be generated with the same dimensions. You can change the PDF page size in the <a href="%3$s">Theme Options</a> menu.', 'pressbooks' ), $options['pdf_page_width'], $options['pdf_page_height'], admin_url( 'themes.php?page=pressbooks_theme_options&tab=pdf' ) );
 	?>
@@ -466,7 +467,10 @@ function pressbooks_cg_design_callback() {
 function pressbooks_cg_front_background_image_callback( $args ) {
 	unset( $args['label_for'], $args['class'] );
 	$option = get_option( 'pressbooks_cg_options' );
-	$pdf_options = get_option( 'pressbooks_theme_options_pdf' );
+	$pdf_options = get_option( 'pressbooks_theme_options_pdf', [
+		'pdf_page_width' => '5.5in',
+		'pdf_page_height' => '8.5in',
+	] );
 
 	if ( strpos( $pdf_options['pdf_page_width'], 'in' ) ) {
 		$width = ( str_replace( 'in', '', $pdf_options['pdf_page_width'] ) + 0.125 ) * 300;
@@ -503,8 +507,8 @@ function pressbooks_cg_front_background_image_callback( $args ) {
 
 function pressbooks_cg_text_transform_callback( $args ) {
 	unset( $args['label_for'], $args['class'] );
-	$option = get_option( 'pressbooks_cg_options' );
-	if ( empty( $option['text_transform'] ) ) {
+	$option = get_option( 'pressbooks_cg_options', [] );
+	if ( empty( $option ) || empty( $option['text_transform'] ) ) {
 		$option['text_transform'] = 'uppercase';
 	}
 
@@ -537,11 +541,11 @@ function pressbooks_cg_spine_size_callback() {
 
 function pressbooks_cg_pdf_pagecount_callback( $args ) {
 	unset( $args['label_for'], $args['class'] );
-	$option = get_option( 'pressbooks_cg_options' );
+	$option = get_option( 'pressbooks_cg_options', [] );
 	$spine = new \Pressbooks\Covergenerator\Spine;
 	$pages = $spine->countPagesInMostRecentPdf();
 
-	if ( empty( $option['pdf_pagecount'] ) ) {
+	if ( empty( $option ) || empty( $option['pdf_pagecount'] ) ) {
 		$option['pdf_pagecount'] = $pages;
 	}
 
@@ -551,8 +555,8 @@ function pressbooks_cg_pdf_pagecount_callback( $args ) {
 
 function pressbooks_cg_ppi_callback( $args ) {
 	unset( $args['label_for'], $args['class'] );
-	$option = get_option( 'pressbooks_cg_options' );
-	if ( empty( $option['ppi'] ) ) {
+	$option = get_option( 'pressbooks_cg_options', [] );
+	if ( empty( $option ) || empty( $option['ppi'] ) ) {
 		$option['ppi'] = '444';
 	}
 
@@ -571,9 +575,9 @@ function pressbooks_cg_ppi_callback( $args ) {
 
 function pressbooks_cg_custom_ppi_callback( $args ) {
 	unset( $args['label_for'], $args['class'] );
-	$option = get_option( 'pressbooks_cg_options' );
+	$option = get_option( 'pressbooks_cg_options', [] );
 
-	if ( empty( $option['ppi'] ) ) {
+	if ( empty( $option ) || empty( $option['ppi'] ) ) {
 		$option['ppi'] = '444';
 	}
 	$html = '<input id="custom_ppi" name="pressbooks_cg_options[ppi]" type="text" value="' . $option['ppi'] . '" />';

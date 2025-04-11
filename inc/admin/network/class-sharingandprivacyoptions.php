@@ -44,6 +44,20 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	public $defaults;
 
 	/**
+	 * Sharing and Privacy booleans.
+	 *
+	 * @var array
+	 */
+	public $booleans;
+
+	/**
+	 * Sharing and Privacy multiline strings.
+	 *
+	 * @var array
+	 */
+	public $multiline_strings;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param array $options

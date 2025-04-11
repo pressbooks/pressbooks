@@ -1,7 +1,6 @@
 <?php
 
 class CoverGenerator_SpineTest extends \WP_UnitTestCase {
-
 	/**
 	 * @var \Pressbooks\Covergenerator\Spine
 	 * @group covergenerator
@@ -24,7 +23,6 @@ class CoverGenerator_SpineTest extends \WP_UnitTestCase {
 	 * @group covergenerator
 	 */
 	public function spineWidthCalculatorProvider() {
-
 		return [
 			[ 50, 400, 0.125 ],
 			[ 237, 434, 0.5461 ],
@@ -43,7 +41,6 @@ class CoverGenerator_SpineTest extends \WP_UnitTestCase {
 	 * @group covergenerator
 	 */
 	public function test_spineWidthCalculator( $pages, $ppi, $expected ) {
-
 		$this->assertEquals( $expected, $this->spine->spineWidthCalculator( $pages, $ppi ) );
 		$this->assertNotEquals( $expected + 1, $this->spine->spineWidthCalculator( $pages, $ppi ) );
 	}
@@ -74,7 +71,6 @@ class CoverGenerator_SpineTest extends \WP_UnitTestCase {
 	 * @group covergenerator
 	 */
 	public function test_spineWidthCalculatorCaliper( $pages, $caliper, $expected ) {
-
 		$this->assertEquals( $expected, $this->spine->spineWidthCalculatorCaliper( $pages, $caliper ) );
 		$this->assertNotEquals( $expected + 1, $this->spine->spineWidthCalculatorCaliper( $pages, $caliper ) );
 	}
@@ -87,7 +83,6 @@ class CoverGenerator_SpineTest extends \WP_UnitTestCase {
 	 * @group covergenerator
 	 */
 	public function caliperToPpiProvider() {
-
 		return [
 			[ 0.002, 1000 ],
 			[ 0.00225, 889 ],
@@ -113,7 +108,6 @@ class CoverGenerator_SpineTest extends \WP_UnitTestCase {
 		];
 	}
 
-
 	/**
 	 * @dataProvider caliperToPpiProvider
 	 *
@@ -122,7 +116,6 @@ class CoverGenerator_SpineTest extends \WP_UnitTestCase {
 	 * @group covergenerator
 	 */
 	public function test_caliperToPpi( $caliper, $expected ) {
-
 		$this->assertEquals( $expected, $this->spine->caliperToPpi( $caliper ) );
 		$this->assertNotEquals( $expected + 1, $this->spine->caliperToPpi( $caliper ) );
 	}
@@ -138,12 +131,10 @@ class CoverGenerator_SpineTest extends \WP_UnitTestCase {
 		unlink( $dest );
 	}
 
-
 	/**
 	 * @group covergenerator
 	 */
 	public function test_countPagesInPdf() {
-
 		$pages = $this->spine->countPagesInPdf( __DIR__ . '/data/test.pdf' );
 		$this->assertEquals( 11, $pages );
 
@@ -155,5 +146,4 @@ class CoverGenerator_SpineTest extends \WP_UnitTestCase {
 		}
 		$this->fail();
 	}
-
 }

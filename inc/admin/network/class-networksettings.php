@@ -15,6 +15,8 @@ class NetworkSettings {
 
 	const DEFAULT_THEME = 'pressbooks-malala';
 
+	const DISPLAY_CTA_BANNER_OPTION = 'pressbooks_display_cta_banner';
+
 	/**
 	 * @var array
 	 */
@@ -28,6 +30,7 @@ class NetworkSettings {
 	public function __construct() {
 		$this->customOptions = [
 			'default_theme' => self::DEFAULT_THEME_OPTION,
+			'display_cta_banner' => self::DISPLAY_CTA_BANNER_OPTION,
 		];
 	}
 
@@ -59,11 +62,13 @@ class NetworkSettings {
 		echo '<h3>' . __( 'Theme Settings', 'pressbooks' ) . '</h3>';
 		echo ' <table id="menu" class="form-table" role="presentation"><tbody>';
 		echo '<tr><th scope="row">' . __( 'Default Theme', 'pressbooks' ) . '</th><td>';
-		$options = '';
+		$select_options = '';
 		$themes = $GLOBALS['pressbooks']->allowedBookThemes( \WP_Theme::get_allowed_on_network() );
 		$default_theme = get_site_option( $this->customOptions['default_theme'], self::getDefaultTheme() );
+		$display_banner_option = get_site_option( $this->customOptions['display_cta_banner'], '1' );
+
 		foreach ( $themes as $theme => $_ ) {
-			$options .= sprintf(
+			$select_options .= sprintf(
 				'<option value="%1$s"%2$s>%3$s</option>',
 				$theme,
 				selected( $default_theme, $theme, false ),
@@ -73,8 +78,20 @@ class NetworkSettings {
 		printf(
 			'<select id="%1$s" name="%1$s">%2$s</select></td></tr></tbody></table>',
 			$this->customOptions['default_theme'],
-			$options
+			$select_options
 		);
+		echo '</td></tr></tbody></table>';
+		echo '<h3>' . __( 'CTA banner settings', 'pressbooks' ) . '</h3>';
+		echo ' <table id="menu" class="form-table" role="presentation"><tbody>';
+		echo '<tr><th scope="row">' . __( 'CTA Banner', 'pressbooks' ) . '</th><td>';
+		printf(
+			'<input type="checkbox" id="%1$s" name="%1$s" value="%4$s" %2$s /> <label for="%1$s">%3$s</label>',
+			$this->customOptions['display_cta_banner'],
+			checked( $display_banner_option, '1', false ),
+			__( 'Display the CTA banner', 'pressbooks' ),
+			$display_banner_option
+		);
+		echo '</td></tr></tbody></table>';
 	}
 
 	/**
@@ -88,10 +105,13 @@ class NetworkSettings {
 			$themes = $GLOBALS['pressbooks']->allowedBookThemes( \WP_Theme::get_allowed_on_network() );
 			if ( array_key_exists( $default_theme, $themes ) ) {
 				update_site_option( $this->customOptions['default_theme'], $default_theme );
-				return true;
 			}
 		}
-		return false;
+
+		$display_cta_banner = isset( $_POST[ $this->customOptions['display_cta_banner'] ] ) ? '1' : '0';
+		update_site_option( $this->customOptions['display_cta_banner'], $display_cta_banner );
+
+		return true;
 	}
 
 	/**

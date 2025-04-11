@@ -44,7 +44,11 @@ class HtmlParser {
 		$html = '<div><!-- pb_fixme -->' . $html . '<!-- pb_fixme --></div>';
 		if ( $this->parser instanceof \DOMDocument ) {
 			libxml_use_internal_errors( true );
-			$this->parser->loadHTML( mb_convert_encoding( $html, 'HTML-ENTITIES', 'UTF-8' ), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+
+			// Modern replacement for mb_convert_encoding
+			$html = htmlspecialchars_decode( htmlentities( $html, ENT_QUOTES, 'UTF-8', false ) );
+
+			$this->parser->loadHTML( $html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
 			$this->errors = libxml_get_errors();
 			libxml_clear_errors();
 			return $this->parser;
@@ -67,16 +71,23 @@ class HtmlParser {
 		} else {
 			$html = $this->parser->saveHTML( $dom );
 		}
+		return $this->removeFixMeWrapper( \Pressbooks\Sanitize\strip_container_tags( $html ) );
+	}
 
-		$html = \Pressbooks\Sanitize\strip_container_tags( $html );
-
-		$replace_pairs = [
-			'<div><!-- pb_fixme -->' => '',
-			'<!-- pb_fixme --></div>' => '',
-		];
-		$html = strtr( $html, $replace_pairs );
-
-		return $html;
+	/**
+	 * Remove `<div><!-- pb_fixme --><!-- pb_fixme --></div>` from HTML.
+	 *
+	 * @param string $html
+	 * @return string
+	 */
+	public function removeFixMeWrapper( string $html ) {
+		return strtr(
+			$html,
+			[
+				'<div><!-- pb_fixme -->' => '',
+				'<!-- pb_fixme --></div>' => '',
+			]
+		);
 	}
 
 }

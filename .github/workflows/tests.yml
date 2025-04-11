@@ -1,0 +1,125 @@
+name: Run Tests
+
+on:
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ dev ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php: 8.2
+            wordpress: 6.7
+            prince: 14.3-1
+            epubcheck: 4.2.6
+            experimental: false
+          - php: 8.2
+            wordpress: latest
+            prince: 14.3-1
+            epubcheck: 4.2.6
+            experimental: true
+          - php: 8.3
+            wordpress: 6.7
+            prince: 14.3-1
+            epubcheck: 4.2.6
+            experimental: true
+
+    name: PHP ${{ matrix.php }} - WP ${{ matrix.wordpress }}
+
+    outputs:
+      coverage: ${{ matrix.experimental == false }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install OS dependencies
+        run: |
+          sudo apt update
+          sudo apt-get install libxml2-utils ghostscript poppler-utils imagemagick
+          sudo systemctl start mysql.service
+          wget https://github.com/w3c/epubcheck/releases/download/v${{ matrix.epubcheck }}/epubcheck-${{ matrix.epubcheck }}.zip
+          unzip epubcheck-${{ matrix.epubcheck }}.zip -d /opt/
+          mv /opt/epubcheck-${{ matrix.epubcheck }} /opt/epubcheck
+          rm epubcheck-${{ matrix.epubcheck }}.zip
+          wget https://www.princexml.com/download/prince_${{ matrix.prince }}_ubuntu20.04_amd64.deb
+          sudo dpkg -i prince_${{ matrix.prince }}_ubuntu20.04_amd64.deb
+          rm prince_${{ matrix.prince }}_ubuntu20.04_amd64.deb
+
+      - name: Cache Composer packages
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: php-${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
+
+      - name: Setup PHP with Composer 2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer
+          coverage: pcov
+          extensions: imagick
+
+      - name: Install PHP dependencies
+        run: |
+          export PATH="$HOME/.composer/vendor/bin:$PATH"
+          composer install --no-interaction
+          ulimit -n 4096
+
+      - name: Install WP tests
+        run: bash bin/install-wp-tests.sh wordpress_test root root localhost ${{ matrix.wordpress }}
+
+      - name: Run PHP Tests
+        run: composer test -- --exclude=integrations
+        if: matrix.experimental == true
+
+      - name: Run PHP Tests and PCOV
+        run: composer test-coverage -- --exclude=integrations
+        if: matrix.experimental == false
+
+      - name: Save code coverage to artifact
+        uses: actions/upload-artifact@v4
+        if: matrix.experimental == false
+        with:
+          name: code-coverage
+          path: "coverage.xml"
+          retention-days: 5
+          overwrite: true
+
+  coverage:
+    runs-on: ubuntu-22.04
+    needs:
+      - tests
+    name: Upload coverage
+    if: needs.tests.outputs.coverage
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch code coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: code-coverage
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+  trigger_bedrock_updates:
+    needs: tests
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Trigger Bedrock Updates
+        if: github.ref == 'refs/heads/dev'
+        uses: pressbooks/composer-autoupdate-bedrock@main
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_SNS_ARN_DEV: ${{ secrets.AWS_SNS_ARN_DEV }}
+          AWS_SNS_ARN_STAGING: ${{ secrets.AWS_SNS_ARN_STAGING }}
+          INPUT_TRIGGERED_BY: ${{ github.repository }}
+          REF: ${{ github.ref }}
+

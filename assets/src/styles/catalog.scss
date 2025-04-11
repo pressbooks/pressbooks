@@ -32,7 +32,7 @@
 }
 
 @font-face {
-  font-family: 'catalog-page';
+  font-family: catalog-page;
   src: url('../fonts/catalog-page.eot');
   src: url('../fonts/catalog-page.eot?#iefix') format('embedded-opentype'),
     url('../fonts/catalog-page.ttf') format('truetype'),
@@ -46,7 +46,7 @@
   margin-right: 5px;
 
   &::before {
-    font-family: 'catalog-page', sans-serif;
+    font-family: catalog-page, sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 1em;

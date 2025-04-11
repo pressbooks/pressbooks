@@ -11,7 +11,6 @@ namespace Pressbooks;
 use function Pressbooks\Metadata\init_book_data_models;
 use function Pressbooks\Utility\explode_remove_and;
 use function Pressbooks\Utility\str_starts_with;
-use Illuminate\Support\Str;
 use Pressbooks\PostType\BackMatter;
 use Pressbooks\Utility\AutoDisplayable;
 use Pressbooks\Utility\HandlesTransfers;
@@ -430,78 +429,83 @@ class Contributors implements BackMatter, Transferable {
 	 * @param string $field
 	 * @return array
 	 */
-	public static function getContributorFields( $field = '' ) {
+	public static function getContributorFields( string $field = '' ) {
 		$allowed_fields = [
 			self::TAXONOMY . '_prefix' => [
-				'label' => __( 'Prefix', 'pressbooks' ),
+				'autocomplete' => 'honorific-prefix',
+				'label' => esc_html__( 'Prefix', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-prefix',
 				'input_type' => 'text',
-				'description' => __( 'Prefix to be displayed before this contributor\'s name, e.g. Dr., Prof., Ms., Rev., Capt.', 'pressbooks' ),
+				'description' => esc_html__( 'Prefix to be displayed before this contributor\'s name, e.g. Dr., Prof., Ms., Rev., Capt.', 'pressbooks' ),
 				'sanitization_method' => 'sanitize_text_field',
 			],
 			self::TAXONOMY . '_first_name' => [
-				'label' => __( 'First Name', 'pressbooks' ),
+				'autocomplete' => 'given-name',
+				'label' => esc_html__( 'First Name', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-first-name',
 				'input_type' => 'text',
 				'sanitization_method' => 'sanitize_text_field',
 			],
 			self::TAXONOMY . '_last_name' => [
-				'label' => __( 'Last Name', 'pressbooks' ),
+				'autocomplete' => 'family-name',
+				'label' => esc_html__( 'Last Name', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-last-name',
 				'input_type' => 'text',
 				'sanitization_method' => 'sanitize_text_field',
 			],
 			self::TAXONOMY . '_suffix' => [
-				'label' => __( 'Suffix', 'pressbooks' ),
+				'autocomplete' => 'honorific-suffix',
+				'label' => esc_html__( 'Suffix', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-suffix',
 				'input_type' => 'text',
-				'description' => __( 'Suffix to be displayed after this contributors\'s name, e.g. Jr., Sr., IV, PhD, MD, USN (Ret.).', 'pressbooks' ),
+				'description' => esc_html__( 'Suffix to be displayed after this contributors\'s name, e.g. Jr., Sr., IV, PhD, MD, USN (Ret.).', 'pressbooks' ),
 				'sanitization_method' => 'sanitize_text_field',
 			],
 			self::TAXONOMY . '_picture' => [
-				'label' => __( 'Picture', 'pressbooks' ),
+				'label' => esc_html__( 'Picture', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-picture',
 				'input_type' => 'picture',
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 			self::TAXONOMY . '_description' => [
-				'label' => __( 'Biographical Info', 'pressbooks' ),
+				'label' => esc_html__( 'Biographical Info', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-biography',
 				'input_type' => 'tinymce',
 			],
 			self::TAXONOMY . '_institution' => [
-				'label' => __( 'Institution', 'pressbooks' ),
+				'label' => esc_html__( 'Institution', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-institution',
 				'input_type' => 'text',
-				'description' => __( 'Institution this contributor is associated with, e.g. Rebus Foundation, Open University, Amnesty International.', 'pressbooks' ),
+				'description' => esc_html__( 'Institution this contributor is associated with, e.g. Rebus Foundation, Open University, Amnesty International.', 'pressbooks' ),
 				'sanitization_method' => 'sanitize_text_field',
 			],
 			self::TAXONOMY . '_user_url' => [
-				'label' => __( 'Website', 'presbooks' ),
+				'autocomplete' => 'url',
+				'label' => esc_html__( 'Website', 'presbooks' ),
 				'tag' => self::TAXONOMY . '-website',
 				'input_type' => 'text',
-				'description' => __( 'Website for this contributor. Must be a valid URL.', 'pressbooks' ),
+				'description' => esc_html__( 'Website for this contributor. Must be a valid URL.', 'pressbooks' ),
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 			self::TAXONOMY . '_twitter' => [
-				'label' => __( 'Twitter', 'pressbooks' ),
+				'label' => esc_html__( 'X/Twitter', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-twitter',
 				'input_type' => 'text',
-				'description' => __( 'Twitter profile for this contributor. Must be a valid URL.', 'pressbooks' ),
+				'description' => esc_html__( 'X/Twitter profile for this contributor. Must be a valid URL.', 'pressbooks' ),
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 			self::TAXONOMY . '_linkedin' => [
-				'label' => __( 'LinkedIn', 'pressbooks' ),
+				'label' => esc_html__( 'LinkedIn', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-linkedin',
 				'input_type' => 'text',
-				'description' => __( 'LinkedIn profile for this contributor. Must be a valid URL.', 'pressbooks' ),
+				'description' => esc_html__( 'LinkedIn profile for this contributor. Must be a valid URL.', 'pressbooks' ),
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 			self::TAXONOMY . '_github' => [
-				'label' => __( 'GitHub', 'pressbooks' ),
+				'label' => esc_html__( 'GitHub', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-github',
 				'input_type' => 'text',
-				'description' => __( 'GitHub profile for this contributor. Must be a valid URL.', 'pressbooks' ),
+				'description' => esc_html__( 'GitHub profile for this contributor. Must be a valid URL.', 'pressbooks' ),
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 		];
@@ -572,11 +576,11 @@ class Contributors implements BackMatter, Transferable {
 	 */
 	public function getFormMessages() {
 		$guide_chapter = esc_url( 'https://guide.pressbooks.com/chapter/creating-and-displaying-contributors/#importingcontributors' );
-		$hint = __( '<p>Import multiple contributors at once by uploading a valid JSON file. See <a href="%s" target="_blank">our guide</a> for details.</p>', 'pressbooks' );
+		$hint = __( 'Import multiple contributors at once by uploading a valid JSON file. See <a href="%s" target="_blank">our guide</a> for details.', 'pressbooks' );
 
 		return [
-			'title' => '<h2>' . __( 'Import Contributors', 'pressbooks' ) . '</h2>',
-			'hint' => sprintf( $hint, $guide_chapter ),
+			'title' => '<h2>' . esc_html__( 'Import Contributors', 'pressbooks' ) . '</h2>',
+			'hint' => '<p>' . sprintf( $hint, $guide_chapter ) . '</p>',
 		];
 	}
 
@@ -714,7 +718,7 @@ class Contributors implements BackMatter, Transferable {
 				} else {
 					$suffix = '';
 				}
-				$name = $suffix ? "${name}${suffix}" : $name;
+				$name = $suffix ? "{$name}{$suffix}" : $name;
 			} elseif ( ! empty( $term->name ) ) {
 				$name = $term->name;
 			}
@@ -814,12 +818,25 @@ class Contributors implements BackMatter, Transferable {
 			$contributors = $this->getContributorsWithMeta( $meta_post->ID, $contributor_type );
 			$contributors_count = count( $contributors );
 			if ( $contributors_count > 0 ) {
-				list( ,$title ) = explode( '_', $contributor_type );
-				$records[ $contributor_type ]['title'] = Str::ucfirst( $contributors_count > 1 ? $title : Str::singular( $title ) ); // ex. return Author or Authors
-				$records[ $contributor_type ]['records'] = $contributors;
+				$records[ $contributor_type ] = [
+					'title' => $this->getContributorTypeLabel( $contributor_type, $contributors_count ),
+					'records' => $contributors,
+				];
 			}
 		}
 		return $records;
+	}
+
+	public function getContributorTypeLabel( string $type, int $count ): string {
+		return match ($type) {
+			'pb_editors' => _n( 'Editor', 'Editors', $count, 'pressbooks' ),
+			'pb_authors' => _n( 'Author', 'Authors', $count, 'pressbooks' ),
+			'pb_contributors' => _n( 'Contributor', 'Contributors', $count, 'pressbooks' ),
+			'pb_translators' => _n( 'Translator', 'Translators', $count, 'pressbooks' ),
+			'pb_reviewers' => _n( 'Reviewer', 'Reviewers', $count, 'pressbooks' ),
+			'pb_illustrators' => _n( 'Illustrator', 'Illustrators', $count, 'pressbooks' ),
+			default => '',
+		};
 	}
 
 	/**

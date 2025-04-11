@@ -36,6 +36,41 @@ class WebOptions extends \Pressbooks\Options {
 	public $defaults;
 
 	/**
+	 * Web theme booleans.
+	 *
+	 * @var array
+	 */
+	public $booleans;
+
+	/**
+	 * Web theme strings.
+	 *
+	 * @var array
+	 */
+	public $strings;
+
+	/**
+	 * Web theme integers.
+	 *
+	 * @var array
+	 */
+	public $integers;
+
+	/**
+	 * Web theme floats.
+	 *
+	 * @var array
+	 */
+	public $floats;
+
+	/**
+	 * Web theme predefined options.
+	 *
+	 * @var array
+	 */
+	public $predefined;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param array $options
@@ -99,13 +134,13 @@ class WebOptions extends \Pressbooks\Options {
 		}
 
 		add_settings_field(
-			'social_media',
-			__( 'Enable Social Media', 'pressbooks' ),
-			[ $this, 'renderSocialMediaField' ],
+			'social_media_options',
+			__( 'Social Media Options', 'pressbooks' ),
+			[ $this, 'renderSocialMediaOptionsField' ],
 			$_page,
 			$_section,
 			[
-				__( 'Adds a button to cover page and each chapter which allows readers to share links to your book through Twitter', 'pressbooks' ),
+				__( 'Select which social media buttons to display.', 'pressbooks' ),
 			]
 		);
 
@@ -155,20 +190,6 @@ class WebOptions extends \Pressbooks\Options {
 				$_section,
 				[
 					__( 'Collapse sections within front matter, chapters, and back matter', 'pressbooks' ),
-				]
-			);
-		}
-
-		if ( get_post_meta( $meta->getMetaPostId(), 'pb_is_based_on', true ) ) {
-			add_settings_field(
-				'enable_source_comparison',
-				__( 'Enable Source Comparison', 'pressbooks' ),
-				[ $this, 'renderEnableSourceComparison' ],
-				$_page,
-				$_section,
-				[
-					__( 'Add comparison tool to the end of each front matter, part, chapter, and back matter', 'pressbooks' ),
-					__( 'Allows readers to compare content with the original book from which it was cloned.', 'pressbooks' ),
 				]
 			);
 		}
@@ -223,6 +244,7 @@ class WebOptions extends \Pressbooks\Options {
 		$deprecated = [
 			'toc_collapse',
 			'accessibility_fontsize',
+			'social_media',
 		];
 
 		foreach ( $options as $key => $value ) {
@@ -234,22 +256,28 @@ class WebOptions extends \Pressbooks\Options {
 		update_option( 'pressbooks_theme_options_' . $_option, $options );
 	}
 
-	/**
-	 * Render the social_media checkbox.
-	 *
-	 * @param array $args
-	 */
-	function renderSocialMediaField( $args ) {
-		unset( $args['label_for'], $args['class'] );
-		$this->renderCheckbox(
-			[
-				'id' => 'social_media',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'social_media',
-				'value' => ( isset( $this->options['social_media'] ) ) ? $this->options['social_media'] : '',
-				'label' => $args[0],
-			]
-		);
+	function renderSocialMediaOptionsField( $args ) {
+		$options = isset( $this->options['social_media_options'] ) ? $this->options['social_media_options'] : [];
+		$stored_options = get_option( 'pressbooks_theme_options_' . $this->getSlug() );
+		// if empty, override default values with empty array for displaying purposes
+		if ( $stored_options && empty( $stored_options['social_media_options'] ) ) {
+			$options = [];
+		}
+		$all_options = [
+			'twitter' => __( 'X (formerly Twitter)', 'pressbooks' ),
+			'linkedin' => __( 'LinkedIn', 'pressbooks' ),
+			'email' => __( 'Email', 'pressbooks' ),
+		];
+
+		foreach ( $all_options as $key => $label ) {
+			printf(
+				'<label><input type="checkbox" name="pressbooks_theme_options_%1$s[social_media_options][]" value="%2$s" %3$s /> %4$s</label><br>',
+				esc_attr( $this->getSlug() ),
+				esc_attr( $key ),
+				in_array( $key, $options, true ) ? 'checked' : '',
+				esc_html( $label )
+			);
+		}
 	}
 
 	/**
@@ -284,6 +312,7 @@ class WebOptions extends \Pressbooks\Options {
 				'option' => 'paragraph_separation',
 				'value' => ( isset( $this->options['paragraph_separation'] ) ) ? $this->options['paragraph_separation'] : '',
 				'choices' => $args,
+				'legend' => __( 'Paragraph Separation', 'pressbooks' ),
 			]
 		);
 	}
@@ -320,25 +349,6 @@ class WebOptions extends \Pressbooks\Options {
 				'option' => 'collapse_sections',
 				'value' => ( isset( $this->options['part_title'] ) ) ? $this->options['collapse_sections'] : '',
 				'label' => $args[0],
-			]
-		);
-	}
-
-	/**
-	 * Render the allow_comparison checkbox.
-	 *
-	 * @param array $args
-	 */
-	function renderEnableSourceComparison( $args ) {
-		unset( $args['label_for'], $args['class'] );
-		$this->renderCheckbox(
-			[
-				'id' => 'enable_source_comparison',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'enable_source_comparison',
-				'value' => ( isset( $this->options['enable_source_comparison'] ) ) ? $this->options['enable_source_comparison'] : '',
-				'label' => $args[0],
-				'description' => $args[1],
 			]
 		);
 	}
@@ -412,12 +422,11 @@ class WebOptions extends \Pressbooks\Options {
 			'pb_theme_options_web_defaults', [
 				'webbook_header_font' => '',
 				'webbook_body_font' => '',
-				'social_media' => 1,
 				'paragraph_separation' => 'skiplines',
+				'social_media_options' => [ 'twitter', 'linkedin', 'email' ],
 				'part_title' => 0,
 				'webbook_width' => '40em',
 				'collapse_sections' => 0,
-				'enable_source_comparison' => 0,
 			]
 		);
 	}
@@ -448,10 +457,8 @@ class WebOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_web_booleans', [
-				'social_media',
 				'part_title',
 				'collapse_sections',
-				'enable_source_comparison',
 			]
 		);
 	}
@@ -516,7 +523,7 @@ class WebOptions extends \Pressbooks\Options {
 	 */
 	static function getPredefinedOptions() {
 		/**
-		 * Allow custom predifined options to be passed to sanitization routines.
+		 * Allow custom predefined options to be passed to sanitization routines.
 		 *
 		 * @param array $value
 		 *
@@ -526,6 +533,7 @@ class WebOptions extends \Pressbooks\Options {
 			'pb_theme_options_web_predefined', [
 				'paragraph_separation',
 				'webbook_width',
+				'social_media_options',
 			]
 		);
 	}
@@ -586,7 +594,7 @@ class WebOptions extends \Pressbooks\Options {
 				$styles->getSass()->setVariables(
 					[
 						'para-margin-top' => '0',
-						'para-indent' => '1em',
+						'para-indent' => $styles->getParaIndent() ?? '1em',
 					]
 				);
 			} else {

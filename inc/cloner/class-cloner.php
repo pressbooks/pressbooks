@@ -19,6 +19,7 @@ use function Pressbooks\Utility\str_remove_prefix;
 use function Pressbooks\Utility\str_starts_with;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Container;
+use Pressbooks\Shortcodes\Glossary\Glossary;
 use Pressbooks\Utility\PercentageYield;
 
 class Cloner {
@@ -132,7 +133,7 @@ class Cloner {
 	 *
 	 * @var array
 	 */
-	protected $termMap = [];
+	protected $termMap = [ 'default' => true ];
 
 	/**
 	 * An array of cloned items.
@@ -268,6 +269,11 @@ class Cloner {
 	private $idPostsMap = [];
 
 	/**
+	 * @var string
+	 */
+	private string $cloneToken = '';
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 4.1.0
@@ -318,6 +324,8 @@ class Cloner {
 		$this->h5p = $h5p ? $h5p : \Pressbooks\Interactive\Content::init()->getH5P();
 		$this->downloads = $downloads ? $downloads : new Downloads( $this, $this->h5p );
 		$this->contributors = $contributors ? $contributors : new \Pressbooks\Contributors();
+		// Register glossary shortcode if not already registered.
+		Glossary::init();
 	}
 
 	/**
@@ -532,6 +540,7 @@ class Cloner {
 
 		wp_defer_term_counting( false ); // Flush
 		restore_current_blog();
+		$this->notifyCloneComplete();
 
 		yield 100 => __( 'Finishing up', 'pressbooks' );
 	}
@@ -919,7 +928,10 @@ class Cloner {
 			return false;
 		}
 
-		// Return successful response
+		if ( isset( $response['clone_token'] ) ) {
+			$this->cloneToken = $response['clone_token'];
+		}
+
 		return $response;
 	}
 
@@ -993,12 +1005,22 @@ class Cloner {
 	 *
 	 * @return bool Whether or not the book is public and licensed for cloning (or true if the current user is a network administrator and the book is in the current network).
 	 */
-	public function isSourceCloneable( $metadata_license ) {
+	public function isSourceCloneable( $metadata_license ): bool {
+		if ( has_filter( 'pb_set_source_clonable' ) && apply_filters( 'pb_set_source_clonable', [] ) ) {
+			return true;
+		}
+
 		$restrictive_licenses = [
 			'https://creativecommons.org/licenses/by-nd/4.0/',
 			'https://creativecommons.org/licenses/by-nc-nd/4.0/',
 			'https://choosealicense.com/no-license/',
 		];
+
+		$extended_restrictive_licenses = apply_filters( 'extend_restrictive_licenses', [] );
+
+		$restrictive_licenses = is_array( $extended_restrictive_licenses )
+			? array_merge( $restrictive_licenses, $extended_restrictive_licenses )
+			: $restrictive_licenses;
 
 		if ( is_array( $metadata_license ) ) {
 			$license_url = $metadata_license['url'];
@@ -1160,7 +1182,7 @@ class Cloner {
 		if ( $path ) {
 			return ltrim( $path, '/\\' );
 		} else {
-			$host = explode( '.', $host );
+			$host = explode( '.', $host ?? '' );
 			$subdomain = array_shift( $host );
 			return $subdomain;
 		}
@@ -1543,8 +1565,10 @@ class Cloner {
 			unset( $section[ $bad_key ] );
 		}
 
-		// Set status
-		$section['status'] = 'publish';
+		// Private and public glossaries can be cloned
+		if ( $post_type !== 'glossary' ) {
+			$section['status'] = $section['status'] ?? 'publish';
+		}
 
 		// Download media (images, videos, `select * from wp_posts where post_type = 'attachment'` ... )
 		list( $content, $attachments ) = $this->retrieveSectionContent( $section );
@@ -1552,7 +1576,7 @@ class Cloner {
 		$content = $this->retrieveH5P( $content );
 
 		// Set title and content
-		$section['title'] = $section['title']['rendered'];
+		$section['title'] = $section['title']['raw'] ?? $section['title']['rendered'];
 		$section['content'] = $content;
 
 		// Set part
@@ -1594,7 +1618,7 @@ class Cloner {
 		// Remove items handled by cloneSectionMetadata()
 		unset( $section['meta']['pb_authors'], $section['meta']['pb_section_license'] );
 
-		if ( array_key_exists( 'pb_part_invisible', $section['meta'] ) ) {
+		if ( $post_type === 'part' && array_key_exists( 'pb_part_invisible', $section['meta'] ) ) {
 			unset( $section['meta']['pb_part_invisible'] );
 		}
 
@@ -2050,6 +2074,54 @@ class Cloner {
 	public static function isEnabled() {
 		$enable_cloning = SharingAndPrivacyOptions::getOption( 'enable_cloning' );
 		return (bool) $enable_cloning;
+	}
+
+	/**
+	 * Notify the source book that a clone has been completed.
+	 *
+	 * @return bool
+	 */
+	private function notifyCloneComplete(): bool {
+		if ( $this->cloneToken ) {
+			global $blog_id;
+			$local_book = $this->getBookId( $this->sourceBookUrl );
+			$params = [
+				'token' => $this->cloneToken,
+				'url' => $this->targetBookUrl,
+				'name' => $this->targetBookTitle,
+			];
+			if ( $local_book ) {
+				$switch_book = $local_book !== $blog_id;
+				if ( $switch_book ) {
+					switch_to_blog( $local_book );
+				}
+				$request = new \WP_REST_Request( 'POST', '/pressbooks/v2/clone/complete' );
+				$request->set_body_params( $params );
+				$response = rest_do_request( $request );
+
+				if ( $switch_book ) {
+					restore_current_blog();
+				}
+
+				if ( is_wp_error( $response ) ) {
+					return false;
+				}
+				return true;
+			}
+			$request_url = sprintf(
+				'%1$s/%2$s/%3$s/%4$s',
+				$this->sourceBookUrl,
+				$this->restBase,
+				'pressbooks/v2/clone',
+				'complete'
+			);
+			$response = wp_remote_post( $request_url, [ 'body' => $params ] );
+
+			if ( is_wp_error( $response ) ) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 }

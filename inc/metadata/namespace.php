@@ -89,7 +89,7 @@ function get_microdata_elements() {
 
 	if ( ! array_key_exists( 'pb_copyright_year', $metadata ) && array_key_exists( 'pb_publication_date', $metadata ) && is_valid_timestamp( $metadata['pb_publication_date'] ) ) {
 		$itemprop = 'copyrightYear';
-		$content = strftime( '%Y', (int) $metadata['pb_publication_date'] );
+		$content = date( 'Y', (int) $metadata['pb_publication_date'] );
 		$html .= "<meta itemprop='" . $itemprop . "' content='" . $content . "' id='" . $itemprop . "'>\n";
 	}
 
@@ -334,10 +334,10 @@ function book_information_to_schema( array $book_information, bool $network_excl
 	}
 
 	if ( isset( $book_information['pb_publication_date'] ) && is_valid_timestamp( $book_information['pb_publication_date'] ) ) {
-		$book_schema['datePublished'] = strftime( '%F', (int) $book_information['pb_publication_date'] );
+		$book_schema['datePublished'] = date( 'Y-m-d', (int) $book_information['pb_publication_date'] );
 
 		if ( ! isset( $book_information['pb_copyright_year'] ) ) {
-			$book_schema['copyrightYear'] = strftime( '%Y', (int) $book_information['pb_publication_date'] );
+			$book_schema['copyrightYear'] = date( 'Y', (int) $book_information['pb_publication_date'] );
 		}
 	}
 
@@ -371,11 +371,11 @@ function book_information_to_schema( array $book_information, bool $network_excl
 			'value' => $book_information['pb_book_doi'],
 		];
 		/**
-		 * Filter the DOI resolver service URL (default: https://dx.doi.org).
+		 * Filter the DOI resolver service URL (default: https://doi.org).
 		 *
 		 * @since 5.6.0
 		 */
-		$doi_resolver = apply_filters( 'pb_doi_resolver', 'https://dx.doi.org' );
+		$doi_resolver = apply_filters( 'pb_doi_resolver', 'https://doi.org' );
 		$book_schema['sameAs'] = trailingslashit( $doi_resolver ) . $book_information['pb_book_doi'];
 	}
 
@@ -396,7 +396,7 @@ function book_information_to_schema( array $book_information, bool $network_excl
 	}
 
 	if ( true === $network_excluded_directory ) {
-		$book_schema['bookDirectoryExcluded'] = $network_excluded_directory && ! $book_schema['inCatalog'];
+		$book_schema['bookDirectoryExcluded'] = ! $book_schema['inCatalog'];
 	} elseif ( isset( $book_schema['bookDirectoryExcluded'] ) ) {
 		$book_schema['bookDirectoryExcluded'] = (bool) $book_information['pb_book_directory_excluded'];
 	} else {
@@ -550,11 +550,11 @@ function schema_to_book_information( array $book_schema ): array {
 
 	if ( isset( $book_schema['sameAs'] ) ) {
 		/**
-		 * Filter the DOI resolver service URL (default: https://dx.doi.org).
+		 * Filter the DOI resolver service URL (default: https://doi.org).
 		 *
 		 * @since 5.6.0
 		 */
-		$doi_resolver = apply_filters( 'pb_doi_resolver', 'https://dx.doi.org' );
+		$doi_resolver = apply_filters( 'pb_doi_resolver', 'https://doi.org' );
 		$book_information['pb_book_doi'] = str_replace( trailingslashit( $doi_resolver ), '', $book_schema['sameAs'] );
 	}
 
@@ -663,9 +663,9 @@ function section_information_to_schema( $section_information, $book_information 
 	}
 
 	if ( isset( $book_information['pb_publication_date'] ) && is_valid_timestamp( $book_information['pb_publication_date'] ) ) {
-		$section_schema['datePublished'] = strftime( '%F', (int) $book_information['pb_publication_date'] );
+		$section_schema['datePublished'] = date( 'Y-m-d', (int) $book_information['pb_publication_date'] );
 		if ( ! isset( $book_information['pb_copyright_year'] ) ) {
-			$section_schema['copyrightYear'] = strftime( '%Y', (int) $book_information['pb_publication_date'] );
+			$section_schema['copyrightYear'] = date( 'Y', (int) $book_information['pb_publication_date'] );
 		}
 	}
 
@@ -707,11 +707,11 @@ function section_information_to_schema( $section_information, $book_information 
 			'value' => $section_information['pb_section_doi'],
 		];
 		/**
-		 * Filter the DOI resolver service URL (default: https://dx.doi.org).
+		 * Filter the DOI resolver service URL (default: https://doi.org).
 		 *
 		 * @since 5.6.0
 		 */
-		$doi_resolver = apply_filters( 'pb_doi_resolver', 'https://dx.doi.org' );
+		$doi_resolver = apply_filters( 'pb_doi_resolver', 'https://doi.org' );
 		$section_schema['sameAs'] = trailingslashit( $doi_resolver ) . $section_information['pb_section_doi'];
 	}
 
@@ -795,11 +795,11 @@ function schema_to_section_information( $section_schema, $book_schema ) {
 
 	if ( isset( $section_schema['sameAs'] ) ) {
 		/**
-		 * Filter the DOI resolver service URL (default: https://dx.doi.org).
+		 * Filter the DOI resolver service URL (default: https://doi.org).
 		 *
 		 * @since 5.6.0
 		 */
-		$doi_resolver = apply_filters( 'pb_doi_resolver', 'https://dx.doi.org' );
+		$doi_resolver = apply_filters( 'pb_doi_resolver', 'https://doi.org' );
 		$section_information['pb_section_doi'] = str_replace( trailingslashit( $doi_resolver ), '', $section_schema['sameAs'] );
 	}
 
@@ -825,11 +825,23 @@ function get_book_metadata_lang() {
 /**
  * This function returns the current's book language thema file if exists otherwise returns false
  *
+ * @param bool $main_site If true, it will return the main site's language file
  * @return false|string
  */
-function get_thema_lang_file() {
+function get_thema_lang_file( bool $main_site = false ) {
+	$locale = false;
+	if ( $main_site ) {
+		switch_to_blog( get_main_site_id() );
+		$locale_option = get_option( 'WPLANG' );
+		restore_current_blog();
+		if ( $locale_option && strpos( $locale_option, '_' ) !== false ) {
+			$locale = explode( '_', $locale_option )[0];
+		}
+	}
 
-	$locale = get_book_metadata_lang();
+	if ( ! $locale ) {
+		$locale = get_book_metadata_lang();
+	}
 
 	$thema_files_path = WP_CONTENT_DIR . '/uploads/assets/thema/symbionts/';
 
@@ -844,12 +856,13 @@ function get_thema_lang_file() {
  * @since 4.4.0
  *
  * @param bool $include_qualifiers Whether or not the Theme subject qualifiers should be included.
+ * @param bool $main_site Whether or not to use the main site's Thema subjects.
  *.
  * @return array
  */
-function get_thema_subjects( $include_qualifiers = false ) {
+function get_thema_subjects( bool $include_qualifiers = false, bool $main_site = false ) {
 
-	$thema_file = get_thema_lang_file();
+	$thema_file = get_thema_lang_file( $main_site );
 
 	$thema_json = file_exists( $thema_file ) ? $thema_file : PB_PLUGIN_DIR . 'symbionts/thema/en.json';
 
@@ -863,7 +876,7 @@ function get_thema_subjects( $include_qualifiers = false ) {
 				$subjects[ $code->CodeValue ] = [
 					'label' => $code->CodeDescription,
 				];
-				if ( ctype_alpha( $code->CodeValue ) ) {
+				if ( ctype_alpha( (string) $code->CodeValue ) ) {
 					$subjects[ $code->CodeValue ]['children'][ $code->CodeValue ] = $code->CodeDescription;
 				}
 			} else {
@@ -880,11 +893,12 @@ function get_thema_subjects( $include_qualifiers = false ) {
  * @since 4.4.0
  *
  * @param string $code The Thema code.
+ * @param bool $main_site Whether or not to use the main site's Thema subjects.
  *
  * @return string The subject name.
  */
-function get_subject_from_thema( $code ) {
-	$subjects = get_thema_subjects( true );
+function get_subject_from_thema( string $code, bool $main_site = false ) {
+	$subjects = get_thema_subjects( true, $main_site );
 	foreach ( $subjects as $key => $group ) {
 		if ( strpos( $code, strval( $key ) ) === 0 ) {
 			return $group['children'][ $code ];
@@ -1254,7 +1268,7 @@ function transform_institutions( array $institutions ): array {
  */
 function transform_regions( string $country, array $regions ): array {
 	return array_reduce( $regions, static function( $values, $region ) use ( $country ) {
-		$institutions = [ "${country}/${region['name']}" => transform_institutions( $region['institutions'] ?? [] ) ];
+		$institutions = [ "{$country}/{$region['name']}" => transform_institutions( $region['institutions'] ?? [] ) ];
 
 		return array_merge( $values, $institutions );
 	}, [] );

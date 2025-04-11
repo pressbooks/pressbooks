@@ -170,8 +170,8 @@ https://youtu.be/Lqqsp8soXTo
 	 * @return int
 	 */
 	private function _fakeAjax() {
-		add_filter( 'wp_doing_ajax', '__return_true' );
-		add_filter( 'wp_die_ajax_handler', '__return_false', 1, 1 ); // Override die()
+		add_filter( 'wp_doing_ajax', fn() => '__return_true' );
+		add_filter( 'wp_die_ajax_handler', fn() => '__return_false', 1, 1 ); // Override die()
 		return error_reporting( error_reporting() & ~E_WARNING ); // Suppress warnings
 	}
 
@@ -191,10 +191,17 @@ https://youtu.be/Lqqsp8soXTo
 	 */
 	private function _openTextbook( $with_media = false ) {
 		$this->_book( 'pressbooks-book', $with_media );
+		$blog_id = get_current_blog_id();
+
 		update_option( 'blog_public', 1 );
+
 		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
 		update_post_meta( $meta_post->ID, 'pb_book_license', 'cc-by' );
 		wp_set_object_terms( $meta_post->ID, 'cc-by', \Pressbooks\Licensing::TAXONOMY ); // Link
+
+		update_site_meta( $blog_id, 'pb_is_public', 1 );
+		update_site_meta( $blog_id, 'pb_book_license', 'cc-by' );
+
 		\Pressbooks\Book::deleteBookObjectCache();
 	}
 
@@ -271,5 +278,24 @@ https://youtu.be/Lqqsp8soXTo
 				'pdf_hyphens' => 0,
 				'pdf_toc' => 1
 			] );
+	}
+
+	private function createSuperAdminUser(): int {
+		$this->_book();
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		grant_super_admin( $user_id );
+
+		wp_set_current_user( $user_id );
+
+		return $user_id;
+	}
+
+	private function createSubscriberUser(): int {
+		$this->_book();
+		$user_id = $this->factory()->user->create();
+		$user = get_userdata( $user_id );
+		$user->add_role( 'subscriber' );
+		wp_set_current_user( $user_id );
+		return $user_id;
 	}
 }

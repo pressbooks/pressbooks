@@ -127,10 +127,10 @@ function updateWordCountForExport() {
  */
 function getAdjacentContainer( table, relationship ) {
 	if ( relationship === 'prev' ) {
-		return $( table ).prev( '[id^=part]' );
-	} else if ( relationship === 'next' ) {
-		return $( table ).next( '[id^=part]' );
+		return $( table ).prevAll( '[id^=part]' ).first();
 	}
+
+	return $( table ).nextAll( '[id^=part]' ).first();
 }
 
 /**
@@ -180,35 +180,35 @@ function updateControls( table ) {
 		.children( 'tr' )
 		.each( ( i, el ) => {
 			let controls = '';
-			let up = '<button class="move-up">Move Up</button>';
-			let down = '<button class="move-down">Move Down</button>';
+			let up = `<button class="move-up">${ PB_OrganizeToken.moveUp }</button>`;
+			let down = `<button class="move-down">${ PB_OrganizeToken.moveDown }</button>`;
 
 			if ( $( el ).is( 'tr:only-of-type' ) ) {
 				if (
 					table.is( '[id^=part]' ) &&
-					table.prev( '[id^=part]' ).length &&
-					table.next( '[id^=part]' ).length
+					table.prevAll( '[id^=part]' ).length &&
+					table.nextAll( '[id^=part]' ).length
 				) {
-					controls = ` | ${up} | ${down}`;
-				} else if ( table.is( '[id^=part]' ) && table.next( '[id^=part]' ).length ) {
-					controls = ` | ${down}`;
-				} else if ( table.is( '[id^=part]' ) && table.prev( '[id^=part]' ).length ) {
-					controls = ` | ${up}`;
+					controls = ` | ${ up } | ${ down }`;
+				} else if ( table.is( '[id^=part]' ) && table.nextAll( '[id^=part]' ).length ) {
+					controls = ` | ${ down }`;
+				} else if ( table.is( '[id^=part]' ) && table.prevAll( '[id^=part]' ).length ) {
+					controls = ` | ${ up }`;
 				}
 			} else if ( $( el ).is( 'tr:first-of-type' ) ) {
-				if ( table.is( '[id^=part]' ) && table.prev( '[id^=part]' ).length ) {
-					controls = ` | ${up} | ${down}`;
+				if ( table.is( '[id^=part]' ) && table.prevAll( '[id^=part]' ).length ) {
+					controls = ` | ${ up } | ${ down }`;
 				} else {
-					controls = ` | ${down}`;
+					controls = ` | ${ down }`;
 				}
 			} else if ( $( el ).is( 'tr:last-of-type' ) ) {
-				if ( table.is( '[id^=part]' ) && table.next( '[id^=part]' ).length ) {
-					controls = ` | ${up} | ${down}`;
+				if ( table.is( '[id^=part]' ) && table.nextAll( '[id^=part]' ).length ) {
+					controls = ` | ${ up } | ${ down }`;
 				} else {
-					controls = ` | ${up}`;
+					controls = ` | ${ up }`;
 				}
 			} else {
-				controls = ` | ${up} | ${down}`;
+				controls = ` | ${ up } | ${ down }`;
 			}
 
 			$( el )
@@ -228,16 +228,27 @@ function updateControls( table ) {
 function reorder( row ) {
 	let item = getRowData( row );
 
+	const id = item.id;
+	const old_parent = pb.organize.oldParent.replace( /^part_([0-9]+)$/i, '$1' );
+	const new_parent = pb.organize.newParent.replace( /^part_([0-9]+)$/i, '$1' );
+	let old_order = $( `#${ pb.organize.oldParent }` ).sortable( 'serialize' );
+	let new_order = $( `#${ pb.organize.newParent }` ).sortable( 'serialize' );
+
+	const regex = /part_([0-9]+)/g;
+
+	old_order = old_order.replaceAll( regex, 'part' );
+	new_order = new_order.replaceAll( regex, 'part' );
+
 	$.ajax( {
 		url: ajaxurl,
 		type: 'POST',
 		data: {
 			action: 'pb_reorder',
-			id: item.id,
-			old_order: $( `#${pb.organize.oldParent}` ).sortable( 'serialize' ),
-			new_order: $( `#${pb.organize.newParent}` ).sortable( 'serialize' ),
-			old_parent: pb.organize.oldParent.replace( /^part_([0-9]+)$/i, '$1' ),
-			new_parent: pb.organize.newParent.replace( /^part_([0-9]+)$/i, '$1' ),
+			id: id,
+			old_order: old_order,
+			new_order: new_order,
+			old_parent: old_parent,
+			new_parent: new_parent,
 			_ajax_nonce: PB_OrganizeToken.reorderNonce,
 		},
 		/**
@@ -246,9 +257,9 @@ function reorder( row ) {
 		beforeSend: () => {
 			showModal( item );
 			if ( pb.organize.oldParent !== pb.organize.newParent ) {
-				updateControls( $( `#${pb.organize.oldParent}` ) );
+				updateControls( $( `#${ pb.organize.oldParent }` ) );
 			}
-			updateControls( $( `#${pb.organize.newParent}` ) );
+			updateControls( $( `#${ pb.organize.newParent }` ) );
 		},
 		/**
 		 *
@@ -447,7 +458,7 @@ $( document ).ready( () => {
 		if (
 			row.is( 'tr:first-of-type' ) &&
 			table.is( '[id^=part]' ) &&
-			table.prev( '[id^=part]' ).length
+			table.prevAll( '[id^=part]' ).length
 		) {
 			let targetTable = getAdjacentContainer( table, 'prev' );
 			pb.organize.newParent = targetTable.attr( 'id' );
@@ -465,10 +476,11 @@ $( document ).ready( () => {
 		let row = $( event.target ).parents( 'tr' );
 		let table = $( event.target ).parents( 'table' );
 		pb.organize.oldParent = table.attr( 'id' );
+
 		if (
 			row.is( 'tr:last-of-type' ) &&
 			table.is( '[id^=part]' ) &&
-			table.next( '[id^=part]' ).length
+			table.nextAll( '[id^=part]' ).length
 		) {
 			let targetTable = getAdjacentContainer( table, 'next' );
 			pb.organize.newParent = targetTable.attr( 'id' );
@@ -481,7 +493,7 @@ $( document ).ready( () => {
 		}
 	} );
 
-	$( '.allow-bulk-operations table thead th span[id$="show_title"]' ).on(
+	$( '.allow-bulk-operations table thead th button[id$="show_title"]' ).on(
 		'click',
 		event => {
 			let id = $( event.target ).attr( 'id' );
@@ -498,17 +510,19 @@ $( document ).ready( () => {
 					.prop( 'checked', false );
 				pb.organize.bulkToggle[id] = false;
 				updateTitleVisibility( ids.join(), postType, '' );
+				event.target.setAttribute( 'aria-pressed', false );
 			} else {
 				table
 					.find( 'tr td.column-showtitle input[type="checkbox"]' )
 					.prop( 'checked', true );
 				pb.organize.bulkToggle[id] = true;
 				updateTitleVisibility( ids.join(), postType, 'on' );
+				event.target.setAttribute( 'aria-pressed', true );
 			}
 		}
 	);
 
-	$( '.allow-bulk-operations table thead th span[id$="visibility"]' ).on(
+	$( '.allow-bulk-operations table thead th button[id$="visibility"]' ).on(
 		'click',
 		event => {
 			let id = $( event.target ).attr( 'id' );
@@ -523,16 +537,18 @@ $( document ).ready( () => {
 			let ids = getIdsInTable( table );
 			if ( pb.organize.bulkToggle[id] ) {
 				table
-					.find( `tr td.column-${format} input[type=checkbox]` )
+					.find( `tr td.column-${ format } input[type=checkbox]` )
 					.prop( 'checked', false );
 				pb.organize.bulkToggle[id] = false;
 				updateVisibility( ids.join(), postType, format, 0 );
+				event.target.setAttribute( 'aria-pressed', false );
 			} else {
 				table
-					.find( `tr td.column-${format} input[type="checkbox"]` )
+					.find( `tr td.column-${ format } input[type="checkbox"]` )
 					.prop( 'checked', true );
 				pb.organize.bulkToggle[id] = true;
 				updateVisibility( ids.join(), postType, format, 1 );
+				event.target.setAttribute( 'aria-pressed', true );
 			}
 		}
 	);

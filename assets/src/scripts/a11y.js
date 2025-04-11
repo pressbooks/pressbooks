@@ -14,10 +14,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		}
 	}
 
-	// WP_List_Table table headers are missing `role=`columnheader` for accessibility
-	// https://core.trac.wordpress.org/ticket/46977
-	addAttribute( 'table.wp-list-table th', 'role', 'columnheader' );
-
 	// WP_List_Table table headers are missing `aria-sort` attributes for accessibility
 	// https://core.trac.wordpress.org/ticket/47047#ticket
 	addAttribute( 'table.wp-list-table th.sortable', 'aria-sort', 'none' );

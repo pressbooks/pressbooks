@@ -11,17 +11,17 @@
 
 namespace Pressbooks\Admin\Diagnostics;
 
+use DeviceDetector\DeviceDetector;
+use function Pressbooks\Redirect\location;
 use function Pressbooks\Utility\check_epubcheck_install;
 use function Pressbooks\Utility\check_prince_install;
 use function Pressbooks\Utility\check_saxonhe_install;
 use function Pressbooks\Utility\check_xmllint_install;
 use Pressbooks\Book;
 use Pressbooks\Container;
+use Pressbooks\HtmLawed;
 use Pressbooks\Modules\ThemeOptions\Admin;
 use Pressbooks\Theme\Lock;
-use Sinergi\BrowserDetector\Browser;
-use Sinergi\BrowserDetector\Os;
-use Sinergi\BrowserDetector\UserAgent;
 
 /**
  * Add the diagnostics menu (with parent page set to null)
@@ -43,12 +43,13 @@ function add_menu() {
  */
 function render_page() {
 	global $wpdb;
-	$browser = new Browser;
-	$os = new Os;
-	$user_agent = new UserAgent;
+	$user_agent = $_SERVER['HTTP_USER_AGENT'];
+	$dd = new DeviceDetector( $user_agent );
+	$dd->parse();
 	$is_book = Book::isBook();
 	$lock = Lock::init();
 	$regenerate_webbook_stylesheet_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin-post.php?action=pb_regenerate_webbook_stylesheet' ), 'pb-regenerate-webbook-stylesheet' );
+	$pdf_preview_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin-post.php?action=pdf_preview' ), 'pdf-preview' );
 	$output = "### System Information\n\n";
 	if ( Book::isBook() ) {
 		$output .= "#### Book Info\n\n";
@@ -61,10 +62,10 @@ function render_page() {
 		$output .= 'Root Blog URL: ' . trailingslashit( get_bloginfo( 'url' ) ) . "\n\n";
 	}
 	$output .= "#### Browser\n\n";
-	$output .= 'Platform: ' . $os->getName() . "\n";
-	$output .= 'Browser Name: ' . $browser->getName() . "\n";
-	$output .= 'Browser Version: ' . $browser->getVersion() . "\n";
-	$output .= 'User Agent String: ' . $user_agent->getUserAgentString() . "\n\n";
+	$output .= 'Platform: ' . $dd->getOs( 'name' ) . ' ' . $dd->getOs( 'version' ) . "\n";
+	$output .= 'Browser Name: ' . $dd->getClient( 'name' ) . "\n";
+	$output .= 'Browser Version: ' . $dd->getClient( 'version' ) . "\n";
+	$output .= 'User Agent String: ' . $user_agent . "\n\n";
 	$output .= '#### WordPress Configuration' . "\n\n";
 	$output .= 'Network URL: ' . network_home_url() . "\n";
 	$output .= 'Network Type: ' . ( is_subdomain_install() ? 'Subdomain' : 'Subdirectory' ) . "\n";
@@ -82,7 +83,7 @@ function render_page() {
 		if ( $lock->isLocked() ) {
 			$theme = wp_get_theme();
 			$data = $lock->getLockData();
-			$datetime = strftime( '%x', $data['timestamp'] ) . ' at ' . strftime( '%X', $data['timestamp'] );
+			$datetime = date( 'm/d/y', $data['timestamp'] ) . ' at ' . date( 'H:i:s', $data['timestamp'] );
 			$output .= 'Book Theme: ' . $data['name'] . " (LOCKED on $datetime)\n";
 			$output .= 'Book Theme Version: ' . $data['version'] . " (LOCKED on $datetime &mdash; Current Version " . $theme->get( 'Version' ) . ")\n";
 		} else {
@@ -172,15 +173,15 @@ function render_page() {
 	}
 	$output .= 'imagick: ' . ( extension_loaded( 'imagick' ) ? 'Installed' : 'Not Installed' ) . "\n";
 	$output .= 'xsl: ' . ( extension_loaded( 'xsl' ) ? 'Installed' : 'Not Installed' );
-	$blade = \Pressbooks\Container::get( 'Blade' );
-	echo $blade->render(
-		'admin.diagnostics',
-		[
-			'output' => $output,
-			'regenerate_webbook_stylesheet_url' => $regenerate_webbook_stylesheet_url,
-			'is_book' => $is_book,
-		]
-	);
+	echo \Pressbooks\Container::get( 'Blade' )
+		->render(
+			'admin.diagnostics', [
+				'output' => $output,
+				'regenerate_webbook_stylesheet_url' => HtmLawed::filter( $regenerate_webbook_stylesheet_url, [ 'safe' => 1 ] ),
+				'pdf_preview_url' => HtmLawed::filter( $pdf_preview_url, [ 'safe' => 1 ] ),
+				'is_book' => $is_book,
+			]
+		);
 }
 
 /**
@@ -198,5 +199,23 @@ function handle_stylesheet_regeneration() {
 		// Ok!
 		\Pressbooks\add_notice( __( 'Stylesheet regenerated.', 'pressbooks' ) );
 	}
-	\Pressbooks\Redirect\location( admin_url( 'options.php?page=pressbooks_diagnostics' ) );
+	location( admin_url( 'options.php?page=pressbooks_diagnostics' ) );
 }
+
+/**
+ * @since 6.23.0
+ *
+ * Handle form submission on the diagnostics page which generates a PDF preview.
+ *
+ * @return void
+ */
+function handle_pdf_preview(): void {
+	if ( check_admin_referer( 'pdf-preview' ) ) {
+		( new Admin() )->clearCache();
+		Container::get( 'Styles' )->updatePdfStyleSheet();
+	}
+	location( get_site_url( get_current_blog_id() ) . '/format/xhtml?debug=prince' );
+}
+
+
+

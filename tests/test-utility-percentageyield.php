@@ -1,7 +1,6 @@
 <?php
 
 class PercentageYieldTest extends \WP_UnitTestCase {
-
 	/**
 	 * @return array
 	 * @group utility

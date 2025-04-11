@@ -7,7 +7,6 @@ class MediaTest extends \WP_UnitTestCase {
 	 * @group media
 	 */
 	public function test_add_mime_types() {
-
 		$supportedFileExtensions = [ 'mp4', 'webm', 'ogv', 'ogg', 'mp3', 'aac', 'vorbis' ];
 		$jitMimes = [ 'foobar' => 'foo/bar' ];
 
@@ -53,23 +52,6 @@ class MediaTest extends \WP_UnitTestCase {
 		// TODO: Test with LOTF plugin enabled
 	}
 
-	public function test_get_lord_of_the_files_mime_aliases() {
-		$match = \Pressbooks\Media\get_lord_of_the_files_mime_aliases( false, 'unknown' );
-		$this->assertFalse( $match );
-
-		$match = \Pressbooks\Media\get_lord_of_the_files_mime_aliases( false, 'nlogo' );
-		$this->assertEquals( [ 'text/plain' ], $match );
-
-		$match = \Pressbooks\Media\get_lord_of_the_files_mime_aliases( [ 'text/plain' ], 'nlogo' ); // No duplicates
-		$this->assertEquals( [ 'text/plain' ], $match );
-
-		$match = \Pressbooks\Media\get_lord_of_the_files_mime_aliases( [ 'fake/records' ], 'nlogo' );
-		$this->assertEquals( [ 'fake/records', 'text/plain' ], $match );
-
-		$match = \Pressbooks\Media\get_lord_of_the_files_mime_aliases( [ 'fake/records' ], '.nlogo' ); // Not expected to match dot
-		$this->assertEquals( [ 'fake/records' ], $match );
-	}
-
 	/**
 	 * @group media
 	 */
@@ -102,7 +84,6 @@ class MediaTest extends \WP_UnitTestCase {
 			$this->assertFalse( \Pressbooks\Media\is_valid_media( '__UNUSED__', $file ) );
 		}
 	}
-
 
 	/**
 	 * @group media

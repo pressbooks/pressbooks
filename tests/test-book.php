@@ -5,14 +5,12 @@ use Pressbooks\DataCollector\Book as BookDataCollector;
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 
 class BookTest extends \WP_UnitTestCase {
-
 	use utilsTrait, ArraySubsetAsserts;
 
 	/**
 	 * @group book
 	 */
 	public function test_getInstance() {
-
 		$book = \Pressbooks\Book::getInstance();
 
 		$this->assertInstanceOf( '\Pressbooks\Book', $book );
@@ -22,7 +20,6 @@ class BookTest extends \WP_UnitTestCase {
 	 * @group book
 	 */
 	public function test_isBook() {
-
 		$book = \Pressbooks\Book::getInstance();
 
 		switch_to_blog( get_network()->site_id );
@@ -36,7 +33,6 @@ class BookTest extends \WP_UnitTestCase {
 	 * @group book
 	 */
 	public function test_getBookStructure() {
-
 		$book = \Pressbooks\Book::getInstance();
 
 		// Returns export value
@@ -88,7 +84,6 @@ class BookTest extends \WP_UnitTestCase {
 	 * @group book
 	 */
 	public function test_getBookContents() {
-
 		$book = \Pressbooks\Book::getInstance();
 
 		// Returns export value
@@ -138,7 +133,6 @@ class BookTest extends \WP_UnitTestCase {
 	 * @group book
 	 */
 	public function test_getBookInformation() {
-
 		$book = \Pressbooks\Book::getInstance();
 
 		$this->_book();
@@ -171,7 +165,6 @@ class BookTest extends \WP_UnitTestCase {
 	 * @group book
 	 */
 	public function test_wordCount() {
-
 		$book = \Pressbooks\Book::getInstance();
 
 		$this->_book();
@@ -229,7 +222,6 @@ class BookTest extends \WP_UnitTestCase {
 	 * @group book
 	 */
 	public function test_tagSubsections() {
-
 		$this->_book();
 		$book = \Pressbooks\Book::getInstance();
 
@@ -351,95 +343,6 @@ class BookTest extends \WP_UnitTestCase {
 		$this->assertEquals( 0, $book::getChapterNumber( $two['ID'] ) );
 		$this->assertEquals( 0, $book::getChapterNumber( $one['ID'], 'exports' ) );
 		$this->assertEquals( 0, $book::getChapterNumber( $two['ID'] ), 'exports' );
-	}
-
-	public function test_getSanitizedBookAboutInfo() {
-
-		$this->_book();
-		$mp = ( new \Pressbooks\Metadata() )->getMetaPost();
-
-		$c = custom_metadata_manager::instance();
-
-		$c->admin_init();
-		$c->init_metadata();
-		update_option( 'pressbooks_show_expanded_metadata', 1 );
-		\Pressbooks\Admin\Metaboxes\add_meta_boxes();
-
-		$xss_string = '<img src=# onerror=alert(document.cookie) /> hello xss';
-
-		$about_field = 'pb_about_50';
-
-		$field = $c->get_field( $about_field, 'about-the-book', 'metadata' );
-		$_POST[ $about_field ] = $xss_string;
-		$c->save_metadata_field( $about_field, $field, 'metadata', $mp->ID );
-		$value = $c->get_metadata_field_value( $about_field, $field, 'metadata', $mp->ID );
-		$this->assertEquals( '<img src="#" alt="image" /> hello xss', $value[0] );
-
-		$about_extended_field = 'pb_about_unlimited';
-
-		$field = $c->get_field( $about_extended_field, 'about-the-book', 'metadata' );
-		$_POST[ $about_extended_field ] = $xss_string;
-		$c->save_metadata_field( $about_extended_field, $field, 'metadata', $mp->ID );
-		$value = $c->get_metadata_field_value( $about_extended_field, $field, 'metadata', $mp->ID );
-		$this->assertEquals( '<img src="#" alt="image" /> hello xss', $value[0] );
-
-		$copyright_field = 'pb_custom_copyright';
-
-		$field = $c->get_field( $copyright_field, 'copyright', 'metadata' );
-		$_POST[ $copyright_field ] = $xss_string;
-		$c->save_metadata_field( $copyright_field, $field, 'metadata', $mp->ID );
-		$value = $c->get_metadata_field_value( $copyright_field, $field, 'metadata', $mp->ID );
-		$this->assertEquals( '<img src="#" alt="image" /> hello xss', $value[0] );
-
-		$field = $c->get_field( $about_extended_field, 'about-the-book', 'metadata' );
-		$_POST[ $about_extended_field ] = '<a href="https://pressbooks.org">Link</a>';
-		$c->save_metadata_field( $about_extended_field, $field, 'metadata', $mp->ID );
-		$value = $c->get_metadata_field_value( $about_extended_field, $field, 'metadata', $mp->ID );
-		$this->assertEquals( '<a href="https://pressbooks.org">Link</a>', $value[0] );
-
-		$string_to_sanitize = '    This is a book title    ';
-
-		$fields = [
-			'general-book-information' => [
-				'pb_title',
-				'pb_short_title',
-				'pb_subtitle',
-				'pb_publisher',
-				'pb_publisher_city',
-				'pb_ebook_isbn',
-				'pb_book_doi',
-			],
-			'copyright' => [
-				'pb_copyright_year',
-				'pb_copyright_holder',
-			],
-			'about-the-book' => [
-				'pb_about_140',
-			],
-			'additional-catalog-information' => [
-				'pb_series_title',
-				'pb_series_number',
-				'pb_hashtag',
-				'pb_list_price_print',
-				'pb_list_price_pdf',
-				'pb_list_price_epub',
-				'pb_list_price_web',
-			],
-		];
-
-		foreach ( $fields as $group => $book_fields ) {
-
-			foreach ( $book_fields as $field_to_test ) {
-
-				$field = $c->get_field( $field_to_test, $group, 'metadata' );
-				$_POST[ $field_to_test ] = $string_to_sanitize;
-				$c->save_metadata_field( $field_to_test, $field, 'metadata', $mp->ID );
-				$value = $c->get_metadata_field_value( $field_to_test, $field, 'metadata', $mp->ID );
-				$this->assertEquals( 'This is a book title', $value[0] );
-
-			}
-		}
-
 	}
 
 	/**

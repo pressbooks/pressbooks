@@ -3,7 +3,6 @@
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 
 class MetadataTest extends \WP_UnitTestCase {
-
 	use utilsTrait, ArraySubsetAsserts;
 
 	/**
@@ -52,7 +51,6 @@ class MetadataTest extends \WP_UnitTestCase {
 	 * @group metadata
 	 */
 	public function test_get_microdata_elements() {
-
 		$result = \Pressbooks\Metadata\get_microdata_elements();
 		$this->assertStringContainsString( '<meta', $result );
 	}
@@ -61,7 +59,6 @@ class MetadataTest extends \WP_UnitTestCase {
 	 * @group metadata
 	 */
 	public function test_get_seo_meta_elements() {
-
 		$result = \Pressbooks\Metadata\get_seo_meta_elements();
 		$this->assertStringContainsString( '<meta', $result );
 	}
@@ -130,7 +127,7 @@ class MetadataTest extends \WP_UnitTestCase {
 		self::assertArraySubset(
 			[
 				'name' => 'Moby Dick',
-				'sameAs' => 'https://dx.doi.org/my_doi',
+				'sameAs' => 'https://doi.org/my_doi',
 				'identifier' => ['value' => 'my_doi'],
 				'author' => [
 					['name' => 'Herman Melville']
@@ -162,7 +159,7 @@ class MetadataTest extends \WP_UnitTestCase {
 					'name' => 'Pat Metheny',
 				],
 			],
-			'sameAs' => 'https://dx.doi.org/my_doi',
+			'sameAs' => 'https://doi.org/my_doi',
 			'institutions' => [
 				[
 					'@type' => 'Institution',
@@ -409,7 +406,7 @@ class MetadataTest extends \WP_UnitTestCase {
 				'url' => 'https://creativecommons.org/publicdomain/zero/1.0/',
 				'name' => 'Public Domain (No Rights Reserved)',
 			],
-			'sameAs' => 'https://dx.doi.org/my_doi',
+			'sameAs' => 'https://doi.org/my_doi',
 		];
 
 		$result = \Pressbooks\Metadata\schema_to_section_information( $section_schema, $book_schema );
@@ -583,8 +580,8 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<meta name="citation_doi" content="10.1000/xyz123">', $buffer );
 		$this->assertStringContainsString( '<meta name="citation_isbn" content="9781234567897">', $buffer );
 		$this->assertStringContainsString( '<meta name="citation_language" content="en-ca">', $buffer );
-		$this->assertStringContainsString( '<meta name="citation_year" content="' . strftime( '%Y', $time ) . '">', $buffer );
-		$this->assertStringContainsString( '<meta name="citation_publication_date" content="' . strftime( '%F', $time ) . '">', $buffer );
+		$this->assertStringContainsString( '<meta name="citation_year" content="' . date( 'Y', $time ) . '">', $buffer );
+		$this->assertStringContainsString( '<meta name="citation_publication_date" content="' . date( 'Y-m-d', $time ) . '">', $buffer );
 		$this->assertStringContainsString( '<meta name="citation_publisher" content="Book Oven Inc.">', $buffer );
 		$this->assertStringContainsString( '<meta name="citation_author" content="Some Author">', $buffer );
 
@@ -607,8 +604,8 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<meta name="citation_book_title" content="Some Book">', $buffer );
 		$this->assertStringContainsString( '<meta name="citation_title" content="' . $section_title . '">', $buffer );
 		$this->assertStringContainsString( '<meta name="citation_language" content="en-ca">', $buffer );
-		$this->assertStringContainsString( '<meta name="citation_year" content="' . strftime( '%Y', $time ) . '">', $buffer );
-		$this->assertStringContainsString( '<meta name="citation_publication_date" content="' . strftime( '%F', $time ) . '">', $buffer );
+		$this->assertStringContainsString( '<meta name="citation_year" content="' . date( 'Y', $time ) . '">', $buffer );
+		$this->assertStringContainsString( '<meta name="citation_publication_date" content="' . date( 'Y-m-d', $time ) . '">', $buffer );
 		$this->assertStringContainsString( '<meta name="citation_publisher" content="Book Oven Inc.">', $buffer );
 		$this->assertStringContainsString( '<meta name="citation_author" content="Some Author">', $buffer );
 	}

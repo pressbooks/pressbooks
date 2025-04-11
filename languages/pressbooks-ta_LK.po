@@ -1,4 +1,4 @@
-# Copyright (C) 2022 Pressbooks (Book Oven Inc.)
+# Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
 # arunkumar <app.dev.arun@gmail.com>, 2014
@@ -12,33 +12,37 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2022-02-01T23:06:15+00:00\n"
-"PO-Revision-Date: 2022-02-01 23:07+0000\n"
-"Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
-"Language-Team: Tamil (http://www.transifex.com/pressbooks/pressbooks/language/ta/)\n"
+"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
+"POT-Creation-Date: 2024-05-08T20:14:28+00:00\n"
+"PO-Revision-Date: 2013-12-21 21:04+0000\n"
+"Last-Translator: john peter <johnpeterm@gmail.com>, 2018\n"
+"Language-Team: Tamil (http://app.transifex.com/pressbooks/pressbooks/language/ta/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ta\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: pressbooks\n"
-"X-Generator: WP-CLI 2.5.0\n"
+"X-Generator: WP-CLI 2.10.0\n"
 
 #. Plugin Name of the plugin
+#: pressbooks.php
 msgid "Pressbooks"
 msgstr ""
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
+#: pressbooks.php
 msgid "https://pressbooks.org"
 msgstr ""
 
 #. Description of the plugin
+#: pressbooks.php
 msgid "Simple Book Production"
-msgstr ""
+msgstr "எளிய புத்தகத் தயாரிப்பு"
 
 #. Author of the plugin
+#: pressbooks.php
 msgid "Pressbooks (Book Oven Inc.)"
 msgstr ""
 
@@ -79,59 +83,22 @@ msgid ""
 "activate Pressbooks."
 msgstr ""
 
-#: inc/admin/analytics/namespace.php:16 inc/admin/analytics/namespace.php:17
-#: inc/admin/analytics/namespace.php:26 inc/admin/analytics/namespace.php:27
-#: inc/admin/analytics/namespace.php:170 inc/admin/analytics/namespace.php:210
-msgid "Google Analytics"
-msgstr ""
-
-#: inc/admin/analytics/namespace.php:50 inc/admin/analytics/namespace.php:107
-msgid "Google Analytics ID"
-msgstr ""
-
-#: inc/admin/analytics/namespace.php:55
-msgid ""
-"The Google Analytics ID for your network, e.g. &lsquo;UA-01234567-8&rsquo;."
-msgstr ""
-
-#: inc/admin/analytics/namespace.php:73
-msgid "Site-Specific Tracking"
-msgstr ""
-
-#: inc/admin/analytics/namespace.php:78
-msgid ""
-"If enabled, the Google Analytics settings page will be visible to book "
-"administrators, allowing them to use their own Google Analytics accounts to "
-"track statistics at the book level."
-msgstr ""
-
-#: inc/admin/analytics/namespace.php:112
-msgid ""
-"The Google Analytics ID for your book, e.g. &lsquo;UA-01234567-8&rsquo;."
-msgstr ""
-
-#: inc/admin/analytics/namespace.php:129
-msgid "Google Analytics settings."
-msgstr ""
-
-#: inc/admin/analytics/namespace.php:188
-#: inc/admin/network/class-sharingandprivacyoptions.php:188
-msgid "Settings saved."
-msgstr "அமைப்புகள் சேமிக்கப் பட்டன "
-
 #: inc/admin/attachments/namespace.php:39
 msgid "ATTRIBUTIONS"
 msgstr ""
 
-#: inc/admin/attachments/namespace.php:46
+#: inc/admin/attachments/namespace.php:46 templates/admin/import.php:205
+#: templates/admin/import.php:206
 msgid "Source URL"
 msgstr ""
 
 #: inc/admin/attachments/namespace.php:54
 #: inc/admin/class-catalog-list-table.php:232
-#: inc/admin/covergenerator/namespace.php:108
+#: inc/admin/covergenerator/namespace.php:109 inc/class-contributors.php:828
 msgid "Author"
-msgstr "நூல் ஆசிரியர்"
+msgid_plural "Authors"
+msgstr[0] ""
+msgstr[1] ""
 
 #: inc/admin/attachments/namespace.php:60
 msgid "Author URL"
@@ -190,13 +157,14 @@ msgid "Privacy Status"
 msgstr "தனியுரிமை நிலை"
 
 #: inc/admin/class-catalog-list-table.php:230 inc/class-activation.php:237
-#: inc/modules/export/epub/class-epub.php:1211 tests/test-cloner.php:58
+#: inc/modules/export/epub/class-epub.php:1233
 msgid "Cover"
 msgstr "மேல் அட்டை"
 
 #: inc/admin/class-catalog-list-table.php:231
-#: inc/admin/covergenerator/namespace.php:75
-#: inc/admin/metaboxes/namespace.php:203 templates/admin/import.php:90
+#: inc/admin/covergenerator/namespace.php:76
+#: inc/admin/metaboxes/class-generalinformation.php:39
+#: templates/admin/import.php:90 templates/admin/cloner/stats.blade.php:4
 msgid "Title"
 msgstr "தலைப்பு"
 
@@ -216,18 +184,18 @@ msgstr "வெளியீட்டு நாள்"
 msgid "Edit Tags"
 msgstr "குறிக்குழுக்களை மாற்று"
 
-#: inc/admin/class-catalog-list-table.php:435 templates/admin/organize.php:44
-#: templates/admin/organize.php:55
+#: inc/admin/class-catalog-list-table.php:435
+#: templates/admin/organize.blade.php:18 templates/admin/organize.blade.php:38
 msgid "Private"
 msgstr "தனிப்பட்ட "
 
-#: inc/admin/class-catalog-list-table.php:435 templates/admin/organize.php:42
-#: templates/admin/organize.php:47
+#: inc/admin/class-catalog-list-table.php:435
+#: templates/admin/organize.blade.php:13 templates/admin/organize.blade.php:25
 msgid "Public"
 msgstr "பொதுவான "
 
-#: inc/admin/class-catalog-list-table.php:507 inc/admin/laf/namespace.php:427
-#: inc/admin/laf/namespace.php:607 inc/admin/laf/namespace.php:879
+#: inc/admin/class-catalog-list-table.php:507 inc/admin/laf/namespace.php:447
+#: inc/admin/laf/namespace.php:627 inc/admin/laf/namespace.php:906
 msgid "My Catalog"
 msgstr "என் பட்டியல்"
 
@@ -294,44 +262,45 @@ msgid "Add By URL"
 msgstr "தளமுகவரி மூலம் சேர்க்க "
 
 #: inc/admin/class-catalog-list-table.php:564 templates/admin/search.php:81
+#: templates/admin/cloner/page.blade.php:26
 msgid "Search"
 msgstr "தேடுக "
 
-#: inc/admin/class-exportoptions.php:68
+#: inc/admin/class-exportoptions.php:75
 msgid "Email Validation Logs"
 msgstr "மின்னஞ்சல் சரிபார்ப்பு பதிவுகள்"
 
-#: inc/admin/class-exportoptions.php:73
+#: inc/admin/class-exportoptions.php:80
 msgid "No. Ignore validation errors."
 msgstr "வேண்டாம். சரிபார்ப்புப் பிழைகளை பொருட்படுத்த வேண்டாம்."
 
-#: inc/admin/class-exportoptions.php:74
+#: inc/admin/class-exportoptions.php:81
 msgid "Yes."
 msgstr "ஆம்"
 
-#: inc/admin/class-exportoptions.php:74
+#: inc/admin/class-exportoptions.php:81
 msgid "Email me validation error logs on export."
 msgstr ""
 
-#: inc/admin/class-exportoptions.php:81
+#: inc/admin/class-exportoptions.php:88
 msgid "Lock Theme"
 msgstr ""
 
-#: inc/admin/class-exportoptions.php:86
+#: inc/admin/class-exportoptions.php:93
 msgid "Lock your theme at its current version."
 msgstr ""
 
-#: inc/admin/class-exportoptions.php:102
+#: inc/admin/class-exportoptions.php:109
 msgid "Export settings."
 msgstr ""
 
-#: inc/admin/class-exportoptions.php:168
+#: inc/admin/class-exportoptions.php:175
 msgid ""
 "This will prevent any changes to your book&rsquo;s appearance and page count"
 " when themes are updated."
 msgstr ""
 
-#: inc/admin/class-exportoptions.php:188 inc/admin/laf/namespace.php:372
+#: inc/admin/class-exportoptions.php:195 inc/admin/laf/namespace.php:412
 msgid "Export Settings"
 msgstr "ஏற்றுமதி அமைப்புகள்"
 
@@ -345,42 +314,42 @@ msgstr "பயன்பாட்டை மட்டுப்படுத்த�
 msgid "Unrestrict Access"
 msgstr "திறந்த பயன்பாடு"
 
-#: inc/admin/class-publishoptions.php:68
+#: inc/admin/class-publishoptions.php:75
 msgid "Amazon URL"
 msgstr "Amazon URL"
 
-#: inc/admin/class-publishoptions.php:77
+#: inc/admin/class-publishoptions.php:84
 msgid "O'Reilly URL"
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:86
+#: inc/admin/class-publishoptions.php:93
 msgid "Barnes and Noble URL"
 msgstr "Barnes and Noble URL"
 
-#: inc/admin/class-publishoptions.php:95
+#: inc/admin/class-publishoptions.php:102
 msgid "Kobo URL"
 msgstr "Kobo URL"
 
-#: inc/admin/class-publishoptions.php:104
+#: inc/admin/class-publishoptions.php:111
 msgid "Apple Books URL"
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:113
+#: inc/admin/class-publishoptions.php:120
 msgid "Other Service URL"
 msgstr "இதர சேவைகளின் தள முகவரிகள்"
 
-#: inc/admin/class-publishoptions.php:132
+#: inc/admin/class-publishoptions.php:139
 msgid "Add BUY Links to Your Pressbooks Webbook"
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:133
+#: inc/admin/class-publishoptions.php:140
 msgid ""
 "Enter the URLs for locations where your book can be purchased below. <a "
 "href=\"https://guide.pressbooks.com/chapter/publish/\">Our guide</a> "
 "provides additional information about selling and distributing your book."
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:293 inc/admin/laf/namespace.php:356
+#: inc/admin/class-publishoptions.php:300 inc/admin/laf/namespace.php:396
 msgid "Publish"
 msgstr "வெளியிடு"
 
@@ -388,64 +357,64 @@ msgstr "வெளியிடு"
 msgid "Sitemap"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:17
+#: inc/admin/covergenerator/namespace.php:18
 #: templates/admin/covergenerator.php:63
 msgid "Cover Generator"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:45 inc/admin/laf/namespace.php:396
+#: inc/admin/covergenerator/namespace.php:46 inc/admin/laf/namespace.php:376
 msgid "Saving settings"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:48
+#: inc/admin/covergenerator/namespace.php:49
 msgid ""
 "Cover generation is not done. Leaving this page, now, will cause problems. "
 "Are you sure?"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:49 inc/admin/laf/namespace.php:332
-#: inc/admin/laf/namespace.php:395 inc/admin/laf/namespace.php:416
-#: inc/admin/laf/namespace.php:627
+#: inc/admin/covergenerator/namespace.php:50 inc/admin/laf/namespace.php:352
+#: inc/admin/laf/namespace.php:375 inc/admin/laf/namespace.php:436
+#: inc/admin/laf/namespace.php:649
 msgid "Reload"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:68
+#: inc/admin/covergenerator/namespace.php:69
 msgid "Text"
-msgstr ""
+msgstr "உரை"
 
-#: inc/admin/covergenerator/namespace.php:86
+#: inc/admin/covergenerator/namespace.php:87
 msgid "Title (Spine)"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:97
-#: inc/admin/metaboxes/namespace.php:224
+#: inc/admin/covergenerator/namespace.php:98
+#: inc/admin/metaboxes/class-generalinformation.php:50
 msgid "Subtitle"
 msgstr "துணைத்தலைப்பு"
 
-#: inc/admin/covergenerator/namespace.php:119
+#: inc/admin/covergenerator/namespace.php:120
 msgid "Author (Spine)"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:130 inc/admin/laf/namespace.php:93
+#: inc/admin/covergenerator/namespace.php:131 inc/admin/laf/namespace.php:95
 #: inc/class-activation.php:247 templates/admin/catalog.php:98
 msgid "About"
 msgstr "பற்றி"
 
-#: inc/admin/covergenerator/namespace.php:141
+#: inc/admin/covergenerator/namespace.php:142
 msgid "ISBN"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:146
+#: inc/admin/covergenerator/namespace.php:147
 msgid ""
 "If you have an ISBN, this will generate a barcode on the back of your print "
 "cover. If you do not have an ISBN, you should leave this field blank."
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:153
+#: inc/admin/covergenerator/namespace.php:154
 msgid "or SKU"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:158
+#: inc/admin/covergenerator/namespace.php:159
 msgid ""
 "If you have a 13-digit identifier that is not an ISBN, entering it in this "
 "field will generate a barcode with that number on the back of your print "
@@ -453,64 +422,64 @@ msgid ""
 " blank."
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:165
+#: inc/admin/covergenerator/namespace.php:166
 msgid "Design"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:172
+#: inc/admin/covergenerator/namespace.php:173
 msgid "Front Cover Background Image"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:180
+#: inc/admin/covergenerator/namespace.php:181
 msgid "Book Title Case"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:193
+#: inc/admin/covergenerator/namespace.php:194
 msgid "Spine Size"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:200
+#: inc/admin/covergenerator/namespace.php:201
 msgid "Page Count"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:211
+#: inc/admin/covergenerator/namespace.php:212
 msgid "Paper Type"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:225
+#: inc/admin/covergenerator/namespace.php:226
 msgid "Custom PPI"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:236
+#: inc/admin/covergenerator/namespace.php:237
 msgid "Text and Background Colors"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:243
+#: inc/admin/covergenerator/namespace.php:244
 msgid "Front Cover Text"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:254
+#: inc/admin/covergenerator/namespace.php:255
 msgid "Front Cover Background"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:265
+#: inc/admin/covergenerator/namespace.php:266
 msgid "Spine Text"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:276
+#: inc/admin/covergenerator/namespace.php:277
 msgid "Spine Background"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:287
+#: inc/admin/covergenerator/namespace.php:288
 msgid "Back Cover Text"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:298
+#: inc/admin/covergenerator/namespace.php:299
 msgid "Back Cover Background"
 msgstr ""
 
 #. translators: %s: URL to Book Information page
-#: inc/admin/covergenerator/namespace.php:329
+#: inc/admin/covergenerator/namespace.php:330
 msgid ""
 "The text below is pulled from your <a href=\"%s\">Book Information</a> page,"
 " and is used to generate your cover(s). You can reformat the text below as "
@@ -519,7 +488,7 @@ msgid ""
 msgstr ""
 
 #. translators: %s: URL to Appearance menu
-#: inc/admin/covergenerator/namespace.php:442
+#: inc/admin/covergenerator/namespace.php:443
 msgid ""
 "Below you can make small adjustments to the design of your cover. The look "
 "and feel of the cover will echo the theme you have chosen for your book. You"
@@ -528,223 +497,158 @@ msgstr ""
 
 #. translators: 1: pdf page width, 2: pdf page height, 3: URL to Theme Options
 #. page
-#: inc/admin/covergenerator/namespace.php:449
+#: inc/admin/covergenerator/namespace.php:450
 msgid ""
 "Your PDF page size is set to %1$s &times; %2$s, and your PDF cover will be "
 "generated with the same dimensions. You can change the PDF page size in the "
 "<a href=\"%3$s\">Theme Options</a> menu."
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:458
-#: templates/admin/export.blade.php:57
+#: inc/admin/covergenerator/namespace.php:459
+#: templates/admin/export.blade.php:61
 msgid "Change Theme"
 msgstr "வடிவமைப்பை மாற்றவும்"
 
-#: inc/admin/covergenerator/namespace.php:459
+#: inc/admin/covergenerator/namespace.php:460
 msgid "Options"
 msgstr "விருப்பத்தேர்வு"
 
-#: inc/admin/covergenerator/namespace.php:462
+#: inc/admin/covergenerator/namespace.php:463
 msgid "You can upload a background image here."
 msgstr ""
 
 #. translators: 1: minimum width, 2: minimum height, 3: aspect ratio width, 4:
 #. aspect ratio height
-#: inc/admin/covergenerator/namespace.php:496
+#: inc/admin/covergenerator/namespace.php:500
 msgid ""
 "Your image must be at least %1$s pixels in width by %2$s pixels in height, "
 "with an aspect ratio of %3$s to %4$s."
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:499
+#: inc/admin/covergenerator/namespace.php:503
 msgid "Delete Background Image"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:521
+#: inc/admin/covergenerator/namespace.php:525
 msgid ""
 "Spine size is calculated based on the number of pages in your book, and the "
 "weight of the paper used in printing."
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:527
+#: inc/admin/covergenerator/namespace.php:531
 msgid ""
 "You haven't exported any PDF copies of your book, so you will need to enter "
 "a page count below."
 msgstr ""
 
 #. translators: %s: number of pages in pdf
-#: inc/admin/covergenerator/namespace.php:530
+#: inc/admin/covergenerator/namespace.php:534
 msgid ""
 "The last PDF you exported has %s pages (you can edit this below if you "
 "like)."
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:534
+#: inc/admin/covergenerator/namespace.php:538
 msgid ""
 "We can calculate the spine size based on CreateSpace and Ingram "
 "specifications, or you can enter your own custom pages per inch (PPI) "
 "defined by your printer."
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:567
-#: inc/modules/themeoptions/class-pdfoptions.php:159
-#: inc/modules/themeoptions/class-pdfoptions.php:380
-#: inc/modules/themeoptions/class-pdfoptions.php:399
-#: inc/modules/themeoptions/class-pdfoptions.php:418
-#: inc/modules/themeoptions/class-pdfoptions.php:437
-#: inc/modules/themeoptions/class-pdfoptions.php:455
-#: inc/modules/themeoptions/class-pdfoptions.php:473
-#: inc/modules/themeoptions/class-pdfoptions.php:494
-#: inc/modules/themeoptions/class-pdfoptions.php:515
-#: inc/modules/themeoptions/class-pdfoptions.php:534
-#: inc/modules/themeoptions/class-pdfoptions.php:553
+#: inc/admin/covergenerator/namespace.php:571
+#: inc/modules/themeoptions/class-pdfoptions.php:194
+#: inc/modules/themeoptions/class-pdfoptions.php:415
+#: inc/modules/themeoptions/class-pdfoptions.php:434
+#: inc/modules/themeoptions/class-pdfoptions.php:453
+#: inc/modules/themeoptions/class-pdfoptions.php:472
+#: inc/modules/themeoptions/class-pdfoptions.php:490
+#: inc/modules/themeoptions/class-pdfoptions.php:508
+#: inc/modules/themeoptions/class-pdfoptions.php:529
+#: inc/modules/themeoptions/class-pdfoptions.php:550
+#: inc/modules/themeoptions/class-pdfoptions.php:569
+#: inc/modules/themeoptions/class-pdfoptions.php:588
 msgid "Custom&hellip;"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:585
+#: inc/admin/covergenerator/namespace.php:589
 msgid "Choose text color and background colors below."
 msgstr ""
 
 #. translators: 1: minimum width, 2: minimum height, 3: image width 4: image
 #. height
-#: inc/admin/covergenerator/namespace.php:750
+#: inc/admin/covergenerator/namespace.php:754
 msgid ""
 "Your image is too small. The image must be %1$d by %2$d pixels. Your image "
 "is %3$d by %4$d pixels."
 msgstr ""
 
 #. translators: 1: pdf page width, 2: pdf page height
-#: inc/admin/covergenerator/namespace.php:760
+#: inc/admin/covergenerator/namespace.php:764
 msgid ""
 "Your image is the wrong aspect ratio. The image must have an aspect ratio of"
 " %1$s to %2$s."
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:22
-msgid "Pressbooks News"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:94 inc/admin/dashboard/namespace.php:177
-msgid "Book Permissions"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:134
-msgid "My Book"
-msgstr "என் நூல்"
-
-#: inc/admin/dashboard/namespace.php:135 inc/admin/laf/namespace.php:792
-msgid "Users"
-msgstr "பயனாளர்கள்"
-
-#: inc/admin/dashboard/namespace.php:193
-msgid "Book Invitations"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:219
-msgid "You have been invited to join <a href=\"%1$s\">%2$s</a> as %3$s %4$s"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:229
-msgid "Accept"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:242
-msgid "Welcome to Pressbooks!"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:245
-msgid "You do not have access to any books at the moment."
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:252
-msgid ""
-"This network does not allow users to create new books. To create a new book,"
-" please contact your Pressbooks Network Manager"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:254 inc/admin/dashboard/namespace.php:270
-msgid "at"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:261
-msgid "Create a Book"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:263 inc/admin/laf/namespace.php:407
-#: inc/admin/laf/namespace.php:613 inc/admin/laf/namespace.php:614
-#: templates/admin/cloner.php:13
-msgid "Clone a Book"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:268
-msgid ""
-"You can also request access to an existing book by contacting the book's "
-"author or the institution's Pressbooks Network Manager"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:284 inc/class-activation.php:242
-#: inc/modules/themeoptions/class-pdfoptions.php:287 tests/test-cloner.php:63
-#: templates/export/epub/toc.blade.php:13
-msgid "Table of Contents"
-msgstr "பொருளடக்கம்"
-
-#: inc/admin/dashboard/namespace.php:286 inc/admin/metaboxes/namespace.php:664
-#: inc/api/endpoints/controller/class-toc.php:192
-#: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
-#: inc/posttype/namespace.php:548 templates/admin/import.php:91
-#: templates/admin/organize.php:64 templates/admin/organize.php:87
-msgid "Front Matter"
-msgstr "முன்பகுதி"
-
-#: inc/admin/dashboard/namespace.php:327 inc/admin/metaboxes/namespace.php:666
-#: inc/api/endpoints/controller/class-toc.php:225
-#: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
-#: inc/posttype/namespace.php:551 templates/admin/import.php:96
-#: templates/admin/organize.php:66 templates/admin/organize.php:95
-msgid "Back Matter"
-msgstr "பிற்பகுதி"
-
-#: inc/admin/dashboard/namespace.php:346 inc/admin/dashboard/namespace.php:434
-#: templates/admin/organize.php:272 templates/admin/organize.php:429
-msgid "Add"
-msgstr "சேர்க்கவும்"
-
-#: inc/admin/dashboard/namespace.php:346 inc/admin/dashboard/namespace.php:434
-#: inc/admin/laf/namespace.php:148
-msgid "Organize"
-msgstr "ஒருங்கிணை"
-
-#: inc/admin/dashboard/namespace.php:420
-msgid "%1$s total users: "
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:443 inc/admin/dashboard/namespace.php:444
-#: inc/admin/laf/namespace.php:776 inc/admin/laf/namespace.php:851
+#: inc/admin/dashboard/class-dashboard.php:54 inc/admin/laf/namespace.php:803
+#: inc/admin/laf/namespace.php:878 inc/admin/menus/class-sidebar.php:198
+#: inc/admin/menus/class-sidebar.php:199 inc/admin/menus/class-topbar.php:124
 msgid "Dashboard"
 msgstr "கட்டுப்பாட்டகம்"
 
-#: inc/admin/dashboard/namespace.php:493
-msgid "Dashboard Feed"
+#: inc/admin/dashboard/class-dashboard.php:55
+msgid "Home"
+msgstr "முகப்பு"
+
+#: inc/admin/dashboard/class-invitations.php:29
+msgid "an"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:500
-msgid "Display Feed"
+#: inc/admin/dashboard/class-invitations.php:30
+msgid "a"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:505
-msgid "Display an RSS feed widget on the dashboard."
+#: inc/admin/dashboard/class-networkdashboard.php:79
+msgid "Brand your network"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:511
-msgid "Feed Title"
+#: inc/admin/dashboard/class-networkdashboard.php:81
+msgid "Display your institutional logos and colors across your network"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:519
-msgid "Feed URL"
+#: inc/admin/dashboard/class-networkdashboard.php:86
+msgid "Customize your homepage"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:546
-msgid "Adjust settings for your dashboard RSS feed widget below."
+#: inc/admin/dashboard/class-networkdashboard.php:93
+msgid "Review network settings"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:100
+msgid "Learn about analytics options"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:128
+msgid "Configure Single Sign On (SSO)"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:144
+msgid "Join the Pressbooks Community Forum"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:152
+msgid "Complete your onboarding"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:161
+msgid "Take the 'Readiness to Launch' survey"
+msgstr ""
+
+#: inc/admin/dashboard/class-networkdashboard.php:163
+msgid "Complete a brief survey about your onboarding experience"
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:21 inc/admin/dashboard/namespace.php:22
+msgid "Integrations"
 msgstr ""
 
 #: inc/admin/delete/class-book.php:52
@@ -772,265 +676,312 @@ msgid ""
 "###SITE_NAME###"
 msgstr ""
 
-#: inc/admin/diagnostics/namespace.php:33
-#: inc/admin/diagnostics/namespace.php:34 inc/admin/laf/namespace.php:108
+#: inc/admin/diagnostics/namespace.php:32
+#: inc/admin/diagnostics/namespace.php:33 inc/admin/laf/namespace.php:110
 #: templates/admin/diagnostics.blade.php:4
 msgid "Diagnostics"
 msgstr ""
 
-#: inc/admin/diagnostics/namespace.php:199
+#: inc/admin/diagnostics/namespace.php:197
 msgid "Stylesheet regenerated."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:74 inc/admin/laf/namespace.php:736
+#: inc/admin/laf/namespace.php:76
 msgid "Contact"
 msgstr "தொடர்பு"
 
-#: inc/admin/laf/namespace.php:83
+#: inc/admin/laf/namespace.php:85
 msgid "Powered by %s"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:103
+#: inc/admin/laf/namespace.php:105
 msgid "Guides and Tutorials"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:113 templates/admin/sitemap.blade.php:2
+#: inc/admin/laf/namespace.php:115 templates/admin/sitemap.blade.php:2
 msgid "Site Map"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:163
+#: inc/admin/laf/namespace.php:150
+msgid "Organize"
+msgstr "ஒருங்கிணை"
+
+#: inc/admin/laf/namespace.php:165
 msgid "private"
 msgstr "தனிமை"
 
-#: inc/admin/laf/namespace.php:164
+#: inc/admin/laf/namespace.php:166
 msgid "public"
 msgstr "வெளிப்படை"
 
-#: inc/admin/laf/namespace.php:166
+#: inc/admin/laf/namespace.php:167
+#: templates/metaboxes/fields/reorderable-multiselect.blade.php:5
+msgid "Move Up"
+msgstr "மேல நகரவும் "
+
+#: inc/admin/laf/namespace.php:168
+#: templates/metaboxes/fields/reorderable-multiselect.blade.php:6
+msgid "Move Down"
+msgstr "கீழே நகரவும்"
+
+#: inc/admin/laf/namespace.php:170
 msgid "Updating book."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:167
+#: inc/admin/laf/namespace.php:171
 msgid "Updating chapters."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:168
+#: inc/admin/laf/namespace.php:172
 msgid "Updating part."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:169
+#: inc/admin/laf/namespace.php:173
 msgid "Updating front matter."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:170
+#: inc/admin/laf/namespace.php:174
 msgid "Updating back matter."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:173
+#: inc/admin/laf/namespace.php:177
 msgid "The book has been successfully updated!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:174
+#: inc/admin/laf/namespace.php:178
 msgid "The chapters has been successfully updated!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:175
+#: inc/admin/laf/namespace.php:179
 msgid "The part has been successfully updated!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:176
+#: inc/admin/laf/namespace.php:180
 msgid "The front matter has been successfully updated!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:177
+#: inc/admin/laf/namespace.php:181
 msgid "The back matter has been successfully updated!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:180
+#: inc/admin/laf/namespace.php:184
 msgid "Sorry, the book could not be updated.!"
 msgstr "மன்னிக்க! இந்த நூலை இற்றைப்படுத்தல் இயலவில்லை"
 
-#: inc/admin/laf/namespace.php:181
+#: inc/admin/laf/namespace.php:185
 msgid "Sorry, the chapters could not be updated."
 msgstr "மன்னிக்க! இந்த அகராதியை இற்றைப்படுத்தல் இயலவில்லை"
 
-#: inc/admin/laf/namespace.php:182
+#: inc/admin/laf/namespace.php:186
 msgid "Sorry, the part could not be updated."
 msgstr "மன்னிக்க! இந்த பகுதியை இற்றைப்படுத்தல் இயலவில்லை"
 
-#: inc/admin/laf/namespace.php:183
+#: inc/admin/laf/namespace.php:187
 msgid "Sorry, the front matter could not be updated."
 msgstr "மன்னிக்க! முன் பகுதி செய்தியய் இற்றைப்படுத்தல் இயலவில்லை "
 
-#: inc/admin/laf/namespace.php:184
+#: inc/admin/laf/namespace.php:188
 msgid "Sorry, the back matter could not be updated."
 msgstr "மன்னிக்க! பின் பகுதி செய்தியய் இற்றைப்படுத்தல் இயலவில்லை"
 
-#: inc/admin/laf/namespace.php:194 inc/admin/laf/namespace.php:195
-#: templates/admin/organize.php:74 templates/admin/organize.php:283
+#: inc/admin/laf/namespace.php:198 inc/admin/laf/namespace.php:199
+#: templates/admin/organize.blade.php:61 templates/admin/organize.blade.php:95
 msgid "Add Part"
 msgstr "பாகத்தைச் சேர்"
 
-#: inc/admin/laf/namespace.php:202 inc/admin/laf/namespace.php:203
-#: templates/admin/organize.php:73
+#: inc/admin/laf/namespace.php:206 inc/admin/laf/namespace.php:207
+#: templates/admin/organize.blade.php:60
 msgid "Add Chapter"
 msgstr "அதிகாரத்தைச் சேர்"
 
-#: inc/admin/laf/namespace.php:210 inc/admin/laf/namespace.php:211
-#: templates/admin/organize.php:71
+#: inc/admin/laf/namespace.php:214 inc/admin/laf/namespace.php:215
+#: templates/admin/organize.blade.php:58
 msgid "Add Front Matter"
 msgstr "முற்பகுதியைச் சேர்"
 
-#: inc/admin/laf/namespace.php:218 inc/admin/laf/namespace.php:219
-#: templates/admin/organize.php:72
+#: inc/admin/laf/namespace.php:222 inc/admin/laf/namespace.php:223
+#: templates/admin/organize.blade.php:59
 msgid "Add Back Matter"
 msgstr "பிற்பகுதியைச் சேர்"
 
-#: inc/admin/laf/namespace.php:226 inc/admin/laf/namespace.php:227
-#: inc/editor/namespace.php:146 inc/posttype/namespace.php:195
+#: inc/admin/laf/namespace.php:230 inc/admin/laf/namespace.php:231
+#: inc/editor/namespace.php:147 inc/posttype/namespace.php:195
 msgid "Glossary Terms"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:234 inc/admin/laf/namespace.php:235
+#: inc/admin/laf/namespace.php:238 inc/admin/laf/namespace.php:239
 msgid "Chapter Types"
 msgstr "அகராதி வகைகள்"
 
-#: inc/admin/laf/namespace.php:242 inc/admin/laf/namespace.php:243
+#: inc/admin/laf/namespace.php:246 inc/admin/laf/namespace.php:247
 msgid "Front Matter Types"
 msgstr "முற்பகுதி வகைகள் "
 
-#: inc/admin/laf/namespace.php:250 inc/admin/laf/namespace.php:251
+#: inc/admin/laf/namespace.php:254 inc/admin/laf/namespace.php:255
 msgid "Back Matter Types"
 msgstr "பிற்பகுதி வகைகள்"
 
-#: inc/admin/laf/namespace.php:258 inc/admin/laf/namespace.php:259
+#: inc/admin/laf/namespace.php:262 inc/admin/laf/namespace.php:263
 msgid "Glossary Types"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:285
+#: inc/admin/laf/namespace.php:289
 #: inc/modules/import/wordpress/class-wxr.php:542
-#: inc/posttype/namespace.php:151
+#: inc/posttype/namespace.php:151 templates/admin/cloner/stats.blade.php:3
 msgid "Book Info"
 msgstr "நூல் விவரங்கள்"
 
-#: inc/admin/laf/namespace.php:296
+#: inc/admin/laf/namespace.php:302
+msgid "Choose institution(s)... "
+msgstr ""
+
+#: inc/admin/laf/namespace.php:303
 msgid "Choose a subject…"
 msgstr "தலைப்புப் பொருள்"
 
-#: inc/admin/laf/namespace.php:297
+#: inc/admin/laf/namespace.php:304
 msgid "Choose some subject(s)…"
 msgstr "தலைப்புப் பொருள் தேர்ந்தெடு"
 
-#: inc/admin/laf/namespace.php:307 inc/admin/laf/namespace.php:308
+#: inc/admin/laf/namespace.php:327 inc/admin/laf/namespace.php:328
 msgid "Contributors"
 msgstr "பங்களித்தவர்கள் "
 
-#: inc/admin/laf/namespace.php:314 inc/admin/laf/namespace.php:372
-#: templates/admin/organize.php:70 templates/admin/export.blade.php:11
+#: inc/admin/laf/namespace.php:334 inc/admin/laf/namespace.php:412
+#: templates/admin/export.blade.php:11 templates/admin/icon.blade.php:15
+#: templates/admin/organize.blade.php:57
 msgid "Export"
 msgstr "ஏற்றுமதி "
 
-#: inc/admin/laf/namespace.php:327
+#: inc/admin/laf/namespace.php:347
 msgid "Are you sure you want to delete these export files?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:328
+#: inc/admin/laf/namespace.php:348
 msgid "Up to 5 files can be pinned at once."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:329
+#: inc/admin/laf/namespace.php:349
 msgid "Cannot pin more than 3 of the same file type."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:333
+#: inc/admin/laf/namespace.php:353
 msgid ""
 "Too many pinned files. Deselect one of the pinned files before attempting to"
 " export."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:334
+#: inc/admin/laf/namespace.php:354
 msgid ""
 "Exports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:359 inc/admin/laf/namespace.php:574
-#: inc/admin/laf/namespace.php:1466
-#: inc/admin/network/class-sharingandprivacyoptions.php:459
-msgid "Sharing and Privacy Settings"
-msgstr ""
-
-#: inc/admin/laf/namespace.php:359 inc/admin/laf/namespace.php:574
-msgid "Sharing &amp; Privacy"
-msgstr ""
-
-#: inc/admin/laf/namespace.php:377 inc/admin/laf/namespace.php:378
-msgid "QuickLaTeX"
-msgstr ""
-
-#: inc/admin/laf/namespace.php:386 inc/utility/class-handlestransfers.php:88
+#: inc/admin/laf/namespace.php:366 inc/utility/class-handlestransfers.php:88
 #: templates/admin/import.php:38 templates/admin/import.php:114
 msgid "Import"
 msgstr "இறக்குமதி"
 
-#: inc/admin/laf/namespace.php:394
+#: inc/admin/laf/namespace.php:374
 msgid ""
 "Imports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:415 inc/admin/laf/namespace.php:626
+#: inc/admin/laf/namespace.php:399 inc/admin/laf/namespace.php:595
+#: inc/admin/laf/namespace.php:1518
+#: inc/admin/network/class-sharingandprivacyoptions.php:473
+msgid "Sharing and Privacy Settings"
+msgstr ""
+
+#: inc/admin/laf/namespace.php:399 inc/admin/laf/namespace.php:595
+msgid "Sharing &amp; Privacy"
+msgstr ""
+
+#: inc/admin/laf/namespace.php:417 inc/admin/laf/namespace.php:418
+msgid "QuickLaTeX"
+msgstr ""
+
+#: inc/admin/laf/namespace.php:427 inc/admin/laf/namespace.php:634
+#: inc/admin/laf/namespace.php:635 templates/admin/cloner/page.blade.php:3
+msgid "Clone a Book"
+msgstr ""
+
+#: inc/admin/laf/namespace.php:435 inc/admin/laf/namespace.php:648
 msgid ""
 "Cloning is not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:689 inc/admin/laf/namespace.php:700
-msgid "About Pressbooks"
-msgstr "பிரஸ்புக்ஸ் பற்றி"
+#: inc/admin/laf/namespace.php:662 inc/admin/laf/namespace.php:663
+msgid "Cloning Stats"
+msgstr ""
 
-#: inc/admin/laf/namespace.php:711
-msgid "Pressbooks.com"
-msgstr "பிரஸ்புக்ஸ்.காம்"
+#: inc/admin/laf/namespace.php:680 inc/admin/metaboxes/namespace.php:180
+#: inc/api/endpoints/controller/class-toc.php:192
+#: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
+#: inc/posttype/namespace.php:548 templates/admin/import.php:91
+#: templates/admin/organize.blade.php:49
+msgid "Front Matter"
+msgstr "முன்பகுதி"
 
-#: inc/admin/laf/namespace.php:721
-msgid "Help"
-msgstr "உதவி"
+#: inc/admin/laf/namespace.php:688 inc/admin/metaboxes/namespace.php:184
+#: inc/api/endpoints/controller/class-toc.php:209 inc/class-sass.php:78
+#: inc/modules/themeoptions/class-globaloptions.php:605
+#: inc/posttype/namespace.php:64 inc/posttype/namespace.php:545
+#: inc/posttype/namespace.php:584 templates/admin/import.php:92
+msgid "Chapter"
+msgstr "அதிகாரம்"
 
-#: inc/admin/laf/namespace.php:765
+#: inc/admin/laf/namespace.php:698 inc/admin/metaboxes/namespace.php:188
+#: inc/api/endpoints/controller/class-toc.php:225
+#: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
+#: inc/posttype/namespace.php:551 templates/admin/import.php:96
+#: templates/admin/organize.blade.php:51
+msgid "Back Matter"
+msgstr "பிற்பகுதி"
+
+#: inc/admin/laf/namespace.php:792
 msgid "Network Admin"
 msgstr "வலைப்பின்னல் நிர்வாகி"
 
-#: inc/admin/laf/namespace.php:784 inc/admin/laf/namespace.php:1521
-#: inc/admin/laf/namespace.php:1531
+#: inc/admin/laf/namespace.php:811 inc/admin/laf/namespace.php:1573
+#: inc/admin/laf/namespace.php:1583 inc/admin/menus/class-sidebar.php:209
+#: inc/admin/menus/class-sidebar.php:210 inc/admin/menus/class-topbar.php:129
 msgid "Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:801
+#: inc/admin/laf/namespace.php:819 inc/admin/menus/class-sidebar.php:219
+#: inc/admin/menus/class-sidebar.php:220 inc/admin/menus/class-topbar.php:134
+msgid "Users"
+msgstr "பயனாளர்கள்"
+
+#: inc/admin/laf/namespace.php:828
 msgid "Themes"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:809
+#: inc/admin/laf/namespace.php:836 inc/admin/menus/class-sidebar.php:416
+#: inc/admin/menus/class-sidebar.php:417 inc/admin/menus/class-topbar.php:149
 msgid "Plugins"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:859
+#: inc/admin/laf/namespace.php:886
 msgid "Visit Website"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:869
+#: inc/admin/laf/namespace.php:896 inc/admin/menus/class-topbar.php:191
 msgid "My Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:889
+#: inc/admin/laf/namespace.php:916
 msgid "Create A New Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:901
+#: inc/admin/laf/namespace.php:928
 msgid "Clone A Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1123
+#: inc/admin/laf/namespace.php:1133
 msgid ""
 "Are you sure you want to unlock your theme? This will update your book to "
 "the most recent version of your selected theme, which may change your "
@@ -1038,392 +989,487 @@ msgid ""
 "page, this action will NOT be reversable!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1186
+#: inc/admin/laf/namespace.php:1234
 msgid "Book Visibility"
 msgstr "நூல் காண்பு நிலை"
 
-#: inc/admin/laf/namespace.php:1200
+#: inc/admin/laf/namespace.php:1248
 msgid "Private Content"
 msgstr "தனிப்பட்ட கருத்து"
 
-#: inc/admin/laf/namespace.php:1213
+#: inc/admin/laf/namespace.php:1262
 msgid "Disable Comments"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1228
+#: inc/admin/laf/namespace.php:1280
 msgid "Share Latest Export Files"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1258 templates/admin/cloner.php:14
+#: inc/admin/laf/namespace.php:1310
 msgid "Pressbooks Directory"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1275
+#: inc/admin/laf/namespace.php:1327
 msgid "Sharing and Privacy settings"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1290
+#: inc/admin/laf/namespace.php:1342
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "பொது.  நான் இப்புத்தகத்தை எல்லோரும் பார்க்கும் வண்ணம் வைத்திட விரும்புகிறேன். "
 
-#: inc/admin/laf/namespace.php:1296
+#: inc/admin/laf/namespace.php:1348
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "தனிப்பயனுக்கானது. இந்நூலை நான் அழைப்பவர் மட்டும் காணத்தக்கதாக்க விரும்புகிறேன்."
 
-#: inc/admin/laf/namespace.php:1320
+#: inc/admin/laf/namespace.php:1372
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1323
+#: inc/admin/laf/namespace.php:1375
 msgid "Only logged in editors and administrators."
 msgstr "ஆசிரியர்  நிர்வாகி உள்நுழைவு மட்டும்"
 
-#: inc/admin/laf/namespace.php:1325
+#: inc/admin/laf/namespace.php:1377
 msgid "All logged in users including subscribers."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1346
+#: inc/admin/laf/namespace.php:1398
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1352
+#: inc/admin/laf/namespace.php:1404
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1368
+#: inc/admin/laf/namespace.php:1420
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1374
+#: inc/admin/laf/namespace.php:1426
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1393
+#: inc/admin/laf/namespace.php:1445
 msgid "Yes. I want this book to be listed in the Pressbooks directory."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1399
+#: inc/admin/laf/namespace.php:1451
 msgid "No. Exclude this book from the Pressbooks directory."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1524
+#: inc/admin/laf/namespace.php:1576
 msgid "All Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1534
+#: inc/admin/laf/namespace.php:1586
 msgid "Search Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1540
+#: inc/admin/laf/namespace.php:1592
 msgid "Edit Book: %s"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1543 inc/admin/laf/namespace.php:1552
+#: inc/admin/laf/namespace.php:1595 inc/admin/laf/namespace.php:1604
 msgid "Book Address (URL)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1549
+#: inc/admin/laf/namespace.php:1601
 msgid "Add New Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1555
-#: inc/modules/themeoptions/class-pdfoptions.php:373
-#: inc/modules/themeoptions/class-pdfoptions.php:392
-#: inc/modules/themeoptions/class-pdfoptions.php:411
-#: inc/modules/themeoptions/class-pdfoptions.php:430
-#: inc/modules/themeoptions/class-pdfoptions.php:449
-#: inc/modules/themeoptions/class-pdfoptions.php:467
-#: inc/modules/themeoptions/class-pdfoptions.php:485
-#: inc/modules/themeoptions/class-pdfoptions.php:506
-#: inc/modules/themeoptions/class-pdfoptions.php:527
-#: inc/modules/themeoptions/class-pdfoptions.php:546
+#: inc/admin/laf/namespace.php:1607
+#: inc/modules/themeoptions/class-pdfoptions.php:408
+#: inc/modules/themeoptions/class-pdfoptions.php:427
+#: inc/modules/themeoptions/class-pdfoptions.php:446
+#: inc/modules/themeoptions/class-pdfoptions.php:465
+#: inc/modules/themeoptions/class-pdfoptions.php:484
+#: inc/modules/themeoptions/class-pdfoptions.php:502
+#: inc/modules/themeoptions/class-pdfoptions.php:520
+#: inc/modules/themeoptions/class-pdfoptions.php:541
+#: inc/modules/themeoptions/class-pdfoptions.php:562
+#: inc/modules/themeoptions/class-pdfoptions.php:581
 msgid "Book Title"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1558
+#: inc/admin/laf/namespace.php:1610
 msgid "Book Language"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1561
+#: inc/admin/laf/namespace.php:1613
 msgid "Add Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1578
+#: inc/admin/laf/namespace.php:1630
 msgid "Edit previous or next item"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1583
+#: inc/admin/laf/namespace.php:1635
 msgid "Edit Previous (%s)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1588
+#: inc/admin/laf/namespace.php:1640
 msgid "Edit Next (%s)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1603
+#: inc/admin/laf/namespace.php:1655
 msgid "Twitter URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1604
+#: inc/admin/laf/namespace.php:1656
 msgid "LinkedIn URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1605
+#: inc/admin/laf/namespace.php:1657
 msgid "GitHub URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1651
+#: inc/admin/laf/namespace.php:1703
 msgid ""
 "Your institutional affiliation, e.g. Rebus Foundation, Open University, "
 "Amnesty International."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:103
+#: inc/admin/menus/class-sidebar.php:87
+msgid "Sorry, you are not allowed to access this page."
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:229 inc/admin/menus/class-sidebar.php:230
+#: inc/admin/menus/class-topbar.php:139
+msgid "Appearance"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:239 inc/admin/menus/class-sidebar.php:240
+#: inc/admin/menus/class-topbar.php:144
+msgid "Pages"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:250 inc/admin/menus/class-sidebar.php:251
+#: inc/admin/menus/class-sidebar.php:449 inc/admin/menus/class-sidebar.php:450
+#: inc/admin/menus/class-topbar.php:154
+msgid "Settings"
+msgstr "அமைப்பு"
+
+#: inc/admin/menus/class-sidebar.php:261 inc/admin/menus/class-sidebar.php:262
+#: inc/admin/menus/class-sidebar.php:517 inc/admin/menus/class-sidebar.php:518
+msgid "Network Options"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:274 inc/admin/menus/class-sidebar.php:275
+#: inc/admin/menus/class-sidebar.php:304 inc/admin/menus/class-sidebar.php:305
+#: inc/admin/menus/class-sidebar.php:596 inc/admin/menus/class-sidebar.php:597
+#: inc/admin/menus/class-topbar.php:159
+msgid "Stats"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:286 inc/admin/menus/class-sidebar.php:287
+msgid "Network Stats"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:295 inc/admin/menus/class-sidebar.php:296
+#: inc/admin/menus/class-sidebar.php:314 inc/admin/menus/class-sidebar.php:315
+msgid "Analytics"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:334 inc/admin/menus/class-sidebar.php:335
+msgid "Upgrade Network"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:347 inc/admin/menus/class-sidebar.php:348
+#: inc/admin/menus/class-sidebar.php:356 inc/admin/menus/class-sidebar.php:357
+msgid "Network Users"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:367 inc/admin/menus/class-sidebar.php:368
+msgid "Root Site Users"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:378 inc/admin/menus/class-sidebar.php:379
+msgid "User Activation Keys"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:428 inc/admin/menus/class-sidebar.php:429
+msgid "Network Plugins"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:440 inc/admin/menus/class-sidebar.php:441
+msgid "Root Site Plugins"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:462 inc/admin/menus/class-sidebar.php:463
+msgid "Network Settings"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:470 inc/admin/menus/class-sidebar.php:471
+msgid "Network Setup"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:478 inc/admin/menus/class-sidebar.php:479
+#: inc/admin/networkmanagers/namespace.php:20
+#: inc/admin/networkmanagers/namespace.php:21
+msgid "Network Managers"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:487 inc/admin/menus/class-sidebar.php:488
+msgid "Whitelabel Settings"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:497 inc/admin/menus/class-sidebar.php:498
+msgid "Object Cache"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:506 inc/admin/menus/class-sidebar.php:507
+#: inc/class-googleanalytics.php:69 inc/class-googleanalytics.php:70
+#: inc/class-googleanalytics.php:79 inc/class-googleanalytics.php:80
+#: inc/class-googleanalytics.php:217 inc/class-googleanalytics.php:267
+msgid "Google Analytics"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:525 inc/admin/menus/class-sidebar.php:526
+msgid "Sharing & Privacy"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:537 inc/admin/menus/class-sidebar.php:538
+msgid "Root Site General Settings"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:550 inc/admin/menus/class-sidebar.php:551
+msgid "Root Site Media Settings"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:563 inc/admin/menus/class-sidebar.php:564
+msgid "Root Site Privacy Settings"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:575 inc/admin/menus/class-sidebar.php:576
+#: inc/admin/menus/class-sidebar.php:586 inc/admin/menus/class-sidebar.php:587
+msgid "PB Stats"
+msgstr ""
+
+#: inc/admin/menus/class-topbar.php:109
+msgid "About Pressbooks"
+msgstr "பிரஸ்புக்ஸ் பற்றி"
+
+#: inc/admin/menus/class-topbar.php:165
+msgid "Administer Network"
+msgstr ""
+
+#: inc/admin/menus/class-topbar.php:244 inc/registration/namespace.php:59
+msgid "Create Book"
+msgstr "நூல் உருவாக்குங்கள் "
+
+#: inc/admin/menus/class-topbar.php:263
+msgid "Clone Book"
+msgstr ""
+
+#: inc/admin/menus/class-topbar.php:277
+msgid "Add Users"
+msgstr ""
+
+#: inc/admin/metaboxes/class-about.php:16
+msgid "About the Book"
+msgstr ""
+
+#: inc/admin/metaboxes/class-about.php:27
+msgid "Book Tagline"
+msgstr "புத்தகத்தின் துணைத் தலைப்பு"
+
+#: inc/admin/metaboxes/class-about.php:28
 msgid ""
-"Your cover image was not saved because it is too small (%1$s x %2$s). It "
-"should be at least 800px in height."
-msgstr ""
+"A very short description of your book. It should fit in a Twitter post, and "
+"encapsulate your book in the briefest sentence."
+msgstr "உங்கள் நூல் பற்றிய அறிமுக உரை. ஒரு டிவிட்டர் பதிவுக்குள் அடங்கும்படியும் நூலின் மையக்கருவை விளக்கும் படியும் இருக்க வேண்டும்."
 
-#: inc/admin/metaboxes/namespace.php:109
+#: inc/admin/metaboxes/class-about.php:32
+msgid "Short Description"
+msgstr "குறு விளக்கம்"
+
+#: inc/admin/metaboxes/class-about.php:33
 msgid ""
-"Your cover image was not saved because the aspect ratio (%s) is outside the "
-"permitted range (.66 to 1). We recommend an aspect ratio of .75."
+"A short paragraph about your book, for catalogs, reviewers etc. to quote."
+msgstr "பட்டியலுக்காகவும் விமர்சகர்களுக்காகவும் உங்கள் நூலைப்பற்றிய குறுகிய விளக்கம்."
+
+#: inc/admin/metaboxes/class-about.php:37
+msgid "Long Description"
+msgstr "முழு விளக்கம் "
+
+#: inc/admin/metaboxes/class-about.php:38
+msgid "The full description of your book."
+msgstr "உங்கள் நூலின் முழு விவரம்"
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:19
+msgid "Additional Catalog Information"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:134 inc/admin/metaboxes/namespace.php:189
-#: inc/class-metadata.php:437
-msgid "Cover Image"
-msgstr "அட்டைப்படம்"
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:26
+msgid "Series Title"
+msgstr "தொடர் தலைப்பு"
 
-#: inc/admin/metaboxes/namespace.php:175 inc/admin/metaboxes/namespace.php:721
-#: inc/admin/metaboxes/namespace.php:783
-#: inc/api/endpoints/controller/class-toc.php:202 inc/class-sass.php:89
-#: inc/modules/export/epub/class-epub.php:1910
-#: inc/modules/themeoptions/class-globaloptions.php:563
-#: inc/posttype/namespace.php:87 inc/posttype/namespace.php:542
-#: inc/posttype/namespace.php:580 templates/admin/import.php:94
-#: tests/test-posttype.php:261
-msgid "Part"
-msgstr "பாகம்"
-
-#: inc/admin/metaboxes/namespace.php:179
-msgid "Save Part"
-msgstr "பாகத்தைச் சேமிக்கவும்"
-
-#: inc/admin/metaboxes/namespace.php:180
-msgid "Save Book Information"
-msgstr "நூல் விவரங்களைச் சேமிக்கவும்"
-
-#: inc/admin/metaboxes/namespace.php:181
-msgid "Status & Visibility"
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:27
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:32
+msgid "Add if your book is part of a series."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:195
-msgid "General Book Information"
-msgstr "பொது நூல் விவரங்கள்"
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:31
+msgid "Series Number"
+msgstr "தொடர் எண்"
 
-#: inc/admin/metaboxes/namespace.php:213
-msgid "Short Title"
-msgstr "குறுந்தலைப்பு"
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:36
+msgid "Keywords"
+msgstr "குறிச்சொற்கள்"
 
-#: inc/admin/metaboxes/namespace.php:214
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:37
 msgid ""
-"In case of long titles that might be truncated in running heads in the PDF "
-"export."
-msgstr "PDF ஏற்றுமதியின் ஓடு தலைக்குறிப்பாக பயன்படும்போது துண்டிக்கப்படும் அளவுக்கு நீண்ட தலைப்பு எனில் "
-
-#: inc/admin/metaboxes/namespace.php:234
-msgid "Author(s)"
+"These are added to your webbook cover page, and in your ebook metadata. "
+"Keywords are used by online book stores and search engines."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:238 inc/admin/metaboxes/namespace.php:250
-#: inc/admin/metaboxes/namespace.php:262 inc/admin/metaboxes/namespace.php:274
-#: inc/admin/metaboxes/namespace.php:286 inc/admin/metaboxes/namespace.php:298
-#: inc/admin/metaboxes/namespace.php:695
-msgid "Create New Contributor"
-msgstr ""
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:42
+msgid "Hashtag"
+msgstr "Hashtag"
 
-#: inc/admin/metaboxes/namespace.php:239 inc/admin/metaboxes/namespace.php:696
-msgid "Choose author(s)..."
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:246
-msgid "Editor(s)"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:251
-msgid "Choose editor(s)..."
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:258
-msgid "Translator(s)"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:263
-msgid "Choose translator(s)..."
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:270
-msgid "Reviewer(s)"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:275
-msgid "Choose reviewer(s)..."
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:282
-msgid "Illustrator(s)"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:287
-msgid "Choose illustrator(s)..."
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:294
-msgid "Contributor(s)"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:299
-msgid "Choose contributor(s)..."
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:313
-msgid "Institution(s)"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:314
-msgid "Choose institution(s)..."
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:315
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:43
 msgid ""
-"This optional field can be used to display the institution(s) which created "
-"this resource. If your college or university is not listed, please contact "
-"your network manager."
+"These are added to your webbook cover page. For those of you who like "
+"Twitter."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:324
-msgid "Publisher"
-msgstr "வெளியீட்டாளர்"
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:47
+msgid "List Price (Print)"
+msgstr "பட்டியல் விலை (அச்சு)"
 
-#: inc/admin/metaboxes/namespace.php:325 inc/admin/metaboxes/namespace.php:336
-msgid "This text appears on the title page of your book."
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:48
+msgid "The list price of your book in print."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:335
-msgid "Publisher City"
-msgstr "வெளியீட்டு இடம்"
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:52
+msgid "List Price (PDF)"
+msgstr "பட்டியல் விலை (PDF)"
 
-#: inc/admin/metaboxes/namespace.php:347
-msgid "Publication Date"
-msgstr "வெளியீட்டு நாள்"
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:53
+msgid "The list price of your book in PDF format."
+msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:348 inc/admin/metaboxes/namespace.php:358
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:57
+msgid "List Price (ebook)"
+msgstr "பட்டியல் விலை (மின்னூல்)"
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:58
+msgid "The list price of your book in Ebook formats."
+msgstr ""
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:62
+msgid "List Price (Web)"
+msgstr "பட்டியல் விலை (Web)"
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:63
+msgid "The list price of your webbook."
+msgstr ""
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:67
+msgid "Audience"
+msgstr ""
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:68
+msgid "The target audience for your book."
+msgstr ""
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:70
+msgid "Choose an audience&hellip;"
+msgstr ""
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:71
+msgid "Juvenile"
+msgstr ""
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:72
+msgid "Young Adult"
+msgstr ""
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:73
+msgid "Adult"
+msgstr ""
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:78
+msgid "BISAC Subject(s)"
+msgstr ""
+
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:79
 msgid ""
-"This is added to the metadata in your ebook. Please write date in YYYY-MM-DD"
-" format."
+"BISAC Subject Headings help libraries and bookstores properly classify your "
+"book. To select the appropriate subject heading for your book, consult %s."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:357
-msgid "On-Sale Date"
-msgstr "விற்பனை நாள்"
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:79
+msgid "the BISAC Subject Headings list"
+msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:366
-msgid "Ebook ISBN"
-msgstr "மின்னூல் ISBN"
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:84
+msgid "BISAC Regional Theme"
+msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:367
+#: inc/admin/metaboxes/class-additionalcataloginformation.php:85
 msgid ""
-"ISBN is the International Standard Book Number, and you'll need one if you "
-"want to sell your book in some online ebook stores. This is added to the "
-"metadata in your ebook."
+"BISAC Regional Themes help libraries and bookstores properly classify your "
+"book."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:377
-msgid "Print ISBN"
-msgstr "அச்சு ISBN"
-
-#: inc/admin/metaboxes/namespace.php:378
-msgid ""
-"ISBN is the International Standard Book Number, and you'll need one if you "
-"want to sell your book in online and physical book stores."
-msgstr "ஐஎஸ்பிஎன் என்பது International Standard Book Number. உங்கள் நூலை மின்னூலாகவோ அச்சுப் படியாகவோ விற்க இது தேவைப்படும்."
-
-#: inc/admin/metaboxes/namespace.php:388
-msgid "Digital Object Identifier (DOI)"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:400
-msgid "Language"
-msgstr "மொழி"
-
-#: inc/admin/metaboxes/namespace.php:401
-msgid ""
-"This sets metadata in your ebook, making it easier to find in some stores. "
-"It also changes some system generated content for supported languages, such "
-"as the \"Contents\" header."
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:401
-msgid "Help translate Pressbooks into your language!"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:408 inc/class-licensing.php:321
-#: inc/modules/export/epub/class-epub.php:1401
+#: inc/admin/metaboxes/class-copyright.php:31 inc/class-licensing.php:333
 #: inc/modules/export/epub/class-epub.php:1423
+#: inc/modules/export/epub/class-epub.php:1445
 #: inc/modules/export/htmlbook/class-htmlbook.php:855
 #: inc/modules/export/xhtml/class-xhtml11.php:1074
 msgid "Copyright"
 msgstr "பதிப்புரிமை"
 
-#: inc/admin/metaboxes/namespace.php:421 templates/admin/cloner.php:19
+#: inc/admin/metaboxes/class-copyright.php:41
+#: templates/admin/cloner/page.blade.php:7
 msgid "Source Book URL"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:423
+#: inc/admin/metaboxes/class-copyright.php:42
 msgid ""
 "This book was cloned from a pre-existing book at the above URL. This "
 "information will be displayed on the webbook homepage."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:433
+#: inc/admin/metaboxes/class-copyright.php:47
 msgid "Copyright Year"
 msgstr "பதிப்புரிமை பெற்ற ஆண்டு "
 
-#: inc/admin/metaboxes/namespace.php:434
+#: inc/admin/metaboxes/class-copyright.php:48
 msgid "Year that the book is/was published."
 msgstr "புத்தகம் பதிக்கப்படும் / பதிக்கப்பட்ட ஆண்டு"
 
-#: inc/admin/metaboxes/namespace.php:446
+#: inc/admin/metaboxes/class-copyright.php:52
 msgid "Copyright Holder"
 msgstr "பதிப்புரிமை பெற்றவர்"
 
-#: inc/admin/metaboxes/namespace.php:447
+#: inc/admin/metaboxes/class-copyright.php:53
 msgid "Name of the copyright holder."
 msgstr "பதிப்புரிமை கொண்டிருப்பவரின் பெயர்"
 
-#: inc/admin/metaboxes/namespace.php:459
+#: inc/admin/metaboxes/class-copyright.php:57
 msgid "Copyright License"
 msgstr "பதிப்புரிமை உரிமம்"
 
-#: inc/admin/metaboxes/namespace.php:460
+#: inc/admin/metaboxes/class-copyright.php:58
 msgid "You can select various licenses including Creative Commons."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:468
+#: inc/admin/metaboxes/class-copyright.php:63
 msgid "Copyright Notice"
 msgstr "பதிப்புரிமை அறிவிப்பு"
 
-#: inc/admin/metaboxes/namespace.php:469
+#: inc/admin/metaboxes/class-copyright.php:64
 msgid ""
 "Enter a custom copyright notice, with whatever information you like. This "
 "will override the auto-generated copyright notice if All Rights Reserved or "
@@ -1432,252 +1478,192 @@ msgid ""
 "license text in both the webbook and your exports."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:478
-msgid "About the Book"
-msgstr ""
+#: inc/admin/metaboxes/class-generalinformation.php:32
+msgid "General Book Information"
+msgstr "பொது நூல் விவரங்கள்"
 
-#: inc/admin/metaboxes/namespace.php:486
-msgid "Book Tagline"
-msgstr "புத்தகத்தின் துணைத் தலைப்பு"
+#: inc/admin/metaboxes/class-generalinformation.php:44
+msgid "Short Title"
+msgstr "குறுந்தலைப்பு"
 
-#: inc/admin/metaboxes/namespace.php:487
+#: inc/admin/metaboxes/class-generalinformation.php:45
 msgid ""
-"A very short description of your book. It should fit in a Twitter post, and "
-"encapsulate your book in the briefest sentence."
-msgstr "உங்கள் நூல் பற்றிய அறிமுக உரை. ஒரு டிவிட்டர் பதிவுக்குள் அடங்கும்படியும் நூலின் மையக்கருவை விளக்கும் படியும் இருக்க வேண்டும்."
+"In case of long titles that might be truncated in running heads in the PDF "
+"export."
+msgstr "PDF ஏற்றுமதியின் ஓடு தலைக்குறிப்பாக பயன்படும்போது துண்டிக்கப்படும் அளவுக்கு நீண்ட தலைப்பு எனில் "
 
-#: inc/admin/metaboxes/namespace.php:498
-msgid "Short Description"
-msgstr "குறு விளக்கம்"
+#: inc/admin/metaboxes/class-generalinformation.php:55
+msgid "Author(s)"
+msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:499
+#: inc/admin/metaboxes/class-generalinformation.php:57
+#: inc/admin/metaboxes/class-generalinformation.php:64
+#: inc/admin/metaboxes/class-generalinformation.php:71
+#: inc/admin/metaboxes/class-generalinformation.php:78
+#: inc/admin/metaboxes/class-generalinformation.php:85
+#: inc/admin/metaboxes/class-generalinformation.php:92
+#: inc/admin/metaboxes/class-sectionmetadata.php:51
+msgid "Create New Contributor"
+msgstr ""
+
+#: inc/admin/metaboxes/class-generalinformation.php:62
+msgid "Editor(s)"
+msgstr ""
+
+#: inc/admin/metaboxes/class-generalinformation.php:69
+msgid "Translator(s)"
+msgstr ""
+
+#: inc/admin/metaboxes/class-generalinformation.php:76
+msgid "Reviewer(s)"
+msgstr ""
+
+#: inc/admin/metaboxes/class-generalinformation.php:83
+msgid "Illustrator(s)"
+msgstr ""
+
+#: inc/admin/metaboxes/class-generalinformation.php:90
+msgid "Contributor(s)"
+msgstr ""
+
+#: inc/admin/metaboxes/class-generalinformation.php:97
+msgid "Publisher"
+msgstr "வெளியீட்டாளர்"
+
+#: inc/admin/metaboxes/class-generalinformation.php:98
+#: inc/admin/metaboxes/class-generalinformation.php:104
+msgid "This text appears on the title page of your book."
+msgstr ""
+
+#: inc/admin/metaboxes/class-generalinformation.php:103
+msgid "Publisher City"
+msgstr "வெளியீட்டு இடம்"
+
+#: inc/admin/metaboxes/class-generalinformation.php:109
+msgid "Publication Date"
+msgstr "வெளியீட்டு நாள்"
+
+#: inc/admin/metaboxes/class-generalinformation.php:110
+#: inc/admin/metaboxes/class-generalinformation.php:116
+msgid "This is added to the metadata in your ebook."
+msgstr ""
+
+#: inc/admin/metaboxes/class-generalinformation.php:115
+msgid "On-Sale Date"
+msgstr "விற்பனை நாள்"
+
+#: inc/admin/metaboxes/class-generalinformation.php:121
+msgid "Ebook ISBN"
+msgstr "மின்னூல் ISBN"
+
+#: inc/admin/metaboxes/class-generalinformation.php:122
 msgid ""
-"A short paragraph about your book, for catalogs, reviewers etc. to quote."
-msgstr "பட்டியலுக்காகவும் விமர்சகர்களுக்காகவும் உங்கள் நூலைப்பற்றிய குறுகிய விளக்கம்."
-
-#: inc/admin/metaboxes/namespace.php:510
-msgid "Long Description"
-msgstr "முழு விளக்கம் "
-
-#: inc/admin/metaboxes/namespace.php:511
-msgid "The full description of your book."
-msgstr "உங்கள் நூலின் முழு விவரம்"
-
-#: inc/admin/metaboxes/namespace.php:518
-msgid "Subject(s)"
+"ISBN is the International Standard Book Number, and you'll need one if you "
+"want to sell your book in some online ebook stores. This is added to the "
+"metadata in your ebook."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:523
-msgid "Additional Catalog Information"
-msgstr ""
+#: inc/admin/metaboxes/class-generalinformation.php:127
+msgid "Print ISBN"
+msgstr "அச்சு ISBN"
 
-#: inc/admin/metaboxes/namespace.php:531
-msgid "Series Title"
-msgstr "தொடர் தலைப்பு"
-
-#: inc/admin/metaboxes/namespace.php:532 inc/admin/metaboxes/namespace.php:543
-msgid "Add if your book is part of a series."
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:542
-msgid "Series Number"
-msgstr "தொடர் எண்"
-
-#: inc/admin/metaboxes/namespace.php:553
-msgid "Keywords"
-msgstr "குறிச்சொற்கள்"
-
-#: inc/admin/metaboxes/namespace.php:555
+#: inc/admin/metaboxes/class-generalinformation.php:128
 msgid ""
-"These are added to your webbook cover page, and in your ebook metadata. "
-"Keywords are used by online book stores and search engines."
+"ISBN is the International Standard Book Number, and you'll need one if you "
+"want to sell your book in online and physical book stores."
+msgstr "ஐஎஸ்பிஎன் என்பது International Standard Book Number. உங்கள் நூலை மின்னூலாகவோ அச்சுப் படியாகவோ விற்க இது தேவைப்படும்."
+
+#: inc/admin/metaboxes/class-generalinformation.php:133
+msgid "Digital Object Identifier (DOI)"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:562
-msgid "Hashtag"
-msgstr "Hashtag"
+#: inc/admin/metaboxes/class-generalinformation.php:138
+msgid "Language"
+msgstr "மொழி"
 
-#: inc/admin/metaboxes/namespace.php:563
+#: inc/admin/metaboxes/class-generalinformation.php:139
 msgid ""
-"These are added to your webbook cover page. For those of you who like "
-"Twitter."
+"This sets metadata in your ebook, making it easier to find in some stores. "
+"It also changes some system generated content for supported languages, such "
+"as the \"Contents\" header."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:573
-msgid "List Price (Print)"
-msgstr "பட்டியல் விலை (அச்சு)"
-
-#: inc/admin/metaboxes/namespace.php:574
-msgid "The list price of your book in print."
+#: inc/admin/metaboxes/class-generalinformation.php:139
+msgid "Help translate Pressbooks into your language!"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:584
-msgid "List Price (PDF)"
-msgstr "பட்டியல் விலை (PDF)"
-
-#: inc/admin/metaboxes/namespace.php:585
-msgid "The list price of your book in PDF format."
+#: inc/admin/metaboxes/class-institutions.php:19
+#: inc/admin/metaboxes/class-institutions.php:26
+#: templates/admin/institutions.blade.php:2
+msgid "Institutions"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:595
-msgid "List Price (ebook)"
-msgstr "பட்டியல் விலை (மின்னூல்)"
-
-#: inc/admin/metaboxes/namespace.php:596
-msgid "The list price of your book in Ebook formats."
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:606
-msgid "List Price (Web)"
-msgstr "பட்டியல் விலை (Web)"
-
-#: inc/admin/metaboxes/namespace.php:607
-msgid "The list price of your webbook."
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:619
-msgid "Choose an audience&hellip;"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:620
-msgid "Juvenile"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:621
-msgid "Young Adult"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:622
-msgid "Adult"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:624
-msgid "Audience"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:625
-msgid "The target audience for your book."
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:638
-msgid "BISAC Subject(s)"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:640
+#: inc/admin/metaboxes/class-institutions.php:27
+#: templates/admin/institutions.blade.php:10
 msgid ""
-"BISAC Subject Headings help libraries and bookstores properly classify your "
-"book. To select the appropriate subject heading for your book, consult %s."
+"This optional field can be used to display the institution(s) which created "
+"this resource. If your college or university is not listed, please contact "
+"your network manager."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:640
-msgid "the BISAC Subject Headings list"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:654
-msgid "BISAC Regional Theme"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:655
-msgid ""
-"BISAC Regional Themes help libraries and bookstores properly classify your "
-"book."
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:665
-#: inc/api/endpoints/controller/class-toc.php:209 inc/class-sass.php:78
-#: inc/modules/themeoptions/class-globaloptions.php:564
-#: inc/posttype/namespace.php:64 inc/posttype/namespace.php:545
-#: inc/posttype/namespace.php:584 templates/admin/import.php:92
-#: templates/admin/organize.php:91
-msgid "Chapter"
-msgstr "அதிகாரம்"
-
-#: inc/admin/metaboxes/namespace.php:670
-msgid "%s Metadata"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:677
-msgid ""
-"%s Short Title (appears in the PDF running header and webbook navigation)"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:684
-msgid "%s Subtitle (appears in the Web/ebook/PDF output)"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:691
-msgid "%s Author(s)"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:705
-msgid "%s Copyright License (overrides book license on this page)"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:712
-msgid "%s Digital Object Identifier (DOI)"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:732
-msgid ""
-"Appears on part page. Parts will not appear if a book has only one part."
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:740
+#: inc/admin/metaboxes/class-partvisibility.php:25
 msgid "Part Visibility"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:750
+#: inc/admin/metaboxes/class-partvisibility.php:32
 msgid "Invisible"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:751
+#: inc/admin/metaboxes/class-partvisibility.php:33
 msgid "Hide from table of contents and part numbering."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:905
-msgid "Show in Glossary Lists"
+#: inc/admin/metaboxes/class-sectionmetadata.php:30
+msgid "%s Metadata"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:916
-msgid "Preview"
+#: inc/admin/metaboxes/class-sectionmetadata.php:37
+msgid "%s Short Title"
 msgstr ""
 
-#. translators: accessibility text
-#: inc/admin/metaboxes/namespace.php:918
-msgid "(opens in a new window)"
+#: inc/admin/metaboxes/class-sectionmetadata.php:38
+msgid "Appears in the PDF running header and webbook navigation."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:927 templates/admin/organize.php:140
-#: templates/admin/organize.php:243 templates/admin/organize.php:299
-#: templates/admin/organize.php:401
-msgid "Show in Web"
+#: inc/admin/metaboxes/class-sectionmetadata.php:43
+msgid "%s Subtitle"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:931
-msgid "Require a Password"
+#: inc/admin/metaboxes/class-sectionmetadata.php:44
+msgid "Appears in the Web/ebook/PDF output."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:932
-msgid "Password..."
+#: inc/admin/metaboxes/class-sectionmetadata.php:49
+msgid "%s Author(s)"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:936 templates/admin/organize.php:148
-#: templates/admin/organize.php:247 templates/admin/organize.php:307
-#: templates/admin/organize.php:405
-msgid "Show in Exports"
+#: inc/admin/metaboxes/class-sectionmetadata.php:56
+msgid "%s Copyright License"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:940 templates/admin/organize.php:155
-#: templates/admin/organize.php:251 templates/admin/organize.php:315
-#: templates/admin/organize.php:409
-msgid "Show Title"
+#: inc/admin/metaboxes/class-sectionmetadata.php:57
+msgid "Overrides book license on this page."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1122
+#: inc/admin/metaboxes/class-sectionmetadata.php:63
+msgid "%s Digital Object Identifier (DOI)"
+msgstr ""
+
+#: inc/admin/metaboxes/class-subjects.php:19
+msgid "Subject(s)"
+msgstr ""
+
+#: inc/admin/metaboxes/class-subjects.php:26
 msgid "Primary Subject"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1126
+#: inc/admin/metaboxes/class-subjects.php:27
+#: inc/admin/metaboxes/class-subjects.php:33
 msgid ""
 "%1$s subject terms appear on the web homepage of your book and help "
 "categorize your book in your network catalog and Pressbooks Directory (if "
@@ -1685,121 +1671,202 @@ msgid ""
 "book."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1126
-#: inc/admin/metaboxes/namespace.php:1139
+#: inc/admin/metaboxes/class-subjects.php:27
+#: inc/admin/metaboxes/class-subjects.php:33
 msgid "Thema"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1126
-#: inc/admin/metaboxes/namespace.php:1139
+#: inc/admin/metaboxes/class-subjects.php:27
+#: inc/admin/metaboxes/class-subjects.php:33
 msgid "the Thema subject category list"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1129
+#: inc/admin/metaboxes/class-subjects.php:32
 msgid "Additional Subject(s)"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1139
+#: inc/admin/metaboxes/namespace.php:100
 msgid ""
-"%1$s subject terms appear on the web homepage of your book and help "
-"categorize your book in your network catalog and Pressbooks Directory (if "
-"applicable). Use %2$s to determine which additional subject categories are "
-"appropriate for your book."
+"Your cover image was not saved because it is too small (%1$s x %2$s). It "
+"should be at least 800px in height."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1242
-#: inc/admin/metaboxes/namespace.php:1298
+#: inc/admin/metaboxes/namespace.php:106
+msgid ""
+"Your cover image was not saved because the aspect ratio (%s) is outside the "
+"permitted range (.66 to 1). We recommend an aspect ratio of .75."
+msgstr ""
+
+#: inc/admin/metaboxes/namespace.php:131 inc/admin/metaboxes/namespace.php:168
+#: inc/class-metadata.php:437
+msgid "Cover Image"
+msgstr "அட்டைப்படம்"
+
+#: inc/admin/metaboxes/namespace.php:223 inc/admin/metaboxes/namespace.php:274
+#: inc/api/endpoints/controller/class-toc.php:202 inc/class-sass.php:89
+#: inc/modules/export/epub/class-epub.php:1932
+#: inc/modules/themeoptions/class-globaloptions.php:604
+#: inc/posttype/namespace.php:87 inc/posttype/namespace.php:542
+#: inc/posttype/namespace.php:580 templates/admin/import.php:94
+msgid "Part"
+msgstr "பாகம்"
+
+#: inc/admin/metaboxes/namespace.php:227
+msgid "Save Part"
+msgstr "பாகத்தைச் சேமிக்கவும்"
+
+#: inc/admin/metaboxes/namespace.php:228
+msgid "Save Book Information"
+msgstr "நூல் விவரங்களைச் சேமிக்கவும்"
+
+#: inc/admin/metaboxes/namespace.php:229
+msgid "Status & Visibility"
+msgstr ""
+
+#: inc/admin/metaboxes/namespace.php:240
+msgid ""
+"Appears on part page. Parts will not appear if a book has only one part."
+msgstr ""
+
+#: inc/admin/metaboxes/namespace.php:396
+msgid "Show in Glossary Lists"
+msgstr ""
+
+#: inc/admin/metaboxes/namespace.php:407
+msgid "Preview"
+msgstr ""
+
+#. translators: accessibility text
+#: inc/admin/metaboxes/namespace.php:409
+msgid "(opens in a new window)"
+msgstr ""
+
+#: inc/admin/metaboxes/namespace.php:418
+#: templates/admin/organize.blade.php:137
+msgid "Show in Web"
+msgstr ""
+
+#: inc/admin/metaboxes/namespace.php:422
+msgid "Require a Password"
+msgstr ""
+
+#: inc/admin/metaboxes/namespace.php:423
+msgid "Password..."
+msgstr ""
+
+#: inc/admin/metaboxes/namespace.php:427
+#: templates/admin/organize.blade.php:140
+msgid "Show in Exports"
+msgstr ""
+
+#: inc/admin/metaboxes/namespace.php:431
+#: templates/admin/organize.blade.php:144
+msgid "Show Title"
+msgstr ""
+
+#: inc/admin/metaboxes/namespace.php:623 inc/admin/metaboxes/namespace.php:679
 msgid ""
 "Images should be square (400px x 400px). You will be allowed to crop images "
 "after upload."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1407
+#: inc/admin/metaboxes/namespace.php:788
 msgid "Name"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1436
+#: inc/admin/metaboxes/namespace.php:817
 msgid "Name cannot be left blank."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1470
+#: inc/admin/metaboxes/namespace.php:851
 msgid "Owner"
 msgstr ""
 
-#: inc/admin/network/class-networksettings.php:59
-#: tests/test-networksettings.php:30
+#: inc/admin/network/class-networksettings.php:62
 msgid "Theme Settings"
 msgstr ""
 
-#: inc/admin/network/class-networksettings.php:61
+#: inc/admin/network/class-networksettings.php:64
 msgid "Default Theme"
 msgstr ""
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:81
+#: inc/admin/network/class-networksettings.php:84
+msgid "CTA banner settings"
+msgstr ""
+
+#: inc/admin/network/class-networksettings.php:86
+msgid "CTA Banner"
+msgstr ""
+
+#: inc/admin/network/class-networksettings.php:91
+msgid "Display the CTA banner"
+msgstr ""
+
+#: inc/admin/network/class-sharingandprivacyoptions.php:95
 msgid "Allow Redistribution"
 msgstr ""
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:87
+#: inc/admin/network/class-sharingandprivacyoptions.php:101
 msgid "Allow book administrators to enable redistribution of export files."
 msgstr ""
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:93
+#: inc/admin/network/class-sharingandprivacyoptions.php:107
 msgid "Enable network API"
 msgstr ""
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:99
+#: inc/admin/network/class-sharingandprivacyoptions.php:113
 msgid "Enable access to your network of books via the Pressbooks REST API."
 msgstr ""
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:105
+#: inc/admin/network/class-sharingandprivacyoptions.php:119
 msgid "Enable Cloning"
 msgstr ""
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:111
+#: inc/admin/network/class-sharingandprivacyoptions.php:125
 msgid "Enable book cloning via the Pressbooks REST API."
 msgstr ""
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:117
+#: inc/admin/network/class-sharingandprivacyoptions.php:131
 msgid "Enable CC with Weblinks"
 msgstr ""
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:123
+#: inc/admin/network/class-sharingandprivacyoptions.php:137
 msgid "Allow users to produce Common Cartridge exports with simple Web Links."
 msgstr ""
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:129
+#: inc/admin/network/class-sharingandprivacyoptions.php:143
 msgid "Book directory"
 msgstr ""
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:135
+#: inc/admin/network/class-sharingandprivacyoptions.php:149
 msgid "Exclude non-catalogued public books from Pressbooks Directory."
 msgstr ""
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:141
+#: inc/admin/network/class-sharingandprivacyoptions.php:155
 msgid "Iframe Allowlist"
 msgstr ""
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:146
+#: inc/admin/network/class-sharingandprivacyoptions.php:160
 msgid ""
 "To allowlist all content from a domain: <code>guide.pressbooks.com</code> To"
 " allowlist a path: <code>//guide.pressbooks.com/some/path/</code> One per "
 "line."
 msgstr ""
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:162
+#: inc/admin/network/class-sharingandprivacyoptions.php:176
 msgid "Sharing and Privacy settings."
 msgstr ""
 
-#: inc/admin/networkmanagers/namespace.php:21
-#: inc/admin/networkmanagers/namespace.php:22
-msgid "Network Managers"
-msgstr ""
+#: inc/admin/network/class-sharingandprivacyoptions.php:202
+#: inc/class-googleanalytics.php:230
+msgid "Settings saved."
+msgstr "அமைப்புகள் சேமிக்கப் பட்டன "
 
-#: inc/admin/networkmanagers/namespace.php:116
+#: inc/admin/networkmanagers/namespace.php:114
 msgid "Pressbooks Network Managers"
 msgstr ""
 
-#: inc/admin/networkmanagers/namespace.php:118
+#: inc/admin/networkmanagers/namespace.php:116
 msgid ""
 "Network administrators&rsquo; access to network administration menus can be "
 "restricted to leave only sites and users visible to them."
@@ -1814,7 +1881,7 @@ msgid ""
 " image formats."
 msgstr ""
 
-#: inc/admin/users/class-userbulk.php:66 inc/admin/users/class-userbulk.php:67
+#: inc/admin/users/class-userbulk.php:68 inc/admin/users/class-userbulk.php:69
 msgid "Bulk Add"
 msgstr ""
 
@@ -1822,36 +1889,64 @@ msgstr ""
 msgid "Invalid email address"
 msgstr ""
 
-#: inc/admin/users/class-userbulk.php:243
+#: inc/admin/users/class-userbulk.php:240
 msgid "The following user(s) could not be added."
 msgstr ""
 
-#: inc/admin/users/class-userbulk.php:246
+#: inc/admin/users/class-userbulk.php:244
 msgid "User(s) successfully added to this book."
 msgstr ""
 
-#: inc/admin/users/class-userbulk.php:249
+#: inc/admin/users/class-userbulk.php:245
+msgid "User(s) successfully added to the network."
+msgstr ""
+
+#: inc/admin/users/class-userbulk.php:248
 msgid ""
 "An invitation email has been sent to the user(s) below. A confirmation link "
 "must be clicked before their account is created."
 msgstr ""
 
-#: inc/api/endpoints/controller/class-books.php:127
+#: inc/api/endpoints/controller/books/class-books.php:108
 #: inc/api/endpoints/controller/class-toc.php:151
 #: inc/api/endpoints/controller/class-toc.php:164
 #: inc/api/endpoints/controller/class-toc.php:177
 msgid "Metadata"
 msgstr ""
 
-#: inc/api/endpoints/controller/class-books.php:153
+#: inc/api/endpoints/controller/books/class-books.php:133
 msgid "ID offset, overrides page."
 msgstr ""
 
-#: inc/api/endpoints/controller/class-metadata.php:543
+#: inc/api/endpoints/controller/books/class-books.php:140
+msgid "Timestamp for updated field."
+msgstr ""
+
+#: inc/api/endpoints/controller/books/class-books.php:146
+msgid "Array of license codes to filter books."
+msgstr ""
+
+#: inc/api/endpoints/controller/books/class-books.php:166
+msgid "Array of title filters to filter books."
+msgstr ""
+
+#: inc/api/endpoints/controller/books/class-books.php:177
+msgid "Boolean value to filter books by directory exclusion."
+msgstr ""
+
+#: inc/api/endpoints/controller/books/class-books.php:183
+msgid "String value to filter books by word count range."
+msgstr ""
+
+#: inc/api/endpoints/controller/class-metadata.php:549
 #: inc/api/endpoints/controller/class-sectionmetadata.php:453
 msgid ""
 "URL of a reference Web page that unambiguously indicates the item's "
 "identity."
+msgstr ""
+
+#: inc/api/endpoints/controller/class-posts.php:197
+msgid "The status for the post."
 msgstr ""
 
 #: inc/api/endpoints/controller/class-toc.php:98
@@ -1870,23 +1965,27 @@ msgstr ""
 msgid "Word count."
 msgstr ""
 
-#: inc/api/namespace.php:77
+#: inc/api/endpoints/controller/class-toc.php:233
+msgid "Clone token."
+msgstr ""
+
+#: inc/api/namespace.php:78
 msgid "Part ID."
 msgstr ""
 
-#: inc/api/namespace.php:201
+#: inc/api/namespace.php:232
 msgid "Invalid batch parameter(s)."
 msgstr ""
 
-#: inc/api/namespace.php:356
+#: inc/api/namespace.php:387
 msgid "Part does not exist"
 msgstr ""
 
-#: inc/api/namespace.php:363
+#: inc/api/namespace.php:394
 msgid "ID is not a part"
 msgstr ""
 
-#: inc/api/namespace.php:377
+#: inc/api/namespace.php:408
 msgid "Failed to update chapter part"
 msgstr ""
 
@@ -1894,11 +1993,11 @@ msgstr ""
 msgid "Main Body"
 msgstr "மையப் பகுதி"
 
-#: inc/class-activation.php:210 tests/test-book.php:51
+#: inc/class-activation.php:210
 msgid "Introduction"
 msgstr "அறிமுகம்"
 
-#: inc/class-activation.php:212 tests/test-book.php:102
+#: inc/class-activation.php:212
 msgid "This is where you can write your introduction."
 msgstr "இது உங்களுக்கான இடம்!  அறிமுகப்படுத்திக் கொள்ளலாமே!"
 
@@ -1920,11 +2019,16 @@ msgstr "பிற்சேர்க்கை"
 msgid "This is where you can add appendices or other back matter."
 msgstr "நூலின் பின்னிணைப்புகளையும் பிற்பகுதிகளையும் இங்கே சேர்க்கலாம்."
 
-#: inc/class-activation.php:232 templates/admin/organize.php:129
-#: templates/admin/organize.php:216 templates/admin/organize.php:290
-#: templates/admin/organize.php:375 tests/test-cloner.php:53
+#: inc/class-activation.php:232 templates/admin/organize.blade.php:131
+#: templates/admin/organize.blade.php:215
 msgid "Authors"
 msgstr "நூல் ஆசிரியர்கள் "
+
+#: inc/class-activation.php:242
+#: inc/modules/themeoptions/class-pdfoptions.php:322
+#: templates/export/epub/toc.blade.php:13
+msgid "Table of Contents"
+msgstr "பொருளடக்கம்"
 
 #: inc/class-activation.php:252
 msgid "Buy"
@@ -1981,89 +2085,119 @@ msgstr "தவறான வலைதள முகவரி"
 msgid "No book found."
 msgstr "புத்தகம் கிடைக்கவில்லை"
 
-#: inc/class-contributors.php:436
+#: inc/class-contributors.php:435
 msgid "Prefix"
 msgstr ""
 
-#: inc/class-contributors.php:439
+#: inc/class-contributors.php:438
 msgid ""
 "Prefix to be displayed before this contributor's name, e.g. Dr., Prof., Ms.,"
 " Rev., Capt."
 msgstr ""
 
-#: inc/class-contributors.php:443
+#: inc/class-contributors.php:442
 msgid "First Name"
 msgstr ""
 
-#: inc/class-contributors.php:449
+#: inc/class-contributors.php:448
 msgid "Last Name"
 msgstr ""
 
-#: inc/class-contributors.php:455
+#: inc/class-contributors.php:454
 msgid "Suffix"
 msgstr ""
 
-#: inc/class-contributors.php:458
+#: inc/class-contributors.php:457
 msgid ""
 "Suffix to be displayed after this contributors's name, e.g. Jr., Sr., IV, "
 "PhD, MD, USN (Ret.)."
 msgstr ""
 
-#: inc/class-contributors.php:462
+#: inc/class-contributors.php:461
 msgid "Picture"
 msgstr ""
 
-#: inc/class-contributors.php:468
+#: inc/class-contributors.php:467
 msgid "Biographical Info"
 msgstr ""
 
-#: inc/class-contributors.php:473
+#: inc/class-contributors.php:472
 msgid "Institution"
 msgstr ""
 
-#: inc/class-contributors.php:476
+#: inc/class-contributors.php:475
 msgid ""
 "Institution this contributor is associated with, e.g. Rebus Foundation, Open"
 " University, Amnesty International."
 msgstr ""
 
-#: inc/class-contributors.php:483
+#: inc/class-contributors.php:482
 msgid "Website for this contributor. Must be a valid URL."
 msgstr ""
 
-#: inc/class-contributors.php:487
+#: inc/class-contributors.php:486
 msgid "Twitter"
-msgstr ""
+msgstr "டிவிட்டர்"
 
-#: inc/class-contributors.php:490
+#: inc/class-contributors.php:489
 msgid "Twitter profile for this contributor. Must be a valid URL."
 msgstr ""
 
-#: inc/class-contributors.php:494
+#: inc/class-contributors.php:493
 msgid "LinkedIn"
 msgstr ""
 
-#: inc/class-contributors.php:497
+#: inc/class-contributors.php:496
 msgid "LinkedIn profile for this contributor. Must be a valid URL."
 msgstr ""
 
-#: inc/class-contributors.php:501
+#: inc/class-contributors.php:500
 msgid "GitHub"
 msgstr ""
 
-#: inc/class-contributors.php:504
+#: inc/class-contributors.php:503
 msgid "GitHub profile for this contributor. Must be a valid URL."
 msgstr ""
 
-#: inc/class-contributors.php:575
+#: inc/class-contributors.php:574
 msgid ""
-"<p>Import multiple contributors at once by uploading a valid JSON file. See "
-"<a href=\"%s\" target=\"_blank\">our guide</a> for details.</p>"
+"Import multiple contributors at once by uploading a valid JSON file. See <a "
+"href=\"%s\" target=\"_blank\">our guide</a> for details."
 msgstr ""
 
-#: inc/class-contributors.php:578
+#: inc/class-contributors.php:577
 msgid "Import Contributors"
 msgstr ""
+
+#: inc/class-contributors.php:827
+msgid "Editor"
+msgid_plural "Editors"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/class-contributors.php:829
+msgid "Contributor"
+msgid_plural "Contributors"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/class-contributors.php:830
+msgid "Translator"
+msgid_plural "Translators"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/class-contributors.php:831
+msgid "Reviewer"
+msgid_plural "Reviewers"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/class-contributors.php:832
+msgid "Illustrator"
+msgid_plural "Illustrators"
+msgstr[0] ""
+msgstr[1] ""
 
 #: inc/class-eventstreams.php:201
 msgid ""
@@ -2179,7 +2313,7 @@ msgid "Canadian Indigenous Syllabics"
 msgstr ""
 
 #: inc/class-globaltypography.php:47
-msgid "Devanagari (Hindi and Sanskrit)"
+msgid "Cherokee"
 msgstr ""
 
 #: inc/class-globaltypography.php:48
@@ -2195,63 +2329,95 @@ msgid "Coptic"
 msgstr ""
 
 #: inc/class-globaltypography.php:51
-msgid "Gujarati"
+msgid "Devanagari (Hindi and Sanskrit)"
 msgstr ""
 
 #: inc/class-globaltypography.php:52
-msgid "Punjabi (Gurmukhi)"
+msgid "Gujarati"
 msgstr ""
 
 #: inc/class-globaltypography.php:53
+msgid "Punjabi (Gurmukhi)"
+msgstr ""
+
+#: inc/class-globaltypography.php:54
 msgid "Japanese"
 msgstr "ஜப்பானிய மொழி"
 
-#: inc/class-globaltypography.php:54
+#: inc/class-globaltypography.php:55
 msgid "Kannada"
 msgstr ""
 
-#: inc/class-globaltypography.php:55
+#: inc/class-globaltypography.php:56
 msgid "Korean"
 msgstr ""
 
-#: inc/class-globaltypography.php:56
-msgid "Malayalam"
-msgstr ""
-
 #: inc/class-globaltypography.php:57
-msgid "Musical Notation"
+msgid "Khmer"
 msgstr ""
 
 #: inc/class-globaltypography.php:58
-msgid "N'Ko"
+msgid "Malayalam"
 msgstr ""
 
 #: inc/class-globaltypography.php:59
-msgid "Odia"
+msgid "Musical Notation"
 msgstr ""
 
 #: inc/class-globaltypography.php:60
-msgid "Syriac"
+msgid "N'Ko"
 msgstr ""
 
 #: inc/class-globaltypography.php:61
-msgid "Tamil"
+msgid "Odia"
 msgstr ""
 
 #: inc/class-globaltypography.php:62
-msgid "Telugu"
+msgid "Syriac"
 msgstr ""
 
 #: inc/class-globaltypography.php:63
-msgid "Tibetan"
+msgid "Tamil"
 msgstr ""
 
 #: inc/class-globaltypography.php:64
+msgid "Telugu"
+msgstr ""
+
+#: inc/class-globaltypography.php:65
+msgid "Tibetan"
+msgstr ""
+
+#: inc/class-globaltypography.php:66
 msgid "Turkish"
 msgstr ""
 
-#: inc/class-globaltypography.php:445
+#: inc/class-globaltypography.php:470
 msgid "Your %1$s font could not be downloaded from %2$s."
+msgstr ""
+
+#: inc/class-googleanalytics.php:27
+msgid "Google Analytics ID"
+msgstr ""
+
+#: inc/class-googleanalytics.php:28
+msgid ""
+"The Google Analytics ID for your network, e.g &lsquo;G-A123B4C5DE6&rsquo;."
+msgstr ""
+
+#: inc/class-googleanalytics.php:118
+msgid "Site-Specific Tracking"
+msgstr ""
+
+#: inc/class-googleanalytics.php:123
+msgid ""
+"If enabled, the Google Analytics settings page will be visible to book "
+"administrators, allowing them to use their own Google Analytics accounts to "
+"track statistics at the book level."
+msgstr ""
+
+#: inc/class-googleanalytics.php:197
+msgid "Google Analytics settings."
 msgstr ""
 
 #: inc/class-licensing.php:57
@@ -2314,45 +2480,47 @@ msgid ""
 "License"
 msgstr ""
 
-#: inc/class-licensing.php:139 inc/class-licensing.php:326
+#: inc/class-licensing.php:139 inc/class-licensing.php:338
 msgid "All Rights Reserved"
 msgstr "அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை"
 
-#: inc/class-licensing.php:205
+#: inc/class-licensing.php:217
 msgid ""
 "$title is deprecated. Method will automatically determine title from "
 "licenses"
 msgstr ""
 
-#: inc/class-licensing.php:323 inc/class-styles.php:818
-#: inc/modules/export/epub/class-epub.php:1410
+#: inc/class-licensing.php:335 inc/class-styles.php:854
+#: inc/modules/export/epub/class-epub.php:1432
 #: inc/modules/export/htmlbook/class-htmlbook.php:864
 #: inc/modules/export/xhtml/class-xhtml11.php:1083
-#: templates/export/epub/opf.blade.php:95
+#: templates/export/epub/opf.blade.php:100
 msgid "by"
 msgstr "இவரால் / இதனால்"
 
-#: inc/class-licensing.php:382
+#: inc/class-licensing.php:394
 msgid "except where otherwise noted."
 msgstr "இல்லையெனில் குறிப்பிட்டுள்ளதை தவிர"
 
-#: inc/class-licensing.php:409 inc/class-licensing.php:433
+#: inc/class-licensing.php:421 inc/class-licensing.php:446
 msgid "%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved."
 msgstr ""
 
-#: inc/class-licensing.php:421
+#: inc/class-licensing.php:433
 msgid "Icon for the %s"
 msgstr ""
 
-#: inc/class-licensing.php:423
-msgid "%1$s by %2$s is licensed under a %3$s, except where otherwise noted."
+#: inc/class-licensing.php:435 inc/class-licensing.php:482
+msgid ""
+"%1$s Copyright &copy;%2$s by %3$s is licensed under a %4$s, except where "
+"otherwise noted."
 msgstr ""
 
-#: inc/class-licensing.php:442 inc/class-licensing.php:452
+#: inc/class-licensing.php:455 inc/class-licensing.php:465
 msgid "Icon for the %s license"
 msgstr ""
 
-#: inc/class-licensing.php:444
+#: inc/class-licensing.php:457
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
 msgstr ""
 
@@ -2371,7 +2539,7 @@ msgid ""
 "%2$s"
 msgstr ""
 
-#: inc/class-styles.php:96 templates/admin/custom-styles.php:38
+#: inc/class-styles.php:96 templates/admin/custom-styles.php:42
 msgid "Custom Styles"
 msgstr "விருப்ப பாணிகள்"
 
@@ -2387,222 +2555,222 @@ msgstr ""
 msgid "Custom Style for Web"
 msgstr ""
 
-#: inc/class-styles.php:670
-msgid "Alegreya"
-msgstr ""
-
-#: inc/class-styles.php:671
+#: inc/class-styles.php:706
 msgid "Cormorant Garamond"
 msgstr ""
 
-#: inc/class-styles.php:672
+#: inc/class-styles.php:707
 msgid "Crimson Text"
 msgstr ""
 
-#: inc/class-styles.php:673
+#: inc/class-styles.php:708
 msgid "GNU FreeFont Serif"
 msgstr ""
 
-#: inc/class-styles.php:674
+#: inc/class-styles.php:709
 msgid "New Athena Unicode"
 msgstr ""
 
-#: inc/class-styles.php:675
+#: inc/class-styles.php:710
 msgid "Noto Serif"
 msgstr ""
 
-#: inc/class-styles.php:676
+#: inc/class-styles.php:711
 msgid "Sorts Mill Goudy"
 msgstr ""
 
-#: inc/class-styles.php:677
+#: inc/class-styles.php:712
 msgid "Spectral"
 msgstr ""
 
-#: inc/class-styles.php:681
+#: inc/class-styles.php:716
+msgid "Alegreya Sans"
+msgstr ""
+
+#: inc/class-styles.php:717
 msgid "Barlow"
 msgstr ""
 
-#: inc/class-styles.php:682
+#: inc/class-styles.php:718
 msgid "GNU FreeFont Sans"
 msgstr ""
 
-#: inc/class-styles.php:683
+#: inc/class-styles.php:719
 msgid "K2D"
 msgstr ""
 
-#: inc/class-styles.php:684
+#: inc/class-styles.php:720
 msgid "Lato"
 msgstr ""
 
-#: inc/class-styles.php:685
+#: inc/class-styles.php:721
 msgid "Libre Franklin"
 msgstr ""
 
-#: inc/class-styles.php:686
+#: inc/class-styles.php:722
 msgid "Montserrat"
 msgstr ""
 
-#: inc/class-styles.php:687
+#: inc/class-styles.php:723
 msgid "Noto Sans"
 msgstr ""
 
-#: inc/class-styles.php:688
+#: inc/class-styles.php:724
 msgid "Open Sans"
 msgstr ""
 
-#: inc/class-styles.php:689
+#: inc/class-styles.php:725
 msgid "Raleway"
 msgstr ""
 
-#: inc/class-styles.php:690
+#: inc/class-styles.php:726
 msgid "Roboto"
 msgstr ""
 
-#: inc/class-styles.php:691
+#: inc/class-styles.php:727
 msgid "Rubik"
 msgstr ""
 
-#: inc/class-styles.php:692
+#: inc/class-styles.php:728
 msgid "Source Sans Pro"
 msgstr ""
 
-#: inc/class-styles.php:696 tests/test-styles.php:219
+#: inc/class-styles.php:732
 msgid "Theme default"
 msgstr ""
 
-#: inc/class-styles.php:697 inc/class-styles.php:711 tests/test-styles.php:220
+#: inc/class-styles.php:733 inc/class-styles.php:747
 msgid "Serif"
 msgstr ""
 
-#: inc/class-styles.php:698 tests/test-styles.php:221
+#: inc/class-styles.php:734
 msgid "Sans serif"
 msgstr ""
 
-#: inc/class-styles.php:743
+#: inc/class-styles.php:779
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
 msgstr "எதிர்பாராத வழு: slugஐ வினவுவதில் பழுது:%s - தொழில்நுட்ப உதவியை நாடுக."
 
-#: inc/class-styles.php:783 templates/admin/custom-styles.php:16
+#: inc/class-styles.php:819 templates/admin/custom-styles.php:20
 msgid "Web"
 msgstr ""
 
-#: inc/class-styles.php:815
+#: inc/class-styles.php:851
 msgid "Last 10 Revisions"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:435 inc/modules/import/api/class-api.php:115
+#: inc/cloner/class-cloner.php:443 inc/modules/import/api/class-api.php:115
 msgid "Looking up the source book"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:437
+#: inc/cloner/class-cloner.php:445
 msgid "Failed to setup source"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:441
+#: inc/cloner/class-cloner.php:449
 msgid "Creating the target book"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:452
+#: inc/cloner/class-cloner.php:460
 msgid "Cloning metadata"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:459
+#: inc/cloner/class-cloner.php:467
 msgid "Cloning contributors and licenses"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:470
+#: inc/cloner/class-cloner.php:478
 msgid "Cloning front matter"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:485 inc/cloner/class-cloner.php:491
+#: inc/cloner/class-cloner.php:493 inc/cloner/class-cloner.php:499
 msgid "Cloning parts and chapters"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:504
+#: inc/cloner/class-cloner.php:512
 msgid "Cloning back matter"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:536 inc/covergenerator/class-generator.php:298
-#: inc/modules/export/epub/class-epub.php:664
+#: inc/cloner/class-cloner.php:545 inc/covergenerator/class-generator.php:298
+#: inc/modules/export/epub/class-epub.php:663
 #: inc/modules/import/class-import.php:373
 msgid "Finishing up"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:552
+#: inc/cloner/class-cloner.php:561
 msgid ""
 "You can only clone from a book hosted by Pressbooks 4.1 or later. Please "
 "ensure that your source book meets these requirements."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:559
+#: inc/cloner/class-cloner.php:568
 msgid "Could not retrieve metadata from %s."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:567
+#: inc/cloner/class-cloner.php:576
 msgid "%s is not licensed for cloning."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:576
+#: inc/cloner/class-cloner.php:585
 msgid "Could not retrieve contents and structure from %s."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:584
+#: inc/cloner/class-cloner.php:593
 msgid "Could not retrieve taxonomies from %s."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:592
+#: inc/cloner/class-cloner.php:601
 msgid "Could not retrieve media from %s."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:767
+#: inc/cloner/class-cloner.php:776
 msgid ""
 "The source book contained H5P content that could not be cloned. Please "
 "review the cloned version of your book carefully, as missing H5P content "
 "will be indicated. You may want to remove or replace these elements."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:789
+#: inc/cloner/class-cloner.php:798
 msgid "The source book&rsquo;s media could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:885
+#: inc/cloner/class-cloner.php:894
 msgid "The source book&rsquo;s metadata could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:916
+#: inc/cloner/class-cloner.php:925
 msgid "The source book&rsquo;s structure and contents could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:958
+#: inc/cloner/class-cloner.php:970
 msgid "The source book&rsquo;s taxonomies could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2030
+#: inc/cloner/class-cloner.php:2054
 msgid "Your book URL can only contain lowercase letters (a-z) and numbers."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2032
+#: inc/cloner/class-cloner.php:2056
 msgid "Your book URL must contain at least some letters."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2034
+#: inc/cloner/class-cloner.php:2058
 msgid "That book URL is not allowed."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2036
+#: inc/cloner/class-cloner.php:2060
 msgid "Your book URL must be at least %s character."
 msgid_plural "Your book URL must be at least %s characters."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/cloner/class-cloner.php:2038
+#: inc/cloner/class-cloner.php:2062
 msgid "Sorry, you may not use that book URL."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2040
+#: inc/cloner/class-cloner.php:2064
 msgid "Sorry, that book URL already exists!"
 msgstr ""
 
@@ -2644,160 +2812,160 @@ msgstr ""
 msgid "Insert Footnote"
 msgstr "அடிக்குறிப்பைச் செருகவும்"
 
-#: inc/editor/namespace.php:111
+#: inc/editor/namespace.php:112
 msgid "Convert MS Word Footnotes"
 msgstr "மைக்ரோசாப்ட் வேர்டு அடிக்குறிப்புகளை மாற்றுக"
 
-#: inc/editor/namespace.php:118
+#: inc/editor/namespace.php:119
 msgid "Insert LaTeX"
 msgstr ""
 
-#: inc/editor/namespace.php:131 templates/admin/import.php:156
+#: inc/editor/namespace.php:132 templates/admin/import.php:156
 msgid "Cancel"
 msgstr "நீக்கு"
 
-#: inc/editor/namespace.php:132
+#: inc/editor/namespace.php:133
 msgid "Description"
 msgstr ""
 
-#: inc/editor/namespace.php:133
+#: inc/editor/namespace.php:134
 msgid "Insert Glossary Term"
 msgstr ""
 
-#: inc/editor/namespace.php:134
+#: inc/editor/namespace.php:135
 msgid "Insert"
 msgstr ""
 
-#: inc/editor/namespace.php:136
+#: inc/editor/namespace.php:137
 msgctxt "JS template string"
 msgid "Glossary term <em>${templateString1}</em> not found. Please create it."
 msgstr ""
 
-#: inc/editor/namespace.php:137
+#: inc/editor/namespace.php:138
 msgid "Select a Term"
 msgstr ""
 
-#: inc/editor/namespace.php:138
+#: inc/editor/namespace.php:139
 msgid "Create and Insert Term"
 msgstr ""
 
-#: inc/editor/namespace.php:139
+#: inc/editor/namespace.php:140
 msgid "Choose Existing Term"
 msgstr ""
 
-#: inc/editor/namespace.php:140
+#: inc/editor/namespace.php:141
 msgid "Glossary term already exists."
 msgstr ""
 
-#: inc/editor/namespace.php:142
+#: inc/editor/namespace.php:143
 msgid "Cannot submit empty Glossary term."
 msgstr ""
 
-#: inc/editor/namespace.php:143
+#: inc/editor/namespace.php:144
 msgid "A term was not selected?"
 msgstr ""
 
-#: inc/editor/namespace.php:144 inc/posttype/namespace.php:243
+#: inc/editor/namespace.php:145 inc/posttype/namespace.php:243
 msgid ""
 "To display a list of glossary terms, leave this back matter's content blank."
 msgstr ""
 
-#: inc/editor/namespace.php:145
+#: inc/editor/namespace.php:146
 msgid "Term"
 msgstr ""
 
-#: inc/editor/namespace.php:203
+#: inc/editor/namespace.php:204
 msgid "Indent"
 msgstr "இடம் விடுக"
 
-#: inc/editor/namespace.php:209
+#: inc/editor/namespace.php:210
 msgid "Hanging indent"
 msgstr "தொங்கும் இடம்"
 
-#: inc/editor/namespace.php:215
+#: inc/editor/namespace.php:216
 msgid "No indent"
 msgstr "இடம் இல்லை"
 
-#: inc/editor/namespace.php:221
+#: inc/editor/namespace.php:222
 msgid "Write right to left"
 msgstr ""
 
-#: inc/editor/namespace.php:229
+#: inc/editor/namespace.php:230
 msgid "Write left to right"
 msgstr ""
 
-#: inc/editor/namespace.php:237
+#: inc/editor/namespace.php:238
 msgid "Tight tracking"
 msgstr ""
 
-#: inc/editor/namespace.php:243
+#: inc/editor/namespace.php:244
 msgid "Very tight tracking"
 msgstr ""
 
-#: inc/editor/namespace.php:249
+#: inc/editor/namespace.php:250
 msgid "Loose tracking"
 msgstr ""
 
-#: inc/editor/namespace.php:255
+#: inc/editor/namespace.php:256
 msgid "Very loose tracking"
 msgstr ""
 
-#: inc/editor/namespace.php:261
+#: inc/editor/namespace.php:262
 msgid "Pullquote (left)"
 msgstr ""
 
-#: inc/editor/namespace.php:267
+#: inc/editor/namespace.php:268
 msgid "Pullquote (right)"
 msgstr ""
 
-#: inc/editor/namespace.php:317 inc/editor/namespace.php:359
-#: inc/editor/namespace.php:373
-#: inc/modules/themeoptions/class-weboptions.php:120 languages/tinymce.php:7
+#: inc/editor/namespace.php:318 inc/editor/namespace.php:360
+#: inc/editor/namespace.php:374
+#: inc/modules/themeoptions/class-weboptions.php:155 languages/tinymce.php:7
 msgid "Standard"
 msgstr ""
 
-#: inc/editor/namespace.php:321
+#: inc/editor/namespace.php:322
 msgid "No lines"
 msgstr ""
 
-#: inc/editor/namespace.php:325
+#: inc/editor/namespace.php:326
 msgid "Lines"
 msgstr ""
 
-#: inc/editor/namespace.php:329 inc/editor/namespace.php:367
-#: inc/editor/namespace.php:381 languages/tinymce.php:10
+#: inc/editor/namespace.php:330 inc/editor/namespace.php:368
+#: inc/editor/namespace.php:382 languages/tinymce.php:10
 msgid "Shaded"
 msgstr ""
 
-#: inc/editor/namespace.php:333
+#: inc/editor/namespace.php:334
 msgid "Full Grid"
 msgstr ""
 
-#: inc/editor/namespace.php:337
+#: inc/editor/namespace.php:338
 msgid "Standard Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:341
+#: inc/editor/namespace.php:342
 msgid "No lines Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:345
+#: inc/editor/namespace.php:346
 msgid "Lines Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:349
+#: inc/editor/namespace.php:350
 msgid "Shaded Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:353
+#: inc/editor/namespace.php:354
 msgid "Full Grid Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:363 inc/editor/namespace.php:377
+#: inc/editor/namespace.php:364 inc/editor/namespace.php:378
 msgid "Border"
 msgstr ""
 
-#: inc/editor/namespace.php:494
+#: inc/editor/namespace.php:495
 msgid "Internal Link"
 msgstr ""
 
@@ -2811,7 +2979,7 @@ msgid ""
 " target=\"_blank\">our guide</a>."
 msgstr ""
 
-#: inc/image/namespace.php:432 templates/admin/covergenerator.php:123
+#: inc/image/namespace.php:432 templates/admin/covergenerator.php:130
 msgid "Are you sure you want to delete this?"
 msgstr "இதை நீக்க ஒப்புக்கொள்கிறீர்களா?"
 
@@ -2819,13 +2987,13 @@ msgstr "இதை நீக்க ஒப்புக்கொள்கிறீ�
 msgid "Delete"
 msgstr "நீக்குக"
 
-#: inc/interactive/class-h5p.php:174
+#: inc/interactive/class-h5p.php:182
 msgid ""
 "The original version of this chapter contained H5P content. You may want to "
 "remove or replace this element."
 msgstr ""
 
-#: inc/l10n/namespace.php:508 inc/l10n/namespace.php:531
+#: inc/l10n/namespace.php:512 inc/l10n/namespace.php:535
 msgid ""
 "Please contact your system administrator if you would like them to install "
 "extended %s language support for the Pressbooks interface."
@@ -2851,7 +3019,7 @@ msgid ""
 "all available fields."
 msgstr ""
 
-#: inc/metadata/namespace.php:1188
+#: inc/metadata/namespace.php:1205
 msgid ""
 "The %1$s Thema subject terms requested for this book could not be downloaded"
 " from %2$s. Please report this error to your network manager."
@@ -2893,131 +3061,131 @@ msgstr "எச்சரிக்கை: இந்த ஏற்றுமதிய
 msgid "Emailed to:"
 msgstr "இவருக்கு மின்னஞ்சல் அனுப்பப் பட்டது :"
 
-#: inc/modules/export/class-table.php:81
+#: inc/modules/export/class-table.php:82
 msgid "Are you sure you want to delete this export file?"
 msgstr ""
 
-#: inc/modules/export/class-table.php:131
-msgid "File"
-msgstr ""
-
 #: inc/modules/export/class-table.php:132
+msgid "File"
+msgstr "கோப்பு"
+
+#: inc/modules/export/class-table.php:133
 msgid "Format"
 msgstr ""
 
-#: inc/modules/export/class-table.php:133
+#: inc/modules/export/class-table.php:134
 msgid "Size"
 msgstr ""
 
-#: inc/modules/export/class-table.php:134
+#: inc/modules/export/class-table.php:135
 msgid "Pin"
 msgstr ""
 
-#: inc/modules/export/class-table.php:135
+#: inc/modules/export/class-table.php:136
 msgid "Date Exported"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:384
+#: inc/modules/export/epub/class-epub.php:386
 msgid "EPUB %s: "
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:494
+#: inc/modules/export/epub/class-epub.php:496
 #: inc/modules/export/xhtml/class-xhtml11.php:204
 msgid "Initializing"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:508
+#: inc/modules/export/epub/class-epub.php:510
 msgid "Preparing book contents"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:519
+#: inc/modules/export/epub/class-epub.php:521
 msgid "Creating container"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:529
+#: inc/modules/export/epub/class-epub.php:531
 #: inc/modules/export/xhtml/class-xhtml11.php:212
 msgid "Saving file to exports folder"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:537
+#: inc/modules/export/epub/class-epub.php:539
 #: inc/modules/export/xhtml/class-xhtml11.php:216
 msgid "Export successful"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:634
+#: inc/modules/export/epub/class-epub.php:636
 #: inc/modules/export/xhtml/class-xhtml11.php:242
 msgid "Validating file"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:663
+#: inc/modules/export/epub/class-epub.php:662
 #: inc/modules/export/xhtml/class-xhtml11.php:258
 msgid "Validation successful"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:960
+#: inc/modules/export/epub/class-epub.php:959
 msgid "Compiling styles"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:969
+#: inc/modules/export/epub/class-epub.php:968
 #: inc/modules/export/xhtml/class-xhtml11.php:431
 msgid "Creating cover"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:976
+#: inc/modules/export/epub/class-epub.php:975
 #: inc/modules/export/xhtml/class-xhtml11.php:435
 msgid "Creating title page"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:980
+#: inc/modules/export/epub/class-epub.php:979
 #: inc/modules/export/xhtml/class-xhtml11.php:439
 msgid "Creating copyright page"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:984
+#: inc/modules/export/epub/class-epub.php:983
 msgid "Exporting dedication and epigraph"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:988
-#: inc/modules/export/epub/class-epub.php:1555
+#: inc/modules/export/epub/class-epub.php:987
+#: inc/modules/export/epub/class-epub.php:1577
 #: inc/modules/export/xhtml/class-xhtml11.php:451
 #: inc/modules/export/xhtml/class-xhtml11.php:1255
 msgid "Exporting front matter"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:995
-#: inc/modules/export/epub/class-epub.php:1656
-#: inc/modules/export/epub/class-epub.php:1686
+#: inc/modules/export/epub/class-epub.php:994
+#: inc/modules/export/epub/class-epub.php:1678
+#: inc/modules/export/epub/class-epub.php:1708
 #: inc/modules/export/xhtml/class-xhtml11.php:458
 #: inc/modules/export/xhtml/class-xhtml11.php:1321
 #: inc/modules/export/xhtml/class-xhtml11.php:1361
 msgid "Exporting parts and chapters"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:999
-#: inc/modules/export/epub/class-epub.php:1817
+#: inc/modules/export/epub/class-epub.php:998
+#: inc/modules/export/epub/class-epub.php:1839
 #: inc/modules/export/xhtml/class-xhtml11.php:462
 #: inc/modules/export/xhtml/class-xhtml11.php:1461
 msgid "Exporting back matter"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1004
+#: inc/modules/export/epub/class-epub.php:1003
 #: inc/modules/export/xhtml/class-xhtml11.php:447
 msgid "Creating table of contents"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1346
+#: inc/modules/export/epub/class-epub.php:1368
 msgid "Title Page"
 msgstr "தலைப்புப் பக்கம்"
 
-#: inc/modules/export/epub/class-epub.php:1611
+#: inc/modules/export/epub/class-epub.php:1633
 msgid "Make your own books using Pressbooks"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1869
+#: inc/modules/export/epub/class-epub.php:1891
 msgid "Table Of Contents"
 msgstr "பொருளடக்கம்"
 
-#: inc/modules/export/epub/class-epub.php:1944
+#: inc/modules/export/epub/class-epub.php:1964
 #: inc/modules/export/htmlbook/class-htmlbook.php:979
 #: inc/modules/export/xhtml/class-xhtml11.php:1237
 msgid "Contents"
@@ -3036,10 +3204,10 @@ msgid ""
 msgstr ""
 
 #: inc/modules/export/namespace.php:85
-#: inc/modules/themeoptions/class-globaloptions.php:420
-#: inc/utility/namespace.php:1321 inc/utility/namespace.php:1326
-#: inc/utility/namespace.php:1360 inc/utility/namespace.php:1370
-#: inc/utility/namespace.php:1376 templates/admin/covergenerator.php:53
+#: inc/modules/themeoptions/class-globaloptions.php:455
+#: inc/utility/namespace.php:1308 inc/utility/namespace.php:1313
+#: inc/utility/namespace.php:1347 inc/utility/namespace.php:1357
+#: inc/utility/namespace.php:1363 templates/admin/covergenerator.php:53
 msgid "and"
 msgstr "மற்றும்"
 
@@ -3053,13 +3221,13 @@ msgstr "PDF (பதிப்பிற்காக )"
 msgid "PDF (for digital distribution)"
 msgstr "PDF (மென்பொருளாக பங்கீடு செய்ய)"
 
-#: inc/modules/export/namespace.php:100 inc/modules/export/namespace.php:193
-#: inc/modules/export/namespace.php:228
+#: inc/modules/export/namespace.php:100 inc/modules/export/namespace.php:196
+#: inc/modules/export/namespace.php:233 inc/modules/export/namespace.php:271
 msgid "EPUB"
 msgstr ""
 
-#: inc/modules/export/namespace.php:101 inc/modules/export/namespace.php:198
-#: inc/modules/export/namespace.php:231
+#: inc/modules/export/namespace.php:101 inc/modules/export/namespace.php:201
+#: inc/modules/export/namespace.php:274
 msgid "Pressbooks XML"
 msgstr "Pressbooks XML"
 
@@ -3067,18 +3235,18 @@ msgstr "Pressbooks XML"
 msgid "XHTML"
 msgstr "XHTML"
 
-#: inc/modules/export/namespace.php:105 inc/modules/export/namespace.php:192
-#: inc/modules/export/namespace.php:227
+#: inc/modules/export/namespace.php:105 inc/modules/export/namespace.php:195
+#: inc/modules/export/namespace.php:270
 msgid "HTMLBook"
 msgstr "HTMLBook"
 
-#: inc/modules/export/namespace.php:106 inc/modules/export/namespace.php:197
-#: inc/modules/export/namespace.php:230
+#: inc/modules/export/namespace.php:106 inc/modules/export/namespace.php:200
+#: inc/modules/export/namespace.php:273
 msgid "OpenDocument"
 msgstr "OpenDocument"
 
-#: inc/modules/export/namespace.php:107 inc/modules/export/namespace.php:199
-#: inc/modules/export/namespace.php:232
+#: inc/modules/export/namespace.php:107 inc/modules/export/namespace.php:202
+#: inc/modules/export/namespace.php:275
 msgid "WordPress XML"
 msgstr "WordPress XML"
 
@@ -3086,43 +3254,69 @@ msgstr "WordPress XML"
 msgid "Common Cartridge with Web Links"
 msgstr ""
 
-#: inc/modules/export/namespace.php:189 inc/modules/export/namespace.php:223
-#: inc/modules/export/namespace.php:225
+#: inc/modules/export/namespace.php:192 inc/modules/export/namespace.php:229
+#: inc/modules/export/namespace.php:266 inc/modules/export/namespace.php:268
 msgid "Print PDF"
 msgstr ""
 
-#: inc/modules/export/namespace.php:190 inc/modules/export/namespace.php:191
-#: inc/modules/export/namespace.php:224 inc/modules/export/namespace.php:226
+#: inc/modules/export/namespace.php:193 inc/modules/export/namespace.php:194
+#: inc/modules/export/namespace.php:267 inc/modules/export/namespace.php:269
 msgid "Digital PDF"
 msgstr ""
 
-#: inc/modules/export/namespace.php:194
+#: inc/modules/export/namespace.php:197 inc/modules/export/namespace.php:234
 msgid "MOBI"
 msgstr ""
 
-#: inc/modules/export/namespace.php:195
+#: inc/modules/export/namespace.php:198 inc/modules/export/namespace.php:235
 msgid "EPUB3"
 msgstr ""
 
-#: inc/modules/export/namespace.php:200 inc/modules/export/namespace.php:233
+#: inc/modules/export/namespace.php:203 inc/modules/export/namespace.php:276
 msgid "Common Cartridge (Web Links)"
 msgstr ""
 
-#: inc/modules/export/namespace.php:269
+#: inc/modules/export/namespace.php:204 inc/modules/export/namespace.php:205
+#: inc/modules/export/namespace.php:206
+msgid "Common Cartridge (LTI Links)"
+msgstr ""
+
+#: inc/modules/export/namespace.php:230 inc/modules/export/namespace.php:231
+msgid "PDF"
+msgstr ""
+
+#: inc/modules/export/namespace.php:232
+msgid "HTML5"
+msgstr ""
+
+#: inc/modules/export/namespace.php:237
+msgid "ODT"
+msgstr ""
+
+#: inc/modules/export/namespace.php:238 inc/modules/export/namespace.php:239
+msgid "WXR"
+msgstr ""
+
+#: inc/modules/export/namespace.php:240 inc/modules/export/namespace.php:241
+#: inc/modules/export/namespace.php:242 inc/modules/export/namespace.php:243
+msgid "IMSCC"
+msgstr ""
+
+#: inc/modules/export/namespace.php:312
 msgid "The file %1$s has been %2$s successfully."
 msgstr ""
 
-#: inc/modules/export/namespace.php:271
+#: inc/modules/export/namespace.php:314
 msgid "pinned"
 msgstr ""
 
-#: inc/modules/export/namespace.php:271
+#: inc/modules/export/namespace.php:314
 msgid "unpinned"
 msgstr ""
 
-#: inc/modules/export/namespace.php:290
-msgid "%s Author"
-msgid_plural "%s Authors"
+#: inc/modules/export/namespace.php:333
+msgid "About the author"
+msgid_plural "About the authors"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -3216,8 +3410,8 @@ msgstr "%s அதிகாரங்களைக் கொண்டு வந்�
 msgid "The HTML is larger than pcre.backtrack_limit."
 msgstr ""
 
-#: inc/modules/import/wordpress/class-parser.php:65
-#: inc/modules/import/wordpress/class-parser.php:71
+#: inc/modules/import/wordpress/class-parser.php:73
+#: inc/modules/import/wordpress/class-parser.php:79
 msgid ""
 "This does not appear to be a WXR file, missing/invalid WXR version number"
 msgstr "இது ஒரு WXR கோப்பா என அறியமுடியவில்லை. WXR பதிப்பு எண் சரியாக இல்லை அல்லது அகப்படவில்லை.  "
@@ -3269,7 +3463,7 @@ msgstr ""
 #: inc/modules/themeoptions/class-admin.php:94
 #: inc/modules/themeoptions/class-admin.php:95
 #: inc/modules/themeoptions/class-admin.php:149
-#: templates/admin/export.blade.php:58
+#: templates/admin/export.blade.php:62
 msgid "Theme Options"
 msgstr "வடிவமைப்புத் தேர்வுகள்"
 
@@ -3277,636 +3471,631 @@ msgstr "வடிவமைப்புத் தேர்வுகள்"
 msgid "Theme Options Tabs"
 msgstr ""
 
-#: inc/modules/themeoptions/class-ebookoptions.php:81
-#: inc/modules/themeoptions/class-pdfoptions.php:86
-#: inc/modules/themeoptions/class-weboptions.php:85
+#: inc/modules/themeoptions/class-ebookoptions.php:116
+#: inc/modules/themeoptions/class-pdfoptions.php:121
+#: inc/modules/themeoptions/class-weboptions.php:120
 msgid "Header Font"
 msgstr ""
 
-#: inc/modules/themeoptions/class-ebookoptions.php:89
-#: inc/modules/themeoptions/class-pdfoptions.php:94
-#: inc/modules/themeoptions/class-weboptions.php:93
+#: inc/modules/themeoptions/class-ebookoptions.php:124
+#: inc/modules/themeoptions/class-pdfoptions.php:129
+#: inc/modules/themeoptions/class-weboptions.php:128
 msgid "Body Font"
 msgstr ""
 
-#: inc/modules/themeoptions/class-ebookoptions.php:99
+#: inc/modules/themeoptions/class-ebookoptions.php:134
 msgid "Ebook Start Point"
 msgstr ""
 
-#: inc/modules/themeoptions/class-ebookoptions.php:104
+#: inc/modules/themeoptions/class-ebookoptions.php:139
 msgid ""
 "Note: This designated ebook start book may be overridden by some ereader "
 "devices."
 msgstr ""
 
-#: inc/modules/themeoptions/class-ebookoptions.php:111
-#: inc/modules/themeoptions/class-pdfoptions.php:262
-#: inc/modules/themeoptions/class-weboptions.php:128
+#: inc/modules/themeoptions/class-ebookoptions.php:146
+#: inc/modules/themeoptions/class-pdfoptions.php:297
+#: inc/modules/themeoptions/class-weboptions.php:163
 msgid "Paragraph Separation"
 msgstr "பத்திப் பிரித்தல்"
 
-#: inc/modules/themeoptions/class-ebookoptions.php:116
-#: inc/modules/themeoptions/class-pdfoptions.php:267
-#: inc/modules/themeoptions/class-weboptions.php:133
+#: inc/modules/themeoptions/class-ebookoptions.php:151
+#: inc/modules/themeoptions/class-pdfoptions.php:302
+#: inc/modules/themeoptions/class-weboptions.php:168
 msgid "Indent paragraphs"
 msgstr "ஓரம் சீர்செய்யப்பட்ட பத்திகள்"
 
-#: inc/modules/themeoptions/class-ebookoptions.php:117
-#: inc/modules/themeoptions/class-pdfoptions.php:268
-#: inc/modules/themeoptions/class-weboptions.php:134
+#: inc/modules/themeoptions/class-ebookoptions.php:152
+#: inc/modules/themeoptions/class-pdfoptions.php:303
+#: inc/modules/themeoptions/class-weboptions.php:169
 msgid "Skip lines between paragraphs"
 msgstr "பத்திகளுக்கு இடையேயான வரிகளைத் தவிர்த்திடுக."
 
-#: inc/modules/themeoptions/class-ebookoptions.php:123
+#: inc/modules/themeoptions/class-ebookoptions.php:158
 msgid "Compress Images"
 msgstr ""
 
-#: inc/modules/themeoptions/class-ebookoptions.php:128
+#: inc/modules/themeoptions/class-ebookoptions.php:163
 msgid "Reduce image size and quality"
 msgstr ""
 
-#: inc/modules/themeoptions/class-ebookoptions.php:153
+#: inc/modules/themeoptions/class-ebookoptions.php:188
 msgid "These options apply to ebook exports."
 msgstr ""
 
-#: inc/modules/themeoptions/class-ebookoptions.php:354
+#: inc/modules/themeoptions/class-ebookoptions.php:389
 msgid "Ebook Options"
 msgstr "மின்னூல் தேர்வுகள்"
 
-#: inc/modules/themeoptions/class-globaloptions.php:83
+#: inc/modules/themeoptions/class-globaloptions.php:118
 msgid "Part and Chapter Numbers"
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:88
+#: inc/modules/themeoptions/class-globaloptions.php:123
 msgid "Display part and chapter numbers"
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:94
+#: inc/modules/themeoptions/class-globaloptions.php:129
 msgid "Part Label"
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:99
+#: inc/modules/themeoptions/class-globaloptions.php:134
 msgid ""
 "The \"part\" label is used in the table of contents and in part titles in "
 "your webbook and exports."
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:106
+#: inc/modules/themeoptions/class-globaloptions.php:141
 msgid "Chapter Label"
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:111
+#: inc/modules/themeoptions/class-globaloptions.php:146
 msgid ""
 "The \"chapter\" label is used in the table of contents and in chapter titles"
 " in your webbook and exports."
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:118
+#: inc/modules/themeoptions/class-globaloptions.php:153
 msgid "Two-Level TOC"
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:123
+#: inc/modules/themeoptions/class-globaloptions.php:158
 msgid ""
 "Enable two-level table of contents (displays headings under chapter titles)"
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:129
+#: inc/modules/themeoptions/class-globaloptions.php:164
 msgid "About the Author"
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:134
-#: tests/test-options.php:471
+#: inc/modules/themeoptions/class-globaloptions.php:169
 msgid "Display information about authors at the end of each chapter"
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:140
+#: inc/modules/themeoptions/class-globaloptions.php:175
 #: inc/shortcodes/attributions/class-attachments.php:262
 msgid "Media Attributions"
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:145
+#: inc/modules/themeoptions/class-globaloptions.php:180
 msgid "Display attributions at the end of a chapter"
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:153
+#: inc/modules/themeoptions/class-globaloptions.php:188
 msgid "Language & Script Support"
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:158
+#: inc/modules/themeoptions/class-globaloptions.php:193
 msgid "Include fonts to support the following languages and scripts:"
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:172
+#: inc/modules/themeoptions/class-globaloptions.php:207
 msgid "Chapter Licenses"
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:177
+#: inc/modules/themeoptions/class-globaloptions.php:212
 msgid "Do not display section level copyright license"
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:178
+#: inc/modules/themeoptions/class-globaloptions.php:213
 msgid "Display section level license on table of contents in export formats"
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:179
+#: inc/modules/themeoptions/class-globaloptions.php:214
 msgid "Display section level license at end of chapter in export formats"
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:185
+#: inc/modules/themeoptions/class-globaloptions.php:220
 #: languages/tinymce.php:21
 msgid "Examples"
 msgstr "எடுத்து காட்டு"
 
-#: inc/modules/themeoptions/class-globaloptions.php:186
+#: inc/modules/themeoptions/class-globaloptions.php:221
 #: languages/tinymce.php:18
 msgid "Exercises"
 msgstr "பயிற்சிகள்"
 
-#: inc/modules/themeoptions/class-globaloptions.php:187
+#: inc/modules/themeoptions/class-globaloptions.php:222
 #: languages/tinymce.php:15
 msgid "Key Takeaways"
 msgstr "முக்கியமாக எடுத்துக்கொள்வது"
 
-#: inc/modules/themeoptions/class-globaloptions.php:188
+#: inc/modules/themeoptions/class-globaloptions.php:223
 #: languages/tinymce.php:12
 msgid "Learning Objectives"
 msgstr "கற்றல் நோக்கங்கள்"
 
-#: inc/modules/themeoptions/class-globaloptions.php:197
+#: inc/modules/themeoptions/class-globaloptions.php:232
 msgid "Customize colors for %s textboxes using the fields below."
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:203
+#: inc/modules/themeoptions/class-globaloptions.php:238
 msgid "Header Color"
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:209
+#: inc/modules/themeoptions/class-globaloptions.php:244
 msgid "The header text color for a %s textbox."
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:214
+#: inc/modules/themeoptions/class-globaloptions.php:249
 msgid "Header Background"
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:220
+#: inc/modules/themeoptions/class-globaloptions.php:255
 msgid "The header background color for a %s textbox."
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:225
+#: inc/modules/themeoptions/class-globaloptions.php:260
 msgid "Background"
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:231
+#: inc/modules/themeoptions/class-globaloptions.php:266
 msgid "The background color for a %s textbox."
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:258
+#: inc/modules/themeoptions/class-globaloptions.php:293
 msgid "These options apply universally to webbook, PDF and ebook exports."
 msgstr "இந்தத் தேர்வுகள் வலைநூல், PDF, மின்னூல் ஆகியவற்றின் ஏற்றுமதிகளுக்குப் பொதுவானவை."
 
-#: inc/modules/themeoptions/class-globaloptions.php:429
-msgid "Select languages&hellip;"
-msgstr ""
-
-#: inc/modules/themeoptions/class-globaloptions.php:437
+#: inc/modules/themeoptions/class-globaloptions.php:476
 msgid "This theme includes built-in support for %s."
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:545
+#: inc/modules/themeoptions/class-globaloptions.php:586
 msgid "Global Options"
 msgstr "பொதுவான தேர்வுகள்"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:105
+#: inc/modules/themeoptions/class-pdfoptions.php:140
 msgid "Body Font Size"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:110
+#: inc/modules/themeoptions/class-pdfoptions.php:145
 msgid ""
 "Heading sizes are proportional to the body font size and will also be "
 "affected by this setting."
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:118
+#: inc/modules/themeoptions/class-pdfoptions.php:153
 msgid "Footnote Font Size"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:131
+#: inc/modules/themeoptions/class-pdfoptions.php:166
 msgid "Body Line Height"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:145
+#: inc/modules/themeoptions/class-pdfoptions.php:180
 msgid "Page Size"
 msgstr "பக்க அளவு"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:150
+#: inc/modules/themeoptions/class-pdfoptions.php:185
 msgid "Digest (5.5&quot; &times; 8.5&quot;)"
 msgstr "Digest (5.5&quot; &times; 8.5&quot;)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:151
+#: inc/modules/themeoptions/class-pdfoptions.php:186
 msgid "US Trade (6&quot; &times; 9&quot;)"
 msgstr "US Trade (6&quot; &times; 9&quot;)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:152
+#: inc/modules/themeoptions/class-pdfoptions.php:187
 msgid "US Letter (8.5&quot; &times; 11&quot;)"
 msgstr "US Letter (8.5&quot; &times; 11&quot;)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:153
+#: inc/modules/themeoptions/class-pdfoptions.php:188
 msgid "Custom (8.5&quot; &times; 9.25&quot;)"
 msgstr "Custom (8.5&quot; &times; 9.25&quot;)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:154
+#: inc/modules/themeoptions/class-pdfoptions.php:189
 msgid "Duodecimo (5&quot; &times; 7.75&quot;)"
 msgstr "Duodecimo (5&quot; &times; 7.75&quot;)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:155
+#: inc/modules/themeoptions/class-pdfoptions.php:190
 msgid "Pocket (4.25&quot; &times; 7&quot;)"
 msgstr "Pocket (4.25&quot; &times; 7&quot;)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:156
+#: inc/modules/themeoptions/class-pdfoptions.php:191
 msgid "A4 (21cm &times; 29.7cm)"
 msgstr "A4 (21cm &times; 29.7cm)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:157
+#: inc/modules/themeoptions/class-pdfoptions.php:192
 msgid "A5 (14.8cm &times; 21cm)"
 msgstr "A5 (14.8cm &times; 21cm)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:158
+#: inc/modules/themeoptions/class-pdfoptions.php:193
 msgid "5&quot; &times; 8&quot;"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:166
+#: inc/modules/themeoptions/class-pdfoptions.php:201
 msgid "Page Width"
 msgstr "பக்கத்தின் அகலம்"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:171
+#: inc/modules/themeoptions/class-pdfoptions.php:206
 msgid ""
 "Page width must be expressed in CSS-compatible units, e.g. "
 "&lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;."
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:178
+#: inc/modules/themeoptions/class-pdfoptions.php:213
 msgid "Page Height"
 msgstr "பக்கத்தின்  உயரம்"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:183
+#: inc/modules/themeoptions/class-pdfoptions.php:218
 msgid ""
 "Page height must be expressed in CSS-compatible units, e.g. "
 "&lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;."
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:191
+#: inc/modules/themeoptions/class-pdfoptions.php:226
 msgid "Margins"
 msgstr "எல்லைக்கோடு"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:196
+#: inc/modules/themeoptions/class-pdfoptions.php:231
 msgid "Customize your book&rsquo;s margins using the fields below."
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:202
-#: inc/modules/themeoptions/class-pdfoptions.php:927
+#: inc/modules/themeoptions/class-pdfoptions.php:237
+#: inc/modules/themeoptions/class-pdfoptions.php:962
 msgid "Outside Margin"
 msgstr "வெளிப்புற எல்லைக்கோடு"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:207
-#: inc/modules/themeoptions/class-pdfoptions.php:219
-#: inc/modules/themeoptions/class-pdfoptions.php:231
-#: inc/modules/themeoptions/class-pdfoptions.php:243
+#: inc/modules/themeoptions/class-pdfoptions.php:242
+#: inc/modules/themeoptions/class-pdfoptions.php:254
+#: inc/modules/themeoptions/class-pdfoptions.php:266
+#: inc/modules/themeoptions/class-pdfoptions.php:278
 msgid ""
 "Margins must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo; "
 "or &lsquo;10cm&rsquo;."
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:214
-#: inc/modules/themeoptions/class-pdfoptions.php:928
+#: inc/modules/themeoptions/class-pdfoptions.php:249
+#: inc/modules/themeoptions/class-pdfoptions.php:963
 msgid "Inside Margin"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:226
-#: inc/modules/themeoptions/class-pdfoptions.php:929
+#: inc/modules/themeoptions/class-pdfoptions.php:261
+#: inc/modules/themeoptions/class-pdfoptions.php:964
 msgid "Top Margin"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:238
-#: inc/modules/themeoptions/class-pdfoptions.php:930
+#: inc/modules/themeoptions/class-pdfoptions.php:273
+#: inc/modules/themeoptions/class-pdfoptions.php:965
 msgid "Bottom Margin"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:251
+#: inc/modules/themeoptions/class-pdfoptions.php:286
 msgid "Hyphens"
 msgstr "சொல்லிடை கோடு"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:256
+#: inc/modules/themeoptions/class-pdfoptions.php:291
 msgid "Enable hyphenation"
 msgstr "hyphenation ஐ செயல்படுத்துக"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:274
+#: inc/modules/themeoptions/class-pdfoptions.php:309
 msgid "Section Openings"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:279
+#: inc/modules/themeoptions/class-pdfoptions.php:314
 msgid "Left or right page section opening (for print PDF)"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:280
+#: inc/modules/themeoptions/class-pdfoptions.php:315
 msgid "Right page section openings (for print PDF)"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:281
+#: inc/modules/themeoptions/class-pdfoptions.php:316
 msgid "No blank pages (for web PDF)"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:292
+#: inc/modules/themeoptions/class-pdfoptions.php:327
 msgid "Display table of contents"
 msgstr "பொருளடக்க அட்டவணையைக் காட்டுக "
 
-#: inc/modules/themeoptions/class-pdfoptions.php:298
+#: inc/modules/themeoptions/class-pdfoptions.php:333
 msgid "Crop Marks"
 msgstr "கத்தரிக்கப்பட்ட தடங்கள்"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:303
+#: inc/modules/themeoptions/class-pdfoptions.php:338
 msgid "Display crop marks"
 msgstr "கத்தரிக்கப்பட்ட தடங்களைக் காட்டுக"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:310
+#: inc/modules/themeoptions/class-pdfoptions.php:345
 msgid "Romanize Part Numbers"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:315
+#: inc/modules/themeoptions/class-pdfoptions.php:350
 msgid "Convert part numbers into Roman numerals"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:322
+#: inc/modules/themeoptions/class-pdfoptions.php:357
 msgid "Footnote Style"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:327
+#: inc/modules/themeoptions/class-pdfoptions.php:362
 msgid "Regular footnotes"
 msgstr "வழக்கமான அடிக்குறிப்புகள்"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:328
+#: inc/modules/themeoptions/class-pdfoptions.php:363
 msgid "Display as chapter endnotes"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:334
+#: inc/modules/themeoptions/class-pdfoptions.php:369
 msgid "Widows"
 msgstr "சாளரங்கள் "
 
-#: inc/modules/themeoptions/class-pdfoptions.php:345
+#: inc/modules/themeoptions/class-pdfoptions.php:380
 msgid "Orphans"
 msgstr "ஏதிலிகள்"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:357
+#: inc/modules/themeoptions/class-pdfoptions.php:392
 msgid "Running Heads & Feet"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:362
+#: inc/modules/themeoptions/class-pdfoptions.php:397
 msgid ""
 "Running content appears in either running heads or running feet (at the top "
 "or bottom of the page) depending on your theme."
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:368
+#: inc/modules/themeoptions/class-pdfoptions.php:403
 msgid "Front Matter Left Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:374
-#: inc/modules/themeoptions/class-pdfoptions.php:393
-#: inc/modules/themeoptions/class-pdfoptions.php:412
-#: inc/modules/themeoptions/class-pdfoptions.php:431
-#: inc/modules/themeoptions/class-pdfoptions.php:450
-#: inc/modules/themeoptions/class-pdfoptions.php:468
-#: inc/modules/themeoptions/class-pdfoptions.php:486
-#: inc/modules/themeoptions/class-pdfoptions.php:507
-#: inc/modules/themeoptions/class-pdfoptions.php:528
-#: inc/modules/themeoptions/class-pdfoptions.php:547
+#: inc/modules/themeoptions/class-pdfoptions.php:409
+#: inc/modules/themeoptions/class-pdfoptions.php:428
+#: inc/modules/themeoptions/class-pdfoptions.php:447
+#: inc/modules/themeoptions/class-pdfoptions.php:466
+#: inc/modules/themeoptions/class-pdfoptions.php:485
+#: inc/modules/themeoptions/class-pdfoptions.php:503
+#: inc/modules/themeoptions/class-pdfoptions.php:521
+#: inc/modules/themeoptions/class-pdfoptions.php:542
+#: inc/modules/themeoptions/class-pdfoptions.php:563
+#: inc/modules/themeoptions/class-pdfoptions.php:582
 msgid "Book Subtitle"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:375
-#: inc/modules/themeoptions/class-pdfoptions.php:394
-#: inc/modules/themeoptions/class-pdfoptions.php:413
-#: inc/modules/themeoptions/class-pdfoptions.php:432
-#: inc/modules/themeoptions/class-pdfoptions.php:451
-#: inc/modules/themeoptions/class-pdfoptions.php:469
-#: inc/modules/themeoptions/class-pdfoptions.php:487
-#: inc/modules/themeoptions/class-pdfoptions.php:508
-#: inc/modules/themeoptions/class-pdfoptions.php:529
-#: inc/modules/themeoptions/class-pdfoptions.php:548
+#: inc/modules/themeoptions/class-pdfoptions.php:410
+#: inc/modules/themeoptions/class-pdfoptions.php:429
+#: inc/modules/themeoptions/class-pdfoptions.php:448
+#: inc/modules/themeoptions/class-pdfoptions.php:467
+#: inc/modules/themeoptions/class-pdfoptions.php:486
+#: inc/modules/themeoptions/class-pdfoptions.php:504
+#: inc/modules/themeoptions/class-pdfoptions.php:522
+#: inc/modules/themeoptions/class-pdfoptions.php:543
+#: inc/modules/themeoptions/class-pdfoptions.php:564
+#: inc/modules/themeoptions/class-pdfoptions.php:583
 msgid "Book Author"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:376
-#: inc/modules/themeoptions/class-pdfoptions.php:395
+#: inc/modules/themeoptions/class-pdfoptions.php:411
+#: inc/modules/themeoptions/class-pdfoptions.php:430
 msgid "Front Matter Title"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:377
-#: inc/modules/themeoptions/class-pdfoptions.php:396
+#: inc/modules/themeoptions/class-pdfoptions.php:412
+#: inc/modules/themeoptions/class-pdfoptions.php:431
 msgid "Front Matter Author"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:378
-#: inc/modules/themeoptions/class-pdfoptions.php:397
+#: inc/modules/themeoptions/class-pdfoptions.php:413
+#: inc/modules/themeoptions/class-pdfoptions.php:432
 msgid "Front Matter Subtitle"
-msgstr ""
-
-#: inc/modules/themeoptions/class-pdfoptions.php:379
-#: inc/modules/themeoptions/class-pdfoptions.php:398
-#: inc/modules/themeoptions/class-pdfoptions.php:417
-#: inc/modules/themeoptions/class-pdfoptions.php:436
-#: inc/modules/themeoptions/class-pdfoptions.php:454
-#: inc/modules/themeoptions/class-pdfoptions.php:472
-#: inc/modules/themeoptions/class-pdfoptions.php:493
-#: inc/modules/themeoptions/class-pdfoptions.php:514
-#: inc/modules/themeoptions/class-pdfoptions.php:533
-#: inc/modules/themeoptions/class-pdfoptions.php:552
-msgid "Blank"
-msgstr ""
-
-#: inc/modules/themeoptions/class-pdfoptions.php:387
-msgid "Front Matter Right Page Running Content"
-msgstr ""
-
-#: inc/modules/themeoptions/class-pdfoptions.php:406
-msgid "Introduction Left Page Running Content"
 msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:414
 #: inc/modules/themeoptions/class-pdfoptions.php:433
+#: inc/modules/themeoptions/class-pdfoptions.php:452
+#: inc/modules/themeoptions/class-pdfoptions.php:471
+#: inc/modules/themeoptions/class-pdfoptions.php:489
+#: inc/modules/themeoptions/class-pdfoptions.php:507
+#: inc/modules/themeoptions/class-pdfoptions.php:528
+#: inc/modules/themeoptions/class-pdfoptions.php:549
+#: inc/modules/themeoptions/class-pdfoptions.php:568
+#: inc/modules/themeoptions/class-pdfoptions.php:587
+msgid "Blank"
+msgstr ""
+
+#: inc/modules/themeoptions/class-pdfoptions.php:422
+msgid "Front Matter Right Page Running Content"
+msgstr ""
+
+#: inc/modules/themeoptions/class-pdfoptions.php:441
+msgid "Introduction Left Page Running Content"
+msgstr ""
+
+#: inc/modules/themeoptions/class-pdfoptions.php:449
+#: inc/modules/themeoptions/class-pdfoptions.php:468
 msgid "Introduction Title"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:415
-#: inc/modules/themeoptions/class-pdfoptions.php:434
+#: inc/modules/themeoptions/class-pdfoptions.php:450
+#: inc/modules/themeoptions/class-pdfoptions.php:469
 msgid "Introduction Author"
 msgstr "ஆசிரியர் முன்னுரை"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:416
-#: inc/modules/themeoptions/class-pdfoptions.php:435
+#: inc/modules/themeoptions/class-pdfoptions.php:451
+#: inc/modules/themeoptions/class-pdfoptions.php:470
 msgid "Introduction Subtitle"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:425
+#: inc/modules/themeoptions/class-pdfoptions.php:460
 msgid "Introduction Right Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:444
+#: inc/modules/themeoptions/class-pdfoptions.php:479
 msgid "Part Left Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:452
-#: inc/modules/themeoptions/class-pdfoptions.php:470
-#: inc/modules/themeoptions/class-pdfoptions.php:488
-#: inc/modules/themeoptions/class-pdfoptions.php:509
+#: inc/modules/themeoptions/class-pdfoptions.php:487
+#: inc/modules/themeoptions/class-pdfoptions.php:505
+#: inc/modules/themeoptions/class-pdfoptions.php:523
+#: inc/modules/themeoptions/class-pdfoptions.php:544
 msgid "Part Number"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:453
-#: inc/modules/themeoptions/class-pdfoptions.php:471
-#: inc/modules/themeoptions/class-pdfoptions.php:489
-#: inc/modules/themeoptions/class-pdfoptions.php:510
+#: inc/modules/themeoptions/class-pdfoptions.php:488
+#: inc/modules/themeoptions/class-pdfoptions.php:506
+#: inc/modules/themeoptions/class-pdfoptions.php:524
+#: inc/modules/themeoptions/class-pdfoptions.php:545
 msgid "Part Title"
 msgstr "பகுதியின் தலைப்பு"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:462
+#: inc/modules/themeoptions/class-pdfoptions.php:497
 msgid "Part Right Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:480
+#: inc/modules/themeoptions/class-pdfoptions.php:515
 msgid "Chapter Left Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:490
-#: inc/modules/themeoptions/class-pdfoptions.php:511
+#: inc/modules/themeoptions/class-pdfoptions.php:525
+#: inc/modules/themeoptions/class-pdfoptions.php:546
 msgid "Chapter Title"
 msgstr "அலகு  தலைப்பு"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:491
-#: inc/modules/themeoptions/class-pdfoptions.php:512
+#: inc/modules/themeoptions/class-pdfoptions.php:526
+#: inc/modules/themeoptions/class-pdfoptions.php:547
 msgid "Chapter Author"
 msgstr "பகுதியின் ஆசிரியர் "
 
-#: inc/modules/themeoptions/class-pdfoptions.php:492
-#: inc/modules/themeoptions/class-pdfoptions.php:513
+#: inc/modules/themeoptions/class-pdfoptions.php:527
+#: inc/modules/themeoptions/class-pdfoptions.php:548
 msgid "Chapter Subtitle"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:501
+#: inc/modules/themeoptions/class-pdfoptions.php:536
 msgid "Chapter Right Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:522
+#: inc/modules/themeoptions/class-pdfoptions.php:557
 msgid "Back Matter Left Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:530
-#: inc/modules/themeoptions/class-pdfoptions.php:549
+#: inc/modules/themeoptions/class-pdfoptions.php:565
+#: inc/modules/themeoptions/class-pdfoptions.php:584
 msgid "Back Matter Title"
 msgstr "பின் பக்க  தலைப்பு"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:531
-#: inc/modules/themeoptions/class-pdfoptions.php:550
+#: inc/modules/themeoptions/class-pdfoptions.php:566
+#: inc/modules/themeoptions/class-pdfoptions.php:585
 msgid "Back Matter Author"
 msgstr "பின் பக்க ஆசிரியர்"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:532
-#: inc/modules/themeoptions/class-pdfoptions.php:551
+#: inc/modules/themeoptions/class-pdfoptions.php:567
+#: inc/modules/themeoptions/class-pdfoptions.php:586
 msgid "Back Matter Subtitle"
 msgstr "பின் பக்க துணை தலைப்பு"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:541
+#: inc/modules/themeoptions/class-pdfoptions.php:576
 msgid "Back Matter Right Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:562
+#: inc/modules/themeoptions/class-pdfoptions.php:597
 msgid "Increase Font Size"
 msgstr "எழுத்துரு அளவு அதிகரி"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:567
+#: inc/modules/themeoptions/class-pdfoptions.php:602
 msgid "Increases font size and line height for greater accessibility"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:593
+#: inc/modules/themeoptions/class-pdfoptions.php:628
 msgid "These options apply to PDF exports."
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:935
+#: inc/modules/themeoptions/class-pdfoptions.php:970
 msgid ""
 "IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm "
 "on any side can cause your file to be rejected."
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:1499
+#: inc/modules/themeoptions/class-pdfoptions.php:1534
 msgid "PDF Options"
 msgstr "PDF தேர்வுகள்"
 
-#: inc/modules/themeoptions/class-weboptions.php:103
+#: inc/modules/themeoptions/class-weboptions.php:138
 msgid "Enable Social Media"
 msgstr "சமூக வலைத்தளத்தை இயக்கு"
 
-#: inc/modules/themeoptions/class-weboptions.php:108
+#: inc/modules/themeoptions/class-weboptions.php:143
 msgid ""
 "Adds a button to cover page and each chapter which allows readers to share "
 "links to your book through Twitter"
 msgstr ""
 
-#: inc/modules/themeoptions/class-weboptions.php:114
+#: inc/modules/themeoptions/class-weboptions.php:149
 msgid "Webbook Width"
 msgstr ""
 
-#: inc/modules/themeoptions/class-weboptions.php:119
+#: inc/modules/themeoptions/class-weboptions.php:154
 msgid "Narrow"
 msgstr "குறிகிய"
 
-#: inc/modules/themeoptions/class-weboptions.php:121
+#: inc/modules/themeoptions/class-weboptions.php:156
 msgid "Wide"
 msgstr "பரந்த"
 
-#: inc/modules/themeoptions/class-weboptions.php:140
+#: inc/modules/themeoptions/class-weboptions.php:175
 msgid "Display Part Title"
 msgstr ""
 
-#: inc/modules/themeoptions/class-weboptions.php:145
+#: inc/modules/themeoptions/class-weboptions.php:180
 msgid "Display the Part title on each chapter"
 msgstr ""
 
-#: inc/modules/themeoptions/class-weboptions.php:152
+#: inc/modules/themeoptions/class-weboptions.php:187
 msgid "Collapse Sections"
 msgstr ""
 
-#: inc/modules/themeoptions/class-weboptions.php:157
+#: inc/modules/themeoptions/class-weboptions.php:192
 msgid "Collapse sections within front matter, chapters, and back matter"
 msgstr ""
 
-#: inc/modules/themeoptions/class-weboptions.php:165
+#: inc/modules/themeoptions/class-weboptions.php:200
 msgid "Enable Source Comparison"
 msgstr ""
 
-#: inc/modules/themeoptions/class-weboptions.php:170
+#: inc/modules/themeoptions/class-weboptions.php:205
 msgid ""
 "Add comparison tool to the end of each front matter, part, chapter, and back"
 " matter"
 msgstr ""
 
-#: inc/modules/themeoptions/class-weboptions.php:171
+#: inc/modules/themeoptions/class-weboptions.php:206
 msgid ""
 "Allows readers to compare content with the original book from which it was "
 "cloned."
 msgstr ""
 
-#: inc/modules/themeoptions/class-weboptions.php:197
+#: inc/modules/themeoptions/class-weboptions.php:232
 msgid "These options apply to the webbook."
 msgstr ""
 
-#: inc/modules/themeoptions/class-weboptions.php:397
+#: inc/modules/themeoptions/class-weboptions.php:432
 msgid "Web Options"
 msgstr ""
 
-#: inc/posttype/namespace.php:65 templates/admin/organize.php:65
+#: inc/posttype/namespace.php:65 templates/admin/organize.blade.php:50
 msgid "Chapters"
 msgstr "அதிகாரங்கள்"
 
-#: inc/posttype/namespace.php:88 templates/admin/organize.php:67
+#: inc/posttype/namespace.php:88 templates/admin/organize.blade.php:52
 msgid "Parts"
 msgstr "பாகங்கள் "
 
@@ -4003,7 +4192,7 @@ msgid "glossary"
 msgstr ""
 
 #: inc/posttype/namespace.php:554 templates/admin/import.php:97
-#: templates/admin/organize.php:68
+#: templates/admin/organize.blade.php:53
 msgid "Glossary"
 msgstr ""
 
@@ -4058,10 +4247,6 @@ msgstr "நூலின் மொழி"
 #: inc/registration/namespace.php:55
 msgid "Would you like your webbook to be visible to the public?"
 msgstr ""
-
-#: inc/registration/namespace.php:59
-msgid "Create Book"
-msgstr "நூல் உருவாக்குங்கள் "
 
 #: inc/registration/namespace.php:62
 msgid "Register a %s account"
@@ -4181,12 +4366,19 @@ msgid " adapted by "
 msgstr ""
 
 #: inc/shortcodes/footnotes/class-footnotes.php:187
-#: tests/test-shortcodes-footnotes-footnotes.php:164
 msgid "Invalid permissions."
 msgstr "சரியான ஒப்புதல் இல்லை."
 
 #: inc/shortcodes/glossary/class-glossary.php:139
 msgid "Select"
+msgstr "தேர்ந்தெடு"
+
+#: inc/shortcodes/glossary/class-glossary.php:293
+msgid "definition"
+msgstr ""
+
+#: inc/shortcodes/glossary/class-glossary.php:297
+msgid "Close definition"
 msgstr ""
 
 #: inc/theme/class-lock.php:96
@@ -4260,20 +4452,20 @@ msgstr ""
 msgid " (%1$d of %2$d)"
 msgstr ""
 
-#: inc/utility/namespace.php:580 inc/utility/namespace.php:591
-#: inc/utility/namespace.php:607
+#: inc/utility/namespace.php:567 inc/utility/namespace.php:578
+#: inc/utility/namespace.php:594
 msgid ""
 "An unexpected error occurred. Something may be wrong with the plugin "
 "recommendations server or your site&#8217;s server&#8217;s configuration."
 msgstr ""
 
-#: inc/utility/namespace.php:580
+#: inc/utility/namespace.php:567
 msgid ""
 "(Pressbooks could not establish a secure connection to the plugin "
 "recommendations server. Please contact your server administrator.)"
 msgstr ""
 
-#: inc/utility/namespace.php:631
+#: inc/utility/namespace.php:618
 msgid ""
 "These plugins have been created and/or recommended by the Pressbooks "
 "community."
@@ -4353,14 +4545,14 @@ msgstr ""
 
 #. translators: 1: URL to Composer documentation, 2: URL to Pressbooks latest
 #. releases
-#: pressbooks.php:79
+#: pressbooks.php:80
 msgid ""
 "Pressbooks dependencies are missing. Please make sure that your "
 "project&rsquo;s <a href=\"%1$s\">Composer autoload file</a> is being "
 "required, or use the <a href=\"%2$s\">latest release</a> instead."
 msgstr ""
 
-#: pressbooks.php:90
+#: pressbooks.php:91
 msgid "Cannot find Pressbooks install."
 msgstr ""
 
@@ -4376,7 +4568,8 @@ msgstr "குறிச்சொற்கள்"
 msgid "My Catalog Profile"
 msgstr "என் பட்டியலின் அறிமுகக் குறிப்புக்கள்"
 
-#: templates/admin/catalog.php:102
+#: templates/admin/catalog.php:102 templates/admin/cloner/stats.blade.php:5
+#: templates/admin/cloner/stats.blade.php:19
 msgid "URL"
 msgstr "தளமுகவரி"
 
@@ -4391,46 +4584,6 @@ msgstr "பக்கப்பட்டி வண்ணம்"
 #: templates/admin/catalog.php:118
 msgid "Logo Or Image"
 msgstr "சின்னம் அல்லது படம்"
-
-#: templates/admin/cloner.php:14
-msgid ""
-"This tool allows you to %1$s from one Pressbooks network to another. Search "
-"the thousands of books in the %2$s for material you would like to clone. "
-"Once a book is cloned into your network, you can edit content, add new "
-"media, and enhance with H5P interactive activities."
-msgstr ""
-
-#: templates/admin/cloner.php:14
-msgid "clone openly licensed books"
-msgstr ""
-
-#: templates/admin/cloner.php:22
-msgid ""
-"Enter the URL to a Pressbooks book with an open license which permits "
-"cloning."
-msgstr ""
-
-#: templates/admin/cloner.php:26
-msgid "Target Book URL"
-msgstr "இலக்கு புத்தக URL"
-
-#: templates/admin/cloner.php:34
-msgid "Enter an available URL where you want this book to be cloned."
-msgstr ""
-
-#: templates/admin/cloner.php:38
-msgid "Target Book Title"
-msgstr ""
-
-#: templates/admin/cloner.php:41
-msgid ""
-"Optional. If you leave this blank, the title of the source book will be "
-"used."
-msgstr ""
-
-#: templates/admin/cloner.php:45
-msgid "Clone This Book"
-msgstr ""
 
 #: templates/admin/covergenerator.php:65 templates/admin/covergenerator.php:85
 msgid ""
@@ -4469,44 +4622,51 @@ msgstr ""
 
 #. translators: %s date/time
 #: templates/admin/covergenerator.php:107
-msgid "Your latest covers were generated on %s. Hover to download them."
+msgid "Your latest covers were generated on %s."
 msgstr ""
 
-#: templates/admin/covergenerator.php:139
+#. translators: %s file format
+#: templates/admin/covergenerator.php:120
+msgid "%s cover"
+msgstr ""
+
+#. translators: %s file format
+#: templates/admin/covergenerator.php:127
+msgid "Download %s cover"
+msgstr ""
+
+#. translators: %s file format
+#: templates/admin/covergenerator.php:134
+msgid "Delete %s cover"
+msgstr ""
+
+#: templates/admin/covergenerator.php:151
 msgid "Are you sure you want to delete ALL your current covers?"
 msgstr ""
 
-#: templates/admin/covergenerator.php:139
+#: templates/admin/covergenerator.php:151
 msgid "Delete All Covers"
 msgstr ""
 
-#: templates/admin/custom-styles.php:33
+#: templates/admin/custom-styles.php:37
 msgid "Error: Something went wrong. See logs for more details."
 msgstr "வழு: ஏதோ தவறு நேர்ந்திருக்கிறது.  கூடுதல் விவரங்களுக்குக் 'குறிப்புகளை'ப் பார்க்கவும். "
 
-#: templates/admin/custom-styles.php:43
+#: templates/admin/custom-styles.php:47
 msgid "You are currently editing styles for"
 msgstr "நீங்கள் தற்போது பாணிகளை திருத்துகிறீர்கள்"
 
-#: templates/admin/custom-styles.php:44
+#: templates/admin/custom-styles.php:48
 msgid "Theme %1$s Styles (%2$s)"
 msgstr ""
 
-#: templates/admin/custom-styles.php:46
+#: templates/admin/custom-styles.php:50
 msgid "Your %s Styles"
 msgstr ""
 
-#: templates/admin/custom-styles.php:48
+#: templates/admin/custom-styles.php:52
 msgid "Save"
 msgstr "சேமி"
-
-#: templates/admin/dashboard.php:35
-msgid "Dashboard Settings"
-msgstr " முகப்புப்பெட்டி அமைப்பு"
-
-#: templates/admin/dashboard.php:37
-msgid "Customize your Pressbooks dashboard below."
-msgstr ""
 
 #: templates/admin/import.php:18
 msgid "Web page or Pressbooks webbook (.html or URL)"
@@ -4568,87 +4728,25 @@ msgstr "இறக்குமதி செய்தவற்றை வலைப�
 msgid "Import Selection"
 msgstr "இறக்குமதி தேர்ந்தெடு "
 
-#: templates/admin/import.php:181
+#: templates/admin/import.php:165
 msgid "Maximum file size:"
 msgstr "கோப்பின் உச்ச அளவு"
 
-#: templates/admin/import.php:191
+#: templates/admin/import.php:174
 msgid "Import Type"
 msgstr "இறக்குமதி வகை"
 
-#: templates/admin/import.php:203
+#: templates/admin/import.php:186 templates/admin/import.php:190
 msgid "Import Source"
 msgstr "இறக்குமதி மூலம்"
 
-#: templates/admin/import.php:222
+#: templates/admin/import.php:201
+msgid "Choose file"
+msgstr ""
+
+#: templates/admin/import.php:214
 msgid "Begin Import"
 msgstr "இறக்குமதிசெய்ய ஆரம்பிக்கவும்"
-
-#: templates/admin/organize.php:42 templates/admin/organize.php:44
-msgid "This book's global privacy is set to"
-msgstr "இப்புத்தகத்தின் பொதுவான தனிஉரிமை "
-
-#. translators: %s: URL to Pressbooks Directory
-#: templates/admin/organize.php:50
-msgid ""
-"Anyone with the link can see your book. Public books are eligible to be "
-"listed in <a href=\"%s\">Pressbooks Directory</a>. Individual chapters can "
-"be set to private."
-msgstr ""
-
-#: templates/admin/organize.php:56
-msgid ""
-"Only users you invite can see your book, regardless of individual chapter "
-"visibility below."
-msgstr "தனிப்பட்ட அத்தியாயம் தெரிவுநிலை எதுவாக இருந்தாலும், நீங்கள் அழைக்கும் பயனர்கள் மட்டுமே உங்கள் புத்தகத்தைக் காண முடியும்."
-
-#: templates/admin/organize.php:75
-msgid "Add Glossary Term"
-msgstr ""
-
-#: templates/admin/organize.php:78
-msgid "Word Count:"
-msgstr "வார்த்தைகள் எண்ணிக்கை "
-
-#: templates/admin/organize.php:78
-msgid "%s (whole book)"
-msgstr "%s (முழு புத்தகமும்)"
-
-#: templates/admin/organize.php:79
-msgid "%s (selected for export)"
-msgstr "%s (ஏற்றுமதிக்கு தேர்ந்தெடுக்கப்பட்டது)"
-
-#: templates/admin/organize.php:123 templates/admin/organize.php:189
-#: templates/admin/organize.php:347
-msgid "Edit"
-msgstr "தொகு"
-
-#: templates/admin/organize.php:125 templates/admin/organize.php:191
-#: templates/admin/organize.php:349
-msgid "Trash"
-msgstr "குப்பை"
-
-#: templates/admin/organize.php:126 templates/admin/organize.php:192
-#: templates/admin/organize.php:350
-msgid "View"
-msgstr "பார்வை"
-
-#: templates/admin/organize.php:133 templates/admin/organize.php:292
-msgid "Comments"
-msgstr "பின்னூட்டங்கள்"
-
-#: templates/admin/organize.php:178 templates/admin/organize.php:183
-#: templates/admin/organize.php:336 templates/admin/organize.php:341
-msgid "Ebook start point"
-msgstr "மின்னூலின் தொடக்கம்"
-
-#: templates/admin/organize.php:199 templates/admin/organize.php:358
-msgid "Move Up"
-msgstr "மேல நகரவும் "
-
-#: templates/admin/organize.php:202 templates/admin/organize.php:361
-msgid "Move Down"
-msgstr "கீழே நகரவும்"
 
 #: templates/admin/results.php:4
 msgid "Results"
@@ -4778,44 +4876,326 @@ msgstr "மன்னிக்கவும், உங்கள் தேடலு
 msgid "Pressbooks: the CMS for Books."
 msgstr "பிரெஸ்பூக்: நூல்களுக்கான உள்ளடக்க மேலாண்மை அமைப்பு"
 
-#: tests/test-registration.php:29
-msgid "Create Site"
+#: templates/admin/cloner/book-card.blade.php:9
+msgid "H5P Activities"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:35 assets/src/scripts/a11y.js:36
-msgid "Gradient selector"
+#: templates/admin/cloner/book-card.blade.php:14
+msgid "By"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:49
-msgid "Black"
+#: templates/admin/cloner/book-card.blade.php:29
+msgid "Select this book"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:52
-msgid "White"
+#: templates/admin/cloner/page.blade.php:4
+msgid ""
+"This tool allows you to clone openly licensed books from one Pressbooks "
+"network to another. The cloning process makes a copy of the original book "
+"for you to revise and redistribute as desired. You can enter the source book"
+" URL if you already know it, or find and select a suitable book from the "
+"Pressbooks Directory."
 msgstr ""
 
-#: assets/src/scripts/a11y.js:55
-msgid "Red"
+#: templates/admin/cloner/page.blade.php:9
+msgid ""
+"Enter the URL of a Pressbooks book with an open license which permits "
+"cloning."
 msgstr ""
 
-#: assets/src/scripts/a11y.js:58
-msgid "Orange"
+#: templates/admin/cloner/page.blade.php:10
+msgid "New Book URL"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:61
-msgid "Yellow"
+#: templates/admin/cloner/page.blade.php:16
+msgid ""
+"Enter the URL where you want this book to be cloned. This URL cannot be "
+"changed later, so choose carefully."
 msgstr ""
 
-#: assets/src/scripts/a11y.js:64
-msgid "Green"
+#: templates/admin/cloner/page.blade.php:17
+msgid "Clone book"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:67
-msgid "Blue"
+#: templates/admin/cloner/page.blade.php:24
+msgid "Search the Pressbooks Directory"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:70
-msgid "Purple"
+#: templates/admin/cloner/results.blade.php:1
+msgid "of"
+msgstr ""
+
+#: templates/admin/cloner/results.blade.php:2
+msgid ""
+"results shown. To see more results, or use advanced search and filtering "
+"capabilities, %s."
+msgstr ""
+
+#: templates/admin/cloner/results.blade.php:2
+msgid "visit the Directory itself"
+msgstr ""
+
+#: templates/admin/cloner/stats.blade.php:6
+msgid "Created"
+msgstr ""
+
+#: templates/admin/cloner/stats.blade.php:7
+msgid "Total # of clones"
+msgstr ""
+
+#: templates/admin/cloner/stats.blade.php:11
+msgid "List of clones"
+msgstr ""
+
+#: templates/admin/cloner/stats.blade.php:12
+msgid ""
+"Pressbooks added the ability to reliably track successful clones in early "
+"2023. This list may not include all clones made before that time."
+msgstr ""
+
+#: templates/admin/cloner/stats.blade.php:13
+msgid ""
+"The URLs here refer to external web addresses which may no longer be active "
+"or which may be hosting other content. Please use caution if you choose to "
+"visit any of the URLs listed below."
+msgstr ""
+
+#: templates/admin/cloner/stats.blade.php:20
+msgid "Date of clone"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:7
+msgid "Visit book"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:26
+msgid "Edit book info"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:34
+msgid "Organize book"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:42
+msgid "Change theme"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:50
+msgid "Manage users"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:58
+msgid "View Analytics"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:66
+msgid "Delete book"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:78
+msgid "Write a new chapter art"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:85
+msgid "Write a new chapter"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:91
+msgid "Import Content"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:105
+#: templates/admin/dashboard/support.blade.php:4
+msgid "Support resources"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:114
+msgid "Getting started with Pressbooks"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:117
+msgid "Watch a short video series on how to get started with Pressbooks."
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:125
+msgid "Pressbooks user guide"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:128
+msgid ""
+"Find help and how-tos for your publishing project in this detailed handbook."
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:136
+#: templates/admin/dashboard/support.blade.php:23
+msgid "Pressbooks community forum"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:139
+msgid ""
+"Discuss Pressbooks related questions with other users in our public forum."
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:147
+msgid "Pressbooks training webinars"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:150
+msgid ""
+"Register for free webinars to learn about Pressbooks features and best "
+"practices."
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:5
+msgid "Network Manager Dashboard"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:7
+#: templates/admin/dashboard/user.blade.php:6
+msgid "Welcome to"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:12
+msgid "Visit network homepage"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:23
+msgid "Your network has %s books and %s users. "
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:31
+msgid "Explore stats"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:44
+msgid "Ready to Launch Checklist"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:80
+msgid "Congratulations!"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:82
+msgid "Return to checklist"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:93
+msgid "Update homepage"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:99
+msgid "Update homepage art"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:108
+msgid "Customize network appearance"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:116
+msgid "Create or edit pages"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:125
+msgid "View homepage analytics"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:136
+msgid "Administer network"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:142
+msgid "Administer network art"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:151
+msgid "Adjust network settings"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:159
+msgid "View book list"
+msgstr ""
+
+#: templates/admin/dashboard/network.blade.php:167
+msgid "View user list"
+msgstr ""
+
+#: templates/admin/dashboard/support.blade.php:12
+msgid "Network manager guide"
+msgstr ""
+
+#: templates/admin/dashboard/support.blade.php:15
+msgid ""
+"Learn how to administer your Pressbooks network from our comprehensive how-"
+"to guide."
+msgstr ""
+
+#: templates/admin/dashboard/support.blade.php:26
+msgid ""
+"Discuss issues of interest with other network managers and Pressbooks "
+"support staff."
+msgstr ""
+
+#: templates/admin/dashboard/support.blade.php:34
+msgid "Pressbooks webinars"
+msgstr ""
+
+#: templates/admin/dashboard/support.blade.php:37
+msgid "Become a confident Pressbooks user by attending a free, live webinar."
+msgstr ""
+
+#: templates/admin/dashboard/support.blade.php:46
+msgid "Contact Pressbooks Support"
+msgstr ""
+
+#: templates/admin/dashboard/support.blade.php:49
+msgid ""
+"Email Pressbooks’ Premium Support team to report bugs or get personalized "
+"help."
+msgstr ""
+
+#: templates/admin/dashboard/user.blade.php:18
+msgid "Book Invitations"
+msgstr ""
+
+#: templates/admin/dashboard/user.blade.php:23
+msgid "You have been invited to join %1$s as %2$s"
+msgstr ""
+
+#: templates/admin/dashboard/user.blade.php:24
+msgid "Accept"
+msgstr ""
+
+#: templates/admin/dashboard/user.blade.php:40
+msgid "Create a new book art"
+msgstr ""
+
+#: templates/admin/dashboard/user.blade.php:45
+#: templates/admin/dashboard/user.blade.php:53
+#: templates/admin/dashboard/user.blade.php:58
+msgid "Create a book"
+msgstr ""
+
+#: templates/admin/dashboard/user.blade.php:47
+msgid ""
+"Create a new book full of engaging content: words, images, audio, video, "
+"footnotes, glossary terms, mathematical formula, interactive quizzes, and "
+"more."
+msgstr ""
+
+#: templates/admin/dashboard/user.blade.php:71
+msgid "Adapt a book art"
+msgstr ""
+
+#: templates/admin/dashboard/user.blade.php:76
+#: templates/admin/dashboard/user.blade.php:83
+msgid "Adapt a book"
+msgstr ""
+
+#: templates/admin/dashboard/user.blade.php:78
+msgid ""
+"Use our cloning tool to make your own personalized copy of any of the "
+"thousands of openly licensed educational books already published with "
+"Pressbooks."
 msgstr ""
 
 #: templates/admin/diagnostics.blade.php:5
@@ -4869,19 +5249,19 @@ msgstr ""
 msgid "Supported formats"
 msgstr "ஆதரவு வடிவங்கள்"
 
-#: templates/admin/export.blade.php:38
+#: templates/admin/export.blade.php:40
 msgid "Other formats"
 msgstr "பிற வடிவங்கள்"
 
-#: templates/admin/export.blade.php:56
+#: templates/admin/export.blade.php:60
 msgid "Your Theme"
 msgstr ""
 
-#: templates/admin/export.blade.php:76
+#: templates/admin/export.blade.php:80
 msgid "Export Your Book"
 msgstr "உங்கள் புத்தகத்தை ஏற்றுக."
 
-#: templates/admin/export.blade.php:81
+#: templates/admin/export.blade.php:85
 msgid "Latest Exports"
 msgstr ""
 
@@ -4893,7 +5273,7 @@ msgstr ""
 
 #: templates/admin/mathjax.blade.php:10
 msgid "Syntax"
-msgstr ""
+msgstr "தொடரமைப்பு"
 
 #: templates/admin/mathjax.blade.php:13
 msgid "LaTeX"
@@ -4933,14 +5313,109 @@ msgstr ""
 msgid "SVG/PNG Fonts"
 msgstr ""
 
-#: templates/admin/mathjax.blade.php:58
+#: templates/admin/mathjax.blade.php:59
 msgid ""
 "Affects exports (PDF, EPUB, MOBI.) Webbook uses CommonHTML. CommonHTML "
 "currently only supports MathJax’s default TeX fonts."
 msgstr ""
 
-#: templates/admin/mathjax.blade.php:64
+#: templates/admin/mathjax.blade.php:65
 msgid "Save Changes"
+msgstr ""
+
+#: templates/admin/organize.blade.php:11 templates/admin/organize.blade.php:16
+msgid "This book’s global privacy is set to"
+msgstr ""
+
+#: templates/admin/organize.blade.php:27
+msgid ""
+"Anyone with the link can see your book. Public books are eligible to be "
+"listed in <a href=\"%s\">Pressbooks Directory</a>. Individual chapters can "
+"be set to private."
+msgstr ""
+
+#: templates/admin/organize.blade.php:39
+msgid ""
+"Only users you invite can see your book, regardless of individual chapter "
+"visibility below."
+msgstr "தனிப்பட்ட அத்தியாயம் தெரிவுநிலை எதுவாக இருந்தாலும், நீங்கள் அழைக்கும் பயனர்கள் மட்டுமே உங்கள் புத்தகத்தைக் காண முடியும்."
+
+#: templates/admin/organize.blade.php:63
+msgid "Add Glossary Term"
+msgstr ""
+
+#: templates/admin/organize.blade.php:67
+msgid "Word Count:"
+msgstr "வார்த்தைகள் எண்ணிக்கை "
+
+#: templates/admin/organize.blade.php:67
+msgid "%s (whole book)"
+msgstr "%s (முழு புத்தகமும்)"
+
+#: templates/admin/organize.blade.php:69
+msgid "%s (selected for export)"
+msgstr "%s (ஏற்றுமதிக்கு தேர்ந்தெடுக்கப்பட்டது)"
+
+#: templates/admin/organize.blade.php:91
+#: templates/admin/organize.blade.php:100
+#: templates/metaboxes/fields/reorderable-multiselect.blade.php:3
+msgid "Add"
+msgstr "சேர்க்கவும்"
+
+#: templates/admin/organize.blade.php:109
+#: templates/admin/organize.blade.php:175
+msgid "Edit​%s"
+msgstr ""
+
+#: templates/admin/organize.blade.php:112
+msgid "Trash​%s"
+msgstr ""
+
+#: templates/admin/organize.blade.php:114
+msgid "View​%s"
+msgstr ""
+
+#: templates/admin/organize.blade.php:133
+msgid "Comments"
+msgstr "பின்னூட்டங்கள்"
+
+#: templates/admin/organize.blade.php:160
+#: templates/admin/organize.blade.php:168
+msgid "Ebook start point"
+msgstr "மின்னூலின் தொடக்கம்"
+
+#: templates/admin/organize.blade.php:182
+msgid "Trash%s"
+msgstr ""
+
+#: templates/admin/organize.blade.php:187
+msgid "View%s"
+msgstr ""
+
+#: templates/admin/organize.blade.php:198
+msgid "Move%s Up"
+msgstr ""
+
+#: templates/admin/organize.blade.php:204
+msgid "Move%s Down"
+msgstr ""
+
+#: templates/admin/organize.blade.php:224
+msgid "comment"
+msgid_plural "comments"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/admin/organize.blade.php:236
+msgid "Show %s in Web"
+msgstr ""
+
+#: templates/admin/organize.blade.php:246
+msgid "Show %s in Exports"
+msgstr ""
+
+#: templates/admin/organize.blade.php:255
+msgid "Show title for %s"
 msgstr ""
 
 #: templates/admin/sitemap.blade.php:3
@@ -4965,4 +5440,60 @@ msgstr ""
 msgid ""
 "One or more interactive elements has been excluded from this version of the "
 "text. You can view them online here: "
+msgstr ""
+
+#: templates/metaboxes/fields/reorderable-multiselect.blade.php:4
+msgid "Remove"
+msgstr ""
+
+#: templates/metaboxes/fields/reorderable-multiselect.blade.php:7
+msgid "Available options"
+msgstr ""
+
+#: templates/metaboxes/fields/reorderable-multiselect.blade.php:8
+msgid "Moved to position $1"
+msgstr ""
+
+#: templates/metaboxes/fields/reorderable-multiselect.blade.php:9
+msgid "Removed $1 from selection"
+msgstr ""
+
+#: templates/metaboxes/fields/reorderable-multiselect.blade.php:10
+msgid "Added $1 to selection"
+msgstr ""
+
+#: assets/src/scripts/a11y.js:31 assets/src/scripts/a11y.js:32
+msgid "Gradient selector"
+msgstr ""
+
+#: assets/src/scripts/a11y.js:45
+msgid "Black"
+msgstr ""
+
+#: assets/src/scripts/a11y.js:48
+msgid "White"
+msgstr ""
+
+#: assets/src/scripts/a11y.js:51
+msgid "Red"
+msgstr ""
+
+#: assets/src/scripts/a11y.js:54
+msgid "Orange"
+msgstr ""
+
+#: assets/src/scripts/a11y.js:57
+msgid "Yellow"
+msgstr ""
+
+#: assets/src/scripts/a11y.js:60
+msgid "Green"
+msgstr ""
+
+#: assets/src/scripts/a11y.js:63
+msgid "Blue"
+msgstr ""
+
+#: assets/src/scripts/a11y.js:66
+msgid "Purple"
 msgstr ""

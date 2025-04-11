@@ -1,7 +1,6 @@
 <?php
 
 class ThemeOptionsTest extends \WP_UnitTestCase {
-
     use utilsTrait;
 
 	/**
@@ -53,7 +52,9 @@ class ThemeOptionsTest extends \WP_UnitTestCase {
 		ob_start();
 		$this->themeOptions->render();
 		$output = ob_get_clean();
-		$this->assertStringContainsString( 'PDF Options</a>', $output );
+		$this->assertStringContainsString( 'PDF Options', $output );
+		$this->assertStringContainsString( '<nav class="nav-tab-wrapper" aria-label="Theme Options">', $output );
+		$this->assertStringContainsString( 'aria-current="page"', $output );
 	}
 
 	/**

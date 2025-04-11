@@ -15,6 +15,8 @@
 
 namespace Pressbooks\Utility;
 
+use RuntimeException;
+
 /**
  * Return a value for a given key even if not set
  *
@@ -400,19 +402,6 @@ function show_experimental_features( $host = '' ) {
  * @since 2.5.1
  */
 function include_plugins() {
-	$plugins = [
-		'custom-metadata/custom_metadata.php' => 1,
-	];
-
-	$plugins = filter_plugins( $plugins );
-
-	if ( ! empty( $plugins ) ) {
-		foreach ( $plugins as $key => $val ) {
-			require_once( PB_PLUGIN_DIR . 'symbionts/' . $key );
-		}
-	}
-
-	// Disable comments
 	if ( true === disable_comments() ) {
 		require_once( PB_PLUGIN_DIR . 'symbionts/disable-comments-mu/disable-comments-mu.php' );
 	}
@@ -700,7 +689,7 @@ function format_bytes( $bytes, $precision = 2 ) {
  */
 function debug_error_log( $message, $message_type = null ) {
 	if ( defined( 'WP_TESTS_MULTISITE' ) === false && WP_DEBUG ) {
-		\error_log( $message, $message_type ); // @codingStandardsIgnoreLine
+		\trigger_error( $message, $message_type ?? E_USER_NOTICE ); // @codingStandardsIgnoreLine
 	}
 }
 
@@ -964,7 +953,7 @@ function rcopy( $src, $dest, $excludes = [], $includes = [] ) {
  */
 function str_starts_with( $haystack, $needle ) {
 	$length = strlen( $needle );
-	return ( substr( $haystack, 0, $length ) === $needle );
+	return ( substr( $haystack ?? '', 0, $length ) === $needle );
 }
 
 /**
@@ -1309,14 +1298,14 @@ function oxford_comma( array $vars ) {
 /**
  * Implode an array and add a localized version of the word 'and' between the final two terms.
  * Example:
- * $str_implode = ';' $array_of_string = [ 'Carl Calson', 'Mark Thomson, PhD', 'John K.' ];
+ * $str_implode = ';' $array_of_string = [ 'Carl Carlson', 'Mark Thomson, PhD', 'John K.' ];
  * Output: 'Carl Carlson; Mark Thomson, PhD; and John K.'
  *
- * @param string $str_implode
+ * @param string $separator
  * @param array $array_of_strings
  * @return string
  */
-function implode_add_and( string $separator, array $array_of_strings ) {
+function implode_add_and( string $separator, array $array_of_strings ): string {
 	if ( count( $array_of_strings ) === 2 ) {
 		return $array_of_strings[0] . ' ' . __( 'and', 'pressbooks' ) . ' ' . $array_of_strings[1];
 	} else {
@@ -1348,13 +1337,13 @@ function oxford_comma_explode( string $string ) {
  * Output:
  * [ 'Carl Calson', 'Mark Thomson, PhD', 'John K.' ]
  *
- * @param string $str_explode
+ * @param string $separator
  * @param string $string
  * @return array
  */
-function explode_remove_and( string $separator, string $string ) {
+function explode_remove_and( string $separator, string $string ): array {
 	$results = [];
-	if ( strpos( $string, $separator ) !== false ) {
+	if ( str_contains( $string, $separator ) ) {
 		$items = explode( $separator, $string );
 		if ( count( $items ) === 2 ) {
 			$items = explode( ' ' . __( 'and', 'pressbooks' ) . ' ', $string );
@@ -1539,20 +1528,6 @@ function apply_https_if_available( $url ) {
 }
 
 /**
- * Checks if the user has pending invitations
- *
- * @param \WP_User $user
- * @return int
- */
-function get_number_of_invitations( $user ) {
-	global $wpdb;
-
-	$invitations = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(1) FROM $wpdb->usermeta WHERE meta_key LIKE %s AND user_id = %d", 'new_user_%', $user->ID ) );
-
-	return (int) $invitations;
-}
-
-/**
  * Creates a new image based on the url provided during import.
  *
  * @param string $url
@@ -1603,4 +1578,55 @@ function handle_image_upload( $url, $filename = 'profile.jpg' ) {
 	@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 
 	return wp_get_attachment_url( $pid );
+}
+
+/**
+ * Remove 'alloptions' cache key from the 'options' cache group.
+ *
+ * @return void
+ */
+function delete_options_cached() : void {
+	wp_cache_delete( 'alloptions', 'options' );
+}
+
+/**
+ * Are Algolia Search environment variables present?
+ *
+ * @return bool
+ */
+function is_algolia_search_enabled(): bool {
+	return env( 'ALGOLIA_APP_ID' ) && env( 'ALGOLIA_API_KEY' ) && env( 'ALGOLIA_INDEX_NAME' );
+}
+
+/**
+ * Convert an array of objects to a CSV string.
+ *
+ * @param array $array Array of objects to be converted.
+ * @return string CSV representation of the array.
+ */
+function objects_to_csv( array $array ): string {
+	if ( count( $array ) === 0 ) {
+		return '';
+	}
+
+	$output = fopen( 'php://memory', 'w' );
+	if ( $output === false ) {
+		throw new RuntimeException( 'Failed to open memory stream for CSV conversion.' );
+	}
+
+	// Extract headers from the first object
+	$headers = array_keys( get_object_vars( $array[0] ) );
+	fputcsv( $output, $headers );
+
+	// Extract each row
+	foreach ( $array as $obj ) {
+		$row = array_values( get_object_vars( $obj ) );
+		fputcsv( $output, $row );
+	}
+
+	rewind( $output );
+	$csv = stream_get_contents( $output );
+	fclose( $output );
+
+	return $csv ?: '';
 }

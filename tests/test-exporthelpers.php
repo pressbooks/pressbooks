@@ -3,9 +3,18 @@
 use Pressbooks\Modules\Export\ExportHelpers;
 
 class ExportHelpersTest extends \WP_UnitTestCase {
-
 	use ExportHelpers;
 	use utilsTrait;
+
+	/**
+	 * @var bool
+	 */
+	protected $displayAboutTheAuthors;
+
+	protected $wrapHeaderElements = false;
+
+	public $taxonomy;
+	public $contributors;
 
 	/**
 	 * @group export_helpers

@@ -1,19 +1,19 @@
 <?php
 
+use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Api\Endpoints\Controller\Posts;
 use Pressbooks\Container;
 
+use Pressbooks\DataCollector\Book;
 use function \Pressbooks\Metadata\book_information_to_schema;
 
 class ApiTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
 	 * @group api
 	 */
 	public function test_rootEndpoints() {
-
 		$server = $this->_setupRootApi();
 
 		// Test that endpoints exist
@@ -31,7 +31,7 @@ class ApiTest extends \WP_UnitTestCase {
 	/**
 	 * @group api
 	 */
-	public function test_booksEndpointMetada() {
+	public function test_booksEndpointMetadata() {
 		$this->_book();
 		$server = $this->_setupRootApi();
 		$endpoint = '/pressbooks/v2/books';
@@ -53,6 +53,316 @@ class ApiTest extends \WP_UnitTestCase {
 		$this->assertIsInt( $data['metadata']['h5pActivities'] );
 		$this->assertIsBool( $data['metadata']['inCatalog'] );
 		$this->assertIsString( $data['metadata']['license']['code'] );
+	}
+
+	/**
+	 * @test
+	 * @group api
+	 */
+	public function it_filters_books_by_title(): void {
+		$data = $this->setupBookEndpoint( [
+			'title' => [
+				'test',
+				'stuff',
+			],
+		]);
+		$this->assertEquals( 2, count( $data ) );
+
+		foreach ( $data as $book ) {
+			$this->assertMatchesRegularExpression( '/test|stuff/i', strtolower( $book['metadata']['name'] ) );
+		}
+	}
+
+	/**
+	 * @test
+	 * @group api
+	 */
+	public function it_excludes_books_by_title(): void {
+		$data = $this->setupBookEndpoint( [
+			'title' => [
+				'-book'
+			],
+		] );
+		$this->assertEquals( 1, count( $data ) );
+
+		$this->assertStringNotContainsString( 'book', strtolower( $data[0]['metadata']['name'] ) );
+	}
+
+	/**
+	 * @test
+	 * @group api
+	 */
+	public function it_filters_books_by_word_count_gte(): void {
+		$data = $this->setupBookEndpoint( [
+			'words' => 'gte_1000',
+		] );
+		$this->assertEquals( 3, count( $data ) );
+
+		foreach ( $data as $book ) {
+			$this->assertGreaterThanOrEqual( 1000, (int) $book['metadata']['wordCount'] );
+		}
+	}
+
+	/**
+	 * @test
+	 * @group api
+	 */
+	public function it_filters_books_by_word_count_lte(): void {
+		$data = $this->setupBookEndpoint( [
+			'words' => 'lte_2000',
+		] );
+
+		$this->assertEquals( 2, count( $data ) );
+
+		foreach ( $data as $book ) {
+			$this->assertLessThanOrEqual( 2000, (int) $book['metadata']['wordCount'] );
+		}
+	}
+
+	/**
+	 * @test
+	 * @group api
+	 */
+	public function it_filters_books_by_license_codes(): void {
+		$data = $this->setupBookEndpoint( [
+			'license_code' => [
+				'CC BY',
+				'Public Domain',
+			],
+		] );
+
+		$this->assertEquals( 3, count( $data ) );
+
+		foreach ( $data as $book ) {
+			$this->assertMatchesRegularExpression( '/CC BY|Public Domain/i', $book['metadata']['license']['code'] );
+		}
+	}
+
+	/**
+	 * @test
+	 * @group api
+	 */
+	public function it_excludes_books_by_license_codes(): void {
+		$data = $this->setupBookEndpoint( [
+			'license_code' => [
+				'-Public Domain',
+			],
+		] );
+
+		$this->assertEquals( 2, count( $data ) );
+
+		foreach ( $data as $book ) {
+			$this->assertNotEquals( 'Public Domain', $book['metadata']['license']['code'] );
+		}
+	}
+
+	/**
+	 * @test
+	 * @group api
+	 */
+	public function it_filters_book_by_directory_included(): void {
+		$data = $this->setupBookEndpoint( [
+			'in_directory' => true,
+		] );
+
+		$this->assertEquals( 2, count( $data ) );
+
+		foreach ( $data as $book ) {
+			$this->assertFalse( $book['metadata']['bookDirectoryExcluded'] );
+		}
+	}
+
+	/**
+	 * @test
+	 * @group api
+	 */
+	public function it_filters_book_by_directory_excluded(): void {
+		$data = $this->setupBookEndpoint( [
+			'in_directory' => false,
+		] );
+
+		$this->assertEquals( 2, count( $data ) );
+
+		foreach ( $data as $book ) {
+			$this->assertTrue( $book['metadata']['bookDirectoryExcluded'] );
+		}
+	}
+
+	/**
+	 * @test
+	 * @group api
+	 */
+	public function it_filters_book_by_directory_include_catalog_network_setting(): void {
+		$data = $this->setupBookEndpoint( [
+			'in_directory' => true,
+		], true );
+
+
+
+		$this->assertEquals( 3, count( $data ) );
+
+		foreach ( $data as $book ) {
+			$this->assertFalse( $book['metadata']['bookDirectoryExcluded'] );
+		}
+	}
+
+	/**
+	 * @test
+	 * @group api
+	 */
+	public function it_filters_book_by_directory_catalog_network_setting(): void {
+		$data = $this->setupBookEndpoint( [
+			'in_directory' => false,
+		], true );
+
+
+		$this->assertEquals( 1, count( $data ) );
+		$this->assertTrue( $data[0]['metadata']['bookDirectoryExcluded'] );
+	}
+
+	/**
+	 * Create a set of books with metadata and setup API endpoint for books.
+	 *
+	 * @param array $params
+	 * @param bool $exclude_directory_catalog
+	 * @return array
+	 */
+	private function setupBookEndpoint( array $params, bool $exclude_directory_catalog = false ): array {
+		$licenses_map = [
+			'Public Domain' => 'public-domain',
+			'All Rights Reserved' => 'all-rights-reserved',
+			'CC BY' => 'cc-by',
+		];
+
+		$network_options = get_site_option( SharingAndPrivacyOptions::getSlug(), [] );
+		$network_options[ SharingAndPrivacyOptions::NETWORK_DIRECTORY_EXCLUDED ] = $exclude_directory_catalog;
+		update_site_option( SharingAndPrivacyOptions::getSlug(), $network_options );
+
+		$metadata = [
+			[
+				Book::TITLE => 'Test PB Book',
+				Book::WORD_COUNT => 1000,
+				Book::BOOK_DIRECTORY_EXCLUDED => 1,
+				Book::LICENSE_CODE => 'Public Domain',
+				Book::IN_CATALOG => 1,
+			],
+			[
+				Book::TITLE => 'Awesome textbook',
+				Book::WORD_COUNT => 2340,
+				Book::LICENSE_CODE => 'Public Domain',
+				Book::IN_CATALOG => 1,
+			],
+			[
+				Book::TITLE => 'Book about stuff',
+				Book::WORD_COUNT => 50,
+				Book::LICENSE_CODE => 'CC BY',
+				Book::IN_CATALOG => 0,
+			],
+			[
+				Book::TITLE => 'This is about things',
+				Book::WORD_COUNT => 7477,
+				Book::BOOK_DIRECTORY_EXCLUDED => 1,
+				Book::LICENSE_CODE => 'All Rights Reserved',
+				Book::IN_CATALOG => 1,
+			],
+		];
+		$book_collector = new Book();
+
+		foreach ( $metadata as $meta ) {
+			$this->_book();
+			$book_id = get_current_blog_id();
+			$meta_post_id = ( new Pressbooks\Metadata )->getMetaPostId();
+
+			update_post_meta( $meta_post_id, Book::TITLE, $meta[ Book::TITLE ] );
+
+			foreach ( $meta as $key => $value ) {
+				$metadata_info_array = $book_collector->get( $book_id, Book::BOOK_INFORMATION_ARRAY );
+
+				if ( $key === Book::LICENSE_CODE ) {
+					$metadata_info_array[ Book::LICENSE ] = $licenses_map[ $value ];
+					update_post_meta( $meta_post_id, Book::LICENSE, $licenses_map[ $value ] );
+				} else {
+					$metadata_info_array[ $key ] = $value;
+				}
+
+				update_site_meta( $book_id, Book::BOOK_INFORMATION_ARRAY, $metadata_info_array );
+
+				update_site_meta( $book_id, $key, $value );
+			}
+		}
+
+		$server = $this->_setupRootApi();
+
+		$endpoint = '/pressbooks/v2/books';
+		$request = new \WP_REST_Request( 'GET', $endpoint );
+		$request->set_query_params( $params );
+		$response = $server->dispatch( $request );
+		return $response->get_data();
+	}
+
+	/**
+	 * @group api
+	 * @test
+	 */
+	public function clone_complete_endpoint_invalid_token(): void {
+		$server = $this->_setupRootApi();
+		$endpoint = '/pressbooks/v2/clone/complete';
+		$request = new \WP_REST_Request( 'POST', $endpoint );
+		$request->set_body_params( [
+			'token' => 'invalid_token',
+			'url' => 'https://example.com',
+			'name' => 'Test',
+		] );
+		$response = $server->dispatch( $request );
+		$this->assertEquals( 400, $response->get_status() );
+		$data = $response->get_data();
+		$this->assertEquals( 'rest_invalid_param', $data['code'] );
+		$this->assertEquals( 'Invalid parameter(s): token', $data['message'] );
+	}
+
+	/**
+	 * @group api
+	 * @test
+	 */
+	public function clone_complete_endpoint_valid_token(): void {
+		$tokens = new \Pressbooks\CloneTokens();
+		$token = $tokens->generateToken();
+
+		$server = $this->_setupRootApi();
+		$endpoint = '/pressbooks/v2/clone/complete';
+		$request = new \WP_REST_Request( 'POST', $endpoint );
+		$request->set_body_params( [
+			'token' => $token,
+			'url' => 'https://example.com',
+			'name' => 'Test',
+		] );
+		$response = $server->dispatch( $request );
+		$this->assertEquals( 200, $response->get_status() );
+		$data = $response->get_data();
+		$this->assertTrue( $data['success'] );
+	}
+
+	/**
+	 * @group api
+	 * @test
+	 */
+	public function clone_complete_endpoint_valid_token_with_invalid_url(): void {
+		$tokens = new \Pressbooks\CloneTokens();
+		$token = $tokens->generateToken();
+
+		$server = $this->_setupRootApi();
+		$endpoint = '/pressbooks/v2/clone/complete';
+		$request = new \WP_REST_Request( 'POST', $endpoint );
+		$request->set_body_params( [
+			'token' => $token,
+			'url' => 'invalid_url',
+			'name' => 'Test',
+		] );
+		$response = $server->dispatch( $request );
+		$this->assertEquals( 400, $response->get_status() );
+		$data = $response->get_data();
+		$this->assertEquals( 'rest_invalid_param', $data['code'] );
+		$this->assertEquals( 'Invalid parameter(s): url', $data['message'] );
 	}
 
 	/**
@@ -202,7 +512,6 @@ class ApiTest extends \WP_UnitTestCase {
 	 * @group api
 	 */
 	public function test_BookEndpoints() {
-
 		// Test that endpoints exist
 		$endpoints = [
 			'/pressbooks/v2/parts',
@@ -252,6 +561,48 @@ class ApiTest extends \WP_UnitTestCase {
 			$status = $response->get_status();
 			$this->assertEquals( 404, $status );
 		}
+	}
+
+	/**
+	 * @group api
+	 */
+	public function test_partsEndpoint() {
+		$server = $this->_setupBookApi();
+
+		new Posts('part');
+
+		$visible_part = [
+			'post_type'    => 'part',
+			'post_title'   => 'Visible',
+			'post_content' => 'This space intentionally left blank.',
+			'post_status'  => 'publish',
+		];
+		$invisible_part = [
+			'post_type'    => 'part',
+			'post_title'   => 'Invisible',
+			'post_content' => 'This space intentionally left blank.',
+			'post_status'  => 'publish',
+		];
+
+		$visible_id = $this->factory()->post->create_object( $visible_part );
+		delete_post_meta( $visible_id, 'pb_part_invisible' );
+
+		$invisible_id = $this->factory()->post->create_object( $invisible_part );
+		update_post_meta( $invisible_id, 'pb_part_invisible', 'on' );
+
+		$request = new \WP_REST_Request( 'GET', "/pressbooks/v2/parts/{$visible_id}" );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+
+		$this->assertFalse($data['meta']['pb_part_invisible']);
+		$this->assertEquals('', $data['meta']['pb_part_invisible_string']);
+
+		$request = new \WP_REST_Request( 'GET', "/pressbooks/v2/parts/{$invisible_id}" );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+
+		$this->assertNull($data['meta']['pb_part_invisible']);
+		$this->assertEquals('on', $data['meta']['pb_part_invisible_string']);
 	}
 
 	/**
@@ -368,10 +719,9 @@ class ApiTest extends \WP_UnitTestCase {
 	 * @group api
 	 */
 	public function test_glossaryApi() {
-
 		$server = $this->_setupBookApi();
 
-		$controller = new Posts('glossary');
+		new Posts('glossary');
 
 		$term1 = [
 			'post_type'    => 'glossary',
@@ -392,17 +742,144 @@ class ApiTest extends \WP_UnitTestCase {
 			'post_status'  => 'publish',
 		];
 
+		$term4 = [
+			'post_type'    => 'glossary',
+			'post_title'   => 'Moved to trash',
+			'post_content' => 'This term was moved to trash.',
+			'post_status'  => 'trash',
+		];
+
 		$this->factory()->post->create_object( $term1 );
 		$this->factory()->post->create_object( $term2 );
 		$this->factory()->post->create_object( $term3 );
+		$this->factory()->post->create_object( $term4 );
 
 		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/glossary' );
 		$response = $server->dispatch( $request );
 		$data = $response->get_data();
 
-		$this->assertEquals( 2, count( $data ) );
-		$this->assertEquals( 'Synapse', $data[0]['title']['rendered'] );
-		$this->assertEquals( 'ML', $data[1]['title']['rendered'] );
+		$this->assertEquals( 3, count( $data ) );
+		$this->assertStringContainsString( 'Not done', $data[0]['title']['rendered'] );
+		$this->assertEquals( 'Not done', $data[0]['title']['raw'] );
+		$this->assertEquals( 'Synapse', $data[1]['title']['rendered'] );
 	}
 
+	/**
+	 * @test
+	 * @group api
+	 */
+	public function set_api_permissions_item(): void {
+		$this->_book();
+		new Posts('front-matter');
+		$post1 = [
+			'post_type'    => 'front-matter',
+			'post_title'   => 'Front matter title I',
+			'post_content' => 'This is a front matter content I',
+			'post_status'  => 'publish',
+		];
+		$post2 = [
+			'post_type'    => 'front-matter',
+			'post_title'   => 'Front matter title II',
+			'post_content' => 'This is a front matter content II',
+			'post_status'  => 'private',
+		];
+		$this->factory()->post->create_object( $post1 );
+		$this->factory()->post->create_object( $post2 );
+
+		update_option( 'blog_public', 0 );
+
+		$server = $this->_setupRootApi();
+		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/toc' );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+		$this->assertArrayHasKey( 'code', $data );
+		$this->assertArrayHasKey( 'data', $data );
+		$this->assertEquals( $data['code'], 'rest_forbidden' );
+		$this->assertEquals( $data['data']['status'], 401 );
+
+		add_filter( 'pb_set_api_items_permission', '__return_true' );
+
+		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/toc' );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+		$this->assertEquals( 3, count( $data['front-matter'] ) );
+		$this->assertEquals( $post1['post_title'], $data['front-matter'][0]['title'] );
+		$this->assertEquals( $post2['post_title'], $data['front-matter'][1]['title'] );
+	}
+
+	/**
+	 * @test
+	 * @group api
+	 */
+	public function clone_token_is_valid(): void {
+		$this->_book();
+		new Posts('front-matter');
+		$post1 = [
+			'post_type'    => 'front-matter',
+			'post_title'   => 'Front matter title I',
+			'post_content' => 'This is a front matter content I',
+			'post_status'  => 'publish',
+		];
+		$post2 = [
+			'post_type'    => 'front-matter',
+			'post_title'   => 'Front matter title II',
+			'post_content' => 'This is a front matter content II',
+			'post_status'  => 'private',
+		];
+		$this->factory()->post->create_object( $post1 );
+		$this->factory()->post->create_object( $post2 );
+
+		$server = $this->_setupRootApi();
+		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/toc' );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+		$this->assertIsString( $data['clone_token'] );
+	}
+
+	/**
+	 * @test
+	 * @group api
+	 */
+	public function get_password_protected_posts(): void {
+		$this->_book();
+		new Posts('back-matter');
+		$protected_post = [
+			'post_type'    => 'back-matter',
+			'post_title'   => 'Back matter title I',
+			'post_content' => 'This is a back matter content I',
+			'post_status'  => 'publish',
+			'post_password' => '123456',
+		];
+		$protected_post_id = $this->factory()->post->create_object( $protected_post );
+		update_option( 'blog_public', 0 );
+
+		$server = $this->_setupRootApi();
+
+		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/back-matter/' . $protected_post_id );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+		$this->assertEmpty( $data['content']['raw'] );
+
+		add_filter( 'pb_set_api_items_permission', '__return_true' );
+
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+		$this->assertEquals( $protected_post['post_content'], $data['content']['raw'] );
+	}
+
+	/**
+	 * @test
+	 * @group api
+	 */
+	public function it_disable_users_endpoint(): void {
+		$server = $this->_setupRootApi();
+
+		$request = new WP_REST_Request( 'GET', '/wp/v2/users' );
+
+		$response = $server->dispatch( $request );
+		$data = $response->data;
+
+		$this->assertEquals( 404, $response->status );
+		$this->assertEquals( 'No route was found matching the URL and request method.', $data['message'] );
+	}
 }

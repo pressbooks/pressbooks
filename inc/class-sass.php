@@ -261,7 +261,11 @@ class Sass {
 						$val = "{$fncall}({$fncall_params})";
 						break;
 					default:
-						$val = @( new \ScssPhp\ScssPhp\Compiler() )->compileValue( $item[2] ); // @codingStandardsIgnoreLine
+						try {
+							$val = @( new \ScssPhp\ScssPhp\Compiler() )->compileValue( $item[2] ); // @codingStandardsIgnoreLine
+						} catch ( \TypeError $e ) {
+							$val = '';
+						}
 				}
 				$output[ $key ] = $val;
 			}
@@ -282,7 +286,7 @@ class Sass {
 		global $current_user;
 
 		$info = [
-			'time' => strftime( '%c' ),
+			'time' => date( 'D M H:i:s Y', time() ),
 			'user' => ( isset( $current_user ) ? $current_user->user_login : '__UNKNOWN__' ),
 			'site_url' => site_url(),
 			'blog_id' => get_current_blog_id(),

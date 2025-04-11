@@ -1,7 +1,6 @@
 <?php
 
 class Interactive_ContentTest extends \WP_UnitTestCase {
-
 	/**
 	 * @var \Pressbooks\Interactive\Content
 	 * @group interactivecontent
@@ -13,6 +12,7 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 	 */
 	public function set_up() {
 		parent::set_up();
+
 		$this->content = new \Pressbooks\Interactive\Content();
 	}
 
@@ -33,7 +33,6 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<iframe src="https://phet.colorado.edu/', $result );
 		$this->assertStringContainsString( '[embed]https://garbage.com/bad.html[/embed]', $result );
 		$this->assertStringNotContainsString( '<p>', $result );
-
 
 		$raw = '
 		Test Three
@@ -84,7 +83,6 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 	 * @group interactivecontent
 	 */
 	public function test_replaceOembed() {
-
 		$data = new \StdClass();
 		$data->provider_name = 'Localhost';
 		$data->thumbnail_url = 'http://localhost/image.png';
@@ -152,5 +150,4 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'bar', $s['_foo'] );
 		$this->assertFalse( $s['autoRewind'] );
 	}
-
 }

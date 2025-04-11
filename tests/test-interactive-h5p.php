@@ -1,13 +1,11 @@
 <?php
 
 class Interactive_H5PTest extends \WP_UnitTestCase {
-
 	/**
 	 * @var \Pressbooks\Interactive\H5P
 	 * @group interactivecontent
 	 */
 	protected $h5p;
-
 
 	/**
 	 * @group interactivecontent
@@ -76,7 +74,6 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 	 * @group interactivecontent
 	 */
 	public function test_h5p_custom_wrapper() {
-
 		$html = '<iframe id="h5p-content"><div></div></iframe>';
 
 		$content = [
@@ -88,7 +85,5 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 		$expected = '<div id="h5p-1"><iframe id="h5p-content"><div></div></iframe></div>';
 
 		$this->assertEquals( $expected, $result );
-
 	}
-
 }

@@ -6,6 +6,8 @@
 
 namespace Pressbooks;
 
+use WP_Site;
+
 class Privacy {
 
 	/**
@@ -66,5 +68,30 @@ class Privacy {
 		$content = 'TODO.'; // TODO: Add real privacy policy suggestions.
 
 		wp_add_privacy_policy_content( 'Pressbooks', wp_kses_post( wpautop( $content, false ) ) );
+	}
+
+	/**
+	 * @since 6.15.2
+	 *
+	 * A filter to allow permissive private content for certain roles.
+	 */
+	public static function showPermissivePrivateContent(): void {
+		add_filter( 'pre_get_posts', function ( $query ) {
+			if ( is_user_logged_in() ) {
+				$permissive_private_content = (int) get_option( 'permissive_private_content', 0 );
+				$current_user = wp_get_current_user();
+				$permissive_roles = [ 'subscriber', 'collaborator', 'author' ];
+				if ( $permissive_private_content && array_intersect( $permissive_roles, $current_user->roles ) ) {
+					$query->set( 'post_status', [ 'publish', 'pending', 'draft', 'private', 'web-only' ] );
+				}
+			}
+			return $query;
+		});
+	}
+
+	public static function setDefaultPermissivePrivateContent( WP_Site $site ): void {
+		switch_to_blog( $site->blog_id );
+		update_option( 'permissive_private_content', 1 );
+		restore_current_blog();
 	}
 }

@@ -3,8 +3,6 @@
 #the-list {
   tr td:first-child {
     border-left: solid 4px transparent;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
     transition: all 0.5s;
   }
 
