@@ -1,5 +1,26 @@
 # Changelog
 
+## [6.25.0](https://github.com/pressbooks/pressbooks/compare/6.24.0...6.25.0) (2025-04-14)
+
+
+### Features
+
+* add accessible wp table headers ([#3990](https://github.com/pressbooks/pressbooks/issues/3990)) ([fe31b00](https://github.com/pressbooks/pressbooks/commit/fe31b00cf96b8dba68d86039c78cd5bccc318edf))
+
+
+### Bug Fixes
+
+* add autocomplete attribute for profile and contributors forms ([#3989](https://github.com/pressbooks/pressbooks/issues/3989)) ([ea2b6bf](https://github.com/pressbooks/pressbooks/commit/ea2b6bf3738dc54ac8d79505e6a7e2c809bfc854))
+* default value for latest_files_public option ([#3985](https://github.com/pressbooks/pressbooks/issues/3985)) ([357377d](https://github.com/pressbooks/pressbooks/commit/357377d8357003e1588ec0686a04b7d60045e3d8))
+
+
+### Chores
+
+* code style improvements ([#4000](https://github.com/pressbooks/pressbooks/issues/4000)) ([13dc3e1](https://github.com/pressbooks/pressbooks/commit/13dc3e1894458a2df607bb73a804a9468d5e3865))
+* code style issues ([13dc3e1](https://github.com/pressbooks/pressbooks/commit/13dc3e1894458a2df607bb73a804a9468d5e3865))
+* improve coding style standards ([#3988](https://github.com/pressbooks/pressbooks/issues/3988)) ([b3978c0](https://github.com/pressbooks/pressbooks/commit/b3978c053107c0986bd39ee5d101e255c4ac69b7))
+* update East Texas A&M University name ([#3997](https://github.com/pressbooks/pressbooks/issues/3997)) ([846a83a](https://github.com/pressbooks/pressbooks/commit/846a83aaafcb54db882e4ac8111d38180c612d3a))
+
 ## [6.24.0](https://github.com/pressbooks/pressbooks/compare/6.23.2...6.24.0) (2025-04-07)
 
 
