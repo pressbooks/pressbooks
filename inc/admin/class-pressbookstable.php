@@ -9,7 +9,9 @@ class PressbooksTable extends WP_List_Table {
 
 	public function print_column_headers( $with_id = true ): void {
 		$blade = Container::get( 'Blade' );
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $blade->render( 'admin.pressbooks-table.column-headers', [
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			'columns' => $this->get_prepared_columns(),
 		] );
 	}
@@ -18,8 +20,8 @@ class PressbooksTable extends WP_List_Table {
 		$columns  = $this->get_columns();
 		$hidden   = get_hidden_columns( $this->screen );
 		$sortable = $this->get_sortable_columns();
-		$orderby  = $_GET['orderby'] ?? '';
-		$order    = $_GET['order'] ?? 'asc';
+		$orderby  = isset( $_GET['orderby'] ) ? sanitize_text_field( wp_unslash( $_GET['orderby'] ) ) : '';
+		$order    = isset( $_GET['order'] ) ? sanitize_text_field( wp_unslash( $_GET['order'] ) ) : 'asc';
 
 		$prepared = [];
 

@@ -13,6 +13,7 @@
         <!-- Exclude classes that override WP Core: -->
         <exclude-pattern>/inc/admin/class-catalog-list-table.php</exclude-pattern>
         <exclude-pattern>/inc/admin/class-network-managers-list-table.php</exclude-pattern>
+        <exclude-pattern>/inc/admin/class-pressbookstable.php</exclude-pattern>
         <exclude-pattern>/api/endpoints/controller/*</exclude-pattern>
         <exclude-pattern>/inc/modules/export/class-table.php</exclude-pattern>
     </rule>
