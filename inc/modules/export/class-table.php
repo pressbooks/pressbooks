@@ -62,7 +62,7 @@ class Table extends \WP_List_Table {
 	 * @return string
 	 */
 	public function column_cb( $item ) {
-		return sprintf( '<input type="checkbox" name="ID[]" value="%s" aria-label="%s" />', $item['ID'], __( sprintf( 'Select %s', $item['file'] ) ) );
+		return sprintf( '<input type="checkbox" name="ID[]" value="%s" aria-label="%s" />', $item['ID'], sprintf( __( 'Select %s', 'pressbooks' ), $item['file'] ) );
 	}
 
 	/**
@@ -119,7 +119,7 @@ class Table extends \WP_List_Table {
 	public function column_pin( $item ) {
 		$format = $this->getTinyHash( $item['format'] );
 		$html = "<input type='checkbox' id='pin[{$item['ID']}]' name='pin[{$item['ID']}]' value='{$format}' " . checked( $item['pin'], true, false ) . '/>';
-		$html .= "<label for='pin[{$item['ID']}]'>" . __( sprintf( 'Pin %s', $item['file'] ) ) . '</label>';
+		$html .= "<label for='pin[{$item['ID']}]'>" . sprintf( __( 'Pin %s', 'pressbooks' ), $item['file'] ) . '</label>';
 		return $html;
 	}
 

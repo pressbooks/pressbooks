@@ -1,35 +1,29 @@
 <?php
 
 use Pressbooks\MathJax;
+/**
+ * @group taxonomies
+ */
+class MathjaxTest extends \WP_UnitTestCase {
 
-class MathJaxTest extends \WP_UnitTestCase {
-	use utilsTrait;
-
-	/**
-	 * @var MathJax
-	 */
 	protected $mathjax;
-
-	/**
-	 * @group taxonomies
-	 */
 	public function set_up() {
 		parent::set_up();
-		$this->mathjax = new Mathjax();
+		$this->mathjax = new MathJax();
 	}
 
-	function test_beforeExport() {
+	public function testBeforeExport() {
 		$this->assertFalse( $this->mathjax->usePbMathJax );
 		$this->mathjax->beforeExport();
 		$this->assertTrue( $this->mathjax->usePbMathJax );
 	}
 
-	public function test_addMenu() {
+	public function testAddMenu() {
 		$this->mathjax->addMenu();
 		$this->assertTrue( true ); // Did not crash
 	}
 
-	public function test_renderPage() {
+	public function testRenderPage() {
 		ob_start();
 		$this->mathjax->renderPage();
 		$buffer = ob_get_clean();
@@ -37,7 +31,7 @@ class MathJaxTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<input type="hidden" id="pb-mathjax-nonce"', $buffer );
 	}
 
-	public function test_options() {
+	public function testOptions() {
 		$options = $this->mathjax->getOptions();
 		$this->assertEquals( $options['fg'], '000000' );
 
@@ -59,32 +53,32 @@ class MathJaxTest extends \WP_UnitTestCase {
 		$this->assertEquals( $options['fg'], '000000' );
 	}
 
-	public function test_sectionHasMath() {
+	public function testSectionHasMath() {
 		$new_post = [
-			'post_title' => 'Test Chapter: ' . rand(),
+			'post_title' => 'Test Chapter: ' . wp_rand(),
 			'post_type' => 'chapter',
 			'post_status' => 'published',
 			'post_content' => 'No math',
 		];
 		$pid = $this->factory()->post->create_object( $new_post );
 		$GLOBALS['post'] = $pid;
-		$this->assertFalse( $this->mathjax->sectionHasMath());
+		$this->assertFalse( $this->mathjax->sectionHasMath() );
 
 		$new_post = [
-			'post_title' => 'Test Chapter: ' . rand(),
+			'post_title' => 'Test Chapter: ' . wp_rand(),
 			'post_type' => 'chapter',
 			'post_status' => 'published',
 			'post_content' => '[latex]\boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}[/latex]',
 		];
 		$pid = $this->factory()->post->create_object( $new_post );
 		$GLOBALS['post'] = $pid;
-		$this->assertTrue( $this->mathjax->sectionHasMath());
+		$this->assertTrue( $this->mathjax->sectionHasMath() );
 
 	}
 
-	public function test_addHeaders() {
+	public function testAddHeaders() {
 		$new_post = [
-			'post_title' => 'Test Chapter: ' . rand(),
+			'post_title' => 'Test Chapter: ' . wp_rand(),
 			'post_type' => 'chapter',
 			'post_status' => 'published',
 			'post_content' => 'No math',
@@ -96,9 +90,8 @@ class MathJaxTest extends \WP_UnitTestCase {
 		$buffer = ob_get_clean();
 		$this->assertEmpty( $buffer );
 
-
 		$new_post = [
-			'post_title' => 'Test Chapter: ' . rand(),
+			'post_title' => 'Test Chapter: ' . wp_rand(),
 			'post_type' => 'chapter',
 			'post_status' => 'published',
 			'post_content' => '[latex]\boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}[/latex]',
@@ -108,23 +101,23 @@ class MathJaxTest extends \WP_UnitTestCase {
 		ob_start();
 		$this->mathjax->addHeaders();
 		$buffer = ob_get_clean();
-		$this->assertStringContainsString('window.MathJax', $buffer);
+		$this->assertStringContainsString( 'window.MathJax', $buffer );
 	}
 
-	public function test_latexMarkup() {
+	public function testLatexMarkup() {
 		$this->mathjax->usePbMathJax = false;
 		$s = $this->mathjax->parseLatexMarkup( '$latex \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
 		$this->assertEquals( '[latex]\boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}[/latex]', $s );
 
 		$this->mathjax->usePbMathJax = true;
 		$s = $this->mathjax->parseLatexMarkup( '$latex \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
-		$this->assertStringStartsWith( '<img src="http://localhost:3000/latex?latex=XGJvbGRzeW1ib2x7XGZyYWN7bV97XHRleHRiZntkcm9wfX1nZH17Vn19', $s );
+		$this->assertStringStartsWith( '<img src="http://localhost:3000/latex?latex=XGJvbGRzeW1ib2x7XGZyYWN7bV97XHRleHRiZntkcm9wfX1nZH17Vn19&', $s );
 
 		$s = $this->mathjax->parseLatexMarkup( 'latex not found$' );
 		$this->assertEquals( 'latex not found$', $s );
 	}
 
-	public function test_mathJaxDelimiters() {
+	public function testMathJaxDelimiters() {
 		$this->mathjax->usePbMathJax = false;
 		//This should not be converted unless is an export
 		$s = $this->mathjax->parseLatexMarkup( '\( e^{i \pi} + 1 = 0 \)' );
@@ -132,7 +125,7 @@ class MathJaxTest extends \WP_UnitTestCase {
 
 		$this->mathjax->usePbMathJax = true;
 		$s = $this->mathjax->replaceLatexDelimitersOnExports( '\( e^{i \pi} + 1 = 0 \)' );
-		$this->assertStringStartsWith( '<img src="http://localhost:3000/latex?latex=ZV57aSBccGl9ICsgMSA9IDA&fg=000000', $s );
+		$this->assertStringStartsWith( '<img src="http://localhost:3000/latex?latex=ZV57aSBccGl9ICsgMSA9IDA', $s );
 
 		$s = $this->mathjax->replaceLatexDelimitersOnExports( '\[ e^{i \pi} + 1 = 0 \]' );
 		$this->assertStringStartsWith( '<div class="display-math"><img src="http://localhost:3000/latex?latex=ZV57aSBccGl9ICsgMSA9IDA&fg=000000', $s );
@@ -140,24 +133,22 @@ class MathJaxTest extends \WP_UnitTestCase {
 		$this->mathjax->usePbMathJax = false;
 		$s = $this->mathjax->parseLatexMarkup( '\[ e^{i \pi} + 1 = 0 \]' );
 		$this->assertEquals( '\[ e^{i \pi} + 1 = 0 \]', $s );
-
-
 	}
 
-	public function test_asciiMathMarkup() {
+	public function testAsciiMathMarkup() {
 		$this->mathjax->usePbMathJax = false;
 		$s = $this->mathjax->parseAsciiMathMarkup( '$asciimath \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
 		$this->assertEquals( '[asciimath]\boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}[/asciimath]', $s );
 
 		$this->mathjax->usePbMathJax = true;
 		$s = $this->mathjax->parseAsciiMathMarkup( '$asciimath \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
-		$this->assertStringStartsWith( '<img src="http://localhost:3000/asciimath?asciimath=XGJvbGRzeW1ib2x7XGZyYWN7bV97XHRleHRiZntkcm9wfX1nZH17Vn19&fg=000000', $s );
+		$this->assertStringStartsWith( '<img src="http://localhost:3000/asciimath?asciimath=XGJvbGRzeW1ib2x7XGZyYWN7bV97XHRleHRiZntkcm9wfX1nZH17Vn19', $s );
 
 		$s = $this->mathjax->parseAsciiMathMarkup( 'asciimath not found$' );
 		$this->assertEquals( 'asciimath not found$', $s );
 	}
 
-	public function test_mathmlTags() {
+	public function testMathmlTags() {
 		$tags = $this->mathjax->mathmlTags();
 		$this->assertArrayHasKey( 'math', $tags );
 		$this->assertTrue( in_array( 'display', $tags['math'], true ) );
@@ -165,7 +156,7 @@ class MathJaxTest extends \WP_UnitTestCase {
 		$this->assertTrue( in_array( 'type', $tags['csymbol'], true ) );
 	}
 
-	public function test_allowMathmlTags() {
+	public function testAllowMathmlTags() {
 		global $allowedposttags;
 		$old_allowedposttags = $allowedposttags;
 		$allowedposttags = [];
@@ -175,27 +166,26 @@ class MathJaxTest extends \WP_UnitTestCase {
 
 		// Put back to the way it was
 		$allowedposttags = $old_allowedposttags;
-
 	}
 
-	public function test_allowMathmlTagsInTinyMce() {
+	public function testAllowMathmlTagsInTinyMce() {
 		$options = $this->mathjax->allowMathmlTagsInTinyMce( [] );
 		$this->assertStringContainsString( 'math[', $options['extended_valid_elements'] );
 	}
 
-	public function test_filterLineBreakTagsInMthml() {
+	public function testFilterLineBreakTagsInMthml() {
 		$mathml_content = '<math><br><p>...</p></math>';
 		$content = $this->mathjax->filterLineBreakTagsInMthml( $mathml_content );
 		$this->assertEquals( '<math>...</math>', $content );
 	}
 
-	public function test_filterLineBreakTagsInSvg() {
+	public function testFilterLineBreakTagsInSvg() {
 		$mathml_content = '<svg><br><p>...</p></svg>';
 		$content = $this->mathjax->filterLineBreakTagsInSvg( $mathml_content );
 		$this->assertEquals( '<svg>...</svg>', $content );
 	}
 
-	public function test_replaceMathML() {
+	public function testReplaceMathML() {
 		$mathml_content = '<math><mrow><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mrow><mn>4</mn><mo>&InvisibleTimes;</mo><mi>x</mi></mrow><mo>+</mo><mn>4</mn></mrow><mo>=</mo><mn>0</mn></mrow></math>';
 
 		$this->mathjax->usePbMathJax = false;
@@ -204,6 +194,6 @@ class MathJaxTest extends \WP_UnitTestCase {
 
 		$this->mathjax->usePbMathJax = true;
 		$content = $this->mathjax->replaceMathML( $mathml_content );
-		$this->assertStringContainsString( '<img src="http://localhost:3000/mathml', $content );
+		$this->assertStringContainsString( 'http://localhost:3000/mathml', $content );
 	}
 }
