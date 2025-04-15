@@ -3,9 +3,8 @@
 namespace Pressbooks\Admin;
 
 use Pressbooks\Container;
-use WP_List_Table;
 
-class PressbooksTable extends WP_List_Table {
+trait PressbooksTable {
 
 	public function print_column_headers( $with_id = true ): void {
 		$blade = Container::get( 'Blade' );
@@ -35,7 +34,7 @@ class PressbooksTable extends WP_List_Table {
 				'label' => $column_label,
 				'class' => $this->get_column_class( $column_key, $is_hidden, $is_sortable, $is_sorted, $order ),
 				'sortable' => $is_sortable,
-				'url' => esc_url( $this->get_sorting_url( $column_key, $orderby, $order ) ),
+				'url' => sanitize_url( $this->get_sorting_url( $column_key, $orderby, $order ) ),
 				'screen_reader_text' => $this->get_screen_reader_text( $column_label, $is_sorted, $order ),
 			];
 		}
@@ -54,11 +53,16 @@ class PressbooksTable extends WP_List_Table {
 				$classes[] = "sorted $order";
 			}
 		}
+		if ( $key === 'cb' ) {
+			$classes[] = 'check-column';
+		}
+
 		return implode( ' ', $classes );
 	}
 
 	private function get_sorting_url( string $key, string $orderby, string $order ): string {
 		$new_order = ( $orderby === $key && $order === 'asc' ) ? 'desc' : 'asc';
+
 		return add_query_arg( [
 			'orderby' => $key,
 			'order'   => $new_order,
