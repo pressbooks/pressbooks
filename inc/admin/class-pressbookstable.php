@@ -34,7 +34,7 @@ trait PressbooksTable {
 				'label' => $column_label,
 				'class' => $this->get_column_class( $column_key, $is_hidden, $is_sortable, $is_sorted, $order ),
 				'sortable' => $is_sortable,
-				'url' => sanitize_url( $this->get_sorting_url( $column_key, $orderby, $order ) ),
+				'url' => esc_url_raw( $this->get_sorting_url( $column_key, $orderby, $order ) ),
 				'screen_reader_text' => $this->get_screen_reader_text( $column_label, $is_sorted, $order ),
 			];
 		}
