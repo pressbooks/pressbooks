@@ -16,39 +16,50 @@ class ErrorHandler {
 	static public function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
-			set_error_handler( [ self::$instance, 'silenceDeprecationsNotices' ] );
+			set_error_handler( [ self::$instance, 'silenceDeprecationNotices' ] );
 		}
 
 		return self::$instance;
 	}
 
 	/**
-	 * Silence PHP 8.1 deprecation notices for some WP Core, WP plugins and libraries until they get fixed.
-	 * For WP_ENV = development, deprecations can be displayed if DISPLAY_PHP8_1_DEPRECATIONS is defined and is true.
-	 * See https://github.com/pressbooks/private/issues/1070
+	 * Silence PHP deprecation notices for desired path until they are fixed.
+	 * For WP_ENV = development, deprecations can be displayed if DISPLAY_PHP_DEPRECATIONS is defined and is true.
 	 *
-	 * @param int $errorno
-	 * @param string $errstr
-	 * @param string $errfile
-	 * @param int $errline
-	 * @return bool
+	 * @param int $errorno Only E_DEPRECATED errors are considered.
+	 * @param string $errstr Unused.
+	 * @param string $errfile Used to check source path.
+	 * @param int $errline Unused.
+	 * @return bool True to suppress, false to allow.
 	 */
-	public function silenceDeprecationsNotices( int $errorno, string $errstr, string $errfile, int $errline ): bool {
-		if ( env( 'WP_ENV' ) === 'development' && env( 'DISPLAY_PHP8_1_DEPRECATIONS' ) === true ) {
+	public function silenceDeprecationNotices( int $errorno, string $_errstr, string $errfile, int $_errline ): bool {
+        if ( env( 'WP_ENV' ) === 'development' && env( 'DISPLAY_PHP_DEPRECATIONS' ) === true ) {
 			return false;
 		}
 
-		$paths_to_silence = [
-			ABSPATH, // WordPress core
-			WP_PLUGIN_DIR . '/h5p/', // H5P Plugin: https://github.com/h5p/h5p-wordpress-plugin/issues/152
-			WP_PLUGIN_DIR . '/pressbooks/vendor/rmccue/requests/', // https://github.com/wp-cli/wp-cli/issues/5623
-		];
+		if ( $errorno !== E_DEPRECATED ) {
+            return false;
+        }
 
-		$is_errfile_in_silenced_path = array_filter( $paths_to_silence, function ( $path ) use ( $errfile ) {
-			return str_contains( $errfile, $path );
-		});
+		foreach ( $this->getPathsToSilence() as $path ) {
+            if ( str_contains( $errfile, $path ) ) {
+                return true;
+            }
+        }
 
-		return E_DEPRECATED === $errorno && count( $is_errfile_in_silenced_path ) > 0;
+		return false;
 	}
+
+    protected function getPathsToSilence(): array {
+        $paths = [
+        ];
+
+        /**
+         * Filter the list of paths for which deprecation notices should be silenced.
+         *
+         * @param string[] $paths Array of file path prefixes.
+         */
+        return apply_filters( 'pressbooks_deprecation_paths_to_silence', $paths );
+    }
 
 }
