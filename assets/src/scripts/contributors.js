@@ -267,4 +267,20 @@ jQuery( function ( $ ) {
 		updateRemoveButton();
 	};
 
+	const nameHeader = document.querySelector( 'th#name a' );
+	if ( nameHeader ) {
+		const url = nameHeader.href;
+		const content = nameHeader.innerHTML;
+
+		const button = document.createElement( 'button' );
+		button.type = 'button';
+		button.className = 'sorting-button';
+		button.innerHTML = content;
+		button.addEventListener( 'click', function () {
+			window.location.href = url;
+		} );
+
+		nameHeader.parentNode.replaceChild( button, nameHeader );
+	}
+
 } );
