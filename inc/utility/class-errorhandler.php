@@ -33,33 +33,32 @@ class ErrorHandler {
 	 * @return bool True to suppress, false to allow.
 	 */
 	public function silenceDeprecationNotices( int $errorno, string $_errstr, string $errfile, int $_errline ): bool {
-        if ( env( 'WP_ENV' ) === 'development' && env( 'DISPLAY_PHP_DEPRECATIONS' ) === true ) {
+		if ( env( 'WP_ENV' ) === 'development' && env( 'DISPLAY_PHP_DEPRECATIONS' ) === true ) {
 			return false;
 		}
 
 		if ( $errorno !== E_DEPRECATED ) {
-            return false;
-        }
+			return false;
+		}
 
 		foreach ( $this->getPathsToSilence() as $path ) {
-            if ( str_contains( $errfile, $path ) ) {
-                return true;
-            }
-        }
+			if ( str_contains( $errfile, $path ) ) {
+				return true;
+			}
+		}
 
 		return false;
 	}
 
-    protected function getPathsToSilence(): array {
-        $paths = [
-        ];
+	protected function getPathsToSilence(): array {
+		$paths = [];
 
-        /**
-         * Filter the list of paths for which deprecation notices should be silenced.
-         *
-         * @param string[] $paths Array of file path prefixes.
-         */
-        return apply_filters( 'pressbooks_deprecation_paths_to_silence', $paths );
-    }
+		/**
+		 * Filter the list of paths for which deprecation notices should be silenced.
+		 *
+		 * @param string[] $paths Array of file path prefixes.
+		 */
+		return apply_filters( 'pressbooks_deprecation_paths_to_silence', $paths );
+	}
 
 }
