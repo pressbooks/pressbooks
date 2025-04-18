@@ -425,7 +425,7 @@ class H5P {
 
 		// Ensure to delete export file if it had not existed before
 		$export_cleanup_callback( $h5p_id );
-
+		
 		return $extract['result'] ?? null;
 	}
 

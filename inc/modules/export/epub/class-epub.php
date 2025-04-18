@@ -9,12 +9,16 @@
 
 namespace Pressbooks\Modules\Export\Epub;
 
+use Exception;
 use function Pressbooks\Sanitize\decode;
 use function Pressbooks\Sanitize\sanitize_xml_attribute;
+use function Pressbooks\Utility\create_tmp_file;
 use function Pressbooks\Utility\debug_error_log;
 use function Pressbooks\Utility\explode_remove_and;
+use function Pressbooks\Utility\get_contents;
 use function Pressbooks\Utility\get_contributors_name_imploded;
 use function Pressbooks\Utility\implode_add_and;
+use function Pressbooks\Utility\put_contents;
 use function Pressbooks\Utility\str_ends_with;
 use function Pressbooks\Utility\str_lreplace;
 use function Pressbooks\Utility\str_starts_with;
@@ -213,6 +217,11 @@ class Epub extends ExportGenerator {
 	protected $extraCss = null;
 
 	/**
+	 * @var string
+	 */
+	protected string $embbededCss = '';
+
+	/**
 	 * @var Taxonomy
 	 */
 	protected $taxonomy;
@@ -399,14 +408,14 @@ class Epub extends ExportGenerator {
 	 * @param string $html_file
 	 *
 	 * @return array
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	protected function getProperties( string $html_file ): array {
-		$html = \Pressbooks\Utility\get_contents( $html_file );
+		$html = get_contents( $html_file );
 		$properties = [];
 
 		if ( empty( $html ) ) {
-			throw new \Exception( 'File contents empty for getProperties' );
+			throw new Exception( 'File contents empty for getProperties' );
 		}
 
 		if ( $this->isMathML( $html ) ) {
@@ -461,7 +470,7 @@ class Epub extends ExportGenerator {
 					}
 				}
 			}
-		} catch ( \Exception $e ) {
+		} catch ( Exception $e ) {
 			debug_error_log( $e );
 		}
 
@@ -480,7 +489,7 @@ class Epub extends ExportGenerator {
 			foreach ( $this->convertGenerator() as $percentage => $info ) {
 				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
 			}
-		} catch ( \Exception $e ) {
+		} catch ( Exception $e ) {
 			return false;
 		}
 		return true;
@@ -490,7 +499,7 @@ class Epub extends ExportGenerator {
 	 * Yields an estimated percentage slice of: 1 to 80
 	 *
 	 * @return \Generator
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	public function convertGenerator(): \Generator {
 		if ( ! has_filter( 'the_export_content', 'do_shortcode' ) ) {
@@ -502,12 +511,12 @@ class Epub extends ExportGenerator {
 		// Sanity check
 		if ( empty( $this->tmpDir ) || ! is_dir( $this->tmpDir ) ) {
 			$this->logError( '$this->tmpDir must be set before calling convert().' );
-			throw new \Exception();
+			throw new Exception();
 		}
 
 		if ( empty( $this->exportStylePath ) || ! is_file( $this->exportStylePath ) ) {
 			$this->logError( '$this->exportStylePath must be set before calling convert().' );
-			throw new \Exception();
+			throw new Exception();
 		}
 
 		// Convert
@@ -527,16 +536,16 @@ class Epub extends ExportGenerator {
 			yield from $this->createEPUBGenerator( $book_contents, $metadata );
 			$this->createOPF( $book_contents, $metadata );
 			$this->createNCX( $book_contents, $metadata );
-		} catch ( \Exception $e ) {
+		} catch ( Exception $e ) {
 			$this->logError( $e->getMessage() );
-			throw new \Exception();
+			throw new Exception();
 		}
 
 		yield 75 => $this->generatorPrefix . __( 'Saving file to exports folder', 'pressbooks' );
 		$filename = $this->timestampedFileName( $this->suffix );
 
 		if ( ! $this->zipEpub( $filename ) ) {
-			throw new \Exception();
+			throw new Exception();
 		}
 
 		$this->outputPath = $filename;
@@ -624,7 +633,7 @@ class Epub extends ExportGenerator {
 			foreach ( $this->validateGenerator() as $percentage => $info ) {
 				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
 			}
-		} catch ( \Exception $e ) {
+		} catch ( Exception $e ) {
 			return false;
 		}
 		return true;
@@ -634,7 +643,7 @@ class Epub extends ExportGenerator {
 	 * Yields an estimated percentage slice of: 80 to 100
 	 *
 	 * @return \Generator
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	public function validateGenerator() : \Generator {
 		yield 80 => $this->generatorPrefix . __( 'Validating file', 'pressbooks' );
@@ -660,7 +669,7 @@ class Epub extends ExportGenerator {
 		// Is this a valid Epub?
 		if ( ! empty( $output ) ) {
 			$this->logError( implode( "\n", $output ) );
-			throw new \Exception();
+			throw new Exception();
 		}
 
 		yield 90 => $this->generatorPrefix . __( 'Validation successful', 'pressbooks' );
@@ -817,9 +826,9 @@ class Epub extends ExportGenerator {
 					]
 				);
 				if ( is_wp_error( $response ) ) {
-					throw new \Exception( 'Bad URL: ' . $url );
+					throw new Exception( 'Bad URL: ' . $url );
 				}
-			} catch ( \Exception $exc ) {
+			} catch ( Exception $exc ) {
 				$this->fetchedImageCache[ $url ] = '';
 				debug_error_log( '\Pressbooks\Export\Epub3\fetchAndSaveUniqueMedia wp_error on wp_remote_get() - ' . $response->get_error_message() . ' - ' . $exc->getMessage() );
 				return '';
@@ -836,8 +845,8 @@ class Epub extends ExportGenerator {
 		// A book with a lot of media can trigger "Fatal Error Too many open files" because tmpfiles are not closed until PHP exits
 		// Use a $resource_key so we can close the tmpfile ourselves
 		$resource_key = uniqid( 'tmpfile-epub-', true );
-		$tmp_file = \Pressbooks\Utility\create_tmp_file( $resource_key );
-		\Pressbooks\Utility\put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
+		$tmp_file = create_tmp_file( $resource_key );
+		put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
 		if ( ! \Pressbooks\Media\is_valid_media( $tmp_file, $filename ) ) {
 			$this->fetchedMediaCache[ $url ] = '';
@@ -848,7 +857,7 @@ class Epub extends ExportGenerator {
 		// Check for duplicates, save accordingly
 		if ( ! file_exists( "$fullpath/$filename" ) ) {
 			copy( $tmp_file, "$fullpath/$filename" );
-		} elseif ( md5( \Pressbooks\Utility\get_contents( $tmp_file ) ) !== md5( \Pressbooks\Utility\get_contents( "$fullpath/$filename" ) ) ) {
+		} elseif ( md5( get_contents( $tmp_file ) ) !== md5( get_contents( "$fullpath/$filename" ) ) ) {
 			$filename = wp_unique_filename( $fullpath, $filename );
 			copy( $tmp_file, "$fullpath/$filename" );
 		}
@@ -928,7 +937,7 @@ class Epub extends ExportGenerator {
 	 * Create Open Publication Structure 2.0.1 container.
 	 *
 	 * @return void
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	protected function createContainer(): void {
 		$this->createEpubFile( 'mimetype', mb_convert_encoding( 'application/epub+zip', 'ISO-8859-1', 'UTF-8' ), [ 'directory' => $this->tmpDir ] );
@@ -956,13 +965,12 @@ class Epub extends ExportGenerator {
 	 * @param array $metadata
 	 *
 	 * @return \Generator
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	protected function createEPUBGenerator( array $book_contents, array $metadata ) : \Generator {
 		// First, setup and affect $this->stylesheet
 		yield 10 => $this->generatorPrefix . __( 'Compiling styles', 'pressbooks' );
 		$this->createStylesheet();
-
 		// Reset manifest
 		$this->manifest = [];
 
@@ -1001,6 +1009,7 @@ class Epub extends ExportGenerator {
 		// Back-matter
 		yield 50 => $this->generatorPrefix . __( 'Exporting back matter', 'pressbooks' );
 		yield from $this->renderBackMatterGenerator( $book_contents, $metadata );
+		$this->updateCssFile();
 
 		// Table of contents
 		// IMPORTANT: Do this last! Uses $this->manifest to generate itself
@@ -1012,12 +1021,20 @@ class Epub extends ExportGenerator {
 	 * Create stylesheet. Change $this->stylesheet to a filename used by subsequent methods.
 	 *
 	 * @return void
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	protected function createStylesheet(): void {
 		$this->stylesheet = strtolower( sanitize_file_name( wp_get_theme() . '.css' ) );
 
-		$this->createEpubFile( $this->stylesheet, \Pressbooks\Utility\get_contents( $this->exportStylePath ) );
+		$this->createEpubFile( $this->stylesheet, get_contents( $this->exportStylePath ) );
+
+		$this->scrapeKneadAndSaveCss( $this->exportStylePath, $this->epubDir . '/' . $this->stylesheet );
+	}
+
+	protected function updateStylesheet(): void {
+		$this->stylesheet = strtolower( sanitize_file_name( wp_get_theme() . '.css' ) );
+
+		$this->createEpubFile( $this->stylesheet, get_contents( $this->exportStylePath ) );
 
 		$this->scrapeKneadAndSaveCss( $this->exportStylePath, $this->epubDir . '/' . $this->stylesheet );
 	}
@@ -1029,15 +1046,15 @@ class Epub extends ExportGenerator {
 	 * @param string $path_to_copy_of_stylesheet
 	 *
 	 * @return void
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	protected function scrapeKneadAndSaveCss( string $path_to_original_stylesheet, string $path_to_copy_of_stylesheet ): void {
 		$styles = Container::get( 'Styles' );
 
-		$scss = \Pressbooks\Utility\get_contents( $path_to_copy_of_stylesheet );
+		$scss = get_contents( $path_to_copy_of_stylesheet );
 
 		if ( $this->extraCss ) {
-			$scss .= "\n" . \Pressbooks\Utility\get_contents( $this->extraCss );
+			$scss .= "\n" . get_contents( $this->extraCss );
 		}
 
 		$custom_styles = $styles->getEpubPost();
@@ -1203,7 +1220,7 @@ class Epub extends ExportGenerator {
 	 * @param array $metadata
 	 *
 	 * @return void
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	protected function renderCover( array $metadata ): void {
 		if ( ! empty( $metadata['pb_cover_image'] ) && ! \Pressbooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) {
@@ -1257,7 +1274,7 @@ class Epub extends ExportGenerator {
 	 * @param array $metadata
 	 *
 	 * @return void
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	protected function renderBeforeTitle( array $book_contents, array $metadata ): void {
 		$vars = [
@@ -1312,7 +1329,7 @@ class Epub extends ExportGenerator {
 	 * @param array $metadata
 	 *
 	 * @return void
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	protected function renderTitle( array $book_contents, array $metadata ): void {
 		// Look for custom title-page
@@ -1391,7 +1408,7 @@ class Epub extends ExportGenerator {
 	 * @param array $metadata
 	 *
 	 * @return void
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	protected function renderCopyright( array $metadata ): void {
 		if ( empty( $metadata['pb_book_license'] ) ) {
@@ -1489,7 +1506,7 @@ class Epub extends ExportGenerator {
 	 * @param array $metadata
 	 *
 	 * @return void
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	protected function renderDedicationAndEpigraph( array $book_contents, array $metadata ): void {
 		$vars = [
@@ -1562,7 +1579,7 @@ class Epub extends ExportGenerator {
 	 * @param array $metadata
 	 *
 	 * @return \Generator
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	protected function renderFrontMatterGenerator( array $book_contents, array $metadata ) : \Generator {
 		$yield = new PercentageYield( 30, 40, count( $book_contents['front-matter'] ) );
@@ -1624,7 +1641,7 @@ class Epub extends ExportGenerator {
 	 * @param array $metadata
 	 *
 	 * @return void
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	protected function renderPromo( array $book_contents, array $metadata ): void {
 		$promo_html = apply_filters( 'pressbooks_epub_promo', '' );
@@ -1657,7 +1674,7 @@ class Epub extends ExportGenerator {
 	 * @param array $metadata
 	 *
 	 * @return \Generator
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	protected function renderPartsAndChaptersGenerator( array $book_contents, array $metadata ) : \Generator {
 		$yield = new PercentageYield( 40, 50, $this->countPartsAndChapters( $book_contents ) );
@@ -1824,7 +1841,7 @@ class Epub extends ExportGenerator {
 	 * @param array $metadata
 	 *
 	 * @return \Generator
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	protected function renderBackMatterGenerator( array $book_contents, array $metadata ) : \Generator {
 		$yield = new PercentageYield( 50, 70, count( $book_contents['back-matter'] ) );
@@ -1876,7 +1893,7 @@ class Epub extends ExportGenerator {
 	 * @param array $metadata
 	 *
 	 * @return void
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	protected function renderToc( array $metadata ): void {
 		$vars = [
@@ -1910,7 +1927,7 @@ class Epub extends ExportGenerator {
 
 			$query_data = array_merge( $v, [ 'href' => $v['filename'] ] );
 
-			if ( 0 === strpos( $k, 'part-' ) ) { //Process parts
+			if ( str_starts_with( $k, 'part-' ) ) { //Process parts
 
 				$data = $this->getPostInformation( 'chapter', $query_data, 'part' );
 
@@ -1940,16 +1957,15 @@ class Epub extends ExportGenerator {
 
 				$parts_count = $is_visible ? ++$parts_count : $parts_count;
 
-			} elseif ( 0 === strpos( $k, 'front-matter-' ) || 0 === strpos($k,
-			'back-matter-') ) { //Process front/back matters
+			} elseif ( str_starts_with( $k, 'front-matter-' ) || str_starts_with( $k, 'back-matter-' ) ) { //Process front/back matters
 
-				$type = 0 === strpos( $k, 'front-matter-' ) ? 'front-matter' : 'back-matter';
+				$type = str_starts_with( $k, 'front-matter-' ) ? 'front-matter' : 'back-matter';
 
 				$matter_data = $this->getExtendedPostInformation( $type, $query_data );
 
 				$rendered_items[] = $this->renderTocItem( $type, $matter_data, false, true );
 
-			} elseif ( 0 === strpos( $k, 'chapter-' ) ) { //Process chapters
+			} elseif ( str_starts_with( $k, 'chapter-' ) ) { //Process chapters
 
 				$chapter_data = $this->getExtendedPostInformation( 'chapter', $query_data );
 
@@ -2024,6 +2040,9 @@ class Epub extends ExportGenerator {
 		// Deal with <a href="">, <a href=''>, and other mutations
 		$dom = $this->kneadHref( $dom, $type, $pos );
 
+		// Combine embedded <style> tags into external CSS file
+		$dom = $this->extractEmbbededStyles( $dom );
+
 		// Make sure empty tags (e.g. <b></b>) don't get turned into self-closing versions by adding an empty text node to them.
 		$xpath = new \DOMXPath( $dom );
 		while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) { // @codingStandardsIgnoreLine
@@ -2054,12 +2073,24 @@ class Epub extends ExportGenerator {
 		$images = $doc->getElementsByTagName( 'img' );
 		foreach ( $images as $image ) {
 			/** @var \DOMElement $image */
-			// Fetch image, change src
 			$url = $image->getAttribute( 'src' );
+			// Handle base64 encoded images
+			if ( str_starts_with( $url, 'data:' ) ) {
+				$filename = $this->saveBase64Image( $url, $fullpath );
+				if ( $filename ) {
+					$image->setAttribute( 'src', 'assets/' . $filename . '#base64-image' );
+				} else {
+					// Tag broken image
+					$image->setAttribute( 'src', '#broken-base64-image' );
+				}
+				continue;
+			}
+
 			// Replace Buckram SVGs with PNGs
 			if ( str_starts_with( $url, get_template_directory_uri() . '/packages/buckram/assets/images' ) && str_ends_with( $url, '.svg' ) ) {
 				$url = str_replace( '.svg', '.png', $url );
 			}
+
 			$filename = $this->fetchAndSaveUniqueImage( $url, $fullpath );
 			if ( $filename ) {
 				// Replace with new image
@@ -2071,6 +2102,57 @@ class Epub extends ExportGenerator {
 		}
 
 		return $doc;
+	}
+
+	/**
+	 * Saves a base64 encoded image to the specified directory
+	 *
+	 * @param string $data_url
+	 * @param string $directory The directory to save the image in
+	 * @return string|false The filename of the saved image or false on failure
+	 */
+	protected function saveBase64Image( string $data_url, string $directory ): string|false {
+			// Trim any whitespace
+			$data_url = trim( $data_url );
+
+		if ( ! preg_match( '/^data:image\/([a-zA-Z0-9+\-_.]+);base64,(.+)$/i', $data_url, $matches ) ) {
+			return false;
+		}
+
+			// Get the extension based on MIME type
+			$mime_type = $matches[1];
+			$extension = $mime_type;
+
+			// Convert specific MIME subtypes to appropriate extensions
+		if ( $mime_type === 'svg+xml' ) {
+			$extension = 'png';
+		} elseif ( $mime_type === 'jpeg' || $mime_type === 'pjpeg' ) {
+			$extension = 'jpg';
+		}
+
+			$base64_data = $matches[2];
+
+			// Decode the base64 data
+			$image_data = base64_decode( $base64_data, true );
+		if ( $image_data === false ) {
+			return false;
+		}
+
+			// Generate a unique filename
+			$filename = 'image_' . md5( $data_url ) . '.' . $extension;
+			$filepath = $directory . '/' . $filename;
+
+			// Make sure the directory exists
+		if ( ! file_exists( $directory ) ) {
+			mkdir( $directory, 0755, true );
+		}
+
+			// Save the image
+		if ( file_put_contents( $filepath, $image_data ) === false ) {
+			return false;
+		}
+
+		return $filename;
 	}
 
 	/**
@@ -2108,9 +2190,9 @@ class Epub extends ExportGenerator {
 				}
 				$response = wp_remote_get( $url, $args );
 				if ( is_wp_error( $response ) ) {
-					throw new \Exception( 'Bad URL: ' . $url );
+					throw new Exception( 'Bad URL: ' . $url );
 				}
-			} catch ( \Exception $exc ) {
+			} catch ( Exception $exc ) {
 				$this->fetchedImageCache[ $url ] = '';
 				debug_error_log( '\Pressbooks\Export\Epub\fetchAndSaveUniqueImage wp_error on wp_remote_get() - ' . $response->get_error_message() . ' - ' . $exc->getMessage() );
 				return '';
@@ -2153,9 +2235,9 @@ class Epub extends ExportGenerator {
 		// A book with a lot of images can trigger "Fatal Error Too many open files" because tmpfiles are not closed until PHP exits
 		// Use a $resource_key so we can close the tmpfile ourselves
 		$resource_key = uniqid( 'tmpfile-epub-', true );
-		$tmp_file = \Pressbooks\Utility\create_tmp_file( $resource_key );
+		$tmp_file = create_tmp_file( $resource_key );
 
-		\Pressbooks\Utility\put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
+		put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
 		if ( ! \Pressbooks\Image\is_valid_image( $tmp_file, $filename ) ) {
 			$this->fetchedImageCache[ $url ] = '';
@@ -2178,7 +2260,7 @@ class Epub extends ExportGenerator {
 				$format = strtolower( end( $format ) ); // Extension
 				try {
 					\Pressbooks\Image\resize_down( $format, $tmp_file );
-				} catch ( \Exception $e ) {
+				} catch ( Exception $e ) {
 					return '';
 				}
 			}
@@ -2187,7 +2269,7 @@ class Epub extends ExportGenerator {
 		// Check for duplicates, save accordingly
 		if ( ! file_exists( "$fullpath/$filename" ) ) {
 			copy( $tmp_file, "$fullpath/$filename" );
-		} elseif ( md5( \Pressbooks\Utility\get_contents( $tmp_file ) ) !== md5( \Pressbooks\Utility\get_contents( "$fullpath/$filename" ) ) ) {
+		} elseif ( md5( get_contents( $tmp_file ) ) !== md5( get_contents( "$fullpath/$filename" ) ) ) {
 			$filename = wp_unique_filename( $fullpath, $filename );
 			copy( $tmp_file, "$fullpath/$filename" );
 		}
@@ -2258,8 +2340,8 @@ class Epub extends ExportGenerator {
 		$filename = sanitize_file_name( urldecode( $filename ) );
 		$filename = Sanitize\force_ascii( $filename );
 
-		$tmp_file = \Pressbooks\Utility\create_tmp_file();
-		\Pressbooks\Utility\put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
+		$tmp_file = create_tmp_file();
+		put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
 		// TODO: Validate that this is actually a font
 		// TODO: Refactor fetchAndSaveUniqueImage() and fetchAndSaveUniqueFont() into a single method, but "inject" different validation
@@ -2267,7 +2349,7 @@ class Epub extends ExportGenerator {
 		// Check for duplicates, save accordingly
 		if ( ! file_exists( "$fullpath/$filename" ) ) {
 			copy( $tmp_file, "$fullpath/$filename" );
-		} elseif ( md5( \Pressbooks\Utility\get_contents( $tmp_file ) ) !== md5( \Pressbooks\Utility\get_contents( "$fullpath/$filename" ) ) ) {
+		} elseif ( md5( get_contents( $tmp_file ) ) !== md5( get_contents( "$fullpath/$filename" ) ) ) {
 			$filename = wp_unique_filename( $fullpath, $filename );
 			copy( $tmp_file, "$fullpath/$filename" );
 		}
@@ -2575,11 +2657,11 @@ class Epub extends ExportGenerator {
 	 * @param array $book_contents
 	 * @param array $metadata
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	protected function createOPF( array $book_contents, array $metadata ): void {
 		if ( empty( $this->manifest ) ) {
-			throw new \Exception( '$this->manifest cannot be empty. Did you forget to call $this->createEPUB() ?' );
+			throw new Exception( '$this->manifest cannot be empty. Did you forget to call $this->createEPUB() ?' );
 		}
 
 		$vars = [
@@ -2682,11 +2764,11 @@ class Epub extends ExportGenerator {
 	 * @param array $book_contents
 	 * @param array $metadata
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	protected function createNCX( array $book_contents, array $metadata ): void {
 		if ( empty( $this->manifest ) ) {
-			throw new \Exception( '$this->manifest cannot be empty. Did you forget to call $this->createEPUB() ?' );
+			throw new Exception( '$this->manifest cannot be empty. Did you forget to call $this->createEPUB() ?' );
 		}
 
 		// TODO: this seems to not be used anywhere
@@ -2733,7 +2815,7 @@ class Epub extends ExportGenerator {
 	 * @param array $options (optional)
 	 *
 	 * @return void
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	protected function createEpubFile( string $filename, $data, array $options = [] ): void {
 		$directory = $options['directory'] ?? $this->epubDir;
@@ -2742,12 +2824,24 @@ class Epub extends ExportGenerator {
 		$path = "{$directory}/{$filename}";
 
 		if ( ! is_array( $data ) ) {
-			\Pressbooks\Utility\put_contents( $path, $data );
+			put_contents( $path, $data );
 
 			return;
 		}
 
-		\Pressbooks\Utility\put_contents( $path, $this->blade->render( "export/epub/{$template}", $data ) );
+		put_contents( $path, $this->blade->render( "export/epub/{$template}", $data ) );
+	}
+
+	protected function updateCssFile(): void {
+		$directory = $this->epubDir;
+		$filename = $this->stylesheet;
+
+		$path = "{$directory}/{$filename}";
+
+		$contents = get_contents( $path );
+
+		put_contents( $path, $contents . $this->embbededCss );
+
 	}
 
 	/**
@@ -2767,5 +2861,22 @@ class Epub extends ExportGenerator {
 	 */
 	protected function updateManifest( string $file_id, array $data ): void {
 		$this->manifest[ $file_id ] = $data;
+	}
+
+	/**
+	 * Move all <style> tags to the <head> of the document.
+	 * @param \DOMDocument $dom
+	 * @return \DOMDocument
+	 */
+	private function extractEmbbededStyles( \DOMDocument $dom ): \DOMDocument {
+		$xpath = new \DOMXPath( $dom );
+		$style_tags = $xpath->query( '//style' );
+
+		foreach ( $style_tags as $style ) {
+			$this->embbededCss .= $style->nodeValue;
+			$style->parentNode->removeChild( $style );
+		}
+
+		return $dom;
 	}
 }
