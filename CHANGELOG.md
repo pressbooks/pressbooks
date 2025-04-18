@@ -1,5 +1,57 @@
 # Changelog
 
+## [6.25.0](https://github.com/pressbooks/pressbooks/compare/6.24.0...6.25.0) (2025-04-14)
+
+
+### Features
+
+* add accessible wp table headers ([#3990](https://github.com/pressbooks/pressbooks/issues/3990)) ([fe31b00](https://github.com/pressbooks/pressbooks/commit/fe31b00cf96b8dba68d86039c78cd5bccc318edf))
+
+
+### Bug Fixes
+
+* add autocomplete attribute for profile and contributors forms ([#3989](https://github.com/pressbooks/pressbooks/issues/3989)) ([ea2b6bf](https://github.com/pressbooks/pressbooks/commit/ea2b6bf3738dc54ac8d79505e6a7e2c809bfc854))
+* default value for latest_files_public option ([#3985](https://github.com/pressbooks/pressbooks/issues/3985)) ([357377d](https://github.com/pressbooks/pressbooks/commit/357377d8357003e1588ec0686a04b7d60045e3d8))
+
+
+### Chores
+
+* code style improvements ([#4000](https://github.com/pressbooks/pressbooks/issues/4000)) ([13dc3e1](https://github.com/pressbooks/pressbooks/commit/13dc3e1894458a2df607bb73a804a9468d5e3865))
+* code style issues ([13dc3e1](https://github.com/pressbooks/pressbooks/commit/13dc3e1894458a2df607bb73a804a9468d5e3865))
+* improve coding style standards ([#3988](https://github.com/pressbooks/pressbooks/issues/3988)) ([b3978c0](https://github.com/pressbooks/pressbooks/commit/b3978c053107c0986bd39ee5d101e255c4ac69b7))
+* update East Texas A&M University name ([#3997](https://github.com/pressbooks/pressbooks/issues/3997)) ([846a83a](https://github.com/pressbooks/pressbooks/commit/846a83aaafcb54db882e4ac8111d38180c612d3a))
+
+## [6.24.0](https://github.com/pressbooks/pressbooks/compare/6.23.2...6.24.0) (2025-04-07)
+
+
+### Features
+
+* ensure checkbox groups use fieldset and legend ([#3982](https://github.com/pressbooks/pressbooks/issues/3982)) ([35e9daa](https://github.com/pressbooks/pressbooks/commit/35e9daaf5ecc324021dcf8230ec5afffe1f0999b))
+
+
+### Bug Fixes
+
+* apply accessible name to custom styles editor ([#3983](https://github.com/pressbooks/pressbooks/issues/3983)) ([e09c781](https://github.com/pressbooks/pressbooks/commit/e09c781842066fd303c265607e98b52bec65b68d))
+* display Thema qualifiers in Subjects metaboxes ([#3979](https://github.com/pressbooks/pressbooks/issues/3979)) ([aed7bff](https://github.com/pressbooks/pressbooks/commit/aed7bff7fe23108917f090f57289ef55a9fb51cd))
+
+
+### Chores
+
+* update to Thema 1.6 terms ([#3981](https://github.com/pressbooks/pressbooks/issues/3981)) ([a7a9953](https://github.com/pressbooks/pressbooks/commit/a7a99538e9edd09f798c69451b68365d64abb02b))
+
+## [6.23.2](https://github.com/pressbooks/pressbooks/compare/6.23.1...6.23.2) (2025-04-01)
+
+
+### Bug Fixes
+
+* conditionally require physics ([#3973](https://github.com/pressbooks/pressbooks/issues/3973)) ([b9e77a2](https://github.com/pressbooks/pressbooks/commit/b9e77a218c605a865c6fb372bfc1ee10248ea342))
+
+
+### Chores
+
+* bump instantsearch.js from 4.78.0 to 4.78.1 in the npm-dependencies group ([#3971](https://github.com/pressbooks/pressbooks/issues/3971)) ([8dffa1b](https://github.com/pressbooks/pressbooks/commit/8dffa1bcfe5639541777ea41f997300335a048a8))
+* bump instantsearch.js in the npm-dependencies group ([8dffa1b](https://github.com/pressbooks/pressbooks/commit/8dffa1bcfe5639541777ea41f997300335a048a8))
+
 ## [6.23.1](https://github.com/pressbooks/pressbooks/compare/6.23.0...6.23.1) (2025-03-26)
 
 

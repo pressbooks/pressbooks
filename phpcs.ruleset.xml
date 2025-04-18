@@ -13,6 +13,7 @@
         <!-- Exclude classes that override WP Core: -->
         <exclude-pattern>/inc/admin/class-catalog-list-table.php</exclude-pattern>
         <exclude-pattern>/inc/admin/class-network-managers-list-table.php</exclude-pattern>
+        <exclude-pattern>/inc/admin/class-pressbookstable.php</exclude-pattern>
         <exclude-pattern>/api/endpoints/controller/*</exclude-pattern>
         <exclude-pattern>/inc/modules/export/class-table.php</exclude-pattern>
     </rule>
@@ -32,5 +33,5 @@
     <exclude-pattern>*.blade.php</exclude-pattern>
 	<!-- Run against the PHPCompatibility ruleset -->
 	<rule ref="PHPCompatibility"/>
-	<config name="testVersion" value="8.1-8.2"/>
+	<config name="testVersion" value="8.2-8.3"/>
 </ruleset>
