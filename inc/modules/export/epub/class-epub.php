@@ -1200,6 +1200,19 @@ class Epub extends ExportGenerator {
 					}
 				}
 
+				//check if url is svg and store it as png
+				if ( preg_match( '#^https?://#i', $url ) && preg_match( '/(' . 'svg' . ')$/i', $url ) ) {
+					// Look for fonts via http(s), pull them in locally
+					$new_filename = $this->fetchAndSaveUniqueImage( $url, $path_to_epub_assets );
+					if ( $new_filename ) {
+						$old_filename = $new_filename;
+						//replace the file extension to .png
+						$new_filename = preg_replace( '/\.[^.]+$/', '.png', $new_filename );
+						copy( "$path_to_epub_assets/$old_filename", "$path_to_epub_assets/$new_filename" );
+						return "url(assets/$new_filename)";
+					}
+				}
+
 				return $matches[0]; // No change
 
 			}, $css
@@ -2035,6 +2048,9 @@ class Epub extends ExportGenerator {
 		// Combine embedded <style> tags into external CSS file
 		$dom = $this->extractEmbbededStyles( $dom );
 
+		// Remove ARIA attributes from static H5P content
+		$dom = $this->removeH5PAriaAttributes( $dom );
+
 		// Make sure empty tags (e.g. <b></b>) don't get turned into self-closing versions by adding an empty text node to them.
 		$xpath = new \DOMXPath( $dom );
 		while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) { // @codingStandardsIgnoreLine
@@ -2070,7 +2086,7 @@ class Epub extends ExportGenerator {
 			if ( str_starts_with( $url, 'data:' ) ) {
 				$filename = $this->saveBase64Image( $url, $fullpath );
 				if ( $filename ) {
-					$image->setAttribute( 'src', 'assets/' . $filename . '#base64-image' );
+					$image->setAttribute( 'src', 'assets/' . $filename );
 				} else {
 					// Tag broken image
 					$image->setAttribute( 'src', '#broken-base64-image' );
@@ -2835,6 +2851,16 @@ class Epub extends ExportGenerator {
 		$scss_dir = pathinfo( $this->epubDir, PATHINFO_DIRNAME );
 		$this->embbededCss = $this->normalizeCssUrls( $this->embbededCss, $scss_dir, $this->assetsDir );
 		$this->embbededCss = $this->normalizeExternalFontsUrls( $this->embbededCss, $this->assetsDir );
+		$this->embbededCss = str_replace( '&gt;', '>', $this->embbededCss );
+		$this->embbededCss = str_replace( '*width', 'width', $this->embbededCss );
+		// Remove empty src urls from the CSS that are added by the H5P libraries
+		// TODO: Remove this when H5P Extractor fixes the issue
+		$this->embbededCss = str_replace( "src: url('') format('woff2');", '', $this->embbededCss );
+		$this->embbededCss = str_replace( "src: url('') format('truetype');", '', $this->embbededCss );
+		$this->embbededCss = str_replace( "background: url('') 10px center no-repeat;", '', $this->embbededCss );
+		$this->embbededCss = str_replace( 'font-size: unset;', '', $this->embbededCss );
+
+		file_put_contents( WP_CONTENT_DIR . '/emb.css', $this->embbededCss );
 
 		put_contents( $path, $contents . $this->embbededCss );
 
@@ -2867,10 +2893,46 @@ class Epub extends ExportGenerator {
 	private function extractEmbbededStyles( \DOMDocument $dom ): \DOMDocument {
 		$xpath = new \DOMXPath( $dom );
 		$style_tags = $xpath->query( '//style' );
-
+		add_filter( 'pb_validate_svg', function() {
+			return true;
+		} );
 		foreach ( $style_tags as $style ) {
 			$this->embbededCss .= $style->nodeValue;
 			$style->parentNode->removeChild( $style );
+		}
+
+		return $dom;
+	}
+
+	/**
+	 * Remove h5p aria-* attributes from the document.
+	 * @param \DOMDocument $dom
+	 * @return \DOMDocument
+	 */
+	private function removeH5PAriaAttributes( \DOMDocument $dom ): \DOMDocument {
+		$xpath = new \DOMXPath( $dom );
+
+		$labelledby_tags = $xpath->query( '//div[contains(@class,"h5p-extractor")]//*[@aria-labelledby[contains(.,"h5p-panel")]]' );
+		$controls_tags = $xpath->query( '//div[contains(@class,"h5p-extractor")]//*[@aria-controls]' );
+
+		// Process both node lists
+		foreach ( [ $labelledby_tags, $controls_tags ] as $node_list ) {
+			foreach ( $node_list as $tag ) {
+				/** @var \DOMElement $tag */
+
+				// Remove aria-* attributes
+				$attrs_to_remove = [];
+				foreach ( $tag->attributes as $attr ) {
+					if ( str_starts_with( $attr->nodeName, 'aria-' ) ) {
+						$attrs_to_remove[] = $attr->nodeName;
+					}
+				}
+
+				// Remove attributes in separate loop to avoid modification during iteration
+				foreach ( $attrs_to_remove as $attr_name ) {
+					$tag->removeAttribute( $attr_name );
+				}
+			}
 		}
 
 		return $dom;
