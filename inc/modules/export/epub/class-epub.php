@@ -1031,14 +1031,6 @@ class Epub extends ExportGenerator {
 		$this->scrapeKneadAndSaveCss( $this->exportStylePath, $this->epubDir . '/' . $this->stylesheet );
 	}
 
-	protected function updateStylesheet(): void {
-		$this->stylesheet = strtolower( sanitize_file_name( wp_get_theme() . '.css' ) );
-
-		$this->createEpubFile( $this->stylesheet, get_contents( $this->exportStylePath ) );
-
-		$this->scrapeKneadAndSaveCss( $this->exportStylePath, $this->epubDir . '/' . $this->stylesheet );
-	}
-
 	/**
 	 * Parse CSS, copy assets, rewrite copy.
 	 *
@@ -2839,6 +2831,10 @@ class Epub extends ExportGenerator {
 		$path = "{$directory}/{$filename}";
 
 		$contents = get_contents( $path );
+
+		$scss_dir = pathinfo( $this->epubDir, PATHINFO_DIRNAME );
+		$this->embbededCss = $this->normalizeCssUrls( $this->embbededCss, $scss_dir, $this->assetsDir );
+		$this->embbededCss = $this->normalizeExternalFontsUrls( $this->embbededCss, $this->assetsDir );
 
 		put_contents( $path, $contents . $this->embbededCss );
 
