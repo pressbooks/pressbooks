@@ -9,6 +9,7 @@ namespace Pressbooks\DataCollector;
 use function Pressbooks\Image\attachment_id_from_url;
 use function Pressbooks\Metadata\get_institution_by_code;
 use function \Pressbooks\Metadata\get_in_catalog_option;
+use Illuminate\Support\Collection;
 use Pressbooks\Licensing;
 
 class Book {
@@ -143,10 +144,66 @@ class Book {
 	/**
 	 * @param Book $obj
 	 */
-	public static function hooks( Book $obj ) {
+	public static function hooks( Book $obj ): void {
 		add_action( 'wp_update_site', [ $obj, 'updateSite' ], 999, 2 );
+
+		add_action(
+			hook_name: 'add_user_to_blog',
+			callback: fn ( int $user_id, string $role, int $blog_id ) => $obj->updateBookAdmins( $blog_id ),
+			priority: 999,
+			accepted_args: 3
+		);
+
+		// This action gets called before actually removing the user from the blog
+		// so we pass the user id to filter it out from the list of admins
+		add_action(
+			hook_name: 'remove_user_from_blog',
+			callback: fn ( int $user_id, int $blog_id ) => $obj->updateBookAdmins( $blog_id, $user_id ),
+			priority: 999,
+			accepted_args: 2
+		);
+
+		add_action(
+			hook_name: 'add_user_role',
+			callback: fn () => $obj->updateBookAdmins( get_current_blog_id() ),
+			priority: 999
+		);
+
+		add_action(
+			hook_name: 'set_user_role',
+			callback: fn () => $obj->updateBookAdmins( get_current_blog_id() ),
+			priority: 999
+		);
+
+		add_action(
+			hook_name: 'remove_user_role',
+			callback: fn () => $obj->updateBookAdmins( get_current_blog_id() ),
+			accepted_args: 999
+		);
+
 		add_action( 'wp_insert_post', [ $obj, 'updateMetaData' ], 10, 3 ); // Trigger after deleteBookObjectCache
 		add_action( 'wp_delete_site', [ $obj, 'deleteSite' ], 999 );
+	}
+
+	public function updateBookAdmins( int $blog_id, ?int $user_id = null ): void {
+		switch_to_blog( $blog_id );
+
+		global $wpdb;
+
+		/** @var Collection $ids */
+		$ids = app( 'db' )
+			->table( 'usermeta' )
+			->select( 'user_id' )
+			->where( 'meta_key', "{$wpdb->prefix}capabilities" )
+			->where( 'meta_value', 'like', '%administrator%' )
+			->pluck( 'user_id' )
+			->when($user_id, function ( Collection $ids, $id ) {
+				return $ids->filter( fn( $admin ) => $admin->user_id !== $id );
+			});
+
+		update_site_meta( $blog_id, 'pb_book_admins', $ids->join( ',' ) );
+
+		restore_current_blog();
 	}
 
 	// ------------------------------------------------------------------------
@@ -216,6 +273,8 @@ class Book {
 		//  Override \Pressbooks\L10n\get_book_language() so that all info collected appears in Admin language
 
 		switch_to_blog( $book_id );
+
+		$this->updateBookAdmins( $book_id );
 
 		// --------------------------------------------------------------------
 		// Network Analytic Columns
