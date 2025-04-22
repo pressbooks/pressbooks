@@ -11,8 +11,9 @@ $pb-icon-lg-size: 36px;
 
   .quicklinks {
     display: flex;
+    height: 64px;
     justify-content: space-between;
-    height: 100%;
+    overflow-x: scroll;
 
     > ul {
       display: flex;
