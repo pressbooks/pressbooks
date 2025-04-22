@@ -274,6 +274,12 @@ $pb-icon-lg-size: 36px;
   }
 }
 
+@media screen and (max-width: 720px) {
+  #wpcontent #wpadminbar .quicklinks {
+    overflow-x: auto;
+  }
+}
+
 @media screen and (min-width: 600px) {
   #wpwrap {
     top: 4px;
