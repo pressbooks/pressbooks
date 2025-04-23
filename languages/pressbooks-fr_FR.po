@@ -1637,7 +1637,7 @@ msgstr "%s Auteur(s)"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:56
 msgid "%s Copyright License"
-msgstr ""
+msgstr "%s Licence relative au droit d&rsquo;auteur"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:57
 msgid "Overrides book license on this page."
