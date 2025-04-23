@@ -33,10 +33,7 @@
 				@if( $can_create_new_books )
 					<div class="pb-dashboard-panel">
 						<div class="pb-dashboard-image">
-							<img
-								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-create-book.png" }}"
-								alt="{{ __( 'Create a new book art', 'pressbooks' ) }}"
-							/>
+							<img src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-create-book.png" }}" alt="" />
 						</div>
 
 						<div class="pb-dashboard-content">
@@ -62,10 +59,7 @@
 				@if( $can_clone_books )
 					<div class="pb-dashboard-panel">
 						<div class="pb-dashboard-image">
-							<img
-								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-adapt-book.png" }}"
-								alt="{{ __( 'Adapt a book art', 'pressbooks' ) }}"
-							/>
+							<img src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-adapt-book.png" }}" alt="" />
 						</div>
 
 						<div class="pb-dashboard-content">

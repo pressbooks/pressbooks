@@ -1,5 +1,46 @@
 # Changelog
 
+## [6.25.1](https://github.com/pressbooks/pressbooks/compare/6.25.0...6.25.1) (2025-04-22)
+
+
+### Bug Fixes
+
+* add part aria-label typo ([#4012](https://github.com/pressbooks/pressbooks/issues/4012)) ([993f1b3](https://github.com/pressbooks/pressbooks/commit/993f1b3acaec33de597156291c4fd3a0c2a70dab))
+* media attributions display for subscriber users ([#4005](https://github.com/pressbooks/pressbooks/issues/4005)) ([5ced795](https://github.com/pressbooks/pressbooks/commit/5ced79536221c718ae25a51e3c6448d74107b3c1))
+* prevent horizontal overflow of admin top bar ([#4010](https://github.com/pressbooks/pressbooks/issues/4010)) ([568912e](https://github.com/pressbooks/pressbooks/commit/568912ec39f1df715c7ca8da031d636535ee951b))
+* remove patterns menu ([#4006](https://github.com/pressbooks/pressbooks/issues/4006)) ([041444b](https://github.com/pressbooks/pressbooks/commit/041444bb9e0e1c835a6f0ca31a0e470f24e9a65f))
+* remove unnecessary alt text in the admin dashboard ([#4004](https://github.com/pressbooks/pressbooks/issues/4004)) ([92b4450](https://github.com/pressbooks/pressbooks/commit/92b4450ac47811b3a729c27dc47f554dfebf61f8))
+* subscriber attachments ([5ced795](https://github.com/pressbooks/pressbooks/commit/5ced79536221c718ae25a51e3c6448d74107b3c1))
+
+
+### Chores
+
+* bump eazy-logger from 4.0.1 to 4.1.0 in the npm_and_yarn group ([#3999](https://github.com/pressbooks/pressbooks/issues/3999)) ([160f0f1](https://github.com/pressbooks/pressbooks/commit/160f0f1ee9b194c9086416cf18bbe12b2c9ce6cb))
+* bump the composer-dependencies group with 2 updates ([#3972](https://github.com/pressbooks/pressbooks/issues/3972)) ([37cf395](https://github.com/pressbooks/pressbooks/commit/37cf395a8271c46572d154c58454911142db90cd))
+* bump the composer-dependencies group with 2 updates ([#4011](https://github.com/pressbooks/pressbooks/issues/4011)) ([bfe903f](https://github.com/pressbooks/pressbooks/commit/bfe903f73a0803fa243d9f0585f5e63ab903f780))
+* revert "fix: prevent horizontal overflow of admin top bar" ([#4014](https://github.com/pressbooks/pressbooks/issues/4014)) ([1aba773](https://github.com/pressbooks/pressbooks/commit/1aba7737410bd0d71d069330ee2b97c3ff6e8a32))
+
+## [6.25.0](https://github.com/pressbooks/pressbooks/compare/6.24.0...6.25.0) (2025-04-14)
+
+
+### Features
+
+* add accessible wp table headers ([#3990](https://github.com/pressbooks/pressbooks/issues/3990)) ([fe31b00](https://github.com/pressbooks/pressbooks/commit/fe31b00cf96b8dba68d86039c78cd5bccc318edf))
+
+
+### Bug Fixes
+
+* add autocomplete attribute for profile and contributors forms ([#3989](https://github.com/pressbooks/pressbooks/issues/3989)) ([ea2b6bf](https://github.com/pressbooks/pressbooks/commit/ea2b6bf3738dc54ac8d79505e6a7e2c809bfc854))
+* default value for latest_files_public option ([#3985](https://github.com/pressbooks/pressbooks/issues/3985)) ([357377d](https://github.com/pressbooks/pressbooks/commit/357377d8357003e1588ec0686a04b7d60045e3d8))
+
+
+### Chores
+
+* code style improvements ([#4000](https://github.com/pressbooks/pressbooks/issues/4000)) ([13dc3e1](https://github.com/pressbooks/pressbooks/commit/13dc3e1894458a2df607bb73a804a9468d5e3865))
+* code style issues ([13dc3e1](https://github.com/pressbooks/pressbooks/commit/13dc3e1894458a2df607bb73a804a9468d5e3865))
+* improve coding style standards ([#3988](https://github.com/pressbooks/pressbooks/issues/3988)) ([b3978c0](https://github.com/pressbooks/pressbooks/commit/b3978c053107c0986bd39ee5d101e255c4ac69b7))
+* update East Texas A&M University name ([#3997](https://github.com/pressbooks/pressbooks/issues/3997)) ([846a83a](https://github.com/pressbooks/pressbooks/commit/846a83aaafcb54db882e4ac8111d38180c612d3a))
+
 ## [6.24.0](https://github.com/pressbooks/pressbooks/compare/6.23.2...6.24.0) (2025-04-07)
 
 
