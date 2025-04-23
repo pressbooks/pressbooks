@@ -1133,7 +1133,7 @@ msgstr "Votre affiliation institutionnelle, par exemple la Fondation Rebus, l'Un
 
 #: inc/admin/menus/class-sidebar.php:87
 msgid "Sorry, you are not allowed to access this page."
-msgstr ""
+msgstr "Désolé, vous n'avez pas les permissions pour accéder cette page."
 
 #: inc/admin/menus/class-sidebar.php:229 inc/admin/menus/class-sidebar.php:230
 #: inc/admin/menus/class-topbar.php:139
@@ -1617,19 +1617,19 @@ msgstr "Métadonnées de %s"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:37
 msgid "%s Short Title"
-msgstr ""
+msgstr "%s Titre abrégé"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:38
 msgid "Appears in the PDF running header and webbook navigation."
-msgstr ""
+msgstr "Figure dans le titre courant du PDF et lors de la navigation du livre Web."
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:43
 msgid "%s Subtitle"
-msgstr ""
+msgstr "%s Sous-titre"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:44
 msgid "Appears in the Web/ebook/PDF output."
-msgstr ""
+msgstr "Figure sur le Web, dans le livre numérique et le PDF."
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:49
 msgid "%s Author(s)"
@@ -1637,11 +1637,11 @@ msgstr "%s Auteur(s)"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:56
 msgid "%s Copyright License"
-msgstr ""
+msgstr "%s Licence relative au droit d&rsquo;auteur"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:57
 msgid "Overrides book license on this page."
-msgstr ""
+msgstr "Remplace la licence du livre sur cette page."
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:63
 msgid "%s Digital Object Identifier (DOI)"
@@ -2172,9 +2172,9 @@ msgstr[2] "Directeurs de rédaction"
 #: inc/class-contributors.php:829
 msgid "Contributor"
 msgid_plural "Contributors"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Contributeur"
+msgstr[1] "Contributeurs"
+msgstr[2] "Contributeurs"
 
 #: inc/class-contributors.php:830
 msgid "Translator"
