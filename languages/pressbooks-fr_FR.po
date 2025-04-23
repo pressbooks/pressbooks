@@ -1664,7 +1664,7 @@ msgstr "%s Licence relative au droit d'auteur"
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:57
 msgid "Overrides book license on this page."
-msgstr ""
+msgstr "Remplace la licence du livre sur cette page."
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:63
 msgid "%s Digital Object Identifier (DOI)"
