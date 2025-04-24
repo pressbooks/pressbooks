@@ -5476,7 +5476,7 @@ msgstr "Un ou plusieurs éléments interactifs ont été exclus de cette version
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:4
 msgid "Remove"
-msgstr ""
+msgstr "Supprimer"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:7
 msgid "Available options"
