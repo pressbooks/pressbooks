@@ -5480,7 +5480,7 @@ msgstr "Supprimer"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:7
 msgid "Available options"
-msgstr ""
+msgstr "Options disponibles"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:8
 msgid "Moved to position $1"
