@@ -5,6 +5,7 @@
  * @license GPLv3 (or any later version)
  */
 
+use PressbooksMix\Assets;
 use Pressbooks\Admin\Menus\SideBar;
 use Pressbooks\Admin\Menus\TopBar;
 use Pressbooks\Book;
@@ -384,3 +385,9 @@ add_action( 'personal_options_update', '\Pressbooks\Admin\Laf\update_user_profil
 
 add_action( 'plugins_loaded', [ SideBar::class, 'init' ] );
 add_action( 'plugins_loaded', [ TopBar::class, 'init' ] );
+
+add_action( 'admin_enqueue_scripts', function() {
+	$assets = new Assets( 'pressbooks', 'plugin' );
+	wp_enqueue_style( 'pb-table', $assets->getPath( 'styles/pressbooks-table.css' ) );
+	wp_enqueue_script( 'pressbooks-table', $assets->getPath( 'scripts/pressbooks-table.js' ) );
+} );
