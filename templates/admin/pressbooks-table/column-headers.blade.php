@@ -1,5 +1,5 @@
 @foreach ($columns as $column)
-	<th scope="col" class="{{ $column['class'] }}">
+	<th scope="col" class="{{ $column['class'] }} pb-table-header">
 		@if ($column['sortable'])
 			<button data-href="{{ $column['url'] }}" class="sorting-button">
 				<span>{!! $column['label'] !!}</span>
