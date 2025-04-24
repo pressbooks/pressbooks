@@ -5488,7 +5488,7 @@ msgstr "Déplacé à la position $1"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:9
 msgid "Removed $1 from selection"
-msgstr ""
+msgstr "Suppression de $1 de la sélection"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:10
 msgid "Added $1 to selection"
