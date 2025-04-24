@@ -12,7 +12,7 @@ trait PressbooksTable {
 		echo $blade->render( 'admin.pressbooks-table.column-headers', [
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			'columns' => $this->get_prepared_columns(),
-			'with_id' => $with_id,
+			'with_id' => filter_var( $with_id, FILTER_VALIDATE_BOOLEAN ),
 		] );
 	}
 
