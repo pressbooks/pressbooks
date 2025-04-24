@@ -5492,7 +5492,7 @@ msgstr "Supprimé $1 de la sélection"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:10
 msgid "Added $1 to selection"
-msgstr ""
+msgstr "Ajouté $1 à la sélection"
 
 #: assets/src/scripts/a11y.js:31 assets/src/scripts/a11y.js:32
 msgid "Gradient selector"
