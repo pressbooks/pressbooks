@@ -267,18 +267,18 @@ jQuery( function ( $ ) {
 		updateRemoveButton();
 	};
 
-	const nameLinks = document.querySelectorAll('th#name a, tfoot th.column-name a');
-	nameLinks.forEach(link => {
+	const nameLinks = document.querySelectorAll( 'th#name a, tfoot th.column-name a' );
+	nameLinks.forEach( link => {
 	  const url = link.href;
 	  const content = link.innerHTML;
-	  const button = document.createElement('button');
+	  const button = document.createElement( 'button' );
 	  button.type = 'button';
 	  button.className = 'sorting-button';
 	  button.innerHTML = content;
-	  button.addEventListener('click', () => {
+	  button.addEventListener( 'click', () => {
 	    window.location.href = url;
-	  });
-	  link.parentNode.replaceChild(button, link);
-	});
+	  } );
+	  link.parentNode.replaceChild( button, link );
+	} );
 
 } );
