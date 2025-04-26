@@ -320,7 +320,7 @@ class H5P {
 	 *
 	 * @return string|null HTML representation of H5P content or null.
 	 */
-	private function getH5PRepresentation( $h5p_id ) {
+	protected function getH5PRepresentation( $h5p_id ) {
 		/*
 		 * Dynamically load H5PExtractor. Could be done via autloader as well, but
 		 * why load this unconditionally if if's only needed for printing?
