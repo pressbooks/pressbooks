@@ -139,11 +139,6 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 			->with( 123 ) // Expecting the ID from the shortcode
 			->willReturn( '<p>Mock H5P Content</p>' ); // Return mock HTML
 
-		// Mock necessary WP functions if they affect the title/url significantly
-		// For now, we assume they return something valid and focus on the interaction
-		// \WP_Mock::userFunction( 'get_the_title', [ 'return' => 'Mock H5P Title' ] );
-		// \WP_Mock::userFunction( 'wp_get_shortlink', [ 'return' => 'http://mock.url/p=1' ] ); // Requires Post ID setup
-
 		// Call the method on the mocked object
 		$result = $h5pMock->replaceShortcode( [ 'id' => 123 ] );
 
