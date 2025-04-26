@@ -831,7 +831,7 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( 7.87402, round( $inches_pdf_mi, 5 ) );
 		$this->assertEquals( 2, $inches_pdf_mo );
 
-		$inches_pdf_w = length_to_inches();
+		$inches_pdf_w = length_to_inches( null );
 		$this->assertFalse( $inches_pdf_w );
 	}
 }
