@@ -80,7 +80,7 @@ function add_footer_link() {
 	}
 
 	printf(
-		'<span id="footer-thankyou">%1$s</span> &bull; %2$s &bull; %3$s &bull; %4$s &bull; %5$s %6$s <br/>',
+		'<span id="footer-thankyou">%1$s</span> &bull; %2$s &bull; %3$s &bull; %4$s %5$s <br/>',
 		sprintf(
 			esc_html__( 'Powered by %s', 'pressbooks' ),
 			sprintf(
@@ -91,18 +91,13 @@ function add_footer_link() {
 		),
 		sprintf(
 			'<a href="%1$s">%2$s</a>',
-			'https://pressbooks.com/about/',
-			esc_html__( 'About', 'pressbooks' )
-		),
-		sprintf(
-			'<a href="%1$s">%2$s</a>',
 			/**
 			 * Filter the "Help" link.
 			 *
 			 * @since 5.6.0
 			 */
-			apply_filters( 'pb_help_link', 'https://pressbooks.com/support/' ),
-			esc_html__( 'Guides and Tutorials', 'pressbooks' )
+			apply_filters( 'pb_help_link', 'https://guide.pressbooks.com' ),
+			esc_html__( 'Pressbooks User Guide', 'pressbooks' )
 		),
 		sprintf(
 			'<a href="%1$s">%2$s</a>',
