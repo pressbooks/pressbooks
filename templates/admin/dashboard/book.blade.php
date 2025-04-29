@@ -72,10 +72,7 @@
 				@if( $write_chapter_url || $import_content_url )
 					<div class="pb-dashboard-panel">
 						<div class="pb-dashboard-image">
-							<img
-									src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-write.png" }}"
-									alt="{{ __( 'Write a new chapter art', 'pressbooks' ) }}"
-							/>
+							<img src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-write.png" }}" alt="" />
 						</div>
 						<div class="pb-dashboard-content">
 							<div class="pb-dashboard-action">
@@ -104,40 +101,28 @@
 				<ul class="horizontal">
 					<li class="resources" id="getting-started">
 						<a href="https://youtube.com/playlist?list=PLMFmJu3NJhevTbp5XAbdif8OloNhqOw5n" target="_blank">
-							<img
-								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-getting-started.png" }}"
-								alt=""
-							/>
+							<img src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-getting-started.png" }}" alt="" />
 							{{ __('Getting started with Pressbooks', 'pressbooks' )}}
 						</a>
 						<p>{{ __( 'Watch a short video series on how to get started with Pressbooks.', 'pressbooks' ) }}</p>
 					</li>
 					<li class="resources" id="pressbooks-guide">
 						<a href="https://guide.pressbooks.com" target="_blank">
-							<img
-								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-guide.png" }}"
-								alt=""
-							/>
+							<img src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-guide.png" }}" alt="" />
 							{{ __('Pressbooks user guide', 'pressbooks' )}}
 						</a>
 						<p>{{ __( 'Find help and how-tos for your publishing project in this detailed handbook.', 'pressbooks' ) }}</p>
 					</li>
 					<li class="resources" id="forum">
 						<a href="https://pressbooks.community" target="_blank">
-							<img
-								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-forum.png" }}"
-								alt=""
-							/>
+							<img src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-forum.png" }}" alt="" />
 							{{ __('Pressbooks community forum', 'pressbooks' ) }}
 						</a>
 						<p>{{ __( 'Discuss Pressbooks related questions with other users in our public forum.', 'pressbooks' ) }}</p>
 					</li>
 					<li class="resources" id="webinars">
 						<a href="https://pressbooks.com/webinars" target="_blank">
-							<img
-								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-webinars.png" }}"
-								alt=""
-							/>
+							<img src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-webinars.png" }}" alt="" />
 							{{ __('Pressbooks training webinars', 'pressbooks') }}
 						</a>
 						<p>{{ __( 'Register for free webinars to learn about Pressbooks features and best practices.', 'pressbooks' ) }}</p>
