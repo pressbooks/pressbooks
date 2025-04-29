@@ -1,4 +1,4 @@
-.sorting-indicators {
+.pb-table-header .sorting-indicators {
   display: inline-block;
   margin-left: 4px;
 }
@@ -30,7 +30,7 @@ th.column-user_login .sorting-button {
   }
 
   &:focus {
-    box-shadow: 0 0 0 1px #2271b1, 0 0 2px 1px rgba(30, 140, 190, 0.8);
+    box-shadow: 0 0 0 1px #2271b1, 0 0 2px 1px rgba(30 140 190 / 80% );
   }
 
   span.screen-reader-text {
@@ -42,4 +42,8 @@ th.column-user_login .sorting-button {
     overflow: hidden;
     white-space: nowrap;
   }
+}
+
+.check-column {
+  padding: 9px 0 !important;
 }
