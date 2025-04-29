@@ -423,6 +423,10 @@ class H5P {
 			debug_error_log( 'H5P Extractor error: ' . $extract['error'] );
 		}
 
+		if ( str_contains( $extract['result'], 'No HTML renderer for' ) ) {
+			return null;
+		}
+
 		// Ensure to delete export file if it had not existed before
 		$export_cleanup_callback( $h5p_id );
 
