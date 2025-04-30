@@ -91,7 +91,7 @@
 						</a>
                         <a
 							class="page-title-action" href="{!! admin_url('post-new.php?post_type=part') !!}"
-							aria-label="{{ sprintf( __( 'Add a new part below to %s part', 'pressbooks' ), $group['title'] ) }}"
+							aria-label="{{ sprintf( __( 'Add a new part below %s part', 'pressbooks' ), $group['title'] ) }}"
 						>
 							{{ __('Add Part', 'pressbooks') }}
 						</a>
