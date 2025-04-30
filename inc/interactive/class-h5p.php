@@ -120,7 +120,7 @@ class H5P {
 	 *
 	 * @return string|null The vendor path or null if not found.
 	 */
-	private static function getVendorPath( $start_dir ) {
+	private static function getVendorPath( string $start_dir ): string|null {
 		while ( ! file_exists( $start_dir . DIRECTORY_SEPARATOR . 'vendor' ) ) {
 			$start_dir = dirname( $start_dir );
 			if ( DIRECTORY_SEPARATOR === $start_dir ) {
@@ -140,7 +140,7 @@ class H5P {
 	 * @param bool $found (optional) Whether a match has been found.
 	 * @return bool Whether a match has been found.
 	 */
-	public function textAddonMatches( $params, $pattern, $found = false ) {
+	public function textAddonMatches( mixed $params, string $pattern, bool $found = false ): bool {
 		$type = gettype( $params );
 		if ( $type === 'string' ) {
 			if ( preg_match( $pattern, $params ) === 1 ) {
@@ -165,7 +165,7 @@ class H5P {
 	 * @param array $content Object with content data.
 	 * @return string Unique content slug.
 	 */
-	private function generateContentSlug( $content ) {
+	private function generateContentSlug( array $content ): string {
 		$slug = \H5PCore::slugify( $content['title'] );
 		$core = \H5P_Plugin::get_instance()->get_h5p_instance( 'core' );
 
@@ -196,7 +196,7 @@ class H5P {
 	 *
 	 * @return bool Whether the export was created successfully.
 	 */
-	private function createH5PExport( $content ) {
+	private function createH5PExport( array $content ): bool {
 		if ( ! ( isset( $content['library'] ) && isset( $content['params'] ) ) ) {
 			return false;
 		}
@@ -283,7 +283,7 @@ class H5P {
 	 * @return callable Cleanup function that needs to be called later to remove
 	 *                  the export file if it had not existed before.
 	 */
-	private function ensureH5Export( $h5p_id ) {
+	private function ensureH5Export( int $h5p_id ): callable {
 		$core = \H5P_Plugin::get_instance()->get_h5p_instance( 'core' );
 		$content = $core->loadContent( $h5p_id );
 
@@ -305,7 +305,7 @@ class H5P {
 		 * Cleanup function that needs to be called later to remove the export file
 		 * if it had not existed before - leaving everything as we found it.
 		 */
-		return function ( $h5p_id ) {
+		return function ( int $h5p_id ): void {
 			$core = \H5P_Plugin::get_instance()->get_h5p_instance( 'core' );
 			$content = $core->loadContent( $h5p_id );
 			$export_filename = $content['slug'] . '-' . $content['id'] . '.h5p';
@@ -320,7 +320,7 @@ class H5P {
 	 *
 	 * @return string|null HTML representation of H5P content or null.
 	 */
-	protected function getH5PRepresentation( $h5p_id ) {
+	protected function getH5PRepresentation( int $h5p_id ): mixed {
 		/*
 		 * Dynamically load H5PExtractor. Could be done via autloader as well, but
 		 * why load this unconditionally if if's only needed for printing?
@@ -432,7 +432,7 @@ class H5P {
 	/**
 	 * Override H5P shortcode
 	 */
-	public function override() {
+	public function override(): void {
 		remove_shortcode( self::SHORTCODE );
 		add_shortcode( self::SHORTCODE, [ $this, 'replaceShortcode' ] );
 		add_filter( 'h5p_embed_access', '__return_false' );

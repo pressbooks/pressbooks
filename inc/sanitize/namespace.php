@@ -753,7 +753,7 @@ function htmlawed_with_mixed_markup( $content, $htmlawed_config = null, $htmlawe
  * @param string $content
  * @return string
  */
-function sanitize_webbook_content( $content ) {
+function sanitize_webbook_content( $content ): string {
 	// Remove deprecated table borders
 	$spec = 'table=-border;';
 
@@ -773,19 +773,25 @@ function sanitize_webbook_content( $content ) {
  * @return string
  */
 
-function filter_export_content( $content ) {
+function filter_export_content( string $content ): string {
 	remove_filter( 'the_content', '\Pressbooks\Sanitize\sanitize_webbook_content' );
 
-	// Content can be very large which can cause convert_smilies in formatting.php to crash. It runs preg_replace which
-	// can return false in case of failure (which it will if the content is too large). The return value is assumed to
-	// be an array and not guarded against being a boolean.
-
-	$pcre_limit = ini_get( 'pcre.backtrack_limit' );
-	ini_set( 'pcre.backtrack_limit', PHP_INT_MAX );
-
-	$content = apply_filters( 'the_content', $content );
-
-	ini_set( 'pcre.backtrack_limit', $pcre_limit );
+	$max_chunk_length = 20000;
+	$chunks = preg_split( '/(<[^>]+>)/', $content, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY );
+	$filtered_batches = [];
+	$current = '';
+	foreach ( $chunks as $chunk ) {
+		if ( mb_strlen( $current ) + mb_strlen( $chunk ) > $max_chunk_length && $current !== '' ) {
+			$filtered_batches[] = apply_filters( 'the_content', $current );
+			$current = $chunk;
+		} else {
+			$current .= $chunk;
+		}
+	}
+	if ( $current !== '' ) {
+		$filtered_batches[] = apply_filters( 'the_content', $current );
+	}
+	$content = implode( '', $filtered_batches );
 
 	add_filter( 'the_content', '\Pressbooks\Sanitize\sanitize_webbook_content' );
 	return $content;
