@@ -1,5 +1,6 @@
 <?php
 
+use function Pressbooks\Utility\length_to_inches;
 use function Pressbooks\Utility\do_shortcode_by_tags;
 use function Pressbooks\Utility\objects_to_csv;
 
@@ -810,5 +811,27 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$this->assertStringContainsString( 'title,author,isbn', $csv );
 		$this->assertStringContainsString( 'foo,bar,baz', $csv );
+	}
+
+	/**
+	 * @group utility
+	 */
+	public function test_length_to_inches() {
+		$css = [
+			'pdf_page_width' => '10cm',
+			'pdf_page_margin_inside' => '20cm',
+			'pdf_page_margin_outside' => '2in',
+		];
+
+		$inches_pdf_w = length_to_inches( $css['pdf_page_width'] );
+		$inches_pdf_mi = length_to_inches( $css['pdf_page_margin_inside'] );
+		$inches_pdf_mo = length_to_inches( $css['pdf_page_margin_outside'] );
+
+		$this->assertEquals( 3.93701, round( $inches_pdf_w, 5 ) );
+		$this->assertEquals( 7.87402, round( $inches_pdf_mi, 5 ) );
+		$this->assertEquals( 2, $inches_pdf_mo );
+
+		$inches_pdf_w = length_to_inches( null );
+		$this->assertFalse( $inches_pdf_w );
 	}
 }

@@ -1630,3 +1630,38 @@ function objects_to_csv( array $array ): string {
 
 	return $csv ?: '';
 }
+
+/**
+ * Convert CSS value to inches.
+ *
+ * @param string $value Value to convert to inches. Needs to be a string with an absolute CSS unit of measurement.
+ * @param int $dpi
+ * @return float|bool Converted value in inches or false if the value is invalid.
+ */
+function length_to_inches( $value, $dpi = 96 ) : float|bool {
+	$value = trim( $value );
+
+	preg_match( '/^([-+]?[0-9]*\.?[0-9]+)([a-zA-Z%]+)$/', $value, $matches );
+
+	if ( ! $matches ) {
+		return false;
+	}
+
+	$number = floatval( $matches[1] );
+	$unit = strtolower( $matches[2] );
+
+	// Conversion factors to inches
+	$conversion_factors = [
+		'px' => 1 / $dpi,       // 1 inch = 96 pixels (assuming 96 DPI)
+		'pt' => 1 / 72,         // 1 inch = 72 points
+		'cm' => 0.393701,       // 1 inch = 2.54 cm
+		'mm' => 0.0393701,      // 1 inch = 25.4 mm
+		'in' => 1,              // Inches already
+		'pc' => 1 / 6,          // 1 inch = 6 picas (1 pica = 12 points)
+		'q'  => 0.0393701 / 40, // 1 inch = 40 quarters (1 quarter = 1/4 mm)
+	];
+
+	return ( array_key_exists( $unit, $conversion_factors ) ) ?
+		(float) ( $number * $conversion_factors[ $unit ] ) :
+		false;
+}
