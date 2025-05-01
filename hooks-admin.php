@@ -105,6 +105,7 @@ add_action( 'network_admin_menu', '\Pressbooks\Admin\Laf\network_admin_menu' );
 if ( ! is_network_admin() ) {
 	add_action( 'admin_init', '\Pressbooks\Admin\Laf\privacy_settings_init' );
 }
+add_filter( 'map_meta_cap', '\Pressbooks\Admin\Laf\allow_edit_to_book_authors', 10, 4 );
 
 // Network settings
 add_action( 'network_admin_menu', [ '\Pressbooks\Admin\Network\NetworkSettings', 'init' ] );
