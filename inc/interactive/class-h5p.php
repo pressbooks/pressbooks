@@ -34,6 +34,11 @@ class H5P {
 	protected $dpi = 96;
 
 	/**
+	 * @var bool
+	 */
+	protected bool $enableStaticRepresentation = false;
+
+	/**
 	 * @param Blade $blade
 	 */
 	public function __construct( $blade ) {
@@ -41,6 +46,7 @@ class H5P {
 		if ( is_file( WP_PLUGIN_DIR . '/h5p/autoloader.php' ) ) {
 			require_once( WP_PLUGIN_DIR . '/h5p/autoloader.php' );
 		}
+		add_action( 'pb_pre_export', [ $this, 'shouldEnablePrint' ] );
 		add_filter( 'print_h5p_content', [ $this, 'generateCustomH5pWrapper' ], 10, 2 );
 	}
 
@@ -95,6 +101,17 @@ class H5P {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Enable H5P content on export
+	 *
+	 */
+	public function shouldEnablePrint(): void {
+		$export_options = get_option( 'pressbooks_export_options' );
+		if ( isset( $export_options['h5p_print_on_exports'] ) && $export_options['h5p_print_on_exports'] ) {
+			$this->enableStaticRepresentation = $export_options['h5p_print_on_exports'];
+		}
 	}
 
 	/**
@@ -321,6 +338,11 @@ class H5P {
 	 * @return string|null HTML representation of H5P content or null.
 	 */
 	protected function getH5PRepresentation( int $h5p_id ): mixed {
+
+		if ( ! $this->enableStaticRepresentation ) {
+			return null; // Static representation is disabled
+		}
+
 		/*
 		 * Dynamically load H5PExtractor. Could be done via autloader as well, but
 		 * why load this unconditionally if if's only needed for printing?
