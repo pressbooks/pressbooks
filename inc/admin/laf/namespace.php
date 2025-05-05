@@ -32,6 +32,7 @@ use Pressbooks\Contributors;
 use Pressbooks\DataCollector\Book as DataCollector;
 use Pressbooks\Metadata;
 use WP_Error;
+use WP_User;
 
 /**
  * @return bool
@@ -1733,14 +1734,72 @@ function remove_emoji() {
  * @return array
  */
 function allow_edit_to_book_authors( $caps, $cap, $user_id, $args ) {
-	if ( 'edit_post' === $cap && isset( $args[0] ) ) {
-		$post_id = $args[0];
-		$post_author_id = get_post_field( 'post_author', $post_id );
+	// Check if the user is a Contributor
+	$user = new WP_User( $user_id );
+	if ( in_array( 'contributor', (array) $user->roles, true ) ) {
+		// Allow contributors to upload files
+		if ( 'upload_files' === $cap ) {
+			return [ 'upload_files' ]; // Grant the upload_files capability
+		}
 
-		if ( (int) $user_id === (int) $post_author_id ) {
-			return [ 'edit_posts' ];
+		// Existing logic for allowing authors to edit their own posts
+		if ( 'edit_post' === $cap && isset( $args[0] ) ) {
+			$post_id = $args[0];
+			$post_author_id = get_post_field( 'post_author', $post_id );
+
+			if ( (int) $user_id === (int) $post_author_id ) {
+				return [ 'edit_posts' ];
+			}
 		}
 	}
+
 	return $caps;
+}
+
+function enable_media_buttons_for_contributors() {
+	$role = get_role( 'contributor' );
+	$role?->add_cap( 'upload_files', true );
+}
+
+function filter_media_for_contributors( $query ) {
+	if ( ! function_exists( 'wp_get_current_user' ) ) {
+		return $query;
+	}
+
+	if ( ! is_admin() ) {
+		return $query;
+	}
+
+	$current_user = wp_get_current_user();
+
+	if ( ! $current_user || ! $current_user->exists() || ! in_array( 'contributor', $current_user->roles, true ) ) {
+		return $query;
+	}
+
+	$query['author'] = $current_user->ID;
+
+	return $query;
+}
+
+function filter_media_list_for_contributors( $query ) {
+	global $pagenow;
+
+	if ( ! function_exists( 'wp_get_current_user' ) ) {
+		return $query;
+	}
+
+	if ( $pagenow !== 'upload.php' ) {
+		return $query;
+	}
+
+	$current_user = wp_get_current_user();
+
+	if ( ! $current_user || ! $current_user->exists() || ! in_array( 'contributor', $current_user->roles, true ) ) {
+		return $query;
+	}
+
+	$query->set( 'author', $current_user->ID );
+
+	return $query;
 }
 
