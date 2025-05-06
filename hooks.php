@@ -353,3 +353,43 @@ add_action( 'wp_initialize_site', [ Privacy::class, 'setDefaultPermissivePrivate
 //Network Managers hooks via CLI
 add_action( 'revoked_super_admin', '\Pressbooks\Admin\NetworkManagers\remove_from_pressbooks_network_managers' );
 add_action( 'deleted_user', '\Pressbooks\Admin\NetworkManagers\remove_from_pressbooks_network_managers' );
+
+/**
+ * Holds the URL of the generated CSS file between the action and filter calls.
+ * Using a static variable within a class or a transient might be more robust
+ * depending on your specific implementation needs.
+ */
+$my_custom_xhtml_css_url = '';
+
+add_action( 'pb_xhtml_after_content_processed', function() {
+	global $my_custom_xhtml_css_url;
+
+	$css_content = apply_filters( 'pb_process_scoped_styles', '' );
+
+	if ( empty( $css_content ) ) {
+		$my_custom_xhtml_css_url = '';
+		return; // Nothing to write
+	}
+
+	$upload_dir = Container::get( 'Sass' )->pathToUserGeneratedCss();
+	$filename = 'scopedstyles.css';
+	$css_path = $upload_dir . '/' . $filename;
+
+	$write_success = file_put_contents( $css_path, $css_content );
+	$url = Container::get( 'Sass' )->urlToUserGeneratedCss( true ) . "/{$filename}";
+
+	if ( $write_success ) {
+		$my_custom_xhtml_css_url = $url;
+	} else {
+		// Handle potential write error (log it, etc.)
+		error_log( "Pressbooks Custom XHTML CSS: Failed to write file to {$css_path}" );
+		$my_custom_xhtml_css_url = ''; // Ensure URL is empty on failure
+	}
+} );
+
+add_filter( 'pb_xhtml_custom_stylesheet_url', function() {
+	global $my_custom_xhtml_css_url;
+
+	// If we successfully generated a URL, return it. Otherwise, return the default.
+	return ! empty( $my_custom_xhtml_css_url ) ? $my_custom_xhtml_css_url : '';
+} );

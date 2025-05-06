@@ -56,6 +56,19 @@ trait ExportHelpers {
 		}
 
 		$data['content'] = $post_data['post_content'];
+		if ( preg_match_all( '/<style.*?scoped="scoped".*?>(.*?)<\/style>/is', $data['content'], $matches ) ) {
+			$scoped_styles = implode( "\n", $matches[1] ) . "\n";
+			add_filter('pb_process_scoped_styles', function( $st ) use ( $scoped_styles ) {
+				$scoped_styles = str_replace( '&gt;', '>', $scoped_styles );
+				$scoped_styles = str_replace( '*width', 'width', $scoped_styles );
+				$scoped_styles = str_replace( "src: url('') format('woff2');", '', $scoped_styles );
+				$scoped_styles = str_replace( "src: url('') format('truetype');", '', $scoped_styles );
+				$scoped_styles = str_replace( "background: url('') 10px center no-repeat;", '', $scoped_styles );
+				$scoped_styles = str_replace( 'font-size: unset;', '', $scoped_styles );
+				return $st . $scoped_styles;
+			});
+		}
+		$data['content'] = preg_replace( '/<style.*?scoped="scoped".*?<\/style>/i', '', $data['content'] );
 		$data['append_post_content'] = apply_filters( "pb_append_{$post_type_identifier}_content", '', $post_data['ID'] );
 		$data['short_title'] = trim( get_post_meta( $post_data['ID'], 'pb_short_title', true ) );
 		$section_license = $this->doSectionLevelLicense( $metadata, $post_data['ID'] );

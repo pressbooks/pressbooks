@@ -113,6 +113,7 @@ class Pdf extends Export {
 		$timestamp = time();
 		$css = $this->kneadCss();
 		$css_file = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp.css";
+		$scoped_file = Container::get( 'Sass' )->pathToUserGeneratedCss() . '/scopedstyles.css';
 		put_contents( $css_file, $css );
 
 		// --------------------------------------------------------------------
@@ -136,6 +137,7 @@ class Pdf extends Export {
 		}
 
 		$prince->addStyleSheet( $css_file );
+		$prince->addStyleSheet( $scoped_file );
 		$assets = new Assets( 'pressbooks', 'plugin' );
 		$js_path = $assets->getPath( 'scripts/export-footnotes.js' );
 		$prince->addScript( $js_path );

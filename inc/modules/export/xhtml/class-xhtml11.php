@@ -387,6 +387,7 @@ class Xhtml11 extends ExportGenerator {
 				echo "<script src='$url' type='text/javascript'></script>\n";
 			}
 		}
+		echo "<!-- PB_CUSTOM_STYLES_PLACEHOLDER -->\n"; // Placeholder for the custom stylesheet link
 		echo "</head>\n<body lang='{$this->lang}' ";
 		if ( ! empty( $_GET['optimize-for-print'] ) ) {
 			echo "class='print' ";
@@ -419,7 +420,7 @@ class Xhtml11 extends ExportGenerator {
 
 		$my_get = $_GET;
 		unset( $my_get['timestamp'], $my_get['hashkey'] );
-		$cache = get_transient( self::TRANSIENT );
+		$cache = false;
 		if ( is_array( $cache ) && isset( $cache[0] ) && $cache[0] === md5( wp_json_encode( $my_get ) ) ) {
 			// The $_GET parameters haven't changed since the last request so the output will be the same
 			$buffer_inner_html = $cache[1];
@@ -480,13 +481,30 @@ class Xhtml11 extends ExportGenerator {
 
 			// Put the $_GET parameters and the buffer in a transient
 			set_transient( self::TRANSIENT, [ md5( wp_json_encode( $my_get ) ), $buffer_inner_html ] );
+			file_put_contents( WP_CONTENT_DIR . '/prince-scoped.css', apply_filters( 'pb_process_scoped_styles', '' ) );
 		}
+
+		// Allow actions to generate the custom stylesheet after content processing
+		do_action( 'pb_xhtml_after_content_processed' );
+
+		// Get the URL for the custom stylesheet, if generated
+		$custom_stylesheet_url = apply_filters( 'pb_xhtml_custom_stylesheet_url', '' );
 
 		// Put inner HTML inside outer HTML
 		$pos = strpos( $buffer_outer_html, $replace_token );
 		$buffer = substr_replace( $buffer_outer_html, $buffer_inner_html, $pos, strlen( $replace_token ) );
 
+		// Inject the custom stylesheet link or remove the placeholder
+		if ( ! empty( $custom_stylesheet_url ) ) {
+			$link_tag = sprintf( '<link rel="stylesheet" href="%s" type="text/css" />', esc_url( $custom_stylesheet_url ) );
+			$buffer = str_replace( '<!-- PB_CUSTOM_STYLES_PLACEHOLDER -->', $link_tag, $buffer );
+		} else {
+			// Remove placeholder if no stylesheet URL was provided
+			$buffer = str_replace( "<!-- PB_CUSTOM_STYLES_PLACEHOLDER -->\n", '', $buffer );
+		}
+
 		$this->transformOutput = $buffer;
+		file_put_contents( WP_CONTENT_DIR . '/test.html', $this->transformOutput );
 	}
 
 	/**
@@ -1408,6 +1426,20 @@ class Xhtml11 extends ExportGenerator {
 					: '';
 
 				$chapter_number = ! str_contains( $chapter_subclass, 'numberless' ) ? $chapter_index : '';
+
+				if ( preg_match_all( '/<style.*?scoped="scoped".*?>(.*?)<\/style>/is', $chapter_content, $matches ) ) {
+					$scoped_styles = implode( "\n", $matches[1] ) . "\n";
+					add_filter('pb_process_scoped_styles', function( $st ) use ( $scoped_styles ) {
+						$scoped_styles = str_replace( '&gt;', '>', $scoped_styles );
+						$scoped_styles = str_replace( '*width', 'width', $scoped_styles );
+						$scoped_styles = str_replace( "src: url('') format('woff2');", '', $scoped_styles );
+						$scoped_styles = str_replace( "src: url('') format('truetype');", '', $scoped_styles );
+						$scoped_styles = str_replace( "background: url('') 10px center no-repeat;", '', $scoped_styles );
+						$scoped_styles = str_replace( 'font-size: unset;', '', $scoped_styles );
+						return $st . $scoped_styles;
+					});
+				}
+				$chapter_content = preg_replace( '/<style.*?scoped="scoped".*?<\/style>/i', '', $chapter_content );
 
 				$rendered_chapters .= $this->blade->render(
 					'export/chapter',
