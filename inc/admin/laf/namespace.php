@@ -32,7 +32,6 @@ use Pressbooks\Contributors;
 use Pressbooks\DataCollector\Book as DataCollector;
 use Pressbooks\Metadata;
 use WP_Error;
-use WP_User;
 
 /**
  * @return bool
@@ -1734,25 +1733,14 @@ function remove_emoji() {
  * @return array
  */
 function allow_edit_to_book_authors( $caps, $cap, $user_id, $args ) {
-	// Check if the user is a Contributor
-	$user = new WP_User( $user_id );
-	if ( in_array( 'contributor', (array) $user->roles, true ) ) {
-		// Allow contributors to upload files
-		if ( 'upload_files' === $cap ) {
-			return [ 'upload_files' ]; // Grant the upload_files capability
-		}
+	if ( 'edit_post' === $cap && isset( $args[0] ) ) {
+		$post_id = $args[0];
+		$post_author_id = get_post_field( 'post_author', $post_id );
 
-		// Existing logic for allowing authors to edit their own posts
-		if ( 'edit_post' === $cap && isset( $args[0] ) ) {
-			$post_id = $args[0];
-			$post_author_id = get_post_field( 'post_author', $post_id );
-
-			if ( (int) $user_id === (int) $post_author_id ) {
-				return [ 'edit_posts' ];
-			}
+		if ( (int) $user_id === (int) $post_author_id ) {
+			return [ 'edit_posts' ];
 		}
 	}
-
 	return $caps;
 }
 
