@@ -1744,3 +1744,50 @@ function allow_edit_to_book_authors( $caps, $cap, $user_id, $args ) {
 	return $caps;
 }
 
+function enable_media_buttons_for_contributors() {
+	$role = get_role( 'contributor' );
+	$role?->add_cap( 'upload_files', true );
+}
+
+function filter_media_for_contributors( $query ) {
+	if ( ! function_exists( 'wp_get_current_user' ) ) {
+		return $query;
+	}
+
+	if ( ! is_admin() ) {
+		return $query;
+	}
+
+	$current_user = wp_get_current_user();
+
+	if ( ! $current_user || ! $current_user->exists() || ! in_array( 'contributor', $current_user->roles, true ) ) {
+		return $query;
+	}
+
+	$query['author'] = $current_user->ID;
+
+	return $query;
+}
+
+function filter_media_list_for_contributors( $query ) {
+	global $pagenow;
+
+	if ( ! function_exists( 'wp_get_current_user' ) ) {
+		return $query;
+	}
+
+	if ( $pagenow !== 'upload.php' ) {
+		return $query;
+	}
+
+	$current_user = wp_get_current_user();
+
+	if ( ! $current_user || ! $current_user->exists() || ! in_array( 'contributor', $current_user->roles, true ) ) {
+		return $query;
+	}
+
+	$query->set( 'author', $current_user->ID );
+
+	return $query;
+}
+

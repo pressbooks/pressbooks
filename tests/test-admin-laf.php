@@ -420,6 +420,9 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertFalse( has_filter( 'wp_staticize_emoji', 'comment_text_css' ) );
 	}
 
+	/**
+	 * @group branding
+	 */
 	function test_capabilities_remains_the_same_for_regular_authors() {
 
 		$author_id = $this->factory->user->create(['role' => 'author']);
@@ -438,6 +441,9 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertTrue(current_user_can('edit_post', $post_id));
 	}
 
+	/**
+	 * @group branding
+	 */
 	function test_new_user_authors_editing_capabilities() {
 
 		$author_id = $this->factory->user->create(['role' => 'author']);
