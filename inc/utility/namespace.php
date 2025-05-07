@@ -1677,25 +1677,26 @@ function get_h5p_ids_for_exportable_posts() {
 
 	static $post_ids_to_export = [];
 	static $h5p_ids = [];
+	static $results = [];
 
 	if ( empty( $post_ids_to_export ) ) {
 		$post_ids_to_export = Book::getPostsIdsToExport();
 	}
 
 	// Check if the results are already cached
-	if ( ! empty( $h5p_ids ) ) {
+	if ( ! empty( $results ) ) {
 		return $h5p_ids;
 	}
 
-	$results = new \WP_Query([
-		'post__in' => $post_ids_to_export,
+	$query = new \WP_Query([
+		'post__in' => array_keys( $post_ids_to_export ),
 		'posts_per_page' => -1,
 		'post_type' => 'any',
 		'fields' => 'all',
 		'no_found_rows' => true,
 	]);
 
-	$results = $results->posts;
+	$results = $query->posts;
 
 	if ( ! empty( $results ) ) {
 		foreach ( $results as $post ) {

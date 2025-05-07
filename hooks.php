@@ -354,7 +354,7 @@ add_action( 'wp_initialize_site', [ Privacy::class, 'setDefaultPermissivePrivate
 //Network Managers hooks via CLI
 add_action( 'revoked_super_admin', '\Pressbooks\Admin\NetworkManagers\remove_from_pressbooks_network_managers' );
 add_action( 'deleted_user', '\Pressbooks\Admin\NetworkManagers\remove_from_pressbooks_network_managers' );
-add_filter( 'pb_pre_export', function() {
+add_action( 'init', function() {
 	add_filter( 'h5p_activities_to_export', function() {
 		return get_h5p_ids_for_exportable_posts();
 	});
