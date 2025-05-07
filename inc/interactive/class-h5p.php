@@ -482,7 +482,7 @@ class H5P {
 
 		if ( ! empty( $activities_included_in_exported_chapters ) ) {
 			if ( ! in_array( (int) $atts['id'], $activities_included_in_exported_chapters, false ) ) { // @codingStandardsIgnoreLine
-				// If the H5P ID is not in the list of activities to export return early
+				// If the H5P ID is not in the list of activities inside of the exported chapters, halt processing
 				return '';
 			}
 		}
