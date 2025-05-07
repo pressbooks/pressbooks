@@ -478,6 +478,15 @@ class H5P {
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 		global $wpdb;
 
+		$activities_included_in_exported_chapters = apply_filters( 'h5p_activities_to_export', '' );
+
+		if ( ! empty( $activities_included_in_exported_chapters ) ) {
+			if ( ! in_array( (int) $atts['id'], $activities_included_in_exported_chapters, false ) ) { // @codingStandardsIgnoreLine
+				// If the H5P ID is not in the list of activities to export return early
+				return '';
+			}
+		}
+
 		$h5p_url = wp_get_shortlink( $id );
 		$h5p_title = get_the_title( $id );
 		if ( empty( $h5p_title ) ) {

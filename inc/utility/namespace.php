@@ -15,6 +15,7 @@
 
 namespace Pressbooks\Utility;
 
+use Pressbooks\Book;
 use RuntimeException;
 
 /**
@@ -1664,4 +1665,42 @@ function length_to_inches( $value, $dpi = 96 ) : float|bool {
 	return ( array_key_exists( $unit, $conversion_factors ) ) ?
 		(float) ( $number * $conversion_factors[ $unit ] ) :
 		false;
+}
+
+/**
+ * Get H5P IDs for exportable posts.
+ * One query to get all posts with H5P shortcodes in their content.
+ *
+ * @return array
+ */
+function get_h5p_ids_for_exportable_posts() {
+	$post_ids_to_export = Book::getPostsIdsToExport();
+	$h5p_ids = [];
+
+	if ( empty( $post_ids_to_export ) ) {
+		return $h5p_ids;
+	}
+
+	global $wpdb;
+
+	// Prepare the post IDs for the SQL query
+	$post_ids = array_map( 'absint', array_keys( $post_ids_to_export ) );
+	$placeholders = implode( ',', array_fill( 0, count( $post_ids ), '%d' ) );
+
+	// Search for h5p shortcodes using SQL
+	$sql = $wpdb->prepare(
+		"SELECT ID, post_content FROM {$wpdb->posts} WHERE ID IN ({$placeholders}) AND post_content LIKE %s",
+		array_merge( $post_ids, [ '%[h5p%' ] )
+	);
+	$results = $wpdb->get_results( $sql );
+
+	if ( ! empty( $results ) ) {
+		foreach ( $results as $post ) {
+			if ( preg_match_all( '/\[h5p\s+id\s*=\s*["\']?(\d+)["\']?\]/', $post->post_content, $matches ) ) {
+				$h5p_ids = array_merge( $h5p_ids, array_map( 'intval', $matches[1] ) );
+			}
+		}
+	}
+
+	return array_unique( $h5p_ids );
 }

@@ -16,7 +16,6 @@ use function Pressbooks\Modules\Export\get_contributors_section;
 use function Pressbooks\Sanitize\clean_filename;
 use function Pressbooks\Sanitize\decode;
 use function Pressbooks\Utility\check_xmllint_install;
-use function Pressbooks\Utility\get_contributors_name_imploded;
 use function Pressbooks\Utility\put_contents;
 use function Pressbooks\Utility\str_starts_with;
 use PressbooksMix\Assets;
@@ -29,6 +28,7 @@ use Pressbooks\Interactive\Content;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Modules\Export\ExportGenerator;
 use Pressbooks\Modules\Export\ExportHelpers;
+use Pressbooks\Modules\Export\Traits\HandleContributors;
 use Pressbooks\Sanitize;
 use Pressbooks\Taxonomy;
 use Pressbooks\Utility\PercentageYield;
@@ -36,6 +36,7 @@ use Pressbooks\Utility\PercentageYield;
 class Xhtml11 extends ExportGenerator {
 
 	use ExportHelpers;
+	use HandleContributors;
 
 	const TRANSIENT = 'pressbooks_export_xhtml_buffer_inner_html';
 
@@ -420,7 +421,7 @@ class Xhtml11 extends ExportGenerator {
 
 		$my_get = $_GET;
 		unset( $my_get['timestamp'], $my_get['hashkey'] );
-		$cache = false;
+		$cache = get_transient( self::TRANSIENT );
 		if ( is_array( $cache ) && isset( $cache[0] ) && $cache[0] === md5( wp_json_encode( $my_get ) ) ) {
 			// The $_GET parameters haven't changed since the last request so the output will be the same
 			$buffer_inner_html = $cache[1];
@@ -481,7 +482,6 @@ class Xhtml11 extends ExportGenerator {
 
 			// Put the $_GET parameters and the buffer in a transient
 			set_transient( self::TRANSIENT, [ md5( wp_json_encode( $my_get ) ), $buffer_inner_html ] );
-			file_put_contents( WP_CONTENT_DIR . '/prince-scoped.css', apply_filters( 'pb_process_scoped_styles', '' ) );
 		}
 
 		// Allow actions to generate the custom stylesheet after content processing
@@ -504,7 +504,6 @@ class Xhtml11 extends ExportGenerator {
 		}
 
 		$this->transformOutput = $buffer;
-		file_put_contents( WP_CONTENT_DIR . '/test.html', $this->transformOutput );
 	}
 
 	/**
@@ -1040,23 +1039,17 @@ class Xhtml11 extends ExportGenerator {
 				]
 			);
 		} else {
-			$authors = null;
-			$contributors = null;
-
-			if ( isset( $metadata['pb_authors'] ) && ! empty( $metadata['pb_authors'] ) ) {
-				$authors = is_array( $metadata['pb_authors'] ) ? get_contributors_name_imploded( $metadata['pb_authors'] ) : $metadata['pb_authors'];
-			}
-
-			if ( isset( $metadata['pb_contributors'] ) && ! empty( $metadata['pb_contributors'] ) ) {
-				$contributors = is_array( $metadata['pb_contributors'] ) ? get_contributors_name_imploded( $metadata['pb_contributors'] ) : $metadata['pb_contributors'];
-			}
+			$contributors_data = $this->getFormattedContributors( $metadata );
 
 			echo $this->blade->render(
 				'export/title', [
 					'title' => get_bloginfo( 'name' ),
 					'subtitle' => $metadata['pb_subtitle'] ?? '',
-					'authors' => $authors,
-					'contributors' => $contributors,
+					'authors' => $contributors_data['authors'],
+					'editors' => $contributors_data['editors'],
+					'translators' => $contributors_data['translators'],
+					'illustrators' => $contributors_data['illustrators'],
+					'contributors' => $contributors_data['contributors'],
 					'logo' => current_theme_supports( 'pressbooks_publisher_logo' ) ? get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] : null,
 					'publisher' => $metadata['pb_publisher'] ?? '',
 					'publisher_city' => $metadata['pb_publisher_city'] ?? '',
@@ -1475,8 +1468,8 @@ class Xhtml11 extends ExportGenerator {
 
 			if ( $parts_amount === 1 ) {
 				$content = $part_content
-				? $rendered_part . $rendered_chapters
-				: $rendered_chapters;
+					? $rendered_part . $rendered_chapters
+					: $rendered_chapters;
 
 				$this->renderPart( $part_slug, $content );
 			} else {
