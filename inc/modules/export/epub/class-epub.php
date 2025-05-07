@@ -30,12 +30,14 @@ use Pressbooks\HtmlParser;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Modules\Export\ExportGenerator;
 use Pressbooks\Modules\Export\ExportHelpers;
+use Pressbooks\Modules\Export\Traits\HandleContributors;
 use Pressbooks\Sanitize;
 use Pressbooks\Taxonomy;
 use Pressbooks\Utility\PercentageYield;
 
 class Epub extends ExportGenerator {
 	use ExportHelpers;
+	use HandleContributors;
 
 	const VERSION = '3.2';
 
@@ -850,7 +852,7 @@ class Epub extends ExportGenerator {
 
 		if ( ! \Pressbooks\Media\is_valid_media( $tmp_file, $filename ) ) {
 			$this->fetchedMediaCache[ $url ] = '';
-			fclose( $GLOBALS[ $resource_key ] ); // @codingStandardsIgnoreLine
+            fclose( $GLOBALS[ $resource_key ] ); // @codingStandardsIgnoreLine
 			return ''; // Not a valid media type
 		}
 
@@ -861,7 +863,7 @@ class Epub extends ExportGenerator {
 			$filename = wp_unique_filename( $fullpath, $filename );
 			copy( $tmp_file, "$fullpath/$filename" );
 		}
-		fclose( $GLOBALS[ $resource_key ] ); // @codingStandardsIgnoreLine
+        fclose( $GLOBALS[ $resource_key ] ); // @codingStandardsIgnoreLine
 
 		$this->fetchedMediaCache[ $url ] = $filename;
 
@@ -1364,24 +1366,18 @@ class Epub extends ExportGenerator {
 				]
 			);
 		} else {
-			$authors = null;
-			$contributors = null;
-
-			if ( isset( $metadata['pb_authors'] ) && ! empty( $metadata['pb_authors'] ) ) {
-				$authors = is_array( $metadata['pb_authors'] ) ? get_contributors_name_imploded( $metadata['pb_authors'] ) : $metadata['pb_authors'];
-			}
-
-			if ( isset( $metadata['pb_contributors'] ) && ! empty( $metadata['pb_contributors'] ) ) {
-				$contributors = is_array( $metadata['pb_contributors'] ) ? get_contributors_name_imploded( $metadata['pb_contributors'] ) : $metadata['pb_contributors'];
-			}
+			$contributors_data = $this->getFormattedContributors( $metadata );
 
 			$html = $this->blade->render(
 				'export/title',
 				[
 					'title' => get_bloginfo( 'name' ),
 					'subtitle' => $metadata['pb_subtitle'] ?? '',
-					'authors' => $authors,
-					'contributors' => $contributors,
+					'authors' => $contributors_data['authors'],
+					'editors' => $contributors_data['editors'],
+					'translators' => $contributors_data['translators'],
+					'illustrators' => $contributors_data['illustrators'],
+					'contributors' => $contributors_data['contributors'],
 					'logo' => current_theme_supports( 'pressbooks_publisher_logo' ) ? get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] : null,
 					'publisher' => $metadata['pb_publisher'] ?? '',
 					'publisher_city' => $metadata['pb_publisher_city'] ?? '',
@@ -2053,7 +2049,7 @@ class Epub extends ExportGenerator {
 
 		// Make sure empty tags (e.g. <b></b>) don't get turned into self-closing versions by adding an empty text node to them.
 		$xpath = new \DOMXPath( $dom );
-		while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) { // @codingStandardsIgnoreLine
+        while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) { // @codingStandardsIgnoreLine
 			foreach ( $nodes as $node ) {
 				/** @var \DOMElement $node */
 				$node->appendChild( new \DOMText( '' ) );
@@ -2250,7 +2246,7 @@ class Epub extends ExportGenerator {
 		if ( ! \Pressbooks\Image\is_valid_image( $tmp_file, $filename ) ) {
 			$this->fetchedImageCache[ $url ] = '';
 			debug_error_log( '\Pressbooks\Export\Epub\fetchAndSaveUniqueImage is_valid_image, not a valid image ' );
-			fclose( $GLOBALS[ $resource_key ] ); // @codingStandardsIgnoreLine
+            fclose( $GLOBALS[ $resource_key ] ); // @codingStandardsIgnoreLine
 			return ''; // Not an image
 		}
 
@@ -2281,7 +2277,7 @@ class Epub extends ExportGenerator {
 			$filename = wp_unique_filename( $fullpath, $filename );
 			copy( $tmp_file, "$fullpath/$filename" );
 		}
-		fclose( $GLOBALS[ $resource_key ] ); // @codingStandardsIgnoreLine
+        fclose( $GLOBALS[ $resource_key ] ); // @codingStandardsIgnoreLine
 
 		$this->fetchedImageCache[ $url ] = $filename;
 		return $filename;
@@ -2580,7 +2576,7 @@ class Epub extends ExportGenerator {
 				$val['post_name'] === $slug &&
 				$val['export']
 			) {
-				$found = array_merge( [ 'ID' => $post_id ], $val ); // @codingStandardsIgnoreLine
+                $found = array_merge( [ 'ID' => $post_id ], $val ); // @codingStandardsIgnoreLine
 			}
 		}
 		if ( empty( $found ) ) {

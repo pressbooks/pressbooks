@@ -750,7 +750,7 @@ class Xhtml11 extends ExportGenerator {
 		foreach ( $links as $link ) {
 			/**
 			 * @var \DOMElement $link
-			*/
+			 */
 			$href = $link->getAttribute( 'href' );
 
 			if ( str_starts_with( $href, '#' ) && ! empty( $id ) ) {
@@ -846,7 +846,7 @@ class Xhtml11 extends ExportGenerator {
 		foreach ( $images as $image ) {
 			/**
 			 * @var \DOMElement $image
-			*/
+			 */
 			$old_src = $image->getAttribute( 'src' );
 			$new_src = $already_done[ $old_src ] ?? maybe_swap_with_bigger( $old_src );
 			if ( $old_src !== $new_src ) {
