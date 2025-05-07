@@ -1674,25 +1674,28 @@ function length_to_inches( $value, $dpi = 96 ) : float|bool {
  * @return array
  */
 function get_h5p_ids_for_exportable_posts() {
-	$post_ids_to_export = Book::getPostsIdsToExport();
-	$h5p_ids = [];
+
+	static $post_ids_to_export = [];
+	static $h5p_ids = [];
 
 	if ( empty( $post_ids_to_export ) ) {
+		$post_ids_to_export = Book::getPostsIdsToExport();
+	}
+
+	// Check if the results are already cached
+	if ( ! empty( $h5p_ids ) ) {
 		return $h5p_ids;
 	}
 
-	global $wpdb;
+	$results = new \WP_Query([
+		'post__in' => $post_ids_to_export,
+		'posts_per_page' => -1,
+		'post_type' => 'any',
+		'fields' => 'all',
+		'no_found_rows' => true,
+	]);
 
-	// Prepare the post IDs for the SQL query
-	$post_ids = array_map( 'absint', array_keys( $post_ids_to_export ) );
-	$placeholders = implode( ',', array_fill( 0, count( $post_ids ), '%d' ) );
-
-	// Search for h5p shortcodes using SQL
-	$sql = $wpdb->prepare(
-		"SELECT ID, post_content FROM {$wpdb->posts} WHERE ID IN ({$placeholders}) AND post_content LIKE %s",
-		array_merge( $post_ids, [ '%[h5p%' ] )
-	);
-	$results = $wpdb->get_results( $sql );
+	$results = $results->posts;
 
 	if ( ! empty( $results ) ) {
 		foreach ( $results as $post ) {
@@ -1702,5 +1705,7 @@ function get_h5p_ids_for_exportable_posts() {
 		}
 	}
 
-	return array_unique( $h5p_ids );
+	$h5p_ids = array_unique( $h5p_ids );
+
+	return $h5p_ids;
 }
