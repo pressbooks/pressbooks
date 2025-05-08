@@ -562,7 +562,7 @@ abstract class Options {
 			//better to clear the entire cache when options are updated
 			//( new Admin() )->clearCache();
 			//Container::get( 'Styles' )->updatePdfStyleSheet();
-			//update_option( 'pressbooks_last_export', time() );
+			update_option( 'pressbooks_last_export', time() );
 		}
 	}
 
