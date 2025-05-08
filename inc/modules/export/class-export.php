@@ -627,7 +627,7 @@ abstract class Export {
 		 *
 		 * @since 4.4.0
 		 */
-		do_action( 'pb_pre_export' );
+		//do_action( 'pb_pre_export' );
 
 		// --------------------------------------------------------------------------------------------------------
 		// Clear cache? Range is 1 hour.
