@@ -1675,6 +1675,7 @@ function length_to_inches( $value, $dpi = 96 ) : float|bool {
  */
 function get_h5p_ids_for_exportable_posts() {
 
+	// This function caches the results to avoid multiple queries.
 	static $post_ids_to_export = [];
 	static $h5p_ids = [];
 	static $results = [];

@@ -363,42 +363,56 @@ add_action( 'pb_pre_export', function() {
 /**
  * Holds the URL of the generated CSS file between the action and filter calls.
  * Using a static variable within a class or a transient might be more robust
- * depending on your specific implementation needs.
  */
-$my_custom_xhtml_css_url = '';
+$h5p_css_url = '';
 
 add_action( 'pb_xhtml_after_content_processed', function() {
-	global $my_custom_xhtml_css_url;
+	global $h5p_css_url;
 
 	$css_content = apply_filters( 'pb_process_scoped_styles', '' );
 
 	if ( empty( $css_content ) ) {
-		$my_custom_xhtml_css_url = '';
-		return; // Nothing to write
+		$h5p_css_url = '';
+		return; // No CSS to process
 	}
 
 	$upload_dir = Container::get( 'Sass' )->pathToUserGeneratedCss();
 	$filename = 'scopedstyles.css';
 	$css_path = $upload_dir . '/' . $filename;
-	//clear the file before writing
+	$optimized_css_path = $upload_dir . '/optimized-' . $filename;
+
 	if ( file_exists( $css_path ) ) {
 		unlink( $css_path );
 	}
+
 	$write_success = file_put_contents( $css_path, $css_content );
-	$url = Container::get( 'Sass' )->urlToUserGeneratedCss( true ) . "/{$filename}";
+
+	// Call css-purge to optimize H5P CSS
+	$node_modules = WP_PLUGIN_DIR . '/pressbooks/node_modules/.bin';
+	$purge_script = $node_modules . '/css-purge';
+
+	if ( file_exists( $purge_script ) ) {
+		$output = [];
+		$return_var = 0;
+		exec( "$purge_script -i $css_path -o $optimized_css_path", $output, $return_var );
+
+		if ( $return_var !== 0 ) {
+			error_log( 'Pressbooks Custom XHTML CSS: Failed to run css-purge' );
+		}
+	}
+
+	$url = Container::get( 'Sass' )->urlToUserGeneratedCss( true ) . "/optimized-{$filename}";
 
 	if ( $write_success ) {
-		$my_custom_xhtml_css_url = $url;
-	} else {
-		// Handle potential write error (log it, etc.)
-		error_log( "Pressbooks Custom XHTML CSS: Failed to write file to {$css_path}" );
-		$my_custom_xhtml_css_url = ''; // Ensure URL is empty on failure
+		$h5p_css_url = $url;
+		return;
 	}
+
+	error_log( "Pressbooks Custom XHTML CSS: Failed to write file to {$css_path}" );
+	$h5p_css_url = '';
 } );
 
 add_filter( 'pb_xhtml_custom_stylesheet_url', function() {
-	global $my_custom_xhtml_css_url;
-
-	// If we successfully generated a URL, return it. Otherwise, return the default.
-	return ! empty( $my_custom_xhtml_css_url ) ? $my_custom_xhtml_css_url : '';
+	global $h5p_css_url;
+	return ! empty( $h5p_css_url ) ? $h5p_css_url : '';
 } );
