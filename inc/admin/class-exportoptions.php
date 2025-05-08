@@ -102,7 +102,7 @@ class ExportOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			[
-				'0' => __( 'Enable H5P static representation on exports.', 'pressbooks' ),
+				'0' => __( 'Enable H5P static representation on exports. (Experimental)', 'pressbooks' ),
 			]
 		);
 
@@ -183,7 +183,7 @@ class ExportOptions extends \Pressbooks\Options {
 				'name' => $this->getSlug(),
 				'option' => 'h5p_print_on_exports',
 				'value' => ( isset( $this->options['h5p_print_on_exports'] ) ) ? $this->options['h5p_print_on_exports'] : '',
-				'label' => __( 'Enable H5P static representation on exports.', 'pressbooks' ),
+				'label' => __( 'Enable H5P static representation on exports. (Experimental)', 'pressbooks' ),
 				'description' => __( 'This will include a read-only version of H5P activities where possible, in PDF and EPUB exports.', 'pressbooks' ),
 			]
 		);

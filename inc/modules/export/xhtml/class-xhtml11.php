@@ -427,6 +427,7 @@ class Xhtml11 extends ExportGenerator {
 			$buffer_inner_html = $cache[1];
 		} else {
 			$book_contents = $this->preProcessBookContents( Book::getBookContents() );
+
 			ob_start();
 
 			$this->displayAboutTheAuthors = ! empty( get_option( 'pressbooks_theme_options_global', [] )['about_the_author'] );
