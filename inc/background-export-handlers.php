@@ -214,11 +214,40 @@ add_action( 'pressbooks_process_export_job', 'pressbooks_process_export_job', 10
  * Handles AJAX requests for job status updates.
  */
 function pressbooks_export_status_sse() {
+	error_log('[DEBUG SSE HANDLER] Entered pressbooks_export_status_sse.');
+	// Attempt to clean any existing output buffers if headers are already sent elsewhere
+	// This is a workaround for potential "headers already sent" issues from other hooks like session_start
+	while (ob_get_level() > 0) {
+		ob_end_clean();
+	}
+
+	error_log('[DEBUG SSE HANDLER] GET params: ' . print_r($_GET, true));
+
 	$job_id_key = isset($_GET['job_id']) ? sanitize_key( $_GET['job_id'] ) : 'unknown_job';
-	// Nonce check now includes book_id if it's part of the nonce string.
-    if ( ! isset( $_GET['job_id'] ) || ! isset( $_GET['book_id'] ) || ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_key( $_GET['_wpnonce'] ), 'pressbooks_export_status_' . $job_id_key ) ) {
+	$nonce_action = 'pressbooks_export_status_' . $job_id_key;
+	$nonce_value = isset($_GET['_wpnonce']) ? sanitize_key( $_GET['_wpnonce'] ) : null;
+
+	error_log('[DEBUG SSE HANDLER] Nonce action expected: ' . $nonce_action);
+	error_log('[DEBUG SSE HANDLER] Nonce value received: ' . $nonce_value);
+
+    if ( ! isset( $_GET['job_id'] ) || ! isset( $_GET['book_id'] ) || ! $nonce_value || ! wp_verify_nonce( $nonce_value, $nonce_action ) ) {
+		error_log('[DEBUG SSE HANDLER] Nonce verification FAILED or missing params.');
 		status_header(403);
 		echo "event: error\ndata: " . wp_json_encode(['message' => 'Invalid request or nonce.']) . "\n\n";
+		wp_die();
+	}
+
+	error_log('[DEBUG SSE HANDLER] Nonce verification PASSED.');
+
+	// Ensure no stray output before this point either
+	// If the above ob_end_clean didn't suffice, this is another check point.
+	if (headers_sent($file, $line)) {
+		error_log('[DEBUG SSE HANDLER] CRITICAL: Headers already sent before attempting to set SSE headers. File: ' . $file . ' Line: ' . $line);
+		// We can't recover SSE if headers are truly gone, but let's log it.
+		// The EventSource will fail in the browser.
+		// The earlier ob_end_clean should ideally prevent this.
+		status_header(500); // Indicate server error as we can't fulfill SSE contract
+		echo "event: error\ndata: " . wp_json_encode(['message' => 'Server configuration error: Cannot initiate event stream.']) . "\n\n";
 		wp_die();
 	}
 
@@ -260,11 +289,12 @@ function pressbooks_export_status_sse() {
 		wp_die();
 	}
 
-
-	header('Content-Type: text/event-stream');
-	header('Cache-Control: no-cache');
-	header('Connection: keep-alive');
-	header('X-Accel-Buffering: no'); // Useful for Nginx
+	error_log('[DEBUG SSE HANDLER] Setting SSE headers.');
+	// Set headers for SSE
+	header( 'Content-Type: text/event-stream' );
+	header( 'Cache-Control: no-cache' );
+	header( 'Connection: keep-alive' );
+	header( 'X-Accel-Buffering: no' ); // Useful for Nginx
 
 	set_time_limit(0); // Long execution time for this polling script
 

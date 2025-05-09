@@ -218,9 +218,9 @@ jQuery( function ( $ ) {
 		console.log(`SSE: Connecting to ${sseUrl} for job ${jobId}`); // DEBUG
 		jobEventSources[jobId] = new EventSource(sseUrl);
 
-		jobEventSources[jobId].onmessage = function ( event ) {
+		jobEventSources[jobId].addEventListener('export_progress', function ( event ) {
 			const eventData = JSON.parse(event.data);
-			console.log(`SSE: Received data for job ${jobId}:`, eventData); // DEBUG
+			console.log(`SSE: Received data for job ${jobId} (event: export_progress):`, eventData); // DEBUG
 
 			jobUI.info.html(eventData.message || 'Processing...');
 			jobUI.bar.css('width', eventData.progress + '%').attr('aria-valuenow', eventData.progress).text(eventData.progress + '%');
@@ -247,7 +247,7 @@ jQuery( function ( $ ) {
 				delete jobEventSources[jobId];
 				console.log(`SSE: Closed connection for failed job ${jobId}`); // DEBUG
 			}
-		};
+		});
 
 		jobEventSources[jobId].onerror = function (error) {
 			console.error(`SSE: Error for job ${jobId}:`, error, "URL:", sseUrl); // DEBUG
