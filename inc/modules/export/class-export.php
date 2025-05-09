@@ -1117,4 +1117,253 @@ abstract class Export {
 		$filepath = static::getExportFolder() . $filename;
 		force_download( $filepath, $inline );
 	}
+
+	/**
+	 * AJAX handler for submitting export jobs.
+	 */
+	public static function ajax_submit_export_job() {
+		error_log('[DEBUG ajax_submit_export_job] Function ENTERED.'); // VERY FIRST LINE
+
+		// Nonce check
+		// check_ajax_referer( 'pb-export-book', 'pb_export_nonce' ); // TEMPORARILY COMMENTED OUT FOR DEBUGGING
+		error_log('[DEBUG ajax_submit_export_job] Nonce check SKIPPED/PASSED (temporarily).');
+
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			error_log('[DEBUG ajax_submit_export_job] User CANNOT edit_posts. Failing.');
+			wp_send_json_error( [ 'message' => __( 'Permission denied.', 'pressbooks' ) ], 403 );
+			return;
+		}
+
+		$export_formats = isset( $_POST['export_formats'] ) && is_array( $_POST['export_formats'] ) ? array_map( 'sanitize_text_field', $_POST['export_formats'] ) : [];
+
+		if ( empty( $export_formats ) ) {
+			wp_send_json_error( [ 'message' => __( 'No export formats selected.', 'pressbooks' ) ], 400 );
+			return;
+		}
+
+		// Override some WP behaviours when exporting
+		\Pressbooks\Sanitize\fix_audio_shortcode();
+		static::$switchedLocale = switch_to_locale( self::locale() );
+
+		$results = [];
+		$background_pdf_types = self::getBackgroundPdfTypes();
+		$available_modules = self::getAvailableExportModules(); // Helper to get all valid classnames
+
+		// Clear previous static errors/outputs for this new request context
+		static::$exportConversionError = [];
+		static::$exportValidationWarning = [];
+		static::$exportOutputs = [];
+		static::$currentExportModuleArgs = $_POST['export_options'] ?? []; // Capture any other general export options if needed
+
+		error_log('[DEBUG ajax_submit_export_job] Available modules map: ' . print_r($available_modules, true)); // Log the whole map
+
+		foreach ( $export_formats as $format_slug ) {
+			error_log('[DEBUG ajax_submit_export_job] Processing format_slug: ' . $format_slug);
+			$module_classname = null;
+			// Corrected loop to use $available_modules directly as it's already [slug => classname]
+			if (isset($available_modules[$format_slug])) {
+				$module_classname = $available_modules[$format_slug];
+				error_log('[DEBUG ajax_submit_export_job] Found module_classname: ' . $module_classname . ' for slug: ' . $format_slug);
+			} else {
+				error_log('[DEBUG ajax_submit_export_job] No classname found for slug: ' . $format_slug);
+			}
+
+			if ( ! $module_classname || ! class_exists( $module_classname ) ) {
+				error_log('[DEBUG ajax_submit_export_job] Module classname not valid or class does not exist: ' . $module_classname);
+				$results[] = [
+					'event_type' => 'job_queue_failed',
+					'message' => sprintf(__( 'Invalid or unsupported export format: %s', 'pressbooks' ), $format_slug),
+					'module_slug' => $format_slug,
+				];
+				continue;
+			}
+
+			$constructor_args = self::getConstructorArgsForModule($module_classname, static::$currentExportModuleArgs);
+
+			error_log('[DEBUG ajax_submit_export_job] Checking if ' . $module_classname . ' is in background_pdf_types: ' . print_r($background_pdf_types, true));
+
+			if ( in_array( $module_classname, $background_pdf_types, true ) ) {
+				error_log('[DEBUG ajax_submit_export_job] Is a background PDF type: ' . $module_classname);
+				// --- BACKGROUND PDF PROCESSING ---
+				$book_id = get_current_blog_id();
+				$user_id = get_current_user_id();
+
+				global $wpdb;
+				$table_name = $wpdb->prefix . 'pressbooks_export_jobs';
+
+				$insert_result = $wpdb->insert(
+					$table_name,
+					[
+						'book_id' => $book_id,
+						'user_id' => $user_id,
+						'export_format' => $format_slug,
+						'export_module_classname' => $module_classname,
+						'export_options' => wp_json_encode( $constructor_args ),
+						'status' => 'pending',
+						'created_at' => current_time( 'mysql', true ),
+						'updated_at' => current_time( 'mysql', true ),
+					]
+				);
+				$job_id = $wpdb->insert_id;
+
+				if ( $insert_result && $job_id ) {
+					wp_schedule_single_event( time(), 'pressbooks_process_export_job', [ 'job_id' => $job_id ] );
+					$friendly_name = self::getFriendlyNameForModule( $module_classname );
+					$message = sprintf(
+						__( '%s export has been queued (Job ID: %d). You will be notified via this page.', 'pressbooks' ),
+						$friendly_name,
+						$job_id
+					);
+					$results[] = [
+						'event_type' => 'job_queued',
+						'book_id' => $book_id,
+						'job_id' => $job_id,
+						'message' => $message,
+						'module_slug' => $format_slug,
+						'module_classname' => $module_classname,
+						'sse_nonce' => wp_create_nonce( 'pressbooks_export_status_' . $job_id )
+					];
+				} else {
+					$friendly_name = self::getFriendlyNameForModule( $module_classname );
+					$message = sprintf( __( 'Failed to queue %s export. Database error: %s', 'pressbooks' ), $friendly_name, $wpdb->last_error );
+					$results[] = ['event_type' => 'job_queue_failed', 'message' => $message, 'module_slug' => $format_slug, 'module_classname' => $module_classname];
+				}
+			} else {
+				error_log('[DEBUG ajax_submit_export_job] Is NOT a background PDF type (or class issue): ' . $module_classname);
+				// --- Handle SYNCHRONOUS export for non-background types ---
+				// For now, we send an error/message back indicating it's not supported by this AJAX handler,
+				// as the original design was to move PDF to background. If sync is needed for others via AJAX,
+				// this part would need to run the synchronous export and collect its output/status.
+				$friendly_name = self::getFriendlyNameForModule( $module_classname );
+				$results[] = [
+					'event_type' => 'sync_export_skipped',
+					'message' => sprintf(__( '%s is a synchronous export and is not processed by this background job handler. It should be handled by the traditional export mechanism.', 'pressbooks' ), $friendly_name),
+					'module_slug' => $format_slug,
+				];
+			}
+		}
+
+		if ( static::$switchedLocale ) {
+			restore_previous_locale();
+		}
+
+		// Check if any jobs were actually queued successfully
+		$has_successful_queues = false;
+		foreach ($results as $result) {
+			if ($result['event_type'] === 'job_queued') {
+				$has_successful_queues = true;
+				break;
+			}
+		}
+
+		if ($has_successful_queues) {
+			wp_send_json_success( [ 'message' => __( 'Export jobs processed.', 'pressbooks' ), 'results' => $results ] );
+		} else {
+			// If all failed or were skipped
+			$error_message = __( 'No export jobs were successfully queued.', 'pressbooks' );
+			// Concatenate specific error messages if available
+			$specific_errors = [];
+			foreach($results as $result) {
+				if (isset($result['message'])) {
+					$specific_errors[] = $result['message'];
+				}
+			}
+			if (!empty($specific_errors)) {
+				$error_message .= ' Details: ' . implode('; ', $specific_errors);
+			}
+			wp_send_json_error( [ 'message' => $error_message, 'results' => $results ], 400 ); // Send 400 if nothing was really done
+		}
+	}
+
+	/**
+	 * Gets the constructor arguments for a given export module.
+	 * This is a placeholder and might need more sophisticated logic based on your actual needs.
+	 *
+	 * @param string $module_classname
+	 * @param array $global_export_options General options passed in the AJAX request.
+	 * @return array
+	 */
+	protected static function getConstructorArgsForModule(string $module_classname, array $global_export_options = []) {
+		// Basic implementation: return global options. Could be customized per module.
+		// For example, if certain options are only relevant to PDF, or if specific $_POST fields need to be mapped.
+		// This was previously handled somewhat in exportGenerator with $constructor_args = static::$currentExportModuleArgs[0] ?? [];
+		// Now static::$currentExportModuleArgs is just $_POST['export_options']
+		return $global_export_options; // Or process/filter as needed
+	}
+
+	/**
+	 * Helper to get a map of all available export format slugs to their classnames.
+	 * This might involve calling parts of your existing `modules()` or `get_export_formats_map()` logic.
+	 * For now, a simplified version based on what `getFriendlyNameForModule` might imply.
+	 * You should adapt this to accurately reflect your system's module registration.
+	 *
+	 * @return array [slug => classname, ...]
+	 */
+	protected static function getAvailableExportModules(): array
+	{
+		// This is a simplified example. You need to replace this with your actual way of
+		// getting all registered export modules and their classnames.
+		// It might be similar to the structure used in `inc/modules/export/namespace.php` function `formats()`
+		// or how `Export::modules()` populates its list.
+		// The key is to map the `format_slug` from the form to the full `module_classname`.
+
+		// Example structure (replace with your actual logic):
+		$all_modules = [];
+		$standard_formats = self::getStandardExportFormats(); // Assuming this returns [slug => Friendly Name]
+		$exotic_formats = self::getExoticExportFormats();     // Assuming this returns [slug => Friendly Name]
+
+		// You need a mapping from slug to class name.
+		// This is often hardcoded or built from a filter like `pb_export_module_classnames`.
+		// Let's use a placeholder derived from `getFriendlyNameForModule` which itself uses `pb_export_module_classnames`.
+		$module_classnames_map = apply_filters('pb_export_module_classnames', [
+			'\Pressbooks\Modules\Export\Prince\DocraptorPrint' => 'Print PDF', // Value is friendly name, key is class
+			'\Pressbooks\Modules\Export\Prince\Docraptor' => 'Digital PDF',
+			'\Pressbooks\Modules\Export\Prince\PrintPdf' => 'Print PDF',
+			'\Pressbooks\Modules\Export\Prince\Pdf' => 'Digital PDF',
+			'\Pressbooks\Modules\Export\Epub\Epub' => 'EPUB',
+			'\Pressbooks\Modules\Export\Xhtml\Xhtml11' => 'XHTML',
+			'\Pressbooks\Modules\Export\WordPress\Wxr' => 'Pressbooks XML',
+			'\Pressbooks\Modules\Export\WordPress\VanillaWxr' => 'WordPress XML',
+			'\Pressbooks\Modules\Export\ThinCC\WebLinks' => 'Common Cartridge (Web Links)',
+			// Potentially add others from `pressbooks_get_custom_export_formats` if they follow same pattern
+		]);
+
+		// We need to invert this to [slug => classname]
+		// This is tricky because friendly names might not be unique, and slugs are what we get from the form.
+		// The most robust way is to have a canonical mapping from slug to classname.
+
+		// For this example, let's assume a direct mapping based on typical slugs and known classes.
+		// THIS IS A CRITICAL PART YOU NEED TO ENSURE IS CORRECT FOR YOUR SYSTEM.
+		$slug_to_classname = [
+			'pdf' => '\\Pressbooks\\Modules\\Export\\Prince\\Pdf', // Digital PDF
+			'print-pdf' => '\\Pressbooks\\Modules\\Export\\Prince\\PrintPdf', // Print PDF
+			'epub3' => '\\Pressbooks\\Modules\\Export\\Epub\\Epub', // EPUB (assuming EPUB3 is the default EPUB class)
+			'xhtml' => '\\Pressbooks\\Modules\\Export\\Xhtml\\Xhtml11',
+			'wxr' => '\\Pressbooks\\Modules\\Export\\WordPress\\Wxr',
+			'vanilla-wxr' => '\\Pressbooks\\Modules\\Export\\WordPress\\VanillaWxr',
+			// ... add all other slugs mapped to their respective classes ...
+		];
+
+		// You might need to merge this with custom formats if they are registered elsewhere.
+		// For example, from the `pressbooks_get_custom_export_formats` filter if used.
+
+		return apply_filters('pb_available_export_module_slug_to_classname_map', $slug_to_classname);
+	}
+
+	/**
+	 * Gets the list of export format slugs that should be processed in the background.
+	 *
+	 * @return array
+	 */
+	protected static function getStandardExportFormats(): array {
+		// Implement the logic to return a list of standard export format slugs
+		// This is a placeholder and should be replaced with the actual implementation
+		return ['pdf', 'print-pdf', 'epub3', 'xhtml', 'wxr', 'vanilla-wxr'];
+	}
+
+	protected static function getExoticExportFormats(): array {
+		// Implement the logic to return a list of exotic export format slugs
+		// This is a placeholder and should be replaced with the actual implementation
+		return ['weblinks'];
+	}
 }

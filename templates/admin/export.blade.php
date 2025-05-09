@@ -25,7 +25,7 @@
 							<fieldset class="standard">
 								<legend>{{ __( 'Supported formats', 'pressbooks' ) }}:</legend>
 								@foreach($formats['standard'] as $key => $value)
-									<input type="checkbox" id="{{$key}}" name="export_formats[{{$key}}]" value="1" {{isset( $dependency_errors[ $key ] ) ? 'disabled' : ''}}/>
+									<input type="checkbox" id="{{$key}}" name="export_formats[]" value="{{$key}}" {{isset( $dependency_errors[ $key ] ) ? 'disabled' : ''}}/>
 									<label for="{{$key}}"> {{$value}}</label><br/>
 								@endforeach
 							</fieldset>
@@ -36,7 +36,7 @@
 								<fieldset class="exotic">
 									<legend>{{ __( 'Other formats', 'pressbooks' ) }}:</legend>
 									@foreach($formats['exotic'] as $key => $value)
-										<input type="checkbox" id="{{$key}}" name="export_formats[{{$key}}]" value="1" {{isset( $dependency_errors[ $key ] ) ? 'disabled' : ''}}/>
+										<input type="checkbox" id="{{$key}}" name="export_formats[]" value="{{$key}}" {{isset( $dependency_errors[ $key ] ) ? 'disabled' : ''}}/>
 										<label for="{{$key}}"> {{$value}}</label><br/>
 									@endforeach
 								</fieldset>
@@ -76,7 +76,9 @@
 			<form id="pdf-preview-form" class="pdf-preview-form" action="{!! $pdf_preview_url !!}" method="POST">
 				<input type="submit" name="submit" id="submit" class="button button-hero" value="{{ __( 'Preview PDF', 'pressbooks' ) }}" />
 			</form>
-			<input id="pb-export-button" type="button" class="button button-hero button-primary generate" value="{{ __( 'Export Book', 'pressbooks' ) }}"/>
+			<button type="submit" id="pb-export-button" form="pb-export-form" class="button button-hero button-primary generate">
+				{{ __( 'Export Book', 'pressbooks' ) }}
+			</button>
 		</div>
 		<progress id="pb-sse-progressbar" max="100"></progress>
 		<p><b><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></b> <span id="pb-sse-info" aria-live="polite"></span></p>

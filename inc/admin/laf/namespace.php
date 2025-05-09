@@ -340,14 +340,25 @@ function replace_book_admin_menu() {
 				);
 				wp_localize_script(
 					'pb-export', 'PB_ExportToken', [
-						'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=export-book' ), 'pb-export' ),
-						'bulkDeleteWarning' => esc_html__( 'Are you sure you want to delete these export files?', 'pressbooks' ),
-						'maximumFilesWarning' => esc_html__( 'Up to 5 files can be pinned at once.', 'pressbooks' ),
-						'maximumFileTypeWarning' => esc_html__( 'Cannot pin more than 3 of the same file type.', 'pressbooks' ),
+						'ajaxurl' => admin_url( 'admin-ajax.php' ),
+						'exportPageUrl' => admin_url( 'admin.php?page=pb_export' ),
+						'nonce' => wp_create_nonce( 'pb-export-book' ),
+						'downloadNoncePrefix' => 'download_export_job_',
+						'text'    => [
+							'select_format'   => esc_html__( 'Please select at least one export format.', 'pressbooks' ),
+							'exporting'       => esc_html__( 'Exporting...', 'pressbooks' ),
+							'starting_export' => esc_html__( 'Starting export process...', 'pressbooks' ),
+							'download_file'   => esc_html__( 'Download File', 'pressbooks' ),
+							'bulkDeleteWarning' => esc_html__( 'Are you sure you want to delete these export files?', 'pressbooks' ),
+							'maximumFilesWarning' => esc_html__( 'Up to 5 files can be pinned at once.', 'pressbooks' ),
+							'maximumFileTypeWarning' => esc_html__( 'Cannot pin more than 3 of the same file type.', 'pressbooks' ),
+							'tooManyExportsWarning' => esc_html__( 'Too many pinned files. Deselect one of the pinned files before attempting to export.', 'pressbooks' ),
+							'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . esc_html__( 'Reload', 'pressbooks' ) . '</a>)</em>',
+						],
+						'cookie'  => [
+							'timer' => 'pbExportTimer',
+						],
 						'pinsNonce' => wp_create_nonce( 'pb-export-pins' ),
-						'redirectUrl' => admin_url( 'options.php?page=pb_export' ),
-						'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . esc_html__( 'Reload', 'pressbooks' ) . '</a>)</em>',
-						'tooManyExportsWarning' => esc_html__( 'Too many pinned files. Deselect one of the pinned files before attempting to export.', 'pressbooks' ),
 						'unloadWarning' => esc_html__( 'Exports are not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
 					]
 				);

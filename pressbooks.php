@@ -135,3 +135,21 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
     // require_once plugin_dir_path( __FILE__ ) . 'inc/background-export-handlers.php'; // Adjust path
 }
 require_once plugin_dir_path( __FILE__ ) . 'inc/background-export-handlers.php'; // Adjust path if you used a different location
+
+// Ensure the class file is loaded if not autoloaded
+// require_once plugin_dir_path( __FILE__ ) . 'inc/modules/export/class-export.php'; // Adjust path as needed
+
+error_log('[DEBUG HOOK] File executing. About to add AJAX action for pb_export_book.'); // General file execution check
+
+if (class_exists('\Pressbooks\Modules\Export\Export')) {
+    error_log('[DEBUG HOOK] Export class exists.');
+    if (method_exists('\Pressbooks\Modules\Export\Export', 'ajax_submit_export_job')) {
+        error_log('[DEBUG HOOK] ajax_submit_export_job method exists. Adding action...');
+        add_action( 'wp_ajax_pb_export_book', [ '\Pressbooks\Modules\Export\Export', 'ajax_submit_export_job' ] );
+        error_log('[DEBUG HOOK] AJAX action for pb_export_book hopefully ADDED.');
+    } else {
+        error_log('[DEBUG HOOK] CRITICAL ERROR: ajax_submit_export_job method DOES NOT EXIST in Export class.');
+    }
+} else {
+    error_log('[DEBUG HOOK] CRITICAL ERROR: \Pressbooks\Modules\Export\Export class DOES NOT EXIST.');
+}
