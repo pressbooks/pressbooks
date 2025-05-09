@@ -132,11 +132,11 @@ jQuery( function ( $ ) {
 					return;
 				}
 
-				if ( response.success && response.data && response.data.events ) {
+				if ( response.success && response.data && response.data.results ) {
 					mainInfoText.html( 'Processing export request...' );
 					mainProgressBar.width( '10%' ).attr( 'aria-valuenow', 10 ).text( '10%' );
 
-					response.data.events.forEach(function(eventData) {
+					response.data.results.forEach(function(eventData) {
 						console.log('Processing event from initial AJAX response:', eventData); // DEBUG
 						let jobUI;
 

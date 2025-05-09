@@ -1125,8 +1125,8 @@ abstract class Export {
 		error_log('[DEBUG ajax_submit_export_job] Function ENTERED.'); // VERY FIRST LINE
 
 		// Nonce check
-		// check_ajax_referer( 'pb-export-book', 'pb_export_nonce' ); // TEMPORARILY COMMENTED OUT FOR DEBUGGING
-		error_log('[DEBUG ajax_submit_export_job] Nonce check SKIPPED/PASSED (temporarily).');
+		check_ajax_referer( 'pb-export-book', 'pb_export_nonce' ); // RE-ENABLED NONCE CHECK
+		error_log('[DEBUG ajax_submit_export_job] Nonce check PASSED.'); // Log if nonce check passes
 
 		if ( ! current_user_can( 'edit_posts' ) ) {
 			error_log('[DEBUG ajax_submit_export_job] User CANNOT edit_posts. Failing.');
