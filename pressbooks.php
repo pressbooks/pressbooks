@@ -127,3 +127,11 @@ if ( is_admin() ) {
 // --------------------------------------------------------------------------------------------------------------------
 
 require( PB_PLUGIN_DIR . 'functions.php' );
+
+if ( defined( 'WP_CLI' ) && WP_CLI ) {
+	require_once plugin_dir_path( __FILE__ ) . 'inc/cli/class-pressbooks-export-commands.php'; // Adjust path as needed
+    // Also ensure your background-export-handlers.php (where pressbooks_process_export_job is defined) is loaded.
+    // If it's not already loaded for general WordPress execution:
+    // require_once plugin_dir_path( __FILE__ ) . 'inc/background-export-handlers.php'; // Adjust path
+}
+require_once plugin_dir_path( __FILE__ ) . 'inc/background-export-handlers.php'; // Adjust path if you used a different location

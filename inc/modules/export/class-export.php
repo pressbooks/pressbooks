@@ -92,6 +92,13 @@ abstract class Export {
 	protected $outputPath;
 
 	/**
+	 * Stores arguments for the current export modules being processed.
+	 * Used to pass arguments to background jobs.
+	 * @var array
+	 */
+	protected static $currentExportModuleArgs = [];
+
+	/**
 	 * Mandatory convert method, create $this->outputPath
 	 *
 	 * @return bool
@@ -596,6 +603,97 @@ abstract class Export {
 	}
 
 	/**
+	 * Get an array of PDF module classnames that should be processed in the background.
+	 *
+	 * @return array
+	 */
+	protected static function getBackgroundPdfTypes(): array {
+		return apply_filters('pb_background_pdf_export_types', [
+			'\\Pressbooks\\Modules\\Export\\Prince\\Pdf',
+			'\\Pressbooks\\Modules\\Export\\Prince\\PrintPdf',
+			'\\Pressbooks\\Modules\\Export\\Prince\\Docraptor', // If exists and used
+			'\\Pressbooks\\Modules\\Export\\Prince\\DocraptorPrint', // If exists and used
+		]);
+	}
+
+	/**
+	 * Gets a simplified slug for an export module classname.
+	 * Example: \Pressbooks\Modules\Export\Prince\Pdf -> pdf
+	 *
+	 * @param string $module_classname
+	 * @return string
+	 */
+	protected static function getExportFormatSlugFromClassname(string $module_classname): string {
+		$parts = explode('\\', $module_classname);
+		$slug = strtolower(end($parts));
+		// Specific overrides if class name doesn't directly map
+		if ($slug === 'printpdf') return 'print-pdf';
+		if ($slug === 'docraptorprint') return 'docraptor-print-pdf'; // Example
+		if ($slug === 'xhtml11') return 'xhtml';
+		if ($slug === 'vanillawxr') return 'vanilla-wxr';
+		// Add more specific mappings as needed
+		return $slug;
+	}
+
+	/**
+	 * Gets a user-friendly name for an export module.
+	 * Uses the existing get_name_from_module_classname if available and suitable,
+	 * or provides a fallback.
+	 *
+	 * @param string $module_classname
+	 * @return string
+	 */
+	protected static function getFriendlyNameForModule(string $module_classname): string {
+		if (function_exists('\\Pressbooks\\Modules\\Export\\get_name_from_module_classname')) {
+			// This function is in namespace.php, ensure it's loaded.
+			// It returns names like "Digital PDF", "EPUB" etc.
+			return \Pressbooks\Modules\Export\get_name_from_module_classname($module_classname);
+		}
+		$parts = explode('\\', $module_classname);
+		return end($parts); // Fallback to class name
+	}
+
+	/**
+	 * Get the public URL to the exports folder.
+	 *
+	 * @return string
+	 */
+	public static function getExportFolderUrl(): string {
+		$export_path = self::getExportFolder(); // This is a file path
+		$upload_dir = wp_get_upload_dir(); // Correct way to get base paths/URLs
+
+		$upload_base_path = trailingslashit($upload_dir['basedir']);
+		$upload_base_url = trailingslashit($upload_dir['baseurl']);
+
+		// Ensure $export_path is absolute before attempting to make it relative to $upload_base_path
+		// realpath() can return false if path does not exist, handle this.
+		$real_export_path = realpath($export_path);
+		if ($real_export_path === false) {
+			 // If path doesn't exist yet (e.g. first export), try to construct based on known structure
+			if (is_multisite()) {
+				$path_fragment = 'sites/' . get_current_blog_id() . '/pressbooks/exports/';
+			} else {
+				$path_fragment = 'pressbooks/exports/';
+			}
+			return $upload_base_url . $path_fragment;
+		}
+		
+		$real_export_path = trailingslashit($real_export_path);
+
+		if (strpos($real_export_path, $upload_base_path) === 0) {
+			$relative_path = str_replace($upload_base_path, '', $real_export_path);
+			return $upload_base_url . $relative_path;
+		} else {
+			// Fallback or error: Export path is not within the uploads directory.
+			// This might indicate a custom export folder configuration.
+			// For now, return empty or log an error. Depending on `pb_get_export_folder` filter.
+			// A more robust solution would be needed if exports can be outside uploads.
+			// However, Pressbooks' get_media_prefix() usually points within uploads.
+			return ''; // Or apply a filter to allow defining this URL
+		}
+	}
+
+	/**
 	 * Catch form submissions
 	 *
 	 * @see pressbooks/templates/admin/export.blade.php
@@ -606,6 +704,10 @@ abstract class Export {
 			// Don't do anything in this function, bail.
 			return;
 		}
+		
+		// Store export arguments if present, to be used by exportGenerator
+		// This is a simplistic example; needs to align with how your form actually submits options.
+		static::$currentExportModuleArgs = $_POST['export_options'] ?? []; // Example: if you have specific options per module in form
 
 		// Override some WP behaviours when exporting
 		\Pressbooks\Sanitize\fix_audio_shortcode();
@@ -613,8 +715,28 @@ abstract class Export {
 		// Download
 		if ( ! empty( $_GET['download_export_file'] ) ) {
 			$filename = sanitize_file_name( $_GET['download_export_file'] );
-			static::downloadExportFile( $filename, false );
-			exit;
+			// Add security for job-based downloads
+			if (isset($_GET['job_id']) && isset($_GET['_wpnonce'])) {
+				$job_id = absint($_GET['job_id']);
+				if (wp_verify_nonce(sanitize_key($_GET['_wpnonce']), 'download_export_job_' . $job_id)) {
+					// Potentially check if current user owns the job or has rights
+					global $wpdb;
+					$job = $wpdb->get_row($wpdb->prepare("SELECT user_id, output_file_path FROM {$wpdb->prefix}pressbooks_export_jobs WHERE id = %d", $job_id));
+					if ($job && $job->user_id == get_current_user_id() && basename($job->output_file_path) === $filename) {
+						 static::downloadExportFile( $filename, false ); // Original method assumes file is in default export dir
+						 exit;
+					} else {
+						wp_die(__( 'Invalid job ID or permission denied for download.', 'pressbooks' ), 'Error', ['response' => 403]);
+					}
+				} else {
+					 wp_die(__( 'Invalid download link.', 'pressbooks' ), 'Error', ['response' => 403]);
+				}
+			} else {
+				// Fallback to old download mechanism if no job_id (e.g. for non-background processed files)
+				// This part might need to be phased out or also secured if direct downloads are generally disallowed.
+				 static::downloadExportFile( $filename, false );
+				 exit;
+			}
 		}
 	}
 
@@ -726,60 +848,135 @@ abstract class Export {
 		static::$exportConversionError = [];
 		static::$exportValidationWarning = [];
 		static::$exportOutputs = [];
+		$background_pdf_types = self::getBackgroundPdfTypes();
 
-		foreach ( $modules as $module ) {
-			$exporter = new $module( [] );
-			if ( is_subclass_of( $exporter, '\Pressbooks\Modules\Export\ExportGenerator' ) ) {
-				/**
-				 * @var ExportGenerator $exporter
-				 */
-				try {
-					yield from $exporter->convertGenerator();
-					try {
-						yield from $exporter->validateGenerator();
-					} catch ( \Exception $e ) {
-						static::$exportValidationWarning[ $module ] = $exporter->getOutputPath();
-					}
-				} catch ( \Exception $e ) {
-					static::$exportConversionError[ $module ] = $exporter->getOutputPath();
-				}
-			} else {
-				/**
-				 * @var Export $exporter
-				 */
-				$short_module_name = get_name_from_module_classname( $module );
-				$msg = sprintf( __( '%s: Initializing', 'pressbooks' ), $short_module_name );
-				yield 1 => $msg;
-				$msg = sprintf( __( '%s: Exporting', 'pressbooks' ), $short_module_name );
-				yield 10 => $msg;
-				if ( ! $exporter->convert() ) {
-					static::$exportConversionError[ $module ] = $exporter->getOutputPath();
+		foreach ( $modules as $module_classname ) {
+			// Arguments for the constructor. For PDF, it's usually empty [].
+			// For other modules, it might come from form submission if specific options are selected per module.
+			$constructor_args = static::$currentExportModuleArgs[$module_classname] ?? [];
+
+
+			if ( in_array( $module_classname, $background_pdf_types, true ) ) {
+				// --- BACKGROUND PDF PROCESSING ---
+				$book_id = get_current_blog_id();
+				$user_id = get_current_user_id();
+				$export_format_slug = self::getExportFormatSlugFromClassname( $module_classname );
+
+				// Capture options for the job.
+				// If 'pdf_footnotes_style' (or other hacks) can be set per-request via UI:
+				$job_specific_options = [];
+				// Example: if a form field 'pdf_options[footnotes_style]' was submitted:
+				// if (isset($_POST['pdf_options']['footnotes_style'])) {
+				//    $job_specific_options['footnotes_style'] = sanitize_text_field($_POST['pdf_options']['footnotes_style']);
+				// }
+				// For now, assuming constructor_args might hold some of this if your form structure allows.
+				// Or, more likely, specific $_POST fields need to be checked and added.
+				// $job_options = array_merge($constructor_args, $job_specific_options);
+				$job_options = $constructor_args; // Keep it simple for now, assuming constructor_args are sufficient if any.
+
+
+				global $wpdb;
+				$table_name = $wpdb->prefix . 'pressbooks_export_jobs';
+
+				$insert_result = $wpdb->insert(
+					$table_name,
+					[
+						'book_id' => $book_id,
+						'user_id' => $user_id,
+						'export_format' => $export_format_slug,
+						'export_module_classname' => $module_classname,
+						'export_options' => wp_json_encode( $job_options ), // Store captured options
+						'status' => 'pending',
+						'created_at' => current_time( 'mysql', true ),
+						'updated_at' => current_time( 'mysql', true ),
+					]
+				);
+				$job_id = $wpdb->insert_id;
+
+				if ( $insert_result && $job_id ) {
+					wp_schedule_single_event( time(), 'pressbooks_process_export_job', [ 'job_id' => $job_id ] );
+					$friendly_name = self::getFriendlyNameForModule( $module_classname );
+					$message = sprintf(
+						__( '%s export has been queued (Job ID: %d). You will be notified via this page.', 'pressbooks' ),
+						$friendly_name,
+						$job_id
+					);
+					// Yield a specific event type for the client to recognize this is a queued job
+					yield [
+						'event_type' => 'job_queued',
+						'book_id' => $book_id,
+						'job_id' => $job_id,
+						'message' => $message,
+						'module_slug' => $export_format_slug, // For UI to target updates
+						'module_classname' => $module_classname, // For client-side logic if needed
+						'sse_nonce' => wp_create_nonce( 'pressbooks_export_status_' . $job_id ) // Nonce for the new SSE connection
+					];
+					static::$exportOutputs[ $module_classname ] = [ 'status' => 'queued', 'job_id' => $job_id ];
 				} else {
-					$msg = sprintf( __( '%s: Export successful', 'pressbooks' ), $short_module_name );
-					yield 70 => $msg;
-					$msg = sprintf( __( '%s: Validating file', 'pressbooks' ), $short_module_name );
-					yield 80 => $msg;
-					if ( ! $exporter->validate() ) {
-						static::$exportValidationWarning[ $module ] = $exporter->getOutputPath();
-					} else {
-						$msg = sprintf( __( '%s: Validation successful', 'pressbooks' ), $short_module_name );
-						yield 90 => $msg;
-					}
+					$friendly_name = self::getFriendlyNameForModule( $module_classname );
+					$message = sprintf( __( 'Failed to queue %s export. Database error: %s', 'pressbooks' ), $friendly_name, $wpdb->last_error );
+					// Yield an error event
+					yield ['event_type' => 'job_queue_failed', 'message' => $message, 'module_slug' => $export_format_slug, 'module_classname' => $module_classname];
+					static::$exportConversionError[ $module_classname ] = 'Failed to queue job: ' . $wpdb->last_error;
+					static::$exportOutputs[ $module_classname ] = [ 'status' => 'queue_failed', 'error' => $wpdb->last_error ];
 				}
-				$msg = sprintf( __( '%s: Finishing up', 'pressbooks' ), $short_module_name );
-				yield 100 => $msg;
+
+			} else { // --- EXISTING SYNCHRONOUS PROCESSING for other formats ---
+				$exporter = new $module_classname( $constructor_args );
+				if ( is_subclass_of( $exporter, '\\Pressbooks\\Modules\\Export\\ExportGenerator' ) ) {
+					/** @var ExportGenerator $exporter */
+					try {
+						// Yield all messages from the generator with module context
+						foreach ($exporter->convertGenerator() as $progress => $message) {
+							yield ['progress' => $progress, 'message' => $message, 'module_slug' => self::getExportFormatSlugFromClassname($module_classname), 'module_classname' => $module_classname];
+						}
+						foreach ($exporter->validateGenerator() as $progress => $message) {
+							 yield ['progress' => $progress, 'message' => $message, 'module_slug' => self::getExportFormatSlugFromClassname($module_classname), 'module_classname' => $module_classname];
+						}
+					} catch ( \Exception $e ) {
+						static::$exportValidationWarning[ $module_classname ] = $exporter->getOutputPath() ?: $e->getMessage();
+						 yield ['event_type' => 'error', 'message' => $e->getMessage(), 'module_slug' => self::getExportFormatSlugFromClassname($module_classname), 'module_classname' => $module_classname];
+					}
+				} else {
+					/** @var Export $exporter */
+					$slug = self::getExportFormatSlugFromClassname($module_classname);
+					$name = self::getFriendlyNameForModule( $module_classname );
+
+					yield ['progress' => 1, 'message' => sprintf( __( '%s: Initializing', 'pressbooks' ), $name ), 'module_slug' => $slug, 'module_classname' => $module_classname];
+					yield ['progress' => 10, 'message' => sprintf( __( '%s: Exporting', 'pressbooks' ), $name ), 'module_slug' => $slug, 'module_classname' => $module_classname];
+
+					if ( ! $exporter->convert() ) {
+						static::$exportConversionError[ $module_classname ] = $exporter->getOutputPath() ?: 'Conversion failed';
+						 yield ['event_type' => 'error', 'message' => sprintf(__( '%s: Conversion Failed', 'pressbooks' ), $name), 'module_slug' => $slug, 'module_classname' => $module_classname];
+					} else {
+						yield ['progress' => 70, 'message' => sprintf( __( '%s: Export successful', 'pressbooks' ), $name ), 'module_slug' => $slug, 'module_classname' => $module_classname];
+						yield ['progress' => 80, 'message' => sprintf( __( '%s: Validating file', 'pressbooks' ), $name ), 'module_slug' => $slug, 'module_classname' => $module_classname];
+						if ( ! $exporter->validate() ) {
+							static::$exportValidationWarning[ $module_classname ] = $exporter->getOutputPath() ?: 'Validation failed';
+							 yield ['event_type' => 'error', 'message' => sprintf(__( '%s: Validation Failed', 'pressbooks' ), $name), 'module_slug' => $slug, 'module_classname' => $module_classname];
+						} else {
+							yield ['progress' => 90, 'message' => sprintf( __( '%s: Validation successful', 'pressbooks' ), $name ), 'module_slug' => $slug, 'module_classname' => $module_classname];
+						}
+					}
+					yield ['progress' => 100, 'message' => sprintf( __( '%s: Finishing up', 'pressbooks' ), $name ), 'module_slug' => $slug, 'module_classname' => $module_classname];
+				}
+				 // Add to outputs array (original logic for sync processes)
+				if (isset($exporter)) {
+					 static::$exportOutputs[ $module_classname ] = $exporter->getOutputPath();
+				}
 			}
 
-			// Add to outputs array
-			static::$exportOutputs[ $module ] = $exporter->getOutputPath();
+			// Track export only if not a successfully queued background job or if it's a sync job
+			$is_background_job = in_array($module_classname, $background_pdf_types, true);
+			$was_queued_successfully = isset(static::$exportOutputs[$module_classname]['status']) && static::$exportOutputs[$module_classname]['status'] === 'queued';
 
-			/**
-			 * Stats hook
-			 *
-			 * @param string
-			 */
-			do_action( 'pressbooks_track_export', substr( strrchr( $module, '\\' ), 1 ) );
+			if (!$is_background_job || ($is_background_job && !$was_queued_successfully)) {
+				if (isset(static::$exportOutputs[$module_classname]) && is_string(static::$exportOutputs[$module_classname])) { // Ensure it's an output path for tracking
+					do_action( 'pressbooks_track_export', substr( strrchr( $module_classname, '\\' ), 1 ) );
+				}
+			}
 		}
+		 static::$currentExportModuleArgs = []; // Clear after processing all modules
 	}
 
 	/**
