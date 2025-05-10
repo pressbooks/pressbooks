@@ -8,6 +8,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Ensures the export jobs table exists.
+ * This function should be called before any table operations.
+ */
+function pressbooks_ensure_export_jobs_table() {
+	global $wpdb;
+	$table_name = $wpdb->prefix . 'pressbooks_export_jobs';
+	
+	// Check if table exists
+	$table_exists = $wpdb->get_var("SHOW TABLES LIKE '$table_name'") === $table_name;
+	
+	if (!$table_exists) {
+		pressbooks_create_export_jobs_table();
+	}
+}
+
+/**
  * Handles the background processing of an export job.
  * This function is triggered by WP-Cron.
  *
@@ -274,6 +290,9 @@ function pressbooks_export_status_sse() {
 		$switched = true;
 	}
 
+	// Ensure table exists before querying
+	pressbooks_ensure_export_jobs_table();
+
 	if ( ! current_user_can_for_blog( $book_id, 'edit_posts' ) ) {
 		status_header( 403 );
 		echo "event: error\ndata: " . wp_json_encode( [ 'message' => 'Permission denied to view job status for this book.' ] ) . "\n\n";
@@ -403,6 +422,9 @@ function pressbooks_check_existing_jobs() {
 		return;
 	}
 
+	// Ensure table exists before querying
+	pressbooks_ensure_export_jobs_table();
+
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'pressbooks_export_jobs';
 	$book_id = get_current_blog_id();
@@ -430,3 +452,67 @@ function pressbooks_check_existing_jobs() {
 	}
 }
 add_action( 'wp_ajax_pressbooks_check_existing_jobs', 'pressbooks_check_existing_jobs' );
+
+/**
+ * Creates the export jobs table if it doesn't exist.
+ * This function is called on plugin activation.
+ */
+function pressbooks_create_export_jobs_table() {
+	global $wpdb;
+	$table_name = $wpdb->prefix . 'pressbooks_export_jobs';
+	$charset_collate = $wpdb->get_charset_collate();
+
+	$sql = "CREATE TABLE IF NOT EXISTS $table_name (
+		id bigint(20) NOT NULL AUTO_INCREMENT,
+		book_id bigint(20) NOT NULL,
+		user_id bigint(20) NOT NULL,
+		export_format varchar(50) NOT NULL,
+		export_module_classname varchar(255) NOT NULL,
+		export_options longtext,
+		status varchar(20) NOT NULL DEFAULT 'pending',
+		progress_percentage int(3) NOT NULL DEFAULT 0,
+		progress_message text,
+		output_file_path varchar(255),
+		log_details longtext,
+		job_started_at datetime DEFAULT NULL,
+		job_completed_at datetime DEFAULT NULL,
+		created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+		PRIMARY KEY  (id),
+		KEY book_id (book_id),
+		KEY user_id (user_id),
+		KEY status (status),
+		KEY created_at (created_at)
+	) $charset_collate;";
+
+	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+	dbDelta($sql);
+}
+
+/**
+ * Creates the export jobs table for each site in a multisite installation.
+ */
+function pressbooks_create_export_jobs_tables() {
+	if (is_multisite()) {
+		$sites = get_sites();
+		foreach ($sites as $site) {
+			switch_to_blog($site->blog_id);
+			pressbooks_create_export_jobs_table();
+			restore_current_blog();
+		}
+	} else {
+		pressbooks_create_export_jobs_table();
+	}
+}
+
+// Hook to create tables on plugin activation
+add_action('pressbooks_activate', 'pressbooks_create_export_jobs_tables');
+
+// Also create table when a new site is created in multisite
+add_action('wp_initialize_site', function($new_site) {
+	if (is_multisite()) {
+		switch_to_blog($new_site->blog_id);
+		pressbooks_create_export_jobs_table();
+		restore_current_blog();
+	}
+});
