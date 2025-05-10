@@ -68,6 +68,7 @@ jQuery( function ( $ ) {
 	// Track active jobs
 	let activeJobs = new Set();
 	let completedJobs = new Set();
+	let failedJobs = new Set();
 
 	// Function to check if all jobs are complete and reload if needed
 	function checkAllJobsComplete() {
@@ -275,7 +276,7 @@ jQuery( function ( $ ) {
 		console.log(`SSE: Connecting to ${sseUrl} for job ${jobId}`); // DEBUG
 		jobEventSources[jobId] = new EventSource(sseUrl);
 
-		jobEventSources[jobId].addEventListener('export_progress', function ( event ) {
+		jobEventSources[jobId].addEventListener('export_progress', function(event) {
 			const eventData = JSON.parse(event.data);
 			console.log(`SSE Progress for job ${jobId}:`, eventData); // DEBUG
 
@@ -286,68 +287,31 @@ jQuery( function ( $ ) {
 			}
 
 			if (eventData.message) {
-				// Handle validation warnings for any format
-				if (eventData.message.toLowerCase().includes('validation') || 
-					eventData.message.toLowerCase().includes('warning')) {
-					jobUI.info.html(`<strong>${eventData.format_name || moduleSlug}</strong>: Export completed with some non-critical warnings. Your file is ready for use.`);
-					jobUI.bar.css('width', '100%')
-						.attr('aria-valuenow', 100)
-						.text('100%')
-						.addClass('pb-sse-progressbar-success');
-					
+				// Handle validation warnings
+				if (eventData.has_warnings) {
+					jobUI.info.html(`<strong>${eventData.format_name || moduleSlug}</strong>: ${eventData.warning_message}`);
+					jobUI.bar.addClass('pb-sse-progressbar-success');
+				} else {
+					jobUI.info.html(`<strong>${eventData.format_name || moduleSlug}</strong>: ${eventData.message}`);
+				}
+			}
+
+			// Only close connection and update UI when we get the final message
+			if (eventData.is_final) {
+				if (eventData.status === 'completed') {
+					jobUI.bar.addClass('pb-sse-progressbar-success');
 					// Move from active to completed
 					activeJobs.delete(jobId);
 					completedJobs.add(jobId);
 					
 					// Check if all jobs are done
 					checkAllJobsComplete();
-					
-					// Close the SSE connection
-					jobEventSources[jobId].close();
-					delete jobEventSources[jobId];
-				} else {
-					jobUI.info.html(`<strong>${eventData.format_name || moduleSlug}</strong>: ${eventData.message}`);
+				} else if (eventData.status === 'failed') {
+					jobUI.bar.addClass('pb-sse-progressbar-error');
+					// Move from active to failed
+					activeJobs.delete(jobId);
+					failedJobs.add(jobId);
 				}
-			}
-
-			if (eventData.event_type === 'job_completed') {
-				jobUI.bar.css('width', '100%')
-					.attr('aria-valuenow', 100)
-					.text('100%')
-					.addClass('pb-sse-progressbar-success');
-				
-				// Move from active to completed
-				activeJobs.delete(jobId);
-				completedJobs.add(jobId);
-				
-				// Check if all jobs are done
-				checkAllJobsComplete();
-				
-				// Close the SSE connection
-				jobEventSources[jobId].close();
-				delete jobEventSources[jobId];
-			} else if (eventData.event_type === 'job_failed') {
-				// Handle validation warnings for any format
-				if (eventData.message.toLowerCase().includes('validation') || 
-					eventData.message.toLowerCase().includes('warning')) {
-					jobUI.info.html(`<strong>${eventData.format_name || moduleSlug}</strong>: Export completed with some non-critical warnings. Your file is ready for use.`);
-					jobUI.bar.css('width', '100%')
-						.attr('aria-valuenow', 100)
-						.text('100%')
-						.addClass('pb-sse-progressbar-success');
-				} else {
-					jobUI.bar.css('width', '100%')
-						.addClass('pb-sse-progressbar-error')
-						.text('Error');
-					jobUI.info.html(`<span style="color: red;"><strong>${eventData.format_name || moduleSlug}</strong>: ${eventData.message}</span>`);
-				}
-				
-				// Move from active to completed
-				activeJobs.delete(jobId);
-				completedJobs.add(jobId);
-				
-				// Check if all jobs are done
-				checkAllJobsComplete();
 				
 				// Close the SSE connection
 				jobEventSources[jobId].close();
@@ -355,36 +319,15 @@ jQuery( function ( $ ) {
 			}
 		});
 
-		jobEventSources[jobId].addEventListener('error', function ( event ) {
-			console.error(`SSE Error for job ${jobId}:`, event); // DEBUG
-			
-			// Handle validation warnings for any format
-			if (event.message && (
-				event.message.toLowerCase().includes('validation') || 
-				event.message.toLowerCase().includes('warning')
-			)) {
-				jobUI.info.html(`<strong>${eventData.format_name || moduleSlug}</strong>: Export completed with some non-critical warnings. Your file is ready for use.`);
-				jobUI.bar.css('width', '100%')
-					.attr('aria-valuenow', 100)
-					.text('100%')
-					.addClass('pb-sse-progressbar-success');
-			} else {
-				jobUI.info.html(`<span style="color: red;"><strong>${moduleSlug}</strong>: Connection error. Please refresh the page.</span>`);
-				jobUI.bar.css('width', '100%')
-					.addClass('pb-sse-progressbar-error')
-					.text('Error');
+		jobEventSources[jobId].addEventListener('error', function(event) {
+			console.error(`SSE Error for job ${jobId}:`, event);
+			// Only close if it's a real error, not just a validation warning
+			if (!eventData || !eventData.has_warnings) {
+				jobUI.info.html(`<strong>${moduleSlug}</strong>: ${PB_ExportToken.text.connection_error}`);
+				jobUI.bar.addClass('pb-sse-progressbar-error');
+				jobEventSources[jobId].close();
+				delete jobEventSources[jobId];
 			}
-			
-			// Close the SSE connection
-			jobEventSources[jobId].close();
-			delete jobEventSources[jobId];
-			
-			// Move from active to completed
-			activeJobs.delete(jobId);
-			completedJobs.add(jobId);
-			
-			// Check if all jobs are done
-			checkAllJobsComplete();
 		});
 	}
 

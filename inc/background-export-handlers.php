@@ -259,37 +259,21 @@ function pressbooks_export_status_sse() {
 
 	$job_id = absint( $_GET['job_id'] );
 	$book_id = absint( $_GET['book_id'] );
-	$user_id = get_current_user_id(); // User requesting status, for permission check
+	$user_id = get_current_user_id();
 
-	if ( ! $book_id ) {
+	if ( ! $book_id || ! $job_id ) {
 		status_header( 400 );
-		echo "event: error\ndata: " . wp_json_encode( [ 'message' => 'Book ID not provided.' ] ) . "\n\n";
-		ob_end_flush();
-		wp_die();
-	}
-	if ( ! $job_id ) {
-		status_header( 400 );
-		echo "event: error\ndata: " . wp_json_encode( [ 'message' => 'Job ID not provided.' ] ) . "\n\n";
+		echo "event: error\ndata: " . wp_json_encode( [ 'message' => 'Book ID or Job ID not provided.' ] ) . "\n\n";
 		ob_end_flush();
 		wp_die();
 	}
 
 	$switched = false;
-	if ( is_multisite() ) {
-		if ( get_current_blog_id() != $book_id ) {
-			switch_to_blog( $book_id );
-			$switched = true;
-		}
-	} elseif ( get_current_blog_id() != $book_id && $book_id == 1 ) {
-		// Single site, main site (ID 1 usually)
-	} elseif ( $book_id != get_current_blog_id() ) { // Single site but book_id doesn't match current (should be 1)
-		status_header( 400 );
-		echo "event: error\ndata: " . wp_json_encode( [ 'message' => 'Invalid Book ID for single site context.' ] ) . "\n\n";
-		ob_end_flush();
-		wp_die();
+	if ( is_multisite() && get_current_blog_id() != $book_id ) {
+		switch_to_blog( $book_id );
+		$switched = true;
 	}
 
-	// Basic permission check: current user must be able to edit posts on this book
 	if ( ! current_user_can_for_blog( $book_id, 'edit_posts' ) ) {
 		status_header( 403 );
 		echo "event: error\ndata: " . wp_json_encode( [ 'message' => 'Permission denied to view job status for this book.' ] ) . "\n\n";
@@ -302,23 +286,27 @@ function pressbooks_export_status_sse() {
 
 	error_log( '[DEBUG SSE HANDLER] Setting SSE headers.' );
 
-	set_time_limit( 0 ); // Long execution time for this polling script
+	set_time_limit( 0 );
 
 	global $wpdb;
-	$table_name = $wpdb->prefix . 'pressbooks_export_jobs'; // Correct prefix after potential switch
+	$table_name = $wpdb->prefix . 'pressbooks_export_jobs';
 	$last_progress = -1;
 	$last_status = '';
 	$iterations = 0;
-	$max_iterations = 720; // Poll for max 1 hour (720 * 5s = 3600s) - adjust as needed
+	$max_iterations = 720; // Poll for max 1 hour (720 * 5s = 3600s)
 
 	while ( $iterations < $max_iterations ) {
 		if ( connection_aborted() ) {
 			break;
 		}
 
-		// Fetch job, also verify user_id matches to ensure they are checking their own job.
-		// If admins should see any job, remove/adjust `AND user_id = %d`
-		$job = $wpdb->get_row( $wpdb->prepare( "SELECT status, progress_percentage, progress_message, output_file_path, user_id FROM {$table_name} WHERE id = %d AND book_id = %d", $job_id, $book_id ) );
+		$job = $wpdb->get_row( $wpdb->prepare( 
+			"SELECT status, progress_percentage, progress_message, output_file_path, user_id, log_details 
+			FROM {$table_name} 
+			WHERE id = %d AND book_id = %d", 
+			$job_id, 
+			$book_id 
+		) );
 
 		if ( ! $job ) {
 			$data = [
@@ -333,8 +321,7 @@ function pressbooks_export_status_sse() {
 			break;
 		}
 
-		// Security: Ensure the logged-in user is the one who created the job OR has caps to view others
-		if ( $job->user_id != $user_id && ! current_user_can_for_blog( $book_id, 'manage_options' ) /* example capability */ ) {
+		if ( $job->user_id != $user_id && ! current_user_can_for_blog( $book_id, 'manage_options' ) ) {
 			$data = [
 				'status' => 'error',
 				'progress_percentage' => 0,
@@ -347,6 +334,7 @@ function pressbooks_export_status_sse() {
 			break;
 		}
 
+		// Check if we have new progress or status to report
 		if ( $job->progress_percentage !== $last_progress || $job->status !== $last_status ) {
 			$data_to_send = [
 				'status' => $job->status,
@@ -356,6 +344,12 @@ function pressbooks_export_status_sse() {
 				'book_id' => $book_id,
 			];
 
+			// Add validation warnings if present
+			if ( ! empty( $job->log_details ) && strpos( $job->log_details, 'Validation' ) !== false ) {
+				$data_to_send['has_warnings'] = true;
+				$data_to_send['warning_message'] = __( 'Export completed with some non-critical warnings. Your file is ready for use.', 'pressbooks' );
+			}
+
 			echo "event: export_progress\nid: " . time() . "\ndata: " . wp_json_encode( $data_to_send ) . "\n\n";
 			ob_flush();
 			flush();
@@ -364,11 +358,24 @@ function pressbooks_export_status_sse() {
 			$last_status = $job->status;
 		}
 
-		if ( in_array( $job->status, [ 'completed', 'failed', 'cancelled' ], true ) ) {
-			break; // Stop polling
+		// Only break the loop if the job is truly complete or failed
+		if ( in_array( $job->status, [ 'completed', 'failed' ], true ) ) {
+			// Send one final message before breaking
+			$final_data = [
+				'status' => $job->status,
+				'progress' => 100,
+				'message' => $job->progress_message,
+				'job_id' => $job_id,
+				'book_id' => $book_id,
+				'is_final' => true
+			];
+			echo "event: export_progress\nid: " . time() . "\ndata: " . wp_json_encode( $final_data ) . "\n\n";
+			ob_flush();
+			flush();
+			break;
 		}
 
-		sleep( 5 ); // Poll interval
+		sleep( 5 );
 		$iterations++;
 	}
 
