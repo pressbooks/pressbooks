@@ -53,6 +53,13 @@ class Docraptor extends Pdf {
 		$timestamp = time();
 		$css = $this->kneadCss();
 		$css_file = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp.css";
+		$scoped_file = Container::get( 'Sass' )->pathToUserGeneratedCss() . '/scopedstyles.css';
+		if ( is_file( $scoped_file ) && is_readable( $scoped_file ) ) {
+			$scoped_css_content = \Pressbooks\Utility\get_contents( $scoped_file );
+			if ( $scoped_css_content ) {
+				$css .= "\n\n/* Scoped Styles */\n" . $scoped_css_content;
+			}
+		}
 		\Pressbooks\Utility\put_contents( $css_file, $css );
 
 		// --------------------------------------------------------------------
@@ -63,7 +70,7 @@ class Docraptor extends Pdf {
 
 		$prince_options = new \DocRaptor\PrinceOptions();
 		$prince_options->setNoCompress( false );
-		$prince_options->setHttpTimeout( max( ini_get( 'max_execution_time' ), 30 ) );
+		$prince_options->setHttpTimeout( 900 );
 		$prince_options->setJavascript( true );
 		if ( $this->pdfProfile && $this->pdfOutputIntent ) {
 			$prince_options->setProfile( $this->pdfProfile );
