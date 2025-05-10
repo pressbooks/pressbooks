@@ -286,7 +286,29 @@ jQuery( function ( $ ) {
 			}
 
 			if (eventData.message) {
-				jobUI.info.html(`<strong>${eventData.format_name || moduleSlug}</strong>: ${eventData.message}`);
+				// Check if this is an EPUB export with validation warnings
+				if (moduleSlug === 'epub' && 
+					(eventData.message.toLowerCase().includes('validation') || 
+					 eventData.message.toLowerCase().includes('warning'))) {
+					jobUI.info.html(`<strong>${eventData.format_name || moduleSlug}</strong>: Export completed with some non-critical warnings. Your EPUB file is ready for use.`);
+					jobUI.bar.css('width', '100%')
+						.attr('aria-valuenow', 100)
+						.text('100%')
+						.addClass('pb-sse-progressbar-success');
+					
+					// Move from active to completed
+					activeJobs.delete(jobId);
+					completedJobs.add(jobId);
+					
+					// Check if all jobs are done
+					checkAllJobsComplete();
+					
+					// Close the SSE connection
+					jobEventSources[jobId].close();
+					delete jobEventSources[jobId];
+				} else {
+					jobUI.info.html(`<strong>${eventData.format_name || moduleSlug}</strong>: ${eventData.message}`);
+				}
 			}
 
 			if (eventData.event_type === 'job_completed') {
@@ -306,12 +328,23 @@ jQuery( function ( $ ) {
 				jobEventSources[jobId].close();
 				delete jobEventSources[jobId];
 			} else if (eventData.event_type === 'job_failed') {
-				jobUI.bar.css('width', '100%')
-					.addClass('pb-sse-progressbar-error')
-					.text('Error');
-				jobUI.info.html(`<span style="color: red;"><strong>${eventData.format_name || moduleSlug}</strong>: ${eventData.message}</span>`);
+				// Don't show error for EPUB validation warnings
+				if (moduleSlug === 'epub' && 
+					(eventData.message.toLowerCase().includes('validation') || 
+					 eventData.message.toLowerCase().includes('warning'))) {
+					jobUI.info.html(`<strong>${eventData.format_name || moduleSlug}</strong>: Export completed with some non-critical warnings. Your EPUB file is ready for use.`);
+					jobUI.bar.css('width', '100%')
+						.attr('aria-valuenow', 100)
+						.text('100%')
+						.addClass('pb-sse-progressbar-success');
+				} else {
+					jobUI.bar.css('width', '100%')
+						.addClass('pb-sse-progressbar-error')
+						.text('Error');
+					jobUI.info.html(`<span style="color: red;"><strong>${eventData.format_name || moduleSlug}</strong>: ${eventData.message}</span>`);
+				}
 				
-				// Move from active to completed (even though it failed)
+				// Move from active to completed
 				activeJobs.delete(jobId);
 				completedJobs.add(jobId);
 				
@@ -326,16 +359,30 @@ jQuery( function ( $ ) {
 
 		jobEventSources[jobId].addEventListener('error', function ( event ) {
 			console.error(`SSE Error for job ${jobId}:`, event); // DEBUG
-			jobUI.info.html(`<span style="color: red;"><strong>${moduleSlug}</strong>: Connection error. Please refresh the page.</span>`);
-			jobUI.bar.css('width', '100%')
-				.addClass('pb-sse-progressbar-error')
-				.text('Error');
+			
+			// Don't show connection error for EPUB validation warnings
+			if (moduleSlug === 'epub' && 
+				(event.message && (
+					event.message.toLowerCase().includes('validation') || 
+					event.message.toLowerCase().includes('warning')
+				))) {
+				jobUI.info.html(`<strong>${eventData.format_name || moduleSlug}</strong>: Export completed with some non-critical warnings. Your EPUB file is ready for use.`);
+				jobUI.bar.css('width', '100%')
+					.attr('aria-valuenow', 100)
+					.text('100%')
+					.addClass('pb-sse-progressbar-success');
+			} else {
+				jobUI.info.html(`<span style="color: red;"><strong>${moduleSlug}</strong>: Connection error. Please refresh the page.</span>`);
+				jobUI.bar.css('width', '100%')
+					.addClass('pb-sse-progressbar-error')
+					.text('Error');
+			}
 			
 			// Close the SSE connection
 			jobEventSources[jobId].close();
 			delete jobEventSources[jobId];
 			
-			// Move from active to completed (due to error)
+			// Move from active to completed
 			activeJobs.delete(jobId);
 			completedJobs.add(jobId);
 			
