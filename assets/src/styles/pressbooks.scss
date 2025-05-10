@@ -273,10 +273,37 @@ $wp-spinner-anim-duration: 1.08s;
 }
 
 // Progress Bars
-#pb-sse-progressbar {
+.pb-sse-progressbar-container {
   display: none;
   width: 100%;
-  margin-top: 1rem;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  margin: 10px 0;
+  position: relative;
+}
+
+.pb-sse-progressbar {
+  height: 4px;
+  background-color: #2271b1;
+  border-radius: 4px;
+  transition: width 0.3s ease-in-out;
+  text-align: center;
+  color: white;
+  line-height: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  min-width: 2em;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.pb-sse-progressbar-success {
+  background-color: #00a32a;
+}
+
+.pb-sse-progressbar-error {
+  background-color: #d63638;
 }
 
 // WordPress search fields

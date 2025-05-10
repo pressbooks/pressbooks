@@ -349,17 +349,8 @@ function pressbooks_export_status_sse() {
 				'message' => $job->progress_message,
 				'job_id' => $job_id,
 				'book_id' => $book_id,
-				'file_url' => null,
 			];
 
-			if ( $job->status === 'completed' && ! empty( $job->output_file_path ) ) {
-				// Construct a secure, nonced download URL
-				$download_nonce = wp_create_nonce('download_export_job_' . $job_id);
-				// Assumes PB_ExportToken.exportPageUrl is localized correctly on frontend (e.g. admin_url('admin.php?page=pb_export'))
-				// This URL should point to the logic in Export::formSubmit that handles downloads.
-				$data_to_send['file_url'] = admin_url( 'admin.php?page=pb_export&download_export_file=' . rawurlencode(basename($job->output_file_path)) . '&job_id=' . $job_id . '&_wpnonce=' . $download_nonce . '&book_id=' . $book_id);
-			}
-			
 			echo "event: export_progress\nid: " . time() . "\ndata: " . wp_json_encode( $data_to_send ) . "\n\n";
 			ob_flush();
 			flush();
@@ -382,3 +373,42 @@ function pressbooks_export_status_sse() {
 	wp_die();
 }
 add_action( 'wp_ajax_pressbooks_export_status_sse', 'pressbooks_export_status_sse' );
+
+/**
+ * AJAX handler for checking existing export jobs.
+ */
+function pressbooks_check_existing_jobs() {
+	check_ajax_referer('pb-export-book', '_wpnonce');
+
+	if (!current_user_can('edit_posts')) {
+		wp_send_json_error(['message' => __('Permission denied.', 'pressbooks')], 403);
+		return;
+	}
+
+	global $wpdb;
+	$table_name = $wpdb->prefix . 'pressbooks_export_jobs';
+	$book_id = get_current_blog_id();
+	$user_id = get_current_user_id();
+
+	// Get all jobs for this book and user that aren't completed/failed/cancelled
+	$jobs = $wpdb->get_results($wpdb->prepare(
+		"SELECT id as job_id, book_id, export_format as module_slug, status, progress_percentage, progress_message 
+		FROM {$table_name} 
+		WHERE book_id = %d AND user_id = %d 
+		AND status NOT IN ('completed', 'failed', 'cancelled')
+		ORDER BY created_at DESC",
+		$book_id,
+		$user_id
+	));
+
+	if ($jobs) {
+		// Add SSE nonce for each job
+		foreach ($jobs as &$job) {
+			$job->sse_nonce = wp_create_nonce('pressbooks_export_status_' . $job->job_id);
+		}
+		wp_send_json_success(['jobs' => $jobs]);
+	} else {
+		wp_send_json_success(['jobs' => []]);
+	}
+}
+add_action('wp_ajax_pressbooks_check_existing_jobs', 'pressbooks_check_existing_jobs');

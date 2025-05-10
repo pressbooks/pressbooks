@@ -677,7 +677,7 @@ abstract class Export {
 			}
 			return $upload_base_url . $path_fragment;
 		}
-		
+
 		$real_export_path = trailingslashit($real_export_path);
 
 		if (strpos($real_export_path, $upload_base_path) === 0) {
@@ -704,7 +704,7 @@ abstract class Export {
 			// Don't do anything in this function, bail.
 			return;
 		}
-		
+
 		// Store export arguments if present, to be used by exportGenerator
 		// This is a simplistic example; needs to align with how your form actually submits options.
 		static::$currentExportModuleArgs = $_POST['export_options'] ?? []; // Example: if you have specific options per module in form
@@ -749,7 +749,7 @@ abstract class Export {
 		 *
 		 * @since 4.4.0
 		 */
-		//do_action( 'pb_pre_export' );
+		do_action( 'pb_pre_export' );
 
 		// --------------------------------------------------------------------------------------------------------
 		// Clear cache? Range is 1 hour.

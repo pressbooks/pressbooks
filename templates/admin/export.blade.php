@@ -72,16 +72,18 @@
         </div>
     </div>
     <div class="export-control">
-        <div class="export-control">
-			<form id="pdf-preview-form" class="pdf-preview-form" action="{!! $pdf_preview_url !!}" method="POST">
-				<input type="submit" name="submit" id="submit" class="button button-hero" value="{{ __( 'Preview PDF', 'pressbooks' ) }}" />
-			</form>
-			<button type="submit" id="pb-export-button" form="pb-export-form" class="button button-hero button-primary generate">
-				{{ __( 'Export Book', 'pressbooks' ) }}
-			</button>
+		<form id="pdf-preview-form" class="pdf-preview-form" action="{!! $pdf_preview_url !!}" method="POST">
+			<input type="submit" name="submit" id="submit" class="button button-hero" value="{{ __( 'Preview PDF', 'pressbooks' ) }}" />
+		</form>
+		<button type="submit" id="pb-export-button" form="pb-export-form" class="button button-hero button-primary generate">
+			{{ __( 'Export Book', 'pressbooks' ) }}
+		</button>
+    </div>
+    <div class="export-progress">
+		<div class="pb-sse-progressbar-container">
+			<div id="pb-sse-progressbar" class="pb-sse-progressbar"></div>
 		</div>
-		<progress id="pb-sse-progressbar" max="100"></progress>
-		<p><b><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></b> <span id="pb-sse-info" aria-live="polite"></span></p>
+    	<span id="pb-sse-info" aria-live="polite"></span>
     </div>
     <div class="clear"></div>
     <h1>{{ __( 'Latest Exports', 'pressbooks') }}</h1>
