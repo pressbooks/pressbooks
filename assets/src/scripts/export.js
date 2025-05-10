@@ -286,11 +286,10 @@ jQuery( function ( $ ) {
 			}
 
 			if (eventData.message) {
-				// Check if this is an EPUB export with validation warnings
-				if (moduleSlug === 'epub' && 
-					(eventData.message.toLowerCase().includes('validation') || 
-					 eventData.message.toLowerCase().includes('warning'))) {
-					jobUI.info.html(`<strong>${eventData.format_name || moduleSlug}</strong>: Export completed with some non-critical warnings. Your EPUB file is ready for use.`);
+				// Handle validation warnings for any format
+				if (eventData.message.toLowerCase().includes('validation') || 
+					eventData.message.toLowerCase().includes('warning')) {
+					jobUI.info.html(`<strong>${eventData.format_name || moduleSlug}</strong>: Export completed with some non-critical warnings. Your file is ready for use.`);
 					jobUI.bar.css('width', '100%')
 						.attr('aria-valuenow', 100)
 						.text('100%')
@@ -328,11 +327,10 @@ jQuery( function ( $ ) {
 				jobEventSources[jobId].close();
 				delete jobEventSources[jobId];
 			} else if (eventData.event_type === 'job_failed') {
-				// Don't show error for EPUB validation warnings
-				if (moduleSlug === 'epub' && 
-					(eventData.message.toLowerCase().includes('validation') || 
-					 eventData.message.toLowerCase().includes('warning'))) {
-					jobUI.info.html(`<strong>${eventData.format_name || moduleSlug}</strong>: Export completed with some non-critical warnings. Your EPUB file is ready for use.`);
+				// Handle validation warnings for any format
+				if (eventData.message.toLowerCase().includes('validation') || 
+					eventData.message.toLowerCase().includes('warning')) {
+					jobUI.info.html(`<strong>${eventData.format_name || moduleSlug}</strong>: Export completed with some non-critical warnings. Your file is ready for use.`);
 					jobUI.bar.css('width', '100%')
 						.attr('aria-valuenow', 100)
 						.text('100%')
@@ -360,13 +358,12 @@ jQuery( function ( $ ) {
 		jobEventSources[jobId].addEventListener('error', function ( event ) {
 			console.error(`SSE Error for job ${jobId}:`, event); // DEBUG
 			
-			// Don't show connection error for EPUB validation warnings
-			if (moduleSlug === 'epub' && 
-				(event.message && (
-					event.message.toLowerCase().includes('validation') || 
-					event.message.toLowerCase().includes('warning')
-				))) {
-				jobUI.info.html(`<strong>${eventData.format_name || moduleSlug}</strong>: Export completed with some non-critical warnings. Your EPUB file is ready for use.`);
+			// Handle validation warnings for any format
+			if (event.message && (
+				event.message.toLowerCase().includes('validation') || 
+				event.message.toLowerCase().includes('warning')
+			)) {
+				jobUI.info.html(`<strong>${eventData.format_name || moduleSlug}</strong>: Export completed with some non-critical warnings. Your file is ready for use.`);
 				jobUI.bar.css('width', '100%')
 					.attr('aria-valuenow', 100)
 					.text('100%')

@@ -611,9 +611,10 @@ abstract class Export {
 		return apply_filters('pb_background_export_types', [
 			'\\Pressbooks\\Modules\\Export\\Prince\\Pdf',
 			'\\Pressbooks\\Modules\\Export\\Prince\\PrintPdf',
-			'\\Pressbooks\\Modules\\Export\\Prince\\Docraptor', // If exists and used
-			'\\Pressbooks\\Modules\\Export\\Prince\\DocraptorPrint', // If exists and used
-			'\\Pressbooks\\Modules\\Export\\Epub\\Epub', // EPUB support
+			'\\Pressbooks\\Modules\\Export\\Epub\\Epub',
+			'\\Pressbooks\\Modules\\Export\\Xhtml\\Xhtml11',
+			'\\Pressbooks\\Modules\\Export\\WordPress\\Wxr',
+			'\\Pressbooks\\Modules\\Export\\WordPress\\VanillaWxr',
 		]);
 	}
 
@@ -858,23 +859,10 @@ abstract class Export {
 
 
 			if ( in_array( $module_classname, $background_pdf_types, true ) ) {
+				error_log('[DEBUG ajax_submit_export_job] Is a background PDF type: ' . $module_classname);
 				// --- BACKGROUND PDF PROCESSING ---
 				$book_id = get_current_blog_id();
 				$user_id = get_current_user_id();
-				$export_format_slug = self::getExportFormatSlugFromClassname( $module_classname );
-
-				// Capture options for the job.
-				// If 'pdf_footnotes_style' (or other hacks) can be set per-request via UI:
-				$job_specific_options = [];
-				// Example: if a form field 'pdf_options[footnotes_style]' was submitted:
-				// if (isset($_POST['pdf_options']['footnotes_style'])) {
-				//    $job_specific_options['footnotes_style'] = sanitize_text_field($_POST['pdf_options']['footnotes_style']);
-				// }
-				// For now, assuming constructor_args might hold some of this if your form structure allows.
-				// Or, more likely, specific $_POST fields need to be checked and added.
-				// $job_options = array_merge($constructor_args, $job_specific_options);
-				$job_options = $constructor_args; // Keep it simple for now, assuming constructor_args are sufficient if any.
-
 
 				global $wpdb;
 				$table_name = $wpdb->prefix . 'pressbooks_export_jobs';
@@ -884,9 +872,9 @@ abstract class Export {
 					[
 						'book_id' => $book_id,
 						'user_id' => $user_id,
-						'export_format' => $export_format_slug,
+						'export_format' => self::getExportFormatSlugFromClassname($module_classname),
 						'export_module_classname' => $module_classname,
-						'export_options' => wp_json_encode( $job_options ), // Store captured options
+						'export_options' => wp_json_encode( $constructor_args ),
 						'status' => 'pending',
 						'created_at' => current_time( 'mysql', true ),
 						'updated_at' => current_time( 'mysql', true ),
@@ -907,13 +895,13 @@ abstract class Export {
 						'book_id' => $book_id,
 						'job_id' => $job_id,
 						'message' => $message,
-						'module_slug' => $export_format_slug,
+						'module_slug' => self::getExportFormatSlugFromClassname($module_classname),
 						'module_classname' => $module_classname,
 						'sse_nonce' => wp_create_nonce( 'pressbooks_export_status_' . $job_id ),
 						'format_name' => $friendly_name,
 						'job_details' => [
 							'id' => $job_id,
-							'format' => $export_format_slug,
+							'format' => self::getExportFormatSlugFromClassname($module_classname),
 							'status' => 'pending',
 							'created_at' => current_time( 'mysql', true ),
 						]
@@ -924,17 +912,17 @@ abstract class Export {
 					$message = sprintf( 
 						__( 'Failed to queue %s export (Format: %s). Database error: %s', 'pressbooks' ), 
 						$friendly_name,
-						$export_format_slug,
+						self::getExportFormatSlugFromClassname($module_classname),
 						$wpdb->last_error 
 					);
 					$results[] = [
 						'event_type' => 'job_queue_failed', 
 						'message' => $message, 
-						'module_slug' => $export_format_slug, 
+						'module_slug' => self::getExportFormatSlugFromClassname($module_classname), 
 						'module_classname' => $module_classname,
 						'format_name' => $friendly_name,
 						'error_details' => [
-							'format' => $export_format_slug,
+							'format' => self::getExportFormatSlugFromClassname($module_classname),
 							'error' => $wpdb->last_error
 						]
 					];
@@ -1353,52 +1341,17 @@ abstract class Export {
 	 */
 	protected static function getAvailableExportModules(): array
 	{
-		// This is a simplified example. You need to replace this with your actual way of
-		// getting all registered export modules and their classnames.
-		// It might be similar to the structure used in `inc/modules/export/namespace.php` function `formats()`
-		// or how `Export::modules()` populates its list.
-		// The key is to map the `format_slug` from the form to the full `module_classname`.
-
-		// Example structure (replace with your actual logic):
-		$all_modules = [];
-		$standard_formats = self::getStandardExportFormats(); // Assuming this returns [slug => Friendly Name]
-		$exotic_formats = self::getExoticExportFormats();     // Assuming this returns [slug => Friendly Name]
-
-		// You need a mapping from slug to class name.
-		// This is often hardcoded or built from a filter like `pb_export_module_classnames`.
-		// Let's use a placeholder derived from `getFriendlyNameForModule` which itself uses `pb_export_module_classnames`.
-		$module_classnames_map = apply_filters('pb_export_module_classnames', [
-			'\Pressbooks\Modules\Export\Prince\DocraptorPrint' => 'Print PDF', // Value is friendly name, key is class
-			'\Pressbooks\Modules\Export\Prince\Docraptor' => 'Digital PDF',
-			'\Pressbooks\Modules\Export\Prince\PrintPdf' => 'Print PDF',
-			'\Pressbooks\Modules\Export\Prince\Pdf' => 'Digital PDF',
-			'\Pressbooks\Modules\Export\Epub\Epub' => 'EPUB',
-			'\Pressbooks\Modules\Export\Xhtml\Xhtml11' => 'XHTML',
-			'\Pressbooks\Modules\Export\WordPress\Wxr' => 'Pressbooks XML',
-			'\Pressbooks\Modules\Export\WordPress\VanillaWxr' => 'WordPress XML',
-			'\Pressbooks\Modules\Export\ThinCC\WebLinks' => 'Common Cartridge (Web Links)',
-			// Potentially add others from `pressbooks_get_custom_export_formats` if they follow same pattern
-		]);
-
-		// We need to invert this to [slug => classname]
-		// This is tricky because friendly names might not be unique, and slugs are what we get from the form.
-		// The most robust way is to have a canonical mapping from slug to classname.
-
-		// For this example, let's assume a direct mapping based on typical slugs and known classes.
-		// THIS IS A CRITICAL PART YOU NEED TO ENSURE IS CORRECT FOR YOUR SYSTEM.
+		// Map of export format slugs to their class names - only include formats that are in the form
 		$slug_to_classname = [
-			'pdf' => '\\Pressbooks\\Modules\\Export\\Prince\\Pdf', // Digital PDF
-			'print_pdf' => '\\Pressbooks\\Modules\\Export\\Prince\\PrintPdf', // Print PDF
-			'epub' => '\\Pressbooks\\Modules\\Export\\Epub\\Epub', // EPUB
+			'pdf' => '\\Pressbooks\\Modules\\Export\\Prince\\Pdf',
+			'print_pdf' => '\\Pressbooks\\Modules\\Export\\Prince\\PrintPdf',
+			'epub' => '\\Pressbooks\\Modules\\Export\\Epub\\Epub',
 			'xhtml' => '\\Pressbooks\\Modules\\Export\\Xhtml\\Xhtml11',
 			'wxr' => '\\Pressbooks\\Modules\\Export\\WordPress\\Wxr',
-			'vanilla-wxr' => '\\Pressbooks\\Modules\\Export\\WordPress\\VanillaWxr',
-			// ... add all other slugs mapped to their respective classes ...
+			'vanillawxr' => '\\Pressbooks\\Modules\\Export\\WordPress\\VanillaWxr',
 		];
 
-		// You might need to merge this with custom formats if they are registered elsewhere.
-		// For example, from the `pressbooks_get_custom_export_formats` filter if used.
-
+		// Allow plugins to add their own export formats
 		return apply_filters('pb_available_export_module_slug_to_classname_map', $slug_to_classname);
 	}
 
@@ -1408,14 +1361,18 @@ abstract class Export {
 	 * @return array
 	 */
 	protected static function getStandardExportFormats(): array {
-		// Implement the logic to return a list of standard export format slugs
-		// This is a placeholder and should be replaced with the actual implementation
-		return ['pdf', 'print-pdf', 'epub', 'xhtml', 'wxr', 'vanilla-wxr'];
+		return [
+			'pdf',
+			'print_pdf',
+			'epub',
+			'xhtml',
+			'wxr',
+			'vanillawxr'
+		];
 	}
 
 	protected static function getExoticExportFormats(): array {
-		// Implement the logic to return a list of exotic export format slugs
-		// This is a placeholder and should be replaced with the actual implementation
-		return ['weblinks'];
+		// These are formats that might be added by plugins or custom implementations
+		return apply_filters('pb_exotic_export_formats', []);
 	}
 }

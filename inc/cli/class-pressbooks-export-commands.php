@@ -44,31 +44,30 @@ class Pressbooks_Export_CLI_Commands extends WP_CLI_Command {
 		}
 
 		// Determine the blog_id. WP-CLI's --url parameter handles switching context globally.
-        // If --blog_id is provided, it takes precedence for this specific command's logic.
-        $blog_id_arg = WP_CLI\Utils\get_flag_value( $assoc_args, 'blog_id' );
-        
-        $original_blog_id = get_current_blog_id();
-        $switched = false;
+		// If --blog_id is provided, it takes precedence for this specific command's logic.
+		$blog_id_arg = WP_CLI\Utils\get_flag_value( $assoc_args, 'blog_id' );
 
-        if ( $blog_id_arg ) {
-            $blog_id_to_switch = absint($blog_id_arg);
-            if ( $blog_id_to_switch !== $original_blog_id ) {
-                if ( ! get_site( $blog_id_to_switch ) ) {
-                    WP_CLI::error( "Blog ID {$blog_id_to_switch} not found." );
-                    return;
-                }
-                switch_to_blog( $blog_id_to_switch );
-                $switched = true;
-                WP_CLI::log( "Switched to blog ID: {$blog_id_to_switch}" );
-            }
-        } else if (isset($assoc_args['url'])) {
-             // If only --url is used, WP-CLI handles the switch, get_current_blog_id() should be correct.
-             WP_CLI::log( "Operating on blog ID: " . get_current_blog_id() . " (determined by --url or default)" );
-        } else if (is_multisite()) {
-            WP_CLI::error( "In a multisite environment, please specify --blog_id=<blog_id> or --url=<site_url>." );
-            return;
-        }
+		$original_blog_id = get_current_blog_id();
+		$switched = false;
 
+		if ( $blog_id_arg ) {
+			$blog_id_to_switch = absint( $blog_id_arg );
+			if ( $blog_id_to_switch !== $original_blog_id ) {
+				if ( ! get_site( $blog_id_to_switch ) ) {
+					WP_CLI::error( "Blog ID {$blog_id_to_switch} not found." );
+					return;
+				}
+				switch_to_blog( $blog_id_to_switch );
+				$switched = true;
+				WP_CLI::log( "Switched to blog ID: {$blog_id_to_switch}" );
+			}
+		} elseif ( isset( $assoc_args['url'] ) ) {
+			 // If only --url is used, WP-CLI handles the switch, get_current_blog_id() should be correct.
+			 WP_CLI::log( 'Operating on blog ID: ' . get_current_blog_id() . ' (determined by --url or default)' );
+		} elseif ( is_multisite() ) {
+			WP_CLI::error( 'In a multisite environment, please specify --blog_id=<blog_id> or --url=<site_url>.' );
+			return;
+		}
 
 		global $wpdb;
 		// $wpdb->prefix will now be correct for the (potentially) switched blog
@@ -76,18 +75,19 @@ class Pressbooks_Export_CLI_Commands extends WP_CLI_Command {
 		$job = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$table_name} WHERE id = %d", $job_id ) );
 
 		if ( ! $job ) {
-			WP_CLI::error( "Job ID {$job_id} not found in the database for blog ID " . get_current_blog_id() . "." );
-			if ($switched) { restore_current_blog(); }
+			WP_CLI::error( "Job ID {$job_id} not found in the database for blog ID " . get_current_blog_id() . '.' );
+			if ( $switched ) {
+				restore_current_blog(); }
 			return;
 		}
 
 		// Security check: ensure the job's book_id matches the current context
-        if ( absint($job->book_id) !== get_current_blog_id() ) {
-            WP_CLI::error( "Job {$job_id} belongs to book_id {$job->book_id}, but current context is blog_id " . get_current_blog_id() . ". Mismatch." );
-            if ($switched) { restore_current_blog(); }
-            return;
-        }
-
+		if ( absint( $job->book_id ) !== get_current_blog_id() ) {
+			WP_CLI::error( "Job {$job_id} belongs to book_id {$job->book_id}, but current context is blog_id " . get_current_blog_id() . '. Mismatch.' );
+			if ( $switched ) {
+				restore_current_blog(); }
+			return;
+		}
 
 		WP_CLI::log( "Found job {$job_id}. Status: {$job->status}, Module: {$job->export_module_classname}" );
 
@@ -95,14 +95,14 @@ class Pressbooks_Export_CLI_Commands extends WP_CLI_Command {
 
 		if ( 'pending' !== $job->status && ! $force_rerun ) {
 			WP_CLI::warning( "Job {$job_id} is not in 'pending' status. Current status: {$job->status}. Use --force_rerun to process anyway." );
-			if ($switched) { restore_current_blog(); }
+			if ( $switched ) {
+				restore_current_blog(); }
 			return;
 		}
-		
+
 		if ( $force_rerun && 'processing' === $job->status ) {
 			WP_CLI::warning( "Job {$job_id} is currently 'processing'. Forcing a rerun might lead to unexpected behavior if another process is active." );
 		}
-
 
 		// Ensure the main job processing function is available
 		if ( ! function_exists( 'pressbooks_process_export_job' ) ) {
@@ -112,24 +112,27 @@ class Pressbooks_Export_CLI_Commands extends WP_CLI_Command {
 
 			if ( ! function_exists( 'pressbooks_process_export_job' ) ) {
 				WP_CLI::error( 'The function pressbooks_process_export_job() is not defined. Ensure background-export-handlers.php is loaded.' );
-                if ($switched) { restore_current_blog(); }
+				if ( $switched ) {
+					restore_current_blog(); }
 				return;
 			}
 		}
-		
-		WP_CLI::log( "Attempting to process job {$job_id} for blog " . get_current_blog_id() . "..." );
+
+		WP_CLI::log( "Attempting to process job {$job_id} for blog " . get_current_blog_id() . '...' );
 
 		// If the job status is not 'pending', and force_rerun is true, you might want to reset it.
-        // This is optional and depends on how you want retries to behave.
-        if ( $force_rerun && $job->status !== 'pending' ) {
-            $wpdb->update(
-                $table_name,
-                [ 'status' => 'pending', 'updated_at' => current_time( 'mysql', true ) ],
-                [ 'id' => $job_id ]
-            );
-            WP_CLI::log( "Job {$job_id} status reset to 'pending' due to --force_rerun." );
-        }
-
+		// This is optional and depends on how you want retries to behave.
+		if ( $force_rerun && $job->status !== 'pending' ) {
+			$wpdb->update(
+				$table_name,
+				[
+					'status' => 'pending',
+					'updated_at' => current_time( 'mysql', true ),
+				],
+				[ 'id' => $job_id ]
+			);
+			WP_CLI::log( "Job {$job_id} status reset to 'pending' due to --force_rerun." );
+		}
 
 		// Call your existing job processing function
 		pressbooks_process_export_job( $job_id );
@@ -149,10 +152,10 @@ class Pressbooks_Export_CLI_Commands extends WP_CLI_Command {
 			WP_CLI::error( "Could not retrieve job {$job_id} status after processing." );
 		}
 
-        if ($switched) {
-            restore_current_blog();
-            WP_CLI::log( "Switched back to original blog ID: {$original_blog_id}" );
-        }
+		if ( $switched ) {
+			restore_current_blog();
+			WP_CLI::log( "Switched back to original blog ID: {$original_blog_id}" );
+		}
 	}
 }
 
