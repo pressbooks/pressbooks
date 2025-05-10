@@ -603,16 +603,17 @@ abstract class Export {
 	}
 
 	/**
-	 * Get an array of PDF module classnames that should be processed in the background.
+	 * Get an array of module classnames that should be processed in the background.
 	 *
 	 * @return array
 	 */
-	protected static function getBackgroundPdfTypes(): array {
-		return apply_filters('pb_background_pdf_export_types', [
+	protected static function getBackgroundExportTypes(): array {
+		return apply_filters('pb_background_export_types', [
 			'\\Pressbooks\\Modules\\Export\\Prince\\Pdf',
 			'\\Pressbooks\\Modules\\Export\\Prince\\PrintPdf',
 			'\\Pressbooks\\Modules\\Export\\Prince\\Docraptor', // If exists and used
 			'\\Pressbooks\\Modules\\Export\\Prince\\DocraptorPrint', // If exists and used
+			'\\Pressbooks\\Modules\\Export\\Epub\\Epub', // EPUB support
 		]);
 	}
 
@@ -848,7 +849,7 @@ abstract class Export {
 		static::$exportConversionError = [];
 		static::$exportValidationWarning = [];
 		static::$exportOutputs = [];
-		$background_pdf_types = self::getBackgroundPdfTypes();
+		$background_pdf_types = self::getBackgroundExportTypes();
 
 		foreach ( $modules as $module_classname ) {
 			// Arguments for the constructor. For PDF, it's usually empty [].
@@ -901,22 +902,42 @@ abstract class Export {
 						$friendly_name,
 						$job_id
 					);
-					// Yield a specific event type for the client to recognize this is a queued job
-					yield [
+					$results[] = [
 						'event_type' => 'job_queued',
 						'book_id' => $book_id,
 						'job_id' => $job_id,
 						'message' => $message,
-						'module_slug' => $export_format_slug, // For UI to target updates
-						'module_classname' => $module_classname, // For client-side logic if needed
-						'sse_nonce' => wp_create_nonce( 'pressbooks_export_status_' . $job_id ) // Nonce for the new SSE connection
+						'module_slug' => $export_format_slug,
+						'module_classname' => $module_classname,
+						'sse_nonce' => wp_create_nonce( 'pressbooks_export_status_' . $job_id ),
+						'format_name' => $friendly_name,
+						'job_details' => [
+							'id' => $job_id,
+							'format' => $export_format_slug,
+							'status' => 'pending',
+							'created_at' => current_time( 'mysql', true ),
+						]
 					];
 					static::$exportOutputs[ $module_classname ] = [ 'status' => 'queued', 'job_id' => $job_id ];
 				} else {
 					$friendly_name = self::getFriendlyNameForModule( $module_classname );
-					$message = sprintf( __( 'Failed to queue %s export. Database error: %s', 'pressbooks' ), $friendly_name, $wpdb->last_error );
-					// Yield an error event
-					yield ['event_type' => 'job_queue_failed', 'message' => $message, 'module_slug' => $export_format_slug, 'module_classname' => $module_classname];
+					$message = sprintf( 
+						__( 'Failed to queue %s export (Format: %s). Database error: %s', 'pressbooks' ), 
+						$friendly_name,
+						$export_format_slug,
+						$wpdb->last_error 
+					);
+					$results[] = [
+						'event_type' => 'job_queue_failed', 
+						'message' => $message, 
+						'module_slug' => $export_format_slug, 
+						'module_classname' => $module_classname,
+						'format_name' => $friendly_name,
+						'error_details' => [
+							'format' => $export_format_slug,
+							'error' => $wpdb->last_error
+						]
+					];
 					static::$exportConversionError[ $module_classname ] = 'Failed to queue job: ' . $wpdb->last_error;
 					static::$exportOutputs[ $module_classname ] = [ 'status' => 'queue_failed', 'error' => $wpdb->last_error ];
 				}
@@ -1146,7 +1167,7 @@ abstract class Export {
 		static::$switchedLocale = switch_to_locale( self::locale() );
 
 		$results = [];
-		$background_pdf_types = self::getBackgroundPdfTypes();
+		$background_pdf_types = self::getBackgroundExportTypes();
 		$available_modules = self::getAvailableExportModules(); // Helper to get all valid classnames
 
 		// Clear previous static errors/outputs for this new request context
@@ -1221,12 +1242,34 @@ abstract class Export {
 						'message' => $message,
 						'module_slug' => $format_slug,
 						'module_classname' => $module_classname,
-						'sse_nonce' => wp_create_nonce( 'pressbooks_export_status_' . $job_id )
+						'sse_nonce' => wp_create_nonce( 'pressbooks_export_status_' . $job_id ),
+						'format_name' => $friendly_name,
+						'job_details' => [
+							'id' => $job_id,
+							'format' => $format_slug,
+							'status' => 'pending',
+							'created_at' => current_time( 'mysql', true ),
+						]
 					];
 				} else {
 					$friendly_name = self::getFriendlyNameForModule( $module_classname );
-					$message = sprintf( __( 'Failed to queue %s export. Database error: %s', 'pressbooks' ), $friendly_name, $wpdb->last_error );
-					$results[] = ['event_type' => 'job_queue_failed', 'message' => $message, 'module_slug' => $format_slug, 'module_classname' => $module_classname];
+					$message = sprintf( 
+						__( 'Failed to queue %s export (Format: %s). Database error: %s', 'pressbooks' ), 
+						$friendly_name,
+						$format_slug,
+						$wpdb->last_error 
+					);
+					$results[] = [
+						'event_type' => 'job_queue_failed', 
+						'message' => $message, 
+						'module_slug' => $format_slug, 
+						'module_classname' => $module_classname,
+						'format_name' => $friendly_name,
+						'error_details' => [
+							'format' => $format_slug,
+							'error' => $wpdb->last_error
+						]
+					];
 				}
 			} else {
 				error_log('[DEBUG ajax_submit_export_job] Is NOT a background PDF type (or class issue): ' . $module_classname);
@@ -1257,7 +1300,12 @@ abstract class Export {
 		}
 
 		if ($has_successful_queues) {
-			wp_send_json_success( [ 'message' => __( 'Export jobs processed.', 'pressbooks' ), 'results' => $results ] );
+			wp_send_json_success( [ 
+				'message' => __( 'Export jobs processed.', 'pressbooks' ), 
+				'results' => $results,
+				'reload_on_complete' => true, // Add flag to indicate page should reload when all jobs complete
+				'total_jobs' => count(array_filter($results, function($r) { return $r['event_type'] === 'job_queued'; }))
+			] );
 		} else {
 			// If all failed or were skipped
 			$error_message = __( 'No export jobs were successfully queued.', 'pressbooks' );
@@ -1271,7 +1319,11 @@ abstract class Export {
 			if (!empty($specific_errors)) {
 				$error_message .= ' Details: ' . implode('; ', $specific_errors);
 			}
-			wp_send_json_error( [ 'message' => $error_message, 'results' => $results ], 400 ); // Send 400 if nothing was really done
+			wp_send_json_error( [ 
+				'message' => $error_message, 
+				'results' => $results,
+				'reload_on_complete' => false // No need to reload if no jobs were queued
+			], 400 );
 		}
 	}
 
@@ -1336,8 +1388,8 @@ abstract class Export {
 		// THIS IS A CRITICAL PART YOU NEED TO ENSURE IS CORRECT FOR YOUR SYSTEM.
 		$slug_to_classname = [
 			'pdf' => '\\Pressbooks\\Modules\\Export\\Prince\\Pdf', // Digital PDF
-			'print-pdf' => '\\Pressbooks\\Modules\\Export\\Prince\\PrintPdf', // Print PDF
-			'epub3' => '\\Pressbooks\\Modules\\Export\\Epub\\Epub', // EPUB (assuming EPUB3 is the default EPUB class)
+			'print_pdf' => '\\Pressbooks\\Modules\\Export\\Prince\\PrintPdf', // Print PDF
+			'epub' => '\\Pressbooks\\Modules\\Export\\Epub\\Epub', // EPUB
 			'xhtml' => '\\Pressbooks\\Modules\\Export\\Xhtml\\Xhtml11',
 			'wxr' => '\\Pressbooks\\Modules\\Export\\WordPress\\Wxr',
 			'vanilla-wxr' => '\\Pressbooks\\Modules\\Export\\WordPress\\VanillaWxr',
@@ -1358,7 +1410,7 @@ abstract class Export {
 	protected static function getStandardExportFormats(): array {
 		// Implement the logic to return a list of standard export format slugs
 		// This is a placeholder and should be replaced with the actual implementation
-		return ['pdf', 'print-pdf', 'epub3', 'xhtml', 'wxr', 'vanilla-wxr'];
+		return ['pdf', 'print-pdf', 'epub', 'xhtml', 'wxr', 'vanilla-wxr'];
 	}
 
 	protected static function getExoticExportFormats(): array {
