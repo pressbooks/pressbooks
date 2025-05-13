@@ -25,7 +25,7 @@
 							<fieldset class="standard">
 								<legend>{{ __( 'Supported formats', 'pressbooks' ) }}:</legend>
 								@foreach($formats['standard'] as $key => $value)
-									<input type="checkbox" id="{{$key}}" name="export_formats[]" value="{{$key}}" {{isset( $dependency_errors[ $key ] ) ? 'disabled' : ''}}/>
+									<input type="checkbox" id="{{$key}}" name="export_formats[{{$key}}]" value="1" {{isset( $dependency_errors[ $key ] ) ? 'disabled' : ''}}/>
 									<label for="{{$key}}"> {{$value}}</label><br/>
 								@endforeach
 							</fieldset>
@@ -36,7 +36,7 @@
 								<fieldset class="exotic">
 									<legend>{{ __( 'Other formats', 'pressbooks' ) }}:</legend>
 									@foreach($formats['exotic'] as $key => $value)
-										<input type="checkbox" id="{{$key}}" name="export_formats[]" value="{{$key}}" {{isset( $dependency_errors[ $key ] ) ? 'disabled' : ''}}/>
+										<input type="checkbox" id="{{$key}}" name="export_formats[{{$key}}]" value="1" {{isset( $dependency_errors[ $key ] ) ? 'disabled' : ''}}/>
 										<label for="{{$key}}"> {{$value}}</label><br/>
 									@endforeach
 								</fieldset>

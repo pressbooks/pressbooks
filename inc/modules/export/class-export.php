@@ -611,6 +611,8 @@ abstract class Export {
 		return apply_filters('pb_background_export_types', [
 			'\\Pressbooks\\Modules\\Export\\Prince\\Pdf',
 			'\\Pressbooks\\Modules\\Export\\Prince\\PrintPdf',
+			'\\Pressbooks\\Modules\\Export\\Prince\\Docraptor',
+			'\\Pressbooks\\Modules\\Export\\Prince\\DocraptorPrint',
 			'\\Pressbooks\\Modules\\Export\\Epub\\Epub',
 			'\\Pressbooks\\Modules\\Export\\Xhtml\\Xhtml11',
 			'\\Pressbooks\\Modules\\Export\\WordPress\\Wxr',
@@ -630,7 +632,7 @@ abstract class Export {
 		$slug = strtolower(end($parts));
 		// Specific overrides if class name doesn't directly map
 		if ($slug === 'printpdf') return 'print-pdf';
-		if ($slug === 'docraptorprint') return 'docraptor-print-pdf'; // Example
+		if ($slug === 'docraptorprint') return 'docraptor-print-pdf';
 		if ($slug === 'xhtml11') return 'xhtml';
 		if ($slug === 'vanillawxr') return 'vanilla-wxr';
 		// Add more specific mappings as needed
@@ -909,16 +911,16 @@ abstract class Export {
 					static::$exportOutputs[ $module_classname ] = [ 'status' => 'queued', 'job_id' => $job_id ];
 				} else {
 					$friendly_name = self::getFriendlyNameForModule( $module_classname );
-					$message = sprintf( 
-						__( 'Failed to queue %s export (Format: %s). Database error: %s', 'pressbooks' ), 
+					$message = sprintf(
+						__( 'Failed to queue %s export (Format: %s). Database error: %s', 'pressbooks' ),
 						$friendly_name,
 						self::getExportFormatSlugFromClassname($module_classname),
-						$wpdb->last_error 
+						$wpdb->last_error
 					);
 					$results[] = [
-						'event_type' => 'job_queue_failed', 
-						'message' => $message, 
-						'module_slug' => self::getExportFormatSlugFromClassname($module_classname), 
+						'event_type' => 'job_queue_failed',
+						'message' => $message,
+						'module_slug' => self::getExportFormatSlugFromClassname($module_classname),
 						'module_classname' => $module_classname,
 						'format_name' => $friendly_name,
 						'error_details' => [
@@ -1166,7 +1168,7 @@ abstract class Export {
 
 		error_log('[DEBUG ajax_submit_export_job] Available modules map: ' . print_r($available_modules, true)); // Log the whole map
 
-		foreach ( $export_formats as $format_slug ) {
+		foreach ( array_keys($export_formats) as $format_slug ) {
 			error_log('[DEBUG ajax_submit_export_job] Processing format_slug: ' . $format_slug);
 			$module_classname = null;
 			// Corrected loop to use $available_modules directly as it's already [slug => classname]
@@ -1241,16 +1243,16 @@ abstract class Export {
 					];
 				} else {
 					$friendly_name = self::getFriendlyNameForModule( $module_classname );
-					$message = sprintf( 
-						__( 'Failed to queue %s export (Format: %s). Database error: %s', 'pressbooks' ), 
+					$message = sprintf(
+						__( 'Failed to queue %s export (Format: %s). Database error: %s', 'pressbooks' ),
 						$friendly_name,
 						$format_slug,
-						$wpdb->last_error 
+						$wpdb->last_error
 					);
 					$results[] = [
-						'event_type' => 'job_queue_failed', 
-						'message' => $message, 
-						'module_slug' => $format_slug, 
+						'event_type' => 'job_queue_failed',
+						'message' => $message,
+						'module_slug' => $format_slug,
 						'module_classname' => $module_classname,
 						'format_name' => $friendly_name,
 						'error_details' => [
@@ -1288,8 +1290,8 @@ abstract class Export {
 		}
 
 		if ($has_successful_queues) {
-			wp_send_json_success( [ 
-				'message' => __( 'Export jobs processed.', 'pressbooks' ), 
+			wp_send_json_success( [
+				'message' => __( 'Export jobs processed.', 'pressbooks' ),
 				'results' => $results,
 				'reload_on_complete' => true, // Add flag to indicate page should reload when all jobs complete
 				'total_jobs' => count(array_filter($results, function($r) { return $r['event_type'] === 'job_queued'; }))
@@ -1307,8 +1309,8 @@ abstract class Export {
 			if (!empty($specific_errors)) {
 				$error_message .= ' Details: ' . implode('; ', $specific_errors);
 			}
-			wp_send_json_error( [ 
-				'message' => $error_message, 
+			wp_send_json_error( [
+				'message' => $error_message,
 				'results' => $results,
 				'reload_on_complete' => false // No need to reload if no jobs were queued
 			], 400 );

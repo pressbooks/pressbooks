@@ -53,11 +53,11 @@ jQuery( function ( $ ) {
 	function getOrCreateJobProgressUI( moduleSlug, jobId ) {
 		const mainProgressBar = $( '#pb-sse-progressbar' );
 		const mainInfoText = $( '#pb-sse-info' );
-		
+
 		// Update the main progress bar and info text with job-specific information
 		const friendlyName = _pb_export_formats_map && _pb_export_formats_map[moduleSlug] ? _pb_export_formats_map[moduleSlug].name : moduleSlug.toUpperCase();
 		mainInfoText.html( `<strong>${friendlyName}</strong> (Job ID: ${jobId})` );
-		
+
 		return {
 			bar: mainProgressBar,
 			info: mainInfoText,
@@ -99,10 +99,10 @@ jQuery( function ( $ ) {
 							jobUI.bar.css('width', job.progress_percentage + '%')
 								.attr('aria-valuenow', job.progress_percentage)
 								.text(job.progress_percentage + '%');
-							
+
 							// Add to active jobs
 							activeJobs.add(job.job_id);
-							
+
 							// Reconnect to the SSE stream
 							listenForJobProgress(job.book_id, job.job_id, job.module_slug, job.sse_nonce, jobUI);
 							$('.pb-sse-progressbar-container').show();
@@ -133,12 +133,15 @@ jQuery( function ( $ ) {
 			console.log(pair[0] + ': ' + pair[1]);
 		}
 
-		const selectedFormats = formData.getAll( 'export_formats[]' );
+		// Get all selected export formats (inputs where name starts with 'export_formats[')
+		const selectedFormats = Array.from(formData.entries())
+			.filter(([key]) => key.startsWith('export_formats['))
+			.map(([key]) => key.match(/\[(.*?)\]/)[1]); // Extract format name from brackets
 
 		console.log('Selected formats:', selectedFormats);
 
-		if ( ! selectedFormats || selectedFormats.length === 0 ) {
-			displayNotice( 'error', PB_ExportToken.text.select_format );
+		if (!selectedFormats || selectedFormats.length === 0) {
+			displayNotice('error', PB_ExportToken.text.select_format);
 			return;
 		}
 
@@ -196,10 +199,10 @@ jQuery( function ( $ ) {
 							jobUI.bar.css('width', '5%')
 								.attr('aria-valuenow', 5)
 								.text('5%');
-							
+
 							// Add to active jobs
 							activeJobs.add(eventData.job_id);
-							
+
 							listenForJobProgress( eventData.book_id, eventData.job_id, eventData.module_slug, eventData.sse_nonce, jobUI );
 						} else if ( eventData.event_type === 'job_queue_failed' ) {
 							jobUI = getOrCreateJobProgressUI( eventData.module_slug, 'failed-' + Date.now() );
@@ -303,7 +306,7 @@ jQuery( function ( $ ) {
 					// Move from active to completed
 					activeJobs.delete(jobId);
 					completedJobs.add(jobId);
-					
+
 					// Check if all jobs are done
 					checkAllJobsComplete();
 				} else if (eventData.status === 'failed') {
@@ -312,7 +315,7 @@ jQuery( function ( $ ) {
 					activeJobs.delete(jobId);
 					failedJobs.add(jobId);
 				}
-				
+
 				// Close the SSE connection
 				jobEventSources[jobId].close();
 				delete jobEventSources[jobId];
