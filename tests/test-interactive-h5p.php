@@ -146,31 +146,4 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 		$this->assertEquals( '<div>Rendered Mock H5P</div>', $result );
 	}
 
-	/**
-	 * Test H5P representation generation.
-	 *
-	 * @group interactivecontent
-	 */
-	public function test_if_h5p_export_option_is_checked() {
-		do_action( 'pb_pre_export' );
-		$this->h5p->shouldEnablePrint();
-		//change visibility of the static representation
-		$reflection = new ReflectionClass( $this->h5p );
-		$property = $reflection->getProperty( 'enableStaticRepresentation' );
-		$property->setAccessible( true );
-		//check if the static representation is enabled
-		$this->assertFalse( $property->getValue( $this->h5p ) );
-		//update options to enable static representation
-		update_option( 'pressbooks_export_options', [
-			'h5p_print_on_exports' => 1,
-		] );
-		do_action( 'pb_pre_export' );
-		$this->h5p->shouldEnablePrint();
-
-		$property = $reflection->getProperty( 'enableStaticRepresentation' );
-		$property->setAccessible( true );
-		//check if the static representation is enabled
-		$this->assertTrue( $property->getValue( $this->h5p ) );
-	}
-
 }

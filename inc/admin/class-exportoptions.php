@@ -95,17 +95,6 @@ class ExportOptions extends \Pressbooks\Options {
 			);
 		}
 
-		add_settings_field(
-			'h5p_print_on_exports',
-			__( 'H5P options', 'pressbooks' ),
-			[ $this, 'renderH5PField' ],
-			$_page,
-			$_section,
-			[
-				'0' => __( 'Enable H5P static representation on exports.', 'pressbooks' ),
-			]
-		);
-
 		register_setting(
 			$_page,
 			$_option,
@@ -172,24 +161,6 @@ class ExportOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Render the h5p_print_on_exports checkbox.
-	 *
-	 * @param array $args
-	 */
-	function renderH5PField( $args ) {
-		$this->renderCheckbox(
-			[
-				'id' => 'h5p_print_on_exports',
-				'name' => $this->getSlug(),
-				'option' => 'h5p_print_on_exports',
-				'value' => ( isset( $this->options['h5p_print_on_exports'] ) ) ? $this->options['h5p_print_on_exports'] : '',
-				'label' => __( 'Enable H5P static representation on exports.', 'pressbooks' ),
-				'description' => __( 'This will include a read-only version of H5P activities where possible, in PDF and EPUB exports.', 'pressbooks' ),
-			]
-		);
-	}
-
-	/**
 	 * Render the lock_theme checkbox.
 	 *
 	 * @param array $args
@@ -234,7 +205,6 @@ class ExportOptions extends \Pressbooks\Options {
 		return [
 			'email_validation_logs' => 0,
 			'theme_lock' => 0,
-			'h5p_print_on_exports' => 0,
 		];
 	}
 
@@ -247,7 +217,6 @@ class ExportOptions extends \Pressbooks\Options {
 		return [
 			'email_validation_logs',
 			'theme_lock',
-			'h5p_print_on_exports',
 		];
 	}
 

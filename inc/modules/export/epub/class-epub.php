@@ -2855,6 +2855,9 @@ class Epub extends ExportGenerator {
 		$this->embbededCss = str_replace( "src: url('') format('truetype');", '', $this->embbededCss );
 		$this->embbededCss = str_replace( "background: url('') 10px center no-repeat;", '', $this->embbededCss );
 		$this->embbededCss = str_replace( 'font-size: unset;', '', $this->embbededCss );
+
+		file_put_contents( WP_CONTENT_DIR . '/emb.css', $this->embbededCss );
+
 		put_contents( $path, $contents . $this->embbededCss );
 
 	}
