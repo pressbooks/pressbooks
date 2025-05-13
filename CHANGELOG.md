@@ -5,10 +5,7 @@
 
 ### Features
 
-* optional h5p static representation ([#4036](https://github.com/pressbooks/pressbooks/issues/4036)) ([1de1ccb](https://github.com/pressbooks/pressbooks/commit/1de1ccb7b53214e0471988e2525fdb5232ab75b7))
-* print H5P activities in PDF and EPUB export ([#3976](https://github.com/pressbooks/pressbooks/issues/3976)) ([120fbc1](https://github.com/pressbooks/pressbooks/commit/120fbc1d95e0c77d2cf53da9964efc4064709f89))
 * support edited volumes ([#2657](https://github.com/pressbooks/pressbooks/issues/2657)) ([7a94a48](https://github.com/pressbooks/pressbooks/commit/7a94a48ba1e1c1f8c1cd14d8f06ab251a5afc6e4))
-
 
 ### Bug Fixes
 
@@ -37,7 +34,6 @@
 * **l10n:** Updates for project Pressbooks ([#4020](https://github.com/pressbooks/pressbooks/issues/4020)) ([6d3aee5](https://github.com/pressbooks/pressbooks/commit/6d3aee539c117be95a98d35551c012b6bcbc99cf))
 * **l10n:** Updates for project Pressbooks ([#4024](https://github.com/pressbooks/pressbooks/issues/4024)) ([1bd9b48](https://github.com/pressbooks/pressbooks/commit/1bd9b4817797be5412dc2f4b0335c3aad59721bf))
 * **l10n:** Updates for project Pressbooks ([#4041](https://github.com/pressbooks/pressbooks/issues/4041)) ([0e994d2](https://github.com/pressbooks/pressbooks/commit/0e994d270f13ce5e3dc1880b657af9ecd9760116))
-* revert temporarily h5p ([#4046](https://github.com/pressbooks/pressbooks/issues/4046)) ([1aacfe6](https://github.com/pressbooks/pressbooks/commit/1aacfe6b8f0eec6a5a97d8ac53c05f8646653026))
 
 ## [6.25.1](https://github.com/pressbooks/pressbooks/compare/6.25.0...6.25.1) (2025-04-22)
 
