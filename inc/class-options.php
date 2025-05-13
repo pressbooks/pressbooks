@@ -9,7 +9,6 @@
 namespace Pressbooks;
 
 use function Pressbooks\Utility\str_starts_with;
-use Pressbooks\Modules\ThemeOptions\Admin;
 
 /**
  * @property array booleans
@@ -560,10 +559,6 @@ abstract class Options {
 	static function deleteCacheAfterUpdate( $option ) {
 		if ( str_starts_with( $option, 'pressbooks_' ) ) {
 			Book::deleteBookObjectCache();
-			//better to clear the entire cache when options are updated
-			( new Admin() )->clearCache();
-			Container::get( 'Styles' )->updatePdfStyleSheet();
-			update_option( 'pressbooks_last_export', time() );
 		}
 	}
 
