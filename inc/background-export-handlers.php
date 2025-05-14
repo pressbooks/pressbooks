@@ -14,11 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 function pressbooks_ensure_export_jobs_table() {
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'pressbooks_export_jobs';
-	
+
 	// Check if table exists
-	$table_exists = $wpdb->get_var("SHOW TABLES LIKE '$table_name'") === $table_name;
-	
-	if (!$table_exists) {
+	$table_exists = $wpdb->get_var( "SHOW TABLES LIKE '$table_name'" ) === $table_name;
+
+	if ( ! $table_exists ) {
 		pressbooks_create_export_jobs_table();
 	}
 }
@@ -242,9 +242,9 @@ add_action( 'pressbooks_process_export_job', 'pressbooks_process_export_job', 10
  */
 function pressbooks_export_status_sse() {
 	error_log( '[DEBUG SSE HANDLER] Entered pressbooks_export_status_sse.' );
-	
+
 	// Start output buffering if not already started
-	if (ob_get_level() === 0) {
+	if ( ob_get_level() === 0 ) {
 		ob_start();
 	}
 
@@ -319,12 +319,12 @@ function pressbooks_export_status_sse() {
 			break;
 		}
 
-		$job = $wpdb->get_row( $wpdb->prepare( 
+		$job = $wpdb->get_row( $wpdb->prepare(
 			"SELECT status, progress_percentage, progress_message, output_file_path, user_id, log_details 
 			FROM {$table_name} 
-			WHERE id = %d AND book_id = %d", 
-			$job_id, 
-			$book_id 
+			WHERE id = %d AND book_id = %d",
+			$job_id,
+			$book_id
 		) );
 
 		if ( ! $job ) {
@@ -386,7 +386,7 @@ function pressbooks_export_status_sse() {
 				'message' => $job->progress_message,
 				'job_id' => $job_id,
 				'book_id' => $book_id,
-				'is_final' => true
+				'is_final' => true,
 			];
 			echo "event: export_progress\nid: " . time() . "\ndata: " . wp_json_encode( $final_data ) . "\n\n";
 			ob_flush();
@@ -403,10 +403,10 @@ function pressbooks_export_status_sse() {
 	}
 
 	// Clean up output buffer
-	while (ob_get_level() > 0) {
+	while ( ob_get_level() > 0 ) {
 		ob_end_flush();
 	}
-	
+
 	wp_die();
 }
 add_action( 'wp_ajax_pressbooks_export_status_sse', 'pressbooks_export_status_sse' );
@@ -485,18 +485,18 @@ function pressbooks_create_export_jobs_table() {
 		KEY created_at (created_at)
 	) $charset_collate;";
 
-	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-	dbDelta($sql);
+	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	dbDelta( $sql );
 }
 
 /**
  * Creates the export jobs table for each site in a multisite installation.
  */
 function pressbooks_create_export_jobs_tables() {
-	if (is_multisite()) {
+	if ( is_multisite() ) {
 		$sites = get_sites();
-		foreach ($sites as $site) {
-			switch_to_blog($site->blog_id);
+		foreach ( $sites as $site ) {
+			switch_to_blog( $site->blog_id );
 			pressbooks_create_export_jobs_table();
 			restore_current_blog();
 		}
@@ -506,12 +506,12 @@ function pressbooks_create_export_jobs_tables() {
 }
 
 // Hook to create tables on plugin activation
-add_action('pressbooks_activate', 'pressbooks_create_export_jobs_tables');
+add_action( 'pressbooks_activate', 'pressbooks_create_export_jobs_tables' );
 
 // Also create table when a new site is created in multisite
-add_action('wp_initialize_site', function($new_site) {
-	if (is_multisite()) {
-		switch_to_blog($new_site->blog_id);
+add_action('wp_initialize_site', function( $new_site ) {
+	if ( is_multisite() ) {
+		switch_to_blog( $new_site->blog_id );
 		pressbooks_create_export_jobs_table();
 		restore_current_blog();
 	}

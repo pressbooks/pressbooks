@@ -92,7 +92,9 @@ class Docraptor extends Pdf {
 				$doc->setDocumentContent( $document_content );
 			} elseif ( defined( 'WP_ENV' ) && ( WP_ENV === 'development' ) ) {
 				// Instead of a localhost URL that DocRaptor can't see, send a document
-				$response = wp_remote_get( $this->url );
+				$response = wp_remote_get( $this->url, [
+					'timeout' => 180, //TODO: test this on dev
+				] );
 				if ( is_wp_error( $response ) ) {
 					$this->logError( $response->get_error_message() );
 					return false;
