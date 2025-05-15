@@ -206,6 +206,16 @@ class Book {
 		restore_current_blog();
 	}
 
+	public function updateAllBooksAdmins(): void {
+		global $wpdb;
+
+		$books = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+
+		foreach ( $books as $book_id ) {
+			$this->updateBookAdmins( $book_id );
+		}
+	}
+
 	// ------------------------------------------------------------------------
 	// Hooks
 	// ------------------------------------------------------------------------
