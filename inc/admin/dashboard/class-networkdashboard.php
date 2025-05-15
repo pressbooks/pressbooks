@@ -24,6 +24,23 @@ class NetworkDashboard extends Dashboard {
 	public function render(): void {
 		$blade = Container::get( 'Blade' );
 
+		$environment = 'development';
+		$domain = 'https://dev.pressbooks.com';
+
+		if ( defined( 'WP_ENV' ) ) {
+			$environment = WP_ENV;
+		}
+
+		if ( $environment === 'production' ) {
+			$domain = 'https://pressbooks.com';
+		}
+
+		$response = wp_remote_get( "{$domain}/wp-json/dashboard/v1/release-notes", [
+			'timeout' => 10,
+		] );
+
+		$recent_updates = is_wp_error( $response ) ? [] : (array) array_first( json_decode( $response['body'] ) );
+
 		echo $blade->render( 'admin.dashboard.network', [
 			'network_name' => get_bloginfo( 'name' ),
 			'network_url' => network_home_url(),
@@ -31,6 +48,10 @@ class NetworkDashboard extends Dashboard {
 			'total_books' => $this->getTotalNumberOfBooks(),
 			'network_analytics_active' => is_plugin_active( 'pressbooks-network-analytics/pressbooks-network-analytics.php' ),
 			'koko_analytics_active' => is_plugin_active( 'koko-analytics/koko-analytics.php' ),
+			'updates' => [
+				'text' => $recent_updates['raw_release_notes'] ?? '',
+				'url' => "{$domain}?p={$recent_updates['id']}",
+			],
 		] );
 	}
 
