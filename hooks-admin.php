@@ -105,6 +105,10 @@ add_action( 'network_admin_menu', '\Pressbooks\Admin\Laf\network_admin_menu' );
 if ( ! is_network_admin() ) {
 	add_action( 'admin_init', '\Pressbooks\Admin\Laf\privacy_settings_init' );
 }
+add_filter( 'map_meta_cap', '\Pressbooks\Admin\Laf\allow_edit_to_book_authors', 10, 4 );
+add_filter( 'ajax_query_attachments_args', '\Pressbooks\Admin\Laf\filter_media_for_contributors' );
+add_action( 'pre_get_posts', '\Pressbooks\Admin\Laf\filter_media_list_for_contributors' );
+add_action( 'init', '\Pressbooks\Admin\Laf\enable_media_buttons_for_contributors' );
 
 // Network settings
 add_action( 'network_admin_menu', [ '\Pressbooks\Admin\Network\NetworkSettings', 'init' ] );

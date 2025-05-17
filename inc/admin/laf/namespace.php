@@ -17,6 +17,7 @@ namespace Pressbooks\Admin\Laf;
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use function Pressbooks\PostType\get_post_type_label;
 use function Pressbooks\Sanitize\sanitize_string;
+use function Pressbooks\Utility\disable_comments;
 use function Pressbooks\Utility\str_starts_with;
 use PressbooksMix\Assets;
 use Pressbooks\Admin\ExportOptions;
@@ -27,6 +28,7 @@ use Pressbooks\BookDirectory;
 use Pressbooks\CloneComplete;
 use Pressbooks\Cloner\Cloner;
 use Pressbooks\Container;
+use Pressbooks\Contributors;
 use Pressbooks\DataCollector\Book as DataCollector;
 use Pressbooks\Metadata;
 use WP_Error;
@@ -80,7 +82,7 @@ function add_footer_link() {
 	}
 
 	printf(
-		'<span id="footer-thankyou">%1$s</span> &bull; %2$s &bull; %3$s &bull; %4$s &bull; %5$s %6$s <br/>',
+		'<span id="footer-thankyou">%1$s</span> &bull; %2$s &bull; %3$s &bull; %4$s %5$s <br/>',
 		sprintf(
 			esc_html__( 'Powered by %s', 'pressbooks' ),
 			sprintf(
@@ -91,18 +93,13 @@ function add_footer_link() {
 		),
 		sprintf(
 			'<a href="%1$s">%2$s</a>',
-			'https://pressbooks.com/about/',
-			esc_html__( 'About', 'pressbooks' )
-		),
-		sprintf(
-			'<a href="%1$s">%2$s</a>',
 			/**
 			 * Filter the "Help" link.
 			 *
 			 * @since 5.6.0
 			 */
-			apply_filters( 'pb_help_link', 'https://pressbooks.com/support/' ),
-			esc_html__( 'Guides and Tutorials', 'pressbooks' )
+			apply_filters( 'pb_help_link', 'https://guide.pressbooks.com' ),
+			esc_html__( 'Pressbooks User Guide', 'pressbooks' )
 		),
 		sprintf(
 			'<a href="%1$s">%2$s</a>',
@@ -672,7 +669,7 @@ function add_cloning_stats_page() {
  */
 function display_organize() {
 	$blade = \Pressbooks\Container::get( 'Blade' );
-	$book_structure = \Pressbooks\Book::getBookStructure();
+	$book_structure = Book::getBookStructure();
 	$ebook_options = get_option( 'pressbooks_theme_options_ebook' );
 	$structure = [];
 
@@ -706,15 +703,15 @@ function display_organize() {
 		[
 			'statuses' => get_post_stati( [], 'objects' ),
 			'parts' => count( $book_structure['part'] ),
-			'meta_post' => ( new \Pressbooks\Metadata() )->getMetaPost(),
+			'meta_post' => ( new Metadata() )->getMetaPost(),
 			'book_is_public' => ( ! empty( get_option( 'blog_public' ) ) ) ? 1 : 0,
-			'disable_comments' => \Pressbooks\Utility\disable_comments(),
-			'wc' => \Pressbooks\Book::wordCount(),
-			'wc_selected_for_export' => \Pressbooks\Book::wordCount( true ),
+			'disable_comments' => disable_comments(),
+			'wc' => Book::wordCount(),
+			'wc_selected_for_export' => Book::wordCount( true ),
 			'can_manage_options' => current_user_can( 'manage_options' ),
 			'can_edit_posts' => current_user_can( 'edit_posts' ),
 			'can_edit_others_posts' => current_user_can( 'edit_others_posts' ),
-			'contributors' => new \Pressbooks\Contributors(),
+			'contributors' => new Contributors(),
 			'ebook_options' => $ebook_options,
 			'start_point' => ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['ebook_start_point'] ) )
 				? (int) $ebook_options['ebook_start_point']
@@ -1726,3 +1723,71 @@ function remove_emoji() {
 		}
 	});
 }
+
+/**
+ * @param array $caps
+ * @param string $cap
+ * @param int $user_id
+ * @param array $args
+ *
+ * @return array
+ */
+function allow_edit_to_book_authors( $caps, $cap, $user_id, $args ) {
+	if ( 'edit_post' === $cap && isset( $args[0] ) ) {
+		$post_id = $args[0];
+		$post_author_id = get_post_field( 'post_author', $post_id );
+
+		if ( (int) $user_id === (int) $post_author_id ) {
+			return [ 'edit_posts' ];
+		}
+	}
+	return $caps;
+}
+
+function enable_media_buttons_for_contributors() {
+	$role = get_role( 'contributor' );
+	$role?->add_cap( 'upload_files', true );
+}
+
+function filter_media_for_contributors( $query ) {
+	if ( ! function_exists( 'wp_get_current_user' ) ) {
+		return $query;
+	}
+
+	if ( ! is_admin() ) {
+		return $query;
+	}
+
+	$current_user = wp_get_current_user();
+
+	if ( ! $current_user || ! $current_user->exists() || ! in_array( 'contributor', $current_user->roles, true ) ) {
+		return $query;
+	}
+
+	$query['author'] = $current_user->ID;
+
+	return $query;
+}
+
+function filter_media_list_for_contributors( $query ) {
+	global $pagenow;
+
+	if ( ! function_exists( 'wp_get_current_user' ) ) {
+		return $query;
+	}
+
+	if ( $pagenow !== 'upload.php' ) {
+		return $query;
+	}
+
+	$current_user = wp_get_current_user();
+
+	if ( ! $current_user || ! $current_user->exists() || ! in_array( 'contributor', $current_user->roles, true ) ) {
+		return $query;
+	}
+
+	$query->set( 'author', $current_user->ID );
+
+	return $query;
+}
+

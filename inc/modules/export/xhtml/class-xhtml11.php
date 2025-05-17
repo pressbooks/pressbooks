@@ -16,7 +16,6 @@ use function Pressbooks\Modules\Export\get_contributors_section;
 use function Pressbooks\Sanitize\clean_filename;
 use function Pressbooks\Sanitize\decode;
 use function Pressbooks\Utility\check_xmllint_install;
-use function Pressbooks\Utility\get_contributors_name_imploded;
 use function Pressbooks\Utility\put_contents;
 use function Pressbooks\Utility\str_starts_with;
 use PressbooksMix\Assets;
@@ -29,6 +28,7 @@ use Pressbooks\Interactive\Content;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Modules\Export\ExportGenerator;
 use Pressbooks\Modules\Export\ExportHelpers;
+use Pressbooks\Modules\Export\Traits\HandleContributors;
 use Pressbooks\Sanitize;
 use Pressbooks\Taxonomy;
 use Pressbooks\Utility\PercentageYield;
@@ -36,6 +36,7 @@ use Pressbooks\Utility\PercentageYield;
 class Xhtml11 extends ExportGenerator {
 
 	use ExportHelpers;
+	use HandleContributors;
 
 	const TRANSIENT = 'pressbooks_export_xhtml_buffer_inner_html';
 
@@ -733,7 +734,7 @@ class Xhtml11 extends ExportGenerator {
 		foreach ( $links as $link ) {
 			/**
 			 * @var \DOMElement $link
-			*/
+			 */
 			$href = $link->getAttribute( 'href' );
 
 			if ( str_starts_with( $href, '#' ) && ! empty( $id ) ) {
@@ -829,7 +830,7 @@ class Xhtml11 extends ExportGenerator {
 		foreach ( $images as $image ) {
 			/**
 			 * @var \DOMElement $image
-			*/
+			 */
 			$old_src = $image->getAttribute( 'src' );
 			$new_src = $already_done[ $old_src ] ?? maybe_swap_with_bigger( $old_src );
 			if ( $old_src !== $new_src ) {
@@ -1022,23 +1023,17 @@ class Xhtml11 extends ExportGenerator {
 				]
 			);
 		} else {
-			$authors = null;
-			$contributors = null;
-
-			if ( isset( $metadata['pb_authors'] ) && ! empty( $metadata['pb_authors'] ) ) {
-				$authors = is_array( $metadata['pb_authors'] ) ? get_contributors_name_imploded( $metadata['pb_authors'] ) : $metadata['pb_authors'];
-			}
-
-			if ( isset( $metadata['pb_contributors'] ) && ! empty( $metadata['pb_contributors'] ) ) {
-				$contributors = is_array( $metadata['pb_contributors'] ) ? get_contributors_name_imploded( $metadata['pb_contributors'] ) : $metadata['pb_contributors'];
-			}
+			$contributors_data = $this->getFormattedContributors( $metadata );
 
 			echo $this->blade->render(
 				'export/title', [
 					'title' => get_bloginfo( 'name' ),
 					'subtitle' => $metadata['pb_subtitle'] ?? '',
-					'authors' => $authors,
-					'contributors' => $contributors,
+					'authors' => $contributors_data['authors'],
+					'editors' => $contributors_data['editors'],
+					'translators' => $contributors_data['translators'],
+					'illustrators' => $contributors_data['illustrators'],
+					'contributors' => $contributors_data['contributors'],
 					'logo' => current_theme_supports( 'pressbooks_publisher_logo' ) ? get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] : null,
 					'publisher' => $metadata['pb_publisher'] ?? '',
 					'publisher_city' => $metadata['pb_publisher_city'] ?? '',
@@ -1443,8 +1438,8 @@ class Xhtml11 extends ExportGenerator {
 
 			if ( $parts_amount === 1 ) {
 				$content = $part_content
-				? $rendered_part . $rendered_chapters
-				: $rendered_chapters;
+					? $rendered_part . $rendered_chapters
+					: $rendered_chapters;
 
 				$this->renderPart( $part_slug, $content );
 			} else {

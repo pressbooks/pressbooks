@@ -1,5 +1,40 @@
 # Changelog
 
+## [6.26.0](https://github.com/pressbooks/pressbooks/compare/6.25.1...6.26.0) (2025-05-13)
+
+
+### Features
+
+* support edited volumes ([#2657](https://github.com/pressbooks/pressbooks/issues/2657)) ([7a94a48](https://github.com/pressbooks/pressbooks/commit/7a94a48ba1e1c1f8c1cd14d8f06ab251a5afc6e4))
+
+### Bug Fixes
+
+* add book media permissions for contributors ([#4039](https://github.com/pressbooks/pressbooks/issues/4039)) ([3ef96a5](https://github.com/pressbooks/pressbooks/commit/3ef96a5c59b2ca4a0b8a1850db3d6826df882c1d))
+* add missing aria-describedby on duet-date picker inputs ([#4016](https://github.com/pressbooks/pressbooks/issues/4016)) ([176d42e](https://github.com/pressbooks/pressbooks/commit/176d42ea8a33d63d3cf80962ff5b44bc892909db))
+* change heading level for media attributions ([#4043](https://github.com/pressbooks/pressbooks/issues/4043)) ([cd045e8](https://github.com/pressbooks/pressbooks/commit/cd045e8cb18260101cae36b89be39cdbb9145caa))
+* change Touro College to Touro University ([#4023](https://github.com/pressbooks/pressbooks/issues/4023)) ([819c3f5](https://github.com/pressbooks/pressbooks/commit/819c3f58939915fced0505f0bf5676269e4ea1df))
+* convert pressbooks table class to trait ([#4003](https://github.com/pressbooks/pressbooks/issues/4003)) ([a2f25d6](https://github.com/pressbooks/pressbooks/commit/a2f25d6e878e7b5ef27783b5c091a3aecfdacf16))
+* do not apply new pb table headers to wp tables ([#4026](https://github.com/pressbooks/pressbooks/issues/4026)) ([6a7e20a](https://github.com/pressbooks/pressbooks/commit/6a7e20ac6374d5430e0c74da00e946e57088ecc2))
+* edit capabilities for authors ([#4035](https://github.com/pressbooks/pressbooks/issues/4035)) ([b3ffc9e](https://github.com/pressbooks/pressbooks/commit/b3ffc9eb9b2504e7e2061a88e5d035c7d3a01b05))
+* garbled charset in 2-level ToC ([#4032](https://github.com/pressbooks/pressbooks/issues/4032)) ([8010c63](https://github.com/pressbooks/pressbooks/commit/8010c6313e221a0ba7898fb533d937171d727cf6))
+* global date picker with a11y improvement ([#4025](https://github.com/pressbooks/pressbooks/issues/4025)) ([ed635fa](https://github.com/pressbooks/pressbooks/commit/ed635fab622d75d13c145400377f71cfa8157956))
+* pot translations workflow ([#4033](https://github.com/pressbooks/pressbooks/issues/4033)) ([6989cb1](https://github.com/pressbooks/pressbooks/commit/6989cb16e695c4e22d804b21f6f89f4932a8831c))
+* replace guides and tutorials link with user guide ([#4030](https://github.com/pressbooks/pressbooks/issues/4030)) ([c1c5d9b](https://github.com/pressbooks/pressbooks/commit/c1c5d9bcdb0bb64cdbbfde67b03afbd3f5f0fc58))
+
+
+### Chores
+
+* bump aws/aws-sdk-php from 3.342.30 to 3.342.35 in the composer-dependencies group ([#4027](https://github.com/pressbooks/pressbooks/issues/4027)) ([b6b992d](https://github.com/pressbooks/pressbooks/commit/b6b992d576028fd87b4edc91b7af5109156bb99f))
+* bump aws/aws-sdk-php in the composer-dependencies group ([b6b992d](https://github.com/pressbooks/pressbooks/commit/b6b992d576028fd87b4edc91b7af5109156bb99f))
+* bump http-proxy-middleware from 2.0.7 to 2.0.9 in the npm_and_yarn group ([#4013](https://github.com/pressbooks/pressbooks/issues/4013)) ([2f172cd](https://github.com/pressbooks/pressbooks/commit/2f172cd31a20029005434467bdfa148c1a2f617a))
+* bump http-proxy-middleware in the npm_and_yarn group ([2f172cd](https://github.com/pressbooks/pressbooks/commit/2f172cd31a20029005434467bdfa148c1a2f617a))
+* bump instantsearch.js from 4.78.2 to 4.78.3 in the npm-dependencies group ([#4045](https://github.com/pressbooks/pressbooks/issues/4045)) ([7cc85d8](https://github.com/pressbooks/pressbooks/commit/7cc85d8b395e74bd6f1bb471ff24de2454b059ef))
+* bump instantsearch.js in the npm-dependencies group ([7cc85d8](https://github.com/pressbooks/pressbooks/commit/7cc85d8b395e74bd6f1bb471ff24de2454b059ef))
+* bump the npm-dependencies group across 1 directory with 2 updates ([#4034](https://github.com/pressbooks/pressbooks/issues/4034)) ([0a9a4b0](https://github.com/pressbooks/pressbooks/commit/0a9a4b0a44819cfb69e66ac1b975ec542c108cc3))
+* **l10n:** Updates for project Pressbooks ([#4020](https://github.com/pressbooks/pressbooks/issues/4020)) ([6d3aee5](https://github.com/pressbooks/pressbooks/commit/6d3aee539c117be95a98d35551c012b6bcbc99cf))
+* **l10n:** Updates for project Pressbooks ([#4024](https://github.com/pressbooks/pressbooks/issues/4024)) ([1bd9b48](https://github.com/pressbooks/pressbooks/commit/1bd9b4817797be5412dc2f4b0335c3aad59721bf))
+* **l10n:** Updates for project Pressbooks ([#4041](https://github.com/pressbooks/pressbooks/issues/4041)) ([0e994d2](https://github.com/pressbooks/pressbooks/commit/0e994d270f13ce5e3dc1880b657af9ecd9760116))
+
 ## [6.25.1](https://github.com/pressbooks/pressbooks/compare/6.25.0...6.25.1) (2025-04-22)
 
 
