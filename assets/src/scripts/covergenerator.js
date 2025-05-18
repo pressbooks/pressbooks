@@ -4,6 +4,8 @@ import displayNotice from './utils/displayNotice';
 import resetClock from './utils/resetClock';
 import startClock from './utils/startClock';
 
+const Coloris = require( '@melloware/coloris' );
+
 jQuery( function ( $ ) {
 	// Media
 	$( document ).ready( function () {
@@ -51,7 +53,10 @@ jQuery( function ( $ ) {
 	} );
 
 	// Color pickers
-	$( '.colorpicker' ).wpColorPicker();
+	Coloris.init();
+	Coloris( {
+		el: '.color-picker',
+	} );
 
 	// Set element variables
 	const form = $( '.settings-form' );

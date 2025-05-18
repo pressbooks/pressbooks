@@ -32,12 +32,11 @@ function generator_css_js( $hooks_suffix ) {
 	if ( $hooks_suffix === get_plugin_page_hookname( 'pressbooks_cg', 'pb_export' ) ) {
 		$assets = new Assets( 'pressbooks', 'plugin' );
 		wp_enqueue_media();
-		wp_enqueue_style( 'cg/css', $assets->getPath( 'styles/covergenerator.css' ), [ 'wp-color-picker' ], null );
+		wp_enqueue_style( 'cg/css', $assets->getPath( 'styles/covergenerator.css' ) );
 		wp_enqueue_script(
 			'cg/js', $assets->getPath( 'scripts/covergenerator.js' ), [
 				'jquery',
 				'jquery-form',
-				'wp-color-picker',
 				'eventsource-polyfill',
 			], null
 		);
@@ -594,7 +593,7 @@ function pressbooks_cg_color_callback( $args ) {
 	unset( $args['label_for'], $args['class'] );
 	$option = get_option( 'pressbooks_cg_options' );
 	$val = ! empty( $option[ $args[0] ] ) ? $option[ $args[0] ] : '';
-	$html = '<input class="colorpicker" id="' . $args[0] . '" name="pressbooks_cg_options[' . $args[0] . ']" value="' . $val . '" />';
+	$html = '<input class="color-picker" id="' . $args[0] . '" name="pressbooks_cg_options[' . $args[0] . ']" value="' . $val . '" />';
 	echo $html;
 }
 
