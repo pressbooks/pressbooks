@@ -30,9 +30,9 @@
 		"jquery-sticky": "^1.0.4",
 		"js-cookie": "^3.0.5",
 		"pagedjs": "^0.4.3",
-		"select2": "github:woocommerce/selectWoo#1.0.8",
+		"select2": "4.0.8",
 		"sidr": "^2.2.1",
-		"tinymce": "^4.9.11",
+		"tinymce": "^7.0.0",
 		"wp-admin-colors": "^6.0.0"
 	},
 	"devDependencies": {
