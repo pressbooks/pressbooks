@@ -218,7 +218,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Covergenerator\pressbooks_cg_color_callback( [ 'id' ] );
 		$buffer = ob_get_clean();
-		$this->assertStringContainsString( '<input class="color-picker"', $buffer );
+		$this->assertStringContainsString( '<input class="coloris"', $buffer );
 	}
 
 	/**

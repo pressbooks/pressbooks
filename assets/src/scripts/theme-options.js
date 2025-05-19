@@ -1,12 +1,6 @@
 // This script is loaded when a user is on the [ Theme Options ] page
-const Coloris = require( '@melloware/coloris' );
 
 jQuery( function ( $ ) {
-	Coloris.init();
-	Coloris( {
-		el: '.color-picker',
-	} );
-
 	let chapter_numbers = $( '#chapter_numbers' );
 
 	$( document ).ready( function () {
@@ -22,13 +16,6 @@ jQuery( function ( $ ) {
 				.parent()
 				.hide();
 		}
-
-		// Color picker labels
-		$( '.clr-field > button' ).each( function () {
-			$( this ).removeAttr( 'aria-labelledby' );
-			const label = $( this ).parents( 'td' ).prev( 'th' ).text();
-			$( this ).attr( 'aria-label', label );
-		} );
 
 		// On change
 		chapter_numbers.on( 'change', function () {

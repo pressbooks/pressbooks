@@ -4,8 +4,6 @@ import displayNotice from './utils/displayNotice';
 import resetClock from './utils/resetClock';
 import startClock from './utils/startClock';
 
-const Coloris = require( '@melloware/coloris' );
-
 jQuery( function ( $ ) {
 	// Media
 	$( document ).ready( function () {
@@ -50,20 +48,6 @@ jQuery( function ( $ ) {
 			myCustomPpi.parent().parent().hide();
 			myCustomPpi.val( $( this ).val() );
 		}
-	} );
-
-	// Color pickers
-	Coloris.init();
-	Coloris( {
-		el: '.color-picker',
-	} );
-
-	$.when( $.ready ).then( function () {
-		$( '.clr-field > button' ).each( function () {
-			$( this ).removeAttr( 'aria-labelledby' );
-			const label = $( this ).parents( 'td' ).prev( 'th' ).text();
-			$( this ).attr( 'aria-label', label );
-		} );
 	} );
 
 	// Set element variables
