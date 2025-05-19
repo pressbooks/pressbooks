@@ -58,6 +58,14 @@ jQuery( function ( $ ) {
 		el: '.color-picker',
 	} );
 
+	$.when( $.ready ).then( function () {
+		$( '.clr-field > button' ).each( function () {
+			$( this ).removeAttr( 'aria-labelledby' );
+			const label = $( this ).parents( 'td' ).prev( 'th' ).text();
+			$( this ).attr( 'aria-label', label );
+		} );
+	} );
+
 	// Set element variables
 	const form = $( '.settings-form' );
 	const makePdfButton = $( '#generate-pdf' );

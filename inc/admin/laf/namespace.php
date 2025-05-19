@@ -1110,7 +1110,7 @@ function init_css_js() {
 
 	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pb_catalog' ) {
 		wp_enqueue_style( 'pressbooks-catalog', $assets->getPath( 'styles/catalog.css' ) );
-		wp_enqueue_script( 'color-picker', $assets->getPath( 'scripts/color-picker.js' ) );
+		wp_enqueue_script( 'color-picker', $assets->getPath( 'scripts/color-picker.js' ), [ 'jquery' ] );
 		wp_enqueue_script( 'select2-js', $assets->getPath( 'scripts/select2.js' ), [ 'jquery' ] );
 	}
 

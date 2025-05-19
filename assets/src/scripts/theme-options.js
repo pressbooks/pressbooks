@@ -23,6 +23,13 @@ jQuery( function ( $ ) {
 				.hide();
 		}
 
+		// Color picker labels
+		$( '.clr-field > button' ).each( function () {
+			$( this ).removeAttr( 'aria-labelledby' );
+			const label = $( this ).parents( 'td' ).prev( 'th' ).text();
+			$( this ).attr( 'aria-label', label );
+		} );
+
 		// On change
 		chapter_numbers.on( 'change', function () {
 			if ( this.checked ) {
