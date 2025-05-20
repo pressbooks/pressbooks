@@ -670,12 +670,16 @@ class Epub extends ExportGenerator {
 
 		// Is this a valid Epub?
 		if ( ! empty( $output ) ) {
-			$this->logError( implode( "\n", $output ) );
-			throw new Exception();
+			$this->logError( __( 'EPUB Validation Warnings/Errors:', 'pressbooks' ) . "\\n" . implode( "\\n", $output ) );
+			// Notify the user about warnings, but continue the process.
+			yield 90 => $this->generatorPrefix . __( 'Export completed with validation warnings. Please check error logs for details.', 'pressbooks' );
+			yield 100 => $this->generatorPrefix . __( 'Export successful with validation warnings!', 'pressbooks' );
+		} else {
+			yield 90 => $this->generatorPrefix . __( 'Validation successful', 'pressbooks' );
+			yield 100 => $this->generatorPrefix . __( 'Export successful!', 'pressbooks' );
 		}
 
-		yield 90 => $this->generatorPrefix . __( 'Validation successful', 'pressbooks' );
-		yield 100 => $this->generatorPrefix . __( 'Finishing up', 'pressbooks' );
+		// yield 100 => $this->generatorPrefix . __( 'Finishing up', 'pressbooks' ); // Original line removed/replaced by above logic
 	}
 
 	/**
