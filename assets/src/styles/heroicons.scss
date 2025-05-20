@@ -9,6 +9,7 @@ $nocache: unique_id();
 }
 
 i[class^="pb-heroicons-"]::before, i[class*=" pb-heroicons-"]::before {
+  display: block;
   font-family: heroicons, sans-serif !important;
   font-style: normal;
   font-weight: normal !important;
