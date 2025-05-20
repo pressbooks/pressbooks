@@ -39,7 +39,7 @@ class NetworkDashboard extends Dashboard {
 			'timeout' => 10,
 		] );
 
-		$recent_updates = is_wp_error( $response ) ? [] : (array) array_first( json_decode( $response['body'] ) );
+		$recent_updates = is_wp_error( $response ) ? [] : (array) json_decode( $response['body'] );
 
 		echo $blade->render( 'admin.dashboard.network', [
 			'network_name' => get_bloginfo( 'name' ),
@@ -49,8 +49,8 @@ class NetworkDashboard extends Dashboard {
 			'network_analytics_active' => is_plugin_active( 'pressbooks-network-analytics/pressbooks-network-analytics.php' ),
 			'koko_analytics_active' => is_plugin_active( 'koko-analytics/koko-analytics.php' ),
 			'updates' => [
-				'text' => $recent_updates['raw_release_notes'] ?? '',
-				'url' => isset( $recent_updates['id'] ) ? "{$domain}?p={$recent_updates['id']}" : null,
+				'text' => $recent_updates['content'] ?? '',
+				'url' => isset( $recent_updates['post_id'] ) ? "{$domain}?p={$recent_updates['post_id']}" : null,
 			],
 		] );
 	}
