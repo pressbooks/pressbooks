@@ -50,7 +50,7 @@ class NetworkDashboard extends Dashboard {
 			'koko_analytics_active' => is_plugin_active( 'koko-analytics/koko-analytics.php' ),
 			'updates' => [
 				'text' => $recent_updates['raw_release_notes'] ?? '',
-				'url' => "{$domain}?p={$recent_updates['id']}",
+				'url' => isset( $recent_updates['id'] ) ? "{$domain}?p={$recent_updates['id']}" : null,
 			],
 		] );
 	}
