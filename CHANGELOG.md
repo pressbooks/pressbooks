@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.26.1](https://github.com/pressbooks/pressbooks/compare/6.26.0...6.26.1) (2025-05-20)
+
+
+### Bug Fixes
+
+* prevent horizontal overflow in admin bar ([#4048](https://github.com/pressbooks/pressbooks/issues/4048)) ([a53bf3d](https://github.com/pressbooks/pressbooks/commit/a53bf3d401ac73288a93b764ea893032d10625c4))
+
 ## [6.26.0](https://github.com/pressbooks/pressbooks/compare/6.25.1...6.26.0) (2025-05-13)
 
 
