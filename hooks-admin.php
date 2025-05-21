@@ -9,6 +9,7 @@ use PressbooksMix\Assets;
 use Pressbooks\Admin\Menus\SideBar;
 use Pressbooks\Admin\Menus\TopBar;
 use Pressbooks\Book;
+use Pressbooks\Modules\BackgroundProcessing\BackgroundJob;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -294,7 +295,6 @@ add_action( 'init', [ '\Pressbooks\Modules\Export\Prince\Filters', 'init' ] );
 // "Catch-all" routines, must come after taxonomies and friends
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'init', [ '\Pressbooks\Modules\Export\Export', 'formSubmit' ], 50 );
 add_action( 'init', [ '\Pressbooks\Modules\Import\Import', 'formSubmit' ], 50 );
 add_action( 'init', [ '\Pressbooks\Catalog', 'formSubmit' ], 50 );
 
@@ -398,3 +398,8 @@ add_action( 'admin_enqueue_scripts', function() {
 	wp_enqueue_style( 'pb-table', $assets->getPath( 'styles/pressbooks-table.css' ) );
 	wp_enqueue_script( 'pressbooks-table', $assets->getPath( 'scripts/pressbooks-table.js' ) );
 } );
+
+//Background processing
+add_action( 'wp_ajax_pb_export_book', [ '\Pressbooks\Modules\Export\Export', 'ajax_submit_export_job' ] );
+add_action( 'wp_ajax_pressbooks_export_status_sse', [ BackgroundJob::class, 'update_sse_status' ] );
+add_action( 'wp_ajax_pressbooks_check_existing_jobs', [ BackgroundJob::class, 'check_existing_jobs' ] );

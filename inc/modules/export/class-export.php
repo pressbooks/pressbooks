@@ -16,6 +16,7 @@ use function Pressbooks\add_error;
 use function Pressbooks\L10n\get_book_language;
 use function Pressbooks\L10n\wplang_codes;
 use function Pressbooks\Redirect\force_download;
+use function Pressbooks\Sanitize\fix_audio_shortcode;
 use function Pressbooks\Sanitize\sanitize_xml_id;
 use function Pressbooks\Utility\create_tmp_file;
 use function Pressbooks\Utility\email_error_log;
@@ -698,53 +699,6 @@ abstract class Export {
 	}
 
 	/**
-	 * Catch form submissions
-	 *
-	 * @see pressbooks/templates/admin/export.blade.php
-	 */
-	static function formSubmit() {
-
-		if ( false === static::isFormSubmission() || false === current_user_can( 'edit_posts' ) ) {
-			// Don't do anything in this function, bail.
-			return;
-		}
-
-		// Store export arguments if present, to be used by exportGenerator
-		// This is a simplistic example; needs to align with how your form actually submits options.
-		static::$currentExportModuleArgs = $_POST['export_options'] ?? []; // Example: if you have specific options per module in form
-
-		// Override some WP behaviours when exporting
-		\Pressbooks\Sanitize\fix_audio_shortcode();
-
-		// Download
-		if ( ! empty( $_GET['download_export_file'] ) ) {
-			$filename = sanitize_file_name( $_GET['download_export_file'] );
-			// Add security for job-based downloads
-			if (isset($_GET['job_id']) && isset($_GET['_wpnonce'])) {
-				$job_id = absint($_GET['job_id']);
-				if (wp_verify_nonce(sanitize_key($_GET['_wpnonce']), 'download_export_job_' . $job_id)) {
-					// Potentially check if current user owns the job or has rights
-					global $wpdb;
-					$job = $wpdb->get_row($wpdb->prepare("SELECT user_id, output_file_path FROM {$wpdb->prefix}pressbooks_export_jobs WHERE id = %d", $job_id));
-					if ($job && $job->user_id == get_current_user_id() && basename($job->output_file_path) === $filename) {
-						 static::downloadExportFile( $filename, false ); // Original method assumes file is in default export dir
-						 exit;
-					} else {
-						wp_die(__( 'Invalid job ID or permission denied for download.', 'pressbooks' ), 'Error', ['response' => 403]);
-					}
-				} else {
-					 wp_die(__( 'Invalid download link.', 'pressbooks' ), 'Error', ['response' => 403]);
-				}
-			} else {
-				// Fallback to old download mechanism if no job_id (e.g. for non-background processed files)
-				// This part might need to be phased out or also secured if direct downloads are generally disallowed.
-				 static::downloadExportFile( $filename, false );
-				 exit;
-			}
-		}
-	}
-
-	/**
 	 * Pre-Export
 	 */
 	public static function preExport() {
@@ -849,6 +803,8 @@ abstract class Export {
 		 */
 		set_time_limit( apply_filters( 'pb_set_time_limit', 600, 'export' ) );
 
+		self::preExport();
+
 		static::$exportConversionError = [];
 		static::$exportValidationWarning = [];
 		static::$exportOutputs = [];
@@ -885,6 +841,7 @@ abstract class Export {
 				$job_id = $wpdb->insert_id;
 
 				if ( $insert_result && $job_id ) {
+					//TODO: Double check with 👴(el viejo) if this is the right way to do this
 					wp_schedule_single_event( time(), 'pressbooks_process_export_job', [ 'job_id' => $job_id ] );
 					$friendly_name = self::getFriendlyNameForModule( $module_classname );
 					$message = sprintf(
@@ -969,6 +926,7 @@ abstract class Export {
 							yield ['progress' => 90, 'message' => sprintf( __( '%s: Validation successful', 'pressbooks' ), $name ), 'module_slug' => $slug, 'module_classname' => $module_classname];
 						}
 					}
+					self::postExport();
 					yield ['progress' => 100, 'message' => sprintf( __( '%s: Finishing up', 'pressbooks' ), $name ), 'module_slug' => $slug, 'module_classname' => $module_classname];
 				}
 				 // Add to outputs array (original logic for sync processes)
@@ -999,9 +957,10 @@ abstract class Export {
 		$validation_warning = static::$exportValidationWarning;
 		$outputs = static::$exportOutputs;
 
-		delete_transient( 'dirsize_cache' ); /**
- * @see get_dirsize()
-*/
+		delete_transient( 'dirsize_cache' );
+		/**
+		 * @see get_dirsize()
+		 **/
 
 		if ( static::$switchedLocale ) {
 			restore_previous_locale();
@@ -1153,7 +1112,7 @@ abstract class Export {
 		}
 
 		// Override some WP behaviours when exporting
-		\Pressbooks\Sanitize\fix_audio_shortcode();
+		fix_audio_shortcode();
 		static::$switchedLocale = switch_to_locale( self::locale() );
 
 		$results = [];
@@ -1218,10 +1177,12 @@ abstract class Export {
 				$job_id = $wpdb->insert_id;
 
 				if ( $insert_result && $job_id ) {
-					wp_schedule_single_event( time(), 'pressbooks_process_export_job', [ 'job_id' => $job_id ] );
+					$scheduled = wp_schedule_single_event( time(), 'pressbooks_process_export_job', [ 'job_id' => $job_id ] );
+					error_log('[DEBUG ajax_submit_export_job] Job scheduled: ' . ($scheduled ? 'YES' : 'NO') . ' for job_id: ' . $job_id);
+					error_log('[DEBUG SCHEDULER] Job ID: ' . print_r($scheduled, true));
 					$friendly_name = self::getFriendlyNameForModule( $module_classname );
 					$message = sprintf(
-						__( '%s export has been queued (Job ID: %d). You will be notified via this page.', 'pressbooks' ),
+						__( '%s export has been queued. You will be notified via this page.', 'pressbooks' ),
 						$friendly_name,
 						$job_id
 					);
@@ -1293,7 +1254,7 @@ abstract class Export {
 			wp_send_json_success( [
 				'message' => __( 'Export jobs processed.', 'pressbooks' ),
 				'results' => $results,
-				'reload_on_complete' => true, // Add flag to indicate page should reload when all jobs complete
+				'reload_on_complete' => true, // Add a flag to indicate page should reload when all jobs complete
 				'total_jobs' => count(array_filter($results, function($r) { return $r['event_type'] === 'job_queued'; }))
 			] );
 		} else {
@@ -1355,26 +1316,5 @@ abstract class Export {
 
 		// Allow plugins to add their own export formats
 		return apply_filters('pb_available_export_module_slug_to_classname_map', $slug_to_classname);
-	}
-
-	/**
-	 * Gets the list of export format slugs that should be processed in the background.
-	 *
-	 * @return array
-	 */
-	protected static function getStandardExportFormats(): array {
-		return [
-			'pdf',
-			'print_pdf',
-			'epub',
-			'xhtml',
-			'wxr',
-			'vanillawxr'
-		];
-	}
-
-	protected static function getExoticExportFormats(): array {
-		// These are formats that might be added by plugins or custom implementations
-		return apply_filters('pb_exotic_export_formats', []);
 	}
 }
