@@ -690,7 +690,6 @@ function format_bytes( $bytes, $precision = 2 ) {
  */
 function debug_error_log( $message, $message_type = null ) {
 	if ( defined( 'WP_TESTS_MULTISITE' ) === false && WP_DEBUG ) {
-		error_log( print_r( debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ), true ) );
 		\trigger_error( $message, $message_type ?? E_USER_NOTICE ); // @codingStandardsIgnoreLine
 	}
 }

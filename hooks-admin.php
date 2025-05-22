@@ -401,5 +401,6 @@ add_action( 'admin_enqueue_scripts', function() {
 
 //Background processing
 add_action( 'wp_ajax_pb_export_book', [ '\Pressbooks\Modules\Export\Export', 'ajax_submit_export_job' ] );
-add_action( 'wp_ajax_pressbooks_export_status_sse', [ BackgroundJob::class, 'update_sse_status' ] );
-add_action( 'wp_ajax_pressbooks_check_existing_jobs', [ BackgroundJob::class, 'check_existing_jobs' ] );
+add_action( 'wp_ajax_pressbooks_export_status_sse', [ BackgroundJob::class, 'updateSSEStatus' ] );
+add_action( 'wp_ajax_pressbooks_check_existing_jobs', [ BackgroundJob::class, 'checkExistingJobs' ] );
+

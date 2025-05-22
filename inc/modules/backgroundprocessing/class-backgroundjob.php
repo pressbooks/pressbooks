@@ -13,54 +13,60 @@ class BackgroundJob {
 	 * @param int $job_id The ID of the export job.
 	 */
 	public static function handle( $job_id ): void {
-		set_time_limit( 0 ); // Allow unlimited execution time for this job
-		global $wpdb;
-		// Note: $wpdb->prefix will be determined by the blog context AFTER switch_to_blog.
-		error_log( "Pressbooks Export CRON: Processing job {$job_id}." );
-		// Fetch job details first using the global $wpdb which might be on the wrong site initially if cron runs from main site.
-		// A more robust way for cron might be to store the blog_id with the cron schedule args,
-		// switch to it, then query the job. However, $job->book_id is what we rely on from class-export.php.
-		// For now, we assume job_id is unique enough or the initial query is against a global/main site job table IF it were designed that way.
-		// BUT, our design is per-site tables. So, the cron *must* run on, or switch to, the correct blog to find the job.
-		// The `wp_schedule_single_event` in `Export::exportGenerator` runs in the context of the current blog,
-		// so WP-Cron should trigger this hook in the context of that blog, meaning $wpdb->prefix should be correct.
-		// If WP-Cron itself runs all hooks under the main site context, then $job->book_id is essential BEFORE the first query.
-		// Let's assume cron triggers in the correct blog context due to how it was scheduled.
+		set_time_limit( 0 ); // Allow unlimited execution time for this job ⚠️
 
-		$initial_blog_id = get_current_blog_id(); // For safety, to see where cron is running
-		$job_table_name_for_log = $wpdb->prefix . 'pressbooks_export_jobs'; // For initial log before potential switch
+		/*
+		* Note: $wpdb->prefix will be determined by the blog context AFTER switch_to_blog.
+		* Fetch job details first using the global $wpdb which might be on the wrong site initially if cron runs from main site.
+		*
+		* A more robust way for cron might be to store the blog_id with the cron schedule args,
+		* switch to it, then query the job. However, $job->book_id is what we rely on from class-export.php.
+		*
+		* For now, we assume job_id is unique enough or the initial query is against a global/main site job table
+		* IF it were designed that way. BUT, our design is per-site tables. So, the cron *must* run on, or switch to,
+		* the correct blog to find the job.
+		*
+		* The `wp_schedule_single_event` in `Export::exportGenerator` runs in the context of the current blog,
+		* so WP-Cron should trigger this hook in the context of that blog, meaning $wpdb->prefix should be correct.
+		* If WP-Cron itself runs all hooks under the main site context, then $job->book_id is essential BEFORE the first query.
+		* Let's assume cron triggers in the correct blog context due to how it was scheduled.
+		*/
 
-		// It's safer to get the job by ID and then use its book_id to switch,
-		// especially if job IDs could clash or cron context is unpredictable.
-		// However, to find the job, we need to know which blog's table to query.
-		// The current scheduling in Export::exportGenerator is blog-specific, so this function *should* run in that blog's context.
+		// For safety, to see where cron is running
+		$initial_blog_id = get_current_blog_id();
 
-		// Let's assume $job_id is for the current blog context WP-Cron is running under.
-		$table_name = $wpdb->prefix . 'pressbooks_export_jobs';
-		$job = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$table_name} WHERE id = %d", $job_id ) );
+		// For initial log before a potential switch
+		$job_table_name = $initial_blog_id . '_pressbooks_export_jobs';
 
-		error_log( "Pressbooks Export CRON: Job {$job_id} found in table {$table_name}. Current blog context: {$initial_blog_id}. Table queried: {$job_table_name_for_log}." );
+		/*
+		 * It's safer to get the job by ID and then use its book_id to switch,
+		 * especially if job IDs could clash or cron context is unpredictable.
+		 * However, to find the job, we need to know which blog's table to query.
+		 * The current scheduling in Export::exportGenerator is blog-specific,
+		 *, so this function *should* run in that blog's context.
+		 */
+
+		// Let's assume $job_id is for the current blog context WP-Cron is running under. */
+
+		$job = app( 'db' )->table( $job_table_name )
+			->where( 'id', $job_id )
+			->first();
+
 		if ( ! $job ) {
-			error_log( "Pressbooks Export CRON: Job {$job_id} not found. Current blog context: {$initial_blog_id}. Table queried: {$job_table_name_for_log}." );
 			return;
 		}
 
 		// Now we have $job->book_id, ensure we are on the correct blog.
 		$switched_blog = false;
-		if ( is_multisite() && get_current_blog_id() != $job->book_id ) {
+		if ( is_multisite() && get_current_blog_id() !== (int) $job->book_id ) {
 			switch_to_blog( $job->book_id );
 			$switched_blog = true;
-			// Re-initialize $wpdb->prefix dependent table name after switching
-			error_log( "Pressbooks Export CRON: Switched to blog {$job->book_id} for job {$job_id}." );
-			$table_name = $wpdb->prefix . 'pressbooks_export_jobs';
-		} elseif ( ! is_multisite() && $job->book_id != 1 && get_current_blog_id() == 1 ) {
-			// Single site, but job somehow has a different book_id. This shouldn't happen.
-			error_log( "Pressbooks Export CRON: Job {$job_id} has book_id {$job->book_id} on a single site. Aborting." );
+		} elseif ( ! is_multisite() && (int) $job->book_id !== 1 && get_current_blog_id() === 1 ) {
+			// Single site, but a job somehow has a different book_id. This shouldn't happen.
 			return;
 		}
 
 		if ( $job->status !== 'pending' ) {
-			error_log( "Pressbooks Export CRON: Job {$job_id} for book {$job->book_id} was not in 'pending' state. Status: {$job->status}. Skipping." );
 			if ( $switched_blog ) {
 				restore_current_blog();
 			}
@@ -68,32 +74,26 @@ class BackgroundJob {
 		}
 
 		// Mark as processing
-		$wpdb->update(
-			$table_name,
-			[
+		app( 'db' )->table( $job_table_name )
+			->where( 'id', $job_id )
+			->update([
 				'status' => 'processing',
 				'progress_percentage' => 0,
 				'progress_message' => __( 'Initializing export...', 'pressbooks' ),
 				'job_started_at' => current_time( 'mysql', true ),
 				'updated_at' => current_time( 'mysql', true ),
-			],
-			[ 'id' => $job_id ]
-		);
+			]);
 
 		if ( ! class_exists( $job->export_module_classname ) ) {
-			error_log( "Pressbooks Export CRON: Job {$job_id} failed for book {$job->book_id}. Exporter class {$job->export_module_classname} not found." );
-			$wpdb->update(
-				$table_name,
-				[
+			app( 'db' )->table( $job_table_name )
+				->where( 'id', $job_id )
+				->update([
 					'status' => 'failed',
 					'progress_message' => sprintf( __( 'Exporter class %s not found.', 'pressbooks' ), $job->export_module_classname ),
 					'log_details' => sprintf( __( 'Exporter class %s not found.', 'pressbooks' ), $job->export_module_classname ),
 					'job_completed_at' => current_time( 'mysql', true ),
 					'updated_at' => current_time( 'mysql', true ),
-				],
-				[ 'id' => $job_id ]
-			);
-			error_log( "Pressbooks Export CRON: Job {$job_id} failed for book {$job->book_id}. Exporter class {$job->export_module_classname} not found." );
+				]);
 			if ( $switched_blog ) {
 				restore_current_blog();
 			}
@@ -103,7 +103,7 @@ class BackgroundJob {
 		$constructor_args = [];
 		if ( ! empty( $job->export_options ) ) {
 			$job_options = json_decode( $job->export_options, true );
-			if ( is_array( $job_options ) ) { // Ensure it's an array after decode
+			if ( is_array( $job_options ) ) {
 				$constructor_args = $job_options;
 			}
 		}
@@ -117,11 +117,13 @@ class BackgroundJob {
 			$original_locale_switched = switch_to_locale( $locale_to_use );
 		}
 
-		$wpdb->update( $table_name, [
-			'progress_percentage' => 10,
-			'progress_message' => __( 'Preparing export...', 'pressbooks' ),
-			'updated_at' => current_time( 'mysql', true ),
-		], [ 'id' => $job_id ] );
+		app( 'db' )->table( $job_table_name )
+			->where( 'id', $job_id )
+			->update([
+				'progress_percentage' => 10,
+				'progress_message' => __( 'Preparing export...', 'pressbooks' ),
+				'updated_at' => current_time( 'mysql', true ),
+			]);
 
 		$convert_success = false;
 		$validate_success = false;
@@ -131,28 +133,30 @@ class BackgroundJob {
 
 		try {
 			// Update progress before potentially long operations
-			$wpdb->update( $table_name, [
-				'progress_percentage' => 30,
-				'progress_message' => __( 'Converting content (this may take a while, you can leave this page and return back later)...', 'pressbooks' ),
-				'updated_at' => current_time( 'mysql', true ),
-			], [ 'id' => $job_id ] );
+			app( 'db' )->table( $job_table_name )
+				->where( 'id', $job_id )
+				->update([
+					'progress_percentage' => 30,
+					'progress_message' => __( 'Converting content (this may take a while, you can leave this page and return back later)...', 'pressbooks' ),
+					'updated_at' => current_time( 'mysql', true ),
+				]);
 
 			if ( ! $exporter->convert() ) {
 				$error_message = __( 'Conversion process failed.', 'pressbooks' );
-				error_log( "Pressbooks Export CRON: Job {$job_id} failed for book {$job->book_id}. Conversion failed." );
 			} else {
 				$convert_success = true;
 				$output_path = $exporter->getOutputPath();
-				$wpdb->update( $table_name, [
-					'progress_percentage' => 70,
-					'progress_message' => __( 'Conversion successful. Validating file...', 'pressbooks' ),
-					'output_file_path' => $output_path,
-					'updated_at' => current_time( 'mysql', true ),
-				], [ 'id' => $job_id ] );
+				app( 'db' )->table( $job_table_name )
+					->where( 'id', $job_id )
+					->update([
+						'progress_percentage' => 70,
+						'progress_message' => __( 'Conversion successful. Validating file...', 'pressbooks' ),
+						'output_file_path' => $output_path,
+						'updated_at' => current_time( 'mysql', true ),
+					]);
 
 				if ( ! $exporter->validate() ) {
 					$error_message = __( 'Validation of exported file failed.', 'pressbooks' );
-					error_log( "Pressbooks Export CRON: Job {$job_id} failed for book {$job->book_id}. Validation failed." );
 				} else {
 					$validate_success = true;
 				}
@@ -160,7 +164,6 @@ class BackgroundJob {
 		} catch ( \Exception $e ) {
 			$error_message = $e->getMessage();
 			$log_content = $e->getTraceAsString();
-			error_log( "Pressbooks Export CRON: Exception during job {$job_id} for book {$job->book_id}: " . $e->getMessage() );
 		}
 
 		$final_status_data = [
@@ -172,11 +175,11 @@ class BackgroundJob {
 			$final_status_data['status'] = 'completed';
 			$final_status_data['progress_percentage'] = 100;
 			$final_status_data['progress_message'] = __( 'Export successful!', 'pressbooks' );
-			$final_status_data['output_file_path'] = $output_path; // Already set if convert was successful
+			$final_status_data['output_file_path'] = $output_path;
 			$final_status_data['log_details'] = $log_content ?: __( 'Export completed without errors.', 'pressbooks' );
 		} else {
 			$final_status_data['status'] = 'failed';
-			$final_status_data['progress_percentage'] = $validate_success ? 90 : ( $convert_success ? 70 : 50 ); // Rough estimate
+			$final_status_data['progress_percentage'] = $validate_success ? 90 : ( $convert_success ? 70 : 50 );
 			$final_status_data['progress_message'] = $error_message ?: __( 'Export failed due to an unknown error.', 'pressbooks' );
 			$final_status_data['log_details'] = $log_content ?: ( $error_message ?: 'Unknown error during export.' );
 
@@ -185,15 +188,17 @@ class BackgroundJob {
 				'\\Pressbooks\\Modules\\Export\\Prince\\PrintPdf',
 			];
 			if ( in_array( $job->export_module_classname, $pdf_module_classes ) && $convert_success && ! $validate_success && $output_path && file_exists( $output_path ) ) {
-				unlink( $output_path ); // Delete the invalid output file
-				$final_status_data['output_file_path'] = null; // Clear path
+				unlink( $output_path );
+				$final_status_data['output_file_path'] = null;
 				$final_status_data['progress_message'] .= ' ' . __( 'Invalid output file has been deleted.', 'pressbooks' );
 			}
 		}
 
-		$wpdb->update( $table_name, $final_status_data, [ 'id' => $job_id ] );
+		app( 'db' )->table( $job_table_name )
+			->where( 'id', $job_id )
+			->update( $final_status_data );
 
-		// Cleanup like deleting transients (dirsize_cache is common in Pressbooks)
+		// Cleanup like deleting transients
 		delete_transient( 'dirsize_cache' );
 
 		if ( $original_locale_switched ) {
@@ -203,106 +208,95 @@ class BackgroundJob {
 		if ( $switched_blog ) {
 			restore_current_blog();
 		}
+
 	}
 
 	/**
 	 * Creates the export jobs table for each site in a multisite installation.
 	 */
-	public function create_export_jobs_tables() {
+	public function createExportJobsTables(): void {
 		if ( is_multisite() ) {
 			$sites = get_sites();
 			foreach ( $sites as $site ) {
 				switch_to_blog( $site->blog_id );
-				self::create_export_jobs_table();
+				self::createJobTable();
 				restore_current_blog();
 			}
 			return;
 		}
-		self::create_export_jobs_table();
+		self::createJobTable();
 	}
 
 	/**
 	 * Creates the export jobs table if it doesn't exist.
 	 * This function is called on plugin activation.
 	 */
-	public static function ensure_export_jobs_table() {
-		global $wpdb;
-		$table_name = $wpdb->prefix . 'pressbooks_export_jobs';
+	public static function ensureExportsTable(): void {
 
-		// Check if table exists
-		$table_exists = $wpdb->get_var( "SHOW TABLES LIKE '$table_name'" ) === $table_name;
+		$table_name = get_current_blog_id() . '_pressbooks_export_jobs';
 
-		if ( ! $table_exists ) {
-			self::create_export_jobs_table();
+		if ( ! app( 'db' )->schema()->hasTable( $table_name ) ) {
+			self::createJobTable();
 		}
+
 	}
 
 	/**
 	 * Creates the export jobs table if it doesn't exist.
 	 * This function is called on plugin activation.
 	 */
-	public static function create_export_jobs_table() {
-		global $wpdb;
-		$table_name = $wpdb->prefix . 'pressbooks_export_jobs';
-		$charset_collate = $wpdb->get_charset_collate();
-
-		$sql = "CREATE TABLE IF NOT EXISTS $table_name (
-		id bigint(20) NOT NULL AUTO_INCREMENT,
-		book_id bigint(20) NOT NULL,
-		user_id bigint(20) NOT NULL,
-		export_format varchar(50) NOT NULL,
-		export_module_classname varchar(255) NOT NULL,
-		export_options longtext,
-		status varchar(20) NOT NULL DEFAULT 'pending',
-		progress_percentage int(3) NOT NULL DEFAULT 0,
-		progress_message text,
-		output_file_path varchar(255),
-		log_details longtext,
-		job_started_at datetime DEFAULT NULL,
-		job_completed_at datetime DEFAULT NULL,
-		created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-		updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-		PRIMARY KEY  (id),
-		KEY book_id (book_id),
-		KEY user_id (user_id),
-		KEY status (status),
-		KEY created_at (created_at)
-	) $charset_collate;";
-
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-		dbDelta( $sql );
+	public static function createJobTable(): void {
+		$table_name = get_current_blog_id() . '_pressbooks_export_jobs';
+		if ( ! app( 'db' )->getSchemaBuilder()->hasTable( $table_name ) ) {
+			app( 'db' )->getSchemaBuilder()->create( $table_name, function ( $table ) {
+				$table->bigIncrements( 'id' );
+				$table->bigInteger( 'book_id' )->unsigned();
+				$table->bigInteger( 'user_id' )->unsigned();
+				$table->string( 'export_format', 50 );
+				$table->string( 'export_module_classname', 255 );
+				$table->longText( 'export_options' )->nullable();
+				$table->string( 'status', 20 )->default( 'pending' );
+				$table->integer( 'progress_percentage' )->default( 0 );
+				$table->text( 'progress_message' )->nullable();
+				$table->string( 'output_file_path', 255 )->nullable();
+				$table->longText( 'log_details' )->nullable();
+				$table->dateTime( 'job_started_at' )->nullable();
+				$table->dateTime( 'job_completed_at' )->nullable();
+				$table->timestamp( 'created_at' )->useCurrent();
+				$table->timestamp( 'updated_at' )->useCurrent()->useCurrentOnUpdate();
+				$table->primary( 'id' );
+				$table->index( 'book_id' );
+				$table->index( 'user_id' );
+				$table->index( 'status' );
+				$table->index( 'created_at' );
+			});
+		}
 	}
 
 	/**
 	 * SSE endpoint to provide status updates for an export job.
 	 * Handles AJAX requests for job status updates.
 	 */
-	public static function update_sse_status() {
-		error_log( '[DEBUG SSE HANDLER] Entered pressbooks_export_status_sse.' );
-
+	public static function updateSSEStatus() {
 		// Start output buffering if not already started
 		if ( ob_get_level() === 0 ) {
 			ob_start();
 		}
 
-		error_log( '[DEBUG SSE HANDLER] GET params: ' . print_r( $_GET, true ) );
-
 		$job_id_key = isset( $_GET['job_id'] ) ? sanitize_key( $_GET['job_id'] ) : 'unknown_job';
 		$nonce_action = 'pressbooks_export_status_' . $job_id_key;
 		$nonce_value = isset( $_GET['_wpnonce'] ) ? sanitize_key( $_GET['_wpnonce'] ) : null;
 
-		error_log( '[DEBUG SSE HANDLER] Nonce action expected: ' . $nonce_action );
-		error_log( '[DEBUG SSE HANDLER] Nonce value received: ' . $nonce_value );
-
 		if ( ! isset( $_GET['job_id'] ) || ! isset( $_GET['book_id'] ) || ! $nonce_value || ! wp_verify_nonce( $nonce_value, $nonce_action ) ) {
-			error_log( '[DEBUG SSE HANDLER] Nonce verification FAILED or missing params.' );
 			status_header( 403 );
-			echo "event: error\ndata: " . wp_json_encode( [ 'message' => 'Invalid request or nonce.' ] ) . "\n\n";
-			ob_end_flush();
+			self::sendSecureSSE(
+				data: [
+					'message' => __( 'Invalid request or nonce.', 'pressbooks' ),
+				],
+				event_type: 'error'
+			);
 			wp_die();
 		}
-
-		error_log( '[DEBUG SSE HANDLER] Nonce verification PASSED.' );
 
 		// Set headers for SSE
 		header( 'Content-Type: text/event-stream' );
@@ -316,35 +310,40 @@ class BackgroundJob {
 
 		if ( ! $book_id || ! $job_id ) {
 			status_header( 400 );
-			echo "event: error\ndata: " . wp_json_encode( [ 'message' => 'Book ID or Job ID not provided.' ] ) . "\n\n";
-			ob_end_flush();
+			self::sendSecureSSE(
+				data: [
+					'message' => __( 'Book ID or Job ID not provided.', 'pressbooks' ),
+				],
+				event_type: 'error'
+			);
 			wp_die();
 		}
 
 		$switched = false;
-		if ( is_multisite() && get_current_blog_id() != $book_id ) {
+		if ( is_multisite() && get_current_blog_id() !== $book_id ) {
 			switch_to_blog( $book_id );
 			$switched = true;
 		}
 
-		self::ensure_export_jobs_table();
+		self::ensureExportsTable();
 
 		if ( ! current_user_can( 'edit_posts' ) ) {
 			status_header( 403 );
-			echo "event: error\ndata: " . wp_json_encode( [ 'message' => 'Permission denied to view job status for this book.' ] ) . "\n\n";
+			self::sendSecureSSE(
+				data: [
+					'message' => __( 'Permission denied to view job status for this book.', 'pressbooks' ),
+				],
+				event_type: 'error'
+			);
 			if ( $switched ) {
 				restore_current_blog();
 			}
-			ob_end_flush();
 			wp_die();
 		}
 
-		error_log( '[DEBUG SSE HANDLER] Setting SSE headers.' );
-
 		set_time_limit( 0 );
 
-		global $wpdb;
-		$table_name = $wpdb->prefix . 'pressbooks_export_jobs';
+		$table_name = $book_id . '_pressbooks_export_jobs';
 		$last_progress = -1;
 		$last_status = '';
 		$iterations = 0;
@@ -355,15 +354,18 @@ class BackgroundJob {
 				break;
 			}
 
-			$job = $wpdb->get_row( $wpdb->prepare(
-				"SELECT status, progress_percentage, progress_message, output_file_path, user_id, log_details
-			FROM {$table_name}
-			WHERE id = %d AND book_id = %d",
-				$job_id,
-				$book_id
-			) );
-
-			error_log( '[DEBUG SSE HANDLER] Job status: ' . print_r( $job, true ) );
+			$job = app( 'db' )->table( $table_name )
+				->select([
+					'status',
+					'progress_percentage',
+					'progress_message',
+					'output_file_path',
+					'user_id',
+					'log_details',
+				])
+				->where( 'id', $job_id )
+				->where( 'book_id', $book_id )
+				->first();
 
 			if ( ! $job ) {
 				$data = [
@@ -372,22 +374,22 @@ class BackgroundJob {
 					'message' => __( 'Job not found or access denied.', 'pressbooks' ),
 					'job_id' => $job_id,
 				];
-				echo "event: export_progress\nid: " . time() . "\ndata: " . wp_json_encode( $data ) . "\n\n";
-				ob_flush();
-				flush();
+				self::sendSecureSSE(
+					data: $data,
+				);
 				break;
 			}
 
-			if ( $job->user_id != $user_id && ! current_user_can( 'manage_options' ) ) {
+			if ( (int) $job->user_id !== $user_id && ! current_user_can( 'manage_options' ) ) {
 				$data = [
 					'status' => 'error',
 					'progress_percentage' => 0,
 					'message' => __( 'Access denied to view this job\'s status.', 'pressbooks' ),
 					'job_id' => $job_id,
 				];
-				echo "event: export_progress\nid: " . time() . "\ndata: " . wp_json_encode( $data ) . "\n\n";
-				ob_flush();
-				flush();
+				self::sendSecureSSE(
+					data: $data,
+				);
 				break;
 			}
 
@@ -407,9 +409,9 @@ class BackgroundJob {
 					$data_to_send['warning_message'] = __( 'Export completed with some non-critical warnings. Your file is ready for use.', 'pressbooks' );
 				}
 
-				echo "event: export_progress\nid: " . time() . "\ndata: " . wp_json_encode( $data_to_send ) . "\n\n";
-				ob_flush();
-				flush();
+				self::sendSecureSSE(
+					data: $data_to_send,
+				);
 
 				$last_progress = (int) $job->progress_percentage;
 				$last_status = $job->status;
@@ -427,8 +429,9 @@ class BackgroundJob {
 					'is_final' => true,
 				];
 				echo "event: export_progress\nid: " . time() . "\ndata: " . wp_json_encode( $final_data ) . "\n\n";
-				ob_flush();
-				flush();
+				self::sendSecureSSE(
+					data: $final_data,
+				);
 				break;
 			}
 
@@ -449,9 +452,47 @@ class BackgroundJob {
 	}
 
 	/**
+	 * Safely output Server-Sent Events (SSE) data with proper escaping
+	 *
+	 * @param array $data The data to send as JSON
+	 * @param string $event_type The SSE event type (default: 'export_progress')
+	 * @param int|null $id Optional custom ID (defaults to current timestamp)
+	 * @return void
+	 */
+	public static function sendSecureSSE( array $data, string $event_type = 'export_progress', int $id = null ): void {
+
+		$event_type = preg_replace( '/[^a-zA-Z0-9_-]/', '', $event_type );
+		if ( empty( $event_type ) ) {
+			$event_type = 'message';
+		}
+
+		$event_id = $id ? absint( $id ) : absint( time() );
+
+		$json_data = wp_json_encode( $data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
+
+		if ( false === $json_data ) {
+			$json_data = wp_json_encode( [ 'error' => 'Failed to encode data' ] );
+		}
+
+		// Additional safety: remove any potential newlines that could break an SSE format
+		$json_data = str_replace( [ "\n", "\r", "\0" ], '', $json_data );
+
+		// Output the SSE event
+		echo 'event: ' . esc_attr( $event_type ) . "\n";
+		echo 'id: ' . $event_id . "\n";
+		echo 'data: ' . $json_data . "\n\n";
+
+		// Flush output immediately for SSE
+		if ( ob_get_level() ) {
+			ob_flush();
+		}
+		flush();
+	}
+
+	/**
 	 * AJAX handler for checking existing export jobs.
 	 */
-	public function check_existing_jobs() {
+	public static function checkExistingJobs(): void {
 		check_ajax_referer( 'pb-export-book', '_wpnonce' );
 
 		if ( ! current_user_can( 'edit_posts' ) ) {
@@ -459,29 +500,34 @@ class BackgroundJob {
 			return;
 		}
 
-		self::ensure_export_jobs_table();
+		self::ensureExportsTable();
 
-		global $wpdb;
-		$table_name = $wpdb->prefix . 'pressbooks_export_jobs';
 		$book_id = get_current_blog_id();
 		$user_id = get_current_user_id();
-		$jobs = $wpdb->get_results($wpdb->prepare(
-			"SELECT id as job_id, book_id, export_format as module_slug, status, progress_percentage, progress_message
-		FROM {$table_name}
-		WHERE book_id = %d AND user_id = %d
-		AND status NOT IN ('completed', 'failed', 'cancelled')
-		ORDER BY created_at DESC",
-			$book_id,
-			$user_id
-		));
 
-		if ( $jobs ) {
-			foreach ( $jobs as &$job ) {
+		$table_name = $book_id . '_pressbooks_export_jobs';
+
+		$jobs = app( 'db' )->table( $table_name )
+			->select([
+				'id as job_id',
+				'book_id',
+				'export_format as module_slug',
+				'status',
+				'progress_percentage',
+				'progress_message',
+			])
+			->where( 'book_id', $book_id )
+			->where( 'user_id', $user_id )
+			->whereNotIn( 'status', [ 'completed', 'failed', 'cancelled' ] )
+			->orderBy( 'created_at', 'DESC' )
+			->get();
+
+		if ( $jobs->isNotEmpty() ) {
+			foreach ( $jobs as $job ) {
 				$job->sse_nonce = wp_create_nonce( 'pressbooks_export_status_' . $job->job_id );
 			}
-			wp_send_json_success( [ 'jobs' => $jobs ] );
-		} else {
-			wp_send_json_success( [ 'jobs' => [] ] );
 		}
+
+		wp_send_json_success( [ 'jobs' => $jobs ] );
 	}
 }

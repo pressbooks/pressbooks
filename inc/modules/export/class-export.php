@@ -817,7 +817,6 @@ abstract class Export {
 
 
 			if ( in_array( $module_classname, $background_pdf_types, true ) ) {
-				error_log('[DEBUG ajax_submit_export_job] Is a background PDF type: ' . $module_classname);
 				// --- BACKGROUND PDF PROCESSING ---
 				$book_id = get_current_blog_id();
 				$user_id = get_current_user_id();
@@ -845,7 +844,7 @@ abstract class Export {
 					wp_schedule_single_event( time(), 'pressbooks_process_export_job', [ 'job_id' => $job_id ] );
 					$friendly_name = self::getFriendlyNameForModule( $module_classname );
 					$message = sprintf(
-						__( '%s export has been queued (Job ID: %d). You will be notified via this page.', 'pressbooks' ),
+						__( '%s export has been queued. You will be notified via this page.', 'pressbooks' ),
 						$friendly_name,
 						$job_id
 					);
@@ -890,9 +889,9 @@ abstract class Export {
 				}
 
 			} else { // --- EXISTING SYNCHRONOUS PROCESSING for other formats ---
-				$exporter = new $module_classname( $constructor_args );
-				if ( is_subclass_of( $exporter, '\\Pressbooks\\Modules\\Export\\ExportGenerator' ) ) {
-					/** @var ExportGenerator $exporter */
+				$exporter = new $module_classname( ...$constructor_args ); // Spread operator for constructor arguments
+				if ( is_subclass_of( $exporter, '\\Pressbooks\\Modules\\Export\\ExportGeneratorInterface' ) ) { // Check against new interface
+					/** @var ExportGeneratorInterface $exporter */ // Type hint for clarity
 					try {
 						// Yield all messages from the generator with module context
 						foreach ($exporter->convertGenerator() as $progress => $message) {
@@ -902,7 +901,7 @@ abstract class Export {
 							 yield ['progress' => $progress, 'message' => $message, 'module_slug' => self::getExportFormatSlugFromClassname($module_classname), 'module_classname' => $module_classname];
 						}
 					} catch ( \Exception $e ) {
-						static::$exportValidationWarning[ $module_classname ] = $exporter->getOutputPath() ?: $e->getMessage();
+						static::$exportValidationWarning[ $module_classname ] = $exporter->getOutputPath() ?: $e->getMessage(); // Use getOutputPath() if available
 						 yield ['event_type' => 'error', 'message' => $e->getMessage(), 'module_slug' => self::getExportFormatSlugFromClassname($module_classname), 'module_classname' => $module_classname];
 					}
 				} else {
@@ -914,13 +913,13 @@ abstract class Export {
 					yield ['progress' => 10, 'message' => sprintf( __( '%s: Exporting', 'pressbooks' ), $name ), 'module_slug' => $slug, 'module_classname' => $module_classname];
 
 					if ( ! $exporter->convert() ) {
-						static::$exportConversionError[ $module_classname ] = $exporter->getOutputPath() ?: 'Conversion failed';
+						static::$exportConversionError[ $module_classname ] = $exporter->getOutputPath() ?: 'Conversion failed'; // Use getOutputPath()
 						 yield ['event_type' => 'error', 'message' => sprintf(__( '%s: Conversion Failed', 'pressbooks' ), $name), 'module_slug' => $slug, 'module_classname' => $module_classname];
 					} else {
 						yield ['progress' => 70, 'message' => sprintf( __( '%s: Export successful', 'pressbooks' ), $name ), 'module_slug' => $slug, 'module_classname' => $module_classname];
 						yield ['progress' => 80, 'message' => sprintf( __( '%s: Validating file', 'pressbooks' ), $name ), 'module_slug' => $slug, 'module_classname' => $module_classname];
 						if ( ! $exporter->validate() ) {
-							static::$exportValidationWarning[ $module_classname ] = $exporter->getOutputPath() ?: 'Validation failed';
+							static::$exportValidationWarning[ $module_classname ] = $exporter->getOutputPath() ?: 'Validation failed'; // Use getOutputPath()
 							 yield ['event_type' => 'error', 'message' => sprintf(__( '%s: Validation Failed', 'pressbooks' ), $name), 'module_slug' => $slug, 'module_classname' => $module_classname];
 						} else {
 							yield ['progress' => 90, 'message' => sprintf( __( '%s: Validation successful', 'pressbooks' ), $name ), 'module_slug' => $slug, 'module_classname' => $module_classname];
@@ -930,7 +929,7 @@ abstract class Export {
 					yield ['progress' => 100, 'message' => sprintf( __( '%s: Finishing up', 'pressbooks' ), $name ), 'module_slug' => $slug, 'module_classname' => $module_classname];
 				}
 				 // Add to outputs array (original logic for sync processes)
-				if (isset($exporter)) {
+				if (isset($exporter) && method_exists($exporter, 'getOutputPath')) { // Check if $exporter is set and has getOutputPath
 					 static::$exportOutputs[ $module_classname ] = $exporter->getOutputPath();
 				}
 			}
@@ -941,7 +940,7 @@ abstract class Export {
 
 			if (!$is_background_job || ($is_background_job && !$was_queued_successfully)) {
 				if (isset(static::$exportOutputs[$module_classname]) && is_string(static::$exportOutputs[$module_classname])) { // Ensure it's an output path for tracking
-					do_action( 'pressbooks_track_export', substr( strrchr( $module_classname, '\\' ), 1 ) );
+					do_action( 'pressbooks_track_export', substr( strrchr( $module_classname, '\\'), 1 ) ); // Corrected strrchr for namespace
 				}
 			}
 		}
@@ -1092,14 +1091,10 @@ abstract class Export {
 	 * AJAX handler for submitting export jobs.
 	 */
 	public static function ajax_submit_export_job() {
-		error_log('[DEBUG ajax_submit_export_job] Function ENTERED.'); // VERY FIRST LINE
-
 		// Nonce check
 		check_ajax_referer( 'pb-export-book', 'pb_export_nonce' ); // RE-ENABLED NONCE CHECK
-		error_log('[DEBUG ajax_submit_export_job] Nonce check PASSED.'); // Log if nonce check passes
 
 		if ( ! current_user_can( 'edit_posts' ) ) {
-			error_log('[DEBUG ajax_submit_export_job] User CANNOT edit_posts. Failing.');
 			wp_send_json_error( [ 'message' => __( 'Permission denied.', 'pressbooks' ) ], 403 );
 			return;
 		}
@@ -1125,21 +1120,15 @@ abstract class Export {
 		static::$exportOutputs = [];
 		static::$currentExportModuleArgs = $_POST['export_options'] ?? []; // Capture any other general export options if needed
 
-		error_log('[DEBUG ajax_submit_export_job] Available modules map: ' . print_r($available_modules, true)); // Log the whole map
-
 		foreach ( array_keys($export_formats) as $format_slug ) {
-			error_log('[DEBUG ajax_submit_export_job] Processing format_slug: ' . $format_slug);
 			$module_classname = null;
 			// Corrected loop to use $available_modules directly as it's already [slug => classname]
 			if (isset($available_modules[$format_slug])) {
 				$module_classname = $available_modules[$format_slug];
-				error_log('[DEBUG ajax_submit_export_job] Found module_classname: ' . $module_classname . ' for slug: ' . $format_slug);
 			} else {
-				error_log('[DEBUG ajax_submit_export_job] No classname found for slug: ' . $format_slug);
 			}
 
 			if ( ! $module_classname || ! class_exists( $module_classname ) ) {
-				error_log('[DEBUG ajax_submit_export_job] Module classname not valid or class does not exist: ' . $module_classname);
 				$results[] = [
 					'event_type' => 'job_queue_failed',
 					'message' => sprintf(__( 'Invalid or unsupported export format: %s', 'pressbooks' ), $format_slug),
@@ -1150,10 +1139,7 @@ abstract class Export {
 
 			$constructor_args = self::getConstructorArgsForModule($module_classname, static::$currentExportModuleArgs);
 
-			error_log('[DEBUG ajax_submit_export_job] Checking if ' . $module_classname . ' is in background_pdf_types: ' . print_r($background_pdf_types, true));
-
 			if ( in_array( $module_classname, $background_pdf_types, true ) ) {
-				error_log('[DEBUG ajax_submit_export_job] Is a background PDF type: ' . $module_classname);
 				// --- BACKGROUND PDF PROCESSING ---
 				$book_id = get_current_blog_id();
 				$user_id = get_current_user_id();
@@ -1178,8 +1164,6 @@ abstract class Export {
 
 				if ( $insert_result && $job_id ) {
 					$scheduled = wp_schedule_single_event( time(), 'pressbooks_process_export_job', [ 'job_id' => $job_id ] );
-					error_log('[DEBUG ajax_submit_export_job] Job scheduled: ' . ($scheduled ? 'YES' : 'NO') . ' for job_id: ' . $job_id);
-					error_log('[DEBUG SCHEDULER] Job ID: ' . print_r($scheduled, true));
 					$friendly_name = self::getFriendlyNameForModule( $module_classname );
 					$message = sprintf(
 						__( '%s export has been queued. You will be notified via this page.', 'pressbooks' ),
@@ -1223,7 +1207,6 @@ abstract class Export {
 					];
 				}
 			} else {
-				error_log('[DEBUG ajax_submit_export_job] Is NOT a background PDF type (or class issue): ' . $module_classname);
 				// --- Handle SYNCHRONOUS export for non-background types ---
 				// For now, we send an error/message back indicating it's not supported by this AJAX handler,
 				// as the original design was to move PDF to background. If sync is needed for others via AJAX,
