@@ -784,6 +784,53 @@ abstract class Export {
 	}
 
 	/**
+	 * Catch form submissions
+	 *
+	 * @see pressbooks/templates/admin/export.blade.php
+	 */
+	static function formSubmit() {
+
+		if ( false === static::isFormSubmission() || false === current_user_can( 'edit_posts' ) ) {
+			// Don't do anything in this function, bail.
+			return;
+		}
+
+		// Store export arguments if present, to be used by exportGenerator
+		// This is a simplistic example; needs to align with how your form actually submits options.
+		static::$currentExportModuleArgs = $_POST['export_options'] ?? []; // Example: if you have specific options per module in form
+
+		// Override some WP behaviours when exporting
+		\Pressbooks\Sanitize\fix_audio_shortcode();
+
+		// Download
+		if ( ! empty( $_GET['download_export_file'] ) ) {
+			$filename = sanitize_file_name( $_GET['download_export_file'] );
+			// Add security for job-based downloads
+			if (isset($_GET['job_id']) && isset($_GET['_wpnonce'])) {
+				$job_id = absint($_GET['job_id']);
+				if (wp_verify_nonce(sanitize_key($_GET['_wpnonce']), 'download_export_job_' . $job_id)) {
+					// Potentially check if current user owns the job or has rights
+					global $wpdb;
+					$job = $wpdb->get_row($wpdb->prepare("SELECT user_id, output_file_path FROM {$wpdb->prefix}pressbooks_export_jobs WHERE id = %d", $job_id));
+					if ($job && $job->user_id == get_current_user_id() && basename($job->output_file_path) === $filename) {
+						static::downloadExportFile( $filename, false ); // Original method assumes file is in default export dir
+						exit;
+					} else {
+						wp_die(__( 'Invalid job ID or permission denied for download.', 'pressbooks' ), 'Error', ['response' => 403]);
+					}
+				} else {
+					wp_die(__( 'Invalid download link.', 'pressbooks' ), 'Error', ['response' => 403]);
+				}
+			} else {
+				// Fallback to old download mechanism if no job_id (e.g. for non-background processed files)
+				// This part might need to be phased out or also secured if direct downloads are generally disallowed.
+				static::downloadExportFile( $filename, false );
+				exit;
+			}
+		}
+	}
+
+	/**
 	 * @param array $modules
 	 *
 	 * @return \Generator
@@ -929,7 +976,7 @@ abstract class Export {
 					yield ['progress' => 100, 'message' => sprintf( __( '%s: Finishing up', 'pressbooks' ), $name ), 'module_slug' => $slug, 'module_classname' => $module_classname];
 				}
 				 // Add to outputs array (original logic for sync processes)
-				if (isset($exporter) && method_exists($exporter, 'getOutputPath')) { // Check if $exporter is set and has getOutputPath
+				if (method_exists($exporter, 'getOutputPath')) { // Check if $exporter is set and has getOutputPath
 					 static::$exportOutputs[ $module_classname ] = $exporter->getOutputPath();
 				}
 			}
