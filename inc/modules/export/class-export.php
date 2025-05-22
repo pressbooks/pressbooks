@@ -935,50 +935,6 @@ abstract class Export {
 					static::$exportOutputs[ $module_classname ] = [ 'status' => 'queue_failed', 'error' => $wpdb->last_error ];
 				}
 
-			} else { // --- EXISTING SYNCHRONOUS PROCESSING for other formats ---
-				$exporter = new $module_classname( ...$constructor_args ); // Spread operator for constructor arguments
-				if ( is_subclass_of( $exporter, '\\Pressbooks\\Modules\\Export\\ExportGeneratorInterface' ) ) { // Check against new interface
-					/** @var ExportGeneratorInterface $exporter */ // Type hint for clarity
-					try {
-						// Yield all messages from the generator with module context
-						foreach ($exporter->convertGenerator() as $progress => $message) {
-							yield ['progress' => $progress, 'message' => $message, 'module_slug' => self::getExportFormatSlugFromClassname($module_classname), 'module_classname' => $module_classname];
-						}
-						foreach ($exporter->validateGenerator() as $progress => $message) {
-							 yield ['progress' => $progress, 'message' => $message, 'module_slug' => self::getExportFormatSlugFromClassname($module_classname), 'module_classname' => $module_classname];
-						}
-					} catch ( \Exception $e ) {
-						static::$exportValidationWarning[ $module_classname ] = $exporter->getOutputPath() ?: $e->getMessage(); // Use getOutputPath() if available
-						 yield ['event_type' => 'error', 'message' => $e->getMessage(), 'module_slug' => self::getExportFormatSlugFromClassname($module_classname), 'module_classname' => $module_classname];
-					}
-				} else {
-					/** @var Export $exporter */
-					$slug = self::getExportFormatSlugFromClassname($module_classname);
-					$name = self::getFriendlyNameForModule( $module_classname );
-
-					yield ['progress' => 1, 'message' => sprintf( __( '%s: Initializing', 'pressbooks' ), $name ), 'module_slug' => $slug, 'module_classname' => $module_classname];
-					yield ['progress' => 10, 'message' => sprintf( __( '%s: Exporting', 'pressbooks' ), $name ), 'module_slug' => $slug, 'module_classname' => $module_classname];
-
-					if ( ! $exporter->convert() ) {
-						static::$exportConversionError[ $module_classname ] = $exporter->getOutputPath() ?: 'Conversion failed'; // Use getOutputPath()
-						 yield ['event_type' => 'error', 'message' => sprintf(__( '%s: Conversion Failed', 'pressbooks' ), $name), 'module_slug' => $slug, 'module_classname' => $module_classname];
-					} else {
-						yield ['progress' => 70, 'message' => sprintf( __( '%s: Export successful', 'pressbooks' ), $name ), 'module_slug' => $slug, 'module_classname' => $module_classname];
-						yield ['progress' => 80, 'message' => sprintf( __( '%s: Validating file', 'pressbooks' ), $name ), 'module_slug' => $slug, 'module_classname' => $module_classname];
-						if ( ! $exporter->validate() ) {
-							static::$exportValidationWarning[ $module_classname ] = $exporter->getOutputPath() ?: 'Validation failed'; // Use getOutputPath()
-							 yield ['event_type' => 'error', 'message' => sprintf(__( '%s: Validation Failed', 'pressbooks' ), $name), 'module_slug' => $slug, 'module_classname' => $module_classname];
-						} else {
-							yield ['progress' => 90, 'message' => sprintf( __( '%s: Validation successful', 'pressbooks' ), $name ), 'module_slug' => $slug, 'module_classname' => $module_classname];
-						}
-					}
-					self::postExport();
-					yield ['progress' => 100, 'message' => sprintf( __( '%s: Finishing up', 'pressbooks' ), $name ), 'module_slug' => $slug, 'module_classname' => $module_classname];
-				}
-				 // Add to outputs array (original logic for sync processes)
-				if (method_exists($exporter, 'getOutputPath')) { // Check if $exporter is set and has getOutputPath
-					 static::$exportOutputs[ $module_classname ] = $exporter->getOutputPath();
-				}
 			}
 
 			// Track export only if not a successfully queued background job or if it's a sync job

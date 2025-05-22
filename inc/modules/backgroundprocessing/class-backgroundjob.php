@@ -132,38 +132,79 @@ class BackgroundJob {
 		$log_content = '';
 
 		try {
-			// Update progress before potentially long operations
+			// Set initial progress for conversion phae
 			app( 'db' )->table( $job_table_name )
 				->where( 'id', $job_id )
 				->update([
-					'progress_percentage' => 30,
+					'progress_percentage' => 30, // Starting point for conversion messages
 					'progress_message' => __( 'Converting content (this may take a while, you can leave this page and return back later)...', 'pressbooks' ),
 					'updated_at' => current_time( 'mysql', true ),
 				]);
 
-			if ( ! $exporter->convert() ) {
-				$error_message = __( 'Conversion process failed.', 'pressbooks' );
-			} else {
+			if ( method_exists( $exporter, 'convertGenerator' ) ) {
+				error_log( 'convertGenerator exists' );
+				$conversion_generator = $exporter->convertGenerator();
+				foreach ( $conversion_generator as $progress_key => $progress_value ) {
+					error_log( 'progress_key: ' . $progress_key );
+					$current_progress_percent = is_int($progress_key) ? $progress_key : (isset($progress_value['progress']) ? (int)$progress_value['progress'] : 30);
+					$current_progress_message = is_string($progress_value) ? $progress_value : (isset($progress_value['message']) ? $progress_value['message'] : __( 'Processing...', 'pressbooks' ) );
+					app( 'db' )->table( $job_table_name )
+						->where( 'id', $job_id )
+						->update([
+							'progress_percentage' => $current_progress_percent,
+							'progress_message' => $current_progress_message,
+							'updated_at' => current_time( 'mysql', true ),
+						]);
+				}
 				$convert_success = true;
+			}
+
+
+			if ( $convert_success ) {
 				$output_path = $exporter->getOutputPath();
 				app( 'db' )->table( $job_table_name )
 					->where( 'id', $job_id )
 					->update([
-						'progress_percentage' => 70,
+						'progress_percentage' => 70, // Mark start of validation phase
 						'progress_message' => __( 'Conversion successful. Validating file...', 'pressbooks' ),
 						'output_file_path' => $output_path,
 						'updated_at' => current_time( 'mysql', true ),
 					]);
 
-				if ( ! $exporter->validate() ) {
-					$error_message = __( 'Validation of exported file failed.', 'pressbooks' );
-				} else {
-					$validate_success = true;
+				// Handle validation with generator support
+				if ( method_exists( $exporter, 'validateGenerator' ) ) {
+					$validation_generator = $exporter->validateGenerator();
+					foreach ( $validation_generator as $progress_key => $progress_value ) {
+						$current_progress_percent = is_int($progress_key) ? $progress_key : (isset($progress_value['progress']) ? (int)$progress_value['progress'] : 70);
+$current_progress_message = is_string($progress_value) ? $progress_value : ($progress_value['message'] ?? __('Validating...', 'pressbooks'));
+						app( 'db' )->table( $job_table_name )
+							->where( 'id', $job_id )
+							->update([
+								'progress_percentage' => $current_progress_percent,
+								'progress_message' => $current_progress_message,
+								'updated_at' => current_time( 'mysql', true ),
+							]);
+					}
 				}
+
+				// Always call validate() if it exists for final status.
+				if ( method_exists( $exporter, 'validate' ) ) {
+					if ( ! $exporter->validate() ) {
+						$error_message = __( 'Validation of exported file failed.', 'pressbooks' );
+					} else {
+						$validate_success = true;
+					}
+				} elseif ( ! method_exists( $exporter, 'validateGenerator' ) ){
+					// No validation method (neither validate nor validateGenerator), consider it a success.
+					$validate_success = true;
+                } else {
+                    // validateGenerator existed and was iterated, assume success if no validate() method to confirm.
+                    $validate_success = true;
+                }
 			}
 		} catch ( \Exception $e ) {
-			$error_message = $e->getMessage();
-			$log_content = $e->getTraceAsString();
+			$error_message = $error_message ?: $e->getMessage();
+			$log_content .= ( ! empty( $log_content ) ? "\n" : '' ) . 'Exception encountered: ' . $e->getMessage() . "\nTrace:\n" . $e->getTraceAsString();
 		}
 
 		$final_status_data = [
@@ -302,7 +343,7 @@ class BackgroundJob {
 		header( 'Content-Type: text/event-stream' );
 		header( 'Cache-Control: no-cache' );
 		header( 'Connection: keep-alive' );
-		header( 'X-Accel-Buffering: no' ); // Useful for Nginx
+		header( 'X-Accel-Buffering: no' );
 
 		$job_id = absint( $_GET['job_id'] );
 		$book_id = absint( $_GET['book_id'] );
