@@ -1,0 +1,41 @@
+.export-progress-cell .progress-bar-container {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+    height: 20px; /* Adjust height as needed */
+    display: flex;
+    align-items: center;
+    position: relative; /* For positioning text over the bar */
+}
+
+.export-progress-cell .progress-bar {
+    background-color: #4caf50; /* Green progress */
+    height: 100%;
+    line-height: 20px; /* Match container height */
+    color: white;
+    text-align: center;
+    transition: width 0.3s ease-in-out;
+}
+
+.export-progress-cell .progress-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-size: 0.8em;
+    color: #333; /* Darker text for better readability on light bar segments */
+    line-height: 20px; /* Match container height */
+}
+
+/* Style for the file icon and name in the new rows */
+.export-job-in-progress .export-file-icon {
+    /* Basic styling, assuming icons are handled by existing CSS via formatKey class */
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+    /* Add width/height if your icons need it */
+}
+
+.export-job-in-progress .export-file-name i {
+    color: #777;
+} 

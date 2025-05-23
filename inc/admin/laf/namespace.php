@@ -363,7 +363,9 @@ function replace_book_admin_menu() {
 					]
 				);
 				wp_enqueue_style( 'pb-export' );
+				wp_enqueue_style( 'pb-export-ui' ); // Added this line
 				wp_enqueue_script( 'pb-export' );
+				wp_enqueue_script( 'pb-export-ui' );
 				wp_deregister_script( 'heartbeat' );
 
 			}
@@ -1158,6 +1160,7 @@ function init_css_js() {
 	wp_register_script( 'jquery-blockui', $assets->getPath( 'scripts/blockui.js' ), [ 'jquery', 'jquery-ui-core' ] );
 	wp_register_script( 'pb-cloner', $assets->getPath( 'scripts/cloner.js' ), [ 'jquery', 'eventsource-polyfill' ] );
 	wp_register_script( 'pb-export', $assets->getPath( 'scripts/export.js' ), [ 'jquery', 'eventsource-polyfill' ] );
+	wp_register_script( 'pb-export-ui', $assets->getPath( 'scripts/admin/export-ui.js' ), [ 'pb-export' ], '1.0.0', true ); // Added this line
 	wp_register_script( 'pb-import', $assets->getPath( 'scripts/import.js' ), [ 'jquery', 'jquery-form', 'eventsource-polyfill' ] );
 	wp_register_script( 'pb-organize', $assets->getPath( 'scripts/organize.js' ), [ 'jquery', 'jquery-ui-core', 'jquery-ui-sortable', 'jquery-blockui' ] );
 	wp_register_script( 'pb-metadata', $assets->getPath( 'scripts/book-information.js' ), [ 'jquery' ], false, true );
@@ -1170,6 +1173,7 @@ function init_css_js() {
 
 	// Register styles for later, on-the-fly, using action: admin_print_scripts- (or other tricks of the shade)
 	wp_register_style( 'pb-export', $assets->getPath( 'styles/export.css' ) );
+	wp_register_style( 'pb-export-ui', $assets->getPath( 'src/styles/admin/export-ui.css' ), [], '1.0.0' ); // Updated path to src
 	wp_register_style( 'pb-organize', $assets->getPath( 'styles/organize.css' ) );
 	wp_register_style( 'duet-date-picker', $assets->getPath( 'styles/duet.css' ) );
 

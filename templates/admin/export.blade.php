@@ -79,12 +79,6 @@
 			{{ __( 'Export Book', 'pressbooks' ) }}
 		</button>
     </div>
-    <div class="export-progress">
-		<div class="pb-sse-progressbar-container">
-			<div id="pb-sse-progressbar" class="pb-sse-progressbar"></div>
-		</div>
-    	<span id="pb-sse-info" aria-live="polite"></span>
-    </div>
     <div class="clear"></div>
     <h1>{{ __( 'Latest Exports', 'pressbooks') }}</h1>
     <div id="pin-notifications" class="screen-reader-text" aria-live="assertive"></div>
