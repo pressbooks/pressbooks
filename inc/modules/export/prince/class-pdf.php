@@ -9,6 +9,7 @@ namespace Pressbooks\Modules\Export\Prince;
 use function Pressbooks\Sanitize\normalize_css_urls;
 use function Pressbooks\Utility\get_contents;
 use function Pressbooks\Utility\put_contents;
+use Generator;
 use PressbooksMix\Assets;
 use Pressbooks\Container;
 use Pressbooks\Modules\Export\ExportGenerator;
@@ -21,45 +22,45 @@ class Pdf extends ExportGenerator {
 	 *
 	 * @var string
 	 */
-	public $url;
+	public string $url;
 
 	/**
 	 * Fullpath to log file used by Prince.
 	 *
 	 * @var string
 	 */
-	public $logfile;
+	public string $logfile;
 
 	/**
 	 * Fullpath to book CSS file.
 	 *
 	 * @var string
 	 */
-	protected $exportStylePath;
+	protected string|false $exportStylePath;
 
 	/**
 	 * Fullpath to book JavaScript file.
 	 *
 	 * @var string
 	 */
-	protected $exportScriptPath;
+	protected string|false $exportScriptPath;
 
 	/**
 	 * CSS overrides
 	 *
 	 * @var string
 	 */
-	protected $cssOverrides;
+	protected string $cssOverrides;
 
 	/**
 	 * @var string
 	 */
-	protected $pdfProfile;
+	protected string $pdfProfile;
 
 	/**
 	 * @var string
 	 */
-	protected $pdfOutputIntent;
+	protected string $pdfOutputIntent;
 
 	/**
 	 * @param array $args
@@ -89,7 +90,7 @@ class Pdf extends ExportGenerator {
 	 * @param $message
 	 * @param array $more_info (unused, overridden)
 	 */
-	function logError( $message, array $more_info = [] ) {
+	public function logError( $message, array $more_info = [] ): void {
 
 		$more_info['url'] = $this->url;
 
@@ -110,39 +111,35 @@ class Pdf extends ExportGenerator {
 	 *
 	 * @return bool
 	 */
-	protected function isPdf( $file ) {
+	protected function isPdf( $file ): bool {
 
 		$mime = static::mimeType( $file );
 
-		return ( strpos( $mime, 'application/pdf' ) !== false );
+		return ( str_contains( $mime, 'application/pdf' ) );
 	}
 
 	/**
 	 * @return string
 	 */
-	protected function getPdfProfile() {
-		if ( defined( 'PB_PDF_PROFILE' ) ) {
-			return PB_PDF_PROFILE;
-		}
-		return '';
+	protected function getPdfProfile(): string {
+		return defined( 'PB_PDF_PROFILE' ) ? PB_PDF_PROFILE : '';
 	}
 
 	/**
 	 * @return string
 	 */
-	protected function getPdfOutputIntent() {
-		if ( defined( 'PB_PDF_OUTPUT_INTENT' ) ) {
-			return PB_PDF_OUTPUT_INTENT;
-		}
-		return '';
+	protected function getPdfOutputIntent(): string {
+		return defined( 'PB_PDF_OUTPUT_INTENT' ) ? PB_PDF_OUTPUT_INTENT : '';
 	}
 
 	/**
 	 * Return kneaded CSS string
 	 *
 	 * @return string
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
-	protected function kneadCss() {
+	protected function kneadCss(): string {
 
 		$styles = Container::get( 'Styles' );
 
@@ -170,6 +167,8 @@ class Pdf extends ExportGenerator {
 	 * Useful for sending assets like images/asterisk.png, images/em-dash.png, ...
 	 *
 	 * @return string
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
 	protected function urlPath() {
 		$dir = str_replace( Container::get( 'Styles' )->getDir(), '', pathinfo( $this->exportStylePath, PATHINFO_DIRNAME ) );
@@ -181,7 +180,7 @@ class Pdf extends ExportGenerator {
 	/**
 	 * Override based on Theme Options
 	 */
-	protected function themeOptionsOverrides() {
+	protected function themeOptionsOverrides(): void {
 
 		// --------------------------------------------------------------------
 		// CSS
@@ -211,7 +210,14 @@ class Pdf extends ExportGenerator {
 
 	}
 
-	public function convertGenerator(): \Generator {
+	/**
+	 * For expensive functions we use a generator to allow the caller to yield control back to the event loop.
+	 *
+	 * @return Generator
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
+	 */
+	public function convertGenerator(): Generator {
 
 		if ( empty( $this->exportStylePath ) || ! is_file( $this->exportStylePath ) ) {
 			$this->logError( '$this->exportStylePath must be set before calling convert().' );
@@ -260,7 +266,7 @@ class Pdf extends ExportGenerator {
 			$prince->setPDFProfile( 'PDF/UA-1' );
 		}
 
-		yield 60 => __('Adding stylesheets and scripts...', 'pressbooks' );
+		yield 60 => __( 'Adding stylesheets and scripts...', 'pressbooks' );
 		// Add resources
 		$prince->addStyleSheet( $css_file );
 		$prince->addStyleSheet( $scoped_file );
@@ -287,7 +293,7 @@ class Pdf extends ExportGenerator {
 		return $retval;
 	}
 
-	function validateGenerator(): \Generator {
+	function validateGenerator(): Generator {
 		if ( ! $this->isPdf( $this->outputPath ) ) {
 			$this->logError( get_contents( $this->logfile ) );
 			yield 'error' => __( 'PDF validation failed.', 'pressbooks' );

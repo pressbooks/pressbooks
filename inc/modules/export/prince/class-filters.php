@@ -6,19 +6,17 @@
 
 namespace Pressbooks\Modules\Export\Prince;
 
+use function Pressbooks\Utility\check_prince_install;
 use function Pressbooks\Utility\check_xmllint_install;
 
 class Filters {
 
-	/**
-	 * @var Filters
-	 */
-	private static $instance = null;
+	private static ?Filters $instance = null;
 
 	/**
-	 * @return Filters
+	 * @return Filters|null
 	 */
-	public static function init() {
+	public static function init(): ?Filters {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -29,7 +27,7 @@ class Filters {
 	/**
 	 * @param Filters $obj
 	 */
-	static public function hooks( Filters $obj ) {
+	public static function hooks( Filters $obj ): void {
 		if ( $obj->overridePrince() ) {
 			add_filter( 'pb_export_formats', [ $obj, 'addToFormats' ] );
 			add_filter( 'pb_active_export_modules', [ $obj, 'addToModules' ] );
@@ -52,14 +50,14 @@ class Filters {
 	 *
 	 * @return bool
 	 */
-	public function overridePrince() {
+	public function overridePrince(): bool {
 		$use_hooks = true;
 		if ( ! defined( 'DOCRAPTOR_API_KEY' ) ) {
 			// No API key
 			$use_hooks = false;
 		}
 		$plugin = 'pressbooks-docraptor/pressbooks-docraptor.php';
-		if ( file_exists( WP_PLUGIN_DIR . "/{$plugin}" ) && is_plugin_active( $plugin ) ) {
+		if ( file_exists( WP_PLUGIN_DIR . "/$plugin" ) && is_plugin_active( $plugin ) ) {
 			// The old, deprecated plugin is active
 			$use_hooks = false;
 		}
@@ -67,15 +65,15 @@ class Filters {
 	}
 
 	/**
-	 * @since 5.4.0
-	 *
-	 * Add this format to the export page formats list.
-	 *
 	 * @param array $formats a multidimensional array of standard and exotic formats
 	 *
 	 * @return array $formats
+	 *@since 5.4.0
+	 *
+	 * Add this format to the export page formats list.
+	 *
 	 */
-	public function addToFormats( $formats ) {
+	public function addToFormats( array $formats ): array {
 		$formats['standard'] =
 		[
 			'docraptor_print' => __( 'PDF (for print)', 'pressbooks' ),
@@ -89,15 +87,15 @@ class Filters {
 	}
 
 	/**
+	 * @param array $modules an array of active export module classnames
+	 *
+	 * @return array $modules
 	 * @since 5.4.0
 	 *
 	 * Add this module to the export batch currently in progress.
 	 *
-	 * @param array $modules an array of active export module classnames
-	 *
-	 * @return array $modules
 	 */
-	public function addToModules( $modules ) {
+	public function addToModules( array $modules ): array {
 		if ( isset( $_POST['export_formats']['docraptor'] ) && check_admin_referer( 'pb-export' ) ) {
 			$modules[] = '\Pressbooks\Modules\Export\Prince\Docraptor';
 		}
@@ -110,14 +108,11 @@ class Filters {
 	/**
 	 * @return bool
 	 */
-	public static function hasDependencies() {
-		if ( false === check_xmllint_install() ) {
+	public static function hasDependencies(): bool {
+		if ( ! check_xmllint_install() ) {
 			return false;
 		}
-		if ( ! defined( 'DOCRAPTOR_API_KEY' ) && false === \Pressbooks\Utility\check_prince_install() ) {
-			return false;
-		}
-		return true;
+		return defined( 'DOCRAPTOR_API_KEY' ) || check_prince_install();
 	}
 
 }

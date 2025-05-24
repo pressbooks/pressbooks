@@ -9,6 +9,8 @@
 
 namespace Pressbooks\Modules\Export\WordPress;
 
+use function Pressbooks\Utility\put_contents;
+use Generator;
 use Pressbooks\Modules\Export\ExportGenerator;
 
 class Wxr extends ExportGenerator {
@@ -18,47 +20,6 @@ class Wxr extends ExportGenerator {
 	 */
 	function __construct( array $args ) {
 
-	}
-
-	/**
-	 * Create $this->outputPath
-	 *
-	 * @return bool
-	 */
-	function convert() {
-
-		// Get WXR
-
-		$output = $this->transform( true );
-
-		if ( ! $output ) {
-			return false;
-		}
-
-		// Save WXR as file in exports folder
-
-		$filename = $this->timestampedFileName( '.xml' );
-		\Pressbooks\Utility\put_contents( $filename, $output );
-		$this->outputPath = $filename;
-
-		return true;
-	}
-
-	/**
-	 * Check the sanity of $this->outputPath
-	 *
-	 * @return bool
-	 */
-	function validate() {
-
-		if ( ! simplexml_load_file( $this->outputPath ) ) {
-
-			$this->logError( 'WXR document is not well formed XML.' );
-
-			return false;
-		}
-
-		return true;
 	}
 
 	/**
@@ -192,11 +153,31 @@ class Wxr extends ExportGenerator {
 		}
 	}
 
-	function convertGenerator(): \Generator {
-		// TODO: Implement convertGenerator() method.
-	}
+	public function convertGenerator(): Generator {
+		// Get WXR
+		yield 30 => __( 'Transforming WXR.', 'pressbooks' );
+		$output = $this->transform( true );
 
-	function validateGenerator(): \Generator {
-		// TODO: Implement validateGenerator() method.
+		if ( ! $output ) {
+			yield 'error' => __( 'Failed to transform WXR.', 'pressbooks' );
+			return;
+		}
+
+		// Save WXR as file in exports folder
+		yield 40 => __( 'Creating file.', 'pressbooks' );
+		$filename = $this->timestampedFileName( '.xml' );
+
+		put_contents( $filename, $output );
+		$this->outputPath = $filename;
+
+		yield 50 => __( 'Saved WXR file.', 'pressbooks' );
+	}
+	public function validateGenerator(): Generator {
+		if ( ! simplexml_load_file( $this->outputPath ) ) {
+			$this->logError( 'WXR document is not well formed XML.' );
+			yield 'error' => __( 'WXR document is not well formed XML.', 'pressbooks' );
+			return;
+		}
+		yield 70 => __( 'WXR is valid.', 'pressbooks' );
 	}
 }

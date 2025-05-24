@@ -11,6 +11,7 @@
 
 namespace Pressbooks\Modules\Export\Xhtml;
 
+use Exception;
 use function Pressbooks\Image\maybe_swap_with_bigger;
 use function Pressbooks\Modules\Export\get_contributors_section;
 use function Pressbooks\Sanitize\clean_filename;
@@ -18,6 +19,7 @@ use function Pressbooks\Sanitize\decode;
 use function Pressbooks\Utility\check_xmllint_install;
 use function Pressbooks\Utility\put_contents;
 use function Pressbooks\Utility\str_starts_with;
+use Generator;
 use PressbooksMix\Assets;
 use Pressbooks\Book;
 use Pressbooks\Container;
@@ -191,34 +193,18 @@ class Xhtml11 extends ExportGenerator {
 	}
 
 	/**
-	 * Create $this->outputPath
-	 *
-	 * @return bool
-	 */
-	public function convert() {
-		try {
-			foreach ( $this->convertGenerator() as $percentage => $info ) {
-				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
-			}
-		} catch ( \Exception $e ) {
-			return false;
-		}
-		return true;
-	}
-
-	/**
 	 * Yields an estimated percentage slice of: 1 to 80
 	 *
-	 * @return \Generator
-	 * @throws \Exception
+	 * @return Generator
+	 * @throws Exception
 	 */
-	public function convertGenerator() : \Generator {
+	public function convertGenerator() : Generator {
 		yield 1 => $this->generatorPrefix . __( 'Initializing', 'pressbooks' );
 
 		yield from $this->transformGenerator();
 
 		if ( ! $this->transformOutput ) {
-			throw new \Exception();
+			throw new Exception();
 		}
 
 		yield 75 => $this->generatorPrefix . __( 'Saving file to exports folder', 'pressbooks' );
@@ -229,28 +215,12 @@ class Xhtml11 extends ExportGenerator {
 	}
 
 	/**
-	 * Check the sanity of $this->outputPath
-	 *
-	 * @return bool
-	 */
-	public function validate() {
-		try {
-			foreach ( $this->validateGenerator() as $percentage => $info ) {
-				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
-			}
-		} catch ( \Exception $e ) {
-			return false;
-		}
-		return true;
-	}
-
-	/**
 	 * Yields an estimated percentage slice of: 80 to 100
 	 *
-	 * @return \Generator
-	 * @throws \Exception
+	 * @return Generator
+	 * @throws Exception
 	 */
-	public function validateGenerator() : \Generator {
+	public function validateGenerator() : Generator {
 		yield 80 => $this->generatorPrefix . __( 'Validating file', 'pressbooks' );
 
 		// Xmllint params
@@ -264,7 +234,7 @@ class Xhtml11 extends ExportGenerator {
 		// Is this a valid XHTML?
 		if ( is_countable( $output ) && count( $output ) ) {
 			$this->logError( implode( "\n", $output ) );
-			throw new \Exception();
+			throw new Exception();
 		}
 
 		yield 100 => $this->generatorPrefix . __( 'Validation successful', 'pressbooks' );
@@ -306,7 +276,7 @@ class Xhtml11 extends ExportGenerator {
 			foreach ( $this->transformGenerator() as $percentage => $info ) {
 				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
 			}
-		} catch ( \Exception $e ) {
+		} catch ( Exception $e ) {
 			return null;
 		}
 
@@ -321,10 +291,10 @@ class Xhtml11 extends ExportGenerator {
 	/**
 	 * Yields an estimated percentage slice of: 10 to 75
 	 *
-	 * @return \Generator
-	 * @throws \Exception
+	 * @return Generator
+	 * @throws Exception
 	 */
-	public function transformGenerator() : \Generator {
+	public function transformGenerator() : Generator {
 		do_action( 'pb_pre_export' );
 
 		// Override footnote shortcode
@@ -1090,7 +1060,7 @@ class Xhtml11 extends ExportGenerator {
 			$custom_copyright = $this->tidy( $metadata['pb_custom_copyright'] );
 		}
 
-		// default, so something is displayed
+		// by default, so something is displayed
 		$has_default = false;
 		if ( empty( $metadata['pb_custom_copyright'] ) && empty( $license ) ) {
 			$has_default = true;
@@ -1271,9 +1241,9 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @param  array $book_contents
 	 * @param  array $metadata
-	 * @return \Generator
+	 * @return Generator
 	 */
-	protected function renderFrontMatterGenerator( $book_contents, $metadata ) : \Generator {
+	protected function renderFrontMatterGenerator( $book_contents, $metadata ) : Generator {
 
 		$y = new PercentageYield( 50, 60, count( $book_contents['front-matter'] ) );
 
@@ -1336,9 +1306,9 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @param  array $book_contents
 	 * @param  array $metadata
-	 * @return \Generator
+	 * @return Generator
 	 */
-	protected function renderPartsAndChaptersGenerator( $book_contents, $metadata ) : \Generator {
+	protected function renderPartsAndChaptersGenerator( $book_contents, $metadata ) : Generator {
 		$yield = new PercentageYield( 60, 70, $this->countPartsAndChapters( $book_contents ) );
 
 		$part_index = 1;
@@ -1494,9 +1464,9 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @param  array $book_contents
 	 * @param  array $metadata
-	 * @return \Generator
+	 * @return Generator
 	 */
-	protected function renderBackMatterGenerator( $book_contents, $metadata ) : \Generator {
+	protected function renderBackMatterGenerator( $book_contents, $metadata ) : Generator {
 
 		$y = new PercentageYield( 70, 80, count( $book_contents['back-matter'] ) );
 

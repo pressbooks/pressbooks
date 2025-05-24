@@ -14,9 +14,9 @@ namespace Pressbooks;
 
 use function Pressbooks\Utility\getset;
 use Pressbooks\Cloner\Cloner;
+use Pressbooks\Modules\BackgroundProcessing\BackgroundJob;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Modules\Import\Import;
-use Pressbooks\Modules\BackgroundProcessing\BackgroundJob;
 
 class EventStreams {
 
@@ -265,18 +265,18 @@ class EventStreams {
 		// Prepare inputs from $_GET for the queuing method
 		// processAndQueueJobRequests expects an associative array for formats.
 		$export_formats_from_get = isset( $_GET['export_formats'] ) && is_array( $_GET['export_formats'] ) ? $_GET['export_formats'] : [];
-		
+
 		// Ensure $export_formats_from_get is associative [slug => value] for processAndQueueJobRequests
 		// If it comes as a simple indexed array of slugs, convert it.
 		// Based on original code, it was array_keys(array_map('sanitize_text_field', $export_formats_from_get))
 		// which implies the keys are what matter.
 		$sanitized_export_formats_for_queuing = [];
-		foreach ($export_formats_from_get as $key => $value) {
-		    // If $value is the slug (e.g. from a GET request like ?export_formats[]=pdf&export_formats[]=epub)
-		    // and $key is numeric, use $value as the slug for the associative array.
-		    // If $key is already the slug (e.g. ?export_formats[pdf]=1), then $key is the slug.
-		    $slug = is_numeric($key) ? sanitize_text_field($value) : sanitize_text_field($key);
-		    $sanitized_export_formats_for_queuing[$slug] = $slug; // Value can just be the slug itself
+		foreach ( $export_formats_from_get as $key => $value ) {
+			// If $value is the slug (e.g. from a GET request like ?export_formats[]=pdf&export_formats[]=epub)
+			// and $key is numeric, use $value as the slug for the associative array.
+			// If $key is already the slug (e.g. ?export_formats[pdf]=1), then $key is the slug.
+			$slug = is_numeric( $key ) ? sanitize_text_field( $value ) : sanitize_text_field( $key );
+			$sanitized_export_formats_for_queuing[ $slug ] = $slug; // Value can just be the slug itself
 		}
 
 		if ( empty( $sanitized_export_formats_for_queuing ) ) {
@@ -413,9 +413,9 @@ class EventStreams {
 				// Optimization: Only fetch jobs updated recently or those not yet in a final state for the client.
 				// This needs careful handling to ensure final states are not missed.
 				// For now, let's stick to a time window for updates to avoid sending old, unchanged completed/failed jobs forever.
-				->where(function ($query) use ($last_sent_statuses) {
+				->where(function ( $query ) use ( $last_sent_statuses ) {
 					$query->where( 'updated_at', '>=', gmdate( 'Y-m-d H:i:s', strtotime( '-2 minutes' ) ) ) // Increased window slightly
-						->orWhereNotIn('status', ['completed', 'failed', 'cancelled']); // Or if it's still an active job
+						->orWhereNotIn( 'status', [ 'completed', 'failed', 'cancelled' ] ); // Or if it's still an active job
 				})
 				->get();
 
@@ -462,7 +462,7 @@ class EventStreams {
 						$last_sent_statuses[ $job->id ] = $current_job_state_json;
 					}
 					// Check if this job is in a terminal state
-					if (!in_array($job->status, ['completed', 'failed', 'cancelled'])) {
+					if ( ! in_array( $job->status, [ 'completed', 'failed', 'cancelled' ], true ) ) {
 						$all_jobs_are_terminal = false;
 					}
 				}

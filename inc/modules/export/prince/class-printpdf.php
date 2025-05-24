@@ -22,7 +22,7 @@ class PrintPdf extends Pdf {
 	/**
 	 * @return string
 	 */
-	protected function generateFileName() {
+	protected function generateFileName(): string {
 		return $this->timestampedFileName( '._print.pdf' );
 	}
 
@@ -31,7 +31,7 @@ class PrintPdf extends Pdf {
 	 *
 	 * @return string
 	 */
-	protected function getPdfProfile() {
+	protected function getPdfProfile(): string {
 		return 'PDF/X-4';
 	}
 
@@ -40,7 +40,7 @@ class PrintPdf extends Pdf {
 	 *
 	 * @return string
 	 */
-	protected function getPdfOutputIntent() {
+	protected function getPdfOutputIntent(): string {
 		return apply_filters( 'pb_prince_output_intent_path', '/usr/lib/prince/icc/USWebCoatedSWOP.icc' );
 	}
 }

@@ -199,7 +199,7 @@ class BackgroundJob {
 					->update( $update_gen_progress_data );
 			}
 
-				// Check generator status
+			// Check generator status
 			$convert_success = $conversion_generator->getReturn();
 
 			if ( $convert_success ) {

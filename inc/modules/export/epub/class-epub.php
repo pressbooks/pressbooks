@@ -551,7 +551,7 @@ class Epub extends ExportGenerator {
 		// Do root level structures first.
 		foreach ( $book_contents as $type => $struct ) {
 
-			if (str_starts_with($type, '__')) {
+			if ( str_starts_with( $type, '__' ) ) {
 				continue; // Skip __magic keys
 			}
 

@@ -15,6 +15,7 @@ namespace Pressbooks\Modules\Export;
 use function Pressbooks\add_error;
 use function Pressbooks\L10n\get_book_language;
 use function Pressbooks\L10n\wplang_codes;
+use function Pressbooks\Media\mime_type;
 use function Pressbooks\Redirect\force_download;
 use function Pressbooks\Sanitize\fix_audio_shortcode;
 use function Pressbooks\Sanitize\sanitize_xml_id;
@@ -45,39 +46,27 @@ if ( ! defined( 'PCLZIP_TEMPORARY_DIR' ) ) {
 
 abstract class Export {
 
-	/**
-	 * @var bool
-	 */
-	static $switchedLocale;
+	public static bool $switchedLocale;
 
-	/**
-	 * @var array
-	 */
-	static $exportConversionError = [];
+	public static array $exportConversionError = [];
 
-	/**
-	 * @var array
-	 */
-	static $exportValidationWarning = [];
+	public static array $exportValidationWarning = [];
 
-	/**
-	 * @var []
-	 */
-	static $exportOutputs = [];
+	public static array $exportOutputs = [];
 
 	/**
 	 * Email addresses to send log errors.
 	 *
 	 * @var array
 	 */
-	public $errorsEmail = [];
+	public array $errorsEmail = [];
 
 	/**
-	 * Reserved html IDs.
+	 * Reserved HTML IDs.
 	 *
 	 * @var array
 	 */
-	protected $reservedIds = [
+	protected array $reservedIds = [
 		'cover-image',
 		'half-title-page',
 		'title-page',
@@ -91,21 +80,21 @@ abstract class Export {
 	 *
 	 * @var string fullpath
 	 */
-	protected $outputPath;
+	protected string $outputPath;
 
 	/**
 	 * Stores arguments for the current export modules being processed.
 	 * Used to pass arguments to background jobs.
 	 * @var array
 	 */
-	protected static $currentExportModuleArgs = [];
+	protected static array $currentExportModuleArgs = [];
 
 	/**
 	 * Return $this->outputPath
 	 *
 	 * @return string
 	 */
-	function getOutputPath() {
+	function getOutputPath(): string {
 
 		return $this->outputPath;
 	}
@@ -116,6 +105,8 @@ abstract class Export {
 	 * @param string $type
 	 *
 	 * @return string
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
 	function getExportStylePath( $type ) {
 
@@ -147,10 +138,12 @@ abstract class Export {
 	 * @param string $type
 	 *
 	 * @return string
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
 	function getLatestExportStylePath( $type ) {
 		// This method only supports Prince stylesheets at the moment.
-		if ( in_array( $type, [ 'prince' ], true ) ) {
+		if ( $type === 'prince' ) {
 			foreach ( scandir_by_date( Container::get( 'Sass' )->pathToUserGeneratedCss() ) as $file ) {
 				if ( preg_match( '/(' . $type . ')-([0-9]*)/', $file, $matches ) ) {
 					return Container::get( 'Sass' )->pathToUserGeneratedCss() . "/$type-{$matches[2]}.css";
@@ -170,7 +163,7 @@ abstract class Export {
 	 */
 	function getLatestExportStyleUrl( $type ) {
 		// This method only supports Prince stylesheets at the moment.
-		if ( in_array( $type, [ 'prince' ], true ) ) {
+		if ( $type === 'prince' ) {
 			foreach ( scandir_by_date( Container::get( 'Sass' )->pathToUserGeneratedCss() ) as $file ) {
 				if ( preg_match( '/(' . $type . ')-([0-9]*)/', $file, $matches ) ) {
 					return Container::get( 'Sass' )->urlToUserGeneratedCss( true ) . "/$type-{$matches[2]}.css";
@@ -185,11 +178,13 @@ abstract class Export {
 	 * Remove all but the most recent compiled stylesheet.
 	 *
 	 * @param string $type
-	 * @param int    $max
+	 * @param int $max
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
 	function truncateExportStylesheets( $type, $max = 1 ) {
 		// This method only supports Prince stylesheets at the moment.
-		if ( in_array( $type, [ 'prince' ], true ) ) {
+		if ( $type === 'prince' ) {
 			$stylesheets = scandir_by_date( Container::get( 'Sass' )->pathToUserGeneratedCss() );
 			$max = absint( $max );
 			$i = 1;
@@ -210,6 +205,8 @@ abstract class Export {
 	 * @param string $type
 	 *
 	 * @return string
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
 	function getExportScriptPath( $type ) {
 
@@ -244,6 +241,8 @@ abstract class Export {
 	 * @param string $type
 	 *
 	 * @return string
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
 	function getExportScriptUrl( $type ) {
 
@@ -267,7 +266,7 @@ abstract class Export {
 	 *
 	 * @return bool
 	 */
-	static function shouldParseSubsections() {
+	public static function shouldParseSubsections() {
 
 		$options = get_option( 'pressbooks_theme_options_global' );
 
@@ -284,11 +283,11 @@ abstract class Export {
 	 * @param string $message
 	 * @param array  $more_info
 	 */
-	function logError( $message, array $more_info = [] ) {
+	function logError( $message, array $more_info = [] ): void {
 
 		/**
-	* $var \WP_User $current_user
-*/
+		 * $var \WP_User $current_user
+		 */
 		global $current_user;
 
 		$subject = get_class( $this );
@@ -302,7 +301,9 @@ abstract class Export {
 		];
 
 		$message = print_r( array_merge( $info, $more_info ), true ) . $message; // @codingStandardsIgnoreLine
+
 		$exportoptions = get_option( 'pressbooks_export_options' );
+
 		if ( $current_user->user_email && isset( $exportoptions['email_validation_logs'] ) && 1 === absint( $exportoptions['email_validation_logs'] ) ) {
 			$this->errorsEmail[] = $current_user->user_email;
 		}
@@ -322,7 +323,7 @@ abstract class Export {
 	 *
 	 * @return string fullpath
 	 */
-	function createTmpFile() {
+	function createTmpFile(): string {
 
 		return create_tmp_file();
 	}
@@ -335,21 +336,15 @@ abstract class Export {
 	 *
 	 * @return string
 	 */
-	function timestampedFileName( $extension, $fullpath = true ) {
+	function timestampedFileName( $extension, $fullpath = true ): string {
 		$book_title = ( get_bloginfo( 'name' ) ) ? get_bloginfo( 'name' ) : __( 'book', 'pressbooks' );
 		$book_title_slug = sanitize_file_name( $book_title );
 		$book_title_slug = str_replace( [ '+' ], '', $book_title_slug ); // Remove symbols which confuse Apache (Ie. form urlencoded spaces)
 		$book_title_slug = sanitize_file_name( $book_title_slug ); // str_replace() may inadvertently create a new bad filename, sanitize again for good measure.
 
-		if ( $fullpath ) {
-			$path = static::getExportFolder();
-		} else {
-			$path = '';
-		}
+		$path = $fullpath ? static::getExportFolder() : '';
 
-		$filename = $path . $book_title_slug . '-' . time() . '.' . ltrim( $extension, '.' );
-
-		return $filename;
+		return $path . $book_title_slug . '-' . time() . '.' . ltrim( $extension, '.' );
 	}
 
 	/**
@@ -361,8 +356,7 @@ abstract class Export {
 	 *
 	 * @return string
 	 */
-	function nonce( $timestamp ) {
-
+	function nonce( $timestamp ): string {
 		return md5( NONCE_KEY . $timestamp );
 	}
 
@@ -376,7 +370,7 @@ abstract class Export {
 	 *
 	 * @return bool
 	 */
-	function verifyNonce( $timestamp, $md5 ) {
+	function verifyNonce( $timestamp, $md5 ): bool {
 
 		// Within range of 5 minutes?
 		$within_range = time() - $timestamp;
@@ -393,31 +387,13 @@ abstract class Export {
 	}
 
 	/**
-	 * Fix annoying characters that the user probably didn't do on purpose
-	 *
-	 * @deprecated
-	 *
-	 * @param string $html
-	 *
-	 * @return string
-	 */
-	function fixAnnoyingCharacters( $html ) {
-
-		// Replace Non-breaking spaces with normal spaces
-		// TODO: Some users want this, others do not want this, make up your mind...
-		// $html = preg_replace( '/\xC2\xA0/', ' ', $html ); @codingStandardsIgnoreLine
-
-		return $html;
-	}
-
-	/**
 	 * Check a post_name against a list of reserved IDs, sanitize for use as an XML ID.
 	 *
 	 * @param string $id
 	 *
 	 * @return string
 	 */
-	protected function preProcessPostName( $id ) {
+	protected function preProcessPostName( $id ): string {
 
 		if ( in_array( $id, $this->reservedIds, true ) ) {
 			$id = uniqid( "$id-" );
@@ -445,7 +421,7 @@ abstract class Export {
 	}
 
 	/**
-	 * Will create an html blob of copyright, returns empty string if something goes wrong
+	 * Will create an HTML blob of copyright, returns empty string if something goes wrong
 	 *
 	 * @param array  $metadata
 	 * @param string $title          (optional)
@@ -454,7 +430,7 @@ abstract class Export {
 	 *
 	 * @return string $html blob
 	 */
-	protected function doCopyrightLicense( $metadata, $title = '', $id = 0, $section_author = '' ) {
+	protected function doCopyrightLicense( $metadata, $title = '', $id = 0, $section_author = '' ): string {
 
 		if ( ! empty( $section_author ) ) {
 			_deprecated_argument( __METHOD__, '4.1.0' );
@@ -476,7 +452,7 @@ abstract class Export {
 	 *
 	 * @return string
 	 */
-	protected function doTocLicense( $post_id ) {
+	protected function doTocLicense( $post_id ): string {
 		$option = get_option( 'pressbooks_theme_options_global' );
 		if ( ! empty( $option['copyright_license'] ) ) {
 			if ( 1 === absint( $option['copyright_license'] ) ) {
@@ -507,7 +483,7 @@ abstract class Export {
 	 *
 	 * @return string
 	 */
-	protected function doSectionLevelLicense( $metadata, $post_id ) {
+	protected function doSectionLevelLicense( $metadata, $post_id ): string {
 		$option = get_option( 'pressbooks_theme_options_global' );
 		if ( ! empty( $option['copyright_license'] ) ) {
 			if ( 1 === absint( $option['copyright_license'] ) ) {
@@ -535,7 +511,7 @@ abstract class Export {
 	 *
 	 * @return string
 	 */
-	protected function loadTemplate( $path, array $vars = [] ) {
+	protected function loadTemplate( $path, array $vars = [] ): string {
 		try {
 			return template( $path, $vars );
 		} catch ( \Exception $e ) {
@@ -554,8 +530,8 @@ abstract class Export {
 	 *
 	 * @return string
 	 */
-	static function mimeType( $file ) {
-		return \Pressbooks\Media\mime_type( $file );
+	public static function mimeType( $file ): string {
+		return mime_type( $file );
 	}
 
 	/**
@@ -564,7 +540,7 @@ abstract class Export {
 	 *
 	 * @return string fullpath
 	 */
-	static function getExportFolder() {
+	public static function getExportFolder(): string {
 
 		$path = get_media_prefix() . 'exports/';
 		if ( ! file_exists( $path ) ) {
@@ -585,9 +561,7 @@ abstract class Export {
 		 *
 		 * @param string $path The path to the Pressbooks export folder
 		 */
-		$path = apply_filters( 'pb_get_export_folder', $path );
-
-		return $path;
+		return apply_filters( 'pb_get_export_folder', $path );
 	}
 
 	/**
@@ -595,7 +569,7 @@ abstract class Export {
 	 *
 	 * @return array
 	 */
-	protected static function getBackgroundExportTypes(): array {
+	public static function getBackgroundExportTypes(): array {
 		return apply_filters('pb_background_export_types', [
 			'\\Pressbooks\\Modules\\Export\\Prince\\Pdf',
 			'\\Pressbooks\\Modules\\Export\\Prince\\PrintPdf',
@@ -615,14 +589,22 @@ abstract class Export {
 	 * @param string $module_classname
 	 * @return string
 	 */
-	protected static function getExportFormatSlugFromClassname(string $module_classname): string {
-		$parts = explode('\\', $module_classname);
-		$slug = strtolower(end($parts));
+	protected static function getExportFormatSlugFromClassname( string $module_classname ): string {
+		$parts = explode( '\\', $module_classname );
+		$slug = strtolower( end( $parts ) );
 		// Specific overrides if class name doesn't directly map
-		if ($slug === 'printpdf') return 'print-pdf';
-		if ($slug === 'docraptorprint') return 'docraptor-print-pdf';
-		if ($slug === 'xhtml11') return 'xhtml';
-		if ($slug === 'vanillawxr') return 'vanilla-wxr';
+		if ( $slug === 'printpdf' ) {
+			return 'print-pdf';
+		}
+		if ( $slug === 'docraptorprint' ) {
+			return 'docraptor-print-pdf';
+		}
+		if ( $slug === 'xhtml11' ) {
+			return 'xhtml';
+		}
+		if ( $slug === 'vanillawxr' ) {
+			return 'vanilla-wxr';
+		}
 		// Add more specific mappings as needed
 		return $slug;
 	}
@@ -635,60 +617,20 @@ abstract class Export {
 	 * @param string $module_classname
 	 * @return string
 	 */
-	public static function getFriendlyNameForModule(string $module_classname): string {
-		if (function_exists('\Pressbooks\Modules\Export\get_name_from_module_classname')) {
+	public static function getFriendlyNameForModule( string $module_classname ): string {
+		if ( function_exists( '\Pressbooks\Modules\Export\get_name_from_module_classname' ) ) {
 			// This function is in namespace.php, ensure it's loaded.
 			// It returns names like "Digital PDF", "EPUB" etc.
-			return \Pressbooks\Modules\Export\get_name_from_module_classname($module_classname);
+			return get_name_from_module_classname( $module_classname );
 		}
-		$parts = explode('\\', $module_classname);
-		return end($parts); // Fallback to class name
-	}
-
-	/**
-	 * Get the public URL to the exports folder.
-	 *
-	 * @return string
-	 */
-	public static function getExportFolderUrl(): string {
-		$export_path = self::getExportFolder(); // This is a file path
-		$upload_dir = wp_get_upload_dir(); // Correct way to get base paths/URLs
-
-		$upload_base_path = trailingslashit($upload_dir['basedir']);
-		$upload_base_url = trailingslashit($upload_dir['baseurl']);
-
-		// Ensure $export_path is absolute before attempting to make it relative to $upload_base_path
-		// realpath() can return false if path does not exist, handle this.
-		$real_export_path = realpath($export_path);
-		if ($real_export_path === false) {
-			 // If path doesn't exist yet (e.g. first export), try to construct based on known structure
-			if (is_multisite()) {
-				$path_fragment = 'sites/' . get_current_blog_id() . '/pressbooks/exports/';
-			} else {
-				$path_fragment = 'pressbooks/exports/';
-			}
-			return $upload_base_url . $path_fragment;
-		}
-
-		$real_export_path = trailingslashit($real_export_path);
-
-		if (strpos($real_export_path, $upload_base_path) === 0) {
-			$relative_path = str_replace($upload_base_path, '', $real_export_path);
-			return $upload_base_url . $relative_path;
-		} else {
-			// Fallback or error: Export path is not within the uploads directory.
-			// This might indicate a custom export folder configuration.
-			// For now, return empty or log an error. Depending on `pb_get_export_folder` filter.
-			// A more robust solution would be needed if exports can be outside uploads.
-			// However, Pressbooks' get_media_prefix() usually points within uploads.
-			return ''; // Or apply a filter to allow defining this URL
-		}
+		$parts = explode( '\\', $module_classname );
+		return end( $parts ); // Fallback to class name
 	}
 
 	/**
 	 * Pre-Export
 	 */
-	public static function preExport() {
+	public static function preExport(): void {
 		/**
 		 * Let other plugins tweak things before exporting
 		 *
@@ -714,7 +656,7 @@ abstract class Export {
 	 *
 	 * @return array
 	 */
-	static function modules() {
+	public static function modules(): array {
 		$modules = [];
 		if ( is_array( getset( '_GET', 'export_formats' ) ) && check_admin_referer( 'pb-export' ) ) {
 
@@ -775,7 +717,7 @@ abstract class Export {
 	 *
 	 * @see pressbooks/templates/admin/export.blade.php
 	 */
-	static function formSubmit() {
+	public static function formSubmit(): void {
 
 		if ( false === static::isFormSubmission() || false === current_user_can( 'edit_posts' ) ) {
 			// Don't do anything in this function, bail.
@@ -787,26 +729,26 @@ abstract class Export {
 		static::$currentExportModuleArgs = $_POST['export_options'] ?? []; // Example: if you have specific options per module in form
 
 		// Override some WP behaviours when exporting
-		\Pressbooks\Sanitize\fix_audio_shortcode();
+		fix_audio_shortcode();
 
 		// Download
 		if ( ! empty( $_GET['download_export_file'] ) ) {
 			$filename = sanitize_file_name( $_GET['download_export_file'] );
 			// Add security for job-based downloads
-			if (isset($_GET['job_id']) && isset($_GET['_wpnonce'])) {
-				$job_id = absint($_GET['job_id']);
-				if (wp_verify_nonce(sanitize_key($_GET['_wpnonce']), 'download_export_job_' . $job_id)) {
+			if ( isset( $_GET['job_id'] ) && isset( $_GET['_wpnonce'] ) ) {
+				$job_id = absint( $_GET['job_id'] );
+				if ( wp_verify_nonce( sanitize_key( $_GET['_wpnonce'] ), 'download_export_job_' . $job_id ) ) {
 					// Potentially check if current user owns the job or has rights
 					global $wpdb;
-					$job = $wpdb->get_row($wpdb->prepare("SELECT user_id, output_file_path FROM {$wpdb->prefix}pressbooks_export_jobs WHERE id = %d", $job_id));
-					if ($job && $job->user_id == get_current_user_id() && basename($job->output_file_path) === $filename) {
+					$job = $wpdb->get_row( $wpdb->prepare( "SELECT user_id, output_file_path FROM {$wpdb->prefix}pressbooks_export_jobs WHERE id = %d", $job_id ) );
+					if ( $job && $job->user_id == get_current_user_id() && basename( $job->output_file_path ) === $filename ) {
 						static::downloadExportFile( $filename, false ); // Original method assumes file is in default export dir
 						exit;
 					} else {
-						wp_die(__( 'Invalid job ID or permission denied for download.', 'pressbooks' ), 'Error', ['response' => 403]);
+						wp_die( __( 'Invalid job ID or permission denied for download.', 'pressbooks' ), 'Error', [ 'response' => 403 ] );
 					}
 				} else {
-					wp_die(__( 'Invalid download link.', 'pressbooks' ), 'Error', ['response' => 403]);
+					wp_die( __( 'Invalid download link.', 'pressbooks' ), 'Error', [ 'response' => 403 ] );
 				}
 			} else {
 				// Fallback to old download mechanism if no job_id (e.g. for non-background processed files)
@@ -911,7 +853,7 @@ abstract class Export {
 	 *
 	 * @return bool
 	 */
-	static function isFormSubmission() {
+	static function isFormSubmission(): bool {
 
 		// EventSource (Progress bar)
 		if ( wp_doing_ajax() ) {
@@ -952,7 +894,7 @@ abstract class Export {
 	 * @param string $filename sanitized $_GET['download_export_file']
 	 * @param bool   $inline
 	 */
-	protected static function downloadExportFile( $filename, $inline ) {
+	protected static function downloadExportFile( $filename, $inline ): void {
 		$filepath = static::getExportFolder() . $filename;
 		force_download( $filepath, $inline );
 	}
@@ -965,7 +907,7 @@ abstract class Export {
 	 * @param array $export_options_input Associative array of export options.
 	 * @return array An array of results, with each item detailing the outcome for a format.
 	 */
-	public static function processAndQueueJobRequests(array $export_formats_input, array $export_options_input): array {
+	public static function processAndQueueJobRequests( array $export_formats_input, array $export_options_input ): array {
 		// Ensure the export jobs table exists before proceeding
 		BackgroundJob::ensureExportsTable();
 
@@ -1000,9 +942,8 @@ abstract class Export {
 			}
 
 			// Only proceed if this module type is meant for background processing.
-			// Other types might be handled synchronously by other mechanisms (not covered by this method).
 			if ( in_array( $module_classname, $background_pdf_types, true ) ) {
-				$constructor_args = self::getConstructorArgsForModule( $module_classname, $export_options_input );
+				$constructor_args = [];
 
 				$book_id = get_current_blog_id();
 				$user_id = get_current_user_id();
@@ -1041,7 +982,7 @@ abstract class Export {
 				} else {
 					$results[] = [
 						'event_type' => 'job_queue_failed',
-						'message' => sprintf( __( 'Failed to queue %s export. Database error: %s', 'pressbooks' ), $friendly_name, esc_html($wpdb->last_error) ),
+						'message' => sprintf( __( 'Failed to queue %s export. Database error: %s', 'pressbooks' ), $friendly_name, esc_html( $wpdb->last_error ) ),
 						'module_slug' => $format_slug,
 						'module_classname' => $module_classname,
 						'format_name' => $friendly_name,
@@ -1070,22 +1011,6 @@ abstract class Export {
 	}
 
 	/**
-	 * Gets the constructor arguments for a given export module.
-	 * This is a placeholder and might need more sophisticated logic based on your actual needs.
-	 *
-	 * @param string $module_classname
-	 * @param array $global_export_options General options passed in the AJAX request.
-	 * @return array
-	 */
-	protected static function getConstructorArgsForModule(string $module_classname, array $global_export_options = []) {
-		// Basic implementation: return global options. Could be customized per module.
-		// For example, if certain options are only relevant to PDF, or if specific $_POST fields need to be mapped.
-		// This was previously handled somewhat in exportGenerator with $constructor_args = static::$currentExportModuleArgs[0] ?? [];
-		// Now static::$currentExportModuleArgs is just $_POST['export_options']
-		return $global_export_options; // Or process/filter as needed
-	}
-
-	/**
 	 * Helper to get a map of all available export format slugs to their classnames.
 	 * This might involve calling parts of your existing `modules()` or `get_export_formats_map()` logic.
 	 * For now, a simplified version based on what `getFriendlyNameForModule` might imply.
@@ -1093,8 +1018,7 @@ abstract class Export {
 	 *
 	 * @return array [slug => classname, ...]
 	 */
-	protected static function getAvailableExportModules(): array
-	{
+	protected static function getAvailableExportModules(): array {
 		// Map of export format slugs to their class names - only include formats that are in the form
 		$slug_to_classname = [
 			'pdf' => '\\Pressbooks\\Modules\\Export\\Prince\\Pdf',
@@ -1106,14 +1030,14 @@ abstract class Export {
 		];
 
 		// Allow plugins to add their own export formats
-		return apply_filters('pb_available_export_module_slug_to_classname_map', $slug_to_classname);
+		return apply_filters( 'pb_available_export_module_slug_to_classname_map', $slug_to_classname );
 	}
 
 	/**
 	 * AJAX handler for submitting export jobs.
 	 * This method now uses the centralized processAndQueueJobRequests method.
 	 */
-	public static function ajax_submit_export_job() {
+	public static function ajax_submit_export_job(): void {
 		// Nonce check specific to this AJAX action
 		check_ajax_referer( 'pb-export-book', 'pb_export_nonce' );
 
@@ -1126,10 +1050,10 @@ abstract class Export {
 		$export_formats_from_post = isset( $_POST['export_formats'] ) && is_array( $_POST['export_formats'] ) ? $_POST['export_formats'] : [];
 		// Sanitize keys of export_formats_from_post as they are used in loops
 		$sanitized_export_formats = [];
-		foreach ($export_formats_from_post as $key => $value) {
-		    // Assuming $key is the format slug and $value might be '1' or the slug itself if it's checkbox-like.
-		    // The crucial part is the key.
-		    $sanitized_export_formats[sanitize_text_field($key)] = sanitize_text_field($value);
+		foreach ( $export_formats_from_post as $key => $value ) {
+			// Assuming $key is the format slug and $value might be '1' or the slug itself if it's checkbox-like.
+			// The crucial part is the key.
+			$sanitized_export_formats[ sanitize_text_field( $key ) ] = sanitize_text_field( $value );
 		}
 
 		if ( empty( $sanitized_export_formats ) ) {
@@ -1165,7 +1089,7 @@ abstract class Export {
 			$error_message = __( 'No export jobs were successfully queued.', 'pressbooks' );
 			$specific_errors = [];
 			foreach ( $results as $result ) {
-				if ( isset( $result['status'] ) && $result['status'] === 'error' && isset($result['message']) ) {
+				if ( isset( $result['status'] ) && $result['status'] === 'error' && isset( $result['message'] ) ) {
 					$specific_errors[] = $result['message'];
 				}
 			}

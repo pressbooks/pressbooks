@@ -5,16 +5,16 @@
  */
 
 namespace Pressbooks\Modules\Export\Prince;
+
 use DocRaptor\ApiException;
 use DocRaptor\Doc;
 use DocRaptor\DocApi;
 use DocRaptor\PrinceOptions;
-use Pressbooks\Container;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
 use function Pressbooks\Utility\check_xmllint_install;
 use function Pressbooks\Utility\get_contents;
 use function Pressbooks\Utility\put_contents;
+use Generator;
+use Pressbooks\Container;
 
 class Docraptor extends Pdf {
 
@@ -33,7 +33,7 @@ class Docraptor extends Pdf {
 
 	/**
 	 * For expensive functions we use a generator to allow the caller to yield control back to the event loop.
-	 * @return \Generator
+	 * @return Generator
 	 * @throws ContainerExceptionInterface
 	 * @throws NotFoundExceptionInterface
 	 * @since 5.4.0
@@ -41,8 +41,9 @@ class Docraptor extends Pdf {
 	 * Create $this->outputPath.
 	 *
 	 */
-	public function convertGenerator(): \Generator
-	{
+	public function convertGenerator(): Generator {
+
+		yield 35 => __( 'Starting conversion...', 'pressbooks' );
 
 		// Sanity check
 		if ( empty( $this->exportStylePath ) || ! is_file( $this->exportStylePath ) ) {
@@ -50,6 +51,7 @@ class Docraptor extends Pdf {
 			return false;
 		}
 
+		yield 40 => __( 'Creating temporary files...', 'pressbooks' );
 		// Set logfile
 		$this->logfile = $this->createTmpFile();
 
@@ -57,9 +59,11 @@ class Docraptor extends Pdf {
 		$filename = $this->generateFileName();
 		$this->outputPath = $filename;
 
+		yield 45 => __( 'Loading fonts...', 'pressbooks' );
 		// Fonts
 		Container::get( 'GlobalTypography' )->getFonts();
 
+		yield 50 => __( 'Generating CSS...', 'pressbooks' );
 		// CSS
 		$this->truncateExportStylesheets( 'prince' );
 		$timestamp = time();
@@ -74,9 +78,8 @@ class Docraptor extends Pdf {
 		}
 		put_contents( $css_file, $css );
 
-		// --------------------------------------------------------------------
+		yield 55 => __( 'Configuring DocRaptor...', 'pressbooks' );
 		// Save PDF as file in exports folder
-
 		$docraptor = new DocApi();
 		$docraptor->getConfig()->setUsername( DOCRAPTOR_API_KEY );
 
@@ -95,6 +98,7 @@ class Docraptor extends Pdf {
 		}
 		$retval = false;
 
+		yield 58 => __( 'Preparing document...', 'pressbooks' );
 		try {
 			$doc = new Doc();
 			if ( defined( 'WP_TESTS_MULTISITE' ) ) {
@@ -123,12 +127,14 @@ class Docraptor extends Pdf {
 			$doc->setPrinceOptions( $prince_options );
 			$doc->setPipeline( 9.2 ); // Prince 14.3, see: https://docraptor.com/documentation/api#api_pipeline
 
+			yield 60 => __( 'Converting document...', 'pressbooks' );
 			$create_response = $docraptor->createAsyncDoc( $doc );
 			$done = false;
 			while ( ! $done ) {
 				$status_response = $docraptor->getAsyncDocStatus( $create_response->getStatusId() );
 				switch ( $status_response->getStatus() ) {
 					case 'completed':
+						yield 65 => __( 'Downloading converted file...', 'pressbooks' );
 						if ( ! function_exists( 'download_url' ) ) {
 							require_once( ABSPATH . 'wp-admin/includes/file.php' );
 						}
@@ -158,13 +164,14 @@ class Docraptor extends Pdf {
 			}
 		} catch ( ApiException $exception ) {
 			$msg = $exception->getResponseBody();
-			put_contents( $this->logfile, $msg );
+			put_contents( $this->logfile, $exception->getResponseBody() );
 		}
 
 		if ( ! empty( $msg ) ) {
 			$this->logError( get_contents( $this->logfile ) );
 		}
 
+		yield 69 => __( 'Conversion complete.', 'pressbooks' );
 		return $retval;
 	}
 
@@ -175,7 +182,7 @@ class Docraptor extends Pdf {
 	 *
 	 * @return string
 	 */
-	protected function getDetailedLog( $id ) {
+	protected function getDetailedLog( $id ): string {
 		// @see: https://docraptor.com/documentation/api#doc_log_listing
 		$response = wp_remote_get( esc_url( 'https://docraptor.com/doc_logs.json?per_page=25&user_credentials=' . DOCRAPTOR_API_KEY ) );
 		if ( is_wp_error( $response ) ) {
@@ -199,10 +206,7 @@ class Docraptor extends Pdf {
 	 *
 	 * @return bool
 	 */
-	public static function hasDependencies() {
-		if ( false !== check_xmllint_install() ) {
-			return true;
-		}
-		return false;
+	public static function hasDependencies(): bool {
+		return check_xmllint_install() !== false;
 	}
 }
