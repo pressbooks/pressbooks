@@ -342,7 +342,9 @@ function replace_book_admin_menu() {
 					'pb-export', 'PB_ExportToken', [
 						'ajaxurl' => admin_url( 'admin-ajax.php' ),
 						'exportPageUrl' => admin_url( 'admin.php?page=pb_export' ),
-						'nonce' => wp_create_nonce( 'pb-export-book' ),
+						'nonce' => wp_create_nonce( 'pb-export-book' ), // General nonce for export actions
+						'userExportFeedNonce' => wp_create_nonce( 'pressbooks_user_export_feed' ), // Nonce for the global SSE feed
+						'bookId' => get_current_blog_id(), // Current Book ID for the SSE feed
 						'downloadNoncePrefix' => 'download_export_job_',
 						'text'    => [
 							'select_format'   => esc_html__( 'Please select at least one export format.', 'pressbooks' ),
@@ -360,6 +362,7 @@ function replace_book_admin_menu() {
 						],
 						'pinsNonce' => wp_create_nonce( 'pb-export-pins' ),
 						'unloadWarning' => esc_html__( 'Exports are not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
+						'reloadOnComplete' => true, // Flag for export.js to know if it should consider reloading
 					]
 				);
 				wp_enqueue_style( 'pb-export' );
@@ -1173,7 +1176,7 @@ function init_css_js() {
 
 	// Register styles for later, on-the-fly, using action: admin_print_scripts- (or other tricks of the shade)
 	wp_register_style( 'pb-export', $assets->getPath( 'styles/export.css' ) );
-	wp_register_style( 'pb-export-ui', $assets->getPath( 'src/styles/admin/export-ui.css' ), [], '1.0.0' ); // Updated path to src
+	wp_register_style( 'pb-export-ui', $assets->getPath( 'styles/admin/export-ui.css' ), [], '1.0.0' ); // Updated path to src
 	wp_register_style( 'pb-organize', $assets->getPath( 'styles/organize.css' ) );
 	wp_register_style( 'duet-date-picker', $assets->getPath( 'styles/duet.css' ) );
 

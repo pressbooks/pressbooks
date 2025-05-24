@@ -9,9 +9,9 @@
 
 namespace Pressbooks\Modules\Export\WordPress;
 
-use Pressbooks\Modules\Export\Export;
+use Pressbooks\Modules\Export\ExportGenerator;
 
-class Wxr extends Export {
+class Wxr extends ExportGenerator {
 
 	/**
 	 * @param array $args
@@ -192,4 +192,13 @@ class Wxr extends Export {
 		}
 	}
 
+	function convertGenerator(): \Generator
+	{
+		// TODO: Implement convertGenerator() method.
+	}
+
+	function validateGenerator(): \Generator
+	{
+		// TODO: Implement validateGenerator() method.
+	}
 }

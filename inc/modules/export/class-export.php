@@ -28,6 +28,7 @@ use function \Pressbooks\Utility\scandir_by_date;
 use Pressbooks\Book;
 use Pressbooks\Container;
 use Pressbooks\CustomCss;
+use Pressbooks\Modules\BackgroundProcessing\BackgroundJob;
 
 // IMPORTANT! if this isn't set correctly before include, with a trailing slash, PclZip will fail.
 if ( ! defined( 'PCLZIP_TEMPORARY_DIR' ) ) {
@@ -648,8 +649,8 @@ abstract class Export {
 	 * @param string $module_classname
 	 * @return string
 	 */
-	protected static function getFriendlyNameForModule(string $module_classname): string {
-		if (function_exists('\\Pressbooks\\Modules\\Export\\get_name_from_module_classname')) {
+	public static function getFriendlyNameForModule(string $module_classname): string {
+		if (function_exists('\Pressbooks\Modules\Export\get_name_from_module_classname')) {
 			// This function is in namespace.php, ensure it's loaded.
 			// It returns names like "Digital PDF", "EPUB" etc.
 			return \Pressbooks\Modules\Export\get_name_from_module_classname($module_classname);
@@ -831,126 +832,6 @@ abstract class Export {
 	}
 
 	/**
-	 * @param array $modules
-	 *
-	 * @return \Generator
-	 */
-	public static function exportGenerator( $modules ) : \Generator {
-		/**
-		 * Maximum execution time, in seconds. If set to zero, no time limit
-		 * Overrides PHP's max_execution_time of a Nginx->PHP-FPM->PHP configuration
-		 * See also request_terminate_timeout (PHP-FPM) and fastcgi_read_timeout (Nginx)
-		 *
-		 * @since 5.6.0
-		 *
-		 * @param int $seconds
-		 * @param string $some_action
-		 *
-		 * @return int
-		 */
-		set_time_limit( apply_filters( 'pb_set_time_limit', 600, 'export' ) );
-
-		self::preExport();
-
-		static::$exportConversionError = [];
-		static::$exportValidationWarning = [];
-		static::$exportOutputs = [];
-		$background_pdf_types = self::getBackgroundExportTypes();
-
-		foreach ( $modules as $module_classname ) {
-			// Arguments for the constructor. For PDF, it's usually empty [].
-			// For other modules, it might come from form submission if specific options are selected per module.
-			$constructor_args = static::$currentExportModuleArgs[$module_classname] ?? [];
-
-
-			if ( in_array( $module_classname, $background_pdf_types, true ) ) {
-				// --- BACKGROUND PDF PROCESSING ---
-				$book_id = get_current_blog_id();
-				$user_id = get_current_user_id();
-
-				global $wpdb;
-				$table_name = $wpdb->prefix . 'pressbooks_export_jobs';
-
-				$insert_result = $wpdb->insert(
-					$table_name,
-					[
-						'book_id' => $book_id,
-						'user_id' => $user_id,
-						'export_format' => self::getExportFormatSlugFromClassname($module_classname),
-						'export_module_classname' => $module_classname,
-						'export_options' => wp_json_encode( $constructor_args ),
-						'status' => 'pending',
-						'created_at' => current_time( 'mysql', true ),
-						'updated_at' => current_time( 'mysql', true ),
-					]
-				);
-				$job_id = $wpdb->insert_id;
-
-				if ( $insert_result && $job_id ) {
-					//TODO: Double check with 👴(el viejo) if this is the right way to do this
-					wp_schedule_single_event( time(), 'pressbooks_process_export_job', [ 'job_id' => $job_id ] );
-					$friendly_name = self::getFriendlyNameForModule( $module_classname );
-					$message = sprintf(
-						__( '%s export has been queued. You will be notified via this page.', 'pressbooks' ),
-						$friendly_name,
-						$job_id
-					);
-					$results[] = [
-						'event_type' => 'job_queued',
-						'book_id' => $book_id,
-						'job_id' => $job_id,
-						'message' => $message,
-						'module_slug' => self::getExportFormatSlugFromClassname($module_classname),
-						'module_classname' => $module_classname,
-						'sse_nonce' => wp_create_nonce( 'pressbooks_export_status_' . $job_id ),
-						'format_name' => $friendly_name,
-						'job_details' => [
-							'id' => $job_id,
-							'format' => self::getExportFormatSlugFromClassname($module_classname),
-							'status' => 'pending',
-							'created_at' => current_time( 'mysql', true ),
-						]
-					];
-					static::$exportOutputs[ $module_classname ] = [ 'status' => 'queued', 'job_id' => $job_id ];
-				} else {
-					$friendly_name = self::getFriendlyNameForModule( $module_classname );
-					$message = sprintf(
-						__( 'Failed to queue %s export (Format: %s). Database error: %s', 'pressbooks' ),
-						$friendly_name,
-						self::getExportFormatSlugFromClassname($module_classname),
-						$wpdb->last_error
-					);
-					$results[] = [
-						'event_type' => 'job_queue_failed',
-						'message' => $message,
-						'module_slug' => self::getExportFormatSlugFromClassname($module_classname),
-						'module_classname' => $module_classname,
-						'format_name' => $friendly_name,
-						'error_details' => [
-							'format' => self::getExportFormatSlugFromClassname($module_classname),
-							'error' => $wpdb->last_error
-						]
-					];
-					static::$exportConversionError[ $module_classname ] = 'Failed to queue job: ' . $wpdb->last_error;
-					static::$exportOutputs[ $module_classname ] = [ 'status' => 'queue_failed', 'error' => $wpdb->last_error ];
-				}
-
-			}
-
-			// Track export only if not a successfully queued background job or if it's a sync job
-			$is_background_job = in_array($module_classname, $background_pdf_types, true);
-			$was_queued_successfully = isset(static::$exportOutputs[$module_classname]['status']) && static::$exportOutputs[$module_classname]['status'] === 'queued';
-
-			if (!$is_background_job || ($is_background_job && !$was_queued_successfully)) {
-				if (isset(static::$exportOutputs[$module_classname]) && is_string(static::$exportOutputs[$module_classname])) { // Ensure it's an output path for tracking
-					do_action( 'pressbooks_track_export', substr( strrchr( $module_classname, '\\'), 1 ) ); // Corrected strrchr for namespace
-				}
-			}
-		}
-		 static::$currentExportModuleArgs = []; // Clear after processing all modules
-	}
-
-	/**
 	 * Post Export
 	 */
 	public static function postExport() {
@@ -1094,8 +975,11 @@ abstract class Export {
 	 * AJAX handler for submitting export jobs.
 	 */
 	public static function ajax_submit_export_job() {
+		// Ensure the export jobs table exists before proceeding
+		BackgroundJob::ensureExportsTable();
+
 		// Nonce check
-		check_ajax_referer( 'pb-export-book', 'pb_export_nonce' ); // RE-ENABLED NONCE CHECK
+		check_ajax_referer( 'pb-export-book', 'pb_export_nonce' );
 
 		if ( ! current_user_can( 'edit_posts' ) ) {
 			wp_send_json_error( [ 'message' => __( 'Permission denied.', 'pressbooks' ) ], 403 );
@@ -1128,7 +1012,6 @@ abstract class Export {
 			// Corrected loop to use $available_modules directly as it's already [slug => classname]
 			if (isset($available_modules[$format_slug])) {
 				$module_classname = $available_modules[$format_slug];
-			} else {
 			}
 
 			if ( ! $module_classname || ! class_exists( $module_classname ) ) {
@@ -1167,6 +1050,7 @@ abstract class Export {
 
 				if ( $insert_result && $job_id ) {
 					$scheduled = wp_schedule_single_event( time(), 'pressbooks_process_export_job', [ 'job_id' => $job_id ] );
+					error_log("AJAX Submit: Scheduled 'pressbooks_process_export_job' for job_id: {$job_id}. Schedule call result: " . ($scheduled ? 'Success' : 'Failure')); // DEBUG
 					$friendly_name = self::getFriendlyNameForModule( $module_classname );
 					$message = sprintf(
 						__( '%s export has been queued. You will be notified via this page.', 'pressbooks' ),
@@ -1190,6 +1074,7 @@ abstract class Export {
 						]
 					];
 				} else {
+					error_log("AJAX Submit: FAILED to insert job or get job_id for format " . self::getExportFormatSlugFromClassname($module_classname) . ". DB Error: " . $wpdb->last_error); // DEBUG
 					$friendly_name = self::getFriendlyNameForModule( $module_classname );
 					$message = sprintf(
 						__( 'Failed to queue %s export (Format: %s). Database error: %s', 'pressbooks' ),
@@ -1209,17 +1094,6 @@ abstract class Export {
 						]
 					];
 				}
-			} else {
-				// --- Handle SYNCHRONOUS export for non-background types ---
-				// For now, we send an error/message back indicating it's not supported by this AJAX handler,
-				// as the original design was to move PDF to background. If sync is needed for others via AJAX,
-				// this part would need to run the synchronous export and collect its output/status.
-				$friendly_name = self::getFriendlyNameForModule( $module_classname );
-				$results[] = [
-					'event_type' => 'sync_export_skipped',
-					'message' => sprintf(__( '%s is a synchronous export and is not processed by this background job handler. It should be handled by the traditional export mechanism.', 'pressbooks' ), $friendly_name),
-					'module_slug' => $format_slug,
-				];
 			}
 		}
 

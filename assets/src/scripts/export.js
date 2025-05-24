@@ -8,8 +8,176 @@ import displayNotice from './utils/displayNotice';
 import resetClock from './utils/resetClock';
 import startClock from './utils/startClock';
 
-// Stores EventSource instances for individual background jobs. Key: jobId
-const jobEventSources = {};
+// Stores the single global EventSource instance for all user jobs.
+let globalExportSSE = null;
+let globalExportSSENonce = null; // Will be populated from PB_ExportToken
+let globalExportSSEBookId = null; // Will be populated from PB_ExportToken
+
+// Define job tracking sets at a higher scope
+let activeJobs = new Set();
+let completedJobs = new Set();
+let failedJobs = new Set();
+
+/**
+ * Updates the UI for a specific job row based on SSE data.
+ * @param {object} jobData - Data received from SSE for a job.
+ */
+function updateJobRowUI(jobData) {
+	console.log('updateJobRowUI called with:', JSON.stringify(jobData)); // DEBUG
+	const tableRow = jQuery(`tr.export-job-row[data-job-id='${jobData.job_id}']`);
+	console.log('updateJobRowUI: tableRow found:', tableRow.length, tableRow); // DEBUG
+	if (!tableRow.length) {
+		// console.warn(`UI Update: Could not find table row for job ID: ${jobData.job_id}`);
+		return;
+	}
+
+	const progressBar = tableRow.find('.progress-bar');
+	const progressText = tableRow.find('.progress-text');
+	const statusElement = tableRow.find('.column-file .export-file-name i'); // Italicized status text
+	const fileNameElement = tableRow.find('.column-file .export-file-name span.file-name-text'); // Span to hold filename/link
+	const sizeCell = tableRow.find('.column-size');
+
+	console.log('updateJobRowUI: progressBar found:', progressBar.length); // DEBUG
+	console.log('updateJobRowUI: progressText found:', progressText.length); // DEBUG
+	console.log('updateJobRowUI: statusElement found:', statusElement.length); // DEBUG
+	console.log('updateJobRowUI: fileNameElement found:', fileNameElement.length); // DEBUG
+
+	if (progressBar.length && progressText.length) {
+		progressBar.removeClass('pb-sse-progressbar-success pb-sse-progressbar-error');
+		progressBar.css('width', jobData.progress_percentage + '%').attr('aria-valuenow', jobData.progress_percentage);
+		progressText.text(jobData.progress_percentage + '%');
+	}
+
+	if (statusElement.length) {
+		statusElement.text(jobData.progress_message || (jobData.progress_percentage + '%') );
+	}
+
+	if (jobData.status === 'completed') {
+		if (progressBar.length) progressBar.addClass('pb-sse-progressbar-success').css('width', '100%');
+		if (progressText.length) progressText.text((PB_ExportToken.text && PB_ExportToken.text.completed) || 'Completed');
+		if (statusElement.length) statusElement.hide(); // Hide italic status on complete
+		
+		if (fileNameElement.length) {
+			let finalMessage = `<strong>${jobData.format_name || jobData.module_slug}</strong>: Completed.`;
+			if (jobData.file_name && jobData.download_url) {
+				finalMessage = `<a href="${jobData.download_url}" target="_blank">${jobData.file_name}</a>`;
+			} else if (jobData.file_name) {
+				finalMessage = jobData.file_name;
+			}
+			fileNameElement.html(finalMessage);
+		}
+		if (sizeCell.length && jobData.file_size) {
+			sizeCell.text(jobData.file_size);
+		}
+		tableRow.removeClass('export-job-in-progress export-job-failed').addClass('export-job-completed');
+
+		activeJobs.delete(jobData.job_id);
+		completedJobs.add(jobData.job_id);
+
+	} else if (jobData.status === 'failed') {
+		if (progressBar.length) progressBar.addClass('pb-sse-progressbar-error').css('width', '100%');
+		if (progressText.length) progressText.text((PB_ExportToken.text && PB_ExportToken.text.error) || 'Error');
+
+		if (statusElement.length) {
+			statusElement.text(`Failed: ${jobData.error_message || jobData.progress_message || 'Unknown error'}`).show().css('color', 'red');
+		}
+		if (fileNameElement.length && !fileNameElement.find('a').length) { // Only update if not already a link
+			 fileNameElement.html(`<strong>${jobData.format_name || jobData.module_slug}</strong>`);
+		}
+		tableRow.removeClass('export-job-in-progress export-job-completed').addClass('export-job-failed');
+		
+		activeJobs.delete(jobData.job_id);
+		failedJobs.add(jobData.job_id);
+	} else {
+		// Still in progress or pending
+		tableRow.removeClass('export-job-completed export-job-failed').addClass('export-job-in-progress');
+		if (fileNameElement.length && !fileNameElement.find('a').length) { 
+			fileNameElement.html(`<strong>${jobData.format_name || jobData.module_slug}</strong>`);
+		}
+		if(statusElement.length) statusElement.show().css('color', ''); // Reset color
+		activeJobs.add(jobData.job_id); // Ensure it's in active jobs
+	}
+	checkAllJobsComplete();
+}
+
+/**
+ * Checks if all initially queued jobs have completed or failed.
+ */
+function checkAllJobsComplete() {
+	if (activeJobs.size === 0 && (completedJobs.size > 0 || failedJobs.size > 0)) {
+		// console.log('All export jobs processed.');
+		// Potentially trigger a page reload if PB_ExportToken.reloadOnComplete is true,
+		// which should be set by the initial AJAX response from export-ui.js
+		if (window.PB_Export_ReloadOnComplete) {
+			// console.log('Reloading page as all jobs are done and reload flag is set.');
+			// setTimeout(() => { window.location.reload(); }, 2000); // Optional delay
+		}
+	}
+}
+
+/**
+ * Initializes the single global Server-Sent Events stream for all user export jobs.
+ */
+function initializeGlobalExportFeed() {
+	console.log('SSE Feed: initializeGlobalExportFeed called.'); // DEBUG
+	if (!PB_ExportToken || !PB_ExportToken.ajaxurl || !PB_ExportToken.userExportFeedNonce || !PB_ExportToken.bookId) {
+		console.error('SSE Feed: Missing required PB_ExportToken properties (ajaxurl, userExportFeedNonce, bookId).');
+		return;
+	}
+
+	globalExportSSENonce = PB_ExportToken.userExportFeedNonce;
+	globalExportSSEBookId = PB_ExportToken.bookId;
+
+	if (globalExportSSE && globalExportSSE.readyState !== EventSource.CLOSED) {
+		console.log('SSE Feed: Connection already active.'); // DEBUG
+		return;
+	}
+
+	const sseUrl = `${PB_ExportToken.ajaxurl}?action=pressbooks_user_export_feed&_wpnonce=${globalExportSSENonce}&book_id=${globalExportSSEBookId}`;
+	console.log('SSE Feed: Initializing connection to:', sseUrl); // DEBUG
+	globalExportSSE = new EventSource(sseUrl);
+
+	globalExportSSE.onopen = function(event) {
+		console.log('SSE Feed: Connection opened.', event); // DEBUG
+	};
+
+	globalExportSSE.addEventListener('export_job_update', function(event) {
+		console.log('Raw SSE event data (export_job_update):', event.data); // DEBUG: Log raw data
+		try {
+			const jobData = JSON.parse(event.data);
+			console.log('SSE Feed (export_job_update):', jobData); // DEBUG
+			updateJobRowUI(jobData);
+		} catch (e) {
+			console.error('SSE Feed: Error parsing export_job_update data:', e, event.data);
+		}
+	});
+
+	globalExportSSE.addEventListener('heartbeat', function(event) {
+		console.log('Raw SSE event data (heartbeat):', event.data); // DEBUG
+		try {
+			const data = JSON.parse(event.data);
+			// Expect only timestamp for genuine heartbeats now
+			if (data.timestamp) {
+				console.log('SSE Feed (heartbeat received timestamp):', data.timestamp); // DEBUG
+			} else {
+				console.log('SSE Feed (heartbeat received unexpected data structure):', data); // DEBUG
+			}
+		} catch (e) {
+			console.error('SSE Feed: Error parsing heartbeat data:', e, event.data);
+		}
+	});
+
+	globalExportSSE.onerror = function(event) {
+		console.error('SSE Feed: Connection error.', event); // DEBUG
+		// Optional: Implement retry logic or inform user persistently.
+		// For now, it will automatically try to reconnect by default unless server sends HTTP 204.
+		// If readyState is CLOSED, we might want to nullify globalExportSSE to allow re-init on next action.
+		if (globalExportSSE && globalExportSSE.readyState === EventSource.CLOSED) {
+			console.log('SSE Feed: Connection was closed. Nullifying globalExportSSE.'); // DEBUG
+			globalExportSSE = null; // Allow re-initialization
+		}
+	};
+}
 
 jQuery( function ( $ ) {
 
@@ -39,200 +207,13 @@ jQuery( function ( $ ) {
 	// 	console.error('Export button #pb-export-button NOT FOUND.');
 	// }
 
-	// Track active jobs
-	let activeJobs = new Set();
-	let completedJobs = new Set();
-	let failedJobs = new Set(); // Keep this for tracking failed jobs if needed.
-
-	// Function to check if all jobs are complete and reload if needed
-	// This might need adjustment based on how export-ui.js signals completion
-	function checkAllJobsComplete() {
-		if (activeJobs.size === 0 && (completedJobs.size > 0 || failedJobs.size > 0)) { // Consider failed jobs too
-			// console.log('All jobs processed, considering page reload...');
-			// Potentially get reload flag from initial AJAX in export-ui.js
-			// For now, defer reload logic, might be handled by export-ui.js based on its AJAX response.
-			// setTimeout(() => {
-			// 	window.location.reload();
-			// }, 2000);
-		}
-	}
-
-	// Function to check for existing jobs and reconnect to their progress
-	// This will need to be adapted to find rows created by export-ui.js
-	function checkExistingJobs() {
-		$.ajax({
-			url: PB_ExportToken.ajaxurl,
-			type: 'POST',
-			data: {
-				action: 'pressbooks_check_existing_jobs',
-				_wpnonce: PB_ExportToken.nonce // Assuming PB_ExportToken.nonce is the correct general nonce for this
-			},
-			success: function(response) {
-				if (response.success && response.data && response.data.jobs) {
-					response.data.jobs.forEach(function(job) {
-						if (job.status !== 'completed' && job.status !== 'failed' && job.status !== 'cancelled') {
-							// TODO: Find the row in the table created by export-ui.js using job.module_slug or job.job_id
-							// const tableRow = $(`tr[data-format='${job.module_slug}'][data-job-id='${job.job_id}']`); // Or similar selector
-							// if (tableRow.length) {
-							// Update UI in tableRow with job.progress_message, job.progress_percentage
-							// console.log(`Reconnecting to job: ${job.job_id}, format: ${job.module_slug}`);
-							// const progressBar = tableRow.find('.progress-bar');
-							// const progressText = tableRow.find('.progress-text');
-							// const statusCell = tableRow.find('.column-file .export-file-name i'); // Example
-
-							// progressBar.css('width', job.progress_percentage + '%').text(job.progress_percentage + '%');
-							// progressText.text(job.progress_percentage + '%');
-							// if (statusCell) statusCell.text(job.progress_message || 'Reconnecting...');
-
-							activeJobs.add(job.job_id);
-							// listenForJobProgress(job.book_id, job.job_id, job.module_slug, job.sse_nonce, { bar: progressBar, info: progressText, statusElement: statusCell /* pass other relevant row elements */ });
-							// }
-						}
-					});
-				}
-			}
-		});
-	}
-
-	// Call checkExistingJobs when the page loads
-	// checkExistingJobs(); // Temporarily disable until it's adapted for the new UI
-
-	// The exportForm.on('submit', ...) handler has been removed as export-ui.js now handles this.
-
-	/**
-	 * Listens for job progress using Server-Sent Events (SSE).
-	 * @param {string} bookId - The book ID.
-	 * @param {string|number} jobId - The job ID.
-	 * @param {string} moduleSlug - Slug for the export module.
-	 * @param {string} sseNonce - Nonce for the SSE connection.
-	 * @param {string} formatName - Display name for the format.
-	 * @param {object} uiElements - Object containing jQuery elements for the job's UI (.bar, .info, .statusElement, .rowElement).
-	 */
-	function listenForJobProgress( bookId, jobId, moduleSlug, sseNonce, formatName, uiElements ) {
-		// console.log(`SSE: Initializing for Job ID: ${jobId}, Format: ${moduleSlug}, Display: ${formatName}`); // DEBUG
-
-		// Close existing EventSource for this job ID if any
-		if (jobEventSources[jobId]) {
-			jobEventSources[jobId].close();
-			// console.log(`SSE: Closed existing EventSource for Job ID: ${jobId}`); // DEBUG
-		}
-
-		const source = new EventSource( PB_ExportToken.ajaxurl + `?action=pressbooks_export_status&job_id=${jobId}&_wpnonce=${sseNonce}&book_id=${bookId}` );
-		jobEventSources[jobId] = source; // Store the new EventSource
-
-		source.onopen = function ( event ) {
-			// console.log( `SSE: Connection opened for Job ID: ${jobId}, Format: ${moduleSlug}`, event ); // DEBUG
-			// Update UI to show "Connected" or similar
-			if (uiElements.statusElement) uiElements.statusElement.text( 'Connected, waiting for progress...' );
-		};
-
-		source.onmessage = function ( event ) {
-			// console.log( `SSE: Message for Job ID: ${jobId}, Format: ${moduleSlug}`, event.data ); // DEBUG
-			try {
-				const eventData = JSON.parse( event.data );
-
-				if (uiElements.bar && uiElements.info) {
-					uiElements.bar.removeClass( 'pb-sse-progressbar-success pb-sse-progressbar-error' );
-					uiElements.bar.css( 'width', eventData.progress_percentage + '%' )
-						.attr( 'aria-valuenow', eventData.progress_percentage );
-					
-					uiElements.info.text(eventData.progress_percentage + '%');
-
-					if(uiElements.statusElement) { // For new UI file name status
-						uiElements.statusElement.text( eventData.progress_message || (eventData.progress_percentage + '%') );
-					} else if (uiElements.info) { // Fallback for old UI (will be removed) - though .info is now progressText
-						// This fallback might not be very relevant anymore given the new structure.
-						uiElements.info.html(`<strong>${eventData.format_name || formatName || moduleSlug}</strong>: ${eventData.progress_message || (eventData.progress_percentage + '%')}`);
-					}
-				}
-
-				if ( eventData.status === 'completed' ) {
-					// console.log( `SSE: Job ID ${jobId} (${moduleSlug}) COMPLETED.` ); // DEBUG
-					if (uiElements.bar) {
-						uiElements.bar.addClass( 'pb-sse-progressbar-success' ).css('width', '100%');
-					}
-					if(uiElements.info) { // This is the progressTextElement
-						uiElements.info.text( (PB_ExportToken.text && PB_ExportToken.text.completed) || 'Completed');
-					}
-
-					if(uiElements.rowElement) {
-						const fileNameElement = uiElements.rowElement.find('.column-file .export-file-name');
-						if(fileNameElement.length) {
-							let finalMessage = `<strong>${eventData.format_name || formatName || moduleSlug}</strong>: Completed.`;
-							if (eventData.file_name && eventData.download_url) {
-								finalMessage = `<a href="${eventData.download_url}" target="_blank">${eventData.file_name}</a>`;
-							} else if (eventData.file_name) {
-								finalMessage = eventData.file_name;
-							}
-							fileNameElement.html(finalMessage);
-						}
-						const sizeCell = uiElements.rowElement.find('.column-size');
-						if(sizeCell.length && eventData.file_size) {
-							sizeCell.text(eventData.file_size); // Assuming file_size is pre-formatted
-						}
-						uiElements.rowElement.removeClass('export-job-in-progress').addClass('export-job-completed');
-					}
-					
-					source.close();
-					delete jobEventSources[jobId];
-					activeJobs.delete(jobId);
-					completedJobs.add(jobId);
-					checkAllJobsComplete();
-				} else if ( eventData.status === 'failed' ) {
-					// console.error( `SSE: Job ID ${jobId} (${moduleSlug}) FAILED. Error: ${eventData.error_message}` ); // DEBUG
-					if (uiElements.bar) {
-						uiElements.bar.addClass( 'pb-sse-progressbar-error' ).css('width', '100%');
-						// uiElements.bar.text( PB_ExportToken.text.error || 'Error' );
-					}
-					if(uiElements.rowElement) {
-						const progressTextElement = uiElements.rowElement.find('.progress-text');
-						if(progressTextElement.length) progressTextElement.text(PB_ExportToken.text.error || 'Error');
-
-						const statusCell = uiElements.rowElement.find('.column-file .export-file-name i');
-						if(statusCell.length) statusCell.text( `Failed: ${eventData.error_message || 'Unknown error'}` ).css('color', 'red');
-						uiElements.rowElement.removeClass('export-job-in-progress').addClass('export-job-failed');
-					}
-
-					source.close();
-					delete jobEventSources[jobId];
-					activeJobs.delete(jobId);
-					failedJobs.add(jobId); // Track failed job
-					checkAllJobsComplete();
-				} else if (eventData.log_message) { // Handle general log messages if needed
-					// console.log(`SSE Log (Job ${jobId}): ${eventData.log_message}`);
-				}
-
-			} catch ( e ) {
-				console.error( `SSE: Error parsing message for Job ID ${jobId}:`, e, event.data ); // DEBUG
-				// Potentially close source on parse error if messages become unrecoverable
-				// source.close();
-				// activeJobs.delete(jobId);
-				// checkAllJobsComplete();
-			}
-		};
-
-		source.onerror = function ( event ) {
-			console.error( `SSE: Error for Job ID: ${jobId}, Format: ${moduleSlug}`, event ); // DEBUG
-			if (uiElements.bar) {
-				uiElements.bar.addClass( 'pb-sse-progressbar-error' ).css('width', '100%');
-				// uiElements.bar.text( PB_ExportToken.text.error || 'Error: Connection Lost' );
-			}
-			if(uiElements.rowElement) {
-				const progressTextElement = uiElements.rowElement.find('.progress-text');
-				if(progressTextElement.length) progressTextElement.text(PB_ExportToken.text.error || 'Error');
-				const statusCell = uiElements.rowElement.find('.column-file .export-file-name i');
-				if(statusCell.length) statusCell.text( 'Error: Connection Lost' ).css('color', 'red');
-				uiElements.rowElement.removeClass('export-job-in-progress').addClass('export-job-failed'); // Mark as failed on connection error
-			}
-
-			source.close();
-			delete jobEventSources[jobId];
-			activeJobs.delete(jobId);
-			failedJobs.add(jobId); // Track as failed on SSE error
-			checkAllJobsComplete();
-		};
-	}
-
+	// Initialize the global SSE feed when the page is ready.
+	// Assumes PB_ExportToken.userExportFeedNonce and PB_ExportToken.bookId are localized.
+	initializeGlobalExportFeed();
+	
+	// When new jobs are added by export-ui.js, they will have data-job-id.
+	// The global SSE feed will pick up their updates.
+	// The PB_Export_AttachSSEListeners function is no longer needed to attach individual listeners.
 
 	// Pinning functionality (remains largely unchanged for now, but ensure selectors are still valid)
 	let pins = _pb_export_pins_inventory; // initial value from inline script
@@ -315,47 +296,20 @@ jQuery( function ( $ ) {
 	// Delete button handler (if any outside the table rows, otherwise handled by WP_List_Table row actions)
 	// $( '.delete-button-class' ).on( 'click', function() { ... } );
 
-	// Unload warning if jobs are active
+	// Unload warning if jobs are active - REMOVING THIS as it contradicts background processing benefits
+	/*
 	$( window ).on( 'beforeunload', function () {
 		if ( activeJobs.size > 0 ) {
 			return PB_ExportToken.unloadWarning;
 		}
 	} );
+	*/
+
+	// Function for export-ui.js to potentially call if the SSE connection needs to be re-ensured after AJAX.
+	// Or, export-ui.js could just rely on the initial load's connection.
+	window.PB_EnsureGlobalExportFeed = function() {
+		// console.log('PB_EnsureGlobalExportFeed called.');
+		initializeGlobalExportFeed(); 
+	};
 
 } );
-
-// Global function that could be called by export-ui.js after it has created rows and received job details.
-// This is one way to bridge the two scripts.
-window.PB_Export_AttachSSEListeners = function(jobsData) {
-	// console.log('PB_Export_AttachSSEListeners called with:', jobsData);
-	jobsData.forEach(job => {
-		if (job.job_id && job.sse_nonce && job.module_slug) {
-			const tableRow = jQuery(`tr.export-job-in-progress[data-format='${job.module_slug}'][data-job-id='${job.job_id}']`);
-			if (tableRow.length) {
-				// Ensure sse_nonce is set if not already (it should be by export-ui.js)
-				if (!tableRow.attr('data-sse-nonce')) {
-				    tableRow.attr('data-sse-nonce', job.sse_nonce);
-				}
-
-				const progressBar = tableRow.find('.progress-bar');
-				const progressText = tableRow.find('.progress-text'); // The one inside the bar
-				const statusElement = tableRow.find('.column-file .export-file-name i'); // The italic text for status
-
-				// Add to active jobs tracked by this script (export.js)
-				// jQuery needed here as activeJobs is defined within jQuery ready scope
-				jQuery(function($) {
-					activeJobs.add(job.job_id);
-				});
-				
-				listenForJobProgress(job.book_id, job.job_id, job.module_slug, job.sse_nonce, job.format_name, {
-					bar: progressBar,
-					info: progressText, 
-					statusElement: statusElement, 
-					rowElement: tableRow
-				});
-			} else {
-				console.warn(`PB_Export_AttachSSEListeners: Could not find table row for format: ${job.module_slug}, job ID: ${job.job_id} to attach SSE listener.`);
-			}
-		}
-	});
-};
