@@ -6,13 +6,12 @@
 
 namespace Pressbooks\Modules\Export\Prince;
 
-use Pressbooks\Modules\Export\ExportGenerator;
 use function Pressbooks\Sanitize\normalize_css_urls;
 use function Pressbooks\Utility\get_contents;
 use function Pressbooks\Utility\put_contents;
 use PressbooksMix\Assets;
 use Pressbooks\Container;
-use Pressbooks\Modules\Export\Export;
+use Pressbooks\Modules\Export\ExportGenerator;
 use PrinceXMLPhp\PrinceWrapper;
 
 class Pdf extends ExportGenerator {
@@ -212,11 +211,10 @@ class Pdf extends ExportGenerator {
 
 	}
 
-	public function convertGenerator(): \Generator
-	{
+	public function convertGenerator(): \Generator {
 		// Sanity check
-		if (empty($this->exportStylePath) || !is_file($this->exportStylePath)) {
-			$this->logError('$this->exportStylePath must be set before calling convert().');
+		if ( empty( $this->exportStylePath ) || ! is_file( $this->exportStylePath ) ) {
+			$this->logError( '$this->exportStylePath must be set before calling convert().' );
 			yield 'error' => '$this->exportStylePath must be set before calling convert().';
 			return false;
 		}
@@ -232,55 +230,55 @@ class Pdf extends ExportGenerator {
 
 		yield 40 => 'Loading fonts...';
 		// Fonts
-		Container::get('GlobalTypography')->getFonts();
+		Container::get( 'GlobalTypography' )->getFonts();
 
 		yield 50 => 'Processing CSS...';
 		// CSS
-		$this->truncateExportStylesheets('prince');
+		$this->truncateExportStylesheets( 'prince' );
 		$timestamp = time();
 		$css = $this->kneadCss();
-		$css_file = Container::get('Sass')->pathToUserGeneratedCss() . "/prince-$timestamp.css";
-		$scoped_file = Container::get('Sass')->pathToUserGeneratedCss() . '/scopedstyles.css';
-		put_contents($css_file, $css);
+		$css_file = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp.css";
+		$scoped_file = Container::get( 'Sass' )->pathToUserGeneratedCss() . '/scopedstyles.css';
+		put_contents( $css_file, $css );
 
 		yield 55 => 'Initializing Prince...';
 		// Initialize Prince
-		$prince = new PrinceWrapper(PB_PRINCE_COMMAND);
-		$prince->setHTML(true);
-		$prince->setCompress(true);
-		$prince->setHttpTimeout(900);
-		if (defined('WP_ENV') && (WP_ENV === 'development')) {
-			$prince->setInsecure(true);
+		$prince = new PrinceWrapper( PB_PRINCE_COMMAND );
+		$prince->setHTML( true );
+		$prince->setCompress( true );
+		$prince->setHttpTimeout( 900 );
+		if ( defined( 'WP_ENV' ) && ( WP_ENV === 'development' ) ) {
+			$prince->setInsecure( true );
 		}
 
 		yield 56 => 'Configuring PDF settings...';
 		// PDF Profile configuration
-		if ($this->pdfProfile && $this->pdfOutputIntent) {
-			$prince->setPDFProfile($this->pdfProfile);
-			$prince->setPDFOutputIntent($this->pdfOutputIntent);
-		} elseif (stripos(get_class($this), 'print') === false && empty($this->pdfProfile)) {
-			$prince->setPDFProfile('PDF/UA-1');
+		if ( $this->pdfProfile && $this->pdfOutputIntent ) {
+			$prince->setPDFProfile( $this->pdfProfile );
+			$prince->setPDFOutputIntent( $this->pdfOutputIntent );
+		} elseif ( stripos( get_class( $this ), 'print' ) === false && empty( $this->pdfProfile ) ) {
+			$prince->setPDFProfile( 'PDF/UA-1' );
 		}
 
 		yield 60 => 'Adding stylesheets and scripts...';
 		// Add resources
-		$prince->addStyleSheet($css_file);
-		$prince->addStyleSheet($scoped_file);
-		$assets = new Assets('pressbooks', 'plugin');
-		$js_path = $assets->getPath('scripts/export-footnotes.js');
-		$prince->addScript($js_path);
+		$prince->addStyleSheet( $css_file );
+		$prince->addStyleSheet( $scoped_file );
+		$assets = new Assets( 'pressbooks', 'plugin' );
+		$js_path = $assets->getPath( 'scripts/export-footnotes.js' );
+		$prince->addScript( $js_path );
 
-		if ($this->exportScriptPath) {
-			$prince->addScript($this->exportScriptPath);
+		if ( $this->exportScriptPath ) {
+			$prince->addScript( $this->exportScriptPath );
 		}
-		$prince->setLog($this->logfile);
+		$prince->setLog( $this->logfile );
 
 		yield 65 => 'Converting to PDF...';
 		// Convert
-		$retval = $prince->convert_file_to_file($this->url, $this->outputPath, $msg);
+		$retval = $prince->convert_file_to_file( $this->url, $this->outputPath, $msg );
 
-		if (is_countable($msg) && count($msg)) {
-			$this->logError(get_contents($this->logfile), ['warning' => 1]);
+		if ( is_countable( $msg ) && count( $msg ) ) {
+			$this->logError( get_contents( $this->logfile ), [ 'warning' => 1 ] );
 			yield 'warning' => 'Conversion completed with warnings';
 		} else {
 			yield 'success' => 'Conversion completed successfully';
@@ -289,10 +287,9 @@ class Pdf extends ExportGenerator {
 		return $retval;
 	}
 
-	function validateGenerator(): \Generator
-	{
-		if (!$this->isPdf($this->outputPath)) {
-			$this->logError(get_contents($this->logfile));
+	function validateGenerator(): \Generator {
+		if ( ! $this->isPdf( $this->outputPath ) ) {
+			$this->logError( get_contents( $this->logfile ) );
 			yield 'error' => 'The output file is not a valid PDF.';
 			return false;
 		}
@@ -301,19 +298,17 @@ class Pdf extends ExportGenerator {
 		return true;
 	}
 
-	function convert(): bool|\Generator
-	{
+	function convert(): bool|\Generator {
 		$generator = $this->convertGenerator();
-		while ($generator->valid()) {
+		while ( $generator->valid() ) {
 			yield $generator->current();
 			$generator->next();
 		}
 	}
 
-	function validate(): bool|\Generator
-	{
+	function validate(): bool|\Generator {
 		$generator = $this->validateGenerator();
-		while ($generator->valid()) {
+		while ( $generator->valid() ) {
 			yield $generator->current();
 			$generator->next();
 		}

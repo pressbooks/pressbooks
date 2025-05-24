@@ -2,11 +2,6 @@
 /* global _pb_export_formats_map */
 /* global _pb_export_pins_inventory */
 
-import Cookies from 'js-cookie';
-
-import displayNotice from './utils/displayNotice';
-import resetClock from './utils/resetClock';
-import startClock from './utils/startClock';
 
 // Stores the single global EventSource instance for all user jobs.
 let globalExportSSE = null;
@@ -23,24 +18,17 @@ let failedJobs = new Set();
  * @param {object} jobData - Data received from SSE for a job.
  */
 function updateJobRowUI(jobData) {
-	console.log('updateJobRowUI called with:', JSON.stringify(jobData)); // DEBUG
 	const tableRow = jQuery(`tr.export-job-row[data-job-id='${jobData.job_id}']`);
-	console.log('updateJobRowUI: tableRow found:', tableRow.length, tableRow); // DEBUG
 	if (!tableRow.length) {
-		// console.warn(`UI Update: Could not find table row for job ID: ${jobData.job_id}`);
 		return;
 	}
 
 	const progressBar = tableRow.find('.progress-bar');
 	const progressText = tableRow.find('.progress-text');
-	const statusElement = tableRow.find('.column-file .export-file-name i'); // Italicized status text
-	const fileNameElement = tableRow.find('.column-file .export-file-name span.file-name-text'); // Span to hold filename/link
+	const statusElement = tableRow.find('.column-file .export-file-name i');
+	const fileNameElement = tableRow.find('.column-file .export-file-name span.file-name-text');
 	const sizeCell = tableRow.find('.column-size');
 
-	console.log('updateJobRowUI: progressBar found:', progressBar.length); // DEBUG
-	console.log('updateJobRowUI: progressText found:', progressText.length); // DEBUG
-	console.log('updateJobRowUI: statusElement found:', statusElement.length); // DEBUG
-	console.log('updateJobRowUI: fileNameElement found:', fileNameElement.length); // DEBUG
 
 	if (progressBar.length && progressText.length) {
 		progressBar.removeClass('pb-sse-progressbar-success pb-sse-progressbar-error');
@@ -56,7 +44,7 @@ function updateJobRowUI(jobData) {
 		if (progressBar.length) progressBar.addClass('pb-sse-progressbar-success').css('width', '100%');
 		if (progressText.length) progressText.text((PB_ExportToken.text && PB_ExportToken.text.completed) || 'Completed');
 		if (statusElement.length) statusElement.hide(); // Hide italic status on complete
-		
+
 		if (fileNameElement.length) {
 			let finalMessage = `<strong>${jobData.format_name || jobData.module_slug}</strong>: Completed.`;
 			if (jobData.file_name && jobData.download_url) {
@@ -85,17 +73,16 @@ function updateJobRowUI(jobData) {
 			 fileNameElement.html(`<strong>${jobData.format_name || jobData.module_slug}</strong>`);
 		}
 		tableRow.removeClass('export-job-in-progress export-job-completed').addClass('export-job-failed');
-		
+
 		activeJobs.delete(jobData.job_id);
 		failedJobs.add(jobData.job_id);
 	} else {
-		// Still in progress or pending
 		tableRow.removeClass('export-job-completed export-job-failed').addClass('export-job-in-progress');
-		if (fileNameElement.length && !fileNameElement.find('a').length) { 
+		if (fileNameElement.length && !fileNameElement.find('a').length) {
 			fileNameElement.html(`<strong>${jobData.format_name || jobData.module_slug}</strong>`);
 		}
-		if(statusElement.length) statusElement.show().css('color', ''); // Reset color
-		activeJobs.add(jobData.job_id); // Ensure it's in active jobs
+		if(statusElement.length) statusElement.show().css('color', '');
+		activeJobs.add(jobData.job_id);
 	}
 	checkAllJobsComplete();
 }
@@ -105,21 +92,17 @@ function updateJobRowUI(jobData) {
  */
 function checkAllJobsComplete() {
 	if (activeJobs.size === 0 && (completedJobs.size > 0 || failedJobs.size > 0)) {
-		// console.log('All export jobs processed.');
-		// Potentially trigger a page reload if PB_ExportToken.reloadOnComplete is true,
-		// which should be set by the initial AJAX response from export-ui.js
 		if (window.PB_Export_ReloadOnComplete) {
-			// console.log('Reloading page as all jobs are done and reload flag is set.');
-			// setTimeout(() => { window.location.reload(); }, 2000); // Optional delay
+			setTimeout(() => { window.location.reload(); }, 2000); // Optional delay
 		}
 	}
 }
 
 /**
- * Initializes the single global Server-Sent Events stream for all user export jobs.
+ * Initializes the single global SSE stream for all user export jobs.
  */
 function initializeGlobalExportFeed() {
-	console.log('SSE Feed: initializeGlobalExportFeed called.'); // DEBUG
+
 	if (!PB_ExportToken || !PB_ExportToken.ajaxurl || !PB_ExportToken.userExportFeedNonce || !PB_ExportToken.bookId) {
 		console.error('SSE Feed: Missing required PB_ExportToken properties (ajaxurl, userExportFeedNonce, bookId).');
 		return;
@@ -129,51 +112,26 @@ function initializeGlobalExportFeed() {
 	globalExportSSEBookId = PB_ExportToken.bookId;
 
 	if (globalExportSSE && globalExportSSE.readyState !== EventSource.CLOSED) {
-		console.log('SSE Feed: Connection already active.'); // DEBUG
+		console.log('SSE Feed: Connection already active.');
 		return;
 	}
 
-	const sseUrl = `${PB_ExportToken.ajaxurl}?action=pressbooks_user_export_feed&_wpnonce=${globalExportSSENonce}&book_id=${globalExportSSEBookId}`;
-	console.log('SSE Feed: Initializing connection to:', sseUrl); // DEBUG
+	const sseUrl = `${PB_ExportToken.ajaxurl}?action=pb_sse_exports&_wpnonce=${globalExportSSENonce}&book_id=${globalExportSSEBookId}`;
 	globalExportSSE = new EventSource(sseUrl);
 
-	globalExportSSE.onopen = function(event) {
-		console.log('SSE Feed: Connection opened.', event); // DEBUG
-	};
-
 	globalExportSSE.addEventListener('export_job_update', function(event) {
-		console.log('Raw SSE event data (export_job_update):', event.data); // DEBUG: Log raw data
 		try {
 			const jobData = JSON.parse(event.data);
-			console.log('SSE Feed (export_job_update):', jobData); // DEBUG
 			updateJobRowUI(jobData);
 		} catch (e) {
 			console.error('SSE Feed: Error parsing export_job_update data:', e, event.data);
 		}
 	});
 
-	globalExportSSE.addEventListener('heartbeat', function(event) {
-		console.log('Raw SSE event data (heartbeat):', event.data); // DEBUG
-		try {
-			const data = JSON.parse(event.data);
-			// Expect only timestamp for genuine heartbeats now
-			if (data.timestamp) {
-				console.log('SSE Feed (heartbeat received timestamp):', data.timestamp); // DEBUG
-			} else {
-				console.log('SSE Feed (heartbeat received unexpected data structure):', data); // DEBUG
-			}
-		} catch (e) {
-			console.error('SSE Feed: Error parsing heartbeat data:', e, event.data);
-		}
-	});
-
 	globalExportSSE.onerror = function(event) {
-		console.error('SSE Feed: Connection error.', event); // DEBUG
-		// Optional: Implement retry logic or inform user persistently.
-		// For now, it will automatically try to reconnect by default unless server sends HTTP 204.
-		// If readyState is CLOSED, we might want to nullify globalExportSSE to allow re-init on next action.
+		console.error('SSE Feed: Connection error.', event);
 		if (globalExportSSE && globalExportSSE.readyState === EventSource.CLOSED) {
-			console.log('SSE Feed: Connection was closed. Nullifying globalExportSSE.'); // DEBUG
+			console.log('SSE Feed: Connection was closed. Nullifying globalExportSSE.');
 			globalExportSSE = null; // Allow re-initialization
 		}
 	};
@@ -181,45 +139,17 @@ function initializeGlobalExportFeed() {
 
 jQuery( function ( $ ) {
 
-	// return; // This was likely for debugging, removing it.
-	// console.log('Document ready. export.js executing.'); // DEBUG: Document ready
-
 	const exportForm = $( '#pb-export-form' );
 
 	if (!exportForm.length) {
-		// console.error('CRITICAL: Export form #pb-export-form NOT FOUND.'); // DEBUG: Form not found
-		return; // Stop if form isn't found
+		return;
 	}
-	// console.log('Export form #pb-export-form found.'); // DEBUG: Form found
 
-	const mainButton = $( '#pb-export-button' );
-	// const noticesContainer = $( '.notice-container' ); // Define if you have a specific notices container
-
-	// DEBUG: Add a direct click listener to the export button
-	// if (mainButton.length) {
-	// 	console.log('Export button #pb-export-button found. Attaching click listener.');
-	// 	mainButton.on('click', function(e) {
-	// 		console.log('#pb-export-button CLICKED! Attempting to submit form manually for debug...');
-	// 		// e.preventDefault(); // Optional: uncomment if you want to prevent default initially
-	// 		exportForm.submit(); // TRY THIS: Programmatically submit the form
-	// 	});
-	// } else {
-	// 	console.error('Export button #pb-export-button NOT FOUND.');
-	// }
-
-	// Initialize the global SSE feed when the page is ready.
-	// Assumes PB_ExportToken.userExportFeedNonce and PB_ExportToken.bookId are localized.
 	initializeGlobalExportFeed();
-	
-	// When new jobs are added by export-ui.js, they will have data-job-id.
-	// The global SSE feed will pick up their updates.
-	// The PB_Export_AttachSSEListeners function is no longer needed to attach individual listeners.
 
 	// Pinning functionality (remains largely unchanged for now, but ensure selectors are still valid)
 	let pins = _pb_export_pins_inventory; // initial value from inline script
 
-	// ... (rest of the original pinning logic, check selectors if they were tied to old progress bar area)
-	// This part seems to interact with the table directly, so it might be okay.
 
 	/**
 	 * Save pins to user meta (via transient)
@@ -285,31 +215,11 @@ jQuery( function ( $ ) {
 		}
 	} );
 
-	// Populate initial pin states (This should already be handled by server-side rendering of checkboxes)
-	// for ( let k in pins ) {
-	// 	if ( pins.hasOwnProperty( k ) ) {
-	// 		$( 'input[name="' + k + '"]' ).prop( 'checked', true );
-	// 	}
-	// }
-
-
-	// Delete button handler (if any outside the table rows, otherwise handled by WP_List_Table row actions)
-	// $( '.delete-button-class' ).on( 'click', function() { ... } );
-
-	// Unload warning if jobs are active - REMOVING THIS as it contradicts background processing benefits
-	/*
-	$( window ).on( 'beforeunload', function () {
-		if ( activeJobs.size > 0 ) {
-			return PB_ExportToken.unloadWarning;
-		}
-	} );
-	*/
-
 	// Function for export-ui.js to potentially call if the SSE connection needs to be re-ensured after AJAX.
 	// Or, export-ui.js could just rely on the initial load's connection.
 	window.PB_EnsureGlobalExportFeed = function() {
 		// console.log('PB_EnsureGlobalExportFeed called.');
-		initializeGlobalExportFeed(); 
+		initializeGlobalExportFeed();
 	};
 
 } );

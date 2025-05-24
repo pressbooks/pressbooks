@@ -32,7 +32,7 @@ class EventStreams {
 	/**
 	 * @return EventStreams
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );

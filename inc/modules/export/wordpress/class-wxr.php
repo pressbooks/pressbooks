@@ -192,13 +192,11 @@ class Wxr extends ExportGenerator {
 		}
 	}
 
-	function convertGenerator(): \Generator
-	{
+	function convertGenerator(): \Generator {
 		// TODO: Implement convertGenerator() method.
 	}
 
-	function validateGenerator(): \Generator
-	{
+	function validateGenerator(): \Generator {
 		// TODO: Implement validateGenerator() method.
 	}
 }

@@ -4,14 +4,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const exportButton = document.getElementById('pb-export-button');
     const exportsTable = document.querySelector('table.wp-list-table'); // Standard WP table class
 
-    console.log('exportForm', exportForm);
-    console.log('exportButton', exportButton);
-    console.log('exportsTable', exportsTable);
-
     if (exportForm && exportButton && exportsTable) {
         const tableBody = exportsTable.querySelector('tbody');
 
-        console.log('tableBody', tableBody);
 
         exportForm.addEventListener('submit', async function (event) {
             event.preventDefault();
@@ -22,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const selectedFormats = [];
             const formatDisplayNames = {};
 
-            // Create rows immediately for visual feedback
             for (const [key, value] of clientFormData.entries()) {
                 if (key.startsWith('export_formats[')) {
                     const formatKey = key.substring(key.indexOf('[') + 1, key.indexOf(']'));
@@ -35,14 +29,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         // Add a general class and a format-specific class for easier targeting if needed
                         newRow.className = `export-job-row export-job-in-progress export-format-${formatKey}`;
                         newRow.setAttribute('data-format', formatKey);
-                        // data-job-id will be added after AJAX response
 
-                        // Checkbox column (empty for new rows)
                         const cbCell = document.createElement('td');
                         cbCell.className = 'column-cb check-column';
                         newRow.appendChild(cbCell);
 
-                        // File column with progress
                         const fileCell = document.createElement('td');
                         fileCell.className = 'column-file export-progress-cell';
                         fileCell.innerHTML = `
@@ -56,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         `;
                         newRow.appendChild(fileCell);
 
-                        // Other columns (empty for now, populated by SSE or on completion)
                         ['format', 'size', 'pin','date'].forEach(colName => {
                             const cell = document.createElement('td');
                             cell.className = `column-${colName}`;
@@ -74,14 +64,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            // Prepare data for AJAX submission (using FormData directly is fine for POST)
             const serverFormData = new FormData();
             selectedFormats.forEach(format => {
                 serverFormData.append(`export_formats[${format}]`, '1');
             });
             serverFormData.append('action', 'pb_export_book');
             serverFormData.append('pb_export_nonce', PB_ExportToken.nonce);
-            // Add any other necessary fields from PB_ExportToken or the form itself
 
             try {
                 const response = await fetch(PB_ExportToken.ajaxurl, {
@@ -94,9 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 const data = await response.json();
-                window.PB_Export_ReloadOnComplete = data.reload_on_complete === true; // Set global flag
-
-                console.log('data', data);
+                window.PB_Export_ReloadOnComplete = data.reload_on_complete === true;
 
                 if (data.success === true && data.data && data.data.results) {
                     data.data.results.forEach(jobResult => {
@@ -123,7 +109,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     });
 
-                    // Ensure the global SSE feed is active after jobs are submitted
                     if (typeof window.PB_EnsureGlobalExportFeed === 'function') {
                         window.PB_EnsureGlobalExportFeed();
                     }

@@ -7,7 +7,6 @@
 namespace Pressbooks\Modules\Export\ThinCC;
 
 use Pressbooks\Book;
-use Pressbooks\Modules\Export\Export;
 use Pressbooks\Modules\Export\ExportGenerator;
 
 class WebLinks extends ExportGenerator {
@@ -405,13 +404,11 @@ class WebLinks extends ExportGenerator {
 		return in_array( $post_status, $visibility, true );
 	}
 
-	function convertGenerator(): \Generator
-	{
+	function convertGenerator(): \Generator {
 		// TODO: Implement convertGenerator() method.
 	}
 
-	function validateGenerator(): \Generator
-	{
+	function validateGenerator(): \Generator {
 		// TODO: Implement validateGenerator() method.
 	}
 }
