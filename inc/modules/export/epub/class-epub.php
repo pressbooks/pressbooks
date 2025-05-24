@@ -10,6 +10,7 @@
 namespace Pressbooks\Modules\Export\Epub;
 
 use Exception;
+use function Pressbooks\Modules\Export\get_contributors_section;
 use function Pressbooks\Sanitize\decode;
 use function Pressbooks\Sanitize\sanitize_xml_attribute;
 use function Pressbooks\Utility\create_tmp_file;
@@ -480,24 +481,7 @@ class Epub extends ExportGenerator {
 	}
 
 	/**
-	 * Create $this->outputPath
-	 *
-	 * @return bool
-	 */
-	public function convert(): bool {
-		$this->extraCss = $this->dir . '/templates/css/css3.css';
-
-		try {
-			foreach ( $this->convertGenerator() as $percentage => $info ) {
-				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
-			}
-		} catch ( Exception $e ) {
-			return false;
-		}
-		return true;
-	}
-
-	/**
+	 * For expensive functions we use a generator to allow the caller to yield control back to the event loop.
 	 * Yields an estimated percentage slice of: 1 to 80
 	 *
 	 * @return \Generator
@@ -567,7 +551,7 @@ class Epub extends ExportGenerator {
 		// Do root level structures first.
 		foreach ( $book_contents as $type => $struct ) {
 
-			if ( 0 === strpos( $type, '__' ) ) {
+			if (str_starts_with($type, '__')) {
 				continue; // Skip __magic keys
 			}
 
@@ -620,25 +604,11 @@ class Epub extends ExportGenerator {
 			in_array( $type, [ 'chapter', 'front-matter', 'back-matter' ], true ) &&
 			$post_id > 0
 		) {
-			$content .= \Pressbooks\Modules\Export\get_contributors_section( $post_id );
+			$content .= get_contributors_section( $post_id );
 		}
 		$content = apply_filters( 'the_export_content', $content );
 		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
 		return $this->tidy( $content );
-	}
-
-	/*
-	 * @return bool
-	 */
-	public function validate(): bool {
-		try {
-			foreach ( $this->validateGenerator() as $percentage => $info ) {
-				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
-			}
-		} catch ( Exception $e ) {
-			return false;
-		}
-		return true;
 	}
 
 	/**
@@ -1015,8 +985,8 @@ class Epub extends ExportGenerator {
 		// Back-matter
 		yield 50 => $this->generatorPrefix . __( 'Exporting back matter', 'pressbooks' );
 		yield from $this->renderBackMatterGenerator( $book_contents, $metadata );
-		$this->updateCssFile();
 
+		$this->updateCssFile();
 		// Table of contents
 		// IMPORTANT: Do this last! Uses $this->manifest to generate itself
 		yield 70 => $this->generatorPrefix . __( 'Creating table of contents', 'pressbooks' );

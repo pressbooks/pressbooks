@@ -101,20 +101,6 @@ abstract class Export {
 	protected static $currentExportModuleArgs = [];
 
 	/**
-	 * Mandatory convert method, create $this->outputPath
-	 *
-	 * @return bool
-	 */
-	abstract function convert();
-
-	/**
-	 * Mandatory validate method, check the sanity of $this->outputPath
-	 *
-	 * @return bool
-	 */
-	abstract function validate();
-
-	/**
 	 * Return $this->outputPath
 	 *
 	 * @return string

@@ -212,14 +212,14 @@ class Pdf extends ExportGenerator {
 	}
 
 	public function convertGenerator(): \Generator {
-		// Sanity check
+
 		if ( empty( $this->exportStylePath ) || ! is_file( $this->exportStylePath ) ) {
 			$this->logError( '$this->exportStylePath must be set before calling convert().' );
 			yield 'error' => '$this->exportStylePath must be set before calling convert().';
 			return false;
 		}
 
-		yield 35 => 'Setting up conversion...';
+		yield 35 => __( 'Setting up conversion...', 'pressbooks' );
 
 		// Set logfile
 		$this->logfile = $this->createTmpFile();
@@ -228,11 +228,11 @@ class Pdf extends ExportGenerator {
 		$filename = $this->generateFileName();
 		$this->outputPath = $filename;
 
-		yield 40 => 'Loading fonts...';
+		yield 40 => __( 'Loading fonts...', 'pressbooks' );
 		// Fonts
 		Container::get( 'GlobalTypography' )->getFonts();
 
-		yield 50 => 'Processing CSS...';
+		yield 50 => __( 'Generating CSS...', 'pressbooks' );
 		// CSS
 		$this->truncateExportStylesheets( 'prince' );
 		$timestamp = time();
@@ -241,7 +241,7 @@ class Pdf extends ExportGenerator {
 		$scoped_file = Container::get( 'Sass' )->pathToUserGeneratedCss() . '/scopedstyles.css';
 		put_contents( $css_file, $css );
 
-		yield 55 => 'Initializing Prince...';
+		yield 55 => __( 'Loading Converter...', 'pressbooks' );
 		// Initialize Prince
 		$prince = new PrinceWrapper( PB_PRINCE_COMMAND );
 		$prince->setHTML( true );
@@ -251,7 +251,7 @@ class Pdf extends ExportGenerator {
 			$prince->setInsecure( true );
 		}
 
-		yield 56 => 'Configuring PDF settings...';
+		yield 56 => __( 'Setting up PDF options...', 'pressbooks' );
 		// PDF Profile configuration
 		if ( $this->pdfProfile && $this->pdfOutputIntent ) {
 			$prince->setPDFProfile( $this->pdfProfile );
@@ -260,7 +260,7 @@ class Pdf extends ExportGenerator {
 			$prince->setPDFProfile( 'PDF/UA-1' );
 		}
 
-		yield 60 => 'Adding stylesheets and scripts...';
+		yield 60 => __('Adding stylesheets and scripts...', 'pressbooks' );
 		// Add resources
 		$prince->addStyleSheet( $css_file );
 		$prince->addStyleSheet( $scoped_file );
@@ -273,15 +273,15 @@ class Pdf extends ExportGenerator {
 		}
 		$prince->setLog( $this->logfile );
 
-		yield 65 => 'Converting to PDF...';
+		yield 65 => __( 'Creating file...', 'pressbooks' );
 		// Convert
 		$retval = $prince->convert_file_to_file( $this->url, $this->outputPath, $msg );
 
 		if ( is_countable( $msg ) && count( $msg ) ) {
 			$this->logError( get_contents( $this->logfile ), [ 'warning' => 1 ] );
-			yield 'warning' => 'Conversion completed with warnings';
+			yield 69 => __( 'Conversion completed with warnings.', 'pressbooks' );
 		} else {
-			yield 'success' => 'Conversion completed successfully';
+			yield 69 => __( 'Conversion completed successfully.', 'pressbooks' );
 		}
 
 		return $retval;
@@ -290,27 +290,11 @@ class Pdf extends ExportGenerator {
 	function validateGenerator(): \Generator {
 		if ( ! $this->isPdf( $this->outputPath ) ) {
 			$this->logError( get_contents( $this->logfile ) );
-			yield 'error' => 'The output file is not a valid PDF.';
+			yield 'error' => __( 'PDF validation failed.', 'pressbooks' );
 			return false;
 		}
 
-		yield 70 => 'PDF validation successful';
+		yield 70 => __( 'PDF Validation successful.', 'pressbooks' );
 		return true;
-	}
-
-	function convert(): bool|\Generator {
-		$generator = $this->convertGenerator();
-		while ( $generator->valid() ) {
-			yield $generator->current();
-			$generator->next();
-		}
-	}
-
-	function validate(): bool|\Generator {
-		$generator = $this->validateGenerator();
-		while ( $generator->valid() ) {
-			yield $generator->current();
-			$generator->next();
-		}
 	}
 }

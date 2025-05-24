@@ -371,12 +371,4 @@ class BackgroundJob {
 
 		wp_send_json_success( [ 'jobs' => $jobs ] );
 	}
-
-	/*
-	 * Method stream_all_user_jobs_status() was moved to EventStreams class.
-	 */
-
-	/*
-	 * Method sendSecureSSE() was moved to EventStreams class (functionality incorporated into emitMessage).
-	 */
 }

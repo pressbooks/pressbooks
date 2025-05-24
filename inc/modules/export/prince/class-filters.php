@@ -6,6 +6,8 @@
 
 namespace Pressbooks\Modules\Export\Prince;
 
+use function Pressbooks\Utility\check_xmllint_install;
+
 class Filters {
 
 	/**
@@ -109,7 +111,7 @@ class Filters {
 	 * @return bool
 	 */
 	public static function hasDependencies() {
-		if ( false === \Pressbooks\Utility\check_xmllint_install() ) {
+		if ( false === check_xmllint_install() ) {
 			return false;
 		}
 		if ( ! defined( 'DOCRAPTOR_API_KEY' ) && false === \Pressbooks\Utility\check_prince_install() ) {
