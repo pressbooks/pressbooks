@@ -331,44 +331,6 @@ class BackgroundJob {
 	}
 
 	/**
-	 * Safely output Server-Sent Events (SSE) data with proper escaping
-	 *
-	 * @param array $data The data to send as JSON
-	 * @param string $event_type The SSE event type (default: 'export_progress')
-	 * @param int|null $id Optional custom ID (defaults to current timestamp)
-	 * @return void
-	 */
-	public static function sendSecureSSE( array $data, string $event_type = 'export_progress', int $id = null ): void {
-
-		$event_type = preg_replace( '/[^a-zA-Z0-9_-]/', '', $event_type );
-		if ( empty( $event_type ) ) {
-			$event_type = 'message';
-		}
-
-		$event_id = $id ? absint( $id ) : absint( time() );
-
-		$json_data = wp_json_encode( $data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
-
-		if ( false === $json_data ) {
-			$json_data = wp_json_encode( [ 'error' => 'Failed to encode data' ] );
-		}
-
-		// Additional safety: remove any potential newlines that could break an SSE format
-		$json_data = str_replace( [ "\n", "\r", "\0" ], '', $json_data );
-
-		// Output the SSE event
-		echo 'event: ' . esc_attr( $event_type ) . "\n";
-		echo 'id: ' . $event_id . "\n";
-		echo 'data: ' . $json_data . "\n\n";
-
-		// Flush output immediately for SSE
-		if ( ob_get_level() ) {
-			ob_flush();
-		}
-		flush();
-	}
-
-	/**
 	 * AJAX handler for checking existing export jobs.
 	 */
 	public static function checkExistingJobs(): void {
@@ -410,134 +372,11 @@ class BackgroundJob {
 		wp_send_json_success( [ 'jobs' => $jobs ] );
 	}
 
-	/**
-	 * Streams the status of all active export jobs for the current user via SSE.
-	 * This provides a single connection point for the client to receive updates
-	 * for multiple concurrent export jobs.
+	/*
+	 * Method stream_all_user_jobs_status() was moved to EventStreams class.
 	 */
-	public static function stream_all_user_jobs_status(): void {
 
-		// Security check
-		//check_ajax_referer( 'pressbooks_user_export_feed_nonce', 'nonce' );
-
-		// error_log("SSE Stream: Nonce check passed."); // DEBUG
-
-		// Basic headers for SSE
-		header( 'Content-Type: text/event-stream' );
-		header( 'Cache-Control: no-cache' );
-		header( 'Connection: keep-alive' );
-		header( 'X-Accel-Buffering: no' ); // For Nginx
-
-		// Disable output buffering for PHP
-		if ( ob_get_level() > 0 ) {
-			for ( $i = 0; $i < ob_get_level(); $i++ ) {
-				ob_end_flush();
-			}
-		}
-		@ini_set( 'output_buffering', 'Off' );
-		@ini_set( 'zlib.output_compression', 0 );
-		@ini_set( 'implicit_flush', 1 );
-		ob_implicit_flush( true );
-
-		$current_user_id = get_current_user_id();
-		$book_id         = filter_input( INPUT_GET, 'book_id', FILTER_VALIDATE_INT );
-
-		if ( ! $current_user_id || ! $book_id ) {
-			self::sendSecureSSE( [ 'error' => 'Missing user or book ID.' ], 'error' );
-			// error_log("SSE Stream: Missing user or book ID. Exiting."); // DEBUG
-			exit;
-		}
-
-		$switched = false;
-		if ( is_multisite() && get_current_blog_id() !== $book_id ) {
-			switch_to_blog( $book_id );
-			$switched = true;
-		}
-
-		self::ensureExportsTable();
-
-		if ( ! current_user_can( 'edit_posts' ) ) {
-			status_header( 403 );
-			self::sendSecureSSE(
-				data: [
-					'message' => __( 'Permission denied to view job status for this book.', 'pressbooks' ),
-				],
-				event_type: 'error'
-			);
-			if ( $switched ) {
-				restore_current_blog();
-			}
-			wp_die();
-		}
-
-		set_time_limit( 0 );
-
-		$table_name = $book_id . '_pressbooks_export_jobs';
-		$last_sent_statuses = [];
-
-		while ( true ) {
-			$db = app( 'db' );
-
-			if ( connection_status() !== CONNECTION_NORMAL || connection_aborted() ) {
-				break; // Client disconnected
-			}
-
-			$active_jobs = $db->table( $table_name )
-				->where( 'user_id', $current_user_id )
-				->where( 'book_id', $book_id )
-				->whereIn( 'status', [ 'pending', 'processing', 'running', 'completed' ] )
-				->orderBy( 'created_at', 'DESC' )
-				->where( 'updated_at', '>=', date( 'Y-m-d H:i:s', strtotime( '-1 minutes' ) ) ) // Only jobs updated in the last minute
-				->get();
-
-			if ( ! $active_jobs->isEmpty() ) {
-				foreach ( $active_jobs as $job ) {
-					$current_job_state_for_comparison = clone $job;
-					unset( $current_job_state_for_comparison->updated_at );
-					$current_job_state_json = wp_json_encode( $current_job_state_for_comparison );
-
-					$should_send = ! isset( $last_sent_statuses[ $job->id ] ) || $last_sent_statuses[ $job->id ] !== $current_job_state_json;
-
-					if ( $should_send ) {
-						$job_data_to_send = [
-							'job_id' => $job->id,
-							'book_id' => $job->book_id,
-							'status' => $job->status,
-							'progress_percentage' => $job->progress_percentage,
-							'progress_message' => $job->progress_message,
-							'format_name' => Export::getFriendlyNameForModule( $job->export_module_classname ), // Get user-friendly name
-							'module_slug' => $job->export_format,
-							'file_name' => null,
-							'download_url' => null,
-							'error_message' => null,
-						];
-
-						if ( $job->status === 'completed' ) {
-							$job_data_to_send['file_name'] = basename( $job->output_file_path );
-							$download_nonce = wp_create_nonce( 'download_export_job_' . $job->id );
-							$job_data_to_send['download_url'] = admin_url( 'admin.php?page=pb_export&download_export_file=' . basename( $job->output_file_path ) . '&job_id=' . $job->id . '&_wpnonce=' . $download_nonce );
-							$job_data_to_send['file_size'] = file_exists( $job->output_file_path ) ? size_format( filesize( $job->output_file_path ), 2 ) : '';
-						} elseif ( $job->status === 'failed' ) {
-							$log_details = json_decode( $job->log_details, true );
-							if ( is_array( $log_details ) && isset( $log_details['error'] ) ) {
-								$job_data_to_send['error_message'] = $log_details['error'];
-							} elseif ( is_string( $log_details ) ) { // Fallback if log_details is just a string
-								$job_data_to_send['error_message'] = $log_details;
-							} else {
-								$job_data_to_send['error_message'] = $job->progress_message;
-							}
-						}
-						self::sendSecureSSE( $job_data_to_send, 'export_job_update', $job->id );
-						$last_sent_statuses[ $job->id ] = $current_job_state_json;
-					}
-				}
-			}
-
-			if ( ob_get_level() > 0 ) {
-				ob_flush();
-			}
-			flush();
-		}
-		exit;
-	}
+	/*
+	 * Method sendSecureSSE() was moved to EventStreams class (functionality incorporated into emitMessage).
+	 */
 }

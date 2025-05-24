@@ -972,170 +972,115 @@ abstract class Export {
 	}
 
 	/**
-	 * AJAX handler for submitting export jobs.
+	 * Processes export format requests, queues background jobs, and schedules them.
+	 * This method is designed to be reusable by different AJAX handlers or processes.
+	 *
+	 * @param array $export_formats_input Associative array of export formats to process, e.g., ['pdf' => 'pdf', 'epub' => 'epub'].
+	 * @param array $export_options_input Associative array of export options.
+	 * @return array An array of results, with each item detailing the outcome for a format.
 	 */
-	public static function ajax_submit_export_job() {
+	public static function processAndQueueJobRequests(array $export_formats_input, array $export_options_input): array {
 		// Ensure the export jobs table exists before proceeding
 		BackgroundJob::ensureExportsTable();
 
-		// Nonce check
-		check_ajax_referer( 'pb-export-book', 'pb_export_nonce' );
-
-		if ( ! current_user_can( 'edit_posts' ) ) {
-			wp_send_json_error( [ 'message' => __( 'Permission denied.', 'pressbooks' ) ], 403 );
-			return;
-		}
-
-		$export_formats = isset( $_POST['export_formats'] ) && is_array( $_POST['export_formats'] ) ? array_map( 'sanitize_text_field', $_POST['export_formats'] ) : [];
-
-		if ( empty( $export_formats ) ) {
-			wp_send_json_error( [ 'message' => __( 'No export formats selected.', 'pressbooks' ) ], 400 );
-			return;
-		}
-
-		// Override some WP behaviours when exporting
-		fix_audio_shortcode();
-		static::$switchedLocale = switch_to_locale( self::locale() );
+		// Permission check should be done by the calling AJAX handler if it's user-initiated.
+		// Nonce checks should also be done by the calling AJAX handler.
 
 		$results = [];
-		$background_pdf_types = self::getBackgroundExportTypes();
-		$available_modules = self::getAvailableExportModules(); // Helper to get all valid classnames
+		$background_pdf_types = self::getBackgroundExportTypes(); // Class names of background types
+		$available_modules = self::getAvailableExportModules();    // [slug => classname]
 
-		// Clear previous static errors/outputs for this new request context
-		static::$exportConversionError = [];
-		static::$exportValidationWarning = [];
-		static::$exportOutputs = [];
-		static::$currentExportModuleArgs = $_POST['export_options'] ?? []; // Capture any other general export options if needed
+		// Clear previous static errors/outputs for this new request context if they were used by other parts.
+		// However, this method should be self-contained and not rely on static::$exportConversionError etc.
+		// For now, let's assume this method doesn't interact with those static properties directly.
+		// static::$currentExportModuleArgs = $export_options_input; // This was how ajax_submit_export_job set it.
 
-		foreach ( array_keys($export_formats) as $format_slug ) {
-			$module_classname = null;
-			// Corrected loop to use $available_modules directly as it's already [slug => classname]
-			if (isset($available_modules[$format_slug])) {
-				$module_classname = $available_modules[$format_slug];
-			}
+		// Switch to the correct locale for export related operations if needed.
+		// This was done in ajax_submit_export_job. If it affects getFriendlyNameForModule or other helpers, keep it.
+		$locale_switched = switch_to_locale( self::locale() );
+
+		foreach ( array_keys( $export_formats_input ) as $format_slug_key ) {
+			$format_slug = sanitize_text_field( $format_slug_key ); // Sanitize the key itself if it comes from user input.
+			$module_classname = $available_modules[ $format_slug ] ?? null;
 
 			if ( ! $module_classname || ! class_exists( $module_classname ) ) {
 				$results[] = [
-					'event_type' => 'job_queue_failed',
-					'message' => sprintf(__( 'Invalid or unsupported export format: %s', 'pressbooks' ), $format_slug),
+					'event_type' => 'job_queue_failed', // Consistent event_type for easier parsing
+					'message' => sprintf( __( 'Invalid or unsupported export format: %s', 'pressbooks' ), esc_html( $format_slug ) ),
 					'module_slug' => $format_slug,
+					'status' => 'error',
 				];
 				continue;
 			}
 
-			$constructor_args = self::getConstructorArgsForModule($module_classname, static::$currentExportModuleArgs);
-
+			// Only proceed if this module type is meant for background processing.
+			// Other types might be handled synchronously by other mechanisms (not covered by this method).
 			if ( in_array( $module_classname, $background_pdf_types, true ) ) {
-				// --- BACKGROUND PDF PROCESSING ---
+				$constructor_args = self::getConstructorArgsForModule( $module_classname, $export_options_input );
+
 				$book_id = get_current_blog_id();
 				$user_id = get_current_user_id();
 
 				global $wpdb;
 				$table_name = $wpdb->prefix . 'pressbooks_export_jobs';
 
-				$insert_result = $wpdb->insert(
-					$table_name,
-					[
-						'book_id' => $book_id,
-						'user_id' => $user_id,
-						'export_format' => $format_slug,
-						'export_module_classname' => $module_classname,
-						'export_options' => wp_json_encode( $constructor_args ),
-						'status' => 'pending',
-						'created_at' => current_time( 'mysql', true ),
-						'updated_at' => current_time( 'mysql', true ),
-					]
-				);
+				$insert_data = [
+					'book_id' => $book_id,
+					'user_id' => $user_id,
+					'export_format' => $format_slug,
+					'export_module_classname' => $module_classname,
+					'export_options' => wp_json_encode( $constructor_args ),
+					'status' => 'pending',
+					'created_at' => current_time( 'mysql', true ),
+					'updated_at' => current_time( 'mysql', true ),
+				];
+				$insert_result = $wpdb->insert( $table_name, $insert_data );
 				$job_id = $wpdb->insert_id;
 
+				$friendly_name = self::getFriendlyNameForModule( $module_classname );
+
 				if ( $insert_result && $job_id ) {
-					$scheduled = wp_schedule_single_event( time(), 'pressbooks_process_export_job', [ 'job_id' => $job_id ] );
-					error_log("AJAX Submit: Scheduled 'pressbooks_process_export_job' for job_id: {$job_id}. Schedule call result: " . ($scheduled ? 'Success' : 'Failure')); // DEBUG
-					$friendly_name = self::getFriendlyNameForModule( $module_classname );
-					$message = sprintf(
-						__( '%s export has been queued. You will be notified via this page.', 'pressbooks' ),
-						$friendly_name,
-						$job_id
-					);
+					wp_schedule_single_event( time(), 'pressbooks_process_export_job', [ 'job_id' => $job_id ] );
 					$results[] = [
 						'event_type' => 'job_queued',
 						'book_id' => $book_id,
 						'job_id' => $job_id,
-						'message' => $message,
+						'message' => sprintf( __( '%s export has been queued (Job ID: %d).', 'pressbooks' ), $friendly_name, $job_id ),
 						'module_slug' => $format_slug,
 						'module_classname' => $module_classname,
-						'sse_nonce' => wp_create_nonce( 'pressbooks_export_status_' . $job_id ),
 						'format_name' => $friendly_name,
-						'job_details' => [
-							'id' => $job_id,
-							'format' => $format_slug,
-							'status' => 'pending',
-							'created_at' => current_time( 'mysql', true ),
-						]
+						'status' => 'success',
+						// 'sse_nonce' => wp_create_nonce( 'pressbooks_export_status_' . $job_id ), // Nonce generation might be handler-specific
 					];
 				} else {
-					error_log("AJAX Submit: FAILED to insert job or get job_id for format " . self::getExportFormatSlugFromClassname($module_classname) . ". DB Error: " . $wpdb->last_error); // DEBUG
-					$friendly_name = self::getFriendlyNameForModule( $module_classname );
-					$message = sprintf(
-						__( 'Failed to queue %s export (Format: %s). Database error: %s', 'pressbooks' ),
-						$friendly_name,
-						$format_slug,
-						$wpdb->last_error
-					);
 					$results[] = [
 						'event_type' => 'job_queue_failed',
-						'message' => $message,
+						'message' => sprintf( __( 'Failed to queue %s export. Database error: %s', 'pressbooks' ), $friendly_name, esc_html($wpdb->last_error) ),
 						'module_slug' => $format_slug,
 						'module_classname' => $module_classname,
 						'format_name' => $friendly_name,
-						'error_details' => [
-							'format' => $format_slug,
-							'error' => $wpdb->last_error
-						]
+						'status' => 'error',
+						'error_details' => $wpdb->last_error,
 					];
 				}
+			} else {
+				// This format type is not designated for background processing via this mechanism.
+				$results[] = [
+					'event_type' => 'job_type_skipped',
+					'message' => sprintf( __( '%s format is not processed as a background job by this system.', 'pressbooks' ), self::getFriendlyNameForModule( $module_classname ) ),
+					'module_slug' => $format_slug,
+					'module_classname' => $module_classname,
+					'format_name' => self::getFriendlyNameForModule( $module_classname ),
+					'status' => 'skipped',
+				];
 			}
 		}
 
-		if ( static::$switchedLocale ) {
+		if ( $locale_switched ) {
 			restore_previous_locale();
 		}
 
-		// Check if any jobs were actually queued successfully
-		$has_successful_queues = false;
-		foreach ($results as $result) {
-			if ($result['event_type'] === 'job_queued') {
-				$has_successful_queues = true;
-				break;
-			}
-		}
-
-		if ($has_successful_queues) {
-			wp_send_json_success( [
-				'message' => __( 'Export jobs processed.', 'pressbooks' ),
-				'results' => $results,
-				'reload_on_complete' => true, // Add a flag to indicate page should reload when all jobs complete
-				'total_jobs' => count(array_filter($results, function($r) { return $r['event_type'] === 'job_queued'; }))
-			] );
-		} else {
-			// If all failed or were skipped
-			$error_message = __( 'No export jobs were successfully queued.', 'pressbooks' );
-			// Concatenate specific error messages if available
-			$specific_errors = [];
-			foreach($results as $result) {
-				if (isset($result['message'])) {
-					$specific_errors[] = $result['message'];
-				}
-			}
-			if (!empty($specific_errors)) {
-				$error_message .= ' Details: ' . implode('; ', $specific_errors);
-			}
-			wp_send_json_error( [
-				'message' => $error_message,
-				'results' => $results,
-				'reload_on_complete' => false // No need to reload if no jobs were queued
-			], 400 );
-		}
+		return $results;
 	}
 
 	/**
@@ -1176,5 +1121,78 @@ abstract class Export {
 
 		// Allow plugins to add their own export formats
 		return apply_filters('pb_available_export_module_slug_to_classname_map', $slug_to_classname);
+	}
+
+	/**
+	 * AJAX handler for submitting export jobs.
+	 * This method now uses the centralized processAndQueueJobRequests method.
+	 */
+	public static function ajax_submit_export_job() {
+		// Nonce check specific to this AJAX action
+		check_ajax_referer( 'pb-export-book', 'pb_export_nonce' );
+
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			wp_send_json_error( [ 'message' => __( 'Permission denied.', 'pressbooks' ) ], 403 );
+			return; // Important to return/exit after wp_send_json_error
+		}
+
+		// Sanitize and prepare inputs from $_POST
+		$export_formats_from_post = isset( $_POST['export_formats'] ) && is_array( $_POST['export_formats'] ) ? $_POST['export_formats'] : [];
+		// Sanitize keys of export_formats_from_post as they are used in loops
+		$sanitized_export_formats = [];
+		foreach ($export_formats_from_post as $key => $value) {
+		    // Assuming $key is the format slug and $value might be '1' or the slug itself if it's checkbox-like.
+		    // The crucial part is the key.
+		    $sanitized_export_formats[sanitize_text_field($key)] = sanitize_text_field($value);
+		}
+
+		if ( empty( $sanitized_export_formats ) ) {
+			wp_send_json_error( [ 'message' => __( 'No export formats selected.', 'pressbooks' ) ], 400 );
+			return;
+		}
+
+		$export_options_from_post = isset( $_POST['export_options'] ) && is_array( $_POST['export_options'] ) ? $_POST['export_options'] : [];
+		// Potentially sanitize $export_options_from_post if necessary, depending on its structure and usage.
+
+		// Call the centralized processing method
+		$results = self::processAndQueueJobRequests( $sanitized_export_formats, $export_options_from_post );
+
+		// Check if any jobs were actually queued successfully based on the 'status' field in results
+		$has_successful_queues = false;
+		$successfully_queued_count = 0;
+		foreach ( $results as $result ) {
+			if ( isset( $result['status'] ) && $result['status'] === 'success' && $result['event_type'] === 'job_queued' ) {
+				$has_successful_queues = true;
+				$successfully_queued_count++;
+			}
+		}
+
+		if ( $has_successful_queues ) {
+			wp_send_json_success( [
+				'message' => sprintf( _n( '%d export job queued.', '%d export jobs processed.', $successfully_queued_count, 'pressbooks' ), $successfully_queued_count ),
+				'results' => $results,
+				'reload_on_complete' => true, // This flag seems to be part of the original design
+				'total_jobs' => $successfully_queued_count,
+			] );
+		} else {
+			// If all failed or were skipped
+			$error_message = __( 'No export jobs were successfully queued.', 'pressbooks' );
+			$specific_errors = [];
+			foreach ( $results as $result ) {
+				if ( isset( $result['status'] ) && $result['status'] === 'error' && isset($result['message']) ) {
+					$specific_errors[] = $result['message'];
+				}
+			}
+			if ( ! empty( $specific_errors ) ) {
+				$error_message .= ' ' . __( 'Details:', 'pressbooks' ) . ' ' . implode( '; ', $specific_errors );
+			}
+			wp_send_json_error( [
+				'message' => $error_message,
+				'results' => $results,
+				'reload_on_complete' => false,
+			], 400 );
+		}
+		// Ensure exit after sending JSON response.
+		exit;
 	}
 }

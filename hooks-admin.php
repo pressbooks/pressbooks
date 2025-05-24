@@ -10,6 +10,7 @@ use Pressbooks\Admin\Menus\SideBar;
 use Pressbooks\Admin\Menus\TopBar;
 use Pressbooks\Book;
 use Pressbooks\Modules\BackgroundProcessing\BackgroundJob;
+use Pressbooks\Modules\Export\Export;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -402,6 +403,9 @@ add_action( 'admin_enqueue_scripts', function() {
 
 //Background processing
 add_action( 'wp_ajax_pb_export_book', [ '\Pressbooks\Modules\Export\Export', 'ajax_submit_export_job' ] );
-add_action( 'wp_ajax_pb_sse_exports', [ BackgroundJob::class, 'stream_all_user_jobs_status' ] );
-//add_action( 'wp_ajax_pressbooks_check_existing_jobs', [ BackgroundJob::class, 'checkExistingJobs' ] );
+// Handle older pre-BackgroundJob export process (if any, for safety, though likely deprecated)
+// add_action( 'wp_ajax_pb_export', [ Export::class, 'ajaxExport' ] ); // Method ajaxExport does not exist in Export class
+// Background Job related AJAX actions
+// add_action( 'wp_ajax_pb_sse_exports', [ BackgroundJob::class, 'stream_all_user_jobs_status' ] ); // This is now handled by EventStreams class
+add_action( 'wp_ajax_pb_check_existing_jobs', [ BackgroundJob::class, 'checkExistingJobs' ] );
 
