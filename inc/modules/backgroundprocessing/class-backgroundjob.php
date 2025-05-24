@@ -175,7 +175,7 @@ class BackgroundJob {
 			if ( ! $exporter instanceof ExportGenerator ) {
 				throw new \RuntimeException(
 					sprintf(
-						'Exporter class %s must implement ExporterGeneratorInterface',
+						'Exporter class %s must extends ExporterGenerator',
 						get_class( $exporter )
 					)
 				);
@@ -220,7 +220,7 @@ class BackgroundJob {
 					]);
 
 				// Handle validation with generator support
-					$validation_generator = $exporter->validateGenerator();
+				$validation_generator = $exporter->validateGenerator();
 
 				foreach ( $validation_generator as $progress_key => $progress_value ) {
 					$current_progress_percent = is_int( $progress_key ) ? $progress_key : ( isset( $progress_value['progress'] ) ? (int) $progress_value['progress'] : 70 );
@@ -234,7 +234,7 @@ class BackgroundJob {
 						]);
 				}
 
-					$validate_success = $validation_generator->getReturn();
+				$validate_success = $validation_generator->getReturn();
 
 				//Run post-export tasks
 				Export::postExport();
@@ -261,13 +261,13 @@ class BackgroundJob {
 
 		if ( $convert_success && $validate_success ) {
 			$final_status_data['progress_message'] = __( 'Export completed successfully.', 'pressbooks' );
-			$final_status_data['log_details'] = $log_content ?: 'Successfully completed.';
+			$final_status_data['log_details'] = 'Successfully completed.';
 		} elseif ( $convert_success ) {
 			$final_status_data['progress_message'] = __( 'Export completed with validation errors.', 'pressbooks' );
-			$final_status_data['log_details'] = $log_content ?: 'Export completed with validation errors.';
+			$final_status_data['log_details'] = 'Export completed with validation errors.';
 		} else {
-			$final_status_data['progress_message'] = $error_message ?: __( 'Export failed due to an unspecified error.', 'pressbooks' );
-			$final_status_data['log_details'] = $log_content ?: ( $error_message ?: 'Failed without specific error message.' );
+			$final_status_data['progress_message'] = __( 'Export failed due to an unspecified error.', 'pressbooks' );
+			$final_status_data['log_details'] = ('Failed without specific error message.');
 		}
 
 		app( 'db' )->table( $job_table_name )
