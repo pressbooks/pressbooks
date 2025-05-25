@@ -13,8 +13,7 @@ class BackgroundJob {
 	 *
 	 * @param int $job_id The ID of the export job.
 	 */
-	public static function handle( $job_id ): void {
-
+	public static function handle( $job_id ) {
 		set_time_limit( 0 ); // Allow unlimited execution time for this job ⚠️
 
 		/*
@@ -150,9 +149,7 @@ class BackgroundJob {
 
 		$convert_success = false;
 		$validate_success = false;
-		$error_message = '';
 		$output_path = '';
-		$log_content = '';
 
 		try {
 
@@ -267,7 +264,7 @@ class BackgroundJob {
 			$final_status_data['log_details'] = 'Export completed with validation errors.';
 		} else {
 			$final_status_data['progress_message'] = __( 'Export failed due to an unspecified error.', 'pressbooks' );
-			$final_status_data['log_details'] = ('Failed without specific error message.');
+			$final_status_data['log_details'] = ( 'Failed without specific error message.' );
 		}
 
 		app( 'db' )->table( $job_table_name )

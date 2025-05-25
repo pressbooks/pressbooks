@@ -283,7 +283,7 @@ abstract class Export {
 	 * @param string $message
 	 * @param array  $more_info
 	 */
-	function logError( $message, array $more_info = [] ): void {
+	public function logError( $message, array $more_info = [] ): void {
 
 		/**
 		 * $var \WP_User $current_user
@@ -911,8 +911,8 @@ abstract class Export {
 		// Ensure the export jobs table exists before proceeding
 		BackgroundJob::ensureExportsTable();
 
-		// Permission check should be done by the calling AJAX handler if it's user-initiated.
-		// Nonce checks should also be done by the calling AJAX handler.
+		// Permission check should be done by calling AJAX handler if it's user-initiated.
+		// Nonce checks should also be done by calling AJAX handler.
 
 		$results = [];
 		$background_pdf_types = self::getBackgroundExportTypes(); // Class names of background types
@@ -967,7 +967,13 @@ abstract class Export {
 				$friendly_name = self::getFriendlyNameForModule( $module_classname );
 
 				if ( $insert_result && $job_id ) {
-					wp_schedule_single_event( time(), 'pressbooks_process_export_job', [ 'job_id' => $job_id ] );
+					error_log( 'Export::processAndQueueJobRequests - About to schedule job ID: ' . $job_id . ' for hook pressbooks_process_export_job' );
+					$schedule_result = wp_schedule_single_event( time(), 'pressbooks_process_export_job', [ 'job_id' => $job_id ] );
+					if ( false === $schedule_result ) {
+						error_log( 'Export::processAndQueueJobRequests - FAILED to schedule job ID: ' . $job_id );
+					} else {
+						error_log( 'Export::processAndQueueJobRequests - SUCCESSFULLY scheduled job ID: ' . $job_id );
+					}
 					$results[] = [
 						'event_type' => 'job_queued',
 						'book_id' => $book_id,
@@ -977,7 +983,6 @@ abstract class Export {
 						'module_classname' => $module_classname,
 						'format_name' => $friendly_name,
 						'status' => 'success',
-						// 'sse_nonce' => wp_create_nonce( 'pressbooks_export_status_' . $job_id ), // Nonce generation might be handler-specific
 					];
 				} else {
 					$results[] = [
@@ -990,16 +995,6 @@ abstract class Export {
 						'error_details' => $wpdb->last_error,
 					];
 				}
-			} else {
-				// This format type is not designated for background processing via this mechanism.
-				$results[] = [
-					'event_type' => 'job_type_skipped',
-					'message' => sprintf( __( '%s format is not processed as a background job by this system.', 'pressbooks' ), self::getFriendlyNameForModule( $module_classname ) ),
-					'module_slug' => $format_slug,
-					'module_classname' => $module_classname,
-					'format_name' => self::getFriendlyNameForModule( $module_classname ),
-					'status' => 'skipped',
-				];
 			}
 		}
 

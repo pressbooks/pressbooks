@@ -483,7 +483,7 @@ class Xhtml11 extends ExportGenerator {
 	 * @param $message
 	 * @param array $more_info (unused, overridden)
 	 */
-	function logError( $message, array $more_info = [] ) {
+	public function logError( $message, array $more_info = [] ): void {
 
 		$more_info['url'] = $this->url;
 

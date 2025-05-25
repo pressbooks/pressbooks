@@ -46,7 +46,6 @@ class EventStreams {
 	 */
 	static public function hooks( EventStreams $obj ) {
 		add_action( 'wp_ajax_clone-book', [ $obj, 'cloneBook' ] );
-		add_action( 'wp_ajax_export-book', [ $obj, 'exportBook' ] );
 		add_action( 'wp_ajax_import-book', [ $obj, 'importBook' ] );
 		add_action( 'wp_ajax_cover-generator', [ $obj, 'coverGenerator' ] );
 		add_action( 'wp_ajax_pb_sse_exports', [ $obj, 'ajaxStreamUserJobStatuses' ] );
@@ -102,7 +101,7 @@ class EventStreams {
 	 *
 	 * @param mixed $data Data to be JSON-encoded and sent in the message.
 	 */
-	private function emitMessage( $data, string $event_type = 'message', ?int $id = null ) {
+	private function emitMessage( $data, string $event_type = 'message', ?int $id = null ): void {
 		$msg = 'event: ' . esc_attr( $event_type ) . "\n";
 		if ( null !== $id ) {
 			$msg .= 'id: ' . absint( $id ) . "\n";
@@ -399,7 +398,7 @@ class EventStreams {
 
 			// Fetch jobs that are active or recently completed/failed to ensure client gets final status.
 			// The original query also included 'completed', let's ensure we handle its lifecycle.
-			// Consider if 'failed', 'cancelled' also need to be streamed for a short period.
+			// Consider if 'failed', 'canceled' also need to be streamed for a short period.
 			// The original query: whereIn( 'status', [ 'pending', 'processing', 'running', 'completed' ] )
 			// and where( 'updated_at', '>=', date( 'Y-m-d H:i:s', strtotime( '-1 minutes' ) ) )
 			// This means completed jobs are only sent if updated in the last minute.
@@ -408,22 +407,22 @@ class EventStreams {
 				->where( 'user_id', $user_id )
 				->where( 'book_id', $book_id )
 				// Fetch all states that a client might care about if recently updated.
-				->whereIn( 'status', [ 'pending', 'processing', 'running', 'completed', 'failed', 'cancelled' ] )
+				->whereIn( 'status', [ 'pending', 'processing', 'completed', 'failed' ] )
 				->orderBy( 'created_at', 'DESC' )
 				// Optimization: Only fetch jobs updated recently or those not yet in a final state for the client.
 				// This needs careful handling to ensure final states are not missed.
 				// For now, let's stick to a time window for updates to avoid sending old, unchanged completed/failed jobs forever.
 				->where(function ( $query ) use ( $last_sent_statuses ) {
-					$query->where( 'updated_at', '>=', gmdate( 'Y-m-d H:i:s', strtotime( '-2 minutes' ) ) ) // Increased window slightly
+					$query->where( 'updated_at', '>=', gmdate( 'Y-m-d H:i:s', strtotime( '-1 minutes' ) ) ) // Increased window slightly
 						->orWhereNotIn( 'status', [ 'completed', 'failed', 'cancelled' ] ); // Or if it's still an active job
 				})
 				->get();
 
+			error_log( 'Fetched ' . count( $active_jobs ) . ' active jobs for user ' . $user_id );
+
 			if ( ! $active_jobs->isEmpty() ) {
-				$all_jobs_are_terminal = true;
 				foreach ( $active_jobs as $job ) {
 					$current_job_state_for_comparison = clone $job;
-					unset( $current_job_state_for_comparison->updated_at ); // 상태 비교 시 updated_at 제외
 					$current_job_state_json = wp_json_encode( $current_job_state_for_comparison );
 
 					$should_send = ! isset( $last_sent_statuses[ $job->id ] ) || $last_sent_statuses[ $job->id ] !== $current_job_state_json;
@@ -441,29 +440,8 @@ class EventStreams {
 							'download_url' => null,
 							'error_message' => null,
 						];
-
-						if ( $job->status === 'completed' ) {
-							$job_data_to_send['file_name'] = basename( $job->output_file_path );
-							$download_nonce = wp_create_nonce( 'download_export_job_' . $job->id );
-							$job_data_to_send['download_url'] = admin_url( 'admin.php?page=pb_export&download_export_file=' . basename( $job->output_file_path ) . '&job_id=' . $job->id . '&_wpnonce=' . $download_nonce );
-							$job_data_to_send['file_size'] = file_exists( $job->output_file_path ) ? size_format( filesize( $job->output_file_path ), 2 ) : '';
-						} elseif ( $job->status === 'failed' ) {
-							$log_details = json_decode( $job->log_details, true );
-							if ( is_array( $log_details ) && isset( $log_details['error'] ) ) {
-								$job_data_to_send['error_message'] = $log_details['error'];
-							} elseif ( is_string( $log_details ) ) {
-								$job_data_to_send['error_message'] = $log_details;
-							} else {
-								$job_data_to_send['error_message'] = $job->progress_message ?: __( 'An unknown error occurred.', 'pressbooks' );
-							}
-						}
-
 						$this->emitMessage( $job_data_to_send, 'export_job_update', $job->id );
 						$last_sent_statuses[ $job->id ] = $current_job_state_json;
-					}
-					// Check if this job is in a terminal state
-					if ( ! in_array( $job->status, [ 'completed', 'failed', 'cancelled' ], true ) ) {
-						$all_jobs_are_terminal = false;
 					}
 				}
 
@@ -493,7 +471,6 @@ class EventStreams {
 		if ( $switched ) {
 			restore_current_blog();
 		}
-		// exit; // Don't exit here, allow loop to terminate naturally on client disconnect.
 	}
 
 	/**

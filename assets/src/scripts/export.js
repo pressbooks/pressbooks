@@ -122,6 +122,7 @@ function initializeGlobalExportFeed() {
 	globalExportSSE.addEventListener('export_job_update', function(event) {
 		try {
 			const jobData = JSON.parse(event.data);
+			console.log('SSE Feed: Received export_job_update event:', jobData);
 			updateJobRowUI(jobData);
 		} catch (e) {
 			console.error('SSE Feed: Error parsing export_job_update data:', e, event.data);

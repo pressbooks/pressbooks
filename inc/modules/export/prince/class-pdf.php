@@ -100,7 +100,7 @@ class Pdf extends ExportGenerator {
 	/**
 	 * @return string
 	 */
-	protected function generateFileName() {
+	protected function generateFileName(): string {
 		return $this->timestampedFileName( '.pdf' );
 	}
 
