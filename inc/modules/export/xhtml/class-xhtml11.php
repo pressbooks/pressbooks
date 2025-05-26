@@ -298,6 +298,8 @@ class Xhtml11 extends ExportGenerator {
 	 * @throws Exception
 	 */
 	public function transformGenerator() : Generator {
+		//TODO: Check why is this required in theory is being called in Export::preExport()
+		do_action( 'pb_pre_export' );
 
 		// Override footnote shortcode
 		if ( ! empty( $_GET['endnotes'] ) ) {
