@@ -59,7 +59,7 @@ class Xhtml11 extends ExportGenerator {
 	/**
 	 * @var string
 	 */
-	public $transformOutput;
+	public string $transformOutput;
 
 	/**
 	 * Endnotes storage container.
@@ -67,14 +67,14 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @var array
 	 */
-	protected $endnotes = [];
+	protected array $endnotes = [];
 
 	/**
 	 * Footnotes storage container.
 	 *
 	 * @var array
 	 */
-	protected $footnotes = [];
+	protected array $footnotes = [];
 
 	/**
 	 * We forcefully reorder some of the front-matter types to respect the Chicago Manual of Style.
@@ -82,7 +82,7 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @var int
 	 */
-	protected $frontMatterPos = 1;
+	protected int $frontMatterPos = 1;
 
 	/**
 	 * Sometimes the user will omit an introduction so we must inject the style in either the first
@@ -90,7 +90,7 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @var bool
 	 */
-	protected $hasIntroduction = false;
+	protected bool $hasIntroduction = false;
 
 	/**
 	 * Should all header elements be wrapped in a container? Requires a theme based on Buckram.
@@ -99,7 +99,7 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @var bool
 	 */
-	protected $wrapHeaderElements = false;
+	protected bool $wrapHeaderElements = false;
 
 	/**
 	 * Should the short title be output in a hidden element? Requires a theme based on Buckram 1.2.0 or greater.
@@ -108,14 +108,14 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @var bool
 	 */
-	protected $outputShortTitle = true;
+	protected bool $outputShortTitle = true;
 
 	/**
 	 * Main language of document, two letter code
 	 *
 	 * @var string
 	 */
-	protected $lang = 'en';
+	protected string $lang = 'en';
 
 	/**
 	 * @var string
@@ -212,6 +212,8 @@ class Xhtml11 extends ExportGenerator {
 		put_contents( $filename, $this->transformOutput );
 		$this->outputPath = $filename;
 		yield 80 => $this->generatorPrefix . __( 'Export successful', 'pressbooks' );
+
+		return $this->outputPath;
 	}
 
 	/**
@@ -221,7 +223,7 @@ class Xhtml11 extends ExportGenerator {
 	 * @throws Exception
 	 */
 	public function validateGenerator() : Generator {
-		yield 80 => $this->generatorPrefix . __( 'Validating file', 'pressbooks' );
+		yield 90 => $this->generatorPrefix . __( 'Validating file', 'pressbooks' );
 
 		// Xmllint params
 		$command = PB_XMLLINT_COMMAND . ' --html --valid --noout ' . escapeshellcmd( $this->outputPath ) . ' 2>&1';
@@ -273,8 +275,9 @@ class Xhtml11 extends ExportGenerator {
 		}
 
 		try {
-			foreach ( $this->transformGenerator() as $percentage => $info ) {
-				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
+			$generator = $this->transformGenerator();
+			while ( $generator->valid() ) {
+				$generator->next();
 			}
 		} catch ( Exception $e ) {
 			return null;
@@ -295,7 +298,6 @@ class Xhtml11 extends ExportGenerator {
 	 * @throws Exception
 	 */
 	public function transformGenerator() : Generator {
-		do_action( 'pb_pre_export' );
 
 		// Override footnote shortcode
 		if ( ! empty( $_GET['endnotes'] ) ) {
@@ -567,7 +569,7 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @return string
 	 */
-	function doFootnotes( $id ) {
+	function doFootnotes( $id ): string {
 		if ( ! isset( $this->footnotes[ $id ] ) || ! count( $this->footnotes[ $id ] ) ) {
 			return '';
 		}

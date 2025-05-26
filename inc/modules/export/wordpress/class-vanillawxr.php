@@ -122,7 +122,7 @@ class VanillaWxr extends Wxr {
 		$filename = $this->timestampedFileName( '._vanilla.xml' );
 		put_contents( $filename, $output );
 		$this->outputPath = $filename;
-		yield 69 => __( 'Saving WXR file.', 'pressbooks' );
+		yield 80 => __( 'Saving WXR file.', 'pressbooks' );
 
 		return $this->outputPath;
 	}

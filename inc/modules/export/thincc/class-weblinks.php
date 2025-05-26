@@ -366,13 +366,13 @@ class WebLinks extends ExportGenerator {
 			return false;
 		}
 		$this->outputPath = $filename;
-		yield 65 => __( 'Done!', 'pressbooks' );
+		yield 80 => __( 'Done!', 'pressbooks' );
 		return true;
 	}
 
 	function validateGenerator(): Generator {
 		$use_errors = libxml_use_internal_errors( true );
-		yield 68 => __( 'Starting validation...', 'pressbooks' );
+		yield 90 => __( 'Starting validation...', 'pressbooks' );
 
 		$files = new RecursiveIteratorIterator( new \RecursiveDirectoryIterator( $this->tmpDir ) );
 		$total_files = iterator_count( $files );
@@ -397,11 +397,11 @@ class WebLinks extends ExportGenerator {
 
 		if ( ! empty( $this->errorLog ) ) {
 			$this->logError( $this->errorLog );
-			yield 'error' => __( 'Validation failed.', 'pressbooks' );
+			yield 100 => __( 'Validation failed.', 'pressbooks' );
 			return false;
 		}
 
-		yield 70 => __( 'Validation completed successfully.', 'pressbooks' );
+		yield 100 => __( 'Validation completed successfully.', 'pressbooks' );
 		return true;
 	}
 

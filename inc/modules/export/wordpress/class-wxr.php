@@ -164,20 +164,24 @@ class Wxr extends ExportGenerator {
 		}
 
 		// Save WXR as file in exports folder
-		yield 40 => __( 'Creating file.', 'pressbooks' );
+		yield 70 => __( 'Creating file.', 'pressbooks' );
 		$filename = $this->timestampedFileName( '.xml' );
 
 		put_contents( $filename, $output );
 		$this->outputPath = $filename;
 
-		yield 50 => __( 'Saved WXR file.', 'pressbooks' );
+		yield 80 => __( 'Saved WXR file.', 'pressbooks' );
+
+		return $this->outputPath;
 	}
 	public function validateGenerator(): Generator {
+		yield 90 => __( 'Validating WXR.', 'pressbooks' );
 		if ( ! simplexml_load_file( $this->outputPath ) ) {
 			$this->logError( 'WXR document is not well formed XML.' );
 			yield 'error' => __( 'WXR document is not well formed XML.', 'pressbooks' );
-			return;
+			return false;
 		}
-		yield 70 => __( 'WXR is valid.', 'pressbooks' );
+		yield 100 => __( 'WXR is valid.', 'pressbooks' );
+		return true;
 	}
 }

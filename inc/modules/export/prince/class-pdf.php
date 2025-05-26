@@ -285,22 +285,23 @@ class Pdf extends ExportGenerator {
 
 		if ( is_countable( $msg ) && count( $msg ) ) {
 			$this->logError( get_contents( $this->logfile ), [ 'warning' => 1 ] );
-			yield 69 => __( 'Conversion completed with warnings.', 'pressbooks' );
+			yield 80 => __( 'Conversion completed with warnings.', 'pressbooks' );
 		} else {
-			yield 69 => __( 'Conversion completed successfully.', 'pressbooks' );
+			yield 80 => __( 'Conversion completed successfully.', 'pressbooks' );
 		}
 
 		return $retval;
 	}
 
 	function validateGenerator(): Generator {
+		yield 90 => __( 'Validating PDF.', 'pressbooks' );
 		if ( ! $this->isPdf( $this->outputPath ) ) {
 			$this->logError( get_contents( $this->logfile ) );
 			yield 'error' => __( 'PDF validation failed.', 'pressbooks' );
 			return false;
 		}
 
-		yield 70 => __( 'PDF Validation successful.', 'pressbooks' );
+		yield 100 => __( 'PDF Validation successful.', 'pressbooks' );
 		return true;
 	}
 }

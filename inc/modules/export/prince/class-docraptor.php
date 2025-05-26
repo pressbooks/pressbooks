@@ -171,7 +171,7 @@ class Docraptor extends Pdf {
 			$this->logError( get_contents( $this->logfile ) );
 		}
 
-		yield 69 => __( 'Conversion complete.', 'pressbooks' );
+		yield 80 => __( 'Conversion complete.', 'pressbooks' );
 		return $retval;
 	}
 

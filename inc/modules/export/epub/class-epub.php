@@ -23,6 +23,7 @@ use function Pressbooks\Utility\put_contents;
 use function Pressbooks\Utility\str_ends_with;
 use function Pressbooks\Utility\str_lreplace;
 use function Pressbooks\Utility\str_starts_with;
+use Generator;
 use Pressbooks\Book;
 use Pressbooks\Container;
 use Pressbooks\Contributors;
@@ -429,7 +430,7 @@ class Epub extends ExportGenerator {
 			$properties['scripted'] = 1;
 		}
 
-		// TODO: Check for remote resources
+		// 	TODO: Check for remote resources
 
 		return $properties;
 	}
@@ -482,17 +483,20 @@ class Epub extends ExportGenerator {
 
 	/**
 	 * For expensive functions we use a generator to allow the caller to yield control back to the event loop.
-	 * Yields an estimated percentage slice of: 1 to 80
+	 * Yields an estimated percentage slice of: 31 to 80
 	 *
-	 * @return \Generator
+	 * @return Generator
 	 * @throws Exception
 	 */
-	public function convertGenerator(): \Generator {
+	public function convertGenerator(): Generator {
+
+		$this->extraCss = $this->dir . '/templates/css/css3.css';
+
 		if ( ! has_filter( 'the_export_content', 'do_shortcode' ) ) {
 			add_filter( 'the_export_content', 'do_shortcode', 11 ); // After wpautop
 		}
 
-		yield 1 => $this->generatorPrefix . __( 'Initializing', 'pressbooks' );
+		yield 35 => $this->generatorPrefix . __( 'Initializing', 'pressbooks' );
 
 		// Sanity check
 		if ( empty( $this->tmpDir ) || ! is_dir( $this->tmpDir ) ) {
@@ -506,7 +510,7 @@ class Epub extends ExportGenerator {
 		}
 
 		// Convert
-		yield 2 => $this->generatorPrefix . __( 'Preparing book contents', 'pressbooks' );
+		yield 38 => $this->generatorPrefix . __( 'Preparing book contents', 'pressbooks' );
 		$this->displayAboutTheAuthors = ! empty( get_option( 'pressbooks_theme_options_global', [] )['about_the_author'] );
 		$metadata = Book::getBookInformation();
 		$book_contents = $this->preProcessBookContents( Book::getBookContents() );
@@ -517,7 +521,7 @@ class Epub extends ExportGenerator {
 		}
 
 		try {
-			yield 5 => $this->generatorPrefix . __( 'Creating container', 'pressbooks' );
+			yield 39 => $this->generatorPrefix . __( 'Creating container', 'pressbooks' );
 			$this->createContainer();
 			yield from $this->createEPUBGenerator( $book_contents, $metadata );
 			$this->createOPF( $book_contents, $metadata );
@@ -536,6 +540,8 @@ class Epub extends ExportGenerator {
 
 		$this->outputPath = $filename;
 		yield 80 => $this->generatorPrefix . __( 'Export successful', 'pressbooks' );
+
+		return $this->outputPath;
 	}
 
 	/**
@@ -614,11 +620,11 @@ class Epub extends ExportGenerator {
 	/**
 	 * Yields an estimated percentage slice of: 80 to 100
 	 *
-	 * @return \Generator
+	 * @return Generator
 	 * @throws Exception
 	 */
-	public function validateGenerator() : \Generator {
-		yield 80 => $this->generatorPrefix . __( 'Validating file', 'pressbooks' );
+	public function validateGenerator() : Generator {
+		yield 90 => $this->generatorPrefix . __( 'Validating file', 'pressbooks' );
 
 		// Epubcheck command, (quiet flag requires version 3.0.1+)
 		$command = PB_EPUBCHECK_COMMAND . ' -q ' . escapeshellcmd( $this->outputPath ) . ' 2>&1';
@@ -641,15 +647,11 @@ class Epub extends ExportGenerator {
 		// Is this a valid Epub?
 		if ( ! empty( $output ) ) {
 			$this->logError( __( 'EPUB Validation Warnings/Errors:', 'pressbooks' ) . "\\n" . implode( "\\n", $output ) );
-			// Notify the user about warnings, but continue the process.
-			yield 90 => $this->generatorPrefix . __( 'Export completed with validation warnings. Please check error logs for details.', 'pressbooks' );
 			yield 100 => $this->generatorPrefix . __( 'Export successful with validation warnings!', 'pressbooks' );
 		} else {
-			yield 90 => $this->generatorPrefix . __( 'Validation successful', 'pressbooks' );
 			yield 100 => $this->generatorPrefix . __( 'Export successful!', 'pressbooks' );
 		}
-
-		// yield 100 => $this->generatorPrefix . __( 'Finishing up', 'pressbooks' ); // Original line removed/replaced by above logic
+		return $return_var === 0;
 	}
 
 	/**
@@ -934,18 +936,18 @@ class Epub extends ExportGenerator {
 	}
 
 	/**
-	 * Yields an estimated percentage slice of: 10 to 75
+	 * Yields an estimated percentage slice of: 40 to 60
 	 * Create EPUB/* files.
 	 *
 	 * @param array $book_contents
 	 * @param array $metadata
 	 *
-	 * @return \Generator
+	 * @return Generator
 	 * @throws Exception
 	 */
-	protected function createEPUBGenerator( array $book_contents, array $metadata ) : \Generator {
+	protected function createEPUBGenerator( array $book_contents, array $metadata ) : Generator {
 		// First, setup and affect $this->stylesheet
-		yield 10 => $this->generatorPrefix . __( 'Compiling styles', 'pressbooks' );
+		yield 40 => $this->generatorPrefix . __( 'Compiling styles', 'pressbooks' );
 		$this->createStylesheet();
 		// Reset manifest
 		$this->manifest = [];
@@ -953,43 +955,44 @@ class Epub extends ExportGenerator {
 		/* Note: order affects $this->manifest */
 
 		// Cover
-		yield 15 => $this->generatorPrefix . __( 'Creating cover', 'pressbooks' );
+		yield 42 => $this->generatorPrefix . __( 'Creating cover', 'pressbooks' );
 		$this->renderCover( $metadata );
 
 		// Before Title Page
 		$this->renderBeforeTitle( $book_contents, $metadata );
 
 		// Title
-		yield 20 => $this->generatorPrefix . __( 'Creating title page', 'pressbooks' );
+		yield 45 => $this->generatorPrefix . __( 'Creating title page', 'pressbooks' );
 		$this->renderTitle( $book_contents, $metadata );
 
 		// Copyright
-		yield 20 => $this->generatorPrefix . __( 'Creating copyright page', 'pressbooks' );
+		yield 50 => $this->generatorPrefix . __( 'Creating copyright page', 'pressbooks' );
 		$this->renderCopyright( $metadata );
 
 		// Dedication and Epigraph (In that order!)
-		yield 25 => $this->generatorPrefix . __( 'Exporting dedication and epigraph', 'pressbooks' );
+		yield 52 => $this->generatorPrefix . __( 'Exporting dedication and epigraph', 'pressbooks' );
 		$this->renderDedicationAndEpigraph( $book_contents, $metadata );
 
 		// Front-matter
-		yield 30 => $this->generatorPrefix . __( 'Exporting front matter', 'pressbooks' );
+		yield 55 => $this->generatorPrefix . __( 'Exporting front matter', 'pressbooks' );
 		yield from $this->renderFrontMatterGenerator( $book_contents, $metadata );
 
 		// Promo
 		$this->renderPromo( $book_contents, $metadata );
 
 		// Parts, Chapters
-		yield 40 => $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' );
+		yield 56 => $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' );
 		yield from $this->renderPartsAndChaptersGenerator( $book_contents, $metadata );
 
 		// Back-matter
-		yield 50 => $this->generatorPrefix . __( 'Exporting back matter', 'pressbooks' );
+		yield 57 => $this->generatorPrefix . __( 'Exporting back matter', 'pressbooks' );
 		yield from $this->renderBackMatterGenerator( $book_contents, $metadata );
 
+		yield 58 => $this->generatorPrefix . __( 'Processing CSS', 'pressbooks' );
 		$this->updateCssFile();
 		// Table of contents
 		// IMPORTANT: Do this last! Uses $this->manifest to generate itself
-		yield 70 => $this->generatorPrefix . __( 'Creating table of contents', 'pressbooks' );
+		yield 60 => $this->generatorPrefix . __( 'Creating table of contents', 'pressbooks' );
 		$this->renderToc( $metadata );
 	}
 
@@ -1553,10 +1556,10 @@ class Epub extends ExportGenerator {
 	 * @param array $book_contents
 	 * @param array $metadata
 	 *
-	 * @return \Generator
+	 * @return Generator
 	 * @throws Exception
 	 */
-	protected function renderFrontMatterGenerator( array $book_contents, array $metadata ) : \Generator {
+	protected function renderFrontMatterGenerator( array $book_contents, array $metadata ) : Generator {
 		$yield = new PercentageYield( 30, 40, count( $book_contents['front-matter'] ) );
 
 		$vars = [
@@ -1648,10 +1651,10 @@ class Epub extends ExportGenerator {
 	 * @param array $book_contents
 	 * @param array $metadata
 	 *
-	 * @return \Generator
+	 * @return Generator
 	 * @throws Exception
 	 */
-	protected function renderPartsAndChaptersGenerator( array $book_contents, array $metadata ) : \Generator {
+	protected function renderPartsAndChaptersGenerator( array $book_contents, array $metadata ) : Generator {
 		$yield = new PercentageYield( 40, 50, $this->countPartsAndChapters( $book_contents ) );
 
 		$vars = [
@@ -1815,10 +1818,10 @@ class Epub extends ExportGenerator {
 	 * @param array $book_contents
 	 * @param array $metadata
 	 *
-	 * @return \Generator
+	 * @return Generator
 	 * @throws Exception
 	 */
-	protected function renderBackMatterGenerator( array $book_contents, array $metadata ) : \Generator {
+	protected function renderBackMatterGenerator( array $book_contents, array $metadata ) : Generator {
 		$yield = new PercentageYield( 50, 70, count( $book_contents['back-matter'] ) );
 
 		$vars = [

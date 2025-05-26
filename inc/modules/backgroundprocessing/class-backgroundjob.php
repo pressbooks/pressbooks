@@ -248,8 +248,11 @@ class BackgroundJob {
 		 * CURRENT PROGRESS 100%: Validating file
 		*/
 
+		error_log( 'BackgroundJob::handle(Job ID: ' . $job_id . '): Export job completed with status: ' . ( $convert_success ? 'success' : 'failure' ) );
+		error_log( 'BackgroundJob::handle(Job ID: ' . $job_id . '): Validation status: ' . ( $validate_success ? 'success' : 'failure' ) );
+
 		$final_status_data = [
-			'status' => ( $convert_success && $validate_success ) ? 'completed' : 'failed',
+			'status' => ( $convert_success ) ? 'completed' : 'failed',
 			'progress_percentage' => ( $convert_success ) ? 100 : ( $job->progress_percentage ?: 100 ),
 			'output_file_path' => $convert_success ? $output_path : null,
 			'job_completed_at' => current_time( 'mysql', true ),

@@ -807,6 +807,7 @@ abstract class Export {
 		}
 
 		// --------------------------------------------------------------------------------------------------------
+		// TODO: ⚠️ This requires a refactor to use the new BackgroundJob system those add_error() calls are not compatible with the new system.
 		// Handle errors :(
 
 		if ( is_countable( $conversion_error ) && count( $conversion_error ) ) {
