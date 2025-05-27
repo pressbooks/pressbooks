@@ -50,9 +50,6 @@ jQuery( function ( $ ) {
 		}
 	} );
 
-	// Color pickers
-	$( '.colorpicker' ).wpColorPicker();
-
 	// Set element variables
 	const form = $( '.settings-form' );
 	const makePdfButton = $( '#generate-pdf' );
