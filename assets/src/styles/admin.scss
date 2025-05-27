@@ -102,6 +102,11 @@ html #wpadminbar {
   width: 36px;
 }
 
+#wp-admin-bar-pb-my-books-list {
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
+}
+
 @media screen and (min-width: 783px) {
   #wpwrap {
     top: 18px;
