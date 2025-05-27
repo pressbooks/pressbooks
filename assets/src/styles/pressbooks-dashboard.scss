@@ -99,6 +99,14 @@
     gap: 1.5rem;
     margin-bottom: 0;
 
+    &.two-column {
+      grid-template-columns: repeat(2, 1fr);
+
+      a {
+        text-align: center;
+      }
+    }
+
     li {
       margin-bottom: 0;
     }
@@ -169,6 +177,16 @@
   .pb-dashboard-panel {
     background-color: $white;
     padding: 1.5rem;
+
+    &.recent-updates {
+      a {
+        font-size: 1.125rem;
+      }
+
+      .pb-dashboard-content > div {
+        padding: 1rem 0;
+      }
+    }
   }
 
   ul.pb-dashboard-action {
@@ -203,7 +221,7 @@
       grid-template-columns: 1fr;
     }
 
-    ul.horizontal {
+    ul.horizontal, ul.horizontal.two-column {
       grid-template-columns: 1fr;
     }
   }
