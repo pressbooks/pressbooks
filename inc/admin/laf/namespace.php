@@ -312,7 +312,7 @@ function replace_book_admin_menu() {
 			if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
 				$post_type = get_post_type();
 				if ( in_array( $post_type, [ 'metadata', 'front-matter', 'chapter', 'back-matter' ], true ) ) {
-					wp_enqueue_script( 'pressbooks-multiselect' );
+					wp_enqueue_script( 'pressbooks-select' );
 					wp_enqueue_script( 'pressbooks-reorderable-multiselect' );
 				}
 			}
@@ -1116,7 +1116,7 @@ function init_css_js() {
 
 	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pressbooks_theme_options' ) {
 		wp_enqueue_style( 'theme-options', $assets->getPath( 'styles/theme-options.css' ) );
-		wp_enqueue_script( 'pressbooks-multiselect' );
+		wp_enqueue_script( 'pressbooks-select' );
 		wp_enqueue_script( 'color-picker' );
 		wp_enqueue_script( 'theme-options-js', $assets->getPath( 'scripts/theme-options.js' ), [ 'jquery' ] );
 	}
@@ -1153,7 +1153,7 @@ function init_css_js() {
 	wp_register_script( 'pb-post-mathjax', $assets->getPath( 'scripts/post-mathjax.js' ), [ 'jquery' ], false, true );
 	wp_register_script( 'pb-post-back-matter', $assets->getPath( 'scripts/post-back-matter.js' ), [ 'jquery', 'editor' ], false, true );
 	wp_register_script( 'duet-date-picker', $assets->getPath( 'scripts/duet/duet.js' ), [], false, true );
-	wp_register_script( 'pressbooks-multiselect', $assets->getPath( 'scripts/pressbooks-multiselect.js' ), [], false, true );
+	wp_register_script( 'pressbooks-select', $assets->getPath( 'scripts/pressbooks-select.js' ), [], false, true );
 	wp_register_script( 'pressbooks-reorderable-multiselect', $assets->getPath( 'scripts/pressbooks-reorderable-multiselect.js' ), [], false, true );
 	wp_register_script( 'color-picker', $assets->getPath( 'scripts/color-picker.js' ), [ 'jquery', 'wp-i18n' ], false, true );
 
@@ -1790,4 +1790,3 @@ function filter_media_list_for_contributors( $query ) {
 
 	return $query;
 }
-

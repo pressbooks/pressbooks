@@ -17,7 +17,7 @@
 	"dependencies": {
 		"@duetds/date-picker": "^1.4.0",
 		"@melloware/coloris": "^0.24.2",
-		"@pressbooks/multiselect": "^2.4.0",
+		"@pressbooks/select": "^1.0.0-beta.1",
 		"@pressbooks/reorderable-multiselect": "^0.0.4",
 		"algoliasearch": "^4.23.2",
 		"alpine": "^0.2.1",
