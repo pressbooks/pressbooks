@@ -948,7 +948,6 @@ function register_contributor_meta() {
 					[
 						'jquery',
 						'jquery-form',
-						'wp-color-picker',
 						'eventsource-polyfill',
 					], null
 				);
