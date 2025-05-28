@@ -565,51 +565,6 @@ abstract class Export {
 	}
 
 	/**
-	 * Get an array of module classnames that should be processed in the background.
-	 *
-	 * @return array
-	 */
-	public static function getBackgroundExportTypes(): array {
-		return apply_filters('pb_background_export_types', [
-			'\\Pressbooks\\Modules\\Export\\Prince\\Pdf',
-			'\\Pressbooks\\Modules\\Export\\Prince\\PrintPdf',
-			'\\Pressbooks\\Modules\\Export\\Prince\\Docraptor',
-			'\\Pressbooks\\Modules\\Export\\Prince\\DocraptorPrint',
-			'\\Pressbooks\\Modules\\Export\\Epub\\Epub',
-			'\\Pressbooks\\Modules\\Export\\Xhtml\\Xhtml11',
-			'\\Pressbooks\\Modules\\Export\\WordPress\\Wxr',
-			'\\Pressbooks\\Modules\\Export\\WordPress\\VanillaWxr',
-		]);
-	}
-
-	/**
-	 * Gets a simplified slug for an export module classname.
-	 * Example: \Pressbooks\Modules\Export\Prince\Pdf -> pdf
-	 *
-	 * @param string $module_classname
-	 * @return string
-	 */
-	protected static function getExportFormatSlugFromClassname( string $module_classname ): string {
-		$parts = explode( '\\', $module_classname );
-		$slug = strtolower( end( $parts ) );
-		// Specific overrides if class name doesn't directly map
-		if ( $slug === 'printpdf' ) {
-			return 'print-pdf';
-		}
-		if ( $slug === 'docraptorprint' ) {
-			return 'docraptor-print-pdf';
-		}
-		if ( $slug === 'xhtml11' ) {
-			return 'xhtml';
-		}
-		if ( $slug === 'vanillawxr' ) {
-			return 'vanilla-wxr';
-		}
-		// Add more specific mappings as needed
-		return $slug;
-	}
-
-	/**
 	 * Gets a user-friendly name for an export module.
 	 * Uses the existing get_name_from_module_classname if available and suitable,
 	 * or provides a fallback.
@@ -657,35 +612,18 @@ abstract class Export {
 	 * @return array
 	 */
 	public static function modules(): array {
-		$modules = [];
-		if ( is_array( getset( '_GET', 'export_formats' ) ) && check_admin_referer( 'pb-export' ) ) {
 
-			// --------------------------------------------------------------------------------------------------------
-			// Define modules
+			// Default Modules
 
-			$x = $_GET['export_formats'];
-
-			if ( isset( $x['pdf'] ) ) {
-				$modules[] = '\Pressbooks\Modules\Export\Prince\Pdf';
-			}
-			if ( isset( $x['print_pdf'] ) ) {
-				$modules[] = '\Pressbooks\Modules\Export\Prince\PrintPdf';
-			}
-			if ( isset( $x['epub'] ) ) {
-				$modules[] = '\Pressbooks\Modules\Export\Epub\Epub';
-			}
-			if ( isset( $x['xhtml'] ) ) {
-				$modules[] = '\Pressbooks\Modules\Export\Xhtml\Xhtml11';
-			}
-			if ( isset( $x['wxr'] ) ) {
-				$modules[] = '\Pressbooks\Modules\Export\WordPress\Wxr';
-			}
-			if ( isset( $x['vanillawxr'] ) ) {
-				$modules[] = '\Pressbooks\Modules\Export\WordPress\VanillaWxr';
-			}
-			if ( isset( $x['weblinks'] ) ) {
-				$modules[] = '\Pressbooks\Modules\Export\ThinCC\WebLinks';
-			}
+		$modules = [
+			'pdf' => '\Pressbooks\Modules\Export\Prince\Pdf',
+			'print_pdf' => '\Pressbooks\Modules\Export\Prince\PrintPdf',
+			'epub' => '\Pressbooks\Modules\Export\Epub\Epub',
+			'xhtml' => '\Pressbooks\Modules\Export\Xhtml\Xhtml11',
+			'wxr' => '\Pressbooks\Modules\Export\WordPress\Wxr',
+			'vanillawxr' => '\Pressbooks\Modules\Export\WordPress\VanillaWxr',
+			'weblinks' => '\Pressbooks\Modules\Export\ThinCC\WebLinks',
+		];
 
 			// --------------------------------------------------------------------------------------------------------
 			// Other People's Plugins
@@ -706,10 +644,7 @@ abstract class Export {
 			 *
 			 * @param array $modules
 			 */
-			$modules = apply_filters( 'pb_active_export_modules', $modules );
-		}
-
-		return $modules;
+		return apply_filters( 'pb_active_export_modules', $modules );
 	}
 
 	/**
@@ -916,8 +851,8 @@ abstract class Export {
 		// Nonce checks should also be done by calling AJAX handler.
 
 		$results = [];
-		$background_pdf_types = self::getBackgroundExportTypes(); // Class names of background types
-		$available_modules = self::getAvailableExportModules();    // [slug => classname]
+		$background_types = self::getBackgroundExportTypes(); // Class names of background types
+		$available_modules = self::modules();
 
 		// Clear previous static errors/outputs for this new request context if they were used by other parts.
 		// However, this method should be self-contained and not rely on static::$exportConversionError etc.
@@ -943,7 +878,7 @@ abstract class Export {
 			}
 
 			// Only proceed if this module type is meant for background processing.
-			if ( in_array( $module_classname, $background_pdf_types, true ) ) {
+			if ( in_array( $module_classname, $background_types, true ) ) {
 				$constructor_args = [];
 
 				$book_id = get_current_blog_id();
@@ -1023,6 +958,7 @@ abstract class Export {
 			'xhtml' => '\\Pressbooks\\Modules\\Export\\Xhtml\\Xhtml11',
 			'wxr' => '\\Pressbooks\\Modules\\Export\\WordPress\\Wxr',
 			'vanillawxr' => '\\Pressbooks\\Modules\\Export\\WordPress\\VanillaWxr',
+			'weblinks' => '\\Pressbooks\\Modules\\Export\\ThinCC\\WebLinks',
 		];
 
 		// Allow plugins to add their own export formats

@@ -253,7 +253,7 @@ function get_name_from_module_classname( $classname ) {
 			'\Pressbooks\Modules\Export\ThinCC\WebLinks' => __( 'Common Cartridge (Web Links)', 'pressbooks' ),
 		]
 	);
-	return isset( $formats[ $classname ] ) ? $formats[ $classname ] : substr( strrchr( $classname, '\\' ), 1 );
+	return $formats[$classname] ?? substr(strrchr($classname, '\\'), 1);
 }
 
 /**

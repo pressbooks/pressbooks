@@ -418,8 +418,6 @@ class EventStreams {
 				})
 				->get();
 
-			error_log( 'Fetched ' . count( $active_jobs ) . ' active jobs for user ' . $user_id );
-
 			if ( ! $active_jobs->isEmpty() ) {
 				foreach ( $active_jobs as $job ) {
 					$current_job_state_for_comparison = clone $job;
