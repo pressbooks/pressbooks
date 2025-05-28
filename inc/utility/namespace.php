@@ -15,6 +15,7 @@
 
 namespace Pressbooks\Utility;
 
+use Pressbooks\Book;
 use RuntimeException;
 
 /**
@@ -225,6 +226,25 @@ function add_sitemap_to_robots_txt() {
 	if ( 1 === absint( get_option( 'blog_public' ) ) ) {
 		echo 'Sitemap: ' . get_option( 'siteurl' ) . "/?feed=sitemap.xml\n\n";
 	}
+}
+
+function handle_book_indexing( array $robots ) {
+	if ( ! Book::isBook() ) {
+		return $robots;
+	}
+
+	$options = get_option( 'pressbooks_robots', [
+		'discourage-ai' => 0,
+		'discourage-index' => 0,
+	] );
+
+	return [
+		...$robots,
+		'noindex' => $options['discourage-index'] ?? 0,
+		'nofollow' => $options['discourage-index'] ?? 0,
+		'noai' => $options['discourage-ai'] ?? 0,
+		'noimageai' => $options['discourage-ai'] ?? 0,
+	];
 }
 
 /**

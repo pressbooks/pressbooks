@@ -1238,6 +1238,19 @@ function privacy_settings_init() {
 			'blog_public',
 			__NAMESPACE__ . '\privacy_blog_public_sanitize'
 		);
+
+		add_settings_field(
+			id: 'pressbooks_robots',
+			title: esc_html__( 'Robots', 'pressbooks' ),
+			callback: __NAMESPACE__ . '\privacy_robots_callback',
+			page: 'privacy_settings',
+			section: 'privacy_settings_section',
+		);
+		register_setting(
+			'privacy_settings',
+			'pressbooks_robots',
+			__NAMESPACE__ . '\privacy_robots_sanitize'
+		);
 	}
 
 	add_settings_field(
@@ -1337,6 +1350,20 @@ function privacy_blog_public_callback( $args ) {
 }
 
 /**
+ * Privacy settings, pressbooks_robots field callback
+ */
+function privacy_robots_callback() {
+	$blade = Container::get( 'Blade' );
+
+	echo $blade->render('admin/settings/book-robots', [
+		'robots' => get_option( 'pressbooks_robots', [
+			'discourage-ai' => 0,
+			'discourage-index' => 0,
+		] ),
+	]);
+}
+
+/**
  * Privacy settings, permissive_private_content field callback
  *
  * @param $args
@@ -1422,6 +1449,20 @@ function book_directory_excluded_callback( $args ) {
  */
 function privacy_blog_public_sanitize( $input ) {
 	return absint( $input );
+}
+
+/**
+ * Privacy settings, blog_public field sanitization
+ *
+ * @param array $input{discourage-ai: int|null, discourage-index: int|null}
+ *
+ * @return array{discourage-ai: int, discourage-index: int}
+ */
+function privacy_robots_sanitize( $input ) {
+	return [
+		'discourage-ai' => isset( $input['discourage-ai'] ) ? 1 : 0,
+		'discourage-index' => isset( $input['discourage-index'] ) ? 1 : 0,
+	];
 }
 
 /**
