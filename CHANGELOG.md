@@ -1,5 +1,24 @@
 # Changelog
 
+## [6.27.0](https://github.com/pressbooks/pressbooks/compare/6.26.1...6.27.0) (2025-05-28)
+
+
+### Features
+
+* display recent updates in the dashboard ([#4047](https://github.com/pressbooks/pressbooks/issues/4047)) ([2e4a683](https://github.com/pressbooks/pressbooks/commit/2e4a683adbf9c46d5aac9ff7910fea8928ed846a))
+* switch to Coloris colour picker ([#4049](https://github.com/pressbooks/pressbooks/issues/4049)) ([6d72d9c](https://github.com/pressbooks/pressbooks/commit/6d72d9c44ef1aa63daaa3cd52f64040f864cb3ad))
+
+
+### Bug Fixes
+
+* restore scroll capabilities for my books list ([#4062](https://github.com/pressbooks/pressbooks/issues/4062)) ([f6a3925](https://github.com/pressbooks/pressbooks/commit/f6a3925dcca94653cbac0a960e2dffb8053d8e9e))
+
+
+### Chores
+
+* bump @pressbooks/multiselect from 2.4.0 to 2.4.1 in the npm-dependencies group (resolves pressbooks/private[#1617](https://github.com/pressbooks/pressbooks/issues/1617)) ([#4057](https://github.com/pressbooks/pressbooks/issues/4057)) ([9bdedb4](https://github.com/pressbooks/pressbooks/commit/9bdedb41a9ed23a1e7419c7696ef6e894603730c))
+* bump @pressbooks/multiselect from 2.4.0 to 2.4.2 in the npm-dependencies group ([#4060](https://github.com/pressbooks/pressbooks/issues/4060)) ([f76cd27](https://github.com/pressbooks/pressbooks/commit/f76cd2720845bded1231ff05e42e3873bde31641))
+
 ## [6.26.1](https://github.com/pressbooks/pressbooks/compare/6.26.0...6.26.1) (2025-05-20)
 
 
