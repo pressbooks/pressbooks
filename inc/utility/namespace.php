@@ -238,12 +238,15 @@ function handle_book_indexing( array $robots ) {
 		'discourage-index' => 0,
 	] );
 
+	$discourage_index = (bool) $options['discourage-index'] ?? 0;
+	$discourage_ai = (bool) $options['discourage-ai'] ?? 0;
+
 	return [
 		...$robots,
-		'noindex' => $options['discourage-index'] ?? 0,
-		'nofollow' => $options['discourage-index'] ?? 0,
-		'noai' => $options['discourage-ai'] ?? 0,
-		'noimageai' => $options['discourage-ai'] ?? 0,
+		'noindex' => $discourage_index,
+		'nofollow' => $discourage_index,
+		'noai' => $discourage_ai,
+		'noimageai' => $discourage_ai,
 	];
 }
 
