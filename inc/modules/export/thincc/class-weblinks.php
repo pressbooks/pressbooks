@@ -12,10 +12,10 @@ use function Pressbooks\Utility\rmrdir;
 use Generator;
 use Pressbooks\Book;
 use Pressbooks\Container;
-use Pressbooks\Modules\Export\ExportGenerator;
+use Pressbooks\Modules\Export\Export;
 use RecursiveIteratorIterator;
 
-class WebLinks extends ExportGenerator {
+class WebLinks extends Export {
 
 	/**
 	 * @var string
@@ -370,7 +370,7 @@ class WebLinks extends ExportGenerator {
 		return true;
 	}
 
-	function validateGenerator(): Generator {
+	public function convert(): Generator {
 		$use_errors = libxml_use_internal_errors( true );
 		yield 90 => __( 'Starting validation...', 'pressbooks' );
 
@@ -402,6 +402,24 @@ class WebLinks extends ExportGenerator {
 		}
 
 		yield 100 => __( 'Validation completed successfully.', 'pressbooks' );
+		return true;
+	}
+
+	public function validate(): Generator {
+		yield 90 => __( 'Validating Web Links export.', 'pressbooks' );
+		if ( ! is_dir( $this->tmpDir ) || ! is_readable( $this->tmpDir ) ) {
+			$this->logError( '$this->tmpDir must be set before calling validate().' );
+			yield 'error' => '$this->tmpDir must be set before calling validate().';
+			return false;
+		}
+
+		if ( ! is_file( $this->tmpDir . '/imsmanifest.xml' ) ) {
+			$this->logError( 'Manifest file not found.' );
+			yield 'error' => __( 'Manifest file not found.', 'pressbooks' );
+			return false;
+		}
+
+		yield 100 => __( 'Web Links export validation successful.', 'pressbooks' );
 		return true;
 	}
 

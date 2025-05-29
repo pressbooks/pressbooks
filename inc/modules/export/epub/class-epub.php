@@ -30,14 +30,13 @@ use Pressbooks\Contributors;
 use Pressbooks\HtmLawed;
 use Pressbooks\HtmlParser;
 use Pressbooks\Modules\Export\Export;
-use Pressbooks\Modules\Export\ExportGenerator;
 use Pressbooks\Modules\Export\ExportHelpers;
 use Pressbooks\Modules\Export\Traits\HandleContributors;
 use Pressbooks\Sanitize;
 use Pressbooks\Taxonomy;
 use Pressbooks\Utility\PercentageYield;
 
-class Epub extends ExportGenerator {
+class Epub extends Export {
 	use ExportHelpers;
 	use HandleContributors;
 
@@ -488,7 +487,7 @@ class Epub extends ExportGenerator {
 	 * @return Generator
 	 * @throws Exception
 	 */
-	public function convertGenerator(): Generator {
+	public function convert(): Generator {
 
 		$this->extraCss = $this->dir . '/templates/css/css3.css';
 
@@ -623,7 +622,7 @@ class Epub extends ExportGenerator {
 	 * @return Generator
 	 * @throws Exception
 	 */
-	public function validateGenerator() : Generator {
+	public function validate() : Generator {
 		yield 90 => $this->generatorPrefix . __( 'Validating file', 'pressbooks' );
 
 		// Epubcheck command, (quiet flag requires version 3.0.1+)

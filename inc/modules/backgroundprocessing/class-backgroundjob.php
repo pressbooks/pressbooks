@@ -7,6 +7,8 @@ use Pressbooks\Modules\Export\ExportGenerator;
 
 class BackgroundJob {
 
+	const JOBS_TABLE_NAME = 'pressbooks_export_jobs';
+
 	/**
 	 * Handles the background processing of an export job.
 	 * This function is triggered by WP-Cron.
@@ -33,8 +35,6 @@ class BackgroundJob {
 		// For safety, to see where cron is running
 		$initial_blog_id = get_current_blog_id();
 
-		$job_table_name = $initial_blog_id . '_pressbooks_export_jobs';
-
 		/*
 		 * It's safer to get the job by ID and then use its book_id to switch,
 		 * especially if job IDs could clash or cron context is unpredictable.
@@ -45,7 +45,8 @@ class BackgroundJob {
 
 		// Let's assume $job_id is for the current blog context WP-Cron is running under. */
 
-		$job = app( 'db' )->table( $job_table_name )
+		/** @var Manager $db */
+		$job = app( 'db' )->table( self::JOBS_TABLE_NAME )
 			->where( 'id', $job_id )
 			->first();
 
@@ -60,7 +61,6 @@ class BackgroundJob {
 		if ( is_multisite() && get_current_blog_id() !== $actual_book_id_for_job ) {
 			switch_to_blog( $actual_book_id_for_job );
 			$switched_blog = true;
-			$job_table_name = $actual_book_id_for_job . '_pressbooks_export_jobs'; // Update table name after switch
 		} elseif ( ! is_multisite() && $actual_book_id_for_job !== 1 && get_current_blog_id() === 1 ) {
 			// Single site, but a job somehow has a different book_id. This shouldn't happen so bail out. ☠️
 			return;
@@ -86,7 +86,8 @@ class BackgroundJob {
 			'updated_at' => current_time( 'mysql', true ),
 		];
 
-		app( 'db' )->table( $job_table_name )
+		/** @var Manager $db */
+		app( 'db' )->table( self::JOBS_TABLE_NAME )
 			->where( 'id', $job_id )
 			->update( $update_processing_data );
 
@@ -103,7 +104,8 @@ class BackgroundJob {
 				'job_completed_at' => current_time( 'mysql', true ),
 				'updated_at' => current_time( 'mysql', true ),
 			];
-			app( 'db' )->table( $job_table_name )
+			/** @var Manager $db */
+			app( 'db' )->table( self::JOBS_TABLE_NAME )
 				->where( 'id', $job_id )
 				->update( $fail_data );
 
@@ -143,7 +145,8 @@ class BackgroundJob {
 			'updated_at' => current_time( 'mysql', true ),
 		];
 
-		app( 'db' )->table( $job_table_name )
+		/** @var Manager $db */
+		app( 'db' )->table( self::JOBS_TABLE_NAME )
 			->where( 'id', $job_id )
 			->update( $update_prep_data );
 
@@ -164,7 +167,8 @@ class BackgroundJob {
 				'updated_at' => current_time( 'mysql', true ),
 			];
 
-			app( 'db' )->table( $job_table_name )
+			/** @var Manager $db */
+			app( 'db' )->table( self::JOBS_TABLE_NAME )
 				->where( 'id', $job_id )
 				->update( $update_conv_start_data );
 
@@ -181,7 +185,7 @@ class BackgroundJob {
 			//Run pre-export tasks
 			Export::preExport();
 
-			$conversion_generator = $exporter->convertGenerator();
+			$conversion_generator = $exporter->convert();
 
 			foreach ( $conversion_generator as $progress_key => $progress_value ) {
 				$current_progress_percent = is_int( $progress_key ) ? $progress_key : ( isset( $progress_value['progress'] ) ? (int) $progress_value['progress'] : 30 );
@@ -191,7 +195,8 @@ class BackgroundJob {
 					'progress_message' => $current_progress_message,
 					'updated_at' => current_time( 'mysql', true ),
 				];
-				app( 'db' )->table( $job_table_name )
+				/** @var Manager $db */
+				app( 'db' )->table( self::JOBS_TABLE_NAME )
 					->where( 'id', $job_id )
 					->update( $update_gen_progress_data );
 			}
@@ -206,8 +211,8 @@ class BackgroundJob {
 				 * If conversion was successful, validate the output
 				 * CURRENT PROGRESS 70%: Validating file
 				 */
-
-				app( 'db' )->table( $job_table_name )
+				/** @var Manager $db */
+				app( 'db' )->table( self::JOBS_TABLE_NAME )
 					->where( 'id', $job_id )
 					->update([
 						'progress_percentage' => 70, // Mark start of validation phase
@@ -217,12 +222,13 @@ class BackgroundJob {
 					]);
 
 				// Handle validation with generator support
-				$validation_generator = $exporter->validateGenerator();
+				$validation_generator = $exporter->validate();
 
 				foreach ( $validation_generator as $progress_key => $progress_value ) {
 					$current_progress_percent = is_int( $progress_key ) ? $progress_key : ( isset( $progress_value['progress'] ) ? (int) $progress_value['progress'] : 70 );
 					$current_progress_message = is_string( $progress_value ) ? $progress_value : ( $progress_value['message'] ?? __( 'Validating...', 'pressbooks' ) );
-					app( 'db' )->table( $job_table_name )
+					/** @var Manager $db */
+					app( 'db' )->table( self::JOBS_TABLE_NAME )
 						->where( 'id', $job_id )
 						->update([
 							'progress_percentage' => $current_progress_percent,
@@ -270,7 +276,8 @@ class BackgroundJob {
 			$final_status_data['log_details'] = ( 'Failed without specific error message.' );
 		}
 
-		app( 'db' )->table( $job_table_name )
+		/** @var Manager $db */
+		app( 'db' )->table( self::JOBS_TABLE_NAME )
 			->where( 'id', $job_id )
 			->update( $final_status_data );
 
@@ -291,9 +298,7 @@ class BackgroundJob {
 	 */
 	public static function ensureExportsTable(): void {
 
-		$table_name = get_current_blog_id() . '_pressbooks_export_jobs';
-
-		if ( ! app( 'db' )->schema()->hasTable( $table_name ) ) {
+		if ( ! app( 'db' )->schema()->hasTable( self::JOBS_TABLE_NAME ) ) {
 			self::createJobTable();
 		}
 	}
@@ -303,9 +308,9 @@ class BackgroundJob {
 	 * This function is called on plugin activation.
 	 */
 	public static function createJobTable(): void {
-		$table_name = get_current_blog_id() . '_pressbooks_export_jobs';
-		if ( ! app( 'db' )->getSchemaBuilder()->hasTable( $table_name ) ) {
-			app( 'db' )->getSchemaBuilder()->create( $table_name, function ( $table ) {
+		/** @var Manager $db */
+		if ( ! app( 'db' )->getSchemaBuilder()->hasTable( self::JOBS_TABLE_NAME ) ) {
+			app( 'db' )->getSchemaBuilder()->create( self::JOBS_TABLE_NAME, function ( $table ) {
 				$table->bigIncrements( 'id' );
 				$table->bigInteger( 'book_id' )->unsigned();
 				$table->bigInteger( 'user_id' )->unsigned();

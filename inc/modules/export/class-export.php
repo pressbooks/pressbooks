@@ -17,19 +17,17 @@ use function Pressbooks\L10n\get_book_language;
 use function Pressbooks\L10n\wplang_codes;
 use function Pressbooks\Media\mime_type;
 use function Pressbooks\Redirect\force_download;
-use function Pressbooks\Sanitize\fix_audio_shortcode;
 use function Pressbooks\Sanitize\sanitize_xml_id;
 use function Pressbooks\Utility\create_tmp_file;
 use function Pressbooks\Utility\email_error_log;
 use function Pressbooks\Utility\get_media_prefix;
 use function Pressbooks\Utility\put_contents;
 use function Pressbooks\Utility\template;
-use function \Pressbooks\Utility\getset;
 use function \Pressbooks\Utility\scandir_by_date;
+use Generator;
 use Pressbooks\Book;
 use Pressbooks\Container;
 use Pressbooks\CustomCss;
-use Pressbooks\Modules\BackgroundProcessing\BackgroundJob;
 
 // IMPORTANT! if this isn't set correctly before include, with a trailing slash, PclZip will fail.
 if ( ! defined( 'PCLZIP_TEMPORARY_DIR' ) ) {
@@ -83,13 +81,6 @@ abstract class Export {
 	protected string $outputPath;
 
 	/**
-	 * Stores arguments for the current export modules being processed.
-	 * Used to pass arguments to background jobs.
-	 * @var array
-	 */
-	protected static array $currentExportModuleArgs = [];
-
-	/**
 	 * Return $this->outputPath
 	 *
 	 * @return string
@@ -108,7 +99,7 @@ abstract class Export {
 	 * @throws ContainerExceptionInterface
 	 * @throws NotFoundExceptionInterface
 	 */
-	function getExportStylePath( $type ) {
+	function getExportStylePath( string $type ): false|string {
 
 		$fullpath = false;
 
@@ -141,7 +132,7 @@ abstract class Export {
 	 * @throws ContainerExceptionInterface
 	 * @throws NotFoundExceptionInterface
 	 */
-	function getLatestExportStylePath( $type ) {
+	function getLatestExportStylePath( string $type ): false|string {
 		// This method only supports Prince stylesheets at the moment.
 		if ( $type === 'prince' ) {
 			foreach ( scandir_by_date( Container::get( 'Sass' )->pathToUserGeneratedCss() ) as $file ) {
@@ -160,8 +151,10 @@ abstract class Export {
 	 * @param string $type
 	 *
 	 * @return string
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
-	function getLatestExportStyleUrl( $type ) {
+	function getLatestExportStyleUrl( string $type ): false|string {
 		// This method only supports Prince stylesheets at the moment.
 		if ( $type === 'prince' ) {
 			foreach ( scandir_by_date( Container::get( 'Sass' )->pathToUserGeneratedCss() ) as $file ) {
@@ -182,7 +175,7 @@ abstract class Export {
 	 * @throws ContainerExceptionInterface
 	 * @throws NotFoundExceptionInterface
 	 */
-	function truncateExportStylesheets( $type, $max = 1 ) {
+	function truncateExportStylesheets( $type, $max = 1 ): void {
 		// This method only supports Prince stylesheets at the moment.
 		if ( $type === 'prince' ) {
 			$stylesheets = scandir_by_date( Container::get( 'Sass' )->pathToUserGeneratedCss() );
@@ -208,7 +201,7 @@ abstract class Export {
 	 * @throws ContainerExceptionInterface
 	 * @throws NotFoundExceptionInterface
 	 */
-	function getExportScriptPath( $type ) {
+	function getExportScriptPath( $type ): false|string {
 
 		$fullpath = false;
 
@@ -244,7 +237,7 @@ abstract class Export {
 	 * @throws ContainerExceptionInterface
 	 * @throws NotFoundExceptionInterface
 	 */
-	function getExportScriptUrl( $type ) {
+	function getExportScriptUrl( $type ): false|string {
 
 		$url = false;
 
@@ -266,7 +259,7 @@ abstract class Export {
 	 *
 	 * @return bool
 	 */
-	public static function shouldParseSubsections() {
+	public static function shouldParseSubsections(): bool {
 
 		$options = get_option( 'pressbooks_theme_options_global' );
 
@@ -283,7 +276,7 @@ abstract class Export {
 	 * @param string $message
 	 * @param array  $more_info
 	 */
-	public function logError( $message, array $more_info = [] ): void {
+	public function logError( string $message, array $more_info = [] ): void {
 
 		/**
 		 * $var \WP_User $current_user
@@ -332,11 +325,11 @@ abstract class Export {
 	 * Create a timestamped filename.
 	 *
 	 * @param string $extension
-	 * @param bool   $fullpath
+	 * @param bool $fullpath
 	 *
 	 * @return string
 	 */
-	function timestampedFileName( $extension, $fullpath = true ): string {
+	public function timestampedFileName( string $extension, bool $fullpath = true ): string {
 		$book_title = ( get_bloginfo( 'name' ) ) ? get_bloginfo( 'name' ) : __( 'book', 'pressbooks' );
 		$book_title_slug = sanitize_file_name( $book_title );
 		$book_title_slug = str_replace( [ '+' ], '', $book_title_slug ); // Remove symbols which confuse Apache (Ie. form urlencoded spaces)
@@ -407,7 +400,7 @@ abstract class Export {
 	 *
 	 * @return string
 	 */
-	protected function createTmpDir() {
+	protected function createTmpDir(): string {
 
 		$temp_file = tempnam( sys_get_temp_dir(), '' );
 		@unlink( $temp_file ); // @codingStandardsIgnoreLine
@@ -648,56 +641,9 @@ abstract class Export {
 	}
 
 	/**
-	 * Catch form submissions
-	 *
-	 * @see pressbooks/templates/admin/export.blade.php
-	 */
-	public static function formSubmit(): void {
-
-		if ( false === static::isFormSubmission() || false === current_user_can( 'edit_posts' ) ) {
-			// Don't do anything in this function, bail.
-			return;
-		}
-
-		// Store export arguments if present, to be used by exportGenerator
-		// This is a simplistic example; needs to align with how your form actually submits options.
-		static::$currentExportModuleArgs = $_POST['export_options'] ?? []; // Example: if you have specific options per module in form
-
-		// Override some WP behaviours when exporting
-		fix_audio_shortcode();
-
-		// Download
-		if ( ! empty( $_GET['download_export_file'] ) ) {
-			$filename = sanitize_file_name( $_GET['download_export_file'] );
-			// Add security for job-based downloads
-			if ( isset( $_GET['job_id'] ) && isset( $_GET['_wpnonce'] ) ) {
-				$job_id = absint( $_GET['job_id'] );
-				if ( wp_verify_nonce( sanitize_key( $_GET['_wpnonce'] ), 'download_export_job_' . $job_id ) ) {
-					// Potentially check if current user owns the job or has rights
-					global $wpdb;
-					$job = $wpdb->get_row( $wpdb->prepare( "SELECT user_id, output_file_path FROM {$wpdb->prefix}pressbooks_export_jobs WHERE id = %d", $job_id ) );
-					if ( $job && $job->user_id == get_current_user_id() && basename( $job->output_file_path ) === $filename ) {
-						static::downloadExportFile( $filename, false ); // Original method assumes file is in default export dir
-						exit;
-					} else {
-						wp_die( __( 'Invalid job ID or permission denied for download.', 'pressbooks' ), 'Error', [ 'response' => 403 ] );
-					}
-				} else {
-					wp_die( __( 'Invalid download link.', 'pressbooks' ), 'Error', [ 'response' => 403 ] );
-				}
-			} else {
-				// Fallback to old download mechanism if no job_id (e.g. for non-background processed files)
-				// This part might need to be phased out or also secured if direct downloads are generally disallowed.
-				static::downloadExportFile( $filename, false );
-				exit;
-			}
-		}
-	}
-
-	/**
 	 * Post Export
 	 */
-	public static function postExport() {
+	public static function postExport(): void {
 
 		$conversion_error = static::$exportConversionError;
 		$validation_warning = static::$exportValidationWarning;
@@ -767,7 +713,7 @@ abstract class Export {
 	/**
 	 * @return string
 	 */
-	static function locale() {
+	public static function locale(): string {
 		$loc = 'en_US';
 		if ( function_exists( 'get_available_languages' ) ) {
 			$compare_with = get_available_languages( PB_PLUGIN_DIR . '/languages/' );
@@ -785,256 +731,27 @@ abstract class Export {
 	}
 
 	/**
-	 * Check if a user submitted something to admin.php?page=pb_export
-	 *
-	 * @return bool
-	 */
-	static function isFormSubmission(): bool {
-
-		// EventSource (Progress bar)
-		if ( wp_doing_ajax() ) {
-			if ( empty( $_REQUEST['action'] ) ) {
-				return false;
-			}
-
-			if ( 'export-book' !== $_REQUEST['action'] ) {
-				return false;
-			}
-
-			return true;
-		}
-
-		// Delete, Download, Etc.
-		if ( empty( $_REQUEST['page'] ) ) {
-			return false;
-		}
-
-		if ( 'pb_export' !== $_REQUEST['page'] ) {
-			return false;
-		}
-
-		if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
-			return true;
-		}
-
-		if ( count( $_GET ) > 1 ) {
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
 	 * Download an .htaccess protected file from the exports directory.
 	 *
 	 * @param string $filename sanitized $_GET['download_export_file']
 	 * @param bool   $inline
 	 */
-	protected static function downloadExportFile( $filename, $inline ): void {
+	public static function downloadExportFile( $filename, $inline ): void {
 		$filepath = static::getExportFolder() . $filename;
 		force_download( $filepath, $inline );
 	}
 
 	/**
-	 * Processes export format requests, queues background jobs, and schedules them.
-	 * This method is designed to be reusable by different AJAX handlers or processes.
+	 * Mandatory convert Generator method, create $this->outputPath
 	 *
-	 * @param array $export_formats_input Associative array of export formats to process, e.g., ['pdf' => 'pdf', 'epub' => 'epub'].
-	 * @param array $export_options_input Associative array of export options.
-	 * @return array An array of results, with each item detailing the outcome for a format.
+	 * @return Generator
 	 */
-	public static function processAndQueueJobRequests( array $export_formats_input, array $export_options_input ): array {
-		// Ensure the export jobs table exists before proceeding
-		BackgroundJob::ensureExportsTable();
-
-		// Permission check should be done by calling AJAX handler if it's user-initiated.
-		// Nonce checks should also be done by calling AJAX handler.
-
-		$results = [];
-		$background_types = self::getBackgroundExportTypes(); // Class names of background types
-		$available_modules = self::modules();
-
-		// Clear previous static errors/outputs for this new request context if they were used by other parts.
-		// However, this method should be self-contained and not rely on static::$exportConversionError etc.
-		// For now, let's assume this method doesn't interact with those static properties directly.
-		// static::$currentExportModuleArgs = $export_options_input; // This was how ajax_submit_export_job set it.
-
-		// Switch to the correct locale for export related operations if needed.
-		// This was done in ajax_submit_export_job. If it affects getFriendlyNameForModule or other helpers, keep it.
-		$locale_switched = switch_to_locale( self::locale() );
-
-		foreach ( array_keys( $export_formats_input ) as $format_slug_key ) {
-			$format_slug = sanitize_text_field( $format_slug_key ); // Sanitize the key itself if it comes from user input.
-			$module_classname = $available_modules[ $format_slug ] ?? null;
-
-			if ( ! $module_classname || ! class_exists( $module_classname ) ) {
-				$results[] = [
-					'event_type' => 'job_queue_failed', // Consistent event_type for easier parsing
-					'message' => sprintf( __( 'Invalid or unsupported export format: %s', 'pressbooks' ), esc_html( $format_slug ) ),
-					'module_slug' => $format_slug,
-					'status' => 'error',
-				];
-				continue;
-			}
-
-			// Only proceed if this module type is meant for background processing.
-			if ( in_array( $module_classname, $background_types, true ) ) {
-				$constructor_args = [];
-
-				$book_id = get_current_blog_id();
-				$user_id = get_current_user_id();
-
-				global $wpdb;
-				$table_name = $wpdb->prefix . 'pressbooks_export_jobs';
-
-				$insert_data = [
-					'book_id' => $book_id,
-					'user_id' => $user_id,
-					'export_format' => $format_slug,
-					'export_module_classname' => $module_classname,
-					'export_options' => wp_json_encode( $constructor_args ),
-					'status' => 'pending',
-					'created_at' => current_time( 'mysql', true ),
-					'updated_at' => current_time( 'mysql', true ),
-				];
-				$insert_result = $wpdb->insert( $table_name, $insert_data );
-				$job_id = $wpdb->insert_id;
-
-				$friendly_name = self::getFriendlyNameForModule( $module_classname );
-
-				if ( $insert_result && $job_id ) {
-					error_log( 'Export::processAndQueueJobRequests - About to schedule job ID: ' . $job_id . ' for hook pressbooks_process_export_job' );
-					$schedule_result = wp_schedule_single_event( time(), 'pressbooks_process_export_job', [ 'job_id' => $job_id ] );
-					if ( false === $schedule_result ) {
-						error_log( 'Export::processAndQueueJobRequests - FAILED to schedule job ID: ' . $job_id );
-					} else {
-						error_log( 'Export::processAndQueueJobRequests - SUCCESSFULLY scheduled job ID: ' . $job_id );
-					}
-					$results[] = [
-						'event_type' => 'job_queued',
-						'book_id' => $book_id,
-						'job_id' => $job_id,
-						'message' => sprintf( __( '%s export has been queued (Job ID: %d).', 'pressbooks' ), $friendly_name, $job_id ),
-						'module_slug' => $format_slug,
-						'module_classname' => $module_classname,
-						'format_name' => $friendly_name,
-						'status' => 'success',
-					];
-				} else {
-					$results[] = [
-						'event_type' => 'job_queue_failed',
-						'message' => sprintf( __( 'Failed to queue %s export. Database error: %s', 'pressbooks' ), $friendly_name, esc_html( $wpdb->last_error ) ),
-						'module_slug' => $format_slug,
-						'module_classname' => $module_classname,
-						'format_name' => $friendly_name,
-						'status' => 'error',
-						'error_details' => $wpdb->last_error,
-					];
-				}
-			}
-		}
-
-		if ( $locale_switched ) {
-			restore_previous_locale();
-		}
-
-		return $results;
-	}
+	abstract function convert() : Generator;
 
 	/**
-	 * Helper to get a map of all available export format slugs to their classnames.
-	 * This might involve calling parts of your existing `modules()` or `get_export_formats_map()` logic.
-	 * For now, a simplified version based on what `getFriendlyNameForModule` might imply.
-	 * You should adapt this to accurately reflect your system's module registration.
+	 * Mandatory validate Generator method, check the sanity of $this->outputPath
 	 *
-	 * @return array [slug => classname, ...]
+	 * @return Generator
 	 */
-	protected static function getAvailableExportModules(): array {
-		// Map of export format slugs to their class names - only include formats that are in the form
-		$slug_to_classname = [
-			'pdf' => '\\Pressbooks\\Modules\\Export\\Prince\\Pdf',
-			'print_pdf' => '\\Pressbooks\\Modules\\Export\\Prince\\PrintPdf',
-			'epub' => '\\Pressbooks\\Modules\\Export\\Epub\\Epub',
-			'xhtml' => '\\Pressbooks\\Modules\\Export\\Xhtml\\Xhtml11',
-			'wxr' => '\\Pressbooks\\Modules\\Export\\WordPress\\Wxr',
-			'vanillawxr' => '\\Pressbooks\\Modules\\Export\\WordPress\\VanillaWxr',
-			'weblinks' => '\\Pressbooks\\Modules\\Export\\ThinCC\\WebLinks',
-		];
-
-		// Allow plugins to add their own export formats
-		return apply_filters( 'pb_available_export_module_slug_to_classname_map', $slug_to_classname );
-	}
-
-	/**
-	 * AJAX handler for submitting export jobs.
-	 * This method now uses the centralized processAndQueueJobRequests method.
-	 */
-	public static function ajax_submit_export_job(): void {
-		// Nonce check specific to this AJAX action
-		check_ajax_referer( 'pb-export-book', 'pb_export_nonce' );
-
-		if ( ! current_user_can( 'edit_posts' ) ) {
-			wp_send_json_error( [ 'message' => __( 'Permission denied.', 'pressbooks' ) ], 403 );
-			return; // Important to return/exit after wp_send_json_error
-		}
-
-		// Sanitize and prepare inputs from $_POST
-		$export_formats_from_post = isset( $_POST['export_formats'] ) && is_array( $_POST['export_formats'] ) ? $_POST['export_formats'] : [];
-		// Sanitize keys of export_formats_from_post as they are used in loops
-		$sanitized_export_formats = [];
-		foreach ( $export_formats_from_post as $key => $value ) {
-			// Assuming $key is the format slug and $value might be '1' or the slug itself if it's checkbox-like.
-			// The crucial part is the key.
-			$sanitized_export_formats[ sanitize_text_field( $key ) ] = sanitize_text_field( $value );
-		}
-
-		if ( empty( $sanitized_export_formats ) ) {
-			wp_send_json_error( [ 'message' => __( 'No export formats selected.', 'pressbooks' ) ], 400 );
-			return;
-		}
-
-		$export_options_from_post = isset( $_POST['export_options'] ) && is_array( $_POST['export_options'] ) ? $_POST['export_options'] : [];
-		// Potentially sanitize $export_options_from_post if necessary, depending on its structure and usage.
-
-		// Call the centralized processing method
-		$results = self::processAndQueueJobRequests( $sanitized_export_formats, $export_options_from_post );
-
-		// Check if any jobs were actually queued successfully based on the 'status' field in results
-		$has_successful_queues = false;
-		$successfully_queued_count = 0;
-		foreach ( $results as $result ) {
-			if ( isset( $result['status'] ) && $result['status'] === 'success' && $result['event_type'] === 'job_queued' ) {
-				$has_successful_queues = true;
-				$successfully_queued_count++;
-			}
-		}
-
-		if ( $has_successful_queues ) {
-			wp_send_json_success( [
-				'message' => sprintf( _n( '%d export job queued.', '%d export jobs processed.', $successfully_queued_count, 'pressbooks' ), $successfully_queued_count ),
-				'results' => $results,
-				'reload_on_complete' => true, // This flag seems to be part of the original design
-				'total_jobs' => $successfully_queued_count,
-			] );
-		} else {
-			// If all failed or were skipped
-			$error_message = __( 'No export jobs were successfully queued.', 'pressbooks' );
-			$specific_errors = [];
-			foreach ( $results as $result ) {
-				if ( isset( $result['status'] ) && $result['status'] === 'error' && isset( $result['message'] ) ) {
-					$specific_errors[] = $result['message'];
-				}
-			}
-			if ( ! empty( $specific_errors ) ) {
-				$error_message .= ' ' . __( 'Details:', 'pressbooks' ) . ' ' . implode( '; ', $specific_errors );
-			}
-			wp_send_json_error( [
-				'message' => $error_message,
-				'results' => $results,
-				'reload_on_complete' => false,
-			], 400 );
-		}
-		// Ensure exit after sending JSON response.
-		exit;
-	}
+	abstract function validate() : Generator;
 }

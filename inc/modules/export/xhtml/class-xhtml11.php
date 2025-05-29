@@ -28,14 +28,13 @@ use Pressbooks\HtmLawed;
 use Pressbooks\HtmlParser;
 use Pressbooks\Interactive\Content;
 use Pressbooks\Modules\Export\Export;
-use Pressbooks\Modules\Export\ExportGenerator;
 use Pressbooks\Modules\Export\ExportHelpers;
 use Pressbooks\Modules\Export\Traits\HandleContributors;
 use Pressbooks\Sanitize;
 use Pressbooks\Taxonomy;
 use Pressbooks\Utility\PercentageYield;
 
-class Xhtml11 extends ExportGenerator {
+class Xhtml11 extends Export {
 
 	use ExportHelpers;
 	use HandleContributors;
@@ -198,7 +197,7 @@ class Xhtml11 extends ExportGenerator {
 	 * @return Generator
 	 * @throws Exception
 	 */
-	public function convertGenerator() : Generator {
+	public function convert() : Generator {
 		yield 1 => $this->generatorPrefix . __( 'Initializing', 'pressbooks' );
 
 		yield from $this->transformGenerator();
@@ -222,7 +221,7 @@ class Xhtml11 extends ExportGenerator {
 	 * @return Generator
 	 * @throws Exception
 	 */
-	public function validateGenerator() : Generator {
+	public function validate() : Generator {
 		yield 90 => $this->generatorPrefix . __( 'Validating file', 'pressbooks' );
 
 		// Xmllint params

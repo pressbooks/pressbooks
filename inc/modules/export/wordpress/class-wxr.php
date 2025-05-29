@@ -11,9 +11,9 @@ namespace Pressbooks\Modules\Export\WordPress;
 
 use function Pressbooks\Utility\put_contents;
 use Generator;
-use Pressbooks\Modules\Export\ExportGenerator;
+use Pressbooks\Modules\Export\Export;
 
-class Wxr extends ExportGenerator {
+class Wxr extends Export {
 
 	/**
 	 * @param array $args
@@ -35,7 +35,7 @@ class Wxr extends ExportGenerator {
 	 *
 	 * @return mixed
 	 */
-	function transform( $return = false ) {
+	public function transform( $return = false ) {
 
 		// Check permissions - Note: current_user_can() might behave differently in cron.
 		// export_wp() itself has internal permission checks.
@@ -153,7 +153,7 @@ class Wxr extends ExportGenerator {
 		}
 	}
 
-	public function convertGenerator(): Generator {
+	public function convert(): Generator {
 		// Get WXR
 		yield 30 => __( 'Transforming WXR.', 'pressbooks' );
 		$output = $this->transform( true );
@@ -174,7 +174,7 @@ class Wxr extends ExportGenerator {
 
 		return $this->outputPath;
 	}
-	public function validateGenerator(): Generator {
+	public function validate(): Generator {
 		yield 90 => __( 'Validating WXR.', 'pressbooks' );
 		if ( ! simplexml_load_file( $this->outputPath ) ) {
 			$this->logError( 'WXR document is not well formed XML.' );

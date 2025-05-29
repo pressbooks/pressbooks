@@ -19,7 +19,7 @@ class VanillaWxr extends Wxr {
 	/**
 	 * @throws Exception
 	 */
-	public function convertGenerator(): Generator {
+	public function convert(): Generator {
 		// Get WXR
 		yield 30 => __( 'Transforming WXR.', 'pressbooks' );
 		$output = $this->transform( true );
@@ -130,7 +130,7 @@ class VanillaWxr extends Wxr {
 	/**
 	 * deletes a node and all of its children
 	 *
-	 * @param \DOMNode $node
+	 * @param DOMNode $node
 	 */
 	private function deleteNode( $node ): void {
 		$this->deleteChildren( $node );
@@ -141,7 +141,7 @@ class VanillaWxr extends Wxr {
 	/**
 	 * recursive function to delete all children of a node
 	 *
-	 * @param \DOMNode $node
+	 * @param DOMNode $node
 	 */
 	private function deleteChildren( $node ): void {
 		while ( isset( $node->firstChild ) ) {

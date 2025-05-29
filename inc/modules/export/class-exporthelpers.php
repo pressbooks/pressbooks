@@ -30,13 +30,13 @@ trait ExportHelpers {
 	 * Map Book contents
 	 * This trait should be used in classes that are ExportGenerators (black magic traits stuff)
 	 *
-	 * @param  array $post_data
-	 * @param  array $metadata
-	 * @param  int   $post_number
-	 * @param  array $options     post_type,needs_sanitization,endnotes,footnotes
+	 * @param array $post_data
+	 * @param array $metadata
+	 * @param int $post_number
+	 * @param array $options post_type,needs_sanitization,endnotes,footnotes
 	 * @return array
 	 */
-	public function mapBookDataAndContent( array $post_data, array $metadata, int $post_number, array $options = [] ) {
+	public function mapBookDataAndContent( array $post_data, array $metadata, int $post_number, array $options = [] ): array {
 		$post_type_identifier = $options['type'] ?? 'post';
 		$needs_tidy_html = $options['needs_tidy_html'] ?? false;
 		$endnotes = $options['endnotes'] ?? false;
@@ -58,7 +58,7 @@ trait ExportHelpers {
 		$data['content'] = $post_data['post_content'];
 		if ( preg_match_all( '/<style.*?scoped="scoped".*?>(.*?)<\/style>/is', $data['content'], $matches ) ) {
 			$scoped_styles = implode( "\n", $matches[1] ) . "\n";
-			add_filter('pb_process_scoped_styles', function( $st ) use ( $scoped_styles ) {
+			add_filter('pb_process_scoped_styles', function ( $st ) use ( $scoped_styles ) {
 				$scoped_styles = str_replace( '&gt;', '>', $scoped_styles );
 				$scoped_styles = str_replace( '*width', 'width', $scoped_styles );
 				$scoped_styles = str_replace( "src: url('') format('woff2');", '', $scoped_styles );
@@ -114,17 +114,15 @@ trait ExportHelpers {
 	}
 
 	/**
-	 * @param  array $book_contents
+	 * @param array $book_contents
 	 * @return int
 	 */
-	public function countPartsAndChapters( $book_contents ) {
-		$ticks = count( $book_contents['part'] );
-
-		foreach ( $book_contents['part'] as $part ) {
-			$ticks += count( $part['chapters'] );
-		}
-
-		return $ticks;
+	public function countPartsAndChapters( array $book_contents ): int {
+		return array_reduce(
+			$book_contents['part'],
+			fn( $count, $part) => $count + 1 + count( $part['chapters'] ),
+			0
+		);
 	}
 
 	/**
@@ -132,10 +130,10 @@ trait ExportHelpers {
 	 *
 	 * @param  $post_type
 	 * @param  $post
-	 * @param  null $alias
+	 * @param null $alias
 	 * @return array
 	 */
-	public function getPostInformation( $post_type, $post, $alias = null ) {
+	public function getPostInformation( $post_type, $post, $alias = null ): array {
 		$prefix = $alias ?? $post_type;
 		return [
 			'ID' => $post['ID'],
@@ -152,7 +150,7 @@ trait ExportHelpers {
 	 * @param  $post
 	 * @return array
 	 */
-	public function getExtendedPostInformation( $post_type, $post ) {
+	public function getExtendedPostInformation( $post_type, $post ): array {
 		$data = $this->getPostInformation( $post_type, $post );
 		$data['subtitle'] = trim( get_post_meta( $post['ID'], 'pb_subtitle', true ) );
 		$data['author'] = $this->contributors->get( $post['ID'], 'pb_authors' );
@@ -162,19 +160,19 @@ trait ExportHelpers {
 	}
 
 	/**
-	 * @param  string $post_type
-	 * @param  array  $data
-	 * @param  bool   $is_slug
-	 * @param  bool   $exclude_ampersand
+	 * @param string $post_type
+	 * @param array $data
+	 * @param bool $is_slug
+	 * @param bool $exclude_ampersand
 	 * @return string
 	 */
-	public function renderTocItem( string $post_type, array $data, bool $is_slug = true, bool $exclude_ampersand = false ) {
+	public function renderTocItem( string $post_type, array $data, bool $is_slug = true, bool $exclude_ampersand = false ): string {
 
 		$subsections = [];
 
 		if ( Export::shouldParseSubsections() === true ) {
 
-			$sections = \Pressbooks\Book::getSubsections( $data['ID'] );
+			$sections = Book::getSubsections( $data['ID'] );
 
 			if ( $sections ) {
 				foreach ( $sections as $id => $subsection ) {

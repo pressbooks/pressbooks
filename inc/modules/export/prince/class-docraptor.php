@@ -41,7 +41,7 @@ class Docraptor extends Pdf {
 	 * Create $this->outputPath.
 	 *
 	 */
-	public function convertGenerator(): Generator {
+	public function convert(): Generator {
 
 		yield 35 => __( 'Starting conversion...', 'pressbooks' );
 

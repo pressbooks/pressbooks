@@ -12,10 +12,10 @@ use function Pressbooks\Utility\put_contents;
 use Generator;
 use PressbooksMix\Assets;
 use Pressbooks\Container;
-use Pressbooks\Modules\Export\ExportGenerator;
+use Pressbooks\Modules\Export\Export;
 use PrinceXMLPhp\PrinceWrapper;
 
-class Pdf extends ExportGenerator {
+class Pdf extends Export {
 
 	/**
 	 * Service URL
@@ -65,7 +65,7 @@ class Pdf extends ExportGenerator {
 	/**
 	 * @param array $args
 	 */
-	function __construct( array $args ) {
+	public function __construct( array $args ) {
 
 		if ( ! defined( 'PB_PRINCE_COMMAND' ) ) {
 			define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
@@ -217,7 +217,7 @@ class Pdf extends ExportGenerator {
 	 * @throws ContainerExceptionInterface
 	 * @throws NotFoundExceptionInterface
 	 */
-	public function convertGenerator(): Generator {
+	public function convert(): Generator {
 
 		if ( empty( $this->exportStylePath ) || ! is_file( $this->exportStylePath ) ) {
 			$this->logError( '$this->exportStylePath must be set before calling convert().' );
@@ -293,7 +293,7 @@ class Pdf extends ExportGenerator {
 		return $retval;
 	}
 
-	function validateGenerator(): Generator {
+	public function validate(): Generator {
 		yield 90 => __( 'Validating PDF.', 'pressbooks' );
 		if ( ! $this->isPdf( $this->outputPath ) ) {
 			$this->logError( get_contents( $this->logfile ) );
