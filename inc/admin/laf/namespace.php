@@ -1460,8 +1460,8 @@ function privacy_blog_public_sanitize( $input ) {
  */
 function privacy_robots_sanitize( $input ) {
 	return [
-		'discourage-ai' => isset( $input['discourage-ai'] ) ? 1 : 0,
-		'discourage-index' => isset( $input['discourage-index'] ) ? 1 : 0,
+		'discourage-ai' => $input['discourage-ai'] ?? 0,
+		'discourage-index' => $input['discourage-index'] ?? 0,
 	];
 }
 
