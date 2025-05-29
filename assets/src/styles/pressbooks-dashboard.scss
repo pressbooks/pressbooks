@@ -72,6 +72,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+    overflow: hidden;
 
     .pb-dashboard-grid-image {
       max-width: 225px;
@@ -177,8 +178,11 @@
   .pb-dashboard-panel {
     background-color: $white;
     padding: 1.5rem;
+    overflow-y: auto;
 
     &.recent-updates {
+      max-height: 800px;
+
       a {
         font-size: 1.125rem;
       }
