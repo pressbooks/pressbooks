@@ -31,7 +31,7 @@ class NetworkDashboard extends Dashboard {
 			$environment = WP_ENV;
 		}
 
-		if ( $environment === 'production' ) {
+		if ( in_array( $environment, [ 'staging', 'production' ], true ) ) {
 			$domain = 'https://pressbooks.com';
 		}
 
