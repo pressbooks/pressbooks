@@ -393,5 +393,4 @@ add_action( 'plugins_loaded', [ TopBar::class, 'init' ] );
 add_action( 'admin_enqueue_scripts', function() {
 	$assets = new Assets( 'pressbooks', 'plugin' );
 	wp_enqueue_style( 'pb-table', $assets->getPath( 'styles/pressbooks-table.css' ) );
-	wp_enqueue_script( 'pressbooks-table', $assets->getPath( 'scripts/pressbooks-table.js' ) );
 } );
