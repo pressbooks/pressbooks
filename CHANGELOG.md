@@ -1,5 +1,19 @@
 # Changelog
 
+## [6.27.1](https://github.com/pressbooks/pressbooks/compare/6.27.0...6.27.1) (2025-05-29)
+
+
+### Bug Fixes
+
+* adjust dashboard layout ([#4068](https://github.com/pressbooks/pressbooks/issues/4068)) ([6464f40](https://github.com/pressbooks/pressbooks/commit/6464f40b691ea5b7498616dd2263b3e5b5c1b91a))
+
+
+### Chores
+
+* bump aws/aws-sdk-php from 3.343.9 to 3.343.13 in the composer-dependencies group ([#4050](https://github.com/pressbooks/pressbooks/issues/4050)) ([d65be41](https://github.com/pressbooks/pressbooks/commit/d65be4173ad6b46576299d8060cf48a8a7af4832))
+* bump aws/aws-sdk-php in the composer-dependencies group ([d65be41](https://github.com/pressbooks/pressbooks/commit/d65be4173ad6b46576299d8060cf48a8a7af4832))
+* revert unneccessary changes to table sorting ([#4056](https://github.com/pressbooks/pressbooks/issues/4056)) ([c111d7c](https://github.com/pressbooks/pressbooks/commit/c111d7c918a6eff795c9e5b566ed13e34810a329))
+
 ## [6.27.0](https://github.com/pressbooks/pressbooks/compare/6.26.1...6.27.0) (2025-05-28)
 
 
