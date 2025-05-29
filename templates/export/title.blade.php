@@ -10,15 +10,6 @@
 		@if( $editors )
 			<p class="author">{{ $editors }}</p>
 		@endif
-		@if( $translators )
-			<p class="author">{{ $translators }}</p>
-		@endif
-		@if( $illustrators )
-			<p class="author">{{ $illustrators }}</p>
-		@endif
-		@if( $contributors )
-			<p class="author">{!! $contributors !!}</p>
-		@endif
 		@if( $logo )
 			<div class="publisher-logo">
 				<img src="{{ $logo }}" alt="{{ __( 'Publisher Logo', 'pressbooks' ) }}" />

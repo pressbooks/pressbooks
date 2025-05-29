@@ -420,7 +420,8 @@ class Xhtml11 extends ExportGenerator {
 
 		$my_get = $_GET;
 		unset( $my_get['timestamp'], $my_get['hashkey'] );
-		$cache = get_transient( self::TRANSIENT );
+		//$cache = get_transient( self::TRANSIENT );
+		$cache = false;
 		if ( is_array( $cache ) && isset( $cache[0] ) && $cache[0] === md5( wp_json_encode( $my_get ) ) ) {
 			// The $_GET parameters haven't changed since the last request so the output will be the same
 			$buffer_inner_html = $cache[1];
@@ -1031,9 +1032,6 @@ class Xhtml11 extends ExportGenerator {
 					'subtitle' => $metadata['pb_subtitle'] ?? '',
 					'authors' => $contributors_data['authors'],
 					'editors' => $contributors_data['editors'],
-					'translators' => $contributors_data['translators'],
-					'illustrators' => $contributors_data['illustrators'],
-					'contributors' => $contributors_data['contributors'],
 					'logo' => current_theme_supports( 'pressbooks_publisher_logo' ) ? get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] : null,
 					'publisher' => $metadata['pb_publisher'] ?? '',
 					'publisher_city' => $metadata['pb_publisher_city'] ?? '',
