@@ -463,4 +463,61 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		wp_set_current_user($other_user_id);
 		$this->assertFalse(current_user_can('edit_post', $post_id));
 	}
+
+	public function test_privacy_robots_callback(): void
+	{
+		$this->_book();
+
+		ob_start();
+		\Pressbooks\Admin\Laf\privacy_robots_callback();
+		$buffer = ob_get_clean();
+
+		$this->assertEquals(<<<HTML
+<fieldset>
+	<legend class="screen-reader-text">Robots</legend>
+	<input type="checkbox" id="robots-ai" name="pressbooks_robots[discourage-ai]" value="1"  />
+	<label for="robots-ai">Discourage AI from ingesting this book.</label><br>
+	<input type="checkbox" id="robots-crawler" name="pressbooks_robots[discourage-index]" value="1"  />
+	<label for="robots-crawler">Discourage crawlers and search engines from indexing this book.</label>
+</fieldset>
+
+HTML, $buffer);
+
+		update_option( 'pressbooks_robots', [
+			'discourage-ai' => 1,
+			'discourage-index' => 1,
+		] );
+
+		ob_start();
+		\Pressbooks\Admin\Laf\privacy_robots_callback();
+		$buffer = ob_get_clean();
+
+		$this->assertEquals(<<<HTML
+<fieldset>
+	<legend class="screen-reader-text">Robots</legend>
+	<input type="checkbox" id="robots-ai" name="pressbooks_robots[discourage-ai]" value="1"  checked  />
+	<label for="robots-ai">Discourage AI from ingesting this book.</label><br>
+	<input type="checkbox" id="robots-crawler" name="pressbooks_robots[discourage-index]" value="1"  checked  />
+	<label for="robots-crawler">Discourage crawlers and search engines from indexing this book.</label>
+</fieldset>
+
+HTML, $buffer);
+	}
+
+	public function test_privacy_robots_sanitize(): void
+	{
+		$result = \Pressbooks\Admin\Laf\privacy_robots_sanitize( [] );
+
+		$this->assertEquals([
+			'discourage-ai' => 0,
+			'discourage-index' => 0,
+		], $result);
+
+		$result = \Pressbooks\Admin\Laf\privacy_robots_sanitize( [ 'discourage-ai' => 1, 'discourage-index' => true ] );
+
+		$this->assertEquals([
+			'discourage-ai' => 1,
+			'discourage-index' => 1,
+		], $result);
+	}
 }
