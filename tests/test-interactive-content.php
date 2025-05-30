@@ -67,6 +67,16 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<div ', $result );
 		$this->assertStringContainsString( '<p>Test</p>', $result );
 		$this->assertStringContainsString( 'excluded from this version of the text', $result );
+
+		$html = '
+		<p>Test</p>
+		<iframe title="YouTube video player" src="https://www.youtube.com/embed/0guNyC6cEJE?si=qvxZsBmo1hXLUdzF" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+		';
+
+		$result = $this->content->replaceIframes( $html );
+
+		$this->assertStringContainsString( '<iframe', $result );
+		$this->assertStringContainsString( 'allowfullscreen', $result );
 	}
 
 	/**
