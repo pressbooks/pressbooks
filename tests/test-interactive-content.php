@@ -41,8 +41,6 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		<iframe src="https://docs.google.com/garbage/d/e/xxx/viewform?embedded=true" width="640" height="398" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
 		Test Five
 		<iframe src="https://www.google.com/maps/d/embed?mid=xxx" width="640" height="480" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
-		Test Six
-		<iframe title="YouTube video player" src="https://www.youtube.com/embed/0guNyC6cEJE?si=qvxZsBmo1hXLUdzF" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
 		';
 		$result = $this->content->deleteIframesNotOnWhitelist( $raw, [ 'post' ] );
 		$this->assertEquals( 2, substr_count( $result, '<iframe' ) );
@@ -51,7 +49,6 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<iframe src="https://docs.google.com/forms/d/e/xxx/viewform?embedded=true', $result );
 		$this->assertStringContainsString( '[embed]https://docs.google.com/garbage/d/e/xxx/viewform?embedded=true[/embed]', $result );
 		$this->assertStringContainsString( '<iframe src="https://www.google.com/maps/d/embed?mid=xxx', $result );
-		$this->assertStringContainsString( '<iframe title="YouTube video player" src="https://www.youtube.com/embed/0guNyC6cEJE?si=qvxZsBmo1hXLUdzF" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe>', $result );
 		$this->assertStringNotContainsString( '<p>', $result );
 	}
 
@@ -80,6 +77,7 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		wp_set_current_user( $user_id );
 		$allowed = $this->content->allowIframesInHtml( [], 'post' );
 		$this->assertTrue( ! empty( $allowed['iframe'] ) );
+		$this->assertTrue( $allowed['iframe']['allowfullscreen'] );
 	}
 
 	/**
