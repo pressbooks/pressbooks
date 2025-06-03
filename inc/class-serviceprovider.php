@@ -11,6 +11,7 @@ use Illuminate\View\Engines\CompilerEngine;
 use Illuminate\View\Engines\EngineResolver;
 use Illuminate\View\Factory;
 use Illuminate\View\FileViewFinder;
+use function Pressbooks\Utility\get_cache_path;
 
 /**
  * Service Provider for Pressbooks
@@ -43,11 +44,11 @@ class ServiceProvider {
 		);
 
 		$container->singleton(
-			'Blade', function ( Container $container ) {
+			'Blade', function () {
 				// Configuration
 				// Note that you can set several directories where your templates are located
 				$path_to_templates = [ dirname( __DIR__ ) . '/templates' ];
-				$path_to_compiled_templates = \Pressbooks\Utility\get_cache_path();
+				$path_to_compiled_templates = get_cache_path();
 
 				// Dependencies
 				$filesystem = new Filesystem;
