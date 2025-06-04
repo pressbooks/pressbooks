@@ -464,6 +464,27 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertFalse(current_user_can('edit_post', $post_id));
 	}
 
+	public function test_robots_settings_is_not_registered(): void
+	{
+		global $wp_registered_settings;
+
+		add_filter( 'pb_robots_settings', '__return_false' );
+
+		\Pressbooks\Admin\Laf\privacy_settings_init();
+
+		$this->assertArrayNotHasKey( 'pressbooks_robots', $wp_registered_settings );
+	}
+
+	public function test_robots_settings_is_registered(): void
+	{
+		global $wp_registered_settings;
+
+		\Pressbooks\Admin\Laf\privacy_settings_init();
+
+		$this->assertArrayHasKey('pressbooks_robots', $wp_registered_settings, 'Setting not registered');
+	}
+
+
 	public function test_privacy_robots_callback(): void
 	{
 		$this->_book();
