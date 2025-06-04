@@ -1239,18 +1239,20 @@ function privacy_settings_init() {
 			__NAMESPACE__ . '\privacy_blog_public_sanitize'
 		);
 
-		add_settings_field(
-			id: 'pressbooks_robots',
-			title: esc_html__( 'Robots', 'pressbooks' ),
-			callback: __NAMESPACE__ . '\privacy_robots_callback',
-			page: 'privacy_settings',
-			section: 'privacy_settings_section',
-		);
-		register_setting(
-			'privacy_settings',
-			'pressbooks_robots',
-			__NAMESPACE__ . '\privacy_robots_sanitize'
-		);
+		if ( apply_filters( 'pb_robots_settings', true ) ) {
+			add_settings_field(
+				id: 'pressbooks_robots',
+				title: esc_html__( 'Robots', 'pressbooks' ),
+				callback: __NAMESPACE__ . '\privacy_robots_callback',
+				page: 'privacy_settings',
+				section: 'privacy_settings_section',
+			);
+			register_setting(
+				'privacy_settings',
+				'pressbooks_robots',
+				__NAMESPACE__ . '\privacy_robots_sanitize'
+			);
+		}
 	}
 
 	add_settings_field(
