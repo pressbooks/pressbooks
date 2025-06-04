@@ -343,12 +343,12 @@ function get_friendly_name_for_module( string $module_classname ): string {
  * This method now uses the centralized processAndQueueJobRequests method.
  */
 function handle_exports_submit(): void {
-	// Nonce check specific to this AJAX action
+
 	check_ajax_referer( 'pb-export-book', 'pb_export_nonce' );
 
 	if ( ! current_user_can( 'edit_posts' ) ) {
 		wp_send_json_error( [ 'message' => __( 'Permission denied.', 'pressbooks' ) ], 403 );
-		return; // Important to return/exit after wp_send_json_error
+		return;
 	}
 
 
@@ -356,8 +356,6 @@ function handle_exports_submit(): void {
 
 	$sanitized_export_formats = [];
 	foreach ( $export_formats_from_post as $key => $value ) {
-		// Assuming $key is the format slug and $value might be '1' or the slug itself if it's checkbox-like.
-		// The crucial part is the key.
 		$sanitized_export_formats[ sanitize_text_field( $key ) ] = sanitize_text_field( $value );
 	}
 
@@ -368,10 +366,8 @@ function handle_exports_submit(): void {
 
 	$export_options_from_post = isset( $_POST['export_options'] ) && is_array( $_POST['export_options'] ) ? $_POST['export_options'] : [];
 
-	// Call the centralized processing method
 	$results = process_and_queue_job_requests( $sanitized_export_formats, $export_options_from_post );
 
-	// Check if any jobs were actually queued successfully based on the 'status' field in results
 	$has_successful_queues = false;
 	$successfully_queued_count = 0;
 	foreach ( $results as $result ) {

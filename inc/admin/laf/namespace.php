@@ -366,7 +366,7 @@ function replace_book_admin_menu() {
 					]
 				);
 				wp_enqueue_style( 'pb-export' );
-				wp_enqueue_style( 'pb-export-ui' ); // Added this line
+				wp_enqueue_style( 'pb-export-ui' );
 				wp_enqueue_script( 'pb-export' );
 				wp_enqueue_script( 'pb-export-ui' );
 				wp_deregister_script( 'heartbeat' );

@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function () {
 					return;
 				}
 
-				// Submit export jobs to server
 				const response = await submitExportJobs(selectedFormats);
 
 				if (response.success && response.data?.results) {
@@ -35,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function () {
 				console.error('Error submitting export jobs:', error);
 				showError('Error submitting export jobs: ' + error.message);
 			} finally {
-				// Reset button state
 				exportButton.disabled = false;
 				exportButton.textContent = originalButtonText;
 			}
@@ -64,12 +62,11 @@ document.addEventListener('DOMContentLoaded', function () {
 	async function submitExportJobs(selectedFormats) {
 		const serverFormData = new FormData();
 
-		// Add selected formats to form data
+
 		selectedFormats.forEach(format => {
 			serverFormData.append(`export_formats[${format}]`, '1');
 		});
 
-		// Add required WordPress fields
 		serverFormData.append('action', 'pb_export_book');
 		serverFormData.append('pb_export_nonce', PB_ExportToken.nonce);
 
@@ -105,7 +102,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 		});
 
-		// Ensure SSE connection is active to receive updates
 		if (typeof window.PB_EnsureGlobalExportFeed === 'function') {
 			window.PB_EnsureGlobalExportFeed();
 		}
