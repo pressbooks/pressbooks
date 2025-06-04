@@ -48,7 +48,7 @@ class EventStreams {
 		add_action( 'wp_ajax_clone-book', [ $obj, 'cloneBook' ] );
 		add_action( 'wp_ajax_import-book', [ $obj, 'importBook' ] );
 		add_action( 'wp_ajax_cover-generator', [ $obj, 'coverGenerator' ] );
-		add_action( 'wp_ajax_pb_sse_exports', [ $obj, 'ajaxStreamUserJobStatuses' ] );
+		add_action( 'wp_ajax_pb_sse_exports', [ $obj, 'ajaxStreamUserExportsJobs' ] );
 	}
 
 	/**
@@ -110,19 +110,10 @@ class EventStreams {
 		if ( false === $json_data ) {
 			$json_data = wp_json_encode( [ 'error' => 'Failed to encode data' ] );
 		}
-		// Additional safety: remove any potential newlines that could break an SSE format
 		$json_data = str_replace( [ "\n", "\r", "\0" ], '', $json_data );
 
 		$msg .= 'data: ' . $json_data . "\n\n";
-		// TODO: Review if this padding is still needed or if it should be part of setupHeaders only.
-		// For now, keeping it here as per original sendSecureSSE which seemed to imply per-message needs.
-		// However, the original emitMessage in this class had similar padding in setupHeaders.
-		// $msg .= ':' . str_repeat( ' ', 2048 ) . "\n\n"; // Original emitMessage had this in setupHeaders
-
-		// Buffers are nested. While one buffer is active, flushing from child buffers are not really sent to the browser,
-		// but rather to the parent buffer. Only when there is no parent buffer are contents sent to the browser.
 		if ( ob_get_level() ) {
-			// Keep for later
 			$this->msgStack[] = $msg;
 		} else {
 			// Flush to browser
@@ -248,87 +239,6 @@ class EventStreams {
 	}
 
 	/**
-	 * Export book
-	 * This method now calls Export::processAndQueueJobRequests to handle job queuing,
-	 * then sends initial SSE feedback, and finally starts streaming all job statuses.
-	 */
-	public function exportBook() {
-		// Nonce check for this AJAX action (exportBook)
-		check_admin_referer( 'pb-export' );
-
-		if ( ! current_user_can( 'edit_posts' ) ) {
-			$this->emitOneTimeError( __( 'Permission denied.', 'pressbooks' ) );
-			exit;
-		}
-
-		// Prepare inputs from $_GET for the queuing method
-		// processAndQueueJobRequests expects an associative array for formats.
-		$export_formats_from_get = isset( $_GET['export_formats'] ) && is_array( $_GET['export_formats'] ) ? $_GET['export_formats'] : [];
-
-		// Ensure $export_formats_from_get is associative [slug => value] for processAndQueueJobRequests
-		// If it comes as a simple indexed array of slugs, convert it.
-		// Based on original code, it was array_keys(array_map('sanitize_text_field', $export_formats_from_get))
-		// which implies the keys are what matter.
-		$sanitized_export_formats_for_queuing = [];
-		foreach ( $export_formats_from_get as $key => $value ) {
-			// If $value is the slug (e.g. from a GET request like ?export_formats[]=pdf&export_formats[]=epub)
-			// and $key is numeric, use $value as the slug for the associative array.
-			// If $key is already the slug (e.g. ?export_formats[pdf]=1), then $key is the slug.
-			$slug = is_numeric( $key ) ? sanitize_text_field( $value ) : sanitize_text_field( $key );
-			$sanitized_export_formats_for_queuing[ $slug ] = $slug; // Value can just be the slug itself
-		}
-
-		if ( empty( $sanitized_export_formats_for_queuing ) ) {
-			$this->emitOneTimeError( __( 'No export format was selected.', 'pressbooks' ) );
-			exit;
-		}
-
-		$export_options_from_get = isset( $_GET['export_options'] ) && is_array( $_GET['export_options'] ) ? $_GET['export_options'] : [];
-		// Consider if $export_options_from_get needs deeper sanitization based on its expected structure.
-
-		// Setup SSE headers before calling the job queuing, so we can send initial feedback.
-		$this->setupHeaders();
-
-		// Call the centralized job processing and queuing method from the Export class
-		$queuing_results = Export::processAndQueueJobRequests( $sanitized_export_formats_for_queuing, $export_options_from_get );
-
-		// Send initial SSE messages based on the queuing results
-		if ( ! empty( $queuing_results ) ) {
-			foreach ( $queuing_results as $result ) {
-				$event_type = 'info'; // Default event type for SSE messages
-				$sse_data = [
-					'action' => $result['event_type'], // e.g., 'job_queued', 'job_queue_failed', 'job_type_skipped'
-					'message' => $result['message'],
-					'module_slug' => $result['module_slug'] ?? null,
-					'format_name' => $result['format_name'] ?? null,
-				];
-
-				if ( isset( $result['job_id'] ) ) {
-					$sse_data['job_id'] = $result['job_id'];
-				}
-
-				if ( isset( $result['status'] ) ) {
-					if ( $result['status'] === 'error' ) {
-						$event_type = 'error';
-					} elseif ( $result['status'] === 'success' && $result['event_type'] === 'job_queued' ) {
-						$event_type = 'export_job_update'; // Match event type used by streamUserJobStatuses for consistency
-					}
-				}
-				$this->emitMessage( $sse_data, $event_type, $result['job_id'] ?? null );
-			}
-		}
-
-		// After attempting to queue all selected jobs and sending initial feedback,
-		// start the continuous status stream for all user jobs.
-		$current_book_id = get_current_blog_id();
-		$current_user_id = get_current_user_id();
-		$this->streamUserJobStatuses( $current_book_id, $current_user_id );
-
-		// streamUserJobStatuses has an infinite loop. Exit explicitly if it ever returns.
-		exit;
-	}
-
-	/**
 	 * Streams the status of all active export jobs for a given user and book via SSE.
 	 * This provides a single connection point for the client to receive updates
 	 * for multiple concurrent export jobs.
@@ -337,11 +247,6 @@ class EventStreams {
 	 * @param int $user_id
 	 */
 	public function streamUserJobStatuses( int $book_id, int $user_id ): void {
-		// Headers are likely already sent by a precursor emit() call from exportBook,
-		// but if this method were to be called directly via a new AJAX action,
-		// we might need to call $this->setupHeaders(); Ensure it's idempotent or called conditionally.
-		// For now, assuming headers are managed by the calling context (like exportBook's initial emit).
-
 		// Disable output buffering for PHP - this should ideally be in setupHeaders or managed once.
 		if ( ob_get_level() > 0 ) {
 			for ( $i = 0; $i < ob_get_level(); $i++ ) {
@@ -364,13 +269,9 @@ class EventStreams {
 			$switched = true;
 		}
 
-		// Use BackgroundJob::ensureExportsTable statically as it's a static method.
 		BackgroundJob::ensureExportsTable();
 
 		if ( ! current_user_can( 'edit_posts' ) ) {
-			// Consider if status_header(403) is appropriate here if headers are already sent.
-			// If called from exportBook, headers are text/event-stream 200 OK.
-			// Sending a 403 might break the SSE client. An error event is safer.
 			$this->emitMessage(
 				data: [
 					'message' => __( 'Permission denied to view job status for this book.', 'pressbooks' ),
@@ -380,13 +281,12 @@ class EventStreams {
 			if ( $switched ) {
 				restore_current_blog();
 			}
-			flush(); // Ensure message is sent before exit
-			exit; // Exit after sending permission error
+			flush();
+			exit;
 		}
 
-		set_time_limit( 0 ); // Already set in setupHeaders, but good for standalone.
+		set_time_limit( 0 );
 
-		$table_name = $book_id . '_pressbooks_export_jobs';
 		$last_sent_statuses = [];
 
 		while ( true ) {
@@ -396,26 +296,11 @@ class EventStreams {
 				break; // Client disconnected
 			}
 
-			// Fetch jobs that are active or recently completed/failed to ensure client gets final status.
-			// The original query also included 'completed', let's ensure we handle its lifecycle.
-			// Consider if 'failed', 'canceled' also need to be streamed for a short period.
-			// The original query: whereIn( 'status', [ 'pending', 'processing', 'running', 'completed' ] )
-			// and where( 'updated_at', '>=', date( 'Y-m-d H:i:s', strtotime( '-1 minutes' ) ) )
-			// This means completed jobs are only sent if updated in the last minute.
-
-			$active_jobs = $db->table( $table_name )
+			$active_jobs = $db->table( BackgroundJob::JOBS_TABLE_NAME )
 				->where( 'user_id', $user_id )
 				->where( 'book_id', $book_id )
-				// Fetch all states that a client might care about if recently updated.
 				->whereIn( 'status', [ 'pending', 'processing', 'completed', 'failed' ] )
 				->orderBy( 'created_at', 'DESC' )
-				// Optimization: Only fetch jobs updated recently or those not yet in a final state for the client.
-				// This needs careful handling to ensure final states are not missed.
-				// For now, let's stick to a time window for updates to avoid sending old, unchanged completed/failed jobs forever.
-				->where(function ( $query ) use ( $last_sent_statuses ) {
-					$query->where( 'updated_at', '>=', gmdate( 'Y-m-d H:i:s', strtotime( '-1 minutes' ) ) ) // Increased window slightly
-						->orWhereNotIn( 'status', [ 'completed', 'failed', 'cancelled' ] ); // Or if it's still an active job
-				})
 				->get();
 
 			if ( ! $active_jobs->isEmpty() ) {
@@ -438,32 +323,28 @@ class EventStreams {
 							'download_url' => null,
 							'error_message' => null,
 						];
-						$this->emitMessage( $job_data_to_send, 'export_job_update', $job->id );
+						$jobs_to_send[] = $job_data_to_send;
 						$last_sent_statuses[ $job->id ] = $current_job_state_json;
+					}
+					if ( $job->status === 'completed' ) {
+						app( 'db' )->table( BackgroundJob::JOBS_TABLE_NAME )
+							->where( 'id', $job->id )
+							->update( [ 'status' => 'done' ] );
 					}
 				}
 
-				// If all fetched jobs are in a terminal state and have been sent,
-				// we might consider closing the stream if no other activity is expected.
-				// However, new jobs can be initiated, so the stream should likely stay open
-				// until client disconnects or a specific 'close' signal is implemented.
-				// For now, rely on client disconnect or connection_aborted().
+				if ( ! empty( $jobs_to_send ) ) {
+					$this->emitMessage( $jobs_to_send, 'export_job_updates' );
+				}
 			} else {
-				// No active jobs currently matching criteria for this user/book.
-				// Send a keep-alive comment if needed, or just wait.
-				// SSE specifications suggest sending a comment (line starting with ':') periodically
-				// to prevent proxies from closing the connection.
 				echo ": keepalive\n\n";
 			}
 
-			// Flush output buffer
 			if ( ob_get_level() > 0 ) {
 				ob_flush();
 			}
 			flush();
-
-			// Wait before checking again
-			sleep( apply_filters( 'pb_sse_export_job_update_interval', 1 ) ); // 1 second interval
+			sleep( apply_filters( 'pb_sse_export_job_update_interval', 1 ) );
 		}
 
 		if ( $switched ) {
@@ -475,7 +356,7 @@ class EventStreams {
 	 * AJAX handler for streaming user job statuses.
 	 * This is intended to be hooked to wp_ajax_pb_sse_exports.
 	 */
-	public function ajaxStreamUserJobStatuses(): void {
+	public function ajaxStreamUserExportsJobs(): void {
 		// TODO: Add nonce check if this endpoint is directly exposed via AJAX.
 		// check_ajax_referer( 'pressbooks_user_export_feed_nonce', 'nonce' ); // Example, use appropriate nonce
 
@@ -483,19 +364,15 @@ class EventStreams {
 		$user_id = get_current_user_id();
 
 		if ( ! $book_id ) {
-			// Send an immediate error if book_id is missing, as streamUserJobStatuses expects it.
-			// Setup headers first to ensure client can receive SSE.
-			$this->setupHeaders(); // Ensure headers are set for SSE response.
+			$this->setupHeaders();
 			$this->emitMessage( [ 'error' => 'Missing book ID for job status stream.' ], 'error' );
 			flush();
 			exit;
 		}
 
-		// Setup SSE headers. setupHeaders() should be idempotent or safe to call multiple times.
 		$this->setupHeaders();
 		$this->streamUserJobStatuses( $book_id, $user_id );
-		// streamUserJobStatuses has its own exit conditions (client disconnect, error).
-		exit; // Ensure script termination after stream ends or if it exits early.
+		exit;
 	}
 
 	/**

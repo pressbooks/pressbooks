@@ -1,41 +1,100 @@
-.export-progress-cell .progress-bar-container {
-    width: 100%;
-    background-color: #e0e0e0;
-    border-radius: 4px;
-    overflow: hidden;
-    height: 20px; /* Adjust height as needed */
+/* Suggested CSS to make it look great */
+
+.export-job-cell {
+    padding: 16px !important;
+}
+
+.export-job-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.export-name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.format-name {
+    font-size: 16px;
+    color: #333;
+}
+
+.job-status {
+    font-size: 14px;
+    color: #666;
+    font-style: italic;
+}
+
+.export-progress {
     display: flex;
     align-items: center;
-    position: relative; /* For positioning text over the bar */
+    gap: 12px;
 }
 
-.export-progress-cell .progress-bar {
-    background-color: #4caf50; /* Green progress */
+.progress-bar-container {
+    flex: 1;
+    height: 8px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar {
     height: 100%;
-    line-height: 20px; /* Match container height */
-    color: white;
-    text-align: center;
-    transition: width 0.3s ease-in-out;
+    background-color: #007cba;
+    transition: width 0.3s ease;
+    border-radius: 4px;
 }
 
-.export-progress-cell .progress-text {
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    font-size: 0.8em;
-    color: #333; /* Darker text for better readability on light bar segments */
-    line-height: 20px; /* Match container height */
+.progress-bar.pb-sse-progressbar-success {
+    background-color: #46b450;
 }
 
-/* Style for the file icon and name in the new rows */
-.export-job-in-progress .export-file-icon {
-    /* Basic styling, assuming icons are handled by existing CSS via formatKey class */
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 5px;
-    /* Add width/height if your icons need it */
+.progress-bar.pb-sse-progressbar-error {
+    background-color: #dc3232;
 }
 
-.export-job-in-progress .export-file-name i {
-    color: #777;
-} 
+.progress-text {
+    font-size: 12px;
+    color: #666;
+    min-width: 35px;
+    text-align: right;
+}
+
+.download-link {
+    color: #007cba;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.download-link:hover {
+    text-decoration: underline;
+}
+
+.export-job-completed .format-name {
+    color: #46b450;
+}
+
+.export-job-failed .format-name {
+    color: #dc3232;
+}
+
+@media (max-width: 768px) {
+    .export-name {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .export-progress {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .progress-text {
+        align-self: flex-end;
+    }
+}

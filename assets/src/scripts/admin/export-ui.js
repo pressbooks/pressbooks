@@ -1,139 +1,155 @@
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('Export UI script loaded');
-    const exportForm = document.getElementById('pb-export-form');
-    const exportButton = document.getElementById('pb-export-button');
-    const exportsTable = document.querySelector('table.wp-list-table'); // Standard WP table class
+	console.log('Export UI script loaded');
+	const exportForm = document.getElementById('pb-export-form');
+	const exportButton = document.getElementById('pb-export-button');
 
-    if (exportForm && exportButton && exportsTable) {
-        const tableBody = exportsTable.querySelector('tbody');
+	if (exportForm && exportButton) {
+		exportForm.addEventListener('submit', async function (event) {
+			event.preventDefault();
 
+			// Disable button and show loading state
+			exportButton.disabled = true;
+			const originalButtonText = exportButton.textContent;
+			exportButton.textContent = (PB_ExportToken?.text?.exporting) || 'Exporting...';
 
-        exportForm.addEventListener('submit', async function (event) {
-            event.preventDefault();
-            exportButton.disabled = true;
-            exportButton.textContent = (PB_ExportToken && PB_ExportToken.text && PB_ExportToken.text.exporting) || 'Exporting...';
+			try {
+				// Get selected formats
+				const formData = new FormData(exportForm);
+				const selectedFormats = getSelectedFormats(formData);
 
-            const clientFormData = new FormData(exportForm);
-            const selectedFormats = [];
-            const formatDisplayNames = {};
+				if (selectedFormats.length === 0) {
+					showError((PB_ExportToken?.text?.select_format) || 'Please select at least one export format.');
+					return;
+				}
 
-            for (const [key, value] of clientFormData.entries()) {
-                if (key.startsWith('export_formats[')) {
-                    const formatKey = key.substring(key.indexOf('[') + 1, key.indexOf(']'));
-                    selectedFormats.push(formatKey);
-                    const labelElement = exportForm.querySelector(`label[for='${formatKey}']`);
-                    formatDisplayNames[formatKey] = labelElement ? labelElement.textContent.trim() : formatKey;
+				// Submit export jobs to server
+				const response = await submitExportJobs(selectedFormats);
 
-                    if (tableBody) {
-                        const newRow = document.createElement('tr');
-                        // Add a general class and a format-specific class for easier targeting if needed
-                        newRow.className = `export-job-row export-job-in-progress export-format-${formatKey}`;
-                        newRow.setAttribute('data-format', formatKey);
+				if (response.success && response.data?.results) {
+					handleSubmissionSuccess(response.data);
+				} else {
+					handleSubmissionError(response);
+				}
 
-                        const cbCell = document.createElement('td');
-                        cbCell.className = 'column-cb check-column';
-                        newRow.appendChild(cbCell);
+			} catch (error) {
+				console.error('Error submitting export jobs:', error);
+				showError('Error submitting export jobs: ' + error.message);
+			} finally {
+				// Reset button state
+				exportButton.disabled = false;
+				exportButton.textContent = originalButtonText;
+			}
+		});
+	}
 
-                        const fileCell = document.createElement('td');
-                        fileCell.className = 'column-file export-progress-cell';
-                        fileCell.innerHTML = `
-                            <div class="export-file-name">
-                                <span class="file-name-text"><strong>${formatDisplayNames[formatKey]}</strong></span>: <i>Waiting for server...</i>
-                            </div>
-                            <div class="progress-bar-container">
-                                <div class="progress-bar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                <div class="progress-text">0%</div>
-                            </div>
-                        `;
-                        newRow.appendChild(fileCell);
+	/**
+	 * Extract selected export formats from form data
+	 */
+	function getSelectedFormats(formData) {
+		const selectedFormats = [];
 
-                        ['format', 'size', 'pin','date'].forEach(colName => {
-                            const cell = document.createElement('td');
-                            cell.className = `column-${colName}`;
-                            newRow.appendChild(cell);
-                        });
-                        tableBody.prepend(newRow);
-                    }
-                }
-            }
+		for (const [key, value] of formData.entries()) {
+			if (key.startsWith('export_formats[') && value) {
+				const formatKey = key.substring(key.indexOf('[') + 1, key.indexOf(']'));
+				selectedFormats.push(formatKey);
+			}
+		}
 
-            if (selectedFormats.length === 0) {
-                alert((PB_ExportToken && PB_ExportToken.text && PB_ExportToken.text.select_format) || 'Please select at least one export format.');
-                exportButton.disabled = false;
-                exportButton.textContent = (PB_ExportToken && PB_ExportToken.text && PB_ExportToken.text.exportBookButton) || 'Export Your Book';
-                return;
-            }
+		return selectedFormats;
+	}
 
-            const serverFormData = new FormData();
-            selectedFormats.forEach(format => {
-                serverFormData.append(`export_formats[${format}]`, '1');
-            });
-            serverFormData.append('action', 'pb_export_book');
-            serverFormData.append('pb_export_nonce', PB_ExportToken.nonce);
+	/**
+	 * Submit export jobs to the server
+	 */
+	async function submitExportJobs(selectedFormats) {
+		const serverFormData = new FormData();
 
-            try {
-                const response = await fetch(PB_ExportToken.ajaxurl, {
-                    method: 'POST',
-                    body: serverFormData
-                });
+		// Add selected formats to form data
+		selectedFormats.forEach(format => {
+			serverFormData.append(`export_formats[${format}]`, '1');
+		});
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+		// Add required WordPress fields
+		serverFormData.append('action', 'pb_export_book');
+		serverFormData.append('pb_export_nonce', PB_ExportToken.nonce);
 
-                const data = await response.json();
-                window.PB_Export_ReloadOnComplete = data.reload_on_complete === true;
+		const response = await fetch(PB_ExportToken.ajaxurl, {
+			method: 'POST',
+			body: serverFormData
+		});
 
-                if (data.success === true && data.data && data.data.results) {
-                    data.data.results.forEach(jobResult => {
-                        const rowToUpdate = tableBody.querySelector(`tr.export-format-${jobResult.module_slug}:not([data-job-id])`);
-                        if (rowToUpdate) {
-                            if (jobResult.event_type === 'job_queued' && jobResult.job_id) {
-                                rowToUpdate.setAttribute('data-job-id', jobResult.job_id);
-                                const statusElement = rowToUpdate.querySelector('.column-file .export-file-name i');
-                                if(statusElement) statusElement.textContent = 'Queued, waiting for progress...';
-                            } else if (jobResult.event_type === 'job_queue_failed') {
-                                rowToUpdate.classList.remove('export-job-in-progress');
-                                rowToUpdate.classList.add('export-job-failed');
-                                const statusElement = rowToUpdate.querySelector('.column-file .export-file-name i');
-                                const fileNameTextElement = rowToUpdate.querySelector('.column-file .export-file-name span.file-name-text strong');
-                                if(statusElement && fileNameTextElement) {
-                                    statusElement.textContent = `Failed: ${jobResult.message || 'Could not queue job.'}`;
-                                    statusElement.style.color = 'red';
-                                }
-                                const progressBar = rowToUpdate.querySelector('.progress-bar');
-                                const progressText = rowToUpdate.querySelector('.progress-text');
-                                if(progressBar) progressBar.style.width = '100%'; progressBar.classList.add('pb-sse-progressbar-error');
-                                if(progressText) progressText.textContent = 'Error';
-                            }
-                        }
-                    });
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
 
-                    if (typeof window.PB_EnsureGlobalExportFeed === 'function') {
-                        window.PB_EnsureGlobalExportFeed();
-                    }
+		return await response.json();
+	}
 
-                } else { // Handles data.success !== true OR if data.data.results is missing/empty
-                    console.error('Failed to submit export jobs or bad response:', data.data && data.data.message ? data.data.message : (data.message || data));
-                    // Revert UI for all provisionally added rows
-                    selectedFormats.forEach(formatKey => {
-                        const rowToRemove = tableBody.querySelector(`tr.export-format-${formatKey}:not([data-job-id])`);
-                        if(rowToRemove) rowToRemove.remove();
-                    });
-                    alert((data.data && data.data.message ? data.data.message : (data.message || 'Failed to submit export jobs. Check console for details.')));
-                }
+	/**
+	 * Handle successful job submission
+	 */
+	function handleSubmissionSuccess(data) {
+		console.log('Export jobs submitted successfully:', data.results);
 
-            } catch (error) {
-                console.error('Error submitting export jobs:', error);
-                alert('Error submitting export jobs: ' + error.message);
-                 selectedFormats.forEach(formatKey => {
-                        const rowToRemove = tableBody.querySelector(`tr.export-format-${formatKey}:not([data-job-id])`);
-                        if(rowToRemove) rowToRemove.remove();
-                    });
-            } finally {
-                exportButton.disabled = false;
-                exportButton.textContent = (PB_ExportToken && PB_ExportToken.text && PB_ExportToken.text.exportBookButton) || 'Export Your Book';
-            }
-        });
-    }
+		// Store reload preference
+		if (data.reload_on_complete === true) {
+			window.PB_Export_ReloadOnComplete = true;
+		}
+
+		// Log job queue results
+		data.results.forEach(jobResult => {
+			if (jobResult.event_type === 'job_queued') {
+				console.log(`Job queued: ${jobResult.module_slug} (ID: ${jobResult.job_id})`);
+			} else if (jobResult.event_type === 'job_queue_failed') {
+				console.error(`Failed to queue job: ${jobResult.module_slug} - ${jobResult.message}`);
+			}
+		});
+
+		// Ensure SSE connection is active to receive updates
+		if (typeof window.PB_EnsureGlobalExportFeed === 'function') {
+			window.PB_EnsureGlobalExportFeed();
+		}
+
+		// Show success message
+		showSuccess((PB_ExportToken?.text?.jobs_submitted) || 'Export jobs submitted successfully. Watch for progress updates below.');
+	}
+
+	/**
+	 * Handle submission errors
+	 */
+	function handleSubmissionError(response) {
+		const errorMessage = response.data?.message || response.message || 'Failed to submit export jobs.';
+		console.error('Failed to submit export jobs:', errorMessage);
+		showError(errorMessage);
+	}
+
+	/**
+	 * Show error message to user
+	 */
+	function showError(message) {
+		alert(message);
+	}
+
+	/**
+	 * Show success message to user
+	 */
+	function showSuccess(message) {
+		createNotification(message, 'success');
+	}
+
+	/**
+	 * Optional: Create a notification banner
+	 */
+	function createNotification(message, type = 'info') {
+		const notification = document.createElement('div');
+		notification.className = `notice notice-${type} is-dismissible`;
+		notification.innerHTML = `
+            <p>${message}</p>
+            <button type="button" class="notice-dismiss" onclick="this.parentElement.remove()">
+                <span class="screen-reader-text">Dismiss this notice.</span>
+            </button>
+        `;
+		const insertAfter = exportForm.parentElement || document.body;
+		insertAfter.insertBefore(notification, insertAfter.firstChild);
+	}
 });

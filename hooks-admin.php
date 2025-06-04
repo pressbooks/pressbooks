@@ -9,7 +9,6 @@ use PressbooksMix\Assets;
 use Pressbooks\Admin\Menus\SideBar;
 use Pressbooks\Admin\Menus\TopBar;
 use Pressbooks\Book;
-use Pressbooks\Modules\BackgroundProcessing\BackgroundJob;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -296,7 +295,7 @@ add_action( 'init', [ '\Pressbooks\Modules\Export\Prince\Filters', 'init' ] );
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action( 'init', [ '\Pressbooks\Modules\Import\Import', 'formSubmit' ], 50 );
-add_action( 'init', [ '\Pressbooks\Modules\Export\Export', 'formSubmit' ], 50 );
+add_action( 'init', '\Pressbooks\Modules\Export\handle_downloads', 50 );
 add_action( 'init', [ '\Pressbooks\Catalog', 'formSubmit' ], 50 );
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -401,6 +400,4 @@ add_action( 'admin_enqueue_scripts', function() {
 } );
 
 //Background processing
-add_action( 'wp_ajax_pb_export_book', [ '\Pressbooks\Modules\Export\Export', 'ajax_submit_export_job' ] );
-add_action( 'wp_ajax_pb_check_existing_jobs', [ BackgroundJob::class, 'checkExistingJobs' ] );
-
+add_action( 'wp_ajax_pb_export_book', '\Pressbooks\Modules\Export\handle_exports_submit' );

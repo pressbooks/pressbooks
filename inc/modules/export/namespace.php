@@ -328,7 +328,7 @@ function get_contributors_section( $post_id ) {
 	return $print;
 }
 
-function getFriendlyNameForModule( string $module_classname ): string {
+function get_friendly_name_for_module( string $module_classname ): string {
 	if ( function_exists( '\Pressbooks\Modules\Export\get_name_from_module_classname' ) ) {
 		// This function is in namespace.php, ensure it's loaded.
 		// It returns names like "Digital PDF", "EPUB" etc.
@@ -351,9 +351,9 @@ function handle_exports_submit(): void {
 		return; // Important to return/exit after wp_send_json_error
 	}
 
-	// Sanitize and prepare inputs from $_POST
+
 	$export_formats_from_post = isset( $_POST['export_formats'] ) && is_array( $_POST['export_formats'] ) ? $_POST['export_formats'] : [];
-	// Sanitize keys of export_formats_from_post as they are used in loops
+
 	$sanitized_export_formats = [];
 	foreach ( $export_formats_from_post as $key => $value ) {
 		// Assuming $key is the format slug and $value might be '1' or the slug itself if it's checkbox-like.
@@ -369,7 +369,7 @@ function handle_exports_submit(): void {
 	$export_options_from_post = isset( $_POST['export_options'] ) && is_array( $_POST['export_options'] ) ? $_POST['export_options'] : [];
 
 	// Call the centralized processing method
-	$results = processAndQueueJobRequests( $sanitized_export_formats, $export_options_from_post );
+	$results = process_and_queue_job_requests( $sanitized_export_formats, $export_options_from_post );
 
 	// Check if any jobs were actually queued successfully based on the 'status' field in results
 	$has_successful_queues = false;
@@ -385,7 +385,7 @@ function handle_exports_submit(): void {
 		wp_send_json_success( [
 			'message' => sprintf( _n( '%d export job queued.', '%d export jobs processed.', $successfully_queued_count, 'pressbooks' ), $successfully_queued_count ),
 			'results' => $results,
-			'reload_on_complete' => true, // This flag seems to be part of the original design
+			'reload_on_complete' => true,
 			'total_jobs' => $successfully_queued_count,
 		] );
 	} else {
@@ -419,20 +419,12 @@ function handle_exports_submit(): void {
  * @return array An array of results, with each item detailing the outcome for a format.
  */
 
-function processAndQueueJobRequests( array $export_formats_input, array $export_options_input ): array {
-	// Ensure the export jobs table exists before proceeding
+function process_and_queue_job_requests( array $export_formats_input, array $export_options_input ): array {
+
 	BackgroundJob::ensureExportsTable();
 
 	$results = [];
 	$available_modules = Export::modules();
-
-	// Clear previous static errors/outputs for this new request context if they were used by other parts.
-	// However, this method should be self-contained and not rely on static::$exportConversionError etc.
-	// For now, let's assume this method doesn't interact with those static properties directly.
-	// static::$currentExportModuleArgs = $export_options_input; // This was how ajax_submit_export_job set it.
-
-	// Switch to the correct locale for export-related operations if needed.
-	// This was done in ajax_submit_export_job. If it affects getFriendlyNameForModule or other helpers, keep it.
 	$locale_switched = switch_to_locale( Export::locale() );
 
 	foreach ( array_keys( $export_formats_input ) as $format_slug_key ) {
@@ -470,11 +462,11 @@ function processAndQueueJobRequests( array $export_formats_input, array $export_
 			];
 			$job_id = $db->table( BackgroundJob::JOBS_TABLE_NAME )->insertGetId( $insert_data );
 
-			$friendly_name = getFriendlyNameForModule( $module_classname );
+			$friendly_name = get_friendly_name_for_module( $module_classname );
 
 			if ( $job_id ) {
-
-				$schedule_result = wp_schedule_single_event( time(), 'pressbooks_process_export_job', [ 'job_id' => $job_id ] );
+				// TODO: (bg) Review if this is the best way to schedule the job.
+				wp_schedule_single_event( time(), 'pressbooks_process_export_job', [ 'job_id' => $job_id ] );
 
 				$results[] = [
 					'event_type' => 'job_queued',
@@ -512,9 +504,9 @@ function processAndQueueJobRequests( array $export_formats_input, array $export_
  *
  * @see pressbooks/templates/admin/export.blade.php
  */
-function handleDownloads(): void {
+function handle_downloads(): void {
 
-	if ( false === isFormSubmission() || false === current_user_can( 'edit_posts' ) ) {
+	if ( false === is_form_submission() || false === current_user_can( 'edit_posts' ) ) {
 		return;
 	}
 
@@ -533,7 +525,7 @@ function handleDownloads(): void {
  *
  * @return bool
  */
-function isFormSubmission(): bool {
+function is_form_submission(): bool {
 
 	if ( wp_doing_ajax() ) {
 		if ( empty( $_REQUEST['action'] ) ) {

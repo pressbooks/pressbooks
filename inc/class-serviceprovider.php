@@ -2,6 +2,7 @@
 
 namespace Pressbooks;
 
+use function Pressbooks\Utility\get_cache_path;
 use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager;
 use Illuminate\Events\Dispatcher;
@@ -11,7 +12,6 @@ use Illuminate\View\Engines\CompilerEngine;
 use Illuminate\View\Engines\EngineResolver;
 use Illuminate\View\Factory;
 use Illuminate\View\FileViewFinder;
-use function Pressbooks\Utility\get_cache_path;
 
 /**
  * Service Provider for Pressbooks

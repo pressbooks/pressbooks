@@ -5,10 +5,8 @@
 
 // Stores the single global EventSource instance for all user jobs.
 let globalExportSSE = null;
-let globalExportSSENonce = null; // Will be populated from PB_ExportToken
-let globalExportSSEBookId = null; // Will be populated from PB_ExportToken
-
-// Define job tracking sets at a higher scope
+let globalExportSSENonce = null;
+let globalExportSSEBookId = null;
 let activeJobs = new Set();
 let completedJobs = new Set();
 let failedJobs = new Set();
@@ -18,79 +16,139 @@ let failedJobs = new Set();
  * @param {object} jobData - Data received from SSE for a job.
  */
 function updateJobRowUI(jobData) {
-	const tableRow = jQuery(`tr.export-job-row[data-job-id='${jobData.job_id}']`);
-	if (!tableRow.length) {
-		return;
+	let tableRow = document.querySelector(`tr.export-job-row[data-job-id='${jobData.job_id}']`);
+
+	if (!tableRow) {
+		tableRow = createJobRow(jobData);
+		const tableBody = document.querySelector('table.wp-list-table')
+		if (tableBody) {
+			tableBody.prepend(tableRow);
+		}
 	}
 
-	const progressBar = tableRow.find('.progress-bar');
-	const progressText = tableRow.find('.progress-text');
-	const statusElement = tableRow.find('.column-file .export-file-name i');
-	const fileNameElement = tableRow.find('.column-file .export-file-name span.file-name-text');
-	const sizeCell = tableRow.find('.column-size');
+	const progressBar = tableRow.querySelector('.progress-bar');
+	const progressText = tableRow.querySelector('.progress-text');
+	const jobStatus = tableRow.querySelector('.job-status');
 
-
-	if (progressBar.length && progressText.length) {
-		progressBar.removeClass('pb-sse-progressbar-success pb-sse-progressbar-error');
-		progressBar.css('width', jobData.progress_percentage + '%').attr('aria-valuenow', jobData.progress_percentage);
-		progressText.text(jobData.progress_percentage + '%');
+	// Update progress bar and percentage
+	if (progressBar && progressText) {
+		progressBar.classList.remove('pb-sse-progressbar-success', 'pb-sse-progressbar-error');
+		progressBar.style.width = (jobData.progress_percentage || 0) + '%';
+		progressBar.setAttribute('aria-valuenow', jobData.progress_percentage || 0);
+		progressText.textContent = (jobData.progress_percentage || 0) + '%';
 	}
 
-	if (statusElement.length) {
-		statusElement.text(jobData.progress_message || (jobData.progress_percentage + '%') );
+	// Update status message
+	if (jobStatus) {
+		jobStatus.textContent = jobData.progress_message || 'Processing...';
 	}
 
 	if (jobData.status === 'completed') {
-		if (progressBar.length) progressBar.addClass('pb-sse-progressbar-success').css('width', '100%');
-		if (progressText.length) progressText.text((PB_ExportToken.text && PB_ExportToken.text.completed) || 'Completed');
-		if (statusElement.length) statusElement.hide(); // Hide italic status on complete
-
-		if (fileNameElement.length) {
-			let finalMessage = `<strong>${jobData.format_name || jobData.module_slug}</strong>: Completed.`;
+		if (progressBar) {
+			progressBar.classList.add('pb-sse-progressbar-success');
+			progressBar.style.width = '100%';
+		}
+		if (progressText) {
+			progressText.textContent = '100%';
+		}
+		if (jobStatus) {
 			if (jobData.file_name && jobData.download_url) {
-				finalMessage = `<a href="${jobData.download_url}" target="_blank">${jobData.file_name}</a>`;
-			} else if (jobData.file_name) {
-				finalMessage = jobData.file_name;
+				jobStatus.innerHTML = `<a href="${jobData.download_url}" target="_blank" class="download-link">${jobData.file_name}</a>`;
+			} else {
+				jobStatus.textContent = (PB_ExportToken.text && PB_ExportToken.text.completed) || 'Completed';
 			}
-			fileNameElement.html(finalMessage);
 		}
-		if (sizeCell.length && jobData.file_size) {
-			sizeCell.text(jobData.file_size);
-		}
-		tableRow.removeClass('export-job-in-progress export-job-failed').addClass('export-job-completed');
 
-		activeJobs.delete(jobData.job_id);
+		tableRow.classList.remove('export-job-in-progress', 'export-job-failed');
+		tableRow.classList.add('export-job-completed');
 		completedJobs.add(jobData.job_id);
-
+		activeJobs.delete(jobData.job_id);
 	} else if (jobData.status === 'failed') {
-		if (progressBar.length) progressBar.addClass('pb-sse-progressbar-error').css('width', '100%');
-		if (progressText.length) progressText.text((PB_ExportToken.text && PB_ExportToken.text.error) || 'Error');
+		if (progressBar) {
+			progressBar.classList.add('pb-sse-progressbar-error');
+			progressBar.style.width = '100%';
+		}
+		if (progressText) {
+			progressText.textContent = 'Error';
+		}
+		if (jobStatus) {
+			jobStatus.textContent = `Failed: ${jobData.error_message || jobData.progress_message || 'Unknown error'}`;
+			jobStatus.style.color = 'red';
+		}
 
-		if (statusElement.length) {
-			statusElement.text(`Failed: ${jobData.error_message || jobData.progress_message || 'Unknown error'}`).show().css('color', 'red');
-		}
-		if (fileNameElement.length && !fileNameElement.find('a').length) { // Only update if not already a link
-			 fileNameElement.html(`<strong>${jobData.format_name || jobData.module_slug}</strong>`);
-		}
-		tableRow.removeClass('export-job-in-progress export-job-completed').addClass('export-job-failed');
+		tableRow.classList.remove('export-job-in-progress', 'export-job-completed');
+		tableRow.classList.add('export-job-failed');
 
 		activeJobs.delete(jobData.job_id);
 		failedJobs.add(jobData.job_id);
 	} else {
-		tableRow.removeClass('export-job-completed export-job-failed').addClass('export-job-in-progress');
-		if (fileNameElement.length && !fileNameElement.find('a').length) {
-			fileNameElement.html(`<strong>${jobData.format_name || jobData.module_slug}</strong>`);
+		// In progress
+		tableRow.classList.remove('export-job-completed', 'export-job-failed');
+		tableRow.classList.add('export-job-in-progress');
+		if (jobStatus) {
+			jobStatus.style.color = '';
 		}
-		if(statusElement.length) statusElement.show().css('color', '');
 		activeJobs.add(jobData.job_id);
 	}
 	checkAllJobsComplete();
+}
+
+function preselectActiveFormats(activeFormats) {
+	const exportForm = document.getElementById('pb-export-form');
+	if (!exportForm) return;
+
+	activeFormats.forEach(formatSlug => {
+		const checkbox = exportForm.querySelector(`input[name="export_formats[${formatSlug}]"]`);
+		if (checkbox) {
+			checkbox.checked = true;
+			checkbox.disabled = true; // Prevent unchecking while job is running
+
+			// Add visual indicator
+			const label = exportForm.querySelector(`label[for="${formatSlug}"]`);
+			if (label) {
+				label.classList.add('export-format-active');
+				label.title = 'This export is currently running';
+			}
+		}
+	});
+}
+
+/**
+ * Creates a new job row if it doesn't exist (for handling page refreshes)
+ * @param {object} jobData - Job data to create row for
+ * @returns {HTMLElement} - The created table row element
+ */
+function createJobRow(jobData) {
+	const row = document.createElement('tr');
+	row.className = 'export-job-row export-job-in-progress';
+	row.setAttribute('data-job-id', jobData.job_id);
+
+	row.innerHTML = `
+        <td colspan="6" class="export-job-cell">
+            <div class="export-job-content">
+                <div class="export-name">
+                    <strong class="format-name">${jobData.format_name || jobData.module_slug}</strong>
+                    <span class="job-status">${jobData.progress_message || 'Starting...'}</span>
+                </div>
+                <div class="export-progress">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: ${jobData.progress_percentage || 0}%" aria-valuenow="${jobData.progress_percentage || 0}"></div>
+                    </div>
+                    <span class="progress-text">${jobData.progress_percentage || 0}%</span>
+                </div>
+            </div>
+        </td>
+    `;
+
+	return row;
 }
 
 /**
  * Checks if all initially queued jobs have completed or failed.
  */
 function checkAllJobsComplete() {
+	window.PB_Export_ReloadOnComplete = true;
+	console.log(`Active Jobs: ${activeJobs.size}, Completed Jobs: ${completedJobs.size}, Failed Jobs: ${failedJobs.size}`);
 	if (activeJobs.size === 0 && (completedJobs.size > 0 || failedJobs.size > 0)) {
 		if (window.PB_Export_ReloadOnComplete) {
 			setTimeout(() => { window.location.reload(); }, 2000); // Optional delay
@@ -119,11 +177,17 @@ function initializeGlobalExportFeed() {
 	const sseUrl = `${PB_ExportToken.ajaxurl}?action=pb_sse_exports&_wpnonce=${globalExportSSENonce}&book_id=${globalExportSSEBookId}`;
 	globalExportSSE = new EventSource(sseUrl);
 
-	globalExportSSE.addEventListener('export_job_update', function(event) {
+	globalExportSSE.addEventListener('export_job_updates', function(event) {
 		try {
-			const jobData = JSON.parse(event.data);
-			console.log('SSE Feed: Received export_job_update event:', jobData);
-			updateJobRowUI(jobData);
+			const jobsData = JSON.parse(event.data);
+			console.log('SSE Feed: Received export_job_updates event:', jobsData);
+			jobsData.forEach(job => {
+				console.log(`SSE Feed: Processing job update for job_id ${job.job_id} with status ${job.status}`);
+				updateJobRowUI(job);
+				// Pre-select format checkboxes
+				const activeFormats = jobsData.map(job => job.module_slug);
+				preselectActiveFormats([...new Set(activeFormats)]); // Remove duplicates
+			});
 		} catch (e) {
 			console.error('SSE Feed: Error parsing export_job_update data:', e, event.data);
 		}
@@ -216,10 +280,7 @@ jQuery( function ( $ ) {
 		}
 	} );
 
-	// Function for export-ui.js to potentially call if the SSE connection needs to be re-ensured after AJAX.
-	// Or, export-ui.js could just rely on the initial load's connection.
 	window.PB_EnsureGlobalExportFeed = function() {
-		// console.log('PB_EnsureGlobalExportFeed called.');
 		initializeGlobalExportFeed();
 	};
 
