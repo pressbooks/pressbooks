@@ -299,7 +299,13 @@ class EventStreams {
 			$active_jobs = $db->table( BackgroundJob::JOBS_TABLE_NAME )
 				->where( 'user_id', $user_id )
 				->where( 'book_id', $book_id )
-				->whereIn( 'status', [ 'pending', 'processing', 'completed', 'failed' ] )
+				->where(function( $query ) {
+					$query->whereIn( 'status', [ 'pending', 'processing', 'completed' ] )
+						->orWhere(function( $subQuery ) {
+							$subQuery->where( 'status', 'failed' )
+								->where( 'updated_at', '>=', date( 'Y-m-d H:i:s', strtotime( '-1 minute' ) ) );
+						});
+				})
 				->orderBy( 'created_at', 'DESC' )
 				->get();
 
