@@ -148,10 +148,9 @@ function createJobRow(jobData) {
  */
 function checkAllJobsComplete() {
 	window.PB_Export_ReloadOnComplete = true;
-	console.log(`Active Jobs: ${activeJobs.size}, Completed Jobs: ${completedJobs.size}, Failed Jobs: ${failedJobs.size}`);
 	if (activeJobs.size === 0 && (completedJobs.size > 0 || failedJobs.size > 0)) {
 		if (window.PB_Export_ReloadOnComplete) {
-			setTimeout(() => { window.location.reload(); }, 2000); // Optional delay
+			setTimeout(() => { window.location.reload(); }, 100); // Optional delay
 		}
 	}
 }
@@ -170,7 +169,6 @@ function initializeGlobalExportFeed() {
 	globalExportSSEBookId = PB_ExportToken.bookId;
 
 	if (globalExportSSE && globalExportSSE.readyState !== EventSource.CLOSED) {
-		console.log('SSE Feed: Connection already active.');
 		return;
 	}
 
@@ -180,24 +178,20 @@ function initializeGlobalExportFeed() {
 	globalExportSSE.addEventListener('export_job_updates', function(event) {
 		try {
 			const jobsData = JSON.parse(event.data);
-			console.log('SSE Feed: Received export_job_updates event:', jobsData);
 			jobsData.forEach(job => {
-				console.log(`SSE Feed: Processing job update for job_id ${job.job_id} with status ${job.status}`);
 				updateJobRowUI(job);
 				// Pre-select format checkboxes
 				const activeFormats = jobsData.map(job => job.module_slug);
-				preselectActiveFormats([...new Set(activeFormats)]); // Remove duplicates
+				preselectActiveFormats([...new Set(activeFormats)]);
 			});
 		} catch (e) {
-			console.error('SSE Feed: Error parsing export_job_update data:', e, event.data);
+
 		}
 	});
 
 	globalExportSSE.onerror = function(event) {
-		console.error('SSE Feed: Connection error.', event);
 		if (globalExportSSE && globalExportSSE.readyState === EventSource.CLOSED) {
-			console.log('SSE Feed: Connection was closed. Nullifying globalExportSSE.');
-			globalExportSSE = null; // Allow re-initialization
+			globalExportSSE = null;
 		}
 	};
 }

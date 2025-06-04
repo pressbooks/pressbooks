@@ -78,7 +78,7 @@ abstract class Export {
 	 *
 	 * @var string fullpath
 	 */
-	protected string $outputPath;
+	protected string $outputPath = '';
 
 	/**
 	 * Return $this->outputPath

@@ -15,6 +15,7 @@
 namespace Pressbooks\Admin\Laf;
 
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
+use function Pressbooks\Modules\Export\template_data;
 use function Pressbooks\PostType\get_post_type_label;
 use function Pressbooks\Sanitize\sanitize_string;
 use function Pressbooks\Utility\disable_comments;
@@ -747,11 +748,11 @@ function display_trash() {
 /**
  * Displays the Export Admin Page
  */
-function display_export() {
+function display_export(): void {
 	$blade = Container::get( 'Blade' );
 	echo $blade->render(
 		'admin.export',
-		\Pressbooks\Modules\Export\template_data()
+		template_data()
 	);
 }
 

@@ -12,9 +12,11 @@
 namespace Pressbooks\Modules\Export;
 
 use function Pressbooks\Sanitize\fix_audio_shortcode;
+use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Container;
 use Pressbooks\Contributors;
 use Pressbooks\Modules\BackgroundProcessing\BackgroundJob;
+use Pressbooks\Theme\Lock;
 
 /**
  * @return array
@@ -81,7 +83,7 @@ function dependency_errors_msg() {
 /**
  * @return array
  */
-function formats() {
+function formats(): array {
 	$formats = [
 		'standard' => [
 			'print_pdf' => __( 'PDF (for print)', 'pressbooks' ),
@@ -97,7 +99,7 @@ function formats() {
 
 	// Common Cartridge 1.1 (Web Links)
 
-	$enable_thincc_weblinks = \Pressbooks\Admin\Network\SharingAndPrivacyOptions::getOption( 'enable_thincc_weblinks' );
+	$enable_thincc_weblinks = SharingAndPrivacyOptions::getOption( 'enable_thincc_weblinks' );
 	if ( $enable_thincc_weblinks ) {
 		$formats['standard']['weblinks'] = __( 'Common Cartridge with Web Links', 'pressbooks' );
 	}
@@ -113,15 +115,13 @@ function formats() {
 	 *    return $formats;
 	 * } );
 	 */
-	$formats = apply_filters( 'pb_export_formats', $formats );
-
-	return $formats;
+	return apply_filters( 'pb_export_formats', $formats );
 }
 
 /**
  * @return array
  */
-function filetypes() {
+function filetypes(): array {
 	/**
 	 * Add custom export formats to the latest exports filetype mapping array.
 	 *
@@ -136,7 +136,7 @@ function filetypes() {
 	 *
 	 * @param array $value
 	 */
-	$filetypes = apply_filters(
+	return apply_filters(
 		'pb_latest_export_filetypes', [
 			'epub3' => '._3.epub',
 			'epub' => '.epub',
@@ -154,7 +154,6 @@ function filetypes() {
 			'thincc13' => '._1_3.imscc',
 		]
 	);
-	return $filetypes;
 }
 
 /**
@@ -166,7 +165,7 @@ function filetypes() {
  *
  * @return string A human-readable filetype.
  */
-function get_name_from_filetype_slug( $filetype ) {
+function get_name_from_filetype_slug( $filetype ): string {
 	/**
 	 * Add custom export file type slugs to the array of file type slugs and corresponding human-readable filetypes.
 	 *
@@ -201,7 +200,7 @@ function get_name_from_filetype_slug( $filetype ) {
  *
  * @return string A human-readable short filetype.
  */
-function get_shortname_from_filetype_slug( $filetype ) {
+function get_shortname_from_filetype_slug( $filetype ): string {
 	/**
 	 * Add custom export file type slugs to the array of file type slugs and corresponding human-readable short filetypes.
 	 *
@@ -224,7 +223,7 @@ function get_shortname_from_filetype_slug( $filetype ) {
 			'thincc13' => __( 'IMSCC', 'pressbooks' ),
 		]
 	);
-	return isset( $formats[ $filetype ] ) ? $formats[ $filetype ] : ucfirst( $filetype );
+	return $formats[ $filetype ] ?? ucfirst( $filetype );
 }
 
 /**
@@ -236,7 +235,7 @@ function get_shortname_from_filetype_slug( $filetype ) {
  *
  * @return string A human-readable filetype.
  */
-function get_name_from_module_classname( $classname ) {
+function get_name_from_module_classname( $classname ): string {
 	/**
 	 * Add custom export module classnames to the array of export module classnames and corresponding human-readable filetypes.
 	 *
@@ -255,21 +254,24 @@ function get_name_from_module_classname( $classname ) {
 			'\Pressbooks\Modules\Export\ThinCC\WebLinks' => __( 'Common Cartridge (Web Links)', 'pressbooks' ),
 		]
 	);
+
 	return $formats[ $classname ] ?? substr( strrchr( $classname, '\\' ), 1 );
 }
 
 /**
  * @return array
  */
-function template_data() {
+function template_data(): array {
 
 	$pdf_preview_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin-post.php?action=pdf_preview' ), 'pdf-preview' );
 	$export_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export&export=yes' ), 'pb-export' );
 
 	$theme_name = wp_get_theme()->display( 'Name' ) . ' ' . wp_get_theme()->display( 'Version' );
-	if ( \Pressbooks\Theme\Lock::init()->isLocked() ) {
+	if ( Lock::init()->isLocked() ) {
 		$theme_name .= '<span class="dashicons dashicons-lock" style="vertical-align: text-bottom;"></span>';
 	}
+
+	error_log( print_r( formats(), true ) ); // Debugging line, can be removed later.
 
 	return [
 		'pdf_preview_url' => $pdf_preview_url,

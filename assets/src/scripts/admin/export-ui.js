@@ -86,8 +86,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	 * Handle successful job submission
 	 */
 	function handleSubmissionSuccess(data) {
-		console.log('Export jobs submitted successfully:', data.results);
-
 		// Store reload preference
 		if (data.reload_on_complete === true) {
 			window.PB_Export_ReloadOnComplete = true;
@@ -115,7 +113,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	 */
 	function handleSubmissionError(response) {
 		const errorMessage = response.data?.message || response.message || 'Failed to submit export jobs.';
-		console.error('Failed to submit export jobs:', errorMessage);
 		showError(errorMessage);
 	}
 
@@ -134,18 +131,28 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	/**
-	 * Optional: Create a notification banner
+	 * Create an accessible notification banner
 	 */
 	function createNotification(message, type = 'info') {
 		const notification = document.createElement('div');
 		notification.className = `notice notice-${type} is-dismissible`;
+		notification.setAttribute('role', 'alert');
+		notification.setAttribute('aria-live', 'polite');
 		notification.innerHTML = `
-            <p>${message}</p>
-            <button type="button" class="notice-dismiss" onclick="this.parentElement.remove()">
-                <span class="screen-reader-text">Dismiss this notice.</span>
-            </button>
-        `;
+        <p>${message}</p>
+        <button type="button" class="notice-dismiss"
+                aria-label="Dismiss this notice"
+                onclick="this.parentElement.remove()">
+            <span class="screen-reader-text">Dismiss this notice.</span>
+        </button>
+    `;
+
 		const insertAfter = exportForm.parentElement || document.body;
 		insertAfter.insertBefore(notification, insertAfter.firstChild);
+
+		if (type === 'error') {
+			notification.focus();
+			notification.setAttribute('tabindex', '-1');
+		}
 	}
 });
