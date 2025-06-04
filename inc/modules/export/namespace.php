@@ -351,7 +351,6 @@ function handle_exports_submit(): void {
 		return;
 	}
 
-
 	$export_formats_from_post = isset( $_POST['export_formats'] ) && is_array( $_POST['export_formats'] ) ? $_POST['export_formats'] : [];
 
 	$sanitized_export_formats = [];
@@ -477,12 +476,12 @@ function process_and_queue_job_requests( array $export_formats_input, array $exp
 			} else {
 				$results[] = [
 					'event_type' => 'job_queue_failed',
-					'message' => sprintf( __( 'Failed to queue %s export. Database error: %s', 'pressbooks' ), $friendly_name, esc_html( $wpdb->last_error ) ),
+					'message' => sprintf( __( 'Failed to queue %s export.', 'pressbooks' ), $friendly_name ),
 					'module_slug' => $format_slug,
 					'module_classname' => $module_classname,
 					'format_name' => $friendly_name,
 					'status' => 'error',
-					'error_details' => $wpdb->last_error,
+					'error_details' => 'Failed to insert job into the database.',
 				];
 			}
 		}

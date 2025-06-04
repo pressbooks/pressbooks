@@ -96,11 +96,11 @@ class Filters {
 	 *
 	 */
 	public function addToModules( array $modules ): array {
-		if ( isset( $_POST['export_formats']['docraptor'] ) && check_admin_referer( 'pb-export' ) ) {
-			$modules[] = '\Pressbooks\Modules\Export\Prince\Docraptor';
+		if ( isset( $_POST['export_formats']['docraptor'] ) && check_ajax_referer( 'pb-export-book', 'pb_export_nonce' ) ) {
+			$modules['docraptor'] = '\Pressbooks\Modules\Export\Prince\Docraptor';
 		}
-		if ( isset( $_POST['export_formats']['docraptor_print'] ) && check_admin_referer( 'pb-export' ) ) {
-			$modules[] = '\Pressbooks\Modules\Export\Prince\DocraptorPrint';
+		if ( isset( $_POST['export_formats']['docraptor_print'] ) && check_ajax_referer( 'pb-export-book', 'pb_export_nonce' ) ) {
+			$modules['docraptor_print'] = '\Pressbooks\Modules\Export\Prince\DocraptorPrint';
 		}
 		return $modules;
 	}
