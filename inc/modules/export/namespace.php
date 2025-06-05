@@ -602,7 +602,7 @@ function pb_xhtml_after_content_processed(): void {
 	$h5p_css_url = '';
 }
 function pb_xhtml_custom_stylesheet_url() {
-	 global $h5p_css_url;
+	global $h5p_css_url;
 	return ! empty( $h5p_css_url ) ? $h5p_css_url : '';
 }
 

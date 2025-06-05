@@ -302,8 +302,8 @@ class EventStreams {
 				->where(function( $query ) {
 					$query->whereIn( 'status', [ 'pending', 'processing', 'completed' ] )
 						// Include jobs that are 'failed' but were updated in the last minute to display recent errors
-						->orWhere(function( $subQuery ) {
-							$subQuery->where( 'status', 'failed' )
+						->orWhere(function( $sub ) {
+							$sub->where( 'status', 'failed' )
 								->where( 'updated_at', '>=', date( 'Y-m-d H:i:s', strtotime( '-1 minute' ) ) );
 						});
 				})
