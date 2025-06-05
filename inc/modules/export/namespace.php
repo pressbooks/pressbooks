@@ -16,33 +16,36 @@ use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Container;
 use Pressbooks\Contributors;
 use Pressbooks\Modules\BackgroundProcessing\BackgroundJob;
+use Pressbooks\Modules\Export\Epub\Epub;
+use Pressbooks\Modules\Export\Prince\Filters;
+use Pressbooks\Modules\Export\Xhtml\Xhtml11;
 use Pressbooks\Theme\Lock;
 
 /**
  * @return array
  */
-function dependency_errors() {
+function dependency_errors(): array {
 	$dependency_errors = [];
 
-	if ( false === (bool) get_site_transient( 'pb_pdf_compatible' ) && false === (bool) \Pressbooks\Modules\Export\Prince\Filters::hasDependencies() ) {
+	if ( false === (bool) get_site_transient( 'pb_pdf_compatible' ) && false === (bool) Filters::hasDependencies() ) {
 		$dependency_errors['pdf'] = 'PDF';
 	} else {
 		set_site_transient( 'pb_pdf_compatible', true );
 	}
 
-	if ( false === (bool) get_site_transient( 'pb_print_pdf_compatible' ) && false === (bool) \Pressbooks\Modules\Export\Prince\Filters::hasDependencies() ) {
+	if ( false === (bool) get_site_transient( 'pb_print_pdf_compatible' ) && false === (bool) Filters::hasDependencies() ) {
 		$dependency_errors['print_pdf'] = 'Print PDF';
 	} else {
 		set_site_transient( 'pb_print_pdf_compatible', true );
 	}
 
-	if ( false === (bool) get_site_transient( 'pb_epub_compatible' ) && false === (bool) \Pressbooks\Modules\Export\Epub\Epub::hasDependencies() ) {
+	if ( false === (bool) get_site_transient( 'pb_epub_compatible' ) && false === (bool) Epub::hasDependencies() ) {
 		$dependency_errors['epub'] = 'EPUB';
 	} else {
 		set_site_transient( 'pb_epub_compatible', true );
 	}
 
-	if ( false === (bool) get_site_transient( 'pb_xhtml_compatible' ) && false === (bool) \Pressbooks\Modules\Export\Xhtml\Xhtml11::hasDependencies() ) {
+	if ( false === (bool) get_site_transient( 'pb_xhtml_compatible' ) && false === (bool) Xhtml11::hasDependencies() ) {
 		$dependency_errors['xhtml'] = 'XHTML';
 	} else {
 		set_site_transient( 'pb_xhtml_compatible', true );
@@ -54,9 +57,7 @@ function dependency_errors() {
 	 *
 	 * @param array $dependency_errors
 	 */
-	$dependency_errors = apply_filters( 'pb_dependency_errors', $dependency_errors );
-
-	return $dependency_errors;
+	return apply_filters( 'pb_dependency_errors', $dependency_errors );
 }
 
 /**

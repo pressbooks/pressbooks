@@ -4,6 +4,7 @@ use Pressbooks\Container;
 use Pressbooks\Contributors;
 use Pressbooks\Metadata;
 use Pressbooks\Modules\Export\Export;
+use Pressbooks\Modules\Export\Prince\Filters;
 use SebastianBergmann\Environment\Runtime;
 use function Pressbooks\Utility\create_tmp_file;
 use function Pressbooks\Utility\put_contents;
@@ -12,15 +13,17 @@ class ExportMock extends Export {
 	/**
 	 * @group export
 	 */
-	function convert() {
+	function convert(): Generator {
+		yield 30 => __( 'Exporting', 'pressbooks' );
 		$this->outputPath = create_tmp_file();
-		return true;
+		return $this->outputPath;
 	}
 
 	/**
 	 * @group export
 	 */
-	function validate() {
+	function validate(): Generator {
+		yield 90 => __( 'Validating', 'pressbooks' );
 		return file_exists( $this->outputPath );
 	}
 }
@@ -322,7 +325,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_filters_useDocraptorInsteadOfPrince() {
-		$filters = new \Pressbooks\Modules\Export\Prince\Filters();
+		$filters = new Filters();
 		$this->assertTrue( is_bool( $filters->overridePrince() ) );
 		$this->assertTrue( is_array( $filters->addToModules( [] ) ) ); // TODO: This test sucks
 	}
@@ -365,7 +368,12 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 				$exporter->url = $xhtml_path;
 			}
 
-			$this->assertTrue( $exporter->convert(), "Could not convert with {$module}" );
+			$converter = $exporter->convert();
+
+			$this->runGenerator( $converter );
+
+			$this->assertNotEmpty( $converter->getReturn(), "Could not convert with {$format}" );
+
 			$paths[] = $exporter->getOutputPath();
 			if (str_contains($format, '\Xhtml\Xhtml11')) {
 				$xhtml_path = $exporter->getOutputPath();
@@ -373,7 +381,9 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			if (str_contains($format, '\Epub\Epub')) {
 				// TODO: exec(): Unable to fork [/usr/bin/java -jar /opt/epubcheck/epubcheck.jar -q /path/to.epub 2>&1]
 			} else {
-				$this->assertTrue( $exporter->validate(), "Could not validate with {$format}" );
+				$validator = $exporter->validate();
+				$this->runGenerator( $validator );
+				$this->assertTrue( $validator->getReturn(), "Could not validate with {$format}" );
 			}
 
 			unset( $exporter );
@@ -412,8 +422,16 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 
 		$module = '\Pressbooks\Modules\Export\Xhtml\Xhtml11';
 		$exporter = new $module( [] );
-		$this->assertTrue( $exporter->convert(), "Could not convert with {$module}" );
-		$this->assertTrue( $exporter->validate(), "Could not validate with {$module}" );
+
+		$converter = $exporter->convert();
+		$this->runGenerator( $converter );
+		$this->assertNotEmpty( $converter->getReturn(), "Could not convert with {$module}" );
+
+
+		$validator = $exporter->validate();
+		$this->runGenerator( $validator );
+		$this->assertTrue( $validator->getReturn(), "Could not validate with {$module}" );
+
 		$xhtml_content = file_get_contents( $exporter->getOutputPath() );
 
 		$this->assertStringContainsString( '<div class="footnotes">', $xhtml_content );
@@ -449,8 +467,14 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 
 		$module = '\Pressbooks\Modules\Export\Xhtml\Xhtml11';
 		$exporter = new $module( [] );
-		$this->assertTrue( $exporter->convert(), "Could not convert with {$module}" );
-		$this->assertTrue( $exporter->validate(), "Could not validate with {$module}" );
+		$converter = $exporter->convert();
+		$this->runGenerator( $converter );
+		$this->assertNotEmpty( $converter->getReturn(), "Could not convert with {$module}" );
+
+
+		$validator = $exporter->validate();
+		$this->runGenerator( $validator );
+		$this->assertTrue( $validator->getReturn(), "Could not validate with {$module}" );
 		$xhtml_content = file_get_contents( $exporter->getOutputPath() );
 		$url = network_home_url( sprintf( '/wp-content/uploads/sites/%d/pressbooks/css/prince-', get_current_blog_id() ) );
 		$this->assertStringContainsString( "<link rel='stylesheet' href='$url", $xhtml_content );
@@ -473,7 +497,9 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		foreach ( $modules as $format ) {
 			/** @var Export $exporter */
 			$exporter = new $format( [] );
-			$this->assertTrue( $exporter->convert(), "Could not convert with {$module}" );
+			$converter = $exporter->convert();
+			$this->runGenerator( $converter );
+			$this->assertNotEmpty( $converter->getReturn(), "Could not convert with {$module}" );
 			$dom = new \DOMDocument();
 			libxml_use_internal_errors( true );
 			$dom->loadHTMLFile( $exporter->getOutputPath(), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
@@ -487,7 +513,9 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		foreach ( $modules as $format ) {
 			/** @var Export $exporter */
 			$exporter = new $format( [] );
-			$this->assertTrue( $exporter->convert(), "Could not convert with {$module}" );
+			$converter = $exporter->convert();
+			$this->runGenerator( $converter );
+			$this->assertNotEmpty( $converter->getReturn(), "Could not convert with {$module}" );
 			$dom = new \DOMDocument();
 			libxml_use_internal_errors( true );
 			$dom->loadHTMLFile( $exporter->getOutputPath(), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );

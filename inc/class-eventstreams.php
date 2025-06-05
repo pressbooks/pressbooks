@@ -247,7 +247,7 @@ class EventStreams {
 	 * @param int $user_id
 	 */
 	public function streamUserJobStatuses( int $book_id, int $user_id ): void {
-		// Disable output buffering for PHP - this should ideally be in setupHeaders or managed once.
+
 		if ( ob_get_level() > 0 ) {
 			for ( $i = 0; $i < ob_get_level(); $i++ ) {
 				ob_end_flush();
@@ -301,6 +301,7 @@ class EventStreams {
 				->where( 'book_id', $book_id )
 				->where(function( $query ) {
 					$query->whereIn( 'status', [ 'pending', 'processing', 'completed' ] )
+						// Include jobs that are 'failed' but were updated in the last minute to display recent errors
 						->orWhere(function( $subQuery ) {
 							$subQuery->where( 'status', 'failed' )
 								->where( 'updated_at', '>=', date( 'Y-m-d H:i:s', strtotime( '-1 minute' ) ) );
@@ -363,8 +364,8 @@ class EventStreams {
 	 * This is intended to be hooked to wp_ajax_pb_sse_exports.
 	 */
 	public function ajaxStreamUserExportsJobs(): void {
-		// TODO: Add nonce check if this endpoint is directly exposed via AJAX.
-		// check_ajax_referer( 'pressbooks_user_export_feed_nonce', 'nonce' ); // Example, use appropriate nonce
+
+		check_ajax_referer( 'pressbooks_user_export_feed', 'nonce' );
 
 		$book_id = filter_input( INPUT_GET, 'book_id', FILTER_VALIDATE_INT );
 		$user_id = get_current_user_id();

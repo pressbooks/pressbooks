@@ -1,8 +1,10 @@
 <?php
 
+use Pressbooks\EventStreams;
+
 class EventStreamsTest extends \WP_UnitTestCase {
 	/**
-	 * @var \Pressbooks\EventStreams
+	 * @var EventStreams
 	 * @group eventstreams
 	 */
 	protected $eventStreams;
@@ -12,7 +14,7 @@ class EventStreamsTest extends \WP_UnitTestCase {
 	 */
 	public function set_up() {
 		parent::set_up();
-		$this->eventStreams = new \Pressbooks\EventStreams();
+		$this->eventStreams = new EventStreams();
 	}
 
 

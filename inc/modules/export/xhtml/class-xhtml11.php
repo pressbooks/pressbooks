@@ -239,6 +239,7 @@ class Xhtml11 extends Export {
 		}
 
 		yield 100 => $this->generatorPrefix . __( 'Validation successful', 'pressbooks' );
+		return true;
 	}
 
 	/**

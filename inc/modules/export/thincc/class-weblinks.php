@@ -13,6 +13,7 @@ use Generator;
 use Pressbooks\Book;
 use Pressbooks\Container;
 use Pressbooks\Modules\Export\Export;
+use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
 class WebLinks extends Export {
@@ -188,7 +189,7 @@ class WebLinks extends Export {
 	public function zip( $filename ): bool {
 		$zip = new \PclZip( $filename );
 		$files = [];
-		foreach ( new RecursiveIteratorIterator( new \RecursiveDirectoryIterator( $this->tmpDir ) ) as $file ) {
+		foreach ( new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $this->tmpDir ) ) as $file ) {
 			if ( ! $file->isFile() ) {
 				continue;
 			}
@@ -341,7 +342,7 @@ class WebLinks extends Export {
 		return in_array( $post_status, $visibility, true );
 	}
 
-	function convertGenerator(): Generator {
+	function convert(): Generator {
 		if ( empty( $this->tmpDir ) || ! is_dir( $this->tmpDir ) ) {
 			$this->logError( '$this->tmpDir must be set before calling convert().' );
 			yield 'error' => '$this->tmpDir must be set before calling convert().';
@@ -367,42 +368,7 @@ class WebLinks extends Export {
 		}
 		$this->outputPath = $filename;
 		yield 80 => __( 'Done!', 'pressbooks' );
-		return true;
-	}
-
-	public function convert(): Generator {
-		$use_errors = libxml_use_internal_errors( true );
-		yield 90 => __( 'Starting validation...', 'pressbooks' );
-
-		$files = new RecursiveIteratorIterator( new \RecursiveDirectoryIterator( $this->tmpDir ) );
-		$total_files = iterator_count( $files );
-		$files->rewind();
-
-		$current = 0;
-		foreach ( $files as $file ) {
-			if ( $file->isFile() ) {
-				$current++;
-				$xml = simplexml_load_file( $file );
-				if ( false === $xml ) {
-					$this->errorLog .= "### {$file} ### \n";
-					foreach ( libxml_get_errors() as $error ) {
-						$this->errorLog .= $error->message . "\n";
-					}
-				}
-			}
-		}
-
-		libxml_clear_errors();
-		libxml_use_internal_errors( $use_errors );
-
-		if ( ! empty( $this->errorLog ) ) {
-			$this->logError( $this->errorLog );
-			yield 100 => __( 'Validation failed.', 'pressbooks' );
-			return false;
-		}
-
-		yield 100 => __( 'Validation completed successfully.', 'pressbooks' );
-		return true;
+		return $this->outputPath;
 	}
 
 	public function validate(): Generator {
