@@ -12,6 +12,7 @@
 namespace Pressbooks\Modules\Export;
 
 use function Pressbooks\Sanitize\fix_audio_shortcode;
+use function Pressbooks\Utility\get_h5p_ids_for_exportable_posts;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Container;
 use Pressbooks\Contributors;
@@ -63,7 +64,7 @@ function dependency_errors(): array {
 /**
  * @return string
  */
-function dependency_errors_msg() {
+function dependency_errors_msg(): string {
 	$dependency_errors = dependency_errors();
 	if ( empty( $dependency_errors ) ) {
 		return '';
@@ -189,7 +190,7 @@ function get_name_from_filetype_slug( $filetype ): string {
 			'thincc13' => __( 'Common Cartridge (LTI Links)', 'pressbooks' ),
 		]
 	);
-	return isset( $formats[ $filetype ] ) ? $formats[ $filetype ] : ucfirst( $filetype );
+	return $formats[ $filetype ] ?? ucfirst( $filetype );
 }
 
 /**
@@ -272,8 +273,6 @@ function template_data(): array {
 		$theme_name .= '<span class="dashicons dashicons-lock" style="vertical-align: text-bottom;"></span>';
 	}
 
-	error_log( print_r( formats(), true ) ); // Debugging line, can be removed later.
-
 	return [
 		'pdf_preview_url' => $pdf_preview_url,
 		'export_form_url' => $export_form_url,
@@ -287,7 +286,7 @@ function template_data(): array {
 /**
  * WP_Ajax
  */
-function update_pins() {
+function update_pins(): void {
 	check_ajax_referer( 'pb-export-pins' );
 	$pins = json_decode( stripcslashes( $_POST['pins'] ), true );
 	if ( is_array( $pins ) ) {
@@ -309,7 +308,7 @@ function update_pins() {
  * @param $post_id Integer
  * @return string
  */
-function get_contributors_section( $post_id ) {
+function get_contributors_section( $post_id ): string {
 	$contributors = new Contributors();
 	$chapter_contributors = $contributors->getContributorsWithMeta( $post_id, 'authors' );
 	if ( empty( $chapter_contributors ) ) {
@@ -555,4 +554,60 @@ function is_form_submission(): bool {
 	}
 
 	return false;
+}
+
+function pb_xhtml_after_content_processed(): void {
+	global $h5p_css_url;
+
+	$css_content = apply_filters( 'pb_process_scoped_styles', '' );
+
+	if ( empty( $css_content ) ) {
+		$h5p_css_url = '';
+		return;
+	}
+
+	$upload_dir = Container::get( 'Sass' )->pathToUserGeneratedCss();
+	$filename = 'scopedstyles.css';
+	$css_path = $upload_dir . '/' . $filename;
+	$optimized_css_path = $upload_dir . '/optimized-' . $filename;
+
+	if ( file_exists( $css_path ) ) {
+		unlink( $css_path );
+	}
+
+	$write_success = file_put_contents( $css_path, $css_content );
+
+	// Call css-purge to optimize H5P CSS
+	$node_modules = WP_PLUGIN_DIR . '/pressbooks/node_modules/.bin';
+	$purge_script = $node_modules . '/css-purge';
+
+	if ( file_exists( $purge_script ) ) {
+		$output = [];
+		$return_var = 0;
+		exec( "$purge_script -i $css_path -o $optimized_css_path", $output, $return_var );
+
+		if ( $return_var !== 0 ) {
+			error_log( 'Pressbooks Custom XHTML CSS: Failed to run css-purge' );
+		}
+	}
+
+	$url = Container::get( 'Sass' )->urlToUserGeneratedCss( true ) . "/optimized-{$filename}";
+
+	if ( $write_success ) {
+		$h5p_css_url = $url;
+		return;
+	}
+
+	error_log( "Pressbooks Custom XHTML CSS: Failed to write file to {$css_path}" );
+	$h5p_css_url = '';
+}
+function pb_xhtml_custom_stylesheet_url() {
+	 global $h5p_css_url;
+	return ! empty( $h5p_css_url ) ? $h5p_css_url : '';
+}
+
+function include_exportable_h5p(): void {
+	add_filter( 'h5p_activities_to_export', function() {
+		return get_h5p_ids_for_exportable_posts();
+	});
 }

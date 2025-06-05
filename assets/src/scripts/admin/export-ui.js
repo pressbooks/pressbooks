@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-	console.log('Export UI script loaded');
 	const exportForm = document.getElementById('pb-export-form');
 	const exportButton = document.getElementById('pb-export-button');
 

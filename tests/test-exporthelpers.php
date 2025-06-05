@@ -5,6 +5,10 @@ use Pressbooks\Contributors;
 use Pressbooks\Modules\Export\ExportHelpers;
 use Pressbooks\Taxonomy;
 
+/**
+ * @group export_helpers
+ */
+
 class ExportHelpersTest extends \WP_UnitTestCase {
 	use ExportHelpers;
 	use utilsTrait;
@@ -122,18 +126,12 @@ class ExportHelpersTest extends \WP_UnitTestCase {
 		return $xhtml->doFootnotes( $id );
 	}
 
-    /**
-     * @group export_helpers
-     */
     public function test_renderTitle() {
         $this->_book();
         $metadata = Book::getBookInformation( null, false, false );
         // Add contributor data to metadata
         $metadata['pb_authors'] = 'Test Author';
         $metadata['pb_editors'] = 'Test Editor';
-        $metadata['pb_translators'] = 'Test Translator';
-        $metadata['pb_illustrators'] = 'Test Illustrator';
-        $metadata['pb_contributors'] = 'Test Contributor';
 
         $book_contents = Book::getBookContents();
         $this->taxonomy = Taxonomy::init();
@@ -160,10 +158,7 @@ class ExportHelpersTest extends \WP_UnitTestCase {
         $this->assertStringContainsString( get_bloginfo( 'name' ), $xhtml_output ); // Check if book title exists
         // Check for contributors
         $this->assertStringContainsString( 'Test Author', $xhtml_output );
-        $this->assertStringContainsString( __( 'Edited By ', 'pressbooks' ) . 'Test Editor', $xhtml_output );
-        $this->assertStringContainsString( __( 'Translated By ', 'pressbooks' ) . 'Test Translator', $xhtml_output );
-        $this->assertStringContainsString( __( 'Illustrated By ', 'pressbooks' ) . 'Test Illustrator', $xhtml_output );
-        $this->assertStringContainsString( __( 'Contributors: ', 'pressbooks' ) . 'Test Contributor', $xhtml_output );
+        $this->assertStringNotContainsString( __( 'Edited by ', 'pressbooks' ) . 'Test Editor', $xhtml_output );
 
         // Test Epub renderTitle
         $epub = new \Pressbooks\Modules\Export\Epub\Epub( [] );
@@ -187,10 +182,7 @@ class ExportHelpersTest extends \WP_UnitTestCase {
                 $this->callback(function($data) {
                     $this->assertArrayHasKey('post_content', $data);
                     $this->assertStringContainsString('Test Author', $data['post_content']);
-                    $this->assertStringContainsString(__( 'Edited By ', 'pressbooks' ) . 'Test Editor', $data['post_content']);
-                    $this->assertStringContainsString(__( 'Translated By ', 'pressbooks' ) . 'Test Translator', $data['post_content']);
-                    $this->assertStringContainsString(__( 'Illustrated By ', 'pressbooks' ) . 'Test Illustrator', $data['post_content']);
-                    $this->assertStringContainsString(__( 'Contributors: ', 'pressbooks' ) . 'Test Contributor', $data['post_content']);
+                    $this->assertStringNotContainsString(__( 'Edited by ', 'pressbooks' ) . 'Test Editor', $data['post_content']);
                     return true; // Return true if all assertions pass
                 })
             );
@@ -216,18 +208,12 @@ class ExportHelpersTest extends \WP_UnitTestCase {
         $this->assertTrue( true );
     }
 
-    /**
-     * @group export_helpers
-     */
-    public function test_renderTitle_with_multiple_contributors() {
+    public function test_renderTitle_without_authors() {
         $this->_book();
         $metadata = Book::getBookInformation( null, false, false );
         // Add multiple contributor data to metadata as array of arrays with 'name' key
-        $metadata['pb_authors'] = [['name' => 'Test Author 1'], ['name' => 'Test Author 2']];
+        $metadata['pb_authors'] = null;
         $metadata['pb_editors'] = [['name' => 'Test Editor 1'], ['name' => 'Test Editor 2']];
-        $metadata['pb_translators'] = [['name' => 'Test Translator 1'], ['name' => 'Test Translator 2']];
-        $metadata['pb_illustrators'] = [['name' => 'Test Illustrator 1'], ['name' => 'Test Illustrator 2']];
-        $metadata['pb_contributors'] = [['name' => 'Test Contributor 1'], ['name' => 'Test Contributor 2']];
 
         $book_contents = Book::getBookContents();
         $this->taxonomy = Taxonomy::init();
@@ -250,11 +236,7 @@ class ExportHelpersTest extends \WP_UnitTestCase {
         // Assertions for XHTML output (Multiple Contributors) - Expecting ' and ' separation
         $this->assertStringContainsString( '<div id="title-page"', $xhtml_output );
         $this->assertStringContainsString( get_bloginfo( 'name' ), $xhtml_output );
-        $this->assertStringContainsString( 'Test Author 1 and Test Author 2', $xhtml_output );
-        $this->assertStringContainsString( __( 'Edited By ', 'pressbooks' ) . 'Test Editor 1 and Test Editor 2', $xhtml_output );
-        $this->assertStringContainsString( __( 'Translated By ', 'pressbooks' ) . 'Test Translator 1 and Test Translator 2', $xhtml_output );
-        $this->assertStringContainsString( __( 'Illustrated By ', 'pressbooks' ) . 'Test Illustrator 1 and Test Illustrator 2', $xhtml_output );
-        $this->assertStringContainsString( __( 'Contributors: ', 'pressbooks' ) . 'Test Contributor 1 and Test Contributor 2', $xhtml_output );
+        $this->assertStringContainsString( __( 'Edited by ', 'pressbooks' ) . 'Test Editor 1 and Test Editor 2', $xhtml_output );
 
         // --- Test Epub renderTitle (Multiple Contributors) ---
         $epub_reflection = new \ReflectionClass( '\Pressbooks\Modules\Export\Epub\Epub' );
@@ -275,11 +257,7 @@ class ExportHelpersTest extends \WP_UnitTestCase {
                 // Check that the data array contains expected multiple contributor info (names separated by ' and ')
                 $this->callback(function($data) {
                     $this->assertArrayHasKey('post_content', $data);
-                    $this->assertStringContainsString('Test Author 1 and Test Author 2', $data['post_content']);
-                    $this->assertStringContainsString(__( 'Edited By ', 'pressbooks' ) . 'Test Editor 1 and Test Editor 2', $data['post_content']);
-                    $this->assertStringContainsString(__( 'Translated By ', 'pressbooks' ) . 'Test Translator 1 and Test Translator 2', $data['post_content']);
-                    $this->assertStringContainsString(__( 'Illustrated By ', 'pressbooks' ) . 'Test Illustrator 1 and Test Illustrator 2', $data['post_content']);
-                    $this->assertStringContainsString(__( 'Contributors: ', 'pressbooks' ) . 'Test Contributor 1 and Test Contributor 2', $data['post_content']);
+                    $this->assertStringContainsString(__( 'Edited by ', 'pressbooks' ) . 'Test Editor 1 and Test Editor 2', $data['post_content']);
                     return true; // Return true if all assertions pass
                 })
             );

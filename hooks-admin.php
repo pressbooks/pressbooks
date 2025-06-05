@@ -248,6 +248,7 @@ add_action( 'wp_ajax_pb_ftnref_convert', [ '\Pressbooks\Shortcodes\Footnotes\Foo
 add_action( 'wp_ajax_pb_delete_catalog_logo', [ '\Pressbooks\Catalog', 'deleteLogo' ] );
 // Export page
 add_action( 'wp_ajax_pb_update_pins', '\Pressbooks\Modules\Export\update_pins' );
+add_action( 'wp_ajax_pb_export_book', '\Pressbooks\Modules\Export\handle_exports_submit' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // SASS
@@ -396,8 +397,4 @@ add_action( 'plugins_loaded', [ TopBar::class, 'init' ] );
 add_action( 'admin_enqueue_scripts', function() {
 	$assets = new Assets( 'pressbooks', 'plugin' );
 	wp_enqueue_style( 'pb-table', $assets->getPath( 'styles/pressbooks-table.css' ) );
-	wp_enqueue_script( 'pressbooks-table', $assets->getPath( 'scripts/pressbooks-table.js' ) );
 } );
-
-//Background processing
-add_action( 'wp_ajax_pb_export_book', '\Pressbooks\Modules\Export\handle_exports_submit' );

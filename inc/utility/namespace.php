@@ -228,6 +228,28 @@ function add_sitemap_to_robots_txt() {
 	}
 }
 
+function handle_book_indexing( array $robots ) {
+	if ( ! Book::isBook() ) {
+		return $robots;
+	}
+
+	$options = get_option( 'pressbooks_robots', [
+		'discourage-ai' => 0,
+		'discourage-index' => 0,
+	] );
+
+	$discourage_index = (bool) $options['discourage-index'] ?? 0;
+	$discourage_ai = (bool) $options['discourage-ai'] ?? 0;
+
+	return [
+		...$robots,
+		'noindex' => $discourage_index,
+		'nofollow' => $discourage_index,
+		'noai' => $discourage_ai,
+		'noimageai' => $discourage_ai,
+	];
+}
+
 /**
  * Echo a sitemap
  */
@@ -1673,7 +1695,7 @@ function length_to_inches( $value, $dpi = 96 ) : float|bool {
  *
  * @return array
  */
-function get_h5p_ids_for_exportable_posts() {
+function get_h5p_ids_for_exportable_posts(): array {
 
 	// This function caches the results to avoid multiple queries.
 	static $post_ids_to_export = [];

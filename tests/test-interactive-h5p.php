@@ -1,11 +1,8 @@
 <?php
 
-use Pressbooks\Container;
-use Pressbooks\Interactive\H5P;
-
 class Interactive_H5PTest extends \WP_UnitTestCase {
 	/**
-	 * @var H5P
+	 * @var \Pressbooks\Interactive\H5P
 	 * @group interactivecontent
 	 */
 	protected $h5p;
@@ -15,8 +12,8 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 	 */
 	public function set_up() {
 		parent::set_up();
-		$blade = Container::get( 'Blade' );
-		$this->h5p = new H5P( $blade );
+		$blade = \Pressbooks\Container::get( 'Blade' );
+		$this->h5p = new \Pressbooks\Interactive\H5P( $blade );
 	}
 
 	/**
@@ -89,88 +86,4 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 
 		$this->assertEquals( $expected, $result );
 	}
-
-	/**
-	 * @group interactivecontent
-	 */
-	public function test_text_addon_matches() {
-		$params = [ 'text' => 'This is a test content' ];
-		$pattern = '/test/';
-		$result = $this->h5p->textAddonMatches( $params, $pattern );
-		$this->assertTrue( $result );
-
-		$params = [ 'text' => 'No match here' ];
-		$result = $this->h5p->textAddonMatches( $params, $pattern );
-		$this->assertFalse( $result );
-	}
-
-	/**
-	 * Test shortcode replacement when H5P representation is successfully generated.
-	 *
-	 * @group interactivecontent
-	 */
-	public function test_replaceShortcode_with_representation() {
-		// Mock Blade (likely Illuminate\View\Factory)
-		$bladeMock = $this->getMockBuilder( \Illuminate\View\Factory::class )
-			->disableOriginalConstructor()
-			->addMethods( [ 'render' ] ) // Ensure render method exists for mocking
-			->getMock();
-		$bladeMock->expects( $this->once() )
-			->method( 'render' )
-			->with(
-				'interactive.h5pextractor',
-				$this->callback( function ( $params ) {
-					return isset( $params['id'] ) && $params['id'] === 123 &&
-						   isset( $params['representation'] ) && $params['representation'] === '<p>Mock H5P Content</p>' &&
-						   isset( $params['title'] ) && // Check title exists
-						   isset( $params['url'] ); // Check url exists
-				} )
-			)
-			->willReturn( '<div>Rendered Mock H5P</div>' );
-
-		// Mock H5P class partially, specifically the getH5PRepresentation method
-		$h5pMock = $this->getMockBuilder( H5P::class )
-			->setConstructorArgs( [ $bladeMock ] )
-			->onlyMethods( [ 'getH5PRepresentation' ] ) // Mock only this method
-			->getMock();
-
-		$h5pMock->expects( $this->once() )
-			->method( 'getH5PRepresentation' )
-			->with( 123 ) // Expecting the ID from the shortcode
-			->willReturn( '<p>Mock H5P Content</p>' ); // Return mock HTML
-
-		// Call the method on the mocked object
-		$result = $h5pMock->replaceShortcode( [ 'id' => 123 ] );
-
-		// Assert the final rendered output
-		$this->assertEquals( '<div>Rendered Mock H5P</div>', $result );
-	}
-
-	/**
-	 * Test H5P representation generation.
-	 *
-	 * @group interactivecontent
-	 */
-	public function test_if_h5p_export_option_is_checked() {
-		do_action( 'pb_pre_export' );
-		$this->h5p->shouldEnablePrint();
-		//change visibility of the static representation
-		$reflection = new ReflectionClass( $this->h5p );
-		$property = $reflection->getProperty( 'enableStaticRepresentation' );
-		$property->setAccessible( true );
-		//check if the static representation is enabled
-		$this->assertFalse( $property->getValue( $this->h5p ) );
-		//update options to enable static representation
-		update_option( 'pressbooks_export_options', [
-			'h5p_print_on_exports' => 1,
-		] );
-		do_action( 'pb_pre_export' );
-		$this->h5p->shouldEnablePrint();
-
-		$property = $reflection->getProperty( 'enableStaticRepresentation' );
-		$property->setAccessible( true );
-		//check if the static representation is enabled
-		$this->assertTrue( $property->getValue( $this->h5p ) );
-	}
-
 }

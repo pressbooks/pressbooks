@@ -238,8 +238,8 @@ class Xhtml11 extends Export {
 			throw new Exception();
 		}
 
-		yield 100 => $this->generatorPrefix . __( 'Validation successful', 'pressbooks' );
-		return true;
+		yield 95 => $this->generatorPrefix . __( 'Validation successful', 'pressbooks' );
+		return $return_var === 0;
 	}
 
 	/**
@@ -298,7 +298,7 @@ class Xhtml11 extends Export {
 	 * @throws Exception
 	 */
 	public function transformGenerator() : Generator {
-		//TODO: Check why is this required in theory is being called in Export::preExport()
+		//TODO: (bg) Check why is this required in theory is being called in Export::preExport() maybe hooks calling order
 		do_action( 'pb_pre_export' );
 
 		// Override footnote shortcode
@@ -1022,9 +1022,6 @@ class Xhtml11 extends Export {
 					'subtitle' => $metadata['pb_subtitle'] ?? '',
 					'authors' => $contributors_data['authors'],
 					'editors' => $contributors_data['editors'],
-					'translators' => $contributors_data['translators'],
-					'illustrators' => $contributors_data['illustrators'],
-					'contributors' => $contributors_data['contributors'],
 					'logo' => current_theme_supports( 'pressbooks_publisher_logo' ) ? get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] : null,
 					'publisher' => $metadata['pb_publisher'] ?? '',
 					'publisher_city' => $metadata['pb_publisher_city'] ?? '',

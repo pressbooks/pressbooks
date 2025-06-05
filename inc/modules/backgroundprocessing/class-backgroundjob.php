@@ -220,7 +220,7 @@ class BackgroundJob {
 			error_log( 'BackgroundJob::handle(Job ID: ' . $job_id . '): Exception during export: ' . $e->getMessage() );
 		}
 
-		sleep( 1 );  // Give some time for the DB to update before we check the status to avoid SSE race conditions 🫣
+		sleep( 1 );  // Give some time for the DB to update before we check the status to avoid SSE race conditions. 🫣
 
 		/*
 		 * If validation finished, update the job status to 'completed'

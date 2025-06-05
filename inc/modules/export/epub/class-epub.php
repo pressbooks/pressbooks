@@ -10,6 +10,8 @@
 namespace Pressbooks\Modules\Export\Epub;
 
 use Exception;
+use function Pressbooks\Image\default_cover_path;
+use function Pressbooks\Media\is_valid_media;
 use function Pressbooks\Modules\Export\get_contributors_section;
 use function Pressbooks\Sanitize\decode;
 use function Pressbooks\Sanitize\sanitize_xml_attribute;
@@ -18,6 +20,7 @@ use function Pressbooks\Utility\debug_error_log;
 use function Pressbooks\Utility\explode_remove_and;
 use function Pressbooks\Utility\get_contents;
 use function Pressbooks\Utility\get_contributors_name_imploded;
+use function Pressbooks\Utility\get_media_path;
 use function Pressbooks\Utility\implode_add_and;
 use function Pressbooks\Utility\put_contents;
 use function Pressbooks\Utility\str_ends_with;
@@ -733,8 +736,7 @@ class Epub extends Export {
 			'comment' => 1,
 		];
 
-		$spec = '';
-		$spec .= 'a=,-charset,-coords,-rev,-shape;';
+		$spec = 'a=,-charset,-coords,-rev,-shape;';
 		$spec .= 'area=-nohref;';
 		$spec .= 'col=-align,-char,-charoff,-valign,-width;';
 		$spec .= 'colgroup=-align,-char,-charoff,-valign,-width;';
@@ -825,7 +827,7 @@ class Epub extends Export {
 		$tmp_file = create_tmp_file( $resource_key );
 		put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
-		if ( ! \Pressbooks\Media\is_valid_media( $tmp_file, $filename ) ) {
+		if ( ! is_valid_media( $tmp_file, $filename ) ) {
 			$this->fetchedMediaCache[ $url ] = '';
             fclose( $GLOBALS[ $resource_key ] ); // @codingStandardsIgnoreLine
 			return ''; // Not a valid media type
@@ -1207,9 +1209,9 @@ class Epub extends Export {
 	 */
 	protected function renderCover( array $metadata ): void {
 		if ( ! empty( $metadata['pb_cover_image'] ) && ! \Pressbooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) {
-			$source_path = \Pressbooks\Utility\get_media_path( $metadata['pb_cover_image'] );
+			$source_path = get_media_path( $metadata['pb_cover_image'] );
 		} else {
-			$source_path = \Pressbooks\Image\default_cover_path();
+			$source_path = default_cover_path();
 		}
 
 		$dest_image = sanitize_file_name( basename( $source_path ) );
@@ -1351,9 +1353,6 @@ class Epub extends Export {
 					'subtitle' => $metadata['pb_subtitle'] ?? '',
 					'authors' => $contributors_data['authors'],
 					'editors' => $contributors_data['editors'],
-					'translators' => $contributors_data['translators'],
-					'illustrators' => $contributors_data['illustrators'],
-					'contributors' => $contributors_data['contributors'],
 					'logo' => current_theme_supports( 'pressbooks_publisher_logo' ) ? get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] : null,
 					'publisher' => $metadata['pb_publisher'] ?? '',
 					'publisher_city' => $metadata['pb_publisher_city'] ?? '',

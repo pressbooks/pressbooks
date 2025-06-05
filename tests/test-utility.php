@@ -1,6 +1,5 @@
 <?php
 
-use function Pressbooks\Utility\length_to_inches;
 use function Pressbooks\Utility\do_shortcode_by_tags;
 use function Pressbooks\Utility\objects_to_csv;
 
@@ -813,25 +812,43 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( 'foo,bar,baz', $csv );
 	}
 
-	/**
-	 * @group utility
-	 */
-	public function test_length_to_inches() {
-		$css = [
-			'pdf_page_width' => '10cm',
-			'pdf_page_margin_inside' => '20cm',
-			'pdf_page_margin_outside' => '2in',
-		];
+	public function test_handle_book_indexing(): void
+	{
+		$this->_book();
 
-		$inches_pdf_w = length_to_inches( $css['pdf_page_width'] );
-		$inches_pdf_mi = length_to_inches( $css['pdf_page_margin_inside'] );
-		$inches_pdf_mo = length_to_inches( $css['pdf_page_margin_outside'] );
+		$this->assertEquals(
+			[ 'noindex' => 0, 'nofollow' => 0, 'noai' => 0, 'noimageai' => 0 ],
+			\Pressbooks\Utility\handle_book_indexing( [] )
+		);
 
-		$this->assertEquals( 3.93701, round( $inches_pdf_w, 5 ) );
-		$this->assertEquals( 7.87402, round( $inches_pdf_mi, 5 ) );
-		$this->assertEquals( 2, $inches_pdf_mo );
+		update_option( 'pressbooks_robots', [
+			'discourage-ai' => 1,
+			'discourage-index' => 0,
+		] );
 
-		$inches_pdf_w = length_to_inches( null );
-		$this->assertFalse( $inches_pdf_w );
+		$this->assertEquals(
+			[ 'noindex' => 0, 'nofollow' => 0, 'noai' => 1, 'noimageai' => 1 ],
+			\Pressbooks\Utility\handle_book_indexing( [] )
+		);
+
+		update_option( 'pressbooks_robots', [
+			'discourage-ai' => 0,
+			'discourage-index' => 1,
+		] );
+
+		$this->assertEquals(
+			[ 'noindex' => 1, 'nofollow' => 1, 'noai' => 0, 'noimageai' => 0 ],
+			\Pressbooks\Utility\handle_book_indexing( [] )
+		);
+
+		update_option( 'pressbooks_robots', [
+			'discourage-ai' => 1,
+			'discourage-index' => 1,
+		] );
+
+		$this->assertEquals(
+			[ 'max-image-preview' => 'large', 'noindex' => 1, 'nofollow' => 1, 'noai' => 1, 'noimageai' => 1 ],
+			\Pressbooks\Utility\handle_book_indexing( [ 'max-image-preview' => 'large'] )
+		);
 	}
 }

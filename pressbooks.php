@@ -6,7 +6,7 @@
  * Release Asset: true
  * Description: Simple Book Production
  * x-release-please-start-version
- * Version: 6.25.1
+ * Version: 6.27.1
  * x-release-please-end
  * Requires at least: WordPress 6.6.1
  * Requires PHP: 8.1
@@ -130,4 +130,6 @@ if ( is_admin() ) {
 // --------------------------------------------------------------------------------------------------------------------
 
 require( PB_PLUGIN_DIR . 'functions.php' );
+
+//Background processing
 add_action( 'pressbooks_process_export_job', [ BackgroundJob::class, 'handle' ] );

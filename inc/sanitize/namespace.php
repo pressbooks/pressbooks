@@ -753,7 +753,7 @@ function htmlawed_with_mixed_markup( $content, $htmlawed_config = null, $htmlawe
  * @param string $content
  * @return string
  */
-function sanitize_webbook_content( $content ): string {
+function sanitize_webbook_content( $content ) {
 	// Remove deprecated table borders
 	$spec = 'table=-border;';
 
@@ -773,26 +773,9 @@ function sanitize_webbook_content( $content ): string {
  * @return string
  */
 
-function filter_export_content( string $content ): string {
+function filter_export_content( $content ) {
 	remove_filter( 'the_content', '\Pressbooks\Sanitize\sanitize_webbook_content' );
-
-	$max_chunk_length = 20000;
-	$chunks = preg_split( '/(<[^>]+>)/', $content, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY );
-	$filtered_batches = [];
-	$current = '';
-	foreach ( $chunks as $chunk ) {
-		if ( mb_strlen( $current ) + mb_strlen( $chunk ) > $max_chunk_length && $current !== '' ) {
-			$filtered_batches[] = apply_filters( 'the_content', $current );
-			$current = $chunk;
-		} else {
-			$current .= $chunk;
-		}
-	}
-	if ( $current !== '' ) {
-		$filtered_batches[] = apply_filters( 'the_content', $current );
-	}
-	$content = implode( '', $filtered_batches );
-
+	$content = apply_filters( 'the_content', $content );
 	add_filter( 'the_content', '\Pressbooks\Sanitize\sanitize_webbook_content' );
 	return $content;
 }

@@ -1126,17 +1126,16 @@ function init_css_js() {
 	wp_enqueue_style( 'pressbooks-admin', $assets->getPath( 'styles/pressbooks.css' ) );
 
 	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pb_catalog' ) {
-		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 'pressbooks-catalog', $assets->getPath( 'styles/catalog.css' ) );
-		wp_enqueue_script( 'color-picker', $assets->getPath( 'scripts/color-picker.js' ), [ 'wp-color-picker' ] );
+		wp_enqueue_script( 'color-picker' );
 		wp_enqueue_script( 'select2-js', $assets->getPath( 'scripts/select2.js' ), [ 'jquery' ] );
 	}
 
 	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pressbooks_theme_options' ) {
-		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 'theme-options', $assets->getPath( 'styles/theme-options.css' ) );
 		wp_enqueue_script( 'pressbooks-multiselect' );
-		wp_enqueue_script( 'theme-options-js', $assets->getPath( 'scripts/theme-options.js' ), [ 'jquery', 'wp-color-picker' ] );
+		wp_enqueue_script( 'color-picker' );
+		wp_enqueue_script( 'theme-options-js', $assets->getPath( 'scripts/theme-options.js' ), [ 'jquery' ] );
 	}
 
 	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pressbooks_export_options' ) {
@@ -1174,6 +1173,7 @@ function init_css_js() {
 	wp_register_script( 'duet-date-picker', $assets->getPath( 'scripts/duet/duet.js' ), [], false, true );
 	wp_register_script( 'pressbooks-multiselect', $assets->getPath( 'scripts/pressbooks-multiselect.js' ), [], false, true );
 	wp_register_script( 'pressbooks-reorderable-multiselect', $assets->getPath( 'scripts/pressbooks-reorderable-multiselect.js' ), [], false, true );
+	wp_register_script( 'color-picker', $assets->getPath( 'scripts/color-picker.js' ), [ 'jquery', 'wp-i18n' ], false, true );
 
 	// Register styles for later, on-the-fly, using action: admin_print_scripts- (or other tricks of the shade)
 	wp_register_style( 'pb-export', $assets->getPath( 'styles/export.css' ) );
@@ -1257,6 +1257,21 @@ function privacy_settings_init() {
 			'blog_public',
 			__NAMESPACE__ . '\privacy_blog_public_sanitize'
 		);
+
+		if ( apply_filters( 'pb_robots_settings', true ) ) {
+			add_settings_field(
+				id: 'pressbooks_robots',
+				title: esc_html__( 'Robots', 'pressbooks' ),
+				callback: __NAMESPACE__ . '\privacy_robots_callback',
+				page: 'privacy_settings',
+				section: 'privacy_settings_section',
+			);
+			register_setting(
+				'privacy_settings',
+				'pressbooks_robots',
+				__NAMESPACE__ . '\privacy_robots_sanitize'
+			);
+		}
 	}
 
 	add_settings_field(
@@ -1356,6 +1371,20 @@ function privacy_blog_public_callback( $args ) {
 }
 
 /**
+ * Privacy settings, pressbooks_robots field callback
+ */
+function privacy_robots_callback() {
+	$blade = Container::get( 'Blade' );
+
+	echo $blade->render('admin/settings/book-robots', [
+		'robots' => get_option( 'pressbooks_robots', [
+			'discourage-ai' => 0,
+			'discourage-index' => 0,
+		] ),
+	]);
+}
+
+/**
  * Privacy settings, permissive_private_content field callback
  *
  * @param $args
@@ -1441,6 +1470,20 @@ function book_directory_excluded_callback( $args ) {
  */
 function privacy_blog_public_sanitize( $input ) {
 	return absint( $input );
+}
+
+/**
+ * Privacy settings, blog_public field sanitization
+ *
+ * @param array $input{discourage-ai: int|null, discourage-index: int|null}
+ *
+ * @return array{discourage-ai: int, discourage-index: int}
+ */
+function privacy_robots_sanitize( $input ) {
+	return [
+		'discourage-ai' => $input['discourage-ai'] ?? 0,
+		'discourage-index' => $input['discourage-index'] ?? 0,
+	];
 }
 
 /**

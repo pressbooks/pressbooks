@@ -4,7 +4,6 @@
  * @license GPLv3 (or any later version)
  */
 
-use function Pressbooks\Utility\get_h5p_ids_for_exportable_posts;
 use function \Pressbooks\Utility\include_plugins as include_symbionts;
 use Pressbooks\Book;
 use Pressbooks\CloneComplete;
@@ -181,6 +180,7 @@ add_filter( 'login_redirect', '\Pressbooks\Redirect\handle_dashboard_redirect', 
 
 add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_sitemap', 1 );
 add_action( 'do_robotstxt', '\Pressbooks\Utility\add_sitemap_to_robots_txt' );
+add_filter( 'wp_robots', '\Pressbooks\Utility\handle_book_indexing' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Shortcodes
@@ -354,65 +354,9 @@ add_action( 'wp_initialize_site', [ Privacy::class, 'setDefaultPermissivePrivate
 //Network Managers hooks via CLI
 add_action( 'revoked_super_admin', '\Pressbooks\Admin\NetworkManagers\remove_from_pressbooks_network_managers' );
 add_action( 'deleted_user', '\Pressbooks\Admin\NetworkManagers\remove_from_pressbooks_network_managers' );
-add_action( 'pb_pre_export', function() {
-	add_filter( 'h5p_activities_to_export', function() {
-		return get_h5p_ids_for_exportable_posts();
-	});
-} );
 
-/**
- * Holds the URL of the generated CSS file between the action and filter calls.
- * Using a static variable within a class or a transient might be more robust
- */
-$h5p_css_url = '';
-
-add_action( 'pb_xhtml_after_content_processed', function() {
-	global $h5p_css_url;
-
-	$css_content = apply_filters( 'pb_process_scoped_styles', '' );
-
-	if ( empty( $css_content ) ) {
-		$h5p_css_url = '';
-		return; // No CSS to process
-	}
-
-	$upload_dir = Container::get( 'Sass' )->pathToUserGeneratedCss();
-	$filename = 'scopedstyles.css';
-	$css_path = $upload_dir . '/' . $filename;
-	$optimized_css_path = $upload_dir . '/optimized-' . $filename;
-
-	if ( file_exists( $css_path ) ) {
-		unlink( $css_path );
-	}
-
-	$write_success = file_put_contents( $css_path, $css_content );
-
-	// Call css-purge to optimize H5P CSS
-	$node_modules = WP_PLUGIN_DIR . '/pressbooks/node_modules/.bin';
-	$purge_script = $node_modules . '/css-purge';
-
-	if ( file_exists( $purge_script ) ) {
-		$output = [];
-		$return_var = 0;
-		exec( "$purge_script -i $css_path -o $optimized_css_path", $output, $return_var );
-
-		if ( $return_var !== 0 ) {
-			error_log( 'Pressbooks Custom XHTML CSS: Failed to run css-purge' );
-		}
-	}
-
-	$url = Container::get( 'Sass' )->urlToUserGeneratedCss( true ) . "/optimized-{$filename}";
-
-	if ( $write_success ) {
-		$h5p_css_url = $url;
-		return;
-	}
-
-	error_log( "Pressbooks Custom XHTML CSS: Failed to write file to {$css_path}" );
-	$h5p_css_url = '';
-} );
-
-add_filter( 'pb_xhtml_custom_stylesheet_url', function() {
-	global $h5p_css_url;
-	return ! empty( $h5p_css_url ) ? $h5p_css_url : '';
-} );
+// Include only exportable H5P activities in the export
+add_action( 'pb_pre_export', '\Pressbooks\Modules\Export\include_exportable_h5p' );
+// Optimize H5P css files for export
+add_action( 'pb_xhtml_after_content_processed', '\Pressbooks\Modules\Export\pb_xhtml_after_content_processed' );
+add_filter( 'pb_xhtml_custom_stylesheet_url', '\Pressbooks\Modules\Export\pb_xhtml_custom_stylesheet_url' );
