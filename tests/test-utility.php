@@ -1,6 +1,9 @@
 <?php
 
+use Pressbooks\Modules\Export\Export;
+use function Pressbooks\Utility\add_sitemap_to_robots_txt;
 use function Pressbooks\Utility\do_shortcode_by_tags;
+use function Pressbooks\Utility\latest_exports;
 use function Pressbooks\Utility\objects_to_csv;
 
 class UtilityTest extends \WP_UnitTestCase {
@@ -102,11 +105,12 @@ class UtilityTest extends \WP_UnitTestCase {
 		foreach ( [
 			'\Pressbooks\Modules\Export\WordPress\Wxr',
 		] as $module ) {
-			/** @var \Pressbooks\Modules\Export\Export $exporter */
+			/** @var Export $exporter */
 			$exporter = new $module( [] );
-			$exporter->convert();
+			$generator = $exporter->convert();
+			$this->runGenerator( $generator );
 		}
-		$latest = \Pressbooks\Utility\latest_exports();
+		$latest = latest_exports();
 		$this->assertArrayHasKey( 'wxr', $latest );
 	}
 
@@ -116,7 +120,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	public function test_add_sitemap_to_robots_txt_0() {
 		update_option( 'blog_public', 0 );
 		$this->expectOutputRegex( '/^\s*$/' ); // string is empty or has only whitespace
-		\Pressbooks\Utility\add_sitemap_to_robots_txt();
+		add_sitemap_to_robots_txt();
 	}
 
 	/**
@@ -125,7 +129,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	public function test_add_sitemap_to_robots_txt_1() {
 		update_option( 'blog_public', 1 );
 		$this->expectOutputRegex( '/Sitemap:(.+)feed=sitemap.xml/' );
-		\Pressbooks\Utility\add_sitemap_to_robots_txt();
+		add_sitemap_to_robots_txt();
 	}
 
 	/**

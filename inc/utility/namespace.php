@@ -15,7 +15,9 @@
 
 namespace Pressbooks\Utility;
 
+use function Pressbooks\Modules\Export\filetypes;
 use Pressbooks\Book;
+use Pressbooks\Modules\Export\Export;
 use RuntimeException;
 
 /**
@@ -82,7 +84,7 @@ function group_exports( $dir = null ) {
 	$ignored = [ '.', '..', '.svn', '.git', '.htaccess' ];
 
 	if ( ! $dir ) {
-		$dir = \Pressbooks\Modules\Export\Export::getExportFolder();
+		$dir = Export::getExportFolder();
 	} else {
 		$dir = rtrim( $dir, '/' ) . '/';
 	}
@@ -123,7 +125,7 @@ function group_exports( $dir = null ) {
 function truncate_exports( $max, $dir = null ) {
 
 	if ( ! $dir ) {
-		$dir = \Pressbooks\Modules\Export\Export::getExportFolder();
+		$dir = Export::getExportFolder();
 	} else {
 		$dir = rtrim( $dir, '/' ) . '/';
 	}
@@ -190,12 +192,12 @@ function get_media_path( $guid ) {
  * @return array
  */
 function latest_exports() {
-	$filetypes = \Pressbooks\Modules\Export\filetypes();
-	$dir = \Pressbooks\Modules\Export\Export::getExportFolder();
+	$filetypes = filetypes();
+	$dir = Export::getExportFolder();
 	$files = [];
 
 	// group by extension, sort by date newest first
-	foreach ( \Pressbooks\Utility\scandir_by_date( $dir ) as $file ) {
+	foreach ( scandir_by_date( $dir ) as $file ) {
 		// only interested in the part of filename starting with the timestamp
 		if ( preg_match( '/-\d{10,11}(.*)/', $file, $matches ) ) {
 
