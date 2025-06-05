@@ -2,16 +2,15 @@
 
 use Pressbooks\EventStreams;
 
+/**
+ * @group eventstreams
+ */
 class EventStreamsTest extends \WP_UnitTestCase {
 	/**
 	 * @var EventStreams
-	 * @group eventstreams
 	 */
 	protected $eventStreams;
 
-	/**
-	 * @group eventstreams
-	 */
 	public function set_up() {
 		parent::set_up();
 		$this->eventStreams = new EventStreams();
@@ -20,7 +19,6 @@ class EventStreamsTest extends \WP_UnitTestCase {
 
 	/**
 	 * @return Generator
-	 * @group eventstreams
 	 */
 	protected function generator() {
 		yield 1 => 'a';
@@ -36,16 +34,12 @@ class EventStreamsTest extends \WP_UnitTestCase {
 	/**
 	 * @return Generator
 	 * @throws Exception
-	 * @group eventstreams
 	 */
 	protected function generatorWithError() {
 		yield 1 => 'a';
 		throw new \Exception( 'Nooooooooooooooo!' );
 	}
 
-	/**
-	 * @group eventstreams
-	 */
 	public function test_emit() {
 		ob_start();
 		$result = $this->eventStreams->emit( $this->generator(), true );
@@ -71,8 +65,49 @@ class EventStreamsTest extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * @group eventstreams
+	 * @return Generator
 	 */
+	protected function generatorWithBadEncoding() {
+		$resource = fopen('php://memory', 'r');
+		yield 1 => $resource;
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_emits_with_error(): void {
+		ob_start();
+		$result = $this->eventStreams->emit($this->generatorWithBadEncoding());
+		ob_end_clean();
+		$this->assertTrue($result);
+		$this->assertCount(1, $this->eventStreams->msgStack);
+		$buffer = implode('', $this->eventStreams->msgStack);
+		$this->assertStringContainsString('event: message', $buffer);
+		$this->assertStringContainsString('data: {"error":"Failed to encode data"}', $buffer);
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_streams_user_job_statuses_missing_params(): void {
+		$this->eventStreams->msgStack = [];
+
+		$refSetup = new \ReflectionMethod( $this->eventStreams, 'setupHeaders' );
+		$refSetup->setAccessible( true );
+		$refSetup->invoke( $this->eventStreams );
+
+		$refSetup = new \ReflectionMethod( $this->eventStreams, 'setupHeaders' );
+		$refSetup->setAccessible( true );
+		$refSetup->invoke( 
+			$this->eventStreams,
+			[ 'error' => 'Missing book ID for job status stream.' ],
+			'error'
+		);
+
+		$this->assertCount( 0, $this->eventStreams->msgStack );
+		$buffer = implode( '', $this->eventStreams->msgStack );
+	}
+
 	public function test_emitOneTimeError() {
 		ob_start();
 		$this->eventStreams->emitOneTimeError( 'Nooooooooooooooo, again!' );
@@ -84,9 +119,6 @@ class EventStreamsTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( 'data: {"action":"complete","error":"Nooooooooooooooo, again!"}', $buffer );
 	}
 
-	/**
-	 * @group eventstreams
-	 */
 	public function test_emitComplete() {
 		ob_start();
 		$this->eventStreams->emitComplete();
@@ -108,4 +140,60 @@ class EventStreamsTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( 'event: message', $buffer );
 		$this->assertStringContainsString( 'data: {"action":"complete","error":"No chapters were selected for import."}', $buffer );
 	}
+
+
+	/**
+	 * @test
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
+	 */
+	public function it_ajax_stream_user_exports_jobs_missing_book_id(): void {
+		$this->eventStreams->msgStack = [];
+
+		$refSetup = new \ReflectionMethod( $this->eventStreams, 'setupHeaders' );
+		$refSetup->setAccessible( true );
+		$refSetup->invoke( $this->eventStreams );
+
+		$refEmit = new \ReflectionMethod( $this->eventStreams, 'emitMessage' );
+		$refEmit->setAccessible( true );
+		$refEmit->invoke(
+			$this->eventStreams,
+			[ 'error' => 'Missing book ID for job status stream.' ],
+			'error'
+		);
+
+		$this->assertCount( 1, $this->eventStreams->msgStack );
+		$buffer = implode( '', $this->eventStreams->msgStack );
+		$this->assertStringContainsString( 'event: error', $buffer );
+		$this->assertStringContainsString( 'data: {"error":"Missing book ID for job status stream."}', $buffer );
+	}
+
+	/**
+	 * @test
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
+	 */
+	public function it_ajax_stream_user_exports_jobs_calls_streamUserJobStatuses(): void {
+		$book_id = 123;
+		$_GET['book_id'] = $book_id;
+		$_REQUEST['nonce'] = wp_create_nonce( 'pressbooks_user_export_feed' );
+		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+
+		$this->eventStreams = new class extends \Pressbooks\EventStreams {
+			public $invoked = false;
+			public function streamUserJobStatuses( int $book_id_param, int $user_id_param ): void {
+				$this->invoked = true;
+			}
+		};
+
+		$refSetup = new \ReflectionMethod( $this->eventStreams, 'setupHeaders' );
+		$refSetup->setAccessible( true );
+		$refSetup->invoke( $this->eventStreams );
+
+		$this->eventStreams->streamUserJobStatuses( 123, $user_id );
+
+		$this->assertTrue( $this->eventStreams->invoked, 'Expected streamUserJobStatuses to be called.' );
+	}
+
 }

@@ -101,11 +101,9 @@ class EventStreams {
 	 *
 	 * @param mixed $data Data to be JSON-encoded and sent in the message.
 	 */
-	private function emitMessage( $data, string $event_type = 'message', ?int $id = null ): void {
+	private function emitMessage( $data, string $event_type = 'message' ): void {
 		$msg = 'event: ' . esc_attr( $event_type ) . "\n";
-		if ( null !== $id ) {
-			$msg .= 'id: ' . absint( $id ) . "\n";
-		}
+
 		$json_data = wp_json_encode( $data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
 		if ( false === $json_data ) {
 			$json_data = wp_json_encode( [ 'error' => 'Failed to encode data' ] );
