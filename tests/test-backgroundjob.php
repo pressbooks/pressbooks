@@ -23,7 +23,7 @@ class BackgroundJobTest extends \WP_UnitTestCase {
 			"SHOW TABLES LIKE %s",
 			$table_name
 		) );
-		$this->assertEquals( $table_name, $exists_after, "La tabla debería existir después de ensureExportsTable()" );
+		$this->assertEquals( $table_name, $exists_after, "Table should exist after ensureExportsTable()" );
 	}
 
 	/**
@@ -119,9 +119,9 @@ class BackgroundJobTest extends \WP_UnitTestCase {
 			->where( 'id', $job_id )
 			->first();
 
-		$this->assertEquals( 'completed', $job->status, "El status debe ser 'completed' tras un export exitoso" );
-		$this->assertEquals( 100, intval( $job->progress_percentage ), "El porcentaje de progreso debe llegar a 100" );
-		$this->assertEquals( 'Export completed successfully.', $job->progress_message, "El mensaje de progreso debe indicar éxito" );
-		$this->assertNotEmpty( $job->output_file_path, "Debe haberse seteado output_file_path al finalizar" );
+		$this->assertEquals( 'completed', $job->status, "Status must be 'completed' after a successful export" );
+		$this->assertEquals( 100, intval( $job->progress_percentage ), "Percentage of progress should be 100% on completion" );
+		$this->assertEquals( 'Export completed successfully.', $job->progress_message, "The message should indicate success" );
+		$this->assertNotEmpty( $job->output_file_path, "You must set the output_file_path upon completion" );
 	}
 }
