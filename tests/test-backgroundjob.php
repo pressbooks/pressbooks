@@ -15,15 +15,11 @@ class BackgroundJobTest extends \WP_UnitTestCase {
 
 		$table_name = $wpdb->prefix . BackgroundJob::JOBS_TABLE_NAME;
 
-		$wpdb->query( "DROP TABLE IF EXISTS {$table_name}" );
+        $wpdb->query( "DROP TABLE IF EXISTS {$table_name}" );
 
-        BackgroundJob::ensureExportsTable();
+        BackgroundJob::createJobTable();
 
-		$exists_after = $wpdb->get_var( $wpdb->prepare(
-			"SHOW TABLES LIKE %s",
-			$table_name
-		) );
-		$this->assertEquals( $table_name, $exists_after, "Table should exist after ensureExportsTable()" );
+        $this->assertTrue( app('db')->schema()->hasTable( BackgroundJob::JOBS_TABLE_NAME ), "Table should exist after ensureExportsTable()" );
 	}
 
 	/**
