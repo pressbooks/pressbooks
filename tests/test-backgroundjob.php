@@ -32,6 +32,8 @@ class BackgroundJobTest extends \WP_UnitTestCase {
 	public function it_marks_job_failed_if_exporter_missing(): void {
 		global $wpdb;
 
+        // Drop table if it already exists to avoid duplicate primary key error
+        $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}" . BackgroundJob::JOBS_TABLE_NAME );
 		BackgroundJob::createJobTable();
 
 		$job_data = [
@@ -76,6 +78,8 @@ class BackgroundJobTest extends \WP_UnitTestCase {
 	public function it_completes_job_when_export_successful(): void {
 		global $wpdb;
 
+        // Drop table if it already exists to avoid duplicate primary key error
+        $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}" . BackgroundJob::JOBS_TABLE_NAME );
 		eval( '
 		namespace Pressbooks\Modules\Export;
 		class DummyExporter extends Export {
