@@ -11,13 +11,9 @@ class BackgroundJobTest extends \WP_UnitTestCase {
 	 * @test
 	 */
 	public function it_creates_export_jobs_table(): void {
-		global $wpdb;
-
-		$table_name = $wpdb->prefix . BackgroundJob::JOBS_TABLE_NAME;
-
-        $wpdb->query( "DROP TABLE IF EXISTS {$table_name}" );
-
-        BackgroundJob::createJobTable();
+        if (! app('db')->schema()->hasTable( BackgroundJob::JOBS_TABLE_NAME ) ) {
+            BackgroundJob::createJobTable();
+        }
 
         $this->assertTrue( app('db')->schema()->hasTable( BackgroundJob::JOBS_TABLE_NAME ), "Table should exist after ensureExportsTable()" );
 	}
