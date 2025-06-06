@@ -11,6 +11,7 @@ namespace Pressbooks\Modules\Export\Epub;
 
 use Exception;
 use function Pressbooks\Image\default_cover_path;
+use function Pressbooks\Image\resize_down;
 use function Pressbooks\Media\is_valid_media;
 use function Pressbooks\Modules\Export\get_contributors_section;
 use function Pressbooks\Sanitize\decode;
@@ -432,7 +433,7 @@ class Epub extends Export {
 			$properties['scripted'] = 1;
 		}
 
-		// 	TODO: Check for remote resources
+		// TODO: Check for remote resources
 
 		return $properties;
 	}
@@ -1353,6 +1354,9 @@ class Epub extends Export {
 					'subtitle' => $metadata['pb_subtitle'] ?? '',
 					'authors' => $contributors_data['authors'],
 					'editors' => $contributors_data['editors'],
+					'translators' => $contributors_data['translators'],
+					'illustrators' => $contributors_data['illustrators'],
+					'contributors' => $contributors_data['contributors'],
 					'logo' => current_theme_supports( 'pressbooks_publisher_logo' ) ? get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] : null,
 					'publisher' => $metadata['pb_publisher'] ?? '',
 					'publisher_city' => $metadata['pb_publisher_city'] ?? '',
@@ -2238,7 +2242,7 @@ class Epub extends Export {
 				$format = explode( '.', $filename );
 				$format = strtolower( end( $format ) ); // Extension
 				try {
-					\Pressbooks\Image\resize_down( $format, $tmp_file );
+					resize_down( $format, $tmp_file );
 				} catch ( Exception $e ) {
 					return '';
 				}
