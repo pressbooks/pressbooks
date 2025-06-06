@@ -9,7 +9,6 @@
 namespace Pressbooks;
 
 use function Pressbooks\Utility\str_starts_with;
-use Pressbooks\Modules\ThemeOptions\Admin;
 
 /**
  * @property array booleans

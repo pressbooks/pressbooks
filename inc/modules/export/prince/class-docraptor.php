@@ -134,7 +134,7 @@ class Docraptor extends Pdf {
 				$status_response = $docraptor->getAsyncDocStatus( $create_response->getStatusId() );
 				switch ( $status_response->getStatus() ) {
 					case 'completed':
-						yield 65 => __( 'Downloading converted file...', 'pressbooks' );
+						yield 65 => __( 'Fetching converted file...', 'pressbooks' );
 						if ( ! function_exists( 'download_url' ) ) {
 							require_once( ABSPATH . 'wp-admin/includes/file.php' );
 						}

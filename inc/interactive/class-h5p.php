@@ -345,7 +345,7 @@ class H5P {
 
 		/*
 		 * Dynamically load H5PExtractor. Could be done via autloader as well, but
-		 * why load this unconditionally if if's only needed for printing?
+		 * why load this unconditionally if it's only needed for printing?
 		 */
 		$vendor_path = self::getVendorPath( __DIR__ );
 		if ( ! isset( $vendor_path ) ) {
