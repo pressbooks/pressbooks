@@ -38,6 +38,7 @@ class GlobalTypography {
 	function getSupportedLanguages() {
 		return [
 			'ff' => __( 'Adlam', 'pressbooks' ),
+			'am' => __( 'Amharic', 'pressbooks' ),
 			'grc' => __( 'Ancient Greek', 'pressbooks' ),
 			'hy' => __( 'Armenian', 'pressbooks' ),
 			'ar' => __( 'Arabic', 'pressbooks' ),
@@ -146,6 +147,8 @@ class GlobalTypography {
 			case 'el': // Ancient Greek
 				$lang = 'grc';
 				break;
+			case 'am': // Amharic
+				$lang = 'am';
 			case 'ar': // Arabic
 			case 'ar-dz':
 			case 'ar-bh':
@@ -300,6 +303,15 @@ class GlobalTypography {
 	 */
 	function fontPacks() {
 		$fontpacks = [
+			'am' => [
+				'baseurl' => 'https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/',
+				'files' => [
+					'NotoSansEthiopic-Regular.otf' => 'NotoSansEthiopic/full/otf/NotoSansEthiopic-Regular.otf',
+					'NotoSansEthiopic-Bold.otf' => 'NotoSansEthiopic/full/otf/NotoSansEthiopic-Bold.otf',
+					'NotoSerifEthiopic-Regular.otf' => 'NotoSerifEthiopic/full/otf/NotoSerifEthiopic-Regular.otf',
+					'NotoSerifEthiopic-Bold.otf' => 'NotoSerifEthiopic/full/otf/NotoSerifEthiopic-Bold.otf',
+				],
+			],
 			'bn' => [
 				'baseurl' => 'https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/',
 				'files' => [
@@ -455,7 +467,7 @@ class GlobalTypography {
 				],
 			],
 		];
-		return $fontpacks;
+			return $fontpacks;
 	}
 
 	/**
