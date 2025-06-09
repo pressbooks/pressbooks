@@ -98,7 +98,7 @@ class Docraptor extends Pdf {
 		}
 		$retval = false;
 
-		yield 58 => __( 'Preparing document...', 'pressbooks' );
+		yield 58 => __( 'Rendering content...', 'pressbooks' );
 		try {
 			$doc = new Doc();
 			if ( defined( 'WP_TESTS_MULTISITE' ) ) {
