@@ -149,7 +149,7 @@ class GlobalTypography {
 				break;
 			case 'am': // Amharic
 				$lang = 'am';
-                break;
+				break;
 			case 'ar': // Arabic
 			case 'ar-dz':
 			case 'ar-bh':
