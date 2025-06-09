@@ -5,6 +5,7 @@ namespace Pressbooks\Interactive;
 use function Pressbooks\Utility\length_to_inches;
 use function \Pressbooks\Utility\debug_error_log;
 use H5PExtractor\H5PExtractor;
+use Pressbooks\Container;
 
 /**
  * This class wedges itself in between Pressbooks and the H5P WordPress Plugin
@@ -38,6 +39,8 @@ class H5P {
 	 */
 	protected bool $enableStaticRepresentation = false;
 
+	static ?H5P $instance = null;
+
 	/**
 	 * @param Blade $blade
 	 */
@@ -48,6 +51,14 @@ class H5P {
 		}
 		add_action( 'pb_pre_export', [ $this, 'shouldEnablePrint' ] );
 		add_filter( 'print_h5p_content', [ $this, 'generateCustomH5pWrapper' ], 10, 2 );
+		self::$instance = $this;
+	}
+
+	public static function getInstance(): H5P {
+		if ( null === self::$instance ) {
+			self::$instance = new static( Container::get( 'Blade' ) );
+		}
+		return self::$instance;
 	}
 
 	/**

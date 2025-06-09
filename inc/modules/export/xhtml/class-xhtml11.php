@@ -14,6 +14,7 @@ namespace Pressbooks\Modules\Export\Xhtml;
 use Exception;
 use function Pressbooks\Image\maybe_swap_with_bigger;
 use function Pressbooks\Modules\Export\get_contributors_section;
+use function Pressbooks\Modules\Export\include_exportable_h5p;
 use function Pressbooks\Sanitize\clean_filename;
 use function Pressbooks\Sanitize\decode;
 use function Pressbooks\Utility\check_xmllint_install;
@@ -27,6 +28,8 @@ use Pressbooks\Contributors;
 use Pressbooks\HtmLawed;
 use Pressbooks\HtmlParser;
 use Pressbooks\Interactive\Content;
+use Pressbooks\Interactive\H5P;
+use Pressbooks\MathJax;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Modules\Export\ExportHelpers;
 use Pressbooks\Modules\Export\Traits\HandleContributors;
@@ -150,6 +153,12 @@ class Xhtml11 extends Export {
 	private array $metaCache = [];
 
 	/**
+	 * Cache for pre-export processing
+	 */
+	private static bool $preExportOptimized = false;
+	private static array $preExportCache = [];
+
+	/**
 	 * @param array $args
 	 */
 	public function __construct( array $args ) {
@@ -231,6 +240,7 @@ class Xhtml11 extends Export {
 			// Cleanup and restore environment
 			$this->restoreDatabaseOperations();
 			$this->clearCaches();
+			$this->cleanupAfterExport();
 		}
 
 		return $this->outputPath;
@@ -320,7 +330,7 @@ class Xhtml11 extends Export {
 	 */
 	public function transformGenerator() : Generator {
 		//TODO: (bg) Check why is this required in theory is being called in Export::preExport() maybe hooks calling order
-		do_action( 'pb_pre_export' );
+		$this->optimizedPreExport();
 
 		// Override footnote shortcode
 		if ( ! empty( $_GET['endnotes'] ) ) {
@@ -480,22 +490,17 @@ class Xhtml11 extends Export {
 			set_transient( self::TRANSIENT, [ md5( wp_json_encode( $my_get ) ), $buffer_inner_html ] );
 		}
 
-		// Allow actions to generate the custom stylesheet after content processing
 		do_action( 'pb_xhtml_after_content_processed' );
 
-		// Get the URL for the custom stylesheet, if generated
 		$custom_stylesheet_url = apply_filters( 'pb_xhtml_custom_stylesheet_url', '' );
 
-		// Put inner HTML inside outer HTML
 		$pos = strpos( $buffer_outer_html, $replace_token );
 		$buffer = substr_replace( $buffer_outer_html, $buffer_inner_html, $pos, strlen( $replace_token ) );
 
-		// Inject the custom stylesheet link or remove the placeholder
 		if ( ! empty( $custom_stylesheet_url ) ) {
 			$link_tag = sprintf( '<link rel="stylesheet" href="%s" type="text/css" />', esc_url( $custom_stylesheet_url ) );
 			$buffer = str_replace( '<!-- PB_CUSTOM_STYLES_PLACEHOLDER -->', $link_tag, $buffer );
 		} else {
-			// Remove placeholder if no stylesheet URL was provided
 			$buffer = str_replace( "<!-- PB_CUSTOM_STYLES_PLACEHOLDER -->\n", '', $buffer );
 		}
 
@@ -525,8 +530,7 @@ class Xhtml11 extends Export {
 	 *
 	 * @return string
 	 */
-	function footnoteShortcode( $atts, $content = null ): string
-	{
+	function footnoteShortcode( $atts, $content = null ): string {
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, preProcessBookContents, ...]
 		$this->footnotes[ $id ][] = trim( $content );
 		$ref_id = count( $this->footnotes[ $id ] );
@@ -544,7 +548,7 @@ class Xhtml11 extends Export {
 	 *
 	 * @return string
 	 */
-	function endnoteShortcode( $atts, $content = null ) {
+	function endnoteShortcode( $atts, $content = null ): string {
 
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, preProcessBookContents, ...]
 
@@ -600,8 +604,8 @@ class Xhtml11 extends Export {
 
 		$cache_key = 'footnotes_' . $id . '_' . md5( serialize( $this->footnotes[ $id ] ) );
 
-		if ( isset( $this->processingCache[$cache_key] ) ) {
-			return $this->processingCache[$cache_key];
+		if ( isset( $this->processingCache[ $cache_key ] ) ) {
+			return $this->processingCache[ $cache_key ];
 		}
 
 		if ( ! has_filter( 'the_content', 'do_shortcode' ) ) {
@@ -618,7 +622,7 @@ class Xhtml11 extends Export {
 		}
 
 		$result = '<div class="footnotes">' . implode( '', $footnotes_html ) . '</div>';
-		$this->processingCache[$cache_key] = $result;
+		$this->processingCache[ $cache_key ] = $result;
 
 		return $result;
 	}
@@ -639,10 +643,9 @@ class Xhtml11 extends Export {
 	 * Optimize WordPress environment for export
 	 */
 	protected function optimizeWordPressForExport(): void {
-		// Suspend cache invalidation during export
+
 		wp_suspend_cache_invalidation( true );
 
-		// Increase memory limit if possible
 		if ( function_exists( 'ini_set' ) ) {
 			ini_set( 'memory_limit', '1024M' );
 		}
@@ -650,7 +653,6 @@ class Xhtml11 extends Export {
 		// Disable term counting for performance
 		wp_defer_term_counting( true );
 
-		// Increase script execution time
 		if ( function_exists( 'set_time_limit' ) ) {
 			set_time_limit( 0 ); // No time limit
 		}
@@ -750,12 +752,12 @@ class Xhtml11 extends Export {
 	private function cachedSanitizeXmlAttribute( string $value ): string {
 		$cache_key = 'xml_attr_' . md5( $value );
 
-		if ( isset( $this->processingCache[$cache_key] ) ) {
-			return $this->processingCache[$cache_key];
+		if ( isset( $this->processingCache[ $cache_key ] ) ) {
+			return $this->processingCache[ $cache_key ];
 		}
 
 		$result = Sanitize\sanitize_xml_attribute( $value );
-		$this->processingCache[$cache_key] = $result;
+		$this->processingCache[ $cache_key ] = $result;
 
 		return $result;
 	}
@@ -766,15 +768,15 @@ class Xhtml11 extends Export {
 	private function getCachedDomParser( string $content ): \DOMDocument {
 		$cache_key = md5( $content );
 
-		if ( isset( $this->domCache[$cache_key] ) ) {
-			return clone $this->domCache[$cache_key];
+		if ( isset( $this->domCache[ $cache_key ] ) ) {
+			return clone $this->domCache[ $cache_key ];
 		}
 
 		$html5 = new HtmlParser();
 		$dom = $html5->loadHTML( $content );
 
 		// Cache the DOM (clone it to avoid reference issues)
-		$this->domCache[$cache_key] = clone $dom;
+		$this->domCache[ $cache_key ] = clone $dom;
 
 		return $dom;
 	}
@@ -791,12 +793,12 @@ class Xhtml11 extends Export {
 	 * Cached image swapping
 	 */
 	private function getCachedImageSwap( string $src ): string {
-		if ( isset( $this->imageCache[$src] ) ) {
-			return $this->imageCache[$src];
+		if ( isset( $this->imageCache[ $src ] ) ) {
+			return $this->imageCache[ $src ];
 		}
 
 		$new_src = maybe_swap_with_bigger( $src );
-		$this->imageCache[$src] = $new_src;
+		$this->imageCache[ $src ] = $new_src;
 
 		return $new_src;
 	}
@@ -812,7 +814,6 @@ class Xhtml11 extends Export {
 	 */
 	protected function preProcessBookContents( $book_contents ) {
 
-		// We need to change global $id for shortcodes, the_content, ...
 		global $id;
 		$old_id = $id;
 
@@ -822,11 +823,11 @@ class Xhtml11 extends Export {
 
 		// Process content in batches
 		foreach ( $book_contents as $type => $struct ) {
-			if ( preg_match( '/^__/', $type ) ) {
+			if ( str_starts_with( $type, '__' ) ) {
 				continue; // Skip __magic keys
 			}
 
-			$book_contents[$type] = $this->batchProcessStructure( $struct, $type );
+			$book_contents[ $type ] = $this->batchProcessStructure( $struct, $type );
 		}
 
 		$id = $old_id;
@@ -842,25 +843,25 @@ class Xhtml11 extends Export {
 		foreach ( $struct as $i => $val ) {
 			if ( isset( $val['post_content'] ) && $val['export'] ) {
 				$id = $val['ID'];
-				$struct[$i]['post_content'] = $this->optimizedPreProcessPostContent(
+				$struct[ $i ]['post_content'] = $this->optimizedPreProcessPostContent(
 					$val['post_content'],
 					$id
 				);
 			} else {
-				$struct[$i]['post_content'] = '';
+				$struct[ $i ]['post_content'] = '';
 			}
 
 			// Optimize title and name processing
 			if ( isset( $val['post_title'] ) ) {
-				$struct[$i]['post_title'] = $this->cachedSanitizeXmlAttribute( $val['post_title'] );
+				$struct[ $i ]['post_title'] = $this->cachedSanitizeXmlAttribute( $val['post_title'] );
 			}
 			if ( isset( $val['post_name'] ) ) {
-				$struct[$i]['post_name'] = $this->preProcessPostName( $val['post_name'] );
+				$struct[ $i ]['post_name'] = $this->preProcessPostName( $val['post_name'] );
 			}
 
 			// Handle chapters in parts with batch processing
 			if ( $type === 'part' && isset( $val['chapters'] ) ) {
-				$struct[$i]['chapters'] = $this->batchProcessChapters( $val['chapters'] );
+				$struct[ $i ]['chapters'] = $this->batchProcessChapters( $val['chapters'] );
 			}
 		}
 
@@ -876,17 +877,17 @@ class Xhtml11 extends Export {
 		foreach ( $chapters as $j => $chapter ) {
 			if ( isset( $chapter['post_content'] ) ) {
 				$id = $chapter['ID'];
-				$chapters[$j]['post_content'] = $this->optimizedPreProcessPostContent(
+				$chapters[ $j ]['post_content'] = $this->optimizedPreProcessPostContent(
 					$chapter['post_content'],
 					$id
 				);
 			}
 
 			if ( isset( $chapter['post_title'] ) ) {
-				$chapters[$j]['post_title'] = $this->cachedSanitizeXmlAttribute( $chapter['post_title'] );
+				$chapters[ $j ]['post_title'] = $this->cachedSanitizeXmlAttribute( $chapter['post_title'] );
 			}
 			if ( isset( $chapter['post_name'] ) ) {
-				$chapters[$j]['post_name'] = $this->preProcessPostName( $chapter['post_name'] );
+				$chapters[ $j ]['post_name'] = $this->preProcessPostName( $chapter['post_name'] );
 			}
 		}
 
@@ -897,14 +898,12 @@ class Xhtml11 extends Export {
 	 * Optimized content processing with caching
 	 */
 	protected function optimizedPreProcessPostContent( string $content, int $id = null ): string {
-		// Create cache key
 		$cache_key = 'content_' . md5( $content . $id );
 
-		if ( isset( $this->processingCache[$cache_key] ) ) {
-			return $this->processingCache[$cache_key];
+		if ( isset( $this->processingCache[ $cache_key ] ) ) {
+			return $this->processingCache[ $cache_key ];
 		}
 
-		// Apply filters only once
 		$content = apply_filters( 'the_export_content', $content );
 
 		// Batch remove empty tags
@@ -925,8 +924,7 @@ class Xhtml11 extends Export {
 
 		$content = $this->tidy( $content );
 
-		// Cache the result
-		$this->processingCache[$cache_key] = $content;
+		$this->processingCache[ $cache_key ] = $content;
 
 		return $content;
 	}
@@ -951,8 +949,8 @@ class Xhtml11 extends Export {
 
 		$cache_key = 'img_attrs_' . md5( $content );
 
-		if ( isset( $this->processingCache[$cache_key] ) ) {
-			return $this->processingCache[$cache_key];
+		if ( isset( $this->processingCache[ $cache_key ] ) ) {
+			return $this->processingCache[ $cache_key ];
 		}
 
 		$dom = $this->getCachedDomParser( $content );
@@ -971,7 +969,7 @@ class Xhtml11 extends Export {
 		}
 
 		$result = $this->saveHTMLFromDom( $dom );
-		$this->processingCache[$cache_key] = $result;
+		$this->processingCache[ $cache_key ] = $result;
 
 		return $result;
 	}
@@ -988,9 +986,7 @@ class Xhtml11 extends Export {
 	 * @return string
 	 */
 	protected function switchLaTexFormat( $content ) {
-		$content = preg_replace( '/(quicklatex.com-[a-f0-9]{32}_l3.)(png)/i', '$1svg', $content );
-
-		return $content;
+		return preg_replace( '/(quicklatex.com-[a-f0-9]{32}_l3.)(png)/i', '$1svg', $content );
 	}
 
 	/**
@@ -1004,8 +1000,8 @@ class Xhtml11 extends Export {
 
 		$cache_key = 'links_' . md5( $source_content . $id );
 
-		if ( isset( $this->processingCache[$cache_key] ) ) {
-			return $this->processingCache[$cache_key];
+		if ( isset( $this->processingCache[ $cache_key ] ) ) {
+			return $this->processingCache[ $cache_key ];
 		}
 
 		// Use cached DOM parser
@@ -1044,7 +1040,7 @@ class Xhtml11 extends Export {
 		}
 
 		$result = $has_changes ? $this->saveHTMLFromDom( $dom ) : $source_content;
-		$this->processingCache[$cache_key] = $result;
+		$this->processingCache[ $cache_key ] = $result;
 
 		return $result;
 	}
@@ -1110,8 +1106,8 @@ class Xhtml11 extends Export {
 
 		$cache_key = 'images_' . md5( $content );
 
-		if ( isset( $this->processingCache[$cache_key] ) ) {
-			return $this->processingCache[$cache_key];
+		if ( isset( $this->processingCache[ $cache_key ] ) ) {
+			return $this->processingCache[ $cache_key ];
 		}
 
 		$dom = $this->getCachedDomParser( $content );
@@ -1132,7 +1128,7 @@ class Xhtml11 extends Export {
 		}
 
 		$result = $has_changes ? $this->saveHTMLFromDom( $dom ) : $content;
-		$this->processingCache[$cache_key] = $result;
+		$this->processingCache[ $cache_key ] = $result;
 
 		return $result;
 	}
@@ -1855,12 +1851,179 @@ class Xhtml11 extends Export {
 	 *
 	 * @return bool
 	 */
-	static function hasDependencies() {
+	public static function hasDependencies() {
 		if ( true === check_xmllint_install() ) {
 			return true;
 		}
 
 		return false;
+	}
+
+	/**
+	 * Optimized replacement for do_action( 'pb_pre_export' )
+	 * Executes the same functions but with caching and optimization
+	 */
+	private function optimizedPreExport(): void {
+		if ( self::$preExportOptimized ) {
+			return;
+		}
+
+		$cache_key = 'pb_pre_export_' . md5( serialize( $_GET ) . get_current_blog_id() );
+
+		$cached_result = get_transient( $cache_key );
+		if ( $cached_result && is_array( $cached_result ) ) {
+			// Restore cached state
+			self::$preExportCache = $cached_result;
+			self::$preExportOptimized = true;
+			return;
+		}
+
+		$this->optimizedIncludeExportableH5P();
+		$this->optimizedH5PShouldEnablePrint();
+		$this->optimizedInteractiveContentBeforeExport();
+		$this->optimizedMathJaxBeforeExport();
+
+		set_transient( $cache_key, self::$preExportCache, 30 * MINUTE_IN_SECONDS );
+
+		self::$preExportOptimized = true;
+	}
+
+	/**
+	 * Optimized version of \Pressbooks\Modules\Export\include_exportable_h5p
+	 */
+	private function optimizedIncludeExportableH5P(): void {
+		if ( ! $this->hasH5PContent() ) {
+			return;
+		}
+
+		if ( function_exists( '\Pressbooks\Modules\Export\include_exportable_h5p' ) ) {
+			include_exportable_h5p();
+		}
+	}
+
+	/**
+	 * Optimized version of Pressbooks\Interactive\H5P::shouldEnablePrint
+	 */
+	private function optimizedH5PShouldEnablePrint(): void {
+		// Quick check - only process if H5P is active and we have H5P content
+		if ( ! class_exists( 'Pressbooks\Interactive\H5P' ) || ! $this->hasH5PContent() ) {
+			return;
+		}
+
+		// Cache this setting since it doesn't change during export
+		$cache_key = 'h5p_print_enabled_' . get_current_blog_id();
+		$cached = get_transient( $cache_key );
+
+		if ( $cached === false ) {
+			if ( method_exists( 'Pressbooks\Interactive\H5P', 'shouldEnablePrint' ) ) {
+				H5P::getInstance()->shouldEnablePrint();
+			}
+			set_transient( $cache_key, true, HOUR_IN_SECONDS );
+		}
+	}
+
+	/**
+	 * Optimized version of Pressbooks\Interactive\Content::beforeExport
+	 */
+	private function optimizedInteractiveContentBeforeExport(): void {
+		if ( ! $this->hasInteractiveContent() ) {
+			return;
+		}
+
+		if ( class_exists( 'Pressbooks\Interactive\Content' ) && method_exists( 'Pressbooks\Interactive\Content', 'beforeExport' ) ) {
+			$instance = Content::init();
+			$instance->beforeExport();
+		}
+	}
+
+	/**
+	 * Optimized version of Pressbooks\MathJax::beforeExport
+	 */
+	private function optimizedMathJaxBeforeExport(): void {
+		if ( ! $this->hasMathContent() ) {
+			return;
+		}
+
+		$cache_key = 'mathjax_export_setup_' . get_current_blog_id();
+		$cached = get_transient( $cache_key );
+
+		if ( $cached === false ) {
+			if ( class_exists( 'Pressbooks\MathJax' ) && method_exists( 'Pressbooks\MathJax', 'beforeExport' ) ) {
+				$instance = MathJax::init();
+				$instance->beforeExport();
+			}
+			set_transient( $cache_key, true, HOUR_IN_SECONDS );
+		}
+	}
+
+	/**
+	 * Quick check if book has H5P content
+	 */
+	private function hasH5PContent(): bool {
+		static $has_h5p = null;
+
+		if ( $has_h5p === null ) {
+			global $wpdb;
+			$count = $wpdb->get_var(
+				"SELECT COUNT(*) FROM {$wpdb->posts}
+                 WHERE post_status = 'publish'
+                 AND (post_content LIKE '%[h5p %' OR post_content LIKE '%wp:h5p/%')"
+			);
+			$has_h5p = $count > 0;
+		}
+
+		return $has_h5p;
+	}
+
+	/**
+	 * Quick check if book has interactive content
+	 */
+	private function hasInteractiveContent(): bool {
+		static $has_interactive = null;
+
+		if ( $has_interactive === null ) {
+			global $wpdb;
+			$count = $wpdb->get_var(
+				"SELECT COUNT(*) FROM {$wpdb->posts}
+                 WHERE post_status = 'publish'
+                 AND (post_content LIKE '%[interactive%'
+                      OR post_content LIKE '%wp:interactive/%'
+                      OR post_content LIKE '%class=\"interactive%')"
+			);
+			$has_interactive = $count > 0;
+		}
+
+		return $has_interactive;
+	}
+
+	/**
+	 * Quick check if book has math content
+	 */
+	private function hasMathContent(): bool {
+		static $has_math = null;
+
+		if ( $has_math === null ) {
+			global $wpdb;
+			$count = $wpdb->get_var(
+				"SELECT COUNT(*) FROM {$wpdb->posts}
+                 WHERE post_status = 'publish'
+                 AND (post_content LIKE '%[latex%'
+                      OR post_content LIKE '%\\(%'
+                      OR post_content LIKE '%\\[%'
+                      OR post_content LIKE '%$%$%')"
+			);
+			$has_math = $count > 0;
+		}
+
+		return $has_math;
+	}
+
+	/**
+	 * Clean up after export
+	 */
+	public function cleanupAfterExport(): void {
+		self::$preExportOptimized = false;
+		self::$preExportCache = [];
 	}
 
 }
