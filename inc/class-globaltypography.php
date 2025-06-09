@@ -42,7 +42,6 @@ class GlobalTypography {
 			'hy' => __( 'Armenian', 'pressbooks' ),
 			'ar' => __( 'Arabic', 'pressbooks' ),
 			'bn' => __( 'Bengali', 'pressbooks' ),
-			'he' => __( 'Biblical Hebrew', 'pressbooks' ),
 			'cans' => __( 'Canadian Indigenous Syllabics', 'pressbooks' ),
 			'chr' => __( 'Cherokee', 'pressbooks' ),
 			'zh_HANS' => __( 'Chinese (Simplified)', 'pressbooks' ),
@@ -50,7 +49,8 @@ class GlobalTypography {
 			'cop' => __( 'Coptic', 'pressbooks' ),
 			'hi' => __( 'Devanagari (Hindi and Sanskrit)', 'pressbooks' ),
 			'gu' => __( 'Gujarati', 'pressbooks' ),
-			'pan' => __( 'Punjabi (Gurmukhi)', 'pressbooks' ),
+			'he' => __( 'Hebrew (Biblical)', 'pressbooks' ),
+			'he_modern' => __( 'Hebrew (Modern)', 'pressbooks' ),
 			'ja' => __( 'Japanese', 'pressbooks' ),
 			'kn' => __( 'Kannada', 'pressbooks' ),
 			'ko' => __( 'Korean', 'pressbooks' ),
@@ -59,11 +59,13 @@ class GlobalTypography {
 			'music' => __( 'Musical Notation', 'pressbooks' ),
 			'nqo' => __( 'N\'Ko', 'pressbooks' ),
 			'or' => __( 'Odia', 'pressbooks' ),
+			'pan' => __( 'Punjabi (Gurmukhi)', 'pressbooks' ),
 			'syr' => __( 'Syriac', 'pressbooks' ),
 			'ta' => __( 'Tamil', 'pressbooks' ),
 			'te' => __( 'Telugu', 'pressbooks' ),
 			'bo' => __( 'Tibetan', 'pressbooks' ),
 			'tr' => __( 'Turkish', 'pressbooks' ),
+			'ur' => __( 'Urdu', 'pressbooks' ),
 		];
 	}
 
@@ -207,6 +209,9 @@ class GlobalTypography {
 			case 'tr': // Turkish
 				$lang = 'tr';
 				break;
+			case 'ur': // Urdu
+				$lang = 'ur';
+				break;
 		}
 
 		return $lang;
@@ -327,6 +332,15 @@ class GlobalTypography {
 					'NotoSansAdlamUnjoined-Bold.otf' => 'NotoSansAdlamUnjoined/full/otf/NotoSansAdlamUnjoined-Bold.otf',
 				],
 			],
+			'he_modern' => [
+				'baseurl' => 'https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/',
+				'files' => [
+					'NotoSansHebrew-Regular.otf' => 'NotoSansHebrew/full/otf/NotoSansHebrew-Regular.otf',
+					'NotoSansHebrew-Bold.otf' => 'NotoSansHebrew/full/otf/NotoSansHebrew-Bold.otf',
+					'NotoSerifHebrew-Regular.otf' => 'NotoSerifHebrew/full/otf/NotoSerifHebrew-Regular.otf',
+					'NotoSerifHebrew-Bold.otf' => 'NotoSerifHebrew/full/otf/NotoSerifHebrew-Bold.otf',
+				],
+			],
 			'hi' => [
 				'baseurl' => 'https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/',
 				'files' => [
@@ -416,6 +430,13 @@ class GlobalTypography {
 					'NotoSansTelugu-Bold.otf' => 'NotoSansTelugu/full/otf/NotoSansTelugu-Bold.otf',
 					'NotoSerifTelugu-Regular.otf' => 'NotoSerifTelugu/full/otf/NotoSerifTelugu-Regular.otf',
 					'NotoSerifTelugu-Bold.otf' => 'NotoSerifTelugu/full/otf/NotoSerifTelugu-Bold.otf',
+				],
+			],
+			'ur' => [
+				'baseurl' => 'https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/',
+				'files' => [
+					'NotoNastaliqUrdu-Regular.otf' => 'NotoNastaliqUrdu/full/otf/NotoNastaliqUrdu-Regular.otf',
+					'NotoNastaliqUrdu-Bold.otf' => 'NotoNastaliqUrdu/full/otf/NotoNastaliqUrdu-Bold.otf',
 				],
 			],
 			'zh_HANS' => [
