@@ -15,8 +15,10 @@ use function Pressbooks\Image\is_valid_image;
 use function Pressbooks\Image\resize_down;
 use function Pressbooks\Media\is_valid_media;
 use function Pressbooks\Modules\Export\get_contributors_section;
+use function Pressbooks\Sanitize\canonicalize_url;
 use function Pressbooks\Sanitize\decode;
 use function Pressbooks\Sanitize\sanitize_xml_attribute;
+use function Pressbooks\Sanitize\strip_container_tags;
 use function Pressbooks\Utility\check_epubcheck_install;
 use function Pressbooks\Utility\create_tmp_file;
 use function Pressbooks\Utility\debug_error_log;
@@ -26,6 +28,8 @@ use function Pressbooks\Utility\get_contributors_name_imploded;
 use function Pressbooks\Utility\get_media_path;
 use function Pressbooks\Utility\implode_add_and;
 use function Pressbooks\Utility\put_contents;
+use function Pressbooks\Utility\remote_get_retry;
+use function Pressbooks\Utility\rmrdir;
 use function Pressbooks\Utility\str_ends_with;
 use function Pressbooks\Utility\str_lreplace;
 use function Pressbooks\Utility\str_starts_with;
@@ -875,7 +879,7 @@ class Epub extends Export {
 	protected function deleteTmpDir(): void {
 		// Cleanup temporary directory, if any
 		if ( ! empty( $this->tmpDir ) ) {
-			\Pressbooks\Utility\rmrdir( $this->tmpDir );
+			rmrdir( $this->tmpDir );
 		}
 	}
 
@@ -994,7 +998,7 @@ class Epub extends Export {
 		yield from $this->renderBackMatterGenerator( $book_contents, $metadata );
 
 		yield 58 => $this->generatorPrefix . __( 'Processing CSS', 'pressbooks' );
-		$this->updateCssFile();
+		//$this->updateCssFile();
 		// Table of contents
 		// IMPORTANT: Do this last! Uses $this->manifest to generate itself
 		yield 60 => $this->generatorPrefix . __( 'Creating table of contents', 'pressbooks' );
@@ -1161,6 +1165,7 @@ class Epub extends Export {
 					// Look for wp-content/themes/pressbooks-book/assets/typography/fonts/*.ttf (or .otf), copy into our Epub
 
 					$my_font = realpath( "$typography_dir/$url" );
+
 					if ( $my_font ) {
 						copy( $my_font, "$path_to_epub_assets/$filename" );
 						return "url(assets/$filename)";
@@ -2040,7 +2045,7 @@ class Epub extends Export {
 		$html = $dom->saveXML( $dom->documentElement );
 
 		// Remove pb_fixme wrapper and remove auto-created <html> <body> and <!DOCTYPE> tags.
-		return $html5->removeFixMeWrapper( \Pressbooks\Sanitize\strip_container_tags( $html ) );
+		return $html5->removeFixMeWrapper( strip_container_tags( $html ) );
 	}
 
 	/**
@@ -2125,22 +2130,18 @@ class Epub extends Export {
 
 			$base64_data = $matches[2];
 
-			// Decode the base64 data
 			$image_data = base64_decode( $base64_data, true );
 		if ( $image_data === false ) {
 			return false;
 		}
 
-			// Generate a unique filename
 			$filename = 'image_' . md5( $data_url ) . '.' . $extension;
 			$filepath = $directory . '/' . $filename;
 
-			// Make sure the directory exists
 		if ( ! file_exists( $directory ) ) {
 			mkdir( $directory, 0755, true );
 		}
 
-			// Save the image
 		if ( file_put_contents( $filepath, $image_data ) === false ) {
 			return false;
 		}
@@ -2166,7 +2167,7 @@ class Epub extends Export {
 			'timeout' => $this->timeout,
 		];
 
-		$response = \Pressbooks\Utility\remote_get_retry( $url, $args );
+		$response = remote_get_retry( $url, $args );
 
 		// WordPress error?
 		if ( is_wp_error( $response ) ) {
@@ -2439,7 +2440,7 @@ class Epub extends Export {
 
 			// Canonicalize, fix typos, remove garbage
 			if ( isset( $current_url[0] ) && '#' !== $current_url[0] ) {
-				$url->setAttribute( 'href', \Pressbooks\Sanitize\canonicalize_url( $current_url ) );
+				$url->setAttribute( 'href', canonicalize_url( $current_url ) );
 			}
 		}
 

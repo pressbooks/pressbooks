@@ -266,7 +266,7 @@ class Xhtml11 extends Export {
 			throw new Exception();
 		}
 
-		yield 95 => $this->generatorPrefix . __( 'Validation successful', 'pressbooks' );
+		yield 100 => $this->generatorPrefix . __( 'Validation successful', 'pressbooks' );
 		return $return_var === 0;
 	}
 

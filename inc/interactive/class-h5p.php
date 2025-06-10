@@ -51,6 +51,7 @@ class H5P {
 		}
 		add_action( 'pb_pre_export', [ $this, 'shouldEnablePrint' ] );
 		add_filter( 'print_h5p_content', [ $this, 'generateCustomH5pWrapper' ], 10, 2 );
+		add_filter( 'sanitize_file_name', [ $this, 'renameFont' ] );
 		self::$instance = $this;
 	}
 
@@ -476,7 +477,7 @@ class H5P {
 	}
 
 	/**
-	 * Replace [h5p] shortcode with standard text (used in exports)
+	 * Replace [h5p] shortcode with static HTML representation of H5P content.
 	 *
 	 * @see \H5P_Plugin::shortcode
 	 *
@@ -560,7 +561,7 @@ class H5P {
 	 *
 	 * @return string
 	 */
-	public function replaceUncloneable( $content, $ids = [] ) {
+	public function replaceUncloneable( $content, $ids = [] ): string {
 		$pattern = get_shortcode_regex( [ self::SHORTCODE ] );
 		$callback = function ( $shortcode ) use ( $ids ) {
 			$warning = __( 'The original version of this chapter contained H5P content. You may want to remove or replace this element.', 'pressbooks' );
@@ -594,7 +595,7 @@ class H5P {
 	 *
 	 * @return int[]
 	 */
-	public function findAllShortcodeIds( $content ) {
+	public function findAllShortcodeIds( $content ): array {
 		$ids = [];
 		$matches = [];
 		$regex = get_shortcode_regex( [ self::SHORTCODE ] );
@@ -621,8 +622,15 @@ class H5P {
 	 * @param $content array this array holds the custom post type information (h5p)
 	 * @return string
 	 */
-	public function generateCustomH5pWrapper( $html, array $content ) {
+	public function generateCustomH5pWrapper( $html, array $content ): string {
 		return '<div id="' . self::SHORTCODE . '-' . $content['id'] . '">' . $html . '</div>';
+	}
+
+	public function renameFont( $filename ): string {
+		if ( $filename === 'H5P.ttf' ) {
+			return 'h5p.ttf';
+		}
+		return $filename;
 	}
 
 }
