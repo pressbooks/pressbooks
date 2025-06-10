@@ -14,7 +14,6 @@ namespace Pressbooks\Modules\Export\Xhtml;
 use Exception;
 use function Pressbooks\Image\maybe_swap_with_bigger;
 use function Pressbooks\Modules\Export\get_contributors_section;
-use function Pressbooks\Modules\Export\include_exportable_h5p;
 use function Pressbooks\Sanitize\clean_filename;
 use function Pressbooks\Sanitize\decode;
 use function Pressbooks\Utility\check_xmllint_install;
@@ -28,8 +27,6 @@ use Pressbooks\Contributors;
 use Pressbooks\HtmLawed;
 use Pressbooks\HtmlParser;
 use Pressbooks\Interactive\Content;
-use Pressbooks\Interactive\H5P;
-use Pressbooks\MathJax;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Modules\Export\ExportHelpers;
 use Pressbooks\Modules\Export\Traits\HandleContributors;
@@ -240,7 +237,6 @@ class Xhtml11 extends Export {
 			// Cleanup and restore environment
 			$this->restoreDatabaseOperations();
 			$this->clearCaches();
-			$this->cleanupAfterExport();
 		}
 
 		return $this->outputPath;
@@ -330,7 +326,7 @@ class Xhtml11 extends Export {
 	 */
 	public function transformGenerator() : Generator {
 		//TODO: (bg) Check why is this required in theory is being called in Export::preExport() maybe hooks calling order
-		$this->optimizedPreExport();
+		do_action( 'pb_pre_export' );
 
 		// Override footnote shortcode
 		if ( ! empty( $_GET['endnotes'] ) ) {
@@ -1857,173 +1853,6 @@ class Xhtml11 extends Export {
 		}
 
 		return false;
-	}
-
-	/**
-	 * Optimized replacement for do_action( 'pb_pre_export' )
-	 * Executes the same functions but with caching and optimization
-	 */
-	private function optimizedPreExport(): void {
-		if ( self::$preExportOptimized ) {
-			return;
-		}
-
-		$cache_key = 'pb_pre_export_' . md5( serialize( $_GET ) . get_current_blog_id() );
-
-		$cached_result = get_transient( $cache_key );
-		if ( $cached_result && is_array( $cached_result ) ) {
-			// Restore cached state
-			self::$preExportCache = $cached_result;
-			self::$preExportOptimized = true;
-			return;
-		}
-
-		$this->optimizedIncludeExportableH5P();
-		$this->optimizedH5PShouldEnablePrint();
-		$this->optimizedInteractiveContentBeforeExport();
-		$this->optimizedMathJaxBeforeExport();
-
-		set_transient( $cache_key, self::$preExportCache, 30 * MINUTE_IN_SECONDS );
-
-		self::$preExportOptimized = true;
-	}
-
-	/**
-	 * Optimized version of \Pressbooks\Modules\Export\include_exportable_h5p
-	 */
-	private function optimizedIncludeExportableH5P(): void {
-		if ( ! $this->hasH5PContent() ) {
-			return;
-		}
-
-		if ( function_exists( '\Pressbooks\Modules\Export\include_exportable_h5p' ) ) {
-			include_exportable_h5p();
-		}
-	}
-
-	/**
-	 * Optimized version of Pressbooks\Interactive\H5P::shouldEnablePrint
-	 */
-	private function optimizedH5PShouldEnablePrint(): void {
-		// Quick check - only process if H5P is active and we have H5P content
-		if ( ! class_exists( 'Pressbooks\Interactive\H5P' ) || ! $this->hasH5PContent() ) {
-			return;
-		}
-
-		// Cache this setting since it doesn't change during export
-		$cache_key = 'h5p_print_enabled_' . get_current_blog_id();
-		$cached = get_transient( $cache_key );
-
-		if ( $cached === false ) {
-			if ( method_exists( 'Pressbooks\Interactive\H5P', 'shouldEnablePrint' ) ) {
-				H5P::getInstance()->shouldEnablePrint();
-			}
-			set_transient( $cache_key, true, HOUR_IN_SECONDS );
-		}
-	}
-
-	/**
-	 * Optimized version of Pressbooks\Interactive\Content::beforeExport
-	 */
-	private function optimizedInteractiveContentBeforeExport(): void {
-		if ( ! $this->hasInteractiveContent() ) {
-			return;
-		}
-
-		if ( class_exists( 'Pressbooks\Interactive\Content' ) && method_exists( 'Pressbooks\Interactive\Content', 'beforeExport' ) ) {
-			$instance = Content::init();
-			$instance->beforeExport();
-		}
-	}
-
-	/**
-	 * Optimized version of Pressbooks\MathJax::beforeExport
-	 */
-	private function optimizedMathJaxBeforeExport(): void {
-		if ( ! $this->hasMathContent() ) {
-			return;
-		}
-
-		$cache_key = 'mathjax_export_setup_' . get_current_blog_id();
-		$cached = get_transient( $cache_key );
-
-		if ( $cached === false ) {
-			if ( class_exists( 'Pressbooks\MathJax' ) && method_exists( 'Pressbooks\MathJax', 'beforeExport' ) ) {
-				$instance = MathJax::init();
-				$instance->beforeExport();
-			}
-			set_transient( $cache_key, true, HOUR_IN_SECONDS );
-		}
-	}
-
-	/**
-	 * Quick check if book has H5P content
-	 */
-	private function hasH5PContent(): bool {
-		static $has_h5p = null;
-
-		if ( $has_h5p === null ) {
-			global $wpdb;
-			$count = $wpdb->get_var(
-				"SELECT COUNT(*) FROM {$wpdb->posts}
-                 WHERE post_status = 'publish'
-                 AND (post_content LIKE '%[h5p %' OR post_content LIKE '%wp:h5p/%')"
-			);
-			$has_h5p = $count > 0;
-		}
-
-		return $has_h5p;
-	}
-
-	/**
-	 * Quick check if book has interactive content
-	 */
-	private function hasInteractiveContent(): bool {
-		static $has_interactive = null;
-
-		if ( $has_interactive === null ) {
-			global $wpdb;
-			$count = $wpdb->get_var(
-				"SELECT COUNT(*) FROM {$wpdb->posts}
-                 WHERE post_status = 'publish'
-                 AND (post_content LIKE '%[interactive%'
-                      OR post_content LIKE '%wp:interactive/%'
-                      OR post_content LIKE '%class=\"interactive%')"
-			);
-			$has_interactive = $count > 0;
-		}
-
-		return $has_interactive;
-	}
-
-	/**
-	 * Quick check if book has math content
-	 */
-	private function hasMathContent(): bool {
-		static $has_math = null;
-
-		if ( $has_math === null ) {
-			global $wpdb;
-			$count = $wpdb->get_var(
-				"SELECT COUNT(*) FROM {$wpdb->posts}
-                 WHERE post_status = 'publish'
-                 AND (post_content LIKE '%[latex%'
-                      OR post_content LIKE '%\\(%'
-                      OR post_content LIKE '%\\[%'
-                      OR post_content LIKE '%$%$%')"
-			);
-			$has_math = $count > 0;
-		}
-
-		return $has_math;
-	}
-
-	/**
-	 * Clean up after export
-	 */
-	public function cleanupAfterExport(): void {
-		self::$preExportOptimized = false;
-		self::$preExportCache = [];
 	}
 
 }
