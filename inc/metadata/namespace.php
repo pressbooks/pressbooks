@@ -582,6 +582,7 @@ function section_information_to_schema( $section_information, $book_information 
 		'pb_short_title' => 'alternateName',
 		'pb_subtitle' => 'alternativeHeadline',
 		'pb_is_based_on' => 'isBasedOn',
+		'pb_show_title' => 'showTitle',
 	];
 
 	$mapped_book_properties = [
@@ -790,6 +791,12 @@ function schema_to_section_information( $section_schema, $book_schema ) {
 	if ( isset( $section_schema['isBasedOn'] ) ) {
 		if ( empty( $book_schema['isBasedOn'] ) || $section_schema['isBasedOn'] !== $book_schema['isBasedOn'] ) {
 			$section_information['pb_is_based_on'] = $section_schema['isBasedOn'];
+		}
+	}
+
+	if ( isset( $section_schema['showTitle'] ) ) {
+		if ( empty( $book_schema['showTitle'] ) || $section_schema['showTitle'] !== $book_schema['showTitle'] ) {
+			$section_information['pb_show_title'] = $section_schema['showTitle'];
 		}
 	}
 
