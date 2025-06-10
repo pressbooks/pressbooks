@@ -11,11 +11,13 @@ namespace Pressbooks\Modules\Export\Epub;
 
 use Exception;
 use function Pressbooks\Image\default_cover_path;
+use function Pressbooks\Image\is_valid_image;
 use function Pressbooks\Image\resize_down;
 use function Pressbooks\Media\is_valid_media;
 use function Pressbooks\Modules\Export\get_contributors_section;
 use function Pressbooks\Sanitize\decode;
 use function Pressbooks\Sanitize\sanitize_xml_attribute;
+use function Pressbooks\Utility\check_epubcheck_install;
 use function Pressbooks\Utility\create_tmp_file;
 use function Pressbooks\Utility\debug_error_log;
 use function Pressbooks\Utility\explode_remove_and;
@@ -33,6 +35,7 @@ use Pressbooks\Container;
 use Pressbooks\Contributors;
 use Pressbooks\HtmLawed;
 use Pressbooks\HtmlParser;
+use Pressbooks\Interactive\Content;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Modules\Export\ExportHelpers;
 use Pressbooks\Modules\Export\Traits\HandleContributors;
@@ -1354,9 +1357,6 @@ class Epub extends Export {
 					'subtitle' => $metadata['pb_subtitle'] ?? '',
 					'authors' => $contributors_data['authors'],
 					'editors' => $contributors_data['editors'],
-					'translators' => $contributors_data['translators'],
-					'illustrators' => $contributors_data['illustrators'],
-					'contributors' => $contributors_data['contributors'],
 					'logo' => current_theme_supports( 'pressbooks_publisher_logo' ) ? get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] : null,
 					'publisher' => $metadata['pb_publisher'] ?? '',
 					'publisher_city' => $metadata['pb_publisher_city'] ?? '',
@@ -2082,6 +2082,16 @@ class Epub extends Export {
 				// Tag broken image
 				$image->setAttribute( 'src', "{$url}#fixme" );
 			}
+
+			// Remove width and height attributes if the image is inside a H5P element
+			$parent = $image->parentNode;
+			if ( $parent instanceof \DOMElement ) {
+				$classes = $parent->getAttribute( 'class' );
+				if ( preg_match( '/(^|\s)(h5p|h5p-[^\s]*)/', $classes ) ) {
+					$image->removeAttribute( 'width' );
+					$image->removeAttribute( 'height' );
+				}
+			}
 		}
 
 		return $doc;
@@ -2222,7 +2232,7 @@ class Epub extends Export {
 
 		put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
-		if ( ! \Pressbooks\Image\is_valid_image( $tmp_file, $filename ) ) {
+		if ( ! is_valid_image( $tmp_file, $filename ) ) {
 			$this->fetchedImageCache[ $url ] = '';
 			debug_error_log( '\Pressbooks\Export\Epub\fetchAndSaveUniqueImage is_valid_image, not a valid image ' );
             fclose( $GLOBALS[ $resource_key ] ); // @codingStandardsIgnoreLine
@@ -2535,7 +2545,7 @@ class Epub extends Export {
 		}
 
 		// Check if an anchor (ie. #fragment) is considered external, don't change the URL if we find a match
-		$external_anchors = [ \Pressbooks\Interactive\Content::ANCHOR ];
+		$external_anchors = [ Content::ANCHOR ];
 		if ( in_array( $anchor, $external_anchors, true ) ) {
 			return false;
 		}
@@ -2783,7 +2793,7 @@ class Epub extends Export {
 	 * @return bool
 	 */
 	static function hasDependencies(): bool {
-		if ( false !== \Pressbooks\Utility\check_epubcheck_install() ) {
+		if ( false !== check_epubcheck_install() ) {
 			return true;
 		}
 

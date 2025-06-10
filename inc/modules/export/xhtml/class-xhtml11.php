@@ -13,6 +13,7 @@ namespace Pressbooks\Modules\Export\Xhtml;
 
 use Exception;
 use function Pressbooks\Image\maybe_swap_with_bigger;
+use function Pressbooks\L10n\romanize;
 use function Pressbooks\Modules\Export\get_contributors_section;
 use function Pressbooks\Sanitize\clean_filename;
 use function Pressbooks\Sanitize\decode;
@@ -1648,7 +1649,7 @@ class Xhtml11 extends Export {
 					'invisibility' => $invisible ? 'invisible' : '',
 					'introduction' => $part_is_introduction ? 'introduction' : '',
 					'slug' => $part_slug,
-					'number' => \Pressbooks\L10n\romanize( $part_number ),
+					'number' => romanize( $part_number ),
 					'title' => decode( $part_title ),
 					'content' => $part_content,
 					'endnotes' => $this->doEndnotes( $part['ID'] ),

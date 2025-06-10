@@ -533,7 +533,7 @@ class H5P {
 		$representation = $this->getH5PRepresentation( $h5p_id );
 
 		$blade_render_params = [
-			'id' => $h5p_id,
+			'id' => $h5p_id ? '#' . self::SHORTCODE . '-' . $h5p_id : '',
 			'title' => $h5p_title,
 			'url' => $h5p_url,
 		];
