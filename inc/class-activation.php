@@ -206,10 +206,10 @@ class Activation {
 				'post_type' => 'part',
 				'menu_order' => 1,
 			],
-			'introduction' => [
-				'post_title' => __( 'Introduction', 'pressbooks' ),
-				'post_name' => 'introduction',
-				'post_content' => __( 'This is where you can write your introduction.', 'pressbooks' ),
+			'preface' => [
+				'post_title' => __( 'Preface', 'pressbooks' ),
+				'post_name' => 'preface',
+				'post_content' => __( 'This is where you can write your preface or other front matter.', 'pressbooks' ),
 				'post_type' => 'front-matter',
 				'menu_order' => 1,
 			],
@@ -223,7 +223,7 @@ class Activation {
 			'appendix' => [
 				'post_title' => __( 'Appendix', 'pressbooks' ),
 				'post_name' => 'appendix',
-				'post_content' => __( 'This is where you can add appendices or other back matter.', 'pressbooks' ),
+				'post_content' => __( 'This is where you can add an appendix or other back matter.', 'pressbooks' ),
 				'post_type' => 'back-matter',
 				'menu_order' => 1,
 			],
@@ -256,7 +256,7 @@ class Activation {
 			'access-denied' => [
 				'post_title' => __( 'Access Denied', 'pressbooks' ),
 				'post_name' => 'access-denied',
-				'post_content' => __( 'This book is private, and accessible only to registered users. If you have an account you can login <a href="/wp-login.php">here</a>. You can also set up your own Pressbooks book at: <a href="http://pressbooks.com">Pressbooks.com</a>.', 'pressbooks' ),
+				'post_content' => __( 'This book is private, and accessible only to registered users. If you have an account on this network you can login <a href="/wp-login.php">here</a>. You can also set up your own Pressbooks book at: <a href="http://pressbooks.pub">Pressbooks.pub</a>.', 'pressbooks' ),
 				'post_type' => 'page',
 			],
 			// Custom CSS (deprecated)
@@ -373,8 +373,8 @@ class Activation {
 						// Apply 'standard' chapter type to 'chapter 1' post
 						wp_set_object_terms( $newpost, 'standard', 'chapter-type' );
 					} elseif ( 'front-matter' === $item['post_type'] ) {
-						// Apply 'introduction' front matter type to 'introduction' post
-						wp_set_object_terms( $newpost, 'introduction', 'front-matter-type' );
+						// Apply 'preface' front matter type to 'preface' post
+						wp_set_object_terms( $newpost, 'preface', 'front-matter-type' );
 					} elseif ( 'back-matter' === $item['post_type'] && $key === 'appendix' ) {
 						// Apply 'appendix' back matter type to 'appendix' post
 						wp_set_object_terms( $newpost, 'appendix', 'back-matter-type' );
