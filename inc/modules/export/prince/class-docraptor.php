@@ -85,7 +85,8 @@ class Docraptor extends Pdf {
 
 		$prince_options = new PrinceOptions();
 		$prince_options->setNoCompress( false );
-		$prince_options->setHttpTimeout( 900 );
+		// If the content rendering takes more than 10 minutes, DocRaptor will time out, and export will be stalled.
+		$prince_options->setHttpTimeout( 600 ); //TODO: (bg) test this on dev/prod 10 minutes
 		$prince_options->setJavascript( true );
 		if ( $this->pdfProfile && $this->pdfOutputIntent ) {
 			$prince_options->setProfile( $this->pdfProfile );
@@ -106,21 +107,9 @@ class Docraptor extends Pdf {
 				$document_content = str_replace( '</head>', "<style>$css</style></head>", get_contents( $this->url ) );
 				$doc->setTest( true );
 				$doc->setDocumentContent( $document_content );
-			} elseif ( defined( 'WP_ENV' ) && ( WP_ENV === 'development' ) ) {
-				// Instead of a localhost URL that DocRaptor can't see, send a document
-				$response = wp_remote_get( $this->url, [
-					'timeout' => 1800, //TODO: (bg) test this on dev
-				] );
-				if ( is_wp_error( $response ) ) {
-					$this->logError( $response->get_error_message() );
-					return false;
-				}
-				$document_content = str_replace( '</head>', "<style>$css</style></head>", $response['body'] );
-				$doc->setTest( true );
-				$doc->setDocumentContent( $document_content );
 			} else {
 				// The real thing
-				$doc->setTest( false );
+				$doc->setTest( defined( 'WP_ENV' ) && ( WP_ENV === 'development' ) );
 				$doc->setDocumentUrl( $this->url );
 			}
 			$doc->setName( get_bloginfo( 'name' ) );

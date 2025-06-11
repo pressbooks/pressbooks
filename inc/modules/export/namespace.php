@@ -563,8 +563,6 @@ function pb_xhtml_after_content_processed(): void {
 
 	$css_content = str_replace( '&gt;', '>', $css_content );
 	$css_content = str_replace( '*width', 'width', $css_content );
-	error_log( 'Pressbooks Custom XHTML CSS: Processing scoped styles' );
-	error_log( $css_content );
 	// Remove empty src urls from the CSS that are added by the H5P libraries
 	// TODO: Remove this when H5P Extractor fixes the issue
 	$css_content = str_replace( "src: url('') format('woff2');", '', $css_content );
@@ -588,7 +586,6 @@ function pb_xhtml_after_content_processed(): void {
 
 	$write_success = file_put_contents( $css_path, $css_content );
 
-	// Call css-purge to optimize H5P CSS
 	$node_modules = WP_PLUGIN_DIR . '/pressbooks/node_modules/.bin';
 	$purge_script = $node_modules . '/css-purge';
 
@@ -610,7 +607,6 @@ function pb_xhtml_after_content_processed(): void {
 		return;
 	}
 
-	error_log( "Pressbooks Custom XHTML CSS: Failed to write file to {$css_path}" );
 	$h5p_css_url = '';
 }
 function pb_xhtml_custom_stylesheet_url() {

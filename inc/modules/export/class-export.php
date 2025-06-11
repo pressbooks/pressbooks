@@ -283,7 +283,9 @@ abstract class Export {
 		 */
 		global $current_user;
 
-		$subject = get_class( $this );
+		$current_user = wp_get_current_user();
+
+		$subject = get_friendly_name_for_module( get_class( $this ) ) . ' ' . __( 'Export Error', 'pressbooks' );
 
 		$info = [
 			'time' => date( 'D M H:i:s Y' ),

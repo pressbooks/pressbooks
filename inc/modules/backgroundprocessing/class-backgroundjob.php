@@ -46,6 +46,13 @@ class BackgroundJob {
 			return;
 		}
 
+		global $current_user;
+
+		// Ensure the current user is set correctly to send notifications.
+		if ( ! $current_user || ! $current_user->ID ) {
+			$current_user = get_user_by( 'id', $job->user_id );
+		}
+
 		/*
 		 * Update the job status to 'processing' and set initial progress
 		 * CURRENT PROGRESS 0%: Initializing export

@@ -2889,6 +2889,7 @@ class Epub extends Export {
 
 	/**
 	 * Remove h5p aria-* attributes from the document.
+	 * This is a workaround for H5P Extractor not removing them properly.
 	 * @param \DOMDocument $dom
 	 * @return \DOMDocument
 	 */
@@ -2919,5 +2920,183 @@ class Epub extends Export {
 		}
 
 		return $dom;
+	}
+
+	/**
+	 * Format EPUB validation log into readable sections
+	 *
+	 * @param string $validation_log Raw validation log string
+	 * @return string Formatted log with proper line breaks and grouping
+	 */
+	public function formatValidationLog( string $validation_log ): string {
+		$lines = explode( '\n', $validation_log );
+		$formatted_output = '';
+		$error_groups = [];
+
+		foreach ( $lines as $line ) {
+			$line = trim( $line );
+
+			if ( empty( $line ) ) {
+				continue;
+			}
+
+			// Extract file path from error (chapter)
+			if ( preg_match( '/\/([^\/]+\.xhtml)/', $line, $matches ) ) {
+				$file = $matches[1];
+
+				if ( ! isset( $error_groups[ $file ] ) ) {
+					$error_groups[ $file ] = [
+						'rsc_005' => [], // Invalid attribute errors
+						'opf_014' => [], // Remote resources errors
+						'rsc_006' => [], // Remote resource reference errors
+						'pkg_022' => [], // File extension warnings
+						'other' => [],
+					];
+				}
+
+				if ( str_contains( $line, 'ERROR(RSC-005)' ) ) {
+					if ( str_contains( $line, 'role" is invalid' ) ) {
+						$error_groups[ $file ]['rsc_005'][] = 'Invalid role attribute';
+					} elseif ( str_contains( $line, 'missing required attribute "aria-checked"' ) ) {
+						$error_groups[ $file ]['rsc_005'][] = 'Missing aria-checked attribute on <li> element';
+					}
+				} elseif ( str_contains( $line, 'ERROR(OPF-014)' ) ) {
+					$error_groups[ $file ]['opf_014'][] = 'Remote resources property not declared in OPF file';
+				} elseif ( str_contains( $line, 'ERROR(RSC-006)' ) ) {
+					$error_groups[ $file ]['rsc_006'][] = 'Remote resource reference not allowed';
+				} elseif ( str_contains( $line, 'WARNING(PKG-022)' ) ) {
+					$error_groups[ $file ]['pkg_022'][] = 'Wrong file extension for image (PNG with .jpg extension)';
+				} else {
+					$error_groups[ $file ]['other'][] = $line;
+				}
+			}
+		}
+
+		$formatted_output .= "EPUB VALIDATION REPORT\n";
+		$formatted_output .= str_repeat( '=', 50 ) . "\n\n";
+
+		$total_errors = 0;
+		$total_warnings = 0;
+
+		foreach ( $error_groups as $file => $errors ) {
+			$file_has_errors = false;
+			$file_output = '';
+
+			$file_error_count = 0;
+			$file_warning_count = 0;
+
+			foreach ( $errors as $error_type => $error_list ) {
+				if ( ! empty( $error_list ) ) {
+					$file_has_errors = true;
+
+					if ( $error_type === 'pkg_022' ) {
+						$file_warning_count += count( $error_list );
+					} else {
+						$file_error_count += count( $error_list );
+					}
+				}
+			}
+
+			if ( ! $file_has_errors ) {
+				continue;
+			}
+
+			$total_errors += $file_error_count;
+			$total_warnings += $file_warning_count;
+
+			$file_output .= 'FILE: ' . $file . "\n";
+			$file_output .= "Errors: {$file_error_count} | Warnings: {$file_warning_count}\n";
+			$file_output .= str_repeat( '-', 40 ) . "\n";
+
+			// RSC-005 errors (Invalid attributes)
+			if ( ! empty( $errors['rsc_005'] ) ) {
+				$file_output .= "• ATTRIBUTE ERRORS (RSC-005):\n";
+				$unique_rsc_errors = array_count_values( $errors['rsc_005'] );
+				foreach ( $unique_rsc_errors as $error => $count ) {
+					$file_output .= "  - {$error} ({$count} occurrence" . ( $count > 1 ? 's' : '' ) . ")\n";
+				}
+				$file_output .= "\n";
+			}
+
+			// OPF-014 errors (Remote resources)
+			if ( ! empty( $errors['opf_014'] ) ) {
+				$file_output .= "• REMOTE RESOURCES ERRORS (OPF-014):\n";
+				$file_output .= "  - Remote resources property not declared in OPF file\n\n";
+			}
+
+			// RSC-006 errors (Remote resource references)
+			if ( ! empty( $errors['rsc_006'] ) ) {
+				$file_output .= "• REMOTE REFERENCE ERRORS (RSC-006):\n";
+				$file_output .= '  - Remote resource references not allowed (' . count( $errors['rsc_006'] ) . " occurrences)\n\n";
+			}
+
+			// PKG-022 warnings (File extension)
+			if ( ! empty( $errors['pkg_022'] ) ) {
+				$file_output .= "• FILE EXTENSION WARNINGS (PKG-022):\n";
+				foreach ( $errors['pkg_022'] as $warning ) {
+					$file_output .= "  - {$warning}\n";
+				}
+				$file_output .= "\n";
+			}
+
+			// Other errors
+			if ( ! empty( $errors['other'] ) ) {
+				$file_output .= "• OTHER ISSUES:\n";
+				foreach ( $errors['other'] as $error ) {
+					$file_output .= "  - {$error}\n";
+				}
+				$file_output .= "\n";
+			}
+
+			$formatted_output .= $file_output . "\n";
+		}
+
+		$formatted_output .= str_repeat( '=', 50 ) . "\n";
+		$formatted_output .= "SUMMARY\n";
+		$formatted_output .= "Total Errors: {$total_errors}\n";
+		$formatted_output .= "Total Warnings: {$total_warnings}\n";
+		$formatted_output .= 'Files Affected: ' . count( array_filter( $error_groups, function( $errors ) {
+				return ! empty( array_filter( $errors ) );
+		} ) ) . "\n";
+
+		$formatted_output .= "\nCOMMON ISSUES FOUND:\n";
+		$formatted_output .= "• Invalid role attributes in interactive elements\n";
+		$formatted_output .= "• Missing aria-checked attributes on list items\n";
+		$formatted_output .= "• Remote resource references not properly declared\n";
+		$formatted_output .= "• Incorrect file extensions on images\n";
+
+		return $formatted_output;
+	}
+
+	/**
+	 * Get a brief summary of validation errors for quick reference
+	 *
+	 * @param string $validation_log
+	 * @return string
+	 */
+	private function getValidationSummary( string $validation_log ): string {
+		$error_count = substr_count( $validation_log, 'ERROR(' );
+		$warning_count = substr_count( $validation_log, 'WARNING(' );
+		$files_affected = count( array_unique( preg_match_all( '/\/([^\/]+\.xhtml)/', $validation_log, $matches ) ? $matches[1] : [] ) );
+
+		return "Errors: {$error_count}, Warnings: {$warning_count}, Files affected: {$files_affected}";
+	}
+
+	/**
+	 * Override logError to format validation logs
+	 */
+	public function logError( string $message, array $more_info = [] ): void {
+
+		if ( str_contains( $message, 'EPUB Validation' ) || str_contains( $message, 'ERROR(RSC-' ) ) {
+
+			$more_info['formatted_validation_report'] = $this->formatValidationLog( $message );
+
+			$error_summary = $this->getValidationSummary( $message );
+			$more_info['validation_summary'] = $error_summary;
+
+			$message = 'EPUB validation completed with issues. See formatted report above.';
+		}
+
+		parent::logError( $message, $more_info );
 	}
 }
