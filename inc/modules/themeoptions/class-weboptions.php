@@ -312,6 +312,7 @@ class WebOptions extends \Pressbooks\Options {
 				'option' => 'paragraph_separation',
 				'value' => ( isset( $this->options['paragraph_separation'] ) ) ? $this->options['paragraph_separation'] : '',
 				'choices' => $args,
+				'legend' => __( 'Paragraph Separation', 'pressbooks' ),
 			]
 		);
 	}

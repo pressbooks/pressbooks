@@ -16,24 +16,29 @@
                         <span>{{ __('Private', 'pressbooks') }}</span>
                     </h4>
                 @endif
-                <div class="publicize-form">
-                    <label for="blog-public"><input type="radio" {{ checked($book_is_public, 1, false) }}
-                            value="1" name="blog_public" id="blog-public"><span
-                            class="public">{{ __('Public', 'pressbooks') }}</span> &mdash;
-                        {!! sprintf(
-                            __(
-                                'Anyone with the link can see your book. Public books are eligible to be listed in <a href="%s">Pressbooks Directory</a>. Individual chapters can be set to private.',
-                                'pressbooks',
-                            ),
-                            esc_url('https://pressbooks.directory'),
-                        ) !!}
-                    </label>
-                    <label for="blog-private"><input type="radio" {{ checked($book_is_public, 0, false) }}
-                            value="0" name="blog_public" id="blog-private"><span
-                            class="private">{{ __('Private', 'pressbooks') }}</span> &mdash;
-                        {{ __('Only users you invite can see your book, regardless of individual chapter visibility below.', 'pressbooks') }}
-                    </label>
-                </div>
+                <fieldset class="publicize-form">
+                    <legend class="screen-reader-text">{{ __( 'Global Privacy', 'pressbooks' ) }}</legend>
+                    <div>
+						<input type="radio" {{ checked($book_is_public, 1, false) }} value="1" name="blog_public" id="blog-public">
+						<label for="blog-public"><span
+								class="public">{{ __('Public', 'pressbooks') }}</span> &mdash;
+							{!! sprintf(
+								__(
+									'Anyone with the link can see your book. Public books are eligible to be listed in <a href="%s">Pressbooks Directory</a>. Individual chapters can be set to private.',
+									'pressbooks',
+								),
+								esc_url('https://pressbooks.directory'),
+							) !!}
+						</label>
+					</div>
+                    <div>
+						<input type="radio" {{ checked($book_is_public, 0, false) }} value="0" name="blog_public" id="blog-private">
+						<label for="blog-private"><span
+								class="private">{{ __('Private', 'pressbooks') }}</span> &mdash;
+							{{ __('Only users you invite can see your book, regardless of individual chapter visibility below.', 'pressbooks') }}
+						</label>
+					</div>
+                </fieldset>
             </div>
         </div>
     @endif
@@ -86,7 +91,7 @@
 						</a>
                         <a
 							class="page-title-action" href="{!! admin_url('post-new.php?post_type=part') !!}"
-							aria-label="{{ sprintf( __( 'Add a new part below to %s part', 'pressbooks' ), $group['title'] ) }}"
+							aria-label="{{ sprintf( __( 'Add a new part below %s part', 'pressbooks' ), $group['title'] ) }}"
 						>
 							{{ __('Add Part', 'pressbooks') }}
 						</a>

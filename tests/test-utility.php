@@ -811,4 +811,44 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( 'title,author,isbn', $csv );
 		$this->assertStringContainsString( 'foo,bar,baz', $csv );
 	}
+
+	public function test_handle_book_indexing(): void
+	{
+		$this->_book();
+
+		$this->assertEquals(
+			[ 'noindex' => 0, 'nofollow' => 0, 'noai' => 0, 'noimageai' => 0 ],
+			\Pressbooks\Utility\handle_book_indexing( [] )
+		);
+
+		update_option( 'pressbooks_robots', [
+			'discourage-ai' => 1,
+			'discourage-index' => 0,
+		] );
+
+		$this->assertEquals(
+			[ 'noindex' => 0, 'nofollow' => 0, 'noai' => 1, 'noimageai' => 1 ],
+			\Pressbooks\Utility\handle_book_indexing( [] )
+		);
+
+		update_option( 'pressbooks_robots', [
+			'discourage-ai' => 0,
+			'discourage-index' => 1,
+		] );
+
+		$this->assertEquals(
+			[ 'noindex' => 1, 'nofollow' => 1, 'noai' => 0, 'noimageai' => 0 ],
+			\Pressbooks\Utility\handle_book_indexing( [] )
+		);
+
+		update_option( 'pressbooks_robots', [
+			'discourage-ai' => 1,
+			'discourage-index' => 1,
+		] );
+
+		$this->assertEquals(
+			[ 'max-image-preview' => 'large', 'noindex' => 1, 'nofollow' => 1, 'noai' => 1, 'noimageai' => 1 ],
+			\Pressbooks\Utility\handle_book_indexing( [ 'max-image-preview' => 'large'] )
+		);
+	}
 }

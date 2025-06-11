@@ -246,6 +246,7 @@ class Content {
 			'marginheight' => true,
 			'scrolling' => true,
 			'title' => true,
+			'allowfullscreen' => true,
 		];
 
 		return $allowed;

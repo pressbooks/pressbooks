@@ -28,7 +28,7 @@
 		}
 	},
 	"require": {
-		"php": "^8.1",
+		"php": "^8.2",
 		"aws/aws-sdk-php": "^3.173",
 		"composer/installers": "^2.1",
 		"davidgorges/human-name-parser": "^1.0",
@@ -102,7 +102,7 @@
 			"vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml --coverage-html=./coverage-reports"
 		],
 		"standards": [
-			"vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/"
+			"vendor/bin/phpcs --standard=phpcs.ruleset.xml inc/ bin/"
 		],
 		"fix": [
 			"vendor/bin/phpcbf --standard=phpcs.ruleset.xml *.php inc/ bin/"

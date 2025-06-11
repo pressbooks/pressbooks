@@ -5,6 +5,7 @@
  * @license GPLv3 (or any later version)
  */
 
+use PressbooksMix\Assets;
 use Pressbooks\Admin\Menus\SideBar;
 use Pressbooks\Admin\Menus\TopBar;
 use Pressbooks\Book;
@@ -108,6 +109,10 @@ add_action( 'network_admin_menu', '\Pressbooks\Admin\Laf\network_admin_menu' );
 if ( ! is_network_admin() ) {
 	add_action( 'admin_init', '\Pressbooks\Admin\Laf\privacy_settings_init' );
 }
+add_filter( 'map_meta_cap', '\Pressbooks\Admin\Laf\allow_edit_to_book_authors', 10, 4 );
+add_filter( 'ajax_query_attachments_args', '\Pressbooks\Admin\Laf\filter_media_for_contributors' );
+add_action( 'pre_get_posts', '\Pressbooks\Admin\Laf\filter_media_list_for_contributors' );
+add_action( 'init', '\Pressbooks\Admin\Laf\enable_media_buttons_for_contributors' );
 
 // Network settings
 add_action( 'network_admin_menu', [ '\Pressbooks\Admin\Network\NetworkSettings', 'init' ] );
@@ -382,8 +387,14 @@ add_filter( 'user_contactmethods', '\Pressbooks\Admin\Laf\modify_user_contact_fi
 add_action( 'user_profile_update_errors', '\Pressbooks\Admin\Laf\sanitize_user_profile', 10, 3 );
 add_action( 'show_user_profile', '\Pressbooks\Admin\Laf\add_user_profile_fields', 11 );
 add_action( 'edit_user_profile', '\Pressbooks\Admin\Laf\add_user_profile_fields', 11 );
+add_action( 'admin_enqueue_scripts', '\Pressbooks\Admin\Laf\enqueue_user_profile_scripts' );
 add_action( 'edit_user_profile_update', '\Pressbooks\Admin\Laf\update_user_profile_fields', 11 );
 add_action( 'personal_options_update', '\Pressbooks\Admin\Laf\update_user_profile_fields', 11 );
 
 add_action( 'plugins_loaded', [ SideBar::class, 'init' ] );
 add_action( 'plugins_loaded', [ TopBar::class, 'init' ] );
+
+add_action( 'admin_enqueue_scripts', function() {
+	$assets = new Assets( 'pressbooks', 'plugin' );
+	wp_enqueue_style( 'pb-table', $assets->getPath( 'styles/pressbooks-table.css' ) );
+} );

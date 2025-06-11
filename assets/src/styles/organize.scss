@@ -30,16 +30,17 @@
     }
 
     .publicize-form {
-      label {
-        display: block;
+      div + div {
+        margin-top: 10px;
+      }
 
-        &:first-child {
-          margin-bottom: 10px;
-        }
+      div {
+        align-items: center;
+        display: flex;
+      }
 
-        input:checked + span {
-          font-weight: bold;
-        }
+      input:checked + label span {
+        font-weight: bold;
       }
     }
   }

@@ -1,6 +1,6 @@
 <?php
 
-use function Pressbooks\Admin\Laf\can_create_new_books;
+use function Pressbooks\Admin\Laf\allow_edit_to_book_authors;
 
 require_once( PB_PLUGIN_DIR . 'inc/admin/laf/namespace.php' );
 
@@ -418,5 +418,127 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertFalse( has_filter( 'wp_mail', 'wp_staticize_emoji_for_email' ) );
 		$this->assertFalse( has_filter( 'wp_staticize_emoji', 'the_content_feed' ) );
 		$this->assertFalse( has_filter( 'wp_staticize_emoji', 'comment_text_css' ) );
+	}
+
+	/**
+	 * @group branding
+	 */
+	function test_capabilities_remains_the_same_for_regular_authors() {
+
+		$author_id = $this->factory->user->create(['role' => 'author']);
+		$post_id = $this->factory->post->create(['post_author' => $author_id]);
+
+		// Test when user is the post author
+		$caps = allow_edit_to_book_authors(
+			['edit_others_posts'],
+			'edit_post',
+			$author_id,
+			[$post_id]
+		);
+
+		$this->assertEquals(['edit_posts'], $caps);
+		wp_set_current_user($author_id);
+		$this->assertTrue(current_user_can('edit_post', $post_id));
+	}
+
+	/**
+	 * @group branding
+	 */
+	function test_new_user_authors_editing_capabilities() {
+
+		$author_id = $this->factory->user->create(['role' => 'author']);
+		$other_user_id = $this->factory->user->create(['role' => 'author']);
+		$post_id = $this->factory->post->create(['post_author' => $author_id]);
+
+		$original_caps = ['edit_others_posts'];
+
+		$caps = allow_edit_to_book_authors(
+			$original_caps,
+			'edit_post',
+			$other_user_id,
+			[$post_id]
+		);
+
+		$this->assertEquals($original_caps, $caps);
+		wp_set_current_user($other_user_id);
+		$this->assertFalse(current_user_can('edit_post', $post_id));
+	}
+
+	public function test_robots_settings_is_not_registered(): void
+	{
+		global $wp_registered_settings;
+
+		add_filter( 'pb_robots_settings', '__return_false' );
+
+		\Pressbooks\Admin\Laf\privacy_settings_init();
+
+		$this->assertArrayNotHasKey( 'pressbooks_robots', $wp_registered_settings );
+	}
+
+	public function test_robots_settings_is_registered(): void
+	{
+		global $wp_registered_settings;
+
+		\Pressbooks\Admin\Laf\privacy_settings_init();
+
+		$this->assertArrayHasKey('pressbooks_robots', $wp_registered_settings, 'Setting not registered');
+	}
+
+
+	public function test_privacy_robots_callback(): void
+	{
+		$this->_book();
+
+		ob_start();
+		\Pressbooks\Admin\Laf\privacy_robots_callback();
+		$buffer = ob_get_clean();
+
+		$this->assertEquals(<<<HTML
+<fieldset>
+	<legend class="screen-reader-text">Robots</legend>
+	<input type="checkbox" id="robots-ai" name="pressbooks_robots[discourage-ai]" value="1"  />
+	<label for="robots-ai">Discourage AI from ingesting this book.</label><br>
+	<input type="checkbox" id="robots-crawler" name="pressbooks_robots[discourage-index]" value="1"  />
+	<label for="robots-crawler">Discourage crawlers and search engines from indexing this book.</label>
+</fieldset>
+
+HTML, $buffer);
+
+		update_option( 'pressbooks_robots', [
+			'discourage-ai' => 1,
+			'discourage-index' => 1,
+		] );
+
+		ob_start();
+		\Pressbooks\Admin\Laf\privacy_robots_callback();
+		$buffer = ob_get_clean();
+
+		$this->assertEquals(<<<HTML
+<fieldset>
+	<legend class="screen-reader-text">Robots</legend>
+	<input type="checkbox" id="robots-ai" name="pressbooks_robots[discourage-ai]" value="1"  checked  />
+	<label for="robots-ai">Discourage AI from ingesting this book.</label><br>
+	<input type="checkbox" id="robots-crawler" name="pressbooks_robots[discourage-index]" value="1"  checked  />
+	<label for="robots-crawler">Discourage crawlers and search engines from indexing this book.</label>
+</fieldset>
+
+HTML, $buffer);
+	}
+
+	public function test_privacy_robots_sanitize(): void
+	{
+		$result = \Pressbooks\Admin\Laf\privacy_robots_sanitize( [] );
+
+		$this->assertEquals([
+			'discourage-ai' => 0,
+			'discourage-index' => 0,
+		], $result);
+
+		$result = \Pressbooks\Admin\Laf\privacy_robots_sanitize( [ 'discourage-ai' => 1, 'discourage-index' => true ] );
+
+		$this->assertEquals([
+			'discourage-ai' => 1,
+			'discourage-index' => 1,
+		], $result);
 	}
 }

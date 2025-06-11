@@ -77,6 +77,7 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		wp_set_current_user( $user_id );
 		$allowed = $this->content->allowIframesInHtml( [], 'post' );
 		$this->assertTrue( ! empty( $allowed['iframe'] ) );
+		$this->assertTrue( $allowed['iframe']['allowfullscreen'] );
 	}
 
 	/**

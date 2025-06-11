@@ -180,6 +180,7 @@ add_filter( 'login_redirect', '\Pressbooks\Redirect\handle_dashboard_redirect', 
 
 add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_sitemap', 1 );
 add_action( 'do_robotstxt', '\Pressbooks\Utility\add_sitemap_to_robots_txt' );
+add_filter( 'wp_robots', '\Pressbooks\Utility\handle_book_indexing' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Shortcodes

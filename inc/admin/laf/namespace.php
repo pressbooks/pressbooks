@@ -17,6 +17,7 @@ namespace Pressbooks\Admin\Laf;
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use function Pressbooks\PostType\get_post_type_label;
 use function Pressbooks\Sanitize\sanitize_string;
+use function Pressbooks\Utility\disable_comments;
 use function Pressbooks\Utility\str_starts_with;
 use PressbooksMix\Assets;
 use Pressbooks\Admin\ExportOptions;
@@ -27,6 +28,7 @@ use Pressbooks\BookDirectory;
 use Pressbooks\CloneComplete;
 use Pressbooks\Cloner\Cloner;
 use Pressbooks\Container;
+use Pressbooks\Contributors;
 use Pressbooks\DataCollector\Book as DataCollector;
 use Pressbooks\Metadata;
 use WP_Error;
@@ -80,7 +82,7 @@ function add_footer_link() {
 	}
 
 	printf(
-		'<span id="footer-thankyou">%1$s</span> &bull; %2$s &bull; %3$s &bull; %4$s &bull; %5$s %6$s <br/>',
+		'<span id="footer-thankyou">%1$s</span> &bull; %2$s &bull; %3$s &bull; %4$s %5$s <br/>',
 		sprintf(
 			esc_html__( 'Powered by %s', 'pressbooks' ),
 			sprintf(
@@ -91,18 +93,13 @@ function add_footer_link() {
 		),
 		sprintf(
 			'<a href="%1$s">%2$s</a>',
-			'https://pressbooks.com/about/',
-			esc_html__( 'About', 'pressbooks' )
-		),
-		sprintf(
-			'<a href="%1$s">%2$s</a>',
 			/**
 			 * Filter the "Help" link.
 			 *
 			 * @since 5.6.0
 			 */
-			apply_filters( 'pb_help_link', 'https://pressbooks.com/support/' ),
-			esc_html__( 'Guides and Tutorials', 'pressbooks' )
+			apply_filters( 'pb_help_link', 'https://guide.pressbooks.com' ),
+			esc_html__( 'Pressbooks User Guide', 'pressbooks' )
 		),
 		sprintf(
 			'<a href="%1$s">%2$s</a>',
@@ -681,7 +678,7 @@ function add_cloning_stats_page() {
  */
 function display_organize() {
 	$blade = \Pressbooks\Container::get( 'Blade' );
-	$book_structure = \Pressbooks\Book::getBookStructure();
+	$book_structure = Book::getBookStructure();
 	$ebook_options = get_option( 'pressbooks_theme_options_ebook' );
 	$structure = [];
 
@@ -715,15 +712,15 @@ function display_organize() {
 		[
 			'statuses' => get_post_stati( [], 'objects' ),
 			'parts' => count( $book_structure['part'] ),
-			'meta_post' => ( new \Pressbooks\Metadata() )->getMetaPost(),
+			'meta_post' => ( new Metadata() )->getMetaPost(),
 			'book_is_public' => ( ! empty( get_option( 'blog_public' ) ) ) ? 1 : 0,
-			'disable_comments' => \Pressbooks\Utility\disable_comments(),
-			'wc' => \Pressbooks\Book::wordCount(),
-			'wc_selected_for_export' => \Pressbooks\Book::wordCount( true ),
+			'disable_comments' => disable_comments(),
+			'wc' => Book::wordCount(),
+			'wc_selected_for_export' => Book::wordCount( true ),
 			'can_manage_options' => current_user_can( 'manage_options' ),
 			'can_edit_posts' => current_user_can( 'edit_posts' ),
 			'can_edit_others_posts' => current_user_can( 'edit_others_posts' ),
-			'contributors' => new \Pressbooks\Contributors(),
+			'contributors' => new Contributors(),
 			'ebook_options' => $ebook_options,
 			'start_point' => ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['ebook_start_point'] ) )
 				? (int) $ebook_options['ebook_start_point']
@@ -1121,17 +1118,16 @@ function init_css_js() {
 	wp_enqueue_style( 'pressbooks-admin', $assets->getPath( 'styles/pressbooks.css' ) );
 
 	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pb_catalog' ) {
-		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 'pressbooks-catalog', $assets->getPath( 'styles/catalog.css' ) );
-		wp_enqueue_script( 'color-picker', $assets->getPath( 'scripts/color-picker.js' ), [ 'wp-color-picker' ] );
+		wp_enqueue_script( 'color-picker' );
 		wp_enqueue_script( 'select2-js', $assets->getPath( 'scripts/select2.js' ), [ 'jquery' ] );
 	}
 
 	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pressbooks_theme_options' ) {
-		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 'theme-options', $assets->getPath( 'styles/theme-options.css' ) );
 		wp_enqueue_script( 'pressbooks-multiselect' );
-		wp_enqueue_script( 'theme-options-js', $assets->getPath( 'scripts/theme-options.js' ), [ 'jquery', 'wp-color-picker' ] );
+		wp_enqueue_script( 'color-picker' );
+		wp_enqueue_script( 'theme-options-js', $assets->getPath( 'scripts/theme-options.js' ), [ 'jquery' ] );
 	}
 
 	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pressbooks_export_options' ) {
@@ -1168,6 +1164,7 @@ function init_css_js() {
 	wp_register_script( 'duet-date-picker', $assets->getPath( 'scripts/duet/duet.js' ), [], false, true );
 	wp_register_script( 'pressbooks-multiselect', $assets->getPath( 'scripts/pressbooks-multiselect.js' ), [], false, true );
 	wp_register_script( 'pressbooks-reorderable-multiselect', $assets->getPath( 'scripts/pressbooks-reorderable-multiselect.js' ), [], false, true );
+	wp_register_script( 'color-picker', $assets->getPath( 'scripts/color-picker.js' ), [ 'jquery', 'wp-i18n' ], false, true );
 
 	// Register styles for later, on-the-fly, using action: admin_print_scripts- (or other tricks of the shade)
 	wp_register_style( 'pb-export', $assets->getPath( 'styles/export.css' ) );
@@ -1250,6 +1247,21 @@ function privacy_settings_init() {
 			'blog_public',
 			__NAMESPACE__ . '\privacy_blog_public_sanitize'
 		);
+
+		if ( apply_filters( 'pb_robots_settings', true ) ) {
+			add_settings_field(
+				id: 'pressbooks_robots',
+				title: esc_html__( 'Robots', 'pressbooks' ),
+				callback: __NAMESPACE__ . '\privacy_robots_callback',
+				page: 'privacy_settings',
+				section: 'privacy_settings_section',
+			);
+			register_setting(
+				'privacy_settings',
+				'pressbooks_robots',
+				__NAMESPACE__ . '\privacy_robots_sanitize'
+			);
+		}
 	}
 
 	add_settings_field(
@@ -1342,20 +1354,24 @@ function privacy_settings_section_callback() {
  * @param $args
  */
 function privacy_blog_public_callback( $args ) {
-	$blog_public = get_option( 'blog_public' );
-	$html = '<input type="radio" id="blog-public" name="blog_public" value="1" ';
-	if ( $blog_public ) {
-		$html .= 'checked="checked" ';
-	}
-	$html .= '/>';
-	$html .= '<label for="blog-public"> ' . esc_html__( 'Public. I would like this book to be visible to everyone.', 'pressbooks' ) . '</label><br />';
-	$html .= '<input type="radio" id="blog-norobots" name="blog_public" value="0" ';
-	if ( ! $blog_public ) {
-		$html .= 'checked="checked" ';
-	}
-	$html .= '/>';
-	$html .= '<label for="blog-norobots"> ' . esc_html__( 'Private. I would like this book to be accessible only to people I invite.', 'pressbooks' ) . '</label>';
-	echo $html;
+	$blade = Container::get( 'Blade' );
+	echo $blade->render('admin/settings/book-visibility', [
+		'blog_public' => absint( get_option( 'blog_public' ) ),
+	] );
+}
+
+/**
+ * Privacy settings, pressbooks_robots field callback
+ */
+function privacy_robots_callback() {
+	$blade = Container::get( 'Blade' );
+
+	echo $blade->render('admin/settings/book-robots', [
+		'robots' => get_option( 'pressbooks_robots', [
+			'discourage-ai' => 0,
+			'discourage-index' => 0,
+		] ),
+	]);
 }
 
 /**
@@ -1377,15 +1393,11 @@ function privacy_permissive_private_content_callback( $args ) {
 		$contributor->remove_cap( 'read_private_posts' );
 		$author->remove_cap( 'read_private_posts' );
 	}
-	?>
-	<p><?php _e( 'Who can see private front matter, chapters and back matter?', 'pressbooks' ); ?></p>
-	<fieldgroup>
-		<input type="radio" id="standard-private-content" name="permissive_private_content" value="0" <?php checked( $permissive_private_content, 0 ); ?>/>
-		<label for="standard-private-content"><?php _e( 'Only logged in editors and administrators.', 'pressbooks' ); ?></label><br/>
-		<input type="radio" id="permissive-private-content" name="permissive_private_content" value="1" <?php checked( $permissive_private_content, 1 ); ?>/>
-		<label for="permissive-private-content"><?php _e( 'All logged in users including subscribers.', 'pressbooks' ); ?></label>
-	</fieldgroup>
-	<?php
+
+	$blade = Container::get( 'Blade' );
+	echo $blade->render('admin/settings/private-content', [
+		'permissive_private_content' => $permissive_private_content,
+	]);
 }
 
 /**
@@ -1399,19 +1411,11 @@ function privacy_disable_comments_callback( $args ) {
 			'disable_comments' => 1,
 		]
 	);
-	$html = '<input type="radio" id="disable-comments" name="pressbooks_sharingandprivacy_options[disable_comments]" value="1" ';
-	if ( $options['disable_comments'] ) {
-		$html .= 'checked="checked" ';
-	}
-	$html .= '/>';
-	$html .= '<label for="disable-comments"> ' . esc_html__( 'Yes. I want to automatically disable comments, trackbacks and pingbacks on all front matter, chapters and back matter.', 'pressbooks' ) . '</label><br />';
-	$html .= '<input type="radio" id="enable-comments" name="pressbooks_sharingandprivacy_options[disable_comments]" value="0" ';
-	if ( ! $options['disable_comments'] ) {
-		$html .= 'checked="checked" ';
-	}
-	$html .= '/>';
-	$html .= '<label for="enable-comments"> ' . esc_html__( 'No. I want to leave comments, trackbacks and pingbacks enabled on all front matter, chapters and back matter unless I disable them manually.', 'pressbooks' ) . '</label>';
-	echo $html;
+
+	$blade = Container::get( 'Blade' );
+	echo $blade->render('admin/settings/disable-comments', [
+		'disable_comments' => $options['disable_comments'],
+	]);
 }
 
 /**
@@ -1420,20 +1424,14 @@ function privacy_disable_comments_callback( $args ) {
  * @param $args
  */
 function privacy_latest_files_public_callback( $args ) {
-	$blog_public = get_option( 'pbt_redistribute_settings', [] );
-	$html = '<input type="radio" id="latest_files_public" name="pbt_redistribute_settings[latest_files_public]" value="1" ';
-	if ( isset( $blog_public['latest_files_public'] ) && $blog_public['latest_files_public'] === 1 ) {
-		$html .= 'checked="checked" ';
-	}
-	$html .= '/>';
-	$html .= '<label for="latest_files_public"> ' . esc_html__( 'Yes. I would like the latest export files to be available on the homepage for free, to everyone.', 'pressbooks' ) . '</label><br />';
-	$html .= '<input type="radio" id="latest_files_private" name="pbt_redistribute_settings[latest_files_public]" value="0" ';
-	if ( ! isset( $blog_public['latest_files_public'] ) || $blog_public['latest_files_public'] === 0 ) {
-		$html .= 'checked="checked" ';
-	}
-	$html .= '/>';
-	$html .= '<label for="latest_files_private"> ' . esc_html__( 'No. I would like the latest export files to only be available to administrators.', 'pressbooks' ) . '</label>';
-	echo $html;
+	$options = get_option( 'pbt_redistribute_settings', [
+		'latest_files_public' => 0,
+	] );
+
+	$blade = Container::get( 'Blade' );
+	echo $blade->render('admin/settings/share-latest-export-files', [
+		'latest_files_public' => $options['latest_files_public'],
+	]);
 }
 
 /**
@@ -1446,19 +1444,11 @@ function book_directory_excluded_callback( $args ) {
 		add_option( 'pb_book_directory_excluded', 0 );
 	}
 	$exclude_book = get_option( 'pb_book_directory_excluded' );
-	$html = '<input type="radio" id="include-in-directory" name="pb_book_directory_excluded" value="0" ';
-	if ( ! $exclude_book ) {
-		$html .= 'checked="checked" ';
-	}
-	$html .= '/>';
-	$html .= '<label for="include-in-directory"> ' . esc_html__( 'Yes. I want this book to be listed in the Pressbooks directory.', 'pressbooks' ) . '</label><br />';
-	$html .= '<input type="radio" id="exclude-from-directory" name="pb_book_directory_excluded" value="1" ';
-	if ( $exclude_book ) {
-		$html .= 'checked="checked" ';
-	}
-	$html .= '/>';
-	$html .= '<label for="exclude-from-directory"> ' . esc_html__( 'No. Exclude this book from the Pressbooks directory.', 'pressbooks' ) . '</label>';
-	echo $html;
+
+	$blade = Container::get( 'Blade' );
+	echo $blade->render('admin/settings/pressbooks-directory', [
+		'pb_book_directory_excluded' => $exclude_book,
+	]);
 }
 
 /**
@@ -1470,6 +1460,20 @@ function book_directory_excluded_callback( $args ) {
  */
 function privacy_blog_public_sanitize( $input ) {
 	return absint( $input );
+}
+
+/**
+ * Privacy settings, blog_public field sanitization
+ *
+ * @param array $input{discourage-ai: int|null, discourage-index: int|null}
+ *
+ * @return array{discourage-ai: int, discourage-index: int}
+ */
+function privacy_robots_sanitize( $input ) {
+	return [
+		'discourage-ai' => $input['discourage-ai'] ?? 0,
+		'discourage-index' => $input['discourage-index'] ?? 0,
+	];
 }
 
 /**
@@ -1700,13 +1704,22 @@ function sanitize_user_profile( WP_Error $errors, $update, $user ) {
 	}
 }
 
+function enqueue_user_profile_scripts( string $hook ) {
+	if ( $hook !== 'profile.php' && $hook !== 'user-edit.php' ) {
+		return;
+	}
+
+	$assets = new Assets( 'pressbooks', 'plugin' );
+
+	wp_enqueue_script( 'pb-profile-page', $assets->getPath( 'scripts/profile.js' ) );
+}
+
 /**
  *
  * @since 5.27.0
  * @param \WP_User $user
  */
 function add_user_profile_fields( \WP_User $user ) {
-
 	$institution = esc_html__( 'Institution' );
 	$value = esc_attr( get_the_author_meta( 'institution', $user->ID ) );
 	$helper = esc_html__( 'Your institutional affiliation, e.g. Rebus Foundation, Open University, Amnesty International.', 'pressbooks' );
@@ -1762,3 +1775,71 @@ function remove_emoji() {
 		}
 	});
 }
+
+/**
+ * @param array $caps
+ * @param string $cap
+ * @param int $user_id
+ * @param array $args
+ *
+ * @return array
+ */
+function allow_edit_to_book_authors( $caps, $cap, $user_id, $args ) {
+	if ( 'edit_post' === $cap && isset( $args[0] ) ) {
+		$post_id = $args[0];
+		$post_author_id = get_post_field( 'post_author', $post_id );
+
+		if ( (int) $user_id === (int) $post_author_id ) {
+			return [ 'edit_posts' ];
+		}
+	}
+	return $caps;
+}
+
+function enable_media_buttons_for_contributors() {
+	$role = get_role( 'contributor' );
+	$role?->add_cap( 'upload_files', true );
+}
+
+function filter_media_for_contributors( $query ) {
+	if ( ! function_exists( 'wp_get_current_user' ) ) {
+		return $query;
+	}
+
+	if ( ! is_admin() ) {
+		return $query;
+	}
+
+	$current_user = wp_get_current_user();
+
+	if ( ! $current_user || ! $current_user->exists() || ! in_array( 'contributor', $current_user->roles, true ) ) {
+		return $query;
+	}
+
+	$query['author'] = $current_user->ID;
+
+	return $query;
+}
+
+function filter_media_list_for_contributors( $query ) {
+	global $pagenow;
+
+	if ( ! function_exists( 'wp_get_current_user' ) ) {
+		return $query;
+	}
+
+	if ( $pagenow !== 'upload.php' ) {
+		return $query;
+	}
+
+	$current_user = wp_get_current_user();
+
+	if ( ! $current_user || ! $current_user->exists() || ! in_array( 'contributor', $current_user->roles, true ) ) {
+		return $query;
+	}
+
+	$query->set( 'author', $current_user->ID );
+
+	return $query;
+}
+

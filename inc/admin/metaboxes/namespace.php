@@ -47,8 +47,9 @@ function add_required_data( $pid, $post ) {
 	}
 
 	$pb_authors = get_post_meta( $pid, 'pb_authors', true );
-	if ( ! $pb_authors ) {
-		// if pb_authors is missing, set it to the primary book user
+	$pb_editors = get_post_meta( $pid, 'pb_editors', true );
+	if ( ! $pb_authors && ! $pb_editors ) {
+		// if pb_authors and pb_editors are missing, set pb_author to the primary book user
 		$user_id = get_current_user_id();
 		if ( $user_id && is_user_member_of_blog( $user_id ) ) {
 			$user_info = get_userdata( $user_id );
@@ -604,6 +605,8 @@ function contributor_add_form() {
 	$contributors_fields = Contributors::getContributorFields();
 
 	foreach ( $contributors_fields as $term => $meta_tags ) {
+		$autocomplete = isset( $meta_tags['autocomplete'] ) ? "autocomplete='{$meta_tags['autocomplete']}'" : '';
+
 		switch ( $meta_tags['input_type'] ) {
 			case 'tinymce':
 				?>
@@ -630,7 +633,7 @@ function contributor_add_form() {
 				?>
 				<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
 					<label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label>
-					<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>" value="" class="<?php echo $meta_tags['tag']; ?>" />
+					<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>" value="" class="<?php echo $meta_tags['tag']; ?>" <?php echo $autocomplete; ?> />
 				</div>
 				<?php
 				break;
@@ -652,6 +655,8 @@ function contributor_edit_form( $term ) {
 
 	foreach ( $contributors_fields as $term => $meta_tags ) {
 		$value = $terms_meta[ $term ][0] ?? '';
+		$autocomplete = isset( $meta_tags['autocomplete'] ) ? "autocomplete='{$meta_tags['autocomplete']}'" : '';
+
 		switch ( $meta_tags['input_type'] ) {
 			case 'tinymce':
 				?>
@@ -695,10 +700,10 @@ function contributor_edit_form( $term ) {
 					<th scope="row"><label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label></th>
 					<td>
 						<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
-						<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>" value="<?php echo esc_attr( $value ); ?>" class="<?php echo $meta_tags['tag']; ?>-field"  />
+						<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>" value="<?php echo esc_attr( $value ); ?>" class="<?php echo $meta_tags['tag']; ?>-field" <?php echo $autocomplete; ?> />
 					</td>
 				</tr>
-								<?php
+				<?php
 				break;
 		}
 	}

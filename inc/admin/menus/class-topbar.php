@@ -107,7 +107,6 @@ class TopBar {
 			[
 				'id' => 'pb-logo',
 				'title' => '<span class="ab-icon"></span><span class="screen-reader-text">' . __( 'Pressbooks logo', 'pressbooks' ) . '</span>',
-				'href' => '#',
 			]
 		);
 	}

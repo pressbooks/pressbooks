@@ -18,6 +18,8 @@ namespace Pressbooks\Admin;
  */
 class Network_Managers_List_Table extends \WP_List_Table {
 
+	use PressbooksTable;
+
 	/** ************************************************************************
 	 * Constructor.
 	 ***************************************************************************/
@@ -196,5 +198,4 @@ class Network_Managers_List_Table extends \WP_List_Table {
 
 		$this->items = $network_admins; // Return our data
 	}
-
 }

@@ -647,17 +647,24 @@ class Book {
 		} else {
 			$content = $parent->post_content;
 		}
+
 		$content = strip_tags( $content, '<h1>' );  // Strip everything except <h1> to speed up load time
+
+		if ( mb_detect_encoding( $content, 'UTF-8', true ) !== 'UTF-8' ) {
+			$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
+		}
 
 		$type = $parent->post_type;
 		$output = [];
 		$s = 1;
 
 		$doc = new HtmlParser( true ); // Because we are not saving, use internal parser to speed up load time
-		$dom = $doc->loadHTML( $content );
+		$dom = $doc->loadHTML( '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body>' . $content . '</body></html>' );
+
 		$sections = $dom->getElementsByTagName( 'h1' );
+
+		/** @var $section \DOMElement */
 		foreach ( $sections as $section ) {
-			/** @var $section \DOMElement */
 			$output[ $type . '-' . $id . '-section-' . $s ] = wptexturize( $section->textContent );
 			$s++;
 		}
