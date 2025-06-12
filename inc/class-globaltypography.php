@@ -38,11 +38,11 @@ class GlobalTypography {
 	function getSupportedLanguages() {
 		return [
 			'ff' => __( 'Adlam', 'pressbooks' ),
+			'am' => __( 'Amharic', 'pressbooks' ),
 			'grc' => __( 'Ancient Greek', 'pressbooks' ),
 			'hy' => __( 'Armenian', 'pressbooks' ),
 			'ar' => __( 'Arabic', 'pressbooks' ),
 			'bn' => __( 'Bengali', 'pressbooks' ),
-			'he' => __( 'Biblical Hebrew', 'pressbooks' ),
 			'cans' => __( 'Canadian Indigenous Syllabics', 'pressbooks' ),
 			'chr' => __( 'Cherokee', 'pressbooks' ),
 			'zh_HANS' => __( 'Chinese (Simplified)', 'pressbooks' ),
@@ -50,7 +50,8 @@ class GlobalTypography {
 			'cop' => __( 'Coptic', 'pressbooks' ),
 			'hi' => __( 'Devanagari (Hindi and Sanskrit)', 'pressbooks' ),
 			'gu' => __( 'Gujarati', 'pressbooks' ),
-			'pan' => __( 'Punjabi (Gurmukhi)', 'pressbooks' ),
+			'he' => __( 'Hebrew (Biblical)', 'pressbooks' ),
+			'he_modern' => __( 'Hebrew (Modern)', 'pressbooks' ),
 			'ja' => __( 'Japanese', 'pressbooks' ),
 			'kn' => __( 'Kannada', 'pressbooks' ),
 			'ko' => __( 'Korean', 'pressbooks' ),
@@ -59,11 +60,13 @@ class GlobalTypography {
 			'music' => __( 'Musical Notation', 'pressbooks' ),
 			'nqo' => __( 'N\'Ko', 'pressbooks' ),
 			'or' => __( 'Odia', 'pressbooks' ),
+			'pan' => __( 'Punjabi (Gurmukhi)', 'pressbooks' ),
 			'syr' => __( 'Syriac', 'pressbooks' ),
 			'ta' => __( 'Tamil', 'pressbooks' ),
 			'te' => __( 'Telugu', 'pressbooks' ),
 			'bo' => __( 'Tibetan', 'pressbooks' ),
 			'tr' => __( 'Turkish', 'pressbooks' ),
+			'ur' => __( 'Urdu', 'pressbooks' ),
 		];
 	}
 
@@ -144,6 +147,9 @@ class GlobalTypography {
 			case 'el': // Ancient Greek
 				$lang = 'grc';
 				break;
+			case 'am': // Amharic
+				$lang = 'am';
+				break;
 			case 'ar': // Arabic
 			case 'ar-dz':
 			case 'ar-bh':
@@ -206,6 +212,9 @@ class GlobalTypography {
 				break;
 			case 'tr': // Turkish
 				$lang = 'tr';
+				break;
+			case 'ur': // Urdu
+				$lang = 'ur';
 				break;
 		}
 
@@ -295,6 +304,15 @@ class GlobalTypography {
 	 */
 	function fontPacks() {
 		$fontpacks = [
+			'am' => [
+				'baseurl' => 'https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/',
+				'files' => [
+					'NotoSansEthiopic-Regular.otf' => 'NotoSansEthiopic/full/otf/NotoSansEthiopic-Regular.otf',
+					'NotoSansEthiopic-Bold.otf' => 'NotoSansEthiopic/full/otf/NotoSansEthiopic-Bold.otf',
+					'NotoSerifEthiopic-Regular.otf' => 'NotoSerifEthiopic/full/otf/NotoSerifEthiopic-Regular.otf',
+					'NotoSerifEthiopic-Bold.otf' => 'NotoSerifEthiopic/full/otf/NotoSerifEthiopic-Bold.otf',
+				],
+			],
 			'bn' => [
 				'baseurl' => 'https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/',
 				'files' => [
@@ -325,6 +343,15 @@ class GlobalTypography {
 					'NotoSansAdlam-Bold.otf' => 'NotoSansAdlam/full/otf/NotoSansAdlam-Bold.otf',
 					'NotoSansAdlamUnjoined-Regular.otf' => 'NotoSansAdlamUnjoined/full/otf/NotoSansAdlamUnjoined-Regular.otf',
 					'NotoSansAdlamUnjoined-Bold.otf' => 'NotoSansAdlamUnjoined/full/otf/NotoSansAdlamUnjoined-Bold.otf',
+				],
+			],
+			'he_modern' => [
+				'baseurl' => 'https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/',
+				'files' => [
+					'NotoSansHebrew-Regular.otf' => 'NotoSansHebrew/full/otf/NotoSansHebrew-Regular.otf',
+					'NotoSansHebrew-Bold.otf' => 'NotoSansHebrew/full/otf/NotoSansHebrew-Bold.otf',
+					'NotoSerifHebrew-Regular.otf' => 'NotoSerifHebrew/full/otf/NotoSerifHebrew-Regular.otf',
+					'NotoSerifHebrew-Bold.otf' => 'NotoSerifHebrew/full/otf/NotoSerifHebrew-Bold.otf',
 				],
 			],
 			'hi' => [
@@ -418,6 +445,13 @@ class GlobalTypography {
 					'NotoSerifTelugu-Bold.otf' => 'NotoSerifTelugu/full/otf/NotoSerifTelugu-Bold.otf',
 				],
 			],
+			'ur' => [
+				'baseurl' => 'https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/',
+				'files' => [
+					'NotoNastaliqUrdu-Regular.otf' => 'NotoNastaliqUrdu/full/otf/NotoNastaliqUrdu-Regular.otf',
+					'NotoNastaliqUrdu-Bold.otf' => 'NotoNastaliqUrdu/full/otf/NotoNastaliqUrdu-Bold.otf',
+				],
+			],
 			'zh_HANS' => [
 				'baseurl' => 'https://github.com/notofonts/noto-cjk/raw/main/Sans/OTF/SimplifiedChinese/',
 				'files' => [
@@ -434,7 +468,7 @@ class GlobalTypography {
 				],
 			],
 		];
-		return $fontpacks;
+			return $fontpacks;
 	}
 
 	/**

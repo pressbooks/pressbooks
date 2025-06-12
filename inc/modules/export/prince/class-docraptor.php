@@ -114,7 +114,7 @@ class Docraptor extends Pdf {
 			}
 			$doc->setName( get_bloginfo( 'name' ) );
 			$doc->setPrinceOptions( $prince_options );
-			$doc->setPipeline( 9.2 ); // Prince 14.3, see: https://docraptor.com/documentation/api#api_pipeline
+			$doc->setPipeline( defined( 'DOCRAPTOR_PIPELINE' ) ? DOCRAPTOR_PIPELINE : '9.2' ); // Prince 14.3, see: https://docraptor.com/documentation/api#api_pipeline
 
 			yield 60 => __( 'Converting document...', 'pressbooks' );
 			$create_response = $docraptor->createAsyncDoc( $doc );
