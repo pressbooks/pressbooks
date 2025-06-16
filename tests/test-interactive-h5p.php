@@ -120,10 +120,12 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 			->with(
 				'interactive.h5pextractor',
 				$this->callback( function ( $params ) {
-					return isset( $params['id'] ) && $params['id'] === 123 &&
-						   isset( $params['representation'] ) && $params['representation'] === '<p>Mock H5P Content</p>' &&
-						   isset( $params['title'] ) && // Check title exists
-						   isset( $params['url'] ); // Check url exists
+					return isset( $params['id'] )
+						&& $params['id'] === '#h5p-123'
+						&& isset( $params['representation'] )
+						&& $params['representation'] === '<p>Mock H5P Content</p>'
+						&& isset( $params['title'] ) // Check title exists
+						&& isset( $params['url'] ); // Check url exists
 				} )
 			)
 			->willReturn( '<div>Rendered Mock H5P</div>' );
