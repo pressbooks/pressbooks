@@ -4,6 +4,7 @@ use Pressbooks\Modules\Export\Export;
 use function Pressbooks\Utility\add_sitemap_to_robots_txt;
 use function Pressbooks\Utility\do_shortcode_by_tags;
 use function Pressbooks\Utility\latest_exports;
+use function Pressbooks\Utility\length_to_inches;
 use function Pressbooks\Utility\objects_to_csv;
 
 class UtilityTest extends \WP_UnitTestCase {

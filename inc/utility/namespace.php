@@ -1664,7 +1664,7 @@ function objects_to_csv( array $array ): string {
  * @return float|bool Converted value in inches or false if the value is invalid.
  */
 function length_to_inches( $value, $dpi = 96 ) : float|bool {
-	$value = trim( $value );
+	$value = trim( $value ?? '' );
 
 	preg_match( '/^([-+]?[0-9]*\.?[0-9]+)([a-zA-Z%]+)$/', $value, $matches );
 
