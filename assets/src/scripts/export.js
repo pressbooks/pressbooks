@@ -30,7 +30,6 @@ function updateJobRowUI( jobData ) {
 	const progressText = tableRow.querySelector( '.progress-text' );
 	const jobStatus = tableRow.querySelector( '.job-status' );
 
-	// Update progress bar and percentage
 	if ( progressBar && progressText ) {
 		progressBar.classList.remove( 'pb-sse-progressbar-success', 'pb-sse-progressbar-error' );
 		progressBar.style.width = ( jobData.progress_percentage || 0 ) + '%';
@@ -38,7 +37,6 @@ function updateJobRowUI( jobData ) {
 		progressText.textContent = ( jobData.progress_percentage || 0 ) + '%';
 	}
 
-	// Update status message
 	if ( jobStatus ) {
 		jobStatus.textContent = jobData.progress_message || 'Processing...';
 	}
@@ -153,11 +151,11 @@ function createJobRow( jobData ) {
  */
 function checkAllJobsComplete() {
 	window.PB_Export_ReloadOnComplete = true;
-	if ( activeJobs.size === 0 && ( completedJobs.size > 0 || failedJobs.size > 0 ) ) {
+	if ( activeJobs.size === 0 && ( completedJobs.size > 0 ) ) {
 		if ( window.PB_Export_ReloadOnComplete ) {
 			setTimeout( () => {
 				window.location.reload();
-			}, 100 ); // Optional delay
+			}, 100 );
 		}
 	}
 }
@@ -187,7 +185,6 @@ function initializeGlobalExportFeed() {
 			const jobsData = JSON.parse( event.data );
 			jobsData.forEach( job => {
 				updateJobRowUI( job );
-				// Pre-select format checkboxes
 				const activeFormats = jobsData.map( job => job.module_slug );
 				preselectActiveFormats( [ ...new Set( activeFormats ) ] );
 			} );
