@@ -303,7 +303,6 @@ class BackgroundJob {
 				$table->dateTime( 'job_completed_at' )->nullable();
 				$table->timestamp( 'created_at' )->useCurrent();
 				$table->timestamp( 'updated_at' )->useCurrent()->useCurrentOnUpdate();
-				$table->primary( 'id' );
 				$table->index( 'book_id' );
 				$table->index( 'user_id' );
 				$table->index( 'status' );
