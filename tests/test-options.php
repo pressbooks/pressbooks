@@ -387,7 +387,7 @@ class OptionsTest extends \WP_UnitTestCase {
 		]);
 		$buffer = ob_get_clean();
 
-		$this->assertEquals( '<input id="test_color" class="coloris" name="pressbooks_options_test[test_color]" type="text" data-default-color="#c00" value="" />', $buffer );
+		$this->assertEquals( '<input id="test_color" class="color-picker" name="pressbooks_options_test[test_color]" type="text" data-default-color="#c00" value="" />', $buffer );
 	}
 
 	/**
