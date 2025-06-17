@@ -15,6 +15,7 @@ use function Pressbooks\Utility\get_contents;
 use function Pressbooks\Utility\put_contents;
 use Generator;
 use Pressbooks\Container;
+use Pressbooks\Modules\Export\Xhtml\Xhtml11;
 
 class Docraptor extends Pdf {
 
@@ -110,20 +111,29 @@ class Docraptor extends Pdf {
 			} else {
 				// The real thing
 				$doc->setTest( defined( 'WP_ENV' ) && ( WP_ENV === 'development' ) );
-				$doc->setDocumentUrl( $this->url );
+				$xhtml = new Xhtml11( [] );
+				$generator = $xhtml->convert();
+				$document_content = '';
+				while ( $generator->valid() ) {
+					yield $generator->key() => $generator->current();
+					$generator->next();
+				}
+				$document_content = $xhtml->transformOutput;
+				$document_content = str_replace( '</head>', "<style>$css</style></head>", $document_content );
+				$doc->setDocumentContent( $document_content );
 			}
 			$doc->setName( get_bloginfo( 'name' ) );
 			$doc->setPrinceOptions( $prince_options );
 			$doc->setPipeline( defined( 'DOCRAPTOR_PIPELINE' ) ? DOCRAPTOR_PIPELINE : '9.2' ); // Prince 14.3, see: https://docraptor.com/documentation/api#api_pipeline
 
-			yield 60 => __( 'Converting document...', 'pressbooks' );
+			yield 90 => __( 'Converting document...', 'pressbooks' );
 			$create_response = $docraptor->createAsyncDoc( $doc );
 			$done = false;
 			while ( ! $done ) {
 				$status_response = $docraptor->getAsyncDocStatus( $create_response->getStatusId() );
 				switch ( $status_response->getStatus() ) {
 					case 'completed':
-						yield 65 => __( 'Fetching converted file...', 'pressbooks' );
+						yield 95 => __( 'Fetching converted file...', 'pressbooks' );
 						if ( ! function_exists( 'download_url' ) ) {
 							require_once( ABSPATH . 'wp-admin/includes/file.php' );
 						}
