@@ -29,7 +29,10 @@ class Docraptor extends Pdf {
 	public function __construct( array $args ) {
 
 		parent::__construct( $args );
-		$this->url .= '&style=prince&script=prince&movefootnotes=true';
+		$_GET['style'] = 'prince';
+		$_GET['script'] = 'prince';
+		$_GET['movefootnotes'] = 'true';
+		$_GET['optimize-for-print'] = 'false';
 	}
 
 	/**
@@ -86,8 +89,6 @@ class Docraptor extends Pdf {
 
 		$prince_options = new PrinceOptions();
 		$prince_options->setNoCompress( false );
-		// If the content rendering takes more than 10 minutes, DocRaptor will time out, and export will be stalled.
-		$prince_options->setHttpTimeout( 600 ); //TODO: (bg) test this on dev/prod 10 minutes
 		$prince_options->setJavascript( true );
 		if ( $this->pdfProfile && $this->pdfOutputIntent ) {
 			$prince_options->setProfile( $this->pdfProfile );
@@ -111,7 +112,10 @@ class Docraptor extends Pdf {
 			} else {
 				// The real thing
 				$doc->setTest( defined( 'WP_ENV' ) && ( WP_ENV === 'development' ) );
-				$xhtml = new Xhtml11( [] );
+				$xhtml = new Xhtml11( [
+					'no-export' => true,
+					'endnotes' => true,
+				] );
 				$generator = $xhtml->convert();
 				$document_content = '';
 				while ( $generator->valid() ) {
@@ -126,14 +130,14 @@ class Docraptor extends Pdf {
 			$doc->setPrinceOptions( $prince_options );
 			$doc->setPipeline( defined( 'DOCRAPTOR_PIPELINE' ) ? DOCRAPTOR_PIPELINE : '9.2' ); // Prince 14.3, see: https://docraptor.com/documentation/api#api_pipeline
 
-			yield 90 => __( 'Converting document...', 'pressbooks' );
+			yield 80 => __( 'Converting document...', 'pressbooks' );
 			$create_response = $docraptor->createAsyncDoc( $doc );
 			$done = false;
 			while ( ! $done ) {
 				$status_response = $docraptor->getAsyncDocStatus( $create_response->getStatusId() );
 				switch ( $status_response->getStatus() ) {
 					case 'completed':
-						yield 95 => __( 'Fetching converted file...', 'pressbooks' );
+						yield 90 => __( 'Fetching converted file...', 'pressbooks' );
 						if ( ! function_exists( 'download_url' ) ) {
 							require_once( ABSPATH . 'wp-admin/includes/file.php' );
 						}
@@ -164,6 +168,9 @@ class Docraptor extends Pdf {
 		} catch ( ApiException $exception ) {
 			$msg = $exception->getResponseBody();
 			put_contents( $this->logfile, $exception->getResponseBody() );
+		} catch ( \Exception $e ) {
+			$msg = $e->getMessage();
+			put_contents( $this->logfile, $msg );
 		}
 
 		if ( ! empty( $msg ) ) {

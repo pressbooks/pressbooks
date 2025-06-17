@@ -158,6 +158,8 @@ class Xhtml11 extends Export {
 
 	/**
 	 * @param array $args
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
 	public function __construct( array $args ) {
 
@@ -205,6 +207,11 @@ class Xhtml11 extends Export {
 
 		$this->generatorPrefix = __( 'XHTML: ', 'pressbooks' );
 
+		if ( isset( $r['no-export'] ) || $r['endnotes'] ) {
+			$this->url = '';
+			$_GET['endnotes'] = true;
+		}
+
 		// Pre-warm common caches
 		$this->preWarmCaches();
 	}
@@ -227,15 +234,14 @@ class Xhtml11 extends Export {
 			if ( ! $this->transformOutput ) {
 				throw new Exception();
 			}
-
-			yield 75 => $this->generatorPrefix . __( 'Saving file to exports folder', 'pressbooks' );
-			$filename = $this->timestampedFileName( '.html' );
-			put_contents( $filename, $this->transformOutput );
-			$this->outputPath = $filename;
-			yield 80 => $this->generatorPrefix . __( 'Export successful', 'pressbooks' );
-
+			if ( $this->url !== '' ) {
+				yield 75 => $this->generatorPrefix . __( 'Saving file to exports folder', 'pressbooks' );
+				$filename = $this->timestampedFileName( '.html' );
+				put_contents( $filename, $this->transformOutput );
+				$this->outputPath = $filename;
+				yield 80 => $this->generatorPrefix . __( 'Export successful', 'pressbooks' );
+			}
 		} finally {
-			// Cleanup and restore environment
 			$this->restoreDatabaseOperations();
 			$this->clearCaches();
 		}
@@ -680,9 +686,6 @@ class Xhtml11 extends Export {
 		$this->domCache = [];
 		$this->imageCache = [];
 		$this->metaCache = [];
-
-		// Clear WordPress object cache for this request
-		wp_cache_flush();
 
 		// Force garbage collection
 		if ( function_exists( 'gc_collect_cycles' ) ) {

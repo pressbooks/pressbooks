@@ -206,6 +206,7 @@ class Pdf extends Export {
 		// Append endnotes to URL?
 		if ( isset( $hacks['pdf_footnotes_style'] ) && 'endnotes' === $hacks['pdf_footnotes_style'] ) {
 			$this->url .= '&endnotes=true';
+			$_GET['endnotes'] = 'true';
 		}
 
 	}
