@@ -13,6 +13,7 @@ use Exception;
 use function Pressbooks\Image\default_cover_path;
 use function Pressbooks\Image\is_valid_image;
 use function Pressbooks\Image\resize_down;
+use function Pressbooks\L10n\romanize;
 use function Pressbooks\Media\is_valid_media;
 use function Pressbooks\Modules\Export\get_contributors_section;
 use function Pressbooks\Sanitize\canonicalize_url;
@@ -69,7 +70,7 @@ class Epub extends Export {
 	 *
 	 * @var int
 	 */
-	public $timeout = 90;
+	public $timeout = 180;
 
 	/**
 	 * @var string
@@ -998,7 +999,7 @@ class Epub extends Export {
 		yield from $this->renderBackMatterGenerator( $book_contents, $metadata );
 
 		yield 58 => $this->generatorPrefix . __( 'Processing CSS', 'pressbooks' );
-		//$this->updateCssFile();
+		$this->updateCssFile();
 		// Table of contents
 		// IMPORTANT: Do this last! Uses $this->manifest to generate itself
 		yield 60 => $this->generatorPrefix . __( 'Creating table of contents', 'pressbooks' );
@@ -1530,7 +1531,7 @@ class Epub extends Export {
 						'subclass' => $subclass,
 						'slug' => $slug,
 						'front_matter_number' => $index,
-						'title' => Sanitize\decode( $title ),
+						'title' => decode( $title ),
 						'content' => $content,
 					]
 				);
@@ -1746,9 +1747,9 @@ class Epub extends Export {
 					[
 						'subclass' => $chapter_subclass,
 						'slug' => $chapter_slug,
-						'sanitized_title' => wp_strip_all_tags( \Pressbooks\Sanitize\decode( $chapter['post_title'] ) ),
+						'sanitized_title' => wp_strip_all_tags( decode( $chapter['post_title'] ) ),
 						'number' => $this->numbered ? $chapter_number : '',
-						'title' => \Pressbooks\Sanitize\decode( $chapter_title ),
+						'title' => decode( $chapter_title ),
 						'is_new_buckram' => $this->wrapHeaderElements,
 						'output_short_title' => false,
 						'author' => $chapter_author,
@@ -1784,8 +1785,8 @@ class Epub extends Export {
 					'invisibility' => $invisible ? 'invisible' : '',
 					'introduction' => $part_is_introduction ? 'introduction' : '',
 					'slug' => $part_slug,
-					'number' => $this->numbered ? \Pressbooks\L10n\romanize( $part_number ) : '',
-					'title' => \Pressbooks\Sanitize\decode( $part_title ),
+					'number' => $this->numbered ? romanize( $part_number ) : '',
+					'title' => decode( $part_title ),
 					'content' => $part_content,
 				]
 			);
@@ -1854,7 +1855,7 @@ class Epub extends Export {
 				'is_epub' => true, // we want the slugs to be proper anchors in the EPUB export
 			] );
 
-			$vars['post_title'] = Sanitize\decode( $back_matter['post_title'] );
+			$vars['post_title'] = decode( $back_matter['post_title'] );
 			$vars['post_content'] = $this->blade->render( 'export/generic-post-type', $data );
 
 			$file_id = 'back-matter-' . sprintf( '%03s', $index );
@@ -1936,7 +1937,7 @@ class Epub extends Export {
 						'is_epub' => true,
 						'slug' => $data['href'],
 						'title' => ( $this->numbered && $is_visible ? apply_filters('pb_post_type_label', __( 'Part', 'pressbooks' ),
-						[ 'post_type' => 'part' ]) . ' ' . \Pressbooks\L10n\romanize( $parts_count ) . '. ' : '' ) . $data['title'],
+						[ 'post_type' => 'part' ]) . ' ' . romanize( $parts_count ) . '. ' : '' ) . $data['title'],
 					],
 				]);
 
@@ -2031,6 +2032,9 @@ class Epub extends Export {
 		// Remove ARIA attributes from static H5P content
 		$dom = $this->removeH5PAriaAttributes( $dom );
 
+		// Download background images, change to relative paths
+		$dom = $this->scrapeAndKneadBackgroundImages( $dom );
+
 		// Make sure empty tags (e.g. <b></b>) don't get turned into self-closing versions by adding an empty text node to them.
 		$xpath = new \DOMXPath( $dom );
         while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) { // @codingStandardsIgnoreLine
@@ -2096,6 +2100,48 @@ class Epub extends Export {
 					$image->removeAttribute( 'width' );
 					$image->removeAttribute( 'height' );
 				}
+			}
+		}
+
+		return $doc;
+	}
+
+	/**
+	 * Parse HTML snippet, download all found background images into /EPUB/assets/, return the HTML with changed background-image paths.
+	 *
+	 * @param \DOMDocument $doc
+	 *
+	 * @return \DOMDocument
+	 */
+	protected function scrapeAndKneadBackgroundImages( \DOMDocument $doc ): \DOMDocument {
+		$fullpath = $this->tmpDir . '/EPUB/assets';
+
+		$xpath = new \DOMXPath( $doc );
+		$elements = $xpath->query( '//*[contains(@style, "background-image: url(")]' );
+
+		foreach ( $elements as $element ) {
+			/** @var \DOMElement $element */
+			$style = $element->getAttribute( 'style' );
+			if ( preg_match( '/background-image:\s*url\(([^)]+)\)/', $style, $matches ) ) {
+				$url = trim( $matches[1], '"\'' ); // Remove quotes
+				if ( str_starts_with( $url, 'data:' ) ) {
+					$filename = $this->saveBase64Image( $url, $fullpath );
+					if ( $filename ) {
+						$new_url = 'assets/' . $filename;
+					} else {
+						continue; // Skip if saving failed
+					}
+				} else {
+					$filename = $this->fetchAndSaveUniqueImage( $url, $fullpath );
+					if ( ! empty( $filename ) ) {
+						$new_url = 'assets/' . $filename;
+					} else {
+						continue; // Skip if fetching failed
+					}
+				}
+				// Replace the background image URL in the style attribute
+				$new_style = str_replace( "url({$matches[1]})", "url({$new_url})", $style );
+				$element->setAttribute( 'style', $new_style );
 			}
 		}
 
@@ -2403,7 +2449,7 @@ class Epub extends Export {
 			/** @var \DOMElement $url */
 			$current_url = '' . $url->getAttribute( 'href' ); // Stringify
 
-			// Is this the the attributionUrl?
+			// Is this the attributionUrl?
 			if ( $url->getAttribute( 'rel' ) === 'cc:attributionURL' ) {
 				$url->parentNode->replaceChild(
 					$doc->createTextNode( $url->nodeValue ),
@@ -2826,29 +2872,6 @@ class Epub extends Export {
 		put_contents( $path, $this->blade->render( "export/epub/{$template}", $data ) );
 	}
 
-	protected function updateCssFile(): void {
-		$directory = $this->epubDir;
-		$filename = $this->stylesheet;
-
-		$path = "{$directory}/{$filename}";
-
-		$contents = get_contents( $path );
-
-		$scss_dir = pathinfo( $this->epubDir, PATHINFO_DIRNAME );
-		$this->embbededCss = $this->normalizeCssUrls( $this->embbededCss, $scss_dir, $this->assetsDir );
-		$this->embbededCss = $this->normalizeExternalFontsUrls( $this->embbededCss, $this->assetsDir );
-		$this->embbededCss = str_replace( '&gt;', '>', $this->embbededCss );
-		$this->embbededCss = str_replace( '*width', 'width', $this->embbededCss );
-		// Remove empty src urls from the CSS that are added by the H5P libraries
-		// TODO: Remove this when H5P Extractor fixes the issue
-		$this->embbededCss = str_replace( "src: url('') format('woff2');", '', $this->embbededCss );
-		$this->embbededCss = str_replace( "src: url('') format('truetype');", '', $this->embbededCss );
-		$this->embbededCss = str_replace( "background: url('') 10px center no-repeat;", '', $this->embbededCss );
-		$this->embbededCss = str_replace( 'font-size: unset;', '', $this->embbededCss );
-		put_contents( $path, $contents . $this->embbededCss );
-
-	}
-
 	/**
 	 * @param string $file_id
 	 * @param string $slug
@@ -2888,7 +2911,7 @@ class Epub extends Export {
 	}
 
 	/**
-	 * Remove h5p aria-* attributes from the document.
+	 * Remove h5p aria-* attributes and fix invalid role attributes from the document.
 	 * This is a workaround for H5P Extractor not removing them properly.
 	 * @param \DOMDocument $dom
 	 * @return \DOMDocument
@@ -2899,7 +2922,10 @@ class Epub extends Export {
 		$labelledby_tags = $xpath->query( '//div[contains(@class,"h5p-extractor")]//*[@aria-labelledby[contains(.,"h5p-panel")]]' );
 		$controls_tags = $xpath->query( '//div[contains(@class,"h5p-extractor")]//*[@aria-controls]' );
 
-		// Process both node lists
+		// Find li elements with role="checkbox" or role="radio"
+		$invalid_role_tags = $xpath->query( '//div[contains(@class,"h5p-extractor")]//li[@role="checkbox" or @role="radio"]' );
+
+		// Process both aria attribute node lists
 		foreach ( [ $labelledby_tags, $controls_tags ] as $node_list ) {
 			foreach ( $node_list as $tag ) {
 				/** @var \DOMElement $tag */
@@ -2916,6 +2942,16 @@ class Epub extends Export {
 				foreach ( $attrs_to_remove as $attr_name ) {
 					$tag->removeAttribute( $attr_name );
 				}
+			}
+		}
+
+		// Fix invalid role attributes on li elements
+		foreach ( $invalid_role_tags as $li_tag ) {
+			/** @var \DOMElement $li_tag */
+			$current_role = $li_tag->getAttribute( 'role' );
+
+			if ( $current_role === 'checkbox' || $current_role === 'radio' ) {
+				$li_tag->setAttribute( 'role', 'listitem' );
 			}
 		}
 
@@ -3059,13 +3095,23 @@ class Epub extends Export {
 				return ! empty( array_filter( $errors ) );
 		} ) ) . "\n";
 
-		$formatted_output .= "\nCOMMON ISSUES FOUND:\n";
-		$formatted_output .= "• Invalid role attributes in interactive elements\n";
-		$formatted_output .= "• Missing aria-checked attributes on list items\n";
-		$formatted_output .= "• Remote resource references not properly declared\n";
-		$formatted_output .= "• Incorrect file extensions on images\n";
-
 		return $formatted_output;
+	}
+
+	protected function updateCssFile(): void {
+		$directory = $this->epubDir;
+		$filename = $this->stylesheet;
+
+		$path = "{$directory}/{$filename}";
+
+		$contents = get_contents( $path );
+
+		$scss_dir = pathinfo( $this->epubDir, PATHINFO_DIRNAME );
+		$this->embbededCss = $this->normalizeCssUrls( $this->embbededCss, $scss_dir, $this->assetsDir );
+		$this->embbededCss = $this->normalizeExternalFontsUrls( $this->embbededCss, $this->assetsDir );
+		$this->embbededCss = $this->cleanH5PCss( $this->embbededCss );
+
+		put_contents( $path, $contents . $this->embbededCss );
 	}
 
 	/**
@@ -3088,6 +3134,8 @@ class Epub extends Export {
 	public function logError( string $message, array $more_info = [] ): void {
 
 		if ( str_contains( $message, 'EPUB Validation' ) || str_contains( $message, 'ERROR(RSC-' ) ) {
+
+			error_log( $message ); // Log raw message for debugging
 
 			$more_info['formatted_validation_report'] = $this->formatValidationLog( $message );
 

@@ -559,25 +559,18 @@ function is_form_submission(): bool {
 function pb_xhtml_after_content_processed(): void {
 	global $h5p_css_url;
 
-	$css_content = apply_filters( 'pb_process_scoped_styles', '' );
-
-	$css_content = str_replace( '&gt;', '>', $css_content );
-	$css_content = str_replace( '*width', 'width', $css_content );
-	// Remove empty src urls from the CSS that are added by the H5P libraries
-	// TODO: Remove this when H5P Extractor fixes the issue
-	$css_content = str_replace( "src: url('') format('woff2');", '', $css_content );
-	$css_content = str_replace( "src: url('') format('truetype');", '', $css_content );
-	$css_content = str_replace( "background: url('') 10px center no-repeat;", '', $css_content );
-	$css_content = str_replace( 'font-size: unset;', '', $css_content );
-
-	if ( empty( $css_content ) ) {
-		$h5p_css_url = '';
-		return;
-	}
-
 	$upload_dir = Container::get( 'Sass' )->pathToUserGeneratedCss();
 	$filename = 'scopedstyles.css';
 	$css_path = $upload_dir . '/' . $filename;
+	$css_content = apply_filters( 'pb_process_scoped_styles', '' );
+
+	if ( empty( $css_content ) ) {
+		if ( file_exists( $css_path ) ) {
+			$h5p_css_url = Container::get( 'Sass' )->urlToUserGeneratedCss( true ) . "/{$filename}";
+		}
+		return;
+	}
+
 	$optimized_css_path = $upload_dir . '/optimized-' . $filename;
 
 	if ( file_exists( $css_path ) ) {
@@ -590,7 +583,6 @@ function pb_xhtml_after_content_processed(): void {
 	$purge_script = $node_modules . '/css-purge';
 
 	if ( file_exists( $purge_script ) ) {
-		error_log( 'Pressbooks Custom XHTML CSS: Running css-purge' );
 		$output = [];
 		$return_var = 0;
 		exec( "$purge_script -i $css_path -o $optimized_css_path", $output, $return_var );
@@ -609,7 +601,8 @@ function pb_xhtml_after_content_processed(): void {
 
 	$h5p_css_url = '';
 }
-function pb_xhtml_custom_stylesheet_url() {
+$h5p_css_url = '';
+function pb_xhtml_custom_stylesheet_url(): string {
 	global $h5p_css_url;
 	return ! empty( $h5p_css_url ) ? $h5p_css_url : '';
 }

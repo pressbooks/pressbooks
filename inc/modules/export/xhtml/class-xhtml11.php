@@ -326,7 +326,11 @@ class Xhtml11 extends Export {
 	 * @throws Exception
 	 */
 	public function transformGenerator() : Generator {
-		//TODO: (bg) Check why is this required in theory is being called in Export::preExport() maybe hooks calling order
+		/**
+		 * Let other plugins tweak things before exporting
+		 * TODO: (bg) Check why is this required in theory is being called in class-backgroundjob.php probably because we have a different the_content when processing
+		 * @since 4.4.0
+		 */
 		do_action( 'pb_pre_export' );
 
 		// Override footnote shortcode
@@ -390,7 +394,7 @@ class Xhtml11 extends Export {
 				echo "<script src='$url' type='text/javascript'></script>\n";
 			}
 		}
-		echo "<!-- PB_CUSTOM_STYLES_PLACEHOLDER -->\n"; // Placeholder for the custom stylesheet link
+		echo "<!-- PB_SCOPED_STYLES_PLACEHOLDER -->\n"; // Placeholder for the custom stylesheet link
 		echo "</head>\n<body lang='{$this->lang}' ";
 		if ( ! empty( $_GET['optimize-for-print'] ) ) {
 			echo "class='print' ";
@@ -496,9 +500,9 @@ class Xhtml11 extends Export {
 
 		if ( ! empty( $custom_stylesheet_url ) ) {
 			$link_tag = sprintf( '<link rel="stylesheet" href="%s" type="text/css" />', esc_url( $custom_stylesheet_url ) );
-			$buffer = str_replace( '<!-- PB_CUSTOM_STYLES_PLACEHOLDER -->', $link_tag, $buffer );
+			$buffer = str_replace( '<!-- PB_SCOPED_STYLES_PLACEHOLDER -->', $link_tag, $buffer );
 		} else {
-			$buffer = str_replace( "<!-- PB_CUSTOM_STYLES_PLACEHOLDER -->\n", '', $buffer );
+			$buffer = str_replace( "<!-- PB_SCOPED_STYLES_PLACEHOLDER -->\n", '', $buffer );
 		}
 
 		$this->transformOutput = $buffer;
@@ -708,7 +712,7 @@ class Xhtml11 extends Export {
 		$post_ids = [];
 
 		foreach ( $book_contents as $type => $struct ) {
-			if ( preg_match( '/^__/', $type ) ) {
+			if ( str_starts_with( $type, '__' ) ) {
 				continue;
 			}
 
@@ -1697,13 +1701,7 @@ class Xhtml11 extends Export {
 				if ( preg_match_all( '/<style.*?scoped="scoped".*?>(.*?)<\/style>/is', $chapter_content, $matches ) ) {
 					$scoped_styles = implode( "\n", $matches[1] ) . "\n";
 					add_filter('pb_process_scoped_styles', function( $st ) use ( $scoped_styles ) {
-						$scoped_styles = str_replace( '&gt;', '>', $scoped_styles );
-						$scoped_styles = str_replace( '*width', 'width', $scoped_styles );
-						$scoped_styles = str_replace( "src: url('') format('woff2');", '', $scoped_styles );
-						$scoped_styles = str_replace( "src: url('') format('truetype');", '', $scoped_styles );
-						$scoped_styles = str_replace( "background: url('') 10px center no-repeat;", '', $scoped_styles );
-						$scoped_styles = str_replace( 'font-size: unset;', '', $scoped_styles );
-						return $st . $scoped_styles;
+						return $st . $this->cleanH5PCss( $scoped_styles );
 					});
 				}
 				$chapter_content = preg_replace( '/<style.*?scoped="scoped".*?<\/style>/i', '', $chapter_content );

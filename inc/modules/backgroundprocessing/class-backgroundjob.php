@@ -181,7 +181,6 @@ class BackgroundJob {
 					->update( $update_gen_progress_data );
 			}
 
-			// Check generator status
 			$convert_success = $conversion_generator->getReturn();
 
 			if ( $convert_success ) {
@@ -201,7 +200,6 @@ class BackgroundJob {
 						'updated_at' => current_time( 'mysql', true ),
 					]);
 
-				// Handle validation with generator support
 				$validation_generator = $exporter->validate();
 
 				foreach ( $validation_generator as $progress_key => $progress_value ) {

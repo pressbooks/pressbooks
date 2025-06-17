@@ -280,11 +280,11 @@ if ( $is_book ) {
 	// Overrides
 	add_filter( 'pb_epub_css_override', [ '\Pressbooks\Modules\ThemeOptions\EbookOptions', 'scssOverrides' ] );
 	add_filter( 'pb_pdf_css_override', [ '\Pressbooks\Modules\ThemeOptions\PDFOptions', 'scssOverrides' ] );
-	global $pb_process_scoped_styles;
-	add_filter( 'pb_process_scoped_styles', function () {
-		return $GLOBALS['pb_process_scoped_styles'] ?? '';
-	});
 }
+global $pb_process_scoped_styles;
+add_filter( 'pb_process_scoped_styles', function () {
+	return $GLOBALS['pb_process_scoped_styles'] ?? '';
+});
 
 // -------------------------------------------------------------------------------------------------------------------
 // Use DocRaptor instead of Prince?

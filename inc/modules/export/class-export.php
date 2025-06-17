@@ -574,7 +574,7 @@ abstract class Export {
 			return get_name_from_module_classname( $module_classname );
 		}
 		$parts = explode( '\\', $module_classname );
-		return end( $parts ); // Fallback to class name
+		return end( $parts );
 	}
 
 	/**
@@ -582,12 +582,11 @@ abstract class Export {
 	 */
 	public static function preExport(): void {
 		/**
-		 * Let other plugins tweak things before exporting
+		 * Let other plugins tweak things before exporting for instance H5P export, MathJax, etc.
 		 *
 		 * @since 4.4.0
 		 */
 		do_action( 'pb_pre_export' );
-
 		// --------------------------------------------------------------------------------------------------------
 		// Clear cache? Range is 1 hour.
 
