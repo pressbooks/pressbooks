@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 
 		// Show success message
-		showSuccess((PB_ExportToken?.text?.jobs_submitted) || 'Export jobs submitted successfully. Watch for progress updates below.');
+		showSuccess((PB_ExportToken?.text?.jobs_submitted) || 'Export job(s) successfully added to the queue. Progress updates will appear below until the export process is completed. In the meantime, you can safely navigate away from this page.	');
 	}
 
 	/**
