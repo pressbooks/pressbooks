@@ -24,15 +24,15 @@ class NetworkDashboard extends Dashboard {
 	public function render(): void {
 		$blade = Container::get( 'Blade' );
 
-		$environment = 'development';
-		$domain = 'https://dev.pressbooks.com';
+		$environment = 'production';
+		$domain = 'https://pressbooks.com';
 
 		if ( defined( 'WP_ENV' ) ) {
 			$environment = WP_ENV;
 		}
 
-		if ( in_array( $environment, [ 'staging', 'production' ], true ) ) {
-			$domain = 'https://pressbooks.com';
+		if ( ! in_array( $environment, [ 'staging', 'production' ], true ) ) {
+			$domain = 'https://dev.pressbooks.com';
 		}
 
 		$response = wp_remote_get( "{$domain}/wp-json/dashboard/v1/release-notes", [
