@@ -29,6 +29,7 @@ class Docraptor extends Pdf {
 	public function __construct( array $args ) {
 
 		parent::__construct( $args );
+		// Override required URL parameters for XHTML generator.
 		$_GET['optimize-for-print'] = false;
 		$_GET['movefootnotes'] = true;
 	}
@@ -99,7 +100,7 @@ class Docraptor extends Pdf {
 		}
 		$retval = false;
 
-		yield 58 => __( 'Rendering content...', 'pressbooks' );
+		yield 58 => __( 'Processing content...', 'pressbooks' );
 		try {
 			$doc = new Doc();
 			if ( defined( 'WP_TESTS_MULTISITE' ) ) {
@@ -110,13 +111,13 @@ class Docraptor extends Pdf {
 			} else {
 				// The real thing
 				$doc->setTest( defined( 'WP_ENV' ) && ( WP_ENV === 'development' ) );
+				// USE XHTML11 Directly, because passing a url takes a long time to load and DocRaptor has a 10-min timeout.
 				$xhtml = new Xhtml11( [
 					'no-export' => true,
 				] );
 				$generator = $xhtml->convert();
 				$document_content = '';
 				while ( $generator->valid() ) {
-					yield $generator->key() => $generator->current();
 					$generator->next();
 				}
 				$document_content = $xhtml->transformOutput;
