@@ -17,7 +17,7 @@ class DocraptorPrint extends Docraptor {
 	 */
 	public function __construct( array $args ) {
 		parent::__construct( $args );
-		$_GET['optimize-for-print'] = 'true';
+		$_GET['optimize-for-print'] = true;
 		// PDF size tends to shrink if you disable links
 		$this->cssOverrides .= "\n" . ':link { prince-link: none !important }' . "\n";
 	}

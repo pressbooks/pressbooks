@@ -29,10 +29,8 @@ class Docraptor extends Pdf {
 	public function __construct( array $args ) {
 
 		parent::__construct( $args );
-		$_GET['style'] = 'prince';
-		$_GET['script'] = 'prince';
-		$_GET['movefootnotes'] = 'true';
-		$_GET['optimize-for-print'] = 'false';
+		$_GET['optimize-for-print'] = false;
+		$_GET['movefootnotes'] = true;
 	}
 
 	/**
@@ -114,7 +112,6 @@ class Docraptor extends Pdf {
 				$doc->setTest( defined( 'WP_ENV' ) && ( WP_ENV === 'development' ) );
 				$xhtml = new Xhtml11( [
 					'no-export' => true,
-					'endnotes' => true,
 				] );
 				$generator = $xhtml->convert();
 				$document_content = '';

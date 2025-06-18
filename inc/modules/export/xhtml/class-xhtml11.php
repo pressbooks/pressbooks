@@ -194,7 +194,7 @@ class Xhtml11 extends Export {
 		// Append endnotes to URL?
 		if ( $r['endnotes'] ) {
 			$this->url .= '&endnotes=true';
-			$_GET['endnotes'] = true;
+			$_GET['endnotes'] = 'true';
 		}
 
 		// HtmLawed: id values not allowed in input
@@ -207,9 +207,8 @@ class Xhtml11 extends Export {
 
 		$this->generatorPrefix = __( 'XHTML: ', 'pressbooks' );
 
-		if ( isset( $r['no-export'] ) || $r['endnotes'] ) {
+		if ( isset( $r['no-export'] ) ) {
 			$this->url = '';
-			$_GET['endnotes'] = true;
 		}
 
 		// Pre-warm common caches
@@ -934,16 +933,6 @@ class Xhtml11 extends Export {
 	}
 
 	/**
-	 * @param string   $content
-	 * @param int|null $id
-	 *
-	 * @return string
-	 */
-	protected function preProcessPostContent( string $content, int $id = null ): string {
-		return $this->optimizedPreProcessPostContent( $content, $id );
-	}
-
-	/**
 	 * Optimized image attributes processing
 	 */
 	protected function optimizedFixImageAttributes( $content ) {
@@ -976,10 +965,6 @@ class Xhtml11 extends Export {
 		$this->processingCache[ $cache_key ] = $result;
 
 		return $result;
-	}
-
-	protected function fixImageAttributes( $content ) {
-		return $this->optimizedFixImageAttributes( $content );
 	}
 
 	/**

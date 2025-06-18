@@ -253,7 +253,7 @@ class Pdf extends Export {
 		$prince = new PrinceWrapper( PB_PRINCE_COMMAND );
 		$prince->setHTML( true );
 		$prince->setCompress( true );
-		$prince->setHttpTimeout( 900 );
+		$prince->setHttpTimeout( 600 );
 		if ( defined( 'WP_ENV' ) && ( WP_ENV === 'development' ) ) {
 			$prince->setInsecure( true );
 		}
