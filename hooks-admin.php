@@ -249,6 +249,7 @@ add_action( 'wp_ajax_pb_delete_catalog_logo', [ '\Pressbooks\Catalog', 'deleteLo
 // Export page
 add_action( 'wp_ajax_pb_update_pins', '\Pressbooks\Modules\Export\update_pins' );
 add_action( 'wp_ajax_pb_export_book', '\Pressbooks\Modules\Export\handle_exports_submit' );
+add_action( 'wp_ajax_pb_cancel_job', '\Pressbooks\Modules\Export\handle_cancel_export_job' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // SASS

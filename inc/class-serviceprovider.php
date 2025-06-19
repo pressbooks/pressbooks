@@ -44,6 +44,17 @@ class ServiceProvider {
 		);
 
 		$container->singleton(
+			'ScopedStyles', function () {
+				return new class {
+					public function __construct(
+						public string $url = '',
+					) {
+					}
+				};
+			}
+		);
+
+		$container->singleton(
 			'Blade', function () {
 				// Configuration
 				// Note that you can set several directories where your templates are located

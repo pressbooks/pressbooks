@@ -612,3 +612,40 @@ function include_exportable_h5p(): void {
 		return get_h5p_ids_for_exportable_posts();
 	});
 }
+
+/**
+ * AJAX handler to cancel an export job.
+ */
+function handle_cancel_export_job(): void {
+	check_ajax_referer( 'pb-export-book', 'pb_cancel_nonce' );
+
+	if ( ! current_user_can( 'edit_posts' ) ) {
+		wp_send_json_error( [ 'message' => __( 'Permission denied.', 'pressbooks' ) ], 403 );
+		return;
+	}
+
+	$job_id = isset( $_POST['job_id'] ) ? intval( $_POST['job_id'] ) : 0;
+
+	if ( $job_id <= 0 ) {
+		wp_send_json_error( [ 'message' => __( 'Invalid job ID.', 'pressbooks' ) ], 400 );
+		return;
+	}
+
+	$job = app( 'db' )->table( BackgroundJob::JOBS_TABLE_NAME )
+		->where( 'id', $job_id )
+		->first();
+
+	if ( ! $job || $job->status !== 'pending' ) {
+		wp_send_json_error( [ 'message' => __( 'Job not found or already processed.', 'pressbooks' ) ], 404 );
+		return;
+	}
+
+	app( 'db' )->table( BackgroundJob::JOBS_TABLE_NAME )
+		->where( 'id', $job_id )
+		->update( [
+			'status' => 'canceled',
+			'updated_at' => current_time( 'mysql', true ),
+		] );
+
+	wp_send_json_success( [ 'message' => __( 'Export job canceled successfully.', 'pressbooks' ) ] );
+}

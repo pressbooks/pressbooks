@@ -121,7 +121,7 @@ class H5P {
 	 */
 	public function shouldEnablePrint(): void {
 		$export_options = get_option( 'pressbooks_export_options' );
-		$is_previewing = $_GET['debug'] ?? false;
+		$is_previewing = isset( $_GET['debug'] ) ? wp_unslash( $_GET['debug'] ) : false;
 		if ( isset( $export_options['h5p_print_on_exports'] ) && $export_options['h5p_print_on_exports'] && ! $is_previewing ) {
 			$this->enableStaticRepresentation = $export_options['h5p_print_on_exports'];
 		}
@@ -431,28 +431,34 @@ class H5P {
 		// Workaround for Image, the > selector in the original CSS will be replaced by &gt; for XML
 		$custom_css_pre .= '.h5p-extractor .h5p-image img { display: block; width: 100%; height: 100%; }';
 
-		/*
-		 * Used for configuration of H5PExtraction:
-		 * uploadsPath: Use WordPress `uploads` folder to use for extracted files
-		 * h5pContentUrl: URL to H5P content folder to use assets from server, not base64 encoded representations
-		 * h5pCoreUrl: URL to H5P core library files to use assets from server, not base64 encoded representations
-		 * h5pLibrariesUrl: URL to H5P libraries folder to use assets from server, not base64 encoded representations
-		 * customCssPre: Custom CSS to be added to the beginning of the CSS file to guard against Pressbooks CSS spill-over
-		 */
-		$h5p_extractor = new H5PExtractor([
-			'uploadsPath' => wp_upload_dir()['basedir'],
-			'h5pContentUrl' => wp_upload_dir()['baseurl'] . '/h5p/content/' . $h5p_id . '/',
-			'h5pCoreUrl' => plugins_url() . '/h5p/h5p-php-library/',
-			'h5pLibrariesUrl' => wp_upload_dir()['baseurl'] . '/h5p/libraries/',
-			'customCssPre' => $custom_css_pre,
-			'baseFontSize' => 10,
-			'renderWidth' => $render_width,
-		]);
+		// Catch extractor errors and return null if extraction fails
+		try {
+			/*
+			* Used for configuration of H5PExtraction:
+			* uploadsPath: Use WordPress `uploads` folder to use for extracted files
+			* h5pContentUrl: URL to H5P content folder to use assets from server, not base64 encoded representations
+			* h5pCoreUrl: URL to H5P core library files to use assets from server, not base64 encoded representations
+			* h5pLibrariesUrl: URL to H5P libraries folder to use assets from server, not base64 encoded representations
+			* customCssPre: Custom CSS to be added to the beginning of the CSS file to guard against Pressbooks CSS spill-over
+			*/
+			$h5p_extractor = new H5PExtractor([
+				'uploadsPath' => wp_upload_dir()['basedir'],
+				'h5pContentUrl' => wp_upload_dir()['baseurl'] . '/h5p/content/' . $h5p_id . '/',
+				'h5pCoreUrl' => plugins_url() . '/h5p/h5p-php-library/',
+				'h5pLibrariesUrl' => wp_upload_dir()['baseurl'] . '/h5p/libraries/',
+				'customCssPre' => $custom_css_pre,
+				'baseFontSize' => 10,
+				'renderWidth' => $render_width,
+			]);
 
-		$extract = $h5p_extractor->extract( [
-			'file' => $path,
-			'format' => 'html',
-		] );
+			$extract = $h5p_extractor->extract( [
+				'file' => $path,
+				'format' => 'html',
+			] );
+		} catch ( \Exception $e ) {
+			debug_error_log( 'H5P Extractor error: ' . $e->getMessage() );
+			return null; // Could not extract H5P content
+		}
 
 		if ( isset( $extract['error'] ) ) {
 			debug_error_log( 'H5P Extractor error: ' . $extract['error'] );

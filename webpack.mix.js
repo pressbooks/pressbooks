@@ -42,7 +42,6 @@ mix
 	.js( 'assets/src/scripts/cloner.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/color-picker.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/export.js', 'assets/dist/scripts/' )
-	.js( 'assets/src/scripts/admin/export-ui.js', 'assets/dist/scripts/admin/' )
 	.js( 'assets/src/scripts/footnote.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/ftnref-convert.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/latex.js', 'assets/dist/scripts' )

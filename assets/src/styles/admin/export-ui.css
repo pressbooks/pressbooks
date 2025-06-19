@@ -23,6 +23,12 @@
     color: #333;
 }
 
+.export-actions {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
 .job-status {
     font-size: 14px;
     color: #666;

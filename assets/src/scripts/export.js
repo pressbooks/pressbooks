@@ -53,7 +53,7 @@ function updateJobRowUI( jobData ) {
 			if ( jobData.file_name && jobData.download_url ) {
 				jobStatus.innerHTML = `<a href="${ jobData.download_url }" target="_blank" class="download-link">${ jobData.file_name }</a>`;
 			} else {
-				jobStatus.textContent = ( PB_ExportToken.text && PB_ExportToken.text.completed ) || 'Completed';
+				jobStatus.textContent = PB_ExportToken?.text?.completed  || 'Completed';
 			}
 		}
 
@@ -105,11 +105,10 @@ function preselectActiveFormats( activeFormats ) {
 			checkbox.checked = true;
 			checkbox.disabled = true; // Prevent unchecking while job is running
 
-			// Add visual indicator
 			const label = exportForm.querySelector( `label[for="${ formatSlug }"]` );
 			if ( label ) {
 				label.classList.add( 'export-format-active' );
-				label.title = 'This export is currently running';
+				label.title = PB_ExportToken?.text?.job_running || 'This export is currently running';
 			}
 		}
 	} );
@@ -131,7 +130,7 @@ function createJobRow( jobData ) {
             <div class="export-job-content">
                 <div class="export-name">
                     <strong class="format-name">${ jobData.format_name || jobData.module_slug }</strong>
-                    <span class="job-status">${ jobData.progress_message || 'Starting...' }</span>
+                    <span class="job-status">${ jobData.progress_message || PB_ExportToken?.text?.start_export }</span>
                 </div>
                 <div class="export-progress">
                     <div class="progress-bar-container">
@@ -139,6 +138,9 @@ function createJobRow( jobData ) {
                     </div>
                     <span class="progress-text">${ jobData.progress_percentage || 0 }%</span>
                 </div>
+                <div class="export-actions">
+               	  <button class="button button-secondary cancel-job" data-job-id="${ jobData.job_id }" type="button">${PB_ExportToken?.text?.cancel_button || 'Cancel'}</button>
+				</div>
             </div>
         </td>
     `;
@@ -166,7 +168,6 @@ function checkAllJobsComplete() {
 function initializeGlobalExportFeed() {
 
 	if ( ! PB_ExportToken || ! PB_ExportToken.ajaxurl || ! PB_ExportToken.userExportFeedNonce || ! PB_ExportToken.bookId ) {
-		console.error( 'SSE Feed: Missing required PB_ExportToken properties (ajaxurl, userExportFeedNonce, bookId).' );
 		return;
 	}
 
@@ -202,7 +203,192 @@ function initializeGlobalExportFeed() {
 			globalExportSSE = null;
 		}
 	};
+	// Trigger cancel button functionality
+	document.querySelector('table.wp-list-table').addEventListener('click', function(event) {
+		const button = event.target.closest('button.cancel-job');
+		if (!button) return;
+
+		const jobId = button.getAttribute('data-job-id');
+		if (!jobId) return;
+
+		if (confirm(PB_ExportToken?.text?.cancel_confirmation || 'Are you sure you want to cancel this export job?')) {
+			fetch(PB_ExportToken.ajaxurl, {
+			    method: 'POST',
+			    headers: {
+			        'Content-Type': 'application/x-www-form-urlencoded',
+			    },
+			    body: new URLSearchParams({
+			        action: 'pb_cancel_job',
+			        job_id: jobId,
+			        pb_cancel_nonce: PB_ExportToken.nonce,
+			    })
+			})
+			.then(response => {
+			    if (!response.ok) throw new Error('Network response was not ok');
+			    window.location.reload();
+			})
+			.catch(() => {
+			    alert(PB_ExportToken?.text?.cancel_failed || 'Failed to cancel export job.');
+			});
+		}
+	});
+
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+	const exportForm = document.getElementById('pb-export-form');
+	const exportButton = document.getElementById('pb-export-button');
+
+	if (exportForm && exportButton) {
+		exportForm.addEventListener('submit', async function (event) {
+			event.preventDefault();
+
+			// Disable button and show loading state
+			exportButton.disabled = true;
+			const originalButtonText = exportButton.textContent;
+			exportButton.textContent = PB_ExportToken?.text?.exporting || 'Exporting...';
+
+			try {
+				// Get selected formats
+				const formData = new FormData(exportForm);
+				const selectedFormats = getSelectedFormats(formData);
+
+				if (selectedFormats.length === 0) {
+					showError(PB_ExportToken?.text?.select_format || 'Please select at least one export format.');
+					return;
+				}
+
+				const response = await submitExportJobs(selectedFormats);
+
+				if (response.success && response.data?.results) {
+					handleSubmissionSuccess(response.data);
+				} else {
+					handleSubmissionError(response);
+				}
+
+			} catch (error) {
+				showError(PB_ExportToken?.text?.error_jobs || 'Error submitting export jobs:' + error.message);
+			} finally {
+				exportButton.disabled = false;
+				exportButton.textContent = originalButtonText;
+			}
+		});
+	}
+
+	/**
+	 * Extract selected export formats from form data
+	 */
+	function getSelectedFormats(formData) {
+		const selectedFormats = [];
+
+		for (const [key, value] of formData.entries()) {
+			if (key.startsWith('export_formats[') && value) {
+				const formatKey = key.substring(key.indexOf('[') + 1, key.indexOf(']'));
+				selectedFormats.push(formatKey);
+			}
+		}
+
+		return selectedFormats;
+	}
+
+	/**
+	 * Submit export jobs to the server
+	 */
+	async function submitExportJobs(selectedFormats) {
+		const serverFormData = new FormData();
+
+
+		selectedFormats.forEach(format => {
+			serverFormData.append(`export_formats[${format}]`, '1');
+		});
+
+		serverFormData.append('action', 'pb_export_book');
+		serverFormData.append('pb_export_nonce', PB_ExportToken.nonce);
+
+		const response = await fetch(PB_ExportToken.ajaxurl, {
+			method: 'POST',
+			body: serverFormData
+		});
+
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+
+		return await response.json();
+	}
+
+	/**
+	 * Handle successful job submission
+	 */
+	function handleSubmissionSuccess(data) {
+		// Store reload preference
+		if (data.reload_on_complete === true) {
+			window.PB_Export_ReloadOnComplete = true;
+		}
+
+		data.results.forEach(jobResult => {
+			if (jobResult.event_type === 'job_queued') {
+			} else if (jobResult.event_type === 'job_queue_failed') {
+				console.error(`Failed to queue job: ${jobResult.module_slug} - ${jobResult.message}`);
+			}
+		});
+
+		if (typeof window.PB_EnsureGlobalExportFeed === 'function') {
+			window.PB_EnsureGlobalExportFeed();
+		}
+
+		showSuccess((PB_ExportToken?.text?.jobs_submitted) || 'Export job(s) successfully added to the queue. Progress updates will appear below until the export process is completed. In the meantime, you can safely navigate away from this page.');
+	}
+
+	/**
+	 * Handle submission errors
+	 */
+	function handleSubmissionError(response) {
+		const errorMessage = response.data?.message || response.message || 'Failed to submit export jobs.';
+		showError(errorMessage);
+	}
+
+	/**
+	 * Show error message to user
+	 */
+	function showError(message) {
+		alert(message);
+	}
+
+	/**
+	 * Show success message to user
+	 */
+	function showSuccess(message) {
+		createNotification(message, 'success');
+	}
+
+	/**
+	 * Create an accessible notification banner
+	 */
+	function createNotification(message, type = 'info') {
+		const notification = document.createElement('div');
+		notification.className = `notice notice-${type} is-dismissible`;
+		notification.setAttribute('role', 'alert');
+		notification.setAttribute('aria-live', 'polite');
+		notification.innerHTML = `
+        <p>${message}</p>
+        <button type="button" class="notice-dismiss"
+                aria-label="${PB_ExportToken?.text?.job_notice_dismissal || 'Dismiss this notice'}"
+                onclick="this.parentElement.remove()">
+            <span class="screen-reader-text">${PB_ExportToken?.text?.job_notice_dismissal || 'Dismiss this notice'}.</span>
+        </button>
+    `;
+
+		const insertAfter = exportForm.parentElement || document.body;
+		insertAfter.insertBefore(notification, insertAfter.firstChild);
+
+		if (type === 'error') {
+			notification.focus();
+			notification.setAttribute('tabindex', '-1');
+		}
+	}
+});
+
 
 jQuery( function ( $ ) {
 
@@ -260,7 +446,7 @@ jQuery( function ( $ ) {
 		if ( count > 5 ) {
 			$( this ).prop( 'checked', false );
 			delete pins[postId];
-			alert( PB_ExportToken.text.maximumFilesWarning );
+			alert( PB_ExportToken?.text?.maximum_files_warning );
 			error = true;
 		} else {
 			for ( let k in types ) {
@@ -268,7 +454,7 @@ jQuery( function ( $ ) {
 					if ( types[k] > 3 ) {
 						$( this ).prop( 'checked', false );
 						delete pins[postId];
-						alert( PB_ExportToken.text.maximumFileTypeWarning );
+						alert( PB_ExportToken?.text?.maximum_file_type_warning );
 						error = true;
 						break;
 					}
