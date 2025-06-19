@@ -18,7 +18,7 @@ use Illuminate\View\FileViewFinder;
  */
 class ServiceProvider {
 	/**
-	 * If you add services, don't forget to also edit config/.phpstorm.meta.php
+	 * If you add services, remember to also edit config/.phpstorm.meta.php
 	 *
 	 */
 	public static function init(): void {

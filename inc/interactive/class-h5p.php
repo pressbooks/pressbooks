@@ -121,7 +121,7 @@ class H5P {
 	 */
 	public function shouldEnablePrint(): void {
 		$export_options = get_option( 'pressbooks_export_options' );
-		$is_previewing = isset( $_GET['debug'] ) ? wp_unslash( $_GET['debug'] ) : false;
+		$is_previewing = isset( $_GET['debug'] ) ? sanitize_text_field( wp_unslash( $_GET['debug'] ) ) : false;
 		if ( isset( $export_options['h5p_print_on_exports'] ) && $export_options['h5p_print_on_exports'] && ! $is_previewing ) {
 			$this->enableStaticRepresentation = $export_options['h5p_print_on_exports'];
 		}

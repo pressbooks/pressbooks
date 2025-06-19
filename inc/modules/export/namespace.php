@@ -622,17 +622,14 @@ function handle_cancel_export_job(): void {
 		->where( 'id', $job_id )
 		->first();
 
-	if ( ! $job || $job->status !== 'pending' ) {
+	if ( ! $job ) {
 		wp_send_json_error( [ 'message' => __( 'Job not found or already processed.', 'pressbooks' ) ], 404 );
 		return;
 	}
 
 	app( 'db' )->table( BackgroundJob::JOBS_TABLE_NAME )
 		->where( 'id', $job_id )
-		->update( [
-			'status' => 'canceled',
-			'updated_at' => current_time( 'mysql', true ),
-		] );
+		->delete();
 
 	wp_send_json_success( [ 'message' => __( 'Export job canceled successfully.', 'pressbooks' ) ] );
 }

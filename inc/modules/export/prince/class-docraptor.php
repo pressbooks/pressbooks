@@ -32,6 +32,9 @@ class Docraptor extends Pdf {
 		// Override required URL parameters for XHTML generator.
 		$_GET['optimize-for-print'] = false;
 		$_GET['movefootnotes'] = true;
+		$timestamp = time();
+		$md5 = $this->nonce( $timestamp );
+		$_GET['hashkey'] = $md5;
 	}
 
 	/**
