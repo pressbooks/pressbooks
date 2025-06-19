@@ -2,6 +2,7 @@
 
 namespace Pressbooks\Modules\BackgroundProcessing;
 
+use function Pressbooks\Utility\get_h5p_ids_for_exportable_posts;
 use Pressbooks\Modules\Export\Export;
 
 class BackgroundJob {
@@ -164,6 +165,10 @@ class BackgroundJob {
 
 			//Run pre-export tasks
 			Export::preExport();
+
+			add_filter( 'h5p_activities_to_export', function() {
+				return get_h5p_ids_for_exportable_posts();
+			});
 
 			$conversion_generator = $exporter->convert();
 

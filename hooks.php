@@ -355,8 +355,5 @@ add_action( 'wp_initialize_site', [ Privacy::class, 'setDefaultPermissivePrivate
 add_action( 'revoked_super_admin', '\Pressbooks\Admin\NetworkManagers\remove_from_pressbooks_network_managers' );
 add_action( 'deleted_user', '\Pressbooks\Admin\NetworkManagers\remove_from_pressbooks_network_managers' );
 
-// Include only exportable H5P activities in the export
-add_action( 'pb_pre_export', '\Pressbooks\Modules\Export\include_exportable_h5p' );
 // Optimize H5P CSS files for export
 add_action( 'pb_xhtml_after_content_processed', '\Pressbooks\Modules\Export\pb_xhtml_after_content_processed' );
-add_filter( 'pb_xhtml_custom_stylesheet_url', '\Pressbooks\Modules\Export\pb_xhtml_custom_stylesheet_url' );

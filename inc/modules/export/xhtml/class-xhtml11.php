@@ -498,7 +498,7 @@ class Xhtml11 extends Export {
 
 		do_action( 'pb_xhtml_after_content_processed' );
 
-		$custom_stylesheet_url = apply_filters( 'pb_xhtml_custom_stylesheet_url', '' );
+		$custom_stylesheet_url = app( 'ScopedStyles' )->h5p_css_url;
 
 		$pos = strpos( $buffer_outer_html, $replace_token );
 		$buffer = substr_replace( $buffer_outer_html, $buffer_inner_html, $pos, strlen( $replace_token ) );

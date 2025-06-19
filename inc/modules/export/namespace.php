@@ -12,7 +12,6 @@
 namespace Pressbooks\Modules\Export;
 
 use function Pressbooks\Sanitize\fix_audio_shortcode;
-use function Pressbooks\Utility\get_h5p_ids_for_exportable_posts;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Container;
 use Pressbooks\Contributors;
@@ -557,7 +556,6 @@ function is_form_submission(): bool {
 }
 
 function pb_xhtml_after_content_processed(): void {
-	global $h5p_css_url;
 
 	$upload_dir = Container::get( 'Sass' )->pathToUserGeneratedCss();
 	$filename = 'scopedstyles.css';
@@ -566,7 +564,7 @@ function pb_xhtml_after_content_processed(): void {
 
 	if ( empty( $css_content ) ) {
 		if ( file_exists( $css_path ) ) {
-			$h5p_css_url = Container::get( 'Sass' )->urlToUserGeneratedCss( true ) . "/{$filename}";
+			app( 'ScopedStyles' )->h5p_css_url = Container::get( 'Sass' )->urlToUserGeneratedCss( true ) . "/{$filename}";
 		}
 		return;
 	}
@@ -595,22 +593,11 @@ function pb_xhtml_after_content_processed(): void {
 	$url = Container::get( 'Sass' )->urlToUserGeneratedCss( true ) . "/optimized-{$filename}";
 
 	if ( $write_success ) {
-		$h5p_css_url = $url;
+		app( 'ScopedStyles' )->h5p_css_url = $url;
 		return;
 	}
 
-	$h5p_css_url = '';
-}
-$h5p_css_url = '';
-function pb_xhtml_custom_stylesheet_url(): string {
-	global $h5p_css_url;
-	return ! empty( $h5p_css_url ) ? $h5p_css_url : '';
-}
-
-function include_exportable_h5p(): void {
-	add_filter( 'h5p_activities_to_export', function() {
-		return get_h5p_ids_for_exportable_posts();
-	});
+	app( 'ScopedStyles' )->h5p_css_url = '';
 }
 
 /**

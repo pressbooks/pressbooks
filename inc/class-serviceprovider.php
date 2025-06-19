@@ -47,7 +47,7 @@ class ServiceProvider {
 			'ScopedStyles', function () {
 				return new class {
 					public function __construct(
-						public string $url = '',
+						public string $h5p_css_url = '',
 					) {
 					}
 				};
