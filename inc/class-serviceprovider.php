@@ -2,10 +2,6 @@
 
 namespace Pressbooks;
 
-use Pressbooks\Interactive\H5PCoreAdapter;
-use Pressbooks\Interactive\H5PExtractorAdapter;
-use Pressbooks\Interactive\H5PPluginAdapter;
-use Pressbooks\Interactive\WordPressHelperAdapter;
 use function Pressbooks\Utility\get_cache_path;
 use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager;
@@ -16,6 +12,10 @@ use Illuminate\View\Engines\CompilerEngine;
 use Illuminate\View\Engines\EngineResolver;
 use Illuminate\View\Factory;
 use Illuminate\View\FileViewFinder;
+use Pressbooks\Interactive\H5PCoreAdapter;
+use Pressbooks\Interactive\H5PExtractorAdapter;
+use Pressbooks\Interactive\H5PPluginAdapter;
+use Pressbooks\Interactive\WordPressHelperAdapter;
 
 /**
  * Service Provider for Pressbooks

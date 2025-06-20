@@ -71,4 +71,24 @@ class WordPressHelperAdapter implements WordPressHelperInterface {
 	public function addFilter( string $hook_name, callable $callback, int $priority = 10, int $accepted_args = 1 ): void {
 		add_filter( $hook_name, $callback, $priority, $accepted_args );
 	}
+
+	/**
+	 * Check if a file exists
+	 *
+	 * @param string $filename Path to the file
+	 * @return bool
+	 */
+	public function isFile( string $filename ): bool {
+		return is_file( $filename );
+	}
+
+	/**
+	 * Activate a plugin
+	 *
+	 * @param string $plugin Plugin path
+	 * @return mixed Result of activation (null on success, WP_Error on failure)
+	 */
+	public function activatePlugin( string $plugin ) {
+		return activate_plugin( $plugin );
+	}
 }

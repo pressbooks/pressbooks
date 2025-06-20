@@ -59,4 +59,20 @@ interface WordPressHelperInterface {
 	 * @return void
 	 */
 	public function addFilter( string $hook_name, callable $callback, int $priority = 10, int $accepted_args = 1 ): void;
+
+	/**
+	 * Check if a file exists
+	 *
+	 * @param string $filename Path to the file
+	 * @return bool
+	 */
+	public function isFile( string $filename ): bool;
+
+	/**
+	 * Activate a plugin
+	 *
+	 * @param string $plugin Plugin path
+	 * @return mixed Result of activation (null on success, WP_Error on failure)
+	 */
+	public function activatePlugin( string $plugin );
 }

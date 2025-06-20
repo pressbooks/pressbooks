@@ -22,6 +22,7 @@ use Pressbooks\Container;
 class H5P {
 
 	const SHORTCODE = 'h5p';
+	const H5P_PLUGIN_PATH = 'h5p/h5p.php';
 
 	/**
 	 * @var Blade
@@ -31,22 +32,22 @@ class H5P {
 	/**
 	 * @var H5PPluginInterface
 	 */
-	protected H5PPluginInterface $h5pPlugin;
+	protected H5PPluginInterface $h5p_plugin;
 
 	/**
 	 * @var H5PExtractorInterface
 	 */
-	protected H5PExtractorInterface $h5pExtractor;
+	protected H5PExtractorInterface $h5p_extractor;
 
 	/**
 	 * @var WordPressHelperInterface
 	 */
-	protected WordPressHelperInterface $wpHelper;
+	protected WordPressHelperInterface $wp_helper;
 
 	/**
 	 * @var H5PCoreInterface
 	 */
-	protected H5PCoreInterface $h5pCore;
+	protected H5PCoreInterface $h5p_core;
 
 	/**
 	 * @var float DPI for rendering H5P content
@@ -62,17 +63,17 @@ class H5P {
 
 	/**
 	 * @param Blade $blade
-	 * @param H5PPluginInterface $h5pPlugin
-	 * @param H5PExtractorInterface $h5pExtractor
-	 * @param WordPressHelperInterface $wpHelper
-	 * @param H5PCoreInterface $h5pCore
+	 * @param H5PPluginInterface $h5p_plugin
+	 * @param H5PExtractorInterface $h5p_extractor
+	 * @param WordPressHelperInterface $wp_helper
+	 * @param H5PCoreInterface $h5p_core
 	 */
-	public function __construct( $blade, H5PPluginInterface $h5pPlugin, H5PExtractorInterface $h5pExtractor, WordPressHelperInterface $wpHelper, H5PCoreInterface $h5pCore ) {
+	public function __construct( $blade, H5PPluginInterface $h5p_plugin, H5PExtractorInterface $h5p_extractor, WordPressHelperInterface $wp_helper, H5PCoreInterface $h5p_core ) {
 		$this->blade = $blade;
-		$this->h5pPlugin = $h5pPlugin;
-		$this->h5pExtractor = $h5pExtractor;
-		$this->wpHelper = $wpHelper;
-		$this->h5pCore = $h5pCore;
+		$this->h5p_plugin = $h5p_plugin;
+		$this->h5p_extractor = $h5p_extractor;
+		$this->wp_helper = $wp_helper;
+		$this->h5p_core = $h5p_core;
 		add_action( 'pb_pre_export', [ $this, 'shouldEnablePrint' ] );
 		add_filter( 'print_h5p_content', [ $this, 'generateCustomH5pWrapper' ], 10, 2 );
 		add_filter( 'sanitize_file_name', [ $this, 'renameFont' ] );
@@ -107,11 +108,10 @@ class H5P {
 	/**
 	 * @return bool
 	 */
-	public function activate() {
-		$h5p_plugin = 'h5p/h5p.php';
-		if ( is_file( WP_PLUGIN_DIR . "/{$h5p_plugin}" ) ) {
-			$result = activate_plugin( $h5p_plugin );
-			if ( is_wp_error( $result ) === false && $this->h5pPlugin->canFetchH5P() ) {
+	public function activate(): bool {
+		if ( $this->wp_helper->isFile( WP_PLUGIN_DIR . '/' . self::H5P_PLUGIN_PATH ) ) {
+			$result = $this->wp_helper->activatePlugin( self::H5P_PLUGIN_PATH );
+			if ( is_wp_error( $result ) === false && $this->h5p_plugin->canFetchH5P() ) {
 				return true;
 			}
 		}
@@ -127,17 +127,17 @@ class H5P {
 		try {
 			$plugin = 'h5p/h5p.php';
 			// Initialize H5P REST API only if the plugin is not already initialized or is network disabled
-			if ( ! $this->wpHelper->isPluginActive( $plugin ) || ! $this->wpHelper->isPluginActiveForNetwork( $plugin ) ) {
-				$this->h5pPlugin->restApiInit();
+			if ( ! $this->wp_helper->isPluginActive( $plugin ) || ! $this->wp_helper->isPluginActiveForNetwork( $plugin ) ) {
+				$this->h5p_plugin->restApiInit();
 			}
 			if (
 				(
-					$this->wpHelper->hasFilter( 'pb_set_api_items_permission' ) &&
-					$this->wpHelper->applyFilters( 'pb_set_api_items_permission', 'h5p' )
+					$this->wp_helper->hasFilter( 'pb_set_api_items_permission' ) &&
+					$this->wp_helper->applyFilters( 'pb_set_api_items_permission', 'h5p' )
 				) ||
-				$this->wpHelper->getOption( 'blog_public' )
+				$this->wp_helper->getOption( 'blog_public' )
 			) {
-				$this->wpHelper->addFilter( 'h5p_rest_api_all_permission', '__return_true' );
+				$this->wp_helper->addFilter( 'h5p_rest_api_all_permission', '__return_true' );
 			}
 		} catch ( \Throwable $e ) {
 			return false;
@@ -165,7 +165,7 @@ class H5P {
 	 * @return int
 	 */
 	public function fetch( $url ) {
-		return $this->h5pPlugin->fetchH5P( $url );
+		return $this->h5p_plugin->fetchH5P( $url );
 	}
 
 	/**
@@ -203,8 +203,8 @@ class H5P {
 	 * @return string Unique content slug.
 	 */
 	private function generateContentSlug( array $content ): string {
-		$slug = $this->h5pCore->slugify( $content['title'] );
-		$core = $this->h5pPlugin->getH5PInstance( 'core' );
+		$slug = $this->h5p_core->slugify( $content['title'] );
+		$core = $this->h5p_plugin->getH5PInstance( 'core' );
 
 		$available = null;
 		while ( ! $available ) {
@@ -239,7 +239,7 @@ class H5P {
 		}
 
 		$params = (object) [
-			'library' => $this->h5pCore->libraryToString( $content['library'] ),
+			'library' => $this->h5p_core->libraryToString( $content['library'] ),
 			'params' => json_decode( $content['params'] ),
 		];
 
@@ -247,7 +247,7 @@ class H5P {
 			return false;
 		}
 
-		$core = $this->h5pPlugin->getH5PInstance( 'core' );
+		$core = $this->h5p_plugin->getH5PInstance( 'core' );
 
 		// Validate and filter against main library semantics.
 		$validator = new \H5PContentValidator( $core->h5pF, $core );
@@ -321,7 +321,7 @@ class H5P {
 	 *                  the export file if it had not existed before.
 	 */
 	private function ensureH5Export( int $h5p_id ): callable {
-		$core = $this->h5pPlugin->getH5PInstance( 'core' );
+		$core = $this->h5p_plugin->getH5PInstance( 'core' );
 		$content = $core->loadContent( $h5p_id );
 
 		$export_filename = $content['slug'] . '-' . $content['id'] . '.h5p';
@@ -343,7 +343,7 @@ class H5P {
 		 * if it had not existed before - leaving everything as we found it.
 		 */
 		return function ( int $h5p_id ): void {
-			$core = $this->h5pPlugin->getH5PInstance( 'core' );
+			$core = $this->h5p_plugin->getH5PInstance( 'core' );
 			$content = $core->loadContent( $h5p_id );
 			$export_filename = $content['slug'] . '-' . $content['id'] . '.h5p';
 			$core->fs->deleteExport( $export_filename );
@@ -365,7 +365,7 @@ class H5P {
 
 		try {
 			$export_cleanup_callback = $this->ensureH5Export( $h5p_id );
-			$content = $this->h5pPlugin->getContent( $h5p_id );
+			$content = $this->h5p_plugin->getContent( $h5p_id );
 
 			// Try to get H5P export file for H5P ID
 			if ( is_array( $content ) ) {
@@ -503,7 +503,7 @@ class H5P {
 
 		// H5P Content
 		if ( $h5p_id ) {
-			$content = $this->h5pPlugin->getContent( $h5p_id );
+			$content = $this->h5p_plugin->getContent( $h5p_id );
 			if ( is_array( $content ) && ! empty( $content['title'] ) ) {
 				$h5p_title = $content['title'];
 			}
