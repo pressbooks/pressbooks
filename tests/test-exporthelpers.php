@@ -3,6 +3,7 @@
 use Pressbooks\Book;
 use Pressbooks\Contributors;
 use Pressbooks\Modules\Export\ExportHelpers;
+use Pressbooks\Modules\Export\Xhtml\Xhtml11;
 use Pressbooks\Taxonomy;
 
 /**
@@ -113,19 +114,22 @@ class ExportHelpersTest extends \WP_UnitTestCase {
 		$xhtml_reflection = new \ReflectionClass( 'Pressbooks\Modules\Export\Xhtml\Xhtml11' );
 		$xhtml_method = $xhtml_reflection->getMethod( 'removeAttributionLink' );
 		$xhtml_method->setAccessible( true );
-		return $xhtml_method->invokeArgs( new \Pressbooks\Modules\Export\Xhtml\Xhtml11( [ ] ), [ $content ] );
+		return $xhtml_method->invokeArgs( new Xhtml11( [ ] ), [ $content ] );
 	}
 
 	public function doEndnotes( $id ) {
-		$xhtml = new \Pressbooks\Modules\Export\Xhtml\Xhtml11( [ ] );
+		$xhtml = new Xhtml11( [ ] );
 		return $xhtml->doEndnotes( $id );
 	}
 
 	public function doFootnotes( $id ) {
-		$xhtml = new \Pressbooks\Modules\Export\Xhtml\Xhtml11( [ ] );
+		$xhtml = new Xhtml11( [ ] );
 		return $xhtml->doFootnotes( $id );
 	}
 
+	/**
+	 * @group export_helpers
+	 */
     public function test_renderTitle() {
         $this->_book();
         $metadata = Book::getBookInformation( null, false, false );
@@ -138,7 +142,7 @@ class ExportHelpersTest extends \WP_UnitTestCase {
         $this->contributors = new Contributors();
 
         // Test XHTML11 renderTitle
-        $xhtml = new \Pressbooks\Modules\Export\Xhtml\Xhtml11( [] );
+        $xhtml = new Xhtml11( [] );
         // Set the taxonomy property for Xhtml class
         $xhtml_reflection_prop = new \ReflectionClass( $xhtml );
         $xhtml_taxonomy_prop = $xhtml_reflection_prop->getProperty( 'taxonomy' );
@@ -208,6 +212,9 @@ class ExportHelpersTest extends \WP_UnitTestCase {
         $this->assertTrue( true );
     }
 
+	/**
+	 * @group export_helpers
+	 */
     public function test_renderTitle_without_authors() {
         $this->_book();
         $metadata = Book::getBookInformation( null, false, false );
@@ -220,7 +227,7 @@ class ExportHelpersTest extends \WP_UnitTestCase {
         $this->contributors = new Contributors();
 
         // --- Test XHTML11 renderTitle (Multiple Contributors) ---
-        $xhtml = new \Pressbooks\Modules\Export\Xhtml\Xhtml11( [] );
+        $xhtml = new Xhtml11( [] );
         $xhtml_reflection_prop = new \ReflectionClass( $xhtml );
         $xhtml_taxonomy_prop = $xhtml_reflection_prop->getProperty( 'taxonomy' );
         $xhtml_taxonomy_prop->setAccessible( true );
@@ -275,4 +282,32 @@ class ExportHelpersTest extends \WP_UnitTestCase {
         // Add a final dummy assertion if needed to prevent risky test warnings, though the mock expectations should cover it.
         $this->assertTrue( true );
     }
+
+	/**
+	 * @group export_helpers
+	 */
+	public function test_cleanH5PCss() {
+
+		$css = <<<CSS
+/* H5P CSS */
+body > div { *width: 100px; }
+.h5p-iframe-wrapper { font-size: unset; }
+.h5p-text { src: url('') format('woff2'); src: url('') format('truetype'); }
+.h5p-background { background: url('') 10px center no-repeat; }
+.ui-datepicker-rtl { direction: rtl; }
+.button &gt; span { display: inline-block; }
+CSS;
+		$result = $this->cleanH5PCss($css);
+		$expected = <<<CSS
+/* H5P CSS */
+body > div { width: 100px; }
+.h5p-iframe-wrapper {  }
+.h5p-text {   }
+.h5p-background {  }
+
+.button > span { display: inline-block; }
+CSS;
+		$this->assertEquals($expected, $result);
+
+	}
 }

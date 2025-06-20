@@ -192,21 +192,16 @@ trait ExportHelpers {
 	 * @return string
 	 */
 	public function cleanH5PCss( string $css ): string {
-		// Fix HTML entities
 		$css = str_replace( '&gt;', '>', $css );
-		// Remove browser hacks
 		$css = str_replace( '*width', 'width', $css );
-		// Remove empty src urls from the CSS that are added by the H5P libraries
 		// TODO: Remove this when H5P Extractor fixes the issue
 		$css = str_replace( "src: url('') format('woff2');", '', $css );
 		$css = str_replace( "src: url('') format('truetype');", '', $css );
 		$css = str_replace( "background: url('') 10px center no-repeat;", '', $css );
-		// Remove problematic font-size values
 		$css = str_replace( 'font-size: unset;', '', $css );
 		// Remove direction property (not allowed in EPUB)
 		$css = str_replace( '.ui-datepicker-rtl { direction: rtl; }', '', $css );
-		$css = str_replace( '*/; text-decoration: none; }', '', $css );
-		return $css;
+		return str_replace( '*/; text-decoration: none; }', '', $css );
 	}
 
 }

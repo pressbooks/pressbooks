@@ -6,6 +6,8 @@ use Pressbooks\EventStreams;
  * @group eventstreams
  */
 class EventStreamsTest extends \WP_UnitTestCase {
+
+	use utilsTrait;
 	/**
 	 * @var EventStreams
 	 */
@@ -98,7 +100,7 @@ class EventStreamsTest extends \WP_UnitTestCase {
 
 		$refSetup = new \ReflectionMethod( $this->eventStreams, 'setupHeaders' );
 		$refSetup->setAccessible( true );
-		$refSetup->invoke( 
+		$refSetup->invoke(
 			$this->eventStreams,
 			[ 'error' => 'Missing book ID for job status stream.' ],
 			'error'
@@ -180,7 +182,7 @@ class EventStreamsTest extends \WP_UnitTestCase {
 		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
 
-		$this->eventStreams = new class extends \Pressbooks\EventStreams {
+		$this->eventStreams = new class extends EventStreams {
 			public $invoked = false;
 			public function streamUserJobStatuses( int $book_id_param, int $user_id_param ): void {
 				$this->invoked = true;
