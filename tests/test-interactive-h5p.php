@@ -16,7 +16,11 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 	public function set_up() {
 		parent::set_up();
 		$blade = Container::get( 'Blade' );
-		$this->h5p = new H5P( $blade );
+		$h5pPlugin = Container::get( 'H5PPlugin' );
+		$h5pExtractor = Container::get( 'H5PExtractor' );
+		$wpHelper = Container::get( 'WordPressHelper' );
+		$h5pCore = Container::get( 'H5PCore' );
+		$this->h5p = new H5P( $blade, $h5pPlugin, $h5pExtractor, $wpHelper, $h5pCore );
 	}
 
 	/**
@@ -130,9 +134,15 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 			)
 			->willReturn( '<div>Rendered Mock H5P</div>' );
 
+		// Create mock dependencies
+		$h5pPluginMock = $this->createMock( \Pressbooks\Interactive\H5PPluginInterface::class );
+		$h5pExtractorMock = $this->createMock( \Pressbooks\Interactive\H5PExtractorInterface::class );
+		$wpHelperMock = $this->createMock( \Pressbooks\Interactive\WordPressHelperInterface::class );
+		$h5pCoreMock = $this->createMock( \Pressbooks\Interactive\H5PCoreInterface::class );
+
 		// Mock H5P class partially, specifically the getH5PRepresentation method
 		$h5pMock = $this->getMockBuilder( H5P::class )
-			->setConstructorArgs( [ $bladeMock ] )
+			->setConstructorArgs( [ $bladeMock, $h5pPluginMock, $h5pExtractorMock, $wpHelperMock, $h5pCoreMock ] )
 			->onlyMethods( [ 'getH5PRepresentation' ] ) // Mock only this method
 			->getMock();
 

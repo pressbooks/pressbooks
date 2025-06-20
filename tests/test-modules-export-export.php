@@ -3,9 +3,11 @@
 use Pressbooks\Container;
 use Pressbooks\Contributors;
 use Pressbooks\Metadata;
+use Pressbooks\Modules\Export\Epub\Epub;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Modules\Export\Prince\Filters;
 use SebastianBergmann\Environment\Runtime;
+use function Pressbooks\Modules\Export\get_friendly_name_for_module;
 use function Pressbooks\Utility\create_tmp_file;
 use function Pressbooks\Utility\put_contents;
 
@@ -590,7 +592,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @test
 	 */
 	public function normalize_external_url_references():void  {
-		$epub = new \Pressbooks\Modules\Export\Epub\Epub( [] );
+		$epub = new Epub( [] );
 		$css_font_import_1 = "@import \"https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i\";\n";
 		$css_font_import_2 = "@import \"https://fonts.googleapis.com/css?family=Roboto+Slab:400,700\";\n";
 		$css = $css_font_import_1 . $css_font_import_2 . "body { font-family: 'Roboto', sans-serif; }";
@@ -602,5 +604,19 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 
 		$this->assertStringContainsString( '@import url(assets/Roboto.css);', $css );
 		$this->assertStringContainsString( '@import url(assets/Roboto-Slab.css);', $css );
+	}
+
+	/**
+	 * @group export
+	 * @test
+	 */
+	public function it_get_friendly_name_for_module() {
+		$module = '\Pressbooks\Modules\Export\Prince\Pdf';
+		$name = get_friendly_name_for_module( $module );
+		$this->assertEquals( 'Digital PDF', $name );
+
+		$module = '\Pressbooks\Modules\Export\Microsoft\XLSX';
+		$name = get_friendly_name_for_module( $module );
+		$this->assertEquals( 'XLSX', $name );
 	}
 }

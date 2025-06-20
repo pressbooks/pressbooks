@@ -2,6 +2,10 @@
 
 namespace Pressbooks;
 
+use Pressbooks\Interactive\H5PCoreAdapter;
+use Pressbooks\Interactive\H5PExtractorAdapter;
+use Pressbooks\Interactive\H5PPluginAdapter;
+use Pressbooks\Interactive\WordPressHelperAdapter;
 use function Pressbooks\Utility\get_cache_path;
 use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager;
@@ -120,6 +124,46 @@ class ServiceProvider {
 		$db->bootEloquent();
 
 		$container->bind( 'db', fn () => $db );
+
+		// H5P Plugin Autoloader Bootstrap
+		// Load H5P plugin autoloader if available (required for H5P classes)
+		if ( is_file( WP_PLUGIN_DIR . '/h5p/autoloader.php' ) ) {
+			require_once( WP_PLUGIN_DIR . '/h5p/autoloader.php' );
+		}
+
+		// H5P Dependencies
+		$container->bind(
+			'H5PPlugin', function () {
+				return new H5PPluginAdapter();
+			}
+		);
+
+		$container->bind(
+			'H5PExtractor', function () {
+				// Default configuration for H5PExtractor
+				$config = [
+					'uploadsPath' => wp_upload_dir()['basedir'],
+					'h5pContentUrl' => '',  // Will be set dynamically in H5P class
+					'h5pCoreUrl' => plugins_url() . '/h5p/h5p-php-library/',
+					'h5pLibrariesUrl' => wp_upload_dir()['baseurl'] . '/h5p/libraries/',
+					'baseFontSize' => 10,
+					'renderWidth' => 800, // Default width, will be overridden as needed
+				];
+				return new H5PExtractorAdapter( $config );
+			}
+		);
+
+		$container->bind(
+			'WordPressHelper', function () {
+				return new WordPressHelperAdapter();
+			}
+		);
+
+		$container->bind(
+			'H5PCore', function () {
+				return new H5PCoreAdapter();
+			}
+		);
 
 	}
 }
