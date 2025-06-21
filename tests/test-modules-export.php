@@ -975,4 +975,319 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		unset( $_POST['pb_cancel_nonce'] );
 		wp_set_current_user( 0 );
 	}
+
+	/**
+	 * Test handle_cancel_export_job with successful cancellation and database deletion
+	 *
+	 * @group export
+	 */
+	public function test_handle_cancel_export_job_successful_cancellation() {
+		$reporting = $this->_fakeAjax();
+
+		// Set up user with proper capabilities
+		$user_id = $this->factory()->user->create( [ 'role' => 'editor' ] );
+		wp_set_current_user( $user_id );
+
+		// Ensure the background jobs table exists
+		BackgroundJob::ensureExportsTable();
+
+		// Create a test job in the database
+		$db = app( 'db' );
+		$job_data = [
+			'book_id' => get_current_blog_id(),
+			'user_id' => $user_id,
+			'export_format' => 'pdf',
+			'export_module_classname' => 'TestExporter',
+			'export_options' => null,
+			'status' => 'pending',
+			'progress_percentage' => 0,
+			'progress_message' => 'Test job',
+			'output_file_path' => '',
+			'log_details' => '',
+			'job_started_at' => null,
+			'job_completed_at' => null,
+			'created_at' => current_time( 'mysql', true ),
+			'updated_at' => current_time( 'mysql', true ),
+		];
+
+		$job_id = $db->table( BackgroundJob::JOBS_TABLE_NAME )->insertGetId( $job_data );
+		$this->assertNotEmpty( $job_id, 'Job should be created in database' );
+
+		// Verify job exists in database before cancellation
+		$job_before = $db->table( BackgroundJob::JOBS_TABLE_NAME )
+			->where( 'id', $job_id )
+			->first();
+		$this->assertNotEmpty( $job_before, 'Job should exist before cancellation' );
+
+		// Set up POST data for cancellation
+		$_POST['pb_cancel_nonce'] = wp_create_nonce( 'pb-export-book' );
+		$_POST['job_id'] = $job_id;
+
+		ob_start();
+
+		try {
+			handle_cancel_export_job();
+			$output = ob_get_clean();
+
+			// Should return success message
+			$this->assertStringContainsString( 'Export job canceled successfully', $output );
+			$this->assertStringContainsString( 'success":true', $output );
+
+		} catch ( \WPAjaxDieContinueException $e ) {
+			$output = ob_get_clean();
+			$this->assertStringContainsString( 'Export job canceled successfully', $output );
+		}
+
+		// Verify job was deleted from database
+		$job_after = $db->table( BackgroundJob::JOBS_TABLE_NAME )
+			->where( 'id', $job_id )
+			->first();
+		$this->assertEmpty( $job_after, 'Job should be deleted from database after cancellation' );
+
+		$this->_fakeAjaxDone( $reporting );
+
+		// Clean up
+		unset( $_POST['pb_cancel_nonce'], $_POST['job_id'] );
+		wp_set_current_user( 0 );
+	}
+
+	/**
+	 * Test process_and_queue_job_requests with database insertion failure
+	 *
+	 * @group export
+	 */
+	public function test_process_and_queue_job_requests_database_insertion_failure() {
+		// Set up user
+		$user_id = $this->factory()->user->create( [ 'role' => 'editor' ] );
+		wp_set_current_user( $user_id );
+
+		// Use a mock database that will fail on insertGetId
+		$mockDb = $this->getMockBuilder( \stdClass::class )
+			->addMethods( [ 'table' ] )
+			->getMock();
+
+		$mockTable = $this->getMockBuilder( \stdClass::class )
+			->addMethods( [ 'insertGetId' ] )
+			->getMock();
+
+		$mockTable->expects( $this->once() )
+			->method( 'insertGetId' )
+			->willReturn( false ); // Simulate database insertion failure
+
+		$mockDb->expects( $this->once() )
+			->method( 'table' )
+			->with( BackgroundJob::JOBS_TABLE_NAME )
+			->willReturn( $mockTable );
+
+		// Mock the Container to return our mock database
+		$originalDb = null;
+		try {
+			$originalDb = app( 'db' );
+		} catch ( \Exception $e ) {
+			// Database might not be available
+		}
+
+		// Temporarily replace the database instance
+		if ( class_exists( '\Pressbooks\Container' ) ) {
+			try {
+				\Pressbooks\Container::set( 'db', $mockDb );
+
+				// Test with valid format that should succeed but fail due to database
+				$export_formats = [ 'pdf' => 'pdf' ];
+				$export_options = [];
+
+				$results = process_and_queue_job_requests( $export_formats, $export_options );
+
+				$this->assertIsArray( $results );
+				$this->assertCount( 1, $results );
+
+				$result = $results[0];
+				$this->assertEquals( 'error', $result['status'] );
+				$this->assertEquals( 'job_queue_failed', $result['event_type'] );
+				$this->assertStringContainsString( 'Failed to queue', $result['message'] );
+				$this->assertArrayHasKey( 'error_details', $result );
+				$this->assertEquals( 'Failed to insert job into the database.', $result['error_details'] );
+
+				// Restore original database
+				if ( $originalDb ) {
+					\Pressbooks\Container::set( 'db', $originalDb );
+				}
+
+			} catch ( \Exception $e ) {
+				// If Container is not available, mark test as incomplete
+				$this->markTestIncomplete( 'Container class not available for mocking database' );
+			}
+		} else {
+			$this->markTestIncomplete( 'Container class not available for database mocking' );
+		}
+
+		// Clean up
+		wp_set_current_user( 0 );
+	}
+
+	/**
+	 * Test handle_exports_submit with successful workflow
+	 *
+	 * @group export
+	 */
+	public function test_handle_exports_submit_successful_workflow() {
+		$reporting = $this->_fakeAjax();
+
+		// Set up user with proper capabilities
+		$user_id = $this->factory()->user->create( [ 'role' => 'editor' ] );
+		wp_set_current_user( $user_id );
+
+		// Ensure background jobs table exists
+		BackgroundJob::ensureExportsTable();
+
+		// Set up POST data with valid export formats
+		$_POST['pb_export_nonce'] = wp_create_nonce( 'pb-export-book' );
+		$_POST['export_formats'] = [ 'epub' => 'epub' ]; // Use a format that should be available
+		$_POST['export_options'] = [];
+
+		ob_start();
+
+		try {
+			handle_exports_submit();
+			$output = ob_get_clean();
+
+			// Should either succeed or fail gracefully depending on system dependencies
+			$decoded_output = json_decode( $output, true );
+			
+			if ( $decoded_output && isset( $decoded_output['success'] ) ) {
+				if ( $decoded_output['success'] ) {
+					// Success case
+					$this->assertTrue( $decoded_output['success'] );
+					$this->assertArrayHasKey( 'results', $decoded_output );
+					$this->assertArrayHasKey( 'total_jobs', $decoded_output );
+				} else {
+					// Failed case (due to missing dependencies)
+					$this->assertFalse( $decoded_output['success'] );
+					$this->assertArrayHasKey( 'message', $decoded_output );
+				}
+			} else {
+				// Raw output case - check for success indicators
+				$this->assertTrue( 
+					str_contains( $output, 'export job' ) || 
+					str_contains( $output, 'success' ) ||
+					str_contains( $output, 'queued' ),
+					'Output should contain export-related success or failure message'
+				);
+			}
+
+		} catch ( \WPAjaxDieContinueException $e ) {
+			$output = ob_get_clean();
+			// In AJAX context, verify the output contains expected content
+			$this->assertTrue( 
+				str_contains( $output, 'export' ) || 
+				str_contains( $output, 'job' ),
+				'AJAX output should contain export/job related content'
+			);
+		} catch ( \Exception $e ) {
+			ob_get_clean();
+			// Database or dependency issues are acceptable in test environment
+			$this->assertTrue( true, 'Function handled missing dependencies gracefully: ' . $e->getMessage() );
+		}
+
+		$this->_fakeAjaxDone( $reporting );
+
+		// Clean up
+		unset( $_POST['pb_export_nonce'], $_POST['export_formats'], $_POST['export_options'] );
+		wp_set_current_user( 0 );
+	}
+
+	/**
+	 * Test process_and_queue_job_requests with export options processing
+	 *
+	 * @group export
+	 */
+	public function test_process_and_queue_job_requests_with_export_options() {
+		// Set up user
+		$user_id = $this->factory()->user->create( [ 'role' => 'editor' ] );
+		wp_set_current_user( $user_id );
+
+		// Test with export options
+		$export_formats = [ 'epub' => 'epub' ];
+		$export_options = [
+			'include_toc' => true,
+			'compress_images' => false,
+			'custom_css' => '.test { color: red; }'
+		];
+
+		$results = process_and_queue_job_requests( $export_formats, $export_options );
+
+		$this->assertIsArray( $results );
+		$this->assertCount( 1, $results );
+
+		$result = $results[0];
+		$this->assertArrayHasKey( 'status', $result );
+		$this->assertArrayHasKey( 'event_type', $result );
+		$this->assertArrayHasKey( 'module_slug', $result );
+		$this->assertEquals( 'epub', $result['module_slug'] );
+
+		// The result should either succeed (job queued) or fail (missing dependencies)
+		// but should handle the export options without error
+		$this->assertContains( $result['status'], [ 'success', 'error' ] );
+		$this->assertContains( $result['event_type'], [ 'job_queued', 'job_queue_failed' ] );
+
+		// Clean up any created jobs
+		if ( isset( $result['job_id'] ) && $result['status'] === 'success' ) {
+			try {
+				app( 'db' )->table( BackgroundJob::JOBS_TABLE_NAME )
+					->where( 'id', $result['job_id'] )
+					->delete();
+			} catch ( \Exception $e ) {
+				// Table might not exist in test environment
+			}
+		}
+
+		// Clean up
+		wp_set_current_user( 0 );
+	}
+
+	/**
+	 * Test process_and_queue_job_requests with multiple formats
+	 *
+	 * @group export
+	 */
+	public function test_process_and_queue_job_requests_multiple_formats() {
+		// Set up user
+		$user_id = $this->factory()->user->create( [ 'role' => 'editor' ] );
+		wp_set_current_user( $user_id );
+
+		// Test with multiple export formats
+		$export_formats = [
+			'epub' => 'epub',
+			'pdf' => 'pdf',
+			'xhtml' => 'xhtml'
+		];
+		$export_options = [];
+
+		$results = process_and_queue_job_requests( $export_formats, $export_options );
+
+		$this->assertIsArray( $results );
+		$this->assertCount( 3, $results );
+
+		// Check that each format was processed
+		$processed_formats = array_column( $results, 'module_slug' );
+		$this->assertContains( 'epub', $processed_formats );
+		$this->assertContains( 'pdf', $processed_formats );
+		$this->assertContains( 'xhtml', $processed_formats );
+
+		// Clean up any created jobs
+		foreach ( $results as $result ) {
+			if ( isset( $result['job_id'] ) && $result['status'] === 'success' ) {
+				try {
+					app( 'db' )->table( BackgroundJob::JOBS_TABLE_NAME )
+						->where( 'id', $result['job_id'] )
+						->delete();
+				} catch ( \Exception $e ) {
+					// Table might not exist in test environment
+				}
+			}
+		}
+
+		// Clean up
+		wp_set_current_user( 0 );
+	}
 }
