@@ -754,14 +754,13 @@ function htmlawed_with_mixed_markup( $content, $htmlawed_config = null, $htmlawe
  * @return string
  */
 function sanitize_webbook_content( $content ) {
-	// Remove deprecated table borders
-	$spec = 'table=-border;';
+	$spec = apply_filters( 'pb_sanitize_webbook_content_spec', [
+		...\Htmlawed::$defaultSpec,
+		'table=-border',
+	] );
+	$config = apply_filters( 'pb_sanitize_webbook_content_config', \Htmlawed::$defaultConfig );
 
-	$spec = apply_filters( 'pb_sanitize_webbook_content_spec', $spec );
-	$config = apply_filters( 'pb_sanitize_webbook_content_config', [] );
-
-	$content = htmlawed_with_mixed_markup( $content, $config, $spec );
-	return $content;
+	return htmlawed_with_mixed_markup( $content, $config, $spec );
 }
 
 /**
