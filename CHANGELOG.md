@@ -1,5 +1,19 @@
 # Changelog
 
+## [6.29.0](https://github.com/pressbooks/pressbooks/compare/6.28.0...6.29.0) (2025-06-26)
+
+
+### Features
+
+* personalize Getting Started playlist URL based on network type ([#4093](https://github.com/pressbooks/pressbooks/issues/4093)) ([06d329c](https://github.com/pressbooks/pressbooks/commit/06d329c5b2a7cd3013bc0b4e1eebaf3dd9433895))
+
+
+### Bug Fixes
+
+* mathml base64 formulas ([#4088](https://github.com/pressbooks/pressbooks/issues/4088)) ([a8025ab](https://github.com/pressbooks/pressbooks/commit/a8025ab65686877ceea425680004a5b565376f10))
+* update default website target for release notes ([#4092](https://github.com/pressbooks/pressbooks/issues/4092)) ([09167a9](https://github.com/pressbooks/pressbooks/commit/09167a983ddc0959fb9e952f0e5bde432a3f39e8))
+* use default HTMLawed config/specs ([#4100](https://github.com/pressbooks/pressbooks/issues/4100)) ([9868d43](https://github.com/pressbooks/pressbooks/commit/9868d4353af6c918c9dce2200f07350e60a3629a))
+
 ## [6.28.0](https://github.com/pressbooks/pressbooks/compare/6.27.1...6.28.0) (2025-06-11)
 
 
