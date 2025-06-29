@@ -22,7 +22,7 @@ class NetworkManagersListTableTest extends \WP_UnitTestCase
 	/**
 	 * @test
 	 */
-	public function it_renders_headers_as_buttons(): void {
+	public function it_renders_headers_as_links(): void {
 		$this->table->set_columns( [
 			'column1' => 'Column 1',
 			'column2' => 'Column 2',
@@ -32,7 +32,7 @@ class NetworkManagersListTableTest extends \WP_UnitTestCase
 		$this->table->print_column_headers();
 		$output = ob_get_clean();
 
-		$this->assertStringContainsString( '<button', $output );
+		$this->assertStringContainsString( '<a', $output );
 	}
 
 	/**

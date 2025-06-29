@@ -1,5 +1,68 @@
 # Changelog
 
+## [6.28.0](https://github.com/pressbooks/pressbooks/compare/6.27.1...6.28.0) (2025-06-11)
+
+
+### Features
+
+* add support for Urdu, Modern Hebrew, and Amharic ([#4079](https://github.com/pressbooks/pressbooks/issues/4079)) ([29b019c](https://github.com/pressbooks/pressbooks/commit/29b019ce89e348c9e29b020c017c3e2ee131c47c))
+* allow allowfullscreen attribute on iframes (resolves [#2223](https://github.com/pressbooks/pressbooks/issues/2223)) ([#4070](https://github.com/pressbooks/pressbooks/issues/4070)) ([6eb8600](https://github.com/pressbooks/pressbooks/commit/6eb8600fe4e27be033952fdf7725b948402f9c01))
+* robots privacy setting ([#4064](https://github.com/pressbooks/pressbooks/issues/4064)) ([c68bbfc](https://github.com/pressbooks/pressbooks/commit/c68bbfcf4f3e7e42a0d08134e2bf528021532b96))
+
+
+### Bug Fixes
+
+* add support for DocRaptor pipeline env variable to cover generator ([94674e3](https://github.com/pressbooks/pressbooks/commit/94674e3d270dd54d85b0aa8e13302115342a842f))
+* add support for DocRaptor pipeline env variable to cover generator ([#4082](https://github.com/pressbooks/pressbooks/issues/4082)) ([4636c3f](https://github.com/pressbooks/pressbooks/commit/4636c3f7baca50e1d37298da62ad008afef41810))
+* allow DocRaptor pipeline to be set with env variable ([#4081](https://github.com/pressbooks/pressbooks/issues/4081)) ([a10618b](https://github.com/pressbooks/pressbooks/commit/a10618bb7acf556eb5674311d672c40e61bbb9e3))
+* clone pb_show_title post metadata ([#4074](https://github.com/pressbooks/pressbooks/issues/4074)) ([1f4d9c3](https://github.com/pressbooks/pressbooks/commit/1f4d9c3185aef10e6ddd5151f9c1f472a654f21c))
+* conditionally register robots settings ([#4073](https://github.com/pressbooks/pressbooks/issues/4073)) ([53e5942](https://github.com/pressbooks/pressbooks/commit/53e59429a7666e828368aa619fddfda2cfa4321d))
+* display authors or contributors in exports ([#4067](https://github.com/pressbooks/pressbooks/issues/4067)) ([338dcf7](https://github.com/pressbooks/pressbooks/commit/338dcf7c4833c26abfbdcea15e9865a09f144f2b))
+* pass correct type to `setPipeline` method ([#4085](https://github.com/pressbooks/pressbooks/issues/4085)) ([73ffb37](https://github.com/pressbooks/pressbooks/commit/73ffb37b2082bfdbebab2aa98230691cb04de2db))
+* use DocRaptor constant instead of `env` ([#4083](https://github.com/pressbooks/pressbooks/issues/4083)) ([3ffe991](https://github.com/pressbooks/pressbooks/commit/3ffe991d12ff3a3d0da5a3505ab3346b4285e578))
+
+
+### Chores
+
+* add Mt. San Antonio College ([#4076](https://github.com/pressbooks/pressbooks/issues/4076)) ([7735aa3](https://github.com/pressbooks/pressbooks/commit/7735aa398df6b988eb5582ce420d1dc205a2d15e))
+* bump aws/aws-sdk-php from 3.343.18 to 3.343.22 in the composer-dependencies group ([#4071](https://github.com/pressbooks/pressbooks/issues/4071)) ([949a8d6](https://github.com/pressbooks/pressbooks/commit/949a8d6e8880f4bb5289f3fdf932933d053bb9ab))
+* bump aws/aws-sdk-php in the composer-dependencies group ([949a8d6](https://github.com/pressbooks/pressbooks/commit/949a8d6e8880f4bb5289f3fdf932933d053bb9ab))
+* bump the npm-dependencies group with 2 updates ([#4078](https://github.com/pressbooks/pressbooks/issues/4078)) ([ca9272a](https://github.com/pressbooks/pressbooks/commit/ca9272ab6a4745fc13f7d8aa58f390e95818b4cc))
+* update wp tests-pipeline ([#4080](https://github.com/pressbooks/pressbooks/issues/4080)) ([f676e7a](https://github.com/pressbooks/pressbooks/commit/f676e7abf0daae86d1737aac398659d9ddcd6ad0))
+
+## [6.27.1](https://github.com/pressbooks/pressbooks/compare/6.27.0...6.27.1) (2025-05-29)
+
+
+### Bug Fixes
+
+* adjust dashboard layout ([#4068](https://github.com/pressbooks/pressbooks/issues/4068)) ([6464f40](https://github.com/pressbooks/pressbooks/commit/6464f40b691ea5b7498616dd2263b3e5b5c1b91a))
+
+
+### Chores
+
+* bump aws/aws-sdk-php from 3.343.9 to 3.343.13 in the composer-dependencies group ([#4050](https://github.com/pressbooks/pressbooks/issues/4050)) ([d65be41](https://github.com/pressbooks/pressbooks/commit/d65be4173ad6b46576299d8060cf48a8a7af4832))
+* bump aws/aws-sdk-php in the composer-dependencies group ([d65be41](https://github.com/pressbooks/pressbooks/commit/d65be4173ad6b46576299d8060cf48a8a7af4832))
+* revert unneccessary changes to table sorting ([#4056](https://github.com/pressbooks/pressbooks/issues/4056)) ([c111d7c](https://github.com/pressbooks/pressbooks/commit/c111d7c918a6eff795c9e5b566ed13e34810a329))
+
+## [6.27.0](https://github.com/pressbooks/pressbooks/compare/6.26.1...6.27.0) (2025-05-28)
+
+
+### Features
+
+* display recent updates in the dashboard ([#4047](https://github.com/pressbooks/pressbooks/issues/4047)) ([2e4a683](https://github.com/pressbooks/pressbooks/commit/2e4a683adbf9c46d5aac9ff7910fea8928ed846a))
+* switch to Coloris colour picker ([#4049](https://github.com/pressbooks/pressbooks/issues/4049)) ([6d72d9c](https://github.com/pressbooks/pressbooks/commit/6d72d9c44ef1aa63daaa3cd52f64040f864cb3ad))
+
+
+### Bug Fixes
+
+* restore scroll capabilities for my books list ([#4062](https://github.com/pressbooks/pressbooks/issues/4062)) ([f6a3925](https://github.com/pressbooks/pressbooks/commit/f6a3925dcca94653cbac0a960e2dffb8053d8e9e))
+
+
+### Chores
+
+* bump @pressbooks/multiselect from 2.4.0 to 2.4.1 in the npm-dependencies group (resolves pressbooks/private[#1617](https://github.com/pressbooks/pressbooks/issues/1617)) ([#4057](https://github.com/pressbooks/pressbooks/issues/4057)) ([9bdedb4](https://github.com/pressbooks/pressbooks/commit/9bdedb41a9ed23a1e7419c7696ef6e894603730c))
+* bump @pressbooks/multiselect from 2.4.0 to 2.4.2 in the npm-dependencies group ([#4060](https://github.com/pressbooks/pressbooks/issues/4060)) ([f76cd27](https://github.com/pressbooks/pressbooks/commit/f76cd2720845bded1231ff05e42e3873bde31641))
+
 ## [6.26.1](https://github.com/pressbooks/pressbooks/compare/6.26.0...6.26.1) (2025-05-20)
 
 

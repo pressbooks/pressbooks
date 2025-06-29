@@ -1,1 +1,0 @@
-document.addEventListener("DOMContentLoaded",(function(){document.querySelectorAll(".sorting-button").forEach((function(t){t.addEventListener("click",(function(t){t.preventDefault(),window.location.href=this.dataset.href}))}))}));
