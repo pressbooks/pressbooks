@@ -186,6 +186,10 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$test = '<del><strike>Keep me</strike></del>';
 		$test = \Pressbooks\Sanitize\filter_title( $test );
 		$this->assertEquals( '<del>Keep me</del>', $test );
+
+		$test = 'A Central Asian Trilogy: the Legacy of Aitmatov in Ismailov’s <span lang="de"><em>Vunderkind Erzhan</em></span>';
+		$test = \Pressbooks\Sanitize\filter_title( $test );
+		$this->assertEquals( 'A Central Asian Trilogy: the Legacy of Aitmatov in Ismailov’s <span lang="de"><em>Vunderkind Erzhan</em></span>', $test );
 	}
 
 	/**
