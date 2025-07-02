@@ -9,7 +9,7 @@ namespace Pressbooks\DataCollector;
 use function Pressbooks\Image\attachment_id_from_url;
 use function Pressbooks\Metadata\get_institution_by_code;
 use function \Pressbooks\Metadata\get_in_catalog_option;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Query\Builder;
 use Pressbooks\Licensing;
 
 class Book {
@@ -193,13 +193,12 @@ class Book {
 		/** @var Collection $ids */
 		$ids = app( 'db' )
 			->table( 'usermeta' )
-			->select( 'user_id' )
 			->where( 'meta_key', "{$wpdb->prefix}capabilities" )
 			->where( 'meta_value', 'like', '%administrator%' )
-			->pluck( 'user_id' )
-			->when($user_id, function ( Collection $ids, $id ) {
-				return $ids->filter( fn( $admin ) => $admin->user_id !== $id );
-			});
+			->when( $user_id, function ( Builder $query, int $user_id ) {
+				$query->where( 'user_id', '<>', $user_id );
+			} )
+			->pluck( 'user_id' );
 
 		update_site_meta( $blog_id, 'pb_book_admins', $ids->join( ',' ) );
 
