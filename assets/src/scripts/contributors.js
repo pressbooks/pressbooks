@@ -266,5 +266,4 @@ jQuery( function ( $ ) {
 		originalHide.apply( this, arguments );
 		updateRemoveButton();
 	};
-
 } );

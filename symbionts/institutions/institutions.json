@@ -4949,6 +4949,11 @@
             "code": "US-CA-206",
             "name": "Yuba College",
             "url": "https:\/\/yc.yccd.edu\/"
+          },
+          {
+            "code": "US-CA-207",
+            "name": "Mt. San Antonio College",
+            "url": "https:\/\/www.mtsac.edu/\/"
           }
         ]
       },
@@ -11417,7 +11422,7 @@
           },
           {
             "code": "US-NY-138",
-            "name": "Touro College",
+            "name": "Touro University",
             "url": "https:\/\/www.touro.edu\/"
           },
           {
@@ -14132,8 +14137,8 @@
           },
           {
             "code": "US-UT-011",
-            "name": "Westminster College",
-            "url": "https:\/\/westminstercollege.edu\/"
+            "name": "Westminster University",
+            "url": "https:\/\/westminsteru.edu\/"
           }
         ]
       },

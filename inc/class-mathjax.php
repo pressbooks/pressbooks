@@ -823,7 +823,7 @@ STYLES;
 				if ( apply_filters( 'pb_mathjax_use', $this->usePbMathJax ) && PB_MATHJAX_URL ) {
 					$options = $this->getOptions();
 					$url = rtrim( PB_MATHJAX_URL, '/' );
-					$url .= '/mathml?mathml=' . rawurlencode( $mathml ) . '&fg=' . $options['fg'];
+					$url .= '/mathml?mathml=' . str_replace( '=', '', strtr( base64_encode( $mathml ), '+/', '-_' ) ) . '&fg=' . $options['fg'];
 					/**
 					 * Return a SVG instead of a PNG
 					 *
@@ -835,6 +835,8 @@ STYLES;
 					if ( apply_filters( 'pb_mathjax_use_svg', $this->useSVG ) ) {
 						$url .= '&svg=1';
 					}
+					// Base64 encode parameter for better PB MathJax parsing
+					$url .= '&isBase64=1';
 					$url = esc_url( $url );
 					$alt = str_replace( "\n", '', normalize_whitespace( wp_strip_all_tags( $mathml ) ) );
 					$alt = str_replace( '\\', '&#92;', esc_attr( $alt ) );

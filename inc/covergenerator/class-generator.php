@@ -434,10 +434,11 @@ abstract class Generator {
 			} else {
 				$doc->setTest( false );
 			}
+
 			$doc->setDocumentContent( $document_content );
 			$doc->setName( get_bloginfo( 'name' ) . ' Cover' );
 			$doc->setPrinceOptions( $prince_options );
-			$doc->setPipeline( 9.2 ); // Prince 14.3, see: https://docraptor.com/documentation/api#api_pipeline
+			$doc->setPipeline( defined( 'DOCRAPTOR_PIPELINE' ) ? DOCRAPTOR_PIPELINE : '9.2' ); // Prince 14.3, see: https://docraptor.com/documentation/api#api_pipeline
 
 			$create_response = $docraptor->createAsyncDoc( $doc );
 			$done = false;

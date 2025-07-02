@@ -415,6 +415,12 @@ class SectionMetadata extends \WP_REST_Controller {
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
+				'showTitle' => [
+					'type' => 'string',
+					'description' => __( 'Whether the title of the section should be shown in the web version.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
 				'identifier' => [
 					'type' => 'object',
 					'description' => __( 'The identifier property represents any kind of identifier for any kind of Thing, such as ISBNs, GTIN codes, UUIDs etc.' ),
