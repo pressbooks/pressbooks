@@ -164,6 +164,12 @@ class Book {
 		);
 
 		add_action(
+			hook_name: 'deleted_user',
+			callback: fn ( int $user_id ) => $obj->updateBookAdmins( get_current_blog_id(), $user_id ),
+			accepted_args: 999
+		);
+
+		add_action(
 			hook_name: 'add_user_role',
 			callback: fn () => $obj->updateBookAdmins( get_current_blog_id() ),
 			priority: 999
