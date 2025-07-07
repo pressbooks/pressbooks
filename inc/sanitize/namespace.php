@@ -753,15 +753,13 @@ function htmlawed_with_mixed_markup( $content, $htmlawed_config = null, $htmlawe
  * @param string $content
  * @return string
  */
-function sanitize_webbook_content( $content ): string {
-	// Remove deprecated table borders
-	$spec = 'table=-border;';
+function sanitize_webbook_content( $content ) {
+	$spec = apply_filters( 'pb_sanitize_webbook_content_spec', 'table=-border;' );
+	$config = apply_filters( 'pb_sanitize_webbook_content_config', [
+		'unique_ids' => 0,
+	] );
 
-	$spec = apply_filters( 'pb_sanitize_webbook_content_spec', $spec );
-	$config = apply_filters( 'pb_sanitize_webbook_content_config', [] );
-
-	$content = htmlawed_with_mixed_markup( $content, $config, $spec );
-	return $content;
+	return htmlawed_with_mixed_markup( $content, $config, $spec );
 }
 
 /**
