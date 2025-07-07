@@ -428,19 +428,21 @@ class H5P {
 		];
 
 		// Create a new extractor instance with updated config
-		$h5p_extractor = new H5PExtractorAdapter( $extractor_config );
 
-		$extract = $h5p_extractor->extract( [
-			'file' => $path,
-			'format' => 'html',
-		] );
-
-		if ( isset( $extract['error'] ) ) {
-			debug_error_log( 'H5P Extractor error: ' . $extract['error'] );
-		}
-
-		if ( str_contains( $extract['result'], 'No HTML renderer for' ) ) {
-			return null;
+		try {
+			$h5p_extractor = new H5PExtractorAdapter( $extractor_config );
+			$extract = $h5p_extractor->extract([
+				'file' => $path,
+				'format' => 'html',
+			]);
+			if ( isset( $extract['error'] ) ) {
+				debug_error_log( 'H5P Extractor error: ' . $extract['error'] );
+			}
+			if ( str_contains( $extract['result'], 'No HTML renderer for' ) ) {
+				return null;
+			}
+		} catch ( \Exception | \Error $e ) {
+			return null; // Any Extractor Exception or Error will return null and will fallback to the default H5P shortcode
 		}
 
 		// Ensure to delete export file if it had not existed before

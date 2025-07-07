@@ -303,17 +303,17 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 		$h5p = new H5P( $bladeMock, $h5pPluginMock, $h5pExtractorMock, $wpHelperMock, $h5pCoreMock );
 
 		$expectedPath = WP_PLUGIN_DIR . '/' . H5P::H5P_PLUGIN_PATH;
-		
+
 		$wpHelperMock->expects( $this->once() )
 			->method( 'isFile' )
 			->with( $expectedPath )
 			->willReturn( true );
-			
+
 		$wpHelperMock->expects( $this->once() )
 			->method( 'activatePlugin' )
 			->with( H5P::H5P_PLUGIN_PATH )
 			->willReturn( null ); // null = success
-			
+
 		$h5pPluginMock->expects( $this->once() )
 			->method( 'canFetchH5P' )
 			->willReturn( true );
@@ -334,17 +334,17 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 		$h5p = new H5P( $bladeMock, $h5pPluginMock, $h5pExtractorMock, $wpHelperMock, $h5pCoreMock );
 
 		$expectedPath = WP_PLUGIN_DIR . '/' . H5P::H5P_PLUGIN_PATH;
-		
+
 		$wpHelperMock->expects( $this->once() )
 			->method( 'isFile' )
 			->with( $expectedPath )
 			->willReturn( true );
-			
+
 		$wpHelperMock->expects( $this->once() )
 			->method( 'activatePlugin' )
 			->with( H5P::H5P_PLUGIN_PATH )
 			->willReturn( null );
-			
+
 		$h5pPluginMock->expects( $this->once() )
 			->method( 'canFetchH5P' )
 			->willReturn( false );
@@ -365,12 +365,12 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 		$h5p = new H5P( $bladeMock, $h5pPluginMock, $h5pExtractorMock, $wpHelperMock, $h5pCoreMock );
 
 		$expectedPath = WP_PLUGIN_DIR . '/' . H5P::H5P_PLUGIN_PATH;
-		
+
 		$wpHelperMock->expects( $this->once() )
 			->method( 'isFile' )
 			->with( $expectedPath )
 			->willReturn( true );
-			
+
 		$wpHelperMock->expects( $this->once() )
 			->method( 'activatePlugin' )
 			->with( H5P::H5P_PLUGIN_PATH )
@@ -622,12 +622,12 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 
 		$mockCore = $this->createMock( \stdClass::class );
 		$mockCore->h5pF = $this->getMockBuilder( \stdClass::class )
-			->addMethods( [ 
-				'isContentSlugAvailable', 
-				'loadAddons', 
-				'deleteLibraryUsage', 
-				'saveLibraryUsage', 
-				'updateContentFields' 
+			->addMethods( [
+				'isContentSlugAvailable',
+				'loadAddons',
+				'deleteLibraryUsage',
+				'saveLibraryUsage',
+				'updateContentFields'
 			] )
 			->getMock();
 		$mockCore->h5pF->method( 'isContentSlugAvailable' )->willReturn( true );
@@ -833,7 +833,7 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 		$bladeMock = $this->getMockBuilder(stdClass::class)
 			->addMethods(['render', 'addNamespace'])
 			->getMock();
-			
+
 		$h5pPluginMock = $this->createMock(H5PPluginInterface::class);
 		$h5pExtractorMock = $this->createMock(H5PExtractorInterface::class);
 		$wpHelperMock = $this->createMock(WordPressHelperInterface::class);
@@ -934,10 +934,10 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 			->addMethods( [] )
 			->getMock();
 		$mockCore->h5pF = $this->getMockBuilder( \stdClass::class )
-			->addMethods( [ 
-				'loadAddons', 
-				'deleteLibraryUsage', 
-				'saveLibraryUsage', 
+			->addMethods( [
+				'loadAddons',
+				'deleteLibraryUsage',
+				'saveLibraryUsage',
 				'updateContentFields',
 				'isContentSlugAvailable'
 			] )
@@ -1031,7 +1031,7 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 		try {
 			$cleanupCallback2 = $method2->invoke( $h5p2, 789 );
 			$this->assertIsCallable( $cleanupCallback2 );
-			
+
 			// Execute cleanup callback - should handle createH5PExport failure gracefully
 			$cleanupCallback2( 789 );
 		} catch ( \Throwable $e ) {
@@ -1150,6 +1150,43 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 
 		$result2 = $method2->invoke( $h5p2, 456 );
 		$this->assertNull( $result2, 'Should return null when core loading fails' );
+
+		// Test H5P extractor TypeErrors and other exceptions
+		$h5pPluginMock3 = $this->createMock( H5PPluginInterface::class );
+		$h5pExtractorMock3 = $this->createMock( H5PExtractorInterface::class );
+		$h5p3 = new H5P( $bladeMock, $h5pPluginMock3, $h5pExtractorMock3, $wpHelperMock, $h5pCoreMock );
+		$h5p3->shouldEnablePrint();
+
+		$h5pPluginMock3->method( 'getContent' )->willReturn( [
+			'id' => 789,
+			'slug' => 'type-error-test',
+			'title' => 'Type Error Test'
+		] );
+
+		$mockCore3 = $this->getMockBuilder( \stdClass::class )
+			->addMethods( [ 'loadContent' ] )
+			->getMock();
+		$mockCore3->fs = $this->getMockBuilder( \stdClass::class )
+			->addMethods( [ 'hasExport', 'deleteExport' ] )
+			->getMock();
+		$mockCore3->fs->method( 'hasExport' )->willReturn( false );
+		$mockCore3->fs->method( 'deleteExport' )->willReturn( true );
+		$mockCore3->method( 'loadContent' )->willReturn( [
+			'id' => 789,
+			'slug' => 'type-error-test',
+			'title' => 'Type Error Test'
+		] );
+		$h5pPluginMock3->method( 'getH5PInstance' )->willReturn( $mockCore3 );
+
+		// Mock H5P extractor to throw TypeError: count() error
+		$h5pExtractorMock3->method( 'extract' )->will( $this->throwException( new \TypeError( 'count(): Argument #1 ($value) must be of type Countable|array, null given' ) ) );
+
+		$reflection3 = new ReflectionClass( $h5p3 );
+		$method3 = $reflection3->getMethod( 'getH5PRepresentation' );
+		$method3->setAccessible( true );
+
+		$result3 = $method3->invoke( $h5p3, 789 );
+		$this->assertNull( $result3, 'Should return null when H5P extractor throws TypeError: count() error' );
 	}
 
 	/**
@@ -1211,7 +1248,7 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 			try {
 				$result = $method->invoke( $h5p, $content['id'] );
 				// Should handle each content type gracefully
-				$this->assertTrue( 
+				$this->assertTrue(
 					is_null( $result ) || is_string( $result ),
 					"Should handle {$type} content type gracefully"
 				);
