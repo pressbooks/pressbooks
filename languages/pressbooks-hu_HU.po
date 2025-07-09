@@ -94,7 +94,7 @@ msgstr ""
 msgid "Author"
 msgid_plural "Authors"
 msgstr[0] "Szerző"
-msgstr[1] "Szerzők"
+msgstr[1] "Szerzői"
 
 #: inc/admin/attachments/namespace.php:60
 msgid "Author URL"
