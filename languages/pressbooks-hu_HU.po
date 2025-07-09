@@ -98,7 +98,7 @@ msgstr[1] "Szerzői"
 
 #: inc/admin/attachments/namespace.php:60
 msgid "Author URL"
-msgstr ""
+msgstr "Szerző URL"
 
 #: inc/admin/attachments/namespace.php:68
 msgid "License"
