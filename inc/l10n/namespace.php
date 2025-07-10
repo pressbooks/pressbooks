@@ -317,6 +317,28 @@ function wplang_codes() {
 	return $languages;
 }
 
+function get_translated_languages( ?string $file_path = null ) {
+	$tx_yaml = file_get_contents( $file_path ?? PB_PLUGIN_DIR . '.tx/transifex.yaml' );
+	if ( ! $tx_yaml ) {
+		return [];
+	}
+
+	$supported = supported_languages();
+
+	$lines = explode( "\n", $tx_yaml );
+	$languages = [];
+	foreach ( $lines as $line ) {
+		if ( preg_match( '/^\s*([a-z]{2,3}(?:[_-][A-Z]{2,3})?)\s*:\s*([a-z]{2,3}(?:[_-][A-Z]{2,3})?)\s*$/i', $line, $matches ) ) {
+			$base_lang = preg_replace( '/[_-].*$/', '', strtolower( $matches[1] ) );
+			if ( isset( $supported[ $base_lang ] ) ) {
+				$languages[ $matches[2] ] = $supported[ $base_lang ];
+			}
+		}
+	}
+
+	return $languages;
+}
+
 /**
  * Override get_locale
  * For performance reasons, we only want functions in this namespace to call WP get_locale once.

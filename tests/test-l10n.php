@@ -117,13 +117,50 @@ class L10nTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'zh_CN', $output );
 	}
 
-
-//	public function test_update_user_locale() { // TODO
-//	}
-
 	public function test_get_book_language() {
 		$lang = \Pressbooks\L10n\get_book_language();
 		$this->assertNotEmpty( $lang );
 		$this->assertTrue( is_string( $lang ) );
+	}
+
+	/**
+	 * @test
+	 * @group localization
+	 */
+	public function it_gets_translated_languages(): void {
+		
+		$temp_file = tempnam( sys_get_temp_dir(), 'pb_lang_test_' );
+
+		$yaml_content = <<<YAML
+git:
+	filters:
+		- filter_type: file
+		  file_format: PO
+		  source_file: languages/pressbooks.pot
+		  source_language: en
+		  translation_files_expression: languages/pressbooks-<lang>.po
+	settings:
+		pr_branch_name: chore/update-translations-<br_unique_id>
+		language_mapping:
+			de: de_DE
+			es: es_ES
+			fr: fr_FR
+YAML;
+
+		file_put_contents( $temp_file, $yaml_content );
+
+		$translated_languages = \Pressbooks\L10n\get_translated_languages( $temp_file );
+		
+		unlink( $temp_file );
+
+		$this->assertIsArray( $translated_languages );
+		$this->assertArrayHasKey( 'de_DE', $translated_languages );
+		$this->assertArrayHasKey( 'es_ES', $translated_languages );
+		$this->assertArrayHasKey( 'fr_FR', $translated_languages );
+
+		$this->assertEquals( 'German', $translated_languages['de_DE'] );
+		$this->assertEquals( 'Spanish', $translated_languages['es_ES'] );
+		$this->assertEquals( 'French', $translated_languages['fr_FR'] );
+		
 	}
 }
