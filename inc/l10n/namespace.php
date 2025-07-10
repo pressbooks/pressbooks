@@ -336,6 +336,8 @@ function get_translated_languages( ?string $file_path = null ) {
 		}
 	}
 
+	asort( $languages );
+
 	return $languages;
 }
 

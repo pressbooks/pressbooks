@@ -161,6 +161,8 @@ YAML;
 		$this->assertEquals( 'German', $translated_languages['de_DE'] );
 		$this->assertEquals( 'Spanish', $translated_languages['es_ES'] );
 		$this->assertEquals( 'French', $translated_languages['fr_FR'] );
-		
+
+		$sorted_languages = array_values( $translated_languages );
+		$this->assertEquals( [ 'French', 'German', 'Spanish' ], $sorted_languages );
 	}
 }
