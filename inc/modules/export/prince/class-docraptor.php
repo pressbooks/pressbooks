@@ -92,6 +92,7 @@ class Docraptor extends Pdf {
 		$prince_options = new PrinceOptions();
 		$prince_options->setNoCompress( false );
 		$prince_options->setJavascript( true );
+		$prince_options->setHttpTimeout( 600 );
 		if ( $this->pdfProfile && $this->pdfOutputIntent ) {
 			$prince_options->setProfile( $this->pdfProfile );
 			// DocRaptor doesn't let us setPDFOutputIntent like Prince does, we cheat with a CSS hack later
