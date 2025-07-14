@@ -28,10 +28,10 @@ class UserTest extends \WP_UnitTestCase {
 		$this->assertInstanceOf( User::class, $result );
 		
         $this->user->hooks( $result );
-		
+
         $this->assertNotEmpty( $wp_filter );
-		$this->assertEquals( 10, has_filter( 'pre_user_login', [ $result, 'sanitizeUsernameByEmail' ] ) );
-		$this->assertEquals( 10, has_action( 'pb_new_blog', [ $result, 'setBookAdminAsAuthor' ] ) );
+        $this->assertEquals( 10, has_filter( 'pre_user_login', [ $result, 'sanitizeUsernameByEmail' ] ) );
+        $this->assertEquals( 10, has_action( 'pb_new_blog', [ $result, 'setBookAdminAsAuthor' ] ) );
 	}
 
     public function test_sanitizeUser() {
