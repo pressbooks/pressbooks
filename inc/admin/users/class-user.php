@@ -17,21 +17,27 @@ class User {
 	}
 
 	public static function hooks( User $obj ): void {
-		add_filter( 'pre_user_login', [ $obj, 'sanitizeUsernameByEmail' ], 10, 1 );
+		add_filter( 'pre_user_login', [ $obj, 'getUsernameFromBookForm' ], 10, 1 );
 		add_action( 'pb_new_blog', [ $obj, 'setBookAdminAsAuthor' ], 10 );
 	}
 
-	public function sanitizeUsernameByEmail( string $user_login ): string {
+	public function getUsernameFromBookForm( string $original_email ): string {
 		if ( ! $this->isSiteNetworkScreen() ) {
-			return $user_login;
+			return $original_email;
 		}
 
-		$email = filter_var( INPUT_POST['blog']['email'] ?? '', FILTER_SANITIZE_EMAIL );
+		$nonce = sanitize_text_field( wp_unslash( $_POST['_wpnonce_add-blog'] ?? '' ) );
+
+		if ( ! wp_verify_nonce( $nonce, 'add-blog' ) ) {
+			return $original_email;
+		}
+
+		$email = filter_var( wp_unslash( $_POST['blog']['email'] ?? '' ), FILTER_SANITIZE_EMAIL );
 
 		$user_details = self::generateUserNameFromEmail( $email );
 
-		if ( is_wp_error( $user_details['errors'] ) && $user_details['errors']->has_errors() ) {
-			return $user_login;
+		if ( isset( $user_details['errors'] ) && is_wp_error( $user_details['errors'] ) && $user_details['errors']->has_errors() ) {
+			return $original_email;
 		}
 
 		return $user_details['user_name'];
