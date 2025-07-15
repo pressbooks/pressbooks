@@ -11,6 +11,8 @@
 
 namespace Pressbooks\Redirect;
 
+use Pressbooks\Modules\Export\Xhtml\Xhtml11;
+
 /**
  * Fail-safe Location: redirection
  *
@@ -116,7 +118,7 @@ function do_format() {
 		$args = [];
 		add_filter( 'pre_determine_locale', '\Pressbooks\L10n\get_locale' );
 		$switched_locale = switch_to_locale( \Pressbooks\Modules\Export\Export::locale() );
-		$foo = new \Pressbooks\Modules\Export\Xhtml\Xhtml11( $args );
+		$foo = new Xhtml11( $args );
 		$foo->transform();
 		if ( $switched_locale ) {
 			restore_previous_locale();

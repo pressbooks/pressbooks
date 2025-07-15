@@ -354,3 +354,6 @@ add_action( 'wp_initialize_site', [ Privacy::class, 'setDefaultPermissivePrivate
 //Network Managers hooks via CLI
 add_action( 'revoked_super_admin', '\Pressbooks\Admin\NetworkManagers\remove_from_pressbooks_network_managers' );
 add_action( 'deleted_user', '\Pressbooks\Admin\NetworkManagers\remove_from_pressbooks_network_managers' );
+
+// Optimize H5P CSS files for export
+add_action( 'pb_xhtml_after_content_processed', '\Pressbooks\Modules\Export\pb_xhtml_after_content_processed' );

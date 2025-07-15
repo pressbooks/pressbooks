@@ -21,6 +21,9 @@
  * @license GPL-3.0-or-later
  */
 
+use Pressbooks\Modules\BackgroundProcessing\BackgroundJob;
+use Pressbooks\Pressbooks;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	return;
 }
@@ -110,7 +113,7 @@ pb_init_autoloader();
 // Initialize
 // -------------------------------------------------------------------------------------------------------------------
 
-$GLOBALS['pressbooks'] = new \Pressbooks\Pressbooks();
+$GLOBALS['pressbooks'] = new Pressbooks();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Hooks
@@ -127,3 +130,6 @@ if ( is_admin() ) {
 // --------------------------------------------------------------------------------------------------------------------
 
 require( PB_PLUGIN_DIR . 'functions.php' );
+
+//Background processing
+add_action( 'pressbooks_process_export_job', [ BackgroundJob::class, 'handle' ] );

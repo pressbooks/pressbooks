@@ -15,6 +15,7 @@
 namespace Pressbooks\Admin\Laf;
 
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
+use function Pressbooks\Modules\Export\template_data;
 use function Pressbooks\PostType\get_post_type_label;
 use function Pressbooks\Sanitize\sanitize_string;
 use function Pressbooks\Utility\disable_comments;
@@ -340,18 +341,39 @@ function replace_book_admin_menu() {
 				);
 				wp_localize_script(
 					'pb-export', 'PB_ExportToken', [
-						'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=export-book' ), 'pb-export' ),
-						'bulkDeleteWarning' => esc_html__( 'Are you sure you want to delete these export files?', 'pressbooks' ),
-						'maximumFilesWarning' => esc_html__( 'Up to 5 files can be pinned at once.', 'pressbooks' ),
-						'maximumFileTypeWarning' => esc_html__( 'Cannot pin more than 3 of the same file type.', 'pressbooks' ),
+						'ajaxurl' => admin_url( 'admin-ajax.php' ),
+						'exportPageUrl' => admin_url( 'admin.php?page=pb_export' ),
+						'nonce' => wp_create_nonce( 'pb-export-book' ),
+						'userExportFeedNonce' => wp_create_nonce( 'pressbooks_user_export_feed' ),
+						'bookId' => get_current_blog_id(),
+						'downloadNoncePrefix' => 'download_export_job_',
+						'text'    => [
+							'select_format'   => esc_html__( 'Please select at least one export format.', 'pressbooks' ),
+							'exporting'       => esc_html__( 'Exporting...', 'pressbooks' ),
+							'starting_export' => esc_html__( 'Starting export process...', 'pressbooks' ),
+							'download_file'   => esc_html__( 'Download File', 'pressbooks' ),
+							'maximum_files_warning' => esc_html__( 'Up to 5 files can be pinned at once.', 'pressbooks' ),
+							'maximum_file_type_warning' => esc_html__( 'Cannot pin more than 3 of the same file type.', 'pressbooks' ),
+							'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . esc_html__( 'Reload', 'pressbooks' ) . '</a>)</em>',
+							'jobs_submitted' => esc_html__( 'Export job(s) successfully added to the queue. Progress updates will appear below until the export process is completed. In the meantime, you can safely navigate away from this page.', 'pressbooks' ),
+							'cancel_confirmation' => esc_html__( 'Are you sure you want to cancel this export job?', 'pressbooks' ),
+							'cancel_failed' => esc_html__( 'Failed to cancel export job.', 'pressbooks' ),
+							'start_export' => esc_html__( 'Starting...', 'pressbooks' ),
+							'cancel_button' => esc_html__( 'Cancel', 'pressbooks' ),
+							'error_jobs' => esc_html__( 'Error submitting export jobs:', 'pressbooks' ),
+							'job_notice_dismissal' => esc_html__( 'Dismiss this notice.', 'pressbooks' ),
+							'job_running' => esc_html__( 'This export is currently running', 'pressbooks' ),
+							'completed' => esc_html__( 'Completed', 'pressbooks' ),
+						],
+						'cookie'  => [
+							'timer' => 'pbExportTimer',
+						],
 						'pinsNonce' => wp_create_nonce( 'pb-export-pins' ),
-						'redirectUrl' => admin_url( 'options.php?page=pb_export' ),
-						'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . esc_html__( 'Reload', 'pressbooks' ) . '</a>)</em>',
-						'tooManyExportsWarning' => esc_html__( 'Too many pinned files. Deselect one of the pinned files before attempting to export.', 'pressbooks' ),
-						'unloadWarning' => esc_html__( 'Exports are not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
+						'reloadOnComplete' => true,
 					]
 				);
 				wp_enqueue_style( 'pb-export' );
+				wp_enqueue_style( 'pb-export-ui' );
 				wp_enqueue_script( 'pb-export' );
 				wp_deregister_script( 'heartbeat' );
 
@@ -731,11 +753,11 @@ function display_trash() {
 /**
  * Displays the Export Admin Page
  */
-function display_export() {
+function display_export(): void {
 	$blade = Container::get( 'Blade' );
 	echo $blade->render(
 		'admin.export',
-		\Pressbooks\Modules\Export\template_data()
+		template_data()
 	);
 }
 
@@ -1159,6 +1181,7 @@ function init_css_js() {
 
 	// Register styles for later, on-the-fly, using action: admin_print_scripts- (or other tricks of the shade)
 	wp_register_style( 'pb-export', $assets->getPath( 'styles/export.css' ) );
+	wp_register_style( 'pb-export-ui', $assets->getPath( 'styles/admin/export-ui.css' ), [], '1.0.0' ); // Updated path to src
 	wp_register_style( 'pb-organize', $assets->getPath( 'styles/organize.css' ) );
 	wp_register_style( 'duet-date-picker', $assets->getPath( 'styles/duet.css' ) );
 
