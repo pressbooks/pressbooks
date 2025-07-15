@@ -400,3 +400,9 @@ add_action( 'admin_enqueue_scripts', function() {
 	$assets = new Assets( 'pressbooks', 'plugin' );
 	wp_enqueue_style( 'pb-table', $assets->getPath( 'styles/pressbooks-table.css' ) );
 } );
+
+add_action( 'plugins_loaded', [ \Pressbooks\Admin\Users\User::class, 'init' ], 10 );
+
+add_action( 'pb_new_blog', function() {
+	update_option( 'blog_public', 0 );
+} );
