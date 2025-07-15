@@ -560,24 +560,6 @@ abstract class Export {
 	}
 
 	/**
-	 * Gets a user-friendly name for an export module.
-	 * Uses the existing get_name_from_module_classname if available and suitable,
-	 * or provides a fallback.
-	 *
-	 * @param string $module_classname
-	 * @return string
-	 */
-	public static function getFriendlyNameForModule( string $module_classname ): string {
-		if ( function_exists( '\Pressbooks\Modules\Export\get_name_from_module_classname' ) ) {
-			// This function is in namespace.php, ensure it's loaded.
-			// It returns names like "Digital PDF", "EPUB" etc.
-			return get_name_from_module_classname( $module_classname );
-		}
-		$parts = explode( '\\', $module_classname );
-		return end( $parts );
-	}
-
-	/**
 	 * Pre-Export
 	 */
 	public static function preExport(): void {

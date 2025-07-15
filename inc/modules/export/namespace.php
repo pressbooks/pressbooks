@@ -256,8 +256,8 @@ function get_name_from_module_classname( $classname ): string {
 			'\Pressbooks\Modules\Export\ThinCC\WebLinks' => __( 'Common Cartridge (Web Links)', 'pressbooks' ),
 		]
 	);
-
-	return $formats[ $classname ] ?? substr( strrchr( $classname, '\\' ), 1 );
+	$parts = explode( '\\', $classname );
+	return $formats[ $classname ] ?? end( $parts );
 }
 
 /**
@@ -331,13 +331,7 @@ function get_contributors_section( $post_id ): string {
 }
 
 function get_friendly_name_for_module( string $module_classname ): string {
-	if ( function_exists( '\Pressbooks\Modules\Export\get_name_from_module_classname' ) ) {
-		// This function is in namespace.php, ensure it's loaded.
-		// It returns names like "Digital PDF", "EPUB" etc.
-		return get_name_from_module_classname( $module_classname );
-	}
-	$parts = explode( '\\', $module_classname );
-	return end( $parts ); // Fallback to class name
+	return get_name_from_module_classname( $module_classname );
 }
 
 /**

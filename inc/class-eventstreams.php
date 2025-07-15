@@ -12,10 +12,10 @@
 
 namespace Pressbooks;
 
+use function Pressbooks\Modules\Export\get_friendly_name_for_module;
 use function Pressbooks\Utility\getset;
 use Pressbooks\Cloner\Cloner;
 use Pressbooks\Modules\BackgroundProcessing\BackgroundJob;
-use Pressbooks\Modules\Export\Export;
 use Pressbooks\Modules\Import\Import;
 
 class EventStreams {
@@ -322,7 +322,7 @@ class EventStreams {
 							'status' => $job->status,
 							'progress_percentage' => (int) $job->progress_percentage,
 							'progress_message' => $job->progress_message,
-							'format_name' => Export::getFriendlyNameForModule( $job->export_module_classname ),
+							'format_name' => get_friendly_name_for_module( $job->export_module_classname ),
 							'module_slug' => $job->export_format,
 							'file_name' => null,
 							'download_url' => null,
