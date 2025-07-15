@@ -52,6 +52,7 @@ class ServiceProvider {
 				return new class {
 					public function __construct(
 						public string $h5p_css_url = '',
+						public string $scoped_styles = '',
 					) {
 					}
 				};
