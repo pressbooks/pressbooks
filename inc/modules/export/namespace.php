@@ -238,11 +238,6 @@ function get_shortname_from_filetype_slug( $filetype ): string {
  */
 function get_name_from_module_classname( $classname ): string {
 
-	// if classname doesn't start with a backslash just return the classname
-	if ( ! str_starts_with( $classname, '\\' ) ) {
-		return $classname;
-	}
-
 	/**
 	 * Add custom export module classnames to the array of export module classnames and corresponding human-readable filetypes.
 	 *

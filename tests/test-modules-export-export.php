@@ -611,6 +611,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @test
 	 */
 	public function it_get_friendly_name_for_module() {
+
 		$module = '\Pressbooks\Modules\Export\Prince\Pdf';
 		$name = get_friendly_name_for_module( $module );
 		$this->assertEquals( 'Digital PDF', $name );
@@ -618,5 +619,16 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$module = '\Pressbooks\Modules\Export\Microsoft\XLSX';
 		$name = get_friendly_name_for_module( $module );
 		$this->assertEquals( 'XLSX', $name );
+
+		add_filter('pb_export_module_classnames', function (array $classes) {
+			return [
+				...$classes,
+				'PressbooksLti\Export\CommonCartridgeExport' => __('Common Override LTI', 'pressbooks'),
+			];
+		});
+
+		$module = 'PressbooksLti\Export\CommonCartridgeExport';
+		$name = get_friendly_name_for_module( $module );
+		$this->assertEquals( 'Common Override LTI', $name );
 	}
 }
