@@ -905,7 +905,7 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:364
 msgid "Dismiss this notice."
-msgstr ""
+msgstr "Ignora aquesta notificació."
 
 #: inc/admin/laf/namespace.php:365
 msgid "This export is currently running"
