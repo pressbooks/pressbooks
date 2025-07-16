@@ -1,5 +1,34 @@
 # Changelog
 
+## [6.30.0](https://github.com/pressbooks/pressbooks/compare/6.29.0...6.30.0) (2025-07-16)
+
+
+### Features
+
+* add Atkinson Hyperlegible Next to Shapeshifter font choices ([#4091](https://github.com/pressbooks/pressbooks/issues/4091)) ([30d13e8](https://github.com/pressbooks/pressbooks/commit/30d13e8e7fd3da9592279f32bbd820b4d0cdd58f))
+* collect book admin metadata ([#4017](https://github.com/pressbooks/pressbooks/issues/4017)) ([b96462a](https://github.com/pressbooks/pressbooks/commit/b96462abed54b21cdfedf05bfacec586642fea70))
+* get translated languages method ([#4106](https://github.com/pressbooks/pressbooks/issues/4106)) ([c917bc2](https://github.com/pressbooks/pressbooks/commit/c917bc2d817d3e0b209abc43ecc7cef15d00a2d2))
+* H5P Printing (collab with BCcampus) and background processing for exports ([b9ea7a7](https://github.com/pressbooks/pressbooks/commit/b9ea7a768c384fcfbdd5f12748dd17a347d1eaa4))
+
+
+### Bug Fixes
+
+* ajaxUrl typo ([#4111](https://github.com/pressbooks/pressbooks/issues/4111)) ([1f666d8](https://github.com/pressbooks/pressbooks/commit/1f666d8327df62d77fef199f4936b022538cded6))
+* book creation from network admin form ([#4108](https://github.com/pressbooks/pressbooks/issues/4108)) ([e985e7a](https://github.com/pressbooks/pressbooks/commit/e985e7a62f5cf2848bdaab15fa15f2a6458e2196))
+* pot workflow ([#4107](https://github.com/pressbooks/pressbooks/issues/4107)) ([9ff34eb](https://github.com/pressbooks/pressbooks/commit/9ff34ebebe04c6e6b803778f382f7648ea835d73))
+
+
+### Chores
+
+* add requested institution ([#4115](https://github.com/pressbooks/pressbooks/issues/4115)) ([f9d477c](https://github.com/pressbooks/pressbooks/commit/f9d477ca20078bf23d2d78b3726e9920e2ab1668))
+* bump pbkdf2 from 3.1.2 to 3.1.3 in the npm_and_yarn group ([#4098](https://github.com/pressbooks/pressbooks/issues/4098)) ([bded716](https://github.com/pressbooks/pressbooks/commit/bded716742cfa6545cda2f1135248fd88812a9c1))
+* bump pbkdf2 from 3.1.2 to 3.1.3 in the npm_and_yarn group ([#4110](https://github.com/pressbooks/pressbooks/issues/4110)) ([132fca4](https://github.com/pressbooks/pressbooks/commit/132fca4eb4126956f6b78c7ac3125d3dd25d0753))
+* bump the composer-dependencies group across 1 directory with 3 updates ([#4094](https://github.com/pressbooks/pressbooks/issues/4094)) ([9f1d9d5](https://github.com/pressbooks/pressbooks/commit/9f1d9d51773373ece4df3c8a81bd58d2a8ef92e6))
+* bump the npm-dependencies group with 2 updates ([#4095](https://github.com/pressbooks/pressbooks/issues/4095)) ([61b25d7](https://github.com/pressbooks/pressbooks/commit/61b25d7506db839f9c1745444879b1e69a37f11b))
+* **i18n:** update languages for project pressbooks ([#4113](https://github.com/pressbooks/pressbooks/issues/4113)) ([02297a0](https://github.com/pressbooks/pressbooks/commit/02297a0bd52ecf4a203363d2d27d77877bf746b1))
+* **l10n:** Updates for project Pressbooks ([#4105](https://github.com/pressbooks/pressbooks/issues/4105)) ([2a07aac](https://github.com/pressbooks/pressbooks/commit/2a07aac5c8267ed76713a8c36e93fa0e34e8518a))
+* **l10n:** Updates for project Pressbooks ([#4114](https://github.com/pressbooks/pressbooks/issues/4114)) ([55d2837](https://github.com/pressbooks/pressbooks/commit/55d28377752936edca5cac3cae4f19d96e8a92d8))
+
 ## [6.29.0](https://github.com/pressbooks/pressbooks/compare/6.28.0...6.29.0) (2025-06-26)
 
 
