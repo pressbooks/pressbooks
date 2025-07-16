@@ -18,7 +18,7 @@ class User {
 
 	public static function hooks( User $obj ): void {
 		add_filter( 'pre_user_login', [ $obj, 'getUsernameFromBookForm' ], 10, 1 );
-		add_action( 'pb_new_blog', [ $obj, 'setBookAdminAsAuthor' ], 10 );
+		add_action( 'pb_new_blog', [ $obj, 'cleanContributors' ], 10 );
 	}
 
 	public function getUsernameFromBookForm( string $original_email ): string {
@@ -90,10 +90,7 @@ class User {
 		return str_pad( $unique_username, 4, '1' );
 	}
 
-	/**
-	 * Set the default book author to the specified admin user.
-	 */
-	public function setBookAdminAsAuthor(): void {
+	public function cleanContributors(): void {
 		if ( ! $this->isSiteNetworkScreen() ) {
 			return;
 		}
@@ -112,7 +109,7 @@ class User {
 
 		$contributors->link( $term['term_id'], $metadata_post_id );
 
-		$user_data = get_userdata( get_current_user_id() );
-		$contributors->unlink( $user_data->user_nicename, $metadata_post_id );
+		$contributors->removeBlogUser( get_current_user_id() );
+
 	}
 }

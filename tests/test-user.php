@@ -38,7 +38,7 @@ class UserTest extends \WP_UnitTestCase {
 
         $this->assertNotEmpty( $wp_filter );
         $this->assertEquals( 10, has_filter( 'pre_user_login', [ $result, 'getUsernameFromBookForm' ] ) );
-        $this->assertEquals( 10, has_action( 'pb_new_blog', [ $result, 'setBookAdminAsAuthor' ] ) );
+        $this->assertEquals( 10, has_action( 'pb_new_blog', [ $result, 'cleanContributors' ] ) );
 	}
 
     /**
@@ -126,7 +126,7 @@ class UserTest extends \WP_UnitTestCase {
 
         add_user_to_blog( $book_admin_id, get_current_blog_id(), 'administrator' );
 
-        $this->user->setBookAdminAsAuthor();
+        $this->user->cleanContributors();
 
         $this->assertTrue( user_can( $book_admin_id, 'edit_posts' ) );
         
