@@ -167,7 +167,7 @@ function checkAllJobsComplete() {
  */
 function initializeGlobalExportFeed() {
 
-	if ( ! PB_ExportToken || ! PB_ExportToken.ajaxurl || ! PB_ExportToken.userExportFeedNonce || ! PB_ExportToken.bookId ) {
+	if ( ! PB_ExportToken || ! PB_ExportToken.ajaxUrl || ! PB_ExportToken.userExportFeedNonce || ! PB_ExportToken.bookId ) {
 		return;
 	}
 
@@ -178,7 +178,7 @@ function initializeGlobalExportFeed() {
 		return;
 	}
 
-	const sseUrl = `${ PB_ExportToken.ajaxurl }?action=pb_sse_exports&_wpnonce=${ globalExportSSENonce }&book_id=${ globalExportSSEBookId }`;
+	const sseUrl = `${ PB_ExportToken.ajaxUrl }?action=pb_sse_exports&_wpnonce=${ globalExportSSENonce }&book_id=${ globalExportSSEBookId }`;
 	globalExportSSE = new EventSource( sseUrl );
 
 	globalExportSSE.addEventListener( 'export_job_updates', function ( event ) {
@@ -212,7 +212,7 @@ function initializeGlobalExportFeed() {
 		if (!jobId) return;
 
 		if (confirm(PB_ExportToken?.text?.cancel_confirmation || 'Are you sure you want to cancel this export job?')) {
-			fetch(PB_ExportToken.ajaxurl, {
+			fetch(PB_ExportToken.ajaxUrl, {
 			    method: 'POST',
 			    headers: {
 			        'Content-Type': 'application/x-www-form-urlencoded',
@@ -305,7 +305,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		serverFormData.append('action', 'pb_export_book');
 		serverFormData.append('pb_export_nonce', PB_ExportToken.nonce);
 
-		const response = await fetch(PB_ExportToken.ajaxurl, {
+		const response = await fetch(PB_ExportToken.ajaxUrl, {
 			method: 'POST',
 			body: serverFormData
 		});
@@ -410,7 +410,7 @@ jQuery( function ( $ ) {
 		// Disable all pin checkboxes during save
 		$( 'input[name^="pin"]' ).prop( 'disabled', true );
 
-		$.post( PB_ExportToken.ajaxurl, {
+		$.post( PB_ExportToken.ajaxUrl, {
 			action: 'pb_export_pins',
 			pins: pins,
 			_ajax_nonce: PB_ExportToken.pinsNonce, // Assuming pinsNonce is localized

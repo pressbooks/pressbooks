@@ -341,7 +341,7 @@ function replace_book_admin_menu() {
 				);
 				wp_localize_script(
 					'pb-export', 'PB_ExportToken', [
-						'ajaxurl' => admin_url( 'admin-ajax.php' ),
+						'ajaxUrl' => admin_url( 'admin-ajax.php' ),
 						'exportPageUrl' => admin_url( 'admin.php?page=pb_export' ),
 						'nonce' => wp_create_nonce( 'pb-export-book' ),
 						'userExportFeedNonce' => wp_create_nonce( 'pressbooks_user_export_feed' ),
