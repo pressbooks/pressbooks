@@ -31,3 +31,16 @@
 		</ul>
 	</div>
 </div>
+@isset($updates['url'])
+	<div class="pb-dashboard-panel recent-updates">
+		<div class="pb-dashboard-content">
+			<h2>{{ __('Pressbooks product updates', 'pressbooks') }}</h2>
+
+			<div>
+				{!! $updates['text'] !!}
+			</div>
+
+			<a href="{{ $updates['url'] }}" target="_blank">View the monthly product release notes</a>
+		</div>
+	</div>
+@endisset

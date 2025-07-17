@@ -101,24 +101,9 @@
 			</div>
 		</div>
 	</div>
-
 	<div class="pb-dashboard-row">
 		<div class="pb-dashboard-grid">
-			@include('admin.dashboard.support')
-
-			@if($updates['url'])
-				<div class="pb-dashboard-panel recent-updates">
-					<div class="pb-dashboard-content">
-						<h2>{{ __('Pressbooks product updates', 'pressbooks') }}</h2>
-
-						<div>
-							{!! $updates['text'] !!}
-						</div>
-
-						<a href="{{ $updates['url'] }}" target="_blank">View the monthly product release notes</a>
-					</div>
-				</div>
-			@endif
+			@include('admin.dashboard.support', ['updates' => $updates])
 		</div>
 	</div>
 </div>
