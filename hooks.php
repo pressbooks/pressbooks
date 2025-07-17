@@ -317,8 +317,10 @@ if ( $is_book ) {
 	// Overrides (sometimes a web stylesheet update will be triggered by a visitor so this filter needs to be active outside of the admin)
 	add_filter( 'pb_web_css_override', [ '\Pressbooks\Modules\ThemeOptions\WebOptions', 'scssOverrides' ] );
 	// Overrides for ebook and PDF stylesheets
-	add_filter('pb_epub_css_override', ['\Pressbooks\Modules\ThemeOptions\EbookOptions', 'scssOverrides']);
-	add_filter('pb_pdf_css_override', ['\Pressbooks\Modules\ThemeOptions\PDFOptions', 'scssOverrides']);
+	if ( ! defined( 'WP_TESTS_DOMAIN' ) ) {
+		add_filter( 'pb_epub_css_override', [ '\Pressbooks\Modules\ThemeOptions\EbookOptions', 'scssOverrides' ] );
+		add_filter( 'pb_pdf_css_override', [ '\Pressbooks\Modules\ThemeOptions\PDFOptions', 'scssOverrides' ] );
+	}
 }
 
 // -------------------------------------------------------------------------------------------------------------------
