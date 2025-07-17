@@ -2,24 +2,23 @@
 
 use Pressbooks\Contributors;
 
+/**
+ * 
+ * @group contributors
+ */
 class ContributorsTest extends \WP_UnitTestCase {
 	use utilsTrait;
 
 	/**
 	 * @var \Pressbooks\Taxonomy
-	 * @group contributors
 	 */
 	protected $taxonomy;
 
 	/**
 	 * @var \Pressbooks\Contributors
-	 * @group contributors
 	 */
 	protected $contributor;
 
-	/**
-	 * @group contributors
-	 */
 	public function set_up() {
 		parent::set_up();
 		$this->contributor = new Contributors();
@@ -29,9 +28,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		);
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_insert() {
 		$this->taxonomy->registerTaxonomies();
 
@@ -44,9 +40,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( $results, $results2 );
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_init() {
 		global $wp_filter;
 
@@ -59,9 +52,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertNotEmpty( $wp_filter['upload_mimes'] );
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_getContributors() {
 		$this->taxonomy->registerTaxonomies();
 		$post_id = $this->_createChapter();
@@ -102,9 +92,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEmpty( $all['pb_reviewers'] );
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_add() {
 		$this->taxonomy->registerTaxonomies();
 
@@ -148,9 +135,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertFalse( $this->contributor->addBlogUser( $user_id ) );
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_update() {
 		$this->taxonomy->registerTaxonomies();
 
@@ -192,17 +176,11 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( $term->name, $old_user_data->display_name );
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_maybeUpgradeSlug() {
 		$this->assertEquals( 'pb_authors', $this->contributor->maybeUpgradeSlug( 'pb_section_author' ) );
 		$this->assertEquals( 'garbage', $this->contributor->maybeUpgradeSlug( 'garbage' ) );
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_upgradeMetaToTerm() {
 		$this->taxonomy->registerTaxonomies();
 		$post_id = $this->_createChapter();
@@ -220,9 +198,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Rando1; Rando2; and Rando3', $s );
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_editContributorForm() {
 
 		$this->taxonomy->registerTaxonomies();
@@ -247,9 +222,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<button name="dispatch-media-picture" id="btn-media" aria-describedby="picture-description">Upload Picture</button>', $buffer );
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_getContributorsMeta() {
 		$this->taxonomy->registerTaxonomies();
 		$post_id = $this->_createChapter();
@@ -268,9 +240,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertCount( 0, $contributors );
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_personalName() {
 
 		$this->taxonomy->registerTaxonomies();
@@ -314,9 +283,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Sir. Isaac Asimov', $name4 );
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_getFields() {
 		$fields = Contributors::getContributorFields( 'picture' );
 		$this->assertIsArray( $fields );
@@ -332,9 +298,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'contributor_twitter', $fields );
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_contributorsBackMatterAutoDisplay() {
 		$this->taxonomy->registerTaxonomies();
 		$this->_book();
@@ -373,9 +336,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<h2 class="contributor__type">Editor</h2>', $content ); // one editor should be singular
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_getAllContributors() {
 		$this->taxonomy->registerTaxonomies();
 		$this->_book();
@@ -397,9 +357,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Authors', $contributors['pb_authors']['title'] ); // Plural for two or more
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_addBulkAction() {
 		$actions = $this->contributor->addBulkAction( [] );
 
@@ -407,9 +364,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'contributor-download', $actions );
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_handleBulkAction() {
 		$this->taxonomy->registerTaxonomies();
 
@@ -447,9 +401,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$contributors->handleBulkAction( false, 'contributor-import', [] );
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_exportTaxonomyList() {
 		$this->taxonomy->registerTaxonomies();
 
@@ -489,9 +440,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		]);
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_getUrlFields() {
 		$fields = $this->contributor->getUrlFields();
 
@@ -502,9 +450,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertContains( 'contributor_github', $fields );
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_sanitizeField() {
 		$value = $this->contributor->sanitizeField( 'contributor_description', 'I\'m a <strong>description</strong>' );
 
@@ -523,9 +468,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'John', $value );
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_renderImportForm() {
 		$this->taxonomy->registerTaxonomies();
 
@@ -538,9 +480,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<input type="file" name="import_file" />', $content );
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_getFormMessages() {
 		$messages = $this->contributor->getFormMessages();
 
@@ -548,9 +487,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertNotEmpty( $messages['hint'] );
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_getTransferableFields() {
 		$this->assertEquals(
 			array_keys( \Pressbooks\Contributors::getContributorFields() ),
@@ -558,9 +494,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		);
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_downloadContributors() {
 		$this->taxonomy->registerTaxonomies();
 
@@ -614,9 +547,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString('"contributor_github": "https:\/\/github.com\/johndoe"', $json);
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_importTaxonomyList() {
 		$contributors = $this->getMockBuilder( Contributors::class )
 			->setMethods(['handleUpload'])
@@ -642,9 +572,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		unset( $_SESSION['pb_notices'] );
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_skipsImportCsv() {
 		$contributors = $this->getMockBuilder( Contributors::class )
 			->setMethods(['handleUpload'])
@@ -661,9 +588,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertFalse( $term );
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_contributorRoleNameChange() {
 		$current_roles = new WP_Roles();
 
@@ -674,9 +598,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Collaborator', $current_roles->roles['contributor']['name'] );
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_handleImage() {
 		$src = $this->contributor->handleImage( 'https://guide.pressbooks.com/app/plugins/pressbooks/assets/dist/images/default-book-cover.jpg' );
 
@@ -687,9 +608,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertFalse( $src );
 	}
 
-	/**
-	 * @group contributors
-	 */
 	public function test_deleteContributor() {
 		$this->taxonomy->registerTaxonomies();
 		$post_id = $this->_createChapter();
@@ -735,5 +653,29 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertNull( get_term( $result[ 'term_id'], 'contributor' ) );
 		$this->assertCount( 1, $authors );
 		$this->assertNotEquals( 'monsieurfake', $authors[0]->meta_value );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_removes_a_contributor(): void {
+		$this->taxonomy->registerTaxonomies();
+
+		$this->_book();
+
+		$john_doe_id = $this->factory()->user->create([
+			'role' => 'contributor',
+			'first_name' => 'John',
+			'last_name' => 'Doe',
+			'user_nicename' => 'johndoe'
+		] );
+
+		$this->contributor->addBlogUser( $john_doe_id );
+		
+		$this->contributor->removeBlogUser( $john_doe_id );
+
+		$term = get_term_by( 'slug', 'johndoe', 'contributor' );
+		$this->assertFalse( $term, 'The contributor term should be deleted.' );
+
 	}
 }
