@@ -1,5 +1,14 @@
 # Changelog
 
+## [6.30.1](https://github.com/pressbooks/pressbooks/compare/6.30.0...6.30.1) (2025-07-17)
+
+
+### Bug Fixes
+
+* append release please sections ([d4f3d01](https://github.com/pressbooks/pressbooks/commit/d4f3d0134f74b30deeb57c900961244012ef828e))
+* release notes dashboard display ([#4118](https://github.com/pressbooks/pressbooks/issues/4118)) ([d4f3d01](https://github.com/pressbooks/pressbooks/commit/d4f3d0134f74b30deeb57c900961244012ef828e))
+* theme options hooks on background export routine ([#4123](https://github.com/pressbooks/pressbooks/issues/4123)) ([ac1746e](https://github.com/pressbooks/pressbooks/commit/ac1746e622137938cabcfac21aeaf36598d3bff4))
+
 ## [6.30.0](https://github.com/pressbooks/pressbooks/compare/6.29.0...6.30.0) (2025-07-16)
 
 
