@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 6.29.0\n"
+"Project-Id-Version: Pressbooks 6.30.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-07-16T16:30:38+00:00\n"
+"POT-Creation-Date: 2025-07-17T16:29:09+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -581,7 +581,7 @@ msgstr ""
 msgid "Your image is the wrong aspect ratio. The image must have an aspect ratio of %1$s to %2$s."
 msgstr ""
 
-#: inc/admin/dashboard/class-dashboard.php:54
+#: inc/admin/dashboard/class-dashboard.php:56
 #: inc/admin/laf/namespace.php:822
 #: inc/admin/laf/namespace.php:897
 #: inc/admin/menus/class-sidebar.php:199
@@ -590,7 +590,7 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
-#: inc/admin/dashboard/class-dashboard.php:55
+#: inc/admin/dashboard/class-dashboard.php:57
 msgid "Home"
 msgstr ""
 
@@ -5279,10 +5279,6 @@ msgstr ""
 msgid "View user list"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:116
-msgid "Pressbooks product updates"
-msgstr ""
-
 #: templates/admin/dashboard/support.blade.php:8
 msgid "Network manager guide"
 msgstr ""
@@ -5293,6 +5289,10 @@ msgstr ""
 
 #: templates/admin/dashboard/support.blade.php:30
 msgid "Contact Pressbooks Support"
+msgstr ""
+
+#: templates/admin/dashboard/support.blade.php:41
+msgid "Pressbooks product updates"
 msgstr ""
 
 #: templates/admin/dashboard/user.blade.php:18
