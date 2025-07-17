@@ -11,6 +11,8 @@ use function Pressbooks\Admin\Metaboxes\upload_cover_image;
 class Admin_BookDashboardTest extends \WP_UnitTestCase {
 	use utilsTrait;
 
+	private $mockHttpCallback;
+
 	/**
 	 * @test
 	 */
@@ -185,12 +187,14 @@ class Admin_BookDashboardTest extends \WP_UnitTestCase {
 			],
 		];
 		// Mock the HTTP response for the release notes endpoint
-		add_filter('pre_http_request', function($preempt, $args, $url) use ($mock_response) {
+		$this->mockHttpCallback = function($preempt, $args, $url) use ($mock_response) {
 			if (str_contains($url, 'wp-json/dashboard/v1/release-notes')) {
 				return $mock_response;
 			}
 			return $preempt;
-		}, 10, 3);
+		};
+
+		add_filter('pre_http_request', $this->mockHttpCallback, 10, 3);
 
 		$dashboard = new class extends Pressbooks\Admin\Dashboard\Dashboard {
 			public function fetchReleaseNotes(): array
@@ -234,19 +238,28 @@ class Admin_BookDashboardTest extends \WP_UnitTestCase {
 				'code' => 502, // Simulating a server error
 			],
 		];
+
 		// Mock the HTTP response for the release notes endpoint
-		add_filter('pre_http_request', function($preempt, $args, $url) use ($mock_response) {
+		$this->mockHttpCallback = function($preempt, $args, $url) use ($mock_response) {
 			if (str_contains($url, 'wp-json/dashboard/v1/release-notes')) {
 				return $mock_response;
 			}
 			return $preempt;
-		}, 10, 3);
+		};
+
+		add_filter('pre_http_request', $this->mockHttpCallback, 10, 3);
 
 		$result = $dashboard->fetchReleaseNotes();
 
 		$this->assertEquals(
 			[],
 			$result
+		);
+
+		remove_filter(
+			'pre_http_request',
+			$this->mockHttpCallback,
+			10
 		);
 
 	}
