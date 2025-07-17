@@ -15,6 +15,7 @@ class NetworkDashboard extends Dashboard {
 		add_action( 'load-index.php', [ $this, 'redirect' ] );
 		add_action( 'network_admin_menu', [ $this, 'removeDefaultPage' ] );
 		add_action( 'network_admin_menu', [ $this, 'addNewPage' ] );
+		$this->fetchUpdates();
 	}
 
 	public function getUrl(): string {
@@ -24,15 +25,6 @@ class NetworkDashboard extends Dashboard {
 	public function render(): void {
 		$blade = Container::get( 'Blade' );
 
-		$environment = defined( 'WP_ENV' ) ? WP_ENV : 'production';
-		$domain = in_array( $environment, [ 'staging', 'production' ], true ) ? 'https://pressbooks.com' : 'https://dev.pressbooks.com';
-
-		$response = wp_remote_get( "{$domain}/wp-json/dashboard/v1/release-notes", [
-			'timeout' => 10,
-		] );
-
-		$recent_updates = is_wp_error( $response ) ? [] : (array) json_decode( $response['body'] );
-
 		echo $blade->render( 'admin.dashboard.network', [
 			'network_name' => get_bloginfo( 'name' ),
 			'network_url' => network_home_url(),
@@ -41,8 +33,8 @@ class NetworkDashboard extends Dashboard {
 			'network_analytics_active' => is_plugin_active( 'pressbooks-network-analytics/pressbooks-network-analytics.php' ),
 			'koko_analytics_active' => is_plugin_active( 'koko-analytics/koko-analytics.php' ),
 			'updates' => [
-				'text' => $recent_updates['content'] ?? '',
-				'url' => isset( $recent_updates['post_id'] ) ? "{$domain}?p={$recent_updates['post_id']}" : null,
+				'text' => $this->recentUpdates['content'] ?? '',
+				'url' => isset( $this->recentUpdates['post_id'] ) ? "{$this->recentUpdates['domain']}?p={$this->recentUpdates['post_id']}" : null,
 			],
 		] );
 	}
