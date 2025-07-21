@@ -195,7 +195,7 @@ class PublishOptions extends \Pressbooks\Options {
 				'id' => 'amazon',
 				'name' => $this->getSlug(),
 				'option' => 'amazon',
-				'value' => ( isset( $this->options['amazon'] ) ) ? $this->options['amazon'] : '',
+				'value' => ( isset( $this->options['amazon'] ) ) ? esc_url( $this->options['amazon'] ) : '',
 				'type' => 'url',
 				'class' => 'regular-text code',
 			]
@@ -211,7 +211,7 @@ class PublishOptions extends \Pressbooks\Options {
 				'id' => 'oreilly',
 				'name' => $this->getSlug(),
 				'option' => 'oreilly',
-				'value' => ( isset( $this->options['oreilly'] ) ) ? $this->options['oreilly'] : '',
+				'value' => ( isset( $this->options['oreilly'] ) ) ? esc_url( $this->options['oreilly'] ) : '',
 				'type' => 'url',
 				'class' => 'regular-text code',
 			]
@@ -227,7 +227,7 @@ class PublishOptions extends \Pressbooks\Options {
 				'id' => 'barnesandnoble',
 				'name' => $this->getSlug(),
 				'option' => 'barnesandnoble',
-				'value' => ( isset( $this->options['barnesandnoble'] ) ) ? $this->options['barnesandnoble'] : '',
+				'value' => ( isset( $this->options['barnesandnoble'] ) ) ? esc_url( $this->options['barnesandnoble'] ) : '',
 				'type' => 'url',
 				'class' => 'regular-text code',
 			]
@@ -243,7 +243,7 @@ class PublishOptions extends \Pressbooks\Options {
 				'id' => 'kobo',
 				'name' => $this->getSlug(),
 				'option' => 'kobo',
-				'value' => ( isset( $this->options['kobo'] ) ) ? $this->options['kobo'] : '',
+				'value' => ( isset( $this->options['kobo'] ) ) ? esc_url( $this->options['kobo'] ) : '',
 				'type' => 'url',
 				'class' => 'regular-text code',
 			]
@@ -259,7 +259,7 @@ class PublishOptions extends \Pressbooks\Options {
 				'id' => 'applebooks',
 				'name' => $this->getSlug(),
 				'option' => 'applebooks',
-				'value' => ( isset( $this->options['applebooks'] ) ) ? $this->options['applebooks'] : '',
+				'value' => ( isset( $this->options['applebooks'] ) ) ? esc_url( $this->options['applebooks'] ) : '',
 				'type' => 'url',
 				'class' => 'regular-text code',
 			]
@@ -275,7 +275,7 @@ class PublishOptions extends \Pressbooks\Options {
 				'id' => 'otherservice',
 				'name' => $this->getSlug(),
 				'option' => 'otherservice',
-				'value' => ( isset( $this->options['otherservice'] ) ) ? $this->options['otherservice'] : '',
+				'value' => ( isset( $this->options['otherservice'] ) ) ? esc_url( $this->options['otherservice'] ) : '',
 				'type' => 'url',
 				'class' => 'regular-text code',
 			]
