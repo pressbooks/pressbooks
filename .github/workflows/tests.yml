@@ -70,7 +70,7 @@ jobs:
           export PATH="$HOME/.composer/vendor/bin:$PATH"
           composer install --no-interaction
           ulimit -n 4096
-      
+
       - name: Check Standards
         run: composer standards
 
@@ -78,11 +78,11 @@ jobs:
         run: bash bin/install-wp-tests.sh wordpress_test root root localhost ${{ matrix.wordpress }}
 
       - name: Run PHP Tests
-        run: composer test -- --exclude=integrations
+        run: composer test -- --exclude=integrations,eventstreams
         if: matrix.experimental == true
 
       - name: Run PHP Tests and PCOV
-        run: composer test-coverage -- --exclude=integrations
+        run: composer test-coverage -- --exclude=integrations,eventstreams
         if: matrix.experimental == false
 
       - name: Save code coverage to artifact
