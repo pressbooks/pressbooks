@@ -41,20 +41,22 @@ class TablePress {
 	}
 
 	/**
-	 * Add actions and filters to TablePress to load shortcodes in the admin context.
+	 * Add actions and filters to TablePress to load shortcodes in the admin or exports context.
 	 */
 	public function loadShortcodes() {
 		add_action(
 			'tablepress_run', function () {
-					\TablePress::$model_options = \TablePress::load_model( 'options' );
-					\TablePress::$model_table = \TablePress::load_model( 'table' );
-					$GLOBALS['tablepress_frontend_controller'] = \TablePress::load_controller( 'frontend' );
+				\TablePress::$model_options = \TablePress::load_model( 'options' );
+				\TablePress::$model_table = \TablePress::load_model( 'table' );
+				$GLOBALS['tablepress_frontend_controller'] = \TablePress::load_controller( 'frontend' );
 			}
 		);
-		add_filter(
-			'tablepress_edit_link_below_table', function ( $show ) {
-				return $show;
-			}
-		);
+		add_action('pb_pre_export', function () {
+			add_filter(
+				'tablepress_edit_link_below_table', function () {
+					return false;
+				}
+			);
+		});
 	}
 }
