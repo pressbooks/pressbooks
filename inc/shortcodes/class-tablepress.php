@@ -2,8 +2,6 @@
 
 namespace Pressbooks\Shortcodes;
 
-use function Pressbooks\Modules\Export\is_form_submission;
-
 /**
  * This class wedges itself in between Pressbooks and the TablePress WordPress Plugin
  *
@@ -48,18 +46,13 @@ class TablePress {
 	public function loadShortcodes() {
 		add_action(
 			'tablepress_run', function () {
-				if ( is_form_submission() ) {
 					\TablePress::$model_options = \TablePress::load_model( 'options' );
 					\TablePress::$model_table = \TablePress::load_model( 'table' );
 					$GLOBALS['tablepress_frontend_controller'] = \TablePress::load_controller( 'frontend' );
-				}
 			}
 		);
 		add_filter(
 			'tablepress_edit_link_below_table', function ( $show ) {
-				if ( is_form_submission() ) {
-					return false;
-				}
 				return $show;
 			}
 		);
