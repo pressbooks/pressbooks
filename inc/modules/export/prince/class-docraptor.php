@@ -92,7 +92,7 @@ class Docraptor extends Pdf {
 		$prince_options = new PrinceOptions();
 		$prince_options->setNoCompress( false );
 		$prince_options->setJavascript( true );
-		$prince_options->setHttpTimeout( 600 );
+		$prince_options->setHttpTimeout( 600 ); // 10 minutes for production
 		if ( $this->pdfProfile && $this->pdfOutputIntent ) {
 			$prince_options->setProfile( $this->pdfProfile );
 			// DocRaptor doesn't let us setPDFOutputIntent like Prince does, we cheat with a CSS hack later
@@ -112,6 +112,7 @@ class Docraptor extends Pdf {
 				$document_content = str_replace( '</head>', "<style>$css</style></head>", get_contents( $this->url ) );
 				$doc->setTest( true );
 				$doc->setDocumentContent( $document_content );
+				$prince_options->setHttpTimeout( 5 ); // 5 seconds for tests
 			} else {
 				// The real thing
 				$doc->setTest( defined( 'WP_ENV' ) && ( WP_ENV === 'development' ) );
