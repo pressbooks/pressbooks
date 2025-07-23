@@ -44,13 +44,16 @@ class TablePress {
 	 * Add actions and filters to TablePress to load shortcodes in the admin or exports context.
 	 */
 	public function loadShortcodes() {
-		add_action(
-			'tablepress_run', function () {
-				\TablePress::$model_options = \TablePress::load_model( 'options' );
-				\TablePress::$model_table = \TablePress::load_model( 'table' );
-				$GLOBALS['tablepress_frontend_controller'] = \TablePress::load_controller( 'frontend' );
-			}
-		);
+		//only re-enable tablepress shortcodes when doing cron aka bg export
+		if ( wp_doing_cron() ) {
+			add_action(
+				'tablepress_run', function () {
+					\TablePress::$model_options = \TablePress::load_model( 'options' );
+					\TablePress::$model_table = \TablePress::load_model( 'table' );
+					$GLOBALS['tablepress_frontend_controller'] = \TablePress::load_controller( 'frontend' );
+				}
+			);
+		}
 		add_action('pb_pre_export', function () {
 			add_filter(
 				'tablepress_edit_link_below_table', function () {
