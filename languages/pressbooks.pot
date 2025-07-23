@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-07-22T16:00:34+00:00\n"
+"POT-Creation-Date: 2025-07-23T14:38:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -332,39 +332,39 @@ msgstr ""
 msgid "Sort by %s in ascending order."
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:75
+#: inc/admin/class-publishoptions.php:74
 msgid "Amazon URL"
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:84
+#: inc/admin/class-publishoptions.php:75
 msgid "O'Reilly URL"
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:93
+#: inc/admin/class-publishoptions.php:76
 msgid "Barnes and Noble URL"
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:102
+#: inc/admin/class-publishoptions.php:77
 msgid "Kobo URL"
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:111
+#: inc/admin/class-publishoptions.php:78
 msgid "Apple Books URL"
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:120
+#: inc/admin/class-publishoptions.php:79
 msgid "Other Service URL"
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:139
+#: inc/admin/class-publishoptions.php:107
 msgid "Add BUY Links to Your Pressbooks Webbook"
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:140
+#: inc/admin/class-publishoptions.php:108
 msgid "Enter the URLs for locations where your book can be purchased below. <a href=\"https://guide.pressbooks.com/chapter/publish/\">Our guide</a> provides additional information about selling and distributing your book."
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:300
+#: inc/admin/class-publishoptions.php:183
 #: inc/admin/laf/namespace.php:415
 msgid "Publish"
 msgstr ""
