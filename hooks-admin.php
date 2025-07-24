@@ -406,3 +406,5 @@ add_action( 'plugins_loaded', [ \Pressbooks\Admin\Users\User::class, 'init' ], 1
 add_action( 'pb_new_blog', function() {
 	update_option( 'blog_public', 0 );
 } );
+
+add_action( 'admin_init', '\Pressbooks\Sanitize\escape_file_names_in_blob_mimes' );
