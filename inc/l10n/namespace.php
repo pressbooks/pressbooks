@@ -318,22 +318,16 @@ function wplang_codes() {
 }
 
 function get_translated_languages( ?string $file_path = null ) {
-	$tx_yaml = file_get_contents( $file_path ?? PB_PLUGIN_DIR . '.tx/transifex.yaml' );
-	if ( ! $tx_yaml ) {
-		return [];
+	$languages_installed = get_available_languages();
+
+	$languages = [];
+
+	foreach ( $languages_installed as $lang ) {
+		$languages[ $lang ] = \Locale::getDisplayName($lang, 'en');
 	}
 
-	$supported = supported_languages();
-
-	$lines = explode( "\n", $tx_yaml );
-	$languages = [];
-	foreach ( $lines as $line ) {
-		if ( preg_match( '/^\s*([a-z]{2,3}(?:[_-][A-Z]{2,3})?)\s*:\s*([a-z]{2,3}(?:[_-][A-Z]{2,3})?)\s*$/i', $line, $matches ) ) {
-			$base_lang = preg_replace( '/[_-].*$/', '', strtolower( $matches[1] ) );
-			if ( isset( $supported[ $base_lang ] ) ) {
-				$languages[ $matches[2] ] = $supported[ $base_lang ];
-			}
-		}
+	if ( ! isset( $languages[ 'en_US' ] ) ) {
+		$languages[ 'en_US' ] = \Locale::getDisplayName('en_US', 'en');
 	}
 
 	asort( $languages );
