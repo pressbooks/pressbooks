@@ -318,16 +318,12 @@ function wplang_codes() {
 }
 
 function get_translated_languages( ?string $file_path = null ) {
-	$languages_installed = get_available_languages();
+	$languages['en_US'] = \Locale::getDisplayName( 'en_US', 'en' );
 
-	$languages = [];
+	$additional_languages_installed = get_available_languages();
 
-	foreach ( $languages_installed as $lang ) {
-		$languages[ $lang ] = \Locale::getDisplayName($lang, 'en');
-	}
-
-	if ( ! isset( $languages[ 'en_US' ] ) ) {
-		$languages[ 'en_US' ] = \Locale::getDisplayName('en_US', 'en');
+	foreach ( $additional_languages_installed as $lang ) {
+		$languages[ $lang ] = \Locale::getDisplayName( $lang, 'en' );
 	}
 
 	asort( $languages );
