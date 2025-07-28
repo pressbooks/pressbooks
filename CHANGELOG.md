@@ -1,5 +1,31 @@
 # Changelog
 
+## [6.31.0](https://github.com/pressbooks/pressbooks/compare/6.30.1...6.31.0) (2025-07-28)
+
+
+### Features
+
+* Adding background processing polling scripts ([#4144](https://github.com/pressbooks/pressbooks/issues/4144)) ([de61235](https://github.com/pressbooks/pressbooks/commit/de61235f4e46305858dc8916833115fb2ad204c2))
+* header link color in customizer ([#4130](https://github.com/pressbooks/pressbooks/issues/4130)) ([f5b6aa1](https://github.com/pressbooks/pressbooks/commit/f5b6aa101aeb11cb40601024238cc96dd39ae0eb))
+
+
+### Bug Fixes
+
+* add coloris class and tablepress hooks during bg exports ([#4136](https://github.com/pressbooks/pressbooks/issues/4136)) ([436afed](https://github.com/pressbooks/pressbooks/commit/436afed93f1bc16462f44bf66b49bfdfbfbce2c7))
+* additional home language box ([#4143](https://github.com/pressbooks/pressbooks/issues/4143)) ([aecf191](https://github.com/pressbooks/pressbooks/commit/aecf1919bd7be012716ecefbf2b1564aa721c46a))
+* escape filenames for blob mime debug action ([#4139](https://github.com/pressbooks/pressbooks/issues/4139)) ([4232e37](https://github.com/pressbooks/pressbooks/commit/4232e373880a1e880506ff581b53e817de16577d))
+* revert additional home language box ([e9e5760](https://github.com/pressbooks/pressbooks/commit/e9e5760f8a731286a238d64788958a0a79d506c4))
+* sanitize URL buy options ([#4129](https://github.com/pressbooks/pressbooks/issues/4129)) ([5c22509](https://github.com/pressbooks/pressbooks/commit/5c22509ec20f0afb2f9bc590fff3cc7e6c133d03))
+* tablepress not rendering on exports ([#4134](https://github.com/pressbooks/pressbooks/issues/4134)) ([fbf59aa](https://github.com/pressbooks/pressbooks/commit/fbf59aa0f63bbe9e11fbec262007af7ab7dcd668))
+
+
+### Chores
+
+* **i18n:** update languages for project pressbooks ([#4132](https://github.com/pressbooks/pressbooks/issues/4132)) ([9cb57aa](https://github.com/pressbooks/pressbooks/commit/9cb57aa00258c76dd863b40907445926c5ca668f))
+* **i18n:** update languages for project pressbooks ([#4137](https://github.com/pressbooks/pressbooks/issues/4137)) ([93c16f2](https://github.com/pressbooks/pressbooks/commit/93c16f2a2bd09f52213d3451a2461a57c0ae06fa))
+* **i18n:** update languages for project pressbooks ([#4145](https://github.com/pressbooks/pressbooks/issues/4145)) ([65f14ed](https://github.com/pressbooks/pressbooks/commit/65f14ed5622d70c9e5df261b51127181c587ab20))
+* **l10n:** Updates for project Pressbooks ([#4138](https://github.com/pressbooks/pressbooks/issues/4138)) ([2849cb2](https://github.com/pressbooks/pressbooks/commit/2849cb2fdad21e04fa62e947c823d0f8719069d3))
+
 ## [6.30.1](https://github.com/pressbooks/pressbooks/compare/6.30.0...6.30.1) (2025-07-17)
 
 
