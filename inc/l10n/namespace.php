@@ -318,12 +318,22 @@ function wplang_codes() {
 }
 
 function get_translated_languages( ?string $file_path = null ) {
-	$languages['en_US'] = \Locale::getDisplayName( 'en_US', 'en' );
+	$tx_yaml = file_get_contents( $file_path ?? PB_PLUGIN_DIR . '.tx/transifex.yaml' );
+	if ( ! $tx_yaml ) {
+		return [];
+	}
 
-	$additional_languages_installed = get_available_languages();
+	$supported = supported_languages();
 
-	foreach ( $additional_languages_installed as $lang ) {
-		$languages[ $lang ] = \Locale::getDisplayName( $lang, 'en' );
+	$lines = explode( "\n", $tx_yaml );
+	$languages = [];
+	foreach ( $lines as $line ) {
+		if ( preg_match( '/^\s*([a-z]{2,3}(?:[_-][A-Z]{2,3})?)\s*:\s*([a-z]{2,3}(?:[_-][A-Z]{2,3})?)\s*$/i', $line, $matches ) ) {
+			$base_lang = preg_replace( '/[_-].*$/', '', strtolower( $matches[1] ) );
+			if ( isset( $supported[ $base_lang ] ) ) {
+				$languages[ $matches[2] ] = $supported[ $base_lang ];
+			}
+		}
 	}
 
 	asort( $languages );
