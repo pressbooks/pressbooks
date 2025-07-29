@@ -1,5 +1,18 @@
 # Changelog
 
+## [6.31.1](https://github.com/pressbooks/pressbooks/compare/6.31.0...6.31.1) (2025-07-29)
+
+
+### Bug Fixes
+
+* moving the input variable definitions to the top of the script ([#4149](https://github.com/pressbooks/pressbooks/issues/4149)) ([3615002](https://github.com/pressbooks/pressbooks/commit/36150022dde3a08697b7baccb66f04b0e28a3b0a))
+* moving the input variable definitions to the top of the script as they're used in the config section ([3615002](https://github.com/pressbooks/pressbooks/commit/36150022dde3a08697b7baccb66f04b0e28a3b0a))
+
+
+### Chores
+
+* **i18n:** update languages for project pressbooks ([#4148](https://github.com/pressbooks/pressbooks/issues/4148)) ([aa15d3e](https://github.com/pressbooks/pressbooks/commit/aa15d3ea702557f405dd41fc34af534af01e624c))
+
 ## [6.31.0](https://github.com/pressbooks/pressbooks/compare/6.30.1...6.31.0) (2025-07-28)
 
 
