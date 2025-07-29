@@ -1,5 +1,9 @@
 #!/bin/bash
 
+NETWORK=$1
+BOOK=$2
+JOBID=$3
+
 #######################################################
 # Set these variables to correct values for your network
 #
@@ -43,9 +47,6 @@ sudo chown $USER $PATHTOLOGS
 
 #######################################################
 
-NETWORK=$1
-BOOK=$2
-JOBID=$3
 STARTTIME=$(date '+%Y-%m-%d %H:%M:%S')
 USER=$(whoami)
 THISSCRIPT=$(basename "$0")
