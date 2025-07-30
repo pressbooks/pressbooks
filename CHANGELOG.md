@@ -1,5 +1,18 @@
 # Changelog
 
+## [6.31.2](https://github.com/pressbooks/pressbooks/compare/6.31.1...6.31.2) (2025-07-30)
+
+
+### Bug Fixes
+
+* default header_links primary color fallback ([#4154](https://github.com/pressbooks/pressbooks/issues/4154)) ([4a19405](https://github.com/pressbooks/pressbooks/commit/4a19405cf31036bcdbec79caf2ca2e465374bc3b))
+* improve input sanitization and output escaping ([#4140](https://github.com/pressbooks/pressbooks/issues/4140)) ([91dc9a2](https://github.com/pressbooks/pressbooks/commit/91dc9a25d8ecba7f66287d18426d891943bfef29))
+
+
+### Chores
+
+* **i18n:** update languages for project pressbooks ([#4156](https://github.com/pressbooks/pressbooks/issues/4156)) ([bd33d81](https://github.com/pressbooks/pressbooks/commit/bd33d811765ffe8764da67a820c849b0a4a1c957))
+
 ## [6.31.1](https://github.com/pressbooks/pressbooks/compare/6.31.0...6.31.1) (2025-07-29)
 
 
