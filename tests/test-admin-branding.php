@@ -53,7 +53,7 @@ class Admin_BrandingTest extends \WP_UnitTestCase {
 	function test_get_customizer_colors() {
 		update_option( 'pb_network_color_primary', '#663399' );
 		$result = \Pressbooks\Admin\Branding\get_customizer_colors();
-		$this->assertEquals( $result, '<style type="text/css">:root{--primary:#663399;}</style>' );
+		$this->assertEquals( $result, '<style type="text/css">:root{--header-links:#663399;--primary:#663399;}</style>' );
 	}
 
 	/**
