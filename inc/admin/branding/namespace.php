@@ -155,6 +155,10 @@ function get_customizer_colors() {
 		if ( $v ) {
 			$values[ $k ] = $v;
 		}
+		// If header_links is not set, use the primary color, useful when customizer settings are not updated.
+		if ( $k === 'header_links' && ! $v ) {
+			$values[ $k ] = get_option( 'pb_network_color_primary' );
+		}
 	}
 	if ( $need_to_switch ) {
 		restore_current_blog();
