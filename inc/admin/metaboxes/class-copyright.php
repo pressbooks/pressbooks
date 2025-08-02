@@ -6,12 +6,14 @@
 
 namespace Pressbooks\Admin\Metaboxes;
 
+use Pressbooks\Admin\Fields\Select;
 use Pressbooks\Admin\Fields\TaxonomySelect;
 use Pressbooks\Admin\Fields\Text;
 use Pressbooks\Admin\Fields\Url;
 use Pressbooks\Admin\Fields\Wysiwyg;
 use Pressbooks\Licensing;
 use Pressbooks\Metadata;
+use function Pressbooks\Metadata\get_thema_subjects;
 
 class Copyright extends Metabox {
 
@@ -31,39 +33,74 @@ class Copyright extends Metabox {
 		return __( 'Copyright', 'pressbooks' );
 	}
 
-	public function getFields(): array {
-		$metadata = ( new Metadata() )->getMetaPostMetadata();
-		$pb_is_based_on = $metadata['pb_is_based_on'] ?? false;
+	public function getFields(): array
+    {
+        $metadata = (new Metadata())->getMetaPostMetadata();
+        $pb_is_based_on = $metadata['pb_is_based_on'] ?? false;
 
-		return array_filter( [
-			$pb_is_based_on ? new Url(
-				name: 'pb_is_based_on',
-				label: __( 'Source Book URL', 'pressbooks' ),
-				description: __( 'This book was cloned from a pre-existing book at the above URL. This information will be displayed on the webbook homepage.', 'pressbooks' ),
-				readonly: true
-			) : null,
-			$this->expanded ? new Text(
-				name: 'pb_copyright_year',
-				label: __( 'Copyright Year', 'pressbooks' ),
-				description: __( 'Year that the book is/was published.', 'pressbooks' )
-			) : null,
-			new Text(
-				name: 'pb_copyright_holder',
-				label: __( 'Copyright Holder', 'pressbooks' ),
-				description: __( 'Name of the copyright holder.', 'pressbooks' ),
-			),
-			new TaxonomySelect(
-				name: 'pb_book_license',
-				label: __( 'Copyright License', 'pressbooks' ),
-				description: __( 'You can select various licenses including Creative Commons.', 'pressbooks' ),
-				taxonomy: Licensing::TAXONOMY,
-			),
-			new Wysiwyg(
-				name: 'pb_custom_copyright',
-				label: __( 'Copyright Notice', 'pressbooks' ),
-				description: __( 'Enter a custom copyright notice, with whatever information you like. This will override the auto-generated copyright notice if All Rights Reserved or no license is selected, and will be inserted after the title page. If you select a Creative Commons license, the custom notice will appear after the license text in both the webbook and your exports.', 'pressbooks' ),
-				rows: 4
-			),
-		] );
-	}
+        return array_filter([
+            $pb_is_based_on ? new Url(
+                name: 'pb_is_based_on',
+                label: __('Source Book URL', 'pressbooks'),
+                description: __('This book was cloned from a pre-existing book at the above URL. This information will be displayed on the webbook homepage.', 'pressbooks'),
+                readonly: true
+            ) : null,
+            $this->expanded ? new Text(
+                name: 'pb_copyright_year',
+                label: __('Copyright Year', 'pressbooks'),
+                description: __('Year that the book is/was published.', 'pressbooks')
+            ) : null,
+            new Text(
+                name: 'pb_copyright_holder',
+                label: __('Copyright Holder', 'pressbooks'),
+                description: __('Name of the copyright holder.', 'pressbooks'),
+            ),
+            new TaxonomySelect(
+                name: 'pb_book_license',
+                label: __('Copyright License', 'pressbooks'),
+                description: __('You can select various licenses including Creative Commons.', 'pressbooks'),
+                taxonomy: Licensing::TAXONOMY,
+            ),
+            new Wysiwyg(
+                name: 'pb_custom_copyright',
+                label: __('Copyright Notice', 'pressbooks'),
+                description: __('Enter a custom copyright notice, with whatever information you like. This will override the auto-generated copyright notice if All Rights Reserved or no license is selected, and will be inserted after the title page. If you select a Creative Commons license, the custom notice will appear after the license text in both the webbook and your exports.', 'pressbooks'),
+                rows: 4
+            ),
+            new Select(
+                name: 'pb_tk_label',
+                label: __('TK Label(s)', 'pressbooks'),
+                description: __('Traditional Knowledge (TK) Labels are an initiative for Indigenous communities and local organizations. They allow communities to express local and specific conditions for sharing and engaging in future research and relationships in ways that are consistent with already existing community rules, governance and protocols for using, sharing and circulating knowledge and data.', 'pressbooks'),
+                options: [
+                    __('Provenance Labels', 'pressbooks' ) => [
+                        'tk-a' => __('TK Attribution', 'pressbooks'),
+                        'tk-cl' => __('TK Clan', 'pressbooks'),
+                        'tk-f' => __('TK Family', 'pressbooks'),
+                        'tk-mc' => __('TK Multiple Communities', 'pressbooks'),
+                        'tk-cv' => __('TK Community Voice', 'pressbooks'),
+                        'tk-cr' => __('TK Creative', 'pressbooks'),
+                    ],
+                    __('Protocol Labels', 'pressbooks' ) => [
+                        'tk-v' => __('TK Verified', 'pressbooks'),
+                        'tk-nv' => __('TK Non-Verified', 'pressbooks'),
+                        'tk-s' => __('TK Seasonal', 'pressbooks'),
+                        'tk-wg' => __('TK Women General', 'pressbooks'),
+                        'tk-mg' => __('TK Men General', 'pressbooks'),
+                        'tk-mr' => __('TK Men Restricted', 'pressbooks'),
+                        'tk-wr' => __('TK Women Restricted', 'pressbooks'),
+                        'tk-cs' => __('TK Culturally Sensitive', 'pressbooks'),
+                        'tk-ss' => __('TK Secret / Sacred', 'pressbooks'),
+                    ],
+                    __('Permission Labels', 'pressbooks' ) => [
+                        'tk-oc' => __('TK Open to Commercialization', 'pressbooks'),
+                        'tk-nc' => __('TK Non-Commercial', 'pressbooks'),
+                        'tk-co' => __('TK Community Use Only', 'pressbooks'),
+                        'tk-o' => __('TK Outreach', 'pressbooks'),
+                        'tk-cb' => __('TK Open to Collaboration', 'pressbooks'),
+                    ],
+                ],
+                multiple: true,
+            ),
+        ]);
+    }
 }
