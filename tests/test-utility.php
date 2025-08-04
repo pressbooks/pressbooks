@@ -1,6 +1,10 @@
 <?php
 
+use Pressbooks\Modules\Export\Export;
+use function Pressbooks\Utility\add_sitemap_to_robots_txt;
 use function Pressbooks\Utility\do_shortcode_by_tags;
+use function Pressbooks\Utility\latest_exports;
+use function Pressbooks\Utility\length_to_inches;
 use function Pressbooks\Utility\objects_to_csv;
 
 class UtilityTest extends \WP_UnitTestCase {
@@ -102,11 +106,12 @@ class UtilityTest extends \WP_UnitTestCase {
 		foreach ( [
 			'\Pressbooks\Modules\Export\WordPress\Wxr',
 		] as $module ) {
-			/** @var \Pressbooks\Modules\Export\Export $exporter */
+			/** @var Export $exporter */
 			$exporter = new $module( [] );
-			$exporter->convert();
+			$generator = $exporter->convert();
+			$this->runGenerator( $generator );
 		}
-		$latest = \Pressbooks\Utility\latest_exports();
+		$latest = latest_exports();
 		$this->assertArrayHasKey( 'wxr', $latest );
 	}
 
@@ -116,7 +121,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	public function test_add_sitemap_to_robots_txt_0() {
 		update_option( 'blog_public', 0 );
 		$this->expectOutputRegex( '/^\s*$/' ); // string is empty or has only whitespace
-		\Pressbooks\Utility\add_sitemap_to_robots_txt();
+		add_sitemap_to_robots_txt();
 	}
 
 	/**
@@ -125,7 +130,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	public function test_add_sitemap_to_robots_txt_1() {
 		update_option( 'blog_public', 1 );
 		$this->expectOutputRegex( '/Sitemap:(.+)feed=sitemap.xml/' );
-		\Pressbooks\Utility\add_sitemap_to_robots_txt();
+		add_sitemap_to_robots_txt();
 	}
 
 	/**
@@ -850,5 +855,27 @@ class UtilityTest extends \WP_UnitTestCase {
 			[ 'max-image-preview' => 'large', 'noindex' => 1, 'nofollow' => 1, 'noai' => 1, 'noimageai' => 1 ],
 			\Pressbooks\Utility\handle_book_indexing( [ 'max-image-preview' => 'large'] )
 		);
+	}
+
+	/**
+	 * @group utility
+	 */
+	public function test_length_to_inches() {
+		$css = [
+			'pdf_page_width' => '10cm',
+			'pdf_page_margin_inside' => '20cm',
+			'pdf_page_margin_outside' => '2in',
+		];
+
+		$inches_pdf_w = length_to_inches( $css['pdf_page_width'] );
+		$inches_pdf_mi = length_to_inches( $css['pdf_page_margin_inside'] );
+		$inches_pdf_mo = length_to_inches( $css['pdf_page_margin_outside'] );
+
+		$this->assertEquals( 3.93701, round( $inches_pdf_w, 5 ) );
+		$this->assertEquals( 7.87402, round( $inches_pdf_mi, 5 ) );
+		$this->assertEquals( 2, $inches_pdf_mo );
+
+		$inches_pdf_w = length_to_inches( null );
+		$this->assertFalse( $inches_pdf_w );
 	}
 }

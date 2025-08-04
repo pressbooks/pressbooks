@@ -1,6 +1,7 @@
 <?php
 
 use Pressbooks\Admin\Dashboard\BookDashboard;
+use Pressbooks\Admin\Dashboard\NetworkDashboard;
 use Pressbooks\Metadata;
 use function Pressbooks\Admin\Metaboxes\upload_cover_image;
 
@@ -9,6 +10,8 @@ use function Pressbooks\Admin\Metaboxes\upload_cover_image;
  */
 class Admin_BookDashboardTest extends \WP_UnitTestCase {
 	use utilsTrait;
+
+	private $mockHttpCallback;
 
 	/**
 	 * @test
@@ -166,4 +169,99 @@ class Admin_BookDashboardTest extends \WP_UnitTestCase {
 			BookDashboard::init()->redirect()
 		);
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_populates_release_notes(): void {
+
+		$mock_response = [
+			'body' => json_encode([
+				[
+					'post_id' => 5,
+					'content' => 'Test Release',
+				]
+			]),
+			'response' => [
+				'code' => 200,
+			],
+		];
+		// Mock the HTTP response for the release notes endpoint
+		$this->mockHttpCallback = function($preempt, $args, $url) use ($mock_response) {
+			if (str_contains($url, 'wp-json/dashboard/v1/release-notes')) {
+				return $mock_response;
+			}
+			return $preempt;
+		};
+
+		add_filter('pre_http_request', $this->mockHttpCallback, 10, 3);
+
+		$dashboard = new class extends Pressbooks\Admin\Dashboard\Dashboard {
+			public function fetchReleaseNotes(): array
+			{
+				parent::fetchUpdates();
+				return $this->recentUpdates;
+			}
+
+			public function render(): void
+			{
+				// This method is not used in this test, but it is required to instantiate the class.
+			}
+
+			protected function shouldRedirect(): bool
+			{
+				return true;
+			}
+		};
+
+		$result = $dashboard->fetchReleaseNotes();
+
+		$this->assertEquals(
+			[
+				[
+					'post_id' => 5,
+					'content' => 'Test Release',
+				],
+				'domain' => 'https://pressbooks.com',
+			],
+			$result
+		);
+
+		$mock_response = [
+			'body' => json_encode([
+				[
+					'post_id' => 5,
+					'content' => 'Test Release',
+				]
+			]),
+			'response' => [
+				'code' => 502, // Simulating a server error
+			],
+		];
+
+		// Mock the HTTP response for the release notes endpoint
+		$this->mockHttpCallback = function($preempt, $args, $url) use ($mock_response) {
+			if (str_contains($url, 'wp-json/dashboard/v1/release-notes')) {
+				return $mock_response;
+			}
+			return $preempt;
+		};
+
+		add_filter('pre_http_request', $this->mockHttpCallback, 10, 3);
+
+		$result = $dashboard->fetchReleaseNotes();
+
+		$this->assertEquals(
+			[],
+			$result
+		);
+
+		remove_filter(
+			'pre_http_request',
+			$this->mockHttpCallback,
+			10
+		);
+
+	}
+
 }

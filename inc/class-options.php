@@ -559,6 +559,8 @@ abstract class Options {
 	static function deleteCacheAfterUpdate( $option ) {
 		if ( str_starts_with( $option, 'pressbooks_' ) ) {
 			Book::deleteBookObjectCache();
+			// Update the last export time to prevent the export from being cached when toggling book options.
+			update_option( 'pressbooks_last_export', time() );
 		}
 	}
 

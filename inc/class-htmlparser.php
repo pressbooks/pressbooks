@@ -2,6 +2,7 @@
 
 namespace Pressbooks;
 
+use function Pressbooks\Sanitize\strip_container_tags;
 use Masterminds\HTML5;
 
 /**
@@ -71,7 +72,7 @@ class HtmlParser {
 		} else {
 			$html = $this->parser->saveHTML( $dom );
 		}
-		return $this->removeFixMeWrapper( \Pressbooks\Sanitize\strip_container_tags( $html ) );
+		return $this->removeFixMeWrapper( strip_container_tags( $html ) );
 	}
 
 	/**
@@ -80,7 +81,7 @@ class HtmlParser {
 	 * @param string $html
 	 * @return string
 	 */
-	public function removeFixMeWrapper( string $html ) {
+	public function removeFixMeWrapper( string $html ): string {
 		return strtr(
 			$html,
 			[

@@ -248,6 +248,8 @@ add_action( 'wp_ajax_pb_ftnref_convert', [ '\Pressbooks\Shortcodes\Footnotes\Foo
 add_action( 'wp_ajax_pb_delete_catalog_logo', [ '\Pressbooks\Catalog', 'deleteLogo' ] );
 // Export page
 add_action( 'wp_ajax_pb_update_pins', '\Pressbooks\Modules\Export\update_pins' );
+add_action( 'wp_ajax_pb_export_book', '\Pressbooks\Modules\Export\handle_exports_submit' );
+add_action( 'wp_ajax_pb_cancel_job', '\Pressbooks\Modules\Export\handle_cancel_export_job' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // SASS
@@ -281,6 +283,10 @@ if ( $is_book ) {
 	add_filter( 'pb_pdf_css_override', [ '\Pressbooks\Modules\ThemeOptions\PDFOptions', 'scssOverrides' ] );
 }
 
+add_filter( 'pb_process_scoped_styles', function () {
+	return app( 'ScopedStyles' )->scoped_styles;
+});
+
 // -------------------------------------------------------------------------------------------------------------------
 // Use DocRaptor instead of Prince?
 // -------------------------------------------------------------------------------------------------------------------
@@ -291,8 +297,8 @@ add_action( 'init', [ '\Pressbooks\Modules\Export\Prince\Filters', 'init' ] );
 // "Catch-all" routines, must come after taxonomies and friends
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'init', [ '\Pressbooks\Modules\Export\Export', 'formSubmit' ], 50 );
 add_action( 'init', [ '\Pressbooks\Modules\Import\Import', 'formSubmit' ], 50 );
+add_action( 'init', '\Pressbooks\Modules\Export\handle_downloads', 50 );
 add_action( 'init', [ '\Pressbooks\Catalog', 'formSubmit' ], 50 );
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -394,3 +400,11 @@ add_action( 'admin_enqueue_scripts', function() {
 	$assets = new Assets( 'pressbooks', 'plugin' );
 	wp_enqueue_style( 'pb-table', $assets->getPath( 'styles/pressbooks-table.css' ) );
 } );
+
+add_action( 'plugins_loaded', [ \Pressbooks\Admin\Users\User::class, 'init' ], 10 );
+
+add_action( 'pb_new_blog', function() {
+	update_option( 'blog_public', 0 );
+} );
+
+add_action( 'admin_init', '\Pressbooks\Sanitize\escape_file_names_in_blob_mimes' );

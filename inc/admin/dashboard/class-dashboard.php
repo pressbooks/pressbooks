@@ -9,6 +9,8 @@ abstract class Dashboard {
 
 	protected string $root_page = 'index.php';
 
+	protected array $recentUpdates = [];
+
 	protected string $page_name;
 
 	public static function init(): Dashboard {
@@ -78,5 +80,25 @@ abstract class Dashboard {
 
 	protected function doRedirect(): bool {
 		return wp_redirect( $this->getUrl() );
+	}
+	protected function fetchUpdates(): void {
+		$environment = defined( 'WP_ENV' ) ? WP_ENV : 'production';
+		$domain = in_array( $environment, [ 'staging', 'production' ], true ) ? 'https://pressbooks.com' : 'https://dev.pressbooks.com';
+
+		$response = wp_remote_get( "{$domain}/wp-json/dashboard/v1/release-notes", [
+			'timeout' => 10,
+		] );
+
+		if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
+			$this->recentUpdates = [];
+			return;
+		}
+
+		$updates = json_decode( $response['body'], true );
+
+		$this->recentUpdates = [
+			...$updates,
+			'domain' => $domain,
+		];
 	}
 }

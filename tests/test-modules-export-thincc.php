@@ -18,8 +18,14 @@ class Modules_Export_ThinCCTest extends \WP_UnitTestCase {
 
 	public function test_sanityCheckExports() {
 		$this->_book();
-		$this->assertTrue( $this->weblinks->convert(), "Could not convert with CommonCartridge11" );
-		$this->assertTrue( $this->weblinks->validate(), "Could not validate with CommonCartridge11" );
+		$converter = $this->weblinks->convert();
+		$this->runGenerator( $converter );
+		$validator = $this->weblinks->validate();
+		$this->runGenerator( $validator );
+		$this->assertInstanceOf( Generator::class, $converter );
+		$this->assertInstanceOf( Generator::class, $validator );
+		$this->assertNotEmpty( $converter->getReturn() );
+		$this->assertTrue( $validator->getReturn() );
 	}
 
 	public function test_deleteTmpDir() {

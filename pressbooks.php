@@ -6,7 +6,7 @@
  * Release Asset: true
  * Description: Simple Book Production
  * x-release-please-start-version
- * Version: 6.28.0
+ * Version: 6.31.2
  * x-release-please-end
  * Requires at least: WordPress 6.6.1
  * Requires PHP: 8.1
@@ -20,6 +20,9 @@
  * @author Pressbooks (Book Oven Inc.)
  * @license GPL-3.0-or-later
  */
+
+use Pressbooks\Modules\BackgroundProcessing\BackgroundJob;
+use Pressbooks\Pressbooks;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	return;
@@ -110,7 +113,7 @@ pb_init_autoloader();
 // Initialize
 // -------------------------------------------------------------------------------------------------------------------
 
-$GLOBALS['pressbooks'] = new \Pressbooks\Pressbooks();
+$GLOBALS['pressbooks'] = new Pressbooks();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Hooks
@@ -127,3 +130,6 @@ if ( is_admin() ) {
 // --------------------------------------------------------------------------------------------------------------------
 
 require( PB_PLUGIN_DIR . 'functions.php' );
+
+//Background processing
+add_action( 'pressbooks_process_export_job', [ BackgroundJob::class, 'handle' ] );

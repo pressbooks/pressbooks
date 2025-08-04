@@ -108,6 +108,11 @@ function is_valid_image( $file, $filename, $is_stream = false ) {
 
 	$format = explode( '.', $filename );
 	$format = strtolower( end( $format ) ); // Extension
+
+	if ( apply_filters( 'pb_validate_svg', false, $file, $filename ) ) {
+		return true;
+	}
+
 	if ( ! ( 'jpg' === $format || 'jpeg' === $format || 'gif' === $format || 'png' === $format ) ) {
 
 		/**

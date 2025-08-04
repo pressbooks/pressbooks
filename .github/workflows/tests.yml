@@ -70,7 +70,7 @@ jobs:
           export PATH="$HOME/.composer/vendor/bin:$PATH"
           composer install --no-interaction
           ulimit -n 4096
-      
+
       - name: Check Standards
         run: composer standards
 

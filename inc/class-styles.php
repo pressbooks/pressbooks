@@ -744,6 +744,7 @@ class Styles {
 
 		$sans_serif = [
 			'Alegreya Sans' => __( 'Alegreya Sans', 'pressbooks' ),
+			'Atkinson Hyperlegible Next' => __( 'Atkinson Hyperlegible Next', 'pressbooks' ),
 			'Barlow' => __( 'Barlow', 'pressbooks' ),
 			'FreeSans' => __( 'GNU FreeFont Sans', 'pressbooks' ),
 			'K2D' => __( 'K2D', 'pressbooks' ),

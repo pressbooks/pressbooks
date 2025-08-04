@@ -12,9 +12,10 @@
 
 namespace Pressbooks;
 
+use function Pressbooks\Modules\Export\get_friendly_name_for_module;
 use function Pressbooks\Utility\getset;
 use Pressbooks\Cloner\Cloner;
-use Pressbooks\Modules\Export\Export;
+use Pressbooks\Modules\BackgroundProcessing\BackgroundJob;
 use Pressbooks\Modules\Import\Import;
 
 class EventStreams {
@@ -32,7 +33,7 @@ class EventStreams {
 	/**
 	 * @return EventStreams
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -45,9 +46,9 @@ class EventStreams {
 	 */
 	static public function hooks( EventStreams $obj ) {
 		add_action( 'wp_ajax_clone-book', [ $obj, 'cloneBook' ] );
-		add_action( 'wp_ajax_export-book', [ $obj, 'exportBook' ] );
 		add_action( 'wp_ajax_import-book', [ $obj, 'importBook' ] );
 		add_action( 'wp_ajax_cover-generator', [ $obj, 'coverGenerator' ] );
+		add_action( 'wp_ajax_pb_sse_exports', [ $obj, 'ajaxStreamUserExportsJobs' ] );
 	}
 
 	/**
@@ -100,14 +101,17 @@ class EventStreams {
 	 *
 	 * @param mixed $data Data to be JSON-encoded and sent in the message.
 	 */
-	private function emitMessage( $data ) {
-		$msg = "event: message\n";
-		$msg .= 'data: ' . wp_json_encode( $data ) . "\n\n";
-		$msg .= ':' . str_repeat( ' ', 2048 ) . "\n\n";
-		// Buffers are nested. While one buffer is active, flushing from child buffers are not really sent to the browser,
-		// but rather to the parent buffer. Only when there is no parent buffer are contents sent to the browser.
+	private function emitMessage( $data, string $event_type = 'message' ): void {
+		$msg = 'event: ' . esc_attr( $event_type ) . "\n";
+
+		$json_data = wp_json_encode( $data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
+		if ( false === $json_data ) {
+			$json_data = wp_json_encode( [ 'error' => 'Failed to encode data' ] );
+		}
+		$json_data = str_replace( [ "\n", "\r", "\0" ], '', $json_data );
+
+		$msg .= 'data: ' . $json_data . "\n\n";
 		if ( ob_get_level() ) {
-			// Keep for later
 			$this->msgStack[] = $msg;
 		} else {
 			// Flush to browser
@@ -233,32 +237,147 @@ class EventStreams {
 	}
 
 	/**
-	 * Export book
+	 * Streams the status of all active export jobs for a given user and book via SSE.
+	 * This provides a single connection point for the client to receive updates
+	 * for multiple concurrent export jobs.
+	 *
+	 * @param int $book_id
+	 * @param int $user_id
 	 */
-	public function exportBook() {
-		check_admin_referer( 'pb-export' );
+	public function streamUserJobStatuses( int $book_id, int $user_id ): void {
 
-		if ( ! is_array( getset( '_GET', 'export_formats' ) ) ) {
-			$this->emitOneTimeError( __( 'No export format was selected.', 'pressbooks' ) );
-			return;
+		if ( ob_get_level() > 0 ) {
+			for ( $i = 0; $i < ob_get_level(); $i++ ) {
+				ob_end_flush();
+			}
+		}
+		@ini_set( 'output_buffering', 'Off' );
+		@ini_set( 'zlib.output_compression', 0 );
+		@ini_set( 'implicit_flush', 1 );
+		ob_implicit_flush( true );
+
+		if ( ! $user_id || ! $book_id ) {
+			$this->emitMessage( [ 'error' => 'Missing user or book ID.' ], 'error' );
+			exit;
 		}
 
-		// Backwards compatibility with older plugins
-		foreach ( $_GET['export_formats'] as $k => $v ) {
-			$_POST['export_formats'][ $k ] = $v;
+		$switched = false;
+		if ( is_multisite() && get_current_blog_id() !== $book_id ) {
+			switch_to_blog( $book_id );
+			$switched = true;
 		}
 
-		Export::preExport();
-		$this->emit( Export::exportGenerator( Export::modules() ) );
-		Export::postExport();
+		BackgroundJob::ensureExportsTable();
 
-		// Tell the browser to stop reconnecting.
-		$this->emitComplete();
-		status_header( 204 );
-
-		if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
-			exit; // Short circuit wp_die(0);
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			$this->emitMessage(
+				data: [
+					'message' => __( 'Permission denied to view job status for this book.', 'pressbooks' ),
+				],
+				event_type: 'error'
+			);
+			if ( $switched ) {
+				restore_current_blog();
+			}
+			flush();
+			exit;
 		}
+
+		set_time_limit( 0 );
+
+		$last_sent_statuses = [];
+
+		while ( true ) {
+			$db = app( 'db' );
+
+			if ( connection_status() !== CONNECTION_NORMAL || connection_aborted() ) {
+				break; // Client disconnected
+			}
+
+			$active_jobs = $db->table( BackgroundJob::JOBS_TABLE_NAME )
+				->where( 'user_id', $user_id )
+				->where( 'book_id', $book_id )
+				->where(function( $query ) {
+					$query->whereIn( 'status', [ 'pending', 'processing', 'completed' ] )
+						// Include jobs that are 'failed' but were updated in the last minute to display recent errors
+						->orWhere(function( $sub ) {
+							$sub->where( 'status', 'failed' )
+								->where( 'updated_at', '>=', date( 'Y-m-d H:i:s', strtotime( '-1 minute' ) ) );
+						});
+				})
+				->orderBy( 'created_at', 'DESC' )
+				->get();
+
+			if ( ! $active_jobs->isEmpty() ) {
+				foreach ( $active_jobs as $job ) {
+					$current_job_state_for_comparison = clone $job;
+					$current_job_state_json = wp_json_encode( $current_job_state_for_comparison );
+
+					$should_send = ! isset( $last_sent_statuses[ $job->id ] ) || $last_sent_statuses[ $job->id ] !== $current_job_state_json;
+
+					if ( $should_send ) {
+						$job_data_to_send = [
+							'job_id' => $job->id,
+							'book_id' => (int) $job->book_id,
+							'status' => $job->status,
+							'progress_percentage' => (int) $job->progress_percentage,
+							'progress_message' => $job->progress_message,
+							'format_name' => get_friendly_name_for_module( $job->export_module_classname ),
+							'module_slug' => $job->export_format,
+							'file_name' => null,
+							'download_url' => null,
+							'error_message' => null,
+						];
+						$jobs_to_send[] = $job_data_to_send;
+						$last_sent_statuses[ $job->id ] = $current_job_state_json;
+					}
+					if ( $job->status === 'completed' ) {
+						app( 'db' )->table( BackgroundJob::JOBS_TABLE_NAME )
+							->where( 'id', $job->id )
+							->update( [ 'status' => 'done' ] );
+					}
+				}
+
+				if ( ! empty( $jobs_to_send ) ) {
+					$this->emitMessage( $jobs_to_send, 'export_job_updates' );
+				}
+			} else {
+				echo ": keepalive\n\n";
+			}
+
+			if ( ob_get_level() > 0 ) {
+				ob_flush();
+			}
+			flush();
+			sleep( apply_filters( 'pb_sse_export_job_update_interval', 1 ) );
+		}
+
+		if ( $switched ) {
+			restore_current_blog();
+		}
+	}
+
+	/**
+	 * AJAX handler for streaming user job statuses.
+	 * This is intended to be hooked to wp_ajax_pb_sse_exports.
+	 */
+	public function ajaxStreamUserExportsJobs(): void {
+
+		check_ajax_referer( 'pressbooks_user_export_feed', 'nonce' );
+
+		$book_id = filter_input( INPUT_GET, 'book_id', FILTER_VALIDATE_INT );
+		$user_id = get_current_user_id();
+
+		if ( ! $book_id ) {
+			$this->setupHeaders();
+			$this->emitMessage( [ 'error' => 'Missing book ID for job status stream.' ], 'error' );
+			flush();
+			exit;
+		}
+
+		$this->setupHeaders();
+		$this->streamUserJobStatuses( $book_id, $user_id );
+		exit;
 	}
 
 	/**

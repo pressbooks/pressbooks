@@ -1,0 +1,106 @@
+/* Suggested CSS to make it look great */
+
+.export-job-cell {
+    padding: 16px !important;
+}
+
+.export-job-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.export-name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.format-name {
+    font-size: 16px;
+    color: #333;
+}
+
+.export-actions {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.job-status {
+    font-size: 14px;
+    color: #666;
+    font-style: italic;
+}
+
+.export-progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.progress-bar-container {
+    flex: 1;
+    height: 8px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #007cba;
+    transition: width 0.3s ease;
+    border-radius: 4px;
+}
+
+.progress-bar.pb-sse-progressbar-success {
+    background-color: #46b450;
+}
+
+.progress-bar.pb-sse-progressbar-error {
+    background-color: #dc3232;
+}
+
+.progress-text {
+    font-size: 12px;
+    color: #666;
+    min-width: 35px;
+    text-align: right;
+}
+
+.download-link {
+    color: #007cba;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.download-link:hover {
+    text-decoration: underline;
+}
+
+.export-job-completed .format-name {
+    color: #46b450;
+}
+
+.export-job-failed .format-name {
+    color: #dc3232;
+}
+
+@media (max-width: 768px) {
+    .export-name {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .export-progress {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .progress-text {
+        align-self: flex-end;
+    }
+}

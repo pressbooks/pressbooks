@@ -1113,7 +1113,7 @@ class Book {
 	 *
 	 * @return array
 	 */
-	static protected function getPostsIdsToExport() {
+	public static function getPostsIdsToExport() {
 
 		$post_ids_to_export = [];
 
