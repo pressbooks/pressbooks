@@ -841,3 +841,18 @@ function sanitize_string( $value, $allow_html = false ) {
 function validate_url_field( $value ) {
 	return filter_var( $value, FILTER_VALIDATE_URL ) ? $value : false;
 }
+
+function escape_file_names_in_blob_mimes(): void {
+	if ( ! isset( $_GET['page'], $_POST['n'], $_FILES ) || $_GET['page'] !== 'blob-mimes-debug' ) { //phpcs:ignore Pressbooks.Security.NonceVerification.Missing
+		return;
+	}
+
+	foreach ( $_FILES as &$file ) {
+		if ( ! is_array( $file ) || ! isset( $file['name'] ) ) {
+			continue;
+		}
+
+		$file['name'] = esc_html( $file['name'] );
+	}
+	unset( $file );
+}

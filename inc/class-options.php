@@ -309,7 +309,7 @@ abstract class Options {
 		$args = wp_parse_args( $args, $defaults );
 
 		printf(
-			'<input id="%1$s" class="color-picker" name="%2$s[%3$s]" type="text" data-default-color="%4$s" value="%5$s" %6$s/>',
+			'<input id="%1$s" class="coloris" name="%2$s[%3$s]" type="text" data-default-color="%4$s" value="%5$s" %6$s/>',
 			$args['id'],
 			$args['name'],
 			$args['option'],
