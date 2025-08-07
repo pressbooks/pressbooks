@@ -733,29 +733,29 @@ class Styles {
 	 */
 	public function getShapeShifterFonts() {
 		$serif = [
-			'Cormorant Garamond' => __( 'Cormorant Garamond', 'pressbooks' ),
-			'Crimson Text' => __( 'Crimson Text', 'pressbooks' ),
-			'FreeSerif' => __( 'GNU FreeFont Serif', 'pressbooks' ),
-			'New Athena Unicode' => __( 'New Athena Unicode', 'pressbooks' ),
-			'Noto Serif' => __( 'Noto Serif', 'pressbooks' ),
-			'Sorts Mill Goudy' => __( 'Sorts Mill Goudy', 'pressbooks' ),
-			'Spectral' => __( 'Spectral', 'pressbooks' ),
+			'Cormorant Garamond' => 'Cormorant Garamond',
+			'Crimson Text' => 'Crimson Text',
+			'FreeSerif' => 'GNU FreeFont Serif',
+			'New Athena Unicode' => 'New Athena Unicode',
+			'Noto Serif' => 'Noto Serif',
+			'Sorts Mill Goudy' => 'Sorts Mill Goudy',
+			'Spectral' => 'Spectral',
 		];
 
 		$sans_serif = [
-			'Alegreya Sans' => __( 'Alegreya Sans', 'pressbooks' ),
-			'Barlow' => __( 'Barlow', 'pressbooks' ),
-			'FreeSans' => __( 'GNU FreeFont Sans', 'pressbooks' ),
-			'K2D' => __( 'K2D', 'pressbooks' ),
-			'Lato' => __( 'Lato', 'pressbooks' ),
-			'Libre Franklin' => __( 'Libre Franklin', 'pressbooks' ),
-			'Montserrat' => __( 'Montserrat', 'pressbooks' ),
-			'Noto Sans' => __( 'Noto Sans', 'pressbooks' ),
-			'Open Sans' => __( 'Open Sans', 'pressbooks' ),
-			'Raleway' => __( 'Raleway', 'pressbooks' ),
-			'Roboto' => __( 'Roboto', 'pressbooks' ),
-			'Rubik' => __( 'Rubik', 'pressbooks' ),
-			'Source Sans Pro' => __( 'Source Sans Pro', 'pressbooks' ),
+			'Alegreya Sans' => 'Alegreya Sans',
+			'Barlow' => 'Barlow',
+			'FreeSans' => 'GNU FreeFont Sans',
+			'K2D' => 'K2D',
+			'Lato' => 'Lato',
+			'Libre Franklin' => 'Libre Franklin',
+			'Montserrat' => 'Montserrat',
+			'Noto Sans' => 'Noto Sans',
+			'Open Sans' => 'Open Sans',
+			'Raleway' => 'Raleway',
+			'Roboto' => 'Roboto',
+			'Rubik' => 'Rubik',
+			'Source Sans Pro' => 'Source Sans Pro',
 		];
 
 		$custom_fonts = get_site_option( 'pressbooks_custom_fonts', [] );
@@ -770,6 +770,8 @@ class Styles {
 				}
 			}
 		}
+        ksort( $serif );
+        ksort( $sans_serif );
 
 		return [
 			'' => __( 'Theme default', 'pressbooks' ),
