@@ -770,8 +770,8 @@ class Styles {
 				}
 			}
 		}
-        ksort( $serif );
-        ksort( $sans_serif );
+		ksort( $serif );
+		ksort( $sans_serif );
 
 		return [
 			'' => __( 'Theme default', 'pressbooks' ),
