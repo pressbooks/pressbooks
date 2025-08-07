@@ -99,7 +99,7 @@ function handle_uploaded_font( $file, $key, $target_dir ) {
 	$file_extension = strtolower( pathinfo( $file_name, PATHINFO_EXTENSION ) );
 
 	if ( ! in_array( $file_extension, $allowed_types, true ) ) {
-		return new WP_Error( 'invalid_type', 'Invalid font file type.' );
+		return new \WP_Error( 'invalid_type', 'Invalid font file type.' );
 	}
 
 	$target_file = $target_dir . $file_name;
@@ -111,7 +111,7 @@ function handle_uploaded_font( $file, $key, $target_dir ) {
 			'variation' => $key,
 		];
 	}
-	return new WP_Error( 'upload_failed', 'Font upload failed for ' . $key );
+	return new \WP_Error( 'upload_failed', 'Font upload failed for ' . $key );
 }
 
 /**

@@ -17,22 +17,12 @@ class Admin_CustomFontsTest extends \WP_UnitTestCase {
 	public function set_up() {
 		parent::set_up();
 
+        // Initialize ServiceProvider to ensure Blade is available
+        ServiceProvider::init();
+
 		// Create a temporary directory for font uploads
 		$this->test_font_dir = $this->_createTmpDir() . '/custom-fonts/';
 		wp_mkdir_p( $this->test_font_dir );
-
-		// Mock the Blade service
-		Container::set( 'Blade', function () {
-			$stub = $this
-				->getMockBuilder( '\Pressbooks\Blade' )
-				->getMock();
-
-			$stub
-				->method( 'render' )
-				->willReturn( '<div>Mock rendered template</div>' );
-
-			return $stub;
-		}, null, true );
 
 		// Store original upload directory
 		$this->original_upload_dir = WP_CONTENT_DIR . '/uploads/assets/custom-fonts/';
@@ -42,6 +32,11 @@ class Admin_CustomFontsTest extends \WP_UnitTestCase {
 	 * Tear down test environment
 	 */
 	public function tear_down() {
+        // Clean up global state
+        $_POST = [];
+        $_FILES = [];
+        $_GET = [];
+
 		// Clean up test files
 		if ( is_dir( $this->test_font_dir ) ) {
 			$this->_rmdir( $this->test_font_dir );
@@ -60,33 +55,181 @@ class Admin_CustomFontsTest extends \WP_UnitTestCase {
 		parent::tear_down();
 	}
 
-	/**
-	 * Test render_custom_fonts_page function
-	 */
-	public function test_render_custom_fonts_page() {
-		// Set up test data
-		$test_fonts = [
-			'test-font' => [
-				'name' => 'Test Font',
-				'fallback' => 'sans-serif',
-				'files' => [
-					'regular' => [
-						'file' => 'http://example.com/test-font.woff',
-						'variation' => 'regular',
-					],
-				],
-			],
-		];
-		update_site_option( 'pressbooks_custom_fonts', $test_fonts );
+    /**
+     * Test reader_custom_fonts_page renders correctly with mocked data
+     */
+    public function test_render_custom_fonts_page_with_data() {
+        // Set up test fonts with multiple variations
+        $test_fonts = [
+            'arial-custom' => [
+                'name' => 'Arial Custom',
+                'fallback' => 'sans-serif',
+                'files' => [
+                    'regular' => [
+                        'file' => 'http://example.com/arial.woff',
+                        'variation' => 'regular',
+                    ],
+                    'bold' => [
+                        'file' => 'http://example.com/arial-bold.woff',
+                        'variation' => 'bold',
+                    ],
+                    'italic' => [
+                        'file' => 'http://example.com/arial-italic.woff',
+                        'variation' => 'italic',
+                    ],
+                    'bold_italic' => [
+                        'file' => 'http://example.com/arial-bold-italic.woff',
+                        'variation' => 'bold_italic',
+                    ],
+                ],
+            ],
+            'times-custom' => [
+                'name' => 'Times Custom',
+                'fallback' => 'serif',
+                'files' => [
+                    'regular' => [
+                        'file' => 'http://example.com/times.woff2',
+                        'variation' => 'regular',
+                    ],
+                ],
+            ],
+        ];
+        update_site_option('pressbooks_custom_fonts', $test_fonts);
 
-		// Capture output
-		ob_start();
-		\Pressbooks\Admin\CustomFonts\render_custom_fonts_page();
-		$output = ob_get_clean();
+        // Capture output
+        ob_start();
+        \Pressbooks\Admin\CustomFonts\render_custom_fonts_page();
+        $output = ob_get_clean();
 
-		// Assert output contains expected content
-		$this->assertStringContainsString( 'Mock rendered template', $output );
-	}
+        // Basic structure tests
+        $this->assertIsString($output);
+        $this->assertNotEmpty($output, 'Output should not be empty');
+
+        // Test for PHP errors
+        $this->assertStringNotContainsString('Fatal error', $output);
+        $this->assertStringNotContainsString('Warning:', $output);
+        $this->assertStringNotContainsString('Notice:', $output);
+
+        // Test main page structure based on template
+        $this->assertStringContainsString('<div class="wrap">', $output, 'Should contain wrap div');
+        $this->assertStringContainsString('<h1>Upload Custom Font</h1>', $output, 'Should contain main heading');
+        $this->assertStringContainsString('Upload custom font files for any additional font families', $output, 'Should contain instructions');
+
+        // Test form structure
+        $this->assertStringContainsString('<form method="post" enctype="multipart/form-data"', $output, 'Should contain upload form');
+        $this->assertStringContainsString('name="action" value="pb_save_custom_fonts"', $output, 'Should have correct action');
+        $this->assertStringContainsString('name="_wpnonce"', $output, 'Should include nonce field');
+
+        // Test form fields
+        $this->assertStringContainsString('name="font_name"', $output, 'Should have font name field');
+        $this->assertStringContainsString('name="font_file_regular"', $output, 'Should have regular font file field');
+        $this->assertStringContainsString('name="font_file_bold"', $output, 'Should have bold font file field');
+        $this->assertStringContainsString('name="font_file_italic"', $output, 'Should have italic font file field');
+        $this->assertStringContainsString('name="font_file_bold_italic"', $output, 'Should have bold italic font file field');
+        $this->assertStringContainsString('name="font_fallback"', $output, 'Should have fallback select');
+
+        // Test file input accepts
+        $this->assertStringContainsString('accept=".woff,.woff2,.ttf,.otf"', $output, 'Should have correct file accepts');
+
+        // Test fallback options
+        $this->assertStringContainsString('<option value="sans-serif">Sans-serif</option>', $output, 'Should have sans-serif option');
+        $this->assertStringContainsString('<option value="serif">Serif</option>', $output, 'Should have serif option');
+
+        // Test "Registered Fonts" section appears when fonts exist
+        $this->assertStringContainsString('<h2>Registered Fonts</h2>', $output, 'Should show registered fonts heading');
+        $this->assertStringContainsString('<table class="widefat fixed striped">', $output, 'Should contain fonts table');
+
+        // Test table headers
+        $this->assertStringContainsString('<th>Font Family Name</th>', $output, 'Should have font family header');
+        $this->assertStringContainsString('<th>Font Variants</th>', $output, 'Should have font variants header');
+        $this->assertStringContainsString('<th>Font Fallback</th>', $output, 'Should have font fallback header');
+
+        // Test actual font data appears in table
+        $this->assertStringContainsString('Arial Custom', $output, 'Should display Arial Custom font name');
+        $this->assertStringContainsString('Times Custom', $output, 'Should display Times Custom font name');
+
+        // Test font variant links (template converts underscore to space and capitalizes)
+        $this->assertStringContainsString('<a href="http://example.com/arial.woff" target="_blank">Regular</a>', $output, 'Should show Regular variant link');
+        $this->assertStringContainsString('<a href="http://example.com/arial-bold.woff" target="_blank">Bold</a>', $output, 'Should show Bold variant link');
+        $this->assertStringContainsString('<a href="http://example.com/arial-italic.woff" target="_blank">Italic</a>', $output, 'Should show Italic variant link');
+        $this->assertStringContainsString('<a href="http://example.com/arial-bold-italic.woff" target="_blank">Bold Italic</a>', $output, 'Should show Bold Italic variant link');
+
+        // Test fallback values appear
+        $this->assertStringContainsString('<td>sans-serif</td>', $output, 'Should display sans-serif fallback');
+        $this->assertStringContainsString('<td>serif</td>', $output, 'Should display serif fallback');
+    }
+
+    /**
+     * Test render_custom_fonts_page with no fonts (empty state)
+     */
+    public function test_render_custom_fonts_page_empty_state() {
+        // Ensure no fonts are set
+        delete_site_option('pressbooks_custom_fonts');
+
+        ob_start();
+        \Pressbooks\Admin\CustomFonts\render_custom_fonts_page();
+        $output = ob_get_clean();
+
+        // Should still render form and basic structure
+        $this->assertStringContainsString('<div class="wrap">', $output);
+        $this->assertStringContainsString('<h1>Upload Custom Font</h1>', $output);
+        $this->assertStringContainsString('<form method="post"', $output);
+
+        // Should NOT show registered fonts section when empty
+        $this->assertStringNotContainsString('<h2>Registered Fonts</h2>', $output, 'Should not show registered fonts heading when empty');
+        $this->assertStringNotContainsString('<table class="widefat fixed striped">', $output, 'Should not show fonts table when empty');
+    }
+
+    /**
+     * Test success message display
+     */
+    public function test_render_custom_fonts_page_success_message() {
+        // Simulate the updated=true parameter
+        $_GET['updated'] = 'true';
+
+        ob_start();
+        \Pressbooks\Admin\CustomFonts\render_custom_fonts_page();
+        $output = ob_get_clean();
+
+        // Should show success notice
+        $this->assertStringContainsString('<div class="notice notice-success is-dismissible">', $output, 'Should show success notice');
+        $this->assertStringContainsString('Font uploaded successfully.', $output, 'Should show success message');
+
+        // Clean up
+        unset($_GET['updated']);
+    }
+
+    /**
+     * Test XSS protection in font data
+     */
+    public function test_render_custom_fonts_page_xss_protection() {
+        // Set up malicious font data
+        $malicious_fonts = [
+            'xss-test' => [
+                'name' => '<script>alert("xss")</script>Evil Font',
+                'fallback' => '<script>alert("fallback")</script>',
+                'files' => [
+                    'regular' => [
+                        'file' => 'javascript:alert("xss")',
+                        'variation' => 'regular',
+                    ],
+                ],
+            ],
+        ];
+        update_site_option('pressbooks_custom_fonts', $malicious_fonts);
+
+        ob_start();
+        \Pressbooks\Admin\CustomFonts\render_custom_fonts_page();
+        $output = ob_get_clean();
+
+        // Should escape malicious content
+        $this->assertStringNotContainsString('<script>alert("xss")</script>', $output, 'Should escape script tags in font name');
+        $this->assertStringNotContainsString('<script>alert("fallback")</script>', $output, 'Should escape script tags in fallback');
+        $this->assertStringNotContainsString('javascript:alert("xss")', $output, 'Should escape javascript URLs');
+
+        // But should still show the safe parts
+        $this->assertStringContainsString('Evil Font', $output, 'Should show safe parts of font name');
+    }
 
 	/**
 	 * Test handle_form_submission with valid data
@@ -95,6 +238,12 @@ class Admin_CustomFontsTest extends \WP_UnitTestCase {
 		// Create a super admin user
 		$user_id = $this->createSuperAdminUser();
 		wp_set_current_user( $user_id );
+
+        // Mock wp_safe_redirect to prevent actual redirect
+        add_filter( 'wp_redirect', function( $location, $status ) {
+            // Just return false to prevent redirect
+            return false;
+        }, 10, 2 );
 
 		// Mock file upload data
 		$test_file = [
@@ -140,20 +289,16 @@ class Admin_CustomFontsTest extends \WP_UnitTestCase {
 	 * Test handle_form_submission with invalid nonce
 	 */
 	public function test_handle_form_submission_invalid_nonce() {
-		// Create a super admin user
-		$user_id = $this->createSuperAdminUser();
-		wp_set_current_user( $user_id );
+        $user_id = $this->createSuperAdminUser();
+        wp_set_current_user( $user_id );
 
-		// Mock POST data with invalid nonce
-		$_POST = [
-			'_wpnonce' => 'invalid-nonce',
-			'font_name' => 'Test Font',
-			'font_fallback' => 'sans-serif',
-		];
+        $_POST = $this->create_valid_post_data();
+        $_POST['_wpnonce'] = 'invalid-nonce';
 
-		// Expect the function to die with permission denied
-		$this->expectOutputString( 'Permission denied' );
-		\Pressbooks\Admin\CustomFonts\handle_form_submission();
+        $this->expectException( WPDieException::class );
+        $this->expectExceptionMessage( 'Permission denied' );
+
+        \Pressbooks\Admin\CustomFonts\handle_form_submission();
 	}
 
 	/**
@@ -176,74 +321,39 @@ class Admin_CustomFontsTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\CustomFonts\handle_form_submission();
 	}
 
-	/**
-	 * Test handle_form_submission with invalid file type
-	 */
-	public function test_handle_form_submission_invalid_file_type() {
-		// Create a super admin user
-		$user_id = $this->createSuperAdminUser();
-		wp_set_current_user( $user_id );
+    /**
+     * Test handle_form_submission with upload failure
+     */
+    public function test_handle_form_submission_upload_failure() {
+        // Create a super admin user
+        $user_id = $this->createSuperAdminUser();
+        wp_set_current_user( $user_id );
 
-		// Mock file upload data with invalid file type
-		$test_file = [
-			'name' => 'test-font.txt',
-			'type' => 'text/plain',
-			'tmp_name' => $this->test_font_dir . 'test-font.txt',
-			'error' => 0,
-			'size' => 1024,
-		];
+        // Mock file upload data with non-existent tmp_name
+        $test_file = [
+            'name' => 'test-font.woff',
+            'type' => 'font/woff',
+            'tmp_name' => '/non/existent/path/test-font.woff',
+            'error' => 0,
+            'size' => 1024,
+        ];
 
-		// Create a test file
-		file_put_contents( $test_file['tmp_name'], 'test content' );
+        // Mock POST data
+        $_POST = [
+            '_wpnonce' => wp_create_nonce( 'pb_save_custom_fonts' ),
+            'font_name' => 'Test Font',
+            'font_fallback' => 'sans-serif',
+        ];
 
-		// Mock POST data
-		$_POST = [
-			'_wpnonce' => wp_create_nonce( 'pb_save_custom_fonts' ),
-			'font_name' => 'Test Font',
-			'font_fallback' => 'sans-serif',
-		];
+        $_FILES = [
+            'font_file_regular' => $test_file,
+        ];
 
-		$_FILES = [
-			'font_file_regular' => $test_file,
-		];
+        $this->expectException('WPDieException');
+        $this->expectExceptionMessage('Font upload failed for regular');
 
-		// Expect the function to die with error message
-		$this->expectOutputString( 'Invalid font file type.' );
-		\Pressbooks\Admin\CustomFonts\handle_form_submission();
-	}
-
-	/**
-	 * Test handle_form_submission with upload failure
-	 */
-	public function test_handle_form_submission_upload_failure() {
-		// Create a super admin user
-		$user_id = $this->createSuperAdminUser();
-		wp_set_current_user( $user_id );
-
-		// Mock file upload data with non-existent tmp_name
-		$test_file = [
-			'name' => 'test-font.woff',
-			'type' => 'font/woff',
-			'tmp_name' => '/non/existent/path/test-font.woff',
-			'error' => 0,
-			'size' => 1024,
-		];
-
-		// Mock POST data
-		$_POST = [
-			'_wpnonce' => wp_create_nonce( 'pb_save_custom_fonts' ),
-			'font_name' => 'Test Font',
-			'font_fallback' => 'sans-serif',
-		];
-
-		$_FILES = [
-			'font_file_regular' => $test_file,
-		];
-
-		// Expect the function to die with error message
-		$this->expectOutputString( 'Font upload failed for regular' );
-		\Pressbooks\Admin\CustomFonts\handle_form_submission();
-	}
+        \Pressbooks\Admin\CustomFonts\handle_form_submission();
+    }
 
 	/**
 	 * Test handle_uploaded_font with valid file
@@ -283,7 +393,7 @@ class Admin_CustomFontsTest extends \WP_UnitTestCase {
 
 		$result = \Pressbooks\Admin\CustomFonts\handle_uploaded_font( $test_file, 'regular', $this->test_font_dir );
 
-		$this->assertInstanceOf( 'WP_Error', $result );
+		$this->assertInstanceOf( '\WP_Error', $result );
 		$this->assertEquals( 'invalid_type', $result->get_error_code() );
 		$this->assertEquals( 'Invalid font file type.', $result->get_error_message() );
 	}
@@ -300,38 +410,53 @@ class Admin_CustomFontsTest extends \WP_UnitTestCase {
 			'size' => 1024,
 		];
 
-		$result = \Pressbooks\Admin\CustomFonts\handle_uploaded_font( $test_file, 'regular', $this->test_font_dir );
+        // Capture any unexpected output
+        ob_start();
+        $result = \Pressbooks\Admin\CustomFonts\handle_uploaded_font( $test_file, 'regular', $this->test_font_dir );
+        $output = ob_get_clean();
 
-		$this->assertInstanceOf( 'WP_Error', $result );
-		$this->assertEquals( 'upload_failed', $result->get_error_code() );
-		$this->assertEquals( 'Font upload failed for regular', $result->get_error_message() );
+        // Assert no output was produced
+        $this->assertEmpty($output, 'Unexpected output: ' . $output);
+
+        $this->assertInstanceOf( '\WP_Error', $result );
+        $this->assertEquals( 'upload_failed', $result->get_error_code() );
+        $this->assertEquals( 'Font upload failed for regular', $result->get_error_message() );
 	}
 
-	/**
-	 * Test handle_uploaded_font with different file extensions
-	 */
-	public function test_handle_uploaded_font_different_extensions() {
-		$allowed_extensions = [ 'woff', 'woff2', 'ttf', 'otf' ];
+    /**
+     * Data provider for font file extensions
+     */
+    public function font_extension_provider() {
+        return [
+            'woff' => [ 'woff', 'font/woff' ],
+            'woff2' => [ 'woff2', 'font/woff2' ],
+            'ttf' => [ 'ttf', 'font/ttf' ],
+            'otf' => [ 'otf', 'font/otf' ],
+        ];
+    }
 
-		foreach ( $allowed_extensions as $ext ) {
-			$test_file = [
-				'name' => "test-font.{$ext}",
-				'type' => "font/{$ext}",
-				'tmp_name' => $this->test_font_dir . "test-font.{$ext}",
-				'error' => 0,
-				'size' => 1024,
-			];
+    /**
+     * Test handle_uploaded_font with different file extensions
+     * @dataProvider font_extension_provider
+     */
+    public function test_handle_uploaded_font_different_extensions( $extension, $mime_type ) {
+        $test_file = [
+            'name' => "test-font.{$extension}",
+            'type' => $mime_type,
+            'tmp_name' => $this->test_font_dir . "test-font.{$extension}",
+            'error' => 0,
+            'size' => 1024,
+        ];
 
-			// Create a test font file
-			file_put_contents( $test_file['tmp_name'], 'test font content' );
+        // Create a test font file
+        file_put_contents( $test_file['tmp_name'], 'test font content' );
 
-			$result = \Pressbooks\Admin\CustomFonts\handle_uploaded_font( $test_file, 'regular', $this->test_font_dir );
+        $result = \Pressbooks\Admin\CustomFonts\handle_uploaded_font( $test_file, 'regular', $this->test_font_dir );
 
-			$this->assertIsArray( $result );
-			$this->assertArrayHasKey( 'file', $result );
-			$this->assertStringContainsString( ".{$ext}", $result['file'] );
-		}
-	}
+        $this->assertIsArray( $result );
+        $this->assertArrayHasKey( 'file', $result );
+        $this->assertStringContainsString( ".{$extension}", $result['file'] );
+    }
 
 	/**
 	 * Test generate_custom_font_css with no fonts
