@@ -2,7 +2,7 @@
 
 <div class="wrap">
     <h1>{{ __('Upload Custom Font', 'pressbooks') }}</h1>
-    <p>Upload custom font files for any additional font families you want to make available for books on your network. Permitted file types: .otf, .ttf, .woff, .woff2.</p>
+    <p>{{ __('Upload custom font files for any additional font families you want to make available for books on your network. Permitted file types: .otf, .ttf, .woff, .woff2.') }}</p>
 
     @if (isset($_GET['updated']) && $_GET['updated'] === 'true')
         <div class="notice notice-success is-dismissible">
