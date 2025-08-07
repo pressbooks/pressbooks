@@ -1,5 +1,21 @@
 # Changelog
 
+## [6.31.3](https://github.com/pressbooks/pressbooks/compare/6.31.2...6.31.3) (2025-08-07)
+
+
+### Bug Fixes
+
+* allow spans with lang attributes in section titles ([#4101](https://github.com/pressbooks/pressbooks/issues/4101)) ([4b3e5a2](https://github.com/pressbooks/pressbooks/commit/4b3e5a27a71355b83a9e96e9c09f69f3c30eec0c))
+* remove book creator as a contributor from the new book ([#4116](https://github.com/pressbooks/pressbooks/issues/4116)) ([679b410](https://github.com/pressbooks/pressbooks/commit/679b4101079092c1c2201022dfc19dd18d10ff1b))
+* remove unused get_translated_languages method ([#4151](https://github.com/pressbooks/pressbooks/issues/4151)) ([0a15758](https://github.com/pressbooks/pressbooks/commit/0a15758af1e71d36c5f320ac3d09a9ba16dffbf9))
+
+
+### Chores
+
+* bump the composer-dependencies group across 1 directory with 3 updates ([#4161](https://github.com/pressbooks/pressbooks/issues/4161)) ([ed99796](https://github.com/pressbooks/pressbooks/commit/ed99796427505c654813d15ce749d1bb39bf3937))
+* bump the npm_and_yarn group with 2 updates ([#4128](https://github.com/pressbooks/pressbooks/issues/4128)) ([f6b9b80](https://github.com/pressbooks/pressbooks/commit/f6b9b8066d725147a796956630aa2b5945268248))
+* bump the npm-dependencies group with 2 updates ([#4141](https://github.com/pressbooks/pressbooks/issues/4141)) ([a45bddd](https://github.com/pressbooks/pressbooks/commit/a45bddd69354c73c522c1a66cc819a85de6b3c46))
+
 ## [6.31.2](https://github.com/pressbooks/pressbooks/compare/6.31.1...6.31.2) (2025-07-30)
 
 
