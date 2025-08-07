@@ -584,6 +584,18 @@ class Contributors implements BackMatter, Transferable {
 		];
 	}
 
+	public function removeBlogUser( int $user_id ): bool {
+		$user = get_userdata( $user_id );
+		if ( $user && user_can( $user, 'edit_posts' ) ) {
+			$term = get_term_by( 'slug', $user->user_nicename, self::TAXONOMY );
+			if ( $term ) {
+				$deleted_term = wp_delete_term( $term->term_id, self::TAXONOMY );
+				return $deleted_term && ! is_wp_error( $deleted_term );
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * Create a matching Contributor term for a given User ID. Used when a user is added to a blog.
 	 *

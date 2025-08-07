@@ -22,6 +22,16 @@ class BookDashboard extends Dashboard {
 
 		$permissions = $this->getUserPermissions();
 
+		$getting_started_playlist_url = 'https://youtube.com/playlist?list=PLMFmJu3NJhevTbp5XAbdif8OloNhqOw5n';
+
+		if ( is_plugin_active_for_network( 'pressbooks-vip/pressbooks-vip.php' ) ) {
+			$getting_started_playlist_url = 'https://www.youtube.com/playlist?list=PLMFmJu3NJhetTsZAkWTzyipvbMIi0XBc5';
+		}
+
+		if ( is_plugin_active_for_network( 'pressbooks-biblioboard-oauth/pressbooks-biblioboard-oauth.php' ) ) {
+			$getting_started_playlist_url = 'https://www.youtube.com/playlist?list=PLMFmJu3NJheulEpTdwZ0TqWM4KdL4L8ut';
+		}
+
 		echo $blade->render( 'admin.dashboard.book', [
 			'is_current_user_subscriber' => count( $current_user->roles ) === 1 && $current_user->roles[0] === 'subscriber',
 			'site_name' => get_bloginfo( 'name' ),
@@ -35,6 +45,7 @@ class BookDashboard extends Dashboard {
 			'delete_book_url' => $permissions['delete_site'] ? admin_url( 'ms-delete-site.php' ) : false,
 			'write_chapter_url' => $permissions['edit_posts'] ? admin_url( 'post-new.php?post_type=chapter' ) : false,
 			'import_content_url' => $permissions['edit_posts'] ? admin_url( 'admin.php?page=pb_import' ) : false,
+			'getting_started_playlist_url' => $getting_started_playlist_url,
 		] );
 	}
 

@@ -298,4 +298,19 @@ https://youtu.be/Lqqsp8soXTo
 		wp_set_current_user( $user_id );
 		return $user_id;
 	}
+
+	/**
+	 * Helper function to run a generator and return the steps
+	 *
+	 * @param Generator $generator
+	 * @return array
+	 */
+	public function runGenerator( Generator $generator ): array
+	{
+		$steps = [];
+		foreach ( $generator as $step ) {
+			$steps[] = $step;
+		}
+		return $steps;
+	}
 }

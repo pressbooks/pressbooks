@@ -117,10 +117,6 @@ class L10nTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'zh_CN', $output );
 	}
 
-
-//	public function test_update_user_locale() { // TODO
-//	}
-
 	public function test_get_book_language() {
 		$lang = \Pressbooks\L10n\get_book_language();
 		$this->assertNotEmpty( $lang );

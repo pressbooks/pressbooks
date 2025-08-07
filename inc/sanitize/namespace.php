@@ -251,6 +251,7 @@ function filter_title( $title ) {
 		'br' => [],
 		'span' => [
 			'class' => [],
+			'lang' => [],
 		],
 		'em' => [],
 		'strong' => [],
@@ -754,14 +755,12 @@ function htmlawed_with_mixed_markup( $content, $htmlawed_config = null, $htmlawe
  * @return string
  */
 function sanitize_webbook_content( $content ) {
-	// Remove deprecated table borders
-	$spec = 'table=-border;';
+	$spec = apply_filters( 'pb_sanitize_webbook_content_spec', 'table=-border;' );
+	$config = apply_filters( 'pb_sanitize_webbook_content_config', [
+		'unique_ids' => 0,
+	] );
 
-	$spec = apply_filters( 'pb_sanitize_webbook_content_spec', $spec );
-	$config = apply_filters( 'pb_sanitize_webbook_content_config', [] );
-
-	$content = htmlawed_with_mixed_markup( $content, $config, $spec );
-	return $content;
+	return htmlawed_with_mixed_markup( $content, $config, $spec );
 }
 
 /**
@@ -842,4 +841,19 @@ function sanitize_string( $value, $allow_html = false ) {
  */
 function validate_url_field( $value ) {
 	return filter_var( $value, FILTER_VALIDATE_URL ) ? $value : false;
+}
+
+function escape_file_names_in_blob_mimes(): void {
+	if ( ! isset( $_GET['page'], $_POST['n'], $_FILES ) || $_GET['page'] !== 'blob-mimes-debug' ) { //phpcs:ignore Pressbooks.Security.NonceVerification.Missing
+		return;
+	}
+
+	foreach ( $_FILES as &$file ) {
+		if ( ! is_array( $file ) || ! isset( $file['name'] ) ) {
+			continue;
+		}
+
+		$file['name'] = esc_html( $file['name'] );
+	}
+	unset( $file );
 }

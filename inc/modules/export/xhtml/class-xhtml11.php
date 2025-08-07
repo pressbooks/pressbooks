@@ -11,13 +11,16 @@
 
 namespace Pressbooks\Modules\Export\Xhtml;
 
+use Exception;
 use function Pressbooks\Image\maybe_swap_with_bigger;
+use function Pressbooks\L10n\romanize;
 use function Pressbooks\Modules\Export\get_contributors_section;
 use function Pressbooks\Sanitize\clean_filename;
 use function Pressbooks\Sanitize\decode;
 use function Pressbooks\Utility\check_xmllint_install;
 use function Pressbooks\Utility\put_contents;
 use function Pressbooks\Utility\str_starts_with;
+use Generator;
 use PressbooksMix\Assets;
 use Pressbooks\Book;
 use Pressbooks\Container;
@@ -26,14 +29,13 @@ use Pressbooks\HtmLawed;
 use Pressbooks\HtmlParser;
 use Pressbooks\Interactive\Content;
 use Pressbooks\Modules\Export\Export;
-use Pressbooks\Modules\Export\ExportGenerator;
 use Pressbooks\Modules\Export\ExportHelpers;
 use Pressbooks\Modules\Export\Traits\HandleContributors;
 use Pressbooks\Sanitize;
 use Pressbooks\Taxonomy;
 use Pressbooks\Utility\PercentageYield;
 
-class Xhtml11 extends ExportGenerator {
+class Xhtml11 extends Export {
 
 	use ExportHelpers;
 	use HandleContributors;
@@ -57,7 +59,7 @@ class Xhtml11 extends ExportGenerator {
 	/**
 	 * @var string
 	 */
-	public $transformOutput;
+	public string $transformOutput;
 
 	/**
 	 * Endnotes storage container.
@@ -65,14 +67,14 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @var array
 	 */
-	protected $endnotes = [];
+	protected array $endnotes = [];
 
 	/**
 	 * Footnotes storage container.
 	 *
 	 * @var array
 	 */
-	protected $footnotes = [];
+	protected array $footnotes = [];
 
 	/**
 	 * We forcefully reorder some of the front-matter types to respect the Chicago Manual of Style.
@@ -80,7 +82,7 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @var int
 	 */
-	protected $frontMatterPos = 1;
+	protected int $frontMatterPos = 1;
 
 	/**
 	 * Sometimes the user will omit an introduction so we must inject the style in either the first
@@ -88,7 +90,7 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @var bool
 	 */
-	protected $hasIntroduction = false;
+	protected bool $hasIntroduction = false;
 
 	/**
 	 * Should all header elements be wrapped in a container? Requires a theme based on Buckram.
@@ -97,7 +99,7 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @var bool
 	 */
-	protected $wrapHeaderElements = false;
+	protected bool $wrapHeaderElements = false;
 
 	/**
 	 * Should the short title be output in a hidden element? Requires a theme based on Buckram 1.2.0 or greater.
@@ -106,14 +108,14 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @var bool
 	 */
-	protected $outputShortTitle = true;
+	protected bool $outputShortTitle = true;
 
 	/**
 	 * Main language of document, two letter code
 	 *
 	 * @var string
 	 */
-	protected $lang = 'en';
+	protected string $lang = 'en';
 
 	/**
 	 * @var string
@@ -141,7 +143,23 @@ class Xhtml11 extends ExportGenerator {
 	protected $blade;
 
 	/**
+	 * Performance optimization caches
+	 */
+	private array $processingCache = [];
+	private array $domCache = [];
+	private array $imageCache = [];
+	private array $metaCache = [];
+
+	/**
+	 * Cache for pre-export processing
+	 */
+	private static bool $preExportOptimized = false;
+	private static array $preExportCache = [];
+
+	/**
 	 * @param array $args
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
 	public function __construct( array $args ) {
 
@@ -176,7 +194,7 @@ class Xhtml11 extends ExportGenerator {
 		// Append endnotes to URL?
 		if ( $r['endnotes'] ) {
 			$this->url .= '&endnotes=true';
-			$_GET['endnotes'] = true;
+			$_GET['endnotes'] = 'true';
 		}
 
 		// HtmLawed: id values not allowed in input
@@ -188,70 +206,56 @@ class Xhtml11 extends ExportGenerator {
 		}
 
 		$this->generatorPrefix = __( 'XHTML: ', 'pressbooks' );
-	}
 
-	/**
-	 * Create $this->outputPath
-	 *
-	 * @return bool
-	 */
-	public function convert() {
-		try {
-			foreach ( $this->convertGenerator() as $percentage => $info ) {
-				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
-			}
-		} catch ( \Exception $e ) {
-			return false;
+		if ( isset( $r['no-export'] ) ) {
+			$this->url = '';
 		}
-		return true;
+
+		// Pre-warm common caches
+		$this->preWarmCaches();
 	}
 
 	/**
 	 * Yields an estimated percentage slice of: 1 to 80
 	 *
-	 * @return \Generator
-	 * @throws \Exception
+	 * @return Generator
+	 * @throws Exception
 	 */
-	public function convertGenerator() : \Generator {
+	public function convert() : Generator {
 		yield 1 => $this->generatorPrefix . __( 'Initializing', 'pressbooks' );
 
-		yield from $this->transformGenerator();
+		// Optimize WordPress environment for export
+		$this->optimizeWordPressForExport();
 
-		if ( ! $this->transformOutput ) {
-			throw new \Exception();
-		}
-
-		yield 75 => $this->generatorPrefix . __( 'Saving file to exports folder', 'pressbooks' );
-		$filename = $this->timestampedFileName( '.html' );
-		put_contents( $filename, $this->transformOutput );
-		$this->outputPath = $filename;
-		yield 80 => $this->generatorPrefix . __( 'Export successful', 'pressbooks' );
-	}
-
-	/**
-	 * Check the sanity of $this->outputPath
-	 *
-	 * @return bool
-	 */
-	public function validate() {
 		try {
-			foreach ( $this->validateGenerator() as $percentage => $info ) {
-				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
+			yield from $this->transformGenerator();
+
+			if ( ! $this->transformOutput ) {
+				throw new Exception();
 			}
-		} catch ( \Exception $e ) {
-			return false;
+			if ( $this->url !== '' ) {
+				yield 75 => $this->generatorPrefix . __( 'Saving file to exports folder', 'pressbooks' );
+				$filename = $this->timestampedFileName( '.html' );
+				put_contents( $filename, $this->transformOutput );
+				$this->outputPath = $filename;
+				yield 80 => $this->generatorPrefix . __( 'Export successful', 'pressbooks' );
+			}
+		} finally {
+			$this->restoreDatabaseOperations();
+			$this->clearCaches();
 		}
-		return true;
+
+		return $this->outputPath;
 	}
 
 	/**
 	 * Yields an estimated percentage slice of: 80 to 100
 	 *
-	 * @return \Generator
-	 * @throws \Exception
+	 * @return Generator
+	 * @throws Exception
 	 */
-	public function validateGenerator() : \Generator {
-		yield 80 => $this->generatorPrefix . __( 'Validating file', 'pressbooks' );
+	public function validate() : Generator {
+		yield 90 => $this->generatorPrefix . __( 'Validating file', 'pressbooks' );
 
 		// Xmllint params
 		$command = PB_XMLLINT_COMMAND . ' --html --valid --noout ' . escapeshellcmd( $this->outputPath ) . ' 2>&1';
@@ -264,10 +268,11 @@ class Xhtml11 extends ExportGenerator {
 		// Is this a valid XHTML?
 		if ( is_countable( $output ) && count( $output ) ) {
 			$this->logError( implode( "\n", $output ) );
-			throw new \Exception();
+			throw new Exception();
 		}
 
 		yield 100 => $this->generatorPrefix . __( 'Validation successful', 'pressbooks' );
+		return $return_var === 0;
 	}
 
 	/**
@@ -303,10 +308,11 @@ class Xhtml11 extends ExportGenerator {
 		}
 
 		try {
-			foreach ( $this->transformGenerator() as $percentage => $info ) {
-				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
+			$generator = $this->transformGenerator();
+			while ( $generator->valid() ) {
+				$generator->next();
 			}
-		} catch ( \Exception $e ) {
+		} catch ( Exception $e ) {
 			return null;
 		}
 
@@ -321,10 +327,15 @@ class Xhtml11 extends ExportGenerator {
 	/**
 	 * Yields an estimated percentage slice of: 10 to 75
 	 *
-	 * @return \Generator
-	 * @throws \Exception
+	 * @return Generator
+	 * @throws Exception
 	 */
-	public function transformGenerator() : \Generator {
+	public function transformGenerator() : Generator {
+		/**
+		 * Let other plugins tweak things before exporting
+		 * TODO: (bg) Check why is this required in theory is being called in class-backgroundjob.php probably because we have a different the_content when processing
+		 * @since 4.4.0
+		 */
 		do_action( 'pb_pre_export' );
 
 		// Override footnote shortcode
@@ -388,6 +399,7 @@ class Xhtml11 extends ExportGenerator {
 				echo "<script src='$url' type='text/javascript'></script>\n";
 			}
 		}
+		echo "<!-- PB_SCOPED_STYLES_PLACEHOLDER -->\n"; // Placeholder for the custom stylesheet link
 		echo "</head>\n<body lang='{$this->lang}' ";
 		if ( ! empty( $_GET['optimize-for-print'] ) ) {
 			echo "class='print' ";
@@ -426,6 +438,7 @@ class Xhtml11 extends ExportGenerator {
 			$buffer_inner_html = $cache[1];
 		} else {
 			$book_contents = $this->preProcessBookContents( Book::getBookContents() );
+
 			ob_start();
 
 			$this->displayAboutTheAuthors = ! empty( get_option( 'pressbooks_theme_options_global', [] )['about_the_author'] );
@@ -483,9 +496,19 @@ class Xhtml11 extends ExportGenerator {
 			set_transient( self::TRANSIENT, [ md5( wp_json_encode( $my_get ) ), $buffer_inner_html ] );
 		}
 
-		// Put inner HTML inside outer HTML
+		do_action( 'pb_xhtml_after_content_processed' );
+
+		$custom_stylesheet_url = app( 'ScopedStyles' )->h5p_css_url;
+
 		$pos = strpos( $buffer_outer_html, $replace_token );
 		$buffer = substr_replace( $buffer_outer_html, $buffer_inner_html, $pos, strlen( $replace_token ) );
+
+		if ( ! empty( $custom_stylesheet_url ) ) {
+			$link_tag = sprintf( '<link rel="stylesheet" href="%s" type="text/css" />', esc_url( $custom_stylesheet_url ) );
+			$buffer = str_replace( '<!-- PB_SCOPED_STYLES_PLACEHOLDER -->', $link_tag, $buffer );
+		} else {
+			$buffer = str_replace( "<!-- PB_SCOPED_STYLES_PLACEHOLDER -->\n", '', $buffer );
+		}
 
 		$this->transformOutput = $buffer;
 	}
@@ -496,7 +519,7 @@ class Xhtml11 extends ExportGenerator {
 	 * @param $message
 	 * @param array $more_info (unused, overridden)
 	 */
-	function logError( $message, array $more_info = [] ) {
+	public function logError( $message, array $more_info = [] ): void {
 
 		$more_info['url'] = $this->url;
 
@@ -513,7 +536,7 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @return string
 	 */
-	function footnoteShortcode( $atts, $content = null ) {
+	function footnoteShortcode( $atts, $content = null ): string {
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, preProcessBookContents, ...]
 		$this->footnotes[ $id ][] = trim( $content );
 		$ref_id = count( $this->footnotes[ $id ] );
@@ -531,7 +554,7 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @return string
 	 */
-	function endnoteShortcode( $atts, $content = null ) {
+	function endnoteShortcode( $atts, $content = null ): string {
 
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, preProcessBookContents, ...]
 
@@ -580,31 +603,211 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @return string
 	 */
-	function doFootnotes( $id ) {
+	function doFootnotes( $id ): string {
 		if ( ! isset( $this->footnotes[ $id ] ) || ! count( $this->footnotes[ $id ] ) ) {
 			return '';
+		}
+
+		$cache_key = 'footnotes_' . $id . '_' . md5( serialize( $this->footnotes[ $id ] ) );
+
+		if ( isset( $this->processingCache[ $cache_key ] ) ) {
+			return $this->processingCache[ $cache_key ];
 		}
 
 		if ( ! has_filter( 'the_content', 'do_shortcode' ) ) {
 			add_filter( 'the_content', 'do_shortcode', 11 );
 		}
 
-		$e = '<div class="footnotes">';
+		$footnotes_html = [];
 		foreach ( $this->footnotes[ $id ] as $k => $footnote ) {
 			$key = $k + 1;
 			$id_attr = $id . '-' . $key;
 
 			$footnote_content = apply_filters( 'the_content', $footnote );
-
-			$e .= "<div id='$id_attr'>" . $this->fixInternalLinks( $footnote_content ) . '</div>';
+			$footnotes_html[] = "<div id='$id_attr'>" . $this->fixInternalLinks( $footnote_content ) . '</div>';
 		}
-		$e .= '</div>';
 
-		return $e;
+		$result = '<div class="footnotes">' . implode( '', $footnotes_html ) . '</div>';
+		$this->processingCache[ $cache_key ] = $result;
+
+		return $result;
 	}
 
 	// ----------------------------------------------------------------------------------------------------------------
-	// Sanitize book
+	// Performance Optimizations
+	// ----------------------------------------------------------------------------------------------------------------
+
+	/**
+	 * Pre-warm commonly used caches
+	 */
+	private function preWarmCaches(): void {
+		$this->processingCache['home_url'] = rtrim( home_url(), '/' );
+		$this->processingCache['blog_name'] = get_bloginfo( 'name' );
+	}
+
+	/**
+	 * Optimize WordPress environment for export
+	 */
+	protected function optimizeWordPressForExport(): void {
+
+		wp_suspend_cache_invalidation( true );
+
+		if ( function_exists( 'ini_set' ) ) {
+			ini_set( 'memory_limit', '1024M' );
+		}
+
+		// Disable term counting for performance
+		wp_defer_term_counting( true );
+
+		if ( function_exists( 'set_time_limit' ) ) {
+			set_time_limit( 0 ); // No time limit
+		}
+
+		// Disable unnecessary hooks during export
+		remove_action( 'wp_head', 'wp_generator' );
+		remove_action( 'wp_head', 'wlwmanifest_link' );
+		remove_action( 'wp_head', 'rsd_link' );
+	}
+
+	/**
+	 * Restore normal database operations
+	 */
+	protected function restoreDatabaseOperations(): void {
+		wp_suspend_cache_invalidation( false );
+		wp_defer_term_counting( false );
+	}
+
+	/**
+	 * Clear all performance caches
+	 */
+	private function clearCaches(): void {
+		$this->processingCache = [];
+		$this->domCache = [];
+		$this->imageCache = [];
+		$this->metaCache = [];
+
+		// Force garbage collection
+		if ( function_exists( 'gc_collect_cycles' ) ) {
+			gc_collect_cycles();
+		}
+	}
+
+	/**
+	 * Clear only processing caches, keep essential caches
+	 */
+	private function clearProcessingCaches(): void {
+		$essential_keys = [ 'home_url', 'blog_name' ];
+		$essential_cache = array_intersect_key( $this->processingCache, array_flip( $essential_keys ) );
+
+		$this->processingCache = $essential_cache;
+		$this->domCache = [];
+
+		if ( function_exists( 'gc_collect_cycles' ) ) {
+			gc_collect_cycles();
+		}
+	}
+
+	/**
+	 * Extract all post IDs for batch operations
+	 */
+	private function extractAllPostIds( $book_contents ): array {
+		$post_ids = [];
+
+		foreach ( $book_contents as $type => $struct ) {
+			if ( str_starts_with( $type, '__' ) ) {
+				continue;
+			}
+
+			foreach ( $struct as $item ) {
+				if ( isset( $item['ID'] ) ) {
+					$post_ids[] = $item['ID'];
+				}
+
+				// Handle chapters within parts
+				if ( $type === 'part' && isset( $item['chapters'] ) ) {
+					foreach ( $item['chapters'] as $chapter ) {
+						if ( isset( $chapter['ID'] ) ) {
+							$post_ids[] = $chapter['ID'];
+						}
+					}
+				}
+			}
+		}
+
+		return array_unique( $post_ids );
+	}
+
+	/**
+	 * Preload post meta to reduce DB queries
+	 */
+	private function preloadPostMeta( array $post_ids ): void {
+		if ( empty( $post_ids ) ) {
+			return;
+		}
+
+		// Use WordPress's update_meta_cache to preload all meta
+		update_meta_cache( 'post', $post_ids );
+	}
+
+	/**
+	 * Cached XML attribute sanitization
+	 */
+	private function cachedSanitizeXmlAttribute( string $value ): string {
+		$cache_key = 'xml_attr_' . md5( $value );
+
+		if ( isset( $this->processingCache[ $cache_key ] ) ) {
+			return $this->processingCache[ $cache_key ];
+		}
+
+		$result = Sanitize\sanitize_xml_attribute( $value );
+		$this->processingCache[ $cache_key ] = $result;
+
+		return $result;
+	}
+
+	/**
+	 * Cached DOM parser to reuse parsed documents
+	 */
+	private function getCachedDomParser( string $content ): \DOMDocument {
+		$cache_key = md5( $content );
+
+		if ( isset( $this->domCache[ $cache_key ] ) ) {
+			return clone $this->domCache[ $cache_key ];
+		}
+
+		$html5 = new HtmlParser();
+		$dom = $html5->loadHTML( $content );
+
+		// Cache the DOM (clone it to avoid reference issues)
+		$this->domCache[ $cache_key ] = clone $dom;
+
+		return $dom;
+	}
+
+	/**
+	 * Optimized HTML saving from DOM
+	 */
+	private function saveHTMLFromDom( \DOMDocument $dom ): string {
+		$html5 = new HtmlParser();
+		return $html5->saveHTML( $dom );
+	}
+
+	/**
+	 * Cached image swapping
+	 */
+	private function getCachedImageSwap( string $src ): string {
+		if ( isset( $this->imageCache[ $src ] ) ) {
+			return $this->imageCache[ $src ];
+		}
+
+		$new_src = maybe_swap_with_bigger( $src );
+		$this->imageCache[ $src ] = $new_src;
+
+		return $new_src;
+	}
+
+	// ----------------------------------------------------------------------------------------------------------------
+	// Sanitize book (Optimized)
 	// ----------------------------------------------------------------------------------------------------------------
 
 	/**
@@ -614,52 +817,20 @@ class Xhtml11 extends ExportGenerator {
 	 */
 	protected function preProcessBookContents( $book_contents ) {
 
-		// We need to change global $id for shortcodes, the_content, ...
 		global $id;
 		$old_id = $id;
 
-		// Do root level structures first.
-		foreach ( $book_contents as $type => $struct ) {
+		// Pre-load all post meta in batch to reduce DB queries
+		$all_post_ids = $this->extractAllPostIds( $book_contents );
+		$this->preloadPostMeta( $all_post_ids );
 
-			if ( preg_match( '/^__/', $type ) ) {
+		// Process content in batches
+		foreach ( $book_contents as $type => $struct ) {
+			if ( str_starts_with( $type, '__' ) ) {
 				continue; // Skip __magic keys
 			}
 
-			foreach ( $struct as $i => $val ) {
-
-				if ( isset( $val['post_content'] ) ) {
-					$id = $val['ID'];
-					if ( $val['export'] ) {
-						$book_contents[ $type ][ $i ]['post_content'] = $this->preProcessPostContent( $val['post_content'], $id );
-					} else {
-						$book_contents[ $type ][ $i ]['post_content'] = '';
-					}
-				}
-				if ( isset( $val['post_title'] ) ) {
-					$book_contents[ $type ][ $i ]['post_title'] = Sanitize\sanitize_xml_attribute( $val['post_title'] );
-				}
-				if ( isset( $val['post_name'] ) ) {
-					$book_contents[ $type ][ $i ]['post_name'] = $this->preProcessPostName( $val['post_name'] );
-				}
-
-				if ( 'part' === $type ) {
-
-					// Do chapters, which are embedded in part structure
-					foreach ( $book_contents[ $type ][ $i ]['chapters'] as $j => $val2 ) {
-
-						if ( isset( $val2['post_content'] ) ) {
-							$id = $val2['ID'];
-							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_content'] = $this->preProcessPostContent( $val2['post_content'], $id );
-						}
-						if ( isset( $val2['post_title'] ) ) {
-							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_title'] = Sanitize\sanitize_xml_attribute( $val2['post_title'] );
-						}
-						if ( isset( $val2['post_name'] ) ) {
-							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_name'] = $this->preProcessPostName( $val2['post_name'] );
-						}
-					}
-				}
-			}
+			$book_contents[ $type ] = $this->batchProcessStructure( $struct, $type );
 		}
 
 		$id = $old_id;
@@ -667,37 +838,133 @@ class Xhtml11 extends ExportGenerator {
 	}
 
 	/**
-	 * @param string   $content
-	 * @param int|null $id
-	 *
-	 * @return string
+	 * Batch process structure with optimized content processing
 	 */
-	protected function preProcessPostContent( string $content, int $id = null ): string {
-		$content = apply_filters( 'the_export_content', $content );
-		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
-		$content = $this->fixInternalLinks( $content, $id );
-		$content = $this->switchLaTexFormat( $content );
-		$content = $this->fixImageAttributes( $content );
-		if ( ! empty( $_GET['optimize-for-print'] ) ) {
-			$content = $this->fixImages( $content );
+	private function batchProcessStructure( array $struct, string $type ): array {
+		global $id;
+
+		foreach ( $struct as $i => $val ) {
+			if ( isset( $val['post_content'] ) && $val['export'] ) {
+				$id = $val['ID'];
+				$struct[ $i ]['post_content'] = $this->optimizedPreProcessPostContent(
+					$val['post_content'],
+					$id
+				);
+			} else {
+				$struct[ $i ]['post_content'] = '';
+			}
+
+			// Optimize title and name processing
+			if ( isset( $val['post_title'] ) ) {
+				$struct[ $i ]['post_title'] = $this->cachedSanitizeXmlAttribute( $val['post_title'] );
+			}
+			if ( isset( $val['post_name'] ) ) {
+				$struct[ $i ]['post_name'] = $this->preProcessPostName( $val['post_name'] );
+			}
+
+			// Handle chapters in parts with batch processing
+			if ( $type === 'part' && isset( $val['chapters'] ) ) {
+				$struct[ $i ]['chapters'] = $this->batchProcessChapters( $val['chapters'] );
+			}
 		}
-		return $this->tidy( $content );
+
+		return $struct;
 	}
 
-	protected function fixImageAttributes( $content ) {
-		$html5 = new HtmlParser();
-		$dom = $html5->loadHTML( $content );
+	/**
+	 * Batch process chapters
+	 */
+	private function batchProcessChapters( array $chapters ): array {
+		global $id;
+
+		foreach ( $chapters as $j => $chapter ) {
+			if ( isset( $chapter['post_content'] ) ) {
+				$id = $chapter['ID'];
+				$chapters[ $j ]['post_content'] = $this->optimizedPreProcessPostContent(
+					$chapter['post_content'],
+					$id
+				);
+			}
+
+			if ( isset( $chapter['post_title'] ) ) {
+				$chapters[ $j ]['post_title'] = $this->cachedSanitizeXmlAttribute( $chapter['post_title'] );
+			}
+			if ( isset( $chapter['post_name'] ) ) {
+				$chapters[ $j ]['post_name'] = $this->preProcessPostName( $chapter['post_name'] );
+			}
+		}
+
+		return $chapters;
+	}
+
+	/**
+	 * Optimized content processing with caching
+	 */
+	protected function optimizedPreProcessPostContent( string $content, int $id = null ): string {
+		$cache_key = 'content_' . md5( $content . $id );
+
+		if ( isset( $this->processingCache[ $cache_key ] ) ) {
+			return $this->processingCache[ $cache_key ];
+		}
+
+		$content = apply_filters( 'the_export_content', $content );
+
+		// Batch remove empty tags
+		$content = str_ireplace(
+			[ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ],
+			'',
+			$content
+		);
+
+		// Process content with optimized methods
+		$content = $this->optimizedFixInternalLinks( $content, $id );
+		$content = $this->switchLaTexFormat( $content );
+		$content = $this->optimizedFixImageAttributes( $content );
+
+		if ( ! empty( $_GET['optimize-for-print'] ) ) {
+			$content = $this->optimizedFixImages( $content );
+		}
+
+		$content = $this->tidy( $content );
+
+		$this->processingCache[ $cache_key ] = $content;
+
+		return $content;
+	}
+
+	/**
+	 * Optimized image attributes processing
+	 */
+	protected function optimizedFixImageAttributes( $content ) {
+		if ( stripos( $content, '<img' ) === false ) {
+			return $content;
+		}
+
+		$cache_key = 'img_attrs_' . md5( $content );
+
+		if ( isset( $this->processingCache[ $cache_key ] ) ) {
+			return $this->processingCache[ $cache_key ];
+		}
+
+		$dom = $this->getCachedDomParser( $content );
 		$images = $dom->getElementsByTagName( 'img' );
+
 		foreach ( $images as $image ) {
 			$alt = $image->getAttribute( 'alt' );
-			$alt = htmlspecialchars( $alt );
-			$image->setAttribute( 'alt', $alt );
+			if ( $alt ) {
+				$image->setAttribute( 'alt', htmlspecialchars( $alt ) );
+			}
+
 			$title = $image->getAttribute( 'title' );
-			$title = htmlspecialchars( $title );
-			$image->setAttribute( 'title', $title );
+			if ( $title ) {
+				$image->setAttribute( 'title', htmlspecialchars( $title ) );
+			}
 		}
-		$content = $html5->saveHTML( $dom );
-		return $content;
+
+		$result = $this->saveHTMLFromDom( $dom );
+		$this->processingCache[ $cache_key ] = $result;
+
+		return $result;
 	}
 
 	/**
@@ -708,33 +975,31 @@ class Xhtml11 extends ExportGenerator {
 	 * @return string
 	 */
 	protected function switchLaTexFormat( $content ) {
-		$content = preg_replace( '/(quicklatex.com-[a-f0-9]{32}_l3.)(png)/i', '$1svg', $content );
-
-		return $content;
+		return preg_replace( '/(quicklatex.com-[a-f0-9]{32}_l3.)(png)/i', '$1svg', $content );
 	}
 
 	/**
-	 * @param string $source_content
-	 * @param int    $id
-	 *
-	 * @return string
+	 * Optimized internal links processing
 	 */
-	protected function fixInternalLinks( $source_content, $id = null ) {
-
+	protected function optimizedFixInternalLinks( $source_content, $id = null ) {
+		// Quick check to avoid DOM parsing if no links
 		if ( stripos( $source_content, '<a' ) === false ) {
-			// There are no <a> tags to look at, skip this
 			return $source_content;
 		}
 
-		$home_url = rtrim( home_url(), '/' );
-		$html5 = new HtmlParser();
-		$dom = $html5->loadHTML( $source_content );
+		$cache_key = 'links_' . md5( $source_content . $id );
+
+		if ( isset( $this->processingCache[ $cache_key ] ) ) {
+			return $this->processingCache[ $cache_key ];
+		}
+
+		// Use cached DOM parser
+		$dom = $this->getCachedDomParser( $source_content );
 		$links = $dom->getElementsByTagName( 'a' );
+		$home_url = $this->processingCache['home_url']; // Use cached home_url
+		$has_changes = false;
 
 		foreach ( $links as $link ) {
-			/**
-			 * @var \DOMElement $link
-			 */
 			$href = $link->getAttribute( 'href' );
 
 			if ( str_starts_with( $href, '#' ) && ! empty( $id ) ) {
@@ -746,27 +1011,37 @@ class Xhtml11 extends ExportGenerator {
 			if ( str_starts_with( $href, '/' ) || str_starts_with( $href, $home_url ) ) {
 				$pos = strpos( $href, '#' );
 				if ( $pos !== false ) {
-					// Use the #fragment
-					$fragment = substr( $href, strpos( $href, '#' ) + 1 );
+					$fragment = substr( $href, $pos + 1 );
 				} elseif ( preg_match( '%(front\-matter|chapter|back\-matter|part)/([a-z0-9\-]*)([/]?)%', $href, $matches ) ) {
-					// Convert type + slug to #fragment
 					$fragment = "{$matches[1]}-{$matches[2]}";
 				} else {
 					$fragment = false;
 				}
+
 				if ( $fragment ) {
-					// Check if a fragment is considered external, don't change the URL if we find a match
 					$external_anchors = [ Content::ANCHOR ];
-					if ( in_array( "#{$fragment}", $external_anchors, true ) || str_starts_with( $fragment, 'h5p' ) ) {
-						continue;
-					} else {
+					if ( ! in_array( "#{$fragment}", $external_anchors, true ) && ! str_starts_with( $fragment, 'h5p' ) ) {
 						$link->setAttribute( 'href', "#{$fragment}" );
+						$has_changes = true;
 					}
 				}
 			}
 		}
 
-		return $html5->saveHTML( $dom );
+		$result = $has_changes ? $this->saveHTMLFromDom( $dom ) : $source_content;
+		$this->processingCache[ $cache_key ] = $result;
+
+		return $result;
+	}
+
+	/**
+	 * @param string $source_content
+	 * @param int    $id
+	 *
+	 * @return string
+	 */
+	protected function fixInternalLinks( $source_content, $id = null ) {
+		return $this->optimizedFixInternalLinks( $source_content, $id );
 	}
 
 	/**
@@ -811,6 +1086,43 @@ class Xhtml11 extends ExportGenerator {
 	}
 
 	/**
+	 * Optimized image processing with caching
+	 */
+	protected function optimizedFixImages( $content ) {
+		if ( stripos( $content, '<img' ) === false ) {
+			return $content;
+		}
+
+		$cache_key = 'images_' . md5( $content );
+
+		if ( isset( $this->processingCache[ $cache_key ] ) ) {
+			return $this->processingCache[ $cache_key ];
+		}
+
+		$dom = $this->getCachedDomParser( $content );
+		$images = $dom->getElementsByTagName( 'img' );
+		$has_changes = false;
+
+		foreach ( $images as $image ) {
+			$old_src = $image->getAttribute( 'src' );
+
+			// Use cached image swapping
+			$new_src = $this->getCachedImageSwap( $old_src );
+
+			if ( $old_src !== $new_src ) {
+				$image->setAttribute( 'src', $new_src );
+				$image->removeAttribute( 'srcset' );
+				$has_changes = true;
+			}
+		}
+
+		$result = $has_changes ? $this->saveHTMLFromDom( $dom ) : $content;
+		$this->processingCache[ $cache_key ] = $result;
+
+		return $result;
+	}
+
+	/**
 	 * Replace every image with the bigger original image
 	 *
 	 * @param $content
@@ -818,34 +1130,7 @@ class Xhtml11 extends ExportGenerator {
 	 * @return string
 	 */
 	protected function fixImages( $content ) {
-
-		// Cheap cache
-		static $already_done = [];
-
-		$changed = false;
-		$html5 = new HtmlParser();
-		$dom = $html5->loadHTML( $content );
-
-		$images = $dom->getElementsByTagName( 'img' );
-		foreach ( $images as $image ) {
-			/**
-			 * @var \DOMElement $image
-			 */
-			$old_src = $image->getAttribute( 'src' );
-			$new_src = $already_done[ $old_src ] ?? maybe_swap_with_bigger( $old_src );
-			if ( $old_src !== $new_src ) {
-				$image->setAttribute( 'src', $new_src );
-				$image->removeAttribute( 'srcset' );
-				$changed = true;
-			}
-			$already_done[ $old_src ] = $new_src;
-		}
-
-		if ( $changed ) {
-			$content = $html5->saveHTML( $dom );
-		}
-
-		return $content;
+		return $this->optimizedFixImages( $content );
 	}
 
 	/**
@@ -986,7 +1271,7 @@ class Xhtml11 extends ExportGenerator {
 
 	protected function renderHalfTitle() {
 		echo $this->blade->render(
-			'export/half-title', [ 'title' => get_bloginfo( 'name' ) ]
+			'export/half-title', [ 'title' => $this->processingCache['blog_name'] ]
 		);
 	}
 
@@ -1027,7 +1312,7 @@ class Xhtml11 extends ExportGenerator {
 
 			echo $this->blade->render(
 				'export/title', [
-					'title' => get_bloginfo( 'name' ),
+					'title' => $this->processingCache['blog_name'],
 					'subtitle' => $metadata['pb_subtitle'] ?? '',
 					'authors' => $contributors_data['authors'],
 					'editors' => $contributors_data['editors'],
@@ -1070,11 +1355,11 @@ class Xhtml11 extends ExportGenerator {
 			$custom_copyright = $this->tidy( $metadata['pb_custom_copyright'] );
 		}
 
-		// default, so something is displayed
+		// by default, so something is displayed
 		$has_default = false;
 		if ( empty( $metadata['pb_custom_copyright'] ) && empty( $license ) ) {
 			$has_default = true;
-			$default_copyright_name = get_bloginfo( 'name' ) . ' ' . __( 'Copyright', 'pressbooks' ) . ' &copy; ';
+			$default_copyright_name = $this->processingCache['blog_name'] . ' ' . __( 'Copyright', 'pressbooks' ) . ' &copy; ';
 			if ( ! empty( $meta['pb_copyright_year'] ) ) {
 				$default_copyright_date = $meta['pb_copyright_year'] . ' ';
 			} elseif ( ! empty( $meta['pb_publication_date'] ) ) {
@@ -1251,9 +1536,9 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @param  array $book_contents
 	 * @param  array $metadata
-	 * @return \Generator
+	 * @return Generator
 	 */
-	protected function renderFrontMatterGenerator( $book_contents, $metadata ) : \Generator {
+	protected function renderFrontMatterGenerator( $book_contents, $metadata ) : Generator {
 
 		$y = new PercentageYield( 50, 60, count( $book_contents['front-matter'] ) );
 
@@ -1316,9 +1601,9 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @param  array $book_contents
 	 * @param  array $metadata
-	 * @return \Generator
+	 * @return Generator
 	 */
-	protected function renderPartsAndChaptersGenerator( $book_contents, $metadata ) : \Generator {
+	protected function renderPartsAndChaptersGenerator( $book_contents, $metadata ) : Generator {
 		$yield = new PercentageYield( 60, 70, $this->countPartsAndChapters( $book_contents ) );
 
 		$part_index = 1;
@@ -1356,7 +1641,7 @@ class Xhtml11 extends ExportGenerator {
 					'invisibility' => $invisible ? 'invisible' : '',
 					'introduction' => $part_is_introduction ? 'introduction' : '',
 					'slug' => $part_slug,
-					'number' => \Pressbooks\L10n\romanize( $part_number ),
+					'number' => romanize( $part_number ),
 					'title' => decode( $part_title ),
 					'content' => $part_content,
 					'endnotes' => $this->doEndnotes( $part['ID'] ),
@@ -1400,6 +1685,14 @@ class Xhtml11 extends ExportGenerator {
 					: '';
 
 				$chapter_number = ! str_contains( $chapter_subclass, 'numberless' ) ? $chapter_index : '';
+
+				if ( preg_match_all( '/<style.*?scoped="scoped".*?>(.*?)<\/style>/is', $chapter_content, $matches ) ) {
+					$scoped_styles = implode( "\n", $matches[1] ) . "\n";
+					add_filter('pb_process_scoped_styles', function( $st ) use ( $scoped_styles ) {
+						return $st . $this->cleanH5PCss( $scoped_styles );
+					});
+				}
+				$chapter_content = preg_replace( '/<style.*?scoped="scoped".*?<\/style>/i', '', $chapter_content );
 
 				$rendered_chapters .= $this->blade->render(
 					'export/chapter',
@@ -1452,6 +1745,11 @@ class Xhtml11 extends ExportGenerator {
 			}
 
 			++$part_index;
+
+			// Clear processing caches periodically to manage memory
+			if ( $part_index % 3 === 0 ) {
+				$this->clearProcessingCaches();
+			}
 		}
 	}
 
@@ -1460,9 +1758,9 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @param  array $book_contents
 	 * @param  array $metadata
-	 * @return \Generator
+	 * @return Generator
 	 */
-	protected function renderBackMatterGenerator( $book_contents, $metadata ) : \Generator {
+	protected function renderBackMatterGenerator( $book_contents, $metadata ) : Generator {
 
 		$y = new PercentageYield( 70, 80, count( $book_contents['back-matter'] ) );
 
@@ -1536,7 +1834,7 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @return bool
 	 */
-	static function hasDependencies() {
+	public static function hasDependencies() {
 		if ( true === check_xmllint_install() ) {
 			return true;
 		}

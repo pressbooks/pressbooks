@@ -11,6 +11,16 @@
             "url": "https:\/\/nu.edu.kz\/"
           }
         ]
+      },
+      {
+        "name": "Malaysia",
+        "institutions": [
+          {
+            "code": "AS-MYS-001",
+            "name": "University of Malaysia Sabah",
+            "url": "https:\/\/www.ums.edu.my\/"
+          }
+        ]
       }
     ]
   },

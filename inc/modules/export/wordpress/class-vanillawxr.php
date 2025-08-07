@@ -6,13 +6,22 @@
 
 namespace Pressbooks\Modules\Export\WordPress;
 
+use DOMDocument;
+use Exception;
+use function Pressbooks\Utility\put_contents;
+use Generator;
+
 /**
  * This class will export wxr that can be consumed by a vanilla installation of WP
  */
 class VanillaWxr extends Wxr {
 
-	function convert() {
+	/**
+	 * @throws Exception
+	 */
+	public function convert(): Generator {
 		// Get WXR
+		yield 30 => __( 'Transforming WXR.', 'pressbooks' );
 		$output = $this->transform( true );
 
 		if ( ! $output ) {
@@ -22,10 +31,11 @@ class VanillaWxr extends Wxr {
 		// use error handling to fetch error information as needed
 		libxml_use_internal_errors( true );
 
-		$dom = new \DOMDocument();
+		$dom = new DOMDocument();
 		$dom->preserveWhiteSpace = false;
 		$dom->recover = true; // Try to parse non-well formed documents
 		$success = $dom->loadXML( $output, LIBXML_NOBLANKS | LIBXML_NOENT | LIBXML_NONET | LIBXML_XINCLUDE | LIBXML_NOERROR | LIBXML_NOWARNING );
+		yield 40 => __( 'Transforming WXR.', 'pressbooks' );
 
 		// replace custom post_type
 		// attempting to import custom post types such as 'chapter',
@@ -34,27 +44,24 @@ class VanillaWxr extends Wxr {
 
 		// check for errors
 		if ( ! $success ) {
-			throw new \Exception( print_r( libxml_get_errors(), true ) ); // @codingStandardsIgnoreLine
+			throw new Exception( print_r( libxml_get_errors(), true ) ); // @codingStandardsIgnoreLine
 		}
 
+		yield 50 => __( 'Processing content.', 'pressbooks' );
+		$processed = 0;
+		$total = $post_type->length;
 		for ( $i = 0; $i < $post_type->length; $i++ ) {
-
 			switch ( $post_type->item( $i )->nodeValue ) {
 				case 'chapter':
-					$post_type->item( $i )->nodeValue = 'post';
-					break;
 				case 'front-matter':
-					$post_type->item( $i )->nodeValue = 'post';
-					break;
 				case 'back-matter':
-					$post_type->item( $i )->nodeValue = 'post';
-					break;
 				case 'part':
 					$post_type->item( $i )->nodeValue = 'post';
 					break;
 				default:
 					break;
 			}
+			$processed++;
 		}
 
 		// git rid of wp:term declaratation
@@ -64,9 +71,15 @@ class VanillaWxr extends Wxr {
 		// when you remove a child node, the next node becomes the first one,
 		// hence '$term->item(0)' and NOT '$term->item($i)'
 		$length = $term->length;
+		$processed = 0;
 		for ( $i = 0; $i < $length; $i++ ) {
 			$this->deleteNode( $term->item( 0 ) );
+			$processed++;
+			if ( $processed % 100 === 0 ) {
+				yield "Removing terms: {$processed}/{$length}";
+			}
 		}
+		yield 60 => __( 'Cleaning content.', 'pressbooks' );
 
 		//clean up whitespace
 		$dom->formatOutput = true;
@@ -75,33 +88,31 @@ class VanillaWxr extends Wxr {
 		// easier to manipulate the value of attributes with SimpleXML
 		$xml = simplexml_import_dom( $dom );
 		unset( $dom );
+		yield 65 => __( 'Parsing SimpleXML.', 'pressbooks' );
 
 		// sanity
 		if ( ! $xml ) {
-			throw new \Exception( print_r( libxml_get_errors(), true ) ); // @codingStandardsIgnoreLine
+			throw new Exception( print_r( libxml_get_errors(), true ) ); // @codingStandardsIgnoreLine
 		}
 
 		$category = $xml->xpath( '/rss/channel/item/category' );
+		$processed = 0;
+		$total = count( $category );
+
+		yield 67 => __( 'Processing categories.', 'pressbooks' );
 
 		foreach ( $category as $uncategorize ) {
-
 			switch ( (string) $uncategorize->attributes()->domain ) {
 				case 'front-matter-type':
-					$uncategorize->attributes()->domain = 'category';
-					$uncategorize->attributes()->nicename = 'uncategorized';
-					break;
 				case 'back-matter-type':
-					$uncategorize->attributes()->domain = 'category';
-					$uncategorize->attributes()->nicename = 'uncategorized';
-					break;
 				case 'chapter-type':
 					$uncategorize->attributes()->domain = 'category';
 					$uncategorize->attributes()->nicename = 'uncategorized';
 					break;
-
 				default:
 					break;
 			}
+			$processed++;
 		}
 
 		// convert back to xml string
@@ -109,29 +120,30 @@ class VanillaWxr extends Wxr {
 
 		// save wxr as file in exports folder
 		$filename = $this->timestampedFileName( '._vanilla.xml' );
-		\Pressbooks\Utility\put_contents( $filename, $output );
+		put_contents( $filename, $output );
 		$this->outputPath = $filename;
+		yield 80 => __( 'Saving WXR file.', 'pressbooks' );
 
-		return true;
+		return $this->outputPath;
 	}
 
 	/**
 	 * deletes a node and all of its children
 	 *
-	 * @param \DOMNode $node
+	 * @param DOMNode $node
 	 */
-	private function deleteNode( $node ) {
+	private function deleteNode( $node ): void {
 		$this->deleteChildren( $node );
 		$parent = $node->parentNode;
-		$oldnode = $parent->removeChild( $node );
+		$parent->removeChild( $node );
 	}
 
 	/**
 	 * recursive function to delete all children of a node
 	 *
-	 * @param \DOMNode $node
+	 * @param DOMNode $node
 	 */
-	private function deleteChildren( $node ) {
+	private function deleteChildren( $node ): void {
 		while ( isset( $node->firstChild ) ) {
 			$this->deleteChildren( $node->firstChild );
 			$node->removeChild( $node->firstChild );

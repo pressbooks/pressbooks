@@ -316,6 +316,11 @@ Container::get( 'Styles' )->init();
 if ( $is_book ) {
 	// Overrides (sometimes a web stylesheet update will be triggered by a visitor so this filter needs to be active outside of the admin)
 	add_filter( 'pb_web_css_override', [ '\Pressbooks\Modules\ThemeOptions\WebOptions', 'scssOverrides' ] );
+	// Overrides for ebook and PDF stylesheets
+	if ( ! defined( 'WP_TESTS_DOMAIN' ) ) {
+		add_filter( 'pb_epub_css_override', [ '\Pressbooks\Modules\ThemeOptions\EbookOptions', 'scssOverrides' ] );
+		add_filter( 'pb_pdf_css_override', [ '\Pressbooks\Modules\ThemeOptions\PDFOptions', 'scssOverrides' ] );
+	}
 }
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -354,3 +359,6 @@ add_action( 'wp_initialize_site', [ Privacy::class, 'setDefaultPermissivePrivate
 //Network Managers hooks via CLI
 add_action( 'revoked_super_admin', '\Pressbooks\Admin\NetworkManagers\remove_from_pressbooks_network_managers' );
 add_action( 'deleted_user', '\Pressbooks\Admin\NetworkManagers\remove_from_pressbooks_network_managers' );
+
+// Optimize H5P CSS files for export
+add_action( 'pb_xhtml_after_content_processed', '\Pressbooks\Modules\Export\pb_xhtml_after_content_processed' );

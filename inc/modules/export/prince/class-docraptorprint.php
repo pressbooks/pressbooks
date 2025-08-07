@@ -17,8 +17,7 @@ class DocraptorPrint extends Docraptor {
 	 */
 	public function __construct( array $args ) {
 		parent::__construct( $args );
-		$this->url .= '&optimize-for-print=1';
-
+		$_GET['optimize-for-print'] = true;
 		// PDF size tends to shrink if you disable links
 		$this->cssOverrides .= "\n" . ':link { prince-link: none !important }' . "\n";
 	}
@@ -26,7 +25,7 @@ class DocraptorPrint extends Docraptor {
 	/**
 	 * @return string
 	 */
-	protected function generateFileName() {
+	protected function generateFileName(): string {
 		return $this->timestampedFileName( '._print.pdf' );
 	}
 
@@ -35,7 +34,7 @@ class DocraptorPrint extends Docraptor {
 	 *
 	 * @return string
 	 */
-	protected function getPdfProfile() {
+	protected function getPdfProfile(): string {
 		return 'PDF/X-4';
 	}
 
@@ -44,14 +43,14 @@ class DocraptorPrint extends Docraptor {
 	 *
 	 * @return string
 	 */
-	protected function getPdfOutputIntent() {
+	protected function getPdfOutputIntent(): string {
 		return PB_PLUGIN_URL . 'assets/icc/USWebCoatedSWOP.icc';
 	}
 
 	/**
 	 * Override based on Theme Options
 	 */
-	protected function themeOptionsOverrides() {
+	protected function themeOptionsOverrides(): void {
 
 		parent::themeOptionsOverrides();
 

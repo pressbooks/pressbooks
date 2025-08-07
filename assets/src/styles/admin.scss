@@ -48,7 +48,7 @@ html #wpadminbar {
   height: var(--pb-toolbar-icon-size);
 }
 
-#wpadminbar #wp-toolbar #wp-admin-bar-menu-toggle .ab-icon:before,
+#wpadminbar #wp-toolbar #wp-admin-bar-menu-toggle .ab-icon::before,
 #wpadminbar #wp-toolbar .ab-icon {
   font: var(--pb-toolbar-icon-size) / 1 dashicons !important;
   height: var(--pb-toolbar-icon-size);
@@ -63,7 +63,7 @@ html #wpadminbar {
   font-size: 1rem;
 }
 
-#wpadminbar #wp-toolbar #wp-admin-bar-menu-toggle .ab-icon:before {
+#wpadminbar #wp-toolbar #wp-admin-bar-menu-toggle .ab-icon::before {
   top: -1px;
 }
 
@@ -87,7 +87,7 @@ html #wpadminbar {
   color: $monza;
 }
 
-.wp-admin #wpadminbar #wp-admin-bar-site-name > .ab-item:before {
+.wp-admin #wpadminbar #wp-admin-bar-site-name > .ab-item::before {
   content: none;
 }
 
@@ -175,7 +175,7 @@ html #wpadminbar {
     display: flex;
   }
 
-  #wpadminbar #wp-toolbar #wp-admin-bar-updates .ab-icon:before {
+  #wpadminbar #wp-toolbar #wp-admin-bar-updates .ab-icon::before {
     top: 0;
   }
 
@@ -224,7 +224,7 @@ html #wpadminbar {
   }
 
   #wpadminbar #wp-toolbar .ab-icon,
-  #wpadminbar #wp-toolbar #wp-admin-bar-menu-toggle .ab-icon:before {
+  #wpadminbar #wp-toolbar #wp-admin-bar-menu-toggle .ab-icon::before {
     font: var(--pb-toolbar-icon-size)/1 dashicons !important;
     height: var(--pb-toolbar-icon-size);
     width: var(--pb-toolbar-icon-size);
