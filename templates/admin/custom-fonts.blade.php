@@ -1,18 +1,18 @@
-{!! $notices ?? '' !!}
+{!! wp_kses_post( $notices ?? '' ) !!}
 
 <div class="wrap">
     <h1>{{ __('Upload Custom Font', 'pressbooks') }}</h1>
     <p>{{ __('Upload custom font files for any additional font families you want to make available for books on your network. Permitted file types: .otf, .ttf, .woff, .woff2.') }}</p>
 
-    @if (isset($_GET['updated']) && $_GET['updated'] === 'true')
+    @if (isset($_GET['updated']) && sanitize_text_field( wp_unslash( $_GET['updated'] ) ) === 'true')
         <div class="notice notice-success is-dismissible">
             <p>{{ __('Font uploaded successfully.', 'pressbooks') }}</p>
         </div>
     @endif
 
-    <form method="post" enctype="multipart/form-data" action="{{ admin_url('admin-post.php') }}">
+    <form method="post" enctype="multipart/form-data" action="{{ esc_url( admin_url('admin-post.php') ) }}">
         <input type="hidden" name="action" value="pb_save_custom_fonts">
-        <input type="hidden" name="_wpnonce" value="{{ $nonce }}">
+        <input type="hidden" name="_wpnonce" value="{{ esc_attr( $nonce ) }}">
 
         <table class="form-table">
             <tr>
@@ -66,13 +66,13 @@
             <tbody>
             @foreach ($fonts as $font)
                 <tr>
-                    <td>{{ $font['name'] }}</td> <!-- Font Family Name -->
+                    <td>{{ esc_html( $font['name'] ?? '' ) }}</td>
                     <td>
-                        @foreach ($font['files'] as $variant => $file)
-                            <a href="{{ $file['file'] }}" target="_blank">{{ ucwords(str_replace('_', ' ', $variant)) }}</a><br> <!-- Links for each variant -->
+                        @foreach (($font['files'] ?? []) as $variant => $file)
+                            <a href="{{ esc_url( $file['file'] ?? '' ) }}" target="_blank">{{ esc_html( ucwords(str_replace('_', ' ', $variant)) ) }}</a><br>
                         @endforeach
                     </td>
-                    <td>{{ $font['fallback'] ?? '' }}</td>
+                    <td>{{ esc_html( $font['fallback'] ?? '' ) }}</td>
                 </tr>
             @endforeach
             </tbody>

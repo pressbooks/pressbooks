@@ -14,12 +14,14 @@ use Pressbooks\Container;
 function render_custom_fonts_page() {
 	$blade = Container::get( 'Blade' );
 	$fonts = get_site_option( 'pressbooks_custom_fonts', [] );
+    // phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
 	echo $blade->render(
 		'admin.custom-fonts', [
 			'fonts' => $fonts,
 			'nonce' => wp_create_nonce( 'pb_save_custom_fonts' ),
 		]
 	);
+    // phpcs:enable Pressbooks.Security.EscapeOutput.OutputNotEscaped
 }
 
 /**
@@ -27,7 +29,7 @@ function render_custom_fonts_page() {
  */
 function handle_form_submission() {
 	// Verify the nonce
-	if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'pb_save_custom_fonts' ) ) {
+	if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'pb_save_custom_fonts' ) ) {
 		die( 'Permission denied' );
 	}
 
@@ -37,13 +39,13 @@ function handle_form_submission() {
 	}
 
 	$fonts = get_site_option( 'pressbooks_custom_fonts', [] );
-	$slug = sanitize_text_field( $_POST['font_name'] );
-	$fallback = sanitize_text_field( $_POST['font_fallback'] );
+	$slug = sanitize_text_field( wp_unslash( $_POST['font_name'] ?? '' ) );
+	$fallback = sanitize_text_field( wp_unslash( $_POST['font_fallback'] ?? '' ) );
 	$font_files = [
-		'regular'        => $_FILES['font_file_regular'] ?? null,
-		'bold'           => $_FILES['font_file_bold'] ?? null,
-		'italic'         => $_FILES['font_file_italic'] ?? null,
-		'bold_italic'    => $_FILES['font_file_bold_italic'] ?? null,
+		'regular'        => isset( $_FILES['font_file_regular'] ) ? map_deep( wp_unslash( $_FILES['font_file_regular'] ), 'sanitize_text_field' ) : null,
+		'bold'           => isset( $_FILES['font_file_bold'] ) ? map_deep( wp_unslash( $_FILES['font_file_bold'] ), 'sanitize_text_field' ) : null,
+		'italic'         => isset( $_FILES['font_file_italic'] ) ? map_deep( wp_unslash( $_FILES['font_file_italic'] ), 'sanitize_text_field' ) : null,
+		'bold_italic'    => isset( $_FILES['font_file_bold_italic'] ) ? map_deep( wp_unslash( $_FILES['font_file_bold_italic'] ), 'sanitize_text_field' ) : null,
 	];
 
 	if ( ! isset( $fonts[ $slug ] ) ) {
@@ -68,7 +70,7 @@ function handle_form_submission() {
 			if ( ! empty( $file['tmp_name'] ) ) {
 				$result = handle_uploaded_font( $file, $key, $target_dir );
 				if ( is_wp_error( $result ) ) {
-					die( $result->get_error_message() );
+					die( esc_html( $result->get_error_message() ) );
 				}
 				$fonts[ $slug ]['files'][ $key ] = $result;
 			}
@@ -94,9 +96,9 @@ function handle_form_submission() {
 function handle_uploaded_font( $file, $key, $target_dir ) {
 	$allowed_types = [ 'woff', 'woff2', 'ttf', 'otf' ];
 	$file_name = basename( $file['name'] );
-	$file_extension = pathinfo( $file_name, PATHINFO_EXTENSION );
+	$file_extension = strtolower( pathinfo( $file_name, PATHINFO_EXTENSION ) );
 
-	if ( ! in_array( $file_extension, $allowed_types ) ) {
+	if ( ! in_array( $file_extension, $allowed_types, true ) ) {
 		return new WP_Error( 'invalid_type', 'Invalid font file type.' );
 	}
 
