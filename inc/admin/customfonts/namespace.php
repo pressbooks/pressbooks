@@ -93,7 +93,7 @@ function handle_form_submission() {
  *
  * @return array|WP_Error The URL of the uploaded font file and its variation or an error object
  */
-function handle_uploaded_font( $file, $key, $target_dir ) {
+function handle_uploaded_font( array $file, string $key, string $target_dir ) {
 	$allowed_types = [ 'woff', 'woff2', 'ttf', 'otf' ];
 	$file_name = basename( $file['name'] );
 	$file_extension = strtolower( pathinfo( $file_name, PATHINFO_EXTENSION ) );
