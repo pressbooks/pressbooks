@@ -905,7 +905,7 @@ msgstr "Tâche(s) d’exportation ajoutée(s) à la file d’attente. La progres
 
 #: inc/admin/laf/namespace.php:359
 msgid "Are you sure you want to cancel this export job?"
-msgstr ""
+msgstr "Voulez-vous vraiment annuler cette tâche d’exportation ?"
 
 #: inc/admin/laf/namespace.php:360
 msgid "Failed to cancel export job."
