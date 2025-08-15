@@ -874,7 +874,7 @@ msgstr "Exporter"
 
 #: inc/admin/laf/namespace.php:351
 msgid "Please select at least one export format."
-msgstr ""
+msgstr "Veuillez sélectionner au moins un format d'exportation."
 
 #: inc/admin/laf/namespace.php:352
 msgid "Exporting..."
