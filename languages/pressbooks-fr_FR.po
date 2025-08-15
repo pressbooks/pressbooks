@@ -901,7 +901,7 @@ msgid ""
 "Export job(s) successfully added to the queue. Progress updates will appear "
 "below until the export process is completed. In the meantime, you can safely"
 " navigate away from this page."
-msgstr ""
+msgstr "Tâche(s) d’exportation ajoutée(s) à la file d’attente. La progression s’affichera ci-dessous jusqu’à la fin du processus. Vous pouvez entre-temps quitter cette page en toute sécurité."
 
 #: inc/admin/laf/namespace.php:359
 msgid "Are you sure you want to cancel this export job?"
