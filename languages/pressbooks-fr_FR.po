@@ -886,7 +886,7 @@ msgstr "Démarrage de l’exportation..."
 
 #: inc/admin/laf/namespace.php:354
 msgid "Download File"
-msgstr ""
+msgstr "Télécharger le fichier"
 
 #: inc/admin/laf/namespace.php:355
 msgid "Up to 5 files can be pinned at once."
