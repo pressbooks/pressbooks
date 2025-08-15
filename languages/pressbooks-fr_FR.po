@@ -882,7 +882,7 @@ msgstr "Exportation en cours..."
 
 #: inc/admin/laf/namespace.php:353
 msgid "Starting export process..."
-msgstr ""
+msgstr "Démarrage de l’exportation..."
 
 #: inc/admin/laf/namespace.php:354
 msgid "Download File"
