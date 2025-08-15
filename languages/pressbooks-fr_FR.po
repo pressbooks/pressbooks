@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2025-07-16T16:30:38+00:00\n"
+"POT-Creation-Date: 2025-07-30T15:12:23+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
 "Last-Translator: Mich Spieler, 2024-2025\n"
 "Language-Team: French (http://app.transifex.com/pressbooks/pressbooks/language/fr/)\n"
@@ -136,35 +136,35 @@ msgstr "Adapté par"
 msgid "Adapted by URL"
 msgstr "Adresse URL Adapté par"
 
-#: inc/admin/branding/namespace.php:185
+#: inc/admin/branding/namespace.php:186
 msgid "Log In"
 msgstr "Se connecter"
 
-#: inc/admin/branding/namespace.php:186
+#: inc/admin/branding/namespace.php:187
 msgid "Lost Password"
 msgstr "Mot de passe oublié"
 
-#: inc/admin/branding/namespace.php:187
+#: inc/admin/branding/namespace.php:188
 msgid "Reset Password"
 msgstr "Changer le mot de passe"
 
-#: inc/admin/branding/namespace.php:188
+#: inc/admin/branding/namespace.php:189
 msgid "Password Reset"
 msgstr "Mot de passe modifié"
 
-#: inc/admin/class-catalog-list-table.php:76
+#: inc/admin/class-catalog-list-table.php:63
 msgid "Visit Admin"
 msgstr "Voir le tableau de bord"
 
-#: inc/admin/class-catalog-list-table.php:106
-#: inc/admin/class-catalog-list-table.php:271
-#: inc/admin/class-catalog-list-table.php:533
+#: inc/admin/class-catalog-list-table.php:85
+#: inc/admin/class-catalog-list-table.php:267
+#: inc/admin/class-catalog-list-table.php:508
 msgid "Hide in Catalog"
 msgstr "Ne pas afficher dans le catalogue"
 
-#: inc/admin/class-catalog-list-table.php:111
-#: inc/admin/class-catalog-list-table.php:270
-#: inc/admin/class-catalog-list-table.php:531
+#: inc/admin/class-catalog-list-table.php:94
+#: inc/admin/class-catalog-list-table.php:266
+#: inc/admin/class-catalog-list-table.php:506
 msgid "Show in Catalog"
 msgstr "Afficher dans le catalogue"
 
@@ -200,74 +200,74 @@ msgstr "Affiché"
 msgid "Pub Date"
 msgstr "Date de publication"
 
-#: inc/admin/class-catalog-list-table.php:396
+#: inc/admin/class-catalog-list-table.php:379
 msgid "Edit Tags"
 msgstr "Changer les mots-clés"
 
-#: inc/admin/class-catalog-list-table.php:435
+#: inc/admin/class-catalog-list-table.php:409
 #: templates/admin/organize.blade.php:18 templates/admin/organize.blade.php:40
 msgid "Private"
 msgstr "Privé"
 
-#: inc/admin/class-catalog-list-table.php:435
+#: inc/admin/class-catalog-list-table.php:409
 #: templates/admin/organize.blade.php:13 templates/admin/organize.blade.php:26
 msgid "Public"
 msgstr "Public"
 
-#: inc/admin/class-catalog-list-table.php:507 inc/admin/laf/namespace.php:466
+#: inc/admin/class-catalog-list-table.php:481 inc/admin/laf/namespace.php:466
 #: inc/admin/laf/namespace.php:646 inc/admin/laf/namespace.php:925
 msgid "My Catalog"
 msgstr "Mon catalogue"
 
-#: inc/admin/class-catalog-list-table.php:508
+#: inc/admin/class-catalog-list-table.php:482
 msgid "Edit Profile"
 msgstr "Modifier le profil"
 
-#: inc/admin/class-catalog-list-table.php:509
+#: inc/admin/class-catalog-list-table.php:483
 msgid "Visit Catalog"
 msgstr "Consulter le catalogue"
 
 #. translators: %s: search keywords
-#: inc/admin/class-catalog-list-table.php:515
+#: inc/admin/class-catalog-list-table.php:489
 #, php-format
 msgid "Search results for &#8220;%s&#8221; returned no items"
 msgstr "Les résultats de la recherche pour &#8220;%s&#8221 ; n'ont donné aucun résultat."
 
 #. translators: %s: search keywords
-#: inc/admin/class-catalog-list-table.php:518
+#: inc/admin/class-catalog-list-table.php:492
 #, php-format
 msgid "Search results for &#8220;%s&#8221; returned 1 item"
 msgstr "Résultats de la recherche pour &#8220;%s&#8221 ; a retourné 1 item"
 
 #. translators: %s: search keywords, %d: total items found
-#: inc/admin/class-catalog-list-table.php:521
+#: inc/admin/class-catalog-list-table.php:495
 #, php-format
 msgid "Search results for &#8220;%1$s&#8221; returned %2$d items"
 msgstr "Les résultats de la recherche pour \"%1$s\" ont renvoyé %2$d éléments"
 
-#: inc/admin/class-catalog-list-table.php:529
+#: inc/admin/class-catalog-list-table.php:504
 msgid "Organize your public Catalog page."
 msgstr "Organisez votre page du catalogue."
 
-#: inc/admin/class-catalog-list-table.php:530
+#: inc/admin/class-catalog-list-table.php:505
 msgid "Show/Hide books"
 msgstr "Afficher/masquer les livres"
 
-#: inc/admin/class-catalog-list-table.php:531
+#: inc/admin/class-catalog-list-table.php:506
 #, php-format
 msgid "To display a book in your catalog choose \"%s\" under Catalog Status. "
 msgstr "Pour afficher un livre dans votre catalogue, choisissez «&nbsp;1%s&nbsp;» sous Statut du catalogue."
 
-#: inc/admin/class-catalog-list-table.php:533
+#: inc/admin/class-catalog-list-table.php:508
 #, php-format
 msgid "To hide a book in your catalog choose \"%s\" under Catalog Status."
 msgstr "Pour masquer un livre dans votre catalogue, choisissez «&nbsp;%s&nbsp;» sous Statut du catalogue."
 
-#: inc/admin/class-catalog-list-table.php:536
+#: inc/admin/class-catalog-list-table.php:511
 msgid "Catalog sorting"
 msgstr "Triage du catalogue"
 
-#: inc/admin/class-catalog-list-table.php:537
+#: inc/admin/class-catalog-list-table.php:515
 #, php-format
 msgid ""
 "To add sorting ability, add your Tag names to your <a href=\"%s\">Catalog "
@@ -275,19 +275,19 @@ msgid ""
 " each individual book."
 msgstr "Pour ajouter la fonction de triage, ajoutez vos mots-clés à la page de votre <a href=\"%s\">profil dans le catalogue</a> (ex&nbsp;: auteurs, catégorie de livres), puis ajoutez les mots-clés appropriés à chaque livre."
 
-#: inc/admin/class-catalog-list-table.php:539
+#: inc/admin/class-catalog-list-table.php:519
 msgid "Share your catalog"
 msgstr "Partagez votre catalogue"
 
-#: inc/admin/class-catalog-list-table.php:540
+#: inc/admin/class-catalog-list-table.php:521
 msgid "The public link to your catalog page"
 msgstr "Le lien public de votre catalogue"
 
-#: inc/admin/class-catalog-list-table.php:553
+#: inc/admin/class-catalog-list-table.php:539
 msgid "Add By URL"
 msgstr "Ajouter par adresse URL"
 
-#: inc/admin/class-catalog-list-table.php:564 templates/admin/search.php:81
+#: inc/admin/class-catalog-list-table.php:549 templates/admin/search.php:81
 #: templates/admin/cloner/page.blade.php:26
 msgid "Search"
 msgstr "Rechercher"
@@ -332,7 +332,7 @@ msgstr "Paramètres d&rsquo;exportation."
 msgid ""
 "This will include a read-only version of H5P activities where possible, in "
 "PDF and EPUB exports."
-msgstr ""
+msgstr "Cela inclura, dans la mesure du possible, une version en lecture seule des activités H5P, dans les exportations au format PDF et EPUB."
 
 #: inc/admin/class-exportoptions.php:205
 msgid ""
@@ -364,42 +364,42 @@ msgstr ""
 msgid "Sort by %s in ascending order."
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:75
+#: inc/admin/class-publishoptions.php:74
 msgid "Amazon URL"
 msgstr "Adresse URL Amazon"
 
-#: inc/admin/class-publishoptions.php:84
+#: inc/admin/class-publishoptions.php:75
 msgid "O'Reilly URL"
 msgstr "Adresse URL O&rsquo;Reilly"
 
-#: inc/admin/class-publishoptions.php:93
+#: inc/admin/class-publishoptions.php:76
 msgid "Barnes and Noble URL"
 msgstr "Adresse URL Barnes and Noble"
 
-#: inc/admin/class-publishoptions.php:102
+#: inc/admin/class-publishoptions.php:77
 msgid "Kobo URL"
 msgstr "Adresse URL Kobo"
 
-#: inc/admin/class-publishoptions.php:111
+#: inc/admin/class-publishoptions.php:78
 msgid "Apple Books URL"
 msgstr "URL des livres Apple"
 
-#: inc/admin/class-publishoptions.php:120
+#: inc/admin/class-publishoptions.php:79
 msgid "Other Service URL"
 msgstr "Adresse URL d&rsquo;un autre service"
 
-#: inc/admin/class-publishoptions.php:139
+#: inc/admin/class-publishoptions.php:107
 msgid "Add BUY Links to Your Pressbooks Webbook"
 msgstr "Ajoutez des liens Acheter à votre livre Web Pressbooks"
 
-#: inc/admin/class-publishoptions.php:140
+#: inc/admin/class-publishoptions.php:108
 msgid ""
 "Enter the URLs for locations where your book can be purchased below. <a "
 "href=\"https://guide.pressbooks.com/chapter/publish/\">Our guide</a> "
 "provides additional information about selling and distributing your book."
 msgstr "Saisissez ci-dessous les URL des lieux où votre livre peut être acheté. <a href=\"https://guide.pressbooks.com/chapter/publish/\">Notre guide </a>fournit des informations supplémentaires sur la vente et la distribution de votre livre."
 
-#: inc/admin/class-publishoptions.php:300 inc/admin/laf/namespace.php:415
+#: inc/admin/class-publishoptions.php:183 inc/admin/laf/namespace.php:415
 msgid "Publish"
 msgstr "Publier"
 
@@ -646,13 +646,13 @@ msgid ""
 " %1$s to %2$s."
 msgstr "Votre image présente un mauvais rapport hauteur/largeur. L&rsquo;image doit avoir un rapport hauteur/largeur de %2$s à %1$s."
 
-#: inc/admin/dashboard/class-dashboard.php:54 inc/admin/laf/namespace.php:822
+#: inc/admin/dashboard/class-dashboard.php:56 inc/admin/laf/namespace.php:822
 #: inc/admin/laf/namespace.php:897 inc/admin/menus/class-sidebar.php:199
 #: inc/admin/menus/class-sidebar.php:200 inc/admin/menus/class-topbar.php:123
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
-#: inc/admin/dashboard/class-dashboard.php:55
+#: inc/admin/dashboard/class-dashboard.php:57
 msgid "Home"
 msgstr "Page d'accueil"
 
@@ -878,7 +878,7 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:352
 msgid "Exporting..."
-msgstr ""
+msgstr "Exportation en cours..."
 
 #: inc/admin/laf/namespace.php:353
 msgid "Starting export process..."
@@ -2877,8 +2877,8 @@ msgstr "Création de la page couverture"
 msgid "book"
 msgstr "livre"
 
-#: inc/covergenerator/class-generator.php:454
-#: inc/modules/export/prince/class-docraptor.php:148
+#: inc/covergenerator/class-generator.php:458
+#: inc/modules/export/prince/class-docraptor.php:149
 msgid "Your PDF could not be retrieved."
 msgstr "Votre PDF est introuvable."
 
@@ -3499,15 +3499,15 @@ msgstr ""
 msgid "Processing content..."
 msgstr ""
 
-#: inc/modules/export/prince/class-docraptor.php:135
+#: inc/modules/export/prince/class-docraptor.php:136
 msgid "Converting document..."
 msgstr ""
 
-#: inc/modules/export/prince/class-docraptor.php:142
+#: inc/modules/export/prince/class-docraptor.php:143
 msgid "Fetching converted file..."
 msgstr ""
 
-#: inc/modules/export/prince/class-docraptor.php:182
+#: inc/modules/export/prince/class-docraptor.php:183
 msgid "Conversion complete."
 msgstr ""
 
@@ -5460,10 +5460,6 @@ msgstr "Afficher la liste des livres"
 msgid "View user list"
 msgstr "Afficher la liste des utilisateurs"
 
-#: templates/admin/dashboard/network.blade.php:116
-msgid "Pressbooks product updates"
-msgstr ""
-
 #: templates/admin/dashboard/support.blade.php:8
 msgid "Network manager guide"
 msgstr "Guide pour les administrateurs de réseau"
@@ -5475,6 +5471,10 @@ msgstr "Webinaires Pressbooks"
 #: templates/admin/dashboard/support.blade.php:30
 msgid "Contact Pressbooks Support"
 msgstr "Contactez le support de Pressbooks."
+
+#: templates/admin/dashboard/support.blade.php:41
+msgid "Pressbooks product updates"
+msgstr ""
 
 #: templates/admin/dashboard/user.blade.php:18
 msgid "Book Invitations"
