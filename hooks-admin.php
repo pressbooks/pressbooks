@@ -19,7 +19,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 // -------------------------------------------------------------------------------------------------------------------
 
 require_once( __DIR__ . '/requires-admin.php' );
-require_once( __DIR__ . '/inc/editoria11y-tinymce.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Recycle, reduce, reuse
@@ -222,6 +221,7 @@ if ( $is_book ) {
 	add_filter( 'wp_link_query', '\Pressbooks\Editor\add_anchors_to_wp_link_query', 1, 2 );
 	add_action( 'admin_enqueue_scripts', '\Pressbooks\Editor\admin_enqueue_scripts' );
 	add_action( 'admin_init', '\Pressbooks\Editor\add_editor_style' );
+	add_action( 'admin_enqueue_scripts', '\Pressbooks\Editor\enqueue_editoria11y_tinymce_adapter', 60 );
 }
 if ( ! defined( 'PB_GUTENBERG_TESTING' ) || ! PB_GUTENBERG_TESTING ) {
 	// Hide Gutenberg

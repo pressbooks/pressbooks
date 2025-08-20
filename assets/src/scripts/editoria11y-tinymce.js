@@ -106,6 +106,7 @@
       try {
         w.__pbEd11yInstance = new w.Ed11y(opts);
         w.__pbEd11yLastFull = Date.now();
+  w.__pbEd11yVisible = true; // primera creación = visible
         log('Instancia Ed11y creada en iframe', editor.id, opts);
       } catch(e){ log('Error creando instancia Ed11y', e); }
     });
@@ -115,7 +116,7 @@
     const iframe = editor.iframeElement || document.getElementById(editor.id + '_ifr');
     if(!iframe || !iframe.contentWindow) return;
     const w = iframe.contentWindow; const inst = w.__pbEd11yInstance; const C = w.Ed11y;
-    if(!inst || !C) return;
+  if(!inst || !C) return;
     try {
       if(forceFull || Date.now() - (w.__pbEd11yLastFull || 0) > FULL_INTERVAL){
         if(!C.running && typeof C.checkAll === 'function'){ C.checkAll(); w.__pbEd11yLastFull = Date.now(); }
@@ -128,93 +129,22 @@
   }
 
   function registerButton(editor){
-    try {
-      if(editor.__pbEd11yButtonReg) return true;
-      const toggleHandler = ()=>{
-        const iframe = editor.iframeElement || document.getElementById(editor.id + '_ifr');
-        if(!iframe) return; const w = iframe.contentWindow; const doc = iframe.contentDocument; if(!doc) return;
-        // Crear instancia si aún no existe
-        if(!w.__pbEd11yInstance){
-          instantiate(editor);
-          // retraso breve para permitir construcción interna antes de forzar primer check
-          setTimeout(()=>{ recheck(editor,true); tryTogglePanel(w); }, 600);
-          return;
-        }
-        // Asegurar script cargado
-        if(!w.Ed11y){ return; }
-        // Reutilizar API interna si existe
-        tryTogglePanel(w);
-        recheck(editor,true);
-      };
-      if(editor.ui && editor.ui.registry){ // TinyMCE 5/6
-        if(!editor.ui.registry.getAll().buttons.ed11yToggle){
-          editor.ui.registry.addButton('ed11yToggle', { text:'A11y', tooltip:'Accessibility checker', onAction: toggleHandler });
-          log('Botón registrado via ui.registry');
-        }
-        editor.__pbEd11yButtonReg = true;
-        return true;
-      } else if(typeof editor.addButton === 'function'){ // TinyMCE 4
-        editor.addButton('ed11yToggle', { text:'A11y', tooltip:'Accessibility checker', onclick: toggleHandler });
-        editor.__pbEd11yButtonReg = true;
-        log('Botón registrado via addButton');
-        return true;
-      }
-    } catch(e){ log('Fallo registerButton', e); }
-    return false;
+  return false; // botón deshabilitado
   }
 
   function toolbarEnsureConfig(cfg){
-    const tb = cfg.toolbar1 || cfg.toolbar || '';
-    if(!/\bed11yToggle\b/.test(tb)){
-      if(typeof cfg.toolbar1 !== 'undefined'){
-        cfg.toolbar1 = tb ? tb + ',ed11yToggle' : 'ed11yToggle';
-      } else if(cfg.toolbar){
-        cfg.toolbar += ' ed11yToggle';
-      } else {
-        cfg.toolbar1 = 'ed11yToggle';
-      }
-    }
+  // Ya no añadimos botón.
   }
 
   function domFallbackButton(editor){
-    try {
-      if(document.querySelector('.mce-btn.ed11y-fallback')) return;
-      const toolbars = document.querySelectorAll('.mce-toolbar-grp .mce-toolbar:last-child .mce-btn-group');
-      const targetGroup = toolbars[toolbars.length -1];
-      if(!targetGroup) return;
-      const wrapper = document.createElement('div');
-      wrapper.className = 'mce-widget mce-btn ed11y-fallback';
-      wrapper.setAttribute('tabindex','-1'); wrapper.setAttribute('role','button');
-      const btn = document.createElement('button');
-      btn.type='button'; btn.textContent='A11y';
-  btn.onclick=()=>{ registerButton(editor); editor.execCommand && editor.focus(); const iframe = document.getElementById(editor.id + '_ifr'); if(!iframe) return; const w = iframe.contentWindow; if(!w.__pbEd11yInstance){ instantiate(editor); setTimeout(()=>{ recheck(editor,true); tryTogglePanel(w); },600); } else { tryTogglePanel(w); recheck(editor,true); } };
-      wrapper.appendChild(btn);
-      targetGroup.appendChild(wrapper);
-      log('Botón fallback DOM insertado');
-    } catch(e){ log('Fallo domFallbackButton', e); }
+  // No se usa (botón eliminado)
   }
 
   function hookEditor(editor){
     if(editorsInit.has(editor)) return; editorsInit.add(editor);
-    // Intentar registrar botón inmediatamente (setup se ejecuta antes de init)
-    registerButton(editor);
     editor.on('init', ()=>{
-      instantiate(editor);
-      // Asegurar nuevamente botón; si falla usar fallback DOM tras un pequeño delay.
-      if(!registerButton(editor)) setTimeout(()=>domFallbackButton(editor), 800);
-      // Reintentos adicionales si todavía no aparece (problemas de timing TinyMCE 4 WordPress)
-      [1500, 3000].forEach(delay=>{
-        setTimeout(()=>{
-          try {
-            let found = !!document.querySelector('.mce-btn.ed11y-fallback');
-            if(!found){
-              const btns = document.querySelectorAll('.mce-btn button, .mce-widget button');
-              found = Array.from(btns).some(b=> b.textContent.trim() === 'A11y');
-            }
-            if(!found) domFallbackButton(editor);
-          } catch(e){ log('Error en detección reintento botón', e); }
-        }, delay);
-      });
+  // Instanciación automática al inicializar el editor
+  instantiate(editor);
       const debounced = debounce(()=>recheck(editor,false), RECHECK_DEBOUNCE);
       ['Change','SetContent','KeyUp','Paste','Undo','Redo','NodeChange'].forEach(ev=>editor.on(ev, debounced));
     });
@@ -237,11 +167,7 @@
         if(ed.initialized && !ed.__pbEd11ySetupDone){
           ed.__pbEd11ySetupDone = true;
           log('Editor ya inicializado detectado, aplicando fallback', ed.id);
-          // Intentar registrar botón (si TinyMCE 4 addButton aún disponible post-init)
-          if(!registerButton(ed)){
-            // Si no fue posible (porque el toolbar ya se construyó y addButton no genera DOM) usar fallback manual tras breve espera
-            setTimeout(()=>domFallbackButton(ed), 400);
-          }
+          // Instanciar directamente
           instantiate(ed);
         }
       });
