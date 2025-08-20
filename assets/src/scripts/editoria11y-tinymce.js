@@ -4,25 +4,14 @@
 	const FULL_CHECK_INTERVAL = 12000;
 	const RECHECK_DELAY = 600;
 	const initializedEditors = new WeakSet();
-
-	/**
-	 * Log with prefix.
-	 *
-	 * @param {...*} args
-	 */
-	function log( ...args ) {
-		if ( window.console ) {
-			// eslint-disable-next-line no-console
-			console.log( '[PB Ed11y]', ...args );
-		}
-	}
+	const EXPORT_SHIM = 'try{if(typeof Ed11y!=="undefined" && !window.Ed11y){window.Ed11y=Ed11y;}}catch(e){}';
 
 	/**
 	 * Run callback when DOM is ready.
 	 *
 	 * @param {Function} cb
 	 */
-	function onDomReady( cb ) {
+	function whenDomReady( cb ) {
 		if ( document.readyState !== 'loading' ) {
 			cb();
 		} else {
@@ -35,14 +24,14 @@
 	 *
 	 * @param {Function} cb
 	 */
-	function waitForTinyMCE( cb ) {
+	function waitForTinyMceEditors( cb ) {
 		if ( window.tinymce && window.tinymce.editors.length ) {
 			cb();
-		} else {
-			setTimeout( function () {
-				waitForTinyMCE( cb );
-			}, POLL_INTERVAL );
+			return;
 		}
+		setTimeout( function () {
+			waitForTinyMceEditors( cb );
+		}, POLL_INTERVAL );
 	}
 
 	/**
@@ -67,7 +56,7 @@
 	 *
 	 * @returns {object}
 	 */
-	function buildOptions() {
+	function buildEd11yOptions() {
 		const base = ( window.ed11yVars && window.ed11yVars.options ) ? JSON.parse( JSON.stringify( window.ed11yVars.options ) ) : {};
 		base.checkRoots = 'body#tinymce';
 		base.ignoreElements = ( base.ignoreElements || '' ) + ', #wpadminbar *';
@@ -86,7 +75,7 @@
 	 * @param {Window} iframeWin
 	 * @param {Function} done
 	 */
-	function loadIframeScript( iframeWin, done ) {
+	function ensureEd11yInIframe( iframeWin, done ) {
 		if ( iframeWin.Ed11y ) {
 			return done();
 		}
@@ -101,11 +90,11 @@
 					if ( ! iframeWin.Ed11y && ! iframeWin.__pbEd11yExportTried ) {
 						iframeWin.__pbEd11yExportTried = true;
 						const exp = iframeWin.document.createElement( 'script' );
-						exp.text = 'try{if(typeof Ed11y!=="undefined" && !window.Ed11y){window.Ed11y=Ed11y;}}catch(e){}';
+						exp.text = EXPORT_SHIM;
 						iframeWin.document.head.appendChild( exp );
 					} else if ( ! iframeWin.Ed11y && iframeWin.__pbEd11yExportTried ) {
 						const exp2 = iframeWin.document.createElement( 'script' );
-						exp2.text = 'try{if(typeof Ed11y!=="undefined" && !window.Ed11y){window.Ed11y=Ed11y;}}catch(e){}';
+						exp2.text = EXPORT_SHIM;
 						iframeWin.document.head.appendChild( exp2 );
 					}
 				} catch ( e ) { /* capture constructor polling error */ }
@@ -113,10 +102,11 @@
 					return done();
 				}
 				if ( window.Ed11y && ! iframeWin.Ed11y ) {
-					iframeWin.Ed11y = window.Ed11y; return done();
+					iframeWin.Ed11y = window.Ed11y;
+					return done();
 				}
 				if ( loops++ > 40 ) {
-					log( 'Timeout waiting for Ed11y constructor' ); return done();
+					return done();
 				}
 				setTimeout( waitCtor, POLL_INTERVAL );
 			} )();
@@ -133,7 +123,7 @@
 				try {
 					if ( ! iframeWin.Ed11y ) {
 						const exp3 = iframeWin.document.createElement( 'script' );
-						exp3.text = 'try{if(typeof Ed11y!=="undefined" && !window.Ed11y){window.Ed11y=Ed11y; console.log("[PB Ed11y] (iframe post-load) Ed11y exported");}}catch(e){}';
+						exp3.text = EXPORT_SHIM;
 						iframeWin.document.head.appendChild( exp3 );
 					}
 				} catch ( e2 ) { /* ignore post-load export error */ }
@@ -141,10 +131,11 @@
 					return done();
 				}
 				if ( window.Ed11y && ! iframeWin.Ed11y ) {
-					iframeWin.Ed11y = window.Ed11y; log( 'Constructor Ed11y adopted post-load' ); return done();
+					iframeWin.Ed11y = window.Ed11y;
+					return done();
 				}
 				if ( loops2++ > 25 ) {
-					log( 'Ed11y not available after script load (fallback aborted)' ); return done();
+					return done();
 				}
 				setTimeout( confirmCtor, 120 );
 			} )();
@@ -153,7 +144,7 @@
 		 *
 		 */
 		s.onerror = function () {
-			log( 'Error loading library inside iframe' ); done();
+			done();
 		};
 		iframeWin.document.head.appendChild( s );
 	}
@@ -163,7 +154,7 @@
 	 *
 	 * @param {Document} iframeDoc
 	 */
-	function ensureIframeStylesheet( iframeDoc ) {
+	function ensureIframeStyles( iframeDoc ) {
 		const parentCss = document.querySelector( 'link[href*="editoria11y"][href$=".css"], link[href*="editoria11y.min.css"]' );
 		if ( parentCss && ! iframeDoc.querySelector( 'link[href="' + parentCss.href + '"]' ) ) {
 			const l = iframeDoc.createElement( 'link' );
@@ -178,7 +169,7 @@
 	 *
 	 * @param {object} editor
 	 */
-	function createInstance( editor ) {
+	function initEd11yInstance( editor ) {
 		const iframe = editor.iframeElement || document.getElementById( editor.id + '_ifr' );
 		if ( ! iframe || ! iframe.contentWindow || ! iframe.contentDocument ) {
 			return;
@@ -187,29 +178,26 @@
 		const d = w.document;
 		if ( ! d.body ) {
 			return setTimeout( function () {
-				createInstance( editor );
+				initEd11yInstance( editor );
 			}, POLL_INTERVAL );
 		}
 		if ( ! /\btinymce\b/.test( d.body.id ) ) {
 			d.body.id = 'tinymce';
 		}
-		ensureIframeStylesheet( d );
-		loadIframeScript( w, function () {
+		ensureIframeStyles( d );
+		ensureEd11yInIframe( w, function () {
 			if ( ! w.Ed11y ) {
-				log( 'Ed11y not available after script load (createInstance)' ); return;
+				return;
 			}
 			if ( w.__pbEd11yInstance ) {
 				return;
 			}
-			const opts = buildOptions();
+			const opts = buildEd11yOptions();
 			try {
 				w.__pbEd11yInstance = new w.Ed11y( opts );
 				w.__pbEd11yLastFull = Date.now();
 				w.__pbEd11yVisible = true;
-				log( 'Ed11y instance created in iframe', editor.id );
-			} catch ( e ) {
-				log( 'Error creating Ed11y instance', e );
-			}
+			} catch ( e ) { /* ignore instantiation error */ }
 		} );
 	}
 
@@ -219,7 +207,7 @@
 	 * @param {object} editor
 	 * @param {boolean} forceFull
 	 */
-	function runRecheck( editor, forceFull ) {
+	function runEd11yRecheck( editor, forceFull ) {
 		const iframe = editor.iframeElement || document.getElementById( editor.id + '_ifr' );
 		if ( ! iframe || ! iframe.contentWindow ) {
 			return;
@@ -239,7 +227,7 @@
 				C.checkAll(); w.__pbEd11yLastFull = Date.now();
 			}
 		} catch ( e ) {
-			log( 'Error runRecheck', e );
+			/* ignore recheck error */
 		}
 	}
 
@@ -248,15 +236,15 @@
 	 *
 	 * @param {object} editor
 	 */
-	function setupEditor( editor ) {
+	function attachEditorLifecycle( editor ) {
 		if ( initializedEditors.has( editor ) ) {
 			return;
 		}
 		initializedEditors.add( editor );
 		editor.on( 'init', function () {
-			createInstance( editor );
+			initEd11yInstance( editor );
 			const debounced = debounce( function () {
-				runRecheck( editor, false );
+				runEd11yRecheck( editor, false );
 			}, RECHECK_DELAY );
 			[ 'Change', 'SetContent', 'KeyUp', 'Paste', 'Undo', 'Redo', 'NodeChange' ].forEach( function ( ev ) {
 				editor.on( ev, debounced );
@@ -264,25 +252,11 @@
 		} );
 	}
 
-	/**
-	 * Force create instance for default content editor.
-	 */
-	window.__pbEd11yForce = function () {
-		let ed = null;
-		if ( window.tinymce && window.tinymce.get ) {
-			ed = window.tinymce.get( 'content' );
-		}
-		if ( ! ed ) {
-			return log( 'Force: no editor' );
-		}
-		createInstance( ed );
-	};
-
-	onDomReady( function () {
-		waitForTinyMCE( function () {
-			window.tinymce.editors.forEach( setupEditor );
+	whenDomReady( function () {
+		waitForTinyMceEditors( function () {
+			window.tinymce.editors.forEach( attachEditorLifecycle );
 			new MutationObserver( function () {
-				window.tinymce.editors.forEach( setupEditor );
+				window.tinymce.editors.forEach( attachEditorLifecycle );
 			} ).observe( document.body, {
 				childList: true,
 				subtree: true,
@@ -290,8 +264,7 @@
 			window.tinymce.editors.forEach( function ( ed ) {
 				if ( ed.initialized && ! ed.__pbEd11ySetupDone ) {
 					ed.__pbEd11ySetupDone = true;
-					log( 'Pre-initialized editor detected (fallback)', ed.id );
-					createInstance( ed );
+					initEd11yInstance( ed );
 				}
 			} );
 		} );
@@ -311,11 +284,9 @@
 			if ( typeof orig === 'function' ) {
 				try {
 					orig( editor );
-				} catch ( e ) {
-					log( 'Error in original setup', e );
-				}
+				} catch ( e ) { /* ignore original setup error */ }
 			}
-			setupEditor( editor );
+			attachEditorLifecycle( editor );
 		};
 	} )();
 } )();
