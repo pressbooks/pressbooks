@@ -922,7 +922,7 @@ msgstr "Annuler"
 
 #: inc/admin/laf/namespace.php:363
 msgid "Error submitting export jobs:"
-msgstr ""
+msgstr "Erreur lors de la soumission des tâches d'exportation :"
 
 #: inc/admin/laf/namespace.php:364
 msgid "Dismiss this notice."
