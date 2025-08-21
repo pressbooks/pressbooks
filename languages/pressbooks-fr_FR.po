@@ -909,7 +909,7 @@ msgstr "Voulez-vous vraiment annuler cette tâche d’exportation ?"
 
 #: inc/admin/laf/namespace.php:360
 msgid "Failed to cancel export job."
-msgstr ""
+msgstr "Échec de l'annulation de la tâche d'exportation."
 
 #: inc/admin/laf/namespace.php:361
 msgid "Starting..."
