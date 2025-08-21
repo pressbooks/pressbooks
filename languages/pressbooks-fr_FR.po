@@ -913,7 +913,7 @@ msgstr "Échec de l'annulation de la tâche d'exportation."
 
 #: inc/admin/laf/namespace.php:361
 msgid "Starting..."
-msgstr ""
+msgstr "Démarrage…"
 
 #: inc/admin/laf/namespace.php:362 inc/editor/namespace.php:132
 #: templates/admin/import.php:156
