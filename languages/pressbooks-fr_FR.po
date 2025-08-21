@@ -322,7 +322,7 @@ msgstr "Options H5P"
 
 #: inc/admin/class-exportoptions.php:105 inc/admin/class-exportoptions.php:186
 msgid "Enable H5P static representation on exports."
-msgstr ""
+msgstr "Activer la représentation statique H5P lors des exportations."
 
 #: inc/admin/class-exportoptions.php:120
 msgid "Export settings."
