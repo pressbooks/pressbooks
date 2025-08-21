@@ -930,7 +930,7 @@ msgstr "Ignorez cet avis"
 
 #: inc/admin/laf/namespace.php:365
 msgid "This export is currently running"
-msgstr ""
+msgstr "Cette exportation est actuellement en cours"
 
 #: inc/admin/laf/namespace.php:366
 msgid "Completed"
