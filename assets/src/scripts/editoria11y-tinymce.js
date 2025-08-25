@@ -1,8 +1,6 @@
 /* global Ed11y */
 ( function () {
 	const POLL_INTERVAL = 200;
-	const FULL_CHECK_INTERVAL = 12000;
-	const RECHECK_DELAY = 600;
 	const initializedEditors = new WeakSet();
 	const EXPORT_SHIM = 'try{if(typeof Ed11y!=="undefined" && !window.Ed11y){window.Ed11y=Ed11y;}}catch(e){}';
 
@@ -35,23 +33,6 @@
 	}
 
 	/**
-	 * Debounce a function.
-	 *
-	 * @param {Function} fn
-	 * @param {number} ms
-	 * @returns {Function}
-	 */
-	function debounce( fn, ms ) {
-		let timer = null;
-		return function debounced( ...innerArgs ) {
-			clearTimeout( timer );
-			timer = setTimeout( function () {
-				fn.apply( null, innerArgs );
-			}, ms );
-		};
-	}
-
-	/**
 	 * Build Ed11y options tailored for TinyMCE iframe.
 	 *
 	 * @returns {object}
@@ -59,13 +40,47 @@
 	function buildEd11yOptions() {
 		const base = ( window.ed11yVars && window.ed11yVars.options ) ? JSON.parse( JSON.stringify( window.ed11yVars.options ) ) : {};
 		base.checkRoots = 'body#tinymce';
+		base.editableContent = 'body#tinymce';
+		base.autoDetectShadowComponents = false;
+		base.inlineAlerts = false;
+		base.alertMode = 'active';
+		base.watchForChanges = true;
+		
 		base.ignoreElements = ( base.ignoreElements || '' ) + ', #wpadminbar *';
 		base.liveCheck = base.liveCheck || 'all';
 		base.showResults = true;
 		base.buttonZIndex = 99999;
-		base.inlineAlerts = false;
 		base.customTests = base.customTests || 0;
 		base.preventCheckingIfPresent = '';
+
+		if ( ! base.documentLinks ) {
+			base.documentLinks = 'a[href$=\'.pdf\'], a[href*=\'.pdf?\']';
+		}
+		// Inject CSS via cssUrls when available from our enqueue helper
+		if ( window._pbEd11yForcedAssets && window._pbEd11yForcedAssets.css ) {
+			base.cssUrls = Array.isArray( base.cssUrls ) ? base.cssUrls.slice() : [];
+			if ( base.cssUrls.indexOf( window._pbEd11yForcedAssets.css ) === -1 ) {
+				base.cssUrls.push( window._pbEd11yForcedAssets.css );
+			}
+		}
+		// Optional settings provided by WP plugin we need inside the iframe
+		if ( window._pbEd11ySettings ) {
+			if ( ! base.currentPage && window._pbEd11ySettings.currentPage ) {
+				base.currentPage = window._pbEd11ySettings.currentPage;
+			}
+			if ( ! base.reportsURL && window._pbEd11ySettings.reportsURL ) {
+				base.reportsURL = window._pbEd11ySettings.reportsURL;
+			}
+			if ( ! base.syncedDismissals && window._pbEd11ySettings.syncedDismissals ) {
+				base.syncedDismissals = window._pbEd11ySettings.syncedDismissals;
+			}
+			if ( ! base.theme && window._pbEd11ySettings.theme ) {
+				base.theme = window._pbEd11ySettings.theme;
+			}
+			if ( ! base.documentLinks && window._pbEd11ySettings.documentLinks ) {
+				base.documentLinks = window._pbEd11ySettings.documentLinks;
+			}
+		}
 		return base;
 	}
 
@@ -155,6 +170,10 @@
 	 * @param {Document} iframeDoc
 	 */
 	function ensureIframeStyles( iframeDoc ) {
+		// If cssUrls is provided via settings, the library will handle injecting CSS.
+		if ( window._pbEd11yForcedAssets && window._pbEd11yForcedAssets.css ) {
+			return;
+		}
 		const parentCss = document.querySelector( 'link[href*="editoria11y"][href$=".css"], link[href*="editoria11y.min.css"]' );
 		if ( parentCss && ! iframeDoc.querySelector( 'link[href="' + parentCss.href + '"]' ) ) {
 			const l = iframeDoc.createElement( 'link' );
@@ -194,41 +213,10 @@
 			}
 			const opts = buildEd11yOptions();
 			try {
+				w.__pbEd11yOptions = opts;
 				w.__pbEd11yInstance = new w.Ed11y( opts );
-				w.__pbEd11yLastFull = Date.now();
-				w.__pbEd11yVisible = true;
 			} catch ( e ) { /* ignore instantiation error */ }
 		} );
-	}
-
-	/**
-	 * Run full or incremental recheck.
-	 *
-	 * @param {object} editor
-	 * @param {boolean} forceFull
-	 */
-	function runEd11yRecheck( editor, forceFull ) {
-		const iframe = editor.iframeElement || document.getElementById( editor.id + '_ifr' );
-		if ( ! iframe || ! iframe.contentWindow ) {
-			return;
-		}
-		const w = iframe.contentWindow; const inst = w.__pbEd11yInstance; const C = w.Ed11y;
-		if ( ! inst || ! C ) {
-			return;
-		}
-		try {
-			if ( forceFull || Date.now() - ( w.__pbEd11yLastFull || 0 ) > FULL_CHECK_INTERVAL ) {
-				if ( ! C.running && typeof C.checkAll === 'function' ) {
-					C.checkAll(); w.__pbEd11yLastFull = Date.now();
-				}
-			} else if ( ! C.running && typeof C.incrementalCheck === 'function' ) {
-				C.incrementalCheck();
-			} else if ( ! C.running && typeof C.checkAll === 'function' ) {
-				C.checkAll(); w.__pbEd11yLastFull = Date.now();
-			}
-		} catch ( e ) {
-			/* ignore recheck error */
-		}
 	}
 
 	/**
@@ -243,12 +231,6 @@
 		initializedEditors.add( editor );
 		editor.on( 'init', function () {
 			initEd11yInstance( editor );
-			const debounced = debounce( function () {
-				runEd11yRecheck( editor, false );
-			}, RECHECK_DELAY );
-			[ 'Change', 'SetContent', 'KeyUp', 'Paste', 'Undo', 'Redo', 'NodeChange' ].forEach( function ( ev ) {
-				editor.on( ev, debounced );
-			} );
 		} );
 	}
 

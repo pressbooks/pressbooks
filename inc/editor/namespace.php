@@ -568,6 +568,9 @@ function enqueue_editoria11y_tinymce_adapter(): void {
 
 	$settings = function_exists( 'ed11y_get_plugin_settings' ) ? (array) ed11y_get_plugin_settings() : [];
 
+	// Register our TinyMCE adapter early so inline data can be attached reliably.
+	wp_register_script( 'pressbooks-editoria11y-tinymce', $assets->getPath( 'scripts/editoria11y-tinymce.js' ), [ 'editoria11y-js' ], $ver, true );
+
 	if ( ! wp_script_is( 'editoria11y-js', 'enqueued' ) ) {
 		$candidates      = [];
 		$css_candidates  = [];
@@ -594,17 +597,26 @@ function enqueue_editoria11y_tinymce_adapter(): void {
 			wp_enqueue_style( 'editoria11y-css', $style_url, [], $ver );
 		}
 		if ( $script_url || $style_url ) {
-			wp_add_inline_script( 'pressbooks-editoria11y-tinymce', 'window._pbEd11yForcedAssets = ' . wp_json_encode( [
-				'js' => $script_url,
-				'css' => $style_url,
-			] ) . ';', 'before' );
+			wp_add_inline_script(
+				'pressbooks-editoria11y-tinymce',
+				'window._pbEd11yForcedAssets = ' . wp_json_encode(
+					[
+						'js'  => $script_url,
+						'css' => $style_url,
+					]
+				) . ';',
+				'before'
+			);
 		}
 	}
 
-	wp_enqueue_script( 'pressbooks-editoria11y-tinymce', $assets->getPath( 'scripts/editoria11y-tinymce.js' ), [ 'editoria11y-js' ], $ver, true );
 	if ( $settings ) {
-		wp_add_inline_script( 'pressbooks-editoria11y-tinymce', 'window._pbEd11ySettings = ' . wp_json_encode( $settings ) . '; window.console && console.debug("[PB Ed11y] settings", window._pbEd11ySettings);', 'before' );
-	} else {
-		wp_add_inline_script( 'pressbooks-editoria11y-tinymce', 'window.console && console.debug("[PB Ed11y] No ed11y settings detected");', 'before' );
+		wp_add_inline_script(
+			'pressbooks-editoria11y-tinymce',
+			'window._pbEd11ySettings = ' . wp_json_encode( $settings ) . ';',
+			'before'
+		);
 	}
+
+	wp_enqueue_script( 'pressbooks-editoria11y-tinymce' );
 }
