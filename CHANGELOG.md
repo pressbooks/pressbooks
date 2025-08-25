@@ -1,5 +1,16 @@
 # Changelog
 
+## [6.31.4](https://github.com/pressbooks/pressbooks/compare/6.31.3...6.31.4) (2025-08-25)
+
+
+### Chores
+
+* bump the composer-dependencies group across 1 directory with 2 updates ([#4183](https://github.com/pressbooks/pressbooks/issues/4183)) ([9933cc2](https://github.com/pressbooks/pressbooks/commit/9933cc219dddaaf1793882c0de98385b771bbe78))
+* bump yoast/phpunit-polyfills ([d7f595b](https://github.com/pressbooks/pressbooks/commit/d7f595b821b0b1997c12c7c94b1d2fa2e1d57774))
+* bump yoast/phpunit-polyfills from 1.1.4 to 1.1.5 in the composer-dev-dependencies group ([#4170](https://github.com/pressbooks/pressbooks/issues/4170)) ([d7f595b](https://github.com/pressbooks/pressbooks/commit/d7f595b821b0b1997c12c7c94b1d2fa2e1d57774))
+* **l10n:** Updates for project Pressbooks ([#4180](https://github.com/pressbooks/pressbooks/issues/4180)) ([07511ea](https://github.com/pressbooks/pressbooks/commit/07511ea6beb10b0366f1aa7dee097df592545b13))
+* remove duplicate Croatian translation files ([#4181](https://github.com/pressbooks/pressbooks/issues/4181)) ([64d2008](https://github.com/pressbooks/pressbooks/commit/64d2008dd91dd8cb8d72e96090da53a2c1b2939a))
+
 ## [6.31.3](https://github.com/pressbooks/pressbooks/compare/6.31.2...6.31.3) (2025-08-07)
 
 
