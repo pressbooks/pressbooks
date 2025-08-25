@@ -199,4 +199,37 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertFalse( is_plugin_active( 'gutenberg/gutenberg.php' ) );
 		$this->assertEquals( 'replace', get_option( 'classic-editor-replace' ) );
 	}
+
+	/**
+	 * @group editor
+	 */
+	public function test_hook_for_enqueue_editoria11y_tinymce_adapter_is_added() {
+		require_once PB_PLUGIN_DIR . 'hooks-admin.php';
+		
+		$priority = has_action( 'admin_enqueue_scripts', '\Pressbooks\Editor\enqueue_editoria11y_tinymce_adapter' );
+		$this->assertNotFalse( $priority, 'Hook admin_enqueue_scripts for enqueue_editoria11y_tinymce_adapter is not registered' );
+		$this->assertEquals( 60, $priority, 'Hook priority should be 60' );
+	}
+
+	/**
+	 * @group editor
+	 */
+	public function test_enqueue_editoria11y_tinymce_adapter_enqueues_script() {
+		\Pressbooks\Editor\hide_gutenberg();
+
+		if ( ! function_exists( 'ed11y_get_plugin_settings' ) ) {
+			function ed11y_get_plugin_settings() {
+				return [];
+			}
+		}
+
+		require_once PB_PLUGIN_DIR . 'hooks-admin.php';
+
+		wp_dequeue_script( 'pressbooks-editoria11y-tinymce' );
+		wp_deregister_script( 'pressbooks-editoria11y-tinymce' );
+
+		\Pressbooks\Editor\enqueue_editoria11y_tinymce_adapter();
+
+		$this->assertTrue( wp_script_is( 'pressbooks-editoria11y-tinymce', 'queue' ), 'Adapter script should be queued' );
+	}
 }

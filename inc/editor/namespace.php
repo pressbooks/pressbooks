@@ -15,6 +15,7 @@ use function Pressbooks\Sanitize\normalize_css_urls;
 use PressbooksMix\Assets;
 use Pressbooks\Container;
 use Pressbooks\HtmlParser;
+use Pressbooks\Metadata;
 use Pressbooks\Shortcodes\Glossary\Glossary;
 
 /**
@@ -549,9 +550,20 @@ function hide_gutenberg() {
 
 function enqueue_editoria11y_tinymce_adapter(): void {
 	$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
-	if ( ! $screen || $screen->base !== 'post' ) {
+
+	if ( $screen && $screen->base !== 'page' && $screen->base !== 'post' ) {
 		return;
 	}
+
+	if ( $screen && $screen->base === 'post' ) {
+		$post_id = get_the_ID();
+		$metadata_id = ( new Metadata() )->getMetaPostId();
+		if ( $post_id === $metadata_id ) {
+			// we want to avoid BookInfo page for now, since there are multiple tinyMCE.
+			return;
+		}
+	}
+
 	if ( ! function_exists( 'ed11y_get_plugin_settings' ) ) {
 		return;
 	}
@@ -559,64 +571,11 @@ function enqueue_editoria11y_tinymce_adapter(): void {
 	$post_type = get_post_type();
 	if ( function_exists( 'use_block_editor_for_post_type' ) && use_block_editor_for_post_type( $post_type ) ) {
 		return;
-	}
+	};
 
 	$assets = new Assets( 'pressbooks', 'plugin' );
 
-	$src_path = PB_PLUGIN_DIR . 'assets/dist/scripts/editoria11y-tinymce.js';
-	$ver      = file_exists( $src_path ) ? (string) filemtime( $src_path ) : '1.0.0';
-
-	$settings = function_exists( 'ed11y_get_plugin_settings' ) ? (array) ed11y_get_plugin_settings() : [];
-
-	// Register our TinyMCE adapter early so inline data can be attached reliably.
-	wp_register_script( 'pressbooks-editoria11y-tinymce', $assets->getPath( 'scripts/editoria11y-tinymce.js' ), [ 'editoria11y-js' ], $ver, true );
-
-	if ( ! wp_script_is( 'editoria11y-js', 'enqueued' ) ) {
-		$candidates      = [];
-		$css_candidates  = [];
-		if ( isset( $settings['assetsUrl'] ) ) {
-			$candidates[]     = trailingslashit( $settings['assetsUrl'] ) . 'editoria11y.min.js';
-			$css_candidates[] = trailingslashit( $settings['assetsUrl'] ) . 'editoria11y.min.css';
-		}
-		if ( isset( $settings['pluginUrl'] ) ) {
-			$base             = trailingslashit( $settings['pluginUrl'] );
-			$candidates[]     = $base . 'dist/editoria11y.min.js';
-			$candidates[]     = $base . 'build/editoria11y.min.js';
-			$css_candidates[] = $base . 'dist/editoria11y.min.css';
-			$css_candidates[] = $base . 'build/editoria11y.min.css';
-		}
-		$candidates[]     = plugins_url( 'editoria11y-wp/dist/editoria11y.min.js' );
-		$css_candidates[] = plugins_url( 'editoria11y-wp/dist/editoria11y.min.css' );
-
-		$script_url = reset( $candidates );
-		$style_url  = reset( $css_candidates );
-		if ( $script_url ) {
-			wp_enqueue_script( 'editoria11y-js', $script_url, [], $ver, true );
-		}
-		if ( $style_url ) {
-			wp_enqueue_style( 'editoria11y-css', $style_url, [], $ver );
-		}
-		if ( $script_url || $style_url ) {
-			wp_add_inline_script(
-				'pressbooks-editoria11y-tinymce',
-				'window._pbEd11yForcedAssets = ' . wp_json_encode(
-					[
-						'js'  => $script_url,
-						'css' => $style_url,
-					]
-				) . ';',
-				'before'
-			);
-		}
-	}
-
-	if ( $settings ) {
-		wp_add_inline_script(
-			'pressbooks-editoria11y-tinymce',
-			'window._pbEd11ySettings = ' . wp_json_encode( $settings ) . ';',
-			'before'
-		);
-	}
+	wp_register_script( 'pressbooks-editoria11y-tinymce', $assets->getPath( 'scripts/editoria11y-tinymce.js' ), [ 'editoria11y-js' ] );
 
 	wp_enqueue_script( 'pressbooks-editoria11y-tinymce' );
 }

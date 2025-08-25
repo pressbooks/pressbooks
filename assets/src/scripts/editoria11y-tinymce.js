@@ -1,35 +1,35 @@
 /* global Ed11y */
 ( function () {
-	const POLL_INTERVAL = 200;
-	const initializedEditors = new WeakSet();
-	const EXPORT_SHIM = 'try{if(typeof Ed11y!=="undefined" && !window.Ed11y){window.Ed11y=Ed11y;}}catch(e){}';
+	const POLL_INTERVAL_MS = 200;
+	const initializedEditorsSet = new WeakSet();
+	const ED11Y_EXPORT_SHIM = 'try{if(typeof Ed11y!=="undefined" && !window.Ed11y){window.Ed11y=Ed11y;}}catch(e){}';
 
 	/**
 	 * Run callback when DOM is ready.
 	 *
-	 * @param {Function} cb
+	 * @param {Function} callback
 	 */
-	function whenDomReady( cb ) {
+	function onDomReady( callback ) {
 		if ( document.readyState !== 'loading' ) {
-			cb();
+			callback();
 		} else {
-			document.addEventListener( 'DOMContentLoaded', cb );
+			document.addEventListener( 'DOMContentLoaded', callback );
 		}
 	}
 
 	/**
 	 * Wait until TinyMCE editors are present.
 	 *
-	 * @param {Function} cb
+	 * @param {Function} callback
 	 */
-	function waitForTinyMceEditors( cb ) {
+	function waitForTinyMceEditorsReady( callback ) {
 		if ( window.tinymce && window.tinymce.editors.length ) {
-			cb();
+			callback();
 			return;
 		}
 		setTimeout( function () {
-			waitForTinyMceEditors( cb );
-		}, POLL_INTERVAL );
+			waitForTinyMceEditorsReady( callback );
+		}, POLL_INTERVAL_MS );
 	}
 
 	/**
@@ -37,8 +37,8 @@
 	 *
 	 * @returns {object}
 	 */
-	function buildEd11yOptions() {
-		const base = ( window.ed11yVars && window.ed11yVars.options ) ? JSON.parse( JSON.stringify( window.ed11yVars.options ) ) : {};
+	function buildTinymceEd11yOptions() {
+		const base = JSON.parse( JSON.stringify( window.ed11yVars.options ) );
 		base.checkRoots = 'body#tinymce';
 		base.editableContent = 'body#tinymce';
 		base.autoDetectShadowComponents = false;
@@ -57,111 +57,80 @@
 			},
 		];
 
-		base.ignoreElements = ( base.ignoreElements || '' ) + ', #wpadminbar *';
-		base.liveCheck = base.liveCheck || 'all';
 		base.showResults = true;
 		base.buttonZIndex = 99999;
-		base.customTests = base.customTests || 0;
 		base.preventCheckingIfPresent = '';
 
-		if ( ! base.documentLinks ) {
-			base.documentLinks = 'a[href$=\'.pdf\'], a[href*=\'.pdf?\']';
-		}
-		// Inject CSS via cssUrls when available from our enqueue helper
-		if ( window._pbEd11yForcedAssets && window._pbEd11yForcedAssets.css ) {
-			base.cssUrls = Array.isArray( base.cssUrls ) ? base.cssUrls.slice() : [];
-			if ( base.cssUrls.indexOf( window._pbEd11yForcedAssets.css ) === -1 ) {
-				base.cssUrls.push( window._pbEd11yForcedAssets.css );
-			}
-		}
-		// Optional settings provided by WP plugin we need inside the iframe
-		if ( window._pbEd11ySettings ) {
-			if ( ! base.currentPage && window._pbEd11ySettings.currentPage ) {
-				base.currentPage = window._pbEd11ySettings.currentPage;
-			}
-			if ( ! base.reportsURL && window._pbEd11ySettings.reportsURL ) {
-				base.reportsURL = window._pbEd11ySettings.reportsURL;
-			}
-			if ( ! base.syncedDismissals && window._pbEd11ySettings.syncedDismissals ) {
-				base.syncedDismissals = window._pbEd11ySettings.syncedDismissals;
-			}
-			if ( ! base.theme && window._pbEd11ySettings.theme ) {
-				base.theme = window._pbEd11ySettings.theme;
-			}
-			if ( ! base.documentLinks && window._pbEd11ySettings.documentLinks ) {
-				base.documentLinks = window._pbEd11ySettings.documentLinks;
-			}
-		}
 		return base;
 	}
 
 	/**
 	 * Ensure Ed11y script is loaded inside iframe and constructor exported.
 	 *
-	 * @param {Window} iframeWin
-	 * @param {Function} done
+	 * @param {Window} iframeWindow
+	 * @param {Function} onAvailable
 	 */
-	function ensureEd11yInIframe( iframeWin, done ) {
-		if ( iframeWin.Ed11y ) {
-			return done();
+	function ensureEd11yLoadedInIframe( iframeWindow, onAvailable ) {
+		if ( iframeWindow.Ed11y ) {
+			return onAvailable();
 		}
 		const parentScript = document.querySelector( 'script[src*="editoria11y.min.js"]' );
 		if ( ! parentScript ) {
-			return done();
+			return onAvailable();
 		}
-		if ( iframeWin.document.querySelector( 'script[src*="editoria11y.min.js"]' ) ) {
-			let loops = 0;
+		if ( iframeWindow.document.querySelector( 'script[src*="editoria11y.min.js"]' ) ) {
+			let pollCount = 0;
 			( function waitCtor() {
 				try {
-					if ( ! iframeWin.Ed11y && ! iframeWin.__pbEd11yExportTried ) {
-						iframeWin.__pbEd11yExportTried = true;
-						const exp = iframeWin.document.createElement( 'script' );
-						exp.text = EXPORT_SHIM;
-						iframeWin.document.head.appendChild( exp );
-					} else if ( ! iframeWin.Ed11y && iframeWin.__pbEd11yExportTried ) {
-						const exp2 = iframeWin.document.createElement( 'script' );
-						exp2.text = EXPORT_SHIM;
-						iframeWin.document.head.appendChild( exp2 );
+					if ( ! iframeWindow.Ed11y && ! iframeWindow.__pbEd11yExportTried ) {
+						iframeWindow.__pbEd11yExportTried = true;
+						const shimScriptEl = iframeWindow.document.createElement( 'script' );
+						shimScriptEl.text = ED11Y_EXPORT_SHIM;
+						iframeWindow.document.head.appendChild( shimScriptEl );
+					} else if ( ! iframeWindow.Ed11y && iframeWindow.__pbEd11yExportTried ) {
+						const shimScriptEl2 = iframeWindow.document.createElement( 'script' );
+						shimScriptEl2.text = ED11Y_EXPORT_SHIM;
+						iframeWindow.document.head.appendChild( shimScriptEl2 );
 					}
 				} catch ( e ) { /* capture constructor polling error */ }
-				if ( iframeWin.Ed11y ) {
-					return done();
+				if ( iframeWindow.Ed11y ) {
+					return onAvailable();
 				}
-				if ( window.Ed11y && ! iframeWin.Ed11y ) {
-					iframeWin.Ed11y = window.Ed11y;
-					return done();
+				if ( window.Ed11y && ! iframeWindow.Ed11y ) {
+					iframeWindow.Ed11y = window.Ed11y;
+					return onAvailable();
 				}
-				if ( loops++ > 40 ) {
-					return done();
+				if ( pollCount++ > 40 ) {
+					return onAvailable();
 				}
-				setTimeout( waitCtor, POLL_INTERVAL );
+				setTimeout( waitCtor, POLL_INTERVAL_MS );
 			} )();
 			return;
 		}
-		const s = iframeWin.document.createElement( 'script' );
-		s.src = parentScript.src;
+		const scriptElement = iframeWindow.document.createElement( 'script' );
+		scriptElement.src = parentScript.src;
 		/**
 		 *
 		 */
-		s.onload = function () {
-			let loops2 = 0;
+		scriptElement.onload = function () {
+			let postLoadPollCount = 0;
 			( function confirmCtor() {
 				try {
-					if ( ! iframeWin.Ed11y ) {
-						const exp3 = iframeWin.document.createElement( 'script' );
-						exp3.text = EXPORT_SHIM;
-						iframeWin.document.head.appendChild( exp3 );
+					if ( ! iframeWindow.Ed11y ) {
+						const shimScriptEl3 = iframeWindow.document.createElement( 'script' );
+						shimScriptEl3.text = ED11Y_EXPORT_SHIM;
+						iframeWindow.document.head.appendChild( shimScriptEl3 );
 					}
 				} catch ( e2 ) { /* ignore post-load export error */ }
-				if ( iframeWin.Ed11y ) {
-					return done();
+				if ( iframeWindow.Ed11y ) {
+					return onAvailable();
 				}
-				if ( window.Ed11y && ! iframeWin.Ed11y ) {
-					iframeWin.Ed11y = window.Ed11y;
-					return done();
+				if ( window.Ed11y && ! iframeWindow.Ed11y ) {
+					iframeWindow.Ed11y = window.Ed11y;
+					return onAvailable();
 				}
-				if ( loops2++ > 25 ) {
-					return done();
+				if ( postLoadPollCount++ > 25 ) {
+					return onAvailable();
 				}
 				setTimeout( confirmCtor, 120 );
 			} )();
@@ -169,29 +138,10 @@
 		/**
 		 *
 		 */
-		s.onerror = function () {
-			done();
+		scriptElement.onerror = function () {
+			onAvailable();
 		};
-		iframeWin.document.head.appendChild( s );
-	}
-
-	/**
-	 * Ensure stylesheet is present in iframe.
-	 *
-	 * @param {Document} iframeDoc
-	 */
-	function ensureIframeStyles( iframeDoc ) {
-		// If cssUrls is provided via settings, the library will handle injecting CSS.
-		if ( window._pbEd11yForcedAssets && window._pbEd11yForcedAssets.css ) {
-			return;
-		}
-		const parentCss = document.querySelector( 'link[href*="editoria11y"][href$=".css"], link[href*="editoria11y.min.css"]' );
-		if ( parentCss && ! iframeDoc.querySelector( 'link[href="' + parentCss.href + '"]' ) ) {
-			const l = iframeDoc.createElement( 'link' );
-			l.rel = 'stylesheet';
-			l.href = parentCss.href;
-			iframeDoc.head.appendChild( l );
-		}
+		iframeWindow.document.head.appendChild( scriptElement );
 	}
 
 	/**
@@ -199,33 +149,33 @@
 	 *
 	 * @param {object} editor
 	 */
-	function initEd11yInstance( editor ) {
+	function initEd11yInstanceForEditor( editor ) {
 		const iframe = editor.iframeElement || document.getElementById( editor.id + '_ifr' );
 		if ( ! iframe || ! iframe.contentWindow || ! iframe.contentDocument ) {
 			return;
 		}
-		const w = iframe.contentWindow;
-		const d = w.document;
-		if ( ! d.body ) {
+		const win = iframe.contentWindow;
+		const doc = win.document;
+		if ( ! doc.body ) {
 			return setTimeout( function () {
-				initEd11yInstance( editor );
-			}, POLL_INTERVAL );
+				initEd11yInstanceForEditor( editor );
+			}, POLL_INTERVAL_MS );
 		}
-		if ( ! /\btinymce\b/.test( d.body.id ) ) {
-			d.body.id = 'tinymce';
+		if ( ! /\btinymce\b/.test( doc.body.id ) ) {
+			doc.body.id = 'tinymce';
 		}
-		ensureIframeStyles( d );
-		ensureEd11yInIframe( w, function () {
-			if ( ! w.Ed11y ) {
+
+		ensureEd11yLoadedInIframe( win, function () {
+			if ( ! win.Ed11y ) {
 				return;
 			}
-			if ( w.__pbEd11yInstance ) {
+			if ( win.__pbEd11yInstance ) {
 				return;
 			}
-			const opts = buildEd11yOptions();
+			const opts = buildTinymceEd11yOptions();
 			try {
-				w.__pbEd11yOptions = opts;
-				w.__pbEd11yInstance = new w.Ed11y( opts );
+				win.__pbEd11yOptions = opts;
+				win.__pbEd11yInstance = new win.Ed11y( opts );
 			} catch ( e ) { /* ignore instantiation error */ }
 		} );
 	}
@@ -235,45 +185,45 @@
 	 *
 	 * @param {object} editor
 	 */
-	function attachEditorLifecycle( editor ) {
-		if ( initializedEditors.has( editor ) ) {
+	function attachEd11yLifecycleToEditor( editor ) {
+		if ( initializedEditorsSet.has( editor ) ) {
 			return;
 		}
-		initializedEditors.add( editor );
+		initializedEditorsSet.add( editor );
 		editor.on( 'init', function () {
-			initEd11yInstance( editor );
+			initEd11yInstanceForEditor( editor );
 		} );
 	}
 
-	whenDomReady( function () {
-		waitForTinyMceEditors( function () {
-			window.tinymce.editors.forEach( attachEditorLifecycle );
+	onDomReady( function () {
+		waitForTinyMceEditorsReady( function () {
+			window.tinymce.editors.forEach( attachEd11yLifecycleToEditor );
 			window.tinymce.editors.forEach( function ( ed ) {
 				if ( ed.initialized && ! ed.__pbEd11ySetupDone ) {
 					ed.__pbEd11ySetupDone = true;
-					initEd11yInstance( ed );
+					initEd11yInstanceForEditor( ed );
 				}
 			} );
 		} );
 	} );
 
-	( function earlySetup() {
+	( function hookTinyMcePreInit() {
 		if ( ! window.tinyMCEPreInit || ! window.tinyMCEPreInit.mceInit || ! window.tinyMCEPreInit.mceInit.content ) {
-			return setTimeout( earlySetup, 50 );
+			return setTimeout( hookTinyMcePreInit, 50 );
 		}
-		const cfg = window.tinyMCEPreInit.mceInit.content;
-		const orig = cfg.setup;
+		const mceConfig = window.tinyMCEPreInit.mceInit.content;
+		const originalSetup = mceConfig.setup;
 		/**
 		 *
 		 * @param editor
 		 */
-		cfg.setup = function ( editor ) {
-			if ( typeof orig === 'function' ) {
+		mceConfig.setup = function ( editor ) {
+			if ( typeof originalSetup === 'function' ) {
 				try {
-					orig( editor );
+					originalSetup( editor );
 				} catch ( e ) { /* ignore original setup error */ }
 			}
-			attachEditorLifecycle( editor );
+			attachEd11yLifecycleToEditor( editor );
 		};
 	} )();
 } )();
