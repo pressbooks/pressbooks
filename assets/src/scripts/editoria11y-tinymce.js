@@ -248,12 +248,6 @@
 	whenDomReady( function () {
 		waitForTinyMceEditors( function () {
 			window.tinymce.editors.forEach( attachEditorLifecycle );
-			new MutationObserver( function () {
-				window.tinymce.editors.forEach( attachEditorLifecycle );
-			} ).observe( document.body, {
-				childList: true,
-				subtree: true,
-			} );
 			window.tinymce.editors.forEach( function ( ed ) {
 				if ( ed.initialized && ! ed.__pbEd11ySetupDone ) {
 					ed.__pbEd11ySetupDone = true;
