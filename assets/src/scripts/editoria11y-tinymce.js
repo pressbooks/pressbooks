@@ -45,7 +45,18 @@
 		base.inlineAlerts = false;
 		base.alertMode = 'active';
 		base.watchForChanges = true;
-		
+
+		base.editorHeadingLevel = [
+			{
+				selector: 'body#tinymce',
+				previousHeading: 1,
+			},
+			{
+				selector: '*',
+				previousHeading: 0,
+			},
+		];
+
 		base.ignoreElements = ( base.ignoreElements || '' ) + ', #wpadminbar *';
 		base.liveCheck = base.liveCheck || 'all';
 		base.showResults = true;
