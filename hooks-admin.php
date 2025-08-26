@@ -223,7 +223,7 @@ if ( $is_book ) {
 	add_action( 'admin_init', '\Pressbooks\Editor\add_editor_style' );
 }
 
-add_action( 'admin_enqueue_scripts', '\Pressbooks\Editor\enqueue_editoria11y_tinymce_adapter', 60 );
+add_action( 'admin_enqueue_scripts', '\Pressbooks\Editor\enqueue_editoria11y_tinymce_adapter', 60, 1 );
 
 if ( ! defined( 'PB_GUTENBERG_TESTING' ) || ! PB_GUTENBERG_TESTING ) {
 	// Hide Gutenberg

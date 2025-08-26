@@ -215,6 +215,12 @@ class EditorTest extends \WP_UnitTestCase {
 	 * @group editor
 	 */
 	public function test_enqueue_editoria11y_tinymce_adapter_enqueues_script() {
+		$this->_book();
+		$pid = $this->_createChapter();
+		
+		global $post;
+		$post = get_post( $pid );
+
 		\Pressbooks\Editor\hide_gutenberg();
 
 		if ( ! function_exists( 'ed11y_get_plugin_settings' ) ) {
@@ -228,8 +234,31 @@ class EditorTest extends \WP_UnitTestCase {
 		wp_dequeue_script( 'pressbooks-editoria11y-tinymce' );
 		wp_deregister_script( 'pressbooks-editoria11y-tinymce' );
 
-		\Pressbooks\Editor\enqueue_editoria11y_tinymce_adapter();
+		$_GET['action'] = 'edit';
+		\Pressbooks\Editor\enqueue_editoria11y_tinymce_adapter( 'post.php' );
 
 		$this->assertTrue( wp_script_is( 'pressbooks-editoria11y-tinymce', 'queue' ), 'Adapter script should be queued' );
+
+		wp_dequeue_script( 'pressbooks-editoria11y-tinymce' );
+		wp_deregister_script( 'pressbooks-editoria11y-tinymce' );
+	}
+
+	/**
+	 * @group editor
+	 */
+	public function test_editoria11y_queued_script_in_invalid_context() {
+		$this->_book();
+		$pid = $this->_createChapter();
+		
+		global $post;
+		$post = get_post( $pid );
+
+		\Pressbooks\Editor\hide_gutenberg();
+		\Pressbooks\Editor\enqueue_editoria11y_tinymce_adapter( 'admin.php' );
+		
+		$this->assertFalse( wp_script_is( 'pressbooks-editoria11y-tinymce', 'queue' ), 'Adapter script should not be queued' );
+
+		\Pressbooks\Editor\enqueue_editoria11y_tinymce_adapter( 'post.php' );
+		$this->assertFalse( wp_script_is( 'pressbooks-editoria11y-tinymce', 'queue' ), 'Adapter script should not be queued' );
 	}
 }

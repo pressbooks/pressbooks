@@ -548,27 +548,27 @@ function hide_gutenberg() {
 	);
 }
 
-function enqueue_editoria11y_tinymce_adapter(): void {
-	$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
-
-	if ( $screen && $screen->base !== 'page' && $screen->base !== 'post' ) {
+function enqueue_editoria11y_tinymce_adapter( string $hook ): void {
+	if ( $hook !== 'post.php' ) {
 		return;
 	}
 
-	if ( $screen && $screen->base === 'post' ) {
-		$post_id = get_the_ID();
-		$metadata_id = ( new Metadata() )->getMetaPostId();
-		if ( $post_id === $metadata_id ) {
-			// we want to avoid BookInfo page for now, since there are multiple tinyMCE.
-			return;
-		}
+	if ( ! isset( $_GET['action'] ) || $_GET['action'] !== 'edit' ) {
+		return;
 	}
 
 	if ( ! function_exists( 'ed11y_get_plugin_settings' ) ) {
 		return;
 	}
 
-	$post_type = get_post_type();
+	$post = get_post();
+	$metadata_id = ( new Metadata() )->getMetaPostId();
+	if ( $post->ID === $metadata_id ) {
+		// we want to avoid BookInfo page for now, since there are multiple tinyMCE.
+		return;
+	}
+
+	$post_type = $post->post_type;
 	if ( function_exists( 'use_block_editor_for_post_type' ) && use_block_editor_for_post_type( $post_type ) ) {
 		return;
 	};
