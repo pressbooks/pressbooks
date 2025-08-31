@@ -251,6 +251,7 @@ function filter_title( $title ) {
 		'br' => [],
 		'span' => [
 			'class' => [],
+			'lang' => [],
 		],
 		'em' => [],
 		'strong' => [],
