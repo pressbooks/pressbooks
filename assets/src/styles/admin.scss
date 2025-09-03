@@ -234,4 +234,8 @@ html #wpadminbar {
     height: var(--pb-toolbar-icon-size);
     width: var(--pb-toolbar-icon-size);
   }
+
+  ed11y-element-panel {
+    --ed11y-baseFontSize: 20px;
+  }
 }
