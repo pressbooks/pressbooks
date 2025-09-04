@@ -407,6 +407,15 @@ class Cloner {
 	}
 
 	/**
+	 * Update the known media array with enhanced metadata
+	 *
+	 * @param \Pressbooks\Entities\Cloner\Media[] $known_media
+	 */
+	public function updateKnownMedia( $known_media ) {
+		$this->knownMedia = $known_media;
+	}
+
+	/**
 	 * @return \Pressbooks\Entities\Cloner\H5P[]
 	 */
 	public function getKnownH5P() {
@@ -1700,6 +1709,10 @@ class Cloner {
 			$source_content = $section['content']['rendered'];
 		}
 
+		// Extract and process attachment IDs from captions to fetch complete metadata via WP REST API
+		// This ensures we have all metadata/sizes for images referenced in captions
+		$caption_attachment_ids = $this->downloads->extractAndProcessCaptionAttachments( $source_content );
+
 		// According to the html5 spec section 8.3: https://www.w3.org/TR/2013/CR-html5-20130806/syntax.html#serializing-html-fragments
 		// We should replace any occurrences of the U+00A0 NO-BREAK SPACE character (aka "\xc2\xa0") by the string "&nbsp;" when serializing HTML5
 		// When cloning, we don't want to modify whitespaces, so we hide them from the parser.
@@ -1832,8 +1845,6 @@ class Cloner {
 	/**
 	 * Handle a get request against the REST API using either rest_do_request() or wp_remote_get() as appropriate.
 	 *
-	 * @since 4.1.0
-	 *
 	 * @param string $url The URL against which the request should be made (not including the REST base)
 	 * @param string $namespace The namespace for the request, e.g. 'pressbooks/v2'
 	 * @param string $endpoint The endpoint for the request, e.g. 'toc'
@@ -1842,8 +1853,10 @@ class Cloner {
 	 * @param array $previous_results (optional, used recursively for when results are paginated)
 	 *
 	 * @return array|\WP_Error
+	 *@since 4.1.0
+	 *
 	 */
-	protected function handleGetRequest( $url, $namespace, $endpoint, $params = [], $paginate = true, $previous_results = [] ) {
+	public function handleGetRequest( $url, $namespace, $endpoint, $params = [], $paginate = true, $previous_results = [] ) {
 		global $blog_id;
 
 		// Is the book local? If so, is it the current book? If not, switch to it.

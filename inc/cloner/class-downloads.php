@@ -12,6 +12,7 @@ use function Pressbooks\Image\attachment_id_from_url;
 use function Pressbooks\Image\strip_baseurl as image_strip_baseurl;
 use function Pressbooks\Media\strip_baseurl as media_strip_baseurl;
 use function Pressbooks\Utility\str_lreplace;
+use Pressbooks\Entities\Cloner\Media;
 
 class Downloads {
 
@@ -217,18 +218,57 @@ class Downloads {
 	}
 
 	/**
-	 * @param \Pressbooks\Entities\Cloner\Media $media
+	 * @param Media $media
 	 *
 	 * @return array
 	 */
 	public function createMediaPatch( $media ) {
-		return [
-			'title' => $media->title,
-			'meta' => $media->meta,
-			'description' => $media->description,
-			'caption' => $media->caption,
-			'alt_text' => $media->altText,
-		];
+		$patch = [];
+
+		// Handle title - check for enhanced metadata first
+		if ( ! empty( $media->title ) ) {
+			$patch['title'] = $media->title;
+		} elseif ( isset( $media->meta['_rest_api_data']['title']['raw'] ) ) {
+			$patch['title'] = $media->meta['_rest_api_data']['title']['raw'];
+		} elseif ( isset( $media->meta['_rest_api_data']['title']['rendered'] ) ) {
+			$patch['title'] = $media->meta['_rest_api_data']['title']['rendered'];
+		}
+
+		// Handle description - check for enhanced metadata first
+		if ( ! empty( $media->description ) ) {
+			$patch['description'] = $media->description;
+		} elseif ( isset( $media->meta['_rest_api_data']['description']['raw'] ) ) {
+			$patch['description'] = $media->meta['_rest_api_data']['description']['raw'];
+		} elseif ( isset( $media->meta['_rest_api_data']['description']['rendered'] ) ) {
+			$patch['description'] = $media->meta['_rest_api_data']['description']['rendered'];
+		}
+
+		// Handle caption - check for enhanced metadata first
+		if ( ! empty( $media->caption ) ) {
+			$patch['caption'] = $media->caption;
+		} elseif ( isset( $media->meta['_rest_api_data']['caption']['raw'] ) ) {
+			$patch['caption'] = $media->meta['_rest_api_data']['caption']['raw'];
+		} elseif ( isset( $media->meta['_rest_api_data']['caption']['rendered'] ) ) {
+			$patch['caption'] = $media->meta['_rest_api_data']['caption']['rendered'];
+		}
+
+		// Handle alt_text
+		if ( ! empty( $media->altText ) ) {
+			$patch['alt_text'] = $media->altText;
+		} elseif ( isset( $media->meta['_rest_api_data']['alt_text'] ) ) {
+			$patch['alt_text'] = $media->meta['_rest_api_data']['alt_text'];
+		}
+
+		// Include meta data (but exclude our internal storage keys)
+		if ( ! empty( $media->meta ) ) {
+			$clean_meta = $media->meta;
+			unset( $clean_meta['_rest_api_data'], $clean_meta['_media_details'] );
+			if ( ! empty( $clean_meta ) ) {
+				$patch['meta'] = $clean_meta;
+			}
+		}
+
+		return $patch;
 	}
 
 	/**
@@ -399,6 +439,150 @@ class Downloads {
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 
 		return $pid;
+	}
+
+	/**
+	 * Extract attachment IDs from caption shortcodes and fetch their complete metadata via WP REST API
+	 *
+	 * @param string $content HTML content containing caption shortcodes
+	 *
+	 * @return array Array of attachment IDs that were found and processed
+	 */
+	public function extractAndProcessCaptionAttachments( $content ): array {
+		$attachment_ids = [];
+
+		// Extract attachment IDs from caption shortcodes using regex
+		if ( preg_match_all( '/id=["\']?attachment_(\d+)["\']?/i', $content, $matches ) ) {
+			$attachment_ids = array_unique( array_map( 'intval', $matches[1] ) );
+		}
+
+		if ( preg_match_all( '/<div[^>]+id=["\']attachment_(\d+)["\'][^>]*>/i', $content, $matches ) ) {
+			$div_attachment_ids = array_unique( array_map( 'intval', $matches[1] ) );
+			$attachment_ids = array_unique( array_merge( $attachment_ids, $div_attachment_ids ) );
+		}
+
+		foreach ( $attachment_ids as $attachment_id ) {
+			$this->fetchAttachmentMetadata( $attachment_id );
+		}
+
+		return $attachment_ids;
+	}
+
+	/**
+	 * Fetch complete attachment metadata from source book via WP REST API
+	 *
+	 * @param int $attachment_id The attachment ID to fetch metadata for
+	 *
+	 * @return bool True if metadata was successfully fetched and stored
+	 */
+	public function fetchAttachmentMetadata( int $attachment_id ): bool {
+
+		$media_data = $this->cloner->handleGetRequest(
+			$this->cloner->getSourceBookUrl(),
+			'wp/v2',
+			"media/{$attachment_id}",
+			[],
+			false // Don't paginate for single item
+		);
+
+		if ( is_wp_error( $media_data ) || empty( $media_data ) ) {
+			return false;
+		}
+
+		// Create enhanced media entity with complete metadata
+		$media_entity = $this->createEnhancedMediaEntity( $media_data );
+
+		// Update known media array with enhanced information
+		$known_media = $this->cloner->getKnownMedia();
+
+		// Add to known media using various URL patterns for better matching
+		// This will OVERRIDE any existing entries with enhanced metadata
+		if ( isset( $media_data['source_url'] ) ) {
+			$attached_file = media_strip_baseurl( $media_data['source_url'] );
+
+			// Force override any existing entry
+			$known_media[ $attached_file ] = $media_entity;
+
+			// For images, also add all size variants and override existing entries
+			if ( $media_data['media_type'] === 'image' &&
+				 $media_data['mime_type'] !== 'image/svg+xml' &&
+				 isset( $media_data['media_details']['sizes'] ) ) {
+					foreach ( $media_data['media_details']['sizes'] as $size => $info ) {
+						$size_attached_file = image_strip_baseurl( $info['source_url'] );
+						// Force override any existing size variant entries
+						$known_media[ $size_attached_file ] = $media_entity;
+					}
+			}
+
+			// Also try to match by full URL for better coverage
+			$full_url_key = $media_data['source_url'];
+			$known_media[ $full_url_key ] = $media_entity;
+		}
+
+		// Update the cloner's known media array with our enhanced version
+		$this->updateKnownMedia( $known_media );
+
+		return true;
+	}
+
+	/**
+	 * Create enhanced media entity with complete metadata from WP REST API response
+	 *
+	 * @param array $media_data Complete media data from WP REST API
+	 *
+	 * @return Media Enhanced media entity
+	 */
+	protected function createEnhancedMediaEntity( array $media_data ): Media {
+		$media = new Media();
+
+		// Basic properties
+		if ( isset( $media_data['id'] ) ) {
+			$media->id = $media_data['id'];
+		}
+		if ( isset( $media_data['source_url'] ) ) {
+			$media->sourceUrl = $media_data['source_url'];
+		}
+
+		// Enhanced metadata from REST API
+		if ( isset( $media_data['title']['raw'] ) ) {
+			$media->title = $media_data['title']['raw'];
+		}
+		if ( isset( $media_data['description']['raw'] ) ) {
+			$media->description = $media_data['description']['raw'];
+		}
+		if ( isset( $media_data['caption']['raw'] ) ) {
+			$media->caption = $media_data['caption']['raw'];
+		}
+		if ( isset( $media_data['alt_text'] ) ) {
+			$media->altText = $media_data['alt_text'];
+		}
+
+		if ( isset( $media_data['meta'] ) ) {
+			$media->meta = $media_data['meta'];
+		}
+
+		if ( isset( $media_data['media_details'] ) ) {
+			if ( ! isset( $media->meta ) ) {
+				$media->meta = [];
+			}
+			$media->meta['_media_details'] = $media_data['media_details'];
+		}
+
+		if ( ! isset( $media->meta ) ) {
+			$media->meta = [];
+		}
+		$media->meta['_rest_api_data'] = $media_data;
+
+		return $media;
+	}
+
+	/**
+	 * Update the cloner's known media array with enhanced metadata
+	 *
+	 * @param array $known_media Updated known media array
+	 */
+	protected function updateKnownMedia( $known_media ) {
+		$this->cloner->updateKnownMedia( $known_media );
 	}
 
 	/**
