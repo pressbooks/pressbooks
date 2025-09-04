@@ -504,14 +504,12 @@ class Downloads {
 			$known_media[ $attached_file ] = $media_entity;
 
 			// For images, also add all size variants and override existing entries
-			if ( $media_data['media_type'] === 'image' &&
-				 $media_data['mime_type'] !== 'image/svg+xml' &&
-				 isset( $media_data['media_details']['sizes'] ) ) {
-					foreach ( $media_data['media_details']['sizes'] as $size => $info ) {
-						$size_attached_file = image_strip_baseurl( $info['source_url'] );
-						// Force override any existing size variant entries
-						$known_media[ $size_attached_file ] = $media_entity;
-					}
+			if ( $media_data['media_type'] === 'image' && $media_data['mime_type'] !== 'image/svg+xml' && isset( $media_data['media_details']['sizes'] ) ) {
+				foreach ( $media_data['media_details']['sizes'] as $size => $info ) {
+					$size_attached_file = image_strip_baseurl( $info['source_url'] );
+					// Force override any existing size variant entries
+					$known_media[ $size_attached_file ] = $media_entity;
+				}
 			}
 
 			// Also try to match by full URL for better coverage
