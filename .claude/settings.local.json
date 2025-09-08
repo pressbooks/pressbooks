@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(lando ssh:*)"
-    ],
-    "deny": [],
-    "ask": []
-  }
-}
