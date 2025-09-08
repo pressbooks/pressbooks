@@ -1,1 +1,2 @@
-document.addEventListener("DOMContentLoaded",(function(){var e={first_name:"given-name",last_name:"family-name",email:"email",url:"url",nickname:"nickname"};for(var n in e){var t=document.getElementById(n);t&&t.setAttribute("autocomplete",e[n])}}));
+function a(){import.meta.url,import("_").catch(()=>1),(async function*(){})().next()}document.addEventListener("DOMContentLoaded",()=>{const e={first_name:"given-name",last_name:"family-name",email:"email",url:"url",nickname:"nickname"};for(const t in e){const n=document.getElementById(t);n&&n.setAttribute("autocomplete",e[t])}});export{a as __vite_legacy_guard};
+//# sourceMappingURL=profile.js.map

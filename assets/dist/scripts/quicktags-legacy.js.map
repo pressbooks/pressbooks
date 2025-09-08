@@ -1,0 +1,1 @@
+{"version":3,"file":"quicktags-legacy.js","sources":["../../src/scripts/quicktags.js"],"sourcesContent":["edButtons[edButtons.length] = new edButton(\n\t'ed_fn',\n\t'fn',\n\t'[footnote]',\n\t'[/footnote]',\n\t''\n);\n"],"names":["edButtons","length","edButton"],"mappings":"wEAAAA,UAAUA,UAAUC,QAAU,IAAIC,SACjC,QACA,KACA,aACA,cACA"}

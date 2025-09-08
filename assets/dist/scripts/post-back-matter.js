@@ -1,1 +1,2 @@
-jQuery(document).ready((function(e){var t=e("#pb-post-type-notice");e("#back-matter-typedropdown").on("change",(function(){parseInt(this.value,10)===parseInt(PB_GlossaryToken.term_id,10)?(t.html("<p>"+PB_GlossaryToken.term_notice+"</p>"),t.show()):(t.html(""),t.hide())}))}));
+function n(){import.meta.url,import("_").catch(()=>1),(async function*(){})().next()}jQuery(document).ready(function(e){let t=e("#pb-post-type-notice");e("#back-matter-typedropdown").on("change",function(){parseInt(this.value,10)===parseInt(PB_GlossaryToken.term_id,10)?(t.html("<p>"+PB_GlossaryToken.term_notice+"</p>"),t.show()):(t.html(""),t.hide())})});export{n as __vite_legacy_guard};
+//# sourceMappingURL=post-back-matter.js.map

@@ -1,1 +1,2 @@
-jQuery((function(e){var t=e("#search-form");e(".replace-and-save").on("click",(function(e){if(confirm(pb_sr.warning_text)){var n=document.createElement("input");n.setAttribute("type","hidden"),n.setAttribute("name","replace_and_save"),document.getElementById("search-form").appendChild(n),t.submit()}}))}));
+function r(){import.meta.url,import("_").catch(()=>1),(async function*(){})().next()}jQuery(function(t){const n=t("#search-form");t(".replace-and-save").on("click",function(c){if(confirm(pb_sr.warning_text)){let e=document.createElement("input");e.setAttribute("type","hidden"),e.setAttribute("name","replace_and_save"),document.getElementById("search-form").appendChild(e),n.submit()}})});export{r as __vite_legacy_guard};
+//# sourceMappingURL=search-and-replace.js.map

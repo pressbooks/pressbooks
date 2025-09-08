@@ -1,0 +1,745 @@
+{
+  "_lit-element-DY4eFJB5.js": {
+    "file": "scripts/lit-element-DY4eFJB5.js",
+    "name": "lit-element"
+  },
+  "_lit-element-legacy-DWFBGLyg.js": {
+    "file": "scripts/lit-element-legacy-DWFBGLyg.js",
+    "name": "lit-element"
+  },
+  "_startClock-CTGHB55C.js": {
+    "file": "scripts/startClock-CTGHB55C.js",
+    "name": "startClock"
+  },
+  "_startClock-legacy-NyfGYcYs.js": {
+    "file": "scripts/startClock-legacy-NyfGYcYs.js",
+    "name": "startClock"
+  },
+  "assets/src/fonts/PBFont.svg": {
+    "file": "assets/PBFont-FY9f3BzU.svg",
+    "src": "assets/src/fonts/PBFont.svg"
+  },
+  "assets/src/fonts/catalog-page.svg": {
+    "file": "assets/catalog-page-BIQTTih7.svg",
+    "src": "assets/src/fonts/catalog-page.svg"
+  },
+  "assets/src/fonts/heroicons.eot": {
+    "file": "assets/heroicons-CVYPToTZ.eot",
+    "src": "assets/src/fonts/heroicons.eot"
+  },
+  "assets/src/fonts/heroicons.woff": {
+    "file": "assets/heroicons-C57YlG2p.woff",
+    "src": "assets/src/fonts/heroicons.woff"
+  },
+  "assets/src/fonts/heroicons.woff2": {
+    "file": "assets/heroicons-D_QNU6eO.woff2",
+    "src": "assets/src/fonts/heroicons.woff2"
+  },
+  "assets/src/scripts/a11y-legacy.js": {
+    "file": "scripts/a11y-legacy.js",
+    "name": "a11y",
+    "src": "assets/src/scripts/a11y-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/a11y.js": {
+    "file": "scripts/a11y.js",
+    "name": "a11y",
+    "src": "assets/src/scripts/a11y.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/algolia-search-legacy.js": {
+    "file": "scripts/algolia-search-legacy.js",
+    "name": "algolia-search",
+    "src": "assets/src/scripts/algolia-search-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/algolia-search.js": {
+    "file": "scripts/algolia-search.js",
+    "name": "algolia-search",
+    "src": "assets/src/scripts/algolia-search.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/anchor-legacy.js": {
+    "file": "scripts/anchor-legacy.js",
+    "name": "anchor",
+    "src": "assets/src/scripts/anchor-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/anchor.js": {
+    "file": "scripts/anchor.js",
+    "name": "anchor",
+    "src": "assets/src/scripts/anchor.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/applyclass-legacy.js": {
+    "file": "scripts/applyclass-legacy.js",
+    "name": "applyclass",
+    "src": "assets/src/scripts/applyclass-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/applyclass.js": {
+    "file": "scripts/applyclass.js",
+    "name": "applyclass",
+    "src": "assets/src/scripts/applyclass.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/book-information-legacy.js": {
+    "file": "scripts/book-information-legacy.js",
+    "name": "book-information",
+    "src": "assets/src/scripts/book-information-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/book-information.js": {
+    "file": "scripts/book-information.js",
+    "name": "book-information",
+    "src": "assets/src/scripts/book-information.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/catalog-legacy.js": {
+    "file": "scripts/catalog-legacy.js",
+    "name": "catalog",
+    "src": "assets/src/scripts/catalog-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/catalog.js": {
+    "file": "scripts/catalog.js",
+    "name": "catalog",
+    "src": "assets/src/scripts/catalog.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/cloner-legacy.js": {
+    "file": "scripts/cloner-legacy.js",
+    "name": "cloner",
+    "src": "assets/src/scripts/cloner-legacy.js",
+    "isEntry": true,
+    "imports": [
+      "_startClock-legacy-NyfGYcYs.js"
+    ]
+  },
+  "assets/src/scripts/cloner.js": {
+    "file": "scripts/cloner.js",
+    "name": "cloner",
+    "src": "assets/src/scripts/cloner.js",
+    "isEntry": true,
+    "imports": [
+      "_startClock-CTGHB55C.js"
+    ]
+  },
+  "assets/src/scripts/color-picker-legacy.js": {
+    "file": "scripts/color-picker-legacy.js",
+    "name": "color-picker",
+    "src": "assets/src/scripts/color-picker-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/color-picker.js": {
+    "file": "scripts/color-picker.js",
+    "name": "color-picker",
+    "src": "assets/src/scripts/color-picker.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/contributors-legacy.js": {
+    "file": "scripts/contributors-legacy.js",
+    "name": "contributors",
+    "src": "assets/src/scripts/contributors-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/contributors.js": {
+    "file": "scripts/contributors.js",
+    "name": "contributors",
+    "src": "assets/src/scripts/contributors.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/covergenerator-legacy.js": {
+    "file": "scripts/covergenerator-legacy.js",
+    "name": "covergenerator",
+    "src": "assets/src/scripts/covergenerator-legacy.js",
+    "isEntry": true,
+    "imports": [
+      "_startClock-legacy-NyfGYcYs.js"
+    ]
+  },
+  "assets/src/scripts/covergenerator.js": {
+    "file": "scripts/covergenerator.js",
+    "name": "covergenerator",
+    "src": "assets/src/scripts/covergenerator.js",
+    "isEntry": true,
+    "imports": [
+      "_startClock-CTGHB55C.js"
+    ]
+  },
+  "assets/src/scripts/export-footnotes-legacy.js": {
+    "file": "scripts/export-footnotes-legacy.js",
+    "name": "export-footnotes",
+    "src": "assets/src/scripts/export-footnotes-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/export-footnotes.js": {
+    "file": "scripts/export-footnotes.js",
+    "name": "export-footnotes",
+    "src": "assets/src/scripts/export-footnotes.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/export-legacy.js": {
+    "file": "scripts/export-legacy.js",
+    "name": "export",
+    "src": "assets/src/scripts/export-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/export.js": {
+    "file": "scripts/export.js",
+    "name": "export",
+    "src": "assets/src/scripts/export.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/footnote-legacy.js": {
+    "file": "scripts/footnote-legacy.js",
+    "name": "footnote",
+    "src": "assets/src/scripts/footnote-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/footnote.js": {
+    "file": "scripts/footnote.js",
+    "name": "footnote",
+    "src": "assets/src/scripts/footnote.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/ftnref-convert-legacy.js": {
+    "file": "scripts/ftnref-convert-legacy.js",
+    "name": "ftnref-convert",
+    "src": "assets/src/scripts/ftnref-convert-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/ftnref-convert.js": {
+    "file": "scripts/ftnref-convert.js",
+    "name": "ftnref-convert",
+    "src": "assets/src/scripts/ftnref-convert.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/glossary-definition-legacy.js": {
+    "file": "scripts/glossary-definition-legacy.js",
+    "name": "glossary-definition",
+    "src": "assets/src/scripts/glossary-definition-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/glossary-definition.js": {
+    "file": "scripts/glossary-definition.js",
+    "name": "glossary-definition",
+    "src": "assets/src/scripts/glossary-definition.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/glossary-legacy.js": {
+    "file": "scripts/glossary-legacy.js",
+    "name": "glossary",
+    "src": "assets/src/scripts/glossary-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/glossary.js": {
+    "file": "scripts/glossary.js",
+    "name": "glossary",
+    "src": "assets/src/scripts/glossary.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/import-legacy.js": {
+    "file": "scripts/import-legacy.js",
+    "name": "import",
+    "src": "assets/src/scripts/import-legacy.js",
+    "isEntry": true,
+    "imports": [
+      "_startClock-legacy-NyfGYcYs.js"
+    ]
+  },
+  "assets/src/scripts/import.js": {
+    "file": "scripts/import.js",
+    "name": "import",
+    "src": "assets/src/scripts/import.js",
+    "isEntry": true,
+    "imports": [
+      "_startClock-CTGHB55C.js"
+    ]
+  },
+  "assets/src/scripts/latex-legacy.js": {
+    "file": "scripts/latex-legacy.js",
+    "name": "latex",
+    "src": "assets/src/scripts/latex-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/latex.js": {
+    "file": "scripts/latex.js",
+    "name": "latex",
+    "src": "assets/src/scripts/latex.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/login-legacy.js": {
+    "file": "scripts/login-legacy.js",
+    "name": "login",
+    "src": "assets/src/scripts/login-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/login.js": {
+    "file": "scripts/login.js",
+    "name": "login",
+    "src": "assets/src/scripts/login.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/network-managers-legacy.js": {
+    "file": "scripts/network-managers-legacy.js",
+    "name": "network-managers",
+    "src": "assets/src/scripts/network-managers-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/network-managers.js": {
+    "file": "scripts/network-managers.js",
+    "name": "network-managers",
+    "src": "assets/src/scripts/network-managers.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/organize-legacy.js": {
+    "file": "scripts/organize-legacy.js",
+    "name": "organize",
+    "src": "assets/src/scripts/organize-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/organize.js": {
+    "file": "scripts/organize.js",
+    "name": "organize",
+    "src": "assets/src/scripts/organize.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/post-back-matter-legacy.js": {
+    "file": "scripts/post-back-matter-legacy.js",
+    "name": "post-back-matter",
+    "src": "assets/src/scripts/post-back-matter-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/post-back-matter.js": {
+    "file": "scripts/post-back-matter.js",
+    "name": "post-back-matter",
+    "src": "assets/src/scripts/post-back-matter.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/post-mathjax-legacy.js": {
+    "file": "scripts/post-mathjax-legacy.js",
+    "name": "post-mathjax",
+    "src": "assets/src/scripts/post-mathjax-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/post-mathjax.js": {
+    "file": "scripts/post-mathjax.js",
+    "name": "post-mathjax",
+    "src": "assets/src/scripts/post-mathjax.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/post-visibility-legacy.js": {
+    "file": "scripts/post-visibility-legacy.js",
+    "name": "post-visibility",
+    "src": "assets/src/scripts/post-visibility-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/post-visibility.js": {
+    "file": "scripts/post-visibility.js",
+    "name": "post-visibility",
+    "src": "assets/src/scripts/post-visibility.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/profile-legacy.js": {
+    "file": "scripts/profile-legacy.js",
+    "name": "profile",
+    "src": "assets/src/scripts/profile-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/profile.js": {
+    "file": "scripts/profile.js",
+    "name": "profile",
+    "src": "assets/src/scripts/profile.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/quicktags-legacy.js": {
+    "file": "scripts/quicktags-legacy.js",
+    "name": "quicktags",
+    "src": "assets/src/scripts/quicktags-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/quicktags.js": {
+    "file": "scripts/quicktags.js",
+    "name": "quicktags",
+    "src": "assets/src/scripts/quicktags.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/search-and-replace-legacy.js": {
+    "file": "scripts/search-and-replace-legacy.js",
+    "name": "search-and-replace",
+    "src": "assets/src/scripts/search-and-replace-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/search-and-replace.js": {
+    "file": "scripts/search-and-replace.js",
+    "name": "search-and-replace",
+    "src": "assets/src/scripts/search-and-replace.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/small-menu-legacy.js": {
+    "file": "scripts/small-menu-legacy.js",
+    "name": "small-menu",
+    "src": "assets/src/scripts/small-menu-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/small-menu.js": {
+    "file": "scripts/small-menu.js",
+    "name": "small-menu",
+    "src": "assets/src/scripts/small-menu.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/textboxes-legacy.js": {
+    "file": "scripts/textboxes-legacy.js",
+    "name": "textboxes-legacy",
+    "src": "assets/src/scripts/textboxes-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/textboxes.js": {
+    "file": "scripts/textboxes.js",
+    "name": "textboxes",
+    "src": "assets/src/scripts/textboxes.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/theme-lock-legacy.js": {
+    "file": "scripts/theme-lock-legacy.js",
+    "name": "theme-lock",
+    "src": "assets/src/scripts/theme-lock-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/theme-lock.js": {
+    "file": "scripts/theme-lock.js",
+    "name": "theme-lock",
+    "src": "assets/src/scripts/theme-lock.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/theme-options-legacy.js": {
+    "file": "scripts/theme-options-legacy.js",
+    "name": "theme-options",
+    "src": "assets/src/scripts/theme-options-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/theme-options.js": {
+    "file": "scripts/theme-options.js",
+    "name": "theme-options",
+    "src": "assets/src/scripts/theme-options.js",
+    "isEntry": true
+  },
+  "assets/src/styles/admin/export-ui-legacy.css": {
+    "file": "scripts/export-ui-styles-legacy.js",
+    "name": "export-ui-styles",
+    "src": "assets/src/styles/admin/export-ui-legacy.css",
+    "isEntry": true
+  },
+  "assets/src/styles/admin/export-ui.css": {
+    "file": "styles/export-ui-styles.css",
+    "src": "assets/src/styles/admin/export-ui.css",
+    "isEntry": true,
+    "names": [
+      "export-ui-styles.css"
+    ]
+  },
+  "assets/src/styles/catalog-legacy.scss": {
+    "file": "scripts/catalog-styles-legacy.js",
+    "name": "catalog-styles",
+    "src": "assets/src/styles/catalog-legacy.scss",
+    "isEntry": true,
+    "assets": [
+      "assets/catalog-page-BIQTTih7.svg"
+    ]
+  },
+  "assets/src/styles/catalog.scss": {
+    "file": "styles/catalog-styles.css",
+    "src": "assets/src/styles/catalog.scss",
+    "isEntry": true,
+    "names": [
+      "catalog-styles.css"
+    ]
+  },
+  "assets/src/styles/cloner-legacy.scss": {
+    "file": "scripts/cloner-styles-legacy.js",
+    "name": "cloner-styles",
+    "src": "assets/src/styles/cloner-legacy.scss",
+    "isEntry": true
+  },
+  "assets/src/styles/cloner.scss": {
+    "file": "styles/cloner-styles.css",
+    "src": "assets/src/styles/cloner.scss",
+    "isEntry": true,
+    "names": [
+      "cloner-styles.css"
+    ]
+  },
+  "assets/src/styles/colors-pb-a11y-legacy.scss": {
+    "file": "scripts/colors-pb-a11y-styles-legacy.js",
+    "name": "colors-pb-a11y-styles",
+    "src": "assets/src/styles/colors-pb-a11y-legacy.scss",
+    "isEntry": true
+  },
+  "assets/src/styles/colors-pb-a11y.scss": {
+    "file": "styles/colors-pb-a11y-styles.css",
+    "src": "assets/src/styles/colors-pb-a11y.scss",
+    "isEntry": true,
+    "names": [
+      "colors-pb-a11y-styles.css"
+    ]
+  },
+  "assets/src/styles/colors-pb-legacy.scss": {
+    "file": "scripts/colors-pb-styles-legacy.js",
+    "name": "colors-pb-styles",
+    "src": "assets/src/styles/colors-pb-legacy.scss",
+    "isEntry": true
+  },
+  "assets/src/styles/colors-pb.scss": {
+    "file": "styles/colors-pb-styles.css",
+    "src": "assets/src/styles/colors-pb.scss",
+    "isEntry": true,
+    "names": [
+      "colors-pb-styles.css"
+    ]
+  },
+  "assets/src/styles/covergenerator-legacy.scss": {
+    "file": "scripts/covergenerator-styles-legacy.js",
+    "name": "covergenerator-styles",
+    "src": "assets/src/styles/covergenerator-legacy.scss",
+    "isEntry": true
+  },
+  "assets/src/styles/covergenerator.scss": {
+    "file": "styles/covergenerator-styles.css",
+    "src": "assets/src/styles/covergenerator.scss",
+    "isEntry": true,
+    "names": [
+      "covergenerator-styles.css"
+    ]
+  },
+  "assets/src/styles/duet-legacy.css": {
+    "file": "scripts/duet-styles-legacy.js",
+    "name": "duet-styles",
+    "src": "assets/src/styles/duet-legacy.css",
+    "isEntry": true
+  },
+  "assets/src/styles/duet.css": {
+    "file": "styles/duet-styles.css",
+    "src": "assets/src/styles/duet.css",
+    "isEntry": true,
+    "names": [
+      "duet-styles.css"
+    ]
+  },
+  "assets/src/styles/export-legacy.scss": {
+    "file": "scripts/export-styles-legacy.js",
+    "name": "export-styles",
+    "src": "assets/src/styles/export-legacy.scss",
+    "isEntry": true
+  },
+  "assets/src/styles/export.scss": {
+    "file": "styles/export-styles.css",
+    "src": "assets/src/styles/export.scss",
+    "isEntry": true,
+    "names": [
+      "export-styles.css"
+    ]
+  },
+  "assets/src/styles/glossary-definition-legacy.scss": {
+    "file": "scripts/glossary-definition-styles-legacy.js",
+    "name": "glossary-definition-styles",
+    "src": "assets/src/styles/glossary-definition-legacy.scss",
+    "isEntry": true
+  },
+  "assets/src/styles/glossary-definition.scss": {
+    "file": "styles/glossary-definition-styles.css",
+    "src": "assets/src/styles/glossary-definition.scss",
+    "isEntry": true,
+    "names": [
+      "glossary-definition-styles.css"
+    ]
+  },
+  "assets/src/styles/login-legacy.scss": {
+    "file": "scripts/login-styles-legacy.js",
+    "name": "login-styles",
+    "src": "assets/src/styles/login-legacy.scss",
+    "isEntry": true
+  },
+  "assets/src/styles/login.scss": {
+    "file": "styles/login-styles.css",
+    "src": "assets/src/styles/login.scss",
+    "isEntry": true,
+    "names": [
+      "login-styles.css"
+    ]
+  },
+  "assets/src/styles/metadata-legacy.scss": {
+    "file": "scripts/metadata-styles-legacy.js",
+    "name": "metadata-styles",
+    "src": "assets/src/styles/metadata-legacy.scss",
+    "isEntry": true
+  },
+  "assets/src/styles/metadata.scss": {
+    "file": "styles/metadata-styles.css",
+    "src": "assets/src/styles/metadata.scss",
+    "isEntry": true,
+    "names": [
+      "metadata-styles.css"
+    ]
+  },
+  "assets/src/styles/network-managers-legacy.scss": {
+    "file": "scripts/network-managers-styles-legacy.js",
+    "name": "network-managers-styles",
+    "src": "assets/src/styles/network-managers-legacy.scss",
+    "isEntry": true
+  },
+  "assets/src/styles/network-managers.scss": {
+    "file": "styles/network-managers-styles.css",
+    "src": "assets/src/styles/network-managers.scss",
+    "isEntry": true,
+    "names": [
+      "network-managers-styles.css"
+    ]
+  },
+  "assets/src/styles/organize-legacy.scss": {
+    "file": "scripts/organize-styles-legacy.js",
+    "name": "organize-styles",
+    "src": "assets/src/styles/organize-legacy.scss",
+    "isEntry": true
+  },
+  "assets/src/styles/organize.scss": {
+    "file": "styles/organize-styles.css",
+    "src": "assets/src/styles/organize.scss",
+    "isEntry": true,
+    "names": [
+      "organize-styles.css"
+    ]
+  },
+  "assets/src/styles/pressbooks-dashboard-legacy.scss": {
+    "file": "scripts/pressbooks-dashboard-styles-legacy.js",
+    "name": "pressbooks-dashboard-styles",
+    "src": "assets/src/styles/pressbooks-dashboard-legacy.scss",
+    "isEntry": true
+  },
+  "assets/src/styles/pressbooks-dashboard.scss": {
+    "file": "styles/pressbooks-dashboard-styles.css",
+    "src": "assets/src/styles/pressbooks-dashboard.scss",
+    "isEntry": true,
+    "names": [
+      "pressbooks-dashboard-styles.css"
+    ]
+  },
+  "assets/src/styles/pressbooks-legacy.scss": {
+    "file": "scripts/pressbooks-styles-legacy.js",
+    "name": "pressbooks-styles",
+    "src": "assets/src/styles/pressbooks-legacy.scss",
+    "isEntry": true,
+    "assets": [
+      "assets/heroicons-CVYPToTZ.eot",
+      "assets/heroicons-D_QNU6eO.woff2",
+      "assets/heroicons-C57YlG2p.woff",
+      "assets/PBFont-FY9f3BzU.svg"
+    ]
+  },
+  "assets/src/styles/pressbooks-table-legacy.scss": {
+    "file": "scripts/pressbooks-table-styles-legacy.js",
+    "name": "pressbooks-table-styles",
+    "src": "assets/src/styles/pressbooks-table-legacy.scss",
+    "isEntry": true
+  },
+  "assets/src/styles/pressbooks-table.scss": {
+    "file": "styles/pressbooks-table-styles.css",
+    "src": "assets/src/styles/pressbooks-table.scss",
+    "isEntry": true,
+    "names": [
+      "pressbooks-table-styles.css"
+    ]
+  },
+  "assets/src/styles/pressbooks.scss": {
+    "file": "styles/pressbooks-styles.css",
+    "src": "assets/src/styles/pressbooks.scss",
+    "isEntry": true,
+    "names": [
+      "pressbooks-styles.css"
+    ]
+  },
+  "assets/src/styles/search-and-replace-legacy.scss": {
+    "file": "scripts/search-and-replace-styles-legacy.js",
+    "name": "search-and-replace-styles",
+    "src": "assets/src/styles/search-and-replace-legacy.scss",
+    "isEntry": true
+  },
+  "assets/src/styles/search-and-replace.scss": {
+    "file": "styles/search-and-replace-styles.css",
+    "src": "assets/src/styles/search-and-replace.scss",
+    "isEntry": true,
+    "names": [
+      "search-and-replace-styles.css"
+    ]
+  },
+  "assets/src/styles/style-catalog-legacy.scss": {
+    "file": "scripts/style-catalog-styles-legacy.js",
+    "name": "style-catalog-styles",
+    "src": "assets/src/styles/style-catalog-legacy.scss",
+    "isEntry": true
+  },
+  "assets/src/styles/style-catalog.scss": {
+    "file": "styles/style-catalog-styles.css",
+    "src": "assets/src/styles/style-catalog.scss",
+    "isEntry": true,
+    "names": [
+      "style-catalog-styles.css"
+    ]
+  },
+  "assets/src/styles/theme-options-legacy.scss": {
+    "file": "scripts/theme-options-styles-legacy.js",
+    "name": "theme-options-styles",
+    "src": "assets/src/styles/theme-options-legacy.scss",
+    "isEntry": true
+  },
+  "assets/src/styles/theme-options.scss": {
+    "file": "styles/theme-options-styles.css",
+    "src": "assets/src/styles/theme-options.scss",
+    "isEntry": true,
+    "names": [
+      "theme-options-styles.css"
+    ]
+  },
+  "node_modules/@pressbooks/multiselect/pressbooks-multiselect-legacy.js": {
+    "file": "scripts/pressbooks-multiselect-legacy.js",
+    "name": "pressbooks-multiselect",
+    "src": "node_modules/@pressbooks/multiselect/pressbooks-multiselect-legacy.js",
+    "isEntry": true,
+    "imports": [
+      "_lit-element-legacy-DWFBGLyg.js"
+    ]
+  },
+  "node_modules/@pressbooks/multiselect/pressbooks-multiselect.js": {
+    "file": "scripts/pressbooks-multiselect.js",
+    "name": "pressbooks-multiselect",
+    "src": "node_modules/@pressbooks/multiselect/pressbooks-multiselect.js",
+    "isEntry": true,
+    "imports": [
+      "_lit-element-DY4eFJB5.js"
+    ]
+  },
+  "node_modules/@pressbooks/reorderable-multiselect/pressbooks-reorderable-multiselect-legacy.js": {
+    "file": "scripts/pressbooks-reorderable-multiselect-legacy.js",
+    "name": "pressbooks-reorderable-multiselect",
+    "src": "node_modules/@pressbooks/reorderable-multiselect/pressbooks-reorderable-multiselect-legacy.js",
+    "isEntry": true,
+    "imports": [
+      "_lit-element-legacy-DWFBGLyg.js"
+    ]
+  },
+  "node_modules/@pressbooks/reorderable-multiselect/pressbooks-reorderable-multiselect.js": {
+    "file": "scripts/pressbooks-reorderable-multiselect.js",
+    "name": "pressbooks-reorderable-multiselect",
+    "src": "node_modules/@pressbooks/reorderable-multiselect/pressbooks-reorderable-multiselect.js",
+    "isEntry": true,
+    "imports": [
+      "_lit-element-DY4eFJB5.js"
+    ]
+  },
+  "vite/legacy-polyfills-legacy": {
+    "file": "scripts/polyfills-legacy.js",
+    "name": "polyfills",
+    "src": "vite/legacy-polyfills-legacy",
+    "isEntry": true
+  }
+}
