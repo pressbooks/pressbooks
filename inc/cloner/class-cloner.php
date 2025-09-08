@@ -19,6 +19,8 @@ use function Pressbooks\Utility\str_remove_prefix;
 use function Pressbooks\Utility\str_starts_with;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Container;
+use Pressbooks\Entities\Cloner\H5P;
+use Pressbooks\Entities\Cloner\Media;
 use Pressbooks\Shortcodes\Glossary\Glossary;
 use Pressbooks\Utility\PercentageYield;
 
@@ -178,7 +180,7 @@ class Cloner {
 	 * Value: \Pressbooks\Entities\Cloner\Media
 	 * Sorted by the length of \Pressbooks\Entities\Cloner\Media()->sourceUrl (for better, left to right, search and replace loops)
 	 *
-	 * @var \Pressbooks\Entities\Cloner\Media[]
+	 * @var Media[]
 	 */
 	protected $knownMedia = [];
 
@@ -244,7 +246,7 @@ class Cloner {
 	/**
 	 * Array of known H5P
 	 *
-	 * @var \Pressbooks\Entities\Cloner\H5P[]
+	 * @var H5P[]
 	 */
 	protected $knownH5P = [];
 
@@ -400,23 +402,23 @@ class Cloner {
 	}
 
 	/**
-	 * @return \Pressbooks\Entities\Cloner\Media[]
+	 * @return Media[]
 	 */
-	public function getKnownMedia() {
+	public function getKnownMedia(): array {
 		return $this->knownMedia;
 	}
 
 	/**
 	 * Update the known media array with enhanced metadata
 	 *
-	 * @param \Pressbooks\Entities\Cloner\Media[] $known_media
+	 * @param Media[] $known_media
 	 */
-	public function updateKnownMedia( $known_media ) {
+	public function updateKnownMedia( $known_media ): void {
 		$this->knownMedia = $known_media;
 	}
 
 	/**
-	 * @return \Pressbooks\Entities\Cloner\H5P[]
+	 * @return H5P[]
 	 */
 	public function getKnownH5P() {
 		return $this->knownH5P;
@@ -791,7 +793,7 @@ class Cloner {
 	 *
 	 * @param string $url The URL of the book.
 	 *
-	 * @return bool|\Pressbooks\Entities\Cloner\Media[] False if the operation failed; known images assoc array if succeeded.
+	 * @return bool|Media[] False if the operation failed; known images assoc array if succeeded.
 	 */
 	public function buildListOfKnownMedia( string $url ) {
 		// Handle request (local or global)
@@ -830,7 +832,7 @@ class Cloner {
 	/**
 	 * @param $url
 	 *
-	 * @return bool|\Pressbooks\Entities\Cloner\H5P[]  False if the operation failed; known H5P array if succeeded.
+	 * @return bool|H5P[]  False if the operation failed; known H5P array if succeeded.
 	 */
 	public function buildListOfKnownH5P( $url ) {
 		$response = $this->handleGetRequest( $url, 'h5p/v1', 'all' );
@@ -1225,10 +1227,10 @@ class Cloner {
 	/**
 	 * @param array $item
 	 *
-	 * @return \Pressbooks\Entities\Cloner\Media
+	 * @return Media
 	 */
 	protected function createMediaEntity( $item ) {
-		$m = new \Pressbooks\Entities\Cloner\Media();
+		$m = new Media();
 		if ( isset( $item['id'] ) ) {
 			$m->id = $item['id'];
 		}
@@ -1256,10 +1258,10 @@ class Cloner {
 	/**
 	 * @param array $item
 	 *
-	 * @return \Pressbooks\Entities\Cloner\H5P
+	 * @return H5P
 	 */
 	protected function createH5PEntity( $item ) {
-		$h5p = new \Pressbooks\Entities\Cloner\H5P();
+		$h5p = new H5P();
 		if ( isset( $item['id'] ) ) {
 			$h5p->id = $item['id'];
 		}

@@ -174,16 +174,7 @@ class Downloads {
 		if ( ! $src ) {
 			$pid = 0;
 		} else {
-			if ( isset( $known_media[ $attached_file ] ) ) {
-				// Patch
-				$m = $known_media[ $attached_file ];
-				$request = new \WP_REST_Request( 'PATCH', "/wp/v2/media/{$pid}" );
-				$request->set_body_params( $this->createMediaPatch( $m ) );
-				$request->set_param( '_fields', 'id' );
-				rest_do_request( $request );
-				// Store a transitional state
-				$this->cloner->createTransition( 'attachment', $m->id, $pid );
-			}
+			$this->extractedMedia( $known_media, $attached_file, $pid );
 			// Don't download the same file again
 			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = $pid;
 		}
@@ -222,44 +213,41 @@ class Downloads {
 	 *
 	 * @return array
 	 */
-	public function createMediaPatch( $media ) {
+	public function createMediaPatch( Media $media ): array {
 		$patch = [];
 
-		// Handle title - check for enhanced metadata first
-		if ( ! empty( $media->title ) ) {
-			$patch['title'] = $media->title;
-		} elseif ( isset( $media->meta['_rest_api_data']['title']['raw'] ) ) {
-			$patch['title'] = $media->meta['_rest_api_data']['title']['raw'];
-		} elseif ( isset( $media->meta['_rest_api_data']['title']['rendered'] ) ) {
-			$patch['title'] = $media->meta['_rest_api_data']['title']['rendered'];
+		$field_mappings = [
+			'title' => [ 'title', [ '_rest_api_data', 'title', 'raw' ], [ '_rest_api_data', 'title', 'rendered' ] ],
+			'description' => [ 'description', [ '_rest_api_data', 'description', 'raw' ], [ '_rest_api_data', 'description', 'rendered' ] ],
+			'caption' => [ 'caption', [ '_rest_api_data', 'caption', 'raw' ], [ '_rest_api_data', 'caption', 'rendered' ] ],
+			'alt_text' => [ 'altText', [ '_rest_api_data', 'alt_text' ] ],
+		];
+
+		foreach ( $field_mappings as $patch_key => $paths ) {
+			$primary_property = array_shift( $paths );
+
+			if ( ! empty( $media->$primary_property ) ) {
+				$patch[ $patch_key ] = $media->$primary_property;
+				continue;
+			}
+
+			foreach ( $paths as $path ) {
+				$value = $media->meta ?? [];
+				foreach ( $path as $key ) {
+					if ( ! isset( $value[ $key ] ) ) {
+						$value = null;
+						break;
+					}
+					$value = $value[ $key ];
+				}
+
+				if ( ! empty( $value ) ) {
+					$patch[ $patch_key ] = $value;
+					break;
+				}
+			}
 		}
 
-		// Handle description - check for enhanced metadata first
-		if ( ! empty( $media->description ) ) {
-			$patch['description'] = $media->description;
-		} elseif ( isset( $media->meta['_rest_api_data']['description']['raw'] ) ) {
-			$patch['description'] = $media->meta['_rest_api_data']['description']['raw'];
-		} elseif ( isset( $media->meta['_rest_api_data']['description']['rendered'] ) ) {
-			$patch['description'] = $media->meta['_rest_api_data']['description']['rendered'];
-		}
-
-		// Handle caption - check for enhanced metadata first
-		if ( ! empty( $media->caption ) ) {
-			$patch['caption'] = $media->caption;
-		} elseif ( isset( $media->meta['_rest_api_data']['caption']['raw'] ) ) {
-			$patch['caption'] = $media->meta['_rest_api_data']['caption']['raw'];
-		} elseif ( isset( $media->meta['_rest_api_data']['caption']['rendered'] ) ) {
-			$patch['caption'] = $media->meta['_rest_api_data']['caption']['rendered'];
-		}
-
-		// Handle alt_text
-		if ( ! empty( $media->altText ) ) {
-			$patch['alt_text'] = $media->altText;
-		} elseif ( isset( $media->meta['_rest_api_data']['alt_text'] ) ) {
-			$patch['alt_text'] = $media->meta['_rest_api_data']['alt_text'];
-		}
-
-		// Include meta data (but exclude our internal storage keys)
 		if ( ! empty( $media->meta ) ) {
 			$clean_meta = $media->meta;
 			unset( $clean_meta['_rest_api_data'], $clean_meta['_media_details'] );
@@ -423,16 +411,7 @@ class Downloads {
 		if ( ! $src ) {
 			$pid = 0;
 		} else {
-			if ( isset( $known_media[ $attached_file ] ) ) {
-				// Patch
-				$m = $known_media[ $attached_file ];
-				$request = new \WP_REST_Request( 'PATCH', "/wp/v2/media/{$pid}" );
-				$request->set_body_params( $this->createMediaPatch( $m ) );
-				$request->set_param( '_fields', 'id' );
-				rest_do_request( $request );
-				// Store a transitional state
-				$this->cloner->createTransition( 'attachment', $m->id, $pid );
-			}
+			$this->extractedMedia( $known_media, $attached_file, $pid );
 			// Don't download the same file again
 			$this->mediaWasAlreadyDownloaded[ $remote_media_location ] = $pid;
 		}
@@ -482,25 +461,21 @@ class Downloads {
 			'wp/v2',
 			"media/{$attachment_id}",
 			[],
-			false // Don't paginate for single item
+			false
 		);
 
 		if ( is_wp_error( $media_data ) || empty( $media_data ) ) {
 			return false;
 		}
 
-		// Create enhanced media entity with complete metadata
 		$media_entity = $this->createEnhancedMediaEntity( $media_data );
 
-		// Update known media array with enhanced information
 		$known_media = $this->cloner->getKnownMedia();
 
-		// Add to known media using various URL patterns for better matching
 		// This will OVERRIDE any existing entries with enhanced metadata
 		if ( isset( $media_data['source_url'] ) ) {
 			$attached_file = media_strip_baseurl( $media_data['source_url'] );
 
-			// Force override any existing entry
 			$known_media[ $attached_file ] = $media_entity;
 
 			// For images, also add all size variants and override existing entries
@@ -512,13 +487,11 @@ class Downloads {
 				}
 			}
 
-			// Also try to match by full URL for better coverage
 			$full_url_key = $media_data['source_url'];
 			$known_media[ $full_url_key ] = $media_entity;
 		}
 
-		// Update the cloner's known media array with our enhanced version
-		$this->updateKnownMedia( $known_media );
+		$this->cloner->updateKnownMedia( $known_media );
 
 		return true;
 	}
@@ -533,7 +506,6 @@ class Downloads {
 	protected function createEnhancedMediaEntity( array $media_data ): Media {
 		$media = new Media();
 
-		// Basic properties
 		if ( isset( $media_data['id'] ) ) {
 			$media->id = $media_data['id'];
 		}
@@ -541,7 +513,6 @@ class Downloads {
 			$media->sourceUrl = $media_data['source_url'];
 		}
 
-		// Enhanced metadata from REST API
 		if ( isset( $media_data['title']['raw'] ) ) {
 			$media->title = $media_data['title']['raw'];
 		}
@@ -572,15 +543,6 @@ class Downloads {
 		$media->meta['_rest_api_data'] = $media_data;
 
 		return $media;
-	}
-
-	/**
-	 * Update the cloner's known media array with enhanced metadata
-	 *
-	 * @param array $known_media Updated known media array
-	 */
-	protected function updateKnownMedia( $known_media ) {
-		$this->cloner->updateKnownMedia( $known_media );
 	}
 
 	/**
@@ -615,6 +577,24 @@ class Downloads {
 			}
 		}
 		return $new_h5p_ids;
+	}
+
+	/**
+	 * @param array $known_media
+	 * @param string $attached_file
+	 * @param \WP_Error|int $pid
+	 * @return void
+	 */
+	public function extractedMedia( array $known_media, string $attached_file, \WP_Error|int $pid ): void {
+		if ( isset( $known_media[ $attached_file ] ) ) {
+			$m = $known_media[ $attached_file ];
+			$request = new \WP_REST_Request( 'PATCH', "/wp/v2/media/{$pid}" );
+			$request->set_body_params( $this->createMediaPatch( $m ) );
+			$request->set_param( '_fields', 'id' );
+			rest_do_request( $request );
+			// Store a transitional state
+			$this->cloner->createTransition( 'attachment', $m->id, $pid );
+		}
 	}
 
 }
