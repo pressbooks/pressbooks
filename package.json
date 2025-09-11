@@ -18,7 +18,7 @@
 		"@duetds/date-picker": "^1.4.0",
 		"@melloware/coloris": "^0.25.0",
 		"@pressbooks/reorderable-multiselect": "^0.0.4",
-		"@pressbooks/select": "^1.0.0",
+		"@pressbooks/select": "^1.0.1",
 		"algoliasearch": "^4.23.2",
 		"alpine": "^0.2.1",
 		"alpinejs": "^3.13.9",
