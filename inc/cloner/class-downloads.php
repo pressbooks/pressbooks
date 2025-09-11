@@ -242,7 +242,11 @@ class Downloads {
 				}
 
 				if ( ! empty( $value ) ) {
-					$patch[ $patch_key ] = $value;
+					if ( in_array( $patch_key, [ 'description', 'caption' ], true ) && end( $path ) === 'rendered' ) {
+						$patch[ $patch_key ] = wp_strip_all_tags( $value );
+					} else {
+						$patch[ $patch_key ] = $value;
+					}
 					break;
 				}
 			}
