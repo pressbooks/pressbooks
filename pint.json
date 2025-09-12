@@ -9,6 +9,8 @@
   },
   "exclude": [
     "wp-content",
-    "vendor"
+    "vendor",
+    "inc",
+    "old-tests"
   ]
 }

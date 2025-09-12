@@ -15,3 +15,5 @@ coverage-reports
 tx
 .transifexrc
 LICENSE
+.claude
+debug-pressbooks.php

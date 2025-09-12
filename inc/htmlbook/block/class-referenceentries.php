@@ -36,18 +36,18 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_refentry
  */
-class ReferenceEntries extends Element {
+class ReferenceEntries extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'div';
 
-	/**
-	 * @var string
-	 */
-	protected $tag = 'div';
-
-	/**
-	 * @var array
-	 */
-	protected $attributes = [
-		'class' => 'refentry',
-	];
+    /**
+     * @var array
+     */
+    protected $attributes = [
+        'class' => 'refentry',
+    ];
 
 }

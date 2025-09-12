@@ -28,11 +28,11 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_ordered_lists
  */
-class OrderedLists extends Element {
-
-	/**
-	 * @var string
-	 */
-	protected $tag = 'ol';
+class OrderedLists extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'ol';
 
 }

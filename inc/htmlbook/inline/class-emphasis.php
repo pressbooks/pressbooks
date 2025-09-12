@@ -15,11 +15,11 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_emphasis_generally_for_italic
  */
-class Emphasis extends Element {
-
-	/**
-	 * @var string
-	 */
-	protected $tag = 'em';
+class Emphasis extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'em';
 
 }

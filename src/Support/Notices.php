@@ -2,7 +2,7 @@
 
 namespace Pressbooks\Support;
 
-use function Pressbooks\use_non_blocking_session;
+// Note: use_non_blocking_session is in global namespace
 
 class Notices
 {
@@ -58,7 +58,7 @@ class Notices
          * Example
          * $use_non_blocking_session = app('session')->useNonBlockingSession();
          */
-        $use_non_blocking_session = use_non_blocking_session();
+        $use_non_blocking_session = \use_non_blocking_session();
         $current_user_id = get_current_user_id();
         $messages = $use_non_blocking_session
             ? get_site_transient("{$key}{$current_user_id}")

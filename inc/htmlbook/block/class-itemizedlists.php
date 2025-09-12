@@ -25,11 +25,11 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_itemized_lists
  */
-class ItemizedLists extends Element {
-
-	/**
-	 * @var string
-	 */
-	protected $tag = 'ul';
+class ItemizedLists extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'ul';
 
 }

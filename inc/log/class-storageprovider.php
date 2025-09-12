@@ -2,8 +2,9 @@
 
 namespace Pressbooks\Log;
 
-interface StorageProvider {
-	function store( array $data, string $file_header );
-	function getDataFormat( array $data );
-	function setClient( $client );
+interface StorageProvider
+{
+    public function store(array $data, string $file_header);
+    public function getDataFormat(array $data);
+    public function setClient($client);
 }

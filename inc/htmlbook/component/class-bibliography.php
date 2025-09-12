@@ -27,23 +27,23 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_bibliography
  */
-class Bibliography extends Element {
+class Bibliography extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'section';
 
-	/**
-	 * @var string
-	 */
-	protected $tag = 'section';
+    /**
+     * @var bool
+     */
+    protected $dataTypeRequired = true;
 
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = true;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [
-		'bibliography',
-	];
+    /**
+     * @var array
+     */
+    protected $dataTypes = [
+        'bibliography',
+    ];
 
 }

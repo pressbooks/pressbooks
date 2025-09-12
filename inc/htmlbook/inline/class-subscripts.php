@@ -15,11 +15,11 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_subscripts
  */
-class Subscripts extends Element {
-
-	/**
-	 * @var string
-	 */
-	protected $tag = 'sub';
+class Subscripts extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'sub';
 
 }

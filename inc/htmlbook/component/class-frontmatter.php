@@ -25,26 +25,26 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_frontmatter
  */
-class Frontmatter extends Element {
+class Frontmatter extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'section';
 
-	/**
-	 * @var string
-	 */
-	protected $tag = 'section';
+    /**
+     * @var bool
+     */
+    protected $dataTypeRequired = true;
 
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = true;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [
-		'halftitlepage',
-		'titlepage',
-		'copyright-page',
-		'dedication',
-	];
+    /**
+     * @var array
+     */
+    protected $dataTypes = [
+        'halftitlepage',
+        'titlepage',
+        'copyright-page',
+        'dedication',
+    ];
 
 }

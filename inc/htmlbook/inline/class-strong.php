@@ -15,11 +15,11 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_strong_generally_for_bold
  */
-class Strong extends Element {
-
-	/**
-	 * @var string
-	 */
-	protected $tag = 'strong';
+class Strong extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'strong';
 
 }

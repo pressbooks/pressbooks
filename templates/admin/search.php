@@ -1,88 +1,88 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if (! defined('ABSPATH')) {
+    exit;
 }
 
-$regex_enabled = ( defined( 'PB_ENABLE_REGEX_SEARCHREPLACE' ) && PB_ENABLE_REGEX_SEARCHREPLACE ) || is_super_admin();
+$regex_enabled = (defined('PB_ENABLE_REGEX_SEARCHREPLACE') && PB_ENABLE_REGEX_SEARCHREPLACE) || is_super_admin();
 
 ?>
 <div class="wrap">
-	<h1><?php _e( 'Search & Replace', 'pressbooks' ) ?></h1>
-	<p><?php _e( 'Search & Replace will find and replace ALL instances of the search pattern in your entire book. Replacements will only be saved if you click &lsquo;<strong>Replace &amp; Save</strong>&rsquo;.', 'pressbooks' ) ?></p>
-	<p><?php _e( 'Be careful replacing text. There is no undo button. However, you can revert your changes using the Revision History within each chapter, front matter or back matter.', 'pressbooks' ) ?></p>
+	<h1><?php _e('Search & Replace', 'pressbooks') ?></h1>
+	<p><?php _e('Search & Replace will find and replace ALL instances of the search pattern in your entire book. Replacements will only be saved if you click &lsquo;<strong>Replace &amp; Save</strong>&rsquo;.', 'pressbooks') ?></p>
+	<p><?php _e('Be careful replacing text. There is no undo button. However, you can revert your changes using the Revision History within each chapter, front matter or back matter.', 'pressbooks') ?></p>
 	<form id="search-form" method="post" action="">
 		<table class="form-table search-form" role="none">
 			<tr>
-				<th scope="row"><?php _e( 'Search Within', 'pressbooks' ); ?>:</th>
+				<th scope="row"><?php _e('Search Within', 'pressbooks'); ?>:</th>
 				<td>
 					<select name="source">
-						<?php foreach ( $searches as $search_type ) : ?>
-							<option value="<?php echo get_class( $search_type ) ?>" <?php // @codingStandardsIgnoreLine
-							selected( stripslashes( @$_POST['source'] ), get_class( $search_type ) ); ?>/><?php echo esc_attr( $search_type->name() ) ?></option>
+						<?php foreach ($searches as $search_type) : ?>
+							<option value="<?php echo get_class($search_type) ?>" <?php // @codingStandardsIgnoreLine
+                            selected(stripslashes(@$_POST['source']), get_class($search_type)); ?>/><?php echo esc_attr($search_type->name()) ?></option>
 						<?php endforeach; ?>
 					</select>
 				</td>
 			</tr>
 			<?php /* <tr>
-				<th scope="row"><?php _e( 'Result Limit', 'pressbooks' ); ?>:</th>
-				<td>
-					<?php $limit = isset( $_POST['limit'] ) ? intval( $_POST['limit'] ) : 0 ?>
-					<select name="limit">
-						<option <?php selected( $limit, 0 ); ?> value="0"><?php _e( 'None', 'pressbooks' ); ?></option>
-						<option <?php selected( $limit, 10 ); ?> value="10"><?php _e( '10', 'pressbooks' ); ?></option>
-						<option <?php selected( $limit, 25 ); ?> value="25"><?php _e( '25', 'pressbooks' ); ?></option>
-						<option <?php selected( $limit, 50 ); ?> value="50"><?php _e( '50', 'pressbooks' ); ?></option>
-						<option <?php selected( $limit, 100 ); ?> value="100"><?php _e( '100', 'pressbooks' ); ?></option>
-					</select>
-				</td>
-			</tr> */ ?>
+                <th scope="row"><?php _e( 'Result Limit', 'pressbooks' ); ?>:</th>
+                <td>
+                    <?php $limit = isset( $_POST['limit'] ) ? intval( $_POST['limit'] ) : 0 ?>
+                    <select name="limit">
+                        <option <?php selected( $limit, 0 ); ?> value="0"><?php _e( 'None', 'pressbooks' ); ?></option>
+                        <option <?php selected( $limit, 10 ); ?> value="10"><?php _e( '10', 'pressbooks' ); ?></option>
+                        <option <?php selected( $limit, 25 ); ?> value="25"><?php _e( '25', 'pressbooks' ); ?></option>
+                        <option <?php selected( $limit, 50 ); ?> value="50"><?php _e( '50', 'pressbooks' ); ?></option>
+                        <option <?php selected( $limit, 100 ); ?> value="100"><?php _e( '100', 'pressbooks' ); ?></option>
+                    </select>
+                </td>
+            </tr> */ ?>
 			<tr>
-				<th scope="row"><?php _e( 'Result Order', 'pressbooks' ); ?>:</th>
+				<th scope="row"><?php _e('Result Order', 'pressbooks'); ?>:</th>
 				<td>
 					<?php
-					// @codingStandardsIgnoreStart
-					$orderby = isset( $_POST['orderby'] ) ? $_POST['orderby'] : '';
-					$regex = ! empty( $_POST['regex'] );
-					// @codingStandardsIgnoreEnd
-					?>
+                    // @codingStandardsIgnoreStart
+                    $orderby = isset($_POST['orderby']) ? $_POST['orderby'] : '';
+$regex = ! empty($_POST['regex']);
+// @codingStandardsIgnoreEnd
+?>
 					<select name="orderby">
-						<option <?php selected( $orderby, 'asc' ); ?>value="asc"><?php _e( 'Ascending', 'pressbooks' ); ?></option>
-						<option <?php selected( $orderby, 'desc' ); ?>value="desc"><?php _e( 'Descending', 'pressbooks' ); ?></option>
+						<option <?php selected($orderby, 'asc'); ?>value="asc"><?php _e('Ascending', 'pressbooks'); ?></option>
+						<option <?php selected($orderby, 'desc'); ?>value="desc"><?php _e('Descending', 'pressbooks'); ?></option>
 					</select>
 				</td>
 			</tr>
 			<tr>
-				<th scope="row"><?php _e( 'Search For', 'pressbooks' ) ?>:</th>
+				<th scope="row"><?php _e('Search For', 'pressbooks') ?>:</th>
 				<td>
-				  <input class="term" type="text" name="search_pattern" value="<?php echo esc_attr( $search ); ?>"/><br/>
+				  <input class="term" type="text" name="search_pattern" value="<?php echo esc_attr($search); ?>"/><br/>
 				</td>
 			</tr>
 			<tr>
-			  <th scope="row"><?php _e( 'Replace With', 'pressbooks' ) ?>:</th>
+			  <th scope="row"><?php _e('Replace With', 'pressbooks') ?>:</th>
 				<td>
-				  <input class="term" type="text" name="replace_pattern" value="<?php echo esc_attr( $replace ) ?>"/><br/>
+				  <input class="term" type="text" name="replace_pattern" value="<?php echo esc_attr($replace) ?>"/><br/>
 				</td>
 			</tr>
-			<?php if ( $regex_enabled ): ?>
+			<?php if ($regex_enabled): ?>
 			<tr>
-			  <th scope="row"><?php _e( 'Regex', 'pressbooks' ) ?>:</th>
+			  <th scope="row"><?php _e('Regex', 'pressbooks') ?>:</th>
 				<td>
 					<label>
 						<input name="regex" type="checkbox" value="true"<?php echo $regex ? ' checked="checked"' : ''; ?>>
-						<?php _e( 'Enable regular expressions', 'pressbooks' ) ?>
+						<?php _e('Enable regular expressions', 'pressbooks') ?>
 					</label>
 				</td>
 			</tr>
 			<?php endif ?>
 		</table>
-		<?php wp_nonce_field( 'search', 'pressbooks-search-and-replace-nonce' ); ?>
+		<?php wp_nonce_field('search', 'pressbooks-search-and-replace-nonce'); ?>
 		<p class="submit">
-			<input type="submit" class="button button-primary" name="search" value="<?php esc_attr_e( 'Search', 'pressbooks' )?>" />
+			<input type="submit" class="button button-primary" name="search" value="<?php esc_attr_e('Search', 'pressbooks')?>" />
 
-			<?php if ( current_user_can( 'administrator' ) ) : ?>
-				<input type="submit" class="button" name="replace" value="<?php esc_attr_e( 'Preview Replacements', 'pressbooks' )?>" />
-				<input type="button" class="button replace-and-save" value="<?php esc_attr_e( 'Replace &amp; Save', 'pressbooks' ) ?>"/>
+			<?php if (current_user_can('administrator')) : ?>
+				<input type="submit" class="button" name="replace" value="<?php esc_attr_e('Preview Replacements', 'pressbooks')?>" />
+				<input type="button" class="button replace-and-save" value="<?php esc_attr_e('Replace &amp; Save', 'pressbooks') ?>"/>
 			<?php endif; ?>
 		</p>
 	</form>

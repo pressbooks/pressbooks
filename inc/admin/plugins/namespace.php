@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Control access to plugins.
  *
@@ -21,25 +22,26 @@ use function Pressbooks\Admin\NetworkManagers\is_restricted;
  * @return array
  */
 
-function filter_plugins( $plugins ) {
-	if ( ! is_super_admin() || is_restricted() ) {
-		$slugs = [
-			'h5p',
-			'hypothesis',
-			'parsedown-party',
-			'tablepress',
-			'wp-quicklatex',
-		];
-		$approved = [];
-		foreach ( $plugins as $slug => $value ) {
-			if ( in_array( explode( '/', $slug )[0], $slugs, true ) ) {
-				$approved[ $slug ] = $value;
-			}
-		}
-		return $approved;
-	}
+function filter_plugins($plugins)
+{
+    if (! is_super_admin() || is_restricted()) {
+        $slugs = [
+            'h5p',
+            'hypothesis',
+            'parsedown-party',
+            'tablepress',
+            'wp-quicklatex',
+        ];
+        $approved = [];
+        foreach ($plugins as $slug => $value) {
+            if (in_array(explode('/', $slug)[0], $slugs, true)) {
+                $approved[ $slug ] = $value;
+            }
+        }
+        return $approved;
+    }
 
-	return $plugins;
+    return $plugins;
 }
 
 /**
@@ -47,9 +49,10 @@ function filter_plugins( $plugins ) {
  *
  * @return array
  */
-function hide_gutenberg( $plugins ) {
-	unset( $plugins['gutenberg/gutenberg.php'] );
-	return $plugins;
+function hide_gutenberg($plugins)
+{
+    unset($plugins['gutenberg/gutenberg.php']);
+    return $plugins;
 }
 
 /**
@@ -62,11 +65,12 @@ function hide_gutenberg( $plugins ) {
  *
  * @return array
  */
-function disable_h5p_security( $allcaps, $caps, $args ) {
-	if ( isset( $args[0] ) && $args[0] === 'disable_h5p_security' ) {
-		$allcaps['disable_h5p_security'] = false;
-	}
-	return $allcaps;
+function disable_h5p_security($allcaps, $caps, $args)
+{
+    if (isset($args[0]) && $args[0] === 'disable_h5p_security') {
+        $allcaps['disable_h5p_security'] = false;
+    }
+    return $allcaps;
 }
 
 /**
@@ -78,11 +82,12 @@ function disable_h5p_security( $allcaps, $caps, $args ) {
  *
  * @return array
  */
-function disable_h5p_security_superadmin( $caps, $cap ) {
-	if ( $cap === 'disable_h5p_security' ) {
-		$caps[] = 'do_not_allow';
-	}
-	return $caps;
+function disable_h5p_security_superadmin($caps, $cap)
+{
+    if ($cap === 'disable_h5p_security') {
+        $caps[] = 'do_not_allow';
+    }
+    return $caps;
 }
 
 /**
@@ -90,9 +95,10 @@ function disable_h5p_security_superadmin( $caps, $cap ) {
  *
  * @param string $plugin
  */
-function quicklatex_svg_warning( $plugin ) {
-	if ( $plugin === 'wp-quicklatex/wp-quicklatex.php' ) {
-		$warning = __( 'Please be advised that any content provided via a remote third-party service, like WP QuickLaTeX, may not be trustworthy. The WP QuickLaTeX plugin also includes an advanced setting which allows users to create and display SVG files, a format that may carry a higher security risk than other image formats.', 'pressbooks' );
-		add_notice( $warning );
-	}
+function quicklatex_svg_warning($plugin)
+{
+    if ($plugin === 'wp-quicklatex/wp-quicklatex.php') {
+        $warning = __('Please be advised that any content provided via a remote third-party service, like WP QuickLaTeX, may not be trustworthy. The WP QuickLaTeX plugin also includes an advanced setting which allows users to create and display SVG files, a format that may carry a higher security risk than other image formats.', 'pressbooks');
+        add_notice($warning);
+    }
 }

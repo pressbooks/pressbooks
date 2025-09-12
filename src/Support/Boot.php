@@ -10,7 +10,7 @@ class Boot
     public function run(): void
     {
         if (! defined('PB_PLUGIN_DIR')) {
-            define('PB_PLUGIN_DIR', (is_link(WP_PLUGIN_DIR.'/pressbooks') ? trailingslashit(WP_PLUGIN_DIR.'/pressbooks') : trailingslashit(__DIR__))); // Must have trailing slash!
+            define('PB_PLUGIN_DIR', (is_link(WP_PLUGIN_DIR.'/pressbooks') ? trailingslashit(WP_PLUGIN_DIR.'/pressbooks') : trailingslashit(dirname(__DIR__, 2)))); // Must have trailing slash!
         }
 
         if (! defined('PB_PLUGIN_URL')) {

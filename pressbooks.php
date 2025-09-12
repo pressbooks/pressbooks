@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name: Pressbooks
  * Plugin URI: https://pressbooks.org
@@ -6,10 +7,10 @@
  * Release Asset: true
  * Description: Simple Book Production
  * x-release-please-start-version
- * Version: 6.22.1
+ * Version: 7.0.0
  * x-release-please-end
- * Requires at least: WordPress 6.6.1
- * Requires PHP: 8.1
+ * Requires at least: WordPress 6.8.2
+ * Requires PHP: 8.2
  * Author: Pressbooks (Book Oven Inc.)
  * Author URI: https://pressbooks.org
  * License: GPL v3 or later
@@ -25,28 +26,23 @@ use Pressbooks\Support\Activation;
 use Pressbooks\Pressbooks;
 use Pressbooks\Support\Compatibility;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	return;
+if (! defined('ABSPATH')) {
+    return;
 }
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 register_activation_hook(__FILE__, function () {
-	(new Activation())->run();
+    (new Activation)->run();
 });
 
-$compatibility = new Compatibility();
-
-if (! $compatibility->meetsMinimumRequirements()) {
-	return;
-}
+$compatibility = new Compatibility;
 
 $compatibility->check();
-
 // -------------------------------------------------------------------------------------------------------------------
 // Initialize
 // -------------------------------------------------------------------------------------------------------------------
 
-$GLOBALS['pressbooks'] = new Pressbooks();
+$GLOBALS['pressbooks'] = new Pressbooks;
 
 $GLOBALS['pressbooks']->boot();

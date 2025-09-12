@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Change core WordPress strings using $overrides array.
  *
@@ -8,14 +9,14 @@
  */
 
 $overrides = [
-	'My Sites' => 'マイブックス',
-	'Create a New Site' => '新規ブックを作成します。',
+    'My Sites' => 'マイブックス',
+    'Create a New Site' => '新規ブックを作成します。',
 ];
 
-if ( \Pressbooks\Book::isBook() ) {
-	$overrides['Visit site'] = 'ブックをご覧ください';
-	$overrides['Visit Site'] = 'ブックをご覧ください';
-	$overrides['Edit Site'] = 'ブックをご覧ください';
+if (\Pressbooks\Book::isBook()) {
+    $overrides['Visit site'] = 'ブックをご覧ください';
+    $overrides['Visit Site'] = 'ブックをご覧ください';
+    $overrides['Edit Site'] = 'ブックをご覧ください';
 }
 
 return $overrides;

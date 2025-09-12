@@ -16,6 +16,6 @@ namespace Pressbooks\HTMLBook;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_comments
  */
-class Comments {
-
+class Comments
+{
 }

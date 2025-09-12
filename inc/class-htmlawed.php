@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Guess we gotta do this ourselves.
  *
@@ -9,18 +10,19 @@
 
 namespace Pressbooks;
 
-class HtmLawed {
-
-	/**
-	 * Wrapper for htmLawed() function.
-	 *
-	 * @param string $html
-	 * @param int|array $config
-	 * @param array|string $spec
-	 *
-	 * @return string
-	 */
-	static function filter( $html, array $config = null, $spec = null ) {
-		return \Htmlawed::filter( $html, $config, $spec );
-	}
+class HtmLawed
+{
+    /**
+     * Wrapper for htmLawed() function.
+     *
+     * @param string $html
+     * @param int|array $config
+     * @param array|string $spec
+     *
+     * @return string
+     */
+    public static function filter($html, array $config = null, $spec = null)
+    {
+        return \Htmlawed::filter($html, $config, $spec);
+    }
 }

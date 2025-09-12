@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Generic utility functions.
  *
@@ -26,19 +27,20 @@ use RuntimeException;
  *
  * @return mixed
  */
-function getset( $arr, $key, $default = null ) {
+function getset($arr, $key, $default = null)
+{
 
-	// Get from array
-	if ( is_array( $arr ) ) {
-		return isset( $arr[ $key ] ) ? $arr[ $key ] : $default;
-	}
+    // Get from array
+    if (is_array($arr)) {
+        return isset($arr[ $key ]) ? $arr[ $key ] : $default;
+    }
 
-	// Get from a global or superglobal
-	if ( is_string( $arr ) && isset( $GLOBALS[ $arr ] ) && is_array( $GLOBALS[ $arr ] ) ) {
-		return isset( $GLOBALS[ $arr ][ $key ] ) ? $GLOBALS[ $arr ][ $key ] : $default;
-	}
+    // Get from a global or superglobal
+    if (is_string($arr) && isset($GLOBALS[ $arr ]) && is_array($GLOBALS[ $arr ])) {
+        return isset($GLOBALS[ $arr ][ $key ]) ? $GLOBALS[ $arr ][ $key ] : $default;
+    }
 
-	return $default;
+    return $default;
 }
 
 /**
@@ -48,25 +50,26 @@ function getset( $arr, $key, $default = null ) {
  *
  * @return array
  */
-function scandir_by_date( $dir ) {
+function scandir_by_date($dir)
+{
 
-	$ignored = [ '.', '..', '.svn', '.git', '.htaccess' ];
+    $ignored = [ '.', '..', '.svn', '.git', '.htaccess' ];
 
-	$dir = untrailingslashit( $dir ) . '/';
+    $dir = untrailingslashit($dir) . '/';
 
-	$files = [];
-	if ( is_dir( $dir ) ) {
-		foreach ( scandir( $dir ) as $file ) {
-			if ( in_array( $file, $ignored, true ) || is_dir( $dir . $file ) ) {
-				continue;
-			}
-			$files[ $file ] = filemtime( $dir . $file );
-		}
-		arsort( $files );
-		$files = array_keys( $files );
-	}
+    $files = [];
+    if (is_dir($dir)) {
+        foreach (scandir($dir) as $file) {
+            if (in_array($file, $ignored, true) || is_dir($dir . $file)) {
+                continue;
+            }
+            $files[ $file ] = filemtime($dir . $file);
+        }
+        arsort($files);
+        $files = array_keys($files);
+    }
 
-	return ( $files ) ? $files : [];
+    return ($files) ? $files : [];
 }
 
 /**
@@ -76,40 +79,41 @@ function scandir_by_date( $dir ) {
  *
  * @return array
  */
-function group_exports( $dir = null ) {
+function group_exports($dir = null)
+{
 
-	$ignored = [ '.', '..', '.svn', '.git', '.htaccess' ];
+    $ignored = [ '.', '..', '.svn', '.git', '.htaccess' ];
 
-	if ( ! $dir ) {
-		$dir = \Pressbooks\Modules\Export\Export::getExportFolder();
-	} else {
-		$dir = rtrim( $dir, '/' ) . '/';
-	}
+    if (! $dir) {
+        $dir = \Pressbooks\Modules\Export\Export::getExportFolder();
+    } else {
+        $dir = rtrim($dir, '/') . '/';
+    }
 
-	$files = [];
-	foreach ( scandir( $dir ) as $file ) {
-		if ( in_array( $file, $ignored, true ) || is_dir( $dir . $file ) ) {
-			continue;
-		}
-		$files[ $file ] = filemtime( $dir . $file );
-	}
-	arsort( $files );
+    $files = [];
+    foreach (scandir($dir) as $file) {
+        if (in_array($file, $ignored, true) || is_dir($dir . $file)) {
+            continue;
+        }
+        $files[ $file ] = filemtime($dir . $file);
+    }
+    arsort($files);
 
-	$interval = 3 * MINUTE_IN_SECONDS; // Three minutes
-	$pos = 0;
-	$output = [];
+    $interval = 3 * MINUTE_IN_SECONDS; // Three minutes
+    $pos = 0;
+    $output = [];
 
-	foreach ( $files as $file => $timestamp ) {
-		if ( 0 === $pos ) {
-			$pos = $timestamp;
-		}
-		if ( $pos - $timestamp > $interval ) {
-			$pos = $timestamp;
-		}
-		$output[ $pos ][] = $file;
-	}
+    foreach ($files as $file => $timestamp) {
+        if (0 === $pos) {
+            $pos = $timestamp;
+        }
+        if ($pos - $timestamp > $interval) {
+            $pos = $timestamp;
+        }
+        $output[ $pos ][] = $file;
+    }
 
-	return $output;
+    return $output;
 }
 
 /**
@@ -119,28 +123,29 @@ function group_exports( $dir = null ) {
  * @param string $dir fullpath to the Exports fo
  * lder. (optional)
  */
-function truncate_exports( $max, $dir = null ) {
+function truncate_exports($max, $dir = null)
+{
 
-	if ( ! $dir ) {
-		$dir = \Pressbooks\Modules\Export\Export::getExportFolder();
-	} else {
-		$dir = rtrim( $dir, '/' ) . '/';
-	}
+    if (! $dir) {
+        $dir = \Pressbooks\Modules\Export\Export::getExportFolder();
+    } else {
+        $dir = rtrim($dir, '/') . '/';
+    }
 
-	$max = absint( $max );
-	$files = group_exports( $dir );
+    $max = absint($max);
+    $files = group_exports($dir);
 
-	$i = 1;
-	foreach ( $files as $date => $exports ) {
-		if ( $i > $max ) {
-			foreach ( $exports as $export ) {
-				$export = realpath( $dir . $export );
+    $i = 1;
+    foreach ($files as $date => $exports) {
+        if ($i > $max) {
+            foreach ($exports as $export) {
+                $export = realpath($dir . $export);
 
-				unlink( $export );
-			}
-		}
-		++$i;
-	}
+                unlink($export);
+            }
+        }
+        ++$i;
+    }
 }
 
 /**
@@ -149,12 +154,13 @@ function truncate_exports( $max, $dir = null ) {
  *
  * @return string path
  */
-function get_media_prefix() {
-	if ( get_site_option( 'ms_files_rewriting' ) ) {
-		return WP_CONTENT_DIR . '/blogs.dir/' . get_current_blog_id() . '/files/';
-	} else {
-		return trailingslashit( get_generated_content_path( '', false ) );
-	}
+function get_media_prefix()
+{
+    if (get_site_option('ms_files_rewriting')) {
+        return WP_CONTENT_DIR . '/blogs.dir/' . get_current_blog_id() . '/files/';
+    } else {
+        return trailingslashit(get_generated_content_path('', false));
+    }
 }
 
 /**
@@ -165,19 +171,20 @@ function get_media_prefix() {
  *
  * @return string the full path to the media file on the filesystem
  */
-function get_media_path( $guid ) {
+function get_media_path($guid)
+{
 
-	$parts = wp_parse_url( $guid );
-	$path = $parts['path'];
-	$beginning = strpos( $path, 'files' );
-	if ( $beginning ) {
-		$path = substr( $path, $beginning );
-		return WP_CONTENT_DIR . '/blogs.dir/' . get_current_blog_id() . '/' . $path;
-	} else {
-		$beginning = strpos( $path, 'uploads' );
-		$path = substr( $path, $beginning );
-		return WP_CONTENT_DIR . '/' . $path;
-	}
+    $parts = wp_parse_url($guid);
+    $path = $parts['path'];
+    $beginning = strpos($path, 'files');
+    if ($beginning) {
+        $path = substr($path, $beginning);
+        return WP_CONTENT_DIR . '/blogs.dir/' . get_current_blog_id() . '/' . $path;
+    } else {
+        $beginning = strpos($path, 'uploads');
+        $path = substr($path, $beginning);
+        return WP_CONTENT_DIR . '/' . $path;
+    }
 }
 
 /**
@@ -188,59 +195,62 @@ function get_media_path( $guid ) {
  * @since 3.8.0
  * @return array
  */
-function latest_exports() {
-	$filetypes = \Pressbooks\Modules\Export\filetypes();
-	$dir = \Pressbooks\Modules\Export\Export::getExportFolder();
-	$files = [];
+function latest_exports()
+{
+    $filetypes = \Pressbooks\Modules\Export\filetypes();
+    $dir = \Pressbooks\Modules\Export\Export::getExportFolder();
+    $files = [];
 
-	// group by extension, sort by date newest first
-	foreach ( \Pressbooks\Utility\scandir_by_date( $dir ) as $file ) {
-		// only interested in the part of filename starting with the timestamp
-		if ( preg_match( '/-\d{10,11}(.*)/', $file, $matches ) ) {
+    // group by extension, sort by date newest first
+    foreach (\Pressbooks\Utility\scandir_by_date($dir) as $file) {
+        // only interested in the part of filename starting with the timestamp
+        if (preg_match('/-\d{10,11}(.*)/', $file, $matches)) {
 
-			// grab the first captured parenthisized subpattern
-			$ext = $matches[1];
+            // grab the first captured parenthisized subpattern
+            $ext = $matches[1];
 
-			$files[ $ext ][] = $file;
-		}
-	}
+            $files[ $ext ][] = $file;
+        }
+    }
 
-	// get only one of the latest of each type
-	$latest = [];
+    // get only one of the latest of each type
+    $latest = [];
 
-	foreach ( $filetypes as $type => $ext ) {
-		if ( array_key_exists( $ext, $files ) ) {
-			$latest[ $type ] = $files[ $ext ][0];
-		}
-	}
+    foreach ($filetypes as $type => $ext) {
+        if (array_key_exists($ext, $files)) {
+            $latest[ $type ] = $files[ $ext ][0];
+        }
+    }
 
-	return $latest;
+    return $latest;
 }
 
 /**
  * Add sitemap to robots.txt
  */
-function add_sitemap_to_robots_txt() {
+function add_sitemap_to_robots_txt()
+{
 
-	if ( 1 === absint( get_option( 'blog_public' ) ) ) {
-		echo 'Sitemap: ' . get_option( 'siteurl' ) . "/?feed=sitemap.xml\n\n";
-	}
+    if (1 === absint(get_option('blog_public'))) {
+        echo 'Sitemap: ' . get_option('siteurl') . "/?feed=sitemap.xml\n\n";
+    }
 }
 
 /**
  * Echo a sitemap
  */
-function do_sitemap() {
+function do_sitemap()
+{
 
-	if ( 1 === absint( get_option( 'blog_public' ) ) ) {
-		$template = untrailingslashit( PB_PLUGIN_DIR ) . '/templates/pb-sitemap.php';
-		load_template( $template );
-	} else {
-		status_header( 404 );
-		nocache_headers();
-		echo '<h1>404 Not Found</h1>';
-		echo 'The page that you have requested could not be found.';
-	}
+    if (1 === absint(get_option('blog_public'))) {
+        $template = untrailingslashit(PB_PLUGIN_DIR) . '/templates/pb-sitemap.php';
+        load_template($template);
+    } else {
+        status_header(404);
+        nocache_headers();
+        echo '<h1>404 Not Found</h1>';
+        echo 'The page that you have requested could not be found.';
+    }
 }
 
 /**
@@ -250,12 +260,13 @@ function do_sitemap() {
  *
  * @return string Path to temporary file
  */
-function create_tmp_file( $resource_key = '' ) {
-	if ( empty( $resource_key ) ) {
-		$resource_key = uniqid( 'tmpfile-', true );
-	}
-	$stream = stream_get_meta_data( $GLOBALS[ $resource_key ] = tmpfile() ); // @codingStandardsIgnoreLine
-	return $stream['uri'];
+function create_tmp_file($resource_key = '')
+{
+    if (empty($resource_key)) {
+        $resource_key = uniqid('tmpfile-', true);
+    }
+    $stream = stream_get_meta_data($GLOBALS[ $resource_key ] = tmpfile()); // @codingStandardsIgnoreLine
+    return $stream['uri'];
 }
 
 /**
@@ -263,24 +274,25 @@ function create_tmp_file( $resource_key = '' ) {
  *
  * @return boolean
  */
-function check_epubcheck_install() {
-	if ( ! defined( 'PB_EPUBCHECK_COMMAND' ) ) { // @see wp-config.php
-		define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
-	}
+function check_epubcheck_install()
+{
+    if (! defined('PB_EPUBCHECK_COMMAND')) { // @see wp-config.php
+        define('PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar');
+    }
 
-	$output = [];
-	$return_val = 0;
-	exec( PB_EPUBCHECK_COMMAND . ' -h 2>&1', $output, $return_val );
+    $output = [];
+    $return_val = 0;
+    exec(PB_EPUBCHECK_COMMAND . ' -h 2>&1', $output, $return_val);
 
-	$output = $output[0];
-	if ( preg_match( '/(?:EPUBCheck\sv)*(([0-9]+.?)+)/i', $output, $matches ) ) { // Command found.
-		$version = $matches[1];
-		if ( version_compare( $version, '4.0.0' ) >= 0 ) {
-			return true;
-		}
-	}
+    $output = $output[0];
+    if (preg_match('/(?:EPUBCheck\sv)*(([0-9]+.?)+)/i', $output, $matches)) { // Command found.
+        $version = $matches[1];
+        if (version_compare($version, '4.0.0') >= 0) {
+            return true;
+        }
+    }
 
-	return apply_filters( 'pb_epub_has_dependencies', false );
+    return apply_filters('pb_epub_has_dependencies', false);
 }
 
 /**
@@ -288,25 +300,26 @@ function check_epubcheck_install() {
  *
  * @return boolean
  */
-function check_prince_install() {
-	if ( ! defined( 'PB_PRINCE_COMMAND' ) ) { // @see wp-config.php
-		define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
-	}
+function check_prince_install()
+{
+    if (! defined('PB_PRINCE_COMMAND')) { // @see wp-config.php
+        define('PB_PRINCE_COMMAND', '/usr/bin/prince');
+    }
 
-	$output = [];
-	$return_val = 0;
-	exec( PB_PRINCE_COMMAND . ' --version 2>&1', $output, $return_val );
+    $output = [];
+    $return_val = 0;
+    exec(PB_PRINCE_COMMAND . ' --version 2>&1', $output, $return_val);
 
-	$output = $output[0];
-	if ( false !== strpos( $output, 'Prince' ) ) { // Command found.
-		$output = explode( 'Prince ', $output );
-		$version = $output[1];
-		if ( version_compare( $version, '11' ) >= 0 ) {
-			return true;
-		}
-	}
+    $output = $output[0];
+    if (false !== strpos($output, 'Prince')) { // Command found.
+        $output = explode('Prince ', $output);
+        $version = $output[1];
+        if (version_compare($version, '11') >= 0) {
+            return true;
+        }
+    }
 
-	return false;
+    return false;
 }
 
 /**
@@ -314,25 +327,26 @@ function check_prince_install() {
  *
  * @return boolean
  */
-function check_xmllint_install() {
-	if ( ! defined( 'PB_XMLLINT_COMMAND' ) ) { // @see wp-config.php
-		define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
-	}
+function check_xmllint_install()
+{
+    if (! defined('PB_XMLLINT_COMMAND')) { // @see wp-config.php
+        define('PB_XMLLINT_COMMAND', '/usr/bin/xmllint');
+    }
 
-	$output = [];
-	$return_val = 0;
-	exec( PB_XMLLINT_COMMAND . ' --version 2>&1', $output, $return_val );
+    $output = [];
+    $return_val = 0;
+    exec(PB_XMLLINT_COMMAND . ' --version 2>&1', $output, $return_val);
 
-	$output = $output[0];
-	if ( false !== strpos( $output, 'libxml' ) ) { // Command found.
-		$output = explode( PB_XMLLINT_COMMAND . ': using libxml version ', $output );
-		$version = $output[1];
-		if ( version_compare( $version, '20706' ) >= 0 ) {
-			return true;
-		}
-	}
+    $output = $output[0];
+    if (false !== strpos($output, 'libxml')) { // Command found.
+        $output = explode(PB_XMLLINT_COMMAND . ': using libxml version ', $output);
+        $version = $output[1];
+        if (version_compare($version, '20706') >= 0) {
+            return true;
+        }
+    }
 
-	return false;
+    return false;
 }
 
 /**
@@ -340,32 +354,33 @@ function check_xmllint_install() {
  *
  * @return boolean
  */
-function check_saxonhe_install() {
-	if ( ! defined( 'PB_SAXON_COMMAND' ) ) { // @see wp-config.php
-		define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /opt/saxon-he/saxon-he.jar' );
-	}
+function check_saxonhe_install()
+{
+    if (! defined('PB_SAXON_COMMAND')) { // @see wp-config.php
+        define('PB_SAXON_COMMAND', '/usr/bin/java -jar /opt/saxon-he/saxon-he.jar');
+    }
 
-	$output = [];
-	$return_val = 0;
-	exec( PB_SAXON_COMMAND . ' -? 2>&1', $output, $return_val );
+    $output = [];
+    $return_val = 0;
+    exec(PB_SAXON_COMMAND . ' -? 2>&1', $output, $return_val);
 
-	$output = $output[0];
-	if ( false !== strpos( $output, 'Saxon-HE ' ) ) { // Command found.
-		$output = explode( 'Saxon-HE ', $output );
-		$version = explode( 'J from Saxonica', $output[1] )[0];
-		if ( version_compare( $version, '9.7.0-10' ) >= 0 ) {
-			return true;
-		}
-	}
+    $output = $output[0];
+    if (false !== strpos($output, 'Saxon-HE ')) { // Command found.
+        $output = explode('Saxon-HE ', $output);
+        $version = explode('J from Saxonica', $output[1])[0];
+        if (version_compare($version, '9.7.0-10') >= 0) {
+            return true;
+        }
+    }
 
-	/**
-	 * @since 3.9.8
-	 *
-	 * Allows the SaxonHE dependency error to be disabled.
-	 *
-	 * @param bool $value
-	 */
-	return apply_filters( 'pb_odt_has_dependencies', false );
+    /**
+     * @since 3.9.8
+     *
+     * Allows the SaxonHE dependency error to be disabled.
+     *
+     * @param bool $value
+     */
+    return apply_filters('pb_odt_has_dependencies', false);
 }
 
 /**
@@ -375,25 +390,26 @@ function check_saxonhe_install() {
  *
  * @return boolean
  */
-function show_experimental_features( $host = '' ) {
+function show_experimental_features($host = '')
+{
 
-	if ( ! $host ) {
-		$host = wp_parse_url( network_home_url(), PHP_URL_HOST );
-	}
+    if (! $host) {
+        $host = wp_parse_url(network_home_url(), PHP_URL_HOST);
+    }
 
-	// hosts where experimental features should be hidden
-	$hosts_for_hiding = [
-		'pressbooks.com',
-		'pressbooks.pub',
-	];
+    // hosts where experimental features should be hidden
+    $hosts_for_hiding = [
+        'pressbooks.com',
+        'pressbooks.pub',
+    ];
 
-	foreach ( $hosts_for_hiding as $host_for_hiding ) {
-		if ( $host === $host_for_hiding || strpos( $host, $host_for_hiding ) ) {
-			return false;
-		}
-	}
+    foreach ($hosts_for_hiding as $host_for_hiding) {
+        if ($host === $host_for_hiding || strpos($host, $host_for_hiding)) {
+            return false;
+        }
+    }
 
-	return true;
+    return true;
 }
 
 /**
@@ -401,10 +417,11 @@ function show_experimental_features( $host = '' ) {
  *
  * @since 2.5.1
  */
-function include_plugins() {
-	if ( true === disable_comments() ) {
-		require_once( PB_PLUGIN_DIR . 'symbionts/disable-comments-mu/disable-comments-mu.php' );
-	}
+function include_plugins()
+{
+    if (true === disable_comments()) {
+        require_once(PB_PLUGIN_DIR . 'symbionts/disable-comments-mu/disable-comments-mu.php');
+    }
 }
 
 /**
@@ -416,32 +433,33 @@ function include_plugins() {
  *
  * @return array
  */
-function filter_plugins( $plugins ) {
-	$already_active = get_option( 'active_plugins' );
-	$network_already_active = get_site_option( 'active_sitewide_plugins' );
+function filter_plugins($plugins)
+{
+    $already_active = get_option('active_plugins');
+    $network_already_active = get_site_option('active_sitewide_plugins');
 
-	// Don't include plugins already active at the site level or network level.
-	if ( ! empty( $plugins ) ) {
-		foreach ( $plugins as $key => $val ) {
-			if ( in_array( $key, $already_active, true ) || array_key_exists( $key, $network_already_active ) ) {
-				unset( $plugins[ $key ] );
-			}
-		}
-	}
+    // Don't include plugins already active at the site level or network level.
+    if (! empty($plugins)) {
+        foreach ($plugins as $key => $val) {
+            if (in_array($key, $already_active, true) || array_key_exists($key, $network_already_active)) {
+                unset($plugins[ $key ]);
+            }
+        }
+    }
 
-	// Don't include plugins we are trying to activate right now!
-	if ( isset( $_REQUEST['action'] ) ) {
-		if ( 'activate' === $_REQUEST['action'] && ! empty( $_REQUEST['plugin'] ) ) {
-			$key = (string) $_REQUEST['plugin'];
-			unset( $plugins[ $key ] );
-		} elseif ( 'activate-selected' === $_REQUEST['action'] && is_array( $_REQUEST['checked'] ) ) {
-			foreach ( $_REQUEST['checked'] as $key ) {
-				unset( $plugins[ $key ] );
-			}
-		}
-	}
+    // Don't include plugins we are trying to activate right now!
+    if (isset($_REQUEST['action'])) {
+        if ('activate' === $_REQUEST['action'] && ! empty($_REQUEST['plugin'])) {
+            $key = (string) $_REQUEST['plugin'];
+            unset($plugins[ $key ]);
+        } elseif ('activate-selected' === $_REQUEST['action'] && is_array($_REQUEST['checked'])) {
+            foreach ($_REQUEST['checked'] as $key) {
+                unset($plugins[ $key ]);
+            }
+        }
+    }
 
-	return $plugins;
+    return $plugins;
 }
 
 /**
@@ -449,40 +467,42 @@ function filter_plugins( $plugins ) {
  *
  * @return bool
  */
-function disable_comments() {
-	if ( ! \Pressbooks\Book::isBook() ) {
-		/**
-		 * Allows comments to be enabled on the root blog by adding a function to this filter that returns false.
-		 *
-		 * @since 3.9.6
-		 *
-		 * @param bool $value
-		 */
-		return apply_filters( 'pb_disable_root_comments', true );
-	}
+function disable_comments()
+{
+    if (! \Pressbooks\Book::isBook()) {
+        /**
+         * Allows comments to be enabled on the root blog by adding a function to this filter that returns false.
+         *
+         * @since 3.9.6
+         *
+         * @param bool $value
+         */
+        return apply_filters('pb_disable_root_comments', true);
+    }
 
-	$old_option = get_option( 'disable_comments_options' );
-	$new_option = get_option(
-		'pressbooks_sharingandprivacy_options', [
-			'disable_comments' => 1,
-		]
-	);
+    $old_option = get_option('disable_comments_options');
+    $new_option = get_option(
+        'pressbooks_sharingandprivacy_options',
+        [
+            'disable_comments' => 1,
+        ]
+    );
 
-	if ( false === (bool) $old_option ) {
-		$retval = (bool) $new_option['disable_comments'];
-	} elseif ( is_array( $old_option['disabled_post_types'] ) && in_array( 'chapter', $old_option['disabled_post_types'], true ) && in_array( 'front-matter', $old_option['disabled_post_types'], true ) && in_array( 'front-matter', $old_option['disabled_post_types'], true ) ) {
-		$retval = true;
-		$new_option['disable_comments'] = 1;
-		update_option( 'pressbooks_sharingandprivacy_options', $new_option );
-		delete_option( 'disable_comments_options' );
-	} else {
-		$retval = false;
-		$new_option['disable_comments'] = 0;
-		update_option( 'pressbooks_sharingandprivacy_options', $new_option );
-		delete_option( 'disable_comments_options' );
-	}
+    if (false === (bool) $old_option) {
+        $retval = (bool) $new_option['disable_comments'];
+    } elseif (is_array($old_option['disabled_post_types']) && in_array('chapter', $old_option['disabled_post_types'], true) && in_array('front-matter', $old_option['disabled_post_types'], true) && in_array('front-matter', $old_option['disabled_post_types'], true)) {
+        $retval = true;
+        $new_option['disable_comments'] = 1;
+        update_option('pressbooks_sharingandprivacy_options', $new_option);
+        delete_option('disable_comments_options');
+    } else {
+        $retval = false;
+        $new_option['disable_comments'] = 0;
+        update_option('pressbooks_sharingandprivacy_options', $new_option);
+        delete_option('disable_comments_options');
+    }
 
-	return $retval;
+    return $retval;
 }
 
 /**
@@ -497,13 +517,14 @@ function disable_comments() {
  *
  * @return array
  */
-function install_plugins_tabs( $tabs ) {
-	unset( $tabs['featured'] );
-	unset( $tabs['popular'] );
-	unset( $tabs['favorites'] );
-	$tabs['popular'] = _x( 'Popular', 'Plugin Installer' );
-	$tabs['favorites'] = _x( 'Favorites', 'Plugin Installer' );
-	return $tabs;
+function install_plugins_tabs($tabs)
+{
+    unset($tabs['featured']);
+    unset($tabs['popular']);
+    unset($tabs['favorites']);
+    $tabs['popular'] = _x('Popular', 'Plugin Installer');
+    $tabs['favorites'] = _x('Favorites', 'Plugin Installer');
+    return $tabs;
 }
 
 /**
@@ -520,18 +541,19 @@ function install_plugins_tabs( $tabs ) {
  *
  * @return object
  */
-function hijack_recommended_tab( $res, $action, $args ) {
-	if ( ! isset( $args->browse ) || 'recommended' !== $args->browse ) {
-		return $res;
-	}
-	$res = get_site_transient( 'pressbooks_recommended_plugins_data' );
-	if ( ! $res || ! isset( $res->plugins ) ) {
-		$res = \Pressbooks\Utility\fetch_recommended_plugins();
-		if ( isset( $res->plugins ) ) {
-			set_site_transient( 'pressbooks_recommended_plugins_data', $res, HOUR_IN_SECONDS );
-		}
-	}
-	return $res;
+function hijack_recommended_tab($res, $action, $args)
+{
+    if (! isset($args->browse) || 'recommended' !== $args->browse) {
+        return $res;
+    }
+    $res = get_site_transient('pressbooks_recommended_plugins_data');
+    if (! $res || ! isset($res->plugins)) {
+        $res = \Pressbooks\Utility\fetch_recommended_plugins();
+        if (isset($res->plugins)) {
+            set_site_transient('pressbooks_recommended_plugins_data', $res, HOUR_IN_SECONDS);
+        }
+    }
+    return $res;
 }
 
 /**
@@ -544,61 +566,65 @@ function hijack_recommended_tab( $res, $action, $args ) {
  *
  * @return object
  */
-function fetch_recommended_plugins() {
-	/**
-	 * Filter the URL of the Pressbooks Recommended Plugins server.
-	 *
-	 * @since 4.0.0
-	 *
-	 * @param string $value
-	 */
-	$http_url = apply_filters( 'pb_recommended_plugins_url', 'https://pressbooks-plugins.now.sh' ) . '/api/plugin-recommendations';
-	$url = $http_url;
-	$ssl = wp_http_supports( [ 'ssl' ] );
-	if ( $ssl ) {
-		$url = set_url_scheme( $url, 'https' );
-	}
-	$request = wp_remote_get(
-		$url, [
-			'timeout' => 15,
-		]
-	);
-	if ( $ssl && is_wp_error( $request ) ) {
-		// @codingStandardsIgnoreLine
-		trigger_error(
-			__( 'An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration.', 'pressbooks' ) . ' ' . __( '(Pressbooks could not establish a secure connection to the plugin recommendations server. Please contact your server administrator.)', 'pressbooks' ),
-			headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE
-		);
-		$request = wp_remote_get(
-			$http_url, [
-				'timeout' => 15,
-			]
-		);
-	}
-	if ( is_wp_error( $request ) ) {
-		$res = new \WP_Error(
-			'plugins_api_failed', __( 'An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration.', 'pressbooks' ),
-			$request->get_error_message()
-		);
-	} else {
-		$res = json_decode( wp_remote_retrieve_body( $request ) );
-		$res->info = (array) $res->info; // WP wants this as an array...
-		foreach ( $res->plugins as $k => $plugin ) {
-			if ( ! empty( $plugin->error ) ) {
-				unset( $res->plugins[ $k ] );
-			} else {
-				$res->plugins[ $k ]->icons = (array) $plugin->icons; // WP wants this as an array...
-			}
-		}
-		if ( ! is_object( $res ) && ! is_array( $res ) ) {
-			$res = new \WP_Error(
-				'plugins_api_failed',
-				__( 'An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration.', 'pressbooks' ),
-				wp_remote_retrieve_body( $request )
-			);
-		}
-	}
-	return $res;
+function fetch_recommended_plugins()
+{
+    /**
+     * Filter the URL of the Pressbooks Recommended Plugins server.
+     *
+     * @since 4.0.0
+     *
+     * @param string $value
+     */
+    $http_url = apply_filters('pb_recommended_plugins_url', 'https://pressbooks-plugins.now.sh') . '/api/plugin-recommendations';
+    $url = $http_url;
+    $ssl = wp_http_supports([ 'ssl' ]);
+    if ($ssl) {
+        $url = set_url_scheme($url, 'https');
+    }
+    $request = wp_remote_get(
+        $url,
+        [
+            'timeout' => 15,
+        ]
+    );
+    if ($ssl && is_wp_error($request)) {
+        // @codingStandardsIgnoreLine
+        trigger_error(
+            __('An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration.', 'pressbooks') . ' ' . __('(Pressbooks could not establish a secure connection to the plugin recommendations server. Please contact your server administrator.)', 'pressbooks'),
+            headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE
+        );
+        $request = wp_remote_get(
+            $http_url,
+            [
+                'timeout' => 15,
+            ]
+        );
+    }
+    if (is_wp_error($request)) {
+        $res = new \WP_Error(
+            'plugins_api_failed',
+            __('An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration.', 'pressbooks'),
+            $request->get_error_message()
+        );
+    } else {
+        $res = json_decode(wp_remote_retrieve_body($request));
+        $res->info = (array) $res->info; // WP wants this as an array...
+        foreach ($res->plugins as $k => $plugin) {
+            if (! empty($plugin->error)) {
+                unset($res->plugins[ $k ]);
+            } else {
+                $res->plugins[ $k ]->icons = (array) $plugin->icons; // WP wants this as an array...
+            }
+        }
+        if (! is_object($res) && ! is_array($res)) {
+            $res = new \WP_Error(
+                'plugins_api_failed',
+                __('An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration.', 'pressbooks'),
+                wp_remote_retrieve_body($request)
+            );
+        }
+    }
+    return $res;
 }
 
 /**
@@ -615,11 +641,12 @@ function fetch_recommended_plugins() {
  *
  * @return string
  */
-function change_recommendations_sentence( $translation, $text, $domain ) {
-	if ( 'These suggestions are based on the plugins you and other users have installed.' === $text ) {
-		return __( 'These plugins have been created and/or recommended by the Pressbooks community.', 'pressbooks' );
-	}
-	return $translation;
+function change_recommendations_sentence($translation, $text, $domain)
+{
+    if ('These suggestions are based on the plugins you and other users have installed.' === $text) {
+        return __('These plugins have been created and/or recommended by the Pressbooks community.', 'pressbooks');
+    }
+    return $translation;
 }
 
 /**
@@ -629,23 +656,24 @@ function change_recommendations_sentence( $translation, $text, $domain ) {
  * @return string
  */
 
-function file_upload_max_size() {
-	static $return_val = false;
-	// This function is adapted from Drupal and http://stackoverflow.com/questions/13076480/php-get-actual-maximum-upload-size
-	if ( false === $return_val ) {
-		$post_max_size_str = ini_get( 'post_max_size' );
-		$upload_max_filesize_str = ini_get( 'upload_max_filesize' );
-		$post_max_size = parse_size( $post_max_size_str );
-		$upload_max_filesize = parse_size( $upload_max_filesize_str );
+function file_upload_max_size()
+{
+    static $return_val = false;
+    // This function is adapted from Drupal and http://stackoverflow.com/questions/13076480/php-get-actual-maximum-upload-size
+    if (false === $return_val) {
+        $post_max_size_str = ini_get('post_max_size');
+        $upload_max_filesize_str = ini_get('upload_max_filesize');
+        $post_max_size = parse_size($post_max_size_str);
+        $upload_max_filesize = parse_size($upload_max_filesize_str);
 
-		// If upload_max_size is less, then reduce. Except if upload_max_size is
-		// zero, which indicates no limit.
-		$return_val = $post_max_size_str;
-		if ( $upload_max_filesize > 0 && $upload_max_filesize < $post_max_size ) {
-			$return_val = $upload_max_filesize_str;
-		}
-	}
-	return $return_val;
+        // If upload_max_size is less, then reduce. Except if upload_max_size is
+        // zero, which indicates no limit.
+        $return_val = $post_max_size_str;
+        if ($upload_max_filesize > 0 && $upload_max_filesize < $post_max_size) {
+            $return_val = $upload_max_filesize_str;
+        }
+    }
+    return $return_val;
 }
 
 /**
@@ -655,14 +683,15 @@ function file_upload_max_size() {
  *
  * @return float
  */
-function parse_size( $size ) {
-	$unit = preg_replace( '/[^bkmgtpezy]/i', '', $size ); // Remove the non-unit characters from the size.
-	$size = preg_replace( '/[^0-9\.]/', '', $size ); // Remove the non-numeric characters from the size.
-	if ( $unit ) { // Find the position of the unit in the ordered string which is the power of magnitude to multiply a kilobyte by.
-		return round( $size * pow( 1024, stripos( 'bkmgtpezy', $unit[0] ) ) );
-	} else {
-		return round( $size );
-	}
+function parse_size($size)
+{
+    $unit = preg_replace('/[^bkmgtpezy]/i', '', $size); // Remove the non-unit characters from the size.
+    $size = preg_replace('/[^0-9\.]/', '', $size); // Remove the non-numeric characters from the size.
+    if ($unit) { // Find the position of the unit in the ordered string which is the power of magnitude to multiply a kilobyte by.
+        return round($size * pow(1024, stripos('bkmgtpezy', $unit[0])));
+    } else {
+        return round($size);
+    }
 }
 
 /**
@@ -673,24 +702,26 @@ function parse_size( $size ) {
  *
  * @return string
  */
-function format_bytes( $bytes, $precision = 2 ) {
-	$units = [ 'B', 'KB', 'MB', 'GB', 'TB' ];
-	$bytes = max( $bytes, 0 );
-	$pow = floor( ( $bytes ? log( $bytes ) : 0 ) / log( 1024 ) );
-	$pow = min( $pow, count( $units ) - 1 );
-	$bytes /= ( 1 << ( 10 * $pow ) );
+function format_bytes($bytes, $precision = 2)
+{
+    $units = [ 'B', 'KB', 'MB', 'GB', 'TB' ];
+    $bytes = max($bytes, 0);
+    $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+    $pow = min($pow, count($units) - 1);
+    $bytes /= (1 << (10 * $pow));
 
-	return round( $bytes, $precision ) . ' ' . $units[ $pow ];
+    return round($bytes, $precision) . ' ' . $units[ $pow ];
 }
 
 /**
  * @param $message
  * @param null $message_type
  */
-function debug_error_log( $message, $message_type = null ) {
-	if ( defined( 'WP_TESTS_MULTISITE' ) === false && WP_DEBUG ) {
-		\trigger_error( $message, $message_type ?? E_USER_NOTICE ); // @codingStandardsIgnoreLine
-	}
+function debug_error_log($message, $message_type = null)
+{
+    if (defined('WP_TESTS_MULTISITE') === false && WP_DEBUG) {
+        \trigger_error($message, $message_type ?? E_USER_NOTICE); // @codingStandardsIgnoreLine
+    }
 }
 
 /**
@@ -700,40 +731,43 @@ function debug_error_log( $message, $message_type = null ) {
  * @param string $subject
  * @param string $message
  */
-function email_error_log( $emails, $subject, $message ) {
+function email_error_log($emails, $subject, $message)
+{
 
-	// ------------------------------------------------------------------------------------------------------------
-	// Write to generic error log to be safe
+    // ------------------------------------------------------------------------------------------------------------
+    // Write to generic error log to be safe
 
-	debug_error_log( $subject . "\n" . $message );
+    debug_error_log($subject . "\n" . $message);
 
-	// ------------------------------------------------------------------------------------------------------------
-	// Email logs
+    // ------------------------------------------------------------------------------------------------------------
+    // Email logs
 
-	add_filter(
-		'wp_mail_from', function ( $from_email ) {
-			return str_replace( 'wordpress@', 'pressbooks@', $from_email );
-		}
-	);
-	add_filter(
-		'wp_mail_from_name', function ( $from_name ) {
-			return 'Pressbooks';
-		}
-	);
+    add_filter(
+        'wp_mail_from',
+        function ($from_email) {
+            return str_replace('wordpress@', 'pressbooks@', $from_email);
+        }
+    );
+    add_filter(
+        'wp_mail_from_name',
+        function ($from_name) {
+            return 'Pressbooks';
+        }
+    );
 
-	/**
-	 * Filter an array of email addresses error logs are sent to
-	 *
-	 * @since 4.3.3
-	 *
-	 * @param array $emails
-	 */
-	$emails = apply_filters( 'pb_error_log_emails', $emails );
+    /**
+     * Filter an array of email addresses error logs are sent to
+     *
+     * @since 4.3.3
+     *
+     * @param array $emails
+     */
+    $emails = apply_filters('pb_error_log_emails', $emails);
 
-	foreach ( $emails as $email ) {
-		// Call pluggable
-		\wp_mail( $email, $subject, $message );
-	}
+    foreach ($emails as $email) {
+        // Call pluggable
+        \wp_mail($email, $subject, $message);
+    }
 }
 
 /**
@@ -744,19 +778,20 @@ function email_error_log( $emails, $subject, $message ) {
  *
  * @return string
  */
-function template( $path, array $vars = [] ) {
+function template($path, array $vars = [])
+{
 
-	if ( ! file_exists( $path ) ) {
-		throw new \InvalidArgumentException( "File not found: $path" );
-	}
+    if (! file_exists($path)) {
+        throw new \InvalidArgumentException("File not found: $path");
+    }
 
-	ob_start();
-	extract( $vars ); // @codingStandardsIgnoreLine
-	include( $path );
-	$output = ob_get_contents();
-	ob_end_clean();
+    ob_start();
+    extract($vars); // @codingStandardsIgnoreLine
+    include($path);
+    $output = ob_get_contents();
+    ob_end_clean();
 
-	return $output;
+    return $output;
 }
 
 /**
@@ -770,62 +805,63 @@ function template( $path, array $vars = [] ) {
  *
  * @return array|\WP_Error
  */
-function remote_get_retry( $url, $args, $retry = 3, $attempts = 0, $response = [] ) {
-	$completed = false;
+function remote_get_retry($url, $args, $retry = 3, $attempts = 0, $response = [])
+{
+    $completed = false;
 
-	if ( $attempts >= $retry ) {
-		$completed = true;
-	}
+    if ($attempts >= $retry) {
+        $completed = true;
+    }
 
-	if ( $completed ) {
-		return $response;
-	}
+    if ($completed) {
+        return $response;
+    }
 
-	$attempts++;
+    $attempts++;
 
-	$response = wp_remote_get( $url, $args );
+    $response = wp_remote_get($url, $args);
 
-	/**
-	 * Filter the array of response codes which should prompt a retry.
-	 *
-	 * @since 4.3.0
-	 */
-	$retry_response_codes = apply_filters(
-		'pb_remote_get_retry_response_codes',
-		/**
-		 * Filter the array of response codes which should prompt a retry.
-		 *
-		 * @since 3.9.6
-		 * @deprecated 4.3.0 Use pb_remote_get_retry_response_codes isntead.
-		 *
-		 * @param array $value
-		 */
-		apply_filters( 'pressbooks_remote_get_retry_response_codes', [ 400 ] )
-	);
+    /**
+     * Filter the array of response codes which should prompt a retry.
+     *
+     * @since 4.3.0
+     */
+    $retry_response_codes = apply_filters(
+        'pb_remote_get_retry_response_codes',
+        /**
+         * Filter the array of response codes which should prompt a retry.
+         *
+         * @since 3.9.6
+         * @deprecated 4.3.0 Use pb_remote_get_retry_response_codes isntead.
+         *
+         * @param array $value
+         */
+        apply_filters('pressbooks_remote_get_retry_response_codes', [ 400 ])
+    );
 
-	if ( ! is_array( $response ) || ! in_array( $response['response']['code'], $retry_response_codes, true ) ) {
-		return $response;
-	}
+    if (! is_array($response) || ! in_array($response['response']['code'], $retry_response_codes, true)) {
+        return $response;
+    }
 
-	/**
-	 * Filter the sleep time for a retry.
-	 *
-	 * @since 4.3.0
-	 */
-	$sleep = apply_filters(
-		'pb_remote_get_retry_wait_time',
-		/**
-		 * Filter the sleep time for a retry.
-		 *
-		 * @since 3.9.6
-		 * @deprecated 4.3.0 Use pb_remote_get_retry_wait_time isntead.
-		 *
-		 * @param int $value
-		 */
-		apply_filters( 'pressbooks_remote_get_retry_wait_time', 1000 )
-	);
-	usleep( $sleep );
-	return remote_get_retry( $url, $args, $retry, $attempts, $response );
+    /**
+     * Filter the sleep time for a retry.
+     *
+     * @since 4.3.0
+     */
+    $sleep = apply_filters(
+        'pb_remote_get_retry_wait_time',
+        /**
+         * Filter the sleep time for a retry.
+         *
+         * @since 3.9.6
+         * @deprecated 4.3.0 Use pb_remote_get_retry_wait_time isntead.
+         *
+         * @param int $value
+         */
+        apply_filters('pressbooks_remote_get_retry_wait_time', 1000)
+    );
+    usleep($sleep);
+    return remote_get_retry($url, $args, $retry, $attempts, $response);
 }
 
 /**
@@ -837,17 +873,18 @@ function remote_get_retry( $url, $args, $retry = 3, $attempts = 0, $response = [
  *
  * @return string
  */
-function mail_from( $email ) {
-	if ( defined( 'WP_MAIL_FROM' ) ) {
-		$email = WP_MAIL_FROM;
-	} else {
-		$sitename = strtolower( $_SERVER['SERVER_NAME'] );
-		if ( substr( $sitename, 0, 4 ) === 'www.' ) {
-			$sitename = substr( $sitename, 4 );
-		}
-		$email = 'pressbooks@' . $sitename;
-	}
-	return $email;
+function mail_from($email)
+{
+    if (defined('WP_MAIL_FROM')) {
+        $email = WP_MAIL_FROM;
+    } else {
+        $sitename = strtolower($_SERVER['SERVER_NAME']);
+        if (substr($sitename, 0, 4) === 'www.') {
+            $sitename = substr($sitename, 4);
+        }
+        $email = 'pressbooks@' . $sitename;
+    }
+    return $email;
 }
 
 /**
@@ -859,13 +896,14 @@ function mail_from( $email ) {
  *
  * @return string
  */
-function mail_from_name( $name ) {
-	if ( defined( 'WP_MAIL_FROM_NAME' ) ) {
-		$name = WP_MAIL_FROM_NAME;
-	} else {
-		$name = 'Pressbooks';
-	}
-	return $name;
+function mail_from_name($name)
+{
+    if (defined('WP_MAIL_FROM_NAME')) {
+        $name = WP_MAIL_FROM_NAME;
+    } else {
+        $name = 'Pressbooks';
+    }
+    return $name;
 }
 
 /**
@@ -881,68 +919,69 @@ function mail_from_name( $name ) {
  *
  * @return bool
  */
-function rcopy( $src, $dest, $excludes = [], $includes = [] ) {
+function rcopy($src, $dest, $excludes = [], $includes = [])
+{
 
-	// Remove trailing slashes
-	$src = rtrim( $src, '\\/' );
-	$dest = rtrim( $dest, '\\/' );
+    // Remove trailing slashes
+    $src = rtrim($src, '\\/');
+    $dest = rtrim($dest, '\\/');
 
-	if ( ! is_dir( $src ) ) {
-		return false;
-	}
+    if (! is_dir($src)) {
+        return false;
+    }
 
-	if ( ! is_dir( $dest ) ) {
-		if ( ! mkdir( $dest ) ) {
-			return false;
-		}
-	}
+    if (! is_dir($dest)) {
+        if (! mkdir($dest)) {
+            return false;
+        }
+    }
 
-	$i = new \DirectoryIterator( $src );
-	foreach ( $i as $f ) {
-		$include_this_file = ( empty( $includes ) ? true : false );
-		if ( $f->isFile() ) {
-			// File
-			foreach ( $excludes as $exclude ) {
-				if ( fnmatch( $exclude, "$f" ) ) {
-					continue 2; // Excluded, go to next file
-				}
-			}
-			foreach ( $includes as $include ) {
-				if ( fnmatch( $include, "$f" ) ) {
-					$include_this_file = true;
-					break;
-				}
-			}
-			if ( $include_this_file ) {
-				if ( false === copy( $f->getRealPath(), "$dest/$f" ) ) {
-					return false;
-				}
-			}
-		} elseif ( ! $f->isDot() && $f->isDir() ) {
-			// Directory
-			foreach ( $excludes as $exclude ) {
-				if ( str_ends_with( $exclude, '/' ) ) {
-					if ( fnmatch( rtrim( $exclude, '/' ), "$f" ) ) {
-						continue 2; // Excluded, go to next file
-					}
-				}
-			}
-			$dir_pattern_count = 0;
-			foreach ( $includes as $include ) {
-				if ( str_ends_with( $include, '/' ) ) {
-					$dir_pattern_count++;
-					if ( fnmatch( rtrim( $include, '/' ), "$f" ) ) {
-						$include_this_file = true;
-						break;
-					}
-				}
-			}
-			if ( $include_this_file || $dir_pattern_count === 0 ) {
-				\Pressbooks\Utility\rcopy( $f->getRealPath(), "$dest/$f", $excludes, $includes );
-			}
-		}
-	}
-	return true;
+    $i = new \DirectoryIterator($src);
+    foreach ($i as $f) {
+        $include_this_file = (empty($includes) ? true : false);
+        if ($f->isFile()) {
+            // File
+            foreach ($excludes as $exclude) {
+                if (fnmatch($exclude, "$f")) {
+                    continue 2; // Excluded, go to next file
+                }
+            }
+            foreach ($includes as $include) {
+                if (fnmatch($include, "$f")) {
+                    $include_this_file = true;
+                    break;
+                }
+            }
+            if ($include_this_file) {
+                if (false === copy($f->getRealPath(), "$dest/$f")) {
+                    return false;
+                }
+            }
+        } elseif (! $f->isDot() && $f->isDir()) {
+            // Directory
+            foreach ($excludes as $exclude) {
+                if (str_ends_with($exclude, '/')) {
+                    if (fnmatch(rtrim($exclude, '/'), "$f")) {
+                        continue 2; // Excluded, go to next file
+                    }
+                }
+            }
+            $dir_pattern_count = 0;
+            foreach ($includes as $include) {
+                if (str_ends_with($include, '/')) {
+                    $dir_pattern_count++;
+                    if (fnmatch(rtrim($include, '/'), "$f")) {
+                        $include_this_file = true;
+                        break;
+                    }
+                }
+            }
+            if ($include_this_file || $dir_pattern_count === 0) {
+                \Pressbooks\Utility\rcopy($f->getRealPath(), "$dest/$f", $excludes, $includes);
+            }
+        }
+    }
+    return true;
 }
 
 /**
@@ -951,9 +990,10 @@ function rcopy( $src, $dest, $excludes = [], $includes = [] ) {
  *
  * @return bool
  */
-function str_starts_with( $haystack, $needle ) {
-	$length = strlen( $needle );
-	return ( substr( $haystack ?? '', 0, $length ) === $needle );
+function str_starts_with($haystack, $needle)
+{
+    $length = strlen($needle);
+    return (substr($haystack ?? '', 0, $length) === $needle);
 }
 
 /**
@@ -962,12 +1002,13 @@ function str_starts_with( $haystack, $needle ) {
  *
  * @return bool
  */
-function str_ends_with( $haystack, $needle ) {
-	$length = strlen( $needle );
-	if ( $length === 0 ) {
-		return true;
-	}
-	return ( substr( $haystack, -$length ) === $needle );
+function str_ends_with($haystack, $needle)
+{
+    $length = strlen($needle);
+    if ($length === 0) {
+        return true;
+    }
+    return (substr($haystack, -$length) === $needle);
 }
 
 /**
@@ -978,11 +1019,12 @@ function str_ends_with( $haystack, $needle ) {
  *
  * @return bool|string
  */
-function str_remove_prefix( $haystack, $prefix ) {
-	if ( substr( $haystack, 0, strlen( $prefix ) ) === $prefix ) {
-		$haystack = substr( $haystack, strlen( $prefix ) );
-	}
-	return $haystack;
+function str_remove_prefix($haystack, $prefix)
+{
+    if (substr($haystack, 0, strlen($prefix)) === $prefix) {
+        $haystack = substr($haystack, strlen($prefix));
+    }
+    return $haystack;
 }
 
 /**
@@ -994,12 +1036,13 @@ function str_remove_prefix( $haystack, $prefix ) {
  *
  * @return string
  */
-function str_lreplace( $search, $replace, $subject ) {
-	$pos = strrpos( $subject, $search );
-	if ( $pos !== false ) {
-		$subject = substr_replace( $subject, $replace, $pos, strlen( $search ) );
-	}
-	return (string) $subject;
+function str_lreplace($search, $replace, $subject)
+{
+    $pos = strrpos($subject, $search);
+    if ($pos !== false) {
+        $subject = substr_replace($subject, $replace, $pos, strlen($search));
+    }
+    return (string) $subject;
 }
 
 /**
@@ -1010,14 +1053,15 @@ function str_lreplace( $search, $replace, $subject ) {
  *
  * @return bool
  */
-function comma_delimited_string_search( $haystack, $needle ) {
-	$haystack = explode( ',', $haystack );
-	foreach ( $haystack as $hay ) {
-		if ( trim( $needle ) === trim( $hay ) ) {
-			return true;
-		}
-	}
-	return false;
+function comma_delimited_string_search($haystack, $needle)
+{
+    $haystack = explode(',', $haystack);
+    foreach ($haystack as $hay) {
+        if (trim($needle) === trim($hay)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 /**
@@ -1025,22 +1069,23 @@ function comma_delimited_string_search( $haystack, $needle ) {
  *
  * @return int
  */
-function word_count( $content ) {
+function word_count($content)
+{
 
-	$n = 0;
-	$content = wp_strip_all_tags( $content, true );
+    $n = 0;
+    $content = wp_strip_all_tags($content, true);
 
-	// Is this chinese?
-	if ( preg_match( '/[\x{4e00}-\x{9fa5}]+/u', $content ) ) {
-		$content = preg_replace( '/[！，。？、]/', ' ', $content ); // Remove chinese punctuation
-		$content = preg_replace( '/[\x80-\xff]{1,3}/', ' ', $content, -1, $n ); // Count chinese characters, replace $n
-	}
+    // Is this chinese?
+    if (preg_match('/[\x{4e00}-\x{9fa5}]+/u', $content)) {
+        $content = preg_replace('/[！，。？、]/', ' ', $content); // Remove chinese punctuation
+        $content = preg_replace('/[\x80-\xff]{1,3}/', ' ', $content, -1, $n); // Count chinese characters, replace $n
+    }
 
-	if ( ! empty( trim( $content ) ) ) {
-		$n += count( preg_split( '/\s+/', $content ) ); // Count between spaces
-	}
+    if (! empty(trim($content))) {
+        $n += count(preg_split('/\s+/', $content)); // Count between spaces
+    }
 
-	return $n;
+    return $n;
 }
 
 /**
@@ -1050,33 +1095,34 @@ function word_count( $content ) {
  *
  * @return string
  */
-function absolute_path( $path ) {
+function absolute_path($path)
+{
 
-	if ( filter_var( $path, FILTER_VALIDATE_URL ) !== false ) {
-		$url = $path;
-		$path = wp_parse_url( $path, PHP_URL_PATH );
-	}
+    if (filter_var($path, FILTER_VALIDATE_URL) !== false) {
+        $url = $path;
+        $path = wp_parse_url($path, PHP_URL_PATH);
+    }
 
-	$new_path = str_replace( '\\', '/', $path );
-	$parts = array_filter( explode( '/', $new_path ), 'strlen' );
-	$absolutes = [];
-	foreach ( $parts as $part ) {
-		if ( '.' === $part ) {
-			continue;
-		}
-		if ( '..' === $part ) {
-			array_pop( $absolutes );
-		} else {
-			$absolutes[] = $part;
-		}
-	}
+    $new_path = str_replace('\\', '/', $path);
+    $parts = array_filter(explode('/', $new_path), 'strlen');
+    $absolutes = [];
+    foreach ($parts as $part) {
+        if ('.' === $part) {
+            continue;
+        }
+        if ('..' === $part) {
+            array_pop($absolutes);
+        } else {
+            $absolutes[] = $part;
+        }
+    }
 
-	$new_path = '/' . implode( '/', $absolutes );
-	if ( isset( $url ) ) {
-		$new_path = str_lreplace( $path, $new_path, $url );
-	}
+    $new_path = '/' . implode('/', $absolutes);
+    if (isset($url)) {
+        $new_path = str_lreplace($path, $new_path, $url);
+    }
 
-	return $new_path;
+    return $new_path;
 }
 
 /**
@@ -1087,31 +1133,32 @@ function absolute_path( $path ) {
  *
  * @return bool
  */
-function urls_have_same_host( $url1, $url2 ) {
+function urls_have_same_host($url1, $url2)
+{
 
-	$host1 = wp_parse_url( $url1, PHP_URL_HOST );
-	$host2 = wp_parse_url( $url2, PHP_URL_HOST );
-	if ( ! $host1 || ! $host2 ) {
-		return false;
-	}
+    $host1 = wp_parse_url($url1, PHP_URL_HOST);
+    $host2 = wp_parse_url($url2, PHP_URL_HOST);
+    if (! $host1 || ! $host2) {
+        return false;
+    }
 
-	$host_names1 = explode( '.', $host1 );
-	if ( count( $host_names1 ) > 1 ) {
-		$bottom_host_name1 = $host_names1[ count( $host_names1 ) - 2 ] . '.' . $host_names1[ count( $host_names1 ) - 1 ];
-	} else {
-		$bottom_host_name1 = $host1;
-	}
+    $host_names1 = explode('.', $host1);
+    if (count($host_names1) > 1) {
+        $bottom_host_name1 = $host_names1[ count($host_names1) - 2 ] . '.' . $host_names1[ count($host_names1) - 1 ];
+    } else {
+        $bottom_host_name1 = $host1;
+    }
 
-	$host_names2 = explode( '.', $host2 );
-	if ( count( $host_names2 ) > 1 ) {
-		$bottom_host_name2 = $host_names2[ count( $host_names2 ) - 2 ] . '.' . $host_names2[ count( $host_names2 ) - 1 ];
-	} else {
-		$bottom_host_name2 = $host2;
-	}
+    $host_names2 = explode('.', $host2);
+    if (count($host_names2) > 1) {
+        $bottom_host_name2 = $host_names2[ count($host_names2) - 2 ] . '.' . $host_names2[ count($host_names2) - 1 ];
+    } else {
+        $bottom_host_name2 = $host2;
+    }
 
-	$same_host = ( $bottom_host_name1 === $bottom_host_name2 );
+    $same_host = ($bottom_host_name1 === $bottom_host_name2);
 
-	return $same_host;
+    return $same_host;
 }
 
 /**
@@ -1124,16 +1171,17 @@ function urls_have_same_host( $url1, $url2 ) {
  *
  * @return string
  */
-function get_generated_content_path( $suffix = '', $mkdir = true ) {
-	$path = wp_upload_dir()['basedir'] . '/pressbooks';
-	if ( $suffix ) {
-		$suffix = ltrim( $suffix, '/' );
-		$path = absolute_path( "{$path}/{$suffix}" );
-	}
-	if ( $mkdir && ! file_exists( $path ) ) {
-		wp_mkdir_p( $path );
-	}
-	return $path;
+function get_generated_content_path($suffix = '', $mkdir = true)
+{
+    $path = wp_upload_dir()['basedir'] . '/pressbooks';
+    if ($suffix) {
+        $suffix = ltrim($suffix, '/');
+        $path = absolute_path("{$path}/{$suffix}");
+    }
+    if ($mkdir && ! file_exists($path)) {
+        wp_mkdir_p($path);
+    }
+    return $path;
 }
 
 /**
@@ -1146,19 +1194,20 @@ function get_generated_content_path( $suffix = '', $mkdir = true ) {
  *
  * @return string
  */
-function get_generated_content_url( $suffix = '', $keep_subdomain = false ) {
-	$path = wp_get_upload_dir()['baseurl'] . '/pressbooks';
-	if ( $keep_subdomain ) {
-		$path_parsed = wp_parse_url( $path );
-		global $domain;
-		$path = $path_parsed['scheme'] . '://' . $domain . $path_parsed['path'];
-	}
-	if ( $suffix ) {
-		$suffix = ltrim( $suffix, '/' );
-		$path = absolute_path( "{$path}/{$suffix}" );
-	}
-	$path = \Pressbooks\Sanitize\maybe_https( $path );
-	return $path;
+function get_generated_content_url($suffix = '', $keep_subdomain = false)
+{
+    $path = wp_get_upload_dir()['baseurl'] . '/pressbooks';
+    if ($keep_subdomain) {
+        $path_parsed = wp_parse_url($path);
+        global $domain;
+        $path = $path_parsed['scheme'] . '://' . $domain . $path_parsed['path'];
+    }
+    if ($suffix) {
+        $suffix = ltrim($suffix, '/');
+        $path = absolute_path("{$path}/{$suffix}");
+    }
+    $path = \Pressbooks\Sanitize\maybe_https($path);
+    return $path;
 }
 
 /**
@@ -1166,8 +1215,9 @@ function get_generated_content_url( $suffix = '', $keep_subdomain = false ) {
  *
  * @return string
  */
-function get_cache_path() {
-	return get_generated_content_path( '/cache' );
+function get_cache_path()
+{
+    return get_generated_content_path('/cache');
 }
 
 /**
@@ -1176,21 +1226,22 @@ function get_cache_path() {
  * @see \WP_Filesystem
  * @return \WP_Filesystem_Direct
  */
-function init_direct_filesystem() {
-	if ( ! class_exists( 'WP_Filesystem_Direct' ) ) {
-		$abstraction_file = apply_filters( 'filesystem_method_file', ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php', 'direct' ); // Use for mocks / testing
-		require_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php' );
-		require_once( $abstraction_file );
+function init_direct_filesystem()
+{
+    if (! class_exists('WP_Filesystem_Direct')) {
+        $abstraction_file = apply_filters('filesystem_method_file', ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php', 'direct'); // Use for mocks / testing
+        require_once(ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php');
+        require_once($abstraction_file);
 
-		// Set the permission constants if not already set.
-		if ( ! defined( 'FS_CHMOD_DIR' ) ) {
-			define( 'FS_CHMOD_DIR', ( fileperms( ABSPATH ) & 0777 | 0755 ) );
-		}
-		if ( ! defined( 'FS_CHMOD_FILE' ) ) {
-			define( 'FS_CHMOD_FILE', ( fileperms( ABSPATH . 'index.php' ) & 0777 | 0644 ) );
-		}
-	}
-	return new \WP_Filesystem_Direct( [] );
+        // Set the permission constants if not already set.
+        if (! defined('FS_CHMOD_DIR')) {
+            define('FS_CHMOD_DIR', (fileperms(ABSPATH) & 0777 | 0755));
+        }
+        if (! defined('FS_CHMOD_FILE')) {
+            define('FS_CHMOD_FILE', (fileperms(ABSPATH . 'index.php') & 0777 | 0644));
+        }
+    }
+    return new \WP_Filesystem_Direct([]);
 }
 
 /**
@@ -1200,9 +1251,10 @@ function init_direct_filesystem() {
  *
  * @return bool|string
  */
-function get_contents( $filename ) {
-	$fs = init_direct_filesystem();
-	return $fs->get_contents( $filename );
+function get_contents($filename)
+{
+    $fs = init_direct_filesystem();
+    return $fs->get_contents($filename);
 }
 
 /**
@@ -1213,9 +1265,10 @@ function get_contents( $filename ) {
  *
  * @return bool
  */
-function put_contents( $filename, $data ) {
-	$fs = init_direct_filesystem();
-	return $fs->put_contents( $filename, $data );
+function put_contents($filename, $data)
+{
+    $fs = init_direct_filesystem();
+    return $fs->put_contents($filename, $data);
 }
 
 /**
@@ -1229,41 +1282,42 @@ function put_contents( $filename, $data ) {
  *
  * @return bool
  */
-function rmrdir( $dirname, $only_empty = false ) {
+function rmrdir($dirname, $only_empty = false)
+{
 
-	if ( ! is_dir( $dirname ) ) {
-		return false;
-	}
+    if (! is_dir($dirname)) {
+        return false;
+    }
 
-	$dscan = [ realpath( $dirname ) ];
-	$darr = [];
-	while ( ! empty( $dscan ) ) {
-		$dcur = array_pop( $dscan );
-		$darr[] = $dcur;
-		$d = opendir( $dcur );
-		if ( $d ) {
-			while ( $f = readdir( $d ) ) {
-				if ( '.' === $f || '..' === $f ) {
-					continue;
-				}
-				$f = $dcur . '/' . $f;
-				if ( is_dir( $f ) ) {
-					$dscan[] = $f;
-				} else {
-					unlink( $f );
-				}
-			}
-			closedir( $d );
-		}
-	}
-	$i_until = ( $only_empty ) ? 1 : 0;
-	for ( $i = count( $darr ) - 1; $i >= $i_until; $i-- ) {
-		if ( ! rmdir( $darr[ $i ] ) ) {
-			trigger_error( "Warning: There was a problem deleting a temporary file in $dirname", E_USER_WARNING );
-		}
-	}
+    $dscan = [ realpath($dirname) ];
+    $darr = [];
+    while (! empty($dscan)) {
+        $dcur = array_pop($dscan);
+        $darr[] = $dcur;
+        $d = opendir($dcur);
+        if ($d) {
+            while ($f = readdir($d)) {
+                if ('.' === $f || '..' === $f) {
+                    continue;
+                }
+                $f = $dcur . '/' . $f;
+                if (is_dir($f)) {
+                    $dscan[] = $f;
+                } else {
+                    unlink($f);
+                }
+            }
+            closedir($d);
+        }
+    }
+    $i_until = ($only_empty) ? 1 : 0;
+    for ($i = count($darr) - 1; $i >= $i_until; $i--) {
+        if (! rmdir($darr[ $i ])) {
+            trigger_error("Warning: There was a problem deleting a temporary file in $dirname", E_USER_WARNING);
+        }
+    }
 
-	return ( ( $only_empty ) ? ( count( scandir( $dirname ) ) <= 2 ) : ( ! is_dir( $dirname ) ) );
+    return (($only_empty) ? (count(scandir($dirname)) <= 2) : (! is_dir($dirname)));
 }
 
 /**
@@ -1272,14 +1326,15 @@ function rmrdir( $dirname, $only_empty = false ) {
  * @param string $separator
  * @param array $contributors_array
  */
-function get_contributors_name_imploded( array $contributors_array ) {
-	$contributors_name_array = [];
-	foreach ( $contributors_array as $contributor ) {
-		if ( isset( $contributor['name'] ) ) {
-			$contributors_name_array[] = $contributor['name'];
-		}
-	}
-	return implode_add_and( ';', $contributors_name_array );
+function get_contributors_name_imploded(array $contributors_array)
+{
+    $contributors_name_array = [];
+    foreach ($contributors_array as $contributor) {
+        if (isset($contributor['name'])) {
+            $contributors_name_array[] = $contributor['name'];
+        }
+    }
+    return implode_add_and(';', $contributors_name_array);
 }
 
 /**
@@ -1291,8 +1346,9 @@ function get_contributors_name_imploded( array $contributors_array ) {
  *
  * @return string
  */
-function oxford_comma( array $vars ) {
-	return implode_add_and( ',', $vars );
+function oxford_comma(array $vars)
+{
+    return implode_add_and(',', $vars);
 }
 
 /**
@@ -1305,18 +1361,19 @@ function oxford_comma( array $vars ) {
  * @param array $array_of_strings
  * @return string
  */
-function implode_add_and( string $separator, array $array_of_strings ): string {
-	if ( count( $array_of_strings ) === 2 ) {
-		return $array_of_strings[0] . ' ' . __( 'and', 'pressbooks' ) . ' ' . $array_of_strings[1];
-	} else {
-		$last = array_pop( $array_of_strings );
-		$output = implode( $separator . ' ', $array_of_strings );
-		if ( $output ) {
-			$output .= $separator . ' ' . __( 'and', 'pressbooks' ) . ' ';
-		}
-		$output .= $last;
-		return $output;
-	}
+function implode_add_and(string $separator, array $array_of_strings): string
+{
+    if (count($array_of_strings) === 2) {
+        return $array_of_strings[0] . ' ' . __('and', 'pressbooks') . ' ' . $array_of_strings[1];
+    } else {
+        $last = array_pop($array_of_strings);
+        $output = implode($separator . ' ', $array_of_strings);
+        if ($output) {
+            $output .= $separator . ' ' . __('and', 'pressbooks') . ' ';
+        }
+        $output .= $last;
+        return $output;
+    }
 }
 
 /**
@@ -1326,8 +1383,9 @@ function implode_add_and( string $separator, array $array_of_strings ): string {
  *
  * @return array
  */
-function oxford_comma_explode( string $string ) {
-	return explode_remove_and( ',', $string );
+function oxford_comma_explode(string $string)
+{
+    return explode_remove_and(',', $string);
 }
 
 /**
@@ -1341,36 +1399,37 @@ function oxford_comma_explode( string $string ) {
  * @param string $string
  * @return array
  */
-function explode_remove_and( string $separator, string $string ): array {
-	$results = [];
-	if ( str_contains( $string, $separator ) ) {
-		$items = explode( $separator, $string );
-		if ( count( $items ) === 2 ) {
-			$items = explode( ' ' . __( 'and', 'pressbooks' ) . ' ', $string );
-			foreach ( $items as $item ) {
-				$item = trim( $item );
-				if ( ! empty( $item ) ) {
-					$results[] = $item;
-				}
-			}
-		}
-		foreach ( $items as $item ) {
-			$item = trim( $item );
-			$item = str_remove_prefix( $item, __( 'and', 'pressbooks' ) . ' ' );
-			if ( ! empty( $item ) ) {
-				$results[] = $item;
-			}
-		}
-	} else {
-		$items = explode( ' ' . __( 'and', 'pressbooks' ) . ' ', $string );
-		foreach ( $items as $item ) {
-			$item = trim( $item );
-			if ( ! empty( $item ) ) {
-				$results[] = $item;
-			}
-		}
-	}
-	return $results;
+function explode_remove_and(string $separator, string $string): array
+{
+    $results = [];
+    if (str_contains($string, $separator)) {
+        $items = explode($separator, $string);
+        if (count($items) === 2) {
+            $items = explode(' ' . __('and', 'pressbooks') . ' ', $string);
+            foreach ($items as $item) {
+                $item = trim($item);
+                if (! empty($item)) {
+                    $results[] = $item;
+                }
+            }
+        }
+        foreach ($items as $item) {
+            $item = trim($item);
+            $item = str_remove_prefix($item, __('and', 'pressbooks') . ' ');
+            if (! empty($item)) {
+                $results[] = $item;
+            }
+        }
+    } else {
+        $items = explode(' ' . __('and', 'pressbooks') . ' ', $string);
+        foreach ($items as $item) {
+            $item = trim($item);
+            if (! empty($item)) {
+                $results[] = $item;
+            }
+        }
+    }
+    return $results;
 }
 
 /**
@@ -1382,19 +1441,20 @@ function explode_remove_and( string $separator, string $string ): array {
  *
  * @return string
  */
-function str_lowercase_dash( $string ) {
-	$low = '';
+function str_lowercase_dash($string)
+{
+    $low = '';
 
-	if ( ! empty( $string ) ) {
-		$low = strtolower( trim( $string ) );
-		$results = explode( ' ', $low );
+    if (! empty($string)) {
+        $low = strtolower(trim($string));
+        $results = explode(' ', $low);
 
-		if ( count( $results ) > 1 ) {
-			$low = implode( '-', $results );
-		}
-	}
+        if (count($results) > 1) {
+            $low = implode('-', $results);
+        }
+    }
 
-	return $low;
+    return $low;
 }
 
 /**
@@ -1404,14 +1464,15 @@ function str_lowercase_dash( $string ) {
  *
  * @return bool
  */
-function is_assoc( $arr ) {
-	if ( ! is_array( $arr ) ) {
-		return false;
-	}
-	if ( [] === $arr ) {
-		return false;
-	}
-	return array_keys( $arr ) !== range( 0, count( $arr ) - 1 );
+function is_assoc($arr)
+{
+    if (! is_array($arr)) {
+        return false;
+    }
+    if ([] === $arr) {
+        return false;
+    }
+    return array_keys($arr) !== range(0, count($arr) - 1);
 }
 
 /**
@@ -1421,14 +1482,15 @@ function is_assoc( $arr ) {
  *
  * @return bool
  */
-function empty_space( $var ) {
-	if ( is_string( $var ) ) {
-		if ( ctype_space( $var ) ) {
-			$var = '';
-		}
-		$var = trim( $var );
-	}
-	return empty( $var );
+function empty_space($var)
+{
+    if (is_string($var)) {
+        if (ctype_space($var)) {
+            $var = '';
+        }
+        $var = trim($var);
+    }
+    return empty($var);
 }
 
 /**
@@ -1436,16 +1498,17 @@ function empty_space( $var ) {
  *
  * @return string
  */
-function main_contact_email() {
-	$main_site_id = get_main_site_id();
-	$email = get_blog_option( $main_site_id, 'pb_network_contact_email' ); // Aldine
-	if ( empty( $email ) ) {
-		$email = get_blog_option( $main_site_id, 'admin_email' ); // Main Site
-		if ( empty( $email ) ) {
-			$email = get_site_option( 'admin_email' ); // Main Network
-		}
-	}
-	return $email ? $email : '';
+function main_contact_email()
+{
+    $main_site_id = get_main_site_id();
+    $email = get_blog_option($main_site_id, 'pb_network_contact_email'); // Aldine
+    if (empty($email)) {
+        $email = get_blog_option($main_site_id, 'admin_email'); // Main Site
+        if (empty($email)) {
+            $email = get_site_option('admin_email'); // Main Network
+        }
+    }
+    return $email ? $email : '';
 }
 
 /**
@@ -1459,39 +1522,40 @@ function main_contact_email() {
  *
  * @return string
  */
-function shortcode_att_replace( $content, $tag, $att, $from, $to ) {
-	$fixed_content = $content;
-	$regex = get_shortcode_regex( [ $tag ] );
-	if ( preg_match_all( '/' . $regex . '/s', $content, $matches, PREG_SET_ORDER ) ) {
-		foreach ( $matches as $shortcode ) {
-			$shortcode_attrs = shortcode_parse_atts( $shortcode[3] );
-			if ( ! is_array( $shortcode_attrs ) ) {
-				$shortcode_attrs = [];
-			}
-			if ( isset( $shortcode_attrs[ $att ] ) ) {
-				if ( $shortcode_attrs[ $att ] === "&quot;{$from}&quot;" ) {
-					$preg_from = "&quot;{$from}&quot;";
-					$preg_to = "&quot;{$to}&quot;";
-				} elseif ( $shortcode_attrs[ $att ] === '"' . $from . '"' ) {
-					$preg_from = '"' . $from . '"';
-					$preg_to = '"' . $to . '"';
-				} elseif ( $shortcode_attrs[ $att ] === "'{$from}'" ) {
-					$preg_from = "'{$from}'";
-					$preg_to = "'{$to}'";
-				} elseif ( (string) $shortcode_attrs[ $att ] === (string) $from ) {
-					$preg_from = $from;
-					$preg_to = $to;
-				} else {
-					continue;
-				}
-				$preg_from = '/(' . preg_quote( $att, '/' ) . '\s*=.*?)' . preg_quote( $preg_from, '/' ) . '/';
-				$preg_to = '${1}' . $preg_to;
-				$fixed_shortcode = preg_replace( $preg_from, $preg_to, $shortcode[0] );
-				$fixed_content = str_replace( $shortcode[0], $fixed_shortcode, $fixed_content );
-			}
-		}
-	}
-	return $fixed_content;
+function shortcode_att_replace($content, $tag, $att, $from, $to)
+{
+    $fixed_content = $content;
+    $regex = get_shortcode_regex([ $tag ]);
+    if (preg_match_all('/' . $regex . '/s', $content, $matches, PREG_SET_ORDER)) {
+        foreach ($matches as $shortcode) {
+            $shortcode_attrs = shortcode_parse_atts($shortcode[3]);
+            if (! is_array($shortcode_attrs)) {
+                $shortcode_attrs = [];
+            }
+            if (isset($shortcode_attrs[ $att ])) {
+                if ($shortcode_attrs[ $att ] === "&quot;{$from}&quot;") {
+                    $preg_from = "&quot;{$from}&quot;";
+                    $preg_to = "&quot;{$to}&quot;";
+                } elseif ($shortcode_attrs[ $att ] === '"' . $from . '"') {
+                    $preg_from = '"' . $from . '"';
+                    $preg_to = '"' . $to . '"';
+                } elseif ($shortcode_attrs[ $att ] === "'{$from}'") {
+                    $preg_from = "'{$from}'";
+                    $preg_to = "'{$to}'";
+                } elseif ((string) $shortcode_attrs[ $att ] === (string) $from) {
+                    $preg_from = $from;
+                    $preg_to = $to;
+                } else {
+                    continue;
+                }
+                $preg_from = '/(' . preg_quote($att, '/') . '\s*=.*?)' . preg_quote($preg_from, '/') . '/';
+                $preg_to = '${1}' . $preg_to;
+                $fixed_shortcode = preg_replace($preg_from, $preg_to, $shortcode[0]);
+                $fixed_content = str_replace($shortcode[0], $fixed_shortcode, $fixed_content);
+            }
+        }
+    }
+    return $fixed_content;
 }
 
 /**
@@ -1504,17 +1568,18 @@ function shortcode_att_replace( $content, $tag, $att, $from, $to ) {
  *
  * @return string
  */
-function do_shortcode_by_tags( $content, array $tags ) {
-	global $shortcode_tags;
-	$_tags = $shortcode_tags;
-	foreach ( $_tags as $tag => $callback ) {
-		if ( ! in_array( $tag, $tags, true ) ) {
-			unset( $shortcode_tags[ $tag ] );
-		}
-	}
-	$shortcoded = do_shortcode( $content );
-	$shortcode_tags = $_tags;
-	return $shortcoded;
+function do_shortcode_by_tags($content, array $tags)
+{
+    global $shortcode_tags;
+    $_tags = $shortcode_tags;
+    foreach ($_tags as $tag => $callback) {
+        if (! in_array($tag, $tags, true)) {
+            unset($shortcode_tags[ $tag ]);
+        }
+    }
+    $shortcoded = do_shortcode($content);
+    $shortcode_tags = $_tags;
+    return $shortcoded;
 }
 
 /**
@@ -1523,8 +1588,9 @@ function do_shortcode_by_tags( $content, array $tags ) {
  * @param $url
  * @return array|mixed|string|string[]
  */
-function apply_https_if_available( $url ) {
-	return  is_ssl() ? str_replace( 'http://', 'https://', $url ) : $url;
+function apply_https_if_available($url)
+{
+    return  is_ssl() ? str_replace('http://', 'https://', $url) : $url;
 }
 
 /**
@@ -1534,50 +1600,51 @@ function apply_https_if_available( $url ) {
  * @param string $filename
  * @return false|string
  */
-function handle_image_upload( $url, $filename = 'profile.jpg' ) {
-	if ( ! $url ) {
-		return false;
-	}
+function handle_image_upload($url, $filename = 'profile.jpg')
+{
+    if (! $url) {
+        return false;
+    }
 
-	if ( ! function_exists( 'download_url' ) ) {
-		require_once ABSPATH . 'wp-admin/includes/file.php';
-	}
+    if (! function_exists('download_url')) {
+        require_once ABSPATH . 'wp-admin/includes/file.php';
+    }
 
-	$tmp_name = \download_url( $url );
+    $tmp_name = \download_url($url);
 
-	if ( is_wp_error( $tmp_name ) ) {
-		return false;
-	}
+    if (is_wp_error($tmp_name)) {
+        return false;
+    }
 
-	if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
-		try {
-			$filename = \Pressbooks\Image\proper_image_extension( $tmp_name, $filename );
+    if (! \Pressbooks\Image\is_valid_image($tmp_name, $filename)) {
+        try {
+            $filename = \Pressbooks\Image\proper_image_extension($tmp_name, $filename);
 
-			if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
-				return false;
-			}
-		} catch ( \Exception $exc ) {
-			@unlink( $tmp_name ); // @codingStandardsIgnoreLine
+            if (! \Pressbooks\Image\is_valid_image($tmp_name, $filename)) {
+                return false;
+            }
+        } catch (\Exception $exc) {
+            @unlink($tmp_name); // @codingStandardsIgnoreLine
 
-			return false;
-		}
-	}
+            return false;
+        }
+    }
 
-	if ( ! function_exists( 'media_handle_sideload' ) ) {
-		require_once ABSPATH . 'wp-admin/includes/image.php';
-		require_once ABSPATH . 'wp-admin/includes/media.php';
-	}
+    if (! function_exists('media_handle_sideload')) {
+        require_once ABSPATH . 'wp-admin/includes/image.php';
+        require_once ABSPATH . 'wp-admin/includes/media.php';
+    }
 
-	$pid = media_handle_sideload(
-		[
-			'name' => $filename,
-			'tmp_name' => $tmp_name,
-		]
-	);
+    $pid = media_handle_sideload(
+        [
+            'name' => $filename,
+            'tmp_name' => $tmp_name,
+        ]
+    );
 
-	@unlink( $tmp_name ); // @codingStandardsIgnoreLine
+    @unlink($tmp_name); // @codingStandardsIgnoreLine
 
-	return wp_get_attachment_url( $pid );
+    return wp_get_attachment_url($pid);
 }
 
 /**
@@ -1585,8 +1652,9 @@ function handle_image_upload( $url, $filename = 'profile.jpg' ) {
  *
  * @return void
  */
-function delete_options_cached() : void {
-	wp_cache_delete( 'alloptions', 'options' );
+function delete_options_cached(): void
+{
+    wp_cache_delete('alloptions', 'options');
 }
 
 /**
@@ -1594,8 +1662,9 @@ function delete_options_cached() : void {
  *
  * @return bool
  */
-function is_algolia_search_enabled(): bool {
-	return env( 'ALGOLIA_APP_ID' ) && env( 'ALGOLIA_API_KEY' ) && env( 'ALGOLIA_INDEX_NAME' );
+function is_algolia_search_enabled(): bool
+{
+    return env('ALGOLIA_APP_ID') && env('ALGOLIA_API_KEY') && env('ALGOLIA_INDEX_NAME');
 }
 
 /**
@@ -1604,29 +1673,30 @@ function is_algolia_search_enabled(): bool {
  * @param array $array Array of objects to be converted.
  * @return string CSV representation of the array.
  */
-function objects_to_csv( array $array ): string {
-	if ( count( $array ) === 0 ) {
-		return '';
-	}
+function objects_to_csv(array $array): string
+{
+    if (count($array) === 0) {
+        return '';
+    }
 
-	$output = fopen( 'php://memory', 'w' );
-	if ( $output === false ) {
-		throw new RuntimeException( 'Failed to open memory stream for CSV conversion.' );
-	}
+    $output = fopen('php://memory', 'w');
+    if ($output === false) {
+        throw new RuntimeException('Failed to open memory stream for CSV conversion.');
+    }
 
-	// Extract headers from the first object
-	$headers = array_keys( get_object_vars( $array[0] ) );
-	fputcsv( $output, $headers );
+    // Extract headers from the first object
+    $headers = array_keys(get_object_vars($array[0]));
+    fputcsv($output, $headers);
 
-	// Extract each row
-	foreach ( $array as $obj ) {
-		$row = array_values( get_object_vars( $obj ) );
-		fputcsv( $output, $row );
-	}
+    // Extract each row
+    foreach ($array as $obj) {
+        $row = array_values(get_object_vars($obj));
+        fputcsv($output, $row);
+    }
 
-	rewind( $output );
-	$csv = stream_get_contents( $output );
-	fclose( $output );
+    rewind($output);
+    $csv = stream_get_contents($output);
+    fclose($output);
 
-	return $csv ?: '';
+    return $csv ?: '';
 }

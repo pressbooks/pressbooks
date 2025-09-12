@@ -35,23 +35,23 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#glossary
  */
-class Glossary extends Element {
+class Glossary extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'section';
 
-	/**
-	 * @var string
-	 */
-	protected $tag = 'section';
+    /**
+     * @var bool
+     */
+    protected $dataTypeRequired = true;
 
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = true;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [
-		'glossary',
-	];
+    /**
+     * @var array
+     */
+    protected $dataTypes = [
+        'glossary',
+    ];
 
 }

@@ -4,39 +4,45 @@ namespace Pressbooks\Health;
 
 use Illuminate\Contracts\Support\Arrayable;
 
-class Result implements Arrayable {
-	public bool $status;
+class Result implements Arrayable
+{
+    public bool $status;
 
-	public string $message;
+    public string $message;
 
-	public function __construct( bool $status ) {
-		$this->status = $status;
-	}
+    public function __construct(bool $status)
+    {
+        $this->status = $status;
+    }
 
-	public static function make(): self {
-		return new self( $status = true );
-	}
+    public static function make(): self
+    {
+        return new self($status = true);
+    }
 
-	public function ok( string $message = '' ): self {
-		$this->status = true;
+    public function ok(string $message = ''): self
+    {
+        $this->status = true;
 
-		$this->message = $message;
+        $this->message = $message;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function failed( string $message = '' ): self {
-		$this->status = false;
+    public function failed(string $message = ''): self
+    {
+        $this->status = false;
 
-		$this->message = $message;
+        $this->message = $message;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function toArray(): array {
-		return [
-			'status' => $this->status ? 'Ok' : 'Failed',
-			'message' => $this->message,
-		];
-	}
+    public function toArray(): array
+    {
+        return [
+            'status' => $this->status ? 'Ok' : 'Failed',
+            'message' => $this->message,
+        ];
+    }
 }

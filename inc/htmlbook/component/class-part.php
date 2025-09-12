@@ -27,23 +27,23 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_part
  */
-class Part extends Element {
+class Part extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'div';
 
-	/**
-	 * @var string
-	 */
-	protected $tag = 'div';
+    /**
+     * @var bool
+     */
+    protected $dataTypeRequired = true;
 
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = true;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [
-		'part',
-	];
+    /**
+     * @var array
+     */
+    protected $dataTypes = [
+        'part',
+    ];
 
 }

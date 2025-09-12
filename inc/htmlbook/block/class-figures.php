@@ -22,11 +22,11 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_figures
  */
-class Figures extends Element {
-
-	/**
-	 * @var string
-	 */
-	protected $tag = 'figure';
+class Figures extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'figure';
 
 }

@@ -28,23 +28,23 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_equation
  */
-class Equation extends Element {
+class Equation extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'div';
 
-	/**
-	 * @var string
-	 */
-	protected $tag = 'div';
+    /**
+     * @var bool
+     */
+    protected $dataTypeRequired = true;
 
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = true;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [
-		'equation',
-	];
+    /**
+     * @var array
+     */
+    protected $dataTypes = [
+        'equation',
+    ];
 
 }

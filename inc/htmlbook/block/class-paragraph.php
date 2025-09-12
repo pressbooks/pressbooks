@@ -15,18 +15,18 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_paragraph
  */
-class Paragraph extends Element {
+class Paragraph extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'p';
 
-	/**
-	 * @var string
-	 */
-	protected $tag = 'p';
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [
-		'subtitle',
-		'author',
-	];
+    /**
+     * @var array
+     */
+    protected $dataTypes = [
+        'subtitle',
+        'author',
+    ];
 }

@@ -20,52 +20,55 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_code_listings
  */
-class CodeListings extends Element {
+class CodeListings extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'pre';
 
-	/**
-	 * @var string
-	 */
-	protected $tag = 'pre';
+    /**
+     * @var bool
+     */
+    protected $dataTypeRequired = true;
 
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = true;
+    /**
+     * @var array
+     */
+    protected $dataTypes = [
+        'programlisting',
+    ];
 
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [
-		'programlisting',
-	];
+    /**
+     * @var string
+     */
+    protected $codeLanguage;
 
-	/**
-	 * @var string
-	 */
-	protected $codeLanguage;
+    /**
+     * @return string
+     */
+    public function getCodeLanguage()
+    {
+        return $this->codeLanguage;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getCodeLanguage() {
-		return $this->codeLanguage;
-	}
+    /**
+     * @param string $code_language
+     */
+    public function setCodeLanguage(string $code_language)
+    {
+        $this->codeLanguage = $code_language;
+    }
 
-	/**
-	 * @param string $code_language
-	 */
-	public function setCodeLanguage( string $code_language ) {
-		$this->codeLanguage = $code_language;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function renderAttributes() {
-		if ( ! empty( $this->codeLanguage ) ) {
-			$this->attributes['data-code-language'] = $this->codeLanguage;
-		}
-		return parent::renderAttributes();
-	}
+    /**
+     * @return string
+     */
+    public function renderAttributes()
+    {
+        if (! empty($this->codeLanguage)) {
+            $this->attributes['data-code-language'] = $this->codeLanguage;
+        }
+        return parent::renderAttributes();
+    }
 
 }

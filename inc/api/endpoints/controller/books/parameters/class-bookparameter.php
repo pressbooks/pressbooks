@@ -2,8 +2,9 @@
 
 namespace Pressbooks\Api\Endpoints\Controller\Books\Parameters;
 
-interface BookParameter {
-	public function getQueryCondition(): string;
+interface BookParameter
+{
+    public function getQueryCondition(): string;
 
-	public function getPlaceHoldervalues(): array;
+    public function getPlaceHoldervalues(): array;
 }

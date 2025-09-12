@@ -63,11 +63,11 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_tables
  */
-class Tables extends Element {
-
-	/**
-	 * @var string
-	 */
-	protected $tag = 'table';
+class Tables extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'table';
 
 }

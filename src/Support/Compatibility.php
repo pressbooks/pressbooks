@@ -6,9 +6,9 @@ class Compatibility
 {
     private static ?bool $isCompatible = null;
 
-    public const MINIMUM_PHP_VERSION = '8.1.0';
+    public const MINIMUM_PHP_VERSION = '8.2';
 
-    public const MINIMUM_WP_VERSION = '6.6.1';
+    public const MINIMUM_WP_VERSION = '6.8.2';
 
     public function check(): void
     {
@@ -66,6 +66,7 @@ class Compatibility
 
     private function printAdminError(string $message): void
     {
+        // Blade is not available yet here so we use plain HTML :(
         echo '<div id="message" role="alert" class="error fade"><p>'.esc_html($message).'</p></div>';
     }
 }

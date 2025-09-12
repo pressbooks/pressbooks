@@ -32,6 +32,6 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_headings
  */
-abstract class Headings extends Element {
-
+abstract class Headings extends Element
+{
 }

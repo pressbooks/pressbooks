@@ -33,22 +33,22 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_blockquote
  */
-class Blockquote extends Element {
+class Blockquote extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'blockquote';
 
-	/**
-	 * @var string
-	 */
-	protected $tag = 'blockquote';
+    /**
+     * @var bool
+     */
+    protected $dataTypeRequired = false;
 
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = false;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [
-		'epigraph',
-	];
+    /**
+     * @var array
+     */
+    protected $dataTypes = [
+        'epigraph',
+    ];
 }

@@ -40,23 +40,23 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_index
  */
-class Index extends Element {
+class Index extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'section';
 
-	/**
-	 * @var string
-	 */
-	protected $tag = 'section';
+    /**
+     * @var bool
+     */
+    protected $dataTypeRequired = true;
 
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = true;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [
-		'index',
-	];
+    /**
+     * @var array
+     */
+    protected $dataTypes = [
+        'index',
+    ];
 
 }

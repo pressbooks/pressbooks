@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Change core WordPress strings using $overrides array.
  *
@@ -8,14 +9,14 @@
  */
 
 $overrides = [
-	'My Sites' => 'I miei libri',
-	'Create a New Site' => 'Crea un nuovo libro',
+    'My Sites' => 'I miei libri',
+    'Create a New Site' => 'Crea un nuovo libro',
 ];
 
-if ( \Pressbooks\Book::isBook() ) {
-	$overrides['Visit site'] = 'Vedi libro';
-	$overrides['Visit Site'] = 'Vedi libro';
-	$overrides['Edit Site'] = 'Modifica libro';
+if (\Pressbooks\Book::isBook()) {
+    $overrides['Visit site'] = 'Vedi libro';
+    $overrides['Visit Site'] = 'Vedi libro';
+    $overrides['Edit Site'] = 'Modifica libro';
 }
 
 return $overrides;

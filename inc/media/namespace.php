@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
@@ -15,25 +16,26 @@ namespace Pressbooks\Media;
  *
  * @return array
  */
-function add_mime_types( $existing_mimes = [] ) {
+function add_mime_types($existing_mimes = [])
+{
 
-	$add_mimes = [
-		'aac' => 'audio/x-aac',
-		'flac' => 'audio/flac',
-		'flv' => 'video/x-flv',
-		'm4a' => 'audio/m4a',
-		'm4v' => 'video/mp4',
-		'mp3' => 'audio/mpeg',
-		'mp4' => 'video/mp4',
-		'ogg' => 'audio/ogg',
-		'ogv' => 'video/ogg',
-		'vorbis' => 'audio/vorbis',
-		'wav' => 'audio/wav',
-		'webm' => 'video/webm',
-		'webp' => 'image/webp',
-	];
+    $add_mimes = [
+        'aac' => 'audio/x-aac',
+        'flac' => 'audio/flac',
+        'flv' => 'video/x-flv',
+        'm4a' => 'audio/m4a',
+        'm4v' => 'video/mp4',
+        'mp3' => 'audio/mpeg',
+        'mp4' => 'video/mp4',
+        'ogg' => 'audio/ogg',
+        'ogv' => 'video/ogg',
+        'vorbis' => 'audio/vorbis',
+        'wav' => 'audio/wav',
+        'webm' => 'video/webm',
+        'webp' => 'image/webp',
+    ];
 
-	return array_merge( $add_mimes, $existing_mimes );
+    return array_merge($add_mimes, $existing_mimes);
 }
 
 /**
@@ -44,22 +46,23 @@ function add_mime_types( $existing_mimes = [] ) {
  * @return array
  * @see \get_allowed_mime_types
  */
-function unknown_upload_types( $existing_mimes ) {
-	$site_exts = explode( ' ', get_site_option( 'upload_filetypes', '' ) );
-	$upload_filetype_mimes = [];
-	foreach ( $site_exts as $ext ) {
-		$already_there = false;
-		foreach ( $existing_mimes as $ext_pattern => $mime ) {
-			if ( $ext !== '' && strpos( $ext_pattern, $ext ) !== false ) {
-				$already_there = true;
-				break;
-			}
-		}
-		if ( ! $already_there ) {
-			$upload_filetype_mimes[ $ext ] = null;
-		}
-	}
-	return $upload_filetype_mimes;
+function unknown_upload_types($existing_mimes)
+{
+    $site_exts = explode(' ', get_site_option('upload_filetypes', ''));
+    $upload_filetype_mimes = [];
+    foreach ($site_exts as $ext) {
+        $already_there = false;
+        foreach ($existing_mimes as $ext_pattern => $mime) {
+            if ($ext !== '' && strpos($ext_pattern, $ext) !== false) {
+                $already_there = true;
+                break;
+            }
+        }
+        if (! $already_there) {
+            $upload_filetype_mimes[ $ext ] = null;
+        }
+    }
+    return $upload_filetype_mimes;
 }
 
 /**
@@ -74,21 +77,22 @@ function unknown_upload_types( $existing_mimes ) {
  * @see \check_upload_mimes
  * @see https://wordpress.org/plugins/blob-mimes/
  */
-function add_lord_of_the_files_types( $existing_mimes = [] ) {
-	$upload_filetype_mimes = [];
-	$lord_of_the_files_activated = ( is_plugin_active_for_network( 'blob-mimes/index.php' ) || is_plugin_active( 'blob-mimes/h5p.php' ) ) && class_exists( 'blobfolio\\wp\\bm\\mime\\aliases' );
-	if ( $lord_of_the_files_activated ) {
-		foreach ( unknown_upload_types( $existing_mimes ) as $k => $v ) {
-			if ( isset( \blobfolio\wp\bm\mime\aliases::TYPES[ $k ] ) ) {
-				$upload_filetype_mimes[ $k ] = \blobfolio\wp\bm\mime\aliases::TYPES[ $k ][0];
-			}
-		}
-	}
-	if ( ! empty( $upload_filetype_mimes ) ) {
-		$existing_mimes = array_merge( $upload_filetype_mimes, $existing_mimes );
-	}
+function add_lord_of_the_files_types($existing_mimes = [])
+{
+    $upload_filetype_mimes = [];
+    $lord_of_the_files_activated = (is_plugin_active_for_network('blob-mimes/index.php') || is_plugin_active('blob-mimes/h5p.php')) && class_exists('blobfolio\\wp\\bm\\mime\\aliases');
+    if ($lord_of_the_files_activated) {
+        foreach (unknown_upload_types($existing_mimes) as $k => $v) {
+            if (isset(\blobfolio\wp\bm\mime\aliases::TYPES[ $k ])) {
+                $upload_filetype_mimes[ $k ] = \blobfolio\wp\bm\mime\aliases::TYPES[ $k ][0];
+            }
+        }
+    }
+    if (! empty($upload_filetype_mimes)) {
+        $existing_mimes = array_merge($upload_filetype_mimes, $existing_mimes);
+    }
 
-	return $existing_mimes;
+    return $existing_mimes;
 }
 
 /**
@@ -99,15 +103,16 @@ function add_lord_of_the_files_types( $existing_mimes = [] ) {
  *
  * @return boolean
  */
-function is_valid_media( $path_to_file, $filename ) {
+function is_valid_media($path_to_file, $filename)
+{
 
-	$validate = wp_check_filetype( $filename, add_mime_types() );
+    $validate = wp_check_filetype($filename, add_mime_types());
 
-	if ( false === $validate['ext'] || false === $validate['type'] ) {
-		return false;
-	}
+    if (false === $validate['ext'] || false === $validate['type']) {
+        return false;
+    }
 
-	return true;
+    return true;
 }
 
 /**
@@ -117,22 +122,23 @@ function is_valid_media( $path_to_file, $filename ) {
  *
  * @return string
  */
-function force_wrap_images( $content ) {
+function force_wrap_images($content)
+{
 
-	$pattern = [
-		'#<p[^>]*>\s*?(<img class=\"([a-z0-9\- ]*).*?>)?\s*</p>#',
-		'#<p[^>]*>\s*?(<a .*?><img class=\"([a-z0-9\- ]*).*?></a>)?\s*</p>#',
-	];
-	$replacement = '<div class="wp-nocaption $2">$1</div>';
-	$content = preg_replace( $pattern, $replacement, $content );
+    $pattern = [
+        '#<p[^>]*>\s*?(<img class=\"([a-z0-9\- ]*).*?>)?\s*</p>#',
+        '#<p[^>]*>\s*?(<a .*?><img class=\"([a-z0-9\- ]*).*?></a>)?\s*</p>#',
+    ];
+    $replacement = '<div class="wp-nocaption $2">$1</div>';
+    $content = preg_replace($pattern, $replacement, $content);
 
-	$pattern = [
-		'#(<p[^>]*>)\s*?(<a .*?><img class=\"([a-z0-9\- ]*).*?></a>)?\s*<br />#',
-	];
-	$replacement = '<div class="wp-nocaption $3">$2</div>$1';
-	$content = preg_replace( $pattern, $replacement, $content );
+    $pattern = [
+        '#(<p[^>]*>)\s*?(<a .*?><img class=\"([a-z0-9\- ]*).*?></a>)?\s*<br />#',
+    ];
+    $replacement = '<div class="wp-nocaption $3">$2</div>$1';
+    $content = preg_replace($pattern, $replacement, $content);
 
-	return $content;
+    return $content;
 }
 
 /**
@@ -143,14 +149,15 @@ function force_wrap_images( $content ) {
  * @return array
  */
 
-function force_attach_media( $params ) {
-	// @codingStandardsIgnoreStart
-	global $post_ID;
-	if ( isset( $post_ID ) ) {
-		$params['post_id'] = (int) $post_ID;
-	}
-	// @codingStandardsIgnoreEnd
-	return $params;
+function force_attach_media($params)
+{
+    // @codingStandardsIgnoreStart
+    global $post_ID;
+    if (isset($post_ID)) {
+        $params['post_id'] = (int) $post_ID;
+    }
+    // @codingStandardsIgnoreEnd
+    return $params;
 }
 
 /**
@@ -160,20 +167,21 @@ function force_attach_media( $params ) {
  *
  * @return string
  */
-function mime_type( $file ) {
+function mime_type($file)
+{
 
-	if ( function_exists( 'finfo_open' ) ) {
-		$finfo = finfo_open( FILEINFO_MIME );
-		$mime = finfo_file( $finfo, $file );
-		finfo_close( $finfo );
-	} elseif ( function_exists( 'mime_content_type' ) ) {
-		$mime = @mime_content_type( $file ); // Suppress deprecated message @codingStandardsIgnoreLine
-	} else {
-		exec( 'file -i -b ' . escapeshellarg( $file ), $output );
-		$mime = $output[0];
-	}
+    if (function_exists('finfo_open')) {
+        $finfo = finfo_open(FILEINFO_MIME);
+        $mime = finfo_file($finfo, $file);
+        finfo_close($finfo);
+    } elseif (function_exists('mime_content_type')) {
+        $mime = @mime_content_type($file); // Suppress deprecated message @codingStandardsIgnoreLine
+    } else {
+        exec('file -i -b ' . escapeshellarg($file), $output);
+        $mime = $output[0];
+    }
 
-	return $mime;
+    return $mime;
 }
 
 /**
@@ -188,27 +196,28 @@ function mime_type( $file ) {
  *
  * @return array $result post_id as key, guid as value
  */
-function extract_id_from_media( $media ) {
-	$result = [];
-	if ( empty( $media ) ) {
-		return $result;
-	}
+function extract_id_from_media($media)
+{
+    $result = [];
+    if (empty($media)) {
+        return $result;
+    }
 
-	// only look for images, for now
-	foreach ( $media as $img ) {
-		if ( ! preg_match_all( '/<img [^>]+>/', $img, $matches ) ) {
-			continue;
-		}
-		preg_match( '/wp-image-([0-9]+)/i', $matches[0][0], $class_id );
-		$attachment_id = ( isset( $class_id[1] ) ) ? absint( $class_id[1] ) : '';
+    // only look for images, for now
+    foreach ($media as $img) {
+        if (! preg_match_all('/<img [^>]+>/', $img, $matches)) {
+            continue;
+        }
+        preg_match('/wp-image-([0-9]+)/i', $matches[0][0], $class_id);
+        $attachment_id = (isset($class_id[1])) ? absint($class_id[1]) : '';
 
-		preg_match( '/src=[\'"](.*?)[\'"]/i', $matches[0][0], $source );
-		$attachment_url = $source[1];
+        preg_match('/src=[\'"](.*?)[\'"]/i', $matches[0][0], $source);
+        $attachment_url = $source[1];
 
-		$result[ $attachment_id ] = $attachment_url;
-	}
+        $result[ $attachment_id ] = $attachment_url;
+    }
 
-	return $result;
+    return $result;
 }
 
 /**
@@ -227,34 +236,35 @@ function extract_id_from_media( $media ) {
  *
  * @return array
  */
-function intersect_media_ids( $media_ids_in_page, $media_ids_found_in_book ) {
-	$ids   = [];
-	$found = array_intersect_key( $media_ids_in_page, $media_ids_found_in_book );
+function intersect_media_ids($media_ids_in_page, $media_ids_found_in_book)
+{
+    $ids   = [];
+    $found = array_intersect_key($media_ids_in_page, $media_ids_found_in_book);
 
-	foreach ( $found as $k => $v ) {
-		$src       = wp_parse_url( $v );
-		$guid      = wp_parse_url( $media_ids_found_in_book[ $k ] );
-		$src_info  = pathinfo( $src['path'] );
-		$guid_info = pathinfo( $guid['path'] );
+    foreach ($found as $k => $v) {
+        $src       = wp_parse_url($v);
+        $guid      = wp_parse_url($media_ids_found_in_book[ $k ]);
+        $src_info  = pathinfo($src['path']);
+        $guid_info = pathinfo($guid['path']);
 
-		// must be from the same host
-		if ( 0 !== strcmp( $src['host'], $guid['host'] ) ) {
-			continue;
-		}
-		// must be same file extension
-		if ( 0 !== strcmp( $src_info['extension'], $guid_info['extension'] ) ) {
-			continue;
-		}
-		// must have same directory
-		if ( 0 !== strcmp( $src_info['dirname'], $guid_info['dirname'] ) ) {
-			continue;
-		}
+        // must be from the same host
+        if (0 !== strcmp($src['host'], $guid['host'])) {
+            continue;
+        }
+        // must be same file extension
+        if (0 !== strcmp($src_info['extension'], $guid_info['extension'])) {
+            continue;
+        }
+        // must have same directory
+        if (0 !== strcmp($src_info['dirname'], $guid_info['dirname'])) {
+            continue;
+        }
 
-		$ids[] = $k;
+        $ids[] = $k;
 
-	}
+    }
 
-	return $ids;
+    return $ids;
 }
 
 /**
@@ -264,12 +274,13 @@ function intersect_media_ids( $media_ids_in_page, $media_ids_found_in_book ) {
  *
  * @return string
  */
-function strip_baseurl( $url ) {
-	$extensions = implode( '|', array_keys( get_allowed_mime_types() ) );
-	$preg = '#(19|20)\d\d/(0[1-9]|1[012])/.+\.(' . $extensions . ')$#i'; # YYYY/MM/foo-bar.ext
-	if ( preg_match( $preg, $url, $matches ) ) {
-		$url = $matches[0];
-	}
+function strip_baseurl($url)
+{
+    $extensions = implode('|', array_keys(get_allowed_mime_types()));
+    $preg = '#(19|20)\d\d/(0[1-9]|1[012])/.+\.(' . $extensions . ')$#i'; # YYYY/MM/foo-bar.ext
+    if (preg_match($preg, $url, $matches)) {
+        $url = $matches[0];
+    }
 
-	return $url;
+    return $url;
 }

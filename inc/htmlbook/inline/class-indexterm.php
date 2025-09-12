@@ -25,23 +25,23 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_index_term
  */
-class IndexTerm extends Element {
+class IndexTerm extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'a';
 
-	/**
-	 * @var string
-	 */
-	protected $tag = 'a';
+    /**
+     * @var bool
+     */
+    protected $dataTypeRequired = true;
 
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = true;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [
-		'indexterm',
-	];
+    /**
+     * @var array
+     */
+    protected $dataTypes = [
+        'indexterm',
+    ];
 
 }

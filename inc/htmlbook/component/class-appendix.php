@@ -27,24 +27,24 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_appendix
  */
-class Appendix extends Element {
+class Appendix extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'section';
 
-	/**
-	 * @var string
-	 */
-	protected $tag = 'section';
+    /**
+     * @var bool
+     */
+    protected $dataTypeRequired = true;
 
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = true;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [
-		'appendix',
-		'afterword',
-	];
+    /**
+     * @var array
+     */
+    protected $dataTypes = [
+        'appendix',
+        'afterword',
+    ];
 
 }

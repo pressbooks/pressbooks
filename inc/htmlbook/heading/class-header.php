@@ -25,11 +25,11 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#header_block
  */
-class Header extends Element {
-
-	/**
-	 * @var string
-	 */
-	protected $tag = 'header';
+class Header extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'header';
 
 }

@@ -24,23 +24,23 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_examples
  */
-class Examples extends Element {
+class Examples extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'div';
 
-	/**
-	 * @var string
-	 */
-	protected $tag = 'div';
+    /**
+     * @var bool
+     */
+    protected $dataTypeRequired = true;
 
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = true;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [
-		'example',
-	];
+    /**
+     * @var array
+     */
+    protected $dataTypes = [
+        'example',
+    ];
 
 }

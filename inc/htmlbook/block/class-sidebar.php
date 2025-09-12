@@ -22,23 +22,23 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_sidebar
  */
-class Sidebar extends Element {
+class Sidebar extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'aside';
 
-	/**
-	 * @var string
-	 */
-	protected $tag = 'aside';
+    /**
+     * @var bool
+     */
+    protected $dataTypeRequired = true;
 
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = true;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [
-		'sidebar',
-	];
+    /**
+     * @var array
+     */
+    protected $dataTypes = [
+        'sidebar',
+    ];
 
 }

@@ -15,11 +15,11 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_superscripts
  */
-class Superscripts extends Element {
-
-	/**
-	 * @var string
-	 */
-	protected $tag = 'sup';
+class Superscripts extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'sup';
 
 }

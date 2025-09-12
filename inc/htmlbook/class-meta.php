@@ -22,6 +22,6 @@ namespace Pressbooks\HTMLBook;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_metadata_points
  */
-class Meta {
-
+class Meta
+{
 }

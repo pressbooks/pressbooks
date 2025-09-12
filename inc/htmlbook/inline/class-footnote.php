@@ -33,23 +33,23 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_footnote_endnote
  */
-class Footnote extends Element {
+class Footnote extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'span';
 
-	/**
-	 * @var string
-	 */
-	protected $tag = 'span';
+    /**
+     * @var bool
+     */
+    protected $dataTypeRequired = true;
 
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = true;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [
-		'footnote',
-	];
+    /**
+     * @var array
+     */
+    protected $dataTypes = [
+        'footnote',
+    ];
 
 }

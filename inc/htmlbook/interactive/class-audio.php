@@ -23,11 +23,11 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_audio
  */
-class Audio extends Element {
-
-	/**
-	 * @var string
-	 */
-	protected $tag = 'audio';
+class Audio extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'audio';
 
 }

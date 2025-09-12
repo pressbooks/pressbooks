@@ -11,79 +11,83 @@ use Masterminds\HTML5;
  *   + loadHTML
  *   + do not saveXML
  */
-class HtmlParser {
+class HtmlParser
+{
+    /**
+     * @var array
+     */
+    public $errors = [];
 
-	/**
-	 * @var array
-	 */
-	public $errors = [];
+    /**
+     * @var \DOMDocument|\Masterminds\HTML5
+     */
+    public $parser;
 
-	/**
-	 * @var \DOMDocument|\Masterminds\HTML5
-	 */
-	public $parser;
+    /**
+     * @param mixed $internal_parser either
+     */
+    public function __construct($internal_parser = false)
+    {
+        if ($internal_parser === true) {
+            $this->parser = new \DOMDocument;
+        } else {
+            $this->parser = new HTML5;
+        }
+    }
 
-	/**
-	 * @param mixed $internal_parser either
-	 */
-	public function __construct( $internal_parser = false ) {
-		if ( $internal_parser === true ) {
-			$this->parser = new \DOMDocument();
-		} else {
-			$this->parser = new HTML5();
-		}
-	}
+    /**
+     * @param $html
+     * @param array $options
+     *
+     * @return \DOMDocument
+     */
+    public function loadHTML($html, $options = [])
+    {
+        $html = '<div><!-- pb_fixme -->' . $html . '<!-- pb_fixme --></div>';
+        if ($this->parser instanceof \DOMDocument) {
+            libxml_use_internal_errors(true);
+            $this->parser->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            $this->errors = libxml_get_errors();
+            libxml_clear_errors();
+            return $this->parser;
+        } else {
+            return $this->parser->loadHTML($html, $options);
+        }
+    }
 
-	/**
-	 * @param $html
-	 * @param array $options
-	 *
-	 * @return \DOMDocument
-	 */
-	public function loadHTML( $html, $options = [] ) {
-		$html = '<div><!-- pb_fixme -->' . $html . '<!-- pb_fixme --></div>';
-		if ( $this->parser instanceof \DOMDocument ) {
-			libxml_use_internal_errors( true );
-			$this->parser->loadHTML( mb_convert_encoding( $html, 'HTML-ENTITIES', 'UTF-8' ), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
-			$this->errors = libxml_get_errors();
-			libxml_clear_errors();
-			return $this->parser;
-		} else {
-			return $this->parser->loadHTML( $html, $options );
-		}
-	}
+    /**
+     * @param \DOMDocument $dom
+     *
+     * @return string
+     */
+    public function saveHTML($dom)
+    {
+        if ($this->parser instanceof \DOMDocument) {
+            libxml_use_internal_errors(true);
+            $html = $dom->saveHTML();
+            $this->errors = libxml_get_errors();
+            libxml_clear_errors();
+        } else {
+            $html = $this->parser->saveHTML($dom);
+        }
+        return $this->removeFixMeWrapper(\Pressbooks\Sanitize\strip_container_tags($html));
+    }
 
-	/**
-	 * @param \DOMDocument $dom
-	 *
-	 * @return string
-	 */
-	public function saveHTML( $dom ) {
-		if ( $this->parser instanceof \DOMDocument ) {
-			libxml_use_internal_errors( true );
-			$html = $dom->saveHTML();
-			$this->errors = libxml_get_errors();
-			libxml_clear_errors();
-		} else {
-			$html = $this->parser->saveHTML( $dom );
-		}
-		return $this->removeFixMeWrapper( \Pressbooks\Sanitize\strip_container_tags( $html ) );
-	}
-
-	/**
-	 * Remove `<div><!-- pb_fixme --><!-- pb_fixme --></div>` from HTML.
-	 *
-	 * @param string $html
-	 * @return string
-	 */
-	public function removeFixMeWrapper( string $html ) {
-		return strtr(
-			$html,
-			[
-				'<div><!-- pb_fixme -->' => '',
-				'<!-- pb_fixme --></div>' => '',
-			]
-		);
-	}
+    /**
+     * Remove `<div><!-- pb_fixme --><!-- pb_fixme --></div>` from HTML.
+     *
+     * @param string $html
+     * @return string
+     */
+    public function removeFixMeWrapper(string $html)
+    {
+        return strtr(
+            $html,
+            [
+                '<div><!-- pb_fixme -->' => '',
+                '<!-- pb_fixme --></div>' => '',
+            ]
+        );
+    }
 
 }

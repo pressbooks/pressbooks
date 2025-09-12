@@ -57,7 +57,7 @@ class Session
         }
     }
 
-    private function useNonBlockingSession(): bool
+    public function useNonBlockingSession(): bool
     {
         if (wp_doing_ajax()) {
             return true;

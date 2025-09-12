@@ -27,27 +27,27 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_admonitions
  */
-class Admonitions extends Element {
+class Admonitions extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'div';
 
-	/**
-	 * @var string
-	 */
-	protected $tag = 'div';
+    /**
+     * @var bool
+     */
+    protected $dataTypeRequired = true;
 
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = true;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [
-		'note',
-		'warning',
-		'tip',
-		'caution',
-		'important',
-	];
+    /**
+     * @var array
+     */
+    protected $dataTypes = [
+        'note',
+        'warning',
+        'tip',
+        'caution',
+        'important',
+    ];
 
 }

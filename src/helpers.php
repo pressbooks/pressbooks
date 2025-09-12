@@ -350,3 +350,50 @@ if (!function_exists('app')) {
         return Container::getInstance()->make($abstract, $parameters);
     }
 }
+
+if (!function_exists('env')) {
+    /**
+     * Get environment variable with fallback to WordPress constants or default value.
+     *
+     * @param string $key
+     * @param mixed $default
+     * @return mixed
+     */
+    function env(string $key, $default = null): mixed
+    {
+        $value = $_ENV[$key] ?? $_SERVER[$key] ?? null;
+
+        if ($value !== null) {
+            return $value;
+        }
+
+        // Fallback to WordPress constants
+        return match($key) {
+            'DB_HOST' => defined('DB_HOST') ? DB_HOST : $default,
+            'DB_NAME' => defined('DB_NAME') ? DB_NAME : $default,
+            'DB_USER' => defined('DB_USER') ? DB_USER : $default,
+            'DB_PASSWORD' => defined('DB_PASSWORD') ? DB_PASSWORD : $default,
+            default => $default,
+        };
+    }
+}
+
+if (!function_exists('use_non_blocking_session')) {
+    /**
+     * Check if non-blocking sessions should be used.
+     *
+     * @return bool
+     */
+    function use_non_blocking_session(): bool
+    {
+        // Avoid circular dependency by directly checking conditions
+        if (wp_doing_ajax()) {
+            return true;
+        }
+        if (is_admin() === false && in_array($GLOBALS['pagenow'], ['wp-login.php', 'wp-register.php', 'wp-signup.php'], true) === false) {
+            return true;
+        }
+
+        return false;
+    }
+}

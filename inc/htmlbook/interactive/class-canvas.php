@@ -21,11 +21,11 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_canvas
  */
-class Canvas extends Element {
-
-	/**
-	 * @var string
-	 */
-	protected $tag = 'canvas';
+class Canvas extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'canvas';
 
 }

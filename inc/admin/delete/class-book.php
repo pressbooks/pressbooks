@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
@@ -6,65 +7,70 @@
 
 namespace Pressbooks\Admin\Delete;
 
-class Book {
+class Book
+{
+    /**
+     * @var \Pressbooks\Admin\Delete\Book
+     */
+    private static $instance = null;
 
-	/**
-	 * @var \Pressbooks\Admin\Delete\Book
-	 */
-	private static $instance = null;
+    /**
+     * @return \Pressbooks\Admin\Delete\Book
+     */
+    public static function init()
+    {
+        if (is_null(self::$instance)) {
+            self::$instance = new self;
+            self::hooks(self::$instance);
+        }
+        return self::$instance;
+    }
 
-	/**
-	 * @return \Pressbooks\Admin\Delete\Book
-	 */
-	static public function init() {
-		if ( is_null( self::$instance ) ) {
-			self::$instance = new self();
-			self::hooks( self::$instance );
-		}
-		return self::$instance;
-	}
+    public static function hooks(Book $obj)
+    {
+        // Hide from side menu
+        remove_submenu_page('tools.php', 'ms-delete-site.php');
+        // Add to top menu
+        if (current_user_can('delete_site')) {
+            add_action('admin_bar_menu', [ $obj, 'addMenu' ], 31);
+        }
+        // Override delete site email
+        add_filter('delete_site_email_content', [ $obj, 'deleteBookEmailContent' ]);
+    }
 
-	static public function hooks( Book $obj ) {
-		// Hide from side menu
-		remove_submenu_page( 'tools.php', 'ms-delete-site.php' );
-		// Add to top menu
-		if ( current_user_can( 'delete_site' ) ) {
-			add_action( 'admin_bar_menu', [ $obj, 'addMenu' ], 31 );
-		}
-		// Override delete site email
-		add_filter( 'delete_site_email_content', [ $obj, 'deleteBookEmailContent' ] );
-	}
+    /**
+     *
+     */
+    public function __construct()
+    {
+    }
 
-	/**
-	 *
-	 */
-	public function __construct() {
-	}
+    /**
+     * @param \WP_Admin_Bar $wp_admin_bar
+     */
+    public function addMenu($wp_admin_bar)
+    {
+        $wp_admin_bar->add_node(
+            [
+                'parent' => 'site-name',
+                'id' => 'delete-book',
+                'title' => __('Delete Book', 'pressbooks'),
+                'href' => admin_url('ms-delete-site.php'),
+            ]
+        );
+    }
 
-	/**
-	 * @param \WP_Admin_Bar $wp_admin_bar
-	 */
-	public function addMenu( $wp_admin_bar ) {
-		$wp_admin_bar->add_node(
-			[
-				'parent' => 'site-name',
-				'id' => 'delete-book',
-				'title' => __( 'Delete Book', 'pressbooks' ),
-				'href' => admin_url( 'ms-delete-site.php' ),
-			]
-		);
-	}
+    /**
+     * @param string $content
+     *
+     * @return string
+     */
+    public function deleteBookEmailContent($content)
+    {
 
-	/**
-	 * @param string $content
-	 *
-	 * @return string
-	 */
-	public function deleteBookEmailContent( $content ) {
-
-		/* translators: Do not translate USERNAME, URL_DELETE, SITE_NAME: those are placeholders. */
-		$content = __(
-			"Howdy ###USERNAME###,
+        /* translators: Do not translate USERNAME, URL_DELETE, SITE_NAME: those are placeholders. */
+        $content = __(
+            "Howdy ###USERNAME###,
 
 You recently clicked the 'Delete Book' link on your book and filled in a
 form on that page.
@@ -78,9 +84,10 @@ some time in the future! (But remember your current book
 is gone forever.)
 
 Thanks for using Pressbooks,
-###SITE_NAME###", 'pressbooks'
-		);
+###SITE_NAME###",
+            'pressbooks'
+        );
 
-		return $content;
-	}
+        return $content;
+    }
 }

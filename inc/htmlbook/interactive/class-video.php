@@ -23,11 +23,11 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_video
  */
-class Video extends Element {
-
-	/**
-	 * @var string
-	 */
-	protected $tag = 'video';
+class Video extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'video';
 
 }

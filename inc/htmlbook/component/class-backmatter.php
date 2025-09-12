@@ -26,26 +26,26 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_backmatter
  */
-class Backmatter extends Element {
+class Backmatter extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'section';
 
-	/**
-	 * @var string
-	 */
-	protected $tag = 'section';
+    /**
+     * @var bool
+     */
+    protected $dataTypeRequired = true;
 
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = true;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [
-		'colophon',
-		'acknowledgments',
-		'afterword',
-		'conclusion',
-	];
+    /**
+     * @var array
+     */
+    protected $dataTypes = [
+        'colophon',
+        'acknowledgments',
+        'afterword',
+        'conclusion',
+    ];
 
 }

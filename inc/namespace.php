@@ -1,4 +1,5 @@
 <?php
+
 /**
  * $_SESSION functions.
  *

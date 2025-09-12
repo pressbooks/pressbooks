@@ -15,11 +15,11 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_literal_for_inline_code_elements_variables_functions_etc
  */
-class Literal extends Element {
-
-	/**
-	 * @var string
-	 */
-	protected $tag = 'code';
+class Literal extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'code';
 
 }

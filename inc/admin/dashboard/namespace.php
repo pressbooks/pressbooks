@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
@@ -13,24 +14,26 @@ namespace Pressbooks\Admin\Dashboard;
  *@since 5.3.0
  *
  */
-function init_network_integrations_menu(): string {
-	$parent_slug = is_network_admin() ? 'pb_network_integrations' : network_admin_url( 'admin.php?page=pb_network_integrations' );
-	static $init_pb_network_integrations_menu = false;
-	if ( ! $init_pb_network_integrations_menu ) {
-		add_menu_page(
-			esc_html__( 'Integrations', 'pressbooks' ),
-			esc_html__( 'Integrations', 'pressbooks' ),
-			'manage_network',
-			$parent_slug,
-			'',
-			'dashicons-networking',
-		);
-		add_action(
-			'admin_bar_init', function () {
-				remove_submenu_page( 'pb_network_integrations', 'pb_network_integrations' );
-			}
-		);
-		$init_pb_network_integrations_menu = true;
-	}
-	return $parent_slug;
+function init_network_integrations_menu(): string
+{
+    $parent_slug = is_network_admin() ? 'pb_network_integrations' : network_admin_url('admin.php?page=pb_network_integrations');
+    static $init_pb_network_integrations_menu = false;
+    if (! $init_pb_network_integrations_menu) {
+        add_menu_page(
+            esc_html__('Integrations', 'pressbooks'),
+            esc_html__('Integrations', 'pressbooks'),
+            'manage_network',
+            $parent_slug,
+            '',
+            'dashicons-networking',
+        );
+        add_action(
+            'admin_bar_init',
+            function () {
+                remove_submenu_page('pb_network_integrations', 'pb_network_integrations');
+            }
+        );
+        $init_pb_network_integrations_menu = true;
+    }
+    return $parent_slug;
 }

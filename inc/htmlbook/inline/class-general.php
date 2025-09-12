@@ -16,11 +16,11 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_general_purpose_phrase_markup_for_other_styling_underline_strikethrough_etc
  */
-class General extends Element {
-
-	/**
-	 * @var string
-	 */
-	protected $tag = 'span';
+class General extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'span';
 
 }

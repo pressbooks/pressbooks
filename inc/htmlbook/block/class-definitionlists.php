@@ -26,11 +26,11 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_definition_lists
  */
-class DefinitionLists extends Element {
-
-	/**
-	 * @var string
-	 */
-	protected $tag = 'dl';
+class DefinitionLists extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'dl';
 
 }

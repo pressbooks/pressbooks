@@ -43,27 +43,27 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_sections
  */
-class Sections extends Element {
+class Sections extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'section';
 
-	/**
-	 * @var string
-	 */
-	protected $tag = 'section';
+    /**
+     * @var bool
+     */
+    protected $dataTypeRequired = true;
 
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = true;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [
-		'sect1',
-		'sect2',
-		'sect3',
-		'sect4',
-		'sect5',
-	];
+    /**
+     * @var array
+     */
+    protected $dataTypes = [
+        'sect1',
+        'sect2',
+        'sect3',
+        'sect4',
+        'sect5',
+    ];
 
 }

@@ -33,23 +33,23 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_table_of_contents
  */
-class TableOfContents extends Element {
+class TableOfContents extends Element
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'nav';
 
-	/**
-	 * @var string
-	 */
-	protected $tag = 'nav';
+    /**
+     * @var bool
+     */
+    protected $dataTypeRequired = true;
 
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = true;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [
-		'toc',
-	];
+    /**
+     * @var array
+     */
+    protected $dataTypes = [
+        'toc',
+    ];
 
 }

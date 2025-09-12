@@ -7,11 +7,11 @@ namespace Pressbooks\HTMLBook\Heading;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_headings
  */
-class H4 extends Headings {
-
-	/**
-	 * @var string
-	 */
-	protected $tag = 'h4';
+class H4 extends Headings
+{
+    /**
+     * @var string
+     */
+    protected $tag = 'h4';
 
 }
