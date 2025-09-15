@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 6.31.1\n"
+"Project-Id-Version: Pressbooks 6.31.4\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-07-30T15:12:23+00:00\n"
+"POT-Creation-Date: 2025-09-15T16:29:03+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -77,7 +77,7 @@ msgstr ""
 #: inc/admin/attachments/namespace.php:54
 #: inc/admin/class-catalog-list-table.php:232
 #: inc/admin/covergenerator/namespace.php:109
-#: inc/class-contributors.php:833
+#: inc/class-contributors.php:845
 msgid "Author"
 msgid_plural "Authors"
 msgstr[0] ""
@@ -99,19 +99,19 @@ msgstr ""
 msgid "Adapted by URL"
 msgstr ""
 
-#: inc/admin/branding/namespace.php:186
+#: inc/admin/branding/namespace.php:190
 msgid "Log In"
 msgstr ""
 
-#: inc/admin/branding/namespace.php:187
+#: inc/admin/branding/namespace.php:191
 msgid "Lost Password"
 msgstr ""
 
-#: inc/admin/branding/namespace.php:188
+#: inc/admin/branding/namespace.php:192
 msgid "Reset Password"
 msgstr ""
 
-#: inc/admin/branding/namespace.php:189
+#: inc/admin/branding/namespace.php:193
 msgid "Password Reset"
 msgstr ""
 
@@ -2150,31 +2150,31 @@ msgstr ""
 msgid "Import Contributors"
 msgstr ""
 
-#: inc/class-contributors.php:832
+#: inc/class-contributors.php:844
 msgid "Editor"
 msgid_plural "Editors"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-contributors.php:834
+#: inc/class-contributors.php:846
 msgid "Contributor"
 msgid_plural "Contributors"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-contributors.php:835
+#: inc/class-contributors.php:847
 msgid "Translator"
 msgid_plural "Translators"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-contributors.php:836
+#: inc/class-contributors.php:848
 msgid "Reviewer"
 msgid_plural "Reviewers"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-contributors.php:837
+#: inc/class-contributors.php:849
 msgid "Illustrator"
 msgid_plural "Illustrators"
 msgstr[0] ""
@@ -2990,8 +2990,8 @@ msgstr ""
 msgid "The original version of this chapter contained H5P content. You may want to remove or replace this element."
 msgstr ""
 
-#: inc/l10n/namespace.php:536
-#: inc/l10n/namespace.php:559
+#: inc/l10n/namespace.php:512
+#: inc/l10n/namespace.php:535
 #, php-format
 msgid "Please contact your system administrator if you would like them to install extended %s language support for the Pressbooks interface."
 msgstr ""
