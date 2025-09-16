@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 6.31.1\n"
+"Project-Id-Version: Pressbooks 6.31.4\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-07-30T15:12:23+00:00\n"
+"POT-Creation-Date: 2025-09-16T14:52:56+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -77,7 +77,7 @@ msgstr ""
 #: inc/admin/attachments/namespace.php:54
 #: inc/admin/class-catalog-list-table.php:232
 #: inc/admin/covergenerator/namespace.php:109
-#: inc/class-contributors.php:833
+#: inc/class-contributors.php:845
 msgid "Author"
 msgid_plural "Authors"
 msgstr[0] ""
@@ -99,19 +99,19 @@ msgstr ""
 msgid "Adapted by URL"
 msgstr ""
 
-#: inc/admin/branding/namespace.php:186
+#: inc/admin/branding/namespace.php:190
 msgid "Log In"
 msgstr ""
 
-#: inc/admin/branding/namespace.php:187
+#: inc/admin/branding/namespace.php:191
 msgid "Lost Password"
 msgstr ""
 
-#: inc/admin/branding/namespace.php:188
+#: inc/admin/branding/namespace.php:192
 msgid "Reset Password"
 msgstr ""
 
-#: inc/admin/branding/namespace.php:189
+#: inc/admin/branding/namespace.php:193
 msgid "Password Reset"
 msgstr ""
 
@@ -2150,31 +2150,31 @@ msgstr ""
 msgid "Import Contributors"
 msgstr ""
 
-#: inc/class-contributors.php:832
+#: inc/class-contributors.php:844
 msgid "Editor"
 msgid_plural "Editors"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-contributors.php:834
+#: inc/class-contributors.php:846
 msgid "Contributor"
 msgid_plural "Contributors"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-contributors.php:835
+#: inc/class-contributors.php:847
 msgid "Translator"
 msgid_plural "Translators"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-contributors.php:836
+#: inc/class-contributors.php:848
 msgid "Reviewer"
 msgid_plural "Reviewers"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-contributors.php:837
+#: inc/class-contributors.php:849
 msgid "Illustrator"
 msgid_plural "Illustrators"
 msgstr[0] ""
@@ -2661,119 +2661,119 @@ msgstr ""
 msgid "Last 10 Revisions"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:443
+#: inc/cloner/class-cloner.php:454
 #: inc/modules/import/api/class-api.php:115
 msgid "Looking up the source book"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:445
+#: inc/cloner/class-cloner.php:456
 msgid "Failed to setup source"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:449
+#: inc/cloner/class-cloner.php:460
 msgid "Creating the target book"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:460
+#: inc/cloner/class-cloner.php:471
 msgid "Cloning metadata"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:467
+#: inc/cloner/class-cloner.php:478
 msgid "Cloning contributors and licenses"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:478
+#: inc/cloner/class-cloner.php:489
 msgid "Cloning front matter"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:493
-#: inc/cloner/class-cloner.php:499
+#: inc/cloner/class-cloner.php:504
+#: inc/cloner/class-cloner.php:510
 msgid "Cloning parts and chapters"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:512
+#: inc/cloner/class-cloner.php:523
 msgid "Cloning back matter"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:545
+#: inc/cloner/class-cloner.php:556
 #: inc/covergenerator/class-generator.php:298
 #: inc/modules/import/class-import.php:373
 msgid "Finishing up"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:561
+#: inc/cloner/class-cloner.php:572
 msgid "You can only clone from a book hosted by Pressbooks 4.1 or later. Please ensure that your source book meets these requirements."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:568
+#: inc/cloner/class-cloner.php:579
 #, php-format
 msgid "Could not retrieve metadata from %s."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:576
+#: inc/cloner/class-cloner.php:587
 #, php-format
 msgid "%s is not licensed for cloning."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:585
+#: inc/cloner/class-cloner.php:596
 #, php-format
 msgid "Could not retrieve contents and structure from %s."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:593
+#: inc/cloner/class-cloner.php:604
 #, php-format
 msgid "Could not retrieve taxonomies from %s."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:601
+#: inc/cloner/class-cloner.php:612
 #, php-format
 msgid "Could not retrieve media from %s."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:776
+#: inc/cloner/class-cloner.php:787
 msgid "The source book contained H5P content that could not be cloned. Please review the cloned version of your book carefully, as missing H5P content will be indicated. You may want to remove or replace these elements."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:798
+#: inc/cloner/class-cloner.php:809
 msgid "The source book&rsquo;s media could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:894
+#: inc/cloner/class-cloner.php:905
 msgid "The source book&rsquo;s metadata could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:925
+#: inc/cloner/class-cloner.php:936
 msgid "The source book&rsquo;s structure and contents could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:970
+#: inc/cloner/class-cloner.php:981
 msgid "The source book&rsquo;s taxonomies could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2054
+#: inc/cloner/class-cloner.php:2069
 msgid "Your book URL can only contain lowercase letters (a-z) and numbers."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2056
+#: inc/cloner/class-cloner.php:2071
 msgid "Your book URL must contain at least some letters."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2058
+#: inc/cloner/class-cloner.php:2073
 msgid "That book URL is not allowed."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2060
+#: inc/cloner/class-cloner.php:2075
 #, php-format
 msgid "Your book URL must be at least %s character."
 msgid_plural "Your book URL must be at least %s characters."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/cloner/class-cloner.php:2062
+#: inc/cloner/class-cloner.php:2077
 msgid "Sorry, you may not use that book URL."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2064
+#: inc/cloner/class-cloner.php:2079
 msgid "Sorry, that book URL already exists!"
 msgstr ""
 
@@ -2990,8 +2990,8 @@ msgstr ""
 msgid "The original version of this chapter contained H5P content. You may want to remove or replace this element."
 msgstr ""
 
-#: inc/l10n/namespace.php:536
-#: inc/l10n/namespace.php:559
+#: inc/l10n/namespace.php:512
+#: inc/l10n/namespace.php:535
 #, php-format
 msgid "Please contact your system administrator if you would like them to install extended %s language support for the Pressbooks interface."
 msgstr ""
