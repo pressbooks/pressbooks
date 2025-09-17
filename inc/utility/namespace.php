@@ -1735,3 +1735,35 @@ function get_h5p_ids_for_exportable_posts(): array {
 
 	return $h5p_ids;
 }
+
+function unqueue_editoria11y_assets(): void {
+	if ( is_admin() || ! is_main_site() ) {
+		return;
+	}
+
+	$block_editoria11y = false;
+
+	if ( is_plugin_active( 'pressbooks-results-for-lms/pressbooks-results-for-lms.php' ) && is_page( 'pressbooks-results' ) ) {
+		$block_editoria11y = true;
+	}
+
+	if ( is_plugin_active( 'pressbooks-network-catalog/pressbooks-network-catalog.php' ) && get_page_template_slug() === 'page-catalog.php' ) {
+		$block_editoria11y = true;
+	}
+
+	if ( is_front_page() || is_home() ) {
+		$block_editoria11y = true;
+	}
+
+	if ( ! $block_editoria11y ) {
+		return;
+	}
+
+	wp_dequeue_script( 'editoria11y-js' );
+	wp_dequeue_script( 'editoria11y-js-shim' );
+	wp_dequeue_style( 'editoria11y-lib-css' );
+
+	if ( has_action( 'wp_footer', 'ed11y_init' ) ) {
+		remove_action( 'wp_footer', 'ed11y_init' );
+	}
+}

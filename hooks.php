@@ -363,3 +363,6 @@ add_action( 'deleted_user', '\Pressbooks\Admin\NetworkManagers\remove_from_press
 
 // Optimize H5P CSS files for export
 add_action( 'pb_xhtml_after_content_processed', '\Pressbooks\Modules\Export\pb_xhtml_after_content_processed' );
+
+add_action( 'wp_enqueue_scripts', '\Pressbooks\Utility\unqueue_editoria11y_assets', 200 );
+

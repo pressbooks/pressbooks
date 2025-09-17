@@ -878,4 +878,100 @@ class UtilityTest extends \WP_UnitTestCase {
 		$inches_pdf_w = length_to_inches( null );
 		$this->assertFalse( $inches_pdf_w );
 	}
+
+	/**
+	 * @group utility
+	 * @test
+	 */
+	public function it_unqueues_editoria11y_assets(): void {
+		switch_to_blog( get_main_site_id() );
+
+		wp_register_script( 'editoria11y-js', '/test-editoria11y.js', [], null, false );
+		wp_register_script( 'editoria11y-js-shim', '/test-editoria11y-shim.js', [], null, false );
+		wp_register_style( 'editoria11y-lib-css', '/test-editoria11y.css', [], null );
+
+		$old_active = get_option( 'active_plugins', [] );
+
+		$this->activate_plugins( [
+			'pressbooks-results-for-lms/pressbooks-results-for-lms.php',
+			'pressbooks-network-catalog/pressbooks-network-catalog.php',
+		] );
+
+		try {
+			// main site
+			$this->go_to( home_url( '/' ) );
+			$this->assertTrue( is_main_site() );
+			$this->assertTrue( is_home() || is_front_page() );
+
+			$this->enqueue_test_ed11y_assets();
+			
+			do_action( 'wp_enqueue_scripts' );
+			
+			$this->assert_ed11y_dequeued();
+
+			if ( function_exists( 'ed11y_init' ) ) {
+				add_action( 'wp_footer', 'ed11y_init' );
+				$this->assertNotFalse( has_action( 'wp_footer', 'ed11y_init' ) );
+				
+				do_action( 'wp_enqueue_scripts' );
+				$this->assertFalse( has_action( 'wp_footer', 'ed11y_init' ) );
+			}
+
+			// results viewer page
+			$results_page_id = wp_insert_post( [
+				'post_title'  => 'Pressbooks Results',
+				'post_name'   => 'pressbooks-results',
+				'post_type'   => 'page',
+				'post_status' => 'publish',
+			] );
+			$this->assertIsInt( $results_page_id );
+			$this->go_to( home_url( '/pressbooks-results' ) );
+			
+			$this->enqueue_test_ed11y_assets();
+
+			do_action( 'wp_enqueue_scripts' );
+			
+			$this->assert_ed11y_dequeued();
+
+			// catalog page
+			$catalog_page_id = wp_insert_post( [
+				'post_title'  => 'Catalog',
+				'post_name'   => 'catalog',
+				'post_type'   => 'page',
+				'post_status' => 'publish',
+			] );
+			$this->assertIsInt( $catalog_page_id );
+			update_post_meta( $catalog_page_id, '_wp_page_template', 'page-catalog.php' );
+			$this->go_to( get_permalink( $catalog_page_id ) );
+			
+			$this->enqueue_test_ed11y_assets();
+			
+			do_action( 'wp_enqueue_scripts' );
+			
+			$this->assert_ed11y_dequeued();
+		} finally {
+			update_site_option( 'active_sitewide_plugins', get_site_option( 'active_sitewide_plugins', [] ) );
+			update_option( 'active_plugins', $old_active );
+		}
+	}
+
+	private function activate_plugins( array $plugins ): void {
+		$sitewide = get_site_option( 'active_sitewide_plugins', [] );
+		foreach( $plugins as $plugin ) {
+			$sitewide[ $plugin ] = time();
+		}
+		update_site_option( 'active_sitewide_plugins', $sitewide );
+	}
+
+	private function enqueue_test_ed11y_assets(): void {
+		$this->assertFalse( wp_script_is( 'editoria11y-js', 'enqueued' ) );
+		$this->assertFalse( wp_script_is( 'editoria11y-js-shim', 'enqueued' ) );
+		$this->assertFalse( wp_style_is( 'editoria11y-lib-css', 'enqueued' ) );
+	}
+
+	private function assert_ed11y_dequeued(): void {
+		$this->assertFalse( wp_script_is( 'editoria11y-js', 'enqueued' ) );
+		$this->assertFalse( wp_script_is( 'editoria11y-js-shim', 'enqueued' ) );
+		$this->assertFalse( wp_style_is( 'editoria11y-lib-css', 'enqueued' ) );
+	}
 }
