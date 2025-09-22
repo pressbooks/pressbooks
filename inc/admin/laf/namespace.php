@@ -1093,6 +1093,14 @@ function disable_customizer() {
 }
 
 /**
+ * @return string
+ */
+function append_book_admin_context( $classes ) {
+	$classes .= ' book-context';
+	return $classes;
+}
+
+/**
  * Init event called at admin_init
  * Instantiates various sub-classes, remove meta boxes from post pages & registers custom post status.
  */

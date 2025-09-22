@@ -165,6 +165,52 @@ html #wpadminbar {
   }
 }
 
+@media screen and (min-width: 1341px) {
+  body.book-context {
+    #wpadminbar #wp-toolbar .ab-top-secondary > li:not(#wp-admin-bar-my-account) > .ab-item {
+      width: auto;
+    }
+  }
+}
+
+@media screen and (max-width: 1340px) {
+  :root {
+    --pb-toolbar-item-height: 50px;
+    --pb-toolbar-item-width: 50px;
+  }
+
+  body.book-context {
+    #wpadminbar #wp-toolbar .ab-top-menu > li > .ab-item,
+    #wpadminbar #wp-toolbar .ab-icon {
+      padding: 0;
+    }
+
+    #wpadminbar #wp-toolbar .ab-top-menu > li > .ab-item {
+      width: var(--pb-toolbar-item-width);
+    }
+
+    #wp-admin-bar-pb-logo .ab-icon::before {
+      font: 26px/1 PBFont, sans-serif;
+    }
+
+    #wpadminbar #wp-toolbar .ab-top-secondary > li:not(#wp-admin-bar-my-account) > .ab-item {
+      width: 32px;
+    }
+
+    #wp-toolbar span:not(.ab-icon) {
+      border: 0;
+      clip-path: inset(50%);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+      word-wrap: normal !important;
+    }
+  }
+}
+
 @media screen and (max-width: 782px) {
   :root {
     --pb-toolbar-item-height: 50px;
