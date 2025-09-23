@@ -1,5 +1,22 @@
 # Changelog
 
+## [6.31.5](https://github.com/pressbooks/pressbooks/compare/6.31.4...6.31.5) (2025-09-23)
+
+
+### Bug Fixes
+
+* preserve attachments metadata during cloning ([#4194](https://github.com/pressbooks/pressbooks/issues/4194)) ([a18c0ea](https://github.com/pressbooks/pressbooks/commit/a18c0ea68a7a05045a7a64ee901da002edaa4977))
+
+
+### Chores
+
+* bump alpinejs from 3.14.9 to 3.15.0 in the npm-dependencies group ([#4195](https://github.com/pressbooks/pressbooks/issues/4195)) ([fc65d54](https://github.com/pressbooks/pressbooks/commit/fc65d54c271d4f82f55afd215d6fb1ee154ee679))
+* bump aws/aws-sdk-php from 3.356.12 to 3.356.17 in the composer-dependencies group ([#4204](https://github.com/pressbooks/pressbooks/issues/4204)) ([6a4d035](https://github.com/pressbooks/pressbooks/commit/6a4d0358d6c9c6829b935d8e2d06606261a7b9e6))
+* bump aws/aws-sdk-php in the composer-dependencies group ([6a4d035](https://github.com/pressbooks/pressbooks/commit/6a4d0358d6c9c6829b935d8e2d06606261a7b9e6))
+* bump the composer-dependencies group across 1 directory with 3 updates ([#4196](https://github.com/pressbooks/pressbooks/issues/4196)) ([d76e6f4](https://github.com/pressbooks/pressbooks/commit/d76e6f4de9554d6d6feeb0894d0efb0aee23f177))
+* **deps:** bump @pressbooks/select to 1.0.2 ([#4203](https://github.com/pressbooks/pressbooks/issues/4203)) ([7070c6c](https://github.com/pressbooks/pressbooks/commit/7070c6c0d4ede01edaf676b1c64f323ffb8158dc))
+* **deps:** replace @pressbooks/multiselect with @pressbooks/select ([#4188](https://github.com/pressbooks/pressbooks/issues/4188)) ([c758d0a](https://github.com/pressbooks/pressbooks/commit/c758d0a112f44fc12815f33dcb44f27b7a140490))
+
 ## [6.31.4](https://github.com/pressbooks/pressbooks/compare/6.31.3...6.31.4) (2025-08-25)
 
 
