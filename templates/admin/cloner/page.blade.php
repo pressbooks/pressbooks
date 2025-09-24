@@ -5,10 +5,10 @@
 		<p id="form-instructions"><span class="required" aria-hidden="true">*</span> {{ __( 'Required fields', 'pressbooks' ) }}</p>
 		<form id="pb-cloner-form" action="" method="post" aria-describedby="form-instructions">
 			<?php wp_nonce_field('pb-cloner'); ?>
-			<h2><label class="pb-label" for="source-book-url">{{ __( 'Source Book URL', 'pressbooks' ) }} <span class="required" aria-hidden="true">*</span><span class="screen-reader-text">{{ __( 'required', 'pressbooks' ) }}</span></label></h2>
+			<h2><label class="pb-label" for="source-book-url">{{ __( 'Source Book URL', 'pressbooks' ) }}<span class="required" aria-hidden="true">*</span><span class="screen-reader-text">{{ __( 'required', 'pressbooks' ) }}</span></label></h2>
 			<input class="regular-text code" id="source-book-url" name="source_book_url" type="url" aria-describedby="source_book_url_description" required aria-required="true"/>
 			<p class="description" id="source_book_url_description">{{ __( 'Enter the URL of a Pressbooks book with an open license which permits cloning.', 'pressbooks' ) }}</p>
-			<h2><label class="pb-label" for="target_book_url">{{ __( 'New Book URL', 'pressbooks' ) }} <span class="required" aria-hidden="true">*</span><span class="screen-reader-text">{{ __( 'required', 'pressbooks' ) }}</span></label></h2>
+			<h2><label class="pb-label" for="target_book_url">{{ __( 'New Book URL', 'pressbooks' ) }}<span class="required" aria-hidden="true">*</span><span class="screen-reader-text">{{ __( 'required', 'pressbooks' ) }}</span></label></h2>
 			@if( is_subdomain_install() )
 				<span class="url-input"><input class="regular-text code" id="target-book-url" name="target_book_url" type="text" aria-describedby="target_book_url_description" required aria-required="true"/></span><span class="subdomain-target-url">.{{ $domain }}</span>
 			@else
