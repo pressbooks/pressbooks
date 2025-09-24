@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.32.0](https://github.com/pressbooks/pressbooks/compare/6.31.6...6.32.0) (2025-09-24)
+
+
+### Features
+
+* add new icon bridge ([#4216](https://github.com/pressbooks/pressbooks/issues/4216)) ([c5b5848](https://github.com/pressbooks/pressbooks/commit/c5b58486bc1d6c96888cec0cbcc3ae48ce493dce))
+
 ## [6.31.6](https://github.com/pressbooks/pressbooks/compare/6.31.5...6.31.6) (2025-09-24)
 
 
