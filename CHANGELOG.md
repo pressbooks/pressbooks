@@ -1,5 +1,17 @@
 # Changelog
 
+## [6.31.6](https://github.com/pressbooks/pressbooks/compare/6.31.5...6.31.6) (2025-09-24)
+
+
+### Bug Fixes
+
+* top bar visualization under specific breakpoints ([#4211](https://github.com/pressbooks/pressbooks/issues/4211)) ([2a91828](https://github.com/pressbooks/pressbooks/commit/2a9182846718033e2e3afe5e99db0ed672bbacf4))
+
+
+### Chores
+
+* add tinymce to dependabot ignore list ([#4213](https://github.com/pressbooks/pressbooks/issues/4213)) ([4dc84ee](https://github.com/pressbooks/pressbooks/commit/4dc84ee48c9a681acbf0857fd6f5230d633f903d))
+
 ## [6.31.5](https://github.com/pressbooks/pressbooks/compare/6.31.4...6.31.5) (2025-09-23)
 
 
