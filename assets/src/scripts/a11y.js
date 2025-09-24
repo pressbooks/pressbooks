@@ -81,3 +81,16 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		} );
 	} );
 } );
+
+const pbLogo = document.querySelector('#wp-admin-bar-pb-logo > .ab-item');
+if (pbLogo) {
+	pbLogo.removeAttribute('role');
+}
+
+const observer = new MutationObserver(() => {
+	const logo = document.querySelector('#wp-admin-bar-pb-logo > .ab-item');
+	if (logo && logo.hasAttribute('role')) {
+		logo.removeAttribute('role');
+	}
+});
+observer.observe(document.body, { childList: true, subtree: true });
