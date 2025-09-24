@@ -106,10 +106,10 @@ class TopBar {
 		$bar->add_node(
 			[
 				'id' => 'pb-logo',
-				'title' => '<div role="img" aria-label="' . esc_attr__('Pressbooks logo', 'pressbooks') . '">
+				'title' => '<div role="img" aria-label="' . esc_attr__( 'Pressbooks logo', 'pressbooks' ) . '">
                         <span class="ab-icon" aria-hidden="true"></span>
                     </div>',
-                'href' => false,
+				'href' => false,
 			]
 		);
 	}
