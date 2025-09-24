@@ -106,9 +106,7 @@ class TopBar {
 		$bar->add_node(
 			[
 				'id' => 'pb-logo',
-				'title' => '<div role="img" aria-label="' . esc_attr__( 'Pressbooks logo', 'pressbooks' ) . '">
-                        <span class="ab-icon" aria-hidden="true"></span>
-                    </div>',
+				'title' => '<span class="ab-icon"></span><span class="screen-reader-text">' . __( 'Pressbooks logo', 'pressbooks' ) . '</span>',
 				'href' => false,
 			]
 		);
