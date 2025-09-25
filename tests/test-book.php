@@ -178,31 +178,66 @@ class BookTest extends \WP_UnitTestCase {
 	/**
 	 * @group book
 	 */
-	public function test_getSubsections() {
-		$this->_book();
-		$book = \Pressbooks\Book::getInstance();
+    public function test_getSubsections() {
+        $this->_book();
+        $book = \Pressbooks\Book::getInstance();
 
-		$result = $book::getSubsections( 0 );
-		$this->assertEquals( false, $result );
+        $id = $book::getBookStructure()['front-matter'][0]['ID'];
 
-		$test = '<h1>Hi there!<b></b></h1><p>How are you?</p>';
-		$id = $book::getBookStructure()['front-matter'][0]['ID'];
-		$this->factory()->post->update_object( $id, [ 'post_content' => $test ] );
-		$result = $book::getSubsections( $id );
-		$this->assertArrayHasKey( "front-matter-{$id}-section-1", $result );
-		$this->assertEquals( 'Hi there!', $result[ "front-matter-{$id}-section-1" ] );
+        // Return false for invalid ID
+        $result = $book::getSubsections(0);
+        $this->assertEquals(false, $result);
 
-		$test = "<H1 style='font-size:small;'>Hi there! Hope you're doing good.<B></B></H1><P>How are you?</P>"; // ALL CAPS, texturized
-		$this->factory()->post->update_object( $id, [ 'post_content' => $test ] );
-		$result = $book::getSubsections( $id );
-		$this->assertArrayHasKey( "front-matter-{$id}-section-1", $result );
-		$this->assertEquals( 'Hi there! Hope you&#8217;re doing good.', $result[ "front-matter-{$id}-section-1" ] );
+        // Normal <h1> element
+        $test = '<h1>Hi there!<b></b></h1><p>How are you?</p>';
+        $this->factory()->post->update_object($id, ['post_content' => $test]);
+        $result = $book::getSubsections($id);
+        $this->assertArrayHasKey("front-matter-{$id}-section-1", $result);
+        $this->assertEquals('Hi there!', $result["front-matter-{$id}-section-1"]);
 
-		$test = "<h2>Hi there! Hope you're doing good.<b></b></h2><p>How are you?</p>"; // H2
-		$this->factory()->post->update_object( $id, [ 'post_content' => $test ] );
-		$result = $book::getSubsections( $id );
-		$this->assertEquals( false, $result );
-	}
+        // Uppercase <H1> with inline elements
+        $test = "<H1 style='font-size:small;'>Hi there! Hope you're doing good.<B></B></H1><P>How are you?</P>";
+        $this->factory()->post->update_object($id, ['post_content' => $test]);
+        $result = $book::getSubsections($id);
+        $this->assertArrayHasKey("front-matter-{$id}-section-1", $result);
+        $this->assertEquals('Hi there! Hope you&#8217;re doing good.', $result["front-matter-{$id}-section-1"]);
+
+        // Ignore non-H1 elements
+        $test = "<h2>Hi there! Hope you're doing good.<b></b></h2><p>How are you?</p>";
+        $this->factory()->post->update_object($id, ['post_content' => $test]);
+        $result = $book::getSubsections($id);
+        $this->assertEquals(false, $result);
+
+        // Ignore <h1> inside <code> blocks (escaped)
+        $test = "Example code: <code>&lt;h1&gt;Fake Header&lt;/h1&gt;</code>. Real header: <h1>Real Header</h1>.";
+        $this->factory()->post->update_object($id, ['post_content' => $test]);
+        $result = $book::getSubsections($id);
+        $this->assertArrayHasKey("front-matter-{$id}-section-1", $result);
+        $this->assertEquals('Real Header', $result["front-matter-{$id}-section-1"]);
+
+        // Ignore <h1> inside <pre> blocks (escaped)
+        $test = "Example pre: <pre>&lt;h1&gt;Fake Pre&lt;/h1&gt;</pre>. Real header: <h1>Another Real Header</h1>.";
+        $this->factory()->post->update_object($id, ['post_content' => $test]);
+        $result = $book::getSubsections($id);
+        $this->assertArrayHasKey("front-matter-{$id}-section-1", $result);
+        $this->assertEquals('Another Real Header', $result["front-matter-{$id}-section-1"]);
+
+        // Multiple <h1> outside code/pre blocks
+        $test = "<h1>First Header</h1><p>Some text</p><h1>Second Header</h1>";
+        $this->factory()->post->update_object($id, ['post_content' => $test]);
+        $result = $book::getSubsections($id);
+        $this->assertArrayHasKey("front-matter-{$id}-section-1", $result);
+        $this->assertArrayHasKey("front-matter-{$id}-section-2", $result);
+        $this->assertEquals('First Header', $result["front-matter-{$id}-section-1"]);
+        $this->assertEquals('Second Header', $result["front-matter-{$id}-section-2"]);
+
+        // <h1> inside <code> is ignored, others processed
+        $test = "<h1>Real Header</h1>Some code: <code><h1>Fake Header</h1></code>";
+        $this->factory()->post->update_object($id, ['post_content' => $test]);
+        $result = $book::getSubsections($id);
+        $this->assertArrayHasKey("front-matter-{$id}-section-1", $result);
+        $this->assertEquals('Real Header', $result["front-matter-{$id}-section-1"]);
+    }
 
 	/**
 	 * @group book

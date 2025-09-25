@@ -730,33 +730,63 @@ class Book {
 	 *
 	 * @return string|false
 	 */
-	static function tagSubsections( $content, $id ) {
-		$parent = get_post( $id );
-		if ( empty( $parent ) ) {
-			return false;
-		}
-		if ( stripos( $content, '<h1' ) === false ) {
-			return false;
-		}
+    static function tagSubsections($content, $id) {
+        $parent = get_post($id);
+        if (empty($parent)) return false;
+        if (stripos($content, '<h1') === false) return false;
 
-		$type = $parent->post_type;
-		$s = 1;
+        $type = $parent->post_type;
+        $s = 1;
 
-		$doc = new HtmlParser();
-		$dom = $doc->loadHTML( $content );
-		$sections = $dom->getElementsByTagName( 'h1' );
-		foreach ( $sections as $section ) {
-			/** @var $section \DOMElement */
-			$old_id = $section->getAttribute( 'id' );
-			$old_class = $section->getAttribute( 'class' );
-			$new_id = "{$type}-{$id}-section-" . $s++;
-			$new_class = trim( "section-header {$old_class} {$old_id}" );
-			$section->setAttribute( 'id', $new_id );
-			$section->setAttribute( 'class', $new_class );
-		}
+        // Step 1: Extract <code> and <pre> blocks as placeholders
+        $placeholders = [];
+        $content_with_placeholders = preg_replace_callback(
+            '#<(code|pre)(.*?)>.*?</\1>#is',
+            function ($matches) use (&$placeholders) {
+                $key = "___CODEBLOCK___" . count($placeholders);
+                $placeholders[$key] = $matches[0];
+                return $key;
+            },
+            $content
+        );
 
-		return $doc->saveHTML( $dom );
-	}
+        // Step 2: Split content by placeholders so we never parse code/pre blocks
+        $parts = preg_split('/(___CODEBLOCK___\d+)/', $content_with_placeholders, -1, PREG_SPLIT_DELIM_CAPTURE);
+
+        foreach ($parts as &$part) {
+            if (preg_match('/^___CODEBLOCK___\d+$/', $part)) {
+                // Skip code/pre blocks entirely
+                continue;
+            }
+
+            // Parse only non-code content
+            $doc = new HtmlParser();
+            $dom = $doc->loadHTML($part);
+            $sections = $dom->getElementsByTagName('h1');
+            foreach ($sections as $section) {
+                /** @var \DOMElement $section */
+                $old_id = $section->getAttribute('id');
+                $old_class = $section->getAttribute('class');
+                $new_id = "{$type}-{$id}-section-" . $s++;
+                $new_class = trim("section-header {$old_class} {$old_id}");
+                $section->setAttribute('id', $new_id);
+                $section->setAttribute('class', $new_class);
+            }
+
+            // Replace part with parsed HTML
+            $part = $doc->saveHTML($dom);
+        }
+
+        // Step 3: Restore code/pre placeholders
+        foreach ($placeholders as $key => $original) {
+            foreach ($parts as &$part) {
+                $part = str_replace($key, $original, $part);
+            }
+        }
+
+        // Step 4: Combine everything back
+        return implode('', $parts);
+    }
 
 	/**
 	 * WP_Ajax hook. Updates a post's privacy setting (whether the post is published or privately published)
