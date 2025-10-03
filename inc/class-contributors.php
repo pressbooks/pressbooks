@@ -11,14 +11,14 @@ namespace Pressbooks;
 use function Pressbooks\Metadata\init_book_data_models;
 use function Pressbooks\Utility\explode_remove_and;
 use function Pressbooks\Utility\str_starts_with;
-use Pressbooks\PostType\BackMatter;
+use Pressbooks\PostType\FrontOrBackMatter;
 use Pressbooks\Utility\AutoDisplayable;
 use Pressbooks\Utility\HandlesTransfers;
 
 /**
  *
  */
-class Contributors implements BackMatter, Transferable {
+class Contributors implements FrontOrBackMatter, Transferable {
 
 	use AutoDisplayable;
 	use HandlesTransfers;
@@ -852,14 +852,14 @@ class Contributors implements BackMatter, Transferable {
 	}
 
 	/**
-	 * Automatically displays a contributors page if the back-matter content is empty.
+	 * Automatically displays a contributors page if the front- or back-matter content is empty.
 	 *
 	 * @param string $content
 	 *
 	 * @return string
 	 */
 	public function overrideDisplay( $content ) {
-
+		$post_type = get_post_type();
 		return $this->display(
 			$content, function() {
 
@@ -872,7 +872,7 @@ class Contributors implements BackMatter, Transferable {
 					]
 				);
 
-			}, 'contributors'
+			}, 'contributors',	$post_type
 		);
 
 	}
