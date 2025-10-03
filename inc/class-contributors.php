@@ -872,7 +872,7 @@ class Contributors implements FrontOrBackMatter, Transferable {
 					]
 				);
 
-			}, 'contributors',	$post_type
+			}, 'contributors', $post_type
 		);
 
 	}

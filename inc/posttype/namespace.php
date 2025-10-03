@@ -237,8 +237,7 @@ function after_title( $post ) {
 		$taxonomy = \Pressbooks\Taxonomy::init();
 		if ( $post->post_type === 'back-matter' ) {
 			$current_taxonomy = $taxonomy->getBackMatterType( $post->ID );
-		}
-		else if ( $post->post_type === 'front-matter') {
+		} elseif ( $post->post_type === 'front-matter' ) {
 			$current_taxonomy = $taxonomy->getFrontMatterType( $post->ID );
 		}
 		$text = '';
@@ -250,7 +249,7 @@ function after_title( $post ) {
 				break;
 			case 'contributors':
 				echo '<div id="pb-post-type-notice" class="notice notice-info" aria-live="assertive"><p>';
-				_e( "To display a list of contributors, leave the content blank.", 'pressbooks' );
+				_e( 'To display a list of contributors, leave the content blank.', 'pressbooks' );
 				echo '</p></div>';
 				break;
 			default:
