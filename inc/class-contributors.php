@@ -859,7 +859,7 @@ class Contributors implements FrontOrBackMatter, Transferable {
 	 * @return string
 	 */
 	public function overrideDisplay( $content ) {
-		$post_type = get_post_type();
+		$post_type = $this->get_post_type();
 		return $this->display(
 			$content, function() {
 
