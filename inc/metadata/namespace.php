@@ -223,6 +223,7 @@ function book_information_to_schema( array $book_information, bool $network_excl
 		'pb_storage_size' => 'storageSize',
 		'pb_h5p_activities' => 'h5pActivities',
 		'pb_in_catalog' => 'inCatalog',
+		'pb_latest_files_public' => 'latestFilesPublic',
 		'pb_book_directory_excluded' => 'bookDirectoryExcluded',
 		'pb_authors' => 'author',
 		'pb_editors' => 'editor',
@@ -393,6 +394,10 @@ function book_information_to_schema( array $book_information, bool $network_excl
 
 	if ( isset( $book_information['pb_in_catalog'] ) ) {
 		$book_schema['inCatalog'] = $book_information['pb_in_catalog'] === '1';
+	}
+
+	if ( isset( $book_information['pb_latest_files_public'] ) ) {
+		$book_schema['latestFilesPublic'] = $book_information['pb_latest_files_public'] === '1';
 	}
 
 	if ( true === $network_excluded_directory ) {
