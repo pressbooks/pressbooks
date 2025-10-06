@@ -43,6 +43,18 @@ html #wpadminbar {
   height: var(--pb-toolbar-item-height);
 }
 
+#wp-admin-bar-pb-logo > .ab-item {
+  pointer-events: none;
+}
+
+#wpadminbar:not(.mobile) .ab-top-menu > #wp-admin-bar-pb-logo:hover > .ab-item {
+  background: inherit;
+}
+
+#wpadminbar:not(.mobile) .ab-top-menu > #wp-admin-bar-pb-logo:hover .ab-icon:before {
+  color: #fff;
+}
+
 #wp-toolbar .pb-heroicons {
   font-size: var(--pb-toolbar-icon-size);
   height: var(--pb-toolbar-icon-size);

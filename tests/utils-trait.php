@@ -275,7 +275,7 @@ https://youtu.be/Lqqsp8soXTo
 				'pdf_page_width' => 10,
 				'pdf_page_height' => 10,
 				'pdf_crop_marks' => 0,
-				'pdf_hyphens' => 0,
+				'pdf_hyphens' => 1,
 				'pdf_toc' => 1
 			] );
 	}

@@ -72,9 +72,8 @@ class PublishOptions extends \Pressbooks\Options {
 
 		$fields = [
 			'amazon'         => __( 'Amazon URL', 'pressbooks' ),
-			'oreilly'        => __( 'O\'Reilly URL', 'pressbooks' ),
 			'barnesandnoble' => __( 'Barnes and Noble URL', 'pressbooks' ),
-			'kobo'           => __( 'Kobo URL', 'pressbooks' ),
+			'kobo'           => __( 'Rakuten Kobo URL', 'pressbooks' ),
 			'applebooks'     => __( 'Apple Books URL', 'pressbooks' ),
 			'otherservice'   => __( 'Other Service URL', 'pressbooks' ),
 		];
@@ -191,7 +190,6 @@ class PublishOptions extends \Pressbooks\Options {
 	static function getDefaults() {
 		return [
 			'amazon' => '',
-			'oreilly' => '',
 			'barnesandnoble' => '',
 			'kobo' => '',
 			'ibooks' => '',
@@ -207,7 +205,6 @@ class PublishOptions extends \Pressbooks\Options {
 	static function getUrlOptions() {
 		return [
 			'amazon',
-			'oreilly',
 			'barnesandnoble',
 			'kobo',
 			'applebooks',
