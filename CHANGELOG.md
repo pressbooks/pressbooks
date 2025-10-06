@@ -1,5 +1,24 @@
 # Changelog
 
+## [6.33.0](https://github.com/pressbooks/pressbooks/compare/6.32.0...6.33.0) (2025-10-06)
+
+
+### Features
+
+* expose latest files field in api ([#4234](https://github.com/pressbooks/pressbooks/issues/4234)) ([a4e0747](https://github.com/pressbooks/pressbooks/commit/a4e0747d03ec46946ac77749e3386628ea10cd17))
+
+
+### Bug Fixes
+
+* a11y issues for PB logo and clone a book page ([#4221](https://github.com/pressbooks/pressbooks/issues/4221)) ([e8530d1](https://github.com/pressbooks/pressbooks/commit/e8530d120fa1039ae7fd0147304ae0853e5db22c))
+* add aria-labels to code editor buttons which lack them ([#4233](https://github.com/pressbooks/pressbooks/issues/4233)) ([b75a383](https://github.com/pressbooks/pressbooks/commit/b75a383e806216f87b51b19e883793e7cc384310))
+* change default pdf_hyphens value ([#4227](https://github.com/pressbooks/pressbooks/issues/4227)) ([189c300](https://github.com/pressbooks/pressbooks/commit/189c3005d08cd2f9078c6229e681a6f82437549c))
+
+
+### Chores
+
+* remove O'Reilly as book sales option ([#4232](https://github.com/pressbooks/pressbooks/issues/4232)) ([7fc36a4](https://github.com/pressbooks/pressbooks/commit/7fc36a4bdd2b2d93a7beaf12787144bfc8ab8ea4))
+
 ## [6.32.0](https://github.com/pressbooks/pressbooks/compare/6.31.6...6.32.0) (2025-09-24)
 
 
