@@ -1,0 +1,53 @@
+/**
+ * Fix for WordPress admin menu accessibility issue
+ * When window height is small or menu has many items, bottom items become inaccessible
+ * This adds scrolling to the admin menu to ensure all items remain accessible
+ */
+
+ #adminmenu {
+    max-height: calc(100vh - 32px); /* Account for admin bar height */
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
+  /* Ensure submenu is also scrollable when needed */
+  #adminmenu .wp-submenu {
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
+  /* Smooth scrolling for better UX */
+  #adminmenu,
+  #adminmenu .wp-submenu {
+    scroll-behavior: smooth;
+  }
+  
+  /* Custom scrollbar styling for better appearance */
+  #adminmenu::-webkit-scrollbar,
+  #adminmenu .wp-submenu::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  #adminmenu::-webkit-scrollbar-track,
+  #adminmenu .wp-submenu::-webkit-scrollbar-track {
+    background: rgb(0 0 0 / 10%);
+  }
+  
+  #adminmenu::-webkit-scrollbar-thumb,
+  #adminmenu .wp-submenu::-webkit-scrollbar-thumb {
+    background: rgb(0 0 0 / 30%);
+    border-radius: 4px;
+  }
+  
+  #adminmenu::-webkit-scrollbar-thumb:hover,
+  #adminmenu .wp-submenu::-webkit-scrollbar-thumb:hover {
+    background: rgb(0 0 0 / 50%);
+  }
+  
+  /* For mobile devices */
+  @media screen and (max-width: 782px) {
+    #adminmenu {
+      max-height: calc(100vh - 46px); /* Account for mobile admin bar height */
+    }
+  }

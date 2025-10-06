@@ -1137,6 +1137,7 @@ function init_css_js() {
 	wp_deregister_style( 'pressbooks-book' ); // Theme's CSS
 
 	wp_enqueue_style( 'pressbooks-admin', $assets->getPath( 'styles/pressbooks.css' ) );
+	wp_enqueue_style( 'pressbooks-admin-menu-fix', $assets->getPath( 'styles/admin.css' ) );
 
 	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pb_catalog' ) {
 		wp_enqueue_style( 'pressbooks-catalog', $assets->getPath( 'styles/catalog.css' ) );
