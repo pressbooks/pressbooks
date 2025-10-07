@@ -18,19 +18,22 @@ trait AutoDisplayable {
 	 * @return mixed
 	 */
 	public function display( $content, $override, $taxonomy_query = 'glossary', $post_type = 'back-matter' ) {
-
 		$post = get_post();
+
 		if ( ! $post ) {
 			// Try to find using deprecated means
 			global $id;
+
 			$post = get_post( $id );
 		}
+
 		if ( ! $post ) {
 			// Unknown post
 			return $content;
 		}
 
 		$valid_post_types = [ 'back-matter', 'front-matter' ];
+
 		if ( ! in_array( $post_type, $valid_post_types, true ) ) {
 			return $content;
 		}

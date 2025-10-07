@@ -860,9 +860,20 @@ class Contributors implements FrontOrBackMatter, Transferable {
 	 */
 	public function overrideDisplay( $content ) {
 		$post_type = get_post_type();
-		return $this->display(
-			$content, function() {
 
+		if ( ! $post_type ) {
+			global $id;
+
+			$post_type = get_post_type( $id );
+		}
+
+		if ( ! $post_type ) {
+			return $content;
+		}
+
+		return $this->display(
+			content: $content,
+			override: function() {
 				$blade = Container::get( 'Blade' );
 
 				return $blade->render(
@@ -871,8 +882,9 @@ class Contributors implements FrontOrBackMatter, Transferable {
 						'exporting' => $this->exporting,
 					]
 				);
-
-			}, 'contributors', $post_type
+			},
+			taxonomy_query: 'contributors',
+			post_type: $post_type,
 		);
 
 	}
