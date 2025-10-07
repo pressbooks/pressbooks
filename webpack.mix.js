@@ -114,7 +114,6 @@ mix
 	.sass( 'assets/src/styles/covergenerator.scss', 'assets/dist/styles/' )
 	.css( 'assets/src/styles/duet.css', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/export.scss', 'assets/dist/styles/' )
-	.sass( 'assets/src/styles/admin.scss', 'assets/dist/styles/' )
 	.css( 'assets/src/styles/admin/export-ui.css', 'assets/dist/styles/admin/' )
 	.sass( 'assets/src/styles/glossary-definition.scss', 'assets/dist/styles' )
 	.sass( 'assets/src/styles/login.scss', 'assets/dist/styles/' )
