@@ -8,11 +8,11 @@ namespace Pressbooks\Shortcodes\Glossary;
 
 use PressbooksMix\Assets;
 use Pressbooks\MathJax;
-use Pressbooks\PostType\BackMatter;
+use Pressbooks\PostType\FrontOrBackMatter;
 use Pressbooks\Utility\AutoDisplayable;
 use WP_Post;
 
-class Glossary implements BackMatter {
+class Glossary implements FrontOrBackMatter {
 
 	use AutoDisplayable;
 
