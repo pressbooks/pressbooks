@@ -49,7 +49,7 @@ Explain the problem and include additional details to help maintainers reproduce
 * **Describe the behavior you observed after following the steps** and point out what exactly is the problem with that behavior.
 * **Explain which behavior you expected to see instead and why.**
 * **If the problem is related to exporting**, attach (if possible) an export file which demonstrates the problem.
-* **Include details about your configuration and environment.** Please provide the contents of your network's diagnostics page, available at `https://YOURNETWORK.URL/wp-admin/options.php?page=pressbooks_diagnostics`. 
+* **Include details about your configuration and environment.** Please provide the contents of your network's diagnostics page, available at `https://YOURNETWORK.URL/wp-admin/options.php?page=pressbooks_diagnostics`.
 
 Provide more context by answering these questions:
 
@@ -68,7 +68,7 @@ Before creating enhancement suggestions, please check [this list](#before-submit
 #### Before Submitting An Enhancement Suggestion
 
 * **Perform a [search](https://wordpress.org/plugins/)** for general-purpose WordPress plugins. Your feature may already be available in one of these.
-* **Perform a cursory search of [Pressbooks](https://github.com/pressbooks/pressbooks/issues) and our [ideas repo](https://github.com/pressbooks/ideas/issues)**to see if the enhancement has already been suggested. If it has, add a comment to the existing issue instead of opening a new one.
+* **Perform a cursory search of [Pressbooks](https://github.com/pressbooks/pressbooks/issues) and our [ideas repo](https://github.com/pressbooks/ideas/issues)** to see if the enhancement has already been suggested. If it has, add a comment to the existing issue instead of opening a new one.
 
 #### How Do I Submit A (Good) Enhancement Suggestion?
 
@@ -81,7 +81,7 @@ Enhancement suggestions are tracked as [GitHub issues](https://guides.github.com
 
 ### Your First Code Contribution
 
-If you'd like to get involved, we suggest you take a look at issues tagged with the `Hacktoberfest` label in the Pressbooks, pressbooks-book, or Aldine repos. These issue are generally considered 'good first issues'. If an issue looks like something you'd be interested in working on, provide a comment in the issue using the `@pressbooks/developers` to notify our team of your interest and any questions you might have.
+If you'd like to get involved, we suggest you take a look at issues tagged with the `Hacktoberfest` label in the Pressbooks, pressbooks-book, or Aldine repos. These issues are generally considered 'good first issues'. If an issue looks like something you'd be interested in working on, provide a comment in the issue using the `@pressbooks/developers` to notify our team of your interest and any questions you might have.
 
 ### Pull Requests
 
