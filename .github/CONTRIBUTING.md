@@ -28,7 +28,7 @@ Please report unacceptable behavior to [code@pressbooks.com](mailto:code@pressbo
 
 ### Installing for Development
 
-Pressbooks uses [Composer](https://getcomposer.org) for dependency management and [Webpack](https://webpack.github.io/) wrapped in Laravel Mix for asset compilation. To set up a local instance of Pressbooks, use the setup steps in our [local-dev-environment](https://github.com/pressbooks/local-dev-environment?tab=readme-ov-file#setup-steps) repo. This approach uses Lando/Docker to to provision a local instance of Pressbooks for testing and development by open source contributors. Please read our [local development guide](https://pressbooks.org/dev-docs/local-development/).
+Pressbooks uses [Composer](https://getcomposer.org) for dependency management and [Webpack](https://webpack.github.io/) wrapped in Laravel Mix for asset compilation. To set up a local instance of Pressbooks, use the setup steps in our [local-dev-environment](https://github.com/pressbooks/local-dev-environment?tab=readme-ov-file#setup-steps) repo. This approach uses Lando/Docker to provision a local instance of Pressbooks for testing and development by open source contributors. Please read our [local development guide](https://pressbooks.org/dev-docs/local-development/).
 
 ### Reporting Bugs
 
