@@ -8,7 +8,7 @@ The following is a set of guidelines for contributing to Pressbooks (thanks to t
 2. [Filing Bugs and Enhancement Suggestions](#filing-bugs-and-enhancement-suggestions)
 	* [Reporting Bugs](#reporting-bugs)
 	* [Suggesting Enhancements](#suggesting-enhancements)
-3. [Contributing Code][#contributing-code]
+3. [Contributing Code](#contributing-code)
     * [Installing for Development](#installing-for-development)
 	* [Git Commit Messages](#git-commit-messages)
     * [Pull Requests](#pull-requests)
