@@ -6,9 +6,9 @@
 namespace Pressbooks\PostType;
 
 /**
- * This is the contract for back-matter post types to be able to create customized views like glossary or contributors DRY
+ * This is the contract for front- and back-matter post types to be able to create customized views like glossary or contributors DRY
  */
-interface BackMatter {
+interface FrontOrBackMatter {
 	/**
 	 * @param string $content WordPress the_content
 	 * @return mixed

@@ -24,6 +24,8 @@ class Book {
 
 	const LAST_EDITED = 'pb_last_edited';
 
+	const PUBLICATION_DATE = 'pb_publication_date';
+
 	const CREATED = 'pb_created';
 
 	const WORD_COUNT = 'pb_word_count';
@@ -311,6 +313,9 @@ class Book {
 
 		// pb_title
 		update_site_meta( $book_id, self::TITLE, $metadata['pb_title'] ?? '' );
+
+		// pb_publication_date
+		update_site_meta( $book_id, self::PUBLICATION_DATE, $metadata['pb_publication_date'] ?? '' );
 
 		// pb_last_edited
 		// pb_created

@@ -1,7 +1,5 @@
 <div class="form-field">
-	@if($field->multiple)
-	<pressbooks-multiselect>
-	@endif
+	<pressbooks-select>
 		<label for="{{ $field->id }}">
 			{{ $field->label }}
 		</label>
@@ -31,7 +29,5 @@
 			{!! $field->description !!}
 		</p>
 		@endif
-	@if($field->multiple)
-	</pressbooks-multiselect>
-	@endif
+	</pressbooks-select>
 </div>

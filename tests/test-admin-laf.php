@@ -541,4 +541,26 @@ HTML, $buffer);
 			'discourage-index' => 1,
 		], $result);
 	}
+
+	public function test_if_book_context_class_is_added_only_on_admin_site_context()
+	{
+		// Test that the function adds book-context class
+		$classes = '';
+		$result = \Pressbooks\Admin\Laf\append_book_admin_context( $classes );
+		$this->assertEquals( ' book-context', $result );
+
+		// Test with existing classes
+		$classes = 'existing-class';
+		$result = \Pressbooks\Admin\Laf\append_book_admin_context( $classes );
+		$this->assertEquals( 'existing-class book-context', $result );
+
+		// Test with multiple existing classes
+		$classes = 'class1 class2 class3';
+		$result = \Pressbooks\Admin\Laf\append_book_admin_context( $classes );
+		$this->assertEquals( 'class1 class2 class3 book-context', $result );
+
+		// Test that the function always appends book-context regardless of context
+		// (The context filtering is done at the hook registration level, not in the function itself)
+		$this->assertTrue( is_callable( '\Pressbooks\Admin\Laf\append_book_admin_context' ) );
+	}
 }

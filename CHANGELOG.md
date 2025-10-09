@@ -1,5 +1,71 @@
 # Changelog
 
+## [6.33.0](https://github.com/pressbooks/pressbooks/compare/6.32.0...6.33.0) (2025-10-06)
+
+
+### Features
+
+* expose latest files field in api ([#4234](https://github.com/pressbooks/pressbooks/issues/4234)) ([a4e0747](https://github.com/pressbooks/pressbooks/commit/a4e0747d03ec46946ac77749e3386628ea10cd17))
+
+
+### Bug Fixes
+
+* a11y issues for PB logo and clone a book page ([#4221](https://github.com/pressbooks/pressbooks/issues/4221)) ([e8530d1](https://github.com/pressbooks/pressbooks/commit/e8530d120fa1039ae7fd0147304ae0853e5db22c))
+* add aria-labels to code editor buttons which lack them ([#4233](https://github.com/pressbooks/pressbooks/issues/4233)) ([b75a383](https://github.com/pressbooks/pressbooks/commit/b75a383e806216f87b51b19e883793e7cc384310))
+* change default pdf_hyphens value ([#4227](https://github.com/pressbooks/pressbooks/issues/4227)) ([189c300](https://github.com/pressbooks/pressbooks/commit/189c3005d08cd2f9078c6229e681a6f82437549c))
+
+
+### Chores
+
+* remove O'Reilly as book sales option ([#4232](https://github.com/pressbooks/pressbooks/issues/4232)) ([7fc36a4](https://github.com/pressbooks/pressbooks/commit/7fc36a4bdd2b2d93a7beaf12787144bfc8ab8ea4))
+
+## [6.32.0](https://github.com/pressbooks/pressbooks/compare/6.31.6...6.32.0) (2025-09-24)
+
+
+### Features
+
+* add new icon bridge ([#4216](https://github.com/pressbooks/pressbooks/issues/4216)) ([c5b5848](https://github.com/pressbooks/pressbooks/commit/c5b58486bc1d6c96888cec0cbcc3ae48ce493dce))
+
+## [6.31.6](https://github.com/pressbooks/pressbooks/compare/6.31.5...6.31.6) (2025-09-24)
+
+
+### Bug Fixes
+
+* top bar visualization under specific breakpoints ([#4211](https://github.com/pressbooks/pressbooks/issues/4211)) ([2a91828](https://github.com/pressbooks/pressbooks/commit/2a9182846718033e2e3afe5e99db0ed672bbacf4))
+
+
+### Chores
+
+* add tinymce to dependabot ignore list ([#4213](https://github.com/pressbooks/pressbooks/issues/4213)) ([4dc84ee](https://github.com/pressbooks/pressbooks/commit/4dc84ee48c9a681acbf0857fd6f5230d633f903d))
+
+## [6.31.5](https://github.com/pressbooks/pressbooks/compare/6.31.4...6.31.5) (2025-09-23)
+
+
+### Bug Fixes
+
+* preserve attachments metadata during cloning ([#4194](https://github.com/pressbooks/pressbooks/issues/4194)) ([a18c0ea](https://github.com/pressbooks/pressbooks/commit/a18c0ea68a7a05045a7a64ee901da002edaa4977))
+
+
+### Chores
+
+* bump alpinejs from 3.14.9 to 3.15.0 in the npm-dependencies group ([#4195](https://github.com/pressbooks/pressbooks/issues/4195)) ([fc65d54](https://github.com/pressbooks/pressbooks/commit/fc65d54c271d4f82f55afd215d6fb1ee154ee679))
+* bump aws/aws-sdk-php from 3.356.12 to 3.356.17 in the composer-dependencies group ([#4204](https://github.com/pressbooks/pressbooks/issues/4204)) ([6a4d035](https://github.com/pressbooks/pressbooks/commit/6a4d0358d6c9c6829b935d8e2d06606261a7b9e6))
+* bump aws/aws-sdk-php in the composer-dependencies group ([6a4d035](https://github.com/pressbooks/pressbooks/commit/6a4d0358d6c9c6829b935d8e2d06606261a7b9e6))
+* bump the composer-dependencies group across 1 directory with 3 updates ([#4196](https://github.com/pressbooks/pressbooks/issues/4196)) ([d76e6f4](https://github.com/pressbooks/pressbooks/commit/d76e6f4de9554d6d6feeb0894d0efb0aee23f177))
+* **deps:** bump @pressbooks/select to 1.0.2 ([#4203](https://github.com/pressbooks/pressbooks/issues/4203)) ([7070c6c](https://github.com/pressbooks/pressbooks/commit/7070c6c0d4ede01edaf676b1c64f323ffb8158dc))
+* **deps:** replace @pressbooks/multiselect with @pressbooks/select ([#4188](https://github.com/pressbooks/pressbooks/issues/4188)) ([c758d0a](https://github.com/pressbooks/pressbooks/commit/c758d0a112f44fc12815f33dcb44f27b7a140490))
+
+## [6.31.4](https://github.com/pressbooks/pressbooks/compare/6.31.3...6.31.4) (2025-08-25)
+
+
+### Chores
+
+* bump the composer-dependencies group across 1 directory with 2 updates ([#4183](https://github.com/pressbooks/pressbooks/issues/4183)) ([9933cc2](https://github.com/pressbooks/pressbooks/commit/9933cc219dddaaf1793882c0de98385b771bbe78))
+* bump yoast/phpunit-polyfills ([d7f595b](https://github.com/pressbooks/pressbooks/commit/d7f595b821b0b1997c12c7c94b1d2fa2e1d57774))
+* bump yoast/phpunit-polyfills from 1.1.4 to 1.1.5 in the composer-dev-dependencies group ([#4170](https://github.com/pressbooks/pressbooks/issues/4170)) ([d7f595b](https://github.com/pressbooks/pressbooks/commit/d7f595b821b0b1997c12c7c94b1d2fa2e1d57774))
+* **l10n:** Updates for project Pressbooks ([#4180](https://github.com/pressbooks/pressbooks/issues/4180)) ([07511ea](https://github.com/pressbooks/pressbooks/commit/07511ea6beb10b0366f1aa7dee097df592545b13))
+* remove duplicate Croatian translation files ([#4181](https://github.com/pressbooks/pressbooks/issues/4181)) ([64d2008](https://github.com/pressbooks/pressbooks/commit/64d2008dd91dd8cb8d72e96090da53a2c1b2939a))
+
 ## [6.31.3](https://github.com/pressbooks/pressbooks/compare/6.31.2...6.31.3) (2025-08-07)
 
 
