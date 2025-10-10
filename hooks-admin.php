@@ -78,7 +78,6 @@ if ( $is_book ) {
 	add_filter( 'set-screen-option', '\Pressbooks\Admin\Laf\custom_screen_options', 10, 3 );
 	// Disable theme customizer
 	add_action( 'admin_body_class', '\Pressbooks\Admin\Laf\disable_customizer' );
-
 } else {
 	// Fix extraneous menus
 	add_action( 'admin_menu', '\Pressbooks\Admin\Laf\fix_root_admin_menu', 1 );
@@ -108,6 +107,8 @@ add_action( 'edit_form_top', '\Pressbooks\Admin\Laf\edit_screen_navigation' );
 add_action( 'network_admin_menu', '\Pressbooks\Admin\Laf\network_admin_menu' );
 if ( ! is_network_admin() ) {
 	add_action( 'admin_init', '\Pressbooks\Admin\Laf\privacy_settings_init' );
+	// Add book context to body class
+	add_filter( 'admin_body_class', '\Pressbooks\Admin\Laf\append_book_admin_context' );
 }
 add_filter( 'map_meta_cap', '\Pressbooks\Admin\Laf\allow_edit_to_book_authors', 10, 4 );
 add_filter( 'ajax_query_attachments_args', '\Pressbooks\Admin\Laf\filter_media_for_contributors' );

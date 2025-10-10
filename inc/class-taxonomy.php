@@ -186,6 +186,13 @@ class Taxonomy {
 				]
 			);
 		}
+		if ( ! get_term_by( 'slug', 'contributors', 'front-matter-type' ) ) {
+			wp_insert_term(
+				'Contributors', 'front-matter-type', [
+					'slug' => 'contributors',
+				]
+			);
+		}
 	}
 
 	/**
@@ -219,6 +226,11 @@ class Taxonomy {
 		wp_insert_term(
 			'Chronology, Timeline', 'front-matter-type', [
 				'slug' => 'chronology-timeline',
+			]
+		);
+		wp_insert_term(
+			'Contributors', 'front-matter-type', [
+				'slug' => 'contributors',
 			]
 		);
 		wp_insert_term(

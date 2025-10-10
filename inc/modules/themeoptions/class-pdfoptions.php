@@ -1571,7 +1571,7 @@ class PDFOptions extends \Pressbooks\Options {
 				'pdf_page_margin_inside' => '2cm',
 				'pdf_page_margin_top' => '2cm',
 				'pdf_page_margin_bottom' => '2cm',
-				'pdf_hyphens' => 0,
+				'pdf_hyphens' => 1,
 				'pdf_paragraph_separation' => 'indent',
 				'pdf_sectionopenings' => 'openauto',
 				'pdf_toc' => 1,
