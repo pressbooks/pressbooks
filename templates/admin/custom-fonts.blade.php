@@ -39,14 +39,19 @@
             </tr>
 
             <!-- Font Fallback Options -->
-            <tr>
-                <th><label for="font_fallback">{{ __('Font Fallback', 'pressbooks') }}</label></th>
-                <td>
-                    <select name="font_fallback" id="font_fallback" required>
-                        <option value="sans-serif">{{ __('Sans-serif', 'pressbooks') }}</option>
-                        <option value="serif">{{ __('Serif', 'pressbooks') }}</option>
-                    </select>
-                </td>
+           <tr>
+            <th scope="row"><?php esc_html_e( 'Font Fallback', 'pressbooks' ); ?></th>
+            <td><fieldset id="font_fallback">
+                <label for="font_fallback_sans">
+                    <input type="radio" name="font_fallback" id="font_fallback_sans" value="sans-serif" required<?php checked( $font_fallback ?? '', 'sans-serif' ); ?>>
+                    <?php esc_html_e( 'Sans-serif', 'pressbooks' ); ?>
+                </label><br>
+                <label for="font_fallback_serif">
+                    <input type="radio" name="font_fallback" id="font_fallback_serif" value="serif" required<?php checked( $font_fallback ?? '', 'serif' ); ?>>
+                    <?php esc_html_e( 'Serif', 'pressbooks' ); ?>
+                </label>
+            </fieldset>
+            </td>
             </tr>
         </table>
 

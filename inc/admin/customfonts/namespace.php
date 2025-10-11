@@ -158,7 +158,7 @@ function generate_custom_font_css() {
         }\n\n";
 		}
 
-		$css_file_path = WP_CONTENT_DIR . '/uploads/assets/custom-fonts/_custom-fonts.scss';
+		$css_file_path = WP_CONTENT_DIR . '/uploads/assets/custom-fonts/custom-fonts.css';
 		file_put_contents( $css_file_path, $custom_css );
 
 	}
