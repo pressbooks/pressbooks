@@ -118,6 +118,8 @@ html #wpadminbar {
 #wp-admin-bar-pb-my-books-list {
   max-height: calc(100vh - 150px);
   overflow-y: auto;
+  z-index: 999999;
+  transform: translateZ(0);
 }
 
 @media screen and (min-width: 783px) {

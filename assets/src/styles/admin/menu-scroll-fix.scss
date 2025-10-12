@@ -15,6 +15,7 @@
     max-height: calc(100vh - 100px);
     overflow-y: auto;
     overflow-x: hidden;
+    z-index: 999999; /* Ensure submenus appear above content */
   }
   
   /* Smooth scrolling for better UX */
@@ -45,6 +46,25 @@
     background: rgb(0 0 0 / 50%);
   }
   
+  /* Fix layering for all admin dropdown menus */
+  #adminmenu .wp-submenu,
+  #wpadminbar .ab-sub-wrapper,
+  #wpadminbar .menupop > .ab-sub-wrapper {
+    z-index: 999999;
+    position: relative;
+    transform: translateZ(0);
+  }
+
+  /* Dynamic submenu height adjustment */
+  #adminmenu .wp-submenu {
+    max-height: calc(100vh - 60px);
+  }
+
+  /* Admin bar dropdowns */
+  #wpadminbar .ab-sub-wrapper {
+    max-height: calc(100vh - 60px);
+  }
+
   /* For mobile devices */
   @media screen and (max-width: 782px) {
     #adminmenu {
