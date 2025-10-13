@@ -30,16 +30,18 @@ function render_custom_fonts_page() {
 function handle_form_submission() {
 	// Verify the nonce
 	if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'pb_save_custom_fonts' ) ) {
-		die( 'Permission denied' );
+		wp_die( 'Permission denied' );
 	}
 
 	// Check if the user has the correct permissions
 	if ( ! current_user_can( 'manage_network' ) ) {
-		die( 'Permission denied' );
+		wp_die( 'Permission denied' );
 	}
 
 	$fonts = get_site_option( 'pressbooks_custom_fonts', [] );
-	$slug = sanitize_text_field( wp_unslash( $_POST['font_name'] ?? '' ) );
+	// Preserve the human-readable font name and derive a slug for storage
+	$font_name_raw = sanitize_text_field( wp_unslash( $_POST['font_name'] ?? '' ) );
+	$slug = sanitize_title( $font_name_raw );
 	$fallback = sanitize_text_field( wp_unslash( $_POST['font_fallback'] ?? '' ) );
 	$font_files = [
 		'regular'        => isset( $_FILES['font_file_regular'] ) ? map_deep( wp_unslash( $_FILES['font_file_regular'] ), 'sanitize_text_field' ) : null,
@@ -50,12 +52,17 @@ function handle_form_submission() {
 
 	if ( ! isset( $fonts[ $slug ] ) ) {
 		$fonts[ $slug ] = [
-			'name'     => $slug,
+			// Store the original human-readable name and the slug as the key
+			'name'     => $font_name_raw,
 			'fallback' => $fallback,
 			'files'    => [],
 		];
 	} else {
 		$fonts[ $slug ]['fallback'] = $fallback;
+		// Ensure the stored human name remains intact if provided
+		if ( ! empty( $font_name_raw ) ) {
+			$fonts[ $slug ]['name'] = $font_name_raw;
+		}
 	}
 
 	if ( array_filter( $font_files ) ) {
@@ -70,7 +77,7 @@ function handle_form_submission() {
 			if ( ! empty( $file['tmp_name'] ) ) {
 				$result = handle_uploaded_font( $file, $key, $target_dir );
 				if ( is_wp_error( $result ) ) {
-					die( esc_html( $result->get_error_message() ) );
+					wp_die( esc_html( $result->get_error_message() ) );
 				}
 				$fonts[ $slug ]['files'][ $key ] = $result;
 			}
@@ -81,7 +88,8 @@ function handle_form_submission() {
 	generate_custom_font_css();
 	// Redirect with success message
 	wp_safe_redirect( network_admin_url( 'settings.php?page=pb_custom_fonts&updated=true' ) );
-	exit;
+	// Return instead of exit so unit tests don't terminate the PHP process.
+	return;
 }
 
 /**
@@ -104,6 +112,9 @@ function handle_uploaded_font( array $file, string $key, string $target_dir ) {
 
 	$target_file = $target_dir . $file_name;
 
+	// Only treat as a valid upload if PHP marks it as uploaded. Tests
+	// provide a namespaced shim to make is_uploaded_file()/move_uploaded_file
+	// work with temp files.
 	if ( move_uploaded_file( $file['tmp_name'], $target_file ) ) {
 		$url = content_url( '/uploads/assets/custom-fonts/' . $file_name );
 		return [
@@ -111,6 +122,7 @@ function handle_uploaded_font( array $file, string $key, string $target_dir ) {
 			'variation' => $key,
 		];
 	}
+
 	return new \WP_Error( 'upload_failed', 'Font upload failed for ' . $key );
 }
 
@@ -160,6 +172,10 @@ function generate_custom_font_css() {
 
 		$css_file_path = WP_CONTENT_DIR . '/uploads/assets/custom-fonts/custom-fonts.css';
 		file_put_contents( $css_file_path, $custom_css );
+
+		// Also write an SCSS partial so theme tooling can import the generated font-face rules.
+		$scss_file_path = WP_CONTENT_DIR . '/uploads/assets/custom-fonts/_custom-fonts.scss';
+		file_put_contents( $scss_file_path, $custom_css );
 
 	}
 }

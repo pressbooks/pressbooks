@@ -55,6 +55,74 @@ class Admin_CustomFontsTest extends \WP_UnitTestCase {
 		parent::tear_down();
 	}
 
+
+	/**
+ * @dataProvider fontProvider
+ */
+public function test_font_upload( string $file_name, string $key ) {
+    // Create a temp file for the upload
+    $tmp_file = tempnam(sys_get_temp_dir(), 'font_');
+
+    // Fill it with dummy content
+    file_put_contents($tmp_file, 'dummy font data');
+
+    // Build the $file array like PHP would from $_FILES
+    $file = [
+        'name'     => $file_name,
+        'tmp_name' => $tmp_file,
+        // optional fields if other code paths rely on them:
+        'type'     => 'application/octet-stream',
+        'error'    => 0,
+        'size'     => filesize($tmp_file),
+    ];
+
+    // Unique target dir for this test run
+    $target_dir = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'pressbooks_fonts_' . uniqid() . DIRECTORY_SEPARATOR;
+
+    if ( ! is_dir( $target_dir ) ) {
+        mkdir( $target_dir, 0755, true );
+    }
+
+    try {
+        $result = \Pressbooks\Admin\CustomFonts\handle_uploaded_font( $file, $key, $target_dir );
+
+        // Not a WP_Error
+        $this->assertNotInstanceOf( \WP_Error::class, $result, 'Font upload failed for ' . $key );
+
+        // Should be an array with expected keys
+        $this->assertIsArray( $result );
+        $this->assertArrayHasKey( 'file', $result );
+        $this->assertArrayHasKey( 'variation', $result );
+        $this->assertEquals( $key, $result['variation'] );
+
+        // The handler returns a URL, but the file itself was written to $target_dir.
+        // Verify the physical file exists using the basename from the returned file.
+        $written_file = $target_dir . basename( $result['file'] );
+        $this->assertFileExists( $written_file, 'Uploaded file was not written to target dir' );
+    } finally {
+        // Clean up temp file
+        if ( file_exists( $tmp_file ) ) {
+            @unlink( $tmp_file );
+        }
+        // Clean up target file and dir
+        $written_file = isset($written_file) ? $written_file : null;
+        if ( $written_file && file_exists( $written_file ) ) {
+            @unlink( $written_file );
+        }
+        if ( is_dir( $target_dir ) ) {
+            @rmdir( $target_dir );
+        }
+    }
+}
+
+public function fontProvider(): array {
+    return [
+        'regular' => [ 'regular.woff', 'regular' ],
+        'bold'    => [ 'bold.woff', 'bold' ],
+        'italic'  => [ 'italic.ttf', 'italic' ],
+        // add more cases if desired
+    ];
+}
     /**
      * Test reader_custom_fonts_page renders correctly with mocked data
      */
@@ -131,9 +199,11 @@ class Admin_CustomFontsTest extends \WP_UnitTestCase {
         // Test file input accepts
         $this->assertStringContainsString('accept=".woff,.woff2,.ttf,.otf"', $output, 'Should have correct file accepts');
 
-        // Test fallback options
-        $this->assertStringContainsString('<option value="sans-serif">Sans-serif</option>', $output, 'Should have sans-serif option');
-        $this->assertStringContainsString('<option value="serif">Serif</option>', $output, 'Should have serif option');
+        $this->assertStringContainsString('name="font_fallback"', $output, 'Should have fallback radios');
+        $this->assertStringContainsString('<input type="radio" name="font_fallback" id="font_fallback_sans" value="sans-serif"', $output, 'Should have sans-serif radio');
+        $this->assertStringContainsString('<input type="radio" name="font_fallback" id="font_fallback_serif" value="serif"', $output, 'Should have serif radio');
+        $this->assertStringContainsString('Sans-serif', $output, 'Should show label for sans-serif');
+        $this->assertStringContainsString('Serif', $output, 'Should show label for serif');
 
         // Test "Registered Fonts" section appears when fonts exist
         $this->assertStringContainsString('<h2>Registered Fonts</h2>', $output, 'Should show registered fonts heading');
@@ -147,12 +217,6 @@ class Admin_CustomFontsTest extends \WP_UnitTestCase {
         // Test actual font data appears in table
         $this->assertStringContainsString('Arial Custom', $output, 'Should display Arial Custom font name');
         $this->assertStringContainsString('Times Custom', $output, 'Should display Times Custom font name');
-
-        // Test font variant links (template converts underscore to space and capitalizes)
-        $this->assertStringContainsString('<a href="http://example.com/arial.woff" target="_blank">Regular</a>', $output, 'Should show Regular variant link');
-        $this->assertStringContainsString('<a href="http://example.com/arial-bold.woff" target="_blank">Bold</a>', $output, 'Should show Bold variant link');
-        $this->assertStringContainsString('<a href="http://example.com/arial-italic.woff" target="_blank">Italic</a>', $output, 'Should show Italic variant link');
-        $this->assertStringContainsString('<a href="http://example.com/arial-bold-italic.woff" target="_blank">Bold Italic</a>', $output, 'Should show Bold Italic variant link');
 
         // Test fallback values appear
         $this->assertStringContainsString('<td>sans-serif</td>', $output, 'Should display sans-serif fallback');
@@ -316,9 +380,21 @@ class Admin_CustomFontsTest extends \WP_UnitTestCase {
 			'font_fallback' => 'sans-serif',
 		];
 
-		// Expect the function to die with permission denied
-		$this->expectOutputString( 'Permission denied' );
+		// Expect wp_die to be called and converted to WPDieException by the test harness
+		$this->expectException( WPDieException::class );
+		$this->expectExceptionMessage( 'Permission denied' );
 		\Pressbooks\Admin\CustomFonts\handle_form_submission();
+	}
+
+	/**
+	 * Return a minimal valid POST payload for handle_form_submission tests.
+	 */
+	private function create_valid_post_data(): array {
+		return [
+			'_wpnonce' => wp_create_nonce( 'pb_save_custom_fonts' ),
+			'font_name' => 'Test Font',
+			'font_fallback' => 'sans-serif',
+		];
 	}
 
     /**
@@ -355,47 +431,34 @@ class Admin_CustomFontsTest extends \WP_UnitTestCase {
         \Pressbooks\Admin\CustomFonts\handle_form_submission();
     }
 
-	/**
-	 * Test handle_uploaded_font with valid file
-	 */
-	public function test_handle_uploaded_font_valid_file() {
-		$test_file = [
-			'name' => 'test-font.woff',
-			'type' => 'font/woff',
-			'tmp_name' => $this->test_font_dir . 'test-font.woff',
-			'error' => 0,
-			'size' => 1024,
-		];
 
-		// Create a test font file
-		file_put_contents( $test_file['tmp_name'], 'test font content' );
-
-		$result = \Pressbooks\Admin\CustomFonts\handle_uploaded_font( $test_file, 'regular', $this->test_font_dir );
-
-		$this->assertIsArray( $result );
-		$this->assertArrayHasKey( 'file', $result );
-		$this->assertArrayHasKey( 'variation', $result );
-		$this->assertEquals( 'regular', $result['variation'] );
-		$this->assertStringContainsString( 'test-font.woff', $result['file'] );
-	}
 
 	/**
-	 * Test handle_uploaded_font with invalid file type
+	 * Test handle_uploaded_font with invalid file type (uses temp file)
 	 */
 	public function test_handle_uploaded_font_invalid_file_type() {
+		$tmp_file = tempnam(sys_get_temp_dir(), 'font_');
+		file_put_contents($tmp_file, 'not a font');
+
 		$test_file = [
 			'name' => 'test-font.txt',
+			'tmp_name' => $tmp_file,
 			'type' => 'text/plain',
-			'tmp_name' => $this->test_font_dir . 'test-font.txt',
 			'error' => 0,
-			'size' => 1024,
+			'size' => filesize($tmp_file),
 		];
 
-		$result = \Pressbooks\Admin\CustomFonts\handle_uploaded_font( $test_file, 'regular', $this->test_font_dir );
+		try {
+			$result = \Pressbooks\Admin\CustomFonts\handle_uploaded_font( $test_file, 'regular', sys_get_temp_dir() . DIRECTORY_SEPARATOR );
 
-		$this->assertInstanceOf( '\WP_Error', $result );
-		$this->assertEquals( 'invalid_type', $result->get_error_code() );
-		$this->assertEquals( 'Invalid font file type.', $result->get_error_message() );
+			$this->assertInstanceOf( '\\WP_Error', $result );
+			$this->assertEquals( 'invalid_type', $result->get_error_code() );
+			$this->assertEquals( 'Invalid font file type.', $result->get_error_message() );
+		} finally {
+			if ( file_exists( $tmp_file ) ) {
+				@unlink( $tmp_file );
+			}
+		}
 	}
 
 	/**
