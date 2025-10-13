@@ -74,7 +74,7 @@
                     <td>{{ esc_html( $font['name'] ?? '' ) }}</td>
                     <td>
                         @foreach (($font['files'] ?? []) as $variant => $file)
-                            <a href="{{ esc_url( $file['file'] ?? '' ) }}" target="_blank">{{ esc_html( ucwords(str_replace('_', ' ', $variant)) ) }}</a><br>
+							{{ esc_html( ucwords(str_replace('_', ' ', $variant)) ) }} (<a href="{{ esc_url( $file['file'] ?? '' ) }}">{{ __('Download font file', 'pressbooks') }}</a>)<br>
                         @endforeach
                     </td>
                     <td>{{ esc_html( $font['fallback'] ?? '' ) }}</td>
