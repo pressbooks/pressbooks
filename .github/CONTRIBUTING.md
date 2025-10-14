@@ -73,7 +73,7 @@ Pressbooks uses [Composer](https://getcomposer.org) for dependency management an
 
 * Please follow our [Code Styleguide](https://pressbooks.org/dev-guides/coding-standards/) in writing your new code.
 * Documentation of PHP functions should adhere to the [PHPDoc](https://en.wikipedia.org/wiki/PHPDoc) format.
-* Add relevant [unit tests](https://pressbooks.org/dev-docs/unit-testing/) for new functions/code you add. If you submit a pull request which reduces overall code coverage, you *will* be asked to revise the pull requests to add tests.
+* Add relevant [unit tests](https://pressbooks.org/dev-guides/unit-testing/) for new functions/code you add. If you submit a pull request which reduces overall code coverage, you *will* be asked to revise the pull requests to add tests.
 * Include a description of how to test your changes. Where relevant, please include screenshots or brief screen recordings in your pull request.
 * PR branch names should follow the pattern: `feat/add-feature`, `fix/bug-fix`, `chore/perform-chore`, etc.
 * We use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta.2/) to express what kind of change a commit or PR represents. This also helps us use Semantic Versioning properly for our releases. Commit messages and PR titles should follow the pattern: `feat: Add Feature`, `fix: Bug Fix`, `chore: Perform Chore`, etc.
