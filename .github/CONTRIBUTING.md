@@ -71,7 +71,7 @@ Pressbooks uses [Composer](https://getcomposer.org) for dependency management an
 
 ### Pull Requests
 
-* Please follow our [Code Styleguide](https://pressbooks.org/dev-docs/coding-standards/) in writing your new code.
+* Please follow our [Code Styleguide](https://pressbooks.org/dev-guides/coding-standards/) in writing your new code.
 * Documentation of PHP functions should adhere to the [PHPDoc](https://en.wikipedia.org/wiki/PHPDoc) format.
 * Add relevant [unit tests](https://pressbooks.org/dev-docs/unit-testing/) for new functions/code you add. If you submit a pull request which reduces overall code coverage, you *will* be asked to revise the pull requests to add tests.
 * Include a description of how to test your changes. Where relevant, please include screenshots or brief screen recordings in your pull request.
