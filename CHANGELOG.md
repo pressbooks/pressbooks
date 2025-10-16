@@ -1,5 +1,20 @@
 # Changelog
 
+## [6.34.0](https://github.com/pressbooks/pressbooks/compare/6.33.0...6.34.0) (2025-10-09)
+
+
+### Features
+
+* add Contributors as an allowed front matter type ([#4231](https://github.com/pressbooks/pressbooks/issues/4231)) ([d15c110](https://github.com/pressbooks/pressbooks/commit/d15c11002ae290a4cd8afa71983be4617a69798e))
+* add publication date collector ([#4237](https://github.com/pressbooks/pressbooks/issues/4237)) ([6ea1e8b](https://github.com/pressbooks/pressbooks/commit/6ea1e8b82d6a87448c5bea9078fc85aea8f477cf))
+
+
+### Chores
+
+* update code of conduct ([#4242](https://github.com/pressbooks/pressbooks/issues/4242)) ([6c3d4b9](https://github.com/pressbooks/pressbooks/commit/6c3d4b98c9a499355695ade88801a6f79bf43fff))
+* update contributor guidelines ([#4240](https://github.com/pressbooks/pressbooks/issues/4240)) ([8a1af10](https://github.com/pressbooks/pressbooks/commit/8a1af10f3ecf39a051e4ff774901a38aa755b254))
+* update readme and WP compatibility ([#4168](https://github.com/pressbooks/pressbooks/issues/4168)) ([2a16ae4](https://github.com/pressbooks/pressbooks/commit/2a16ae4e4e9e0a9bddd4d578307c31c2a63fc93c))
+
 ## [6.33.0](https://github.com/pressbooks/pressbooks/compare/6.32.0...6.33.0) (2025-10-06)
 
 
