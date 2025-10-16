@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "92b35472a4b3aaaeafa5552c0363c702",
+    "content-hash": "ab4979a765f172633fd5ddb6ce0f8998",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -3757,23 +3757,23 @@
         },
         {
             "name": "snordian/h5p-extractor",
-            "version": "dev-master",
+            "version": "0.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/otacke/H5PExtractor.git",
-                "reference": "a82f3f865e6c535098842d846b31843c70aa9492"
+                "reference": "9b8dcb11eb472ef687bdfb4f5170a2b74e685509"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/otacke/H5PExtractor/zipball/a82f3f865e6c535098842d846b31843c70aa9492",
-                "reference": "a82f3f865e6c535098842d846b31843c70aa9492",
+                "url": "https://api.github.com/repos/otacke/H5PExtractor/zipball/9b8dcb11eb472ef687bdfb4f5170a2b74e685509",
+                "reference": "9b8dcb11eb472ef687bdfb4f5170a2b74e685509",
                 "shasum": ""
             },
             "require": {
                 "h5p/h5p-core": "^1.26.0"
             },
-            "default-branch": true,
             "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3789,10 +3789,10 @@
                 "h5p"
             ],
             "support": {
-                "source": "https://github.com/otacke/H5PExtractor/tree/master",
-                "issues": "https://github.com/otacke/H5PExtractor/issues"
+                "issues": "https://github.com/otacke/H5PExtractor/issues",
+                "source": "https://github.com/otacke/H5PExtractor/tree/0.4.1"
             },
-            "time": "2025-05-04T11:28:42+00:00"
+            "time": "2025-10-03T07:00:15+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -13476,9 +13476,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "snordian/h5p-extractor": 20
-    },
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
