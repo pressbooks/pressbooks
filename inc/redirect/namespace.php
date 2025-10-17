@@ -497,23 +497,22 @@ function handle_dashboard_redirect( string $redirect_to, string $requested_redir
 		return $redirect_to;
 	}
 
-	// Only redirect if user is being redirected to admin areas or dashboard pages
-	// Allow redirects for admin URLs, dashboard pages, or when redirect_to equals requested_redirect_to (typical login flow)
-	$should_redirect = (
-		$redirect_to === admin_url() ||
+	// Only redirect if user is being redirected to admin areas, dashboard pages, or in book context where we want to customize behavior
+	$is_admin_redirect = (
+		$redirect_to === admin_url() || 
 		str_contains( $redirect_to, '/wp-admin/' ) ||
-		str_contains( $redirect_to, 'page=pb_home_page' ) ||
-		str_contains( $redirect_to, 'page=pb_network_page' ) ||
+		str_contains( $redirect_to, 'page=pb_home_page' ) || 
+		str_contains( $redirect_to, 'page=pb_network_page' ) || 
 		str_contains( $redirect_to, 'page=book_dashboard' ) ||
 		$redirect_to === $requested_redirect_to
 	);
-
-	if ( ! $should_redirect ) {
+	
+	$is_book_context = Book::isBook();
+	
+	// Apply redirect logic if it's an admin redirect OR we're in a book context (where we want custom behavior)
+	if ( ! $is_admin_redirect && ! $is_book_context ) {
 		return $redirect_to;
 	}
-
-	// Check if we're in a book context
-	$is_book_context = Book::isBook();
 
 	if ( $is_book_context ) {
 		// In book context
