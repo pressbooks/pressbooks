@@ -11,6 +11,7 @@
 
 namespace Pressbooks\Redirect;
 
+use Pressbooks\Book;
 use Pressbooks\Modules\Export\Xhtml\Xhtml11;
 
 /**
@@ -483,7 +484,7 @@ function break_reset_password_loop( $redirect_to, $requested_redirect_to, $user 
 }
 
 /**
- * Handles the dashboard redirect in case of super admin users
+ * Handles the dashboard redirect for users after login based on context and user role
  *
  * @param string $redirect_to The redirect destination URL.
  * @param string $requested_redirect_to The requested redirect destination URL passed as a parameter.
@@ -496,13 +497,55 @@ function handle_dashboard_redirect( string $redirect_to, string $requested_redir
 		return $redirect_to;
 	}
 
-	if ( ! is_super_admin( $user->ID ) ) {
+	// Only redirect if user is being redirected to admin areas or dashboard pages
+	// Allow redirects for admin URLs, dashboard pages, or when redirect_to equals requested_redirect_to (typical login flow)
+	$should_redirect = (
+		$redirect_to === admin_url() ||
+		str_contains( $redirect_to, '/wp-admin/' ) ||
+		str_contains( $redirect_to, 'page=pb_home_page' ) ||
+		str_contains( $redirect_to, 'page=pb_network_page' ) ||
+		str_contains( $redirect_to, 'page=book_dashboard' ) ||
+		$redirect_to === $requested_redirect_to
+	);
+
+	if ( ! $should_redirect ) {
 		return $redirect_to;
 	}
 
-	if ( $redirect_to === admin_url() || str_contains( $redirect_to, 'page=pb_home_page' ) ) {
-		return network_admin_url( 'admin.php?page=pb_network_page' );
-	}
+	// Check if we're in a book context
+	$is_book_context = Book::isBook();
 
-	return $redirect_to;
+	if ( $is_book_context ) {
+		// In book context
+		if ( is_super_admin( $user->ID ) ) {
+			// Super admins always go to book dashboard in book context
+			return admin_url( 'index.php?page=book_dashboard' );
+		} else {
+			// Check regular user's role in this book
+			$user_roles_in_book = $user->roles; // This gives roles for current blog context
+
+			// If user has no role in book, or only subscriber role, return to original page
+			if ( empty( $user_roles_in_book ) ||
+				 ( count( $user_roles_in_book ) === 1 && $user_roles_in_book[0] === 'subscriber' ) ) {
+				// Users with no role or only subscriber role go back to the page they logged in from
+				if ( $requested_redirect_to && $requested_redirect_to !== admin_url() ) {
+					return $requested_redirect_to;
+				}
+				// If no specific page requested, return to book homepage
+				return get_home_url();
+			} else {
+				// Users with roles greater than subscriber go to book dashboard
+				return admin_url( 'index.php?page=book_dashboard' );
+			}
+		}
+	} else {
+		// In network root context
+		if ( is_super_admin( $user->ID ) ) {
+			// Super admins go to network dashboard
+			return network_admin_url( 'admin.php?page=pb_network_page' );
+		} else {
+			// Regular users go to user dashboard
+			return admin_url( 'index.php?page=pb_home_page' );
+		}
+	}
 }
