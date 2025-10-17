@@ -524,8 +524,7 @@ function handle_dashboard_redirect( string $redirect_to, string $requested_redir
 			$user_roles_in_book = $user->roles; // This gives roles for current blog context
 
 			// If user has no role in book, or only subscriber role, return to original page
-			if ( empty( $user_roles_in_book ) ||
-				 ( count( $user_roles_in_book ) === 1 && $user_roles_in_book[0] === 'subscriber' ) ) {
+			if ( empty( $user_roles_in_book ) || ( count( $user_roles_in_book ) === 1 && $user_roles_in_book[0] === 'subscriber' ) ) {
 				// Users with no role or only subscriber role go back to the page they logged in from
 				if ( $requested_redirect_to && $requested_redirect_to !== admin_url() ) {
 					return $requested_redirect_to;
