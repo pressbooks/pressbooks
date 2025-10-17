@@ -150,6 +150,97 @@ class ClonerTest extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * @test
+	 * @group cloner
+	 */
+	public function cloneStyles_decodes_html_entities_for_in_network_clones(): void {
+		// Create target book for cloning
+		$this->_book();
+		
+		// Register and initialize styles for target book
+		$styles = \Pressbooks\Container::get( 'Styles' );
+		$styles->registerPosts();
+		$styles->initPosts();
+		
+		// Create cloner instance with source URL (required parameter)
+		$source_url = 'https://example.com/source-book';
+		$cloner = new \Pressbooks\Cloner\Cloner( $source_url );
+		
+		// Use reflection to set sourceBookId (simulating in-network clone)
+		$cloner_reflection = new \ReflectionClass( $cloner );
+		$source_book_id_property = $cloner_reflection->getProperty( 'sourceBookId' );
+		$source_book_id_property->setAccessible( true );
+		$source_book_id_property->setValue( $cloner, 123 ); // Any non-zero value indicates in-network
+		
+		// Set sourceStyles property with encoded HTML entities (as would come from REST API)
+		$source_styles_property = $cloner_reflection->getProperty( 'sourceStyles' );
+		$source_styles_property->setAccessible( true );
+		$source_styles_property->setValue( $cloner, [
+			'custom-css' => '.test-class { color: red; } .test &gt; .child { margin: 10px; }' // Encoded ">"
+		] );
+		
+		// Set clonedItems to indicate theme was cloned (required for cloneStyles to run)
+		$cloned_items_property = $cloner_reflection->getProperty( 'clonedItems' );
+		$cloned_items_property->setAccessible( true );
+		$cloned_items_property->setValue( $cloner, [ 'theme' => true ] );
+		
+		// Execute cloneStyles method
+		$result = $cloner->cloneStyles();
+		$this->assertTrue( $result, 'cloneStyles should return true on success' );
+		
+		// Verify that HTML entities were decoded for in-network clone
+		$cloned_custom_css = $styles->getPost( 'custom-css' );
+		$this->assertNotNull( $cloned_custom_css );
+		
+		$cloned_content = $cloned_custom_css->post_content;
+		$this->assertStringContainsString( '.test > .child', $cloned_content, 'HTML entities should be decoded for in-network clones' );
+		$this->assertStringNotContainsString( '&gt;', $cloned_content, 'HTML entities should not remain encoded' );
+	}
+
+	/**
+	 * @test
+	 * @group cloner
+	 */
+	public function cloneStyles_preserves_content_for_cross_network_clones(): void {
+		// Create target book for cloning
+		$this->_book();
+		
+		// Register and initialize styles for target book
+		$styles = \Pressbooks\Container::get( 'Styles' );
+		$styles->registerPosts();
+		$styles->initPosts();
+		
+		// Create cloner instance for cross-network clone (sourceBookId defaults to 0)
+		$source_url = 'https://external.com/source-book';
+		$cloner = new \Pressbooks\Cloner\Cloner( $source_url );
+		
+		// Use reflection to set sourceStyles with properly formatted content
+		$cloner_reflection = new \ReflectionClass( $cloner );
+		$source_styles_property = $cloner_reflection->getProperty( 'sourceStyles' );
+		$source_styles_property->setAccessible( true );
+		$source_styles_property->setValue( $cloner, [
+			'custom-css' => '.test-class { color: red; } .test > .child { margin: 10px; }' // Properly formatted
+		] );
+		
+		// Set clonedItems to indicate theme was cloned (required for cloneStyles to run)
+		$cloned_items_property = $cloner_reflection->getProperty( 'clonedItems' );
+		$cloned_items_property->setAccessible( true );
+		$cloned_items_property->setValue( $cloner, [ 'theme' => true ] );
+		
+		// Execute cloneStyles method
+		$result = $cloner->cloneStyles();
+		$this->assertTrue( $result, 'cloneStyles should return true on success' );
+		
+		// Verify that content was preserved as-is for cross-network clone
+		$cloned_custom_css = $styles->getPost( 'custom-css' );
+		$this->assertNotNull( $cloned_custom_css );
+		
+		$cloned_content = $cloned_custom_css->post_content;
+		$this->assertStringContainsString( '.test > .child', $cloned_content, 'Content should be preserved for cross-network clones' );
+		$this->assertStringNotContainsString( '&gt;', $cloned_content, 'No encoding issues should exist for cross-network clones' );
+	}
+
+	/**
 	 * @group cloner
 	 */
 	public function test_discoverWordPressApi(){
