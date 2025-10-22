@@ -232,4 +232,17 @@ EOT;
 		$this->assertEquals( get_option( 'permissive_private_content' ), 1 );
 		restore_current_blog();
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_removes_privacy_options_from_signup() {
+		//render signup page
+		global $pagenow;
+		$pagenow = 'wp-signup.php';
+		ob_start();
+		$this->privacy->removePublicOptionFromSignup();
+		$buffer = ob_get_clean();
+		$this->assertStringNotContainsString( '<div id="privacy">', $buffer );
+	}
 }
