@@ -1,5 +1,20 @@
 # Changelog
 
+## [6.34.1](https://github.com/pressbooks/pressbooks/compare/6.34.0...6.34.1) (2025-10-20)
+
+
+### Bug Fixes
+
+* ensure that ampersands remain encoded in XHTML (resolves [#4223](https://github.com/pressbooks/pressbooks/issues/4223)) ([#4247](https://github.com/pressbooks/pressbooks/issues/4247)) ([c019bbf](https://github.com/pressbooks/pressbooks/commit/c019bbf62ae8c2cc1fab40b41547ab3cc2785f9a))
+* ensure that ampersands retain entity encoding in XHTML (resolves [#4223](https://github.com/pressbooks/pressbooks/issues/4223)) ([c019bbf](https://github.com/pressbooks/pressbooks/commit/c019bbf62ae8c2cc1fab40b41547ab3cc2785f9a))
+* resolve issue where span tag is output in book chapters (resolves [#4224](https://github.com/pressbooks/pressbooks/issues/4224)) ([#4245](https://github.com/pressbooks/pressbooks/issues/4245)) ([f8f6d7b](https://github.com/pressbooks/pressbooks/commit/f8f6d7bc3baeb7cedd5b6ad5a0e4e14ac12a9827))
+
+
+### Chores
+
+* bump the composer-dependencies group across 1 directory with 2 updates ([#4222](https://github.com/pressbooks/pressbooks/issues/4222)) ([a3d97f0](https://github.com/pressbooks/pressbooks/commit/a3d97f03a2edd7738340b2847e30bddb86444f79))
+* **deps:** use published snordian/h5p-extractor package (fix [#4189](https://github.com/pressbooks/pressbooks/issues/4189)) ([#4246](https://github.com/pressbooks/pressbooks/issues/4246)) ([497c04d](https://github.com/pressbooks/pressbooks/commit/497c04d5d33595d18abe646b6168611ced07583e))
+
 ## [6.34.0](https://github.com/pressbooks/pressbooks/compare/6.33.0...6.34.0) (2025-10-09)
 
 
