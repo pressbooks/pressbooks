@@ -86,7 +86,7 @@ jobs:
         if: matrix.experimental == false
 
       - name: Save code coverage to artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: matrix.experimental == false
         with:
           name: code-coverage
