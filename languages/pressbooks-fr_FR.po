@@ -3146,7 +3146,7 @@ msgstr "Exportation terminée avec des erreurs de validation."
 
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:255
 msgid "Export failed due to an unspecified error."
-msgstr ""
+msgstr "L'exportation a échoué en raison d'une erreur non spécifiée."
 
 #: inc/modules/export/class-export.php:288
 msgid "Export Error"
