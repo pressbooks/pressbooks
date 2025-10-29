@@ -3142,7 +3142,7 @@ msgstr ""
 
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:252
 msgid "Export completed with validation errors."
-msgstr ""
+msgstr "Exportation terminée avec des erreurs de validation."
 
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:255
 msgid "Export failed due to an unspecified error."
