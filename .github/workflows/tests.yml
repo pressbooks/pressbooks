@@ -30,6 +30,7 @@ jobs:
             experimental: true
 
     name: PHP ${{ matrix.php }} - WP ${{ matrix.wordpress }}
+    continue-on-error: ${{ matrix.experimental == true }}
 
     outputs:
       coverage: ${{ matrix.experimental == false }}
@@ -96,9 +97,8 @@ jobs:
           overwrite: true
 
   coverage:
-    runs-on: ubuntu-22.04
-    needs:
-      - tests
+    runs-on: ubuntu-24.04
+    needs: tests
     name: Upload coverage
     if: needs.tests.outputs.coverage
     steps:
@@ -114,7 +114,7 @@ jobs:
 
   trigger_bedrock_updates:
     needs: tests
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Trigger Bedrock Updates
         if: github.ref == 'refs/heads/dev'
