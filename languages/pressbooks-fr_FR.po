@@ -3429,7 +3429,7 @@ msgstr ""
 
 #: inc/modules/export/namespace.php:358
 msgid "No export formats selected."
-msgstr ""
+msgstr "Aucun format d'exportation sélectionné."
 
 #: inc/modules/export/namespace.php:377
 #, php-format
