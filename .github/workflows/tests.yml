@@ -42,6 +42,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt-get install libxml2-utils ghostscript poppler-utils imagemagick
+          sudo apt-get install -y libavif16 libgif7
           sudo systemctl start mysql.service
           wget https://github.com/w3c/epubcheck/releases/download/v${{ matrix.epubcheck }}/epubcheck-${{ matrix.epubcheck }}.zip
           unzip epubcheck-${{ matrix.epubcheck }}.zip -d /opt/
