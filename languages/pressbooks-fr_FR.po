@@ -3118,7 +3118,7 @@ msgstr ""
 
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:125
 msgid "Preparing export..."
-msgstr ""
+msgstr "Préparation de l'exportation ..."
 
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:147
 msgid "Converting content"
