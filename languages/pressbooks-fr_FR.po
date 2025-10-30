@@ -935,7 +935,7 @@ msgstr "Cette exportation est actuellement en cours"
 
 #: inc/admin/laf/namespace.php:366
 msgid "Completed"
-msgstr ""
+msgstr "Terminé"
 
 #: inc/admin/laf/namespace.php:385 inc/utility/class-handlestransfers.php:88
 #: templates/admin/import.php:38 templates/admin/import.php:114
