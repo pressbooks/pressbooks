@@ -8,22 +8,22 @@ on:
 
 jobs:
   tests:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
         include:
-          - php: 8.2
+          - php: 8.3
             wordpress: 6.8.3
             prince: 14.3-1
             epubcheck: 4.2.6
             experimental: false
-          - php: 8.2
+          - php: 8.3
             wordpress: latest
             prince: 14.3-1
             epubcheck: 4.2.6
             experimental: true
-          - php: 8.3
+          - php: 8.4
             wordpress: 6.8.3
             prince: 14.3-1
             epubcheck: 4.2.6
