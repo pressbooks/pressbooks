@@ -3237,7 +3237,7 @@ msgstr ""
 
 #: inc/modules/export/epub/class-epub.php:661
 msgid "Export successful with validation warnings!"
-msgstr ""
+msgstr "Exportation réussie avec des avertissements de validation!"
 
 #: inc/modules/export/epub/class-epub.php:663
 msgid "Export successful!"
