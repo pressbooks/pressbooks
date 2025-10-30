@@ -47,9 +47,9 @@ jobs:
           unzip epubcheck-${{ matrix.epubcheck }}.zip -d /opt/
           mv /opt/epubcheck-${{ matrix.epubcheck }} /opt/epubcheck
           rm epubcheck-${{ matrix.epubcheck }}.zip
-          wget https://www.princexml.com/download/prince_${{ matrix.prince }}_ubuntu20.04_amd64.deb
-          sudo dpkg -i prince_${{ matrix.prince }}_ubuntu20.04_amd64.deb
-          rm prince_${{ matrix.prince }}_ubuntu20.04_amd64.deb
+          wget https://www.princexml.com/download/prince_${{ matrix.prince }}_ubuntu24.04_amd64.deb
+          sudo dpkg -i prince_${{ matrix.prince }}_ubuntu24.04_amd64.deb
+          rm prince_${{ matrix.prince }}_ubuntu24.04_amd64.deb
 
       - name: Cache Composer packages
         uses: actions/cache@v4
