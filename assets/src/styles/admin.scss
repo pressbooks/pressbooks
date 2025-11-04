@@ -1,8 +1,7 @@
 @use "menus/sidebar";
 @use "partials/colors" as *;
-
-@use "heroicons";
-@use "heroicons-bridge";
+@import "heroicons.css";
+@import "heroicons-bridge.css";
 
 :root {
   --pb-toolbar-item-height: 50px;
