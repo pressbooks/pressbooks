@@ -1,7 +1,6 @@
 @use "partials/colors" as *;
 @use "sass:color";
 
-// Only variables that are forwarded by wp-admin-colors can be configured
 @use "wp-admin-colors/dist/admin" with (
 	$base-color: $alto,
 	$icon-color: $mine-shaft,
@@ -24,7 +23,6 @@
 	$menu-collapse-focus-icon: $monza
 );
 
-// Local variables for use in this file
 $highlight-color: $monza;
 $link: color.adjust($monza, $lightness: -5%);
 $link-focus: $monza;
