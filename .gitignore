@@ -15,3 +15,6 @@ coverage-reports
 tx
 .transifexrc
 LICENSE
+/.claude
+old-tests
+assets/dist/vite-dev-server.json

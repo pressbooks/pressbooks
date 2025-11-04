@@ -1,4 +1,5 @@
 // This script is loaded when a user is on the [ Theme Options ] page
+import "../styles/theme-options.scss";
 
 jQuery( function ( $ ) {
 	let chapter_numbers = $( '#chapter_numbers' );

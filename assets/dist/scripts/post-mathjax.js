@@ -1,2 +1,0 @@
-function a(){import.meta.url,import("_").catch(()=>1),(async function*(){})().next()}jQuery(document).ready(function(t){t("body").on({beforeWpautop:(n,e)=>{(e.unfiltered.indexOf("</math>")!==-1||e.unfiltered.indexOf("</svg>")!==-1)&&(e.data=e.unfiltered.replace(/<(math|svg)[^>]*>[\s\S]*?<\/\1>/gi,r=>r.replace(/(<(pre|script|style|textarea)[^]+?<\/\2)|(^|>)\s+|\s+(?=<|$)/g,"$1$3")))}})});export{a as __vite_legacy_guard};
-//# sourceMappingURL=post-mathjax.js.map

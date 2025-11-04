@@ -1,4 +1,4 @@
-@import 'partials/colors';
+@use "partials/colors" as *;
 
 // Space between column 1 and column 2
 $side-right-space: 20px;

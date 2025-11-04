@@ -1,2 +1,0 @@
-function a(){import.meta.url,import("_").catch(()=>1),(async function*(){})().next()}document.addEventListener("DOMContentLoaded",()=>{const e={first_name:"given-name",last_name:"family-name",email:"email",url:"url",nickname:"nickname"};for(const t in e){const n=document.getElementById(t);n&&n.setAttribute("autocomplete",e[t])}});export{a as __vite_legacy_guard};
-//# sourceMappingURL=profile.js.map

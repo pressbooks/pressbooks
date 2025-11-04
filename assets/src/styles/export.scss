@@ -1,4 +1,5 @@
-@import 'partials/colors', 'partials/mixins';
+@use "partials/colors" as *;
+@use 'partials/mixins' as *;
 
 /* Export Page */
 

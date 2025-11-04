@@ -1,2 +1,0 @@
-System.register([],function(e,t){"use strict";return{execute:function(){jQuery(document).ready(function(e){e("body").on({beforeWpautop:(e,t)=>{-1===t.unfiltered.indexOf("</math>")&&-1===t.unfiltered.indexOf("</svg>")||(t.data=t.unfiltered.replace(/<(math|svg)[^>]*>[\s\S]*?<\/\1>/gi,e=>e.replace(/(<(pre|script|style|textarea)[^]+?<\/\2)|(^|>)\s+|\s+(?=<|$)/g,"$1$3")))}})})}}});
-//# sourceMappingURL=post-mathjax-legacy.js.map

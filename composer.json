@@ -31,7 +31,11 @@
 		{
 			"type": "vcs",
 			"url": "https://github.com/otacke/H5PExtractor"
-		}
+		},
+    {
+      "type": "path",
+      "url": "/Users/arzola/code/opensource/pressbooks-vite"
+    }
   ],
 	"require": {
 		"php": "^8.2",
@@ -58,7 +62,7 @@
 		"maxbanton/cwh": "^2.0",
 		"monolog/monolog": "^2.2",
 		"phpcompatibility/php-compatibility": "^9.3",
-		"pressbooks/mix": "^2.1",
+		"pressbooks/frontend-tools": "dev-dev",
 		"pressbooks/pb-cli": "^3",
 		"scssphp/scssphp": "^1.11.0",
 		"snordian/h5p-extractor": "dev-master",
@@ -98,7 +102,7 @@
 			"phpcs.ruleset.xml",
 			"phpunit.xml",
 			"tests",
-			"webpack.mix.js"
+			"vite.config.js"
 		]
 	},
 	"scripts": {

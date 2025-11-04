@@ -1,9 +1,8 @@
-import { createViteConfig } from 'pressbooks-build-tools'
+import { createWpViteConfig } from 'pressbooks-build-tools'
 import { resolve } from 'path'
 
-export default createViteConfig({
+export default createWpViteConfig({
 	input: {
-		// Core scripts
 		'anchor': resolve(__dirname, 'assets/src/scripts/anchor.js'),
 		'applyclass': resolve(__dirname, 'assets/src/scripts/applyclass.js'),
 		'book-information': resolve(__dirname, 'assets/src/scripts/book-information.js'),
@@ -21,6 +20,8 @@ export default createViteConfig({
 		'login': resolve(__dirname, 'assets/src/scripts/login.js'),
 		'network-managers': resolve(__dirname, 'assets/src/scripts/network-managers.js'),
 		'organize': resolve(__dirname, 'assets/src/scripts/organize.js'),
+		'pressbooks': resolve(__dirname, 'assets/src/scripts/pressbooks.js'),
+		'dashboard': resolve(__dirname, 'assets/src/scripts/dashboard.js'),
 		'post-back-matter': resolve(__dirname, 'assets/src/scripts/post-back-matter.js'),
 		'post-visibility': resolve(__dirname, 'assets/src/scripts/post-visibility.js'),
 		'post-mathjax': resolve(__dirname, 'assets/src/scripts/post-mathjax.js'),
@@ -42,7 +43,6 @@ export default createViteConfig({
 		'pressbooks-reorderable-multiselect': resolve(__dirname, 'node_modules/@pressbooks/reorderable-multiselect/pressbooks-reorderable-multiselect.js'),
 
 		// SCSS entries - each .sass() call becomes a style entry
-		'catalog-styles': resolve(__dirname, 'assets/src/styles/catalog.scss'),
 		'colors-pb-styles': resolve(__dirname, 'assets/src/styles/colors-pb.scss'),
 		'colors-pb-a11y-styles': resolve(__dirname, 'assets/src/styles/colors-pb-a11y.scss'),
 		'covergenerator-styles': resolve(__dirname, 'assets/src/styles/covergenerator.scss'),
@@ -54,32 +54,12 @@ export default createViteConfig({
 		'metadata-styles': resolve(__dirname, 'assets/src/styles/metadata.scss'),
 		'network-managers-styles': resolve(__dirname, 'assets/src/styles/network-managers.scss'),
 		'organize-styles': resolve(__dirname, 'assets/src/styles/organize.scss'),
-		'pressbooks-styles': resolve(__dirname, 'assets/src/styles/pressbooks.scss'),
-		'pressbooks-dashboard-styles': resolve(__dirname, 'assets/src/styles/pressbooks-dashboard.scss'),
 		'pressbooks-table-styles': resolve(__dirname, 'assets/src/styles/pressbooks-table.scss'),
 		'search-and-replace-styles': resolve(__dirname, 'assets/src/styles/search-and-replace.scss'),
 		'style-catalog-styles': resolve(__dirname, 'assets/src/styles/style-catalog.scss'),
-		'theme-options-styles': resolve(__dirname, 'assets/src/styles/theme-options.scss'),
 		'cloner-styles': resolve(__dirname, 'assets/src/styles/cloner.scss'),
 	},
-
 	copyTargets: [
-		// Individual file copies
-		{
-			src: 'node_modules/alpinejs/dist/cdn.min.js',
-			dest: 'scripts',
-			rename: 'alpine.min.js'
-		},
-		{
-			src: 'node_modules/instantsearch.js/dist/instantsearch.production.min.js',
-			dest: 'scripts'
-		},
-		{
-			src: 'node_modules/algoliasearch/dist/algoliasearch-lite.umd.js',
-			dest: 'scripts'
-		},
-
-		// Directory copies
 		{
 			src: 'node_modules/@duetds/date-picker/dist/duet/*',
 			dest: 'scripts/duet'
@@ -88,24 +68,6 @@ export default createViteConfig({
 			src: 'assets/src/fonts/*',
 			dest: 'fonts'
 		},
-		{
-			src: 'assets/src/images/*',
-			dest: 'images'
-		},
 	],
-
-	// Development server configuration (replaces mix.browserSync)
-	proxy: {
-		'/wp-admin': {
-			target: 'https://pressbooks.test',
-			changeOrigin: true,
-			secure: false
-		},
-		'/wp-login.php': {
-			target: 'https://pressbooks.test',
-			changeOrigin: true,
-			secure: false
-		}
-	},
-	port: 3100
+	outDir: 'assets/dist'
 });

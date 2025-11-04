@@ -21,83 +21,83 @@
 }
 
 .dashicons-admin-multisite {
-  @extend .pb-heroicons-outline_book-open;
+  @extend .pb-heroicons-outline_book-open !optional;
 }
 
 .dashicons-book-alt {
-  @extend .pb-heroicons-outline_book-open;
+  @extend .pb-heroicons-outline_book-open !optional;
 }
 
 .dashicons-book {
-  @extend .pb-heroicons-outline_book-open;
+  @extend .pb-heroicons-outline_book-open !optional;
 }
 
 .dashicons-admin-users {
-  @extend .pb-heroicons-outline_users;
+  @extend .pb-heroicons-outline_users !optional;
 }
 
 .dashicons-info {
-  @extend .pb-heroicons-outline_pencil-square;
+  @extend .pb-heroicons-outline_pencil-square !optional;
 }
 
 .dashicons-admin-appearance {
-  @extend .pb-heroicons-outline_sparkles;
+  @extend .pb-heroicons-outline_sparkles !optional;
 }
 
 .dashicons-migrate {
-  @extend .pb-heroicons-outline_arrow-right-start-on-rectangle;
+  @extend .pb-heroicons-outline_arrow-right-start-on-rectangle !optional;
 }
 
 .dashicons-admin-tools {
-  @extend .pb-heroicons-outline_wrench;
+  @extend .pb-heroicons-outline_wrench !optional;
 }
 
 .dashicons-chart-area {
-  @extend .pb-heroicons-outline_presentation-char-bar;
+  @extend .pb-heroicons-outline_presentation-char-bar !optional;
 }
 
 .dashicons-products {
-  @extend .pb-heroicons-outline_link;
+  @extend .pb-heroicons-outline_link !optional;
 }
 
 .dashicons-admin-plugins {
-  @extend .pb-heroicons-outline_bolt;
+  @extend .pb-heroicons-outline_bolt !optional;
 }
 
 .dashicons-admin-page {
-  @extend .pb-heroicons-outline_pencil-square;
+  @extend .pb-heroicons-outline_pencil-square !optional;
 }
 
 .dashicons-admin-media {
-  @extend .pb-heroicons-outline_camera;
+  @extend .pb-heroicons-outline_camera !optional;
 }
 
 .dashicons-cart {
-  @extend .pb-heroicons-outline_shopping-cart;
+  @extend .pb-heroicons-outline_shopping-cart !optional;
 }
 
 /* stylelint-disable-next-line selector-id-pattern */
 #toplevel_page_h5p .wp-menu-image {
-  @extend .pb-heroicons-H5P;
+  @extend .pb-heroicons-H5P !optional;
 }
 
 /* stylelint-disable-next-line selector-id-pattern */
 #toplevel_page_tablepress .wp-menu-image {
-  @extend .pb-heroicons-outline_table-cells;
+  @extend .pb-heroicons-outline_table-cells !optional;
 }
 
 .dashicons-networking {
-  @extend .pb-heroicons-outline_rocket-launch;
+  @extend .pb-heroicons-outline_rocket-launch !optional;
 }
 
 .dashicons-admin-settings {
-  @extend .pb-heroicons-outline_cog-8-tooth;
+  @extend .pb-heroicons-outline_cog-8-tooth !optional;
 }
 
 .dashicons-dashboard {
-  @extend .pb-heroicons-outline_home;
+  @extend .pb-heroicons-outline_home !optional;
 }
 
 .dashicons-building {
-  @extend .pb-heroicons-outline_building-office;
+  @extend .pb-heroicons-outline_building-office !optional;
 }

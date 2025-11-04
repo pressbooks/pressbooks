@@ -1,5 +1,5 @@
-/* UNIQUEID */
-$nocache: unique_id();
+@use "sass:string";
+$nocache: string.unique-id();
 
 @font-face {
   font-family: heroicons;

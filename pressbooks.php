@@ -80,6 +80,7 @@ add_action( 'wp_login', '\Pressbooks\session_kill' );
 // -------------------------------------------------------------------------------------------------------------------
 
 $composer = PB_PLUGIN_DIR . 'vendor/autoload.php';
+
 if ( file_exists( $composer ) ) {
 	require_once( $composer );
 } else {

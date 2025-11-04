@@ -1,10 +1,11 @@
-@import "partials/colors";
-@import "~wp-admin-colors/dist/admin";
+@use "partials/colors" as *;
+@use "wp-admin-colors/dist/admin";
+@use "sass:color";
 
-$mine-shaft2: darken($mine-shaft, 5%);
+$mine-shaft2: color.adjust($mine-shaft, $lightness: -5%);
 $monza2: #3a3a3a;
 $highlight: #AD0000;
-$boulder: darken($boulder, 5%);
+$boulder: color.adjust($boulder,  $lightness: -5%);
 
 a {
   text-decoration: underline !important;
@@ -23,7 +24,7 @@ $notification-color: $mercury;
 $button-color: $monza2;
 $text-color: $mine-shaft2;
 $body-background: $gallery;
-$link: darken($monza2, 5%);
+$link: color.adjust($monza2,  $lightness: -5%);
 $link-focus: $highlight;
 $form-checked: $monza2;
 $menu-background: $alto;
@@ -96,7 +97,7 @@ div.error {
 
 #wpadminbar {
   color: $white;
-  background: darken($monza2, 5%);
+  background: color.adjust($monza2, $lightness: -5%);
 
   .ab-icon,
   .ab-icon::before,
@@ -120,7 +121,7 @@ div.error {
   }
 
   #wp-admin-bar-menu-toggle .ab-item {
-    background: darken($monza2, 5%);
+    background: color.adjust($monza2, $lightness: -5%);
 
     .ab-icon,
     .ab-icon::before {
@@ -142,7 +143,7 @@ div.error {
 
       .ab-icon,
       .ab-icon::before {
-        color: darken($monza2, 5%);
+        color: color.adjust($monza2, $lightness: -5%);
       }
 
       &:hover,
@@ -169,7 +170,7 @@ div.error {
 .theme-browser .theme.active .theme-name,
 .theme-browser .theme.add-new-theme a:hover::after,
 .theme-browser .theme.add-new-theme a:focus::after {
-  background: darken($monza2, 5%);
+  background: color.adjust($monza2, $lightness: -5%);
 }
 
 .theme-browser .theme.active .theme-actions {
@@ -243,7 +244,7 @@ button.move-up,
 button.move-down,
 button.editinline,
 button.button-link {
-  color: darken($monza2, 5%) !important;
+  color: color.adjust($monza2,$lightness: -5%) !important;
 
   &:hover {
     color: $highlight !important;

@@ -1,2 +1,0 @@
-System.register([],function(e,t){"use strict";return{execute:function(){jQuery(function(e){const t=e("#search-form");e(".replace-and-save").on("click",function(e){if(confirm(pb_sr.warning_text)){let e=document.createElement("input");e.setAttribute("type","hidden"),e.setAttribute("name","replace_and_save"),document.getElementById("search-form").appendChild(e),t.submit()}})})}}});
-//# sourceMappingURL=search-and-replace-legacy.js.map
