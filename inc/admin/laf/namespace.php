@@ -309,7 +309,7 @@ function replace_book_admin_menu() {
 			if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
 				$post_type = get_post_type();
 				if ( in_array( $post_type, [ 'metadata', 'front-matter', 'chapter', 'back-matter' ], true ) ) {
-					wp_enqueue_script( 'pressbooks-multiselect' );
+					wp_enqueue_script( 'pressbooks-select' );
 					wp_enqueue_script( 'pressbooks-reorderable-multiselect' );
 				}
 			}
@@ -1087,6 +1087,14 @@ function disable_customizer() {
 }
 
 /**
+ * @return string
+ */
+function append_book_admin_context( $classes ) {
+	$classes .= ' book-context';
+	return $classes;
+}
+
+/**
  * Init event called at admin_init
  * Instantiates various subclasses, remove meta boxes from post pages & registers custom post status.
  * @throws \Exception
@@ -1114,7 +1122,7 @@ function init_css_js(): void {
 	);
 
 	wp_admin_css_color(
-		'pb_colors_a11y', 'Pressbooks a11y', $assets->getAssetUrl( 'assets/src/styles/colors-pb-a11y.css' ), apply_filters(
+		'pb_colors_a11y', 'Pressbooks a11y', $assets->getAssetUrl( 'assets/src/styles/colors-pb-a11y.scss' ), apply_filters(
 			'pressbooks_admin_colors_ally', [
 				'#2D2D2D',
 				'#B40026',

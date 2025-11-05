@@ -1,12 +1,12 @@
 # Pressbooks
 Contributors: Pressbooks <code@pressbooks.com>
 Tags: ebooks, publishing, webbooks
-Requires at least: 6.6.1
-Tested up to: 6.6.1
+Requires at least: 6.8.3
+Tested up to: 6.8.3
 <!-- x-release-please-start-version -->
-Stable tag: 6.31.4
+Stable tag: 6.34.2
 <!-- x-release-please-end -->
-Requires PHP: 8.1
+Requires PHP: 8.2
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/production/LICENSE.md
 
@@ -31,7 +31,7 @@ Our webbooks and EPUB/[PDF][pdf] exports are all driven by HTML + CSS. XML outpu
 
 ## Requirements
 
-Pressbooks works with PHP 8.1 and WordPress 6.6.1. Lower versions are not supported.
+Pressbooks works with PHP 8.2 and WordPress 6.8.3. Lower versions are not supported.
 
 ## Installing the Plugin
 
@@ -39,7 +39,7 @@ Pressbooks is not for use on an existing blog. Instead it should be used with a 
 
 To install Pressbooks on your site, download the [latest release](https://github.com/pressbooks/pressbooks/releases/latest) and follow our [installation instructions](https://pressbooks.org/user-docs/installation/). 
 
-You may want to try [Pressbooks.com](https://pressbooks.com/self-publishers/) before deciding whether or not you wish to host and maintain your own instance of Pressbooks. We can also [host and maintain an instance of Pressbooks for you](https://pressbooks.com/for-educational-institutions/).
+You may want to try [Pressbooks.pub](https://pressbooks.pub/auth) before deciding whether or not you wish to host and maintain your own instance of Pressbooks. We can also [host and maintain an instance of Pressbooks for you](https://pressbooks.com/enterprise/).
 
 ## Contributor guidelines
 

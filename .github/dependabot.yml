@@ -30,6 +30,7 @@ updates:
     ignore:
       - dependency-name: "*"
         update-types: [ "version-update:semver-major" ]
+      - dependency-name: "tinymce"
     groups:
       npm-dependencies:
         dependency-type: "production"

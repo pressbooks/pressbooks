@@ -782,8 +782,8 @@ class UtilityTest extends \WP_UnitTestCase {
 		$contributors = new \Pressbooks\Contributors();
 		$glossary = new Pressbooks\Shortcodes\Glossary\Glossary();
 
-		$this->assertTrue( is_a( $contributors, \Pressbooks\PostType\BackMatter::class ) );
-		$this->assertTrue( is_a( $glossary, \Pressbooks\PostType\BackMatter::class ) );
+		$this->assertTrue( is_a( $contributors, \Pressbooks\PostType\FrontOrBackMatter::class ) );
+		$this->assertTrue( is_a( $glossary, \Pressbooks\PostType\FrontOrBackMatter::class ) );
 
 		$class1 = new \ReflectionClass( \Pressbooks\Contributors::class );
 		$class2 = new \ReflectionClass( Pressbooks\Shortcodes\Glossary\Glossary::class );

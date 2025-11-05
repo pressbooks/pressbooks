@@ -28,7 +28,7 @@
     "src": "assets/src/fonts/heroicons.woff2"
   },
   "assets/src/scripts/a11y.js": {
-    "file": "assets/a11y-2keOWSMW.js",
+    "file": "assets/a11y-CR-ogGGg.js",
     "name": "a11y",
     "src": "assets/src/scripts/a11y.js",
     "isEntry": true
@@ -212,12 +212,12 @@
     "isEntry": true
   },
   "assets/src/scripts/pressbooks.js": {
-    "file": "assets/pressbooks-mXSSr462.js",
+    "file": "assets/pressbooks-wiW9i9vN.js",
     "name": "pressbooks",
     "src": "assets/src/scripts/pressbooks.js",
     "isEntry": true,
     "css": [
-      "assets/pressbooks-C3oNr1_D.css"
+      "assets/pressbooks-CU6GcTEb.css"
     ],
     "assets": [
       "assets/heroicons-CVYPToTZ.eot",
@@ -342,7 +342,7 @@
     ]
   },
   "assets/src/styles/metadata.scss": {
-    "file": "assets/metadata-styles-CRnCz4co.css",
+    "file": "assets/metadata-styles-B6Bgj5p8.css",
     "src": "assets/src/styles/metadata.scss",
     "isEntry": true,
     "names": [

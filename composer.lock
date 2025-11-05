@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "72a55e32798de8302dea61e6933011af",
+    "content-hash": "35c15c48f71a1487b532c5b3bbd53444",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -62,16 +62,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.359.0",
+            "version": "3.359.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "7231e7c309d6262855289511d6ee124fafbe664f"
+                "reference": "a7cc29d1f021406adced498a2b6e00e25646c86b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7231e7c309d6262855289511d6ee124fafbe664f",
-                "reference": "7231e7c309d6262855289511d6ee124fafbe664f",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a7cc29d1f021406adced498a2b6e00e25646c86b",
+                "reference": "a7cc29d1f021406adced498a2b6e00e25646c86b",
                 "shasum": ""
             },
             "require": {
@@ -153,9 +153,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.359.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.359.5"
             },
-            "time": "2025-10-29T00:06:16+00:00"
+            "time": "2025-11-04T19:10:31+00:00"
         },
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -2417,16 +2417,16 @@
         },
         {
             "name": "kucrut/vite-for-wp",
-            "version": "v0.12.0",
+            "version": "v0.11.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kucrut/vite-for-wp.git",
-                "reference": "45ec51bbaedbc4e7335db3b3d4a4923962634fea"
+                "reference": "69b3b14b94afddc14769d06658bb017f24f97244"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kucrut/vite-for-wp/zipball/45ec51bbaedbc4e7335db3b3d4a4923962634fea",
-                "reference": "45ec51bbaedbc4e7335db3b3d4a4923962634fea",
+                "url": "https://api.github.com/repos/kucrut/vite-for-wp/zipball/69b3b14b94afddc14769d06658bb017f24f97244",
+                "reference": "69b3b14b94afddc14769d06658bb017f24f97244",
                 "shasum": ""
             },
             "require-dev": {
@@ -2450,9 +2450,9 @@
             "description": "Vite integration for WordPress plugins and themes development.",
             "support": {
                 "issues": "https://github.com/kucrut/vite-for-wp/issues",
-                "source": "https://github.com/kucrut/vite-for-wp/tree/v0.12.0"
+                "source": "https://github.com/kucrut/vite-for-wp/tree/v0.11.6"
             },
-            "time": "2025-06-26T03:15:40+00:00"
+            "time": "2025-05-21T05:42:46+00:00"
         },
         {
             "name": "laravel/helpers",
@@ -3179,7 +3179,7 @@
                 "reference": "18a261ede0e8af0406438b220b4588e5f3c2d047"
             },
             "require": {
-                "kucrut/vite-for-wp": "^0.12.0"
+                "kucrut/vite-for-wp": "^0.11.4"
             },
             "require-dev": {
                 "laravel/pint": "^1.0"
@@ -3802,7 +3802,7 @@
         },
         {
             "name": "snordian/h5p-extractor",
-            "version": "dev-master",
+            "version": "0.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/otacke/H5PExtractor.git",
@@ -3817,7 +3817,6 @@
             "require": {
                 "h5p/h5p-core": "^1.26.0"
             },
-            "default-branch": true,
             "type": "library",
             "license": [
                 "MIT"
@@ -3841,16 +3840,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.13.4",
+            "version": "3.13.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "ad545ea9c1b7d270ce0fc9cbfb884161cd706119"
+                "reference": "0ca86845ce43291e8f5692c7356fccf3bcf02bf4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/ad545ea9c1b7d270ce0fc9cbfb884161cd706119",
-                "reference": "ad545ea9c1b7d270ce0fc9cbfb884161cd706119",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/0ca86845ce43291e8f5692c7356fccf3bcf02bf4",
+                "reference": "0ca86845ce43291e8f5692c7356fccf3bcf02bf4",
                 "shasum": ""
             },
             "require": {
@@ -3867,11 +3866,6 @@
                 "bin/phpcs"
             ],
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.x-dev"
-                }
-            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
@@ -3921,7 +3915,7 @@
                     "type": "thanks_dev"
                 }
             ],
-            "time": "2025-09-05T05:47:09+00:00"
+            "time": "2025-11-04T16:30:35+00:00"
         },
         {
             "name": "symfony/console",
@@ -13544,13 +13538,12 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "pressbooks/frontend-tools": 20,
-        "snordian/h5p-extractor": 20
+        "pressbooks/frontend-tools": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.2"
+        "php": "^8.3"
     },
     "platform-dev": {},
     "plugin-api-version": "2.6.0"

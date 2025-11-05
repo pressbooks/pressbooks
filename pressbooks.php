@@ -6,10 +6,10 @@
  * Release Asset: true
  * Description: Simple Book Production
  * x-release-please-start-version
- * Version: 6.31.4
+ * Version: 6.34.2
  * x-release-please-end
- * Requires at least: WordPress 6.6.1
- * Requires PHP: 8.1
+ * Requires at least: WordPress 6.8.3
+ * Requires PHP: 8.2
  * Author: Pressbooks (Book Oven Inc.)
  * Author URI: https://pressbooks.org
  * License: GPL v3 or later

@@ -233,9 +233,13 @@ function after_title( $post ) {
 		_e( 'Links, bold text and italic text are supported in glossary terms. Other elements will be removed.', 'pressbooks' );
 		echo '</p>';
 	}
-	if ( $post->post_type === 'back-matter' ) {
+	if ( $post->post_type === 'back-matter' || $post->post_type === 'front-matter' ) {
 		$taxonomy = \Pressbooks\Taxonomy::init();
-		$current_taxonomy = $taxonomy->getBackMatterType( $post->ID );
+		if ( $post->post_type === 'back-matter' ) {
+			$current_taxonomy = $taxonomy->getBackMatterType( $post->ID );
+		} elseif ( $post->post_type === 'front-matter' ) {
+			$current_taxonomy = $taxonomy->getFrontMatterType( $post->ID );
+		}
 		$text = '';
 		switch ( $current_taxonomy ) {
 			case 'glossary':
@@ -245,7 +249,7 @@ function after_title( $post ) {
 				break;
 			case 'contributors':
 				echo '<div id="pb-post-type-notice" class="notice notice-info" aria-live="assertive"><p>';
-				_e( "To display a list of contributors, leave this back matter's content blank.", 'pressbooks' );
+				_e( 'To display a list of contributors, leave the content blank.', 'pressbooks' );
 				echo '</p></div>';
 				break;
 			default:
