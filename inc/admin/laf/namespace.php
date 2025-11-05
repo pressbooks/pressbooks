@@ -14,15 +14,14 @@
 
 namespace Pressbooks\Admin\Laf;
 
-use PressbooksFrontendTools\AssetType;
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use function Pressbooks\Modules\Export\template_data;
 use function Pressbooks\PostType\get_post_type_label;
 use function Pressbooks\Sanitize\sanitize_string;
+use function Pressbooks\Sanitize\validate_url_field;
 use function Pressbooks\Utility\disable_comments;
 use function Pressbooks\Utility\is_algolia_search_enabled;
 use function Pressbooks\Utility\str_starts_with;
-use PressbooksFrontendTools\Assets;
 use Pressbooks\Admin\ExportOptions;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Admin\PublishOptions;
@@ -122,7 +121,6 @@ function add_footer_link() {
  * Removes some default WordPress Admin Sidebar items and adds our own
  */
 function replace_book_admin_menu() {
-
 	// Note:
 	// If $menu_slug is a URL and the URL has an ampersand in it make sure you use &amp; (and not simply &) so that aria-current works
 
@@ -151,8 +149,6 @@ function replace_book_admin_menu() {
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) use ( $organize_page ) {
 			if ( $hook === $organize_page ) {
-				wp_enqueue_style( 'pb-organize' );
-				wp_enqueue_script( 'jquery-blockui' );
 				wp_enqueue_script( 'pb-organize' );
 				wp_localize_script(
 					'pb-organize', 'PB_OrganizeToken', [
@@ -292,7 +288,6 @@ function replace_book_admin_menu() {
 			if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
 				$post_type = get_post_type();
 				if ( 'metadata' === $post_type ) {
-					wp_enqueue_script( 'duet-date-picker' );
 					wp_enqueue_script( 'pb-metadata' );
 					wp_localize_script(
 						'pb-metadata', 'PB_BookInfoToken', [
@@ -304,7 +299,6 @@ function replace_book_admin_menu() {
 							'selectSubjectsText' => esc_html__( 'Choose some subject(s)…', 'pressbooks' ),
 						]
 					);
-					wp_enqueue_style( 'duet-date-picker' );
 				}
 			}
 		}
@@ -374,8 +368,6 @@ function replace_book_admin_menu() {
 						'reloadOnComplete' => true,
 					]
 				);
-				wp_enqueue_style( 'pb-export' );
-				wp_enqueue_style( 'pb-export-ui' );
 				wp_enqueue_script( 'pb-export' );
 				wp_deregister_script( 'heartbeat' );
 
@@ -1099,14 +1091,14 @@ function disable_customizer() {
  * Instantiates various subclasses, remove meta boxes from post pages & registers custom post status.
  * @throws \Exception
  */
-function init_css_js(): void
-{
+function init_css_js(): void {
 	// Reset admin css colors so we only provide Pressbooks' options.
 	global $_wp_admin_css_colors;
 
 	$_wp_admin_css_colors = [];
 
-	$assets = new Assets( 'pressbooks', AssetType::PLUGIN );
+	/** @var Assets $assets */
+	$assets = app( 'Assets' );
 
 	wp_deregister_style( 'pressbooks-book' ); // Theme's CSS
 
@@ -1132,7 +1124,7 @@ function init_css_js(): void
 		)
 	);
 
-	$assets->enqueue('assets/src/scripts/pressbooks.js','pressbooks-admin',[
+	$assets->enqueue('assets/src/scripts/pressbooks.js', 'pressbooks-admin', [
 		'jquery',
 		'jquery-ui-core',
 	]);
@@ -1141,25 +1133,25 @@ function init_css_js(): void
 	$bad_scripts = [ 'jquery-blockui', 'jquery-bootstrap', 'pb-organize', 'pb-feedback', 'pb-cloner', 'pb-export', 'pb-metadata', 'pb-import' ];
 	array_walk(
 		$bad_scripts, function ( $value ) {
-		wp_deregister_script( $value );
-	}
+			wp_deregister_script( $value );
+		}
 	);
 
-	if( isset( $_REQUEST['page'] )) {
+	if ( isset( $_REQUEST['page'] ) ) {
 
-		switch( $_REQUEST['page'] ) {
+		switch ( $_REQUEST['page'] ) {
 			case 'pb_catalog':
-				$assets->enqueue('assets/src/styles/catalog.scss','pressbooks-catalog');
-				$assets->enqueue('assets/src/scripts/color-picker.js','color-picker');
-				$assets->enqueue('assets/src/scripts/select2.js','select2-js');
+				$assets->enqueue( 'assets/src/styles/catalog.scss', 'pressbooks-catalog' );
+				$assets->enqueue( 'assets/src/scripts/color-picker.js', 'color-picker' );
+				$assets->enqueue( 'assets/src/scripts/select2.js', 'select2-js' );
 				break;
 			case 'pressbooks_theme_options':
-				$assets->enqueue('assets/src/scripts/color-picker.js','color-picker');
-				$assets->enqueue('node_modules/@pressbooks/multiselect/pressbooks-multiselect.js','pressbooks-multiselect');
-				$assets->enqueue('assets/src/scripts/theme-options.js','theme-options-js',['jquery']);
+				$assets->enqueue( 'assets/src/scripts/color-picker.js', 'color-picker' );
+				$assets->enqueue( 'node_modules/@pressbooks/multiselect/pressbooks-multiselect.js', 'pressbooks-multiselect' );
+				$assets->enqueue( 'assets/src/scripts/theme-options.js', 'theme-options-js', [ 'jquery' ] );
 				break;
 			case 'pressbooks_export_options':
-				$assets->enqueue('assets/src/scripts/theme-lock.js','pressbooks/theme-lock',['jquery']);
+				$assets->enqueue( 'assets/src/scripts/theme-lock.js', 'pressbooks/theme-lock', [ 'jquery' ] );
 				wp_localize_script(
 					'pressbooks/theme-lock', 'PB_ThemeLockToken', [
 						// Strings
@@ -1168,28 +1160,47 @@ function init_css_js(): void
 				);
 				break;
 			case 'pb_cloner':
-				$assets->enqueue('assets/src/scripts/algolia-search.js','cloner-page');
+				$assets->enqueue( 'assets/src/scripts/algolia-search.js', 'cloner-page' );
 				if ( is_algolia_search_enabled() ) {
-					$blade = app('Blade');
+					$blade = app( 'Blade' );
 					wp_localize_script('cloner-page', 'PBAlgolia', [
-						'applicationId' => env('ALGOLIA_APP_ID'),
-						'apiKey' => env('ALGOLIA_API_KEY'),
-						'indexName' => env('ALGOLIA_INDEX_NAME'),
-						'hitsTemplate' => $blade->render('admin.cloner.book-card'),
-						'resultsTemplate' => $blade->render('admin.cloner.results'),
+						'applicationId' => env( 'ALGOLIA_APP_ID' ),
+						'apiKey' => env( 'ALGOLIA_API_KEY' ),
+						'indexName' => env( 'ALGOLIA_INDEX_NAME' ),
+						'hitsTemplate' => $blade->render( 'admin.cloner.book-card' ),
+						'resultsTemplate' => $blade->render( 'admin.cloner.results' ),
 					]);
 				}
 				break;
 		}
 	}
-
-	// Always needed
-	// A11y
-	$assets->enqueue('assets/src/scripts/a11y.js','pb-a11y',[
-		'jquery',
-		'wp-i18n'
+	$assets->enqueue('assets/src/scripts/a11y.js', 'pb-a11y', [
+		'dependencies' => [ 'jquery', 'wp-i18n' ],
+	])
+	->register('assets/src/scripts/cloner.js', 'pb-cloner', [
+		'dependencies' => [ 'jquery' ],
+	])->register('assets/src/scripts/export.js', 'pb-export', [
+		'dependencies' => [ 'jquery' ],
+	])->register('assets/src/scripts/import.js', 'pb-import', [
+		'dependencies' => [ 'jquery', 'jquery-form' ],
+	])->register('assets/src/scripts/organize.js', 'pb-organize', [
+		'dependencies' => [ 'jquery', 'jquery-ui-core', 'jquery-ui-sortable' ],
+	])->register('assets/src/scripts/book-information.js', 'pb-metadata', [
+		'dependencies' => [ 'jquery' ],
+		'in-footer' => true,
+	])->register('assets/src/scripts/post-visibility.js', 'pb-post-visibility', [
+		'dependencies' => [ 'jquery' ],
+		'in-footer' => true,
+	])->register('assets/src/scripts/post-mathjax.js', 'pb-post-mathjax', [
+		'dependencies' => [ 'jquery' ],
+		'in-footer' => true,
+	])->register('assets/src/scripts/post-back-matter.js', 'pb-post-back-matter', [
+		'dependencies' => [ 'jquery', 'editor' ],
+		'in-footer' => true,
+	])->register('assets/src/scripts/color-picker.js', 'color-picker', [
+		'dependencies' => [ 'jquery', 'wp-i18n' ],
+		'in-footer' => true,
 	]);
-
 }
 
 /* ------------------------------------------------------------------------ *
@@ -1675,7 +1686,7 @@ function sanitize_user_profile( WP_Error $errors, $update, $user ) {
 	foreach ( array_merge( get_user_contact_fields(), $additional_urls_to_check ) as $key => $value ) {
 		$field = wp_kses( $_POST[ $key ], false );
 		if ( ! empty( $field ) ) {
-			if ( ! \Pressbooks\Sanitize\validate_url_field( $field ) ) {
+			if ( ! validate_url_field( $field ) ) {
 				$errors->add( $key, "The $value field is not a valid URL." );
 			}
 		}
@@ -1687,9 +1698,9 @@ function enqueue_user_profile_scripts( string $hook ) {
 		return;
 	}
 
-	$assets = new Assets( 'pressbooks', 'plugin' );
-
-	wp_enqueue_script( 'pb-profile-page', $assets->getPath( 'scripts/profile.js' ) );
+	/** @var Assets $assets */
+	$assets = app( 'Assets' );
+	$assets->enqueue( 'assets/src/scripts/profile.js', 'pb-profile-page' );
 }
 
 /**

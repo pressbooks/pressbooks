@@ -1,6 +1,9 @@
 /* global PB_OrganizeToken */
 
+import "../styles/organize.scss"
+
 import { CountUp } from 'countup.js';
+import 'block-ui/jquery.blockUI.js';
 
 let $ = window.jQuery;
 

@@ -5,9 +5,9 @@
  * @license GPLv3 (or any later version)
  */
 
-use PressbooksMix\Assets;
 use Pressbooks\Admin\Menus\SideBar;
 use Pressbooks\Admin\Menus\TopBar;
+use Pressbooks\Admin\Users\User;
 use Pressbooks\Book;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -395,13 +395,7 @@ add_action( 'personal_options_update', '\Pressbooks\Admin\Laf\update_user_profil
 
 add_action( 'plugins_loaded', [ SideBar::class, 'init' ] );
 add_action( 'plugins_loaded', [ TopBar::class, 'init' ] );
-
-add_action( 'admin_enqueue_scripts', function() {
-	$assets = new Assets( 'pressbooks', 'plugin' );
-	wp_enqueue_style( 'pb-table', $assets->getPath( 'styles/pressbooks-table.css' ) );
-} );
-
-add_action( 'plugins_loaded', [ \Pressbooks\Admin\Users\User::class, 'init' ], 10 );
+add_action( 'plugins_loaded', [ User::class, 'init' ], 10 );
 
 add_action( 'pb_new_blog', function() {
 	update_option( 'blog_public', 0 );

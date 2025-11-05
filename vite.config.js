@@ -46,7 +46,6 @@ export default createWpViteConfig({
 		'colors-pb-styles': resolve(__dirname, 'assets/src/styles/colors-pb.scss'),
 		'colors-pb-a11y-styles': resolve(__dirname, 'assets/src/styles/colors-pb-a11y.scss'),
 		'covergenerator-styles': resolve(__dirname, 'assets/src/styles/covergenerator.scss'),
-		'duet-styles': resolve(__dirname, 'assets/src/styles/duet.css'),
 		'export-styles': resolve(__dirname, 'assets/src/styles/export.scss'),
 		'export-ui-styles': resolve(__dirname, 'assets/src/styles/admin/export-ui.css'),
 		'glossary-definition-styles': resolve(__dirname, 'assets/src/styles/glossary-definition.scss'),
@@ -61,13 +60,13 @@ export default createWpViteConfig({
 	},
 	copyTargets: [
 		{
-			src: 'node_modules/@duetds/date-picker/dist/duet/*',
-			dest: 'scripts/duet'
+			src: 'assets/src/fonts/*',
+			dest: 'fonts',
 		},
 		{
-			src: 'assets/src/fonts/*',
-			dest: 'fonts'
-		},
+			src: 'node_modules/tinymce/plugins/table/plugin.js',
+			dest: 'assets/plugin.js',
+		}
 	],
 	outDir: 'assets/dist'
 });

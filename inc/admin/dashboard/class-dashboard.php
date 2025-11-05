@@ -68,7 +68,7 @@ abstract class Dashboard {
 	public function enqueueStyles( string $page ): void {
 		add_action( "admin_print_styles-{$page}", function() {
 			$assets = new Assets( 'pressbooks', AssetType::PLUGIN );
-			$assets->enqueue( 'assets/src/scripts/dashboard.js' ,'pb-book-dashboard');
+			$assets->enqueue( 'assets/src/scripts/dashboard.js', 'pb-book-dashboard' );
 		} );
 	}
 

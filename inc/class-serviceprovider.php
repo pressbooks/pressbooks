@@ -12,6 +12,8 @@ use Illuminate\View\Engines\CompilerEngine;
 use Illuminate\View\Engines\EngineResolver;
 use Illuminate\View\Factory;
 use Illuminate\View\FileViewFinder;
+use PressbooksFrontendTools\Assets;
+use PressbooksFrontendTools\AssetType;
 use Pressbooks\Interactive\H5PCoreAdapter;
 use Pressbooks\Interactive\H5PExtractorAdapter;
 use Pressbooks\Interactive\H5PPluginAdapter;
@@ -163,6 +165,12 @@ class ServiceProvider {
 		$container->bind(
 			'H5PCore', function () {
 				return new H5PCoreAdapter();
+			}
+		);
+
+		$container->singleton(
+			'Assets', function () {
+				return new Assets( 'pressbooks', AssetType::PLUGIN );
 			}
 		);
 

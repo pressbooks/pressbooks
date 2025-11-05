@@ -94,12 +94,15 @@
     "isEntry": true
   },
   "assets/src/scripts/covergenerator.js": {
-    "file": "assets/covergenerator-C5r1Lrt_.js",
+    "file": "assets/covergenerator-U38nBZLc.js",
     "name": "covergenerator",
     "src": "assets/src/scripts/covergenerator.js",
     "isEntry": true,
     "imports": [
       "_startClock-BGTX34Vu.js"
+    ],
+    "css": [
+      "assets/covergenerator-styles-BPTG2Ppo.css"
     ]
   },
   "assets/src/scripts/dashboard.js": {
@@ -118,10 +121,13 @@
     "isEntry": true
   },
   "assets/src/scripts/export.js": {
-    "file": "assets/export-Cc5S6RCZ.js",
+    "file": "assets/export-q2Xs84AL.js",
     "name": "export",
     "src": "assets/src/scripts/export.js",
-    "isEntry": true
+    "isEntry": true,
+    "css": [
+      "assets/export-styles-B8YgRQ-r.css"
+    ]
   },
   "assets/src/scripts/footnote.js": {
     "file": "assets/footnote-gOSgOEkj.js",
@@ -169,16 +175,23 @@
     "isEntry": true
   },
   "assets/src/scripts/network-managers.js": {
-    "file": "assets/network-managers-CRkjvTXn.js",
+    "file": "assets/network-managers-bUzNlSWU.js",
     "name": "network-managers",
     "src": "assets/src/scripts/network-managers.js",
-    "isEntry": true
+    "isEntry": true,
+    "css": [
+      "assets/pressbooks-table-styles-BaPzIFM_.css",
+      "assets/network-managers-styles-Dcoky-qA.css"
+    ]
   },
   "assets/src/scripts/organize.js": {
-    "file": "assets/organize-Ci9FLtk-.js",
+    "file": "assets/organize-DTbLX-C3.js",
     "name": "organize",
     "src": "assets/src/scripts/organize.js",
-    "isEntry": true
+    "isEntry": true,
+    "css": [
+      "assets/organize-styles-B0Z1agEf.css"
+    ]
   },
   "assets/src/scripts/post-back-matter.js": {
     "file": "assets/post-back-matter-DdWddLSJ.js",
@@ -199,12 +212,12 @@
     "isEntry": true
   },
   "assets/src/scripts/pressbooks.js": {
-    "file": "assets/pressbooks-bCjhesWf.js",
+    "file": "assets/pressbooks-mXSSr462.js",
     "name": "pressbooks",
     "src": "assets/src/scripts/pressbooks.js",
     "isEntry": true,
     "css": [
-      "assets/pressbooks-Dxkl4wC4.css"
+      "assets/pressbooks-C3oNr1_D.css"
     ],
     "assets": [
       "assets/heroicons-CVYPToTZ.eot",
@@ -304,16 +317,8 @@
       "covergenerator-styles.css"
     ]
   },
-  "assets/src/styles/duet.css": {
-    "file": "assets/duet-styles-BqTYzNno.css",
-    "src": "assets/src/styles/duet.css",
-    "isEntry": true,
-    "names": [
-      "duet-styles.css"
-    ]
-  },
   "assets/src/styles/export.scss": {
-    "file": "assets/export-styles-D3eJvWzo.css",
+    "file": "assets/export-styles-B8YgRQ-r.css",
     "src": "assets/src/styles/export.scss",
     "isEntry": true,
     "names": [

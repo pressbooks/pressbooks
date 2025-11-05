@@ -1,6 +1,7 @@
 /* global PB_ExportToken */
 /* global _pb_export_formats_map */
 /* global _pb_export_pins_inventory */
+import "../styles/export.scss"
 
 // Stores the single global EventSource instance for all user jobs.
 let globalExportSSE = null;

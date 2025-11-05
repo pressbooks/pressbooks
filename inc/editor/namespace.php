@@ -12,7 +12,6 @@
 namespace Pressbooks\Editor;
 
 use function Pressbooks\Sanitize\normalize_css_urls;
-use PressbooksMix\Assets;
 use Pressbooks\Container;
 use Pressbooks\HtmlParser;
 use Pressbooks\Shortcodes\Glossary\Glossary;
@@ -101,7 +100,8 @@ function mce_buttons_3( $buttons ) {
  */
 function admin_enqueue_scripts( $hook ) {
 	global $post;
-	$assets = new Assets( 'pressbooks', 'plugin' );
+	/** @var Assets $assets */
+	$assets = app( 'Assets' );
 
 	// Footnotes
 	wp_localize_script(
@@ -150,7 +150,9 @@ function admin_enqueue_scripts( $hook ) {
 
 	if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
 		if ( ! is_object( $post ) || $post->post_type !== 'glossary' ) {
-			wp_enqueue_script( 'my_custom_quicktags', $assets->getPath( 'scripts/quicktags.js' ), [ 'quicktags' ] );
+			$assets->enqueue('assets/src/scripts/quicktags.js', 'my_custom_quicktags', [
+				'dependencies' => [ 'quicktags' ],
+			]);
 			wp_enqueue_script( 'wp-api' );
 		}
 	}
@@ -162,29 +164,31 @@ function admin_enqueue_scripts( $hook ) {
  * @param array $plugin_array
  *
  * @return array
+ * @throws \Exception
  */
 function mce_button_scripts( $plugin_array ) {
-	$assets = new Assets( 'pressbooks', 'plugin' );
-	$styles = Container::get( 'Styles' );
+	/** @var Assets $assets */
+	$assets = app( 'Assets' );
+	$styles = app( 'Styles' );
 
-	$plugin_array['apply_class'] = $assets->getPath( 'scripts/applyclass.js' );
+	$plugin_array['apply_class'] = $assets->getAssetUrl( 'assets/src/scripts/applyclass.js' );
 	if ( $styles->hasBuckram( '1.0' ) ) {
-		$plugin_array['textboxes'] = $assets->getPath( 'scripts/textboxes.js' );
+		$plugin_array['textboxes'] = $assets->getAssetUrl( 'assets/src/scripts/textboxes.js' );
 	} else {
-		$plugin_array['textboxes'] = $assets->getPath( 'scripts/textboxes-legacy.js' );
+		$plugin_array['textboxes'] = $assets->getAssetUrl( 'assets/src/scripts/textboxes-legacy.js' );
 	}
-	$plugin_array['anchor'] = $assets->getPath( 'scripts/anchor.js' );
-	$plugin_array['table'] = $assets->getPath( 'scripts/table.js' );
+	$plugin_array['anchor'] = $assets->getAssetUrl( 'assets/src/scripts/anchor.js' );
+	$plugin_array['table'] = $assets->getAssetUrl( 'assets/plugin.js/plugin.js' );
 
 	// Footnotes
-	$plugin_array['footnote'] = $assets->getPath( 'scripts/footnote.js' );
-	$plugin_array['ftnref_convert'] = $assets->getPath( 'scripts/ftnref-convert.js' );
+	$plugin_array['footnote'] = $assets->getAssetUrl( 'assets/src/scripts/footnote.js' );
+	$plugin_array['ftnref_convert'] = $assets->getAssetUrl( 'assets/src/scripts/ftnref-convert.js' );
 
 	// LaTeX
-	$plugin_array['latex'] = $assets->getPath( 'scripts/latex.js' );
+	$plugin_array['latex'] = $assets->getAssetUrl( 'assets/src/scripts/latex.js' );
 
 	// Glossary
-	$plugin_array['glossary'] = $assets->getPath( 'scripts/glossary.js' );
+	$plugin_array['glossary'] = $assets->getAssetUrl( 'assets/src/scripts/glossary.js' );
 
 	return $plugin_array;
 }
