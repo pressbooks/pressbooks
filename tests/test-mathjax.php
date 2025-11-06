@@ -73,7 +73,6 @@ class MathjaxTest extends \WP_UnitTestCase {
 		$pid = $this->factory()->post->create_object( $new_post );
 		$GLOBALS['post'] = $pid;
 		$this->assertTrue( $this->mathjax->sectionHasMath() );
-
 	}
 
 	public function testAddHeaders() {
@@ -100,8 +99,14 @@ class MathjaxTest extends \WP_UnitTestCase {
 		$GLOBALS['post'] = $pid;
 		ob_start();
 		$this->mathjax->addHeaders();
+		$this->mathjax->addScripts();
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( 'window.MathJax', $buffer );
+		$result = has_filter('the_content', 'wptexturize');
+		$this->assertFalse(
+			$result,
+			'wptexturize should be removed from the_content filter'
+		);
 	}
 
 	public function testLatexMarkup() {
