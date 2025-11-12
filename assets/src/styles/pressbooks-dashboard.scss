@@ -58,7 +58,11 @@
   padding-bottom: 1rem;
 }
 
-.pb-dashboard-row {
+.pb-dashboard-row.border-top {
+  border-top: 4px solid $monza;
+}
+
+  .pb-dashboard-row {
   margin-bottom: 1rem;
   max-width: 1220px;
 
