@@ -12,6 +12,14 @@
   background-color: $white;
 }
 
+@media screen and (min-width: 850px) {
+  .post-type-metadata #post-body.columns-2 #postbox-container-1  {
+    position: fixed !important;
+    right: 20px !important;
+    margin-right: 0 !important;
+  }
+}
+
 .form-field {
   margin-top: 1.25rem;
 }
