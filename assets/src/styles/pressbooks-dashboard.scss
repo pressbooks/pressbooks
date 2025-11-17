@@ -195,6 +195,10 @@
       color: darken($monza, 10%);
     }
 
+    p.price, p.plugin-description {
+      margin-bottom: .5rem;
+    }
+
     .pb-dashboard-flex {
       display: flex;
       gap: 2rem;
