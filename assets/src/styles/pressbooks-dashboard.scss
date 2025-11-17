@@ -96,9 +96,30 @@
     font-size: 1.125rem;
     font-weight: 700;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 3px;
     display: inline-block;
     padding: 0 1.5rem;
+  }
+
+  .button.button-primary {
+    background: $monza;
+    border-color: $monza;
+  }
+
+  .button.button-primary.active, .button.button-primary:hover {
+    background: darken($monza, 10%);
+    border-color: darken($monza, 10%);
+  }
+
+  .button.button-secondary {
+    background: $white;
+    border-color: $monza;
+    color: $monza;
+  }
+
+  .button.button-secondary.active, .button.button-secondary:hover {
+    border-color: darken($monza, 10%);
+    color: darken($monza, 10%);
   }
 
   .button.button-hero {
