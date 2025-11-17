@@ -1,5 +1,39 @@
 # Changelog
 
+## [6.34.2](https://github.com/pressbooks/pressbooks/compare/6.34.1...6.34.2) (2025-10-30)
+
+
+### Bug Fixes
+
+* HTML decoding error when cloning Custom CSS within a network (resolves [#4209](https://github.com/pressbooks/pressbooks/issues/4209)) ([#4250](https://github.com/pressbooks/pressbooks/issues/4250)) ([9dc7e9f](https://github.com/pressbooks/pressbooks/commit/9dc7e9f8b5c18a952d9a1d841317efb348d1e6c4))
+* improve file export time precision ([13660eb](https://github.com/pressbooks/pressbooks/commit/13660ebeefb24d768a0b90050ebf8d242bfd1c84))
+* improve file export time precision (resolves [#1869](https://github.com/pressbooks/pressbooks/issues/1869)) ([#4252](https://github.com/pressbooks/pressbooks/issues/4252)) ([13660eb](https://github.com/pressbooks/pressbooks/commit/13660ebeefb24d768a0b90050ebf8d242bfd1c84))
+* remove privacy option on signup ([#4256](https://github.com/pressbooks/pressbooks/issues/4256)) ([c2d7c75](https://github.com/pressbooks/pressbooks/commit/c2d7c759617bd7110889a7d86fe6668821f27402))
+
+
+### Chores
+
+* bump aws/aws-sdk-php from 3.356.41 to 3.356.42 in the composer-dependencies group ([#4254](https://github.com/pressbooks/pressbooks/issues/4254)) ([35f8216](https://github.com/pressbooks/pressbooks/commit/35f821605efc974003aab422a22a554d48309d28))
+* bump aws/aws-sdk-php in the composer-dependencies group ([35f8216](https://github.com/pressbooks/pressbooks/commit/35f821605efc974003aab422a22a554d48309d28))
+* bump the npm-dependencies group with 2 updates ([#4260](https://github.com/pressbooks/pressbooks/issues/4260)) ([b7d66ae](https://github.com/pressbooks/pressbooks/commit/b7d66ae679828913c46043e0612a77c193cf6db5))
+* **l10n:** Updates for project Pressbooks ([#4266](https://github.com/pressbooks/pressbooks/issues/4266)) ([4c4dec2](https://github.com/pressbooks/pressbooks/commit/4c4dec2a423a96834ab6b8ad16e9a6db674d904e))
+* Update PHP version and Ubuntu runner in tests.yml ([#4267](https://github.com/pressbooks/pressbooks/issues/4267)) ([ed56351](https://github.com/pressbooks/pressbooks/commit/ed5635160bcae1ef3b0013e69351c0a8ec386c03))
+
+## [6.34.1](https://github.com/pressbooks/pressbooks/compare/6.34.0...6.34.1) (2025-10-20)
+
+
+### Bug Fixes
+
+* ensure that ampersands remain encoded in XHTML (resolves [#4223](https://github.com/pressbooks/pressbooks/issues/4223)) ([#4247](https://github.com/pressbooks/pressbooks/issues/4247)) ([c019bbf](https://github.com/pressbooks/pressbooks/commit/c019bbf62ae8c2cc1fab40b41547ab3cc2785f9a))
+* ensure that ampersands retain entity encoding in XHTML (resolves [#4223](https://github.com/pressbooks/pressbooks/issues/4223)) ([c019bbf](https://github.com/pressbooks/pressbooks/commit/c019bbf62ae8c2cc1fab40b41547ab3cc2785f9a))
+* resolve issue where span tag is output in book chapters (resolves [#4224](https://github.com/pressbooks/pressbooks/issues/4224)) ([#4245](https://github.com/pressbooks/pressbooks/issues/4245)) ([f8f6d7b](https://github.com/pressbooks/pressbooks/commit/f8f6d7bc3baeb7cedd5b6ad5a0e4e14ac12a9827))
+
+
+### Chores
+
+* bump the composer-dependencies group across 1 directory with 2 updates ([#4222](https://github.com/pressbooks/pressbooks/issues/4222)) ([a3d97f0](https://github.com/pressbooks/pressbooks/commit/a3d97f03a2edd7738340b2847e30bddb86444f79))
+* **deps:** use published snordian/h5p-extractor package (fix [#4189](https://github.com/pressbooks/pressbooks/issues/4189)) ([#4246](https://github.com/pressbooks/pressbooks/issues/4246)) ([497c04d](https://github.com/pressbooks/pressbooks/commit/497c04d5d33595d18abe646b6168611ced07583e))
+
 ## [6.34.0](https://github.com/pressbooks/pressbooks/compare/6.33.0...6.34.0) (2025-10-09)
 
 

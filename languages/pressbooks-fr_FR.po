@@ -14,6 +14,7 @@
 # Hubert GB <hgblouin@tciinc.ca>, 2019
 # Hugh McGuire <hugh@pressbooks.com>, 2018
 # Ian Curtis, 2022
+# Marie-Hélène Vézina, 2025
 # Mich Spieler, 2024-2025
 # MMOUNA MOUM, 2022
 # Ned Zimmerman <ned@bight.dev>, 2014
@@ -30,7 +31,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
 "POT-Creation-Date: 2025-07-30T15:12:23+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
-"Last-Translator: Mich Spieler, 2024-2025\n"
+"Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2019,2023-2025\n"
 "Language-Team: French (http://app.transifex.com/pressbooks/pressbooks/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -934,7 +935,7 @@ msgstr "Cette exportation est actuellement en cours"
 
 #: inc/admin/laf/namespace.php:366
 msgid "Completed"
-msgstr ""
+msgstr "Terminé"
 
 #: inc/admin/laf/namespace.php:385 inc/utility/class-handlestransfers.php:88
 #: templates/admin/import.php:38 templates/admin/import.php:114
@@ -1056,7 +1057,7 @@ msgstr "Visibilité du livre"
 #: inc/admin/laf/namespace.php:1268
 #: templates/admin/settings/book-robots.blade.php:2
 msgid "Robots"
-msgstr ""
+msgstr "Robots d'indexation"
 
 #: inc/admin/laf/namespace.php:1283
 #: templates/admin/settings/private-content.blade.php:2
@@ -1275,7 +1276,7 @@ msgstr "PB Stats"
 
 #: inc/admin/menus/class-topbar.php:109
 msgid "Pressbooks logo"
-msgstr ""
+msgstr "Logo Pressbooks"
 
 #: inc/admin/menus/class-topbar.php:164
 msgid "Administer Network"
@@ -1305,7 +1306,7 @@ msgstr "Titre d&rsquo;appel"
 msgid ""
 "A very short description of your book. It should fit in a social media post,"
 " and encapsulate your book in the briefest sentence."
-msgstr ""
+msgstr "Une description très brève de votre livre. Elle doit tenir dans un message sur les médias sociaux et en résumer l'essentiel en une phrase aussi courte que possible."
 
 #: inc/admin/metaboxes/class-about.php:32
 msgid "Short Description"
@@ -3117,7 +3118,7 @@ msgstr ""
 
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:125
 msgid "Preparing export..."
-msgstr ""
+msgstr "Préparation de l'exportation ..."
 
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:147
 msgid "Converting content"
@@ -3141,15 +3142,15 @@ msgstr ""
 
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:252
 msgid "Export completed with validation errors."
-msgstr ""
+msgstr "Exportation terminée avec des erreurs de validation."
 
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:255
 msgid "Export failed due to an unspecified error."
-msgstr ""
+msgstr "L'exportation a échoué en raison d'une erreur non spécifiée."
 
 #: inc/modules/export/class-export.php:288
 msgid "Export Error"
-msgstr ""
+msgstr "Erreur d'exportation"
 
 #: inc/modules/export/class-export.php:679
 msgid "The export failed. See logs for more details."
@@ -3236,11 +3237,11 @@ msgstr ""
 
 #: inc/modules/export/epub/class-epub.php:661
 msgid "Export successful with validation warnings!"
-msgstr ""
+msgstr "Exportation réussie avec des avertissements de validation!"
 
 #: inc/modules/export/epub/class-epub.php:663
 msgid "Export successful!"
-msgstr ""
+msgstr "Exportation réussie"
 
 #: inc/modules/export/epub/class-epub.php:960
 msgid "Compiling styles"
@@ -3428,7 +3429,7 @@ msgstr ""
 
 #: inc/modules/export/namespace.php:358
 msgid "No export formats selected."
-msgstr ""
+msgstr "Aucun format d'exportation sélectionné."
 
 #: inc/modules/export/namespace.php:377
 #, php-format
@@ -5782,11 +5783,11 @@ msgstr "Afficher le titre de %s"
 
 #: templates/admin/settings/book-robots.blade.php:4
 msgid "Discourage AI from ingesting this book."
-msgstr ""
+msgstr "Limiter la réutilisation de ce livre par les robots d'intelligence artificielle"
 
 #: templates/admin/settings/book-robots.blade.php:6
 msgid "Discourage crawlers and search engines from indexing this book."
-msgstr ""
+msgstr "Décourager les robots et les moteurs de recherche d'indexer ce livre"
 
 #: templates/admin/settings/book-visibility.blade.php:4
 msgid "Public. I would like this book to be visible to everyone."
