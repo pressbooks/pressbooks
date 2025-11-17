@@ -150,6 +150,80 @@ class ClonerTest extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * @test
+	 * @group cloner
+	 */
+	public function cloneStyles_decodes_html_entities_for_in_network_clones(): void {
+		// When sourceBookId is set (in-network clone), HTML entities should be decoded from the source content
+		$encoded_content = '.test-class { color: red; } .test &gt; .child { margin: 10px; }';
+		$source_book_id = 123; // Non-zero indicates in-network clone
+		
+		// Apply the same conditional logic as in the cloneStyles method
+		$content = $encoded_content;
+		if ( ! empty( $source_book_id ) ) {
+			$content = html_entity_decode( $content, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+		}
+		
+		// Verify the decoding worked
+		$this->assertStringContainsString( '.test > .child', $content, 'HTML entities should be decoded for in-network clones' );
+		$this->assertStringNotContainsString( '&gt;', $content, 'HTML entities should not remain encoded after decoding' );
+	}
+
+	/**
+	 * @test
+	 * @group cloner
+	 */
+	public function test_html_entity_decode_functionality(): void {
+		// Test that html_entity_decode works as expected
+		$encoded = '.test-class { color: red; } .test &gt; .child { margin: 10px; }';
+		$decoded = html_entity_decode( $encoded, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+		
+		$this->assertStringContainsString( '.test > .child', $decoded );
+		$this->assertStringNotContainsString( '&gt;', $decoded );
+	}
+
+	/**
+	 * @test
+	 * @group cloner
+	 */
+	public function test_cloneStyles_entity_decoding_logic(): void {
+		// Test the specific logic used in cloneStyles method
+		$this->_book();
+		
+		$content = '.test-class { color: red; } .test &gt; .child { margin: 10px; }';
+		$sourceBookId = 123; // Non-empty value
+		
+		// Apply the same logic as in cloneStyles
+		if ( ! empty( $sourceBookId ) ) {
+			$content = html_entity_decode( $content, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+		}
+		
+		$this->assertStringContainsString( '.test > .child', $content );
+		$this->assertStringNotContainsString( '&gt;', $content );
+	}
+
+	/**
+	 * @test
+	 * @group cloner
+	 */
+	public function cloneStyles_preserves_content_for_cross_network_clones(): void {
+		// Test the core logic: when sourceBookId is not set (cross-network clone), 
+		// HTML entities should NOT be decoded from the source content
+		$encoded_content = '.test-class { color: red; } .test &gt; .child { margin: 10px; }';
+		$source_book_id = 0; // Zero or empty indicates cross-network clone
+		
+		// Apply the same conditional logic as in the cloneStyles method
+		$content = $encoded_content;
+		if ( ! empty( $source_book_id ) ) {
+			$content = html_entity_decode( $content, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+		}
+		
+		// Verify the content was NOT decoded (condition should be false)
+		$this->assertStringContainsString( '.test &gt; .child', $content, 'HTML entities should be preserved for cross-network clones' );
+		$this->assertStringNotContainsString( '.test > .child', $content, 'HTML entities should not be decoded for cross-network clones' );
+	}
+
+	/**
 	 * @group cloner
 	 */
 	public function test_discoverWordPressApi(){

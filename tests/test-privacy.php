@@ -1,6 +1,7 @@
 <?php
 
 use Pressbooks\DataCollector\Book as DataCollector;
+use Pressbooks\Privacy;
 use function Pressbooks\Admin\Laf\book_directory_excluded_callback;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 
@@ -11,7 +12,7 @@ class GdprTest extends \WP_UnitTestCase {
 	use utilsTrait;
 
 	/**
-	 * @var \Pressbooks\Privacy
+	 * @var Privacy
 	 * @group privacy
 	 */
 	protected $privacy;
@@ -21,7 +22,7 @@ class GdprTest extends \WP_UnitTestCase {
 	 */
 	public function set_up() {
 		parent::set_up();
-		$this->privacy = new \Pressbooks\Privacy();
+		$this->privacy = new Privacy();
 	}
 
 	/**
@@ -231,5 +232,20 @@ EOT;
 		switch_to_blog( $blog_id );
 		$this->assertEquals( get_option( 'permissive_private_content' ), 1 );
 		restore_current_blog();
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_removes_privacy_options_from_signup() {
+		//render signup page
+		global $pagenow;
+		$_SERVER['SCRIPT_FILENAME'] = 'wp-signup.php';
+		$pagenow = 'wp-signup.php';
+		ob_start();
+		$this->privacy = Privacy::init();
+		$this->privacy->removePublicOptionFromSignup();
+		$buffer = ob_get_clean();
+		$this->assertStringNotContainsString( '<div id="privacy">', $buffer );
 	}
 }

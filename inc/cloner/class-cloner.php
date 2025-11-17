@@ -1456,9 +1456,17 @@ class Cloner {
 		foreach ( $styles_container->getSupported() as $slug => $style_type ) {
 			if ( isset( $this->sourceStyles[ $slug ] ) ) {
 				$post = $styles_container->getPost( $slug );
+				$content = $this->sourceStyles[ $slug ];
+
+				// For in-network clones, the REST API may have already encoded HTML entities
+				// Decode them to prevent double-encoding when wp_update_post() applies its own sanitization
+				if ( ! empty( $this->sourceBookId ) ) {
+					$content = html_entity_decode( $content, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+				}
+
 				$post_params = [
 					'ID' => $post->ID,
-					'post_content' => $this->sourceStyles[ $slug ],
+					'post_content' => $content,
 				];
 				wp_update_post( $post_params, true );
 			}
