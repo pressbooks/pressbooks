@@ -1871,9 +1871,7 @@ function filter_media_list_for_contributors( $query ) {
 function block_metadata_add_new_page() {
 	global $pagenow;
 
-	if ( 'post-new.php' === $pagenow &&
-		 isset( $_GET['post_type'] ) &&
-		 'metadata' === $_GET['post_type'] ) {
+	if ( 'post-new.php' === $pagenow && isset( $_GET['post_type'] ) && 'metadata' === $_GET['post_type'] ) {
 
 		// Redirect to the allowed book info page instead
 		wp_redirect( admin_url( 'post.php?post=12&action=edit' ) );
