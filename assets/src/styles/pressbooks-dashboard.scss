@@ -104,11 +104,13 @@
   .button.button-primary {
     background: $monza;
     border-color: $monza;
+    color: $white;
   }
 
-  .button.button-primary.active, .button.button-primary:hover {
+  .button.button-primary.active, .button.button-primary:hover, .button.button-primary:focus {
     background: darken($monza, 10%);
     border-color: darken($monza, 10%);
+    color: $white;
   }
 
   .button.button-secondary {
@@ -117,7 +119,7 @@
     color: $monza;
   }
 
-  .button.button-secondary.active, .button.button-secondary:hover {
+  .button.button-secondary.active, .button.button-secondary:hover, .button.button-secondary:focus {
     border-color: darken($monza, 10%);
     color: darken($monza, 10%);
   }
