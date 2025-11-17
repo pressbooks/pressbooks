@@ -1,0 +1,341 @@
+{
+  "_lit-element-DwTj7qCT.js": {
+    "file": "assets/lit-element-DwTj7qCT.js",
+    "name": "lit-element"
+  },
+  "_startClock-BGTX34Vu.js": {
+    "file": "assets/startClock-BGTX34Vu.js",
+    "name": "startClock"
+  },
+  "assets/src/fonts/PBFont.svg": {
+    "file": "assets/PBFont-FY9f3BzU.svg",
+    "src": "assets/src/fonts/PBFont.svg"
+  },
+  "assets/src/fonts/catalog-page.svg": {
+    "file": "assets/catalog-page-BIQTTih7.svg",
+    "src": "assets/src/fonts/catalog-page.svg"
+  },
+  "assets/src/fonts/heroicons.eot": {
+    "file": "assets/heroicons-CVYPToTZ.eot",
+    "src": "assets/src/fonts/heroicons.eot"
+  },
+  "assets/src/fonts/heroicons.woff": {
+    "file": "assets/heroicons-C57YlG2p.woff",
+    "src": "assets/src/fonts/heroicons.woff"
+  },
+  "assets/src/fonts/heroicons.woff2": {
+    "file": "assets/heroicons-D_QNU6eO.woff2",
+    "src": "assets/src/fonts/heroicons.woff2"
+  },
+  "assets/src/scripts/a11y.js": {
+    "file": "assets/a11y-CR-ogGGg.js",
+    "name": "a11y",
+    "src": "assets/src/scripts/a11y.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/algolia-search.js": {
+    "file": "assets/algolia-search-DbI9FV7h.js",
+    "name": "algolia-search",
+    "src": "assets/src/scripts/algolia-search.js",
+    "isEntry": true,
+    "css": [
+      "assets/algolia-search-DoMTmBPl.css"
+    ]
+  },
+  "assets/src/scripts/anchor.js": {
+    "file": "assets/anchor-Ci0IA7MS.js",
+    "name": "anchor",
+    "src": "assets/src/scripts/anchor.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/applyclass.js": {
+    "file": "assets/applyclass-CD4YvTo-.js",
+    "name": "applyclass",
+    "src": "assets/src/scripts/applyclass.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/book-information.js": {
+    "file": "assets/book-information-D1VmulGL.js",
+    "name": "book-information",
+    "src": "assets/src/scripts/book-information.js",
+    "isEntry": true,
+    "imports": [
+      "assets/src/scripts/webcomponents/pressbooks-reorderable-multiselect.js",
+      "_lit-element-DwTj7qCT.js"
+    ],
+    "css": [
+      "assets/book-information-BqTYzNno.css"
+    ]
+  },
+  "assets/src/scripts/catalog.js": {
+    "file": "assets/catalog-CeH5PFgw.js",
+    "name": "catalog",
+    "src": "assets/src/scripts/catalog.js",
+    "isEntry": true,
+    "css": [
+      "assets/catalog-DiDkUA-X.css"
+    ],
+    "assets": [
+      "assets/catalog-page-BIQTTih7.svg"
+    ]
+  },
+  "assets/src/scripts/cloner.js": {
+    "file": "assets/cloner-CVZVQquv.js",
+    "name": "cloner",
+    "src": "assets/src/scripts/cloner.js",
+    "isEntry": true,
+    "imports": [
+      "_startClock-BGTX34Vu.js"
+    ]
+  },
+  "assets/src/scripts/color-picker.js": {
+    "file": "assets/color-picker-BV4qfqiI.js",
+    "name": "color-picker",
+    "src": "assets/src/scripts/color-picker.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/contributors.js": {
+    "file": "assets/contributors-H0wCkzty.js",
+    "name": "contributors",
+    "src": "assets/src/scripts/contributors.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/covergenerator.js": {
+    "file": "assets/covergenerator-C-vU-eb8.js",
+    "name": "covergenerator",
+    "src": "assets/src/scripts/covergenerator.js",
+    "isEntry": true,
+    "imports": [
+      "_startClock-BGTX34Vu.js"
+    ],
+    "css": [
+      "assets/covergenerator-BPTG2Ppo.css"
+    ]
+  },
+  "assets/src/scripts/dashboard.js": {
+    "file": "assets/dashboard-DZT2zMZQ.js",
+    "name": "dashboard",
+    "src": "assets/src/scripts/dashboard.js",
+    "isEntry": true,
+    "css": [
+      "assets/dashboard-BohDkKXv.css"
+    ]
+  },
+  "assets/src/scripts/export-footnotes.js": {
+    "file": "assets/export-footnotes-B7O5MUFm.js",
+    "name": "export-footnotes",
+    "src": "assets/src/scripts/export-footnotes.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/export.js": {
+    "file": "assets/export-CsI7BrKB.js",
+    "name": "export",
+    "src": "assets/src/scripts/export.js",
+    "isEntry": true,
+    "css": [
+      "assets/export-BCDdAa9H.css"
+    ]
+  },
+  "assets/src/scripts/footnote.js": {
+    "file": "assets/footnote-gOSgOEkj.js",
+    "name": "footnote",
+    "src": "assets/src/scripts/footnote.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/ftnref-convert.js": {
+    "file": "assets/ftnref-convert-DgzxcTBR.js",
+    "name": "ftnref-convert",
+    "src": "assets/src/scripts/ftnref-convert.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/glossary-definition.js": {
+    "file": "assets/glossary-definition-BDVUgK8G.js",
+    "name": "glossary-definition",
+    "src": "assets/src/scripts/glossary-definition.js",
+    "isEntry": true,
+    "css": [
+      "assets/glossary-definition-DcwduYgB.css"
+    ]
+  },
+  "assets/src/scripts/glossary.js": {
+    "file": "assets/glossary-SRwXiJDv.js",
+    "name": "glossary",
+    "src": "assets/src/scripts/glossary.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/import.js": {
+    "file": "assets/import-sc0Pz6UE.js",
+    "name": "import",
+    "src": "assets/src/scripts/import.js",
+    "isEntry": true,
+    "imports": [
+      "_startClock-BGTX34Vu.js"
+    ]
+  },
+  "assets/src/scripts/latex.js": {
+    "file": "assets/latex-Cg3woEFX.js",
+    "name": "latex",
+    "src": "assets/src/scripts/latex.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/login.js": {
+    "file": "assets/login-D1BNZLlw.js",
+    "name": "login",
+    "src": "assets/src/scripts/login.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/network-managers.js": {
+    "file": "assets/network-managers-Dhj6qpVh.js",
+    "name": "network-managers",
+    "src": "assets/src/scripts/network-managers.js",
+    "isEntry": true,
+    "css": [
+      "assets/network-managers-Cp112aME.css"
+    ]
+  },
+  "assets/src/scripts/organize.js": {
+    "file": "assets/organize-BtLtoQai.js",
+    "name": "organize",
+    "src": "assets/src/scripts/organize.js",
+    "isEntry": true,
+    "css": [
+      "assets/organize-CkEE9N0v.css"
+    ]
+  },
+  "assets/src/scripts/post-back-matter.js": {
+    "file": "assets/post-back-matter-DdWddLSJ.js",
+    "name": "post-back-matter",
+    "src": "assets/src/scripts/post-back-matter.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/post-mathjax.js": {
+    "file": "assets/post-mathjax-m_XkW4Tr.js",
+    "name": "post-mathjax",
+    "src": "assets/src/scripts/post-mathjax.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/post-visibility.js": {
+    "file": "assets/post-visibility-B12MVzNT.js",
+    "name": "post-visibility",
+    "src": "assets/src/scripts/post-visibility.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/pressbooks.js": {
+    "file": "assets/pressbooks-CAWhDykW.js",
+    "name": "pressbooks",
+    "src": "assets/src/scripts/pressbooks.js",
+    "isEntry": true,
+    "css": [
+      "assets/pressbooks-BWtGZRtL.css"
+    ],
+    "assets": [
+      "assets/heroicons-CVYPToTZ.eot",
+      "assets/heroicons-D_QNU6eO.woff2",
+      "assets/heroicons-C57YlG2p.woff",
+      "assets/PBFont-FY9f3BzU.svg"
+    ]
+  },
+  "assets/src/scripts/profile.js": {
+    "file": "assets/profile-Dif0eQjt.js",
+    "name": "profile",
+    "src": "assets/src/scripts/profile.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/quicktags.js": {
+    "file": "assets/quicktags-ClBUmLMl.js",
+    "name": "quicktags",
+    "src": "assets/src/scripts/quicktags.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/search-and-replace.js": {
+    "file": "assets/search-and-replace-Bq-nqTLj.js",
+    "name": "search-and-replace",
+    "src": "assets/src/scripts/search-and-replace.js",
+    "isEntry": true,
+    "css": [
+      "assets/search-and-replace-BCDzIyTk.css"
+    ]
+  },
+  "assets/src/scripts/small-menu.js": {
+    "file": "assets/small-menu-Dg4_vJm8.js",
+    "name": "small-menu",
+    "src": "assets/src/scripts/small-menu.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/textboxes-legacy.js": {
+    "file": "assets/textboxes-legacy-BPSootsc.js",
+    "name": "textboxes-legacy",
+    "src": "assets/src/scripts/textboxes-legacy.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/textboxes.js": {
+    "file": "assets/textboxes-CcdfgF8S.js",
+    "name": "textboxes",
+    "src": "assets/src/scripts/textboxes.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/theme-lock.js": {
+    "file": "assets/theme-lock-CcGwF98t.js",
+    "name": "theme-lock",
+    "src": "assets/src/scripts/theme-lock.js",
+    "isEntry": true
+  },
+  "assets/src/scripts/theme-options.js": {
+    "file": "assets/theme-options-DpTu4KeV.js",
+    "name": "theme-options",
+    "src": "assets/src/scripts/theme-options.js",
+    "isEntry": true,
+    "imports": [
+      "assets/src/scripts/webcomponents/pressbooks-select.js",
+      "_lit-element-DwTj7qCT.js"
+    ],
+    "css": [
+      "assets/theme-options-C43sVRx0.css"
+    ]
+  },
+  "assets/src/scripts/webcomponents/pressbooks-reorderable-multiselect.js": {
+    "file": "assets/pressbooks-reorderable-multiselect-DRPOa9hh.js",
+    "name": "pressbooks-reorderable-multiselect",
+    "src": "assets/src/scripts/webcomponents/pressbooks-reorderable-multiselect.js",
+    "isEntry": true,
+    "imports": [
+      "_lit-element-DwTj7qCT.js"
+    ]
+  },
+  "assets/src/scripts/webcomponents/pressbooks-select.js": {
+    "file": "assets/pressbooks-select-D4kq13HV.js",
+    "name": "pressbooks-select",
+    "src": "assets/src/scripts/webcomponents/pressbooks-select.js",
+    "isEntry": true,
+    "imports": [
+      "_lit-element-DwTj7qCT.js"
+    ]
+  },
+  "assets/src/styles/colors-pb-a11y.scss": {
+    "file": "assets/colors-pb-a11y-styles-CJ1k2X3m.css",
+    "src": "assets/src/styles/colors-pb-a11y.scss",
+    "isEntry": true,
+    "name": "colors-pb-a11y-styles",
+    "names": [
+      "colors-pb-a11y-styles.css"
+    ]
+  },
+  "assets/src/styles/colors-pb.scss": {
+    "file": "assets/colors-pb-styles-CuwQixf8.css",
+    "src": "assets/src/styles/colors-pb.scss",
+    "isEntry": true,
+    "name": "colors-pb-styles",
+    "names": [
+      "colors-pb-styles.css"
+    ]
+  },
+  "assets/src/styles/login.scss": {
+    "file": "assets/login-styles-LMuvfXAM.css",
+    "src": "assets/src/styles/login.scss",
+    "isEntry": true,
+    "name": "login-styles",
+    "names": [
+      "login-styles.css"
+    ]
+  }
+}

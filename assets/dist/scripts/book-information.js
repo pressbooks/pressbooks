@@ -1,2 +1,0 @@
-function u(){import.meta.url,import("_").catch(()=>1),(async function*(){})().next()}jQuery(document).ready(function(r){r("#pb_title").trigger("focus"),document.querySelectorAll("duet-date-picker").forEach(t=>{t.addEventListener("duetFocus",()=>{const e=t.querySelector("input.duet-date__input"),i=t.getAttribute("aria-describedby");e&&e.setAttribute("aria-describedby",i)})})});export{u as __vite_legacy_guard};
-//# sourceMappingURL=book-information.js.map
