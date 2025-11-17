@@ -12,7 +12,7 @@
 namespace Pressbooks\Admin\Metaboxes;
 
 use function Pressbooks\Image\attachment_id_from_url;
-use PressbooksMix\Assets;
+use function Pressbooks\Metadata\show_expanded_metadata;
 use Pressbooks\Contributors;
 
 // phpcs:ignore
@@ -143,14 +143,16 @@ function upload_cover_image( $pid, $post, $image = null ) {
  * Force a stylesheet onto our Book Information edit page
  *
  * @param string $hook
+ * @throws Exception
  */
 function add_metadata_styles( $hook ) {
 
 	if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
 		$post_type = get_post_type();
 		if ( in_array( $post_type, [ 'metadata', 'front-matter', 'chapter', 'back-matter', 'part' ], true ) ) {
-			$assets = new Assets( 'pressbooks', 'plugin' );
-			wp_enqueue_style( 'metadata', $assets->getPath( 'styles/metadata.css' ) );
+			/** @var Assets $assets */
+			$assets = app( 'Assets' );
+			wp_enqueue_style( 'metadata', $assets->getAssetUrl( 'assets/src/styles/metadata.scss' ) );
 		} elseif ( 'part' === $post_type ) {
 			add_filter(
 				'page_attributes_dropdown_pages_args', function () {
@@ -164,7 +166,7 @@ function add_metadata_styles( $hook ) {
 }
 
 function add_meta_boxes_metadata() {
-	$expanded = \Pressbooks\Metadata\show_expanded_metadata();
+	$expanded = show_expanded_metadata();
 
 	( new GeneralInformation( $expanded ) )->register();
 	add_meta_box( 'covers', __( 'Cover Image', 'pressbooks' ), '\Pressbooks\Image\cover_image_box', 'metadata', 'normal', 'low' );
@@ -195,7 +197,7 @@ function add_meta_boxes_part() {
 }
 
 function save_metadata( $post_id ) {
-	$expanded = \Pressbooks\Metadata\show_expanded_metadata();
+	$expanded = show_expanded_metadata();
 
 	( new GeneralInformation( $expanded ) )->save( $post_id );
 	( new Subjects() )->save( $post_id );

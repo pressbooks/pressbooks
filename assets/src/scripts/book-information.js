@@ -1,3 +1,7 @@
+import '../styles/duet.css';
+import './webcomponents/pressbooks-reorderable-multiselect.js';
+import { DuetDatePicker } from "@duetds/date-picker/custom-element";
+customElements.define("duet-date-picker", DuetDatePicker);
 jQuery( document ).ready( function ( $ ) {
 	// Set an initial focus to help users of assistive technology
 	$( '#pb_title' ).trigger( 'focus' );

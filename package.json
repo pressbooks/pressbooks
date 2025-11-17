@@ -17,8 +17,8 @@
 	"dependencies": {
 		"@duetds/date-picker": "^1.4.0",
 		"@melloware/coloris": "^0.25.0",
-		"@pressbooks/multiselect": "^2.4.0",
 		"@pressbooks/reorderable-multiselect": "^0.0.4",
+		"@pressbooks/select": "^1.0.2",
 		"algoliasearch": "^4.23.2",
 		"alpine": "^0.2.1",
 		"alpinejs": "^3.13.9",
@@ -34,7 +34,7 @@
 		"select2": "github:woocommerce/selectWoo#1.0.8",
 		"sidr": "^2.2.1",
 		"tinymce": "^4.9.11",
-		"wp-admin-colors": "^6.0.0"
+		"wp-admin-colors": "file:~/code/opensource/wp-admin-colors"
 	},
 	"devDependencies": {
 		"css-purge": "^3.1.8",

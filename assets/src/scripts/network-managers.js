@@ -1,4 +1,6 @@
 /* global PB_NetworkManagerToken */
+import "../styles/pressbooks-table.scss"
+import "../styles/network-managers.scss"
 
 jQuery( function ( $ ) {
 	$( document ).ready( function () {

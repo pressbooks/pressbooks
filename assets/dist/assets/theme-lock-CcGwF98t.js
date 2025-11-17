@@ -1,0 +1,2 @@
+jQuery(function(e){e("#theme_lock").on("change",function(){this.checked||(window.confirm(PB_ThemeLockToken.confirmation)?e("#theme_lock").attr("checked",!1):e("#theme_lock").attr("checked",!0))})});
+//# sourceMappingURL=theme-lock-CcGwF98t.js.map

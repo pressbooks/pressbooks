@@ -1482,8 +1482,7 @@ class Xhtml11 extends Export {
 
 						$chapter_data = $this->getExtendedPostInformation( 'chapter', $chapter );
 
-						$rendered_items[] = $this->renderTocItem( 'chapter', $chapter_data );
-
+						$rendered_items[] = $this->renderTocItem( 'chapter', $chapter_data, true, true );
 					}
 				}
 			} else {
@@ -1509,14 +1508,14 @@ class Xhtml11 extends Export {
 							$post_type = $has_intro ? $post_type . ' post-introduction' : $post_type;
 							$has_intro = $matter_data['subclass'] === 'introduction';
 
-							$rendered_items[] = $this->renderTocItem( $post_type, $matter_data );
+							$rendered_items[] = $this->renderTocItem( $post_type, $matter_data, true, true );
 
 							break;
 
 						case 'back-matter':
 							$matter_data = $this->getExtendedPostInformation( $type, $val );
 
-							$rendered_items[] = $this->renderTocItem( $type, $matter_data );
+							$rendered_items[] = $this->renderTocItem( $type, $matter_data, true, true );
 
 							break;
 					}
@@ -1699,9 +1698,9 @@ class Xhtml11 extends Export {
 					[
 						'subclass' => $chapter_subclass,
 						'slug' => $chapter_slug,
-						'sanitized_title' => $chapter_short_title ?: wp_strip_all_tags( decode( $chapter['post_title'] ) ),
+						'sanitized_title' => decode( $chapter_short_title ) ?: wp_strip_all_tags( decode( $chapter['post_title'] ) ),
 						'number' => $chapter_number,
-						'title' => decode( $chapter_title, false ),
+						'title' => decode( $chapter_title ),
 						'is_new_buckram' => $this->wrapHeaderElements,
 						'output_short_title' => $this->outputShortTitle,
 						'author' => $chapter_author,

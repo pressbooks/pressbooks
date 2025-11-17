@@ -1,7 +1,7 @@
 /* global PB_ColorPicker */
 
 const { __ } = wp.i18n;
-const Coloris = require( '@melloware/coloris' );
+import Coloris from "@melloware/coloris";
 
 jQuery( function ( $ ) {
 	Coloris.init();

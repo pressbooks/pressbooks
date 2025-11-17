@@ -1,4 +1,6 @@
 // This script is loaded when a user is on the [ Theme Options ] page
+import './webcomponents/pressbooks-select.js';
+import "../styles/theme-options.scss";
 
 jQuery( function ( $ ) {
 	let chapter_numbers = $( '#chapter_numbers' );

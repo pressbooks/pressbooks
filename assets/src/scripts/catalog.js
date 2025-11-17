@@ -1,3 +1,4 @@
+import "../styles/catalog.scss"
 jQuery( function ( $ ) {
 	let $container = $( '#catalog-content' );
 	$container.isotope( {

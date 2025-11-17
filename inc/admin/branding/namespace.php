@@ -10,8 +10,6 @@
 
 namespace Pressbooks\Admin\Branding;
 
-use PressbooksMix\Assets;
-
 /**
  * Add `pressbooks` to login body class.
  */
@@ -55,9 +53,11 @@ function custom_color_scheme() {
  * returns a string containing a <link> or <style> tag that supplies your custom logo.
  *
  * TODO: Deprecate & rename. More than just the login logo now.
+ * @throws Exception
  */
 function custom_login_logo() {
-	$assets = new Assets( 'pressbooks', 'plugin' );
+	/** @var Assets $assets */
+	$assets = app( 'Assets' );
 	if ( has_custom_logo() ) {
 		$custom_logo_id = get_theme_mod( 'custom_logo' );
 		$logo = sprintf(
@@ -73,7 +73,7 @@ function custom_login_logo() {
 		);
 	}
 	$style = '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karla:400,400i,700|Spectral:400,400i,600" />';
-	$style .= '<link rel="stylesheet" href="' . $assets->getPath( 'styles/login.css' ) . '" />';
+	$style .= '<link rel="stylesheet" href="' . $assets->getAssetUrl( 'assets/src/styles/login.scss' ) . '" />';
 	$style .= $logo;
 
 	/**
@@ -121,8 +121,7 @@ function login_title() {
  * @return string
  */
 function admin_title( $admin_title ) {
-	$title = str_replace( 'WordPress', 'Pressbooks', $admin_title );
-	return $title;
+	return str_replace( 'WordPress', 'Pressbooks', $admin_title );
 }
 
 /**
@@ -183,8 +182,9 @@ function get_customizer_colors() {
  * @return string
  */
 function login_scripts() {
-	$assets = new Assets( 'pressbooks', 'plugin' );
-	wp_enqueue_script( 'pressbooks-login', $assets->getPath( 'scripts/login.js' ), false, null );
+	/** @var Assets  $assets */
+	$assets = app( 'Assets' );
+	$assets->enqueue( 'assets/src/scripts/login.js', 'pressbooks-login' );
 	wp_localize_script(
 		'pressbooks-login', 'PB_Login', [
 			'logInTitle' => __( 'Log In', 'pressbooks' ),

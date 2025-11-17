@@ -1,5 +1,109 @@
 # Changelog
 
+## [6.34.2](https://github.com/pressbooks/pressbooks/compare/6.34.1...6.34.2) (2025-10-30)
+
+
+### Bug Fixes
+
+* HTML decoding error when cloning Custom CSS within a network (resolves [#4209](https://github.com/pressbooks/pressbooks/issues/4209)) ([#4250](https://github.com/pressbooks/pressbooks/issues/4250)) ([9dc7e9f](https://github.com/pressbooks/pressbooks/commit/9dc7e9f8b5c18a952d9a1d841317efb348d1e6c4))
+* improve file export time precision ([13660eb](https://github.com/pressbooks/pressbooks/commit/13660ebeefb24d768a0b90050ebf8d242bfd1c84))
+* improve file export time precision (resolves [#1869](https://github.com/pressbooks/pressbooks/issues/1869)) ([#4252](https://github.com/pressbooks/pressbooks/issues/4252)) ([13660eb](https://github.com/pressbooks/pressbooks/commit/13660ebeefb24d768a0b90050ebf8d242bfd1c84))
+* remove privacy option on signup ([#4256](https://github.com/pressbooks/pressbooks/issues/4256)) ([c2d7c75](https://github.com/pressbooks/pressbooks/commit/c2d7c759617bd7110889a7d86fe6668821f27402))
+
+
+### Chores
+
+* bump aws/aws-sdk-php from 3.356.41 to 3.356.42 in the composer-dependencies group ([#4254](https://github.com/pressbooks/pressbooks/issues/4254)) ([35f8216](https://github.com/pressbooks/pressbooks/commit/35f821605efc974003aab422a22a554d48309d28))
+* bump aws/aws-sdk-php in the composer-dependencies group ([35f8216](https://github.com/pressbooks/pressbooks/commit/35f821605efc974003aab422a22a554d48309d28))
+* bump the npm-dependencies group with 2 updates ([#4260](https://github.com/pressbooks/pressbooks/issues/4260)) ([b7d66ae](https://github.com/pressbooks/pressbooks/commit/b7d66ae679828913c46043e0612a77c193cf6db5))
+* **l10n:** Updates for project Pressbooks ([#4266](https://github.com/pressbooks/pressbooks/issues/4266)) ([4c4dec2](https://github.com/pressbooks/pressbooks/commit/4c4dec2a423a96834ab6b8ad16e9a6db674d904e))
+* Update PHP version and Ubuntu runner in tests.yml ([#4267](https://github.com/pressbooks/pressbooks/issues/4267)) ([ed56351](https://github.com/pressbooks/pressbooks/commit/ed5635160bcae1ef3b0013e69351c0a8ec386c03))
+
+## [6.34.1](https://github.com/pressbooks/pressbooks/compare/6.34.0...6.34.1) (2025-10-20)
+
+
+### Bug Fixes
+
+* ensure that ampersands remain encoded in XHTML (resolves [#4223](https://github.com/pressbooks/pressbooks/issues/4223)) ([#4247](https://github.com/pressbooks/pressbooks/issues/4247)) ([c019bbf](https://github.com/pressbooks/pressbooks/commit/c019bbf62ae8c2cc1fab40b41547ab3cc2785f9a))
+* ensure that ampersands retain entity encoding in XHTML (resolves [#4223](https://github.com/pressbooks/pressbooks/issues/4223)) ([c019bbf](https://github.com/pressbooks/pressbooks/commit/c019bbf62ae8c2cc1fab40b41547ab3cc2785f9a))
+* resolve issue where span tag is output in book chapters (resolves [#4224](https://github.com/pressbooks/pressbooks/issues/4224)) ([#4245](https://github.com/pressbooks/pressbooks/issues/4245)) ([f8f6d7b](https://github.com/pressbooks/pressbooks/commit/f8f6d7bc3baeb7cedd5b6ad5a0e4e14ac12a9827))
+
+
+### Chores
+
+* bump the composer-dependencies group across 1 directory with 2 updates ([#4222](https://github.com/pressbooks/pressbooks/issues/4222)) ([a3d97f0](https://github.com/pressbooks/pressbooks/commit/a3d97f03a2edd7738340b2847e30bddb86444f79))
+* **deps:** use published snordian/h5p-extractor package (fix [#4189](https://github.com/pressbooks/pressbooks/issues/4189)) ([#4246](https://github.com/pressbooks/pressbooks/issues/4246)) ([497c04d](https://github.com/pressbooks/pressbooks/commit/497c04d5d33595d18abe646b6168611ced07583e))
+
+## [6.34.0](https://github.com/pressbooks/pressbooks/compare/6.33.0...6.34.0) (2025-10-09)
+
+
+### Features
+
+* add Contributors as an allowed front matter type ([#4231](https://github.com/pressbooks/pressbooks/issues/4231)) ([d15c110](https://github.com/pressbooks/pressbooks/commit/d15c11002ae290a4cd8afa71983be4617a69798e))
+* add publication date collector ([#4237](https://github.com/pressbooks/pressbooks/issues/4237)) ([6ea1e8b](https://github.com/pressbooks/pressbooks/commit/6ea1e8b82d6a87448c5bea9078fc85aea8f477cf))
+
+
+### Chores
+
+* update code of conduct ([#4242](https://github.com/pressbooks/pressbooks/issues/4242)) ([6c3d4b9](https://github.com/pressbooks/pressbooks/commit/6c3d4b98c9a499355695ade88801a6f79bf43fff))
+* update contributor guidelines ([#4240](https://github.com/pressbooks/pressbooks/issues/4240)) ([8a1af10](https://github.com/pressbooks/pressbooks/commit/8a1af10f3ecf39a051e4ff774901a38aa755b254))
+* update readme and WP compatibility ([#4168](https://github.com/pressbooks/pressbooks/issues/4168)) ([2a16ae4](https://github.com/pressbooks/pressbooks/commit/2a16ae4e4e9e0a9bddd4d578307c31c2a63fc93c))
+
+## [6.33.0](https://github.com/pressbooks/pressbooks/compare/6.32.0...6.33.0) (2025-10-06)
+
+
+### Features
+
+* expose latest files field in api ([#4234](https://github.com/pressbooks/pressbooks/issues/4234)) ([a4e0747](https://github.com/pressbooks/pressbooks/commit/a4e0747d03ec46946ac77749e3386628ea10cd17))
+
+
+### Bug Fixes
+
+* a11y issues for PB logo and clone a book page ([#4221](https://github.com/pressbooks/pressbooks/issues/4221)) ([e8530d1](https://github.com/pressbooks/pressbooks/commit/e8530d120fa1039ae7fd0147304ae0853e5db22c))
+* add aria-labels to code editor buttons which lack them ([#4233](https://github.com/pressbooks/pressbooks/issues/4233)) ([b75a383](https://github.com/pressbooks/pressbooks/commit/b75a383e806216f87b51b19e883793e7cc384310))
+* change default pdf_hyphens value ([#4227](https://github.com/pressbooks/pressbooks/issues/4227)) ([189c300](https://github.com/pressbooks/pressbooks/commit/189c3005d08cd2f9078c6229e681a6f82437549c))
+
+
+### Chores
+
+* remove O'Reilly as book sales option ([#4232](https://github.com/pressbooks/pressbooks/issues/4232)) ([7fc36a4](https://github.com/pressbooks/pressbooks/commit/7fc36a4bdd2b2d93a7beaf12787144bfc8ab8ea4))
+
+## [6.32.0](https://github.com/pressbooks/pressbooks/compare/6.31.6...6.32.0) (2025-09-24)
+
+
+### Features
+
+* add new icon bridge ([#4216](https://github.com/pressbooks/pressbooks/issues/4216)) ([c5b5848](https://github.com/pressbooks/pressbooks/commit/c5b58486bc1d6c96888cec0cbcc3ae48ce493dce))
+
+## [6.31.6](https://github.com/pressbooks/pressbooks/compare/6.31.5...6.31.6) (2025-09-24)
+
+
+### Bug Fixes
+
+* top bar visualization under specific breakpoints ([#4211](https://github.com/pressbooks/pressbooks/issues/4211)) ([2a91828](https://github.com/pressbooks/pressbooks/commit/2a9182846718033e2e3afe5e99db0ed672bbacf4))
+
+
+### Chores
+
+* add tinymce to dependabot ignore list ([#4213](https://github.com/pressbooks/pressbooks/issues/4213)) ([4dc84ee](https://github.com/pressbooks/pressbooks/commit/4dc84ee48c9a681acbf0857fd6f5230d633f903d))
+
+## [6.31.5](https://github.com/pressbooks/pressbooks/compare/6.31.4...6.31.5) (2025-09-23)
+
+
+### Bug Fixes
+
+* preserve attachments metadata during cloning ([#4194](https://github.com/pressbooks/pressbooks/issues/4194)) ([a18c0ea](https://github.com/pressbooks/pressbooks/commit/a18c0ea68a7a05045a7a64ee901da002edaa4977))
+
+
+### Chores
+
+* bump alpinejs from 3.14.9 to 3.15.0 in the npm-dependencies group ([#4195](https://github.com/pressbooks/pressbooks/issues/4195)) ([fc65d54](https://github.com/pressbooks/pressbooks/commit/fc65d54c271d4f82f55afd215d6fb1ee154ee679))
+* bump aws/aws-sdk-php from 3.356.12 to 3.356.17 in the composer-dependencies group ([#4204](https://github.com/pressbooks/pressbooks/issues/4204)) ([6a4d035](https://github.com/pressbooks/pressbooks/commit/6a4d0358d6c9c6829b935d8e2d06606261a7b9e6))
+* bump aws/aws-sdk-php in the composer-dependencies group ([6a4d035](https://github.com/pressbooks/pressbooks/commit/6a4d0358d6c9c6829b935d8e2d06606261a7b9e6))
+* bump the composer-dependencies group across 1 directory with 3 updates ([#4196](https://github.com/pressbooks/pressbooks/issues/4196)) ([d76e6f4](https://github.com/pressbooks/pressbooks/commit/d76e6f4de9554d6d6feeb0894d0efb0aee23f177))
+* **deps:** bump @pressbooks/select to 1.0.2 ([#4203](https://github.com/pressbooks/pressbooks/issues/4203)) ([7070c6c](https://github.com/pressbooks/pressbooks/commit/7070c6c0d4ede01edaf676b1c64f323ffb8158dc))
+* **deps:** replace @pressbooks/multiselect with @pressbooks/select ([#4188](https://github.com/pressbooks/pressbooks/issues/4188)) ([c758d0a](https://github.com/pressbooks/pressbooks/commit/c758d0a112f44fc12815f33dcb44f27b7a140490))
+
 ## [6.31.4](https://github.com/pressbooks/pressbooks/compare/6.31.3...6.31.4) (2025-08-25)
 
 

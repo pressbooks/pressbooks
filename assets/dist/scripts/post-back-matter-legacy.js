@@ -1,2 +1,0 @@
-System.register([],function(e,t){"use strict";return{execute:function(){jQuery(document).ready(function(e){let t=e("#pb-post-type-notice");e("#back-matter-typedropdown").on("change",function(){parseInt(this.value,10)===parseInt(PB_GlossaryToken.term_id,10)?(t.html("<p>"+PB_GlossaryToken.term_notice+"</p>"),t.show()):(t.html(""),t.hide())})})}}});
-//# sourceMappingURL=post-back-matter-legacy.js.map

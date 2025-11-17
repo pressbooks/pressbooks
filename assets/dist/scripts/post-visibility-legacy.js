@@ -1,2 +1,0 @@
-System.register([],function(e,s){"use strict";return{execute:function(){jQuery(document).ready(function(e){let s=e("#web_visibility"),o=e("#require_password");s.is(":checked")?e("#pb-password-protected").show():e("#pb-password-protected").hide(),o.is(":checked")?e("#post_password").show():e("#post_password").hide(),s.on("change",function(){this.checked?e("#pb-password-protected").show():e("#pb-password-protected").hide()}),o.on("change",function(){this.checked?e("#post_password").show():e("#post_password").hide()})})}}});
-//# sourceMappingURL=post-visibility-legacy.js.map
