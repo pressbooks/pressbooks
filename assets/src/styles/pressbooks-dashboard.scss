@@ -185,6 +185,14 @@
       margin-top: 1em;
     }
 
+    a {
+      color: $monza;
+    }
+
+    a:hover, a:focus {
+      color: darken($monza, 10%);
+    }
+
     .pb-dashboard-flex {
       display: flex;
       gap: 2rem;
