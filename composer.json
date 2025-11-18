@@ -33,8 +33,8 @@
 			"url": "https://github.com/otacke/H5PExtractor"
 		},
     {
-      "type": "path",
-      "url": "/Users/arzola/code/opensource/pressbooks-frontend-tools"
+      "type": "vcs",
+      "url": "https://github.com/pressbooks/frontend-tools"
     }
   ],
 	"require": {
