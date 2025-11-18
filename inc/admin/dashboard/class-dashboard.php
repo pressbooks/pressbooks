@@ -2,8 +2,6 @@
 
 namespace Pressbooks\Admin\Dashboard;
 
-use PressbooksFrontendTools\Assets;
-
 abstract class Dashboard {
 	protected static ?Dashboard $instance = null;
 
@@ -67,7 +65,7 @@ abstract class Dashboard {
 	public function enqueueStyles( string $page ): void {
 		add_action( "admin_print_styles-{$page}", function() {
 			/** @var Assets $assets */
-			$assets = app('Assets');
+			$assets = app( 'Assets' );
 			$assets->enqueue( 'assets/src/scripts/dashboard.js', 'pb-book-dashboard' );
 		} );
 	}

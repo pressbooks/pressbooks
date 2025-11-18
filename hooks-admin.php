@@ -5,11 +5,11 @@
  * @license GPLv3 (or any later version)
  */
 
+use function Pressbooks\Admin\Fonts\update_font_stacks;
 use Pressbooks\Admin\Menus\SideBar;
 use Pressbooks\Admin\Menus\TopBar;
 use Pressbooks\Admin\Users\User;
 use Pressbooks\Book;
-use function Pressbooks\Admin\Fonts\update_font_stacks;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

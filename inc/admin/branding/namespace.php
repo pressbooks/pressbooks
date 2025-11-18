@@ -10,8 +10,6 @@
 
 namespace Pressbooks\Admin\Branding;
 
-use PressbooksFrontendTools\Assets;
-
 /**
  * Add `pressbooks` to login body class.
  */

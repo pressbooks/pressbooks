@@ -9,7 +9,6 @@ namespace Pressbooks\Shortcodes\Glossary;
 use Pressbooks\MathJax;
 use Pressbooks\PostType\FrontOrBackMatter;
 use Pressbooks\Utility\AutoDisplayable;
-use PressbooksFrontendTools\Assets;
 use WP_Post;
 
 class Glossary implements FrontOrBackMatter {
@@ -82,7 +81,7 @@ class Glossary implements FrontOrBackMatter {
 	public function addTooltipScripts(): void {
 		if ( ! is_admin() ) {
 			/** @var Assets  $assets */
-			$assets = app('Assets');
+			$assets = app( 'Assets' );
 			$assets->enqueue( 'assets/src/scripts/glossary-definition.js', 'glossary-definition' );
 		}
 	}

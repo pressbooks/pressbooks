@@ -14,8 +14,6 @@
 
 namespace Pressbooks\Modules\SearchAndReplace;
 
-use PressbooksFrontendTools\Assets;
-
 class SearchAndReplace {
 
 	/**
@@ -53,8 +51,8 @@ class SearchAndReplace {
 	public function searchHead() {
 		/** @var Assets $assets */
 		$assets = app( 'Assets' );
-		$assets->enqueue('assets/src/scripts/search-and-replace.js','search-and-replace');
-		wp_localize_script('search-and-replace', 'pb_sr', $this->getL10n());
+		$assets->enqueue( 'assets/src/scripts/search-and-replace.js', 'search-and-replace' );
+		wp_localize_script( 'search-and-replace', 'pb_sr', $this->getL10n() );
 	}
 
 	/**

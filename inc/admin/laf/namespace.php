@@ -14,7 +14,6 @@
 
 namespace Pressbooks\Admin\Laf;
 
-use PressbooksFrontendTools\Assets;
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use function Pressbooks\Modules\Export\template_data;
 use function Pressbooks\PostType\get_post_type_label;
@@ -125,7 +124,7 @@ function replace_book_admin_menu() {
 	// Note:
 	// If $menu_slug is a URL and the URL has an ampersand in it make sure you use &amp; (and not simply &) so that aria-current works
 	/** @var Assets $assets */
-	$assets = app('Assets');
+	$assets = app( 'Assets' );
 	// Remove items we don't want the user to see.
 	remove_submenu_page( 'index.php', 'my-sites.php' );
 	remove_submenu_page( 'options-general.php', 'options-general.php' );
@@ -152,7 +151,7 @@ function replace_book_admin_menu() {
 		'admin_enqueue_scripts', function ( $hook ) use ( $organize_page, $assets ) {
 			if ( $hook === $organize_page ) {
 				wp_enqueue_script( 'jquery-blockui' );
-				$assets->enqueue('assets/src/scripts/organize.js', 'pb-organize',[
+				$assets->enqueue('assets/src/scripts/organize.js', 'pb-organize', [
 					'dependencies' => [ 'jquery', 'jquery-ui-core', 'jquery-ui-sortable', 'jquery-blockui' ],
 				]);
 				wp_localize_script(
@@ -289,7 +288,7 @@ function replace_book_admin_menu() {
 	$book_info_url = book_info_slug();
 	$bookinfo_page = add_menu_page( esc_html__( 'Book Info', 'pressbooks' ), esc_html__( 'Book Info', 'pressbooks' ), 'manage_options', $book_info_url, '', 'dashicons-info', 12 );
 	add_action(
-		'admin_enqueue_scripts', function ( $hook ) use ( $bookinfo_page, $assets) {
+		'admin_enqueue_scripts', function ( $hook ) use ( $bookinfo_page, $assets ) {
 			if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
 				$post_type = get_post_type();
 				if ( 'metadata' === $post_type ) {
@@ -316,7 +315,7 @@ function replace_book_admin_menu() {
 			if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
 				$post_type = get_post_type();
 				if ( in_array( $post_type, [ 'metadata', 'front-matter', 'chapter', 'back-matter' ], true ) ) {
-					$assets->enqueue('assets/src/scripts/webcomponents/pressbooks-select.js','pressbooks-select');
+					$assets->enqueue( 'assets/src/scripts/webcomponents/pressbooks-select.js', 'pressbooks-select' );
 				}
 			}
 		}
@@ -341,7 +340,7 @@ function replace_book_admin_menu() {
 						'option' => 'pb_export_per_page',
 					]
 				);
-				$assets->enqueue('assets/src/scripts/export.js', 'pb-export');
+				$assets->enqueue( 'assets/src/scripts/export.js', 'pb-export' );
 				wp_localize_script(
 					'pb-export', 'PB_ExportToken', [
 						'ajaxUrl' => admin_url( 'admin-ajax.php' ),
@@ -649,7 +648,7 @@ function fix_root_admin_menu() {
 function add_pb_cloner_page() {
 	if ( Cloner::isEnabled() && ( can_create_new_books() || is_super_admin() ) ) {
 		/** @var Assets $assets */
-		$assets = app('Assets');
+		$assets = app( 'Assets' );
 		$cloner_page = add_submenu_page(
 			'pb-null',
 			esc_html__( 'Clone a Book', 'pressbooks' ),
@@ -1146,7 +1145,7 @@ function init_css_js(): void {
 	);
 
 	$assets->enqueue('assets/src/scripts/pressbooks.js', 'pressbooks-admin', [
-		'dependencies' => [ 'jquery', 'jquery-ui-core' ]
+		'dependencies' => [ 'jquery', 'jquery-ui-core' ],
 	]);
 
 	// Don't let other plugins override our scripts
