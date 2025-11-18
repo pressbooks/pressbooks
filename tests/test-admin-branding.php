@@ -14,7 +14,7 @@ class Admin_BrandingTest extends \WP_UnitTestCase {
 	 */
 	public function test_custom_color_scheme() {
 		update_option( 'pb_network_color_primary', '#663399' );
-		$this->expectOutputRegex( '/<style type="text\/css">/' );
+		$this->expectOutputRegex( '/<style>/' );
 		custom_color_scheme();
 	}
 
