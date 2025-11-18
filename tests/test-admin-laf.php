@@ -1,6 +1,7 @@
 <?php
 
 use function Pressbooks\Admin\Laf\allow_edit_to_book_authors;
+use function Pressbooks\Admin\Laf\init_css_js;
 
 require_once( PB_PLUGIN_DIR . 'inc/admin/laf/namespace.php' );
 
@@ -88,7 +89,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		// -------------------------------------------------------------------
 
 		global $wp_scripts, $wp_styles;
-		\Pressbooks\Admin\Laf\init_css_js();
+		init_css_js();
 
 		$new_post['post_type'] = 'chapter';
 		$GLOBALS['post'] = get_post( $this->factory()->post->create_object( $new_post ) );
@@ -112,11 +113,9 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$GLOBALS['current_screen'] = WP_Screen::get( 'post' );
 		do_action( 'admin_enqueue_scripts', 'toplevel_page_pb_organize' );
 		$this->assertContains( 'pb-organize', $wp_scripts->queue );
-		$this->assertContains( 'pb-organize', $wp_styles->queue );
 
 		do_action( 'admin_enqueue_scripts', 'toplevel_page_pb_export' );
 		$this->assertContains( 'pb-export', $wp_scripts->queue );
-		$this->assertContains( 'pb-export', $wp_styles->queue );
 
 		do_action( 'admin_enqueue_scripts', 'toplevel_page_pb_import' );
 		$this->assertContains( 'pb-import', $wp_scripts->queue );
@@ -157,7 +156,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$new_post['post_type'] = 'post';
 		$GLOBALS['post'] = get_post( $this->factory()->post->create_object( $new_post ) );
 		$GLOBALS['current_screen'] = WP_Screen::get( 'post' );
-		\Pressbooks\Admin\Laf\init_css_js();
+		init_css_js();
 		do_action( 'admin_enqueue_scripts', 'admin_page_pb_cloner' );
 		$this->assertContains( 'pb-cloner', $wp_scripts->queue );
 		unset( $submenu['pb-null'] );

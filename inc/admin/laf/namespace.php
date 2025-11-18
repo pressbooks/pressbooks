@@ -268,18 +268,24 @@ function replace_book_admin_menu() {
 	add_submenu_page( 'pb_organize', esc_html__( 'Trash' ), esc_html__( 'Trash' ), 'delete_posts', 'pb_trash', __NAMESPACE__ . '\display_trash' );
 
 	add_action(
-		'admin_enqueue_scripts', function ( $hook ) {
+		'admin_enqueue_scripts', function ( $hook ) use ( $assets ) {
 			if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
 				$post_type = get_post_type();
 				if ( in_array( $post_type, [ 'front-matter', 'chapter', 'back-matter' ], true ) ) {
 					// post-visibility.js
-					wp_enqueue_script( 'pb-post-visibility' );
+					$assets->enqueue('assets/src/scripts/post-visibility.js', 'pb-post-visibility', [
+						'dependencies' => [ 'jquery' ],
+					]);
 				}
 				if ( in_array( $post_type, [ 'back-matter' ], true ) ) {
 					// post-back-matter.js
-					wp_enqueue_script( 'pb-post-back-matter' );
+					$assets->enqueue('assets/src/scripts/post-back-matter.js', 'pb-post-back-matter', [
+						'dependencies' => [ 'jquery', 'editor' ],
+					]);
 				}
-				wp_enqueue_script( 'pb-post-mathjax' );
+				$assets->enqueue('assets/src/scripts/post-mathjax.js', 'pb-post-mathjax', [
+					'dependencies' => [ 'jquery' ],
+				]);
 			}
 		}
 	);
@@ -383,8 +389,9 @@ function replace_book_admin_menu() {
 	// Import
 	$import_page = add_menu_page( esc_html__( 'Import', 'pressbooks' ), esc_html__( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import', 'dashicons-migrate', 16 );
 	add_action(
-		'admin_enqueue_scripts', function ( $hook ) use ( $import_page ) {
+		'admin_enqueue_scripts', function ( $hook ) use ( $import_page, $assets ) {
 			if ( $hook === $import_page ) {
+				$assets->enqueue( 'assets/src/scripts/import.js', 'pb-import' );
 				wp_localize_script(
 					'pb-import', 'PB_ImportToken', [
 						'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=import-book' ), 'pb-import' ),
@@ -394,7 +401,6 @@ function replace_book_admin_menu() {
 						'ajaxSubmitMsg' => esc_html__( 'Saving settings', 'pressbooks' ),
 					]
 				);
-				wp_enqueue_script( 'pb-import' );
 				wp_deregister_script( 'heartbeat' );
 			}
 		}
