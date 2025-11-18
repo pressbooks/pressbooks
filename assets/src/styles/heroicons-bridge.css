@@ -75,12 +75,13 @@
 }
 
 /* H5P Menu Icon */
-#toplevel_page_h5p .wp-menu-image::before {
+li#toplevel_page_h5p .wp-menu-image:before {
+	font-family: heroicons, serif !important;
 	content: var(--heroicon-H5P) !important;
 }
 
 /* TablePress Menu Icon */
-#toplevel_page_tablepress .wp-menu-image::before {
+#toplevel_page_tablepress .wp-menu-image:before {
 	content: var(--heroicon-outline-table-cells) !important;
 }
 

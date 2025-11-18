@@ -55,7 +55,7 @@
     "isEntry": true
   },
   "assets/src/scripts/book-information.js": {
-    "file": "assets/book-information-D1VmulGL.js",
+    "file": "assets/book-information-W4H8OKaz.js",
     "name": "book-information",
     "src": "assets/src/scripts/book-information.js",
     "isEntry": true,
@@ -221,12 +221,12 @@
     "isEntry": true
   },
   "assets/src/scripts/pressbooks.js": {
-    "file": "assets/pressbooks-CAWhDykW.js",
+    "file": "assets/pressbooks-vnlsuACZ.js",
     "name": "pressbooks",
     "src": "assets/src/scripts/pressbooks.js",
     "isEntry": true,
     "css": [
-      "assets/pressbooks-BWtGZRtL.css"
+      "assets/pressbooks-IftObhNv.css"
     ],
     "assets": [
       "assets/heroicons-CVYPToTZ.eot",
