@@ -1120,7 +1120,7 @@ function init_css_js(): void {
 	wp_enqueue_script( 'jquery-ui-core' );
 
 	wp_admin_css_color(
-		'pb_colors', 'Pressbooks', $assets->getAssetUrl( 'assets/src/styles/colors-pb.scss' ), apply_filters(
+		'pb_colors', 'Pressbooks', $assets->getPath( 'styles/colors-pb.css' ), apply_filters(
 			'pressbooks_admin_colors', [
 				'#b40026',
 				'#d4002d',
