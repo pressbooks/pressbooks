@@ -68,10 +68,13 @@
     ]
   },
   "assets/src/scripts/catalog.js": {
-    "file": "assets/catalog-CeH5PFgw.js",
+    "file": "assets/catalog-CXjmpA8I.js",
     "name": "catalog",
     "src": "assets/src/scripts/catalog.js",
     "isEntry": true,
+    "imports": [
+      "assets/src/scripts/small-menu.js"
+    ],
     "css": [
       "assets/catalog-DiDkUA-X.css"
     ],

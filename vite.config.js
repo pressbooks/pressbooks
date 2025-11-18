@@ -55,7 +55,11 @@ export default createWpViteConfig({
 		{
 			src: 'node_modules/block-ui/jquery.blockUI.js',
 			dest: 'scripts',
-		}
+		},
+		{
+			src: 'node_modules/pagedjs/dist/paged.polyfill.js',
+			dest: 'scripts',
+		},
 	],
 	outDir: 'assets/dist'
 });

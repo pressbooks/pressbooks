@@ -1,4 +1,8 @@
 import "../styles/catalog.scss"
+import 'isotope-layout/js/isotope'
+import './small-menu'
+import 'jquery-match-height/dist/jquery.matchHeight.js'
+
 jQuery( function ( $ ) {
 	let $container = $( '#catalog-content' );
 	$container.isotope( {
