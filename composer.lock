@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8b49dba1f676ba22a3f6943c3340751a",
+    "content-hash": "2208e8e5f5adea553fccb2c477c21ba8",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -3173,10 +3173,16 @@
         {
             "name": "pressbooks/frontend-tools",
             "version": "dev-dev",
-            "dist": {
-                "type": "path",
-                "url": "/Users/arzola/code/opensource/pressbooks-frontend-tools",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pressbooks/frontend-tools.git",
                 "reference": "aed40e002d322749bba02e28a516d4076e1ce85a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pressbooks/frontend-tools/zipball/aed40e002d322749bba02e28a516d4076e1ce85a",
+                "reference": "aed40e002d322749bba02e28a516d4076e1ce85a",
+                "shasum": ""
             },
             "require": {
                 "kucrut/vite-for-wp": "^0.11.4"
@@ -3184,6 +3190,7 @@
             "require-dev": {
                 "laravel/pint": "^1.0"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -3211,9 +3218,11 @@
                     "email": "os@pressbooks.com"
                 }
             ],
-            "transport-options": {
-                "relative": false
-            }
+            "support": {
+                "source": "https://github.com/pressbooks/frontend-tools/tree/dev",
+                "issues": "https://github.com/pressbooks/frontend-tools/issues"
+            },
+            "time": "2025-11-17T22:37:31+00:00"
         },
         {
             "name": "pressbooks/pb-cli",
