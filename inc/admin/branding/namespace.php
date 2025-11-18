@@ -164,7 +164,7 @@ function get_customizer_colors() {
 	}
 	$output = '';
 	if ( ! empty( $values ) ) {
-		$output .= '<style type="text/css">:root{';
+		$output .= '<style>:root{';
 		foreach ( $values as $k => $v ) {
 			$k = str_replace( '_', '-', $k );
 			$output .= "--$k:$v;";
