@@ -17,4 +17,4 @@ tx
 LICENSE
 /.claude
 old-tests
-assets/dist/vite-dev-server.json
+vite-dev-server.json
