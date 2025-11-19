@@ -3,7 +3,7 @@
 import algoliasearch from 'algoliasearch/lite';
 import instantsearch from 'instantsearch.js';
 import { searchBox, hits, stats } from 'instantsearch.js/es/widgets';
-import "../styles/cloner.scss"
+import '../styles/cloner.scss';
 
 const searchClient = algoliasearch( PBAlgolia.applicationId, PBAlgolia.apiKey );
 

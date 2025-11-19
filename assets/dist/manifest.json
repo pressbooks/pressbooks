@@ -34,7 +34,7 @@
     "isEntry": true
   },
   "assets/src/scripts/algolia-search.js": {
-    "file": "assets/algolia-search-DbI9FV7h.js",
+    "file": "assets/algolia-search-OAImjdYa.js",
     "name": "algolia-search",
     "src": "assets/src/scripts/algolia-search.js",
     "isEntry": true,
@@ -55,7 +55,7 @@
     "isEntry": true
   },
   "assets/src/scripts/book-information.js": {
-    "file": "assets/book-information-W4H8OKaz.js",
+    "file": "assets/book-information-DEWwuNKk.js",
     "name": "book-information",
     "src": "assets/src/scripts/book-information.js",
     "isEntry": true,
@@ -64,7 +64,7 @@
       "_lit-element-DwTj7qCT.js"
     ],
     "css": [
-      "assets/book-information-BqTYzNno.css"
+      "assets/book-information-CCL6ZHe4.css"
     ]
   },
   "assets/src/scripts/catalog.js": {
@@ -131,7 +131,7 @@
     "isEntry": true
   },
   "assets/src/scripts/export.js": {
-    "file": "assets/export-CsI7BrKB.js",
+    "file": "assets/export-CKOjqNXP.js",
     "name": "export",
     "src": "assets/src/scripts/export.js",
     "isEntry": true,
@@ -224,12 +224,12 @@
     "isEntry": true
   },
   "assets/src/scripts/pressbooks.js": {
-    "file": "assets/pressbooks-vnlsuACZ.js",
+    "file": "assets/pressbooks-C41HkRJV.js",
     "name": "pressbooks",
     "src": "assets/src/scripts/pressbooks.js",
     "isEntry": true,
     "css": [
-      "assets/pressbooks-IftObhNv.css"
+      "assets/pressbooks-CSu8XMbT.css"
     ],
     "assets": [
       "assets/heroicons-CVYPToTZ.eot",

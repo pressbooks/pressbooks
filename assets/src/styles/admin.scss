@@ -52,7 +52,7 @@ html #wpadminbar {
   background: inherit;
 }
 
-#wpadminbar:not(.mobile) .ab-top-menu > #wp-admin-bar-pb-logo:hover .ab-icon:before {
+#wpadminbar:not(.mobile) .ab-top-menu > #wp-admin-bar-pb-logo:hover .ab-icon::before {
   color: #fff;
 }
 
@@ -284,7 +284,7 @@ html #wpadminbar {
 
   #wpadminbar #wp-toolbar .ab-icon,
   #wpadminbar #wp-toolbar #wp-admin-bar-menu-toggle .ab-icon::before {
-    font: var(--pb-toolbar-icon-size)/1 dashicons !important;
+    font: var(--pb-toolbar-icon-size) dashicons !important;
     height: var(--pb-toolbar-icon-size);
     width: var(--pb-toolbar-icon-size);
   }

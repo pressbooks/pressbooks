@@ -1,1 +1,1 @@
-import "../styles/pressbooks-dashboard.scss";
+import '../styles/pressbooks-dashboard.scss';
