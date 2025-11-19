@@ -57,12 +57,12 @@ add_filter( 'ms_site_check', function() {
 	}
 
 	$site_details = get_blog_details();
-	
+
 	// If this book is archived and public=1, allow access (archived books remain accessible with banner)
 	if ( ! empty( $site_details->archived ) && '1' === $site_details->archived && ! empty( $site_details->public ) && '1' === $site_details->public ) {
 		return true;
 	}
-	
+
 	// Let WordPress handle normal archived/spam/deleted checks
 	return null;
 }, 1 );
