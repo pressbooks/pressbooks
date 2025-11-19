@@ -68,7 +68,7 @@
     ]
   },
   "assets/src/scripts/catalog.js": {
-    "file": "assets/catalog-CXjmpA8I.js",
+    "file": "assets/catalog-Hi5iKLE8.js",
     "name": "catalog",
     "src": "assets/src/scripts/catalog.js",
     "isEntry": true,
@@ -76,7 +76,7 @@
       "assets/src/scripts/small-menu.js"
     ],
     "css": [
-      "assets/catalog-DiDkUA-X.css"
+      "assets/catalog-MXHUcVWn.css"
     ],
     "assets": [
       "assets/catalog-page-BIQTTih7.svg"
@@ -116,12 +116,12 @@
     ]
   },
   "assets/src/scripts/dashboard.js": {
-    "file": "assets/dashboard-DZT2zMZQ.js",
+    "file": "assets/dashboard-CzvLK1lQ.js",
     "name": "dashboard",
     "src": "assets/src/scripts/dashboard.js",
     "isEntry": true,
     "css": [
-      "assets/dashboard-BohDkKXv.css"
+      "assets/dashboard-B35AMbUw.css"
     ]
   },
   "assets/src/scripts/export-footnotes.js": {
@@ -197,12 +197,12 @@
     ]
   },
   "assets/src/scripts/organize.js": {
-    "file": "assets/organize-BtLtoQai.js",
+    "file": "assets/organize-BKkWcT9c.js",
     "name": "organize",
     "src": "assets/src/scripts/organize.js",
     "isEntry": true,
     "css": [
-      "assets/organize-CkEE9N0v.css"
+      "assets/organize-UhsomMve.css"
     ]
   },
   "assets/src/scripts/post-back-matter.js": {
@@ -224,12 +224,12 @@
     "isEntry": true
   },
   "assets/src/scripts/pressbooks.js": {
-    "file": "assets/pressbooks-C41HkRJV.js",
+    "file": "assets/pressbooks-Ceo6eJp5.js",
     "name": "pressbooks",
     "src": "assets/src/scripts/pressbooks.js",
     "isEntry": true,
     "css": [
-      "assets/pressbooks-CSu8XMbT.css"
+      "assets/pressbooks-U-AvLBFx.css"
     ],
     "assets": [
       "assets/heroicons-CVYPToTZ.eot",
@@ -284,7 +284,7 @@
     "isEntry": true
   },
   "assets/src/scripts/theme-options.js": {
-    "file": "assets/theme-options-DpTu4KeV.js",
+    "file": "assets/theme-options-Cr70yum1.js",
     "name": "theme-options",
     "src": "assets/src/scripts/theme-options.js",
     "isEntry": true,
@@ -293,7 +293,7 @@
       "_lit-element-DwTj7qCT.js"
     ],
     "css": [
-      "assets/theme-options-C43sVRx0.css"
+      "assets/theme-options-ClJSavZj.css"
     ]
   },
   "assets/src/scripts/webcomponents/pressbooks-reorderable-multiselect.js": {
@@ -324,7 +324,7 @@
     ]
   },
   "assets/src/styles/colors-pb.scss": {
-    "file": "assets/colors-pb-styles-CuwQixf8.css",
+    "file": "assets/colors-pb-styles-DLxg-MEI.css",
     "src": "assets/src/styles/colors-pb.scss",
     "isEntry": true,
     "name": "colors-pb-styles",
