@@ -1874,7 +1874,8 @@ function block_metadata_add_new_page() {
 	if ( 'post-new.php' === $pagenow && isset( $_GET['post_type'] ) && 'metadata' === $_GET['post_type'] ) {
 
 		// Redirect to the allowed book info page instead
-		wp_redirect( admin_url( 'post.php?post=12&action=edit' ) );
+		$metadataPostId = ( new Metadata )->getMetaPostId();
+		wp_redirect( admin_url( "post.php?post={$metadataPostId}&action=edit" ) );
 		exit;
 	}
 }
