@@ -12,3 +12,4 @@ require_once( __DIR__ . '/inc/admin/fonts/namespace.php' );
 require_once( __DIR__ . '/inc/admin/laf/namespace.php' );
 require_once( __DIR__ . '/inc/admin/metaboxes/namespace.php' );
 require_once( __DIR__ . '/inc/admin/organize/namespace.php' );
+require_once( __DIR__ . '/inc/modules/export/marc/namespace.php' );
