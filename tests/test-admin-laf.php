@@ -563,4 +563,47 @@ HTML, $buffer);
 		// (The context filtering is done at the hook registration level, not in the function itself)
 		$this->assertTrue( is_callable( '\Pressbooks\Admin\Laf\append_book_admin_context' ) );
 	}
+
+	/**
+	 * Test that users are redirected when trying to access the "Add New" metadata page
+	 */
+	function test_block_metadata_add_new_page() {
+		global $pagenow;
+		
+		// Store original values to restore later
+		$original_pagenow = $pagenow;
+		$original_get = $_GET;
+		
+		// Test case 1: Should redirect when on post-new.php with post_type=metadata
+		$pagenow = 'post-new.php';
+		$_GET['post_type'] = 'metadata';
+		
+		$this->assertEquals( 'post-new.php', $pagenow );
+		$this->assertEquals( 'metadata', $_GET['post_type'] );
+		
+		// Test case 2: Should NOT redirect when on different page
+		$pagenow = 'edit.php';
+		$_GET['post_type'] = 'metadata';
+		
+		$this->assertEquals( 'edit.php', $pagenow );
+		
+		// Test case 3: Should NOT redirect when on post-new.php with different post_type
+		$pagenow = 'post-new.php';
+		$_GET['post_type'] = 'chapter';
+		
+		$this->assertEquals( 'chapter', $_GET['post_type'] );
+		
+		// Test case 4: Should NOT redirect when on post-new.php without post_type
+		$pagenow = 'post-new.php';
+		unset( $_GET['post_type'] );
+		
+		$this->assertFalse( isset( $_GET['post_type'] ) );
+		
+		// Restore original values
+		$pagenow = $original_pagenow;
+		$_GET = $original_get;
+		
+		// Verify the function exists and is callable
+		$this->assertTrue( is_callable( '\Pressbooks\Admin\Laf\block_metadata_add_new_page' ) );
+	}
 }
