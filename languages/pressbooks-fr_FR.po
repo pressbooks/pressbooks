@@ -935,7 +935,7 @@ msgstr "Cette exportation est actuellement en cours"
 
 #: inc/admin/laf/namespace.php:366
 msgid "Completed"
-msgstr ""
+msgstr "Terminé"
 
 #: inc/admin/laf/namespace.php:385 inc/utility/class-handlestransfers.php:88
 #: templates/admin/import.php:38 templates/admin/import.php:114
@@ -3118,7 +3118,7 @@ msgstr ""
 
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:125
 msgid "Preparing export..."
-msgstr ""
+msgstr "Préparation de l'exportation ..."
 
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:147
 msgid "Converting content"
@@ -3237,11 +3237,11 @@ msgstr ""
 
 #: inc/modules/export/epub/class-epub.php:661
 msgid "Export successful with validation warnings!"
-msgstr ""
+msgstr "Exportation réussie avec des avertissements de validation!"
 
 #: inc/modules/export/epub/class-epub.php:663
 msgid "Export successful!"
-msgstr ""
+msgstr "Exportation réussie"
 
 #: inc/modules/export/epub/class-epub.php:960
 msgid "Compiling styles"
@@ -3429,7 +3429,7 @@ msgstr ""
 
 #: inc/modules/export/namespace.php:358
 msgid "No export formats selected."
-msgstr ""
+msgstr "Aucun format d'exportation sélectionné."
 
 #: inc/modules/export/namespace.php:377
 #, php-format
