@@ -1869,15 +1869,17 @@ function filter_media_list_for_contributors( $query ) {
  * Redirect users from the Add Book Information page to the allowed book info page
  */
 function block_metadata_add_new_page() {
-	global $pagenow;
-
-	if ( 'post-new.php' === $pagenow && isset( $_GET['post_type'] ) && 'metadata' === $_GET['post_type'] ) {
-
-		// Redirect to the allowed book info page instead
-		$metadata_post_id = ( new Metadata )->getMetaPostId();
-		wp_redirect( admin_url( "post.php?post={$metadata_post_id}&action=edit" ) );
-		exit;
+	if ( ! isset( $_GET['post_type'] ) || 'metadata' !== $_GET['post_type'] ) {
+		return;
 	}
+
+	$metadata_post_id = ( new Metadata )->getMetaPostId();
+	if ( ! $metadata_post_id ) {
+		return;
+	}
+
+	wp_safe_redirect( admin_url( 'post.php?post=' . absint( $metadata_post_id ) . '&action=edit' ) );
+	exit;
 }
 
 
