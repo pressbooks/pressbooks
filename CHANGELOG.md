@@ -1,5 +1,23 @@
 # Changelog
 
+## [6.34.3](https://github.com/pressbooks/pressbooks/compare/6.34.2...6.34.3) (2025-11-19)
+
+
+### Bug Fixes
+
+* disable wptexturize on mathjax pages ([#4273](https://github.com/pressbooks/pressbooks/issues/4273)) ([3428afa](https://github.com/pressbooks/pressbooks/commit/3428afa0d5f677392f9342074d201c3b8163d373))
+* hide 'add new book information' button (resolves [#3964](https://github.com/pressbooks/pressbooks/issues/3964)) ([#4253](https://github.com/pressbooks/pressbooks/issues/4253)) ([d6ab164](https://github.com/pressbooks/pressbooks/commit/d6ab16447fab6b17b0ae65044fef13a1a85f863a))
+* improve redirect logic after login (resolves [#1794](https://github.com/pressbooks/pressbooks/issues/1794)) ([#4251](https://github.com/pressbooks/pressbooks/issues/4251)) ([0e1fe25](https://github.com/pressbooks/pressbooks/commit/0e1fe259921245319f75274331e557eea4a22800))
+* make publish box unsticky ([#4275](https://github.com/pressbooks/pressbooks/issues/4275)) ([2125e84](https://github.com/pressbooks/pressbooks/commit/2125e84cb850ef41f63b714fbaf8812adb9b6f14))
+
+
+### Chores
+
+* bump aws/aws-sdk-php from 3.359.2 to 3.359.3 in the composer-dependencies group ([#4270](https://github.com/pressbooks/pressbooks/issues/4270)) ([2f1b3cf](https://github.com/pressbooks/pressbooks/commit/2f1b3cf1faad71bc377026f4a94a0f7b3a55d7b4))
+* bump aws/aws-sdk-php in the composer-dependencies group ([2f1b3cf](https://github.com/pressbooks/pressbooks/commit/2f1b3cf1faad71bc377026f4a94a0f7b3a55d7b4))
+* bump the npm-dependencies group with 2 updates ([#4274](https://github.com/pressbooks/pressbooks/issues/4274)) ([56aa151](https://github.com/pressbooks/pressbooks/commit/56aa1512bd7712e9972b195acc9d72e1eb3353cd))
+* **l10n:** Updates for project Pressbooks ([#4269](https://github.com/pressbooks/pressbooks/issues/4269)) ([2b97899](https://github.com/pressbooks/pressbooks/commit/2b97899ff27926c9ad074e0b3da372f014b9845e))
+
 ## [6.34.2](https://github.com/pressbooks/pressbooks/compare/6.34.1...6.34.2) (2025-10-30)
 
 
