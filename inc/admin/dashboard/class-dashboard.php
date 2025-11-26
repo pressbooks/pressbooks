@@ -85,16 +85,24 @@ abstract class Dashboard {
 		$environment = defined( 'WP_ENV' ) ? WP_ENV : 'production';
 		$domain = in_array( $environment, [ 'staging', 'production' ], true ) ? 'https://pressbooks.com' : 'https://dev.pressbooks.com';
 
-		$response = wp_remote_get( "{$domain}/wp-json/dashboard/v1/release-notes", [
-			'timeout' => 10,
-		] );
+		$transient = get_transient( 'pressbooks_recent_updates' );
 
-		if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
-			$this->recentUpdates = [];
-			return;
+		if ( $transient ) {
+			$updates = json_decode( $transient, true );
+		} else {
+			$response = wp_remote_get("{$domain}/wp-json/dashboard/v1/release-notes", [
+				'timeout' => 10,
+			]);
+
+			if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
+				$this->recentUpdates = [];
+				return;
+			}
+
+			set_transient( 'pressbooks_recent_updates', $response['body'], HOUR_IN_SECONDS );
+
+			$updates = json_decode( $response['body'], true );
 		}
-
-		$updates = json_decode( $response['body'], true );
 
 		$this->recentUpdates = [
 			...$updates,
