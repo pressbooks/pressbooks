@@ -8,9 +8,7 @@ use function Pressbooks\Admin\Metaboxes\upload_cover_image;
 class FakeDashboard extends Pressbooks\Admin\Dashboard\Dashboard {
 	public function fetchReleaseNotes(): array
 	{
-		parent::fetchUpdates();
-
-		return $this->recentUpdates;
+		return $this->fetchUpdates();
 	}
 
 	public function render(): void
