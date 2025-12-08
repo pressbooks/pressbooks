@@ -1,5 +1,401 @@
 # Changelog
 
+## [6.34.4](https://github.com/pressbooks/pressbooks/compare/6.34.3...6.34.4) (2025-12-02)
+
+
+### Bug Fixes
+
+* adjust dropdown z-index ([#4281](https://github.com/pressbooks/pressbooks/issues/4281)) ([70097a4](https://github.com/pressbooks/pressbooks/commit/70097a49687f2144700dd2a0f067f69fcd16ada8))
+* cache recent updates request ([#4282](https://github.com/pressbooks/pressbooks/issues/4282)) ([d871b65](https://github.com/pressbooks/pressbooks/commit/d871b65de4ab2ac390b3297bb83cb4afe21ba187))
+* fetch updates only when needed ([#4295](https://github.com/pressbooks/pressbooks/issues/4295)) ([9d56f77](https://github.com/pressbooks/pressbooks/commit/9d56f77c9710ae15ec3f452e532657a07fdbf531))
+* remove .po generation workflow and tx files ([#4290](https://github.com/pressbooks/pressbooks/issues/4290)) ([a077e78](https://github.com/pressbooks/pressbooks/commit/a077e782ea412cdc08df45ef83a44e1d97e6e2e1))
+* remove transifex references ([#4296](https://github.com/pressbooks/pressbooks/issues/4296)) ([10112b9](https://github.com/pressbooks/pressbooks/commit/10112b9fb9472b99b8167d15b4eb4b40b33cb140))
+
+
+### Chores
+
+* bump actions/checkout from 4 to 6 ([#4287](https://github.com/pressbooks/pressbooks/issues/4287)) ([72908cc](https://github.com/pressbooks/pressbooks/commit/72908cc3f0afa8ad51f93926428e08838d55daf9))
+* bump node-forge from 1.3.1 to 1.3.2 ([#4293](https://github.com/pressbooks/pressbooks/issues/4293)) ([88a2e9e](https://github.com/pressbooks/pressbooks/commit/88a2e9e9b32566aadf8143b6cbde642ec599a86e))
+* bump the composer-dependencies group across 1 directory with 3 updates ([#4294](https://github.com/pressbooks/pressbooks/issues/4294)) ([dcefb06](https://github.com/pressbooks/pressbooks/commit/dcefb0631b367c61c0f4a8dd576f0e603ecea04b))
+
+## [6.34.3](https://github.com/pressbooks/pressbooks/compare/6.34.2...6.34.3) (2025-11-19)
+
+
+### Bug Fixes
+
+* disable wptexturize on mathjax pages ([#4273](https://github.com/pressbooks/pressbooks/issues/4273)) ([3428afa](https://github.com/pressbooks/pressbooks/commit/3428afa0d5f677392f9342074d201c3b8163d373))
+* hide 'add new book information' button (resolves [#3964](https://github.com/pressbooks/pressbooks/issues/3964)) ([#4253](https://github.com/pressbooks/pressbooks/issues/4253)) ([d6ab164](https://github.com/pressbooks/pressbooks/commit/d6ab16447fab6b17b0ae65044fef13a1a85f863a))
+* improve redirect logic after login (resolves [#1794](https://github.com/pressbooks/pressbooks/issues/1794)) ([#4251](https://github.com/pressbooks/pressbooks/issues/4251)) ([0e1fe25](https://github.com/pressbooks/pressbooks/commit/0e1fe259921245319f75274331e557eea4a22800))
+* make publish box unsticky ([#4275](https://github.com/pressbooks/pressbooks/issues/4275)) ([2125e84](https://github.com/pressbooks/pressbooks/commit/2125e84cb850ef41f63b714fbaf8812adb9b6f14))
+
+
+### Chores
+
+* bump aws/aws-sdk-php from 3.359.2 to 3.359.3 in the composer-dependencies group ([#4270](https://github.com/pressbooks/pressbooks/issues/4270)) ([2f1b3cf](https://github.com/pressbooks/pressbooks/commit/2f1b3cf1faad71bc377026f4a94a0f7b3a55d7b4))
+* bump aws/aws-sdk-php in the composer-dependencies group ([2f1b3cf](https://github.com/pressbooks/pressbooks/commit/2f1b3cf1faad71bc377026f4a94a0f7b3a55d7b4))
+* bump the npm-dependencies group with 2 updates ([#4274](https://github.com/pressbooks/pressbooks/issues/4274)) ([56aa151](https://github.com/pressbooks/pressbooks/commit/56aa1512bd7712e9972b195acc9d72e1eb3353cd))
+* **l10n:** Updates for project Pressbooks ([#4269](https://github.com/pressbooks/pressbooks/issues/4269)) ([2b97899](https://github.com/pressbooks/pressbooks/commit/2b97899ff27926c9ad074e0b3da372f014b9845e))
+
+## [6.34.2](https://github.com/pressbooks/pressbooks/compare/6.34.1...6.34.2) (2025-10-30)
+
+
+### Bug Fixes
+
+* HTML decoding error when cloning Custom CSS within a network (resolves [#4209](https://github.com/pressbooks/pressbooks/issues/4209)) ([#4250](https://github.com/pressbooks/pressbooks/issues/4250)) ([9dc7e9f](https://github.com/pressbooks/pressbooks/commit/9dc7e9f8b5c18a952d9a1d841317efb348d1e6c4))
+* improve file export time precision ([13660eb](https://github.com/pressbooks/pressbooks/commit/13660ebeefb24d768a0b90050ebf8d242bfd1c84))
+* improve file export time precision (resolves [#1869](https://github.com/pressbooks/pressbooks/issues/1869)) ([#4252](https://github.com/pressbooks/pressbooks/issues/4252)) ([13660eb](https://github.com/pressbooks/pressbooks/commit/13660ebeefb24d768a0b90050ebf8d242bfd1c84))
+* remove privacy option on signup ([#4256](https://github.com/pressbooks/pressbooks/issues/4256)) ([c2d7c75](https://github.com/pressbooks/pressbooks/commit/c2d7c759617bd7110889a7d86fe6668821f27402))
+
+
+### Chores
+
+* bump aws/aws-sdk-php from 3.356.41 to 3.356.42 in the composer-dependencies group ([#4254](https://github.com/pressbooks/pressbooks/issues/4254)) ([35f8216](https://github.com/pressbooks/pressbooks/commit/35f821605efc974003aab422a22a554d48309d28))
+* bump aws/aws-sdk-php in the composer-dependencies group ([35f8216](https://github.com/pressbooks/pressbooks/commit/35f821605efc974003aab422a22a554d48309d28))
+* bump the npm-dependencies group with 2 updates ([#4260](https://github.com/pressbooks/pressbooks/issues/4260)) ([b7d66ae](https://github.com/pressbooks/pressbooks/commit/b7d66ae679828913c46043e0612a77c193cf6db5))
+* **l10n:** Updates for project Pressbooks ([#4266](https://github.com/pressbooks/pressbooks/issues/4266)) ([4c4dec2](https://github.com/pressbooks/pressbooks/commit/4c4dec2a423a96834ab6b8ad16e9a6db674d904e))
+* Update PHP version and Ubuntu runner in tests.yml ([#4267](https://github.com/pressbooks/pressbooks/issues/4267)) ([ed56351](https://github.com/pressbooks/pressbooks/commit/ed5635160bcae1ef3b0013e69351c0a8ec386c03))
+
+## [6.34.1](https://github.com/pressbooks/pressbooks/compare/6.34.0...6.34.1) (2025-10-20)
+
+
+### Bug Fixes
+
+* ensure that ampersands remain encoded in XHTML (resolves [#4223](https://github.com/pressbooks/pressbooks/issues/4223)) ([#4247](https://github.com/pressbooks/pressbooks/issues/4247)) ([c019bbf](https://github.com/pressbooks/pressbooks/commit/c019bbf62ae8c2cc1fab40b41547ab3cc2785f9a))
+* ensure that ampersands retain entity encoding in XHTML (resolves [#4223](https://github.com/pressbooks/pressbooks/issues/4223)) ([c019bbf](https://github.com/pressbooks/pressbooks/commit/c019bbf62ae8c2cc1fab40b41547ab3cc2785f9a))
+* resolve issue where span tag is output in book chapters (resolves [#4224](https://github.com/pressbooks/pressbooks/issues/4224)) ([#4245](https://github.com/pressbooks/pressbooks/issues/4245)) ([f8f6d7b](https://github.com/pressbooks/pressbooks/commit/f8f6d7bc3baeb7cedd5b6ad5a0e4e14ac12a9827))
+
+
+### Chores
+
+* bump the composer-dependencies group across 1 directory with 2 updates ([#4222](https://github.com/pressbooks/pressbooks/issues/4222)) ([a3d97f0](https://github.com/pressbooks/pressbooks/commit/a3d97f03a2edd7738340b2847e30bddb86444f79))
+* **deps:** use published snordian/h5p-extractor package (fix [#4189](https://github.com/pressbooks/pressbooks/issues/4189)) ([#4246](https://github.com/pressbooks/pressbooks/issues/4246)) ([497c04d](https://github.com/pressbooks/pressbooks/commit/497c04d5d33595d18abe646b6168611ced07583e))
+
+## [6.34.0](https://github.com/pressbooks/pressbooks/compare/6.33.0...6.34.0) (2025-10-09)
+
+
+### Features
+
+* add Contributors as an allowed front matter type ([#4231](https://github.com/pressbooks/pressbooks/issues/4231)) ([d15c110](https://github.com/pressbooks/pressbooks/commit/d15c11002ae290a4cd8afa71983be4617a69798e))
+* add publication date collector ([#4237](https://github.com/pressbooks/pressbooks/issues/4237)) ([6ea1e8b](https://github.com/pressbooks/pressbooks/commit/6ea1e8b82d6a87448c5bea9078fc85aea8f477cf))
+
+
+### Chores
+
+* update code of conduct ([#4242](https://github.com/pressbooks/pressbooks/issues/4242)) ([6c3d4b9](https://github.com/pressbooks/pressbooks/commit/6c3d4b98c9a499355695ade88801a6f79bf43fff))
+* update contributor guidelines ([#4240](https://github.com/pressbooks/pressbooks/issues/4240)) ([8a1af10](https://github.com/pressbooks/pressbooks/commit/8a1af10f3ecf39a051e4ff774901a38aa755b254))
+* update readme and WP compatibility ([#4168](https://github.com/pressbooks/pressbooks/issues/4168)) ([2a16ae4](https://github.com/pressbooks/pressbooks/commit/2a16ae4e4e9e0a9bddd4d578307c31c2a63fc93c))
+
+## [6.33.0](https://github.com/pressbooks/pressbooks/compare/6.32.0...6.33.0) (2025-10-06)
+
+
+### Features
+
+* expose latest files field in api ([#4234](https://github.com/pressbooks/pressbooks/issues/4234)) ([a4e0747](https://github.com/pressbooks/pressbooks/commit/a4e0747d03ec46946ac77749e3386628ea10cd17))
+
+
+### Bug Fixes
+
+* a11y issues for PB logo and clone a book page ([#4221](https://github.com/pressbooks/pressbooks/issues/4221)) ([e8530d1](https://github.com/pressbooks/pressbooks/commit/e8530d120fa1039ae7fd0147304ae0853e5db22c))
+* add aria-labels to code editor buttons which lack them ([#4233](https://github.com/pressbooks/pressbooks/issues/4233)) ([b75a383](https://github.com/pressbooks/pressbooks/commit/b75a383e806216f87b51b19e883793e7cc384310))
+* change default pdf_hyphens value ([#4227](https://github.com/pressbooks/pressbooks/issues/4227)) ([189c300](https://github.com/pressbooks/pressbooks/commit/189c3005d08cd2f9078c6229e681a6f82437549c))
+
+
+### Chores
+
+* remove O'Reilly as book sales option ([#4232](https://github.com/pressbooks/pressbooks/issues/4232)) ([7fc36a4](https://github.com/pressbooks/pressbooks/commit/7fc36a4bdd2b2d93a7beaf12787144bfc8ab8ea4))
+
+## [6.32.0](https://github.com/pressbooks/pressbooks/compare/6.31.6...6.32.0) (2025-09-24)
+
+
+### Features
+
+* add new icon bridge ([#4216](https://github.com/pressbooks/pressbooks/issues/4216)) ([c5b5848](https://github.com/pressbooks/pressbooks/commit/c5b58486bc1d6c96888cec0cbcc3ae48ce493dce))
+
+## [6.31.6](https://github.com/pressbooks/pressbooks/compare/6.31.5...6.31.6) (2025-09-24)
+
+
+### Bug Fixes
+
+* top bar visualization under specific breakpoints ([#4211](https://github.com/pressbooks/pressbooks/issues/4211)) ([2a91828](https://github.com/pressbooks/pressbooks/commit/2a9182846718033e2e3afe5e99db0ed672bbacf4))
+
+
+### Chores
+
+* add tinymce to dependabot ignore list ([#4213](https://github.com/pressbooks/pressbooks/issues/4213)) ([4dc84ee](https://github.com/pressbooks/pressbooks/commit/4dc84ee48c9a681acbf0857fd6f5230d633f903d))
+
+## [6.31.5](https://github.com/pressbooks/pressbooks/compare/6.31.4...6.31.5) (2025-09-23)
+
+
+### Bug Fixes
+
+* preserve attachments metadata during cloning ([#4194](https://github.com/pressbooks/pressbooks/issues/4194)) ([a18c0ea](https://github.com/pressbooks/pressbooks/commit/a18c0ea68a7a05045a7a64ee901da002edaa4977))
+
+
+### Chores
+
+* bump alpinejs from 3.14.9 to 3.15.0 in the npm-dependencies group ([#4195](https://github.com/pressbooks/pressbooks/issues/4195)) ([fc65d54](https://github.com/pressbooks/pressbooks/commit/fc65d54c271d4f82f55afd215d6fb1ee154ee679))
+* bump aws/aws-sdk-php from 3.356.12 to 3.356.17 in the composer-dependencies group ([#4204](https://github.com/pressbooks/pressbooks/issues/4204)) ([6a4d035](https://github.com/pressbooks/pressbooks/commit/6a4d0358d6c9c6829b935d8e2d06606261a7b9e6))
+* bump aws/aws-sdk-php in the composer-dependencies group ([6a4d035](https://github.com/pressbooks/pressbooks/commit/6a4d0358d6c9c6829b935d8e2d06606261a7b9e6))
+* bump the composer-dependencies group across 1 directory with 3 updates ([#4196](https://github.com/pressbooks/pressbooks/issues/4196)) ([d76e6f4](https://github.com/pressbooks/pressbooks/commit/d76e6f4de9554d6d6feeb0894d0efb0aee23f177))
+* **deps:** bump @pressbooks/select to 1.0.2 ([#4203](https://github.com/pressbooks/pressbooks/issues/4203)) ([7070c6c](https://github.com/pressbooks/pressbooks/commit/7070c6c0d4ede01edaf676b1c64f323ffb8158dc))
+* **deps:** replace @pressbooks/multiselect with @pressbooks/select ([#4188](https://github.com/pressbooks/pressbooks/issues/4188)) ([c758d0a](https://github.com/pressbooks/pressbooks/commit/c758d0a112f44fc12815f33dcb44f27b7a140490))
+
+## [6.31.4](https://github.com/pressbooks/pressbooks/compare/6.31.3...6.31.4) (2025-08-25)
+
+
+### Chores
+
+* bump the composer-dependencies group across 1 directory with 2 updates ([#4183](https://github.com/pressbooks/pressbooks/issues/4183)) ([9933cc2](https://github.com/pressbooks/pressbooks/commit/9933cc219dddaaf1793882c0de98385b771bbe78))
+* bump yoast/phpunit-polyfills ([d7f595b](https://github.com/pressbooks/pressbooks/commit/d7f595b821b0b1997c12c7c94b1d2fa2e1d57774))
+* bump yoast/phpunit-polyfills from 1.1.4 to 1.1.5 in the composer-dev-dependencies group ([#4170](https://github.com/pressbooks/pressbooks/issues/4170)) ([d7f595b](https://github.com/pressbooks/pressbooks/commit/d7f595b821b0b1997c12c7c94b1d2fa2e1d57774))
+* **l10n:** Updates for project Pressbooks ([#4180](https://github.com/pressbooks/pressbooks/issues/4180)) ([07511ea](https://github.com/pressbooks/pressbooks/commit/07511ea6beb10b0366f1aa7dee097df592545b13))
+* remove duplicate Croatian translation files ([#4181](https://github.com/pressbooks/pressbooks/issues/4181)) ([64d2008](https://github.com/pressbooks/pressbooks/commit/64d2008dd91dd8cb8d72e96090da53a2c1b2939a))
+
+## [6.31.3](https://github.com/pressbooks/pressbooks/compare/6.31.2...6.31.3) (2025-08-07)
+
+
+### Bug Fixes
+
+* allow spans with lang attributes in section titles ([#4101](https://github.com/pressbooks/pressbooks/issues/4101)) ([4b3e5a2](https://github.com/pressbooks/pressbooks/commit/4b3e5a27a71355b83a9e96e9c09f69f3c30eec0c))
+* remove book creator as a contributor from the new book ([#4116](https://github.com/pressbooks/pressbooks/issues/4116)) ([679b410](https://github.com/pressbooks/pressbooks/commit/679b4101079092c1c2201022dfc19dd18d10ff1b))
+* remove unused get_translated_languages method ([#4151](https://github.com/pressbooks/pressbooks/issues/4151)) ([0a15758](https://github.com/pressbooks/pressbooks/commit/0a15758af1e71d36c5f320ac3d09a9ba16dffbf9))
+
+
+### Chores
+
+* bump the composer-dependencies group across 1 directory with 3 updates ([#4161](https://github.com/pressbooks/pressbooks/issues/4161)) ([ed99796](https://github.com/pressbooks/pressbooks/commit/ed99796427505c654813d15ce749d1bb39bf3937))
+* bump the npm_and_yarn group with 2 updates ([#4128](https://github.com/pressbooks/pressbooks/issues/4128)) ([f6b9b80](https://github.com/pressbooks/pressbooks/commit/f6b9b8066d725147a796956630aa2b5945268248))
+* bump the npm-dependencies group with 2 updates ([#4141](https://github.com/pressbooks/pressbooks/issues/4141)) ([a45bddd](https://github.com/pressbooks/pressbooks/commit/a45bddd69354c73c522c1a66cc819a85de6b3c46))
+
+## [6.31.2](https://github.com/pressbooks/pressbooks/compare/6.31.1...6.31.2) (2025-07-30)
+
+
+### Bug Fixes
+
+* default header_links primary color fallback ([#4154](https://github.com/pressbooks/pressbooks/issues/4154)) ([4a19405](https://github.com/pressbooks/pressbooks/commit/4a19405cf31036bcdbec79caf2ca2e465374bc3b))
+* improve input sanitization and output escaping ([#4140](https://github.com/pressbooks/pressbooks/issues/4140)) ([91dc9a2](https://github.com/pressbooks/pressbooks/commit/91dc9a25d8ecba7f66287d18426d891943bfef29))
+
+
+### Chores
+
+* **i18n:** update languages for project pressbooks ([#4156](https://github.com/pressbooks/pressbooks/issues/4156)) ([bd33d81](https://github.com/pressbooks/pressbooks/commit/bd33d811765ffe8764da67a820c849b0a4a1c957))
+
+## [6.31.1](https://github.com/pressbooks/pressbooks/compare/6.31.0...6.31.1) (2025-07-29)
+
+
+### Bug Fixes
+
+* moving the input variable definitions to the top of the script ([#4149](https://github.com/pressbooks/pressbooks/issues/4149)) ([3615002](https://github.com/pressbooks/pressbooks/commit/36150022dde3a08697b7baccb66f04b0e28a3b0a))
+* moving the input variable definitions to the top of the script as they're used in the config section ([3615002](https://github.com/pressbooks/pressbooks/commit/36150022dde3a08697b7baccb66f04b0e28a3b0a))
+
+
+### Chores
+
+* **i18n:** update languages for project pressbooks ([#4148](https://github.com/pressbooks/pressbooks/issues/4148)) ([aa15d3e](https://github.com/pressbooks/pressbooks/commit/aa15d3ea702557f405dd41fc34af534af01e624c))
+
+## [6.31.0](https://github.com/pressbooks/pressbooks/compare/6.30.1...6.31.0) (2025-07-28)
+
+
+### Features
+
+* Adding background processing polling scripts ([#4144](https://github.com/pressbooks/pressbooks/issues/4144)) ([de61235](https://github.com/pressbooks/pressbooks/commit/de61235f4e46305858dc8916833115fb2ad204c2))
+* header link color in customizer ([#4130](https://github.com/pressbooks/pressbooks/issues/4130)) ([f5b6aa1](https://github.com/pressbooks/pressbooks/commit/f5b6aa101aeb11cb40601024238cc96dd39ae0eb))
+
+
+### Bug Fixes
+
+* add coloris class and tablepress hooks during bg exports ([#4136](https://github.com/pressbooks/pressbooks/issues/4136)) ([436afed](https://github.com/pressbooks/pressbooks/commit/436afed93f1bc16462f44bf66b49bfdfbfbce2c7))
+* additional home language box ([#4143](https://github.com/pressbooks/pressbooks/issues/4143)) ([aecf191](https://github.com/pressbooks/pressbooks/commit/aecf1919bd7be012716ecefbf2b1564aa721c46a))
+* escape filenames for blob mime debug action ([#4139](https://github.com/pressbooks/pressbooks/issues/4139)) ([4232e37](https://github.com/pressbooks/pressbooks/commit/4232e373880a1e880506ff581b53e817de16577d))
+* revert additional home language box ([e9e5760](https://github.com/pressbooks/pressbooks/commit/e9e5760f8a731286a238d64788958a0a79d506c4))
+* sanitize URL buy options ([#4129](https://github.com/pressbooks/pressbooks/issues/4129)) ([5c22509](https://github.com/pressbooks/pressbooks/commit/5c22509ec20f0afb2f9bc590fff3cc7e6c133d03))
+* tablepress not rendering on exports ([#4134](https://github.com/pressbooks/pressbooks/issues/4134)) ([fbf59aa](https://github.com/pressbooks/pressbooks/commit/fbf59aa0f63bbe9e11fbec262007af7ab7dcd668))
+
+
+### Chores
+
+* **i18n:** update languages for project pressbooks ([#4132](https://github.com/pressbooks/pressbooks/issues/4132)) ([9cb57aa](https://github.com/pressbooks/pressbooks/commit/9cb57aa00258c76dd863b40907445926c5ca668f))
+* **i18n:** update languages for project pressbooks ([#4137](https://github.com/pressbooks/pressbooks/issues/4137)) ([93c16f2](https://github.com/pressbooks/pressbooks/commit/93c16f2a2bd09f52213d3451a2461a57c0ae06fa))
+* **i18n:** update languages for project pressbooks ([#4145](https://github.com/pressbooks/pressbooks/issues/4145)) ([65f14ed](https://github.com/pressbooks/pressbooks/commit/65f14ed5622d70c9e5df261b51127181c587ab20))
+* **l10n:** Updates for project Pressbooks ([#4138](https://github.com/pressbooks/pressbooks/issues/4138)) ([2849cb2](https://github.com/pressbooks/pressbooks/commit/2849cb2fdad21e04fa62e947c823d0f8719069d3))
+
+## [6.30.1](https://github.com/pressbooks/pressbooks/compare/6.30.0...6.30.1) (2025-07-17)
+
+
+### Bug Fixes
+
+* append release please sections ([d4f3d01](https://github.com/pressbooks/pressbooks/commit/d4f3d0134f74b30deeb57c900961244012ef828e))
+* release notes dashboard display ([#4118](https://github.com/pressbooks/pressbooks/issues/4118)) ([d4f3d01](https://github.com/pressbooks/pressbooks/commit/d4f3d0134f74b30deeb57c900961244012ef828e))
+* theme options hooks on background export routine ([#4123](https://github.com/pressbooks/pressbooks/issues/4123)) ([ac1746e](https://github.com/pressbooks/pressbooks/commit/ac1746e622137938cabcfac21aeaf36598d3bff4))
+
+## [6.30.0](https://github.com/pressbooks/pressbooks/compare/6.29.0...6.30.0) (2025-07-16)
+
+
+### Features
+
+* add Atkinson Hyperlegible Next to Shapeshifter font choices ([#4091](https://github.com/pressbooks/pressbooks/issues/4091)) ([30d13e8](https://github.com/pressbooks/pressbooks/commit/30d13e8e7fd3da9592279f32bbd820b4d0cdd58f))
+* collect book admin metadata ([#4017](https://github.com/pressbooks/pressbooks/issues/4017)) ([b96462a](https://github.com/pressbooks/pressbooks/commit/b96462abed54b21cdfedf05bfacec586642fea70))
+* get translated languages method ([#4106](https://github.com/pressbooks/pressbooks/issues/4106)) ([c917bc2](https://github.com/pressbooks/pressbooks/commit/c917bc2d817d3e0b209abc43ecc7cef15d00a2d2))
+* H5P Printing (collab with BCcampus) and background processing for exports ([b9ea7a7](https://github.com/pressbooks/pressbooks/commit/b9ea7a768c384fcfbdd5f12748dd17a347d1eaa4))
+
+
+### Bug Fixes
+
+* ajaxUrl typo ([#4111](https://github.com/pressbooks/pressbooks/issues/4111)) ([1f666d8](https://github.com/pressbooks/pressbooks/commit/1f666d8327df62d77fef199f4936b022538cded6))
+* book creation from network admin form ([#4108](https://github.com/pressbooks/pressbooks/issues/4108)) ([e985e7a](https://github.com/pressbooks/pressbooks/commit/e985e7a62f5cf2848bdaab15fa15f2a6458e2196))
+* pot workflow ([#4107](https://github.com/pressbooks/pressbooks/issues/4107)) ([9ff34eb](https://github.com/pressbooks/pressbooks/commit/9ff34ebebe04c6e6b803778f382f7648ea835d73))
+
+
+### Chores
+
+* add requested institution ([#4115](https://github.com/pressbooks/pressbooks/issues/4115)) ([f9d477c](https://github.com/pressbooks/pressbooks/commit/f9d477ca20078bf23d2d78b3726e9920e2ab1668))
+* bump pbkdf2 from 3.1.2 to 3.1.3 in the npm_and_yarn group ([#4098](https://github.com/pressbooks/pressbooks/issues/4098)) ([bded716](https://github.com/pressbooks/pressbooks/commit/bded716742cfa6545cda2f1135248fd88812a9c1))
+* bump pbkdf2 from 3.1.2 to 3.1.3 in the npm_and_yarn group ([#4110](https://github.com/pressbooks/pressbooks/issues/4110)) ([132fca4](https://github.com/pressbooks/pressbooks/commit/132fca4eb4126956f6b78c7ac3125d3dd25d0753))
+* bump the composer-dependencies group across 1 directory with 3 updates ([#4094](https://github.com/pressbooks/pressbooks/issues/4094)) ([9f1d9d5](https://github.com/pressbooks/pressbooks/commit/9f1d9d51773373ece4df3c8a81bd58d2a8ef92e6))
+* bump the npm-dependencies group with 2 updates ([#4095](https://github.com/pressbooks/pressbooks/issues/4095)) ([61b25d7](https://github.com/pressbooks/pressbooks/commit/61b25d7506db839f9c1745444879b1e69a37f11b))
+* **i18n:** update languages for project pressbooks ([#4113](https://github.com/pressbooks/pressbooks/issues/4113)) ([02297a0](https://github.com/pressbooks/pressbooks/commit/02297a0bd52ecf4a203363d2d27d77877bf746b1))
+* **l10n:** Updates for project Pressbooks ([#4105](https://github.com/pressbooks/pressbooks/issues/4105)) ([2a07aac](https://github.com/pressbooks/pressbooks/commit/2a07aac5c8267ed76713a8c36e93fa0e34e8518a))
+* **l10n:** Updates for project Pressbooks ([#4114](https://github.com/pressbooks/pressbooks/issues/4114)) ([55d2837](https://github.com/pressbooks/pressbooks/commit/55d28377752936edca5cac3cae4f19d96e8a92d8))
+
+## [6.29.0](https://github.com/pressbooks/pressbooks/compare/6.28.0...6.29.0) (2025-06-26)
+
+
+### Features
+
+* personalize Getting Started playlist URL based on network type ([#4093](https://github.com/pressbooks/pressbooks/issues/4093)) ([06d329c](https://github.com/pressbooks/pressbooks/commit/06d329c5b2a7cd3013bc0b4e1eebaf3dd9433895))
+
+
+### Bug Fixes
+
+* mathml base64 formulas ([#4088](https://github.com/pressbooks/pressbooks/issues/4088)) ([a8025ab](https://github.com/pressbooks/pressbooks/commit/a8025ab65686877ceea425680004a5b565376f10))
+* update default website target for release notes ([#4092](https://github.com/pressbooks/pressbooks/issues/4092)) ([09167a9](https://github.com/pressbooks/pressbooks/commit/09167a983ddc0959fb9e952f0e5bde432a3f39e8))
+* use default HTMLawed config/specs ([#4100](https://github.com/pressbooks/pressbooks/issues/4100)) ([9868d43](https://github.com/pressbooks/pressbooks/commit/9868d4353af6c918c9dce2200f07350e60a3629a))
+
+## [6.28.0](https://github.com/pressbooks/pressbooks/compare/6.27.1...6.28.0) (2025-06-11)
+
+
+### Features
+
+* add support for Urdu, Modern Hebrew, and Amharic ([#4079](https://github.com/pressbooks/pressbooks/issues/4079)) ([29b019c](https://github.com/pressbooks/pressbooks/commit/29b019ce89e348c9e29b020c017c3e2ee131c47c))
+* allow allowfullscreen attribute on iframes (resolves [#2223](https://github.com/pressbooks/pressbooks/issues/2223)) ([#4070](https://github.com/pressbooks/pressbooks/issues/4070)) ([6eb8600](https://github.com/pressbooks/pressbooks/commit/6eb8600fe4e27be033952fdf7725b948402f9c01))
+* robots privacy setting ([#4064](https://github.com/pressbooks/pressbooks/issues/4064)) ([c68bbfc](https://github.com/pressbooks/pressbooks/commit/c68bbfcf4f3e7e42a0d08134e2bf528021532b96))
+
+
+### Bug Fixes
+
+* add support for DocRaptor pipeline env variable to cover generator ([94674e3](https://github.com/pressbooks/pressbooks/commit/94674e3d270dd54d85b0aa8e13302115342a842f))
+* add support for DocRaptor pipeline env variable to cover generator ([#4082](https://github.com/pressbooks/pressbooks/issues/4082)) ([4636c3f](https://github.com/pressbooks/pressbooks/commit/4636c3f7baca50e1d37298da62ad008afef41810))
+* allow DocRaptor pipeline to be set with env variable ([#4081](https://github.com/pressbooks/pressbooks/issues/4081)) ([a10618b](https://github.com/pressbooks/pressbooks/commit/a10618bb7acf556eb5674311d672c40e61bbb9e3))
+* clone pb_show_title post metadata ([#4074](https://github.com/pressbooks/pressbooks/issues/4074)) ([1f4d9c3](https://github.com/pressbooks/pressbooks/commit/1f4d9c3185aef10e6ddd5151f9c1f472a654f21c))
+* conditionally register robots settings ([#4073](https://github.com/pressbooks/pressbooks/issues/4073)) ([53e5942](https://github.com/pressbooks/pressbooks/commit/53e59429a7666e828368aa619fddfda2cfa4321d))
+* display authors or contributors in exports ([#4067](https://github.com/pressbooks/pressbooks/issues/4067)) ([338dcf7](https://github.com/pressbooks/pressbooks/commit/338dcf7c4833c26abfbdcea15e9865a09f144f2b))
+* pass correct type to `setPipeline` method ([#4085](https://github.com/pressbooks/pressbooks/issues/4085)) ([73ffb37](https://github.com/pressbooks/pressbooks/commit/73ffb37b2082bfdbebab2aa98230691cb04de2db))
+* use DocRaptor constant instead of `env` ([#4083](https://github.com/pressbooks/pressbooks/issues/4083)) ([3ffe991](https://github.com/pressbooks/pressbooks/commit/3ffe991d12ff3a3d0da5a3505ab3346b4285e578))
+
+
+### Chores
+
+* add Mt. San Antonio College ([#4076](https://github.com/pressbooks/pressbooks/issues/4076)) ([7735aa3](https://github.com/pressbooks/pressbooks/commit/7735aa398df6b988eb5582ce420d1dc205a2d15e))
+* bump aws/aws-sdk-php from 3.343.18 to 3.343.22 in the composer-dependencies group ([#4071](https://github.com/pressbooks/pressbooks/issues/4071)) ([949a8d6](https://github.com/pressbooks/pressbooks/commit/949a8d6e8880f4bb5289f3fdf932933d053bb9ab))
+* bump aws/aws-sdk-php in the composer-dependencies group ([949a8d6](https://github.com/pressbooks/pressbooks/commit/949a8d6e8880f4bb5289f3fdf932933d053bb9ab))
+* bump the npm-dependencies group with 2 updates ([#4078](https://github.com/pressbooks/pressbooks/issues/4078)) ([ca9272a](https://github.com/pressbooks/pressbooks/commit/ca9272ab6a4745fc13f7d8aa58f390e95818b4cc))
+* update wp tests-pipeline ([#4080](https://github.com/pressbooks/pressbooks/issues/4080)) ([f676e7a](https://github.com/pressbooks/pressbooks/commit/f676e7abf0daae86d1737aac398659d9ddcd6ad0))
+
+## [6.27.1](https://github.com/pressbooks/pressbooks/compare/6.27.0...6.27.1) (2025-05-29)
+
+
+### Bug Fixes
+
+* adjust dashboard layout ([#4068](https://github.com/pressbooks/pressbooks/issues/4068)) ([6464f40](https://github.com/pressbooks/pressbooks/commit/6464f40b691ea5b7498616dd2263b3e5b5c1b91a))
+
+
+### Chores
+
+* bump aws/aws-sdk-php from 3.343.9 to 3.343.13 in the composer-dependencies group ([#4050](https://github.com/pressbooks/pressbooks/issues/4050)) ([d65be41](https://github.com/pressbooks/pressbooks/commit/d65be4173ad6b46576299d8060cf48a8a7af4832))
+* bump aws/aws-sdk-php in the composer-dependencies group ([d65be41](https://github.com/pressbooks/pressbooks/commit/d65be4173ad6b46576299d8060cf48a8a7af4832))
+* revert unneccessary changes to table sorting ([#4056](https://github.com/pressbooks/pressbooks/issues/4056)) ([c111d7c](https://github.com/pressbooks/pressbooks/commit/c111d7c918a6eff795c9e5b566ed13e34810a329))
+
+## [6.27.0](https://github.com/pressbooks/pressbooks/compare/6.26.1...6.27.0) (2025-05-28)
+
+
+### Features
+
+* display recent updates in the dashboard ([#4047](https://github.com/pressbooks/pressbooks/issues/4047)) ([2e4a683](https://github.com/pressbooks/pressbooks/commit/2e4a683adbf9c46d5aac9ff7910fea8928ed846a))
+* switch to Coloris colour picker ([#4049](https://github.com/pressbooks/pressbooks/issues/4049)) ([6d72d9c](https://github.com/pressbooks/pressbooks/commit/6d72d9c44ef1aa63daaa3cd52f64040f864cb3ad))
+
+
+### Bug Fixes
+
+* restore scroll capabilities for my books list ([#4062](https://github.com/pressbooks/pressbooks/issues/4062)) ([f6a3925](https://github.com/pressbooks/pressbooks/commit/f6a3925dcca94653cbac0a960e2dffb8053d8e9e))
+
+
+### Chores
+
+* bump @pressbooks/multiselect from 2.4.0 to 2.4.1 in the npm-dependencies group (resolves pressbooks/private[#1617](https://github.com/pressbooks/pressbooks/issues/1617)) ([#4057](https://github.com/pressbooks/pressbooks/issues/4057)) ([9bdedb4](https://github.com/pressbooks/pressbooks/commit/9bdedb41a9ed23a1e7419c7696ef6e894603730c))
+* bump @pressbooks/multiselect from 2.4.0 to 2.4.2 in the npm-dependencies group ([#4060](https://github.com/pressbooks/pressbooks/issues/4060)) ([f76cd27](https://github.com/pressbooks/pressbooks/commit/f76cd2720845bded1231ff05e42e3873bde31641))
+
+## [6.26.1](https://github.com/pressbooks/pressbooks/compare/6.26.0...6.26.1) (2025-05-20)
+
+
+### Bug Fixes
+
+* prevent horizontal overflow in admin bar ([#4048](https://github.com/pressbooks/pressbooks/issues/4048)) ([a53bf3d](https://github.com/pressbooks/pressbooks/commit/a53bf3d401ac73288a93b764ea893032d10625c4))
+
+## [6.26.0](https://github.com/pressbooks/pressbooks/compare/6.25.1...6.26.0) (2025-05-13)
+
+
+### Features
+
+* support edited volumes ([#2657](https://github.com/pressbooks/pressbooks/issues/2657)) ([7a94a48](https://github.com/pressbooks/pressbooks/commit/7a94a48ba1e1c1f8c1cd14d8f06ab251a5afc6e4))
+
+### Bug Fixes
+
+* add book media permissions for contributors ([#4039](https://github.com/pressbooks/pressbooks/issues/4039)) ([3ef96a5](https://github.com/pressbooks/pressbooks/commit/3ef96a5c59b2ca4a0b8a1850db3d6826df882c1d))
+* add missing aria-describedby on duet-date picker inputs ([#4016](https://github.com/pressbooks/pressbooks/issues/4016)) ([176d42e](https://github.com/pressbooks/pressbooks/commit/176d42ea8a33d63d3cf80962ff5b44bc892909db))
+* change heading level for media attributions ([#4043](https://github.com/pressbooks/pressbooks/issues/4043)) ([cd045e8](https://github.com/pressbooks/pressbooks/commit/cd045e8cb18260101cae36b89be39cdbb9145caa))
+* change Touro College to Touro University ([#4023](https://github.com/pressbooks/pressbooks/issues/4023)) ([819c3f5](https://github.com/pressbooks/pressbooks/commit/819c3f58939915fced0505f0bf5676269e4ea1df))
+* convert pressbooks table class to trait ([#4003](https://github.com/pressbooks/pressbooks/issues/4003)) ([a2f25d6](https://github.com/pressbooks/pressbooks/commit/a2f25d6e878e7b5ef27783b5c091a3aecfdacf16))
+* do not apply new pb table headers to wp tables ([#4026](https://github.com/pressbooks/pressbooks/issues/4026)) ([6a7e20a](https://github.com/pressbooks/pressbooks/commit/6a7e20ac6374d5430e0c74da00e946e57088ecc2))
+* edit capabilities for authors ([#4035](https://github.com/pressbooks/pressbooks/issues/4035)) ([b3ffc9e](https://github.com/pressbooks/pressbooks/commit/b3ffc9eb9b2504e7e2061a88e5d035c7d3a01b05))
+* garbled charset in 2-level ToC ([#4032](https://github.com/pressbooks/pressbooks/issues/4032)) ([8010c63](https://github.com/pressbooks/pressbooks/commit/8010c6313e221a0ba7898fb533d937171d727cf6))
+* global date picker with a11y improvement ([#4025](https://github.com/pressbooks/pressbooks/issues/4025)) ([ed635fa](https://github.com/pressbooks/pressbooks/commit/ed635fab622d75d13c145400377f71cfa8157956))
+* pot translations workflow ([#4033](https://github.com/pressbooks/pressbooks/issues/4033)) ([6989cb1](https://github.com/pressbooks/pressbooks/commit/6989cb16e695c4e22d804b21f6f89f4932a8831c))
+* replace guides and tutorials link with user guide ([#4030](https://github.com/pressbooks/pressbooks/issues/4030)) ([c1c5d9b](https://github.com/pressbooks/pressbooks/commit/c1c5d9bcdb0bb64cdbbfde67b03afbd3f5f0fc58))
+
+
+### Chores
+
+* bump aws/aws-sdk-php from 3.342.30 to 3.342.35 in the composer-dependencies group ([#4027](https://github.com/pressbooks/pressbooks/issues/4027)) ([b6b992d](https://github.com/pressbooks/pressbooks/commit/b6b992d576028fd87b4edc91b7af5109156bb99f))
+* bump aws/aws-sdk-php in the composer-dependencies group ([b6b992d](https://github.com/pressbooks/pressbooks/commit/b6b992d576028fd87b4edc91b7af5109156bb99f))
+* bump http-proxy-middleware from 2.0.7 to 2.0.9 in the npm_and_yarn group ([#4013](https://github.com/pressbooks/pressbooks/issues/4013)) ([2f172cd](https://github.com/pressbooks/pressbooks/commit/2f172cd31a20029005434467bdfa148c1a2f617a))
+* bump http-proxy-middleware in the npm_and_yarn group ([2f172cd](https://github.com/pressbooks/pressbooks/commit/2f172cd31a20029005434467bdfa148c1a2f617a))
+* bump instantsearch.js from 4.78.2 to 4.78.3 in the npm-dependencies group ([#4045](https://github.com/pressbooks/pressbooks/issues/4045)) ([7cc85d8](https://github.com/pressbooks/pressbooks/commit/7cc85d8b395e74bd6f1bb471ff24de2454b059ef))
+* bump instantsearch.js in the npm-dependencies group ([7cc85d8](https://github.com/pressbooks/pressbooks/commit/7cc85d8b395e74bd6f1bb471ff24de2454b059ef))
+* bump the npm-dependencies group across 1 directory with 2 updates ([#4034](https://github.com/pressbooks/pressbooks/issues/4034)) ([0a9a4b0](https://github.com/pressbooks/pressbooks/commit/0a9a4b0a44819cfb69e66ac1b975ec542c108cc3))
+* **l10n:** Updates for project Pressbooks ([#4020](https://github.com/pressbooks/pressbooks/issues/4020)) ([6d3aee5](https://github.com/pressbooks/pressbooks/commit/6d3aee539c117be95a98d35551c012b6bcbc99cf))
+* **l10n:** Updates for project Pressbooks ([#4024](https://github.com/pressbooks/pressbooks/issues/4024)) ([1bd9b48](https://github.com/pressbooks/pressbooks/commit/1bd9b4817797be5412dc2f4b0335c3aad59721bf))
+* **l10n:** Updates for project Pressbooks ([#4041](https://github.com/pressbooks/pressbooks/issues/4041)) ([0e994d2](https://github.com/pressbooks/pressbooks/commit/0e994d270f13ce5e3dc1880b657af9ecd9760116))
+
+## [6.25.1](https://github.com/pressbooks/pressbooks/compare/6.25.0...6.25.1) (2025-04-22)
+
+
+### Bug Fixes
+
+* add part aria-label typo ([#4012](https://github.com/pressbooks/pressbooks/issues/4012)) ([993f1b3](https://github.com/pressbooks/pressbooks/commit/993f1b3acaec33de597156291c4fd3a0c2a70dab))
+* media attributions display for subscriber users ([#4005](https://github.com/pressbooks/pressbooks/issues/4005)) ([5ced795](https://github.com/pressbooks/pressbooks/commit/5ced79536221c718ae25a51e3c6448d74107b3c1))
+* prevent horizontal overflow of admin top bar ([#4010](https://github.com/pressbooks/pressbooks/issues/4010)) ([568912e](https://github.com/pressbooks/pressbooks/commit/568912ec39f1df715c7ca8da031d636535ee951b))
+* remove patterns menu ([#4006](https://github.com/pressbooks/pressbooks/issues/4006)) ([041444b](https://github.com/pressbooks/pressbooks/commit/041444bb9e0e1c835a6f0ca31a0e470f24e9a65f))
+* remove unnecessary alt text in the admin dashboard ([#4004](https://github.com/pressbooks/pressbooks/issues/4004)) ([92b4450](https://github.com/pressbooks/pressbooks/commit/92b4450ac47811b3a729c27dc47f554dfebf61f8))
+* subscriber attachments ([5ced795](https://github.com/pressbooks/pressbooks/commit/5ced79536221c718ae25a51e3c6448d74107b3c1))
+
+
+### Chores
+
+* bump eazy-logger from 4.0.1 to 4.1.0 in the npm_and_yarn group ([#3999](https://github.com/pressbooks/pressbooks/issues/3999)) ([160f0f1](https://github.com/pressbooks/pressbooks/commit/160f0f1ee9b194c9086416cf18bbe12b2c9ce6cb))
+* bump the composer-dependencies group with 2 updates ([#3972](https://github.com/pressbooks/pressbooks/issues/3972)) ([37cf395](https://github.com/pressbooks/pressbooks/commit/37cf395a8271c46572d154c58454911142db90cd))
+* bump the composer-dependencies group with 2 updates ([#4011](https://github.com/pressbooks/pressbooks/issues/4011)) ([bfe903f](https://github.com/pressbooks/pressbooks/commit/bfe903f73a0803fa243d9f0585f5e63ab903f780))
+* revert "fix: prevent horizontal overflow of admin top bar" ([#4014](https://github.com/pressbooks/pressbooks/issues/4014)) ([1aba773](https://github.com/pressbooks/pressbooks/commit/1aba7737410bd0d71d069330ee2b97c3ff6e8a32))
+
 ## [6.25.0](https://github.com/pressbooks/pressbooks/compare/6.24.0...6.25.0) (2025-04-14)
 
 

@@ -11,14 +11,14 @@ namespace Pressbooks;
 use function Pressbooks\Metadata\init_book_data_models;
 use function Pressbooks\Utility\explode_remove_and;
 use function Pressbooks\Utility\str_starts_with;
-use Pressbooks\PostType\BackMatter;
+use Pressbooks\PostType\FrontOrBackMatter;
 use Pressbooks\Utility\AutoDisplayable;
 use Pressbooks\Utility\HandlesTransfers;
 
 /**
  *
  */
-class Contributors implements BackMatter, Transferable {
+class Contributors implements FrontOrBackMatter, Transferable {
 
 	use AutoDisplayable;
 	use HandlesTransfers;
@@ -584,6 +584,18 @@ class Contributors implements BackMatter, Transferable {
 		];
 	}
 
+	public function removeBlogUser( int $user_id ): bool {
+		$user = get_userdata( $user_id );
+		if ( $user && user_can( $user, 'edit_posts' ) ) {
+			$term = get_term_by( 'slug', $user->user_nicename, self::TAXONOMY );
+			if ( $term ) {
+				$deleted_term = wp_delete_term( $term->term_id, self::TAXONOMY );
+				return $deleted_term && ! is_wp_error( $deleted_term );
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * Create a matching Contributor term for a given User ID. Used when a user is added to a blog.
 	 *
@@ -840,17 +852,28 @@ class Contributors implements BackMatter, Transferable {
 	}
 
 	/**
-	 * Automatically displays a contributors page if the back-matter content is empty.
+	 * Automatically displays a contributors page if the front- or back-matter content is empty.
 	 *
 	 * @param string $content
 	 *
 	 * @return string
 	 */
 	public function overrideDisplay( $content ) {
+		$post_type = get_post_type();
+
+		if ( ! $post_type ) {
+			global $id;
+
+			$post_type = get_post_type( $id );
+		}
+
+		if ( ! $post_type ) {
+			return $content;
+		}
 
 		return $this->display(
-			$content, function() {
-
+			content: $content,
+			override: function() {
 				$blade = Container::get( 'Blade' );
 
 				return $blade->render(
@@ -859,8 +882,9 @@ class Contributors implements BackMatter, Transferable {
 						'exporting' => $this->exporting,
 					]
 				);
-
-			}, 'contributors'
+			},
+			taxonomy_query: 'contributors',
+			post_type: $post_type,
 		);
 
 	}

@@ -31,6 +31,7 @@ class Privacy {
 	 */
 	static public function hooks( Privacy $obj ) {
 		add_filter( 'schedule_event', [ $obj, 'reschedulePrivacyCron' ] );
+		self::$instance->removePublicOptionFromSignup();
 	}
 
 	/**
@@ -82,7 +83,7 @@ class Privacy {
 				$current_user = wp_get_current_user();
 				$permissive_roles = [ 'subscriber', 'collaborator', 'author' ];
 				if ( $permissive_private_content && array_intersect( $permissive_roles, $current_user->roles ) ) {
-					$query->set( 'post_status', [ 'publish', 'pending', 'draft', 'private', 'web-only' ] );
+					$query->set( 'post_status', [ 'publish', 'pending', 'draft', 'private', 'web-only', 'inherit' ] );
 				}
 			}
 			return $query;
@@ -93,5 +94,13 @@ class Privacy {
 		switch_to_blog( $site->blog_id );
 		update_option( 'permissive_private_content', 1 );
 		restore_current_blog();
+	}
+
+	public function removePublicOptionFromSignup(): void {
+		if ( isset( $_SERVER['SCRIPT_FILENAME'] ) && basename( sanitize_text_field( wp_unslash( $_SERVER['SCRIPT_FILENAME'] ) ) ) === 'wp-signup.php' ) {
+			ob_start( function( $buffer ) {
+				return preg_replace( '/<div id="privacy">.*?<\/div>/s', '', $buffer );
+			});
+		}
 	}
 }

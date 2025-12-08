@@ -93,7 +93,13 @@ class Content {
 
 	public function __construct() {
 		$this->blade = Container::get( 'Blade' );
-		$this->h5p = new H5P( $this->blade );
+		$this->h5p = new H5P(
+			$this->blade,
+			Container::get( 'H5PPlugin' ),
+			Container::get( 'H5PExtractor' ),
+			Container::get( 'WordPressHelper' ),
+			Container::get( 'H5PCore' )
+		);
 		$this->phet = new Phet( $this->blade );
 	}
 
@@ -246,6 +252,7 @@ class Content {
 			'marginheight' => true,
 			'scrolling' => true,
 			'title' => true,
+			'allowfullscreen' => true,
 		];
 
 		return $allowed;

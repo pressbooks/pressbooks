@@ -6,7 +6,16 @@
 
 namespace Pressbooks\Modules\Export\Prince;
 
+use DocRaptor\ApiException;
+use DocRaptor\Doc;
+use DocRaptor\DocApi;
+use DocRaptor\PrinceOptions;
+use function Pressbooks\Utility\check_xmllint_install;
+use function Pressbooks\Utility\get_contents;
+use function Pressbooks\Utility\put_contents;
+use Generator;
 use Pressbooks\Container;
+use Pressbooks\Modules\Export\Xhtml\Xhtml11;
 
 class Docraptor extends Pdf {
 
@@ -20,17 +29,27 @@ class Docraptor extends Pdf {
 	public function __construct( array $args ) {
 
 		parent::__construct( $args );
-		$this->url .= '&style=prince&script=prince&movefootnotes=true';
+		// Override required URL parameters for XHTML generator.
+		$_GET['optimize-for-print'] = false;
+		$_GET['movefootnotes'] = true;
+		$timestamp = time();
+		$md5 = $this->nonce( $timestamp );
+		$_GET['hashkey'] = $md5;
 	}
 
 	/**
+	 * For expensive functions we use a generator to allow the caller to yield control back to the event loop.
+	 * @return Generator
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 * @since 5.4.0
 	 *
 	 * Create $this->outputPath.
 	 *
-	 * @return bool|string
 	 */
-	public function convert() {
+	public function convert(): Generator {
+
+		yield 35 => __( 'Starting conversion...', 'pressbooks' );
 
 		// Sanity check
 		if ( empty( $this->exportStylePath ) || ! is_file( $this->exportStylePath ) ) {
@@ -38,6 +57,7 @@ class Docraptor extends Pdf {
 			return false;
 		}
 
+		yield 40 => __( 'Creating temporary files...', 'pressbooks' );
 		// Set logfile
 		$this->logfile = $this->createTmpFile();
 
@@ -45,26 +65,34 @@ class Docraptor extends Pdf {
 		$filename = $this->generateFileName();
 		$this->outputPath = $filename;
 
+		yield 45 => __( 'Loading fonts...', 'pressbooks' );
 		// Fonts
 		Container::get( 'GlobalTypography' )->getFonts();
 
+		yield 50 => __( 'Generating CSS...', 'pressbooks' );
 		// CSS
 		$this->truncateExportStylesheets( 'prince' );
 		$timestamp = time();
 		$css = $this->kneadCss();
 		$css_file = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp.css";
-		\Pressbooks\Utility\put_contents( $css_file, $css );
+		$scoped_file = Container::get( 'Sass' )->pathToUserGeneratedCss() . '/scopedstyles.css';
+		if ( is_file( $scoped_file ) && is_readable( $scoped_file ) ) {
+			$scoped_css_content = get_contents( $scoped_file );
+			if ( $scoped_css_content ) {
+				$css .= "\n\n/* Scoped Styles */\n" . $scoped_css_content;
+			}
+		}
+		put_contents( $css_file, $css );
 
-		// --------------------------------------------------------------------
+		yield 55 => __( 'Configuring DocRaptor...', 'pressbooks' );
 		// Save PDF as file in exports folder
-
-		$docraptor = new \DocRaptor\DocApi();
+		$docraptor = new DocApi();
 		$docraptor->getConfig()->setUsername( DOCRAPTOR_API_KEY );
 
-		$prince_options = new \DocRaptor\PrinceOptions();
+		$prince_options = new PrinceOptions();
 		$prince_options->setNoCompress( false );
-		$prince_options->setHttpTimeout( max( ini_get( 'max_execution_time' ), 30 ) );
 		$prince_options->setJavascript( true );
+		$prince_options->setHttpTimeout( 600 ); // 10 minutes for production
 		if ( $this->pdfProfile && $this->pdfOutputIntent ) {
 			$prince_options->setProfile( $this->pdfProfile );
 			// DocRaptor doesn't let us setPDFOutputIntent like Prince does, we cheat with a CSS hack later
@@ -76,38 +104,43 @@ class Docraptor extends Pdf {
 		}
 		$retval = false;
 
+		yield 58 => __( 'Processing content...', 'pressbooks' );
 		try {
-			$doc = new \DocRaptor\Doc();
+			$doc = new Doc();
 			if ( defined( 'WP_TESTS_MULTISITE' ) ) {
 				// Unit tests
-				$document_content = str_replace( '</head>', "<style>$css</style></head>", \Pressbooks\Utility\get_contents( $this->url ) );
+				$document_content = str_replace( '</head>', "<style>$css</style></head>", get_contents( $this->url ) );
 				$doc->setTest( true );
 				$doc->setDocumentContent( $document_content );
-			} elseif ( defined( 'WP_ENV' ) && ( WP_ENV === 'development' ) ) {
-				// Instead of a localhost URL that DocRaptor can't see, send a document
-				$response = wp_remote_get( $this->url );
-				if ( is_wp_error( $response ) ) {
-					$this->logError( $response->get_error_message() );
-					return false;
-				}
-				$document_content = str_replace( '</head>', "<style>$css</style></head>", $response['body'] );
-				$doc->setTest( true );
-				$doc->setDocumentContent( $document_content );
+				$prince_options->setHttpTimeout( 5 ); // 5 seconds for tests
 			} else {
 				// The real thing
-				$doc->setTest( false );
-				$doc->setDocumentUrl( $this->url );
+				$doc->setTest( defined( 'WP_ENV' ) && ( WP_ENV === 'development' ) );
+				// USE XHTML11 Directly, because passing a url takes a long time to load and DocRaptor has a 10-min timeout.
+				$xhtml = new Xhtml11( [
+					'no-export' => true,
+				] );
+				$generator = $xhtml->convert();
+				$document_content = '';
+				while ( $generator->valid() ) {
+					$generator->next();
+				}
+				$document_content = $xhtml->transformOutput;
+				$document_content = str_replace( '</head>', "<style>$css</style></head>", $document_content );
+				$doc->setDocumentContent( $document_content );
 			}
 			$doc->setName( get_bloginfo( 'name' ) );
 			$doc->setPrinceOptions( $prince_options );
-			$doc->setPipeline( 9.2 ); // Prince 14.3, see: https://docraptor.com/documentation/api#api_pipeline
+			$doc->setPipeline( defined( 'DOCRAPTOR_PIPELINE' ) ? DOCRAPTOR_PIPELINE : '9.2' ); // Prince 14.3, see: https://docraptor.com/documentation/api#api_pipeline
 
+			yield 80 => __( 'Converting document...', 'pressbooks' );
 			$create_response = $docraptor->createAsyncDoc( $doc );
 			$done = false;
 			while ( ! $done ) {
 				$status_response = $docraptor->getAsyncDocStatus( $create_response->getStatusId() );
 				switch ( $status_response->getStatus() ) {
 					case 'completed':
+						yield 90 => __( 'Fetching converted file...', 'pressbooks' );
 						if ( ! function_exists( 'download_url' ) ) {
 							require_once( ABSPATH . 'wp-admin/includes/file.php' );
 						}
@@ -123,27 +156,31 @@ class Docraptor extends Pdf {
 						$exportoptions = get_option( 'pressbooks_export_options' );
 						if ( isset( $exportoptions['email_validation_logs'] ) && 1 === absint( $exportoptions['email_validation_logs'] ) ) {
 							$msg = $this->getDetailedLog( $create_response->getStatusId() );
-							\Pressbooks\Utility\put_contents( $this->logfile, $msg );
+							put_contents( $this->logfile, $msg );
 						}
 						break;
 					case 'failed':
 						$msg = $status_response;
-						\Pressbooks\Utility\put_contents( $this->logfile, $msg );
+						put_contents( $this->logfile, $msg );
 						$done = true;
 						break;
 					default:
 						sleep( 1 );
 				}
 			}
-		} catch ( \DocRaptor\ApiException $exception ) {
+		} catch ( ApiException $exception ) {
 			$msg = $exception->getResponseBody();
-			\Pressbooks\Utility\put_contents( $this->logfile, $msg );
+			put_contents( $this->logfile, $exception->getResponseBody() );
+		} catch ( \Exception $e ) {
+			$msg = $e->getMessage();
+			put_contents( $this->logfile, $msg );
 		}
 
 		if ( ! empty( $msg ) ) {
-			$this->logError( \Pressbooks\Utility\get_contents( $this->logfile ) );
+			$this->logError( get_contents( $this->logfile ) );
 		}
 
+		yield 80 => __( 'Conversion complete.', 'pressbooks' );
 		return $retval;
 	}
 
@@ -154,7 +191,7 @@ class Docraptor extends Pdf {
 	 *
 	 * @return string
 	 */
-	protected function getDetailedLog( $id ) {
+	protected function getDetailedLog( $id ): string {
 		// @see: https://docraptor.com/documentation/api#doc_log_listing
 		$response = wp_remote_get( esc_url( 'https://docraptor.com/doc_logs.json?per_page=25&user_credentials=' . DOCRAPTOR_API_KEY ) );
 		if ( is_wp_error( $response ) ) {
@@ -178,10 +215,7 @@ class Docraptor extends Pdf {
 	 *
 	 * @return bool
 	 */
-	public static function hasDependencies() {
-		if ( false !== \Pressbooks\Utility\check_xmllint_install() ) {
-			return true;
-		}
-		return false;
+	public static function hasDependencies(): bool {
+		return check_xmllint_install() !== false;
 	}
 }

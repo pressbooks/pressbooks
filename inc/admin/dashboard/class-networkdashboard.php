@@ -24,6 +24,8 @@ class NetworkDashboard extends Dashboard {
 	public function render(): void {
 		$blade = Container::get( 'Blade' );
 
+		$updates = $this->fetchUpdates();
+
 		echo $blade->render( 'admin.dashboard.network', [
 			'network_name' => get_bloginfo( 'name' ),
 			'network_url' => network_home_url(),
@@ -31,6 +33,10 @@ class NetworkDashboard extends Dashboard {
 			'total_books' => $this->getTotalNumberOfBooks(),
 			'network_analytics_active' => is_plugin_active( 'pressbooks-network-analytics/pressbooks-network-analytics.php' ),
 			'koko_analytics_active' => is_plugin_active( 'koko-analytics/koko-analytics.php' ),
+			'updates' => [
+				'text' => $updates['content'] ?? '',
+				'url' => isset( $updates['post_id'] ) ? "{$updates['domain']}?p={$updates['post_id']}" : null,
+			],
 		] );
 	}
 

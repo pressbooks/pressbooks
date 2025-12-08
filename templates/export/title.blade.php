@@ -7,8 +7,8 @@
 		@if( $authors )
 			<p class="author">{!! $authors !!}</p>
 		@endif
-		@if( $contributors )
-			<p class="author">{!! $contributors !!}</p>
+		@if( $editors )
+			<p class="author">{{ $editors }}</p>
 		@endif
 		@if( $logo )
 			<div class="publisher-logo">

@@ -140,12 +140,13 @@ if ( $is_book ) {
 	add_action( 'init', '\Pressbooks\PostType\register_post_types' );
 	add_filter( 'comments_open', '\Pressbooks\PostType\comments_open', 10, 2 );
 	add_action( 'plugins_loaded', [ '\Pressbooks\Taxonomy', 'init' ] );
-	add_action( 'init', '\Pressbooks\PostType\register_meta' );
 	add_action( 'init', '\Pressbooks\PostType\register_post_statii' );
 	add_filter( 'request', '\Pressbooks\PostType\add_post_types_rss' );
 	add_filter( 'hypothesis_supported_posttypes', '\Pressbooks\PostType\add_posttypes_to_hypothesis' );
 	add_filter( 'pb_post_type_label', '\Pressbooks\PostType\filter_post_type_label', 10, 2 );
 }
+// Register meta for both book and root for cloning metadata
+add_action( 'init', '\Pressbooks\PostType\register_meta' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Remove the "admin bar" from any public facing theme
@@ -180,6 +181,7 @@ add_filter( 'login_redirect', '\Pressbooks\Redirect\handle_dashboard_redirect', 
 
 add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_sitemap', 1 );
 add_action( 'do_robotstxt', '\Pressbooks\Utility\add_sitemap_to_robots_txt' );
+add_filter( 'wp_robots', '\Pressbooks\Utility\handle_book_indexing' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Shortcodes
@@ -315,6 +317,11 @@ Container::get( 'Styles' )->init();
 if ( $is_book ) {
 	// Overrides (sometimes a web stylesheet update will be triggered by a visitor so this filter needs to be active outside of the admin)
 	add_filter( 'pb_web_css_override', [ '\Pressbooks\Modules\ThemeOptions\WebOptions', 'scssOverrides' ] );
+	// Overrides for ebook and PDF stylesheets
+	if ( ! defined( 'WP_TESTS_DOMAIN' ) ) {
+		add_filter( 'pb_epub_css_override', [ '\Pressbooks\Modules\ThemeOptions\EbookOptions', 'scssOverrides' ] );
+		add_filter( 'pb_pdf_css_override', [ '\Pressbooks\Modules\ThemeOptions\PDFOptions', 'scssOverrides' ] );
+	}
 }
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -353,3 +360,6 @@ add_action( 'wp_initialize_site', [ Privacy::class, 'setDefaultPermissivePrivate
 //Network Managers hooks via CLI
 add_action( 'revoked_super_admin', '\Pressbooks\Admin\NetworkManagers\remove_from_pressbooks_network_managers' );
 add_action( 'deleted_user', '\Pressbooks\Admin\NetworkManagers\remove_from_pressbooks_network_managers' );
+
+// Optimize H5P CSS files for export
+add_action( 'pb_xhtml_after_content_processed', '\Pressbooks\Modules\Export\pb_xhtml_after_content_processed' );

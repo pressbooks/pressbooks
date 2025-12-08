@@ -275,6 +275,7 @@ class Books extends \WP_REST_Controller {
 			BookDataCollector::IN_CATALOG,
 			BookDataCollector::BOOK_URL,
 			BookDataCollector::BOOK_DIRECTORY_EXCLUDED,
+			BookDataCollector::ALLOWS_DOWNLOADS,
 		] );
 
 		if ( ! isset( $metadata_blog_meta[ BookDataCollector::BOOK_DIRECTORY_EXCLUDED ] ) ) {

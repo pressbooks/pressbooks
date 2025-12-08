@@ -30,13 +30,13 @@ trait ExportHelpers {
 	 * Map Book contents
 	 * This trait should be used in classes that are ExportGenerators (black magic traits stuff)
 	 *
-	 * @param  array $post_data
-	 * @param  array $metadata
-	 * @param  int   $post_number
-	 * @param  array $options     post_type,needs_sanitization,endnotes,footnotes
+	 * @param array $post_data
+	 * @param array $metadata
+	 * @param int $post_number
+	 * @param array $options post_type,needs_sanitization,endnotes,footnotes
 	 * @return array
 	 */
-	public function mapBookDataAndContent( array $post_data, array $metadata, int $post_number, array $options = [] ) {
+	public function mapBookDataAndContent( array $post_data, array $metadata, int $post_number, array $options = [] ): array {
 		$post_type_identifier = $options['type'] ?? 'post';
 		$needs_tidy_html = $options['needs_tidy_html'] ?? false;
 		$endnotes = $options['endnotes'] ?? false;
@@ -101,17 +101,15 @@ trait ExportHelpers {
 	}
 
 	/**
-	 * @param  array $book_contents
+	 * @param array $book_contents
 	 * @return int
 	 */
-	public function countPartsAndChapters( $book_contents ) {
-		$ticks = count( $book_contents['part'] );
-
-		foreach ( $book_contents['part'] as $part ) {
-			$ticks += count( $part['chapters'] );
-		}
-
-		return $ticks;
+	public function countPartsAndChapters( array $book_contents ): int {
+		return array_reduce(
+			$book_contents['part'],
+			fn( $count, $part) => $count + 1 + count( $part['chapters'] ),
+			0
+		);
 	}
 
 	/**
@@ -119,10 +117,10 @@ trait ExportHelpers {
 	 *
 	 * @param  $post_type
 	 * @param  $post
-	 * @param  null $alias
+	 * @param null $alias
 	 * @return array
 	 */
-	public function getPostInformation( $post_type, $post, $alias = null ) {
+	public function getPostInformation( $post_type, $post, $alias = null ): array {
 		$prefix = $alias ?? $post_type;
 		return [
 			'ID' => $post['ID'],
@@ -139,7 +137,7 @@ trait ExportHelpers {
 	 * @param  $post
 	 * @return array
 	 */
-	public function getExtendedPostInformation( $post_type, $post ) {
+	public function getExtendedPostInformation( $post_type, $post ): array {
 		$data = $this->getPostInformation( $post_type, $post );
 		$data['subtitle'] = trim( get_post_meta( $post['ID'], 'pb_subtitle', true ) );
 		$data['author'] = $this->contributors->get( $post['ID'], 'pb_authors' );
@@ -149,19 +147,19 @@ trait ExportHelpers {
 	}
 
 	/**
-	 * @param  string $post_type
-	 * @param  array  $data
-	 * @param  bool   $is_slug
-	 * @param  bool   $exclude_ampersand
+	 * @param string $post_type
+	 * @param array $data
+	 * @param bool $is_slug
+	 * @param bool $exclude_ampersand
 	 * @return string
 	 */
-	public function renderTocItem( string $post_type, array $data, bool $is_slug = true, bool $exclude_ampersand = false ) {
+	public function renderTocItem( string $post_type, array $data, bool $is_slug = true, bool $exclude_ampersand = false ): string {
 
 		$subsections = [];
 
 		if ( Export::shouldParseSubsections() === true ) {
 
-			$sections = \Pressbooks\Book::getSubsections( $data['ID'] );
+			$sections = Book::getSubsections( $data['ID'] );
 
 			if ( $sections ) {
 				foreach ( $sections as $id => $subsection ) {
@@ -186,4 +184,24 @@ trait ExportHelpers {
 			)
 		);
 	}
+
+	/**
+	 * Clean up H5P CSS
+	 *
+	 * @param string $css
+	 * @return string
+	 */
+	public function cleanH5PCss( string $css ): string {
+		$css = str_replace( '&gt;', '>', $css );
+		$css = str_replace( '*width', 'width', $css );
+		// TODO: Remove this when H5P Extractor fixes the issue
+		$css = str_replace( "src: url('') format('woff2');", '', $css );
+		$css = str_replace( "src: url('') format('truetype');", '', $css );
+		$css = str_replace( "background: url('') 10px center no-repeat;", '', $css );
+		$css = str_replace( 'font-size: unset;', '', $css );
+		// Remove direction property (not allowed in EPUB)
+		$css = str_replace( '.ui-datepicker-rtl { direction: rtl; }', '', $css );
+		return str_replace( '*/; text-decoration: none; }', '', $css );
+	}
+
 }

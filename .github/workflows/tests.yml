@@ -8,48 +8,50 @@ on:
 
 jobs:
   tests:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
         include:
-          - php: 8.2
-            wordpress: 6.7
-            prince: 14.3-1
+          - php: 8.3
+            wordpress: 6.8.3
+            prince: 15.4-1
             epubcheck: 4.2.6
             experimental: false
-          - php: 8.2
+          - php: 8.3
             wordpress: latest
-            prince: 14.3-1
+            prince: 15.4-1
             epubcheck: 4.2.6
             experimental: true
-          - php: 8.3
-            wordpress: 6.7
-            prince: 14.3-1
+          - php: 8.4
+            wordpress: 6.8.3
+            prince: 15.4-1
             epubcheck: 4.2.6
             experimental: true
 
     name: PHP ${{ matrix.php }} - WP ${{ matrix.wordpress }}
+    continue-on-error: ${{ matrix.experimental == true }}
 
     outputs:
       coverage: ${{ matrix.experimental == false }}
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install OS dependencies
         run: |
           sudo apt update
-          sudo apt-get install libxml2-utils ghostscript poppler-utils imagemagick
+          sudo apt-get install libxml2-utils ghostscript poppler-utils imagemagick subversion
+          sudo apt-get install -y libavif16 libgif7
           sudo systemctl start mysql.service
           wget https://github.com/w3c/epubcheck/releases/download/v${{ matrix.epubcheck }}/epubcheck-${{ matrix.epubcheck }}.zip
           unzip epubcheck-${{ matrix.epubcheck }}.zip -d /opt/
           mv /opt/epubcheck-${{ matrix.epubcheck }} /opt/epubcheck
           rm epubcheck-${{ matrix.epubcheck }}.zip
-          wget https://www.princexml.com/download/prince_${{ matrix.prince }}_ubuntu20.04_amd64.deb
-          sudo dpkg -i prince_${{ matrix.prince }}_ubuntu20.04_amd64.deb
-          rm prince_${{ matrix.prince }}_ubuntu20.04_amd64.deb
+          wget https://www.princexml.com/download/prince_${{ matrix.prince }}_ubuntu24.04_amd64.deb
+          sudo dpkg -i prince_${{ matrix.prince }}_ubuntu24.04_amd64.deb
+          rm prince_${{ matrix.prince }}_ubuntu24.04_amd64.deb
 
       - name: Cache Composer packages
         uses: actions/cache@v4
@@ -70,7 +72,7 @@ jobs:
           export PATH="$HOME/.composer/vendor/bin:$PATH"
           composer install --no-interaction
           ulimit -n 4096
-      
+
       - name: Check Standards
         run: composer standards
 
@@ -95,13 +97,12 @@ jobs:
           overwrite: true
 
   coverage:
-    runs-on: ubuntu-22.04
-    needs:
-      - tests
+    runs-on: ubuntu-24.04
+    needs: tests
     name: Upload coverage
     if: needs.tests.outputs.coverage
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Fetch code coverage artifact
         uses: actions/download-artifact@v4
         with:
@@ -113,7 +114,7 @@ jobs:
 
   trigger_bedrock_updates:
     needs: tests
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Trigger Bedrock Updates
         if: github.ref == 'refs/heads/dev'

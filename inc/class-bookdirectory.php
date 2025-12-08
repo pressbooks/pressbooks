@@ -118,7 +118,7 @@ class BookDirectory {
 	 * @return bool
 	 * @since 5.14.3
 	 */
-	public function deleteBookFromDirectory( array $book_ids = null ) {
+	public function deleteBookFromDirectory( ?array $book_ids = null ) {
 		if ( filter_var( self::$delete_book_endpoint, FILTER_VALIDATE_URL ) ) {
 			$book_ids = $book_ids ?? [ get_current_blog_id() ];
 			$sid = sprintf( '%s-%s-%s', uniqid( self::DELETION_PREFIX, true ), wp_rand( 1, 99 ), $book_ids[0] );

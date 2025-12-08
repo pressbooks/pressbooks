@@ -44,6 +44,7 @@ class ApiTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'storageSize', $data['metadata'] );
 		$this->assertArrayHasKey( 'h5pActivities', $data['metadata'] );
 		$this->assertArrayHasKey( 'inCatalog', $data['metadata'] );
+		$this->assertArrayHasKey( 'latestFilesPublic', $data['metadata'] );
 		$this->assertArrayHasKey( 'bookDirectoryExcluded', $data['metadata'] );
 		$this->assertArrayHasKey( 'license', $data['metadata'] );
 		$this->assertArrayHasKey( 'code', $data['metadata']['license'] );
@@ -493,6 +494,7 @@ class ApiTest extends \WP_UnitTestCase {
 			"pb_word_count" => "4840",
             "pb_storage_size" => "39570177",
             "pb_in_catalog" => 1,
+			"pb_latest_files_public" => 1,
             "pb_h5p_activities" => 6,
             "pb_book_url" => "https://pressbooks.test/theonboarding",
             "pb_book_directory_excluded" => 1,
@@ -506,6 +508,7 @@ class ApiTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'h5pActivities', $schema );
 		$this->assertArrayHasKey( 'thumbnailUrl', $schema );
 		$this->assertArrayHasKey( 'author', $schema );
+		$this->assertArrayHasKey( 'latestFilesPublic', $schema );
 	}
 
 	/**

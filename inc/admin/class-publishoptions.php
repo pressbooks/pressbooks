@@ -70,59 +70,26 @@ class PublishOptions extends \Pressbooks\Options {
 			$_page
 		);
 
-		add_settings_field(
-			'amazon',
-			__( 'Amazon URL', 'pressbooks' ),
-			[ $this, 'renderAmazonField' ],
-			$_page,
-			$_section,
-			[ 'label_for' => 'amazon' ]
-		);
+		$fields = [
+			'amazon'         => __( 'Amazon URL', 'pressbooks' ),
+			'barnesandnoble' => __( 'Barnes and Noble URL', 'pressbooks' ),
+			'kobo'           => __( 'Rakuten Kobo URL', 'pressbooks' ),
+			'applebooks'     => __( 'Apple Books URL', 'pressbooks' ),
+			'otherservice'   => __( 'Other Service URL', 'pressbooks' ),
+		];
 
-		add_settings_field(
-			'oreilly',
-			__( 'O\'Reilly URL', 'pressbooks' ),
-			[ $this, 'renderOReillyField' ],
-			$_page,
-			$_section,
-			[ 'label_for' => 'oreilly' ]
-		);
-
-		add_settings_field(
-			'barnesandnoble',
-			__( 'Barnes and Noble URL', 'pressbooks' ),
-			[ $this, 'renderBarnesAndNobleField' ],
-			$_page,
-			$_section,
-			[ 'label_for' => 'barnesandnoble' ]
-		);
-
-		add_settings_field(
-			'kobo',
-			__( 'Kobo URL', 'pressbooks' ),
-			[ $this, 'renderKoboField' ],
-			$_page,
-			$_section,
-			[ 'label_for' => 'kobo' ]
-		);
-
-		add_settings_field(
-			'applebooks',
-			__( 'Apple Books URL', 'pressbooks' ),
-			[ $this, 'renderAppleBooksField' ],
-			$_page,
-			$_section,
-			[ 'label_for' => 'applebooks' ]
-		);
-
-		add_settings_field(
-			'otherservice',
-			__( 'Other Service URL', 'pressbooks' ),
-			[ $this, 'renderOtherServiceField' ],
-			$_page,
-			$_section,
-			[ 'label_for' => 'otherservice' ]
-		);
+		foreach ( $fields as $id => $label ) {
+			add_settings_field(
+				$id,
+				$label,
+				function() use ( $id ) {
+					$this->renderPublisherUrlField( $id );
+				},
+				$_page,
+				$_section,
+				[ 'label_for' => $id ]
+			);
+		}
 
 		register_setting(
 			$_page,
@@ -186,100 +153,15 @@ class PublishOptions extends \Pressbooks\Options {
 	function doInitialUpgrade() {
 	}
 
-	/**
-	 * Render the amazon field.
-	 */
-	function renderAmazonField() {
-		$this->renderField(
-			[
-				'id' => 'amazon',
-				'name' => $this->getSlug(),
-				'option' => 'amazon',
-				'value' => ( isset( $this->options['amazon'] ) ) ? $this->options['amazon'] : '',
-				'type' => 'url',
-				'class' => 'regular-text code',
-			]
-		);
-	}
-
-	/**
-	 * Render the oreilly field.
-	 */
-	function renderOReillyField() {
-		$this->renderField(
-			[
-				'id' => 'oreilly',
-				'name' => $this->getSlug(),
-				'option' => 'oreilly',
-				'value' => ( isset( $this->options['oreilly'] ) ) ? $this->options['oreilly'] : '',
-				'type' => 'url',
-				'class' => 'regular-text code',
-			]
-		);
-	}
-
-	/**
-	 * Render the barnesandnoble field.
-	 */
-	function renderBarnesAndNobleField() {
-		$this->renderField(
-			[
-				'id' => 'barnesandnoble',
-				'name' => $this->getSlug(),
-				'option' => 'barnesandnoble',
-				'value' => ( isset( $this->options['barnesandnoble'] ) ) ? $this->options['barnesandnoble'] : '',
-				'type' => 'url',
-				'class' => 'regular-text code',
-			]
-		);
-	}
-
-	/**
-	 * Render the barnesandnoble field.
-	 */
-	function renderKoboField() {
-		$this->renderField(
-			[
-				'id' => 'kobo',
-				'name' => $this->getSlug(),
-				'option' => 'kobo',
-				'value' => ( isset( $this->options['kobo'] ) ) ? $this->options['kobo'] : '',
-				'type' => 'url',
-				'class' => 'regular-text code',
-			]
-		);
-	}
-
-	/**
-	 * Render the Apple Books field.
-	 */
-	function renderAppleBooksField() {
-		$this->renderField(
-			[
-				'id' => 'applebooks',
-				'name' => $this->getSlug(),
-				'option' => 'applebooks',
-				'value' => ( isset( $this->options['applebooks'] ) ) ? $this->options['applebooks'] : '',
-				'type' => 'url',
-				'class' => 'regular-text code',
-			]
-		);
-	}
-
-	/**
-	 * Render the other service field.
-	 */
-	function renderOtherServiceField() {
-		$this->renderField(
-			[
-				'id' => 'otherservice',
-				'name' => $this->getSlug(),
-				'option' => 'otherservice',
-				'value' => ( isset( $this->options['otherservice'] ) ) ? $this->options['otherservice'] : '',
-				'type' => 'url',
-				'class' => 'regular-text code',
-			]
-		);
+	private function renderPublisherUrlField( string $id ): void {
+		$this->renderField([
+			'id'    => $id,
+			'name'  => $this->getSlug(),
+			'option' => $id,
+			'value' => isset( $this->options[ $id ] ) ? esc_url( $this->options[ $id ] ) : '',
+			'type'  => 'url',
+			'class' => 'regular-text code',
+		]);
 	}
 
 	/**
@@ -308,7 +190,6 @@ class PublishOptions extends \Pressbooks\Options {
 	static function getDefaults() {
 		return [
 			'amazon' => '',
-			'oreilly' => '',
 			'barnesandnoble' => '',
 			'kobo' => '',
 			'ibooks' => '',
@@ -324,7 +205,6 @@ class PublishOptions extends \Pressbooks\Options {
 	static function getUrlOptions() {
 		return [
 			'amazon',
-			'oreilly',
 			'barnesandnoble',
 			'kobo',
 			'applebooks',

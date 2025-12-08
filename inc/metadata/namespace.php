@@ -223,6 +223,7 @@ function book_information_to_schema( array $book_information, bool $network_excl
 		'pb_storage_size' => 'storageSize',
 		'pb_h5p_activities' => 'h5pActivities',
 		'pb_in_catalog' => 'inCatalog',
+		'pb_latest_files_public' => 'latestFilesPublic',
 		'pb_book_directory_excluded' => 'bookDirectoryExcluded',
 		'pb_authors' => 'author',
 		'pb_editors' => 'editor',
@@ -393,6 +394,10 @@ function book_information_to_schema( array $book_information, bool $network_excl
 
 	if ( isset( $book_information['pb_in_catalog'] ) ) {
 		$book_schema['inCatalog'] = $book_information['pb_in_catalog'] === '1';
+	}
+
+	if ( isset( $book_information['pb_latest_files_public'] ) ) {
+		$book_schema['latestFilesPublic'] = $book_information['pb_latest_files_public'] === '1';
 	}
 
 	if ( true === $network_excluded_directory ) {
@@ -582,6 +587,7 @@ function section_information_to_schema( $section_information, $book_information 
 		'pb_short_title' => 'alternateName',
 		'pb_subtitle' => 'alternativeHeadline',
 		'pb_is_based_on' => 'isBasedOn',
+		'pb_show_title' => 'showTitle',
 	];
 
 	$mapped_book_properties = [
@@ -601,7 +607,7 @@ function section_information_to_schema( $section_information, $book_information 
 
 	foreach ( $mapped_section_properties as $old => $new ) {
 		if ( isset( $section_information[ $old ] ) ) {
-			$section_schema[ $new ] = $section_information[ $old ];
+			$section_schema[ $new ] = wp_strip_all_tags( $section_information[ $old ] );
 		}
 	}
 
@@ -793,6 +799,12 @@ function schema_to_section_information( $section_schema, $book_schema ) {
 		}
 	}
 
+	if ( isset( $section_schema['showTitle'] ) ) {
+		if ( empty( $book_schema['showTitle'] ) || $section_schema['showTitle'] !== $book_schema['showTitle'] ) {
+			$section_information['pb_show_title'] = $section_schema['showTitle'];
+		}
+	}
+
 	if ( isset( $section_schema['sameAs'] ) ) {
 		/**
 		 * Filter the DOI resolver service URL (default: https://doi.org).
@@ -948,7 +960,6 @@ function register_contributor_meta() {
 					[
 						'jquery',
 						'jquery-form',
-						'wp-color-picker',
 						'eventsource-polyfill',
 					], null
 				);
@@ -1066,7 +1077,7 @@ function add_citation_metadata() {
 				}
 			} else {
 				if ( isset( $metadata[ $from ] ) && ! empty( $metadata[ $from ] ) ) {
-					$tags[] = sprintf( '<meta name="%1$s" content="%2$s">', $to, $metadata[ $from ] );
+					$tags[] = sprintf( '<meta name="%1$s" content="%2$s">', $to, wp_strip_all_tags( $metadata[ $from ] ) );
 				}
 			}
 		}

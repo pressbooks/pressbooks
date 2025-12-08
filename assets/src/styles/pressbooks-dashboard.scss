@@ -7,10 +7,19 @@
 .pb-dashboard-content {
   font-family: Karla, sans-serif;
 
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
   h2 {
     font-size: 1.5rem;
     margin: .5rem 0;
     line-height: 1.3;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
   }
 
   p, li {
@@ -49,7 +58,11 @@
   padding-bottom: 1rem;
 }
 
-.pb-dashboard-row {
+.pb-dashboard-row.border-top {
+  border-top: 4px solid $monza;
+}
+
+  .pb-dashboard-row {
   margin-bottom: 1rem;
   max-width: 1220px;
 
@@ -72,19 +85,43 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+    overflow: hidden;
 
     .pb-dashboard-grid-image {
       max-width: 225px;
     }
   }
 
-  .button.button-hero, .button.button-primary {
+  .button.button-hero, .button.button-primary, .button.button-secondary {
     font-size: 1.125rem;
     font-weight: 700;
     text-align: center;
-    border-radius: 10px;
-    display: block;
+    border-radius: 3px;
+    display: inline-block;
     padding: 0 1.5rem;
+  }
+
+  .button.button-primary {
+    background: $monza;
+    border-color: $monza;
+    color: $white;
+  }
+
+  .button.button-primary.active, .button.button-primary:hover, .button.button-primary:focus {
+    background: darken($monza, 10%);
+    border-color: darken($monza, 10%);
+    color: $white;
+  }
+
+  .button.button-secondary {
+    background: $white;
+    border-color: $monza;
+    color: $monza;
+  }
+
+  .button.button-secondary.active, .button.button-secondary:hover, .button.button-secondary:focus {
+    border-color: darken($monza, 10%);
+    color: darken($monza, 10%);
   }
 
   .button.button-hero {
@@ -98,6 +135,14 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
     margin-bottom: 0;
+
+    &.two-column {
+      grid-template-columns: repeat(2, 1fr);
+
+      a {
+        text-align: center;
+      }
+    }
 
     li {
       margin-bottom: 0;
@@ -142,6 +187,18 @@
       margin-top: 1em;
     }
 
+    a {
+      color: $monza;
+    }
+
+    a:hover, a:focus {
+      color: darken($monza, 10%);
+    }
+
+    p.price, p.plugin-description {
+      margin-bottom: .5rem;
+    }
+
     .pb-dashboard-flex {
       display: flex;
       gap: 2rem;
@@ -169,6 +226,19 @@
   .pb-dashboard-panel {
     background-color: $white;
     padding: 1.5rem;
+    overflow-y: auto;
+
+    &.recent-updates {
+      max-height: 800px;
+
+      a {
+        font-size: 1.125rem;
+      }
+
+      .pb-dashboard-content > div {
+        padding: 1rem 0;
+      }
+    }
   }
 
   ul.pb-dashboard-action {
@@ -203,7 +273,7 @@
       grid-template-columns: 1fr;
     }
 
-    ul.horizontal {
+    ul.horizontal, ul.horizontal.two-column {
       grid-template-columns: 1fr;
     }
   }

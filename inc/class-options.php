@@ -309,7 +309,7 @@ abstract class Options {
 		$args = wp_parse_args( $args, $defaults );
 
 		printf(
-			'<input id="%1$s" class="color-picker" name="%2$s[%3$s]" type="text" data-default-color="%4$s" value="%5$s" %6$s/>',
+			'<input id="%1$s" class="coloris" name="%2$s[%3$s]" type="text" data-default-color="%4$s" value="%5$s" %6$s/>',
 			$args['id'],
 			$args['name'],
 			$args['option'],
@@ -559,6 +559,8 @@ abstract class Options {
 	static function deleteCacheAfterUpdate( $option ) {
 		if ( str_starts_with( $option, 'pressbooks_' ) ) {
 			Book::deleteBookObjectCache();
+			// Update the last export time to prevent the export from being cached when toggling book options.
+			update_option( 'pressbooks_last_export', time() );
 		}
 	}
 

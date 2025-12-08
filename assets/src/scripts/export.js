@@ -2,316 +2,476 @@
 /* global _pb_export_formats_map */
 /* global _pb_export_pins_inventory */
 
-import Cookies from 'js-cookie';
+// Stores the single global EventSource instance for all user jobs.
+let globalExportSSE = null;
+let globalExportSSENonce = null;
+let globalExportSSEBookId = null;
+let activeJobs = new Set();
+let completedJobs = new Set();
+let failedJobs = new Set();
 
-import displayNotice from './utils/displayNotice';
-import resetClock from './utils/resetClock';
-import startClock from './utils/startClock';
+/**
+ * Updates the UI for a specific job row based on SSE data.
+ *
+ * @param {object} jobData - Data received from SSE for a job.
+ */
+function updateJobRowUI( jobData ) {
+	let tableRow = document.querySelector( `tr.export-job-row[data-job-id='${ jobData.job_id }']` );
+
+	if ( ! tableRow ) {
+		tableRow = createJobRow( jobData );
+		const tableBody = document.querySelector( 'table.wp-list-table' );
+		if ( tableBody ) {
+			tableBody.prepend( tableRow );
+		}
+	}
+
+	const progressBar = tableRow.querySelector( '.progress-bar' );
+	const progressText = tableRow.querySelector( '.progress-text' );
+	const jobStatus = tableRow.querySelector( '.job-status' );
+
+	if ( progressBar && progressText ) {
+		progressBar.classList.remove( 'pb-sse-progressbar-success', 'pb-sse-progressbar-error' );
+		progressBar.style.width = ( jobData.progress_percentage || 0 ) + '%';
+		progressBar.setAttribute( 'aria-valuenow', jobData.progress_percentage || 0 );
+		progressText.textContent = ( jobData.progress_percentage || 0 ) + '%';
+	}
+
+	if ( jobStatus ) {
+		jobStatus.textContent = jobData.progress_message || 'Processing...';
+	}
+
+	if ( jobData.status === 'completed' ) {
+		if ( progressBar ) {
+			progressBar.classList.add( 'pb-sse-progressbar-success' );
+			progressBar.style.width = '100%';
+		}
+		if ( progressText ) {
+			progressText.textContent = '100%';
+		}
+		if ( jobStatus ) {
+			if ( jobData.file_name && jobData.download_url ) {
+				jobStatus.innerHTML = `<a href="${ jobData.download_url }" target="_blank" class="download-link">${ jobData.file_name }</a>`;
+			} else {
+				jobStatus.textContent = PB_ExportToken?.text?.completed  || 'Completed';
+			}
+		}
+
+		tableRow.classList.remove( 'export-job-in-progress', 'export-job-failed' );
+		tableRow.classList.add( 'export-job-completed' );
+		completedJobs.add( jobData.job_id );
+		activeJobs.delete( jobData.job_id );
+	} else if ( jobData.status === 'failed' ) {
+		if ( progressBar ) {
+			progressBar.classList.add( 'pb-sse-progressbar-error' );
+			progressBar.style.width = '100%';
+		}
+		if ( progressText ) {
+			progressText.textContent = 'Error';
+		}
+		if ( jobStatus ) {
+			jobStatus.textContent = `Failed: ${ jobData.error_message || jobData.progress_message || 'Unknown error' }`;
+			jobStatus.style.color = 'red';
+		}
+
+		tableRow.classList.remove( 'export-job-in-progress', 'export-job-completed' );
+		tableRow.classList.add( 'export-job-failed' );
+
+		activeJobs.delete( jobData.job_id );
+		failedJobs.add( jobData.job_id );
+	} else {
+		// In progress
+		tableRow.classList.remove( 'export-job-completed', 'export-job-failed' );
+		tableRow.classList.add( 'export-job-in-progress' );
+		if ( jobStatus ) {
+			jobStatus.style.color = '';
+		}
+		activeJobs.add( jobData.job_id );
+	}
+	checkAllJobsComplete();
+}
+
+/**
+ *
+ * @param activeFormats
+ */
+function preselectActiveFormats( activeFormats ) {
+	const exportForm = document.getElementById( 'pb-export-form' );
+	if ( ! exportForm ) return;
+
+	activeFormats.forEach( formatSlug => {
+		const checkbox = exportForm.querySelector( `input[name="export_formats[${ formatSlug }]"]` );
+		if ( checkbox ) {
+			checkbox.checked = true;
+			checkbox.disabled = true; // Prevent unchecking while job is running
+
+			const label = exportForm.querySelector( `label[for="${ formatSlug }"]` );
+			if ( label ) {
+				label.classList.add( 'export-format-active' );
+				label.title = PB_ExportToken?.text?.job_running || 'This export is currently running';
+			}
+		}
+	} );
+}
+
+/**
+ * Creates a new job row if it doesn't exist (for handling page refreshes)
+ *
+ * @param {object} jobData - Job data to create row for
+ * @returns {HTMLElement} - The created table row element
+ */
+function createJobRow( jobData ) {
+	const row = document.createElement( 'tr' );
+	row.className = 'export-job-row export-job-in-progress';
+	row.setAttribute( 'data-job-id', jobData.job_id );
+
+	row.innerHTML = `
+        <td colspan="6" class="export-job-cell">
+            <div class="export-job-content">
+                <div class="export-name">
+                    <strong class="format-name">${ jobData.format_name || jobData.module_slug }</strong>
+                    <span class="job-status">${ jobData.progress_message || PB_ExportToken?.text?.start_export }</span>
+                </div>
+                <div class="export-progress">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: ${ jobData.progress_percentage || 0 }%" aria-valuenow="${ jobData.progress_percentage || 0 }"></div>
+                    </div>
+                    <span class="progress-text">${ jobData.progress_percentage || 0 }%</span>
+                </div>
+                <div class="export-actions">
+               	  <button class="button button-secondary cancel-job" data-job-id="${ jobData.job_id }" type="button">${PB_ExportToken?.text?.cancel_button || 'Cancel'}</button>
+				</div>
+            </div>
+        </td>
+    `;
+
+	return row;
+}
+
+/**
+ * Checks if all initially queued jobs have completed or failed.
+ */
+function checkAllJobsComplete() {
+	window.PB_Export_ReloadOnComplete = true;
+	if ( activeJobs.size === 0 && ( completedJobs.size > 0 ) ) {
+		if ( window.PB_Export_ReloadOnComplete ) {
+			setTimeout( () => {
+				window.location.reload();
+			}, 100 );
+		}
+	}
+}
+
+/**
+ * Initializes the single global SSE stream for all user export jobs.
+ */
+function initializeGlobalExportFeed() {
+
+	if ( ! PB_ExportToken || ! PB_ExportToken.ajaxUrl || ! PB_ExportToken.userExportFeedNonce || ! PB_ExportToken.bookId ) {
+		return;
+	}
+
+	globalExportSSENonce = PB_ExportToken.userExportFeedNonce;
+	globalExportSSEBookId = PB_ExportToken.bookId;
+
+	if ( globalExportSSE && globalExportSSE.readyState !== EventSource.CLOSED ) {
+		return;
+	}
+
+	const sseUrl = `${ PB_ExportToken.ajaxUrl }?action=pb_sse_exports&_wpnonce=${ globalExportSSENonce }&book_id=${ globalExportSSEBookId }`;
+	globalExportSSE = new EventSource( sseUrl );
+
+	globalExportSSE.addEventListener( 'export_job_updates', function ( event ) {
+		try {
+			const jobsData = JSON.parse( event.data );
+			jobsData.forEach( job => {
+				updateJobRowUI( job );
+				const activeFormats = jobsData.map( job => job.module_slug );
+				preselectActiveFormats( [ ...new Set( activeFormats ) ] );
+			} );
+		} catch ( e ) {
+
+		}
+	} );
+
+	/**
+	 *
+	 * @param event
+	 */
+	globalExportSSE.onerror = function ( event ) {
+		if ( globalExportSSE && globalExportSSE.readyState === EventSource.CLOSED ) {
+			globalExportSSE = null;
+		}
+	};
+	// Trigger cancel button functionality
+	document.querySelector('table.wp-list-table').addEventListener('click', function(event) {
+		const button = event.target.closest('button.cancel-job');
+		if (!button) return;
+
+		const jobId = button.getAttribute('data-job-id');
+		if (!jobId) return;
+
+		if (confirm(PB_ExportToken?.text?.cancel_confirmation || 'Are you sure you want to cancel this export job?')) {
+			fetch(PB_ExportToken.ajaxUrl, {
+			    method: 'POST',
+			    headers: {
+			        'Content-Type': 'application/x-www-form-urlencoded',
+			    },
+			    body: new URLSearchParams({
+			        action: 'pb_cancel_job',
+			        job_id: jobId,
+			        pb_cancel_nonce: PB_ExportToken.nonce,
+			    })
+			})
+			.then(response => {
+			    if (!response.ok) throw new Error('Network response was not ok');
+			    window.location.reload();
+			})
+			.catch(() => {
+			    alert(PB_ExportToken?.text?.cancel_failed || 'Failed to cancel export job.');
+			});
+		}
+	});
+
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+	const exportForm = document.getElementById('pb-export-form');
+	const exportButton = document.getElementById('pb-export-button');
+
+	if (exportForm && exportButton) {
+		exportForm.addEventListener('submit', async function (event) {
+			event.preventDefault();
+
+			// Disable button and show loading state
+			exportButton.disabled = true;
+			const originalButtonText = exportButton.textContent;
+			exportButton.textContent = PB_ExportToken?.text?.exporting || 'Exporting...';
+
+			try {
+				// Get selected formats
+				const formData = new FormData(exportForm);
+				const selectedFormats = getSelectedFormats(formData);
+
+				if (selectedFormats.length === 0) {
+					showError(PB_ExportToken?.text?.select_format || 'Please select at least one export format.');
+					return;
+				}
+
+				const response = await submitExportJobs(selectedFormats);
+
+				if (response.success && response.data?.results) {
+					handleSubmissionSuccess(response.data);
+				} else {
+					handleSubmissionError(response);
+				}
+
+			} catch (error) {
+				showError(PB_ExportToken?.text?.error_jobs || 'Error submitting export jobs:' + error.message);
+			} finally {
+				exportButton.disabled = false;
+				exportButton.textContent = originalButtonText;
+			}
+		});
+	}
+
+	/**
+	 * Extract selected export formats from form data
+	 */
+	function getSelectedFormats(formData) {
+		const selectedFormats = [];
+
+		for (const [key, value] of formData.entries()) {
+			if (key.startsWith('export_formats[') && value) {
+				const formatKey = key.substring(key.indexOf('[') + 1, key.indexOf(']'));
+				selectedFormats.push(formatKey);
+			}
+		}
+
+		return selectedFormats;
+	}
+
+	/**
+	 * Submit export jobs to the server
+	 */
+	async function submitExportJobs(selectedFormats) {
+		const serverFormData = new FormData();
+
+
+		selectedFormats.forEach(format => {
+			serverFormData.append(`export_formats[${format}]`, '1');
+		});
+
+		serverFormData.append('action', 'pb_export_book');
+		serverFormData.append('pb_export_nonce', PB_ExportToken.nonce);
+
+		const response = await fetch(PB_ExportToken.ajaxUrl, {
+			method: 'POST',
+			body: serverFormData
+		});
+
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+
+		return await response.json();
+	}
+
+	/**
+	 * Handle successful job submission
+	 */
+	function handleSubmissionSuccess(data) {
+		// Store reload preference
+		if (data.reload_on_complete === true) {
+			window.PB_Export_ReloadOnComplete = true;
+		}
+
+		data.results.forEach(jobResult => {
+			if (jobResult.event_type === 'job_queued') {
+			} else if (jobResult.event_type === 'job_queue_failed') {
+				console.error(`Failed to queue job: ${jobResult.module_slug} - ${jobResult.message}`);
+			}
+		});
+
+		if (typeof window.PB_EnsureGlobalExportFeed === 'function') {
+			window.PB_EnsureGlobalExportFeed();
+		}
+
+		showSuccess((PB_ExportToken?.text?.jobs_submitted) || 'Export job(s) successfully added to the queue. Progress updates will appear below until the export process is completed. In the meantime, you can safely navigate away from this page.');
+	}
+
+	/**
+	 * Handle submission errors
+	 */
+	function handleSubmissionError(response) {
+		const errorMessage = response.data?.message || response.message || 'Failed to submit export jobs.';
+		showError(errorMessage);
+	}
+
+	/**
+	 * Show error message to user
+	 */
+	function showError(message) {
+		alert(message);
+	}
+
+	/**
+	 * Show success message to user
+	 */
+	function showSuccess(message) {
+		createNotification(message, 'success');
+	}
+
+	/**
+	 * Create an accessible notification banner
+	 */
+	function createNotification(message, type = 'info') {
+		const notification = document.createElement('div');
+		notification.className = `notice notice-${type} is-dismissible`;
+		notification.setAttribute('role', 'alert');
+		notification.setAttribute('aria-live', 'polite');
+		notification.innerHTML = `
+        <p>${message}</p>
+        <button type="button" class="notice-dismiss"
+                aria-label="${PB_ExportToken?.text?.job_notice_dismissal || 'Dismiss this notice'}"
+                onclick="this.parentElement.remove()">
+            <span class="screen-reader-text">${PB_ExportToken?.text?.job_notice_dismissal || 'Dismiss this notice'}.</span>
+        </button>
+    `;
+
+		const insertAfter = exportForm.parentElement || document.body;
+		insertAfter.insertBefore(notification, insertAfter.firstChild);
+
+		if (type === 'error') {
+			notification.focus();
+			notification.setAttribute('tabindex', '-1');
+		}
+	}
+});
+
 
 jQuery( function ( $ ) {
 
-	/* SSE powered progress bar */
 	const exportForm = $( '#pb-export-form' );
-	exportForm.on( 'submit', function ( e ) {
-		// Stop form from submitting
-		e.preventDefault();
 
-		// Set element variables
-		const button = $( '#pb-export-button' );
-		const bar = $( '#pb-sse-progressbar' );
-		const info = $( '#pb-sse-info' );
-		const notices = $( '.notice' );
+	if ( ! exportForm.length ) {
+		return;
+	}
 
-		// Init clock
-		let clock = null;
+	initializeGlobalExportFeed();
 
-		// Show bar, hide button
-		bar.val( 0 ).show();
-		button.attr( 'disabled', true ).hide();
-		notices.remove();
-
-		// Initialize event data
-		const eventSourceUrl = PB_ExportToken.ajaxUrl + ( PB_ExportToken.ajaxUrl.includes( '?' ) ? '&' : '?' ) + $.param( exportForm.find( ':checked' ) );
-		const evtSource = new EventSource( eventSourceUrl );
-
-		// Handle open
-		/**
-		 *
-		 */
-		evtSource.onopen = function () {
-			// Start clock
-			clock = startClock();
-
-			// Warn the user if they navigate away
-			$( window ).on( 'beforeunload', function () {
-				// In some browsers, the return value of the event is displayed in this dialog. Starting with Firefox 44, Chrome 51, Opera 38 and Safari 9.1, a generic string not under the control of the webpage will be shown.
-				// @see https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onbeforeunload#Notes
-				return PB_ExportToken.unloadWarning;
-			} );
-		};
-
-		// Handle message
-		/**
-		 * @param message
-		 */
-		evtSource.onmessage = function ( message ) {
-			const data = JSON.parse( message.data );
-			switch ( data.action ) {
-				case 'updateStatusBar':
-					bar.val( parseInt( data.percentage, 10 ) );
-					info.html( data.info );
-					break;
-				case 'complete':
-					evtSource.close();
-					$( window ).unbind( 'beforeunload' );
-					if ( data.error ) {
-						bar.val( 0 ).hide();
-						button.attr( 'disabled', false ).show();
-						displayNotice( 'error', data.error, true );
-						if ( clock ) {
-							resetClock( clock );
-						}
-					} else {
-						window.location = PB_ExportToken.redirectUrl;
-					}
-					break;
-				default:
-					break;
-			}
-		};
-
-		// Handle error
-		/**
-		 *
-		 */
-		evtSource.onerror = function () {
-			evtSource.close();
-			bar.removeAttr( 'value' );
-			info.html( 'EventStream Connection Error ' + PB_ExportToken.reloadSnippet );
-			$( window ).unbind( 'beforeunload' );
-			if ( clock ) {
-				resetClock( clock );
-			}
-		};
-	} );
-
-	/* JSON Cookie. Remember to keep key/values short because a cookie has max 4096 bytes */
-	let json_cookie_key = 'pb_export';
-	let json_cookie = Cookies.get( json_cookie_key );
-	json_cookie = typeof json_cookie === 'undefined' ? {} : JSON.parse( Cookies.get( json_cookie_key ) );
+	// Pinning functionality (remains largely unchanged for now, but ensure selectors are still valid)
+	let pins = _pb_export_pins_inventory; // initial value from inline script
 
 	/**
-	 *
+	 * Save pins to user meta (via transient)
 	 */
-	function update_json_cookie() {
-		Cookies.set( json_cookie_key, JSON.stringify( json_cookie ), {
-			path: '/',
-			expires: 365,
+	function savePins() {
+		// Disable all pin checkboxes during save
+		$( 'input[name^="pin"]' ).prop( 'disabled', true );
+
+		$.post( PB_ExportToken.ajaxUrl, {
+			action: 'pb_export_pins',
+			pins: pins,
+			_ajax_nonce: PB_ExportToken.pinsNonce, // Assuming pinsNonce is localized
+		} ).always( function () {
+			// Re-enable all pin checkboxes after save attempt
+			$( 'input[name^="pin"]' ).prop( 'disabled', false );
 		} );
 	}
 
-	/* Collapsible form */
-	const optionsPanel = document.getElementById( 'export-options' );
-	const toggleButton = optionsPanel.querySelector( '.handlediv' );
+	// Event delegation for pin checkboxes within the table
+	$( 'table.wp-list-table' ).on( 'change', 'input[name^="pin"]', function () {
+		const postId = $( this ).attr( 'name' );
+		const format = $( this ).val();
+		if ( $( this ).prop( 'checked' ) ) {
+			pins[postId] = format;
+		} else {
+			delete pins[postId];
+		}
+
+		// Validate pins
+		const count = Object.keys( pins ).length;
+		let types = {};
+		for ( let k in pins ) {
+			if ( pins.hasOwnProperty( k ) ) {
+				if ( ! types[pins[k]] ) {
+					types[pins[k]] = 0;
+				}
+				++types[pins[k]];
+			}
+		}
+
+		let error = false;
+		if ( count > 5 ) {
+			$( this ).prop( 'checked', false );
+			delete pins[postId];
+			alert( PB_ExportToken?.text?.maximum_files_warning );
+			error = true;
+		} else {
+			for ( let k in types ) {
+				if ( types.hasOwnProperty( k ) ) {
+					if ( types[k] > 3 ) {
+						$( this ).prop( 'checked', false );
+						delete pins[postId];
+						alert( PB_ExportToken?.text?.maximum_file_type_warning );
+						error = true;
+						break;
+					}
+				}
+			}
+		}
+
+		if ( ! error ) {
+			savePins();
+		}
+	} );
+
 	/**
 	 *
 	 */
-	toggleButton.onclick = () => {
-		let expanded = toggleButton.getAttribute( 'aria-expanded' ) === 'true' || false;
-		toggleButton.setAttribute( 'aria-expanded', ! expanded );
-		if ( expanded ) {
-			optionsPanel.classList.add( 'closed' );
-		} else {
-			optionsPanel.classList.remove( 'closed' );
-		}
+	window.PB_EnsureGlobalExportFeed = function () {
+		initializeGlobalExportFeed();
 	};
 
-	/* Bulk Action Handler */
-	const bulkActionsTop = document.getElementById( 'bulk-action-selector-top' );
-	const bulkActionsBottom = document.getElementById( 'bulk-action-selector-bottom' );
-	const bulkForm = document.querySelector( '.wp-list-table' ).parentNode;
-	bulkForm.addEventListener( 'submit', event => {
-		event.preventDefault();
-		if ( bulkActionsTop.value === 'delete' || bulkActionsBottom.value === 'delete' ) {
-			if ( ! confirm( PB_ExportToken.bulkDeleteWarning ) ) { // eslint-disable-line
-				return false;
-			}
-		}
-		/**
-		 *
-		 */
-		const bulkSubmission = function () {
-			bulkForm.submit();
-		};
-		setTimeout( bulkSubmission, 0 );
-	} );
-
-	/* Swap out and animate the 'Export Your Book' button */
-	$( '#pb-export-button' ).on( 'click', function ( e ) {
-		e.preventDefault();
-		// If the user has pinned three files of a given export type and then tries to export that format,
-		// the export job should be stopped and an error should be displayed instructing them to deselect
-		// one of the pinned files before attempting to export.
-		let tooManyExports = false;
-		let myLabel = '';
-		$( '#pb-export-form input:checked' ).each( function () {
-			myLabel = $( "label[for='" + $( this ).attr( 'id' ) + "']" ).text().trim(); // eslint-disable-line quotes
-			let name = $( this ).attr( 'name' );
-			let myMatch = _pb_export_formats_map[ name ];
-			if ( Object.values( _pb_export_pins_inventory ).filter( function ( value ) {
-				// value matches <crc32-format-td>
-				return value === myMatch;
-			} ).length >= 3 ) {
-				tooManyExports = true;
-				return false; // Use return false to break out of each() loops early
-			}
-		} );
-		if ( tooManyExports ) {
-			alert( myLabel + ': ' + PB_ExportToken.tooManyExportsWarning );
-			return false;
-		}
-		$( '.export-file-container' ).unbind( 'mouseenter mouseleave' ); // Disable Download & Delete Buttons
-		$( '.export-control button' ).prop( 'disabled', true );
-		$( '#pb-export-button' ).hide();
-		$( '#loader' ).show();
-		/**
-		 *
-		 */
-		const submission = function () {
-			$( '#pb-export-form' ).submit();
-		};
-		setTimeout( submission, 0 );
-	} );
-
-	/* Export Formats */
-	$( '#pb-export-form' )
-		.find( 'input' )
-		.each( function () {
-			let name = $( this ).attr( 'name' );
-			// Defaults
-			if ( jQuery.isEmptyObject( json_cookie ) ) {
-				// Defaults
-				if (
-					name === 'export_formats[pdf]' ||
-					name === 'export_formats[mpdf]' ||
-					name === 'export_formats[epub]'
-				) {
-					$( this ).prop( 'checked', true );
-				} else {
-					$( this ).prop( 'checked', false );
-				}
-			} else {
-				// Initialize checkboxes from cookie
-				let was_checked = 0;
-				if ( Object.prototype.hasOwnProperty.call( json_cookie, name ) ) {
-					was_checked = json_cookie[ name ];
-				}
-				$( this ).prop( 'checked', !! was_checked );
-			}
-			// If there's a dependency error, then forcibly uncheck
-			if ( $( this ).attr( 'disabled' ) ) {
-				$( this ).prop( 'checked', false );
-			}
-		} )
-		.on( 'change', function () {
-			let name = $( this ).attr( 'name' );
-			if ( $( this ).prop( 'checked' ) ) {
-				// Cookie syntax: 'ef[<format>]': 1
-				// I.e: 'ef[print_pdf]': 1
-				json_cookie[ name ] = 1;
-			} else {
-				delete json_cookie[ name ];
-			}
-			update_json_cookie();
-		} );
-
-	/* Pins */
-	/**
-	 *
-	 */
-	const adjustBulkActions = () => {
-		let totalCount = $( 'td.column-pin input' ).length;
-		let checkedCount = $( 'td.column-pin input:checked' ).length;
-		if ( checkedCount === totalCount ) {
-			$( '#cb-select-all-1, #cb-select-all-2, #bulk-action-selector-top, #bulk-action-selector-bottom, #doaction, #doaction2' )
-				.attr( 'disabled', true );
-		} else {
-			$( '#cb-select-all-1, #cb-select-all-2, #bulk-action-selector-top, #bulk-action-selector-bottom, #doaction, #doaction2' )
-				.attr( 'disabled', false );
-		}
-	};
-
-	adjustBulkActions();
-
-	$( 'td.column-pin' )
-		.find( 'input' )
-		.each( function () {
-			if ( $( this ).prop( 'checked' ) ) {
-				let tr = $( this ).closest( 'tr' );
-				let id = tr.attr( 'data-id' );
-				let cb = $( `input[name='ID[]'][value='${ id }']` );
-				$( this ).prop( 'checked', true );
-				cb.prop( 'checked', false );
-				cb.prop( 'disabled', true );
-				tr.find( 'td.column-file span.delete' ).hide();
-			}
-		} )
-		.on( 'change', function () {
-			adjustBulkActions();
-			let name =  $( this ).attr( 'name' );
-			let tr = $( this ).closest( 'tr' );
-			let id = tr.attr( 'data-id' );
-			let cb = $( `input[name='ID[]'][value='${ id }']` );
-			let format = tr.attr( 'data-format' );
-			let file = tr.attr( 'data-file' );
-			let pinned = $( this ).prop( 'checked' ) ? 1 : 0;
-			if ( pinned ) {
-				_pb_export_pins_inventory[ name ] = format;
-				// Up to five files can be pinned at once.
-				if ( Object.keys( _pb_export_pins_inventory ).length > 5 ) {
-					delete _pb_export_pins_inventory[ name ];
-					$( this ).prop( 'checked', false );
-					alert( PB_ExportToken.maximumFilesWarning );
-					return false;
-				}
-				// If the user has pinned three files of a given export type and they then try to pin an additional file of that type,
-				// an error should be displayed instructing them to deselect one of the pinned files before attempting to pin another.
-				if ( Object.values( _pb_export_pins_inventory ).filter( function ( value ) {
-					// value matches <crc32-format-td>
-					return value === format;
-				} ).length > 3 ) {
-					delete _pb_export_pins_inventory[ name ];
-					$( this ).prop( 'checked', false );
-					alert( PB_ExportToken.maximumFileTypeWarning );
-					return false;
-				}
-				// Checked
-				cb.prop( 'checked', false );
-				cb.prop( 'disabled', true );
-				tr.find( 'td.column-file span.delete' ).hide();
-			} else {
-				// Unchecked
-				delete _pb_export_pins_inventory[ name ];
-				cb.prop( 'disabled', false );
-				tr.find( 'td.column-file span.delete' ).show();
-			}
-			$.ajax( {
-				url: ajaxurl,
-				type: 'POST',
-				data: {
-					action: 'pb_update_pins',
-					pins: JSON.stringify( _pb_export_pins_inventory ),
-					file: file,
-					pinned: pinned,
-					_ajax_nonce: PB_ExportToken.pinsNonce,
-				},
-				/**
-				 * @param response
-				 */
-				success: response => {
-					let pinNotifications = $( '#pin-notifications' );
-					pinNotifications.html( response.data.message );
-				},
-			} );
-		} );
 } );

@@ -460,7 +460,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			$i++;
 		}
 
-		$html = '<pressbooks-multiselect><label id="global_typography_label" for="global_typography"> ' . $args[0] . '</label>';
+		$html = '<pressbooks-select><label id="global_typography_label" for="global_typography"> ' . $args[0] . '</label>';
 		if ( $already_supported_languages_string ) {
 			$html .= '<select id="global_typography" name="pressbooks_global_typography[]" aria-describedby="global_typography-description" multiple>';
 		} else {
@@ -476,7 +476,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			$html .= '<p class="description" id="global_typography-description">' . sprintf( __( 'This theme includes built-in support for %s.', 'pressbooks' ), $already_supported_languages_string ) . '</p>';
 		}
 
-		$html .= '</pressbooks-multiselect>';
+		$html .= '</pressbooks-select>';
 
 		echo $html;
 	}

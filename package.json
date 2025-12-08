@@ -16,8 +16,9 @@
 	},
 	"dependencies": {
 		"@duetds/date-picker": "^1.4.0",
-		"@pressbooks/multiselect": "^2.4.0",
+		"@melloware/coloris": "^0.25.0",
 		"@pressbooks/reorderable-multiselect": "^0.0.4",
+		"@pressbooks/select": "^1.0.2",
 		"algoliasearch": "^4.23.2",
 		"alpine": "^0.2.1",
 		"alpinejs": "^3.13.9",
@@ -36,6 +37,7 @@
 		"wp-admin-colors": "^6.0.0"
 	},
 	"devDependencies": {
+		"css-purge": "^3.1.8",
 		"pressbooks-build-tools": "^4.0.0"
 	},
 	"repository": {
