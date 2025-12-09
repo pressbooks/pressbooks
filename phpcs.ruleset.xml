@@ -33,5 +33,5 @@
     <exclude-pattern>*.blade.php</exclude-pattern>
 	<!-- Run against the PHPCompatibility ruleset -->
 	<rule ref="PHPCompatibility"/>
-	<config name="testVersion" value="8.2-8.3"/>
+	<config name="testVersion" value="8.3-8.4"/>
 </ruleset>
