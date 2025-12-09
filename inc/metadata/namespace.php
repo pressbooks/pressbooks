@@ -1434,6 +1434,7 @@ function get_supplemental_materials( ?int $post_id = null, bool $check_permissio
 		return [];
 	}
 
+	$titles = get_post_meta( $post_id, 'pb_related_material_title', false );
 	$urls = get_post_meta( $post_id, 'pb_related_material_url', false );
 	$descriptions = get_post_meta( $post_id, 'pb_related_material_description', false );
 	$privacy = get_post_meta( $post_id, 'pb_related_material_privacy', false );
@@ -1454,6 +1455,7 @@ function get_supplemental_materials( ?int $post_id = null, bool $check_permissio
 		}
 
 		$materials[] = [
+			'title' => isset( $titles[ $index ] ) ? esc_html( $titles[ $index ] ) : '',
 			'url' => esc_url( $url ),
 			'description' => isset( $descriptions[ $index ] ) ? esc_html( $descriptions[ $index ] ) : '',
 			'privacy' => $is_private ? 'private' : 'public',
