@@ -41,21 +41,38 @@
 	}" class="related-links-container">
 
 		@forelse($field->value as $index => $item)
-		<div class="related-link-item">
-			<div class="container">
-				<label for="{{ $field->id }}-url-{{ $index }}">
+		<div class="related-link-item" style="background: #f9f9f9; padding: 15px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px;">
+			<div style="margin-bottom: 10px;">
+				<label for="{{ $field->id }}-title-{{ $index }}" style="display: block; font-weight: 600; margin-bottom: 5px;">
+					{{ __( 'Title', 'pressbooks' ) }} <span style="color: #d63638;">*</span>
+				</label>
+				<input
+					id="{{ $field->id }}-title-{{ $index }}"
+					name="{{ $field->name }}[title][]"
+					type="text"
+					value="{{ $item['title'] ?? '' }}"
+					required
+					placeholder="{{ __( 'e.g., Instructor\'s Manual', 'pressbooks' ) }}"
+					style="width: 100%;"
+					aria-labelledby="{{ $field->name }}-label"
+					@if(isset($field->description)) aria-describedby="{{ $field->id }}-description" @endif
+					data-index="{{ $index }}"
+				/>
+			</div>
+			
+			<div style="margin-bottom: 10px;">
+				<label for="{{ $field->id }}-url-{{ $index }}" style="display: block; font-weight: 600; margin-bottom: 5px;">
 					{{ __( 'URL', 'pressbooks' ) }} <span style="color: #d63638;">*</span>
 				</label>
 				<input
 					id="{{ $field->id }}-url-{{ $index }}"
 					name="{{ $field->name }}[url][]"
 					type="url"
-					value="{{ $item['url'] }}"
+					value="{{ $item['url'] ?? '' }}"
 					required
 					placeholder="https://example.com/resource"
 					style="width: 100%;"
 					aria-labelledby="{{ $field->name }}-label"
-					@if(isset($field->description)) aria-describedby="{{ $field->id }}-description" @endif
 					data-index="{{ $index }}"
 					@blur="checkLink"
 				/>
@@ -87,7 +104,7 @@
 						style="margin-right: 8px;"
 						data-index="{{ $index }}"
 					/>
-					<span>{{ __( 'Private (only visible to logged-in users with permissions)', 'pressbooks' ) }}</span>
+					<span>{{ __( 'Private (only visible to logged-in users with the role of Author, Editor, or Administrator)', 'pressbooks' ) }}</span>
 				</label>
 			</div>
 
@@ -104,6 +121,24 @@
 		@empty
 		<div class="related-link-item" style="background: #f9f9f9; padding: 15px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px;">
 			<div style="margin-bottom: 10px;">
+				<label for="{{ $field->id }}-title-0" style="display: block; font-weight: 600; margin-bottom: 5px;">
+					{{ __( 'Title', 'pressbooks' ) }} <span style="color: #d63638;">*</span>
+				</label>
+				<input
+					id="{{ $field->id }}-title-0"
+					name="{{ $field->name }}[title][]"
+					type="text"
+					value=""
+					required
+					placeholder="{{ __( 'e.g., Instructor\'s Manual', 'pressbooks' ) }}"
+					style="width: 100%;"
+					aria-labelledby="{{ $field->name }}-label"
+					@if(isset($field->description)) aria-describedby="{{ $field->id }}-description" @endif
+					data-index="0"
+				/>
+			</div>
+			
+			<div style="margin-bottom: 10px;">
 				<label for="{{ $field->id }}-url-0" style="display: block; font-weight: 600; margin-bottom: 5px;">
 					{{ __( 'URL', 'pressbooks' ) }} <span style="color: #d63638;">*</span>
 				</label>
@@ -116,7 +151,6 @@
 					placeholder="https://example.com/resource"
 					style="width: 100%;"
 					aria-labelledby="{{ $field->name }}-label"
-					@if(isset($field->description)) aria-describedby="{{ $field->id }}-description" @endif
 					data-index="0"
 					@blur="checkLink"
 				/>
@@ -147,7 +181,7 @@
 						style="margin-right: 8px;"
 						data-index="0"
 					/>
-					<span>{{ __( 'Private (only visible to logged-in users with permissions)', 'pressbooks' ) }}</span>
+					<span>{{ __( 'Private (only visible to logged-in users with the role of Author, Editor, or Administrator)', 'pressbooks' ) }}</span>
 				</label>
 			</div>
 
@@ -166,6 +200,24 @@
 		<template x-ref="template">
 			<div class="related-link-item" style="background: #f9f9f9; padding: 15px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px;">
 				<div style="margin-bottom: 10px;">
+					<label for="{{ $field->id }}-title-0" style="display: block; font-weight: 600; margin-bottom: 5px;">
+						{{ __( 'Title', 'pressbooks' ) }} <span style="color: #d63638;">*</span>
+					</label>
+					<input
+						id="{{ $field->id }}-title-0"
+						name="{{ $field->name }}[title][]"
+						type="text"
+						value=""
+						required
+						placeholder="{{ __( 'e.g., Instructor\'s Manual', 'pressbooks' ) }}"
+						style="width: 100%;"
+						aria-labelledby="{{ $field->name }}-label"
+						@if(isset($field->description)) aria-describedby="{{ $field->id }}-description" @endif
+						data-index="0"
+					/>
+				</div>
+				
+				<div style="margin-bottom: 10px;">
 					<label for="{{ $field->id }}-url-0" style="display: block; font-weight: 600; margin-bottom: 5px;">
 						{{ __( 'URL', 'pressbooks' ) }} <span style="color: #d63638;">*</span>
 					</label>
@@ -178,7 +230,6 @@
 						placeholder="https://example.com/resource"
 						style="width: 100%;"
 						aria-labelledby="{{ $field->name }}-label"
-						@if(isset($field->description)) aria-describedby="{{ $field->id }}-description" @endif
 						data-index="0"
 					/>
 				</div>
@@ -208,7 +259,7 @@
 							style="margin-right: 8px;"
 							data-index="0"
 						/>
-						<span>{{ __( 'Private (only visible to logged-in users with permissions)', 'pressbooks' ) }}</span>
+						<span>{{ __( 'Private (only visible to logged-in users with the role of Author, Editor, or Administrator)', 'pressbooks' ) }}</span>
 					</label>
 				</div>
 
@@ -231,7 +282,7 @@
 			style="margin-top: 10px;"
 		>
 			<span class="dashicons dashicons-plus-alt" style="margin-top: 3px;"></span>
-			{{ __( 'Add Related Material', 'pressbooks' ) }}
+			{{ __( 'Add Supplemental Material', 'pressbooks' ) }}
 		</button>
 	</div>
 

@@ -11,19 +11,19 @@ use Pressbooks\Admin\Fields\RelatedLink;
 class RelatedMaterials extends Metabox {
 
 	public function getSlug(): string {
-		return 'related-materials';
+		return 'supplemental-materials';
 	}
 
 	public function getTitle(): string {
-		return __( 'Related Material', 'pressbooks' );
+		return __( 'Supplemental Materials', 'pressbooks' );
 	}
 
 	public function getFields(): array {
 		return [
 			new RelatedLink(
 				name: 'pb_related_material',
-				label: __( 'Ancillaries and related materials', 'pressbooks' ),
-				description: __( 'Links to these ancillaries and related materials will be added to your webbook\'s home page. The URL field is required and must contain a valid URL. The description field is optional and can include a textual description of the related resource.', 'pressbooks' )
+				label: __( 'Supplemental Materials', 'pressbooks' ),
+				description: __( 'Links to these supplemental materials will be added to your webbook\'s home page.', 'pressbooks' )
 			),
 		];
 	}
