@@ -18,15 +18,17 @@ class RelatedLink extends Field {
 			return [];
 		}
 
+		$titles = get_post_meta( $post->ID, $this->name . '_title', false );
 		$urls = get_post_meta( $post->ID, $this->name . '_url', false );
 		$descriptions = get_post_meta( $post->ID, $this->name . '_description', false );
 		$privacy = get_post_meta( $post->ID, $this->name . '_privacy', false );
 
 		$values = [];
-		foreach ( $urls as $index => $url ) {
-			if ( ! empty( $url ) ) {
+		foreach ( $titles as $index => $title ) {
+			if ( ! empty( $title ) && ! empty( $urls[ $index ] ) ) {
 				$values[] = [
-					'url' => $url,
+					'title' => $title,
+					'url' => $urls[ $index ],
 					'description' => $descriptions[ $index ] ?? '',
 					'privacy' => isset( $privacy[ $index ] ) && $privacy[ $index ] === 'private' ? 'private' : 'public',
 				];
@@ -43,21 +45,25 @@ class RelatedLink extends Field {
 
 	public function save( int $post_id, mixed $value ): void {
 		// Delete existing values
+		delete_post_meta( $post_id, $this->name . '_title' );
 		delete_post_meta( $post_id, $this->name . '_url' );
 		delete_post_meta( $post_id, $this->name . '_description' );
 		delete_post_meta( $post_id, $this->name . '_privacy' );
 
 		// Handle the data structure from $_POST
-		if ( isset( $value['url'] ) && is_array( $value['url'] ) ) {
-			$urls = $value['url'];
+		if ( isset( $value['title'] ) && is_array( $value['title'] ) ) {
+			$titles = $value['title'];
+			$urls = $value['url'] ?? [];
 			$descriptions = $value['description'] ?? [];
 			$privacy = $value['privacy'] ?? [];
 
-			foreach ( $urls as $index => $url ) {
-				$url = trim( sanitize_text_field( $url ) );
+			foreach ( $titles as $index => $title ) {
+				$title = trim( sanitize_text_field( $title ) );
+				$url = isset( $urls[ $index ] ) ? trim( sanitize_text_field( $urls[ $index ] ) ) : '';
 				
-				// Validate URL
-				if ( ! empty( $url ) && filter_var( $url, FILTER_VALIDATE_URL ) ) {
+				// Both title and URL are required
+				if ( ! empty( $title ) && ! empty( $url ) && filter_var( $url, FILTER_VALIDATE_URL ) ) {
+					add_post_meta( $post_id, $this->name . '_title', $title, false );
 					add_post_meta( $post_id, $this->name . '_url', esc_url_raw( $url ), false );
 					
 					$desc = isset( $descriptions[ $index ] ) ? trim( sanitize_text_field( $descriptions[ $index ] ) ) : '';
