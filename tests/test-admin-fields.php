@@ -1,6 +1,7 @@
 <?php
 
 use Pressbooks\Admin\Fields\Date;
+use Pressbooks\Admin\Fields\RelatedLink;
 use Pressbooks\Admin\Fields\TaxonomySelect;
 use Pressbooks\Admin\Fields\TaxonomyReorderableMultiselect;
 use Pressbooks\Admin\Fields\Text;
@@ -253,5 +254,93 @@ class Admin_Fields extends \WP_UnitTestCase {
 		foreach ( $unexpected_substrings as $substring ) {
 			$this->assertStringNotContainsString( $substring, $rendered_field );
 		}
+	}
+
+	public function test_related_link_get_value(): void {
+		global $post;
+
+		add_post_meta( $post->ID, 'pb_related_material_title', 'Test Title', false );
+		add_post_meta( $post->ID, 'pb_related_material_url', 'https://example.com', false );
+		add_post_meta( $post->ID, 'pb_related_material_description', 'Test description', false );
+		add_post_meta( $post->ID, 'pb_related_material_privacy', 'public', false );
+
+		$field = new RelatedLink( 'pb_related_material', 'Related Material' );
+		$value = $field->getValue();
+
+		$this->assertIsArray( $value );
+		$this->assertCount( 1, $value );
+		$this->assertEquals( 'Test Title', $value[0]['title'] );
+		$this->assertEquals( 'https://example.com', $value[0]['url'] );
+		$this->assertEquals( 'Test description', $value[0]['description'] );
+		$this->assertEquals( 'public', $value[0]['privacy'] );
+	}
+
+	public function test_related_link_save(): void {
+		global $post;
+
+		$field = new RelatedLink( 'pb_related_material', 'Related Material' );
+
+		$data = [
+			'title' => [ 'Title One', 'Title Two' ],
+			'url' => [ 'https://example.com/one', 'https://example.com/two' ],
+			'description' => [ 'Description One', 'Description Two' ],
+			'privacy' => [ 'public', 'private' ],
+		];
+
+		$field->save( $post->ID, $data );
+
+		$titles = get_post_meta( $post->ID, 'pb_related_material_title', false );
+		$urls = get_post_meta( $post->ID, 'pb_related_material_url', false );
+		$descriptions = get_post_meta( $post->ID, 'pb_related_material_description', false );
+		$privacy = get_post_meta( $post->ID, 'pb_related_material_privacy', false );
+
+		$this->assertCount( 2, $titles );
+		$this->assertEquals( 'Title One', $titles[0] );
+		$this->assertEquals( 'Title Two', $titles[1] );
+		$this->assertEquals( 'https://example.com/one', $urls[0] );
+		$this->assertEquals( 'https://example.com/two', $urls[1] );
+		$this->assertEquals( 'Description One', $descriptions[0] );
+		$this->assertEquals( 'Description Two', $descriptions[1] );
+		$this->assertEquals( 'public', $privacy[0] );
+		$this->assertEquals( 'private', $privacy[1] );
+	}
+
+	public function test_related_link_save_skips_invalid_urls(): void {
+		global $post;
+
+		$field = new RelatedLink( 'pb_related_material', 'Related Material' );
+
+		$data = [
+			'title' => [ 'Valid Title', 'Invalid Title' ],
+			'url' => [ 'https://example.com/valid', 'not-a-valid-url' ],
+			'description' => [ 'Valid description', 'Invalid description' ],
+			'privacy' => [ 'public', 'public' ],
+		];
+
+		$field->save( $post->ID, $data );
+
+		$titles = get_post_meta( $post->ID, 'pb_related_material_title', false );
+
+		$this->assertCount( 1, $titles );
+		$this->assertEquals( 'Valid Title', $titles[0] );
+	}
+
+	public function test_related_link_save_requires_title_and_url(): void {
+		global $post;
+
+		$field = new RelatedLink( 'pb_related_material', 'Related Material' );
+
+		$data = [
+			'title' => [ '', 'Has Title' ],
+			'url' => [ 'https://example.com/no-title', '' ],
+			'description' => [ 'No title', 'No URL' ],
+			'privacy' => [ 'public', 'public' ],
+		];
+
+		$field->save( $post->ID, $data );
+
+		$titles = get_post_meta( $post->ID, 'pb_related_material_title', false );
+
+		$this->assertCount( 0, $titles );
 	}
 }

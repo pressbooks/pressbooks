@@ -1,6 +1,6 @@
 <div class="form-field">
 	<label id="{{ $field->name }}-label">{!! $field->label !!}</label>
-	
+
 	<div x-data="{
 		count: {{ count($field->value) }},
 		addNew() {
@@ -18,9 +18,28 @@
 		remove(event) {
 			const item = event.target.closest('.related-link-item');
 			if (item) item.remove();
+		},
+		checkLink(event) {
+			const url = event.target.value;
+			if (!url) return;
+			try {
+				fetch(url, { method: 'HEAD' })
+					.then(response => {
+						if (!response.ok) {
+							console.log('URL appears to be invalid or unreachable');
+						} else {
+							console.log('URL is valid' );
+						}
+					})
+					.catch(() => {
+						console.log('Could not verify URL');
+					});
+			} catch (error) {
+				console.log('Could not verify URL');
+			}
 		}
 	}" class="related-links-container">
-		
+
 		@forelse($field->value as $index => $item)
 		<div class="related-link-item">
 			<div class="container">
@@ -38,9 +57,10 @@
 					aria-labelledby="{{ $field->name }}-label"
 					@if(isset($field->description)) aria-describedby="{{ $field->id }}-description" @endif
 					data-index="{{ $index }}"
+					@blur="checkLink"
 				/>
 			</div>
-			
+
 			<div style="margin-bottom: 10px;">
 				<label for="{{ $field->id }}-description-{{ $index }}" style="display: block; font-weight: 600; margin-bottom: 5px;">
 					{{ __( 'Description', 'pressbooks' ) }}
@@ -56,7 +76,7 @@
 					data-index="{{ $index }}"
 				/>
 			</div>
-			
+
 			<div style="margin-bottom: 10px;">
 				<label style="display: inline-flex; align-items: center; cursor: pointer;">
 					<input
@@ -70,10 +90,10 @@
 					<span>{{ __( 'Private (only visible to logged-in users with permissions)', 'pressbooks' ) }}</span>
 				</label>
 			</div>
-			
-			<button 
-				type="button" 
-				class="button button-secondary" 
+
+			<button
+				type="button"
+				class="button button-secondary"
 				@click="remove"
 				style="margin-top: 5px;"
 			>
@@ -98,9 +118,10 @@
 					aria-labelledby="{{ $field->name }}-label"
 					@if(isset($field->description)) aria-describedby="{{ $field->id }}-description" @endif
 					data-index="0"
+					@blur="checkLink"
 				/>
 			</div>
-			
+
 			<div style="margin-bottom: 10px;">
 				<label for="{{ $field->id }}-description-0" style="display: block; font-weight: 600; margin-bottom: 5px;">
 					{{ __( 'Description', 'pressbooks' ) }}
@@ -116,7 +137,7 @@
 					data-index="0"
 				/>
 			</div>
-			
+
 			<div style="margin-bottom: 10px;">
 				<label style="display: inline-flex; align-items: center; cursor: pointer;">
 					<input
@@ -129,10 +150,10 @@
 					<span>{{ __( 'Private (only visible to logged-in users with permissions)', 'pressbooks' ) }}</span>
 				</label>
 			</div>
-			
-			<button 
-				type="button" 
-				class="button button-secondary" 
+
+			<button
+				type="button"
+				class="button button-secondary"
 				@click="remove"
 				style="margin-top: 5px;"
 			>
@@ -141,7 +162,7 @@
 			</button>
 		</div>
 		@endforelse
-		
+
 		<template x-ref="template">
 			<div class="related-link-item" style="background: #f9f9f9; padding: 15px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px;">
 				<div style="margin-bottom: 10px;">
@@ -161,7 +182,7 @@
 						data-index="0"
 					/>
 				</div>
-				
+
 				<div style="margin-bottom: 10px;">
 					<label for="{{ $field->id }}-description-0" style="display: block; font-weight: 600; margin-bottom: 5px;">
 						{{ __( 'Description', 'pressbooks' ) }}
@@ -177,7 +198,7 @@
 						data-index="0"
 					/>
 				</div>
-				
+
 				<div style="margin-bottom: 10px;">
 					<label style="display: inline-flex; align-items: center; cursor: pointer;">
 						<input
@@ -190,10 +211,10 @@
 						<span>{{ __( 'Private (only visible to logged-in users with permissions)', 'pressbooks' ) }}</span>
 					</label>
 				</div>
-				
-				<button 
-					type="button" 
-					class="button button-secondary" 
+
+				<button
+					type="button"
+					class="button button-secondary"
 					@click="remove"
 					style="margin-top: 5px;"
 				>
@@ -202,10 +223,10 @@
 				</button>
 			</div>
 		</template>
-		
-		<button 
-			type="button" 
-			class="button button-primary" 
+
+		<button
+			type="button"
+			class="button button-primary"
 			@click="addNew"
 			style="margin-top: 10px;"
 		>

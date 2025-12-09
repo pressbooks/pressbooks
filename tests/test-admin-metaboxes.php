@@ -35,6 +35,7 @@ class Admin_Metaboxes extends \WP_UnitTestCase {
 			'Pressbooks\\Admin\\Metaboxes\\Copyright',
 			'Pressbooks\\Admin\\Metaboxes\\GeneralInformation',
 			'Pressbooks\\Admin\\Metaboxes\\Institutions',
+			'Pressbooks\\Admin\\Metaboxes\\RelatedMaterials',
 			'Pressbooks\\Admin\\Metaboxes\\Subjects',
 		] as $classname ) {
 			$metabox = in_array( $classname, [
