@@ -435,8 +435,8 @@ function book_information_to_schema( array $book_information, bool $network_excl
 		$book_schema['image'] = apply_https_if_available( $book_schema['image'] );
 	}
 
-	// Add related materials/ancillary resources
-	$related_materials = get_related_materials( null, false );
+	// Add supplemental materials
+	$related_materials = get_supplemental_materials( null, false );
 	if ( ! empty( $related_materials ) ) {
 		$book_schema['relatedLink'] = [];
 		foreach ( $related_materials as $material ) {
@@ -1391,18 +1391,18 @@ function get_institution_name( string $code ): ?string {
 }
 
 /**
- * Get related materials for the current book
+ * Get supplemental materials for the current book
  *
- * Retrieves ancillary materials (slide decks, quiz banks, lesson plans, etc.) 
+ * Retrieves supplemental materials (slide decks, quiz banks, lesson plans, etc.) 
  * linked to the book. Respects privacy settings - private materials are only 
  * returned to logged-in users with edit_posts capability.
  *
  * Example usage in theme templates:
  *
- *     $materials = \Pressbooks\Metadata\get_related_materials();
+ *     $materials = \Pressbooks\Metadata\get_supplemental_materials();
  *     if ( ! empty( $materials ) ) {
- *         echo '<section class="related-materials">';
- *         echo '<h2>' . __( 'Ancillary Resources', 'pressbooks' ) . '</h2>';
+ *         echo '<section class="supplemental-materials">';
+ *         echo '<h2>' . __( 'Supplemental Materials', 'pressbooks' ) . '</h2>';
  *         echo '<ul>';
  *         foreach ( $materials as $material ) {
  *             echo '<li>';
@@ -1423,9 +1423,9 @@ function get_institution_name( string $code ): ?string {
  * @param int|null $post_id The post ID (defaults to metadata post)
  * @param bool $check_permissions Whether to filter by user permissions (default true)
  *
- * @return array Array of related materials with url, description, and privacy
+ * @return array Array of supplemental materials with title, url, description, and privacy
  */
-function get_related_materials( ?int $post_id = null, bool $check_permissions = true ): array {
+function get_supplemental_materials( ?int $post_id = null, bool $check_permissions = true ): array {
 	if ( ! $post_id ) {
 		$post_id = ( new \Pressbooks\Metadata() )->getMetaPostId();
 	}
