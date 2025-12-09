@@ -435,6 +435,22 @@ function book_information_to_schema( array $book_information, bool $network_excl
 		$book_schema['image'] = apply_https_if_available( $book_schema['image'] );
 	}
 
+	// Add related materials/ancillary resources
+	$related_materials = get_related_materials( null, false );
+	if ( ! empty( $related_materials ) ) {
+		$book_schema['relatedLink'] = [];
+		foreach ( $related_materials as $material ) {
+			$link = [
+				'@type' => 'LinkRole',
+				'url' => $material['url'],
+			];
+			if ( ! empty( $material['description'] ) ) {
+				$link['description'] = $material['description'];
+			}
+			$book_schema['relatedLink'][] = $link;
+		}
+	}
+
 	// TODO: educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOnUrl
 
 	return $book_schema;
@@ -1373,3 +1389,77 @@ function get_institution_name( string $code ): ?string {
 
 	return $institution['name'] ?? null;
 }
+
+/**
+ * Get related materials for the current book
+ *
+ * Retrieves ancillary materials (slide decks, quiz banks, lesson plans, etc.) 
+ * linked to the book. Respects privacy settings - private materials are only 
+ * returned to logged-in users with edit_posts capability.
+ *
+ * Example usage in theme templates:
+ *
+ *     $materials = \Pressbooks\Metadata\get_related_materials();
+ *     if ( ! empty( $materials ) ) {
+ *         echo '<section class="related-materials">';
+ *         echo '<h2>' . __( 'Ancillary Resources', 'pressbooks' ) . '</h2>';
+ *         echo '<ul>';
+ *         foreach ( $materials as $material ) {
+ *             echo '<li>';
+ *             echo '<a href="' . esc_url( $material['url'] ) . '" target="_blank" rel="noopener">';
+ *             echo esc_html( $material['description'] ?: $material['url'] );
+ *             echo '</a>';
+ *             if ( $material['privacy'] === 'private' ) {
+ *                 echo ' <span class="private-badge">' . __( '(Private)', 'pressbooks' ) . '</span>';
+ *             }
+ *             echo '</li>';
+ *         }
+ *         echo '</ul>';
+ *         echo '</section>';
+ *     }
+ *
+ * @since 6.35.0
+ *
+ * @param int|null $post_id The post ID (defaults to metadata post)
+ * @param bool $check_permissions Whether to filter by user permissions (default true)
+ *
+ * @return array Array of related materials with url, description, and privacy
+ */
+function get_related_materials( ?int $post_id = null, bool $check_permissions = true ): array {
+	if ( ! $post_id ) {
+		$post_id = ( new \Pressbooks\Metadata() )->getMetaPostId();
+	}
+
+	if ( ! $post_id ) {
+		return [];
+	}
+
+	$urls = get_post_meta( $post_id, 'pb_related_material_url', false );
+	$descriptions = get_post_meta( $post_id, 'pb_related_material_description', false );
+	$privacy = get_post_meta( $post_id, 'pb_related_material_privacy', false );
+
+	$materials = [];
+	foreach ( $urls as $index => $url ) {
+		if ( empty( $url ) ) {
+			continue;
+		}
+
+		$is_private = isset( $privacy[ $index ] ) && $privacy[ $index ] === 'private';
+		
+		// Filter private materials based on permissions
+		if ( $check_permissions && $is_private ) {
+			if ( ! is_user_logged_in() || ! current_user_can( 'edit_posts' ) ) {
+				continue;
+			}
+		}
+
+		$materials[] = [
+			'url' => esc_url( $url ),
+			'description' => isset( $descriptions[ $index ] ) ? esc_html( $descriptions[ $index ] ) : '',
+			'privacy' => $is_private ? 'private' : 'public',
+		];
+	}
+
+	return $materials;
+}
+

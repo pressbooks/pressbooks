@@ -172,6 +172,7 @@ function add_meta_boxes_metadata() {
 	( new Institutions() )->register();
 	( new Copyright( $expanded ) )->register();
 	( new About() )->register();
+	( new RelatedMaterials() )->register();
 
 	if ( $expanded ) {
 		( new AdditionalCatalogInformation( $expanded ) )->register();
@@ -202,6 +203,7 @@ function save_metadata( $post_id ) {
 	( new Institutions() )->save( $post_id );
 	( new Copyright( $expanded ) )->save( $post_id );
 	( new About() )->save( $post_id );
+	( new RelatedMaterials() )->save( $post_id );
 
 	if ( $expanded ) {
 		( new AdditionalCatalogInformation() )->save( $post_id );
