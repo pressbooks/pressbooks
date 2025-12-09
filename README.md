@@ -13,7 +13,6 @@ License URI: https://github.com/pressbooks/pressbooks/blob/production/LICENSE.md
 Pressbooks is an open source book publishing tool built on a WordPress multisite platform.
 
 ## Description 
-
 [![Packagist](https://img.shields.io/packagist/l/pressbooks/pressbooks.svg)](https://packagist.org/packages/pressbooks/pressbooks)
 [![Current Release](https://img.shields.io/github/release/pressbooks/pressbooks.svg)](https://github.com/pressbooks/pressbooks/releases/latest/)
 [![Packagist](https://img.shields.io/packagist/v/pressbooks/pressbooks.svg)](https://packagist.org/packages/pressbooks/pressbooks)
@@ -29,11 +28,9 @@ Our webbooks and EPUB/[PDF][pdf] exports are all driven by HTML + CSS. XML outpu
 [pdf]: https://docraptor.com/prince "Note: we use the non-free software PrinceXML to produce PDF exports."
 
 ## Requirements
-
 Pressbooks works with PHP 8.3 and WordPress 6.9. Lower versions are not supported.
 
 ## Installing the Plugin
-
 Pressbooks is not for use on an existing blog. Instead it should be used with a fresh, [multisite WordPress installation](https://wordpress.org/support/article/glossary/#multisite).
 
 To install Pressbooks on your site, download the [latest release](https://github.com/pressbooks/pressbooks/releases/latest) and follow our [installation instructions](https://pressbooks.org/user-docs/installation/). 
@@ -41,11 +38,9 @@ To install Pressbooks on your site, download the [latest release](https://github
 You may want to try [Pressbooks.pub](https://pressbooks.pub/auth) before deciding whether or not you wish to host and maintain your own instance of Pressbooks. We can also [host and maintain an instance of Pressbooks for you](https://pressbooks.com/enterprise/).
 
 ## Contributor guidelines
-
 Developers who are interested in contributing to our project should consult our ["Contributing"](.github/CONTRIBUTING.md) guidelines and the developer guides published on our [documentation website](https://pressbooks.org/dev-docs/).
 
 ## Disclaimers
-
 The Pressbooks plugin is supplied "as is" and all use is at your own risk.
 
 ### Changelog
