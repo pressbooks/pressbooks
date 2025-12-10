@@ -1,5 +1,41 @@
 # Changelog
 
+## [6.34.4](https://github.com/pressbooks/pressbooks/compare/6.34.3...6.34.4) (2025-12-02)
+
+
+### Bug Fixes
+
+* adjust dropdown z-index ([#4281](https://github.com/pressbooks/pressbooks/issues/4281)) ([70097a4](https://github.com/pressbooks/pressbooks/commit/70097a49687f2144700dd2a0f067f69fcd16ada8))
+* cache recent updates request ([#4282](https://github.com/pressbooks/pressbooks/issues/4282)) ([d871b65](https://github.com/pressbooks/pressbooks/commit/d871b65de4ab2ac390b3297bb83cb4afe21ba187))
+* fetch updates only when needed ([#4295](https://github.com/pressbooks/pressbooks/issues/4295)) ([9d56f77](https://github.com/pressbooks/pressbooks/commit/9d56f77c9710ae15ec3f452e532657a07fdbf531))
+* remove .po generation workflow and tx files ([#4290](https://github.com/pressbooks/pressbooks/issues/4290)) ([a077e78](https://github.com/pressbooks/pressbooks/commit/a077e782ea412cdc08df45ef83a44e1d97e6e2e1))
+* remove transifex references ([#4296](https://github.com/pressbooks/pressbooks/issues/4296)) ([10112b9](https://github.com/pressbooks/pressbooks/commit/10112b9fb9472b99b8167d15b4eb4b40b33cb140))
+
+
+### Chores
+
+* bump actions/checkout from 4 to 6 ([#4287](https://github.com/pressbooks/pressbooks/issues/4287)) ([72908cc](https://github.com/pressbooks/pressbooks/commit/72908cc3f0afa8ad51f93926428e08838d55daf9))
+* bump node-forge from 1.3.1 to 1.3.2 ([#4293](https://github.com/pressbooks/pressbooks/issues/4293)) ([88a2e9e](https://github.com/pressbooks/pressbooks/commit/88a2e9e9b32566aadf8143b6cbde642ec599a86e))
+* bump the composer-dependencies group across 1 directory with 3 updates ([#4294](https://github.com/pressbooks/pressbooks/issues/4294)) ([dcefb06](https://github.com/pressbooks/pressbooks/commit/dcefb0631b367c61c0f4a8dd576f0e603ecea04b))
+
+## [6.34.3](https://github.com/pressbooks/pressbooks/compare/6.34.2...6.34.3) (2025-11-19)
+
+
+### Bug Fixes
+
+* disable wptexturize on mathjax pages ([#4273](https://github.com/pressbooks/pressbooks/issues/4273)) ([3428afa](https://github.com/pressbooks/pressbooks/commit/3428afa0d5f677392f9342074d201c3b8163d373))
+* hide 'add new book information' button (resolves [#3964](https://github.com/pressbooks/pressbooks/issues/3964)) ([#4253](https://github.com/pressbooks/pressbooks/issues/4253)) ([d6ab164](https://github.com/pressbooks/pressbooks/commit/d6ab16447fab6b17b0ae65044fef13a1a85f863a))
+* improve redirect logic after login (resolves [#1794](https://github.com/pressbooks/pressbooks/issues/1794)) ([#4251](https://github.com/pressbooks/pressbooks/issues/4251)) ([0e1fe25](https://github.com/pressbooks/pressbooks/commit/0e1fe259921245319f75274331e557eea4a22800))
+* make publish box unsticky ([#4275](https://github.com/pressbooks/pressbooks/issues/4275)) ([2125e84](https://github.com/pressbooks/pressbooks/commit/2125e84cb850ef41f63b714fbaf8812adb9b6f14))
+
+
+### Chores
+
+* bump aws/aws-sdk-php from 3.359.2 to 3.359.3 in the composer-dependencies group ([#4270](https://github.com/pressbooks/pressbooks/issues/4270)) ([2f1b3cf](https://github.com/pressbooks/pressbooks/commit/2f1b3cf1faad71bc377026f4a94a0f7b3a55d7b4))
+* bump aws/aws-sdk-php in the composer-dependencies group ([2f1b3cf](https://github.com/pressbooks/pressbooks/commit/2f1b3cf1faad71bc377026f4a94a0f7b3a55d7b4))
+* bump the npm-dependencies group with 2 updates ([#4274](https://github.com/pressbooks/pressbooks/issues/4274)) ([56aa151](https://github.com/pressbooks/pressbooks/commit/56aa1512bd7712e9972b195acc9d72e1eb3353cd))
+* **l10n:** Updates for project Pressbooks ([#4269](https://github.com/pressbooks/pressbooks/issues/4269)) ([2b97899](https://github.com/pressbooks/pressbooks/commit/2b97899ff27926c9ad074e0b3da372f014b9845e))
+
 ## [6.34.2](https://github.com/pressbooks/pressbooks/compare/6.34.1...6.34.2) (2025-10-30)
 
 

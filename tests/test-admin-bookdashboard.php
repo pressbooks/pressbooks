@@ -5,6 +5,23 @@ use Pressbooks\Admin\Dashboard\NetworkDashboard;
 use Pressbooks\Metadata;
 use function Pressbooks\Admin\Metaboxes\upload_cover_image;
 
+class FakeDashboard extends Pressbooks\Admin\Dashboard\Dashboard {
+	public function fetchReleaseNotes(): array
+	{
+		return $this->fetchUpdates();
+	}
+
+	public function render(): void
+	{
+		// This method is not used in this test, but it is required to instantiate the class.
+	}
+
+	protected function shouldRedirect(): bool
+	{
+		return true;
+	}
+}
+
 /**
  * @group book-dashboard
  */
@@ -174,7 +191,6 @@ class Admin_BookDashboardTest extends \WP_UnitTestCase {
 	 * @test
 	 */
 	public function it_populates_release_notes(): void {
-
 		$mock_response = [
 			'body' => json_encode([
 				[
@@ -186,35 +202,19 @@ class Admin_BookDashboardTest extends \WP_UnitTestCase {
 				'code' => 200,
 			],
 		];
+
 		// Mock the HTTP response for the release notes endpoint
 		$this->mockHttpCallback = function($preempt, $args, $url) use ($mock_response) {
 			if (str_contains($url, 'wp-json/dashboard/v1/release-notes')) {
 				return $mock_response;
 			}
+
 			return $preempt;
 		};
 
 		add_filter('pre_http_request', $this->mockHttpCallback, 10, 3);
 
-		$dashboard = new class extends Pressbooks\Admin\Dashboard\Dashboard {
-			public function fetchReleaseNotes(): array
-			{
-				parent::fetchUpdates();
-				return $this->recentUpdates;
-			}
-
-			public function render(): void
-			{
-				// This method is not used in this test, but it is required to instantiate the class.
-			}
-
-			protected function shouldRedirect(): bool
-			{
-				return true;
-			}
-		};
-
-		$result = $dashboard->fetchReleaseNotes();
+		$dashboard = new FakeDashboard;
 
 		$this->assertEquals(
 			[
@@ -224,9 +224,16 @@ class Admin_BookDashboardTest extends \WP_UnitTestCase {
 				],
 				'domain' => 'https://pressbooks.com',
 			],
-			$result
+			$dashboard->fetchReleaseNotes()
 		);
 
+		remove_filter('pre_http_request', $this->mockHttpCallback, 10);
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_handles_failed_release_notes_requests(): void {
 		$mock_response = [
 			'body' => json_encode([
 				[
@@ -244,24 +251,16 @@ class Admin_BookDashboardTest extends \WP_UnitTestCase {
 			if (str_contains($url, 'wp-json/dashboard/v1/release-notes')) {
 				return $mock_response;
 			}
+
 			return $preempt;
 		};
 
 		add_filter('pre_http_request', $this->mockHttpCallback, 10, 3);
 
-		$result = $dashboard->fetchReleaseNotes();
+		$dashboard = new FakeDashboard;
 
-		$this->assertEquals(
-			[],
-			$result
-		);
+		$this->assertEquals([], $dashboard->fetchReleaseNotes());
 
-		remove_filter(
-			'pre_http_request',
-			$this->mockHttpCallback,
-			10
-		);
-
+		remove_filter('pre_http_request', $this->mockHttpCallback, 10);
 	}
-
 }
