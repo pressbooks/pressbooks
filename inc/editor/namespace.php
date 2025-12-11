@@ -516,6 +516,75 @@ function show_kitchen_sink( $args ) {
 }
 
 /**
+ * Convert <td> elements to <th> elements in table header rows.
+ *
+ * TinyMCE creates table headers with <thead> but leaves cells as <td> instead of <th>.
+ * This function fixes that by converting all <td> elements within <thead> to <th>.
+ *
+ * @param string $content Post content
+ *
+ * @return string Modified content with proper <th> elements in table headers
+ */
+function fix_table_header_cells( $content ) {
+	// Only process if content contains tables with thead
+	if ( empty( $content ) || ! str_contains( $content, '<thead' ) ) {
+		return $content;
+	}
+
+	// Use DOMDocument to properly parse and modify HTML
+	$html_parser = new HtmlParser( true );
+	$doc = $html_parser->loadHTML( $content );
+
+	// Find all thead elements
+	$theads = $doc->getElementsByTagName( 'thead' );
+
+	if ( $theads->length === 0 ) {
+		return $content;
+	}
+
+	$modified = false;
+
+	/** @var \DOMElement $thead */
+	foreach ( $theads as $thead ) {
+		// Find all td elements within this thead
+		$tds = [];
+		foreach ( $thead->getElementsByTagName( 'td' ) as $td ) {
+			$tds[] = $td;
+		}
+
+		// Convert each td to th
+		/** @var \DOMElement $td */
+		foreach ( $tds as $td ) {
+			// Create new th element
+			$th = $doc->createElement( 'th' );
+
+			// Copy all attributes
+			if ( $td->hasAttributes() ) {
+				foreach ( $td->attributes as $attr ) {
+					$th->setAttribute( $attr->name, $attr->value );
+				}
+			}
+
+			// Copy all child nodes
+			while ( $td->firstChild ) {
+				$th->appendChild( $td->firstChild );
+			}
+
+			// Replace td with th
+			$td->parentNode->replaceChild( $th, $td );
+			$modified = true;
+		}
+	}
+
+	if ( ! $modified ) {
+		return $content;
+	}
+
+	// Return the modified HTML
+	return $html_parser->saveHTML( $doc );
+}
+
+/**
  * Force classic editor mode
  */
 function hide_gutenberg() {
