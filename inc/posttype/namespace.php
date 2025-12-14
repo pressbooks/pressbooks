@@ -280,7 +280,7 @@ function wp_editor_settings( $settings ) {
 	return $settings;
 }
 
-/** 
+/**
  * @param array $post_states An array of post display states.
  * @param \WP_Post $post The current post object.
  *
