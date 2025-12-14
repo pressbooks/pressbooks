@@ -230,7 +230,7 @@ function disable_months_dropdown( $disable, $post_type ) {
 function after_title( $post ) {
 	if ( $post->post_type === 'glossary' ) {
 		echo '<p>';
-		_e( 'Links, bold text and italic text are supported in glossary terms. Other elements will be removed.', 'pressbooks' );
+		_e( 'Links, bold text, italic text, subscript and superscript are supported in glossary terms. Other elements will be removed.', 'pressbooks' );
 		echo '</p>';
 	}
 	if ( $post->post_type === 'back-matter' || $post->post_type === 'front-matter' ) {
@@ -280,7 +280,7 @@ function wp_editor_settings( $settings ) {
 	return $settings;
 }
 
-/**
+/** 
  * @param array $post_states An array of post display states.
  * @param \WP_Post $post The current post object.
  *
