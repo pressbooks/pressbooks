@@ -54,7 +54,7 @@ jobs:
           rm prince_${{ matrix.prince }}_ubuntu24.04_amd64.deb
 
       - name: Cache Composer packages
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: vendor
           key: php-${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
