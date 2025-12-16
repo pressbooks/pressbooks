@@ -94,6 +94,10 @@ class Book {
 
 	const BOOK_DIRECTORY_EXCLUDED = 'pb_book_directory_excluded';
 
+	const ARCHIVED_DATE = 'pb_book_archived_date';
+
+	const ARCHIVED_BY = 'pb_book_archived_by';
+
 	const AUTHORS = 'pb_authors';
 
 	const EDITORS = 'pb_editors';
