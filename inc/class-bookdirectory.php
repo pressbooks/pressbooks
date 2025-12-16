@@ -113,41 +113,86 @@ class BookDirectory {
 	/**
 	 * Delete book from directory.
 	 *
-	 * @param string $book_id Blog ID
-	 *
+	 * @param array|null $book_ids
 	 * @return bool
 	 * @since 5.14.3
 	 */
-	public function deleteBookFromDirectory( ?array $book_ids = null ) {
-		if ( filter_var( self::$delete_book_endpoint, FILTER_VALIDATE_URL ) ) {
-			$book_ids = $book_ids ?? [ get_current_blog_id() ];
-			$sid = sprintf( '%s-%s-%s', uniqid( self::DELETION_PREFIX, true ), wp_rand( 1, 99 ), $book_ids[0] );
+	public function deleteBookFromDirectory( ?array $book_ids = null ): bool {
 
-			$header = [
-				'Content-Type' => 'application/json',
-			];
+		if ( ! filter_var( self::$delete_book_endpoint, FILTER_VALIDATE_URL ) ) {
+			return false;
+		}
 
-			$data = [
-				'sid'       => $sid,
-				'network'   => network_home_url(),
-				'book_ids'   => $book_ids,
-			];
+		$book_ids = $book_ids ?? [ get_current_blog_id() ];
 
-			$removals = get_site_option( self::DELETIONS_META_KEY, [] );
-			update_site_option( self::DELETIONS_META_KEY, array_merge( $removals, [ $sid ] ) );
+		$sid = sprintf(
+			'%s-%s-%s',
+			uniqid( self::DELETION_PREFIX, true ),
+			wp_rand( 1, 99 ),
+			$book_ids[0]
+		);
 
-			try {
-				$result = \Requests::post( self::$delete_book_endpoint, $header, wp_json_encode( $data ) );
-			} catch ( \Exception $exception ) {
-				update_site_option( self::DELETIONS_META_KEY, $removals );
-				return false;
-			}
+		$data = [
+			'sid'      => $sid,
+			'network'  => network_home_url(),
+			'book_ids' => $book_ids,
+		];
 
-			if ( 200 === $result->status_code && true === $result->success ) {
-				return true;
+		$removals = get_site_option( self::DELETIONS_META_KEY, [] );
+		update_site_option( self::DELETIONS_META_KEY, array_merge( $removals, [ $sid ] ) );
+
+		$response = wp_remote_post(
+			self::$delete_book_endpoint,
+			[
+				'headers' => [
+					'Content-Type' => 'application/json',
+				],
+				'body'    => wp_json_encode( $data ),
+				'timeout' => 15,
+			]
+		);
+
+		if ( is_wp_error( $response ) ) {
+			update_site_option( self::DELETIONS_META_KEY, $removals );
+			error_log( 'Book deletion failed: ' . $response->get_error_message() );
+			return false;
+		}
+
+		$status_code = wp_remote_retrieve_response_code( $response );
+		$body = wp_remote_retrieve_body( $response );
+
+		if ( 200 === $status_code ) {
+			return true;
+		}
+
+		update_site_option( self::DELETIONS_META_KEY, $removals );
+
+		if ( ! empty( $body ) ) {
+			$result = json_decode( $body, true );
+
+			if ( json_last_error() === JSON_ERROR_NONE && isset( $result['message'] ) ) {
+				$error_message = $result['message'];
+
+				// Log validation errors if present
+				if ( 422 === $status_code && isset( $result['errors'] ) ) {
+					$error_details = wp_json_encode( $result['errors'] );
+					error_log( sprintf(
+						'Book deletion validation failed: %s - Details: %s',
+						$error_message,
+						$error_details
+					) );
+				} else {
+					error_log( sprintf(
+						'Book deletion failed (status %d): %s',
+						$status_code,
+						$error_message
+					) );
+				}
 			} else {
-				update_site_option( self::DELETIONS_META_KEY, $removals );
+				error_log( sprintf( 'Book deletion failed with status code: %d', $status_code ) );
 			}
+		} else {
+			error_log( sprintf( 'Book deletion failed with status code: %d (empty response)', $status_code ) );
 		}
 
 		return false;
