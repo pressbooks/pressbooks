@@ -36,7 +36,7 @@
 	},
 	"devDependencies": {
 		"css-purge": "^3.1.8",
-		"pressbooks-build-tools": "https://github.com/pressbooks/pressbooks-build-tools#feat/vite-build"
+		"pressbooks-build-tools": "^5.0.0"
 	},
 	"repository": {
 		"type": "git",

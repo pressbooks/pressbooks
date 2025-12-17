@@ -28,10 +28,6 @@
 		}
 	},
 	"repositories": [
-		{
-			"type": "vcs",
-			"url": "https://github.com/otacke/H5PExtractor"
-		},
     {
       "type": "vcs",
       "url": "https://github.com/pressbooks/frontend-tools"
