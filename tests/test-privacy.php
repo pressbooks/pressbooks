@@ -86,7 +86,19 @@ class GdprTest extends \WP_UnitTestCase {
 		update_site_option( 'pressbooks_sharingandprivacy_options', [ 'network_directory_excluded' => 0 ] );
 		add_action( 'admin_init', '\Pressbooks\Admin\Laf\privacy_settings_init' );
 		@do_action( 'admin_init' );
+
+		// Mock HTTP requests to prevent actual API calls to BookDirectory
+		add_filter( 'pre_http_request', function( $response, $args, $url ) {
+			return [
+				'response' => [ 'code' => 200 ],
+				'body' => '{"success": true}',
+			];
+		}, 10, 3 );
+
 		do_action( 'update_option_pb_book_directory_excluded', '0', '1' );
+
+		remove_all_filters( 'pre_http_request' );
+
 		$last_updated_after = get_blog_details()->last_updated;
 		$this->assertEquals( get_site_meta( get_current_blog_id(), DataCollector::BOOK_DIRECTORY_EXCLUDED, true ), '1' );
 		$this->assertNotEquals( $last_updated_before, $last_updated_after );
@@ -164,12 +176,20 @@ EOT;
 	 * @group privacy
 	 */
 	public function test_excludeNonCatalogBooksFromDirectoryAction() {
+		// Mock HTTP requests to prevent actual API calls
+		add_filter( 'pre_http_request', function( $response, $args, $url ) {
+			return [
+				'response' => [ 'code' => 200 ],
+				'body' => '{"success": true}',
+			];
+		}, 10, 3 );
+
 		$books = $this->factory()->blog->create_many( 2 );
 
 		$this->assertEquals(
 			SharingAndPrivacyOptions::excludeNonCatalogBooksFromDirectoryAction( $books ),
 			[
-				'directory_delete_responses' => [ false ],
+				'directory_delete_responses' => [ true ],
 				'blogs_not_updated' => [],
 			]
 		);
@@ -187,7 +207,7 @@ EOT;
 		$this->assertEquals(
 			SharingAndPrivacyOptions::excludeNonCatalogBooksFromDirectoryAction( $books ),
 			[
-				'directory_delete_responses' => [ false, false ],
+				'directory_delete_responses' => [ true, true ],
 				'blogs_not_updated' => [],
 			]
 		);
@@ -205,7 +225,7 @@ EOT;
 		$this->assertEquals(
 			SharingAndPrivacyOptions::excludeNonCatalogBooksFromDirectoryAction( $books ),
 			[
-				'directory_delete_responses' => [ false, false ],
+				'directory_delete_responses' => [ true, true ],
 				'blogs_not_updated' => [ 9876 ],
 			]
 		);
@@ -217,6 +237,8 @@ EOT;
 				'blogs_not_updated' => [ 9876 ],
 			]
 		);
+
+		remove_all_filters( 'pre_http_request' );
 	}
 
 	/**
