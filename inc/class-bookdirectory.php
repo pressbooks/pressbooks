@@ -146,6 +146,7 @@ class BookDirectory {
 			[
 				'headers' => [
 					'Content-Type' => 'application/json',
+					'Accept'       => 'application/json',
 				],
 				'body'    => wp_json_encode( $data ),
 				'timeout' => 15,
