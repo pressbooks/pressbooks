@@ -49,6 +49,55 @@ if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
 add_action( 'plugins_loaded', [ '\Pressbooks\Activation', 'init' ] );
 
 // -------------------------------------------------------------------------------------------------------------------
+// Archive Banner
+// -------------------------------------------------------------------------------------------------------------------
+
+add_filter( 'ms_site_check', function() {
+	// Only intervene for Pressbooks books, not main site
+	if ( ! Book::isBook() ) {
+		return null;
+	}
+
+	$site_details = get_blog_details();
+
+	// If this book is archived and public=1, allow access (archived books remain accessible with banner)
+	if ( ! empty( $site_details->archived ) && '1' === $site_details->archived && ! empty( $site_details->public ) && '1' === $site_details->public ) {
+		return true;
+	}
+
+	// Let WordPress handle normal archived/spam/deleted checks
+	return null;
+}, 1 );
+
+// -------------------------------------------------------------------------------------------------------------------
+// Sync WordPress native archive action with Pressbooks archive fields
+// -------------------------------------------------------------------------------------------------------------------
+
+add_action( 'wp_update_site', function( $new_site, $old_site ) {
+	// Only process for books, not main site
+	if ( ! Book::isBook() && $new_site->blog_id !== get_current_blog_id() ) {
+		return;
+	}
+
+	// Check if archived status changed
+	if ( isset( $new_site->archived ) && $new_site->archived !== $old_site->archived ) {
+		if ( '1' === $new_site->archived ) {
+			// Book was archived via WordPress native UI - sync to Pressbooks fields
+			$existing_date = get_site_meta( $new_site->blog_id, \Pressbooks\DataCollector\Book::ARCHIVED_DATE, true );
+			if ( empty( $existing_date ) ) {
+				// Only set if not already archived via Pressbooks interface
+				update_site_meta( $new_site->blog_id, \Pressbooks\DataCollector\Book::ARCHIVED_DATE, gmdate( 'Y-m-d H:i:s' ) );
+				update_site_meta( $new_site->blog_id, \Pressbooks\DataCollector\Book::ARCHIVED_BY, get_current_user_id() );
+			}
+		} else {
+			// Book was unarchived - remove Pressbooks fields
+			delete_site_meta( $new_site->blog_id, \Pressbooks\DataCollector\Book::ARCHIVED_DATE );
+			delete_site_meta( $new_site->blog_id, \Pressbooks\DataCollector\Book::ARCHIVED_BY );
+		}
+	}
+}, 10, 2 );
+
+// -------------------------------------------------------------------------------------------------------------------
 // API
 // -------------------------------------------------------------------------------------------------------------------
 
