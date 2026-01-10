@@ -27,12 +27,6 @@
 			"composer/installers": true
 		}
 	},
-	"repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/pressbooks/frontend-tools"
-    }
-  ],
 	"require": {
 		"php": "^8.3",
 		"aws/aws-sdk-php": "^3.173",
@@ -58,7 +52,7 @@
 		"maxbanton/cwh": "^2.0",
 		"monolog/monolog": "^2.2",
 		"phpcompatibility/php-compatibility": "^9.3",
-		"pressbooks/frontend-tools": "dev-dev",
+		"pressbooks/frontend-tools": "^1.0.0",
 		"pressbooks/pb-cli": "^3",
 		"scssphp/scssphp": "^1.11.0",
 		"snordian/h5p-extractor": "^0.4.1",

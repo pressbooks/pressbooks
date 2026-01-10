@@ -42,6 +42,9 @@ export default createWpViteConfig({
 		'login-styles': resolve(__dirname, 'assets/src/styles/login.scss'),
 		'colors-pb-styles': resolve(__dirname, 'assets/src/styles/colors-pb.scss'),
 		'colors-pb-a11y-styles': resolve(__dirname, 'assets/src/styles/colors-pb-a11y.scss'),
+		// Standalone CSS entries for external plugin consumption
+		'pressbooks-dashboard-styles': resolve(__dirname, 'assets/src/styles/pressbooks-dashboard.css'),
+		'pressbooks-admin-styles': resolve(__dirname, 'assets/src/styles/pressbooks.scss'),
 	},
 	copyTargets: [
 		{
@@ -61,5 +64,6 @@ export default createWpViteConfig({
 			dest: 'scripts',
 		},
 	],
+	plugins: [],
 	outDir: 'assets/dist'
 });

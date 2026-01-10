@@ -116,13 +116,10 @@
     ]
   },
   "assets/src/scripts/dashboard.js": {
-    "file": "assets/dashboard-CzvLK1lQ.js",
+    "file": "assets/dashboard-l0sNRNKZ.js",
     "name": "dashboard",
     "src": "assets/src/scripts/dashboard.js",
-    "isEntry": true,
-    "css": [
-      "assets/dashboard-B35AMbUw.css"
-    ]
+    "isEntry": true
   },
   "assets/src/scripts/export-footnotes.js": {
     "file": "assets/export-footnotes-B7O5MUFm.js",
@@ -224,12 +221,12 @@
     "isEntry": true
   },
   "assets/src/scripts/pressbooks.js": {
-    "file": "assets/pressbooks-Cs5t2fkH.js",
+    "file": "assets/pressbooks-o1WrCUAT.js",
     "name": "pressbooks",
     "src": "assets/src/scripts/pressbooks.js",
     "isEntry": true,
     "css": [
-      "assets/pressbooks-wxydTVvD.css"
+      "assets/pressbooks-admin-styles-wxydTVvD.css"
     ],
     "assets": [
       "assets/heroicons-CVYPToTZ.eot",
@@ -339,6 +336,24 @@
     "name": "login-styles",
     "names": [
       "login-styles.css"
+    ]
+  },
+  "assets/src/styles/pressbooks-dashboard.css": {
+    "file": "assets/pressbooks-dashboard-styles-CrFa-ERN.css",
+    "src": "assets/src/styles/pressbooks-dashboard.css",
+    "isEntry": true,
+    "name": "pressbooks-dashboard-styles",
+    "names": [
+      "pressbooks-dashboard-styles.css"
+    ]
+  },
+  "assets/src/styles/pressbooks.scss": {
+    "file": "assets/pressbooks-admin-styles-wxydTVvD.css",
+    "src": "assets/src/styles/pressbooks.scss",
+    "isEntry": true,
+    "name": "pressbooks-admin-styles",
+    "names": [
+      "pressbooks-admin-styles.css"
     ]
   }
 }

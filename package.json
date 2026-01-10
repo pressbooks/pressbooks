@@ -6,10 +6,10 @@
 		"build": "pressbooks-build-tools build",
 		"test": "pressbooks-build-tools test",
 		"lint:scripts": "pressbooks-build-tools lint:scripts 'assets/src/scripts/**/*.js'",
-    "lint:styles": "pressbooks-build-tools lint:styles 'assets/src/styles/**/*.scss' 'assets/src/styles/**/*.css'",
+		"lint:styles": "pressbooks-build-tools lint:styles 'assets/src/styles/**/*.scss' 'assets/src/styles/**/*.css'",
 		"fix:scripts": "pressbooks-build-tools fix:scripts 'assets/src/scripts/**/*.js'",
-    "fix:styles": "pressbooks-build-tools fix:styles 'assets/src/styles/**/*.scss' 'assets/src/styles/**/*.css'",
-    "lint": "npm run lint:scripts && npm run lint:styles"
+		"fix:styles": "pressbooks-build-tools fix:styles 'assets/src/styles/**/*.scss' 'assets/src/styles/**/*.css'",
+		"lint": "npm run lint:scripts && npm run lint:styles"
 	},
 	"engines": {
 		"node": ">= 22"
@@ -82,8 +82,8 @@
 		"rules": {
 			"no-descending-specificity": null,
 			"scss/no-global-function-names": null,
-      "selector-id-pattern": null,
-      "custom-property-pattern": null
+			"selector-id-pattern": null,
+			"custom-property-pattern": null
 		}
 	}
 }
