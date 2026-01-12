@@ -171,24 +171,24 @@ function mce_button_scripts( $plugin_array ) {
 	$assets = app( 'Assets' );
 	$styles = app( 'Styles' );
 
-	$plugin_array['apply_class'] = $assets->getAssetUrl( 'assets/src/scripts/applyclass.js' );
+	$plugin_array['apply_class'] = $assets->getAssetPath( 'assets/src/scripts/applyclass.js' );
 	if ( $styles->hasBuckram( '1.0' ) ) {
-		$plugin_array['textboxes'] = $assets->getAssetUrl( 'assets/src/scripts/textboxes.js' );
+		$plugin_array['textboxes'] = $assets->getAssetPath( 'assets/src/scripts/textboxes.js' );
 	} else {
-		$plugin_array['textboxes'] = $assets->getAssetUrl( 'assets/src/scripts/textboxes-legacy.js' );
+		$plugin_array['textboxes'] = $assets->getAssetPath( 'assets/src/scripts/textboxes-legacy.js' );
 	}
-	$plugin_array['anchor'] = $assets->getAssetUrl( 'assets/src/scripts/anchor.js' );
-	$plugin_array['table'] = $assets->getAssetUrl( 'assets/plugin.js/plugin.js' );
+	$plugin_array['anchor'] = $assets->getAssetPath( 'assets/src/scripts/anchor.js' );
+	$plugin_array['table'] = $assets->getAssetPath( 'assets/dist/scripts/plugin.js' );
 
 	// Footnotes
-	$plugin_array['footnote'] = $assets->getAssetUrl( 'assets/src/scripts/footnote.js' );
-	$plugin_array['ftnref_convert'] = $assets->getAssetUrl( 'assets/src/scripts/ftnref-convert.js' );
+	$plugin_array['footnote'] = $assets->getAssetPath( 'assets/src/scripts/footnote.js' );
+	$plugin_array['ftnref_convert'] = $assets->getAssetPath( 'assets/src/scripts/ftnref-convert.js' );
 
 	// LaTeX
-	$plugin_array['latex'] = $assets->getAssetUrl( 'assets/src/scripts/latex.js' );
+	$plugin_array['latex'] = $assets->getAssetPath( 'assets/src/scripts/latex.js' );
 
 	// Glossary
-	$plugin_array['glossary'] = $assets->getAssetUrl( 'assets/src/scripts/glossary.js' );
+	$plugin_array['glossary'] = $assets->getAssetPath( 'assets/src/scripts/glossary.js' );
 
 	return $plugin_array;
 }
