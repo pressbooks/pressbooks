@@ -1,5 +1,18 @@
 # Changelog
 
+## [6.35.0](https://github.com/pressbooks/pressbooks/compare/6.34.4...6.35.0) (2025-12-17)
+
+
+### Features
+
+* allow subscript and superscript in glossary terms ([#4305](https://github.com/pressbooks/pressbooks/issues/4305)) ([191c65b](https://github.com/pressbooks/pressbooks/commit/191c65b35ebca8e49aefae4bda7c547efedf74fa))
+* custom banner for archived books ([#4284](https://github.com/pressbooks/pressbooks/issues/4284)) ([d295805](https://github.com/pressbooks/pressbooks/commit/d29580565309e5332f59afd0593070f2bb1b7d5d))
+
+
+### Bug Fixes
+
+* wp request deprecation ([#4311](https://github.com/pressbooks/pressbooks/issues/4311)) ([3904cee](https://github.com/pressbooks/pressbooks/commit/3904cee00fa7f8e6229355a0e8b1fbd832e13b31))
+
 ## [6.34.4](https://github.com/pressbooks/pressbooks/compare/6.34.3...6.34.4) (2025-12-02)
 
 
