@@ -160,11 +160,10 @@ $_current_user_id = $catalog->getUserId();
 	<title><?php echo ucfirst( get_userdata( $pb_user_id )->user_login );
 	_e( '\'s Catalog Page', 'pressbooks' ); ?> | Pressbooks</title>
  	<?php // @codingStandardsIgnoreStart ?>
- 	<link rel="stylesheet" type="text/css" href="<?php echo $assets->getPath( 'styles/style-catalog.css' ); ?>" />
+ 	<link rel="stylesheet" type="text/css" href="<?php echo $assets->getAssetUrl( 'assets/src/styles/style-catalog.scss' ); ?>" />
 	<link href='https://fonts.googleapis.com/css?family=Oswald|Open+Sans:400,400italic,600' rel='stylesheet' type='text/css'>
-	<script type="text/javascript" src="<?php echo network_site_url( '/wp-includes/js/jquery/jquery.js?ver=1.10.2' ); ?>"></script>
-	<script src="<?php echo $assets->getAssetUrl( 'assets/src/scripts/small-menu.js' ); ?>" type="text/javascript"></script>
-	<script src="<?php echo $assets->getAssetUrl( 'assets/src/scripts/catalog.js' ); ?>" type="text/javascript"></script>
+	<script src="<?php echo $assets->getAssetUrl( 'assets/src/scripts/small-menu.js' ); ?>" type="module"></script>
+	<script src="<?php echo $assets->getAssetUrl( 'assets/src/scripts/catalog.js' ); ?>" type="module"></script>
 	<?php // @codingStandardsIgnoreEnd ?>
 	<?php \Pressbooks\GoogleAnalytics::init()->printScripts(); ?>
 </head>

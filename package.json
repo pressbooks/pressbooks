@@ -25,6 +25,7 @@
 		"countup.js": "^2.8.0",
 		"instantsearch.js": "^4.66.0",
 		"isotope-layout": "^3.0.6",
+		"jquery-bridget": "^3.0.1",
 		"jquery-match-height": "^0.7.2",
 		"jquery-sticky": "^1.0.4",
 		"js-cookie": "^3.0.5",

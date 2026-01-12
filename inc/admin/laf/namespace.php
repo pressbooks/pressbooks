@@ -1168,7 +1168,7 @@ function init_css_js(): void {
 
 		switch ( $_REQUEST['page'] ) {
 			case 'pb_catalog':
-				$assets->enqueue( 'assets/src/styles/catalog.scss', 'pressbooks-catalog' );
+				$assets->enqueue( 'assets/src/scripts/catalog.js', 'pressbooks-catalog' );
 				$assets->enqueue( 'assets/src/scripts/color-picker.js', 'color-picker' );
 				$assets->enqueue( 'assets/src/scripts/select2.js', 'select2-js' );
 				break;

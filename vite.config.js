@@ -30,6 +30,7 @@ export default createWpViteConfig({
 		'profile': resolve(__dirname, 'assets/src/scripts/profile.js'),
 		'quicktags': resolve(__dirname, 'assets/src/scripts/quicktags.js'),
 		'search-and-replace': resolve(__dirname, 'assets/src/scripts/search-and-replace.js'),
+		'select2': resolve(__dirname, 'assets/src/scripts/select2.js'),
 		'small-menu': resolve(__dirname, 'assets/src/scripts/small-menu.js'),
 		'textboxes': resolve(__dirname, 'assets/src/scripts/textboxes.js'),
 		'textboxes-legacy': resolve(__dirname, 'assets/src/scripts/textboxes-legacy.js'),
@@ -45,6 +46,7 @@ export default createWpViteConfig({
 		// Standalone CSS entries for external plugin consumption
 		'pressbooks-dashboard-styles': resolve(__dirname, 'assets/src/styles/pressbooks-dashboard.css'),
 		'pressbooks-admin-styles': resolve(__dirname, 'assets/src/styles/pressbooks.scss'),
+		'style-catalog': resolve(__dirname, 'assets/src/styles/style-catalog.scss'),
 	},
 	copyTargets: [
 		{

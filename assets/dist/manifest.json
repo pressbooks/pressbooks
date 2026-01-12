@@ -1,4 +1,15 @@
 {
+  "__commonjsHelpers-CqkleIqs.js": {
+    "file": "assets/_commonjsHelpers-CqkleIqs.js",
+    "name": "_commonjsHelpers"
+  },
+  "_jquery-BI420F6r.js": {
+    "file": "assets/jquery-BI420F6r.js",
+    "name": "jquery",
+    "imports": [
+      "__commonjsHelpers-CqkleIqs.js"
+    ]
+  },
   "_lit-element-DwTj7qCT.js": {
     "file": "assets/lit-element-DwTj7qCT.js",
     "name": "lit-element"
@@ -34,10 +45,13 @@
     "isEntry": true
   },
   "assets/src/scripts/algolia-search.js": {
-    "file": "assets/algolia-search-OAImjdYa.js",
+    "file": "assets/algolia-search-BkeCRhs-.js",
     "name": "algolia-search",
     "src": "assets/src/scripts/algolia-search.js",
     "isEntry": true,
+    "imports": [
+      "__commonjsHelpers-CqkleIqs.js"
+    ],
     "css": [
       "assets/algolia-search-DoMTmBPl.css"
     ]
@@ -68,12 +82,14 @@
     ]
   },
   "assets/src/scripts/catalog.js": {
-    "file": "assets/catalog-Hi5iKLE8.js",
+    "file": "assets/catalog-CK97mWfv.js",
     "name": "catalog",
     "src": "assets/src/scripts/catalog.js",
     "isEntry": true,
     "imports": [
-      "assets/src/scripts/small-menu.js"
+      "assets/src/scripts/small-menu.js",
+      "_jquery-BI420F6r.js",
+      "__commonjsHelpers-CqkleIqs.js"
     ],
     "css": [
       "assets/catalog-MXHUcVWn.css"
@@ -256,6 +272,19 @@
       "assets/search-and-replace-BCDzIyTk.css"
     ]
   },
+  "assets/src/scripts/select2.js": {
+    "file": "assets/select2-CGruY-Y5.js",
+    "name": "select2",
+    "src": "assets/src/scripts/select2.js",
+    "isEntry": true,
+    "imports": [
+      "_jquery-BI420F6r.js",
+      "__commonjsHelpers-CqkleIqs.js"
+    ],
+    "css": [
+      "assets/select2-Dav-ab6K.css"
+    ]
+  },
   "assets/src/scripts/small-menu.js": {
     "file": "assets/small-menu-Dg4_vJm8.js",
     "name": "small-menu",
@@ -354,6 +383,15 @@
     "name": "pressbooks-admin-styles",
     "names": [
       "pressbooks-admin-styles.css"
+    ]
+  },
+  "assets/src/styles/style-catalog.scss": {
+    "file": "assets/style-catalog-BlD_xfP6.css",
+    "src": "assets/src/styles/style-catalog.scss",
+    "isEntry": true,
+    "name": "style-catalog",
+    "names": [
+      "style-catalog.css"
     ]
   }
 }
