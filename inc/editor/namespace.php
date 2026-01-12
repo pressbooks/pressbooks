@@ -516,6 +516,34 @@ function show_kitchen_sink( $args ) {
 }
 
 /**
+ * Convert <td> elements to <th> elements in table header rows.
+ *
+ * TinyMCE creates table headers with <thead> but leaves cells as <td> instead of <th>.
+ * This function fixes that by converting all <td> elements within <thead> to <th>.
+ *
+ * @param string $content Post content
+ *
+ * @return string Modified content with proper <th> elements in table headers
+ */
+function fix_table_header_cells( string $content ): string {
+	// Only process if content contains tables with thead
+	if ( empty( $content ) || ! str_contains( $content, '<thead' ) ) {
+		return $content;
+	}
+
+	return preg_replace_callback(
+		pattern: '/<thead\b[^>]*>.*?<\/thead>/is',
+		callback: function( $matches ) {
+			$match = $matches[0];
+			$match = str_replace( '<td', '<th', $match );
+
+			return str_replace( '</td>', '</th>', $match );
+		},
+		subject: $content
+	);
+}
+
+/**
  * Force classic editor mode
  */
 function hide_gutenberg() {
