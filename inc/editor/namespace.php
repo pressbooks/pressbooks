@@ -525,63 +525,22 @@ function show_kitchen_sink( $args ) {
  *
  * @return string Modified content with proper <th> elements in table headers
  */
-function fix_table_header_cells( $content ) {
+function fix_table_header_cells( string $content ): string {
 	// Only process if content contains tables with thead
 	if ( empty( $content ) || ! str_contains( $content, '<thead' ) ) {
 		return $content;
 	}
 
-	// Use DOMDocument to properly parse and modify HTML
-	$html_parser = new HtmlParser( true );
-	$doc = $html_parser->loadHTML( $content );
+	return preg_replace_callback(
+		pattern: '/<thead\b[^>]*>.*?<\/thead>/is',
+		callback: function( $matches ) {
+			$match = $matches[0];
+			$match = str_replace( '<td', '<th', $match );
 
-	// Find all thead elements
-	$theads = $doc->getElementsByTagName( 'thead' );
-
-	if ( $theads->length === 0 ) {
-		return $content;
-	}
-
-	$modified = false;
-
-	/** @var \DOMElement $thead */
-	foreach ( $theads as $thead ) {
-		// Find all td elements within this thead
-		$tds = [];
-		foreach ( $thead->getElementsByTagName( 'td' ) as $td ) {
-			$tds[] = $td;
-		}
-
-		// Convert each td to th
-		/** @var \DOMElement $td */
-		foreach ( $tds as $td ) {
-			// Create new th element
-			$th = $doc->createElement( 'th' );
-
-			// Copy all attributes
-			if ( $td->hasAttributes() ) {
-				foreach ( $td->attributes as $attr ) {
-					$th->setAttribute( $attr->name, $attr->value );
-				}
-			}
-
-			// Copy all child nodes
-			while ( $td->firstChild ) {
-				$th->appendChild( $td->firstChild );
-			}
-
-			// Replace td with th
-			$td->parentNode->replaceChild( $th, $td );
-			$modified = true;
-		}
-	}
-
-	if ( ! $modified ) {
-		return $content;
-	}
-
-	// Return the modified HTML
-	return $html_parser->saveHTML( $doc );
+			return str_replace( '</td>', '</th>', $match );
+		},
+		subject: $content
+	);
 }
 
 /**
