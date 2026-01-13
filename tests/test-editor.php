@@ -199,4 +199,37 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertFalse( is_plugin_active( 'gutenberg/gutenberg.php' ) );
 		$this->assertEquals( 'replace', get_option( 'classic-editor-replace' ) );
 	}
+
+	/**
+	 * @group editor
+	 */
+	public function test_fix_table_header_cells() {
+		// Test table with thead containing td elements (what TinyMCE creates)
+		$input = '<table><thead><tr><td>Header 1</td><td class="test">Header 2</td><td colspan="2">Header 3</td></tr></thead><tbody><tr><td>Data 1</td><td>Data 2</td><td>Data 3</td></tr></tbody></table>';
+		$result = \Pressbooks\Editor\fix_table_header_cells( $input );
+
+		// Should convert td to th in thead
+		$this->assertStringContainsString( '<thead><tr><th>Header 1</th>', $result );
+		$this->assertStringContainsString( '<th class="test">Header 2</th>', $result );
+		$this->assertStringContainsString( '<th colspan="2">Header 3</th>', $result );
+
+		// Should NOT convert td to th in tbody
+		$this->assertStringContainsString( '<tbody><tr><td>Data 1</td>', $result );
+		$this->assertStringContainsString( '<td>Data 2</td>', $result );
+		$this->assertStringContainsString( '<td>Data 3</td>', $result );
+
+		// Test content without thead (should return unchanged)
+		$input_no_thead = '<table><tbody><tr><td>Data 1</td><td>Data 2</td></tr></tbody></table>';
+		$result_no_thead = \Pressbooks\Editor\fix_table_header_cells( $input_no_thead );
+		$this->assertEquals( $input_no_thead, $result_no_thead );
+
+		// Test empty content
+		$result_empty = \Pressbooks\Editor\fix_table_header_cells( '' );
+		$this->assertEquals( '', $result_empty );
+
+		// Test content with no tables
+		$input_no_table = '<p>This is just text</p>';
+		$result_no_table = \Pressbooks\Editor\fix_table_header_cells( $input_no_table );
+		$this->assertEquals( $input_no_table, $result_no_table );
+	}
 }
