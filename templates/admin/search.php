@@ -10,7 +10,7 @@ $regex_enabled = ( defined( 'PB_ENABLE_REGEX_SEARCHREPLACE' ) && PB_ENABLE_REGEX
 <div class="wrap">
 	<h1><?php _e( 'Search & Replace', 'pressbooks' ) ?></h1>
 	<p><?php _e( 'Search & Replace will find and replace ALL instances of the search pattern in your entire book. Replacements will only be saved if you click &lsquo;<strong>Replace &amp; Save</strong>&rsquo;.', 'pressbooks' ) ?></p>
-	<p><?php _e( 'Be careful replacing text. There is no undo button. However, you can revert your changes using the Revision History within each chapter, front matter or back matter.', 'pressbooks' ) ?></p>
+	<p><?php _e( 'Be careful replacing text. There is no undo button. Changes made with this tool are saved directly to the database and do not appear in revision history.', 'pressbooks' ) ?></p>
 	<form id="search-form" method="post" action="">
 		<table class="form-table search-form" role="none">
 			<tr>
