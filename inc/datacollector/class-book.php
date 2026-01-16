@@ -331,7 +331,7 @@ class Book {
 
 		// pb_book_archived_date
 		// pb_book_archived_by
-		// Only preserve archived metadata if the book is currently archived in WordPress
+		// Only preserve archived metadata if the book is currently archived
 		if ( '1' === $blog_info->archived ) {
 			// Preserve existing values if they exist, otherwise set them now
 			$existing_date = get_site_meta( $book_id, self::ARCHIVED_DATE, true );
@@ -343,7 +343,7 @@ class Book {
 				update_site_meta( $book_id, self::ARCHIVED_BY, get_current_user_id() );
 			}
 		} else {
-			// Book is not archived, ensure metadata is cleared
+			// Book is not archived, ensure archived metadata is cleared
 			delete_site_meta( $book_id, self::ARCHIVED_DATE );
 			delete_site_meta( $book_id, self::ARCHIVED_BY );
 		}
