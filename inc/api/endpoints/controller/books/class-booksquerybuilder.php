@@ -35,7 +35,7 @@ class BooksQueryBuilder {
 		global $wpdb;
 
 		$this->query = "SELECT SQL_CALC_FOUND_ROWS blog_id FROM {$wpdb->blogs} AS b
-		WHERE public = 1 AND spam = 0 AND deleted = 0 AND blog_id != %d";
+		WHERE public = 1 AND spam = 0 AND blog_id != %d";
 		$this->placeholder_values[] = get_main_site_id();
 
 		foreach ( $this->parameters as $parameter ) {

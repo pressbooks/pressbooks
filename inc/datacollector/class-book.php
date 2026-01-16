@@ -593,7 +593,7 @@ class Book {
 
 			global $wpdb;
 			$main_site_id = get_network()->site_id;
-			$books = $wpdb->get_col( $wpdb->prepare( "SELECT blog_id FROM {$wpdb->blogs} WHERE spam = 0 AND deleted = 0 AND blog_id != %d ", $main_site_id ) );
+			$books = $wpdb->get_col( $wpdb->prepare( "SELECT blog_id FROM {$wpdb->blogs} WHERE spam = 0 AND blog_id != %d ", $main_site_id ) );
 
 			// Purging books that no longer exist (from wp_blogmeta)...
 			if ( count( $books ) ) {
