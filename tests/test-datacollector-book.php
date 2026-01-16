@@ -427,7 +427,8 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 		$this->assertNotEmpty( $archived_date );
 		$this->assertIsString( $archived_date );
 		$this->assertMatchesRegularExpression( '/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/', $archived_date );
-		$this->assertNotEmpty( $archived_by );
+		$this->assertNotFalse( $archived_by, 'archived_by should be set' );
+		$this->assertIsInt( $archived_by );
 	}
 
 	/**
