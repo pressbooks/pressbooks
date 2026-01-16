@@ -329,6 +329,25 @@ class Book {
 		update_site_meta( $book_id, self::CREATED, $blog_info->registered );
 		update_site_meta( $book_id, self::DEACTIVATED, $blog_info->deleted );
 
+		// pb_book_archived_date
+		// pb_book_archived_by
+		// Only preserve archived metadata if the book is currently archived in WordPress
+		if ( '1' === $blog_info->archived ) {
+			// Preserve existing values if they exist, otherwise set them now
+			$existing_date = get_site_meta( $book_id, self::ARCHIVED_DATE, true );
+			$existing_by = get_site_meta( $book_id, self::ARCHIVED_BY, true );
+			if ( empty( $existing_date ) ) {
+				update_site_meta( $book_id, self::ARCHIVED_DATE, gmdate( 'Y-m-d H:i:s' ) );
+			}
+			if ( empty( $existing_by ) ) {
+				update_site_meta( $book_id, self::ARCHIVED_BY, get_current_user_id() );
+			}
+		} else {
+			// Book is not archived, ensure metadata is cleared
+			delete_site_meta( $book_id, self::ARCHIVED_DATE );
+			delete_site_meta( $book_id, self::ARCHIVED_BY );
+		}
+
 		// pb_word_count
 		$word_count = \Pressbooks\Book::wordCount();
 		update_site_meta( $book_id, self::WORD_COUNT, $word_count );
@@ -574,7 +593,7 @@ class Book {
 
 			global $wpdb;
 			$main_site_id = get_network()->site_id;
-			$books = $wpdb->get_col( $wpdb->prepare( "SELECT blog_id FROM {$wpdb->blogs} WHERE archived = 0 AND spam = 0 AND blog_id != %d ", $main_site_id ) );
+			$books = $wpdb->get_col( $wpdb->prepare( "SELECT blog_id FROM {$wpdb->blogs} WHERE spam = 0 AND deleted = 0 AND blog_id != %d ", $main_site_id ) );
 
 			// Purging books that no longer exist (from wp_blogmeta)...
 			if ( count( $books ) ) {
