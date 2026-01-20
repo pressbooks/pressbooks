@@ -1,5 +1,24 @@
 # Changelog
 
+## [6.36.0](https://github.com/pressbooks/pressbooks/compare/6.35.0...6.36.0) (2026-01-20)
+
+
+### Features
+
+* add filter to adjust book menu order ([#4322](https://github.com/pressbooks/pressbooks/issues/4322)) ([9072abd](https://github.com/pressbooks/pressbooks/commit/9072abd62df73b66de2634f2781a4da14280c00b))
+
+
+### Bug Fixes
+
+* add support for search & replace in content toolkit menu ([#4325](https://github.com/pressbooks/pressbooks/issues/4325)) ([28c4308](https://github.com/pressbooks/pressbooks/commit/28c430857f2bdcf6d7cc563720989203639ec072))
+* convert all td elements to th in thead elements before save ([#4304](https://github.com/pressbooks/pressbooks/issues/4304)) ([985d1d6](https://github.com/pressbooks/pressbooks/commit/985d1d6a48342ef8bd48c5ceac55a95924f4e508))
+* improve handling of archived books ([#4326](https://github.com/pressbooks/pressbooks/issues/4326)) ([d56abd8](https://github.com/pressbooks/pressbooks/commit/d56abd8b6adc0610629172557c5e1628ea0e351b))
+
+
+### Chores
+
+* **i18n:** update translations and revert transifex setup ([#4327](https://github.com/pressbooks/pressbooks/issues/4327)) ([512696c](https://github.com/pressbooks/pressbooks/commit/512696c061197ad21e71412961578860c46b399d))
+
 ## [6.35.0](https://github.com/pressbooks/pressbooks/compare/6.34.4...6.35.0) (2025-12-17)
 
 
