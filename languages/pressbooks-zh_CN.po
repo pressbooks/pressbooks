@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2025-07-16T16:30:38+00:00\n"
+"POT-Creation-Date: 2025-07-30T15:12:23+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
 "Last-Translator: fish free <winofchina@hotmail.com>, 2017,2021,2024\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/pressbooks/pressbooks/language/zh_CN/)\n"
@@ -113,35 +113,35 @@ msgstr "改编自"
 msgid "Adapted by URL"
 msgstr "改编自此网址"
 
-#: inc/admin/branding/namespace.php:185
+#: inc/admin/branding/namespace.php:186
 msgid "Log In"
 msgstr "登录"
 
-#: inc/admin/branding/namespace.php:186
+#: inc/admin/branding/namespace.php:187
 msgid "Lost Password"
 msgstr "丢失密码"
 
-#: inc/admin/branding/namespace.php:187
+#: inc/admin/branding/namespace.php:188
 msgid "Reset Password"
 msgstr "重置密码"
 
-#: inc/admin/branding/namespace.php:188
+#: inc/admin/branding/namespace.php:189
 msgid "Password Reset"
 msgstr "密码重置`"
 
-#: inc/admin/class-catalog-list-table.php:76
+#: inc/admin/class-catalog-list-table.php:63
 msgid "Visit Admin"
 msgstr "管理书籍"
 
-#: inc/admin/class-catalog-list-table.php:106
-#: inc/admin/class-catalog-list-table.php:271
-#: inc/admin/class-catalog-list-table.php:533
+#: inc/admin/class-catalog-list-table.php:85
+#: inc/admin/class-catalog-list-table.php:267
+#: inc/admin/class-catalog-list-table.php:508
 msgid "Hide in Catalog"
 msgstr "在目录中隐藏"
 
-#: inc/admin/class-catalog-list-table.php:111
-#: inc/admin/class-catalog-list-table.php:270
-#: inc/admin/class-catalog-list-table.php:531
+#: inc/admin/class-catalog-list-table.php:94
+#: inc/admin/class-catalog-list-table.php:266
+#: inc/admin/class-catalog-list-table.php:506
 msgid "Show in Catalog"
 msgstr "在目录中显示"
 
@@ -177,74 +177,74 @@ msgstr "精选的"
 msgid "Pub Date"
 msgstr "发布日期"
 
-#: inc/admin/class-catalog-list-table.php:396
+#: inc/admin/class-catalog-list-table.php:379
 msgid "Edit Tags"
 msgstr "编辑标签"
 
-#: inc/admin/class-catalog-list-table.php:435
+#: inc/admin/class-catalog-list-table.php:409
 #: templates/admin/organize.blade.php:18 templates/admin/organize.blade.php:40
 msgid "Private"
 msgstr "私有"
 
-#: inc/admin/class-catalog-list-table.php:435
+#: inc/admin/class-catalog-list-table.php:409
 #: templates/admin/organize.blade.php:13 templates/admin/organize.blade.php:26
 msgid "Public"
 msgstr "公开"
 
-#: inc/admin/class-catalog-list-table.php:507 inc/admin/laf/namespace.php:466
+#: inc/admin/class-catalog-list-table.php:481 inc/admin/laf/namespace.php:466
 #: inc/admin/laf/namespace.php:646 inc/admin/laf/namespace.php:925
 msgid "My Catalog"
 msgstr "我的目录"
 
-#: inc/admin/class-catalog-list-table.php:508
+#: inc/admin/class-catalog-list-table.php:482
 msgid "Edit Profile"
 msgstr "编辑个人资料"
 
-#: inc/admin/class-catalog-list-table.php:509
+#: inc/admin/class-catalog-list-table.php:483
 msgid "Visit Catalog"
 msgstr " 访问目录"
 
 #. translators: %s: search keywords
-#: inc/admin/class-catalog-list-table.php:515
+#: inc/admin/class-catalog-list-table.php:489
 #, php-format
 msgid "Search results for &#8220;%s&#8221; returned no items"
 msgstr "&#8220;%s&#8221; 的搜索结果 没有任何反馈项目"
 
 #. translators: %s: search keywords
-#: inc/admin/class-catalog-list-table.php:518
+#: inc/admin/class-catalog-list-table.php:492
 #, php-format
 msgid "Search results for &#8220;%s&#8221; returned 1 item"
 msgstr "&#8220;%s&#8221; 的搜索结果  有一条反馈"
 
 #. translators: %s: search keywords, %d: total items found
-#: inc/admin/class-catalog-list-table.php:521
+#: inc/admin/class-catalog-list-table.php:495
 #, php-format
 msgid "Search results for &#8220;%1$s&#8221; returned %2$d items"
 msgstr " &#8220;%1$s&#8221的搜索结果，反馈%2$d条"
 
-#: inc/admin/class-catalog-list-table.php:529
+#: inc/admin/class-catalog-list-table.php:504
 msgid "Organize your public Catalog page."
 msgstr "组织公开的目录页。"
 
-#: inc/admin/class-catalog-list-table.php:530
+#: inc/admin/class-catalog-list-table.php:505
 msgid "Show/Hide books"
 msgstr "显示/隐藏书籍"
 
-#: inc/admin/class-catalog-list-table.php:531
+#: inc/admin/class-catalog-list-table.php:506
 #, php-format
 msgid "To display a book in your catalog choose \"%s\" under Catalog Status. "
 msgstr "在目录状态下选择“%s”以显示一本书。"
 
-#: inc/admin/class-catalog-list-table.php:533
+#: inc/admin/class-catalog-list-table.php:508
 #, php-format
 msgid "To hide a book in your catalog choose \"%s\" under Catalog Status."
 msgstr "在目录状态下选择“%s”以隐藏一本书。"
 
-#: inc/admin/class-catalog-list-table.php:536
+#: inc/admin/class-catalog-list-table.php:511
 msgid "Catalog sorting"
 msgstr "目录排序"
 
-#: inc/admin/class-catalog-list-table.php:537
+#: inc/admin/class-catalog-list-table.php:515
 #, php-format
 msgid ""
 "To add sorting ability, add your Tag names to your <a href=\"%s\">Catalog "
@@ -252,19 +252,19 @@ msgid ""
 " each individual book."
 msgstr "要想增加排序功能，请在<a href=\"%s\">目录资料页</a>中（如：作者、书籍流派）中添加标签名，并把合适的标签选配给每本书。"
 
-#: inc/admin/class-catalog-list-table.php:539
+#: inc/admin/class-catalog-list-table.php:519
 msgid "Share your catalog"
 msgstr "分享您的目录"
 
-#: inc/admin/class-catalog-list-table.php:540
+#: inc/admin/class-catalog-list-table.php:521
 msgid "The public link to your catalog page"
 msgstr "可访问您的目录页的公开超链接"
 
-#: inc/admin/class-catalog-list-table.php:553
+#: inc/admin/class-catalog-list-table.php:539
 msgid "Add By URL"
 msgstr "通过网址添加"
 
-#: inc/admin/class-catalog-list-table.php:564 templates/admin/search.php:81
+#: inc/admin/class-catalog-list-table.php:549 templates/admin/search.php:81
 #: templates/admin/cloner/page.blade.php:26
 msgid "Search"
 msgstr "搜索"
@@ -341,42 +341,42 @@ msgstr ""
 msgid "Sort by %s in ascending order."
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:75
+#: inc/admin/class-publishoptions.php:74
 msgid "Amazon URL"
 msgstr "Amazon网址"
 
-#: inc/admin/class-publishoptions.php:84
+#: inc/admin/class-publishoptions.php:75
 msgid "O'Reilly URL"
 msgstr "O'Reilly网址"
 
-#: inc/admin/class-publishoptions.php:93
+#: inc/admin/class-publishoptions.php:76
 msgid "Barnes and Noble URL"
 msgstr "Barnes and Noble网址"
 
-#: inc/admin/class-publishoptions.php:102
+#: inc/admin/class-publishoptions.php:77
 msgid "Kobo URL"
 msgstr "Kob网址"
 
-#: inc/admin/class-publishoptions.php:111
+#: inc/admin/class-publishoptions.php:78
 msgid "Apple Books URL"
 msgstr "APPLE书籍URL"
 
-#: inc/admin/class-publishoptions.php:120
+#: inc/admin/class-publishoptions.php:79
 msgid "Other Service URL"
 msgstr "其他电子书服务网址（国内主要电子书平台有“多看”、“豆瓣阅读”、“当当”）"
 
-#: inc/admin/class-publishoptions.php:139
+#: inc/admin/class-publishoptions.php:107
 msgid "Add BUY Links to Your Pressbooks Webbook"
 msgstr "将购买链接添加到您的 Pressbooks Webbook"
 
-#: inc/admin/class-publishoptions.php:140
+#: inc/admin/class-publishoptions.php:108
 msgid ""
 "Enter the URLs for locations where your book can be purchased below. <a "
 "href=\"https://guide.pressbooks.com/chapter/publish/\">Our guide</a> "
 "provides additional information about selling and distributing your book."
 msgstr "在下方输入可以购买图书的位置的 URL。 <a href=\"https://guide.pressbooks.com/chapter/publish/\">我们的指南</a>提供了有关销售和分发图书的更多信息。"
 
-#: inc/admin/class-publishoptions.php:300 inc/admin/laf/namespace.php:415
+#: inc/admin/class-publishoptions.php:183 inc/admin/laf/namespace.php:415
 msgid "Publish"
 msgstr "发布"
 
@@ -623,13 +623,13 @@ msgid ""
 " %1$s to %2$s."
 msgstr "您的图像是错误的纵横比。 图像的纵横比必须为1 %1$s 到 2%2$s。"
 
-#: inc/admin/dashboard/class-dashboard.php:54 inc/admin/laf/namespace.php:822
+#: inc/admin/dashboard/class-dashboard.php:56 inc/admin/laf/namespace.php:822
 #: inc/admin/laf/namespace.php:897 inc/admin/menus/class-sidebar.php:199
 #: inc/admin/menus/class-sidebar.php:200 inc/admin/menus/class-topbar.php:123
 msgid "Dashboard"
 msgstr "仪表板"
 
-#: inc/admin/dashboard/class-dashboard.php:55
+#: inc/admin/dashboard/class-dashboard.php:57
 msgid "Home"
 msgstr "首頁"
 
@@ -2826,8 +2826,8 @@ msgstr "生成封面"
 msgid "book"
 msgstr "书"
 
-#: inc/covergenerator/class-generator.php:454
-#: inc/modules/export/prince/class-docraptor.php:148
+#: inc/covergenerator/class-generator.php:458
+#: inc/modules/export/prince/class-docraptor.php:149
 msgid "Your PDF could not be retrieved."
 msgstr "无法检索您的PDF。"
 
@@ -3444,15 +3444,15 @@ msgstr ""
 msgid "Processing content..."
 msgstr ""
 
-#: inc/modules/export/prince/class-docraptor.php:135
+#: inc/modules/export/prince/class-docraptor.php:136
 msgid "Converting document..."
 msgstr ""
 
-#: inc/modules/export/prince/class-docraptor.php:142
+#: inc/modules/export/prince/class-docraptor.php:143
 msgid "Fetching converted file..."
 msgstr ""
 
-#: inc/modules/export/prince/class-docraptor.php:182
+#: inc/modules/export/prince/class-docraptor.php:183
 msgid "Conversion complete."
 msgstr ""
 
@@ -5405,10 +5405,6 @@ msgstr "查看书籍列表"
 msgid "View user list"
 msgstr "查看用户列表"
 
-#: templates/admin/dashboard/network.blade.php:116
-msgid "Pressbooks product updates"
-msgstr ""
-
 #: templates/admin/dashboard/support.blade.php:8
 msgid "Network manager guide"
 msgstr "网络管理员指南"
@@ -5420,6 +5416,10 @@ msgstr "Pressbooks 网络研讨会"
 #: templates/admin/dashboard/support.blade.php:30
 msgid "Contact Pressbooks Support"
 msgstr "联系Pressbooks技术支持"
+
+#: templates/admin/dashboard/support.blade.php:41
+msgid "Pressbooks product updates"
+msgstr ""
 
 #: templates/admin/dashboard/user.blade.php:18
 msgid "Book Invitations"

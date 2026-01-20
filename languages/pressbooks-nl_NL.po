@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2025-07-16T16:30:38+00:00\n"
+"POT-Creation-Date: 2025-07-30T15:12:23+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
 "Last-Translator: Nienke Coppens <nienke.coppens@gmail.com>, 2020\n"
 "Language-Team: Dutch (Netherlands) (http://app.transifex.com/pressbooks/pressbooks/language/nl_NL/)\n"
@@ -116,35 +116,35 @@ msgstr "Aangepast door"
 msgid "Adapted by URL"
 msgstr "Aangepast door URL"
 
-#: inc/admin/branding/namespace.php:185
+#: inc/admin/branding/namespace.php:186
 msgid "Log In"
 msgstr "Log In"
 
-#: inc/admin/branding/namespace.php:186
+#: inc/admin/branding/namespace.php:187
 msgid "Lost Password"
 msgstr "Wachtwoord Vergeten"
 
-#: inc/admin/branding/namespace.php:187
+#: inc/admin/branding/namespace.php:188
 msgid "Reset Password"
 msgstr "Wachtwoord Opnieuw Instellen"
 
-#: inc/admin/branding/namespace.php:188
+#: inc/admin/branding/namespace.php:189
 msgid "Password Reset"
 msgstr "Wachtwoord Opnieuw Ingesteld"
 
-#: inc/admin/class-catalog-list-table.php:76
+#: inc/admin/class-catalog-list-table.php:63
 msgid "Visit Admin"
 msgstr "Bezoek Admin"
 
-#: inc/admin/class-catalog-list-table.php:106
-#: inc/admin/class-catalog-list-table.php:271
-#: inc/admin/class-catalog-list-table.php:533
+#: inc/admin/class-catalog-list-table.php:85
+#: inc/admin/class-catalog-list-table.php:267
+#: inc/admin/class-catalog-list-table.php:508
 msgid "Hide in Catalog"
 msgstr "Verberg in catalogus"
 
-#: inc/admin/class-catalog-list-table.php:111
-#: inc/admin/class-catalog-list-table.php:270
-#: inc/admin/class-catalog-list-table.php:531
+#: inc/admin/class-catalog-list-table.php:94
+#: inc/admin/class-catalog-list-table.php:266
+#: inc/admin/class-catalog-list-table.php:506
 msgid "Show in Catalog"
 msgstr "Toon in catalogus"
 
@@ -180,74 +180,74 @@ msgstr "Aanbevolen"
 msgid "Pub Date"
 msgstr "Publicatiedatum"
 
-#: inc/admin/class-catalog-list-table.php:396
+#: inc/admin/class-catalog-list-table.php:379
 msgid "Edit Tags"
 msgstr "Bewerk Tags"
 
-#: inc/admin/class-catalog-list-table.php:435
+#: inc/admin/class-catalog-list-table.php:409
 #: templates/admin/organize.blade.php:18 templates/admin/organize.blade.php:40
 msgid "Private"
 msgstr "Privé"
 
-#: inc/admin/class-catalog-list-table.php:435
+#: inc/admin/class-catalog-list-table.php:409
 #: templates/admin/organize.blade.php:13 templates/admin/organize.blade.php:26
 msgid "Public"
 msgstr "Openbaar"
 
-#: inc/admin/class-catalog-list-table.php:507 inc/admin/laf/namespace.php:466
+#: inc/admin/class-catalog-list-table.php:481 inc/admin/laf/namespace.php:466
 #: inc/admin/laf/namespace.php:646 inc/admin/laf/namespace.php:925
 msgid "My Catalog"
 msgstr "Mijn Catalogus"
 
-#: inc/admin/class-catalog-list-table.php:508
+#: inc/admin/class-catalog-list-table.php:482
 msgid "Edit Profile"
 msgstr "Bewerk Profiel"
 
-#: inc/admin/class-catalog-list-table.php:509
+#: inc/admin/class-catalog-list-table.php:483
 msgid "Visit Catalog"
 msgstr "Bezoek Catalogus"
 
 #. translators: %s: search keywords
-#: inc/admin/class-catalog-list-table.php:515
+#: inc/admin/class-catalog-list-table.php:489
 #, php-format
 msgid "Search results for &#8220;%s&#8221; returned no items"
 msgstr "Zoekresultaten voor &#8220;%s&#8221; had geen resultaten"
 
 #. translators: %s: search keywords
-#: inc/admin/class-catalog-list-table.php:518
+#: inc/admin/class-catalog-list-table.php:492
 #, php-format
 msgid "Search results for &#8220;%s&#8221; returned 1 item"
 msgstr "Zoekresultaat &#8220;%s&#8221;  gaf 1 item"
 
 #. translators: %s: search keywords, %d: total items found
-#: inc/admin/class-catalog-list-table.php:521
+#: inc/admin/class-catalog-list-table.php:495
 #, php-format
 msgid "Search results for &#8220;%1$s&#8221; returned %2$d items"
 msgstr "Zoekreltaat &#8220;%1$s&#8221; gaf%2$d items"
 
-#: inc/admin/class-catalog-list-table.php:529
+#: inc/admin/class-catalog-list-table.php:504
 msgid "Organize your public Catalog page."
 msgstr "Orden uw openbare Catalogus pagina."
 
-#: inc/admin/class-catalog-list-table.php:530
+#: inc/admin/class-catalog-list-table.php:505
 msgid "Show/Hide books"
 msgstr "Toon/Verberg boeken"
 
-#: inc/admin/class-catalog-list-table.php:531
+#: inc/admin/class-catalog-list-table.php:506
 #, php-format
 msgid "To display a book in your catalog choose \"%s\" under Catalog Status. "
 msgstr "Om een boek in uw catalogus te tonen kies \"%s\" onder Catalogus Status. "
 
-#: inc/admin/class-catalog-list-table.php:533
+#: inc/admin/class-catalog-list-table.php:508
 #, php-format
 msgid "To hide a book in your catalog choose \"%s\" under Catalog Status."
 msgstr "Om een boek in uw catalogus te verbergen kies \"%s\" onder Catalogus Status."
 
-#: inc/admin/class-catalog-list-table.php:536
+#: inc/admin/class-catalog-list-table.php:511
 msgid "Catalog sorting"
 msgstr "Catalogus sorteren"
 
-#: inc/admin/class-catalog-list-table.php:537
+#: inc/admin/class-catalog-list-table.php:515
 #, php-format
 msgid ""
 "To add sorting ability, add your Tag names to your <a href=\"%s\">Catalog "
@@ -255,19 +255,19 @@ msgid ""
 " each individual book."
 msgstr "Voeg uw Tag namen toe aan uw  <a href=\"%s\">Catalog Profile</a> pagina, om sorteermogelijkheid toe te voegen (vb: Autheurs, Boek Genre) en voeg dan de passende tags toe aan elk individuele boek."
 
-#: inc/admin/class-catalog-list-table.php:539
+#: inc/admin/class-catalog-list-table.php:519
 msgid "Share your catalog"
 msgstr "Deel uw catalogus"
 
-#: inc/admin/class-catalog-list-table.php:540
+#: inc/admin/class-catalog-list-table.php:521
 msgid "The public link to your catalog page"
 msgstr "De openbare link naar uw catalogus pagina"
 
-#: inc/admin/class-catalog-list-table.php:553
+#: inc/admin/class-catalog-list-table.php:539
 msgid "Add By URL"
 msgstr "Toevoegen via URL"
 
-#: inc/admin/class-catalog-list-table.php:564 templates/admin/search.php:81
+#: inc/admin/class-catalog-list-table.php:549 templates/admin/search.php:81
 #: templates/admin/cloner/page.blade.php:26
 msgid "Search"
 msgstr "Zoek"
@@ -344,42 +344,42 @@ msgstr ""
 msgid "Sort by %s in ascending order."
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:75
+#: inc/admin/class-publishoptions.php:74
 msgid "Amazon URL"
 msgstr "Amazon URL"
 
-#: inc/admin/class-publishoptions.php:84
+#: inc/admin/class-publishoptions.php:75
 msgid "O'Reilly URL"
 msgstr "O'Reilly URL"
 
-#: inc/admin/class-publishoptions.php:93
+#: inc/admin/class-publishoptions.php:76
 msgid "Barnes and Noble URL"
 msgstr "Barnes and Noble URL"
 
-#: inc/admin/class-publishoptions.php:102
+#: inc/admin/class-publishoptions.php:77
 msgid "Kobo URL"
 msgstr "Kobo URL"
 
-#: inc/admin/class-publishoptions.php:111
+#: inc/admin/class-publishoptions.php:78
 msgid "Apple Books URL"
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:120
+#: inc/admin/class-publishoptions.php:79
 msgid "Other Service URL"
 msgstr "Andere Dienst URL"
 
-#: inc/admin/class-publishoptions.php:139
+#: inc/admin/class-publishoptions.php:107
 msgid "Add BUY Links to Your Pressbooks Webbook"
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:140
+#: inc/admin/class-publishoptions.php:108
 msgid ""
 "Enter the URLs for locations where your book can be purchased below. <a "
 "href=\"https://guide.pressbooks.com/chapter/publish/\">Our guide</a> "
 "provides additional information about selling and distributing your book."
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:300 inc/admin/laf/namespace.php:415
+#: inc/admin/class-publishoptions.php:183 inc/admin/laf/namespace.php:415
 msgid "Publish"
 msgstr "Publiceren"
 
@@ -626,13 +626,13 @@ msgid ""
 " %1$s to %2$s."
 msgstr ""
 
-#: inc/admin/dashboard/class-dashboard.php:54 inc/admin/laf/namespace.php:822
+#: inc/admin/dashboard/class-dashboard.php:56 inc/admin/laf/namespace.php:822
 #: inc/admin/laf/namespace.php:897 inc/admin/menus/class-sidebar.php:199
 #: inc/admin/menus/class-sidebar.php:200 inc/admin/menus/class-topbar.php:123
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: inc/admin/dashboard/class-dashboard.php:55
+#: inc/admin/dashboard/class-dashboard.php:57
 msgid "Home"
 msgstr ""
 
@@ -2843,8 +2843,8 @@ msgstr "Genereren omslag"
 msgid "book"
 msgstr "boek"
 
-#: inc/covergenerator/class-generator.php:454
-#: inc/modules/export/prince/class-docraptor.php:148
+#: inc/covergenerator/class-generator.php:458
+#: inc/modules/export/prince/class-docraptor.php:149
 msgid "Your PDF could not be retrieved."
 msgstr "Uw PDF kon niet worden opgevraagd."
 
@@ -3463,15 +3463,15 @@ msgstr ""
 msgid "Processing content..."
 msgstr ""
 
-#: inc/modules/export/prince/class-docraptor.php:135
+#: inc/modules/export/prince/class-docraptor.php:136
 msgid "Converting document..."
 msgstr ""
 
-#: inc/modules/export/prince/class-docraptor.php:142
+#: inc/modules/export/prince/class-docraptor.php:143
 msgid "Fetching converted file..."
 msgstr ""
 
-#: inc/modules/export/prince/class-docraptor.php:182
+#: inc/modules/export/prince/class-docraptor.php:183
 msgid "Conversion complete."
 msgstr ""
 
@@ -5424,10 +5424,6 @@ msgstr ""
 msgid "View user list"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:116
-msgid "Pressbooks product updates"
-msgstr ""
-
 #: templates/admin/dashboard/support.blade.php:8
 msgid "Network manager guide"
 msgstr ""
@@ -5438,6 +5434,10 @@ msgstr ""
 
 #: templates/admin/dashboard/support.blade.php:30
 msgid "Contact Pressbooks Support"
+msgstr ""
+
+#: templates/admin/dashboard/support.blade.php:41
+msgid "Pressbooks product updates"
 msgstr ""
 
 #: templates/admin/dashboard/user.blade.php:18
