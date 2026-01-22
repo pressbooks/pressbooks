@@ -861,7 +861,7 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:352
 msgid "Exporting..."
-msgstr ""
+msgstr "Dışa aktarılıyor"
 
 #: inc/admin/laf/namespace.php:353
 msgid "Starting export process..."
