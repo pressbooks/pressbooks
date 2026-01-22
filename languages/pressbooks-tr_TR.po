@@ -7,14 +7,14 @@
 # Hakan Demiralp, 2022
 # Mustafa Bulun <mustafa.bulun@bizimajans.com>, 2020-2021
 # Antonio D., 2016
-# Zeki Tuman (ztuman) <afuatdemir@gmail.com>, 2024
+# Zeki Tuman (ztuman) <afuatdemir@gmail.com>, 2024,2026
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
 "POT-Creation-Date: 2025-07-30T15:12:23+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
-"Last-Translator: Zeki Tuman (ztuman) <afuatdemir@gmail.com>, 2024\n"
+"Last-Translator: Zeki Tuman (ztuman) <afuatdemir@gmail.com>, 2024,2026\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/pressbooks/pressbooks/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -301,7 +301,7 @@ msgstr "Temayı son halinde kilitle."
 
 #: inc/admin/class-exportoptions.php:100
 msgid "H5P options"
-msgstr ""
+msgstr "H5P Seçenekleri"
 
 #: inc/admin/class-exportoptions.php:105 inc/admin/class-exportoptions.php:186
 msgid "Enable H5P static representation on exports."
