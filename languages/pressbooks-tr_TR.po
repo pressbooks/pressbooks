@@ -100,8 +100,8 @@ msgstr "Kaynak URL"
 #: inc/admin/covergenerator/namespace.php:109 inc/class-contributors.php:833
 msgid "Author"
 msgid_plural "Authors"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Yazarlar"
+msgstr[1] "Yazarlar"
 
 #: inc/admin/attachments/namespace.php:60
 msgid "Author URL"
