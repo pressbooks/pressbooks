@@ -223,7 +223,6 @@ if ( $is_book ) {
 	add_filter( 'wp_link_query', '\Pressbooks\Editor\add_anchors_to_wp_link_query', 1, 2 );
 	add_action( 'admin_enqueue_scripts', '\Pressbooks\Editor\admin_enqueue_scripts' );
 	add_action( 'admin_init', '\Pressbooks\Editor\add_editor_style' );
-	add_filter( 'content_save_pre', '\Pressbooks\Editor\fix_table_header_cells', 10 );
 }
 if ( ! defined( 'PB_GUTENBERG_TESTING' ) || ! PB_GUTENBERG_TESTING ) {
 	// Hide Gutenberg
