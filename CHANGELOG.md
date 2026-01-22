@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.36.1](https://github.com/pressbooks/pressbooks/compare/6.36.0...6.36.1) (2026-01-22)
+
+
+### Chores
+
+* revert "fix: convert all td elements to th in thead elements before save" ([#4330](https://github.com/pressbooks/pressbooks/issues/4330)) ([b65c538](https://github.com/pressbooks/pressbooks/commit/b65c5387fcd79114b4dcca9bef3fd167e06985cd))
+
 ## [6.36.0](https://github.com/pressbooks/pressbooks/compare/6.35.0...6.36.0) (2026-01-20)
 
 
