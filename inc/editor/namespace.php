@@ -516,6 +516,47 @@ function show_kitchen_sink( $args ) {
 }
 
 /**
+ * Convert <td> elements to <th> elements in table header rows if they contain content.
+ *
+ * @param string $content Post content
+ *
+ * @return string Modified content with proper <th> elements in table headers
+ */
+function fix_table_header_cells( string $content ): string {
+	// Only process if content contains tables with thead
+	if ( empty( $content ) || ! str_contains( $content, '<thead' ) ) {
+		return $content;
+	}
+
+	return preg_replace_callback(
+		pattern: '/<thead\b[^>]*>.*?<\/thead>/is',
+		callback: function( $matches ) {
+			$thead = $matches[0];
+
+			// Replace individual td elements, checking if they have content
+			return preg_replace_callback(
+				pattern: '/<td\b([^>]*)>(.*?)<\/td>/is',
+				callback: function( $td_matches ) {
+					$attributes = $td_matches[1];
+					$content = $td_matches[2];
+
+					// Check if the td has any content (not just whitespace)
+					if ( trim( $content ) !== '' ) {
+						// Convert to th if it has content
+						return '<th' . $attributes . '>' . $content . '</th>';
+					}
+
+					// Keep as td if empty
+					return $td_matches[0];
+				},
+				subject: $thead
+			);
+		},
+		subject: $content
+	);
+}
+
+/**
  * Force classic editor mode
  */
 function hide_gutenberg() {
