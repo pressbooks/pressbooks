@@ -239,5 +239,21 @@ class EditorTest extends \WP_UnitTestCase {
 		$input_no_table = '<p>This is just text</p>';
 		$result_no_table = \Pressbooks\Editor\fix_table_header_cells( $input_no_table );
 		$this->assertEquals( $input_no_table, $result_no_table );
+
+		// Test thead with empty th elements (should convert to td)
+		$input_empty_th = '<table><thead><tr><th>Header</th><th></th><th>  </th><th>Another Header</th></tr></thead></table>';
+		$result_empty_th = \Pressbooks\Editor\fix_table_header_cells( $input_empty_th );
+		$this->assertStringContainsString( '<th>Header</th>', $result_empty_th );
+		$this->assertStringContainsString( '<td></td>', $result_empty_th );
+		$this->assertStringContainsString( '<td>  </td>', $result_empty_th );
+		$this->assertStringContainsString( '<th>Another Header</th>', $result_empty_th );
+
+		// Test thead with mix of empty and non-empty th and td
+		$input_mixed = '<table><thead><tr><td>Header</td><td></td><th></th><td>Another Header</td><th>  </th></tr></thead></table>';
+		$result_mixed = \Pressbooks\Editor\fix_table_header_cells( $input_mixed );
+		$this->assertStringContainsString( '<th>Header</th>', $result_mixed );
+		$this->assertStringContainsString( '<td></td>', $result_mixed );
+		$this->assertStringContainsString( '<td>  </td>', $result_mixed );
+		$this->assertStringContainsString( '<th>Another Header</th>', $result_mixed );
 	}
 }
