@@ -537,6 +537,10 @@ function fix_table_header_cells( string $content ): string {
 		foreach ( $thead->getElementsByTagName( 'td' ) as $td ) {
 			if ( trim( $td->textContent ) !== '' ) {
 				$th = $dom->createElement( 'th', $td->nodeValue );
+				$attributeNames = $td->getAttributeNames();
+				foreach ($attributeNames as $attributeName) {
+					$th->setAttribute($attributeName, $td->getAttribute($attributeName));
+				}
 				$td->replaceWith( $th );
 			}
 		}
@@ -545,6 +549,10 @@ function fix_table_header_cells( string $content ): string {
 		foreach ( $thead->getElementsByTagName( 'th' ) as $th ) {
 			if ( trim( $th->textContent ) === '' ) {
 				$td = $dom->createElement( 'td', '' );
+				$attributeNames = $th->getAttributeNames();
+				foreach ($attributeNames as $attributeName) {
+					$td->setAttribute($attributeName, $th->getAttribute($attributeName));
+				}
 				$th->replaceWith( $td );
 			}
 		}
