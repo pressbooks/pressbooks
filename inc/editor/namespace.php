@@ -12,6 +12,7 @@
 namespace Pressbooks\Editor;
 
 use function Pressbooks\Sanitize\normalize_css_urls;
+use Masterminds\HTML5;
 use PressbooksMix\Assets;
 use Pressbooks\Container;
 use Pressbooks\HtmlParser;
