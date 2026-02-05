@@ -537,7 +537,7 @@ function fix_table_header_cells( string $content ): string {
 		foreach ( $thead->getElementsByTagName( 'td' ) as $td ) {
 			if ( trim( $td->textContent ) !== '' ) {
 				$th = $dom->createElement( 'th', $td->nodeValue );
-				$attribute_names = $td->getattribute_names();
+				$attribute_names = $td->getAttributeNames();
 				foreach ( $attribute_names as $attribute_name ) {
 					$th->setAttribute( $attribute_name, $td->getAttribute( $attribute_name ) );
 				}
@@ -549,7 +549,7 @@ function fix_table_header_cells( string $content ): string {
 		foreach ( $thead->getElementsByTagName( 'th' ) as $th ) {
 			if ( trim( $th->textContent ) === '' ) {
 				$td = $dom->createElement( 'td', '' );
-				$attribute_names = $th->getattribute_names();
+				$attribute_names = $th->getAttributeNames();
 				foreach ( $attribute_names as $attribute_name ) {
 					$td->setAttribute( $attribute_name, $th->getAttribute( $attribute_name ) );
 				}
