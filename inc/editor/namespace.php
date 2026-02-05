@@ -16,6 +16,7 @@ use PressbooksMix\Assets;
 use Pressbooks\Container;
 use Pressbooks\HtmlParser;
 use Pressbooks\Shortcodes\Glossary\Glossary;
+use Masterminds\HTML5;
 
 /**
  * Ensure that Word formatting that we like doesn't get filtered out.
@@ -528,45 +529,28 @@ function fix_table_header_cells( string $content ): string {
 		return $content;
 	}
 
-	return preg_replace_callback(
-		pattern: '/<thead\b[^>]*>.*?<\/thead>/is',
-		callback: function( $matches ) {
-			$thead = $matches[0];
+	$parser = new HTML5();
+	$dom = $parser->loadHTML( $content );
 
-			// Convert <td> with content to <th>
-			$thead = preg_replace_callback(
-				pattern: '/<td\b([^>]*)>(.*?)<\/td>/is',
-				callback: function( $td_matches ) {
-					$attributes = $td_matches[1];
-					$content = $td_matches[2];
+	foreach ($dom->getElementsByTagName('thead') as $thead) {
+		/** Replace <td> elements with content with <th> elements */
+		foreach ($thead->getElementsByTagName('td') as $td) {
+			if (trim($td->textContent) !== '') {
+	    		$th = $dom->createElement("th", $td->nodeValue);
+	      		$td->replaceWith($th);
+			}
+		}
 
-					if ( trim( $content ) !== '' ) {
-						return '<th' . $attributes . '>' . $content . '</th>';
-					}
-					return $td_matches[0];
-				},
-				subject: $thead
-			);
+		/** Replace empty <th> elements with <td> elements */
+		foreach ($thead->getElementsByTagName('th') as $th) {
+			if (trim($th->textContent) === '') {
+	    		$td = $dom->createElement("td", '');
+     			$th->replaceWith($td);
+			}
+		}
+	}
 
-			// Convert empty <th> to <td>
-			$thead = preg_replace_callback(
-				pattern: '/<th\b([^>]*)>(.*?)<\/th>/is',
-				callback: function( $th_matches ) {
-					$attributes = $th_matches[1];
-					$content = $th_matches[2];
-
-					if ( trim( $content ) === '' ) {
-						return '<td' . $attributes . '>' . $content . '</td>';
-					}
-					return $th_matches[0];
-				},
-				subject: $thead
-			);
-
-			return $thead;
-		},
-		subject: $content
-	);
+	return $dom->saveHTML();
 }
 
 /**
