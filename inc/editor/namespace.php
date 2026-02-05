@@ -12,7 +12,6 @@
 namespace Pressbooks\Editor;
 
 use function Pressbooks\Sanitize\normalize_css_urls;
-use Masterminds\HTML5;
 use PressbooksMix\Assets;
 use Pressbooks\Container;
 use Pressbooks\HtmlParser;
@@ -530,7 +529,7 @@ function fix_table_header_cells( string $content ): string {
 	}
 
 	$html5 = new \Masterminds\HTML5( [ 'disable_html_ns' => true ] );
-	
+
 	$dom_fragment = $html5->loadHTMLFragment( $content );
 	if ( ! $dom_fragment ) {
 		return $content;
@@ -560,19 +559,19 @@ function fix_table_header_cells( string $content ): string {
 				if ( ( $is_td && $has_content ) || ( ! $is_td && ! $has_content ) ) {
 					$new_tag = $is_td ? 'th' : 'td';
 					$new_cell = $dom->createElement( $new_tag );
-					
+
 					// Copy attributes
 					if ( $cell->hasAttributes() ) {
 						foreach ( $cell->attributes as $attr ) {
 							$new_cell->setAttribute( $attr->name, $attr->value );
 						}
 					}
-					
+
 					// Copy child nodes
 					while ( $cell->firstChild ) {
 						$new_cell->appendChild( $cell->firstChild );
 					}
-					
+
 					$cell->parentNode->replaceChild( $new_cell, $cell );
 				}
 			}
