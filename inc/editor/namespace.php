@@ -528,45 +528,63 @@ function fix_table_header_cells( string $content ): string {
 		return $content;
 	}
 
-	return preg_replace_callback(
-		pattern: '/<thead\b[^>]*>.*?<\/thead>/is',
-		callback: function( $matches ) {
-			$thead = $matches[0];
+	$html5 = new \Masterminds\HTML5( [ 'disable_html_ns' => true ] );
+	
+	$dom_fragment = $html5->loadHTMLFragment( $content );
+	if ( ! $dom_fragment ) {
+		return $content;
+	}
 
-			// Convert <td> with content to <th>
-			$thead = preg_replace_callback(
-				pattern: '/<td\b([^>]*)>(.*?)<\/td>/is',
-				callback: function( $td_matches ) {
-					$attributes = $td_matches[1];
-					$content = $td_matches[2];
+	$dom = $dom_fragment->ownerDocument;
+	$xpath = new \DOMXPath( $dom );
+	$theads = $xpath->query( './/thead', $dom_fragment );
 
-					if ( trim( $content ) !== '' ) {
-						return '<th' . $attributes . '>' . $content . '</th>';
+	foreach ( $theads as $thead ) {
+		// Get all td and th elements within rows
+		$rows = $thead->getElementsByTagName( 'tr' );
+		foreach ( $rows as $row ) {
+			// Convert NodeList to array to avoid issues with live collections during DOM modification
+			$cells = [];
+			foreach ( $row->childNodes as $node ) {
+				if ( $node->nodeType === XML_ELEMENT_NODE && ( $node->nodeName === 'td' || $node->nodeName === 'th' ) ) {
+					$cells[] = $node;
+				}
+			}
+
+			foreach ( $cells as $cell ) {
+				$has_content = trim( $cell->textContent ) !== '';
+				$is_td = $cell->nodeName === 'td';
+
+				// Convert td with content to th, or th without content to td
+				if ( ( $is_td && $has_content ) || ( ! $is_td && ! $has_content ) ) {
+					$new_tag = $is_td ? 'th' : 'td';
+					$new_cell = $dom->createElement( $new_tag );
+					
+					// Copy attributes
+					if ( $cell->hasAttributes() ) {
+						foreach ( $cell->attributes as $attr ) {
+							$new_cell->setAttribute( $attr->name, $attr->value );
+						}
 					}
-					return $td_matches[0];
-				},
-				subject: $thead
-			);
-
-			// Convert empty <th> to <td>
-			$thead = preg_replace_callback(
-				pattern: '/<th\b([^>]*)>(.*?)<\/th>/is',
-				callback: function( $th_matches ) {
-					$attributes = $th_matches[1];
-					$content = $th_matches[2];
-
-					if ( trim( $content ) === '' ) {
-						return '<td' . $attributes . '>' . $content . '</td>';
+					
+					// Copy child nodes
+					while ( $cell->firstChild ) {
+						$new_cell->appendChild( $cell->firstChild );
 					}
-					return $th_matches[0];
-				},
-				subject: $thead
-			);
+					
+					$cell->parentNode->replaceChild( $new_cell, $cell );
+				}
+			}
+		}
+	}
 
-			return $thead;
-		},
-		subject: $content
-	);
+	// Serialize the fragment back to HTML
+	$result = '';
+	foreach ( $dom_fragment->childNodes as $node ) {
+		$result .= $html5->saveHTML( $node );
+	}
+
+	return $result ?: $content;
 }
 
 /**
