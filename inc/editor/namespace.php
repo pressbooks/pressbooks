@@ -12,11 +12,11 @@
 namespace Pressbooks\Editor;
 
 use function Pressbooks\Sanitize\normalize_css_urls;
+use Masterminds\HTML5;
 use PressbooksMix\Assets;
 use Pressbooks\Container;
 use Pressbooks\HtmlParser;
 use Pressbooks\Shortcodes\Glossary\Glossary;
-use Masterminds\HTML5;
 
 /**
  * Ensure that Word formatting that we like doesn't get filtered out.
@@ -532,20 +532,20 @@ function fix_table_header_cells( string $content ): string {
 	$parser = new HTML5();
 	$dom = $parser->loadHTML( $content );
 
-	foreach ($dom->getElementsByTagName('thead') as $thead) {
+	foreach ( $dom->getElementsByTagName( 'thead' ) as $thead ) {
 		/** Replace <td> elements with content with <th> elements */
-		foreach ($thead->getElementsByTagName('td') as $td) {
-			if (trim($td->textContent) !== '') {
-	    		$th = $dom->createElement("th", $td->nodeValue);
-	      		$td->replaceWith($th);
+		foreach ( $thead->getElementsByTagName( 'td' ) as $td ) {
+			if ( trim( $td->textContent ) !== '' ) {
+				$th = $dom->createElement( 'th', $td->nodeValue );
+				$td->replaceWith( $th );
 			}
 		}
 
 		/** Replace empty <th> elements with <td> elements */
-		foreach ($thead->getElementsByTagName('th') as $th) {
-			if (trim($th->textContent) === '') {
-	    		$td = $dom->createElement("td", '');
-     			$th->replaceWith($td);
+		foreach ( $thead->getElementsByTagName( 'th' ) as $th ) {
+			if ( trim( $th->textContent ) === '' ) {
+				$td = $dom->createElement( 'td', '' );
+				$th->replaceWith( $td );
 			}
 		}
 	}
