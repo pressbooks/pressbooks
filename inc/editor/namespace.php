@@ -586,13 +586,8 @@ function fix_table_header_cells( string $content ): string {
 		$html .= $dom->saveHTML( $node );
 	}
 
-	return $html;
-}
-
-/**
- * Force classic editor mode
- */
-function hide_gutenberg() {
+	// Re-slash for WordPress (filter expects slashed content)
+	return wp_slash( $html );
 	// 4.9.X and below
 	deactivate_plugins( [ 'gutenberg/gutenberg.php' ] );
 
