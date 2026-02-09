@@ -528,12 +528,19 @@ function fix_table_header_cells( string $content ): string {
 		return $content;
 	}
 
-	$html5 = new \Pressbooks\HtmlParser();
+	// Unslash content to get actual HTML (WordPress adds slashes for database protection)
+	$content = wp_unslash( $content );
 
-	$dom = $html5->loadHTML( $content );
-	if ( ! $dom ) {
-		return $content;
-	}
+	// Use internal DOMDocument parser to avoid encoding issues
+	libxml_use_internal_errors( true );
+	
+	$dom = new \DOMDocument();
+	$dom->loadHTML( 
+		'<?xml encoding="UTF-8"><div>' . $content . '</div>',
+		LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD 
+	);
+	
+	libxml_clear_errors();
 
 	$xpath = new \DOMXPath( $dom );
 	$theads = $xpath->query( '//thead' );
@@ -577,7 +584,14 @@ function fix_table_header_cells( string $content ): string {
 		}
 	}
 
-	return $html5->saveHTML( $dom );
+	// Save and strip wrapper div
+	$html = $dom->saveHTML( $dom->documentElement );
+	// Remove the wrapper div we added
+	$html = preg_replace( '/^<div>(.*)<\/div>$/s', '$1', $html );
+	// Remove the XML encoding declaration if present
+	$html = preg_replace( '/<\?xml[^>]*>/i', '', $html );
+	
+	return $html;
 }
 
 /**
