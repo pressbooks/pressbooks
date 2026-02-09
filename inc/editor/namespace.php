@@ -531,25 +531,22 @@ function fix_table_header_cells( string $content ): string {
 	// Unslash content to get actual HTML (WordPress adds slashes for database protection)
 	$content = wp_unslash( $content );
 
-	// Use internal DOMDocument parser to avoid encoding issues
 	libxml_use_internal_errors( true );
-	
+
 	$dom = new \DOMDocument();
-	$dom->loadHTML( 
+	$dom->loadHTML(
 		'<?xml encoding="UTF-8"><div>' . $content . '</div>',
-		LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD 
+		LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
 	);
-	
+
 	libxml_clear_errors();
 
-	$xpath = new \DOMXPath( $dom );
-	$theads = $xpath->query( '//thead' );
+	$theads = $dom->getElementsByTagName( 'thead' );
 
 	foreach ( $theads as $thead ) {
-		// Get all td and th elements within rows
 		$rows = $thead->getElementsByTagName( 'tr' );
 		foreach ( $rows as $row ) {
-			// Convert NodeList to array to avoid issues with live collections during DOM modification
+			// Collect cells to avoid live collection issues
 			$cells = [];
 			foreach ( $row->childNodes as $node ) {
 				if ( $node->nodeType === XML_ELEMENT_NODE && ( $node->nodeName === 'td' || $node->nodeName === 'th' ) ) {
@@ -563,8 +560,7 @@ function fix_table_header_cells( string $content ): string {
 
 				// Convert td with content to th, or th without content to td
 				if ( ( $is_td && $has_content ) || ( ! $is_td && ! $has_content ) ) {
-					$new_tag = $is_td ? 'th' : 'td';
-					$new_cell = $dom->createElement( $new_tag );
+					$new_cell = $dom->createElement( $is_td ? 'th' : 'td' );
 
 					// Copy attributes
 					if ( $cell->hasAttributes() ) {
@@ -584,13 +580,12 @@ function fix_table_header_cells( string $content ): string {
 		}
 	}
 
-	// Save and strip wrapper div
-	$html = $dom->saveHTML( $dom->documentElement );
-	// Remove the wrapper div we added
-	$html = preg_replace( '/^<div>(.*)<\/div>$/s', '$1', $html );
-	// Remove the XML encoding declaration if present
-	$html = preg_replace( '/<\?xml[^>]*>/i', '', $html );
-	
+	// Save inner HTML without wrapper div
+	$html = '';
+	foreach ( $dom->documentElement->childNodes as $node ) {
+		$html .= $dom->saveHTML( $node );
+	}
+
 	return $html;
 }
 
