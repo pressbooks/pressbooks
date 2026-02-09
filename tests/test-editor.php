@@ -255,5 +255,24 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<td></td>', $result_mixed );
 		$this->assertStringContainsString( '<td>  </td>', $result_mixed );
 		$this->assertStringContainsString( '<th>Another Header</th>', $result_mixed );
+
+		// Test that attributes are not double-encoded (regression test for issue #4329)
+		$input_with_attrs = '<table class="grid" border="0"><thead><tr><th colspan="1" class="some-class">This is a Header</th><th colspan="1">This is another Header</th><td colspan="1"></td><td colspan="1"></td></tr></thead><tbody><tr><td>This is a column</td><td>This is another column</td><td>This is another column</td><td></td></tr></tbody></table>';
+		$result_with_attrs = \Pressbooks\Editor\fix_table_header_cells( $input_with_attrs );
+
+		// Verify attributes are preserved correctly without double encoding
+		$this->assertStringContainsString( 'class="grid"', $result_with_attrs );
+		$this->assertStringContainsString( 'border="0"', $result_with_attrs );
+		$this->assertStringContainsString( 'colspan="1"', $result_with_attrs );
+		$this->assertStringContainsString( 'class="some-class"', $result_with_attrs );
+
+		// Verify attributes are NOT double-encoded
+		$this->assertStringNotContainsString( '&quot;&quot;grid&quot;&quot;', $result_with_attrs );
+		$this->assertStringNotContainsString( '&quot;&quot;0&quot;&quot;', $result_with_attrs );
+		$this->assertStringNotContainsString( '&quot;&quot;1&quot;&quot;', $result_with_attrs );
+		$this->assertStringNotContainsString( '&quot;&quot;some-class&quot;&quot;', $result_with_attrs );
+
+		// Verify empty td cells remain as td
+		$this->assertStringContainsString( '<td colspan="1"></td>', $result_with_attrs );
 	}
 }

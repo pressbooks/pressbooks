@@ -528,16 +528,15 @@ function fix_table_header_cells( string $content ): string {
 		return $content;
 	}
 
-	$html5 = new \Masterminds\HTML5( [ 'disable_html_ns' => true ] );
+	$html5 = new \Pressbooks\HtmlParser();
 
-	$dom_fragment = $html5->loadHTMLFragment( $content );
-	if ( ! $dom_fragment ) {
+	$dom = $html5->loadHTML( $content );
+	if ( ! $dom ) {
 		return $content;
 	}
 
-	$dom = $dom_fragment->ownerDocument;
 	$xpath = new \DOMXPath( $dom );
-	$theads = $xpath->query( './/thead', $dom_fragment );
+	$theads = $xpath->query( '//thead' );
 
 	foreach ( $theads as $thead ) {
 		// Get all td and th elements within rows
@@ -578,13 +577,7 @@ function fix_table_header_cells( string $content ): string {
 		}
 	}
 
-	// Serialize the fragment back to HTML
-	$result = '';
-	foreach ( $dom_fragment->childNodes as $node ) {
-		$result .= $html5->saveHTML( $node );
-	}
-
-	return $result ?: $content;
+	return $html5->saveHTML( $dom );
 }
 
 /**
