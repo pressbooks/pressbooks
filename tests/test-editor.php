@@ -274,5 +274,27 @@ class EditorTest extends \WP_UnitTestCase {
 
 		// Verify empty td cells remain as td
 		$this->assertStringContainsString( '<td colspan="1"></td>', $result_with_attrs );
+
+		// Test that LaTeX backslashes are preserved
+		$input_with_latex = '<p>LaTeX: \[ f(x) = \frac{1}{2} \]</p><table><thead><tr><td>Header</td></tr></thead></table>';
+		$result_with_latex = \Pressbooks\Editor\fix_table_header_cells( $input_with_latex );
+		$this->assertStringContainsString( '\[ f(x) = \frac{1}{2} \]', $result_with_latex );
+		$this->assertStringContainsString( '<th>Header</th>', $result_with_latex );
+
+		// Test that quotes are preserved (single and double)
+		$input_with_quotes = '<p>There are "double quotes" and \'single quotes\' here.</p><table><thead><tr><td>Header</td></tr></thead></table>';
+		$result_with_quotes = \Pressbooks\Editor\fix_table_header_cells( $input_with_quotes );
+		$this->assertStringContainsString( '"double quotes"', $result_with_quotes );
+		$this->assertStringContainsString( "'single quotes'", $result_with_quotes );
+		$this->assertStringContainsString( '<th>Header</th>', $result_with_quotes );
+
+		// Test mixed content with tables and other HTML elements
+		$input_mixed = '<p>Paragraph before</p><span class="strong">Bold text</span><table class="grid"><thead><tr><td>Col 1</td><td>Col 2</td></tr></thead><tbody><tr><td>Data</td><td>More data</td></tr></tbody></table><p>Paragraph after</p>';
+		$result_mixed = \Pressbooks\Editor\fix_table_header_cells( $input_mixed );
+		$this->assertStringContainsString( '<p>Paragraph before</p>', $result_mixed );
+		$this->assertStringContainsString( '<span class="strong">Bold text</span>', $result_mixed );
+		$this->assertStringContainsString( '<th>Col 1</th>', $result_mixed );
+		$this->assertStringContainsString( '<th>Col 2</th>', $result_mixed );
+		$this->assertStringContainsString( '<p>Paragraph after</p>', $result_mixed );
 	}
 }
