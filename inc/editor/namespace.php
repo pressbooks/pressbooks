@@ -588,6 +588,12 @@ function fix_table_header_cells( string $content ): string {
 
 	// Re-slash for WordPress (filter expects slashed content)
 	return wp_slash( $html );
+}
+
+/**
+* Force classic editor mode
+*/
+function hide_gutenberg() {
 	// 4.9.X and below
 	deactivate_plugins( [ 'gutenberg/gutenberg.php' ] );
 
