@@ -1,9 +1,6 @@
 @import 'partials/colors';
 
-// Space between column 1 and column 2
-$side-right-space: 20px;
-
-.page-title-action {
+.post-type-metadata .page-title-action {
   display: none;
 }
 
@@ -15,11 +12,10 @@ $side-right-space: 20px;
   background-color: $white;
 }
 
-// Book Info Fixed Sidebar only for large screens
 @media screen and (min-width: 850px) {
-  #post-body.columns-2 #postbox-container-1  {
+  .post-type-metadata #post-body.columns-2 #postbox-container-1  {
     position: fixed !important;
-    right: $side-right-space !important;
+    right: 20px !important;
     margin-right: 0 !important;
   }
 }
@@ -33,7 +29,7 @@ $side-right-space: 20px;
 }
 
 .form-field > label,
-.form-field pressbooks-multiselect label {
+.form-field pressbooks-select label {
   color: #000;
   display: block;
   font-size: 0.8125rem;

@@ -1,7 +1,6 @@
 // This script is loaded when a user is on the [ Theme Options ] page
 
 jQuery( function ( $ ) {
-	$( '.color-picker' ).wpColorPicker();
 	let chapter_numbers = $( '#chapter_numbers' );
 
 	$( document ).ready( function () {

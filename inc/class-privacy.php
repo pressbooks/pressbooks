@@ -31,6 +31,7 @@ class Privacy {
 	 */
 	static public function hooks( Privacy $obj ) {
 		add_filter( 'schedule_event', [ $obj, 'reschedulePrivacyCron' ] );
+		self::$instance->removePublicOptionFromSignup();
 	}
 
 	/**
@@ -93,5 +94,13 @@ class Privacy {
 		switch_to_blog( $site->blog_id );
 		update_option( 'permissive_private_content', 1 );
 		restore_current_blog();
+	}
+
+	public function removePublicOptionFromSignup(): void {
+		if ( isset( $_SERVER['SCRIPT_FILENAME'] ) && basename( sanitize_text_field( wp_unslash( $_SERVER['SCRIPT_FILENAME'] ) ) ) === 'wp-signup.php' ) {
+			ob_start( function( $buffer ) {
+				return preg_replace( '/<div id="privacy">.*?<\/div>/s', '', $buffer );
+			});
+		}
 	}
 }

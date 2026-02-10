@@ -15,8 +15,10 @@
 namespace Pressbooks\Admin\Laf;
 
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
+use function Pressbooks\Modules\Export\template_data;
 use function Pressbooks\PostType\get_post_type_label;
 use function Pressbooks\Sanitize\sanitize_string;
+use function Pressbooks\Utility\disable_comments;
 use function Pressbooks\Utility\str_starts_with;
 use PressbooksMix\Assets;
 use Pressbooks\Admin\ExportOptions;
@@ -27,6 +29,7 @@ use Pressbooks\BookDirectory;
 use Pressbooks\CloneComplete;
 use Pressbooks\Cloner\Cloner;
 use Pressbooks\Container;
+use Pressbooks\Contributors;
 use Pressbooks\DataCollector\Book as DataCollector;
 use Pressbooks\Metadata;
 use WP_Error;
@@ -80,7 +83,7 @@ function add_footer_link() {
 	}
 
 	printf(
-		'<span id="footer-thankyou">%1$s</span> &bull; %2$s &bull; %3$s &bull; %4$s &bull; %5$s %6$s <br/>',
+		'<span id="footer-thankyou">%1$s</span> &bull; %2$s &bull; %3$s &bull; %4$s %5$s <br/>',
 		sprintf(
 			esc_html__( 'Powered by %s', 'pressbooks' ),
 			sprintf(
@@ -91,18 +94,13 @@ function add_footer_link() {
 		),
 		sprintf(
 			'<a href="%1$s">%2$s</a>',
-			'https://pressbooks.com/about/',
-			esc_html__( 'About', 'pressbooks' )
-		),
-		sprintf(
-			'<a href="%1$s">%2$s</a>',
 			/**
 			 * Filter the "Help" link.
 			 *
 			 * @since 5.6.0
 			 */
-			apply_filters( 'pb_help_link', 'https://pressbooks.com/support/' ),
-			esc_html__( 'Guides and Tutorials', 'pressbooks' )
+			apply_filters( 'pb_help_link', 'https://guide.pressbooks.com' ),
+			esc_html__( 'Pressbooks User Guide', 'pressbooks' )
 		),
 		sprintf(
 			'<a href="%1$s">%2$s</a>',
@@ -315,7 +313,7 @@ function replace_book_admin_menu() {
 			if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
 				$post_type = get_post_type();
 				if ( in_array( $post_type, [ 'metadata', 'front-matter', 'chapter', 'back-matter' ], true ) ) {
-					wp_enqueue_script( 'pressbooks-multiselect' );
+					wp_enqueue_script( 'pressbooks-select' );
 					wp_enqueue_script( 'pressbooks-reorderable-multiselect' );
 				}
 			}
@@ -343,18 +341,39 @@ function replace_book_admin_menu() {
 				);
 				wp_localize_script(
 					'pb-export', 'PB_ExportToken', [
-						'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=export-book' ), 'pb-export' ),
-						'bulkDeleteWarning' => esc_html__( 'Are you sure you want to delete these export files?', 'pressbooks' ),
-						'maximumFilesWarning' => esc_html__( 'Up to 5 files can be pinned at once.', 'pressbooks' ),
-						'maximumFileTypeWarning' => esc_html__( 'Cannot pin more than 3 of the same file type.', 'pressbooks' ),
+						'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+						'exportPageUrl' => admin_url( 'admin.php?page=pb_export' ),
+						'nonce' => wp_create_nonce( 'pb-export-book' ),
+						'userExportFeedNonce' => wp_create_nonce( 'pressbooks_user_export_feed' ),
+						'bookId' => get_current_blog_id(),
+						'downloadNoncePrefix' => 'download_export_job_',
+						'text'    => [
+							'select_format'   => esc_html__( 'Please select at least one export format.', 'pressbooks' ),
+							'exporting'       => esc_html__( 'Exporting...', 'pressbooks' ),
+							'starting_export' => esc_html__( 'Starting export process...', 'pressbooks' ),
+							'download_file'   => esc_html__( 'Download File', 'pressbooks' ),
+							'maximum_files_warning' => esc_html__( 'Up to 5 files can be pinned at once.', 'pressbooks' ),
+							'maximum_file_type_warning' => esc_html__( 'Cannot pin more than 3 of the same file type.', 'pressbooks' ),
+							'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . esc_html__( 'Reload', 'pressbooks' ) . '</a>)</em>',
+							'jobs_submitted' => esc_html__( 'Export job(s) successfully added to the queue. Progress updates will appear below until the export process is completed. In the meantime, you can safely navigate away from this page.', 'pressbooks' ),
+							'cancel_confirmation' => esc_html__( 'Are you sure you want to cancel this export job?', 'pressbooks' ),
+							'cancel_failed' => esc_html__( 'Failed to cancel export job.', 'pressbooks' ),
+							'start_export' => esc_html__( 'Starting...', 'pressbooks' ),
+							'cancel_button' => esc_html__( 'Cancel', 'pressbooks' ),
+							'error_jobs' => esc_html__( 'Error submitting export jobs:', 'pressbooks' ),
+							'job_notice_dismissal' => esc_html__( 'Dismiss this notice.', 'pressbooks' ),
+							'job_running' => esc_html__( 'This export is currently running', 'pressbooks' ),
+							'completed' => esc_html__( 'Completed', 'pressbooks' ),
+						],
+						'cookie'  => [
+							'timer' => 'pbExportTimer',
+						],
 						'pinsNonce' => wp_create_nonce( 'pb-export-pins' ),
-						'redirectUrl' => admin_url( 'options.php?page=pb_export' ),
-						'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . esc_html__( 'Reload', 'pressbooks' ) . '</a>)</em>',
-						'tooManyExportsWarning' => esc_html__( 'Too many pinned files. Deselect one of the pinned files before attempting to export.', 'pressbooks' ),
-						'unloadWarning' => esc_html__( 'Exports are not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
+						'reloadOnComplete' => true,
 					]
 				);
 				wp_enqueue_style( 'pb-export' );
+				wp_enqueue_style( 'pb-export-ui' );
 				wp_enqueue_script( 'pb-export' );
 				wp_deregister_script( 'heartbeat' );
 
@@ -473,7 +492,7 @@ function custom_screen_options( $default, $option, $value ) {
  * @return array
  */
 function reorder_book_admin_menu( $menu_order = [] ) {
-	return [
+	$default_order = [
 		'index.php',
 		'separator1',
 		'pb_organize',
@@ -491,6 +510,17 @@ function reorder_book_admin_menu( $menu_order = [] ) {
 		'tools.php',
 		'options-general.php',
 	];
+
+	/**
+	 * Filter the book admin menu order.
+	 *
+	 * Allows plugins to modify the order of menu items in the book admin sidebar.
+	 *
+	 * @since 6.36.0
+	 *
+	 * @param array $default_order The default menu order array.
+	 */
+	return apply_filters( 'pb_admin_menu_order', $default_order );
 }
 
 /**
@@ -672,7 +702,7 @@ function add_cloning_stats_page() {
  */
 function display_organize() {
 	$blade = \Pressbooks\Container::get( 'Blade' );
-	$book_structure = \Pressbooks\Book::getBookStructure();
+	$book_structure = Book::getBookStructure();
 	$ebook_options = get_option( 'pressbooks_theme_options_ebook' );
 	$structure = [];
 
@@ -706,15 +736,15 @@ function display_organize() {
 		[
 			'statuses' => get_post_stati( [], 'objects' ),
 			'parts' => count( $book_structure['part'] ),
-			'meta_post' => ( new \Pressbooks\Metadata() )->getMetaPost(),
+			'meta_post' => ( new Metadata() )->getMetaPost(),
 			'book_is_public' => ( ! empty( get_option( 'blog_public' ) ) ) ? 1 : 0,
-			'disable_comments' => \Pressbooks\Utility\disable_comments(),
-			'wc' => \Pressbooks\Book::wordCount(),
-			'wc_selected_for_export' => \Pressbooks\Book::wordCount( true ),
+			'disable_comments' => disable_comments(),
+			'wc' => Book::wordCount(),
+			'wc_selected_for_export' => Book::wordCount( true ),
 			'can_manage_options' => current_user_can( 'manage_options' ),
 			'can_edit_posts' => current_user_can( 'edit_posts' ),
 			'can_edit_others_posts' => current_user_can( 'edit_others_posts' ),
-			'contributors' => new \Pressbooks\Contributors(),
+			'contributors' => new Contributors(),
 			'ebook_options' => $ebook_options,
 			'start_point' => ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['ebook_start_point'] ) )
 				? (int) $ebook_options['ebook_start_point']
@@ -734,11 +764,11 @@ function display_trash() {
 /**
  * Displays the Export Admin Page
  */
-function display_export() {
+function display_export(): void {
 	$blade = Container::get( 'Blade' );
 	echo $blade->render(
 		'admin.export',
-		\Pressbooks\Modules\Export\template_data()
+		template_data()
 	);
 }
 
@@ -1074,6 +1104,14 @@ function disable_customizer() {
 }
 
 /**
+ * @return string
+ */
+function append_book_admin_context( $classes ) {
+	$classes .= ' book-context';
+	return $classes;
+}
+
+/**
  * Init event called at admin_init
  * Instantiates various sub-classes, remove meta boxes from post pages & registers custom post status.
  */
@@ -1112,17 +1150,16 @@ function init_css_js() {
 	wp_enqueue_style( 'pressbooks-admin', $assets->getPath( 'styles/pressbooks.css' ) );
 
 	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pb_catalog' ) {
-		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 'pressbooks-catalog', $assets->getPath( 'styles/catalog.css' ) );
-		wp_enqueue_script( 'color-picker', $assets->getPath( 'scripts/color-picker.js' ), [ 'wp-color-picker' ] );
+		wp_enqueue_script( 'color-picker' );
 		wp_enqueue_script( 'select2-js', $assets->getPath( 'scripts/select2.js' ), [ 'jquery' ] );
 	}
 
 	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pressbooks_theme_options' ) {
-		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 'theme-options', $assets->getPath( 'styles/theme-options.css' ) );
-		wp_enqueue_script( 'pressbooks-multiselect' );
-		wp_enqueue_script( 'theme-options-js', $assets->getPath( 'scripts/theme-options.js' ), [ 'jquery', 'wp-color-picker' ] );
+		wp_enqueue_script( 'pressbooks-select' );
+		wp_enqueue_script( 'color-picker' );
+		wp_enqueue_script( 'theme-options-js', $assets->getPath( 'scripts/theme-options.js' ), [ 'jquery' ] );
 	}
 
 	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pressbooks_export_options' ) {
@@ -1157,11 +1194,13 @@ function init_css_js() {
 	wp_register_script( 'pb-post-mathjax', $assets->getPath( 'scripts/post-mathjax.js' ), [ 'jquery' ], false, true );
 	wp_register_script( 'pb-post-back-matter', $assets->getPath( 'scripts/post-back-matter.js' ), [ 'jquery', 'editor' ], false, true );
 	wp_register_script( 'duet-date-picker', $assets->getPath( 'scripts/duet/duet.js' ), [], false, true );
-	wp_register_script( 'pressbooks-multiselect', $assets->getPath( 'scripts/pressbooks-multiselect.js' ), [], false, true );
+	wp_register_script( 'pressbooks-select', $assets->getPath( 'scripts/pressbooks-select.js' ), [], false, true );
 	wp_register_script( 'pressbooks-reorderable-multiselect', $assets->getPath( 'scripts/pressbooks-reorderable-multiselect.js' ), [], false, true );
+	wp_register_script( 'color-picker', $assets->getPath( 'scripts/color-picker.js' ), [ 'jquery', 'wp-i18n' ], false, true );
 
 	// Register styles for later, on-the-fly, using action: admin_print_scripts- (or other tricks of the shade)
 	wp_register_style( 'pb-export', $assets->getPath( 'styles/export.css' ) );
+	wp_register_style( 'pb-export-ui', $assets->getPath( 'styles/admin/export-ui.css' ), [], '1.0.0' ); // Updated path to src
 	wp_register_style( 'pb-organize', $assets->getPath( 'styles/organize.css' ) );
 	wp_register_style( 'duet-date-picker', $assets->getPath( 'styles/duet.css' ) );
 
@@ -1241,6 +1280,21 @@ function privacy_settings_init() {
 			'blog_public',
 			__NAMESPACE__ . '\privacy_blog_public_sanitize'
 		);
+
+		if ( apply_filters( 'pb_robots_settings', true ) ) {
+			add_settings_field(
+				id: 'pressbooks_robots',
+				title: esc_html__( 'Robots', 'pressbooks' ),
+				callback: __NAMESPACE__ . '\privacy_robots_callback',
+				page: 'privacy_settings',
+				section: 'privacy_settings_section',
+			);
+			register_setting(
+				'privacy_settings',
+				'pressbooks_robots',
+				__NAMESPACE__ . '\privacy_robots_sanitize'
+			);
+		}
 	}
 
 	add_settings_field(
@@ -1340,6 +1394,20 @@ function privacy_blog_public_callback( $args ) {
 }
 
 /**
+ * Privacy settings, pressbooks_robots field callback
+ */
+function privacy_robots_callback() {
+	$blade = Container::get( 'Blade' );
+
+	echo $blade->render('admin/settings/book-robots', [
+		'robots' => get_option( 'pressbooks_robots', [
+			'discourage-ai' => 0,
+			'discourage-index' => 0,
+		] ),
+	]);
+}
+
+/**
  * Privacy settings, permissive_private_content field callback
  *
  * @param $args
@@ -1425,6 +1493,20 @@ function book_directory_excluded_callback( $args ) {
  */
 function privacy_blog_public_sanitize( $input ) {
 	return absint( $input );
+}
+
+/**
+ * Privacy settings, blog_public field sanitization
+ *
+ * @param array $input{discourage-ai: int|null, discourage-index: int|null}
+ *
+ * @return array{discourage-ai: int, discourage-index: int}
+ */
+function privacy_robots_sanitize( $input ) {
+	return [
+		'discourage-ai' => $input['discourage-ai'] ?? 0,
+		'discourage-index' => $input['discourage-index'] ?? 0,
+	];
 }
 
 /**
@@ -1726,3 +1808,89 @@ function remove_emoji() {
 		}
 	});
 }
+
+/**
+ * @param array $caps
+ * @param string $cap
+ * @param int $user_id
+ * @param array $args
+ *
+ * @return array
+ */
+function allow_edit_to_book_authors( $caps, $cap, $user_id, $args ) {
+	if ( 'edit_post' === $cap && isset( $args[0] ) ) {
+		$post_id = $args[0];
+		$post_author_id = get_post_field( 'post_author', $post_id );
+
+		if ( (int) $user_id === (int) $post_author_id ) {
+			return [ 'edit_posts' ];
+		}
+	}
+	return $caps;
+}
+
+function enable_media_buttons_for_contributors() {
+	$role = get_role( 'contributor' );
+	$role?->add_cap( 'upload_files', true );
+}
+
+function filter_media_for_contributors( $query ) {
+	if ( ! function_exists( 'wp_get_current_user' ) ) {
+		return $query;
+	}
+
+	if ( ! is_admin() ) {
+		return $query;
+	}
+
+	$current_user = wp_get_current_user();
+
+	if ( ! $current_user || ! $current_user->exists() || ! in_array( 'contributor', $current_user->roles, true ) ) {
+		return $query;
+	}
+
+	$query['author'] = $current_user->ID;
+
+	return $query;
+}
+
+function filter_media_list_for_contributors( $query ) {
+	global $pagenow;
+
+	if ( ! function_exists( 'wp_get_current_user' ) ) {
+		return $query;
+	}
+
+	if ( $pagenow !== 'upload.php' ) {
+		return $query;
+	}
+
+	$current_user = wp_get_current_user();
+
+	if ( ! $current_user || ! $current_user->exists() || ! in_array( 'contributor', $current_user->roles, true ) ) {
+		return $query;
+	}
+
+	$query->set( 'author', $current_user->ID );
+
+	return $query;
+}
+
+/**
+ * Redirect users from the Add Book Information page to the allowed book info page
+ */
+function block_metadata_add_new_page() {
+	if ( ! isset( $_GET['post_type'] ) || 'metadata' !== $_GET['post_type'] ) {
+		return;
+	}
+
+	$metadata_post_id = ( new Metadata )->getMetaPostId();
+	if ( ! $metadata_post_id ) {
+		return;
+	}
+
+	wp_safe_redirect( admin_url( 'post.php?post=' . absint( $metadata_post_id ) . '&action=edit' ) );
+	exit;
+}
+
+

@@ -101,6 +101,9 @@
 			</div>
 		</div>
 	</div>
-
-	@include('admin.dashboard.support')
+	<div class="pb-dashboard-row">
+		<div class="pb-dashboard-grid">
+			@include('admin.dashboard.support', ['updates' => $updates])
+		</div>
+	</div>
 </div>

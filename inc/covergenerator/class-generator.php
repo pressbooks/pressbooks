@@ -388,6 +388,9 @@ abstract class Generator {
 		$log_file = create_tmp_file();
 		$prince = new \PrinceXMLPhp\PrinceWrapper( PB_PRINCE_COMMAND );
 		$prince->setHTML( true );
+		if ( defined( 'WP_TESTS_MULTISITE' ) ) {
+			$prince->setHttpTimeout( 5 ); // Shorten timeout for unit tests
+		}
 		$prince->setCompress( true );
 		if ( defined( 'WP_ENV' ) && ( WP_ENV === 'development' ) ) {
 			$prince->setInsecure( true );
@@ -428,16 +431,18 @@ abstract class Generator {
 			if ( defined( 'WP_TESTS_MULTISITE' ) ) {
 				// Unit tests
 				$doc->setTest( true );
+				$prince_options->setHttpTimeout( 5 ); // Shorten timeout for unit tests
 			} elseif ( defined( 'WP_ENV' ) && ( WP_ENV === 'development' ) ) {
 				// Localhost
 				$doc->setTest( true );
 			} else {
 				$doc->setTest( false );
 			}
+
 			$doc->setDocumentContent( $document_content );
 			$doc->setName( get_bloginfo( 'name' ) . ' Cover' );
 			$doc->setPrinceOptions( $prince_options );
-			$doc->setPipeline( 9.2 ); // Prince 14.3, see: https://docraptor.com/documentation/api#api_pipeline
+			$doc->setPipeline( defined( 'DOCRAPTOR_PIPELINE' ) ? DOCRAPTOR_PIPELINE : '9.2' ); // Prince 14.3, see: https://docraptor.com/documentation/api#api_pipeline
 
 			$create_response = $docraptor->createAsyncDoc( $doc );
 			$done = false;
@@ -459,9 +464,8 @@ abstract class Generator {
 						$done = true;
 						break;
 					case 'failed':
-						// TODO: are these done in the wrong order? $done will never be set to true here, I don't think
-						wp_die( $status_response );
 						$done = true;
+						wp_die( $status_response );
 						break;
 					default:
 						sleep( 1 );

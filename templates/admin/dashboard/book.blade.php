@@ -97,10 +97,10 @@
 		<div class="pb-dashboard-panel">
 			<div class="pb-dashboard-content">
 				<h2>{{ __('Support resources', 'pressbooks') }}</h2>
-				{{-- TODO: add link to new YouTube playlist. --}}
 				<ul class="horizontal">
 					<li class="resources" id="getting-started">
-						<a href="https://youtube.com/playlist?list=PLMFmJu3NJhevTbp5XAbdif8OloNhqOw5n" target="_blank">
+
+						<a href="{{ $getting_started_playlist_url }}" target="_blank">
 							<img src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-getting-started.png" }}" alt="" />
 							{{ __('Getting started with Pressbooks', 'pressbooks' )}}
 						</a>

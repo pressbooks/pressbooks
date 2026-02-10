@@ -1,12 +1,12 @@
 # Pressbooks
 Contributors: Pressbooks <code@pressbooks.com>
 Tags: ebooks, publishing, webbooks
-Requires at least: 6.6.1
-Tested up to: 6.6.1
+Requires at least: 6.8.3
+Tested up to: 6.8.3
 <!-- x-release-please-start-version -->
-Stable tag: 6.25.1
+Stable tag: 6.36.1
 <!-- x-release-please-end -->
-Requires PHP: 8.1
+Requires PHP: 8.3
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/production/LICENSE.md
 
@@ -21,7 +21,6 @@ Pressbooks is an open source book publishing tool built on a WordPress multisite
 
 [![Packagist](https://img.shields.io/packagist/dt/pressbooks/pressbooks.svg)](https://packagist.org/packages/pressbooks/pressbooks)
 [![Code Coverage](https://codecov.io/gh/pressbooks/pressbooks/branch/dev/graph/badge.svg)](https://codecov.io/gh/pressbooks/pressbooks)
-[![Translate Pressbooks](https://img.shields.io/badge/dynamic/json.svg?label=translated&url=https%3A%2F%2Ftenpercent.now.sh%2F%3Forganization%3Dpressbooks%26project%3Dpressbooks&query=%24.status&colorB=e05d44&suffix=%25)](https://www.transifex.com/pressbooks/pressbooks/translate/)
 
 [Pressbooks](https://pressbooks.org) is an open source book publishing tool built on a WordPress multisite platform. Pressbooks outputs books in multiple formats, including PDF, EPUB, web, and a variety of XML flavours, using a theming/templating system, driven by CSS. Pressbooks is free software, released under the [GPL v3.0 or later](https://github.com/pressbooks/pressbooks/blob/production/LICENSE.md) license.
 
@@ -31,7 +30,7 @@ Our webbooks and EPUB/[PDF][pdf] exports are all driven by HTML + CSS. XML outpu
 
 ## Requirements
 
-Pressbooks works with PHP 8.1 and WordPress 6.6.1. Lower versions are not supported.
+Pressbooks works with PHP 8.3 and WordPress 6.8.3. Lower versions are not supported.
 
 ## Installing the Plugin
 
@@ -39,7 +38,7 @@ Pressbooks is not for use on an existing blog. Instead it should be used with a 
 
 To install Pressbooks on your site, download the [latest release](https://github.com/pressbooks/pressbooks/releases/latest) and follow our [installation instructions](https://pressbooks.org/user-docs/installation/). 
 
-You may want to try [Pressbooks.com](https://pressbooks.com/self-publishers/) before deciding whether or not you wish to host and maintain your own instance of Pressbooks. We can also [host and maintain an instance of Pressbooks for you](https://pressbooks.com/for-educational-institutions/).
+You may want to try [Pressbooks.pub](https://pressbooks.pub/auth) before deciding whether or not you wish to host and maintain your own instance of Pressbooks. We can also [host and maintain an instance of Pressbooks for you](https://pressbooks.com/enterprise/).
 
 ## Contributor guidelines
 

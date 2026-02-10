@@ -1,4 +1,3 @@
-
 export default ( type, message, dismissable ) => {
 	const notice = document.createElement( 'div' );
 	const p = document.createElement( 'p' );
@@ -20,7 +19,12 @@ export default ( type, message, dismissable ) => {
 		notice.appendChild( button );
 	}
 
-	h1.parentNode.insertBefore( notice, h1.nextSibling );
+	if (h1 && h1.parentNode) {
+		h1.parentNode.insertBefore( notice, h1.nextSibling );
+	} else {
+		console.warn('displayNotice: Could not find h1 element or its parent to insert notice. Appending to body as a fallback.');
+		document.body.appendChild(notice);
+	}
 
 	if ( button ) {
 		button.onclick = () => {

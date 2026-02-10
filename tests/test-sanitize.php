@@ -186,6 +186,10 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$test = '<del><strike>Keep me</strike></del>';
 		$test = \Pressbooks\Sanitize\filter_title( $test );
 		$this->assertEquals( '<del>Keep me</del>', $test );
+
+		$test = 'A Central Asian Trilogy: the Legacy of Aitmatov in Ismailov’s <span lang="de"><em>Vunderkind Erzhan</em></span>';
+		$test = \Pressbooks\Sanitize\filter_title( $test );
+		$this->assertEquals( 'A Central Asian Trilogy: the Legacy of Aitmatov in Ismailov’s <span lang="de"><em>Vunderkind Erzhan</em></span>', $test );
 	}
 
 	/**
@@ -635,5 +639,26 @@ RAW;
 		$test = '<a href="https://pressbooks.org" onmouseover="alert(document.cookie)">xxs link</a>';
 		$test = \Pressbooks\Sanitize\sanitize_string( $test, true );
 		$this->assertEquals( '<a href="https://pressbooks.org">xxs link</a>', $test );
+	}
+
+	/**
+	 * @group sanitize
+	 * @test
+	 */
+	public function it_escapes_file_names_in_blob_mimes(): void {
+		$_GET['page'] = 'blob-mimes-debug';
+		$_FILES = [
+			'file1' => [
+				'name' => 'test<script>alert(1)</script>.txt',
+			],
+			'file2' => [
+				'name' => 'test2.txt',
+			],
+		];
+		$_POST['n'] = 'test';
+		
+		\Pressbooks\Sanitize\escape_file_names_in_blob_mimes();
+		$this->assertEquals( 'test&lt;script&gt;alert(1)&lt;/script&gt;.txt', $_FILES['file1']['name'] );
+		$this->assertEquals( 'test2.txt', $_FILES['file2']['name'] );
 	}
 }

@@ -1,16 +1,17 @@
-# Copyright (C) 2024 Pressbooks (Book Oven Inc.)
+# Copyright (C) 2025 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
 # Antonio D., 2018
 # ed1160fe3a1015066d1351c8a3b38361, 2014
+# Steel Wagstaff <steel@pressbooks.com>, 2025
 # ed1160fe3a1015066d1351c8a3b38361, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2024-05-08T20:14:28+00:00\n"
+"POT-Creation-Date: 2025-07-30T15:12:23+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
-"Last-Translator: Antonio D., 2018\n"
+"Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2025\n"
 "Language-Team: Hungarian (Hungary) (http://app.transifex.com/pressbooks/pressbooks/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,7 +19,7 @@ msgstr ""
 "Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: pressbooks\n"
-"X-Generator: WP-CLI 2.10.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 
 #. Plugin Name of the plugin
 #: pressbooks.php
@@ -46,18 +47,21 @@ msgid "Simple Book Publishing"
 msgstr "Egyszerű könyvkiadás"
 
 #: compatibility.php:150
+#, php-format
 msgid ""
 "Pressbooks could not create the mu-plugins folder. Please create the "
 "following directory: %s"
 msgstr ""
 
 #: compatibility.php:157
+#, php-format
 msgid ""
 "Pressbooks could not copy the autoloader from %1$s to %2$s. Please copy the "
 "file manually."
 msgstr ""
 
 #: compatibility.php:172
+#, php-format
 msgid ""
 "Pressbooks will not work with your version of PHP. Pressbooks requires PHP "
 "version %s or greater. Please upgrade PHP if you would like to use "
@@ -65,6 +69,7 @@ msgid ""
 msgstr ""
 
 #: compatibility.php:185
+#, php-format
 msgid ""
 "Pressbooks will not work with your version of WordPress. Pressbooks requires"
 " a dedicated install of WordPress Multisite, version %s or greater. Please "
@@ -89,15 +94,15 @@ msgstr ""
 
 #: inc/admin/attachments/namespace.php:54
 #: inc/admin/class-catalog-list-table.php:232
-#: inc/admin/covergenerator/namespace.php:109 inc/class-contributors.php:828
+#: inc/admin/covergenerator/namespace.php:109 inc/class-contributors.php:833
 msgid "Author"
 msgid_plural "Authors"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Szerző"
+msgstr[1] "Szerzői"
 
 #: inc/admin/attachments/namespace.php:60
 msgid "Author URL"
-msgstr ""
+msgstr "Szerző URL"
 
 #: inc/admin/attachments/namespace.php:68
 msgid "License"
@@ -111,35 +116,35 @@ msgstr ""
 msgid "Adapted by URL"
 msgstr ""
 
-#: inc/admin/branding/namespace.php:182
+#: inc/admin/branding/namespace.php:186
 msgid "Log In"
 msgstr "Bejelentkezés"
 
-#: inc/admin/branding/namespace.php:183
+#: inc/admin/branding/namespace.php:187
 msgid "Lost Password"
 msgstr "Elfelejtett jelszó"
 
-#: inc/admin/branding/namespace.php:184
+#: inc/admin/branding/namespace.php:188
 msgid "Reset Password"
 msgstr "Jelszó visszaállítása"
 
-#: inc/admin/branding/namespace.php:185
+#: inc/admin/branding/namespace.php:189
 msgid "Password Reset"
 msgstr "Jelszó visszaállítása"
 
-#: inc/admin/class-catalog-list-table.php:76
+#: inc/admin/class-catalog-list-table.php:63
 msgid "Visit Admin"
 msgstr "Admin megtekintése"
 
-#: inc/admin/class-catalog-list-table.php:106
-#: inc/admin/class-catalog-list-table.php:271
-#: inc/admin/class-catalog-list-table.php:533
+#: inc/admin/class-catalog-list-table.php:85
+#: inc/admin/class-catalog-list-table.php:267
+#: inc/admin/class-catalog-list-table.php:508
 msgid "Hide in Catalog"
 msgstr "Elrejtés a katalógusban"
 
-#: inc/admin/class-catalog-list-table.php:111
-#: inc/admin/class-catalog-list-table.php:270
-#: inc/admin/class-catalog-list-table.php:531
+#: inc/admin/class-catalog-list-table.php:94
+#: inc/admin/class-catalog-list-table.php:266
+#: inc/admin/class-catalog-list-table.php:506
 msgid "Show in Catalog"
 msgstr "Megjelenítés a katalógusban"
 
@@ -152,7 +157,7 @@ msgid "Privacy Status"
 msgstr "Adatvédelmi státusz"
 
 #: inc/admin/class-catalog-list-table.php:230 inc/class-activation.php:237
-#: inc/modules/export/epub/class-epub.php:1233
+#: inc/modules/export/epub/class-epub.php:1249
 msgid "Cover"
 msgstr "Borító"
 
@@ -175,93 +180,99 @@ msgstr "Kiemelt"
 msgid "Pub Date"
 msgstr "Kiadás dátuma"
 
-#: inc/admin/class-catalog-list-table.php:396
+#: inc/admin/class-catalog-list-table.php:379
 msgid "Edit Tags"
 msgstr "Címkék szerkesztése"
 
-#: inc/admin/class-catalog-list-table.php:435
-#: templates/admin/organize.blade.php:18 templates/admin/organize.blade.php:38
+#: inc/admin/class-catalog-list-table.php:409
+#: templates/admin/organize.blade.php:18 templates/admin/organize.blade.php:40
 msgid "Private"
 msgstr "Privát"
 
-#: inc/admin/class-catalog-list-table.php:435
-#: templates/admin/organize.blade.php:13 templates/admin/organize.blade.php:25
+#: inc/admin/class-catalog-list-table.php:409
+#: templates/admin/organize.blade.php:13 templates/admin/organize.blade.php:26
 msgid "Public"
 msgstr "Nyilvános"
 
-#: inc/admin/class-catalog-list-table.php:507 inc/admin/laf/namespace.php:447
-#: inc/admin/laf/namespace.php:627 inc/admin/laf/namespace.php:906
+#: inc/admin/class-catalog-list-table.php:481 inc/admin/laf/namespace.php:466
+#: inc/admin/laf/namespace.php:646 inc/admin/laf/namespace.php:925
 msgid "My Catalog"
 msgstr "Katalógusom"
 
-#: inc/admin/class-catalog-list-table.php:508
+#: inc/admin/class-catalog-list-table.php:482
 msgid "Edit Profile"
 msgstr "Profil szerkesztése"
 
-#: inc/admin/class-catalog-list-table.php:509
+#: inc/admin/class-catalog-list-table.php:483
 msgid "Visit Catalog"
 msgstr "Katalógus megtekintése"
 
 #. translators: %s: search keywords
-#: inc/admin/class-catalog-list-table.php:515
+#: inc/admin/class-catalog-list-table.php:489
+#, php-format
 msgid "Search results for &#8220;%s&#8221; returned no items"
 msgstr ""
 
 #. translators: %s: search keywords
-#: inc/admin/class-catalog-list-table.php:518
+#: inc/admin/class-catalog-list-table.php:492
+#, php-format
 msgid "Search results for &#8220;%s&#8221; returned 1 item"
 msgstr ""
 
 #. translators: %s: search keywords, %d: total items found
-#: inc/admin/class-catalog-list-table.php:521
+#: inc/admin/class-catalog-list-table.php:495
+#, php-format
 msgid "Search results for &#8220;%1$s&#8221; returned %2$d items"
 msgstr ""
 
-#: inc/admin/class-catalog-list-table.php:529
+#: inc/admin/class-catalog-list-table.php:504
 msgid "Organize your public Catalog page."
 msgstr "Nyilvános katalógus oldal szerkesztése."
 
-#: inc/admin/class-catalog-list-table.php:530
+#: inc/admin/class-catalog-list-table.php:505
 msgid "Show/Hide books"
 msgstr "Könyvek mutatása/elrejtése"
 
-#: inc/admin/class-catalog-list-table.php:531
+#: inc/admin/class-catalog-list-table.php:506
+#, php-format
 msgid "To display a book in your catalog choose \"%s\" under Catalog Status. "
 msgstr ""
 
-#: inc/admin/class-catalog-list-table.php:533
+#: inc/admin/class-catalog-list-table.php:508
+#, php-format
 msgid "To hide a book in your catalog choose \"%s\" under Catalog Status."
 msgstr ""
 
-#: inc/admin/class-catalog-list-table.php:536
+#: inc/admin/class-catalog-list-table.php:511
 msgid "Catalog sorting"
 msgstr "Katalógus rendezése"
 
-#: inc/admin/class-catalog-list-table.php:537
+#: inc/admin/class-catalog-list-table.php:515
+#, php-format
 msgid ""
 "To add sorting ability, add your Tag names to your <a href=\"%s\">Catalog "
 "Profile</a> page (ex: Authors, Book Genre), then add the appropriate tags to"
 " each individual book."
 msgstr ""
 
-#: inc/admin/class-catalog-list-table.php:539
+#: inc/admin/class-catalog-list-table.php:519
 msgid "Share your catalog"
 msgstr "Katalógus megosztása"
 
-#: inc/admin/class-catalog-list-table.php:540
+#: inc/admin/class-catalog-list-table.php:521
 msgid "The public link to your catalog page"
 msgstr "Nyilvános link a katalógus oldalához"
 
-#: inc/admin/class-catalog-list-table.php:553
+#: inc/admin/class-catalog-list-table.php:539
 msgid "Add By URL"
 msgstr "Hozzáadás URL-ből"
 
-#: inc/admin/class-catalog-list-table.php:564 templates/admin/search.php:81
+#: inc/admin/class-catalog-list-table.php:549 templates/admin/search.php:81
 #: templates/admin/cloner/page.blade.php:26
 msgid "Search"
 msgstr "Keresés"
 
-#: inc/admin/class-exportoptions.php:75
+#: inc/admin/class-exportoptions.php:75 inc/admin/class-exportoptions.php:169
 msgid "Email Validation Logs"
 msgstr ""
 
@@ -285,66 +296,90 @@ msgstr ""
 msgid "Lock your theme at its current version."
 msgstr "Zárjba be a témát a jelenlegi verzióban."
 
-#: inc/admin/class-exportoptions.php:109
+#: inc/admin/class-exportoptions.php:100
+msgid "H5P options"
+msgstr ""
+
+#: inc/admin/class-exportoptions.php:105 inc/admin/class-exportoptions.php:186
+msgid "Enable H5P static representation on exports."
+msgstr ""
+
+#: inc/admin/class-exportoptions.php:120
 msgid "Export settings."
 msgstr "Export beállítások."
 
-#: inc/admin/class-exportoptions.php:175
+#: inc/admin/class-exportoptions.php:187
+msgid ""
+"This will include a read-only version of H5P activities where possible, in "
+"PDF and EPUB exports."
+msgstr ""
+
+#: inc/admin/class-exportoptions.php:205
 msgid ""
 "This will prevent any changes to your book&rsquo;s appearance and page count"
 " when themes are updated."
 msgstr ""
 
-#: inc/admin/class-exportoptions.php:195 inc/admin/laf/namespace.php:412
+#: inc/admin/class-exportoptions.php:225 inc/admin/laf/namespace.php:431
 msgid "Export Settings"
 msgstr "Export Beállítások."
 
-#: inc/admin/class-network-managers-list-table.php:79
-#: inc/admin/class-network-managers-list-table.php:83
+#: inc/admin/class-network-managers-list-table.php:81
+#: inc/admin/class-network-managers-list-table.php:85
 msgid "Restrict Access"
 msgstr "Elérés Korlátozása"
 
-#: inc/admin/class-network-managers-list-table.php:79
-#: inc/admin/class-network-managers-list-table.php:83
+#: inc/admin/class-network-managers-list-table.php:81
+#: inc/admin/class-network-managers-list-table.php:85
 msgid "Unrestrict Access"
 msgstr "Szabad hozzáférés engedélyezése"
 
-#: inc/admin/class-publishoptions.php:75
+#: inc/admin/class-pressbookstable.php:76
+#, php-format
+msgid "%1$s column, sorted %2$s. Activate to sort %3$s."
+msgstr ""
+
+#: inc/admin/class-pressbookstable.php:84
+#, php-format
+msgid "Sort by %s in ascending order."
+msgstr ""
+
+#: inc/admin/class-publishoptions.php:74
 msgid "Amazon URL"
 msgstr "Amazon URL"
 
-#: inc/admin/class-publishoptions.php:84
+#: inc/admin/class-publishoptions.php:75
 msgid "O'Reilly URL"
 msgstr "O'Reilly URL"
 
-#: inc/admin/class-publishoptions.php:93
+#: inc/admin/class-publishoptions.php:76
 msgid "Barnes and Noble URL"
 msgstr "Barnes and Noble URL"
 
-#: inc/admin/class-publishoptions.php:102
+#: inc/admin/class-publishoptions.php:77
 msgid "Kobo URL"
 msgstr "Kobo URL"
 
-#: inc/admin/class-publishoptions.php:111
+#: inc/admin/class-publishoptions.php:78
 msgid "Apple Books URL"
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:120
+#: inc/admin/class-publishoptions.php:79
 msgid "Other Service URL"
 msgstr "Más szolgáltatás URL"
 
-#: inc/admin/class-publishoptions.php:139
+#: inc/admin/class-publishoptions.php:107
 msgid "Add BUY Links to Your Pressbooks Webbook"
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:140
+#: inc/admin/class-publishoptions.php:108
 msgid ""
 "Enter the URLs for locations where your book can be purchased below. <a "
 "href=\"https://guide.pressbooks.com/chapter/publish/\">Our guide</a> "
 "provides additional information about selling and distributing your book."
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:300 inc/admin/laf/namespace.php:396
+#: inc/admin/class-publishoptions.php:183 inc/admin/laf/namespace.php:415
 msgid "Publish"
 msgstr "Pubblikálás"
 
@@ -357,19 +392,19 @@ msgstr ""
 msgid "Cover Generator"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:46 inc/admin/laf/namespace.php:376
+#: inc/admin/covergenerator/namespace.php:45 inc/admin/laf/namespace.php:395
 msgid "Saving settings"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:49
+#: inc/admin/covergenerator/namespace.php:48
 msgid ""
 "Cover generation is not done. Leaving this page, now, will cause problems. "
 "Are you sure?"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:50 inc/admin/laf/namespace.php:352
-#: inc/admin/laf/namespace.php:375 inc/admin/laf/namespace.php:436
-#: inc/admin/laf/namespace.php:649
+#: inc/admin/covergenerator/namespace.php:49 inc/admin/laf/namespace.php:357
+#: inc/admin/laf/namespace.php:394 inc/admin/laf/namespace.php:455
+#: inc/admin/laf/namespace.php:668
 msgid "Reload"
 msgstr ""
 
@@ -390,8 +425,8 @@ msgstr "Alcím"
 msgid "Author (Spine)"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:131 inc/admin/laf/namespace.php:95
-#: inc/class-activation.php:247 templates/admin/catalog.php:98
+#: inc/admin/covergenerator/namespace.php:131 inc/class-activation.php:247
+#: templates/admin/catalog.php:98
 msgid "About"
 msgstr "Rólunk"
 
@@ -475,6 +510,7 @@ msgstr ""
 
 #. translators: %s: URL to Book Information page
 #: inc/admin/covergenerator/namespace.php:330
+#, php-format
 msgid ""
 "The text below is pulled from your <a href=\"%s\">Book Information</a> page,"
 " and is used to generate your cover(s). You can reformat the text below as "
@@ -484,6 +520,7 @@ msgstr ""
 
 #. translators: %s: URL to Appearance menu
 #: inc/admin/covergenerator/namespace.php:443
+#, php-format
 msgid ""
 "Below you can make small adjustments to the design of your cover. The look "
 "and feel of the cover will echo the theme you have chosen for your book. You"
@@ -493,6 +530,7 @@ msgstr ""
 #. translators: 1: pdf page width, 2: pdf page height, 3: URL to Theme Options
 #. page
 #: inc/admin/covergenerator/namespace.php:450
+#, php-format
 msgid ""
 "Your PDF page size is set to %1$s &times; %2$s, and your PDF cover will be "
 "generated with the same dimensions. You can change the PDF page size in the "
@@ -515,6 +553,7 @@ msgstr ""
 #. translators: 1: minimum width, 2: minimum height, 3: aspect ratio width, 4:
 #. aspect ratio height
 #: inc/admin/covergenerator/namespace.php:500
+#, php-format
 msgid ""
 "Your image must be at least %1$s pixels in width by %2$s pixels in height, "
 "with an aspect ratio of %3$s to %4$s."
@@ -538,6 +577,7 @@ msgstr ""
 
 #. translators: %s: number of pages in pdf
 #: inc/admin/covergenerator/namespace.php:534
+#, php-format
 msgid ""
 "The last PDF you exported has %s pages (you can edit this below if you "
 "like)."
@@ -552,16 +592,16 @@ msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:571
 #: inc/modules/themeoptions/class-pdfoptions.php:194
-#: inc/modules/themeoptions/class-pdfoptions.php:415
-#: inc/modules/themeoptions/class-pdfoptions.php:434
-#: inc/modules/themeoptions/class-pdfoptions.php:453
-#: inc/modules/themeoptions/class-pdfoptions.php:472
-#: inc/modules/themeoptions/class-pdfoptions.php:490
-#: inc/modules/themeoptions/class-pdfoptions.php:508
-#: inc/modules/themeoptions/class-pdfoptions.php:529
-#: inc/modules/themeoptions/class-pdfoptions.php:550
-#: inc/modules/themeoptions/class-pdfoptions.php:569
-#: inc/modules/themeoptions/class-pdfoptions.php:588
+#: inc/modules/themeoptions/class-pdfoptions.php:416
+#: inc/modules/themeoptions/class-pdfoptions.php:436
+#: inc/modules/themeoptions/class-pdfoptions.php:456
+#: inc/modules/themeoptions/class-pdfoptions.php:476
+#: inc/modules/themeoptions/class-pdfoptions.php:495
+#: inc/modules/themeoptions/class-pdfoptions.php:514
+#: inc/modules/themeoptions/class-pdfoptions.php:536
+#: inc/modules/themeoptions/class-pdfoptions.php:558
+#: inc/modules/themeoptions/class-pdfoptions.php:578
+#: inc/modules/themeoptions/class-pdfoptions.php:598
 msgid "Custom&hellip;"
 msgstr ""
 
@@ -572,6 +612,7 @@ msgstr ""
 #. translators: 1: minimum width, 2: minimum height, 3: image width 4: image
 #. height
 #: inc/admin/covergenerator/namespace.php:754
+#, php-format
 msgid ""
 "Your image is too small. The image must be %1$d by %2$d pixels. Your image "
 "is %3$d by %4$d pixels."
@@ -579,18 +620,19 @@ msgstr ""
 
 #. translators: 1: pdf page width, 2: pdf page height
 #: inc/admin/covergenerator/namespace.php:764
+#, php-format
 msgid ""
 "Your image is the wrong aspect ratio. The image must have an aspect ratio of"
 " %1$s to %2$s."
 msgstr ""
 
-#: inc/admin/dashboard/class-dashboard.php:54 inc/admin/laf/namespace.php:803
-#: inc/admin/laf/namespace.php:878 inc/admin/menus/class-sidebar.php:198
-#: inc/admin/menus/class-sidebar.php:199 inc/admin/menus/class-topbar.php:124
+#: inc/admin/dashboard/class-dashboard.php:56 inc/admin/laf/namespace.php:822
+#: inc/admin/laf/namespace.php:897 inc/admin/menus/class-sidebar.php:199
+#: inc/admin/menus/class-sidebar.php:200 inc/admin/menus/class-topbar.php:123
 msgid "Dashboard"
 msgstr "Vezérlőpult"
 
-#: inc/admin/dashboard/class-dashboard.php:55
+#: inc/admin/dashboard/class-dashboard.php:57
 msgid "Home"
 msgstr ""
 
@@ -600,46 +642,6 @@ msgstr ""
 
 #: inc/admin/dashboard/class-invitations.php:30
 msgid "a"
-msgstr ""
-
-#: inc/admin/dashboard/class-networkdashboard.php:79
-msgid "Brand your network"
-msgstr ""
-
-#: inc/admin/dashboard/class-networkdashboard.php:81
-msgid "Display your institutional logos and colors across your network"
-msgstr ""
-
-#: inc/admin/dashboard/class-networkdashboard.php:86
-msgid "Customize your homepage"
-msgstr ""
-
-#: inc/admin/dashboard/class-networkdashboard.php:93
-msgid "Review network settings"
-msgstr ""
-
-#: inc/admin/dashboard/class-networkdashboard.php:100
-msgid "Learn about analytics options"
-msgstr ""
-
-#: inc/admin/dashboard/class-networkdashboard.php:128
-msgid "Configure Single Sign On (SSO)"
-msgstr ""
-
-#: inc/admin/dashboard/class-networkdashboard.php:144
-msgid "Join the Pressbooks Community Forum"
-msgstr ""
-
-#: inc/admin/dashboard/class-networkdashboard.php:152
-msgid "Complete your onboarding"
-msgstr ""
-
-#: inc/admin/dashboard/class-networkdashboard.php:161
-msgid "Take the 'Readiness to Launch' survey"
-msgstr ""
-
-#: inc/admin/dashboard/class-networkdashboard.php:163
-msgid "Complete a brief survey about your onboarding experience"
 msgstr ""
 
 #: inc/admin/dashboard/namespace.php:21 inc/admin/dashboard/namespace.php:22
@@ -671,312 +673,354 @@ msgid ""
 "###SITE_NAME###"
 msgstr ""
 
-#: inc/admin/diagnostics/namespace.php:32
-#: inc/admin/diagnostics/namespace.php:33 inc/admin/laf/namespace.php:110
+#: inc/admin/diagnostics/namespace.php:33
+#: inc/admin/diagnostics/namespace.php:34 inc/admin/laf/namespace.php:108
 #: templates/admin/diagnostics.blade.php:4
 msgid "Diagnostics"
 msgstr "Diagnosztika"
 
-#: inc/admin/diagnostics/namespace.php:197
+#: inc/admin/diagnostics/namespace.php:200
 msgid "Stylesheet regenerated."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:76
+#: inc/admin/laf/namespace.php:79
 msgid "Contact"
 msgstr "Kapcsolat"
 
-#: inc/admin/laf/namespace.php:85
+#: inc/admin/laf/namespace.php:88
+#, php-format
 msgid "Powered by %s"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:105
-msgid "Guides and Tutorials"
+#: inc/admin/laf/namespace.php:103
+msgid "Pressbooks User Guide"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:115 templates/admin/sitemap.blade.php:2
+#: inc/admin/laf/namespace.php:113 templates/admin/sitemap.blade.php:2
 msgid "Site Map"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:150
+#: inc/admin/laf/namespace.php:148
 msgid "Organize"
 msgstr "Szervez"
 
-#: inc/admin/laf/namespace.php:165
+#: inc/admin/laf/namespace.php:163
 msgid "private"
 msgstr "privát"
 
-#: inc/admin/laf/namespace.php:166
+#: inc/admin/laf/namespace.php:164
 msgid "public"
 msgstr "nyilvános"
 
-#: inc/admin/laf/namespace.php:167
+#: inc/admin/laf/namespace.php:165
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:5
 msgid "Move Up"
 msgstr "Mozgatás felfelé"
 
-#: inc/admin/laf/namespace.php:168
+#: inc/admin/laf/namespace.php:166
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:6
 msgid "Move Down"
 msgstr "Mozgatás lefelé"
 
-#: inc/admin/laf/namespace.php:170
+#: inc/admin/laf/namespace.php:168
 msgid "Updating book."
 msgstr "Könyv frissítése"
 
-#: inc/admin/laf/namespace.php:171
+#: inc/admin/laf/namespace.php:169
 msgid "Updating chapters."
 msgstr "Fejezetek frissítése"
 
-#: inc/admin/laf/namespace.php:172
+#: inc/admin/laf/namespace.php:170
 msgid "Updating part."
 msgstr "Rész frissítése"
 
-#: inc/admin/laf/namespace.php:173
+#: inc/admin/laf/namespace.php:171
 msgid "Updating front matter."
 msgstr "Előlap frissítése"
 
-#: inc/admin/laf/namespace.php:174
+#: inc/admin/laf/namespace.php:172
 msgid "Updating back matter."
 msgstr "Hátlap frissítése"
 
-#: inc/admin/laf/namespace.php:177
+#: inc/admin/laf/namespace.php:175
 msgid "The book has been successfully updated!"
 msgstr "A könyv sikeresen frissült!"
 
-#: inc/admin/laf/namespace.php:178
+#: inc/admin/laf/namespace.php:176
 msgid "The chapters has been successfully updated!"
 msgstr "A fejezetek sikeresen frissültek!"
 
-#: inc/admin/laf/namespace.php:179
+#: inc/admin/laf/namespace.php:177
 msgid "The part has been successfully updated!"
 msgstr "A rész sikeresen frissült!"
 
-#: inc/admin/laf/namespace.php:180
+#: inc/admin/laf/namespace.php:178
 msgid "The front matter has been successfully updated!"
 msgstr "Az előlap sikeresen frissült!"
 
-#: inc/admin/laf/namespace.php:181
+#: inc/admin/laf/namespace.php:179
 msgid "The back matter has been successfully updated!"
 msgstr "A hátlap sikeresen frissült!"
 
-#: inc/admin/laf/namespace.php:184
+#: inc/admin/laf/namespace.php:182
 msgid "Sorry, the book could not be updated.!"
 msgstr "Sajnáljuk, a könyvet nem lehetett frissíteni!"
 
-#: inc/admin/laf/namespace.php:185
+#: inc/admin/laf/namespace.php:183
 msgid "Sorry, the chapters could not be updated."
 msgstr "Sajnáljuk, a fejezeteket nem lehetett frissíteni!"
 
-#: inc/admin/laf/namespace.php:186
+#: inc/admin/laf/namespace.php:184
 msgid "Sorry, the part could not be updated."
 msgstr "Sajnáljuk, a részt nem lehetett frissíteni!"
 
-#: inc/admin/laf/namespace.php:187
+#: inc/admin/laf/namespace.php:185
 msgid "Sorry, the front matter could not be updated."
 msgstr "Sajnáljuk, az előlapot nem lehetett frissíteni!"
 
-#: inc/admin/laf/namespace.php:188
+#: inc/admin/laf/namespace.php:186
 msgid "Sorry, the back matter could not be updated."
 msgstr "Sajnáljuk, a hátoldat nem lehetett frissíteni!"
 
-#: inc/admin/laf/namespace.php:198 inc/admin/laf/namespace.php:199
-#: templates/admin/organize.blade.php:61 templates/admin/organize.blade.php:95
+#: inc/admin/laf/namespace.php:196 inc/admin/laf/namespace.php:197
+#: templates/admin/organize.blade.php:64
+#: templates/admin/organize.blade.php:105
 msgid "Add Part"
 msgstr "Rész hozzáadása"
 
-#: inc/admin/laf/namespace.php:206 inc/admin/laf/namespace.php:207
-#: templates/admin/organize.blade.php:60
+#: inc/admin/laf/namespace.php:204 inc/admin/laf/namespace.php:205
+#: templates/admin/organize.blade.php:63
 msgid "Add Chapter"
 msgstr "Fejezet hozzáadása"
 
-#: inc/admin/laf/namespace.php:214 inc/admin/laf/namespace.php:215
-#: templates/admin/organize.blade.php:58
+#: inc/admin/laf/namespace.php:212 inc/admin/laf/namespace.php:213
+#: templates/admin/organize.blade.php:61
 msgid "Add Front Matter"
 msgstr "Előlap hozzáadása"
 
-#: inc/admin/laf/namespace.php:222 inc/admin/laf/namespace.php:223
-#: templates/admin/organize.blade.php:59
+#: inc/admin/laf/namespace.php:220 inc/admin/laf/namespace.php:221
+#: templates/admin/organize.blade.php:62
 msgid "Add Back Matter"
 msgstr "Hátoldal hozzáadása"
 
-#: inc/admin/laf/namespace.php:230 inc/admin/laf/namespace.php:231
+#: inc/admin/laf/namespace.php:228 inc/admin/laf/namespace.php:229
 #: inc/editor/namespace.php:147 inc/posttype/namespace.php:195
 msgid "Glossary Terms"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:238 inc/admin/laf/namespace.php:239
+#: inc/admin/laf/namespace.php:236 inc/admin/laf/namespace.php:237
 msgid "Chapter Types"
 msgstr "Fejezet Típusok"
 
-#: inc/admin/laf/namespace.php:246 inc/admin/laf/namespace.php:247
+#: inc/admin/laf/namespace.php:244 inc/admin/laf/namespace.php:245
 msgid "Front Matter Types"
 msgstr "Előlap Típusok"
 
-#: inc/admin/laf/namespace.php:254 inc/admin/laf/namespace.php:255
+#: inc/admin/laf/namespace.php:252 inc/admin/laf/namespace.php:253
 msgid "Back Matter Types"
 msgstr "Hátoldal Típusok"
 
-#: inc/admin/laf/namespace.php:262 inc/admin/laf/namespace.php:263
+#: inc/admin/laf/namespace.php:260 inc/admin/laf/namespace.php:261
 msgid "Glossary Types"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:289
+#: inc/admin/laf/namespace.php:287
 #: inc/modules/import/wordpress/class-wxr.php:542
 #: inc/posttype/namespace.php:151 templates/admin/cloner/stats.blade.php:3
 msgid "Book Info"
 msgstr "A könyv információi"
 
-#: inc/admin/laf/namespace.php:302
+#: inc/admin/laf/namespace.php:300
 msgid "Choose institution(s)... "
 msgstr ""
 
-#: inc/admin/laf/namespace.php:303
+#: inc/admin/laf/namespace.php:301
 msgid "Choose a subject…"
 msgstr "Válasszon témát..."
 
-#: inc/admin/laf/namespace.php:304
+#: inc/admin/laf/namespace.php:302
 msgid "Choose some subject(s)…"
 msgstr "Válasszon témá(ka)t"
 
-#: inc/admin/laf/namespace.php:327 inc/admin/laf/namespace.php:328
+#: inc/admin/laf/namespace.php:325 inc/admin/laf/namespace.php:326
 msgid "Contributors"
 msgstr "Közreműködők"
 
-#: inc/admin/laf/namespace.php:334 inc/admin/laf/namespace.php:412
+#: inc/admin/laf/namespace.php:332 inc/admin/laf/namespace.php:431
 #: templates/admin/export.blade.php:11 templates/admin/icon.blade.php:15
-#: templates/admin/organize.blade.php:57
+#: templates/admin/organize.blade.php:60
 msgid "Export"
 msgstr "Exportálás"
 
-#: inc/admin/laf/namespace.php:347
-msgid "Are you sure you want to delete these export files?"
+#: inc/admin/laf/namespace.php:351
+msgid "Please select at least one export format."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:348
-msgid "Up to 5 files can be pinned at once."
-msgstr ""
-
-#: inc/admin/laf/namespace.php:349
-msgid "Cannot pin more than 3 of the same file type."
+#: inc/admin/laf/namespace.php:352
+msgid "Exporting..."
 msgstr ""
 
 #: inc/admin/laf/namespace.php:353
-msgid ""
-"Too many pinned files. Deselect one of the pinned files before attempting to"
-" export."
+msgid "Starting export process..."
 msgstr ""
 
 #: inc/admin/laf/namespace.php:354
-msgid ""
-"Exports are not done. Leaving this page, now, will cause problems. Are you "
-"sure?"
+msgid "Download File"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:366 inc/utility/class-handlestransfers.php:88
+#: inc/admin/laf/namespace.php:355
+msgid "Up to 5 files can be pinned at once."
+msgstr ""
+
+#: inc/admin/laf/namespace.php:356
+msgid "Cannot pin more than 3 of the same file type."
+msgstr ""
+
+#: inc/admin/laf/namespace.php:358
+msgid ""
+"Export job(s) successfully added to the queue. Progress updates will appear "
+"below until the export process is completed. In the meantime, you can safely"
+" navigate away from this page."
+msgstr ""
+
+#: inc/admin/laf/namespace.php:359
+msgid "Are you sure you want to cancel this export job?"
+msgstr ""
+
+#: inc/admin/laf/namespace.php:360
+msgid "Failed to cancel export job."
+msgstr ""
+
+#: inc/admin/laf/namespace.php:361
+msgid "Starting..."
+msgstr ""
+
+#: inc/admin/laf/namespace.php:362 inc/editor/namespace.php:132
+#: templates/admin/import.php:156
+msgid "Cancel"
+msgstr "Mégsem"
+
+#: inc/admin/laf/namespace.php:363
+msgid "Error submitting export jobs:"
+msgstr ""
+
+#: inc/admin/laf/namespace.php:364
+msgid "Dismiss this notice."
+msgstr ""
+
+#: inc/admin/laf/namespace.php:365
+msgid "This export is currently running"
+msgstr ""
+
+#: inc/admin/laf/namespace.php:366
+msgid "Completed"
+msgstr ""
+
+#: inc/admin/laf/namespace.php:385 inc/utility/class-handlestransfers.php:88
 #: templates/admin/import.php:38 templates/admin/import.php:114
 msgid "Import"
 msgstr "Importálás"
 
-#: inc/admin/laf/namespace.php:374
+#: inc/admin/laf/namespace.php:393
 msgid ""
 "Imports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:399 inc/admin/laf/namespace.php:595
-#: inc/admin/laf/namespace.php:1518
+#: inc/admin/laf/namespace.php:418 inc/admin/laf/namespace.php:614
+#: inc/admin/laf/namespace.php:1545
 #: inc/admin/network/class-sharingandprivacyoptions.php:473
 msgid "Sharing and Privacy Settings"
 msgstr "Megosztási és adatvédelmi beállítások"
 
-#: inc/admin/laf/namespace.php:399 inc/admin/laf/namespace.php:595
+#: inc/admin/laf/namespace.php:418 inc/admin/laf/namespace.php:614
 msgid "Sharing &amp; Privacy"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:417 inc/admin/laf/namespace.php:418
+#: inc/admin/laf/namespace.php:436 inc/admin/laf/namespace.php:437
 msgid "QuickLaTeX"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:427 inc/admin/laf/namespace.php:634
-#: inc/admin/laf/namespace.php:635 templates/admin/cloner/page.blade.php:3
+#: inc/admin/laf/namespace.php:446 inc/admin/laf/namespace.php:653
+#: inc/admin/laf/namespace.php:654 templates/admin/cloner/page.blade.php:3
 msgid "Clone a Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:435 inc/admin/laf/namespace.php:648
+#: inc/admin/laf/namespace.php:454 inc/admin/laf/namespace.php:667
 msgid ""
 "Cloning is not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:662 inc/admin/laf/namespace.php:663
+#: inc/admin/laf/namespace.php:681 inc/admin/laf/namespace.php:682
 msgid "Cloning Stats"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:680 inc/admin/metaboxes/namespace.php:180
+#: inc/admin/laf/namespace.php:699 inc/admin/metaboxes/namespace.php:182
 #: inc/api/endpoints/controller/class-toc.php:192
 #: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
 #: inc/posttype/namespace.php:548 templates/admin/import.php:91
-#: templates/admin/organize.blade.php:49
+#: templates/admin/organize.blade.php:52
 msgid "Front Matter"
 msgstr "Előlap"
 
-#: inc/admin/laf/namespace.php:688 inc/admin/metaboxes/namespace.php:184
+#: inc/admin/laf/namespace.php:707 inc/admin/metaboxes/namespace.php:186
 #: inc/api/endpoints/controller/class-toc.php:209 inc/class-sass.php:78
-#: inc/modules/themeoptions/class-globaloptions.php:605
+#: inc/modules/themeoptions/class-globaloptions.php:606
 #: inc/posttype/namespace.php:64 inc/posttype/namespace.php:545
 #: inc/posttype/namespace.php:584 templates/admin/import.php:92
 msgid "Chapter"
 msgstr "Fejezet"
 
-#: inc/admin/laf/namespace.php:698 inc/admin/metaboxes/namespace.php:188
+#: inc/admin/laf/namespace.php:717 inc/admin/metaboxes/namespace.php:190
 #: inc/api/endpoints/controller/class-toc.php:225
 #: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
 #: inc/posttype/namespace.php:551 templates/admin/import.php:96
-#: templates/admin/organize.blade.php:51
+#: templates/admin/organize.blade.php:54
 msgid "Back Matter"
 msgstr "Hátoldal"
 
-#: inc/admin/laf/namespace.php:792
+#: inc/admin/laf/namespace.php:811
 msgid "Network Admin"
 msgstr "Hálózat Adminisztrátor"
 
-#: inc/admin/laf/namespace.php:811 inc/admin/laf/namespace.php:1573
-#: inc/admin/laf/namespace.php:1583 inc/admin/menus/class-sidebar.php:209
-#: inc/admin/menus/class-sidebar.php:210 inc/admin/menus/class-topbar.php:129
+#: inc/admin/laf/namespace.php:830 inc/admin/laf/namespace.php:1600
+#: inc/admin/laf/namespace.php:1610 inc/admin/menus/class-sidebar.php:210
+#: inc/admin/menus/class-sidebar.php:211 inc/admin/menus/class-topbar.php:128
 msgid "Books"
 msgstr "Könyvek"
 
-#: inc/admin/laf/namespace.php:819 inc/admin/menus/class-sidebar.php:219
-#: inc/admin/menus/class-sidebar.php:220 inc/admin/menus/class-topbar.php:134
+#: inc/admin/laf/namespace.php:838 inc/admin/menus/class-sidebar.php:220
+#: inc/admin/menus/class-sidebar.php:221 inc/admin/menus/class-topbar.php:133
 msgid "Users"
 msgstr "Felhasználók"
 
-#: inc/admin/laf/namespace.php:828
+#: inc/admin/laf/namespace.php:847
 msgid "Themes"
 msgstr "Témák"
 
-#: inc/admin/laf/namespace.php:836 inc/admin/menus/class-sidebar.php:416
-#: inc/admin/menus/class-sidebar.php:417 inc/admin/menus/class-topbar.php:149
+#: inc/admin/laf/namespace.php:855 inc/admin/menus/class-sidebar.php:417
+#: inc/admin/menus/class-sidebar.php:418 inc/admin/menus/class-topbar.php:148
 msgid "Plugins"
 msgstr "Pluginok"
 
-#: inc/admin/laf/namespace.php:886
+#: inc/admin/laf/namespace.php:905
 msgid "Visit Website"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:896 inc/admin/menus/class-topbar.php:191
+#: inc/admin/laf/namespace.php:915 inc/admin/menus/class-topbar.php:190
 msgid "My Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:916
+#: inc/admin/laf/namespace.php:935
 msgid "Create A New Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:928
+#: inc/admin/laf/namespace.php:947
 msgid "Clone A Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1133
+#: inc/admin/laf/namespace.php:1151
 msgid ""
 "Are you sure you want to unlock your theme? This will update your book to "
 "the most recent version of your selected theme, which may change your "
@@ -984,288 +1028,248 @@ msgid ""
 "page, this action will NOT be reversable!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1234
+#: inc/admin/laf/namespace.php:1254
+#: templates/admin/settings/book-visibility.blade.php:2
 msgid "Book Visibility"
 msgstr "Könyv láthatósága"
 
-#: inc/admin/laf/namespace.php:1248
+#: inc/admin/laf/namespace.php:1268
+#: templates/admin/settings/book-robots.blade.php:2
+msgid "Robots"
+msgstr ""
+
+#: inc/admin/laf/namespace.php:1283
+#: templates/admin/settings/private-content.blade.php:2
 msgid "Private Content"
 msgstr "Privát tartalom"
 
-#: inc/admin/laf/namespace.php:1262
+#: inc/admin/laf/namespace.php:1297
+#: templates/admin/settings/disable-comments.blade.php:2
 msgid "Disable Comments"
 msgstr "Hozzászólások kikapcsolása"
 
-#: inc/admin/laf/namespace.php:1280
+#: inc/admin/laf/namespace.php:1315
+#: templates/admin/settings/share-latest-export-files.blade.php:2
 msgid "Share Latest Export Files"
 msgstr "Legújabb exportfájlok megosztása"
 
-#: inc/admin/laf/namespace.php:1310
+#: inc/admin/laf/namespace.php:1345
+#: templates/admin/settings/pressbooks-directory.blade.php:2
 msgid "Pressbooks Directory"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1327
+#: inc/admin/laf/namespace.php:1362
 msgid "Sharing and Privacy settings"
 msgstr "Megosztási és adatvédelmi beállításokat"
 
-#: inc/admin/laf/namespace.php:1342
-msgid "Public. I would like this book to be visible to everyone."
-msgstr "Nyilvános. Szeretném, ha ez a könyv mindenki számára látható lenne."
-
-#: inc/admin/laf/namespace.php:1348
-msgid ""
-"Private. I would like this book to be accessible only to people I invite."
-msgstr "Privát. Szeretném, ha ez a könyv csak meghívottak számára lenne hozzáférhető."
-
-#: inc/admin/laf/namespace.php:1372
-msgid "Who can see private front matter, chapters and back matter?"
-msgstr "Ki láthatja az előlapot, a fejezeteket és a hátoldalt?"
-
-#: inc/admin/laf/namespace.php:1375
-msgid "Only logged in editors and administrators."
-msgstr "Csak bejelentkezett szerkesztők és rendszergazdák."
-
-#: inc/admin/laf/namespace.php:1377
-msgid "All logged in users including subscribers."
-msgstr "Minden bejelentkezett felhasználó, beleértve az előfizetőket."
-
-#: inc/admin/laf/namespace.php:1398
-msgid ""
-"Yes. I want to automatically disable comments, trackbacks and pingbacks on "
-"all front matter, chapters and back matter."
-msgstr "Igen. Szeretném automatikusan letiltani a megjegyzéseket, a visszajelzéseket és a pingbackeket az összes előlapon, fejezeten és hátlapon."
-
-#: inc/admin/laf/namespace.php:1404
-msgid ""
-"No. I want to leave comments, trackbacks and pingbacks enabled on all front "
-"matter, chapters and back matter unless I disable them manually."
-msgstr "Nem. Aktiválva szeretném hagyni a kommenteket, trackbackeket és pingbackeket minden előlapon, fejezetben és hátlapon, kivéve ha manuálisan le nem letiltom őket."
-
-#: inc/admin/laf/namespace.php:1420
-msgid ""
-"Yes. I would like the latest export files to be available on the homepage "
-"for free, to everyone."
-msgstr "Igen. Szeretném, ha a legújabb exportfájlok mindenki számára ingyen elérhetők lennének a honlapon."
-
-#: inc/admin/laf/namespace.php:1426
-msgid ""
-"No. I would like the latest export files to only be available to "
-"administrators."
-msgstr "Nem. Szeretném, ha a legfrissebb exportfájlok csak a rendszergazdák számára lennének elérhetők."
-
-#: inc/admin/laf/namespace.php:1445
-msgid "Yes. I want this book to be listed in the Pressbooks directory."
-msgstr ""
-
-#: inc/admin/laf/namespace.php:1451
-msgid "No. Exclude this book from the Pressbooks directory."
-msgstr ""
-
-#: inc/admin/laf/namespace.php:1576
+#: inc/admin/laf/namespace.php:1603
 msgid "All Books"
 msgstr "Összes Könyv"
 
-#: inc/admin/laf/namespace.php:1586
+#: inc/admin/laf/namespace.php:1613
 msgid "Search Books"
 msgstr "Könyvek Keresése"
 
-#: inc/admin/laf/namespace.php:1592
+#: inc/admin/laf/namespace.php:1619
+#, php-format
 msgid "Edit Book: %s"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1595 inc/admin/laf/namespace.php:1604
+#: inc/admin/laf/namespace.php:1622 inc/admin/laf/namespace.php:1631
 msgid "Book Address (URL)"
 msgstr "Könyv elérhetősége (URL)"
 
-#: inc/admin/laf/namespace.php:1601
+#: inc/admin/laf/namespace.php:1628
 msgid "Add New Book"
 msgstr "Új Könyv Hozzáadása"
 
-#: inc/admin/laf/namespace.php:1607
+#: inc/admin/laf/namespace.php:1634
 #: inc/modules/themeoptions/class-pdfoptions.php:408
-#: inc/modules/themeoptions/class-pdfoptions.php:427
-#: inc/modules/themeoptions/class-pdfoptions.php:446
-#: inc/modules/themeoptions/class-pdfoptions.php:465
-#: inc/modules/themeoptions/class-pdfoptions.php:484
-#: inc/modules/themeoptions/class-pdfoptions.php:502
-#: inc/modules/themeoptions/class-pdfoptions.php:520
-#: inc/modules/themeoptions/class-pdfoptions.php:541
-#: inc/modules/themeoptions/class-pdfoptions.php:562
-#: inc/modules/themeoptions/class-pdfoptions.php:581
+#: inc/modules/themeoptions/class-pdfoptions.php:428
+#: inc/modules/themeoptions/class-pdfoptions.php:448
+#: inc/modules/themeoptions/class-pdfoptions.php:468
+#: inc/modules/themeoptions/class-pdfoptions.php:488
+#: inc/modules/themeoptions/class-pdfoptions.php:507
+#: inc/modules/themeoptions/class-pdfoptions.php:526
+#: inc/modules/themeoptions/class-pdfoptions.php:548
+#: inc/modules/themeoptions/class-pdfoptions.php:570
+#: inc/modules/themeoptions/class-pdfoptions.php:590
 msgid "Book Title"
 msgstr "Könyvcím"
 
-#: inc/admin/laf/namespace.php:1610
+#: inc/admin/laf/namespace.php:1637
 msgid "Book Language"
 msgstr "Könyv Nyelve"
 
-#: inc/admin/laf/namespace.php:1613
+#: inc/admin/laf/namespace.php:1640
 msgid "Add Book"
 msgstr "Könyv Hozzáadása"
 
-#: inc/admin/laf/namespace.php:1630
+#: inc/admin/laf/namespace.php:1657
 msgid "Edit previous or next item"
 msgstr "Az előző vagy következő elem szerkesztése"
 
-#: inc/admin/laf/namespace.php:1635
+#: inc/admin/laf/namespace.php:1662
+#, php-format
 msgid "Edit Previous (%s)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1640
+#: inc/admin/laf/namespace.php:1667
+#, php-format
 msgid "Edit Next (%s)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1655
-msgid "Twitter URL"
+#: inc/admin/laf/namespace.php:1682
+msgid "X/Twitter URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1656
+#: inc/admin/laf/namespace.php:1683
 msgid "LinkedIn URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1657
+#: inc/admin/laf/namespace.php:1684
 msgid "GitHub URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1703
+#: inc/admin/laf/namespace.php:1739
 msgid ""
 "Your institutional affiliation, e.g. Rebus Foundation, Open University, "
 "Amnesty International."
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:87
+#: inc/admin/menus/class-sidebar.php:88
 msgid "Sorry, you are not allowed to access this page."
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:229 inc/admin/menus/class-sidebar.php:230
-#: inc/admin/menus/class-topbar.php:139
+#: inc/admin/menus/class-sidebar.php:230 inc/admin/menus/class-sidebar.php:231
+#: inc/admin/menus/class-topbar.php:138
 msgid "Appearance"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:239 inc/admin/menus/class-sidebar.php:240
-#: inc/admin/menus/class-topbar.php:144
+#: inc/admin/menus/class-sidebar.php:240 inc/admin/menus/class-sidebar.php:241
+#: inc/admin/menus/class-topbar.php:143
 msgid "Pages"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:250 inc/admin/menus/class-sidebar.php:251
-#: inc/admin/menus/class-sidebar.php:449 inc/admin/menus/class-sidebar.php:450
-#: inc/admin/menus/class-topbar.php:154
+#: inc/admin/menus/class-sidebar.php:251 inc/admin/menus/class-sidebar.php:252
+#: inc/admin/menus/class-sidebar.php:450 inc/admin/menus/class-sidebar.php:451
+#: inc/admin/menus/class-topbar.php:153
 msgid "Settings"
 msgstr "Beállítások"
 
-#: inc/admin/menus/class-sidebar.php:261 inc/admin/menus/class-sidebar.php:262
-#: inc/admin/menus/class-sidebar.php:517 inc/admin/menus/class-sidebar.php:518
+#: inc/admin/menus/class-sidebar.php:262 inc/admin/menus/class-sidebar.php:263
+#: inc/admin/menus/class-sidebar.php:518 inc/admin/menus/class-sidebar.php:519
 msgid "Network Options"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:274 inc/admin/menus/class-sidebar.php:275
-#: inc/admin/menus/class-sidebar.php:304 inc/admin/menus/class-sidebar.php:305
-#: inc/admin/menus/class-sidebar.php:596 inc/admin/menus/class-sidebar.php:597
-#: inc/admin/menus/class-topbar.php:159
+#: inc/admin/menus/class-sidebar.php:275 inc/admin/menus/class-sidebar.php:276
+#: inc/admin/menus/class-sidebar.php:305 inc/admin/menus/class-sidebar.php:306
+#: inc/admin/menus/class-sidebar.php:597 inc/admin/menus/class-sidebar.php:598
+#: inc/admin/menus/class-topbar.php:158
 msgid "Stats"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:286 inc/admin/menus/class-sidebar.php:287
+#: inc/admin/menus/class-sidebar.php:287 inc/admin/menus/class-sidebar.php:288
 msgid "Network Stats"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:295 inc/admin/menus/class-sidebar.php:296
-#: inc/admin/menus/class-sidebar.php:314 inc/admin/menus/class-sidebar.php:315
+#: inc/admin/menus/class-sidebar.php:296 inc/admin/menus/class-sidebar.php:297
+#: inc/admin/menus/class-sidebar.php:315 inc/admin/menus/class-sidebar.php:316
 msgid "Analytics"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:334 inc/admin/menus/class-sidebar.php:335
+#: inc/admin/menus/class-sidebar.php:335 inc/admin/menus/class-sidebar.php:336
 msgid "Upgrade Network"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:347 inc/admin/menus/class-sidebar.php:348
-#: inc/admin/menus/class-sidebar.php:356 inc/admin/menus/class-sidebar.php:357
+#: inc/admin/menus/class-sidebar.php:348 inc/admin/menus/class-sidebar.php:349
+#: inc/admin/menus/class-sidebar.php:357 inc/admin/menus/class-sidebar.php:358
 msgid "Network Users"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:367 inc/admin/menus/class-sidebar.php:368
+#: inc/admin/menus/class-sidebar.php:368 inc/admin/menus/class-sidebar.php:369
 msgid "Root Site Users"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:378 inc/admin/menus/class-sidebar.php:379
+#: inc/admin/menus/class-sidebar.php:379 inc/admin/menus/class-sidebar.php:380
 msgid "User Activation Keys"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:428 inc/admin/menus/class-sidebar.php:429
+#: inc/admin/menus/class-sidebar.php:429 inc/admin/menus/class-sidebar.php:430
 msgid "Network Plugins"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:440 inc/admin/menus/class-sidebar.php:441
+#: inc/admin/menus/class-sidebar.php:441 inc/admin/menus/class-sidebar.php:442
 msgid "Root Site Plugins"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:462 inc/admin/menus/class-sidebar.php:463
+#: inc/admin/menus/class-sidebar.php:463 inc/admin/menus/class-sidebar.php:464
 msgid "Network Settings"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:470 inc/admin/menus/class-sidebar.php:471
+#: inc/admin/menus/class-sidebar.php:471 inc/admin/menus/class-sidebar.php:472
 msgid "Network Setup"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:478 inc/admin/menus/class-sidebar.php:479
+#: inc/admin/menus/class-sidebar.php:479 inc/admin/menus/class-sidebar.php:480
 #: inc/admin/networkmanagers/namespace.php:20
 #: inc/admin/networkmanagers/namespace.php:21
 msgid "Network Managers"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:487 inc/admin/menus/class-sidebar.php:488
+#: inc/admin/menus/class-sidebar.php:488 inc/admin/menus/class-sidebar.php:489
 msgid "Whitelabel Settings"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:497 inc/admin/menus/class-sidebar.php:498
+#: inc/admin/menus/class-sidebar.php:498 inc/admin/menus/class-sidebar.php:499
 msgid "Object Cache"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:506 inc/admin/menus/class-sidebar.php:507
+#: inc/admin/menus/class-sidebar.php:507 inc/admin/menus/class-sidebar.php:508
 #: inc/class-googleanalytics.php:69 inc/class-googleanalytics.php:70
 #: inc/class-googleanalytics.php:79 inc/class-googleanalytics.php:80
 #: inc/class-googleanalytics.php:217 inc/class-googleanalytics.php:267
 msgid "Google Analytics"
 msgstr "Google Analytics"
 
-#: inc/admin/menus/class-sidebar.php:525 inc/admin/menus/class-sidebar.php:526
+#: inc/admin/menus/class-sidebar.php:526 inc/admin/menus/class-sidebar.php:527
 msgid "Sharing & Privacy"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:537 inc/admin/menus/class-sidebar.php:538
+#: inc/admin/menus/class-sidebar.php:538 inc/admin/menus/class-sidebar.php:539
 msgid "Root Site General Settings"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:550 inc/admin/menus/class-sidebar.php:551
+#: inc/admin/menus/class-sidebar.php:551 inc/admin/menus/class-sidebar.php:552
 msgid "Root Site Media Settings"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:563 inc/admin/menus/class-sidebar.php:564
+#: inc/admin/menus/class-sidebar.php:564 inc/admin/menus/class-sidebar.php:565
 msgid "Root Site Privacy Settings"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:575 inc/admin/menus/class-sidebar.php:576
-#: inc/admin/menus/class-sidebar.php:586 inc/admin/menus/class-sidebar.php:587
+#: inc/admin/menus/class-sidebar.php:576 inc/admin/menus/class-sidebar.php:577
+#: inc/admin/menus/class-sidebar.php:587 inc/admin/menus/class-sidebar.php:588
 msgid "PB Stats"
 msgstr ""
 
 #: inc/admin/menus/class-topbar.php:109
-msgid "About Pressbooks"
-msgstr "A Pressbooksról"
+msgid "Pressbooks logo"
+msgstr ""
 
-#: inc/admin/menus/class-topbar.php:165
+#: inc/admin/menus/class-topbar.php:164
 msgid "Administer Network"
 msgstr ""
 
-#: inc/admin/menus/class-topbar.php:244 inc/registration/namespace.php:59
+#: inc/admin/menus/class-topbar.php:243 inc/registration/namespace.php:59
 msgid "Create Book"
 msgstr "Könyv létrehozása"
 
-#: inc/admin/menus/class-topbar.php:263
+#: inc/admin/menus/class-topbar.php:262
 msgid "Clone Book"
 msgstr ""
 
-#: inc/admin/menus/class-topbar.php:277
+#: inc/admin/menus/class-topbar.php:276
 msgid "Add Users"
 msgstr ""
 
@@ -1279,9 +1283,9 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-about.php:28
 msgid ""
-"A very short description of your book. It should fit in a Twitter post, and "
-"encapsulate your book in the briefest sentence."
-msgstr "A könyvének egy nagyon rövid leírása. Be kellene férnie egy Twitter posztba, és a legrövidebb mondatban foglalja a könyvet."
+"A very short description of your book. It should fit in a social media post,"
+" and encapsulate your book in the briefest sentence."
+msgstr ""
 
 #: inc/admin/metaboxes/class-about.php:32
 msgid "Short Description"
@@ -1333,9 +1337,9 @@ msgstr "Hashtag"
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:43
 msgid ""
-"These are added to your webbook cover page. For those of you who like "
-"Twitter."
-msgstr "Ezeket a webbook borító oldalához adjuk hozzá. Azok számára, akik szeretik a Twitter-t."
+"This hashtag is added to your webbook cover page and can be referenced on "
+"social media. Will also be included in social shares to X."
+msgstr ""
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:47
 msgid "List Price (Print)"
@@ -1398,6 +1402,7 @@ msgid "BISAC Subject(s)"
 msgstr ""
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:79
+#, php-format
 msgid ""
 "BISAC Subject Headings help libraries and bookstores properly classify your "
 "book. To select the appropriate subject heading for your book, consult %s."
@@ -1418,10 +1423,9 @@ msgid ""
 msgstr ""
 
 #: inc/admin/metaboxes/class-copyright.php:31 inc/class-licensing.php:333
-#: inc/modules/export/epub/class-epub.php:1423
-#: inc/modules/export/epub/class-epub.php:1445
-#: inc/modules/export/htmlbook/class-htmlbook.php:855
-#: inc/modules/export/xhtml/class-xhtml11.php:1074
+#: inc/modules/export/epub/class-epub.php:1430
+#: inc/modules/export/epub/class-epub.php:1452
+#: inc/modules/export/xhtml/class-xhtml11.php:1362
 msgid "Copyright"
 msgstr "Szerzői jog"
 
@@ -1614,10 +1618,12 @@ msgid "Hide from table of contents and part numbering."
 msgstr "Elrejtés a tartalomjegyzékből és a cikkszámból."
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:30
+#, php-format
 msgid "%s Metadata"
 msgstr ""
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:37
+#, php-format
 msgid "%s Short Title"
 msgstr ""
 
@@ -1626,6 +1632,7 @@ msgid "Appears in the PDF running header and webbook navigation."
 msgstr ""
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:43
+#, php-format
 msgid "%s Subtitle"
 msgstr ""
 
@@ -1634,10 +1641,12 @@ msgid "Appears in the Web/ebook/PDF output."
 msgstr ""
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:49
+#, php-format
 msgid "%s Author(s)"
 msgstr ""
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:56
+#, php-format
 msgid "%s Copyright License"
 msgstr ""
 
@@ -1646,6 +1655,7 @@ msgid "Overrides book license on this page."
 msgstr ""
 
 #: inc/admin/metaboxes/class-sectionmetadata.php:63
+#, php-format
 msgid "%s Digital Object Identifier (DOI)"
 msgstr ""
 
@@ -1659,6 +1669,7 @@ msgstr "Elsődleges tárgy"
 
 #: inc/admin/metaboxes/class-subjects.php:27
 #: inc/admin/metaboxes/class-subjects.php:33
+#, php-format
 msgid ""
 "%1$s subject terms appear on the web homepage of your book and help "
 "categorize your book in your network catalog and Pressbooks Directory (if "
@@ -1680,100 +1691,102 @@ msgstr ""
 msgid "Additional Subject(s)"
 msgstr "További téma(/ák)"
 
-#: inc/admin/metaboxes/namespace.php:100
+#: inc/admin/metaboxes/namespace.php:102
+#, php-format
 msgid ""
 "Your cover image was not saved because it is too small (%1$s x %2$s). It "
 "should be at least 800px in height."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:106
+#: inc/admin/metaboxes/namespace.php:108
+#, php-format
 msgid ""
 "Your cover image was not saved because the aspect ratio (%s) is outside the "
 "permitted range (.66 to 1). We recommend an aspect ratio of .75."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:131 inc/admin/metaboxes/namespace.php:168
+#: inc/admin/metaboxes/namespace.php:133 inc/admin/metaboxes/namespace.php:170
 #: inc/class-metadata.php:437
 msgid "Cover Image"
 msgstr "Borítókép"
 
-#: inc/admin/metaboxes/namespace.php:223 inc/admin/metaboxes/namespace.php:274
+#: inc/admin/metaboxes/namespace.php:225 inc/admin/metaboxes/namespace.php:276
 #: inc/api/endpoints/controller/class-toc.php:202 inc/class-sass.php:89
-#: inc/modules/export/epub/class-epub.php:1932
-#: inc/modules/themeoptions/class-globaloptions.php:604
+#: inc/modules/export/epub/class-epub.php:1939
+#: inc/modules/themeoptions/class-globaloptions.php:605
 #: inc/posttype/namespace.php:87 inc/posttype/namespace.php:542
 #: inc/posttype/namespace.php:580 templates/admin/import.php:94
 msgid "Part"
 msgstr "Rész"
 
-#: inc/admin/metaboxes/namespace.php:227
+#: inc/admin/metaboxes/namespace.php:229
 msgid "Save Part"
 msgstr "Rész mentése"
 
-#: inc/admin/metaboxes/namespace.php:228
+#: inc/admin/metaboxes/namespace.php:230
 msgid "Save Book Information"
 msgstr "Könyv információinak mentése"
 
-#: inc/admin/metaboxes/namespace.php:229
+#: inc/admin/metaboxes/namespace.php:231
 msgid "Status & Visibility"
 msgstr "Állapot & Láthatóság"
 
-#: inc/admin/metaboxes/namespace.php:240
+#: inc/admin/metaboxes/namespace.php:242
 msgid ""
 "Appears on part page. Parts will not appear if a book has only one part."
 msgstr "A részoldalon jelenik meg. A részek nem jelennek meg, ha egy könyvnek csak egy része van."
 
-#: inc/admin/metaboxes/namespace.php:396
+#: inc/admin/metaboxes/namespace.php:398
 msgid "Show in Glossary Lists"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:407
+#: inc/admin/metaboxes/namespace.php:409
 msgid "Preview"
 msgstr "Előnézet"
 
 #. translators: accessibility text
-#: inc/admin/metaboxes/namespace.php:409
+#: inc/admin/metaboxes/namespace.php:411
 msgid "(opens in a new window)"
 msgstr "(nyissa meg egy új ablakban)"
 
-#: inc/admin/metaboxes/namespace.php:418
-#: templates/admin/organize.blade.php:137
+#: inc/admin/metaboxes/namespace.php:420
+#: templates/admin/organize.blade.php:149
 msgid "Show in Web"
 msgstr "Megjelenítés az Interneten"
 
-#: inc/admin/metaboxes/namespace.php:422
+#: inc/admin/metaboxes/namespace.php:424
 msgid "Require a Password"
 msgstr "Jelszó kérése"
 
-#: inc/admin/metaboxes/namespace.php:423
+#: inc/admin/metaboxes/namespace.php:425
 msgid "Password..."
 msgstr "Jelszó..."
 
-#: inc/admin/metaboxes/namespace.php:427
-#: templates/admin/organize.blade.php:140
+#: inc/admin/metaboxes/namespace.php:429
+#: templates/admin/organize.blade.php:152
 msgid "Show in Exports"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:431
-#: templates/admin/organize.blade.php:144
+#: inc/admin/metaboxes/namespace.php:433
+#: templates/admin/organize.blade.php:156
 msgid "Show Title"
 msgstr "Cím mutatása"
 
-#: inc/admin/metaboxes/namespace.php:623 inc/admin/metaboxes/namespace.php:679
+#: inc/admin/metaboxes/namespace.php:627 inc/admin/metaboxes/namespace.php:685
 msgid ""
 "Images should be square (400px x 400px). You will be allowed to crop images "
 "after upload."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:788
+#: inc/admin/metaboxes/namespace.php:804
 msgid "Name"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:817
+#: inc/admin/metaboxes/namespace.php:833
 msgid "Name cannot be left blank."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:851
+#: inc/admin/metaboxes/namespace.php:867
 msgid "Owner"
 msgstr "Tulajdonos"
 
@@ -1857,17 +1870,17 @@ msgstr "Megosztási és adatvédelmi beállításokat."
 msgid "Settings saved."
 msgstr "Beállítások elmentve."
 
-#: inc/admin/networkmanagers/namespace.php:114
+#: inc/admin/networkmanagers/namespace.php:115
 msgid "Pressbooks Network Managers"
 msgstr ""
 
-#: inc/admin/networkmanagers/namespace.php:116
+#: inc/admin/networkmanagers/namespace.php:117
 msgid ""
 "Network administrators&rsquo; access to network administration menus can be "
 "restricted to leave only sites and users visible to them."
 msgstr ""
 
-#: inc/admin/plugins/namespace.php:94
+#: inc/admin/plugins/namespace.php:95
 msgid ""
 "Please be advised that any content provided via a remote third-party "
 "service, like WP QuickLaTeX, may not be trustworthy. The WP QuickLaTeX "
@@ -1876,27 +1889,27 @@ msgid ""
 " image formats."
 msgstr ""
 
+#: inc/admin/users/class-user.php:58
+msgid "Invalid email address"
+msgstr ""
+
 #: inc/admin/users/class-userbulk.php:68 inc/admin/users/class-userbulk.php:69
 msgid "Bulk Add"
 msgstr ""
 
-#: inc/admin/users/class-userbulk.php:169
-msgid "Invalid email address"
-msgstr ""
-
-#: inc/admin/users/class-userbulk.php:240
+#: inc/admin/users/class-userbulk.php:199
 msgid "The following user(s) could not be added."
 msgstr ""
 
-#: inc/admin/users/class-userbulk.php:244
+#: inc/admin/users/class-userbulk.php:203
 msgid "User(s) successfully added to this book."
 msgstr ""
 
-#: inc/admin/users/class-userbulk.php:245
+#: inc/admin/users/class-userbulk.php:204
 msgid "User(s) successfully added to the network."
 msgstr ""
 
-#: inc/admin/users/class-userbulk.php:248
+#: inc/admin/users/class-userbulk.php:207
 msgid ""
 "An invitation email has been sent to the user(s) below. A confirmation link "
 "must be clicked before their account is created."
@@ -1934,7 +1947,7 @@ msgid "String value to filter books by word count range."
 msgstr ""
 
 #: inc/api/endpoints/controller/class-metadata.php:549
-#: inc/api/endpoints/controller/class-sectionmetadata.php:453
+#: inc/api/endpoints/controller/class-sectionmetadata.php:459
 msgid ""
 "URL of a reference Web page that unambiguously indicates the item's "
 "identity."
@@ -2014,8 +2027,8 @@ msgstr "Függelék"
 msgid "This is where you can add appendices or other back matter."
 msgstr "Itt adhat hozzá mellékleteket vagy egyéb függeléket."
 
-#: inc/class-activation.php:232 templates/admin/organize.blade.php:131
-#: templates/admin/organize.blade.php:215
+#: inc/class-activation.php:232 templates/admin/organize.blade.php:143
+#: templates/admin/organize.blade.php:227
 msgid "Authors"
 msgstr "Szerzők"
 
@@ -2080,202 +2093,214 @@ msgstr "Érvénytelen URL."
 msgid "No book found."
 msgstr "Nincs találat könyvre."
 
-#: inc/class-contributors.php:435
+#: inc/class-contributors.php:436
 msgid "Prefix"
 msgstr ""
 
-#: inc/class-contributors.php:438
+#: inc/class-contributors.php:439
 msgid ""
 "Prefix to be displayed before this contributor's name, e.g. Dr., Prof., Ms.,"
 " Rev., Capt."
 msgstr ""
 
-#: inc/class-contributors.php:442
+#: inc/class-contributors.php:444
 msgid "First Name"
 msgstr "Keresztnév"
 
-#: inc/class-contributors.php:448
+#: inc/class-contributors.php:451
 msgid "Last Name"
 msgstr "Vezetéknév"
 
-#: inc/class-contributors.php:454
+#: inc/class-contributors.php:458
 msgid "Suffix"
 msgstr ""
 
-#: inc/class-contributors.php:457
+#: inc/class-contributors.php:461
 msgid ""
 "Suffix to be displayed after this contributors's name, e.g. Jr., Sr., IV, "
 "PhD, MD, USN (Ret.)."
 msgstr ""
 
-#: inc/class-contributors.php:461
+#: inc/class-contributors.php:465
 msgid "Picture"
 msgstr ""
 
-#: inc/class-contributors.php:467
+#: inc/class-contributors.php:471
 msgid "Biographical Info"
 msgstr ""
 
-#: inc/class-contributors.php:472
+#: inc/class-contributors.php:476
 msgid "Institution"
 msgstr ""
 
-#: inc/class-contributors.php:475
+#: inc/class-contributors.php:479
 msgid ""
 "Institution this contributor is associated with, e.g. Rebus Foundation, Open"
 " University, Amnesty International."
 msgstr ""
 
-#: inc/class-contributors.php:482
+#: inc/class-contributors.php:487
 msgid "Website for this contributor. Must be a valid URL."
 msgstr ""
 
-#: inc/class-contributors.php:486
-msgid "Twitter"
-msgstr "Twitter"
-
-#: inc/class-contributors.php:489
-msgid "Twitter profile for this contributor. Must be a valid URL."
+#: inc/class-contributors.php:491
+msgid "X/Twitter"
 msgstr ""
 
-#: inc/class-contributors.php:493
+#: inc/class-contributors.php:494
+msgid "X/Twitter profile for this contributor. Must be a valid URL."
+msgstr ""
+
+#: inc/class-contributors.php:498
+#: inc/modules/themeoptions/class-weboptions.php:268
 msgid "LinkedIn"
 msgstr ""
 
-#: inc/class-contributors.php:496
+#: inc/class-contributors.php:501
 msgid "LinkedIn profile for this contributor. Must be a valid URL."
 msgstr ""
 
-#: inc/class-contributors.php:500
+#: inc/class-contributors.php:505
 msgid "GitHub"
 msgstr ""
 
-#: inc/class-contributors.php:503
+#: inc/class-contributors.php:508
 msgid "GitHub profile for this contributor. Must be a valid URL."
 msgstr ""
 
-#: inc/class-contributors.php:574
+#: inc/class-contributors.php:579
+#, php-format
 msgid ""
 "Import multiple contributors at once by uploading a valid JSON file. See <a "
 "href=\"%s\" target=\"_blank\">our guide</a> for details."
 msgstr ""
 
-#: inc/class-contributors.php:577
+#: inc/class-contributors.php:582
 msgid "Import Contributors"
 msgstr ""
 
-#: inc/class-contributors.php:827
+#: inc/class-contributors.php:832
 msgid "Editor"
 msgid_plural "Editors"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-contributors.php:829
+#: inc/class-contributors.php:834
 msgid "Contributor"
 msgid_plural "Contributors"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-contributors.php:830
+#: inc/class-contributors.php:835
 msgid "Translator"
 msgid_plural "Translators"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-contributors.php:831
+#: inc/class-contributors.php:836
 msgid "Reviewer"
 msgid_plural "Reviewers"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-contributors.php:832
+#: inc/class-contributors.php:837
 msgid "Illustrator"
 msgid_plural "Illustrators"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-eventstreams.php:201
+#: inc/class-eventstreams.php:205
+#, php-format
 msgid ""
 "Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s, and %8$s"
 " to %9$s."
 msgstr ""
 
-#: inc/class-eventstreams.php:202
+#: inc/class-eventstreams.php:206
+#, php-format
 msgid "%s term"
 msgid_plural "%s terms"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-eventstreams.php:203
+#: inc/class-eventstreams.php:207
 #: inc/modules/import/wordpress/class-wxr.php:416
+#, php-format
 msgid "%s front matter"
 msgid_plural "%s front matter"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-eventstreams.php:204
+#: inc/class-eventstreams.php:208
 #: inc/modules/import/wordpress/class-wxr.php:417
+#, php-format
 msgid "%s part"
 msgid_plural "%s parts"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-eventstreams.php:205
+#: inc/class-eventstreams.php:209
 #: inc/modules/import/wordpress/class-wxr.php:418
+#, php-format
 msgid "%s chapter"
 msgid_plural "%s chapters"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-eventstreams.php:206
+#: inc/class-eventstreams.php:210
 #: inc/modules/import/wordpress/class-wxr.php:419
+#, php-format
 msgid "%s back matter"
 msgid_plural "%s back matter"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-eventstreams.php:207
+#: inc/class-eventstreams.php:211
 #: inc/modules/import/wordpress/class-wxr.php:420
+#, php-format
 msgid "%s media attachment"
 msgid_plural "%s media attachments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-eventstreams.php:208
+#: inc/class-eventstreams.php:212
+#, php-format
 msgid "%s H5P element"
 msgid_plural "%s H5P elements"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-eventstreams.php:209
+#: inc/class-eventstreams.php:213
 #: inc/modules/import/wordpress/class-wxr.php:421
+#, php-format
 msgid "%s glossary term"
 msgid_plural "%s glossary terms"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-eventstreams.php:216
+#: inc/class-eventstreams.php:220
+#, php-format
 msgid ""
 " The source book's theme, '%1$s (%2$s)', was not available on this network "
 "and could not be applied. Contact your network manager with questions about "
 "theme availability."
 msgstr ""
 
-#: inc/class-eventstreams.php:220
+#: inc/class-eventstreams.php:224
 msgid ""
 "The source book's theme, theme settings, and custom styles were successfully"
 " applied."
 msgstr ""
 
-#: inc/class-eventstreams.php:242
-msgid "No export format was selected."
+#: inc/class-eventstreams.php:275
+msgid "Permission denied to view job status for this book."
 msgstr ""
 
-#: inc/class-eventstreams.php:286
+#: inc/class-eventstreams.php:405
 msgid "No chapters were selected for import."
 msgstr ""
 
-#: inc/class-eventstreams.php:310
+#: inc/class-eventstreams.php:429
 msgid "You do not have sufficient permissions to access this page."
 msgstr "Nincs elég engedélye ezen oldal eléréséhez."
 
@@ -2284,24 +2309,24 @@ msgid "Adlam"
 msgstr ""
 
 #: inc/class-globaltypography.php:41
+msgid "Amharic"
+msgstr ""
+
+#: inc/class-globaltypography.php:42
 msgid "Ancient Greek"
 msgstr "Ókori görög"
 
-#: inc/class-globaltypography.php:42
+#: inc/class-globaltypography.php:43
 msgid "Armenian"
 msgstr ""
 
-#: inc/class-globaltypography.php:43
+#: inc/class-globaltypography.php:44
 msgid "Arabic"
 msgstr "Arab"
 
-#: inc/class-globaltypography.php:44
+#: inc/class-globaltypography.php:45
 msgid "Bengali"
 msgstr ""
-
-#: inc/class-globaltypography.php:45
-msgid "Biblical Hebrew"
-msgstr "Bibliai héber"
 
 #: inc/class-globaltypography.php:46
 msgid "Canadian Indigenous Syllabics"
@@ -2332,62 +2357,75 @@ msgid "Gujarati"
 msgstr "Gudzsaráti"
 
 #: inc/class-globaltypography.php:53
-msgid "Punjabi (Gurmukhi)"
-msgstr "Pandzsábi (Gurmukhi)"
+msgid "Hebrew (Biblical)"
+msgstr ""
 
 #: inc/class-globaltypography.php:54
+msgid "Hebrew (Modern)"
+msgstr ""
+
+#: inc/class-globaltypography.php:55
 msgid "Japanese"
 msgstr "Japán"
 
-#: inc/class-globaltypography.php:55
+#: inc/class-globaltypography.php:56
 msgid "Kannada"
 msgstr ""
 
-#: inc/class-globaltypography.php:56
+#: inc/class-globaltypography.php:57
 msgid "Korean"
 msgstr "Koreai"
 
-#: inc/class-globaltypography.php:57
+#: inc/class-globaltypography.php:58
 msgid "Khmer"
 msgstr ""
 
-#: inc/class-globaltypography.php:58
+#: inc/class-globaltypography.php:59
 msgid "Malayalam"
 msgstr ""
 
-#: inc/class-globaltypography.php:59
+#: inc/class-globaltypography.php:60
 msgid "Musical Notation"
 msgstr ""
 
-#: inc/class-globaltypography.php:60
+#: inc/class-globaltypography.php:61
 msgid "N'Ko"
 msgstr ""
 
-#: inc/class-globaltypography.php:61
+#: inc/class-globaltypography.php:62
 msgid "Odia"
 msgstr ""
 
-#: inc/class-globaltypography.php:62
+#: inc/class-globaltypography.php:63
+msgid "Punjabi (Gurmukhi)"
+msgstr "Pandzsábi (Gurmukhi)"
+
+#: inc/class-globaltypography.php:64
 msgid "Syriac"
 msgstr "Szíriai"
 
-#: inc/class-globaltypography.php:63
+#: inc/class-globaltypography.php:65
 msgid "Tamil"
 msgstr "Tamil"
 
-#: inc/class-globaltypography.php:64
+#: inc/class-globaltypography.php:66
 msgid "Telugu"
 msgstr ""
 
-#: inc/class-globaltypography.php:65
+#: inc/class-globaltypography.php:67
 msgid "Tibetan"
 msgstr "Tibeti"
 
-#: inc/class-globaltypography.php:66
+#: inc/class-globaltypography.php:68
 msgid "Turkish"
 msgstr "Török"
 
-#: inc/class-globaltypography.php:470
+#: inc/class-globaltypography.php:69
+msgid "Urdu"
+msgstr ""
+
+#: inc/class-globaltypography.php:504
+#, php-format
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr ""
 
@@ -2485,10 +2523,9 @@ msgid ""
 "licenses"
 msgstr ""
 
-#: inc/class-licensing.php:335 inc/class-styles.php:854
-#: inc/modules/export/epub/class-epub.php:1432
-#: inc/modules/export/htmlbook/class-htmlbook.php:864
-#: inc/modules/export/xhtml/class-xhtml11.php:1083
+#: inc/class-licensing.php:335 inc/class-styles.php:885
+#: inc/modules/export/epub/class-epub.php:1439
+#: inc/modules/export/xhtml/class-xhtml11.php:1371
 #: templates/export/epub/opf.blade.php:100
 msgid "by"
 msgstr "által"
@@ -2498,161 +2535,172 @@ msgid "except where otherwise noted."
 msgstr "kivéve, ha másképp van feltüntetve."
 
 #: inc/class-licensing.php:421 inc/class-licensing.php:446
+#, php-format
 msgid "%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved."
 msgstr ""
 
 #: inc/class-licensing.php:433
+#, php-format
 msgid "Icon for the %s"
 msgstr ""
 
 #: inc/class-licensing.php:435 inc/class-licensing.php:482
+#, php-format
 msgid ""
 "%1$s Copyright &copy;%2$s by %3$s is licensed under a %4$s, except where "
 "otherwise noted."
 msgstr ""
 
 #: inc/class-licensing.php:455 inc/class-licensing.php:465
+#, php-format
 msgid "Icon for the %s license"
 msgstr ""
 
 #: inc/class-licensing.php:457
+#, php-format
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
 msgstr ""
 
-#: inc/class-mathjax.php:162 inc/class-mathjax.php:163
+#: inc/class-mathjax.php:152 inc/class-mathjax.php:153
 #: templates/admin/mathjax.blade.php:2
 msgid "MathJax"
 msgstr ""
 
-#: inc/class-mathjax.php:183
+#: inc/class-mathjax.php:173
 msgid "<code>PB_MATHJAX_URL</code> is not configured."
 msgstr ""
 
 #: inc/class-sass.php:197
+#, php-format
 msgid ""
 "There was a problem with SASS. Contact your site administrator. Error: %1$s "
 "%2$s"
 msgstr ""
 
-#: inc/class-styles.php:96 templates/admin/custom-styles.php:42
+#: inc/class-styles.php:98 templates/admin/custom-styles.php:42
 msgid "Custom Styles"
 msgstr ""
 
-#: inc/class-styles.php:118
+#: inc/class-styles.php:120
 msgid "Custom Style for Ebook"
 msgstr ""
 
-#: inc/class-styles.php:123
+#: inc/class-styles.php:125
 msgid "Custom Style for PDF"
 msgstr ""
 
-#: inc/class-styles.php:128
+#: inc/class-styles.php:130
 msgid "Custom Style for Web"
 msgstr ""
 
-#: inc/class-styles.php:706
+#: inc/class-styles.php:736
 msgid "Cormorant Garamond"
 msgstr ""
 
-#: inc/class-styles.php:707
+#: inc/class-styles.php:737
 msgid "Crimson Text"
 msgstr ""
 
-#: inc/class-styles.php:708
+#: inc/class-styles.php:738
 msgid "GNU FreeFont Serif"
 msgstr ""
 
-#: inc/class-styles.php:709
+#: inc/class-styles.php:739
 msgid "New Athena Unicode"
 msgstr ""
 
-#: inc/class-styles.php:710
+#: inc/class-styles.php:740
 msgid "Noto Serif"
 msgstr ""
 
-#: inc/class-styles.php:711
+#: inc/class-styles.php:741
 msgid "Sorts Mill Goudy"
 msgstr ""
 
-#: inc/class-styles.php:712
+#: inc/class-styles.php:742
 msgid "Spectral"
 msgstr ""
 
-#: inc/class-styles.php:716
+#: inc/class-styles.php:746
 msgid "Alegreya Sans"
 msgstr ""
 
-#: inc/class-styles.php:717
+#: inc/class-styles.php:747
+msgid "Atkinson Hyperlegible Next"
+msgstr ""
+
+#: inc/class-styles.php:748
 msgid "Barlow"
 msgstr ""
 
-#: inc/class-styles.php:718
+#: inc/class-styles.php:749
 msgid "GNU FreeFont Sans"
 msgstr ""
 
-#: inc/class-styles.php:719
+#: inc/class-styles.php:750
 msgid "K2D"
 msgstr ""
 
-#: inc/class-styles.php:720
+#: inc/class-styles.php:751
 msgid "Lato"
 msgstr ""
 
-#: inc/class-styles.php:721
+#: inc/class-styles.php:752
 msgid "Libre Franklin"
 msgstr ""
 
-#: inc/class-styles.php:722
+#: inc/class-styles.php:753
 msgid "Montserrat"
 msgstr ""
 
-#: inc/class-styles.php:723
+#: inc/class-styles.php:754
 msgid "Noto Sans"
 msgstr ""
 
-#: inc/class-styles.php:724
+#: inc/class-styles.php:755
 msgid "Open Sans"
 msgstr ""
 
-#: inc/class-styles.php:725
+#: inc/class-styles.php:756
 msgid "Raleway"
 msgstr ""
 
-#: inc/class-styles.php:726
+#: inc/class-styles.php:757
 msgid "Roboto"
 msgstr ""
 
-#: inc/class-styles.php:727
+#: inc/class-styles.php:758
 msgid "Rubik"
 msgstr ""
 
-#: inc/class-styles.php:728
+#: inc/class-styles.php:759
 msgid "Source Sans Pro"
 msgstr ""
 
-#: inc/class-styles.php:732
+#: inc/class-styles.php:763
 msgid "Theme default"
 msgstr ""
 
-#: inc/class-styles.php:733 inc/class-styles.php:747
+#: inc/class-styles.php:764 inc/class-styles.php:778
 msgid "Serif"
 msgstr ""
 
-#: inc/class-styles.php:734
+#: inc/class-styles.php:765
 msgid "Sans serif"
 msgstr ""
 
-#: inc/class-styles.php:779
+#: inc/class-styles.php:810
+#, php-format
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
 msgstr "Váratlan hiba: A következő kérés futtatása problémába ütközött: %s - Kérjük, vegye fel a kapcsolatot a technikai ügyfélszolgálattal!"
 
-#: inc/class-styles.php:819 templates/admin/custom-styles.php:20
+#: inc/class-styles.php:850 templates/admin/custom-styles.php:20
 msgid "Web"
 msgstr "Web"
 
-#: inc/class-styles.php:851
+#: inc/class-styles.php:882
 msgid "Last 10 Revisions"
 msgstr "A legutóbbi 10 felülvizsgálat"
 
@@ -2689,7 +2737,6 @@ msgid "Cloning back matter"
 msgstr ""
 
 #: inc/cloner/class-cloner.php:545 inc/covergenerator/class-generator.php:298
-#: inc/modules/export/epub/class-epub.php:663
 #: inc/modules/import/class-import.php:373
 msgid "Finishing up"
 msgstr ""
@@ -2701,22 +2748,27 @@ msgid ""
 msgstr "Csak a 4.1-es vagy újabb Pressbook által tárolt könyvet tud klónozni. Kérjük, győződjön meg arról, hogy a forráskönyve megfelel ezeknek a követelményeknek."
 
 #: inc/cloner/class-cloner.php:568
+#, php-format
 msgid "Could not retrieve metadata from %s."
 msgstr ""
 
 #: inc/cloner/class-cloner.php:576
+#, php-format
 msgid "%s is not licensed for cloning."
 msgstr ""
 
 #: inc/cloner/class-cloner.php:585
+#, php-format
 msgid "Could not retrieve contents and structure from %s."
 msgstr ""
 
 #: inc/cloner/class-cloner.php:593
+#, php-format
 msgid "Could not retrieve taxonomies from %s."
 msgstr ""
 
 #: inc/cloner/class-cloner.php:601
+#, php-format
 msgid "Could not retrieve media from %s."
 msgstr ""
 
@@ -2756,6 +2808,7 @@ msgid "That book URL is not allowed."
 msgstr "Ez a könyv-URL nem engedélyezett."
 
 #: inc/cloner/class-cloner.php:2060
+#, php-format
 msgid "Your book URL must be at least %s character."
 msgid_plural "Your book URL must be at least %s characters."
 msgstr[0] ""
@@ -2786,12 +2839,12 @@ msgid "Generating cover"
 msgstr ""
 
 #: inc/covergenerator/class-generator.php:363
-#: inc/modules/export/class-export.php:331
+#: inc/modules/export/class-export.php:335
 msgid "book"
 msgstr "könyv"
 
-#: inc/covergenerator/class-generator.php:453
-#: inc/modules/export/prince/class-docraptor.php:116
+#: inc/covergenerator/class-generator.php:458
+#: inc/modules/export/prince/class-docraptor.php:149
 msgid "Your PDF could not be retrieved."
 msgstr ""
 
@@ -2814,10 +2867,6 @@ msgstr "MS Word lábjegyzetek konvertálása"
 #: inc/editor/namespace.php:119
 msgid "Insert LaTeX"
 msgstr ""
-
-#: inc/editor/namespace.php:132 templates/admin/import.php:156
-msgid "Cancel"
-msgstr "Mégsem"
 
 #: inc/editor/namespace.php:133
 msgid "Description"
@@ -2964,7 +3013,7 @@ msgstr "Szél"
 msgid "Internal Link"
 msgstr "Belső link"
 
-#: inc/image/namespace.php:394
+#: inc/image/namespace.php:399
 msgid ""
 "This image will be displayed on the webbook home page and used as the "
 "internal cover in ebook exports. Cover images must be at least 800px tall "
@@ -2974,21 +3023,22 @@ msgid ""
 " target=\"_blank\">our guide</a>."
 msgstr ""
 
-#: inc/image/namespace.php:432 templates/admin/covergenerator.php:130
+#: inc/image/namespace.php:437 templates/admin/covergenerator.php:130
 msgid "Are you sure you want to delete this?"
 msgstr "Biztosan törölni szeretné?"
 
-#: inc/image/namespace.php:464
+#: inc/image/namespace.php:469
 msgid "Delete"
 msgstr "Törlés"
 
-#: inc/interactive/class-h5p.php:182
+#: inc/interactive/class-h5p.php:547
 msgid ""
 "The original version of this chapter contained H5P content. You may want to "
 "remove or replace this element."
 msgstr ""
 
-#: inc/l10n/namespace.php:512 inc/l10n/namespace.php:535
+#: inc/l10n/namespace.php:536 inc/l10n/namespace.php:559
+#, php-format
 msgid ""
 "Please contact your system administrator if you would like them to install "
 "extended %s language support for the Pressbooks interface."
@@ -3014,50 +3064,83 @@ msgid ""
 "all available fields."
 msgstr "Ha további információkat szeretne megadni, kattintson az alábbi gombra az összes elérhető mező megtekintéséhez."
 
-#: inc/metadata/namespace.php:1205
+#: inc/metadata/namespace.php:1211
+#, php-format
 msgid ""
 "The %1$s Thema subject terms requested for this book could not be downloaded"
 " from %2$s. Please report this error to your network manager."
 msgstr ""
 
-#: inc/modules/export/class-export.php:740
-msgid "%s: Initializing"
+#: inc/modules/backgroundprocessing/class-backgroundjob.php:65
+msgid "Initializing export..."
 msgstr ""
 
-#: inc/modules/export/class-export.php:742
-msgid "%s: Exporting"
+#: inc/modules/backgroundprocessing/class-backgroundjob.php:83
+#: inc/modules/backgroundprocessing/class-backgroundjob.php:84
+#, php-format
+msgid "Exporter class %s not found."
 msgstr ""
 
-#: inc/modules/export/class-export.php:747
-msgid "%s: Export successful"
+#: inc/modules/backgroundprocessing/class-backgroundjob.php:125
+msgid "Preparing export..."
 msgstr ""
 
-#: inc/modules/export/class-export.php:749
-msgid "%s: Validating file"
+#: inc/modules/backgroundprocessing/class-backgroundjob.php:147
+msgid "Converting content"
 msgstr ""
 
-#: inc/modules/export/class-export.php:754
-msgid "%s: Validation successful"
+#: inc/modules/backgroundprocessing/class-backgroundjob.php:177
+msgid "Processing..."
 msgstr ""
 
-#: inc/modules/export/class-export.php:758
-msgid "%s: Finishing up"
+#: inc/modules/backgroundprocessing/class-backgroundjob.php:203
+msgid "Conversion successful. Validating file..."
 msgstr ""
 
-#: inc/modules/export/class-export.php:823
+#: inc/modules/backgroundprocessing/class-backgroundjob.php:212
+msgid "Validating..."
+msgstr ""
+
+#: inc/modules/backgroundprocessing/class-backgroundjob.php:249
+msgid "Export completed successfully."
+msgstr ""
+
+#: inc/modules/backgroundprocessing/class-backgroundjob.php:252
+msgid "Export completed with validation errors."
+msgstr ""
+
+#: inc/modules/backgroundprocessing/class-backgroundjob.php:255
+msgid "Export failed due to an unspecified error."
+msgstr ""
+
+#: inc/modules/export/class-export.php:288
+msgid "Export Error"
+msgstr ""
+
+#: inc/modules/export/class-export.php:679
 msgid "The export failed. See logs for more details."
 msgstr ""
 
-#: inc/modules/export/class-export.php:832
+#: inc/modules/export/class-export.php:688
 msgid "Warning: The export has validation errors. See logs for more details."
 msgstr "Figyelmeztetés: Az exportálásnak érvényesítési hibái vannak. További részletekért lásd a naplókat."
 
-#: inc/modules/export/class-export.php:833
+#: inc/modules/export/class-export.php:689
 msgid "Emailed to:"
 msgstr "Emailt küldött:"
 
+#: inc/modules/export/class-table.php:65
+#, php-format
+msgid "Select %s"
+msgstr ""
+
 #: inc/modules/export/class-table.php:82
 msgid "Are you sure you want to delete this export file?"
+msgstr ""
+
+#: inc/modules/export/class-table.php:122
+#, php-format
+msgid "Pin %s"
 msgstr ""
 
 #: inc/modules/export/class-table.php:132
@@ -3080,59 +3163,67 @@ msgstr ""
 msgid "Date Exported"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:386
+#: inc/modules/export/epub/class-epub.php:410
+#, php-format
 msgid "EPUB %s: "
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:496
-#: inc/modules/export/xhtml/class-xhtml11.php:204
+#: inc/modules/export/epub/class-epub.php:510
+#: inc/modules/export/xhtml/class-xhtml11.php:225
 msgid "Initializing"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:510
+#: inc/modules/export/epub/class-epub.php:524
 msgid "Preparing book contents"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:521
+#: inc/modules/export/epub/class-epub.php:535
 msgid "Creating container"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:531
-#: inc/modules/export/xhtml/class-xhtml11.php:212
+#: inc/modules/export/epub/class-epub.php:545
+#: inc/modules/export/xhtml/class-xhtml11.php:237
 msgid "Saving file to exports folder"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:539
-#: inc/modules/export/xhtml/class-xhtml11.php:216
+#: inc/modules/export/epub/class-epub.php:553
+#: inc/modules/export/xhtml/class-xhtml11.php:241
 msgid "Export successful"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:636
-#: inc/modules/export/xhtml/class-xhtml11.php:242
+#: inc/modules/export/epub/class-epub.php:638
+#: inc/modules/export/xhtml/class-xhtml11.php:258
 msgid "Validating file"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:662
-#: inc/modules/export/xhtml/class-xhtml11.php:258
-msgid "Validation successful"
+#: inc/modules/export/epub/class-epub.php:660
+msgid "EPUB Validation Warnings/Errors:"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:959
+#: inc/modules/export/epub/class-epub.php:661
+msgid "Export successful with validation warnings!"
+msgstr ""
+
+#: inc/modules/export/epub/class-epub.php:663
+msgid "Export successful!"
+msgstr ""
+
+#: inc/modules/export/epub/class-epub.php:960
 msgid "Compiling styles"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub.php:968
-#: inc/modules/export/xhtml/class-xhtml11.php:431
+#: inc/modules/export/xhtml/class-xhtml11.php:455
 msgid "Creating cover"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub.php:975
-#: inc/modules/export/xhtml/class-xhtml11.php:435
+#: inc/modules/export/xhtml/class-xhtml11.php:459
 msgid "Creating title page"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub.php:979
-#: inc/modules/export/xhtml/class-xhtml11.php:439
+#: inc/modules/export/xhtml/class-xhtml11.php:463
 msgid "Creating copyright page"
 msgstr ""
 
@@ -3141,207 +3232,411 @@ msgid "Exporting dedication and epigraph"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub.php:987
-#: inc/modules/export/epub/class-epub.php:1577
-#: inc/modules/export/xhtml/class-xhtml11.php:451
-#: inc/modules/export/xhtml/class-xhtml11.php:1255
+#: inc/modules/export/epub/class-epub.php:1584
+#: inc/modules/export/xhtml/class-xhtml11.php:475
+#: inc/modules/export/xhtml/class-xhtml11.php:1547
 msgid "Exporting front matter"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub.php:994
-#: inc/modules/export/epub/class-epub.php:1678
-#: inc/modules/export/epub/class-epub.php:1708
-#: inc/modules/export/xhtml/class-xhtml11.php:458
-#: inc/modules/export/xhtml/class-xhtml11.php:1321
-#: inc/modules/export/xhtml/class-xhtml11.php:1361
+#: inc/modules/export/epub/class-epub.php:1685
+#: inc/modules/export/epub/class-epub.php:1715
+#: inc/modules/export/xhtml/class-xhtml11.php:482
+#: inc/modules/export/xhtml/class-xhtml11.php:1615
+#: inc/modules/export/xhtml/class-xhtml11.php:1656
 msgid "Exporting parts and chapters"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub.php:998
-#: inc/modules/export/epub/class-epub.php:1839
-#: inc/modules/export/xhtml/class-xhtml11.php:462
-#: inc/modules/export/xhtml/class-xhtml11.php:1461
+#: inc/modules/export/epub/class-epub.php:1846
+#: inc/modules/export/xhtml/class-xhtml11.php:486
+#: inc/modules/export/xhtml/class-xhtml11.php:1769
 msgid "Exporting back matter"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1003
-#: inc/modules/export/xhtml/class-xhtml11.php:447
+#: inc/modules/export/epub/class-epub.php:1001
+msgid "Processing CSS"
+msgstr ""
+
+#: inc/modules/export/epub/class-epub.php:1005
+#: inc/modules/export/xhtml/class-xhtml11.php:471
 msgid "Creating table of contents"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1368
+#: inc/modules/export/epub/class-epub.php:1375
 msgid "Title Page"
 msgstr "Címlap"
 
-#: inc/modules/export/epub/class-epub.php:1633
+#: inc/modules/export/epub/class-epub.php:1640
 msgid "Make your own books using Pressbooks"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1891
+#: inc/modules/export/epub/class-epub.php:1898
 msgid "Table Of Contents"
 msgstr "Tartalomjegyzék"
 
-#: inc/modules/export/epub/class-epub.php:1964
-#: inc/modules/export/htmlbook/class-htmlbook.php:979
-#: inc/modules/export/xhtml/class-xhtml11.php:1237
+#: inc/modules/export/epub/class-epub.php:1970
+#: inc/modules/export/xhtml/class-xhtml11.php:1528
 msgid "Contents"
 msgstr "Tartalom"
 
-#: inc/modules/export/htmlbook/class-htmlbook.php:190
-#: inc/modules/export/wordpress/class-wxr.php:81
-#: inc/modules/export/xhtml/class-xhtml11.php:289
-msgid "Invalid permission error"
-msgstr "Érvénytelen engedély hiba"
-
-#: inc/modules/export/namespace.php:84 templates/admin/covergenerator.php:52
+#: inc/modules/export/namespace.php:77 templates/admin/covergenerator.php:52
+#, php-format
 msgid ""
 "Some dependencies for %1$s exports could not be found. Please verify that "
 "you have completed the <a href=\"%2$s\">installation instructions</a>."
 msgstr ""
 
-#: inc/modules/export/namespace.php:85
+#: inc/modules/export/namespace.php:78
 #: inc/modules/themeoptions/class-globaloptions.php:455
-#: inc/utility/namespace.php:1308 inc/utility/namespace.php:1313
-#: inc/utility/namespace.php:1347 inc/utility/namespace.php:1357
-#: inc/utility/namespace.php:1363 templates/admin/covergenerator.php:53
+#: inc/utility/namespace.php:1335 inc/utility/namespace.php:1340
+#: inc/utility/namespace.php:1374 inc/utility/namespace.php:1384
+#: inc/utility/namespace.php:1390 templates/admin/covergenerator.php:53
 msgid "and"
 msgstr "és"
 
-#: inc/modules/export/namespace.php:98
-#: inc/modules/export/prince/class-filters.php:74
+#: inc/modules/export/namespace.php:90
+#: inc/modules/export/prince/class-filters.php:79
 msgid "PDF (for print)"
 msgstr "PDF (nyomtatáshoz)"
 
-#: inc/modules/export/namespace.php:99
-#: inc/modules/export/prince/class-filters.php:75
+#: inc/modules/export/namespace.php:91
+#: inc/modules/export/prince/class-filters.php:80
 msgid "PDF (for digital distribution)"
 msgstr "PDF (digitális terjesztéshez)"
 
-#: inc/modules/export/namespace.php:100 inc/modules/export/namespace.php:196
-#: inc/modules/export/namespace.php:233 inc/modules/export/namespace.php:271
+#: inc/modules/export/namespace.php:92 inc/modules/export/namespace.php:180
+#: inc/modules/export/namespace.php:215 inc/modules/export/namespace.php:252
 msgid "EPUB"
 msgstr ""
 
-#: inc/modules/export/namespace.php:101 inc/modules/export/namespace.php:201
-#: inc/modules/export/namespace.php:274
+#: inc/modules/export/namespace.php:93 inc/modules/export/namespace.php:184
+#: inc/modules/export/namespace.php:254
 msgid "Pressbooks XML"
 msgstr ""
 
-#: inc/modules/export/namespace.php:104
+#: inc/modules/export/namespace.php:96
 msgid "XHTML"
 msgstr "XHTML"
 
-#: inc/modules/export/namespace.php:105 inc/modules/export/namespace.php:195
-#: inc/modules/export/namespace.php:270
-msgid "HTMLBook"
-msgstr "HTML Könyv"
-
-#: inc/modules/export/namespace.php:106 inc/modules/export/namespace.php:200
-#: inc/modules/export/namespace.php:273
-msgid "OpenDocument"
-msgstr "OpenDocument"
-
-#: inc/modules/export/namespace.php:107 inc/modules/export/namespace.php:202
-#: inc/modules/export/namespace.php:275
+#: inc/modules/export/namespace.php:97 inc/modules/export/namespace.php:185
+#: inc/modules/export/namespace.php:255
 msgid "WordPress XML"
 msgstr "WordPress XML"
 
-#: inc/modules/export/namespace.php:115
+#: inc/modules/export/namespace.php:105
 msgid "Common Cartridge with Web Links"
 msgstr ""
 
-#: inc/modules/export/namespace.php:192 inc/modules/export/namespace.php:229
-#: inc/modules/export/namespace.php:266 inc/modules/export/namespace.php:268
+#: inc/modules/export/namespace.php:177 inc/modules/export/namespace.php:212
+#: inc/modules/export/namespace.php:248 inc/modules/export/namespace.php:250
 msgid "Print PDF"
 msgstr ""
 
-#: inc/modules/export/namespace.php:193 inc/modules/export/namespace.php:194
-#: inc/modules/export/namespace.php:267 inc/modules/export/namespace.php:269
+#: inc/modules/export/namespace.php:178 inc/modules/export/namespace.php:179
+#: inc/modules/export/namespace.php:249 inc/modules/export/namespace.php:251
 msgid "Digital PDF"
 msgstr ""
 
-#: inc/modules/export/namespace.php:197 inc/modules/export/namespace.php:234
+#: inc/modules/export/namespace.php:181 inc/modules/export/namespace.php:216
 msgid "MOBI"
 msgstr ""
 
-#: inc/modules/export/namespace.php:198 inc/modules/export/namespace.php:235
+#: inc/modules/export/namespace.php:182 inc/modules/export/namespace.php:217
 msgid "EPUB3"
 msgstr ""
 
-#: inc/modules/export/namespace.php:203 inc/modules/export/namespace.php:276
+#: inc/modules/export/namespace.php:186 inc/modules/export/namespace.php:256
 msgid "Common Cartridge (Web Links)"
 msgstr ""
 
-#: inc/modules/export/namespace.php:204 inc/modules/export/namespace.php:205
-#: inc/modules/export/namespace.php:206
+#: inc/modules/export/namespace.php:187 inc/modules/export/namespace.php:188
+#: inc/modules/export/namespace.php:189
 msgid "Common Cartridge (LTI Links)"
 msgstr ""
 
-#: inc/modules/export/namespace.php:230 inc/modules/export/namespace.php:231
+#: inc/modules/export/namespace.php:213 inc/modules/export/namespace.php:214
 msgid "PDF"
 msgstr ""
 
-#: inc/modules/export/namespace.php:232
-msgid "HTML5"
-msgstr ""
-
-#: inc/modules/export/namespace.php:237
-msgid "ODT"
-msgstr ""
-
-#: inc/modules/export/namespace.php:238 inc/modules/export/namespace.php:239
+#: inc/modules/export/namespace.php:219 inc/modules/export/namespace.php:220
 msgid "WXR"
 msgstr ""
 
-#: inc/modules/export/namespace.php:240 inc/modules/export/namespace.php:241
-#: inc/modules/export/namespace.php:242 inc/modules/export/namespace.php:243
+#: inc/modules/export/namespace.php:221 inc/modules/export/namespace.php:222
+#: inc/modules/export/namespace.php:223 inc/modules/export/namespace.php:224
 msgid "IMSCC"
 msgstr ""
 
-#: inc/modules/export/namespace.php:312
+#: inc/modules/export/namespace.php:296
+#, php-format
 msgid "The file %1$s has been %2$s successfully."
 msgstr ""
 
-#: inc/modules/export/namespace.php:314
+#: inc/modules/export/namespace.php:298
 msgid "pinned"
 msgstr ""
 
-#: inc/modules/export/namespace.php:314
+#: inc/modules/export/namespace.php:298
 msgid "unpinned"
 msgstr ""
 
-#: inc/modules/export/namespace.php:333
+#: inc/modules/export/namespace.php:317
 msgid "About the author"
 msgid_plural "About the authors"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/modules/export/prince/class-pdf.php:278
+#: inc/modules/export/namespace.php:346 inc/modules/export/namespace.php:605
+msgid "Permission denied."
+msgstr ""
+
+#: inc/modules/export/namespace.php:358
+msgid "No export formats selected."
+msgstr ""
+
+#: inc/modules/export/namespace.php:377
+#, php-format
+msgid "%d export job queued."
+msgid_plural "%d export jobs processed."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/modules/export/namespace.php:384
+msgid "No export jobs were successfully queued."
+msgstr ""
+
+#: inc/modules/export/namespace.php:392
+msgid "Details:"
+msgstr ""
+
+#: inc/modules/export/namespace.php:428
+#, php-format
+msgid "Invalid or unsupported export format: %s"
+msgstr ""
+
+#: inc/modules/export/namespace.php:466
+#, php-format
+msgid "%s export has been queued (Job ID: %d)."
+msgstr ""
+
+#: inc/modules/export/namespace.php:475
+#, php-format
+msgid "Failed to queue %s export."
+msgstr ""
+
+#: inc/modules/export/namespace.php:612
+msgid "Invalid job ID."
+msgstr ""
+
+#: inc/modules/export/namespace.php:621
+msgid "Job not found or already processed."
+msgstr ""
+
+#: inc/modules/export/namespace.php:629
+msgid "Export job canceled successfully."
+msgstr ""
+
+#: inc/modules/export/prince/class-docraptor.php:52
+msgid "Starting conversion..."
+msgstr ""
+
+#: inc/modules/export/prince/class-docraptor.php:60
+msgid "Creating temporary files..."
+msgstr ""
+
+#: inc/modules/export/prince/class-docraptor.php:68
+#: inc/modules/export/prince/class-pdf.php:238
+msgid "Loading fonts..."
+msgstr ""
+
+#: inc/modules/export/prince/class-docraptor.php:72
+#: inc/modules/export/prince/class-pdf.php:242
+msgid "Generating CSS..."
+msgstr ""
+
+#: inc/modules/export/prince/class-docraptor.php:87
+msgid "Configuring DocRaptor..."
+msgstr ""
+
+#: inc/modules/export/prince/class-docraptor.php:107
+msgid "Processing content..."
+msgstr ""
+
+#: inc/modules/export/prince/class-docraptor.php:136
+msgid "Converting document..."
+msgstr ""
+
+#: inc/modules/export/prince/class-docraptor.php:143
+msgid "Fetching converted file..."
+msgstr ""
+
+#: inc/modules/export/prince/class-docraptor.php:183
+msgid "Conversion complete."
+msgstr ""
+
+#: inc/modules/export/prince/class-pdf.php:194
 msgid ""
 "This book was produced with Pressbooks (https://pressbooks.com) and rendered"
 " with Prince."
 msgstr ""
 
-#: inc/modules/export/xhtml/class-xhtml11.php:178
+#: inc/modules/export/prince/class-pdf.php:229
+msgid "Setting up conversion..."
+msgstr ""
+
+#: inc/modules/export/prince/class-pdf.php:251
+msgid "Loading Converter..."
+msgstr ""
+
+#: inc/modules/export/prince/class-pdf.php:261
+msgid "Setting up PDF options..."
+msgstr ""
+
+#: inc/modules/export/prince/class-pdf.php:270
+msgid "Adding stylesheets and scripts..."
+msgstr ""
+
+#: inc/modules/export/prince/class-pdf.php:283
+msgid "Creating file..."
+msgstr ""
+
+#: inc/modules/export/prince/class-pdf.php:289
+msgid "Conversion completed with warnings."
+msgstr ""
+
+#: inc/modules/export/prince/class-pdf.php:291
+msgid "Conversion completed successfully."
+msgstr ""
+
+#: inc/modules/export/prince/class-pdf.php:298
+msgid "Validating PDF."
+msgstr ""
+
+#: inc/modules/export/prince/class-pdf.php:301
+msgid "PDF validation failed."
+msgstr ""
+
+#: inc/modules/export/prince/class-pdf.php:305
+msgid "PDF Validation successful."
+msgstr ""
+
+#: inc/modules/export/thincc/class-weblinks.php:352
+msgid "Creating resources..."
+msgstr ""
+
+#: inc/modules/export/thincc/class-weblinks.php:355
+msgid "Creating manifest..."
+msgstr ""
+
+#: inc/modules/export/thincc/class-weblinks.php:363
+msgid "Creating archive..."
+msgstr ""
+
+#: inc/modules/export/thincc/class-weblinks.php:366
+msgid "Failed to create archive."
+msgstr ""
+
+#: inc/modules/export/thincc/class-weblinks.php:370
+msgid "Done!"
+msgstr ""
+
+#: inc/modules/export/thincc/class-weblinks.php:375
+msgid "Validating Web Links export."
+msgstr ""
+
+#: inc/modules/export/thincc/class-weblinks.php:384
+msgid "Manifest file not found."
+msgstr ""
+
+#: inc/modules/export/thincc/class-weblinks.php:388
+msgid "Web Links export validation successful."
+msgstr ""
+
+#: inc/modules/export/traits/class-handlecontributors.php:33
+msgid "Edited by "
+msgstr ""
+
+#: inc/modules/export/wordpress/class-vanillawxr.php:24
+#: inc/modules/export/wordpress/class-vanillawxr.php:38
+#: inc/modules/export/wordpress/class-wxr.php:85
+msgid "Transforming WXR."
+msgstr ""
+
+#: inc/modules/export/wordpress/class-vanillawxr.php:50
+msgid "Processing content."
+msgstr ""
+
+#: inc/modules/export/wordpress/class-vanillawxr.php:82
+msgid "Cleaning content."
+msgstr ""
+
+#: inc/modules/export/wordpress/class-vanillawxr.php:91
+msgid "Parsing SimpleXML."
+msgstr ""
+
+#: inc/modules/export/wordpress/class-vanillawxr.php:102
+msgid "Processing categories."
+msgstr ""
+
+#: inc/modules/export/wordpress/class-vanillawxr.php:125
+msgid "Saving WXR file."
+msgstr ""
+
+#: inc/modules/export/wordpress/class-wxr.php:89
+msgid "Failed to transform WXR."
+msgstr ""
+
+#: inc/modules/export/wordpress/class-wxr.php:94
+msgid "Creating file."
+msgstr ""
+
+#: inc/modules/export/wordpress/class-wxr.php:100
+msgid "Saved WXR file."
+msgstr ""
+
+#: inc/modules/export/wordpress/class-wxr.php:105
+msgid "Validating WXR."
+msgstr ""
+
+#: inc/modules/export/wordpress/class-wxr.php:108
+msgid "WXR document is not well formed XML."
+msgstr ""
+
+#: inc/modules/export/wordpress/class-wxr.php:111
+msgid "WXR is valid."
+msgstr ""
+
+#: inc/modules/export/xhtml/class-xhtml11.php:208
 msgid "XHTML: "
 msgstr ""
 
-#: inc/modules/export/xhtml/class-xhtml11.php:423
+#: inc/modules/export/xhtml/class-xhtml11.php:274
+msgid "Validation successful"
+msgstr ""
+
+#: inc/modules/export/xhtml/class-xhtml11.php:306
+msgid "Invalid permission error"
+msgstr "Érvénytelen engedély hiba"
+
+#: inc/modules/export/xhtml/class-xhtml11.php:447
 msgid "Creating before title page"
 msgstr ""
 
-#: inc/modules/export/xhtml/class-xhtml11.php:427
+#: inc/modules/export/xhtml/class-xhtml11.php:451
 msgid "Creating half title page"
 msgstr ""
 
-#: inc/modules/export/xhtml/class-xhtml11.php:443
+#: inc/modules/export/xhtml/class-xhtml11.php:467
 msgid "Creating dedication and epigraph"
 msgstr ""
 
-#: inc/modules/export/xhtml/class-xhtml11.php:553
+#: inc/modules/export/xhtml/class-xhtml11.php:587
 msgid "Notes"
 msgstr "Jegyzetek"
 
 #: inc/modules/import/api/class-api.php:83
+#, php-format
 msgid "No chapters in %s are licensed for cloning."
 msgstr ""
 
@@ -3367,6 +3662,7 @@ msgid "Importing"
 msgstr ""
 
 #: inc/modules/import/class-import.php:503
+#, php-format
 msgid "Your file does not appear to be a valid %s."
 msgstr ""
 
@@ -3398,6 +3694,7 @@ msgid "Deleting temporary files"
 msgstr ""
 
 #: inc/modules/import/epub/class-epub201.php:216
+#, php-format
 msgid "Imported %s chapters."
 msgstr ""
 
@@ -3412,6 +3709,7 @@ msgid ""
 msgstr "Ez nem WXR fájlnak tűnik, a hiányzó / érvénytelen WXR verziószám."
 
 #: inc/modules/import/wordpress/class-wxr.php:415
+#, php-format
 msgctxt ""
 "String which tells user how many front matter, parts, chapters, back matter,"
 " media attachments, and glossary terms were imported."
@@ -3448,6 +3746,7 @@ msgid "edit"
 msgstr "szerkesztés"
 
 #: inc/modules/searchandreplace/types/class-content.php:72
+#, php-format
 msgid "%1$s ID #%2$d: %3$s"
 msgstr ""
 
@@ -3458,13 +3757,10 @@ msgstr "Szöveges tartalom"
 #: inc/modules/themeoptions/class-admin.php:94
 #: inc/modules/themeoptions/class-admin.php:95
 #: inc/modules/themeoptions/class-admin.php:149
+#: inc/modules/themeoptions/class-admin.php:152
 #: templates/admin/export.blade.php:62
 msgid "Theme Options"
 msgstr "Sablon opciók"
-
-#: inc/modules/themeoptions/class-admin.php:152
-msgid "Theme Options Tabs"
-msgstr ""
 
 #: inc/modules/themeoptions/class-ebookoptions.php:116
 #: inc/modules/themeoptions/class-pdfoptions.php:121
@@ -3489,8 +3785,11 @@ msgid ""
 msgstr ""
 
 #: inc/modules/themeoptions/class-ebookoptions.php:146
+#: inc/modules/themeoptions/class-ebookoptions.php:316
 #: inc/modules/themeoptions/class-pdfoptions.php:297
+#: inc/modules/themeoptions/class-pdfoptions.php:1097
 #: inc/modules/themeoptions/class-weboptions.php:163
+#: inc/modules/themeoptions/class-weboptions.php:315
 msgid "Paragraph Separation"
 msgstr ""
 
@@ -3518,7 +3817,7 @@ msgstr "Csökkentse a kép méretét és minőségét"
 msgid "These options apply to ebook exports."
 msgstr "Ezek az opciók az ebook-exportra vonatkoznak."
 
-#: inc/modules/themeoptions/class-ebookoptions.php:389
+#: inc/modules/themeoptions/class-ebookoptions.php:390
 msgid "Ebook Options"
 msgstr "Ebook opciók"
 
@@ -3585,6 +3884,7 @@ msgid "Include fonts to support the following languages and scripts:"
 msgstr "A következő nyelveket és szkripteket támogató betűkészletek beillesztése:"
 
 #: inc/modules/themeoptions/class-globaloptions.php:207
+#: inc/modules/themeoptions/class-globaloptions.php:498
 msgid "Chapter Licenses"
 msgstr "Fejezet Licencek"
 
@@ -3621,6 +3921,7 @@ msgid "Learning Objectives"
 msgstr "Tanulási célok"
 
 #: inc/modules/themeoptions/class-globaloptions.php:232
+#, php-format
 msgid "Customize colors for %s textboxes using the fields below."
 msgstr ""
 
@@ -3629,6 +3930,7 @@ msgid "Header Color"
 msgstr "Fejléc színe"
 
 #: inc/modules/themeoptions/class-globaloptions.php:244
+#, php-format
 msgid "The header text color for a %s textbox."
 msgstr ""
 
@@ -3637,6 +3939,7 @@ msgid "Header Background"
 msgstr "Fejléc háttere"
 
 #: inc/modules/themeoptions/class-globaloptions.php:255
+#, php-format
 msgid "The header background color for a %s textbox."
 msgstr ""
 
@@ -3645,6 +3948,7 @@ msgid "Background"
 msgstr "Háttér"
 
 #: inc/modules/themeoptions/class-globaloptions.php:266
+#, php-format
 msgid "The background color for a %s textbox."
 msgstr ""
 
@@ -3653,10 +3957,11 @@ msgid "These options apply universally to webbook, PDF and ebook exports."
 msgstr "Ezek a beállítások általánosan érvényesek a webbookra, a PDF-re és az ebook exportra."
 
 #: inc/modules/themeoptions/class-globaloptions.php:476
+#, php-format
 msgid "This theme includes built-in support for %s."
 msgstr ""
 
-#: inc/modules/themeoptions/class-globaloptions.php:586
+#: inc/modules/themeoptions/class-globaloptions.php:587
 msgid "Global Options"
 msgstr "Globális beállítások"
 
@@ -3747,7 +4052,7 @@ msgid "Customize your book&rsquo;s margins using the fields below."
 msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:237
-#: inc/modules/themeoptions/class-pdfoptions.php:962
+#: inc/modules/themeoptions/class-pdfoptions.php:972
 msgid "Outside Margin"
 msgstr "Külső margó"
 
@@ -3761,17 +4066,17 @@ msgid ""
 msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:249
-#: inc/modules/themeoptions/class-pdfoptions.php:963
+#: inc/modules/themeoptions/class-pdfoptions.php:973
 msgid "Inside Margin"
 msgstr "Belső margó"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:261
-#: inc/modules/themeoptions/class-pdfoptions.php:964
+#: inc/modules/themeoptions/class-pdfoptions.php:974
 msgid "Top Margin"
 msgstr "Felső margó"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:273
-#: inc/modules/themeoptions/class-pdfoptions.php:965
+#: inc/modules/themeoptions/class-pdfoptions.php:975
 msgid "Bottom Margin"
 msgstr "Argó margó"
 
@@ -3784,6 +4089,7 @@ msgid "Enable hyphenation"
 msgstr "Engedélyezze az elválasztást"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:309
+#: inc/modules/themeoptions/class-pdfoptions.php:1116
 msgid "Section Openings"
 msgstr "Szakasznyitások"
 
@@ -3820,6 +4126,7 @@ msgid "Convert part numbers into Roman numerals"
 msgstr "Alakítsa át a cikkszámokat római számokká"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:357
+#: inc/modules/themeoptions/class-pdfoptions.php:1189
 msgid "Footnote Style"
 msgstr "Lábjegyzet stílusa"
 
@@ -3854,184 +4161,195 @@ msgid "Front Matter Left Page Running Content"
 msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:409
-#: inc/modules/themeoptions/class-pdfoptions.php:428
-#: inc/modules/themeoptions/class-pdfoptions.php:447
-#: inc/modules/themeoptions/class-pdfoptions.php:466
-#: inc/modules/themeoptions/class-pdfoptions.php:485
-#: inc/modules/themeoptions/class-pdfoptions.php:503
-#: inc/modules/themeoptions/class-pdfoptions.php:521
-#: inc/modules/themeoptions/class-pdfoptions.php:542
-#: inc/modules/themeoptions/class-pdfoptions.php:563
-#: inc/modules/themeoptions/class-pdfoptions.php:582
+#: inc/modules/themeoptions/class-pdfoptions.php:429
+#: inc/modules/themeoptions/class-pdfoptions.php:449
+#: inc/modules/themeoptions/class-pdfoptions.php:469
+#: inc/modules/themeoptions/class-pdfoptions.php:489
+#: inc/modules/themeoptions/class-pdfoptions.php:508
+#: inc/modules/themeoptions/class-pdfoptions.php:527
+#: inc/modules/themeoptions/class-pdfoptions.php:549
+#: inc/modules/themeoptions/class-pdfoptions.php:571
+#: inc/modules/themeoptions/class-pdfoptions.php:591
 msgid "Book Subtitle"
 msgstr "A könyv alcíme"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:410
-#: inc/modules/themeoptions/class-pdfoptions.php:429
-#: inc/modules/themeoptions/class-pdfoptions.php:448
-#: inc/modules/themeoptions/class-pdfoptions.php:467
-#: inc/modules/themeoptions/class-pdfoptions.php:486
-#: inc/modules/themeoptions/class-pdfoptions.php:504
-#: inc/modules/themeoptions/class-pdfoptions.php:522
-#: inc/modules/themeoptions/class-pdfoptions.php:543
-#: inc/modules/themeoptions/class-pdfoptions.php:564
-#: inc/modules/themeoptions/class-pdfoptions.php:583
+#: inc/modules/themeoptions/class-pdfoptions.php:430
+#: inc/modules/themeoptions/class-pdfoptions.php:450
+#: inc/modules/themeoptions/class-pdfoptions.php:470
+#: inc/modules/themeoptions/class-pdfoptions.php:490
+#: inc/modules/themeoptions/class-pdfoptions.php:509
+#: inc/modules/themeoptions/class-pdfoptions.php:528
+#: inc/modules/themeoptions/class-pdfoptions.php:550
+#: inc/modules/themeoptions/class-pdfoptions.php:572
+#: inc/modules/themeoptions/class-pdfoptions.php:592
 msgid "Book Author"
 msgstr "A könyv szerzője"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:411
-#: inc/modules/themeoptions/class-pdfoptions.php:430
+#: inc/modules/themeoptions/class-pdfoptions.php:431
+#: inc/modules/themeoptions/class-pdfoptions.php:451
+#: inc/modules/themeoptions/class-pdfoptions.php:471
+#: inc/modules/themeoptions/class-pdfoptions.php:491
+#: inc/modules/themeoptions/class-pdfoptions.php:510
+#: inc/modules/themeoptions/class-pdfoptions.php:529
+#: inc/modules/themeoptions/class-pdfoptions.php:551
+#: inc/modules/themeoptions/class-pdfoptions.php:573
+#: inc/modules/themeoptions/class-pdfoptions.php:593
+msgid "Book Editor"
+msgstr ""
+
+#: inc/modules/themeoptions/class-pdfoptions.php:412
+#: inc/modules/themeoptions/class-pdfoptions.php:432
 msgid "Front Matter Title"
 msgstr "Előlap címe"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:412
-#: inc/modules/themeoptions/class-pdfoptions.php:431
+#: inc/modules/themeoptions/class-pdfoptions.php:413
+#: inc/modules/themeoptions/class-pdfoptions.php:433
 msgid "Front Matter Author"
 msgstr "Előlap szerzője"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:413
-#: inc/modules/themeoptions/class-pdfoptions.php:432
+#: inc/modules/themeoptions/class-pdfoptions.php:414
+#: inc/modules/themeoptions/class-pdfoptions.php:434
 msgid "Front Matter Subtitle"
 msgstr "Előlap alcíme"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:414
-#: inc/modules/themeoptions/class-pdfoptions.php:433
-#: inc/modules/themeoptions/class-pdfoptions.php:452
-#: inc/modules/themeoptions/class-pdfoptions.php:471
-#: inc/modules/themeoptions/class-pdfoptions.php:489
-#: inc/modules/themeoptions/class-pdfoptions.php:507
-#: inc/modules/themeoptions/class-pdfoptions.php:528
-#: inc/modules/themeoptions/class-pdfoptions.php:549
-#: inc/modules/themeoptions/class-pdfoptions.php:568
-#: inc/modules/themeoptions/class-pdfoptions.php:587
+#: inc/modules/themeoptions/class-pdfoptions.php:415
+#: inc/modules/themeoptions/class-pdfoptions.php:435
+#: inc/modules/themeoptions/class-pdfoptions.php:455
+#: inc/modules/themeoptions/class-pdfoptions.php:475
+#: inc/modules/themeoptions/class-pdfoptions.php:494
+#: inc/modules/themeoptions/class-pdfoptions.php:513
+#: inc/modules/themeoptions/class-pdfoptions.php:535
+#: inc/modules/themeoptions/class-pdfoptions.php:557
+#: inc/modules/themeoptions/class-pdfoptions.php:577
+#: inc/modules/themeoptions/class-pdfoptions.php:597
 msgid "Blank"
 msgstr "Üres"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:422
+#: inc/modules/themeoptions/class-pdfoptions.php:423
 msgid "Front Matter Right Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:441
+#: inc/modules/themeoptions/class-pdfoptions.php:443
 msgid "Introduction Left Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:449
-#: inc/modules/themeoptions/class-pdfoptions.php:468
+#: inc/modules/themeoptions/class-pdfoptions.php:452
+#: inc/modules/themeoptions/class-pdfoptions.php:472
 msgid "Introduction Title"
 msgstr "Bevezetés címe"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:450
-#: inc/modules/themeoptions/class-pdfoptions.php:469
+#: inc/modules/themeoptions/class-pdfoptions.php:453
+#: inc/modules/themeoptions/class-pdfoptions.php:473
 msgid "Introduction Author"
 msgstr "Bevezetés szerzője"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:451
-#: inc/modules/themeoptions/class-pdfoptions.php:470
+#: inc/modules/themeoptions/class-pdfoptions.php:454
+#: inc/modules/themeoptions/class-pdfoptions.php:474
 msgid "Introduction Subtitle"
 msgstr "Bevezetés alcíme"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:460
+#: inc/modules/themeoptions/class-pdfoptions.php:463
 msgid "Introduction Right Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:479
+#: inc/modules/themeoptions/class-pdfoptions.php:483
 msgid "Part Left Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:487
-#: inc/modules/themeoptions/class-pdfoptions.php:505
-#: inc/modules/themeoptions/class-pdfoptions.php:523
-#: inc/modules/themeoptions/class-pdfoptions.php:544
+#: inc/modules/themeoptions/class-pdfoptions.php:492
+#: inc/modules/themeoptions/class-pdfoptions.php:511
+#: inc/modules/themeoptions/class-pdfoptions.php:530
+#: inc/modules/themeoptions/class-pdfoptions.php:552
 msgid "Part Number"
 msgstr "Cikkszám"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:488
-#: inc/modules/themeoptions/class-pdfoptions.php:506
-#: inc/modules/themeoptions/class-pdfoptions.php:524
-#: inc/modules/themeoptions/class-pdfoptions.php:545
+#: inc/modules/themeoptions/class-pdfoptions.php:493
+#: inc/modules/themeoptions/class-pdfoptions.php:512
+#: inc/modules/themeoptions/class-pdfoptions.php:531
+#: inc/modules/themeoptions/class-pdfoptions.php:553
 msgid "Part Title"
 msgstr "Cikkcím"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:497
+#: inc/modules/themeoptions/class-pdfoptions.php:502
 msgid "Part Right Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:515
+#: inc/modules/themeoptions/class-pdfoptions.php:521
 msgid "Chapter Left Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:525
-#: inc/modules/themeoptions/class-pdfoptions.php:546
+#: inc/modules/themeoptions/class-pdfoptions.php:532
+#: inc/modules/themeoptions/class-pdfoptions.php:554
 msgid "Chapter Title"
 msgstr "Fejezetcím"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:526
-#: inc/modules/themeoptions/class-pdfoptions.php:547
+#: inc/modules/themeoptions/class-pdfoptions.php:533
+#: inc/modules/themeoptions/class-pdfoptions.php:555
 msgid "Chapter Author"
 msgstr "Fejezet szerzője"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:527
-#: inc/modules/themeoptions/class-pdfoptions.php:548
+#: inc/modules/themeoptions/class-pdfoptions.php:534
+#: inc/modules/themeoptions/class-pdfoptions.php:556
 msgid "Chapter Subtitle"
 msgstr "Fejezet alcíme"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:536
+#: inc/modules/themeoptions/class-pdfoptions.php:543
 msgid "Chapter Right Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:557
+#: inc/modules/themeoptions/class-pdfoptions.php:565
 msgid "Back Matter Left Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:565
-#: inc/modules/themeoptions/class-pdfoptions.php:584
+#: inc/modules/themeoptions/class-pdfoptions.php:574
+#: inc/modules/themeoptions/class-pdfoptions.php:594
 msgid "Back Matter Title"
 msgstr "Hátlap címe"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:566
-#: inc/modules/themeoptions/class-pdfoptions.php:585
+#: inc/modules/themeoptions/class-pdfoptions.php:575
+#: inc/modules/themeoptions/class-pdfoptions.php:595
 msgid "Back Matter Author"
 msgstr "Hátlap szerzője"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:567
-#: inc/modules/themeoptions/class-pdfoptions.php:586
+#: inc/modules/themeoptions/class-pdfoptions.php:576
+#: inc/modules/themeoptions/class-pdfoptions.php:596
 msgid "Back Matter Subtitle"
 msgstr "Hátlap alcíme"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:576
+#: inc/modules/themeoptions/class-pdfoptions.php:585
 msgid "Back Matter Right Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:597
+#: inc/modules/themeoptions/class-pdfoptions.php:607
 msgid "Increase Font Size"
 msgstr "Betűméret növelése"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:602
+#: inc/modules/themeoptions/class-pdfoptions.php:612
 msgid "Increases font size and line height for greater accessibility"
 msgstr "Betűméret és vonalmagasság növelése a nagyobb hozzáférhetőség érdekében"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:628
+#: inc/modules/themeoptions/class-pdfoptions.php:638
 msgid "These options apply to PDF exports."
 msgstr "Ezek a beállítások a PDF exportra vonatkoznak."
 
-#: inc/modules/themeoptions/class-pdfoptions.php:970
+#: inc/modules/themeoptions/class-pdfoptions.php:980
 msgid ""
 "IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm "
 "on any side can cause your file to be rejected."
 msgstr "FONTOS: Ha nyomtatási szolgáltatást szeretne igénybe venni, akkor bármelyik oldalon 2 cm alatt lévő margók okozhatják a fájl visszautasítását."
 
-#: inc/modules/themeoptions/class-pdfoptions.php:1534
+#: inc/modules/themeoptions/class-pdfoptions.php:1547
 msgid "PDF Options"
 msgstr "PDF opciók"
 
 #: inc/modules/themeoptions/class-weboptions.php:138
-msgid "Enable Social Media"
-msgstr "A közösségi média engedélyezése"
+msgid "Social Media Options"
+msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:143
-msgid ""
-"Adds a button to cover page and each chapter which allows readers to share "
-"links to your book through Twitter"
+msgid "Select which social media buttons to display."
 msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:149
@@ -4062,35 +4380,27 @@ msgstr ""
 msgid "Collapse sections within front matter, chapters, and back matter"
 msgstr ""
 
-#: inc/modules/themeoptions/class-weboptions.php:200
-msgid "Enable Source Comparison"
-msgstr "Forrásösszehasonlítás engedélyezése"
-
-#: inc/modules/themeoptions/class-weboptions.php:205
-msgid ""
-"Add comparison tool to the end of each front matter, part, chapter, and back"
-" matter"
-msgstr "Összehasonlító eszköz hozzáadása az egyes előlapok, részek, fejezetek és hátoldalak végéhez"
-
-#: inc/modules/themeoptions/class-weboptions.php:206
-msgid ""
-"Allows readers to compare content with the original book from which it was "
-"cloned."
-msgstr "Lehetővé teszi az olvasók számára, hogy összehasonlítsák a tartalmat az eredeti könyvvel, ahonnan klónozták."
-
-#: inc/modules/themeoptions/class-weboptions.php:232
+#: inc/modules/themeoptions/class-weboptions.php:218
 msgid "These options apply to the webbook."
 msgstr "Ezek a beállítások a webbookra vonatkoznak."
 
-#: inc/modules/themeoptions/class-weboptions.php:432
+#: inc/modules/themeoptions/class-weboptions.php:267
+msgid "X (formerly Twitter)"
+msgstr ""
+
+#: inc/modules/themeoptions/class-weboptions.php:269
+msgid "Email"
+msgstr ""
+
+#: inc/modules/themeoptions/class-weboptions.php:407
 msgid "Web Options"
 msgstr ""
 
-#: inc/posttype/namespace.php:65 templates/admin/organize.blade.php:50
+#: inc/posttype/namespace.php:65 templates/admin/organize.blade.php:53
 msgid "Chapters"
 msgstr "Fejezetek"
 
-#: inc/posttype/namespace.php:88 templates/admin/organize.blade.php:52
+#: inc/posttype/namespace.php:88 templates/admin/organize.blade.php:55
 msgid "Parts"
 msgstr "Részek"
 
@@ -4187,27 +4497,27 @@ msgid "glossary"
 msgstr ""
 
 #: inc/posttype/namespace.php:554 templates/admin/import.php:97
-#: templates/admin/organize.blade.php:53
+#: templates/admin/organize.blade.php:56
 msgid "Glossary"
 msgstr ""
 
-#: inc/redirect/namespace.php:147 inc/redirect/namespace.php:244
+#: inc/redirect/namespace.php:136 inc/redirect/namespace.php:233
 msgid "Error: Unknown export format."
 msgstr "Hiba: ismeretlen exportálási formátum."
 
-#: inc/redirect/namespace.php:263
+#: inc/redirect/namespace.php:252
 msgid "File not found"
 msgstr "A fájl nem található"
 
-#: inc/redirect/namespace.php:350
+#: inc/redirect/namespace.php:339
 msgid "Unsupported post type."
 msgstr "Nem támogatott bejegyzés típus."
 
-#: inc/redirect/namespace.php:384
+#: inc/redirect/namespace.php:373
 msgid "Unsupported taxonomy."
 msgstr "Nem támogatott taxonómia."
 
-#: inc/redirect/namespace.php:408
+#: inc/redirect/namespace.php:397
 msgid "You do not have sufficient permissions to access that URL."
 msgstr "Nincs elegendő jogosultsága az URL eléréséhez."
 
@@ -4244,6 +4554,7 @@ msgid "Would you like your webbook to be visible to the public?"
 msgstr "Szeretné, ha a webbookja látható lenne a nyilvánosság számára?"
 
 #: inc/registration/namespace.php:62
+#, php-format
 msgid "Register a %s account"
 msgstr ""
 
@@ -4252,6 +4563,7 @@ msgid "Create a new book"
 msgstr "Új könyv létrehozása"
 
 #: inc/registration/namespace.php:68
+#, php-format
 msgid ""
 "Welcome, %s. Fill out the form below to <strong>add a new book to your "
 "account</strong>."
@@ -4266,6 +4578,7 @@ msgid "Books you are already a member of:"
 msgstr "Könyvek, amelyeknek már tagja vagy"
 
 #: inc/registration/namespace.php:81
+#, php-format
 msgid "Congratulations! Your new book, %s, is almost ready"
 msgstr ""
 
@@ -4276,6 +4589,7 @@ msgid ""
 msgstr ""
 
 #: inc/registration/namespace.php:87
+#, php-format
 msgid ""
 "Your account has been activated. You may now <a href=\"%1$s\">log in</a> to "
 "your book using your chosen username of &#8220;%2$s&#8221;. Please check "
@@ -4286,6 +4600,7 @@ msgid ""
 msgstr ""
 
 #: inc/registration/namespace.php:90
+#, php-format
 msgid ""
 "Your book at <a href=\"%1$s\">%2$s</a> is active. You may now log in to your"
 " book using your chosen username of &#8220;%3$s&#8221;. Please check your "
@@ -4296,6 +4611,7 @@ msgid ""
 msgstr ""
 
 #: inc/registration/namespace.php:93
+#, php-format
 msgid ""
 "Your account is now activated. <a href=\"%1$s\">View your book</a> or <a "
 "href=\"%2$s\">Log in</a>"
@@ -4364,19 +4680,20 @@ msgstr ""
 msgid "Invalid permissions."
 msgstr "Érvénytelen engedélyek."
 
-#: inc/shortcodes/glossary/class-glossary.php:139
+#: inc/shortcodes/glossary/class-glossary.php:144
 msgid "Select"
 msgstr "Kiválasztás"
 
-#: inc/shortcodes/glossary/class-glossary.php:293
+#: inc/shortcodes/glossary/class-glossary.php:295
 msgid "definition"
 msgstr ""
 
-#: inc/shortcodes/glossary/class-glossary.php:297
+#: inc/shortcodes/glossary/class-glossary.php:299
 msgid "Close definition"
 msgstr ""
 
 #: inc/theme/class-lock.php:96
+#, php-format
 msgid ""
 "Your book&rsquo;s theme, %1$s, has been locked in its current state as of "
 "%2$s at %3$s."
@@ -4393,30 +4710,35 @@ msgid "Your book&rsquo;s theme has been unlocked."
 msgstr ""
 
 #: inc/theme/class-lock.php:269
+#, php-format
 msgid ""
 "Your book&rsquo;s theme, %1$s, was locked in its current state as of %2$s at"
 " %3$s. To select a new theme or change your theme options, please %4$s."
 msgstr ""
 
 #: inc/theme/namespace.php:41
+#, php-format
 msgid ""
 "Your theme, %1$s, is not installed. Please visit %2$s for installation "
 "instructions."
 msgstr ""
 
 #: inc/theme/namespace.php:56
+#, php-format
 msgid ""
 "The Pressbooks Book theme is not installed, but Pressbooks needs it in order"
 " to function properly. Please visit %s for installation instructions."
 msgstr ""
 
 #: inc/theme/namespace.php:84
+#, php-format
 msgid ""
 "The Pressbooks Custom CSS theme must be upgraded. Please visit %s for "
 "installation instructions."
 msgstr ""
 
 #: inc/theme/namespace.php:138
+#, php-format
 msgid ""
 "Luther has been replaced with McLuhan as Pressbooks’ default book theme. To "
 "continue using Luther for your book, please ensure that the standalone <a "
@@ -4444,23 +4766,24 @@ msgid ""
 msgstr ""
 
 #: inc/utility/class-percentageyield.php:90
+#, php-format
 msgid " (%1$d of %2$d)"
 msgstr ""
 
-#: inc/utility/namespace.php:567 inc/utility/namespace.php:578
-#: inc/utility/namespace.php:594
+#: inc/utility/namespace.php:594 inc/utility/namespace.php:605
+#: inc/utility/namespace.php:621
 msgid ""
 "An unexpected error occurred. Something may be wrong with the plugin "
 "recommendations server or your site&#8217;s server&#8217;s configuration."
 msgstr ""
 
-#: inc/utility/namespace.php:567
+#: inc/utility/namespace.php:594
 msgid ""
 "(Pressbooks could not establish a secure connection to the plugin "
 "recommendations server. Please contact your server administrator.)"
 msgstr "(A Pressbook nem tudott biztonságos kapcsolatot létesíteni a plugin ajánlások szerverével, kérjük, forduljon a szerver rendszergazdájához.)"
 
-#: inc/utility/namespace.php:618
+#: inc/utility/namespace.php:645
 msgid ""
 "These plugins have been created and/or recommended by the Pressbooks "
 "community."
@@ -4540,14 +4863,15 @@ msgstr "Osztály alkalmazása"
 
 #. translators: 1: URL to Composer documentation, 2: URL to Pressbooks latest
 #. releases
-#: pressbooks.php:80
+#: pressbooks.php:88
+#, php-format
 msgid ""
 "Pressbooks dependencies are missing. Please make sure that your "
 "project&rsquo;s <a href=\"%1$s\">Composer autoload file</a> is being "
 "required, or use the <a href=\"%2$s\">latest release</a> instead."
 msgstr ""
 
-#: pressbooks.php:91
+#: pressbooks.php:99
 msgid "Cannot find Pressbooks install."
 msgstr "Presbooks letöltés nem található."
 
@@ -4617,21 +4941,25 @@ msgstr ""
 
 #. translators: %s date/time
 #: templates/admin/covergenerator.php:107
+#, php-format
 msgid "Your latest covers were generated on %s."
 msgstr ""
 
 #. translators: %s file format
 #: templates/admin/covergenerator.php:120
+#, php-format
 msgid "%s cover"
 msgstr ""
 
 #. translators: %s file format
 #: templates/admin/covergenerator.php:127
+#, php-format
 msgid "Download %s cover"
 msgstr ""
 
 #. translators: %s file format
 #: templates/admin/covergenerator.php:134
+#, php-format
 msgid "Delete %s cover"
 msgstr ""
 
@@ -4651,11 +4979,13 @@ msgstr "Hiba: Valami nem jó. További részletekért lásd a naplókat."
 msgid "You are currently editing styles for"
 msgstr "Jelenleg stílusokat szerkeszt"
 
-#: templates/admin/custom-styles.php:48
+#: templates/admin/custom-styles.php:48 templates/admin/custom-styles.php:70
+#, php-format
 msgid "Theme %1$s Styles (%2$s)"
 msgstr ""
 
-#: templates/admin/custom-styles.php:50
+#: templates/admin/custom-styles.php:50 templates/admin/custom-styles.php:71
+#, php-format
 msgid "Your %s Styles"
 msgstr ""
 
@@ -4748,6 +5078,7 @@ msgid "Results"
 msgstr "Eredmények"
 
 #: templates/admin/results.php:6
+#, php-format
 msgid "%1$s result(s) found."
 msgstr ""
 
@@ -4815,6 +5146,7 @@ msgid ""
 msgstr ""
 
 #: templates/admin/trash.php:22
+#, php-format
 msgid ""
 "<strong>NOTE</strong>: Items in the trash will be permanently deleted after "
 "%d days."
@@ -4921,6 +5253,7 @@ msgid "of"
 msgstr ""
 
 #: templates/admin/cloner/results.blade.php:2
+#, php-format
 msgid ""
 "results shown. To see more results, or use advanced search and filtering "
 "capabilities, %s."
@@ -4987,55 +5320,51 @@ msgstr ""
 msgid "Delete book"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:78
-msgid "Write a new chapter art"
-msgstr ""
-
-#: templates/admin/dashboard/book.blade.php:85
+#: templates/admin/dashboard/book.blade.php:82
 msgid "Write a new chapter"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:91
+#: templates/admin/dashboard/book.blade.php:88
 msgid "Import Content"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:105
-#: templates/admin/dashboard/support.blade.php:4
+#: templates/admin/dashboard/book.blade.php:102
+#: templates/admin/dashboard/support.blade.php:3
 msgid "Support resources"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:114
+#: templates/admin/dashboard/book.blade.php:108
 msgid "Getting started with Pressbooks"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:117
+#: templates/admin/dashboard/book.blade.php:111
 msgid "Watch a short video series on how to get started with Pressbooks."
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:125
+#: templates/admin/dashboard/book.blade.php:116
 msgid "Pressbooks user guide"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:128
+#: templates/admin/dashboard/book.blade.php:119
 msgid ""
 "Find help and how-tos for your publishing project in this detailed handbook."
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:136
-#: templates/admin/dashboard/support.blade.php:23
+#: templates/admin/dashboard/book.blade.php:124
+#: templates/admin/dashboard/support.blade.php:15
 msgid "Pressbooks community forum"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:139
+#: templates/admin/dashboard/book.blade.php:127
 msgid ""
 "Discuss Pressbooks related questions with other users in our public forum."
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:147
+#: templates/admin/dashboard/book.blade.php:132
 msgid "Pressbooks training webinars"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:150
+#: templates/admin/dashboard/book.blade.php:135
 msgid ""
 "Register for free webinars to learn about Pressbooks features and best "
 "practices."
@@ -5055,6 +5384,7 @@ msgid "Visit network homepage"
 msgstr ""
 
 #: templates/admin/dashboard/network.blade.php:23
+#, php-format
 msgid "Your network has %s books and %s users. "
 msgstr ""
 
@@ -5062,90 +5392,52 @@ msgstr ""
 msgid "Explore stats"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:44
-msgid "Ready to Launch Checklist"
-msgstr ""
-
-#: templates/admin/dashboard/network.blade.php:80
-msgid "Congratulations!"
-msgstr ""
-
-#: templates/admin/dashboard/network.blade.php:82
-msgid "Return to checklist"
-msgstr ""
-
-#: templates/admin/dashboard/network.blade.php:93
+#: templates/admin/dashboard/network.blade.php:45
 msgid "Update homepage"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:99
-msgid "Update homepage art"
-msgstr ""
-
-#: templates/admin/dashboard/network.blade.php:108
+#: templates/admin/dashboard/network.blade.php:54
 msgid "Customize network appearance"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:116
+#: templates/admin/dashboard/network.blade.php:60
 msgid "Create or edit pages"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:125
+#: templates/admin/dashboard/network.blade.php:67
 msgid "View homepage analytics"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:136
+#: templates/admin/dashboard/network.blade.php:78
 msgid "Administer network"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:142
-msgid "Administer network art"
-msgstr ""
-
-#: templates/admin/dashboard/network.blade.php:151
+#: templates/admin/dashboard/network.blade.php:87
 msgid "Adjust network settings"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:159
+#: templates/admin/dashboard/network.blade.php:93
 msgid "View book list"
 msgstr ""
 
-#: templates/admin/dashboard/network.blade.php:167
+#: templates/admin/dashboard/network.blade.php:99
 msgid "View user list"
 msgstr ""
 
-#: templates/admin/dashboard/support.blade.php:12
+#: templates/admin/dashboard/support.blade.php:8
 msgid "Network manager guide"
 msgstr ""
 
-#: templates/admin/dashboard/support.blade.php:15
-msgid ""
-"Learn how to administer your Pressbooks network from our comprehensive how-"
-"to guide."
-msgstr ""
-
-#: templates/admin/dashboard/support.blade.php:26
-msgid ""
-"Discuss issues of interest with other network managers and Pressbooks "
-"support staff."
-msgstr ""
-
-#: templates/admin/dashboard/support.blade.php:34
+#: templates/admin/dashboard/support.blade.php:22
 msgid "Pressbooks webinars"
 msgstr ""
 
-#: templates/admin/dashboard/support.blade.php:37
-msgid "Become a confident Pressbooks user by attending a free, live webinar."
-msgstr ""
-
-#: templates/admin/dashboard/support.blade.php:46
+#: templates/admin/dashboard/support.blade.php:30
 msgid "Contact Pressbooks Support"
 msgstr ""
 
-#: templates/admin/dashboard/support.blade.php:49
-msgid ""
-"Email Pressbooks’ Premium Support team to report bugs or get personalized "
-"help."
+#: templates/admin/dashboard/support.blade.php:41
+msgid "Pressbooks product updates"
 msgstr ""
 
 #: templates/admin/dashboard/user.blade.php:18
@@ -5153,6 +5445,7 @@ msgid "Book Invitations"
 msgstr ""
 
 #: templates/admin/dashboard/user.blade.php:23
+#, php-format
 msgid "You have been invited to join %1$s as %2$s"
 msgstr ""
 
@@ -5160,33 +5453,25 @@ msgstr ""
 msgid "Accept"
 msgstr ""
 
-#: templates/admin/dashboard/user.blade.php:40
-msgid "Create a new book art"
-msgstr ""
-
-#: templates/admin/dashboard/user.blade.php:45
-#: templates/admin/dashboard/user.blade.php:53
-#: templates/admin/dashboard/user.blade.php:58
+#: templates/admin/dashboard/user.blade.php:42
+#: templates/admin/dashboard/user.blade.php:50
+#: templates/admin/dashboard/user.blade.php:55
 msgid "Create a book"
 msgstr ""
 
-#: templates/admin/dashboard/user.blade.php:47
+#: templates/admin/dashboard/user.blade.php:44
 msgid ""
 "Create a new book full of engaging content: words, images, audio, video, "
 "footnotes, glossary terms, mathematical formula, interactive quizzes, and "
 "more."
 msgstr ""
 
-#: templates/admin/dashboard/user.blade.php:71
-msgid "Adapt a book art"
-msgstr ""
-
-#: templates/admin/dashboard/user.blade.php:76
-#: templates/admin/dashboard/user.blade.php:83
+#: templates/admin/dashboard/user.blade.php:70
+#: templates/admin/dashboard/user.blade.php:77
 msgid "Adapt a book"
 msgstr ""
 
-#: templates/admin/dashboard/user.blade.php:78
+#: templates/admin/dashboard/user.blade.php:72
 msgid ""
 "Use our cloning tool to make your own personalized copy of any of the "
 "thousands of openly licensed educational books already published with "
@@ -5204,24 +5489,25 @@ msgid ""
 msgstr ""
 
 #: templates/admin/diagnostics.blade.php:8
-msgid "View Source"
+#: templates/admin/diagnostics.blade.php:10
+msgid "View PDF Preview"
 msgstr ""
 
 #: templates/admin/diagnostics.blade.php:9
 msgid ""
-"<a href=\"%s\">View your book&rsquo;s XHTML source</a> to diagnose issues "
-"you may be encountering with your PDF exports."
-msgstr ""
-
-#: templates/admin/diagnostics.blade.php:10
-msgid "Regenerate Webbook Stylesheet"
+"Generating a PDF preview can help you diagnose issues you may be "
+"encountering with your PDF exports."
 msgstr ""
 
 #: templates/admin/diagnostics.blade.php:11
-msgid "If your webbook stylesheet has issues, it may help to regenerate it."
+msgid "Regenerate Webbook Stylesheet"
 msgstr ""
 
 #: templates/admin/diagnostics.blade.php:12
+msgid "If your webbook stylesheet has issues, it may help to regenerate it."
+msgstr ""
+
+#: templates/admin/diagnostics.blade.php:13
 msgid "Regenerate Stylesheet"
 msgstr ""
 
@@ -5252,11 +5538,15 @@ msgstr "Más formátumok"
 msgid "Your Theme"
 msgstr ""
 
-#: templates/admin/export.blade.php:80
-msgid "Export Your Book"
-msgstr "Könyv exportálása"
+#: templates/admin/export.blade.php:81
+msgid "Preview PDF"
+msgstr ""
 
-#: templates/admin/export.blade.php:85
+#: templates/admin/export.blade.php:84
+msgid "Export Book"
+msgstr ""
+
+#: templates/admin/export.blade.php:89
 msgid "Latest Exports"
 msgstr ""
 
@@ -5274,47 +5564,55 @@ msgstr "Szintaxis"
 msgid "LaTeX"
 msgstr ""
 
-#: templates/admin/mathjax.blade.php:15 templates/admin/mathjax.blade.php:26
+#: templates/admin/mathjax.blade.php:15
+#, php-format
+msgid "Inline math delimiter: %s"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:19
+#, php-format
+msgid "Display math delimiter: %s"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:23 templates/admin/mathjax.blade.php:32
+#, php-format
 msgid "Shortcode syntax: %s"
 msgstr ""
 
-#: templates/admin/mathjax.blade.php:19 templates/admin/mathjax.blade.php:30
-msgid "Dollar sign syntax: %s"
+#: templates/admin/mathjax.blade.php:25
+#, php-format
+msgid "Double dollar sign syntax: %s"
 msgstr ""
 
-#: templates/admin/mathjax.blade.php:24
+#: templates/admin/mathjax.blade.php:30
 msgid "AsciiMath"
 msgstr ""
 
-#: templates/admin/mathjax.blade.php:35
+#: templates/admin/mathjax.blade.php:36
+#, php-format
+msgid "Dollar sign syntax: %s"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:41
 msgid "MathML"
 msgstr ""
 
-#: templates/admin/mathjax.blade.php:37
+#: templates/admin/mathjax.blade.php:43
+#, php-format
 msgid "Markup syntax: %s"
 msgstr ""
 
-#: templates/admin/mathjax.blade.php:44
+#: templates/admin/mathjax.blade.php:50
 msgid "Text color"
 msgstr ""
 
-#: templates/admin/mathjax.blade.php:47
+#: templates/admin/mathjax.blade.php:53
 msgid ""
 "A six digit hexadecimal number like <code>000000</code> or "
 "<code>ffffff</code>"
 msgstr ""
 
-#: templates/admin/mathjax.blade.php:52
-msgid "SVG/PNG Fonts"
-msgstr ""
-
 #: templates/admin/mathjax.blade.php:59
-msgid ""
-"Affects exports (PDF, EPUB, MOBI.) Webbook uses CommonHTML. CommonHTML "
-"currently only supports MathJax’s default TeX fonts."
-msgstr ""
-
-#: templates/admin/mathjax.blade.php:65
 msgid "Save Changes"
 msgstr ""
 
@@ -5322,96 +5620,189 @@ msgstr ""
 msgid "This book’s global privacy is set to"
 msgstr ""
 
-#: templates/admin/organize.blade.php:27
+#: templates/admin/organize.blade.php:22
+msgid "Global Privacy"
+msgstr ""
+
+#: templates/admin/organize.blade.php:28
+#, php-format
 msgid ""
 "Anyone with the link can see your book. Public books are eligible to be "
 "listed in <a href=\"%s\">Pressbooks Directory</a>. Individual chapters can "
 "be set to private."
 msgstr ""
 
-#: templates/admin/organize.blade.php:39
+#: templates/admin/organize.blade.php:41
 msgid ""
 "Only users you invite can see your book, regardless of individual chapter "
 "visibility below."
 msgstr ""
 
-#: templates/admin/organize.blade.php:63
+#: templates/admin/organize.blade.php:66
 msgid "Add Glossary Term"
 msgstr ""
 
-#: templates/admin/organize.blade.php:67
+#: templates/admin/organize.blade.php:70
 msgid "Word Count:"
 msgstr "Szavak száma:"
 
-#: templates/admin/organize.blade.php:67
+#: templates/admin/organize.blade.php:70
+#, php-format
 msgid "%s (whole book)"
 msgstr ""
 
-#: templates/admin/organize.blade.php:69
+#: templates/admin/organize.blade.php:72
+#, php-format
 msgid "%s (selected for export)"
 msgstr ""
 
-#: templates/admin/organize.blade.php:91
-#: templates/admin/organize.blade.php:100
-#: templates/metaboxes/fields/reorderable-multiselect.blade.php:3
-msgid "Add"
-msgstr "Hozzáad"
+#: templates/admin/organize.blade.php:96
+#, php-format
+msgid "Add %s to %s"
+msgstr ""
 
-#: templates/admin/organize.blade.php:109
-#: templates/admin/organize.blade.php:175
+#: templates/admin/organize.blade.php:98
+#: templates/admin/organize.blade.php:112
+#, php-format
+msgid "Add %s"
+msgstr ""
+
+#: templates/admin/organize.blade.php:103
+#, php-format
+msgid "Add a new part below %s part"
+msgstr ""
+
+#: templates/admin/organize.blade.php:111
+#, php-format
+msgid "Add a new %s"
+msgstr ""
+
+#: templates/admin/organize.blade.php:121
+#: templates/admin/organize.blade.php:187
+#, php-format
 msgid "Edit​%s"
 msgstr ""
 
-#: templates/admin/organize.blade.php:112
+#: templates/admin/organize.blade.php:124
+#, php-format
 msgid "Trash​%s"
 msgstr ""
 
-#: templates/admin/organize.blade.php:114
+#: templates/admin/organize.blade.php:126
+#, php-format
 msgid "View​%s"
 msgstr ""
 
-#: templates/admin/organize.blade.php:133
+#: templates/admin/organize.blade.php:145
 msgid "Comments"
 msgstr "Hozzászólások"
 
-#: templates/admin/organize.blade.php:160
-#: templates/admin/organize.blade.php:168
+#: templates/admin/organize.blade.php:172
+#: templates/admin/organize.blade.php:180
 msgid "Ebook start point"
 msgstr "E-könyv kezdőpont"
 
-#: templates/admin/organize.blade.php:182
+#: templates/admin/organize.blade.php:194
+#, php-format
 msgid "Trash%s"
 msgstr ""
 
-#: templates/admin/organize.blade.php:187
+#: templates/admin/organize.blade.php:199
+#, php-format
 msgid "View%s"
 msgstr ""
 
-#: templates/admin/organize.blade.php:198
+#: templates/admin/organize.blade.php:210
+#, php-format
 msgid "Move%s Up"
 msgstr ""
 
-#: templates/admin/organize.blade.php:204
+#: templates/admin/organize.blade.php:216
+#, php-format
 msgid "Move%s Down"
 msgstr ""
 
-#: templates/admin/organize.blade.php:224
+#: templates/admin/organize.blade.php:236
 msgid "comment"
 msgid_plural "comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/admin/organize.blade.php:236
+#: templates/admin/organize.blade.php:248
+#, php-format
 msgid "Show %s in Web"
 msgstr ""
 
-#: templates/admin/organize.blade.php:246
+#: templates/admin/organize.blade.php:258
+#, php-format
 msgid "Show %s in Exports"
 msgstr ""
 
-#: templates/admin/organize.blade.php:255
+#: templates/admin/organize.blade.php:267
+#, php-format
 msgid "Show title for %s"
 msgstr ""
+
+#: templates/admin/settings/book-robots.blade.php:4
+msgid "Discourage AI from ingesting this book."
+msgstr ""
+
+#: templates/admin/settings/book-robots.blade.php:6
+msgid "Discourage crawlers and search engines from indexing this book."
+msgstr ""
+
+#: templates/admin/settings/book-visibility.blade.php:4
+msgid "Public. I would like this book to be visible to everyone."
+msgstr "Nyilvános. Szeretném, ha ez a könyv mindenki számára látható lenne."
+
+#: templates/admin/settings/book-visibility.blade.php:6
+msgid ""
+"Private. I would like this book to be accessible only to people I invite."
+msgstr "Privát. Szeretném, ha ez a könyv csak meghívottak számára lenne hozzáférhető."
+
+#: templates/admin/settings/disable-comments.blade.php:4
+msgid ""
+"Yes. I want to automatically disable comments, trackbacks and pingbacks on "
+"all front matter, chapters and back matter."
+msgstr "Igen. Szeretném automatikusan letiltani a megjegyzéseket, a visszajelzéseket és a pingbackeket az összes előlapon, fejezeten és hátlapon."
+
+#: templates/admin/settings/disable-comments.blade.php:6
+msgid ""
+"No. I want to leave comments, trackbacks and pingbacks enabled on all front "
+"matter, chapters and back matter unless I disable them manually."
+msgstr "Nem. Aktiválva szeretném hagyni a kommenteket, trackbackeket és pingbackeket minden előlapon, fejezetben és hátlapon, kivéve ha manuálisan le nem letiltom őket."
+
+#: templates/admin/settings/pressbooks-directory.blade.php:4
+msgid "Yes. I want this book to be listed in the Pressbooks directory."
+msgstr ""
+
+#: templates/admin/settings/pressbooks-directory.blade.php:6
+msgid "No. Exclude this book from the Pressbooks directory."
+msgstr ""
+
+#: templates/admin/settings/private-content.blade.php:3
+msgid "Who can see private front matter, chapters and back matter?"
+msgstr "Ki láthatja az előlapot, a fejezeteket és a hátoldalt?"
+
+#: templates/admin/settings/private-content.blade.php:5
+msgid "Only logged in editors and administrators."
+msgstr "Csak bejelentkezett szerkesztők és rendszergazdák."
+
+#: templates/admin/settings/private-content.blade.php:7
+msgid "All logged in users including subscribers."
+msgstr "Minden bejelentkezett felhasználó, beleértve az előfizetőket."
+
+#: templates/admin/settings/share-latest-export-files.blade.php:4
+msgid ""
+"Yes. I would like the latest export files to be available on the homepage "
+"for free, to everyone."
+msgstr "Igen. Szeretném, ha a legújabb exportfájlok mindenki számára ingyen elérhetők lennének a honlapon."
+
+#: templates/admin/settings/share-latest-export-files.blade.php:6
+msgid ""
+"No. I would like the latest export files to only be available to "
+"administrators."
+msgstr "Nem. Szeretném, ha a legfrissebb exportfájlok csak a rendszergazdák számára lennének elérhetők."
 
 #: templates/admin/sitemap.blade.php:3
 msgid "Admin Bar"
@@ -5431,11 +5822,19 @@ msgid ""
 "You can view it online here:"
 msgstr ""
 
+#: templates/interactive/h5pextractor.blade.php:7
+msgid "The interactive version of this H5P content is available at:"
+msgstr ""
+
 #: templates/interactive/media.blade.php:4
 msgid ""
 "One or more interactive elements has been excluded from this version of the "
 "text. You can view them online here: "
 msgstr ""
+
+#: templates/metaboxes/fields/reorderable-multiselect.blade.php:3
+msgid "Add"
+msgstr "Hozzáad"
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:4
 msgid "Remove"
@@ -5491,4 +5890,46 @@ msgstr ""
 
 #: assets/src/scripts/a11y.js:66
 msgid "Purple"
+msgstr ""
+
+#: assets/src/scripts/color-picker.js:12
+msgid "Open color picker"
+msgstr ""
+
+#: assets/src/scripts/color-picker.js:13
+msgid "Close color picker"
+msgstr ""
+
+#: assets/src/scripts/color-picker.js:14
+msgid "Clear the selected color"
+msgstr ""
+
+#: assets/src/scripts/color-picker.js:15
+msgid "Saturation: {s}. Brightness: {v}."
+msgstr ""
+
+#: assets/src/scripts/color-picker.js:16
+msgid "Hue slider"
+msgstr ""
+
+#: assets/src/scripts/color-picker.js:17
+msgid "Opacity slider"
+msgstr ""
+
+#: assets/src/scripts/color-picker.js:18
+msgid "Color value field"
+msgstr ""
+
+#: assets/src/scripts/color-picker.js:19
+msgid "Color format"
+msgstr ""
+
+#: assets/src/scripts/color-picker.js:20
+msgid "Color swatch"
+msgstr ""
+
+#: assets/src/scripts/color-picker.js:21
+msgid ""
+"Saturation and brightness selector. Use up, down, left and right arrow keys "
+"to select."
 msgstr ""

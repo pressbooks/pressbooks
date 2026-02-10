@@ -66,7 +66,7 @@ mix
 	.js( 'assets/src/scripts/export-footnotes.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/contributors.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/algolia-search.js', 'assets/dist/scripts/' )
-	.js( 'node_modules/@pressbooks/multiselect/pressbooks-multiselect.js', 'assets/dist/scripts/' )
+	.js( 'node_modules/@pressbooks/select/pressbooks-select.js', 'assets/dist/scripts/' )
 	.js( 'node_modules/@pressbooks/reorderable-multiselect/pressbooks-reorderable-multiselect.js', 'assets/dist/scripts/' )
 	.scripts(
 		'node_modules/event-source-polyfill/src/eventsource.js',
@@ -114,6 +114,7 @@ mix
 	.sass( 'assets/src/styles/covergenerator.scss', 'assets/dist/styles/' )
 	.css( 'assets/src/styles/duet.css', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/export.scss', 'assets/dist/styles/' )
+	.css( 'assets/src/styles/admin/export-ui.css', 'assets/dist/styles/admin/' )
 	.sass( 'assets/src/styles/glossary-definition.scss', 'assets/dist/styles' )
 	.sass( 'assets/src/styles/login.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/metadata.scss', 'assets/dist/styles/' )

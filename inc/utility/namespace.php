@@ -15,6 +15,9 @@
 
 namespace Pressbooks\Utility;
 
+use function Pressbooks\Modules\Export\filetypes;
+use Pressbooks\Book;
+use Pressbooks\Modules\Export\Export;
 use RuntimeException;
 
 /**
@@ -81,7 +84,7 @@ function group_exports( $dir = null ) {
 	$ignored = [ '.', '..', '.svn', '.git', '.htaccess' ];
 
 	if ( ! $dir ) {
-		$dir = \Pressbooks\Modules\Export\Export::getExportFolder();
+		$dir = Export::getExportFolder();
 	} else {
 		$dir = rtrim( $dir, '/' ) . '/';
 	}
@@ -122,7 +125,7 @@ function group_exports( $dir = null ) {
 function truncate_exports( $max, $dir = null ) {
 
 	if ( ! $dir ) {
-		$dir = \Pressbooks\Modules\Export\Export::getExportFolder();
+		$dir = Export::getExportFolder();
 	} else {
 		$dir = rtrim( $dir, '/' ) . '/';
 	}
@@ -189,12 +192,12 @@ function get_media_path( $guid ) {
  * @return array
  */
 function latest_exports() {
-	$filetypes = \Pressbooks\Modules\Export\filetypes();
-	$dir = \Pressbooks\Modules\Export\Export::getExportFolder();
+	$filetypes = filetypes();
+	$dir = Export::getExportFolder();
 	$files = [];
 
 	// group by extension, sort by date newest first
-	foreach ( \Pressbooks\Utility\scandir_by_date( $dir ) as $file ) {
+	foreach ( scandir_by_date( $dir ) as $file ) {
 		// only interested in the part of filename starting with the timestamp
 		if ( preg_match( '/-\d{10,11}(.*)/', $file, $matches ) ) {
 
@@ -225,6 +228,28 @@ function add_sitemap_to_robots_txt() {
 	if ( 1 === absint( get_option( 'blog_public' ) ) ) {
 		echo 'Sitemap: ' . get_option( 'siteurl' ) . "/?feed=sitemap.xml\n\n";
 	}
+}
+
+function handle_book_indexing( array $robots ) {
+	if ( ! Book::isBook() ) {
+		return $robots;
+	}
+
+	$options = get_option( 'pressbooks_robots', [
+		'discourage-ai' => 0,
+		'discourage-index' => 0,
+	] );
+
+	$discourage_index = (bool) $options['discourage-index'] ?? 0;
+	$discourage_ai = (bool) $options['discourage-ai'] ?? 0;
+
+	return [
+		...$robots,
+		'noindex' => $discourage_index,
+		'nofollow' => $discourage_index,
+		'noai' => $discourage_ai,
+		'noimageai' => $discourage_ai,
+	];
 }
 
 /**
@@ -1629,4 +1654,84 @@ function objects_to_csv( array $array ): string {
 	fclose( $output );
 
 	return $csv ?: '';
+}
+
+/**
+ * Convert CSS value to inches.
+ *
+ * @param string $value Value to convert to inches. Needs to be a string with an absolute CSS unit of measurement.
+ * @param int $dpi
+ * @return float|bool Converted value in inches or false if the value is invalid.
+ */
+function length_to_inches( $value, $dpi = 96 ) : float|bool {
+	$value = trim( $value ?? '' );
+
+	preg_match( '/^([-+]?[0-9]*\.?[0-9]+)([a-zA-Z%]+)$/', $value, $matches );
+
+	if ( ! $matches ) {
+		return false;
+	}
+
+	$number = floatval( $matches[1] );
+	$unit = strtolower( $matches[2] );
+
+	// Conversion factors to inches
+	$conversion_factors = [
+		'px' => 1 / $dpi,       // 1 inch = 96 pixels (assuming 96 DPI)
+		'pt' => 1 / 72,         // 1 inch = 72 points
+		'cm' => 0.393701,       // 1 inch = 2.54 cm
+		'mm' => 0.0393701,      // 1 inch = 25.4 mm
+		'in' => 1,              // Inches already
+		'pc' => 1 / 6,          // 1 inch = 6 picas (1 pica = 12 points)
+		'q'  => 0.0393701 / 40, // 1 inch = 40 quarters (1 quarter = 1/4 mm)
+	];
+
+	return ( array_key_exists( $unit, $conversion_factors ) ) ?
+		(float) ( $number * $conversion_factors[ $unit ] ) :
+		false;
+}
+
+/**
+ * Get H5P IDs for exportable posts.
+ * One query to get all posts with H5P shortcodes in their content.
+ *
+ * @return array
+ */
+function get_h5p_ids_for_exportable_posts(): array {
+
+	// This function caches the results to avoid multiple queries.
+	static $post_ids_to_export = [];
+	static $h5p_ids = [];
+	static $results = [];
+
+	if ( empty( $post_ids_to_export ) ) {
+		$post_ids_to_export = Book::getPostsIdsToExport();
+	}
+
+	// Check if the results are already cached
+	if ( ! empty( $results ) ) {
+		return $h5p_ids;
+	}
+
+	$query = new \WP_Query([
+		'post__in' => array_keys( $post_ids_to_export ),
+		'posts_per_page' => -1,
+		'post_type' => 'any',
+		'fields' => 'all',
+		'no_found_rows' => true,
+	]);
+
+	$results = $query->posts;
+
+	if ( ! empty( $results ) ) {
+		foreach ( $results as $post ) {
+			if ( preg_match_all( '/\[h5p\s+id\s*=\s*["\']?(\d+)["\']?\]/', $post->post_content, $matches ) ) {
+				$h5p_ids = array_merge( $h5p_ids, array_map( 'intval', $matches[1] ) );
+			}
+		}
+	}
+
+	$h5p_ids = array_unique( $h5p_ids );
+
+	return $h5p_ids;
 }

@@ -138,14 +138,14 @@ class UserBulk {
 	 * @return \WP_Error|string
 	 */
 	public function linkNewUserToBook( string $email, string $role ): \WP_Error|string {
-		$user_details = $this->generateUserNameFromEmail( $email );
+		$user_details = User::generateUserNameFromEmail( $email );
 
 		if ( is_wp_error( $user_details['errors'] ) && $user_details['errors']->has_errors() ) {
 			return $user_details['errors'];
 		}
 
 		$user_name = $user_details['user_name'];
-		$unique_username = apply_filters( 'pre_user_login', $this->sanitizeUser( wp_unslash( $user_name ), true ) );
+		$unique_username = apply_filters( 'pre_user_login', User::sanitizeUser( wp_unslash( $user_name ) ) );
 
 		// link newly created user to book
 		wpmu_signup_user(
@@ -158,47 +158,6 @@ class UserBulk {
 		);
 
 		return self::USER_STATUS_NEW;
-	}
-
-	/**
-	 * @param string $email
-	 * @return array
-	 */
-	public function generateUserNameFromEmail( string $email ): array {
-		if ( ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
-			return [ 'errors' => new \WP_Error( 'pb_email', __( 'Invalid email address', 'pressbooks' ) ) ];
-		}
-
-		$i = 1;
-		$username = explode( '@', $email )[0];
-		$unique_username = $this->sanitizeUser( $username );
-		while ( username_exists( $unique_username ) ) {
-			$unique_username = $this->sanitizeUser( "{$username}{$i}" );
-			++$i;
-		}
-
-		return wpmu_validate_user_signup( $unique_username, $email );
-	}
-
-	/**
-	 * Multisite has more restrictions on user login character set
-	 *
-	 * @see https://core.trac.wordpress.org/ticket/17904
-	 *
-	 * @param string $username
-	 *
-	 * @return string
-	 */
-	public function sanitizeUser( string $username ) : string {
-		$unique_username = sanitize_user( $username, true );
-		$unique_username = strtolower( $unique_username );
-		$unique_username = preg_replace( '/[^a-z0-9]/', '', $unique_username );
-
-		if ( preg_match( '/^[0-9]*$/', $unique_username ) ) {
-			$unique_username .= 'a'; // usernames must have letters too
-		}
-
-		return str_pad( $unique_username, 4, '1' );
 	}
 
 	/**

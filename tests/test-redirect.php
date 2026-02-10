@@ -182,7 +182,7 @@ class RedirectTest extends \WP_UnitTestCase {
 	 * @test
 	 * @group redirect
 	 */
-	public function it_redirects_regular_users_to_the_book_page(): void {
+	public function it_redirects_subscribers_in_book_to_original_page(): void {
 		$user = get_userdata(
 			$this->factory()->user->create( [ 'role' => 'subscriber' ] )
 		);
@@ -190,10 +190,18 @@ class RedirectTest extends \WP_UnitTestCase {
 		$this->_book();
 
 		$redirect_to = get_site_url( get_current_blog_id() );
+		$requested_redirect_to = get_site_url( get_current_blog_id() ) . '/chapter-1/';
 
+		// Subscriber should go back to the page they logged in from
 		$this->assertSame(
-			$redirect_to,
-			\Pressbooks\Redirect\handle_dashboard_redirect( $redirect_to, $redirect_to, $user )
+			$requested_redirect_to,
+			\Pressbooks\Redirect\handle_dashboard_redirect( $redirect_to, $requested_redirect_to, $user )
+		);
+
+		// If no requested redirect, should go to book homepage
+		$this->assertSame(
+			get_home_url(),
+			\Pressbooks\Redirect\handle_dashboard_redirect( admin_url(), admin_url(), $user )
 		);
 	}
 
@@ -227,7 +235,7 @@ class RedirectTest extends \WP_UnitTestCase {
 	 * @test
 	 * @group redirect
 	 */
-	public function it_redirects_super_admins_to_the_book_page(): void {
+	public function it_redirects_super_admins_to_book_dashboard(): void {
 		$user = get_userdata(
 			$this->factory()->user->create( [ 'role' => 'administrator' ] )
 		);
@@ -238,9 +246,69 @@ class RedirectTest extends \WP_UnitTestCase {
 
 		$redirect_to = get_site_url( get_current_blog_id() );
 
+		// Super admins in book context should go to book dashboard
 		$this->assertSame(
-			$redirect_to,
+			admin_url( 'index.php?page=book_dashboard' ),
 			\Pressbooks\Redirect\handle_dashboard_redirect( $redirect_to, $redirect_to, $user )
+		);
+	}
+
+	/**
+	 * @test
+	 * @group redirect
+	 */
+	public function it_redirects_users_with_book_roles_to_book_dashboard(): void {
+		$this->_book();
+
+		// Test contributor
+		$contributor = get_userdata(
+			$this->factory()->user->create( [ 'role' => 'contributor' ] )
+		);
+		$this->assertSame(
+			admin_url( 'index.php?page=book_dashboard' ),
+			\Pressbooks\Redirect\handle_dashboard_redirect( admin_url(), admin_url(), $contributor )
+		);
+
+		// Test author
+		$author = get_userdata(
+			$this->factory()->user->create( [ 'role' => 'author' ] )
+		);
+		$this->assertSame(
+			admin_url( 'index.php?page=book_dashboard' ),
+			\Pressbooks\Redirect\handle_dashboard_redirect( admin_url(), admin_url(), $author )
+		);
+
+		// Test editor
+		$editor = get_userdata(
+			$this->factory()->user->create( [ 'role' => 'editor' ] )
+		);
+		$this->assertSame(
+			admin_url( 'index.php?page=book_dashboard' ),
+			\Pressbooks\Redirect\handle_dashboard_redirect( admin_url(), admin_url(), $editor )
+		);
+	}
+
+	/**
+	 * @test
+	 * @group redirect
+	 */
+	public function it_redirects_users_with_no_book_role_to_original_page(): void {
+		$this->_book();
+
+		// Create a user with no role in the current book
+		$user = get_userdata(
+			$this->factory()->user->create()
+		);
+		// Remove any roles they might have in this book
+		$user->remove_all_caps();
+		
+		$redirect_to = get_site_url( get_current_blog_id() );
+		$requested_redirect_to = get_site_url( get_current_blog_id() ) . '/some-page/';
+
+		// User with no role should go back to requested page
+		$this->assertSame(
+			$requested_redirect_to,
+			\Pressbooks\Redirect\handle_dashboard_redirect( $redirect_to, $requested_redirect_to, $user )
 		);
 	}
 

@@ -1,7 +1,5 @@
 <div class="form-field">
-	@if($field->multiple)
-	<pressbooks-multiselect>
-	@endif
+	<pressbooks-select>
 		<label for="{{ $field->id }}">
 			{{ $field->label }}
 		</label>
@@ -11,7 +9,7 @@
 			name="{{ $field->multiple ? $field->name . '[]' : $field->name }}"
 			id="{{ $field->id }}"
 			@if ($field->description)
-			aria-describedby="{{ $field->id . '-description' }}"
+			aria-describedby="{{ $field->id . '-hint' }}"
 			@endif
 		>
 			@foreach($field->options as $key => $value)
@@ -27,11 +25,9 @@
 			@endforeach
 		</select>
 		@if(isset($field->description))
-		<p class="description" id="{{ $field->id . '-description' }}" slot="after">
+		<p class="description" id="{{ $field->id . '-hint' }}" slot="after">
 			{!! $field->description !!}
 		</p>
 		@endif
-	@if($field->multiple)
-	</pressbooks-multiselect>
-	@endif
+	</pressbooks-select>
 </div>

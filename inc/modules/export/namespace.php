@@ -11,34 +11,41 @@
 
 namespace Pressbooks\Modules\Export;
 
+use function Pressbooks\Sanitize\fix_audio_shortcode;
+use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Container;
 use Pressbooks\Contributors;
+use Pressbooks\Modules\BackgroundProcessing\BackgroundJob;
+use Pressbooks\Modules\Export\Epub\Epub;
+use Pressbooks\Modules\Export\Prince\Filters;
+use Pressbooks\Modules\Export\Xhtml\Xhtml11;
+use Pressbooks\Theme\Lock;
 
 /**
  * @return array
  */
-function dependency_errors() {
+function dependency_errors(): array {
 	$dependency_errors = [];
 
-	if ( false === (bool) get_site_transient( 'pb_pdf_compatible' ) && false === (bool) \Pressbooks\Modules\Export\Prince\Filters::hasDependencies() ) {
+	if ( false === (bool) get_site_transient( 'pb_pdf_compatible' ) && false === (bool) Filters::hasDependencies() ) {
 		$dependency_errors['pdf'] = 'PDF';
 	} else {
 		set_site_transient( 'pb_pdf_compatible', true );
 	}
 
-	if ( false === (bool) get_site_transient( 'pb_print_pdf_compatible' ) && false === (bool) \Pressbooks\Modules\Export\Prince\Filters::hasDependencies() ) {
+	if ( false === (bool) get_site_transient( 'pb_print_pdf_compatible' ) && false === (bool) Filters::hasDependencies() ) {
 		$dependency_errors['print_pdf'] = 'Print PDF';
 	} else {
 		set_site_transient( 'pb_print_pdf_compatible', true );
 	}
 
-	if ( false === (bool) get_site_transient( 'pb_epub_compatible' ) && false === (bool) \Pressbooks\Modules\Export\Epub\Epub::hasDependencies() ) {
+	if ( false === (bool) get_site_transient( 'pb_epub_compatible' ) && false === (bool) Epub::hasDependencies() ) {
 		$dependency_errors['epub'] = 'EPUB';
 	} else {
 		set_site_transient( 'pb_epub_compatible', true );
 	}
 
-	if ( false === (bool) get_site_transient( 'pb_xhtml_compatible' ) && false === (bool) \Pressbooks\Modules\Export\Xhtml\Xhtml11::hasDependencies() ) {
+	if ( false === (bool) get_site_transient( 'pb_xhtml_compatible' ) && false === (bool) Xhtml11::hasDependencies() ) {
 		$dependency_errors['xhtml'] = 'XHTML';
 	} else {
 		set_site_transient( 'pb_xhtml_compatible', true );
@@ -50,15 +57,13 @@ function dependency_errors() {
 	 *
 	 * @param array $dependency_errors
 	 */
-	$dependency_errors = apply_filters( 'pb_dependency_errors', $dependency_errors );
-
-	return $dependency_errors;
+	return apply_filters( 'pb_dependency_errors', $dependency_errors );
 }
 
 /**
  * @return string
  */
-function dependency_errors_msg() {
+function dependency_errors_msg(): string {
 	$dependency_errors = dependency_errors();
 	if ( empty( $dependency_errors ) ) {
 		return '';
@@ -79,7 +84,7 @@ function dependency_errors_msg() {
 /**
  * @return array
  */
-function formats() {
+function formats(): array {
 	$formats = [
 		'standard' => [
 			'print_pdf' => __( 'PDF (for print)', 'pressbooks' ),
@@ -95,7 +100,7 @@ function formats() {
 
 	// Common Cartridge 1.1 (Web Links)
 
-	$enable_thincc_weblinks = \Pressbooks\Admin\Network\SharingAndPrivacyOptions::getOption( 'enable_thincc_weblinks' );
+	$enable_thincc_weblinks = SharingAndPrivacyOptions::getOption( 'enable_thincc_weblinks' );
 	if ( $enable_thincc_weblinks ) {
 		$formats['standard']['weblinks'] = __( 'Common Cartridge with Web Links', 'pressbooks' );
 	}
@@ -111,15 +116,13 @@ function formats() {
 	 *    return $formats;
 	 * } );
 	 */
-	$formats = apply_filters( 'pb_export_formats', $formats );
-
-	return $formats;
+	return apply_filters( 'pb_export_formats', $formats );
 }
 
 /**
  * @return array
  */
-function filetypes() {
+function filetypes(): array {
 	/**
 	 * Add custom export formats to the latest exports filetype mapping array.
 	 *
@@ -134,7 +137,7 @@ function filetypes() {
 	 *
 	 * @param array $value
 	 */
-	$filetypes = apply_filters(
+	return apply_filters(
 		'pb_latest_export_filetypes', [
 			'epub3' => '._3.epub',
 			'epub' => '.epub',
@@ -152,7 +155,6 @@ function filetypes() {
 			'thincc13' => '._1_3.imscc',
 		]
 	);
-	return $filetypes;
 }
 
 /**
@@ -164,7 +166,7 @@ function filetypes() {
  *
  * @return string A human-readable filetype.
  */
-function get_name_from_filetype_slug( $filetype ) {
+function get_name_from_filetype_slug( $filetype ): string {
 	/**
 	 * Add custom export file type slugs to the array of file type slugs and corresponding human-readable filetypes.
 	 *
@@ -187,7 +189,7 @@ function get_name_from_filetype_slug( $filetype ) {
 			'thincc13' => __( 'Common Cartridge (LTI Links)', 'pressbooks' ),
 		]
 	);
-	return isset( $formats[ $filetype ] ) ? $formats[ $filetype ] : ucfirst( $filetype );
+	return $formats[ $filetype ] ?? ucfirst( $filetype );
 }
 
 /**
@@ -199,7 +201,7 @@ function get_name_from_filetype_slug( $filetype ) {
  *
  * @return string A human-readable short filetype.
  */
-function get_shortname_from_filetype_slug( $filetype ) {
+function get_shortname_from_filetype_slug( $filetype ): string {
 	/**
 	 * Add custom export file type slugs to the array of file type slugs and corresponding human-readable short filetypes.
 	 *
@@ -222,7 +224,7 @@ function get_shortname_from_filetype_slug( $filetype ) {
 			'thincc13' => __( 'IMSCC', 'pressbooks' ),
 		]
 	);
-	return isset( $formats[ $filetype ] ) ? $formats[ $filetype ] : ucfirst( $filetype );
+	return $formats[ $filetype ] ?? ucfirst( $filetype );
 }
 
 /**
@@ -234,7 +236,8 @@ function get_shortname_from_filetype_slug( $filetype ) {
  *
  * @return string A human-readable filetype.
  */
-function get_name_from_module_classname( $classname ) {
+function get_name_from_module_classname( $classname ): string {
+
 	/**
 	 * Add custom export module classnames to the array of export module classnames and corresponding human-readable filetypes.
 	 *
@@ -253,19 +256,20 @@ function get_name_from_module_classname( $classname ) {
 			'\Pressbooks\Modules\Export\ThinCC\WebLinks' => __( 'Common Cartridge (Web Links)', 'pressbooks' ),
 		]
 	);
-	return isset( $formats[ $classname ] ) ? $formats[ $classname ] : substr( strrchr( $classname, '\\' ), 1 );
+	$parts = explode( '\\', $classname );
+	return $formats[ $classname ] ?? end( $parts );
 }
 
 /**
  * @return array
  */
-function template_data() {
+function template_data(): array {
 
 	$pdf_preview_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin-post.php?action=pdf_preview' ), 'pdf-preview' );
 	$export_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export&export=yes' ), 'pb-export' );
 
 	$theme_name = wp_get_theme()->display( 'Name' ) . ' ' . wp_get_theme()->display( 'Version' );
-	if ( \Pressbooks\Theme\Lock::init()->isLocked() ) {
+	if ( Lock::init()->isLocked() ) {
 		$theme_name .= '<span class="dashicons dashicons-lock" style="vertical-align: text-bottom;"></span>';
 	}
 
@@ -282,7 +286,7 @@ function template_data() {
 /**
  * WP_Ajax
  */
-function update_pins() {
+function update_pins(): void {
 	check_ajax_referer( 'pb-export-pins' );
 	$pins = json_decode( stripcslashes( $_POST['pins'] ), true );
 	if ( is_array( $pins ) ) {
@@ -304,7 +308,7 @@ function update_pins() {
  * @param $post_id Integer
  * @return string
  */
-function get_contributors_section( $post_id ) {
+function get_contributors_section( $post_id ): string {
 	$contributors = new Contributors();
 	$chapter_contributors = $contributors->getContributorsWithMeta( $post_id, 'authors' );
 	if ( empty( $chapter_contributors ) ) {
@@ -324,4 +328,303 @@ function get_contributors_section( $post_id ) {
 	}
 	$print .= '</div>';
 	return $print;
+}
+
+function get_friendly_name_for_module( string $module_classname ): string {
+	return get_name_from_module_classname( $module_classname );
+}
+
+/**
+ * AJAX handler for submitting export jobs.
+ * This method now uses the centralized processAndQueueJobRequests method.
+ */
+function handle_exports_submit(): void {
+
+	check_ajax_referer( 'pb-export-book', 'pb_export_nonce' );
+
+	if ( ! current_user_can( 'edit_posts' ) ) {
+		wp_send_json_error( [ 'message' => __( 'Permission denied.', 'pressbooks' ) ], 403 );
+		return;
+	}
+
+	$export_formats_from_post = isset( $_POST['export_formats'] ) && is_array( $_POST['export_formats'] ) ? $_POST['export_formats'] : [];
+
+	$sanitized_export_formats = [];
+	foreach ( $export_formats_from_post as $key => $value ) {
+		$sanitized_export_formats[ sanitize_text_field( $key ) ] = sanitize_text_field( $value );
+	}
+
+	if ( empty( $sanitized_export_formats ) ) {
+		wp_send_json_error( [ 'message' => __( 'No export formats selected.', 'pressbooks' ) ], 400 );
+		return;
+	}
+
+	$export_options_from_post = isset( $_POST['export_options'] ) && is_array( $_POST['export_options'] ) ? $_POST['export_options'] : [];
+
+	$results = process_and_queue_job_requests( $sanitized_export_formats, $export_options_from_post );
+
+	$has_successful_queues = false;
+	$successfully_queued_count = 0;
+	foreach ( $results as $result ) {
+		if ( isset( $result['status'] ) && $result['status'] === 'success' && $result['event_type'] === 'job_queued' ) {
+			$has_successful_queues = true;
+			$successfully_queued_count++;
+		}
+	}
+
+	if ( $has_successful_queues ) {
+		wp_send_json_success( [
+			'message' => sprintf( _n( '%d export job queued.', '%d export jobs processed.', $successfully_queued_count, 'pressbooks' ), $successfully_queued_count ),
+			'results' => $results,
+			'reload_on_complete' => true,
+			'total_jobs' => $successfully_queued_count,
+		] );
+	} else {
+		// If all failed or were skipped
+		$error_message = __( 'No export jobs were successfully queued.', 'pressbooks' );
+		$specific_errors = [];
+		foreach ( $results as $result ) {
+			if ( isset( $result['status'] ) && $result['status'] === 'error' && isset( $result['message'] ) ) {
+				$specific_errors[] = $result['message'];
+			}
+		}
+		if ( ! empty( $specific_errors ) ) {
+			$error_message .= ' ' . __( 'Details:', 'pressbooks' ) . ' ' . implode( '; ', $specific_errors );
+		}
+		wp_send_json_error( [
+			'message' => $error_message,
+			'results' => $results,
+			'reload_on_complete' => false,
+		], 400 );
+	}
+	// Ensure exit after sending JSON response.
+	exit;
+}
+
+/**
+ * Processes export format requests, queues background jobs, and schedules them.
+ * This method is designed to be reusable by different AJAX handlers or processes.
+ *
+ * @param array $export_formats_input Associative array of export formats to process, e.g., ['pdf' => 'pdf', 'epub' => 'epub'].
+ * @param array $export_options_input Associative array of export options.
+ * @return array An array of results, with each item detailing the outcome for a format.
+ */
+
+function process_and_queue_job_requests( array $export_formats_input, array $export_options_input ): array {
+
+	BackgroundJob::ensureExportsTable();
+
+	$results = [];
+	$available_modules = Export::modules();
+	$locale_switched = switch_to_locale( Export::locale() );
+
+	foreach ( array_keys( $export_formats_input ) as $format_slug_key ) {
+		$format_slug = sanitize_text_field( $format_slug_key ); // Sanitize the key itself if it comes from user input.
+		$module_classname = $available_modules[ $format_slug ] ?? null;
+
+		if ( ! $module_classname || ! class_exists( $module_classname ) ) {
+			$results[] = [
+				'event_type' => 'job_queue_failed', // Consistent event_type for easier parsing
+				'message' => sprintf( __( 'Invalid or unsupported export format: %s', 'pressbooks' ), esc_html( $format_slug ) ),
+				'module_slug' => $format_slug,
+				'status' => 'error',
+			];
+			continue;
+		}
+
+		// Only proceed if this module is available and valid.
+		if ( in_array( $module_classname, $available_modules, true ) ) {
+			$constructor_args = [];
+
+			$book_id = get_current_blog_id();
+			$user_id = get_current_user_id();
+
+			/** @var Manager $db */
+			$db = app( 'db' );
+			$insert_data = [
+				'book_id' => $book_id,
+				'user_id' => $user_id,
+				'export_format' => $format_slug,
+				'export_module_classname' => $module_classname,
+				'export_options' => wp_json_encode( $constructor_args ),
+				'status' => 'pending',
+				'created_at' => current_time( 'mysql', true ),
+				'updated_at' => current_time( 'mysql', true ),
+			];
+			$job_id = $db->table( BackgroundJob::JOBS_TABLE_NAME )->insertGetId( $insert_data );
+
+			$friendly_name = get_friendly_name_for_module( $module_classname );
+
+			if ( $job_id ) {
+				// TODO: (bg) Review if this is the best way to schedule the job.
+				wp_schedule_single_event( time(), 'pressbooks_process_export_job', [ 'job_id' => $job_id ] );
+
+				$results[] = [
+					'event_type' => 'job_queued',
+					'book_id' => $book_id,
+					'job_id' => $job_id,
+					'message' => sprintf( __( '%s export has been queued (Job ID: %d).', 'pressbooks' ), $friendly_name, $job_id ),
+					'module_slug' => $format_slug,
+					'module_classname' => $module_classname,
+					'format_name' => $friendly_name,
+					'status' => 'success',
+				];
+			} else {
+				$results[] = [
+					'event_type' => 'job_queue_failed',
+					'message' => sprintf( __( 'Failed to queue %s export.', 'pressbooks' ), $friendly_name ),
+					'module_slug' => $format_slug,
+					'module_classname' => $module_classname,
+					'format_name' => $friendly_name,
+					'status' => 'error',
+					'error_details' => 'Failed to insert job into the database.',
+				];
+			}
+		}
+	}
+
+	if ( $locale_switched ) {
+		restore_previous_locale();
+	}
+
+	return $results;
+}
+
+/**
+ * Catch form submissions
+ *
+ * @see pressbooks/templates/admin/export.blade.php
+ */
+function handle_downloads(): void {
+
+	if ( false === is_form_submission() || false === current_user_can( 'edit_posts' ) ) {
+		return;
+	}
+
+	// Override some WP behaviours when exporting
+	fix_audio_shortcode();
+
+	// Download
+	if ( ! empty( $_GET['download_export_file'] ) ) {
+		$filename = sanitize_file_name( $_GET['download_export_file'] );
+		Export::downloadExportFile( $filename, false );
+		exit;
+	}
+}
+/**
+ * Check if a user submitted something to admin.php?page=pb_export
+ *
+ * @return bool
+ */
+function is_form_submission(): bool {
+
+	if ( wp_doing_ajax() ) {
+		if ( empty( $_REQUEST['action'] ) ) {
+			return false;
+		}
+
+		if ( 'export-book' !== $_REQUEST['action'] ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	// Delete, Download, Etc.
+	if ( empty( $_REQUEST['page'] ) ) {
+		return false;
+	}
+
+	if ( 'pb_export' !== $_REQUEST['page'] ) {
+		return false;
+	}
+
+	if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
+		return true;
+	}
+
+	if ( count( $_GET ) > 1 ) {
+		return true;
+	}
+
+	return false;
+}
+
+function pb_xhtml_after_content_processed(): void {
+
+	$upload_dir = Container::get( 'Sass' )->pathToUserGeneratedCss();
+	$filename = 'scopedstyles.css';
+	$css_path = $upload_dir . '/' . $filename;
+	$css_content = apply_filters( 'pb_process_scoped_styles', '' );
+
+	if ( empty( $css_content ) ) {
+		if ( file_exists( $css_path ) ) {
+			app( 'ScopedStyles' )->h5p_css_url = Container::get( 'Sass' )->urlToUserGeneratedCss( true ) . "/{$filename}";
+		}
+		return;
+	}
+
+	$optimized_css_path = $upload_dir . '/optimized-' . $filename;
+
+	if ( file_exists( $css_path ) ) {
+		unlink( $css_path );
+	}
+
+	$write_success = file_put_contents( $css_path, $css_content );
+
+	$node_modules = WP_PLUGIN_DIR . '/pressbooks/node_modules/.bin';
+	$purge_script = $node_modules . '/css-purge';
+
+	if ( file_exists( $purge_script ) ) {
+		$output = [];
+		$return_var = 0;
+		exec( "$purge_script -i $css_path -o $optimized_css_path", $output, $return_var );
+
+		if ( $return_var !== 0 ) {
+			error_log( 'Pressbooks Custom XHTML CSS: Failed to run css-purge' );
+		}
+	}
+
+	$url = Container::get( 'Sass' )->urlToUserGeneratedCss( true ) . "/optimized-{$filename}";
+
+	if ( $write_success ) {
+		app( 'ScopedStyles' )->h5p_css_url = $url;
+		return;
+	}
+
+	app( 'ScopedStyles' )->h5p_css_url = '';
+}
+
+/**
+ * AJAX handler to cancel an export job.
+ */
+function handle_cancel_export_job(): void {
+	check_ajax_referer( 'pb-export-book', 'pb_cancel_nonce' );
+
+	if ( ! current_user_can( 'edit_posts' ) ) {
+		wp_send_json_error( [ 'message' => __( 'Permission denied.', 'pressbooks' ) ], 403 );
+		return;
+	}
+
+	$job_id = isset( $_POST['job_id'] ) ? intval( $_POST['job_id'] ) : 0;
+
+	if ( $job_id <= 0 ) {
+		wp_send_json_error( [ 'message' => __( 'Invalid job ID.', 'pressbooks' ) ], 400 );
+		return;
+	}
+
+	$job = app( 'db' )->table( BackgroundJob::JOBS_TABLE_NAME )
+		->where( 'id', $job_id )
+		->first();
+
+	if ( ! $job ) {
+		wp_send_json_error( [ 'message' => __( 'Job not found or already processed.', 'pressbooks' ) ], 404 );
+		return;
+	}
+
+	app( 'db' )->table( BackgroundJob::JOBS_TABLE_NAME )
+		->where( 'id', $job_id )
+		->delete();
+
+	wp_send_json_success( [ 'message' => __( 'Export job canceled successfully.', 'pressbooks' ) ] );
 }

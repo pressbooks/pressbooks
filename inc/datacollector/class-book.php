@@ -9,6 +9,7 @@ namespace Pressbooks\DataCollector;
 use function Pressbooks\Image\attachment_id_from_url;
 use function Pressbooks\Metadata\get_institution_by_code;
 use function \Pressbooks\Metadata\get_in_catalog_option;
+use Illuminate\Database\Query\Builder;
 use Pressbooks\Licensing;
 
 class Book {
@@ -22,6 +23,8 @@ class Book {
 	const TITLE = 'pb_title';
 
 	const LAST_EDITED = 'pb_last_edited';
+
+	const PUBLICATION_DATE = 'pb_publication_date';
 
 	const CREATED = 'pb_created';
 
@@ -91,6 +94,10 @@ class Book {
 
 	const BOOK_DIRECTORY_EXCLUDED = 'pb_book_directory_excluded';
 
+	const ARCHIVED_DATE = 'pb_book_archived_date';
+
+	const ARCHIVED_BY = 'pb_book_archived_by';
+
 	const AUTHORS = 'pb_authors';
 
 	const EDITORS = 'pb_editors';
@@ -143,10 +150,81 @@ class Book {
 	/**
 	 * @param Book $obj
 	 */
-	public static function hooks( Book $obj ) {
+	public static function hooks( Book $obj ): void {
 		add_action( 'wp_update_site', [ $obj, 'updateSite' ], 999, 2 );
+
+		add_action(
+			hook_name: 'add_user_to_blog',
+			callback: fn ( int $user_id, string $role, int $blog_id ) => $obj->updateBookAdmins( $blog_id ),
+			priority: 999,
+			accepted_args: 3
+		);
+
+		// This action gets called before actually removing the user from the blog
+		// so we pass the user id to filter it out from the list of admins
+		add_action(
+			hook_name: 'remove_user_from_blog',
+			callback: fn ( int $user_id, int $blog_id ) => $obj->updateBookAdmins( $blog_id, $user_id ),
+			priority: 999,
+			accepted_args: 2
+		);
+
+		add_action(
+			hook_name: 'deleted_user',
+			callback: fn ( int $user_id ) => $obj->updateBookAdmins( get_current_blog_id(), $user_id ),
+			accepted_args: 999
+		);
+
+		add_action(
+			hook_name: 'add_user_role',
+			callback: fn () => $obj->updateBookAdmins( get_current_blog_id() ),
+			priority: 999
+		);
+
+		add_action(
+			hook_name: 'set_user_role',
+			callback: fn () => $obj->updateBookAdmins( get_current_blog_id() ),
+			priority: 999
+		);
+
+		add_action(
+			hook_name: 'remove_user_role',
+			callback: fn () => $obj->updateBookAdmins( get_current_blog_id() ),
+			accepted_args: 999
+		);
+
 		add_action( 'wp_insert_post', [ $obj, 'updateMetaData' ], 10, 3 ); // Trigger after deleteBookObjectCache
 		add_action( 'wp_delete_site', [ $obj, 'deleteSite' ], 999 );
+	}
+
+	public function updateBookAdmins( int $blog_id, ?int $user_id = null ): void {
+		switch_to_blog( $blog_id );
+
+		global $wpdb;
+
+		/** @var Collection $ids */
+		$ids = app( 'db' )
+			->table( 'usermeta' )
+			->where( 'meta_key', "{$wpdb->prefix}capabilities" )
+			->where( 'meta_value', 'like', '%administrator%' )
+			->when( $user_id, function ( Builder $query, int $user_id ) {
+				$query->where( 'user_id', '<>', $user_id );
+			} )
+			->pluck( 'user_id' );
+
+		update_site_meta( $blog_id, 'pb_book_admins', $ids->join( ',' ) );
+
+		restore_current_blog();
+	}
+
+	public function updateAllBooksAdmins(): void {
+		global $wpdb;
+
+		$books = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+
+		foreach ( $books as $book_id ) {
+			$this->updateBookAdmins( $book_id );
+		}
 	}
 
 	// ------------------------------------------------------------------------
@@ -217,6 +295,8 @@ class Book {
 
 		switch_to_blog( $book_id );
 
+		$this->updateBookAdmins( $book_id );
+
 		// --------------------------------------------------------------------
 		// Network Analytic Columns
 		// --------------------------------------------------------------------
@@ -238,6 +318,9 @@ class Book {
 		// pb_title
 		update_site_meta( $book_id, self::TITLE, $metadata['pb_title'] ?? '' );
 
+		// pb_publication_date
+		update_site_meta( $book_id, self::PUBLICATION_DATE, $metadata['pb_publication_date'] ?? '' );
+
 		// pb_last_edited
 		// pb_created
 		// pb_deactivated
@@ -245,6 +328,25 @@ class Book {
 		update_site_meta( $book_id, self::LAST_EDITED, $blog_info->last_updated );
 		update_site_meta( $book_id, self::CREATED, $blog_info->registered );
 		update_site_meta( $book_id, self::DEACTIVATED, $blog_info->deleted );
+
+		// pb_book_archived_date
+		// pb_book_archived_by
+		// Only preserve archived metadata if the book is currently archived
+		if ( '1' === $blog_info->archived ) {
+			// Preserve existing values if they exist, otherwise set them now
+			$existing_date = get_site_meta( $book_id, self::ARCHIVED_DATE, true );
+			$existing_by = get_site_meta( $book_id, self::ARCHIVED_BY, true );
+			if ( empty( $existing_date ) ) {
+				update_site_meta( $book_id, self::ARCHIVED_DATE, gmdate( 'Y-m-d H:i:s' ) );
+			}
+			if ( empty( $existing_by ) ) {
+				update_site_meta( $book_id, self::ARCHIVED_BY, get_current_user_id() );
+			}
+		} else {
+			// Book is not archived, ensure archived metadata is cleared
+			delete_site_meta( $book_id, self::ARCHIVED_DATE );
+			delete_site_meta( $book_id, self::ARCHIVED_BY );
+		}
 
 		// pb_word_count
 		$word_count = \Pressbooks\Book::wordCount();
@@ -491,7 +593,7 @@ class Book {
 
 			global $wpdb;
 			$main_site_id = get_network()->site_id;
-			$books = $wpdb->get_col( $wpdb->prepare( "SELECT blog_id FROM {$wpdb->blogs} WHERE archived = 0 AND spam = 0 AND blog_id != %d ", $main_site_id ) );
+			$books = $wpdb->get_col( $wpdb->prepare( "SELECT blog_id FROM {$wpdb->blogs} WHERE spam = 0 AND blog_id != %d ", $main_site_id ) );
 
 			// Purging books that no longer exist (from wp_blogmeta)...
 			if ( count( $books ) ) {
