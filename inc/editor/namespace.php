@@ -528,25 +528,16 @@ function fix_table_header_cells( string $content ): string {
 		return $content;
 	}
 
-	// Protect LaTeX backslashes before unslashing by replacing with unique placeholder
+	// Protect LaTeX backslashes through WordPress slashing/unslashing
 	$latex_placeholder = '!@#LATEXBACKSLASH#@!';
 	$content = str_replace( '\\\\', $latex_placeholder, $content );
-
-	// Unslash content to get actual HTML (WordPress adds slashes for database protection)
 	$content = wp_unslash( $content );
-
-	// Restore LaTeX backslashes
 	$content = str_replace( $latex_placeholder, '\\', $content );
 
+	// Parse HTML and transform table headers
 	libxml_use_internal_errors( true );
-
 	$dom = new \DOMDocument( '1.0', 'UTF-8' );
-	// Wrap content in div to preserve structure, load as UTF-8
-	$dom->loadHTML(
-		'<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body>' . $content . '</body></html>',
-		LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
-	);
-
+	$dom->loadHTML( '<?xml encoding="UTF-8">' . $content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
 	libxml_clear_errors();
 
 	$theads = $dom->getElementsByTagName( 'thead' );
@@ -588,22 +579,10 @@ function fix_table_header_cells( string $content ): string {
 		}
 	}
 
-	// Extract the body content (DOMDocument wraps content in html/body tags)
-	$html = '';
-	$body = $dom->getElementsByTagName( 'body' )->item( 0 );
-	if ( $body ) {
-		foreach ( $body->childNodes as $node ) {
-			$html .= $dom->saveHTML( $node );
-		}
-	}
-
-	// Protect LaTeX backslashes again before slashing (DOMDocument may have single backslashes)
+	// Save HTML and restore LaTeX backslashes through slashing
+	$html = $dom->saveHTML();
 	$html = str_replace( '\\', $latex_placeholder, $html );
-
-	// Re-slash for WordPress (filter expects slashed content)
 	$html = wp_slash( $html );
-
-	// Restore LaTeX backslashes as double-backslashes (for WordPress slashed output)
 	$html = str_replace( $latex_placeholder, '\\\\', $html );
 
 	return $html;
