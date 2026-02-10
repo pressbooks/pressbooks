@@ -286,5 +286,15 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<th>Normal Header</th>', $result_complex );
 		// Table body should be unchanged
 		$this->assertStringContainsString( '<tbody><tr><td>Data</td><td>More data</td></tr></tbody>', $result_complex );
+
+		// Test UTF-8 special characters (curly quotes, em dash, international characters)
+		$input_utf8 = '<table><thead><tr><td>Café</td><td>Niño</td><td>"Curly" Quotes</td><td>Em—Dash</td><td>中文</td></tr></thead></table>';
+		$result_utf8 = \Pressbooks\Editor\fix_table_header_cells( wp_slash( $input_utf8 ) );
+		// DOMDocument encodes special characters as HTML entities - verify they're preserved
+		$this->assertStringContainsString( '<th>Caf&eacute;</th>', $result_utf8 );
+		$this->assertStringContainsString( '<th>Ni&ntilde;o</th>', $result_utf8 );
+		$this->assertStringContainsString( '<th>\"Curly\" Quotes</th>', $result_utf8 );
+		$this->assertStringContainsString( '<th>Em&mdash;Dash</th>', $result_utf8 );
+		$this->assertStringContainsString( '<th>&#20013;&#25991;</th>', $result_utf8 );
 	}
 }

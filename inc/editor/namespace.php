@@ -581,6 +581,8 @@ function fix_table_header_cells( string $content ): string {
 
 	// Save HTML and restore backslashes through slashing
 	$html = $dom->saveHTML();
+	// Remove the XML declaration we added for UTF-8 parsing
+	$html = str_replace( '<?xml encoding="UTF-8">', '', $html );
 	$html = str_replace( '\\', $backslash_placeholder, $html );
 	$html = wp_slash( $html );
 	$html = str_replace( $backslash_placeholder, '\\\\', $html );
