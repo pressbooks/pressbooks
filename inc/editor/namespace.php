@@ -528,11 +528,11 @@ function fix_table_header_cells( string $content ): string {
 		return $content;
 	}
 
-	// Protect LaTeX backslashes through WordPress slashing/unslashing
-	$latex_placeholder = '!@#LATEXBACKSLASH#@!';
-	$content = str_replace( '\\\\', $latex_placeholder, $content );
+	// Protect backslashes through WordPress slashing/unslashing
+	$backslash_placeholder = '!@#BACKSLASH#@!';
+	$content = str_replace( '\\\\', $backslash_placeholder, $content );
 	$content = wp_unslash( $content );
-	$content = str_replace( $latex_placeholder, '\\', $content );
+	$content = str_replace( $backslash_placeholder, '\\', $content );
 
 	// Parse HTML and transform table headers
 	libxml_use_internal_errors( true );
@@ -579,11 +579,11 @@ function fix_table_header_cells( string $content ): string {
 		}
 	}
 
-	// Save HTML and restore LaTeX backslashes through slashing
+	// Save HTML and restore backslashes through slashing
 	$html = $dom->saveHTML();
-	$html = str_replace( '\\', $latex_placeholder, $html );
+	$html = str_replace( '\\', $backslash_placeholder, $html );
 	$html = wp_slash( $html );
-	$html = str_replace( $latex_placeholder, '\\\\', $html );
+	$html = str_replace( $backslash_placeholder, '\\\\', $html );
 
 	return $html;
 }
