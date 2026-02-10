@@ -15,7 +15,6 @@ class NetworkDashboard extends Dashboard {
 		add_action( 'load-index.php', [ $this, 'redirect' ] );
 		add_action( 'network_admin_menu', [ $this, 'removeDefaultPage' ] );
 		add_action( 'network_admin_menu', [ $this, 'addNewPage' ] );
-		$this->fetchUpdates();
 	}
 
 	public function getUrl(): string {
@@ -25,6 +24,8 @@ class NetworkDashboard extends Dashboard {
 	public function render(): void {
 		$blade = Container::get( 'Blade' );
 
+		$updates = $this->fetchUpdates();
+
 		echo $blade->render( 'admin.dashboard.network', [
 			'network_name' => get_bloginfo( 'name' ),
 			'network_url' => network_home_url(),
@@ -33,8 +34,8 @@ class NetworkDashboard extends Dashboard {
 			'network_analytics_active' => is_plugin_active( 'pressbooks-network-analytics/pressbooks-network-analytics.php' ),
 			'koko_analytics_active' => is_plugin_active( 'koko-analytics/koko-analytics.php' ),
 			'updates' => [
-				'text' => $this->recentUpdates['content'] ?? '',
-				'url' => isset( $this->recentUpdates['post_id'] ) ? "{$this->recentUpdates['domain']}?p={$this->recentUpdates['post_id']}" : null,
+				'text' => $updates['content'] ?? '',
+				'url' => isset( $updates['post_id'] ) ? "{$updates['domain']}?p={$updates['post_id']}" : null,
 			],
 		] );
 	}

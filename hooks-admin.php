@@ -114,6 +114,7 @@ add_filter( 'map_meta_cap', '\Pressbooks\Admin\Laf\allow_edit_to_book_authors', 
 add_filter( 'ajax_query_attachments_args', '\Pressbooks\Admin\Laf\filter_media_for_contributors' );
 add_action( 'pre_get_posts', '\Pressbooks\Admin\Laf\filter_media_list_for_contributors' );
 add_action( 'init', '\Pressbooks\Admin\Laf\enable_media_buttons_for_contributors' );
+add_action( 'load-post-new.php', '\Pressbooks\Admin\Laf\block_metadata_add_new_page' );
 
 // Network settings
 add_action( 'network_admin_menu', [ '\Pressbooks\Admin\Network\NetworkSettings', 'init' ] );

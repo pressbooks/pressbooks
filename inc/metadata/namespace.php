@@ -607,7 +607,7 @@ function section_information_to_schema( $section_information, $book_information 
 
 	foreach ( $mapped_section_properties as $old => $new ) {
 		if ( isset( $section_information[ $old ] ) ) {
-			$section_schema[ $new ] = $section_information[ $old ];
+			$section_schema[ $new ] = wp_strip_all_tags( $section_information[ $old ] );
 		}
 	}
 
@@ -1077,7 +1077,7 @@ function add_citation_metadata() {
 				}
 			} else {
 				if ( isset( $metadata[ $from ] ) && ! empty( $metadata[ $from ] ) ) {
-					$tags[] = sprintf( '<meta name="%1$s" content="%2$s">', $to, $metadata[ $from ] );
+					$tags[] = sprintf( '<meta name="%1$s" content="%2$s">', $to, wp_strip_all_tags( $metadata[ $from ] ) );
 				}
 			}
 		}

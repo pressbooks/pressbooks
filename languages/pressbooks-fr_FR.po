@@ -14,7 +14,8 @@
 # Hubert GB <hgblouin@tciinc.ca>, 2019
 # Hugh McGuire <hugh@pressbooks.com>, 2018
 # Ian Curtis, 2022
-# Mich Spieler, 2024-2025
+# Marie-Hélène Vézina, 2025
+# Mich Spieler, 2024-2026
 # MMOUNA MOUM, 2022
 # Ned Zimmerman <ned@bight.dev>, 2014
 # Ned Zimmerman, 2014-2015
@@ -30,7 +31,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
 "POT-Creation-Date: 2025-07-30T15:12:23+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
-"Last-Translator: Mich Spieler, 2024-2025\n"
+"Last-Translator: Mich Spieler, 2024-2026\n"
 "Language-Team: French (http://app.transifex.com/pressbooks/pressbooks/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -357,12 +358,12 @@ msgstr "Accès sans restriction"
 #: inc/admin/class-pressbookstable.php:76
 #, php-format
 msgid "%1$s column, sorted %2$s. Activate to sort %3$s."
-msgstr ""
+msgstr "%1$s colonne, triée %2$s. Activer pour trier %3$s."
 
 #: inc/admin/class-pressbookstable.php:84
 #, php-format
 msgid "Sort by %s in ascending order."
-msgstr ""
+msgstr "Trier par %s en ordre croissant."
 
 #: inc/admin/class-publishoptions.php:74
 msgid "Amazon URL"
@@ -934,7 +935,7 @@ msgstr "Cette exportation est actuellement en cours"
 
 #: inc/admin/laf/namespace.php:366
 msgid "Completed"
-msgstr ""
+msgstr "Terminé"
 
 #: inc/admin/laf/namespace.php:385 inc/utility/class-handlestransfers.php:88
 #: templates/admin/import.php:38 templates/admin/import.php:114
@@ -1056,7 +1057,7 @@ msgstr "Visibilité du livre"
 #: inc/admin/laf/namespace.php:1268
 #: templates/admin/settings/book-robots.blade.php:2
 msgid "Robots"
-msgstr ""
+msgstr "Robots d'indexation"
 
 #: inc/admin/laf/namespace.php:1283
 #: templates/admin/settings/private-content.blade.php:2
@@ -1141,7 +1142,7 @@ msgstr "Modifier la section suivante (%s)"
 
 #: inc/admin/laf/namespace.php:1682
 msgid "X/Twitter URL"
-msgstr ""
+msgstr "URL X/Twitter"
 
 #: inc/admin/laf/namespace.php:1683
 msgid "LinkedIn URL"
@@ -1275,7 +1276,7 @@ msgstr "PB Stats"
 
 #: inc/admin/menus/class-topbar.php:109
 msgid "Pressbooks logo"
-msgstr ""
+msgstr "Logo Pressbooks"
 
 #: inc/admin/menus/class-topbar.php:164
 msgid "Administer Network"
@@ -1305,7 +1306,7 @@ msgstr "Titre d&rsquo;appel"
 msgid ""
 "A very short description of your book. It should fit in a social media post,"
 " and encapsulate your book in the briefest sentence."
-msgstr ""
+msgstr "Une description très brève de votre livre. Elle doit tenir dans un message sur les médias sociaux et en résumer l'essentiel en une phrase aussi courte que possible."
 
 #: inc/admin/metaboxes/class-about.php:32
 msgid "Short Description"
@@ -1359,7 +1360,7 @@ msgstr "Mot-clic"
 msgid ""
 "This hashtag is added to your webbook cover page and can be referenced on "
 "social media. Will also be included in social shares to X."
-msgstr ""
+msgstr "Ce mot-clic est ajouté à la page de couverture de votre livre Web et peut être utilisé sur les médias sociaux. Il sera également inclus dans les partages sur X."
 
 #: inc/admin/metaboxes/class-additionalcataloginformation.php:47
 msgid "List Price (Print)"
@@ -2165,11 +2166,11 @@ msgstr "Site Web de ce contributeur. Il doit s'agir d'une URL valide."
 
 #: inc/class-contributors.php:491
 msgid "X/Twitter"
-msgstr ""
+msgstr "X/Twitter"
 
 #: inc/class-contributors.php:494
 msgid "X/Twitter profile for this contributor. Must be a valid URL."
-msgstr ""
+msgstr "Profil X/Twitter de ce contributeur. Doit être une URL valide."
 
 #: inc/class-contributors.php:498
 #: inc/modules/themeoptions/class-weboptions.php:268
@@ -2327,7 +2328,7 @@ msgstr "Le thème, les paramètres du thème et les styles personnalisés du liv
 
 #: inc/class-eventstreams.php:275
 msgid "Permission denied to view job status for this book."
-msgstr ""
+msgstr "Autorisation refusée pour consulter l’état de la tâche pour ce livre."
 
 #: inc/class-eventstreams.php:405
 msgid "No chapters were selected for import."
@@ -2343,7 +2344,7 @@ msgstr "Adlam"
 
 #: inc/class-globaltypography.php:41
 msgid "Amharic"
-msgstr ""
+msgstr "Amharique"
 
 #: inc/class-globaltypography.php:42
 msgid "Ancient Greek"
@@ -2391,11 +2392,11 @@ msgstr "Gujarati"
 
 #: inc/class-globaltypography.php:53
 msgid "Hebrew (Biblical)"
-msgstr ""
+msgstr "Hébreu (biblique)"
 
 #: inc/class-globaltypography.php:54
 msgid "Hebrew (Modern)"
-msgstr ""
+msgstr "Hébreu (moderne)"
 
 #: inc/class-globaltypography.php:55
 msgid "Japanese"
@@ -2455,7 +2456,7 @@ msgstr "Turc"
 
 #: inc/class-globaltypography.php:69
 msgid "Urdu"
-msgstr ""
+msgstr "Ourdou"
 
 #: inc/class-globaltypography.php:504
 #, php-format
@@ -2660,7 +2661,7 @@ msgstr "Alegreya Sans"
 
 #: inc/class-styles.php:747
 msgid "Atkinson Hyperlegible Next"
-msgstr ""
+msgstr "Atkinson Hyperlegible Next"
 
 #: inc/class-styles.php:748
 msgid "Barlow"
@@ -3107,49 +3108,49 @@ msgstr "Les %1$stermes du sujet Thema demandés pour ce livre n'ont pas pu être
 
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:65
 msgid "Initializing export..."
-msgstr ""
+msgstr "Initialisation de l'exportation..."
 
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:83
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:84
 #, php-format
 msgid "Exporter class %s not found."
-msgstr ""
+msgstr "Classe d'exportation %s introuvable."
 
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:125
 msgid "Preparing export..."
-msgstr ""
+msgstr "Préparation de l'exportation ..."
 
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:147
 msgid "Converting content"
-msgstr ""
+msgstr "Conversion du contenu"
 
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:177
 msgid "Processing..."
-msgstr ""
+msgstr "Traitement..."
 
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:203
 msgid "Conversion successful. Validating file..."
-msgstr ""
+msgstr "Conversion réussie. Validation du fichier…"
 
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:212
 msgid "Validating..."
-msgstr ""
+msgstr "Validation..."
 
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:249
 msgid "Export completed successfully."
-msgstr ""
+msgstr "Exportation terminée avec succès."
 
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:252
 msgid "Export completed with validation errors."
-msgstr ""
+msgstr "Exportation terminée avec des erreurs de validation."
 
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:255
 msgid "Export failed due to an unspecified error."
-msgstr ""
+msgstr "L'exportation a échoué en raison d'une erreur non spécifiée."
 
 #: inc/modules/export/class-export.php:288
 msgid "Export Error"
-msgstr ""
+msgstr "Erreur d'exportation"
 
 #: inc/modules/export/class-export.php:679
 msgid "The export failed. See logs for more details."
@@ -3166,7 +3167,7 @@ msgstr "Envoyé par courriel à&nbsp;:"
 #: inc/modules/export/class-table.php:65
 #, php-format
 msgid "Select %s"
-msgstr ""
+msgstr "Choisir %s"
 
 #: inc/modules/export/class-table.php:82
 msgid "Are you sure you want to delete this export file?"
@@ -3175,7 +3176,7 @@ msgstr "Voulez-vous vraiment supprimer ce fichier exporté? "
 #: inc/modules/export/class-table.php:122
 #, php-format
 msgid "Pin %s"
-msgstr ""
+msgstr "Épingler %s"
 
 #: inc/modules/export/class-table.php:132
 msgid "File"
@@ -3232,15 +3233,15 @@ msgstr "Validation du fichier"
 
 #: inc/modules/export/epub/class-epub.php:660
 msgid "EPUB Validation Warnings/Errors:"
-msgstr ""
+msgstr "Avertissements/erreurs de validation EPUB :"
 
 #: inc/modules/export/epub/class-epub.php:661
 msgid "Export successful with validation warnings!"
-msgstr ""
+msgstr "Exportation réussie avec des avertissements de validation!"
 
 #: inc/modules/export/epub/class-epub.php:663
 msgid "Export successful!"
-msgstr ""
+msgstr "Exportation réussie"
 
 #: inc/modules/export/epub/class-epub.php:960
 msgid "Compiling styles"
@@ -3290,7 +3291,7 @@ msgstr "Exportation des parties annexes"
 
 #: inc/modules/export/epub/class-epub.php:1001
 msgid "Processing CSS"
-msgstr ""
+msgstr "Traitement du CSS"
 
 #: inc/modules/export/epub/class-epub.php:1005
 #: inc/modules/export/xhtml/class-xhtml11.php:471
@@ -3424,92 +3425,92 @@ msgstr[2] "À propos des auteurs"
 
 #: inc/modules/export/namespace.php:346 inc/modules/export/namespace.php:605
 msgid "Permission denied."
-msgstr ""
+msgstr "Permission refusée."
 
 #: inc/modules/export/namespace.php:358
 msgid "No export formats selected."
-msgstr ""
+msgstr "Aucun format d'exportation sélectionné."
 
 #: inc/modules/export/namespace.php:377
 #, php-format
 msgid "%d export job queued."
 msgid_plural "%d export jobs processed."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d tâche d’exportation mise en file d’attente."
+msgstr[1] "%d tâches d’exportation traitées."
+msgstr[2] "%d tâches d’exportation traitées."
 
 #: inc/modules/export/namespace.php:384
 msgid "No export jobs were successfully queued."
-msgstr ""
+msgstr "Aucune tâche d’exportation n’a été mise en file d’attente avec succès."
 
 #: inc/modules/export/namespace.php:392
 msgid "Details:"
-msgstr ""
+msgstr "Détails :"
 
 #: inc/modules/export/namespace.php:428
 #, php-format
 msgid "Invalid or unsupported export format: %s"
-msgstr ""
+msgstr "Format d’exportation invalide ou non pris en charge : %s"
 
 #: inc/modules/export/namespace.php:466
 #, php-format
 msgid "%s export has been queued (Job ID: %d)."
-msgstr ""
+msgstr "L’exportation %s a été mise en file d’attente (ID de tâche : %d)."
 
 #: inc/modules/export/namespace.php:475
 #, php-format
 msgid "Failed to queue %s export."
-msgstr ""
+msgstr "Échec de la mise en file d’attente de l’exportation %s."
 
 #: inc/modules/export/namespace.php:612
 msgid "Invalid job ID."
-msgstr ""
+msgstr "ID de tâche invalide."
 
 #: inc/modules/export/namespace.php:621
 msgid "Job not found or already processed."
-msgstr ""
+msgstr "Tâche introuvable ou déjà traitée."
 
 #: inc/modules/export/namespace.php:629
 msgid "Export job canceled successfully."
-msgstr ""
+msgstr "Tâche d’exportation annulée avec succès."
 
 #: inc/modules/export/prince/class-docraptor.php:52
 msgid "Starting conversion..."
-msgstr ""
+msgstr "Démarrage de la conversion…"
 
 #: inc/modules/export/prince/class-docraptor.php:60
 msgid "Creating temporary files..."
-msgstr ""
+msgstr "Création des fichiers temporaires…"
 
 #: inc/modules/export/prince/class-docraptor.php:68
 #: inc/modules/export/prince/class-pdf.php:238
 msgid "Loading fonts..."
-msgstr ""
+msgstr "Chargement des polices de caractères..."
 
 #: inc/modules/export/prince/class-docraptor.php:72
 #: inc/modules/export/prince/class-pdf.php:242
 msgid "Generating CSS..."
-msgstr ""
+msgstr "Génération du CSS…"
 
 #: inc/modules/export/prince/class-docraptor.php:87
 msgid "Configuring DocRaptor..."
-msgstr ""
+msgstr "Configuration de DocRaptor…"
 
 #: inc/modules/export/prince/class-docraptor.php:107
 msgid "Processing content..."
-msgstr ""
+msgstr "Traitement du contenu…"
 
 #: inc/modules/export/prince/class-docraptor.php:136
 msgid "Converting document..."
-msgstr ""
+msgstr "Conversion du document..."
 
 #: inc/modules/export/prince/class-docraptor.php:143
 msgid "Fetching converted file..."
-msgstr ""
+msgstr "Récupération du fichier converti…"
 
 #: inc/modules/export/prince/class-docraptor.php:183
 msgid "Conversion complete."
-msgstr ""
+msgstr "Conversion terminée."
 
 #: inc/modules/export/prince/class-pdf.php:194
 msgid ""
@@ -3519,129 +3520,129 @@ msgstr "Ce livre a été crée avec Pressbooks (https://pressbooks.com) et conve
 
 #: inc/modules/export/prince/class-pdf.php:229
 msgid "Setting up conversion..."
-msgstr ""
+msgstr "Configuration de la conversion…"
 
 #: inc/modules/export/prince/class-pdf.php:251
 msgid "Loading Converter..."
-msgstr ""
+msgstr "Chargement du convertisseur…"
 
 #: inc/modules/export/prince/class-pdf.php:261
 msgid "Setting up PDF options..."
-msgstr ""
+msgstr "Configuration des options PDF…"
 
 #: inc/modules/export/prince/class-pdf.php:270
 msgid "Adding stylesheets and scripts..."
-msgstr ""
+msgstr "Ajout des feuilles de style et des scripts…"
 
 #: inc/modules/export/prince/class-pdf.php:283
 msgid "Creating file..."
-msgstr ""
+msgstr "Création du fichier..."
 
 #: inc/modules/export/prince/class-pdf.php:289
 msgid "Conversion completed with warnings."
-msgstr ""
+msgstr "Conversion terminée avec des avertissements."
 
 #: inc/modules/export/prince/class-pdf.php:291
 msgid "Conversion completed successfully."
-msgstr ""
+msgstr "Conversion terminée avec succès."
 
 #: inc/modules/export/prince/class-pdf.php:298
 msgid "Validating PDF."
-msgstr ""
+msgstr "Validation du PDF."
 
 #: inc/modules/export/prince/class-pdf.php:301
 msgid "PDF validation failed."
-msgstr ""
+msgstr "La validation du PDF a échoué."
 
 #: inc/modules/export/prince/class-pdf.php:305
 msgid "PDF Validation successful."
-msgstr ""
+msgstr "Validation du PDF réussie."
 
 #: inc/modules/export/thincc/class-weblinks.php:352
 msgid "Creating resources..."
-msgstr ""
+msgstr "Création des ressources…"
 
 #: inc/modules/export/thincc/class-weblinks.php:355
 msgid "Creating manifest..."
-msgstr ""
+msgstr "Création du manifeste…"
 
 #: inc/modules/export/thincc/class-weblinks.php:363
 msgid "Creating archive..."
-msgstr ""
+msgstr "Création de l’archive…"
 
 #: inc/modules/export/thincc/class-weblinks.php:366
 msgid "Failed to create archive."
-msgstr ""
+msgstr "Échec de la création de l’archive."
 
 #: inc/modules/export/thincc/class-weblinks.php:370
 msgid "Done!"
-msgstr ""
+msgstr "Complété!"
 
 #: inc/modules/export/thincc/class-weblinks.php:375
 msgid "Validating Web Links export."
-msgstr ""
+msgstr "Validation de l’exportation des liens Web."
 
 #: inc/modules/export/thincc/class-weblinks.php:384
 msgid "Manifest file not found."
-msgstr ""
+msgstr "Fichier manifeste introuvable."
 
 #: inc/modules/export/thincc/class-weblinks.php:388
 msgid "Web Links export validation successful."
-msgstr ""
+msgstr "Validation de l’exportation des liens Web réussie."
 
 #: inc/modules/export/traits/class-handlecontributors.php:33
 msgid "Edited by "
-msgstr ""
+msgstr "Sous la direction de"
 
 #: inc/modules/export/wordpress/class-vanillawxr.php:24
 #: inc/modules/export/wordpress/class-vanillawxr.php:38
 #: inc/modules/export/wordpress/class-wxr.php:85
 msgid "Transforming WXR."
-msgstr ""
+msgstr "Transformation du WXR."
 
 #: inc/modules/export/wordpress/class-vanillawxr.php:50
 msgid "Processing content."
-msgstr ""
+msgstr "Traitement du contenu."
 
 #: inc/modules/export/wordpress/class-vanillawxr.php:82
 msgid "Cleaning content."
-msgstr ""
+msgstr "Nettoyage du contenu."
 
 #: inc/modules/export/wordpress/class-vanillawxr.php:91
 msgid "Parsing SimpleXML."
-msgstr ""
+msgstr "Analyse de SimpleXML."
 
 #: inc/modules/export/wordpress/class-vanillawxr.php:102
 msgid "Processing categories."
-msgstr ""
+msgstr "Traitement des catégories."
 
 #: inc/modules/export/wordpress/class-vanillawxr.php:125
 msgid "Saving WXR file."
-msgstr ""
+msgstr "Enregistrement du fichier WXR."
 
 #: inc/modules/export/wordpress/class-wxr.php:89
 msgid "Failed to transform WXR."
-msgstr ""
+msgstr "Échec de la transformation du WXR."
 
 #: inc/modules/export/wordpress/class-wxr.php:94
 msgid "Creating file."
-msgstr ""
+msgstr "Création du fichier."
 
 #: inc/modules/export/wordpress/class-wxr.php:100
 msgid "Saved WXR file."
-msgstr ""
+msgstr "Fichier WXR enregistré."
 
 #: inc/modules/export/wordpress/class-wxr.php:105
 msgid "Validating WXR."
-msgstr ""
+msgstr "Validation du WXR."
 
 #: inc/modules/export/wordpress/class-wxr.php:108
 msgid "WXR document is not well formed XML."
-msgstr ""
+msgstr "Le document WXR n’est pas un XML bien formé."
 
 #: inc/modules/export/wordpress/class-wxr.php:111
 msgid "WXR is valid."
-msgstr ""
+msgstr "Le WXR est valide."
 
 #: inc/modules/export/xhtml/class-xhtml11.php:208
 msgid "XHTML: "
@@ -4233,7 +4234,7 @@ msgstr "Auteur du livre"
 #: inc/modules/themeoptions/class-pdfoptions.php:573
 #: inc/modules/themeoptions/class-pdfoptions.php:593
 msgid "Book Editor"
-msgstr ""
+msgstr "Sous la direction de"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:412
 #: inc/modules/themeoptions/class-pdfoptions.php:432
@@ -4382,11 +4383,11 @@ msgstr "Options PDF"
 
 #: inc/modules/themeoptions/class-weboptions.php:138
 msgid "Social Media Options"
-msgstr ""
+msgstr "Options de médias sociaux"
 
 #: inc/modules/themeoptions/class-weboptions.php:143
 msgid "Select which social media buttons to display."
-msgstr ""
+msgstr "Sélectionnez les boutons de médias sociaux à afficher."
 
 #: inc/modules/themeoptions/class-weboptions.php:149
 msgid "Webbook Width"
@@ -4422,11 +4423,11 @@ msgstr "Ces options s&rsquo;appliquent au livre Web."
 
 #: inc/modules/themeoptions/class-weboptions.php:267
 msgid "X (formerly Twitter)"
-msgstr ""
+msgstr "X (anciennement Twitter)"
 
 #: inc/modules/themeoptions/class-weboptions.php:269
 msgid "Email"
-msgstr ""
+msgstr "Courriel"
 
 #: inc/modules/themeoptions/class-weboptions.php:407
 msgid "Web Options"
@@ -4706,7 +4707,7 @@ msgstr "Le mot de passe doit inclure au moins un numéro."
 
 #: inc/shortcodes/attributions/class-attachments.php:200
 msgid " &copy; "
-msgstr ""
+msgstr " &copy;"
 
 #: inc/shortcodes/attributions/class-attachments.php:201
 msgid " adapted by "
@@ -5474,7 +5475,7 @@ msgstr "Contactez le support de Pressbooks."
 
 #: templates/admin/dashboard/support.blade.php:41
 msgid "Pressbooks product updates"
-msgstr ""
+msgstr "Nouveautés de Pressbooks"
 
 #: templates/admin/dashboard/user.blade.php:18
 msgid "Book Invitations"
@@ -5527,13 +5528,13 @@ msgstr "Pour copier les renseignements système, cliquez ci-dessous puis appuyez
 #: templates/admin/diagnostics.blade.php:8
 #: templates/admin/diagnostics.blade.php:10
 msgid "View PDF Preview"
-msgstr ""
+msgstr "Afficher l’aperçu PDF"
 
 #: templates/admin/diagnostics.blade.php:9
 msgid ""
 "Generating a PDF preview can help you diagnose issues you may be "
 "encountering with your PDF exports."
-msgstr ""
+msgstr "La génération d’un aperçu PDF peut vous aider à diagnostiquer les problèmes que vous pourriez rencontrer lors de vos exportations PDF."
 
 #: templates/admin/diagnostics.blade.php:11
 msgid "Regenerate Webbook Stylesheet"
@@ -5576,11 +5577,11 @@ msgstr "Votre thème"
 
 #: templates/admin/export.blade.php:81
 msgid "Preview PDF"
-msgstr ""
+msgstr "Aperçu du PDF"
 
 #: templates/admin/export.blade.php:84
 msgid "Export Book"
-msgstr ""
+msgstr "Exporter le livre"
 
 #: templates/admin/export.blade.php:89
 msgid "Latest Exports"
@@ -5603,12 +5604,12 @@ msgstr "LaTeX"
 #: templates/admin/mathjax.blade.php:15
 #, php-format
 msgid "Inline math delimiter: %s"
-msgstr ""
+msgstr "Délimiteur de math en ligne : %s"
 
 #: templates/admin/mathjax.blade.php:19
 #, php-format
 msgid "Display math delimiter: %s"
-msgstr ""
+msgstr "Délimiteur de math en affichage : %s"
 
 #: templates/admin/mathjax.blade.php:23 templates/admin/mathjax.blade.php:32
 #, php-format
@@ -5618,7 +5619,7 @@ msgstr "Syntaxe shortcode: %s"
 #: templates/admin/mathjax.blade.php:25
 #, php-format
 msgid "Double dollar sign syntax: %s"
-msgstr ""
+msgstr "Syntaxe du double signe dollar : %s"
 
 #: templates/admin/mathjax.blade.php:30
 msgid "AsciiMath"
@@ -5658,7 +5659,7 @@ msgstr "La confidentialité globale de ce livre est définie sur"
 
 #: templates/admin/organize.blade.php:22
 msgid "Global Privacy"
-msgstr ""
+msgstr "Confidentialité globale"
 
 #: templates/admin/organize.blade.php:28
 #, php-format
@@ -5695,23 +5696,23 @@ msgstr "%s (sélectionné pour l&rsquo;exportation)"
 #: templates/admin/organize.blade.php:96
 #, php-format
 msgid "Add %s to %s"
-msgstr ""
+msgstr "Ajouter %s à %s"
 
 #: templates/admin/organize.blade.php:98
 #: templates/admin/organize.blade.php:112
 #, php-format
 msgid "Add %s"
-msgstr ""
+msgstr "Ajouter %s"
 
 #: templates/admin/organize.blade.php:103
 #, php-format
 msgid "Add a new part below %s part"
-msgstr ""
+msgstr "Ajouter une nouvelle partie sous la partie %s"
 
 #: templates/admin/organize.blade.php:111
 #, php-format
 msgid "Add a new %s"
-msgstr ""
+msgstr "Ajouter un nouveau / une nouvelle %s"
 
 #: templates/admin/organize.blade.php:121
 #: templates/admin/organize.blade.php:187
@@ -5782,11 +5783,11 @@ msgstr "Afficher le titre de %s"
 
 #: templates/admin/settings/book-robots.blade.php:4
 msgid "Discourage AI from ingesting this book."
-msgstr ""
+msgstr "Limiter la réutilisation de ce livre par les robots d'intelligence artificielle"
 
 #: templates/admin/settings/book-robots.blade.php:6
 msgid "Discourage crawlers and search engines from indexing this book."
-msgstr ""
+msgstr "Décourager les robots et les moteurs de recherche d'indexer ce livre"
 
 #: templates/admin/settings/book-visibility.blade.php:4
 msgid "Public. I would like this book to be visible to everyone."
@@ -5861,7 +5862,7 @@ msgstr "Un élément interactif H5P a été exclu de cette version du texte. Vou
 
 #: templates/interactive/h5pextractor.blade.php:7
 msgid "The interactive version of this H5P content is available at:"
-msgstr ""
+msgstr "La version interactive de ce contenu H5P est accessible à l’adresse suivante :"
 
 #: templates/interactive/media.blade.php:4
 msgid ""
@@ -5931,42 +5932,42 @@ msgstr "Pourpre"
 
 #: assets/src/scripts/color-picker.js:12
 msgid "Open color picker"
-msgstr ""
+msgstr "Ouvrir le sélecteur de couleurs"
 
 #: assets/src/scripts/color-picker.js:13
 msgid "Close color picker"
-msgstr ""
+msgstr "Fermer le sélecteur de couleurs"
 
 #: assets/src/scripts/color-picker.js:14
 msgid "Clear the selected color"
-msgstr ""
+msgstr "Effacer la couleur sélectionnée"
 
 #: assets/src/scripts/color-picker.js:15
 msgid "Saturation: {s}. Brightness: {v}."
-msgstr ""
+msgstr "Saturation : {s}. Luminosité : {v}."
 
 #: assets/src/scripts/color-picker.js:16
 msgid "Hue slider"
-msgstr ""
+msgstr "Curseur de teinte"
 
 #: assets/src/scripts/color-picker.js:17
 msgid "Opacity slider"
-msgstr ""
+msgstr "Curseur d’opacité"
 
 #: assets/src/scripts/color-picker.js:18
 msgid "Color value field"
-msgstr ""
+msgstr "Champ de valeur de couleur"
 
 #: assets/src/scripts/color-picker.js:19
 msgid "Color format"
-msgstr ""
+msgstr "Format de couleur"
 
 #: assets/src/scripts/color-picker.js:20
 msgid "Color swatch"
-msgstr ""
+msgstr "Nuancier de couleurs"
 
 #: assets/src/scripts/color-picker.js:21
 msgid ""
 "Saturation and brightness selector. Use up, down, left and right arrow keys "
 "to select."
-msgstr ""
+msgstr "Sélecteur de saturation et de luminosité. Utilisez les touches fléchées haut, bas, gauche et droite pour sélectionner."

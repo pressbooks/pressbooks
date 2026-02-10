@@ -334,6 +334,8 @@ class Glossary implements FrontOrBackMatter {
 					'em' => [],
 					'p' => [],
 					'strong' => [],
+					'sub' => [],
+					'sup' => [],
 
 				]
 			);

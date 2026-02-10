@@ -37,7 +37,9 @@ class SearchAndReplace {
 	static public function hooks( SearchAndReplace $obj ) {
 		if ( is_admin() ) {
 			add_filter( 'admin_menu', [ $obj, 'adminMenu' ] );
+			// Support both Tools menu and Content Toolkit menu locations
 			add_action( 'load-tools_page_pressbooks-search-and-replace', [ $obj, 'searchHead' ] );
+			add_action( 'load-content-toolkit_page_pressbooks-search-and-replace', [ $obj, 'searchHead' ] );
 		}
 	}
 

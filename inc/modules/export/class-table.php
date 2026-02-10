@@ -344,7 +344,7 @@ class Table extends \WP_List_Table {
 				'format' => $this->getFormat( $file ),
 				'size' => $stat['size'],
 				'pin' => $this->hasPin( $id ) ? 1 : 0,
-				'exported' => date_i18n( 'Y-m-d H:i', $stat['mtime'] ),
+				'exported' => date_i18n( 'Y-m-d H:i:s', $stat['mtime'] ),
 			];
 		}
 		return $files;

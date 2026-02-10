@@ -223,6 +223,34 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$results = $this->gl->sanitizeGlossaryTerm( $data );
 		$this->assertEquals( '<a href="https://google.com">All</a> is <strong>good.</strong>', $results['post_content'] );
 	}
+
+	/**
+	 * Test that subscript and superscript tags are preserved in glossary terms
+	 *
+	 * @group glossary
+	 */
+	public function test_sanitizeGlossaryTermWithSubSup() {
+		// Test subscript preservation (e.g., chemical formulas like H2O)
+		$data['post_type'] = 'glossary';
+		$data['post_content'] = 'Water has the formula H<sub>2</sub>O.';
+		$results = $this->gl->sanitizeGlossaryTerm( $data );
+		$this->assertEquals( 'Water has the formula H<sub>2</sub>O.', $results['post_content'] );
+
+		// Test superscript preservation (e.g., mathematical expressions like x^2)
+		$data['post_content'] = 'The equation is x<sup>2</sup> + y<sup>2</sup> = 1.';
+		$results = $this->gl->sanitizeGlossaryTerm( $data );
+		$this->assertEquals( 'The equation is x<sup>2</sup> + y<sup>2</sup> = 1.', $results['post_content'] );
+
+		// Test combined with other allowed tags
+		$data['post_content'] = 'A <strong>bold</strong> formula: E = mc<sup>2</sup> and <em>italics</em> with CO<sub>2</sub>.';
+		$results = $this->gl->sanitizeGlossaryTerm( $data );
+		$this->assertEquals( 'A <strong>bold</strong> formula: E = mc<sup>2</sup> and <em>italics</em> with CO<sub>2</sub>.', $results['post_content'] );
+
+		// Test that disallowed tags are still stripped while sub/sup are preserved
+		$data['post_content'] = 'H<sub>2</sub>O with <script>alert("evil")</script> and x<sup>2</sup>.';
+		$results = $this->gl->sanitizeGlossaryTerm( $data );
+		$this->assertEquals( 'H<sub>2</sub>O with alert("evil") and x<sup>2</sup>.', $results['post_content'] );
+	}
 	/**
 	 * @group glossary
 	 */

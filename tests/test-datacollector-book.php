@@ -252,7 +252,7 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 	/**
 	 * @group datacollector
 	 */
-	public function test_get_LogicExeption() {
+	public function test_get_LogicException() {
 		$this->expectException(\LogicException::class);
 		$this->_book();
 		$book_id = get_current_blog_id();
@@ -361,5 +361,146 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 		$path = $this->bookDataCollector->getCoverThumbnail( $blog_id, $attachment_path, $attachment_id );
 
 		$this->assertEquals( 1, preg_match( '/https:\/\/.*-350x467\.jpg/', $path ) );
+	}
+
+	/**
+	 * @group datacollector
+	 */
+	public function test_copyBookMetaIntoSiteTable_preserves_archived_metadata_when_archived() {
+		$this->_book();
+		$book_id = get_current_blog_id();
+
+		// Set archived metadata
+		$archived_date = '2025-12-01 10:00:00';
+		$archived_by = 42;
+		update_site_meta( $book_id, BookDataCollector::ARCHIVED_DATE, $archived_date );
+		update_site_meta( $book_id, BookDataCollector::ARCHIVED_BY, $archived_by );
+
+		// Archive the book
+		global $wpdb;
+		$wpdb->update(
+			$wpdb->blogs,
+			[ 'archived' => '1' ],
+			[ 'blog_id' => $book_id ],
+			[ '%s' ],
+			[ '%d' ]
+		);
+		clean_blog_cache( $book_id );
+
+		// Run sync
+		$this->bookDataCollector->copyBookMetaIntoSiteTable( $book_id );
+
+		// Verify archived metadata is preserved
+		$this->assertEquals( $archived_date, get_site_meta( $book_id, BookDataCollector::ARCHIVED_DATE, true ) );
+		$this->assertEquals( $archived_by, get_site_meta( $book_id, BookDataCollector::ARCHIVED_BY, true ) );
+	}
+
+	/**
+	 * @group datacollector
+	 */
+	public function test_copyBookMetaIntoSiteTable_sets_archived_metadata_when_missing() {
+		$this->_book();
+		$book_id = get_current_blog_id();
+
+		// Archive the book without setting metadata
+		global $wpdb;
+		$wpdb->update(
+			$wpdb->blogs,
+			[ 'archived' => '1' ],
+			[ 'blog_id' => $book_id ],
+			[ '%s' ],
+			[ '%d' ]
+		);
+		clean_blog_cache( $book_id );
+
+		// Ensure no archived metadata exists
+		delete_site_meta( $book_id, BookDataCollector::ARCHIVED_DATE );
+		delete_site_meta( $book_id, BookDataCollector::ARCHIVED_BY );
+
+		// Run sync
+		$this->bookDataCollector->copyBookMetaIntoSiteTable( $book_id );
+
+		// Verify archived metadata is now set
+		$archived_date = get_site_meta( $book_id, BookDataCollector::ARCHIVED_DATE, true );
+		$archived_by = get_site_meta( $book_id, BookDataCollector::ARCHIVED_BY, true );
+
+		$this->assertNotEmpty( $archived_date );
+		$this->assertIsString( $archived_date );
+		$this->assertMatchesRegularExpression( '/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/', $archived_date );
+		$this->assertNotFalse( $archived_by, 'archived_by should be set' );
+		$this->assertIsNumeric( $archived_by );
+	}
+
+	/**
+	 * @group datacollector
+	 */
+	public function test_copyBookMetaIntoSiteTable_clears_archived_metadata_when_not_archived() {
+		$this->_book();
+		$book_id = get_current_blog_id();
+
+		// Set archived metadata
+		update_site_meta( $book_id, BookDataCollector::ARCHIVED_DATE, '2025-12-01 10:00:00' );
+		update_site_meta( $book_id, BookDataCollector::ARCHIVED_BY, 42 );
+
+		// Ensure book is NOT archived
+		global $wpdb;
+		$wpdb->update(
+			$wpdb->blogs,
+			[ 'archived' => '0' ],
+			[ 'blog_id' => $book_id ],
+			[ '%s' ],
+			[ '%d' ]
+		);
+		clean_blog_cache( $book_id );
+
+		// Run sync
+		$this->bookDataCollector->copyBookMetaIntoSiteTable( $book_id );
+
+		// Verify archived metadata is cleared
+		$this->assertEmpty( get_site_meta( $book_id, BookDataCollector::ARCHIVED_DATE, true ) );
+		$this->assertEmpty( get_site_meta( $book_id, BookDataCollector::ARCHIVED_BY, true ) );
+	}
+
+	/**
+	 * @group datacollector
+	 */
+	public function test_copyAllBooksIntoSiteTable_includes_archived_books() {
+		// Create an archived book
+		$this->_book();
+		$archived_book_id = get_current_blog_id();
+
+		global $wpdb;
+		$wpdb->update(
+			$wpdb->blogs,
+			[ 'archived' => '1' ],
+			[ 'blog_id' => $archived_book_id ],
+			[ '%s' ],
+			[ '%d' ]
+		);
+		clean_blog_cache( $archived_book_id );
+
+		// Set archived metadata
+		update_site_meta( $archived_book_id, BookDataCollector::ARCHIVED_DATE, '2025-12-01 10:00:00' );
+		update_site_meta( $archived_book_id, BookDataCollector::ARCHIVED_BY, 42 );
+
+		// Run full sync
+		$synced_count = 0;
+		foreach ( $this->bookDataCollector->copyAllBooksIntoSiteTable() as $_ ) {
+			$synced_count++;
+		}
+
+		// Verify archived book was synced
+		$this->assertGreaterThan( 0, $synced_count );
+
+		// Verify archived metadata is still present after sync
+		$archived_date = get_site_meta( $archived_book_id, BookDataCollector::ARCHIVED_DATE, true );
+		$archived_by = get_site_meta( $archived_book_id, BookDataCollector::ARCHIVED_BY, true );
+
+		$this->assertEquals( '2025-12-01 10:00:00', $archived_date );
+		$this->assertEquals( 42, $archived_by );
+
+		// Verify book metadata exists (wasn't purged)
+		$timestamp = get_site_meta( $archived_book_id, BookDataCollector::TIMESTAMP, true );
+		$this->assertNotEmpty( $timestamp );
 	}
 }
