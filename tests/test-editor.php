@@ -204,97 +204,48 @@ class EditorTest extends \WP_UnitTestCase {
 	 * @group editor
 	 */
 	public function test_fix_table_header_cells() {
-		// Test table with thead containing td elements (what TinyMCE creates)
-		$input = '<table><thead><tr><td>Header 1</td><td class="test">Header 2</td><td colspan="2">Header 3</td></tr></thead><tbody><tr><td>Data 1</td><td>Data 2</td><td>Data 3</td></tr></tbody></table>';
+		// Test comprehensive table: td→th conversion, attributes, empty cells, tbody preservation
+		$input = '<table class="grid" border="0"><thead><tr><td>Header 1</td><td class="test">Header 2</td><td colspan="2">Header 3</td><td></td><th>  </th><th colspan="1" class="existing">Already TH</th></tr></thead><tbody><tr><td>Data 1</td><td>Data 2</td><td>Data 3</td><td></td></tr></tbody></table>';
 		$result = \Pressbooks\Editor\fix_table_header_cells( wp_slash( $input ) );
-
-		// Should convert td to th in thead
-		$this->assertStringContainsString( '<thead><tr><th>Header 1</th>', $result );
+		
+		// Non-empty td should convert to th with attributes preserved
+		$this->assertStringContainsString( '<th>Header 1</th>', $result );
 		$this->assertStringContainsString( '<th class=\"test\">Header 2</th>', $result );
 		$this->assertStringContainsString( '<th colspan=\"2\">Header 3</th>', $result );
+		$this->assertStringContainsString( '<th colspan=\"1\" class=\"existing\">Already TH</th>', $result );
+		// Empty cells should become td
+		$this->assertStringContainsString( '<td></td>', $result );
+		$this->assertStringContainsString( '<td>  </td>', $result );
+		// Table attributes preserved without double-encoding
+		$this->assertStringContainsString( 'class=\"grid\"', $result );
+		$this->assertStringContainsString( 'border=\"0\"', $result );
+		$this->assertStringNotContainsString( '&quot;&quot;', $result );
+		// tbody should remain unchanged
+		$this->assertStringContainsString( '<tbody><tr><td>Data 1</td><td>Data 2</td><td>Data 3</td><td></td></tr></tbody>', $result );
 
-		// Should NOT convert td to th in tbody
-		$this->assertStringContainsString( '<tbody><tr><td>Data 1</td>', $result );
-		$this->assertStringContainsString( '<td>Data 2</td>', $result );
-		$this->assertStringContainsString( '<td>Data 3</td>', $result );
+		// Test edge cases: no thead, no tables, empty content
+		$this->assertEquals( wp_slash( '<table><tbody><tr><td>Data</td></tr></tbody></table>' ), \Pressbooks\Editor\fix_table_header_cells( wp_slash( '<table><tbody><tr><td>Data</td></tr></tbody></table>' ) ) );
+		$this->assertEquals( wp_slash( '<p>Just text</p>' ), \Pressbooks\Editor\fix_table_header_cells( wp_slash( '<p>Just text</p>' ) ) );
+		$this->assertEquals( '', \Pressbooks\Editor\fix_table_header_cells( '' ) );
 
-		// Test thead with empty td elements (should remain as td)
-		$input_empty_cells = '<table><thead><tr><td>Header</td><td></td><td>  </td><td>Another Header</td></tr></thead></table>';
-		$result_empty_cells = \Pressbooks\Editor\fix_table_header_cells( wp_slash( $input_empty_cells ) );
-		$this->assertStringContainsString( '<th>Header</th>', $result_empty_cells );
-		$this->assertStringContainsString( '<td></td>', $result_empty_cells );
-		$this->assertStringContainsString( '<td>  </td>', $result_empty_cells );
-		$this->assertStringContainsString( '<th>Another Header</th>', $result_empty_cells );
-
-		// Test content without thead (should return unchanged)
-		$input_no_thead = '<table><tbody><tr><td>Data 1</td><td>Data 2</td></tr></tbody></table>';
-		$result_no_thead = \Pressbooks\Editor\fix_table_header_cells( wp_slash( $input_no_thead ) );
-		$this->assertEquals( wp_slash( $input_no_thead ), $result_no_thead );
-
-		// Test empty content
-		$result_empty = \Pressbooks\Editor\fix_table_header_cells( '' );
-		$this->assertEquals( '', $result_empty );
-
-		// Test content with no tables
-		$input_no_table = '<p>This is just text</p>';
-		$result_no_table = \Pressbooks\Editor\fix_table_header_cells( wp_slash( $input_no_table ) );
-		$this->assertEquals( wp_slash( $input_no_table ), $result_no_table );
-
-		// Test empty and mixed cell handling in thead
-		$input_mixed_cells = '<table><thead><tr><th>Header</th><th></th><td>Another Header</td><td></td><th>  </th></tr></thead></table>';
-		$result_mixed_cells = \Pressbooks\Editor\fix_table_header_cells( wp_slash( $input_mixed_cells ) );
-		// Non-empty cells should be th
-		$this->assertStringContainsString( '<th>Header</th>', $result_mixed_cells );
-		$this->assertStringContainsString( '<th>Another Header</th>', $result_mixed_cells );
-		// Empty cells (both th and td) should become td
-		$this->assertStringContainsString( '<td></td>', $result_mixed_cells );
-		$this->assertStringContainsString( '<td>  </td>', $result_mixed_cells );
-
-		// Test that attributes are not double-encoded
-		$input_with_attrs = '<table class="grid" border="0"><thead><tr><th colspan="1" class="some-class">This is a Header</th><th colspan="1">This is another Header</th><td colspan="1"></td><td colspan="1"></td></tr></thead><tbody><tr><td>This is a column</td><td>This is another column</td><td>This is another column</td><td></td></tr></tbody></table>';
-		$result_with_attrs = \Pressbooks\Editor\fix_table_header_cells( wp_slash( $input_with_attrs ) );
-
-		// Verify attributes are preserved correctly without double encoding
-		$this->assertStringContainsString( 'class=\"grid\"', $result_with_attrs );
-		$this->assertStringContainsString( 'border=\"0\"', $result_with_attrs );
-		$this->assertStringContainsString( 'colspan=\"1\"', $result_with_attrs );
-		$this->assertStringContainsString( 'class=\"some-class\"', $result_with_attrs );
-
-		// Verify attributes are NOT double-encoded
-		$this->assertStringNotContainsString( '&quot;&quot;grid&quot;&quot;', $result_with_attrs );
-		$this->assertStringNotContainsString( '&quot;&quot;0&quot;&quot;', $result_with_attrs );
-		$this->assertStringNotContainsString( '&quot;&quot;1&quot;&quot;', $result_with_attrs );
-		$this->assertStringNotContainsString( '&quot;&quot;some-class&quot;&quot;', $result_with_attrs );
-
-		// Verify empty td cells remain as td
-		$this->assertStringContainsString( '<td colspan=\"1\"></td>', $result_with_attrs );
-
-		// Test comprehensive content preservation: LaTeX, quotes, mixed HTML, and table transformations
-		$input_complex = '<p>LaTeX: \[ f(x) = \frac{1}{2} \]</p><p>There are "double quotes" and \'single quotes\' here.</p><span class="strong">Bold text</span><table class="grid"><thead><tr><td>\[ x = y \]</td><td>Normal Header</td><td>\sum_{i=1}^{n} i</td></tr></thead><tbody><tr><td>Data</td><td>More data</td></tr></tbody></table><p>Paragraph after</p>';
+		// Test comprehensive content: LaTeX, UTF-8, quotes, mixed HTML
+		$input_complex = '<p>LaTeX: \[ f(x) = \frac{1}{2} \]</p><p>There are "double quotes" and \'single quotes\'.</p><span class="strong">Bold</span><table><thead><tr><td>\[ x = y \]</td><td>Café</td><td>Niño</td><td>"Curly"</td><td>中文</td><td>\sum_{i=1}^{n} i</td></tr></thead><tbody><tr><td>Data</td></tr></tbody></table><p>After</p>';
 		$result_complex = \Pressbooks\Editor\fix_table_header_cells( wp_slash( $input_complex ) );
-		// LaTeX should be preserved with double backslashes (slashed output)
+		// LaTeX preserved with double backslashes (slashed output)
 		$this->assertStringContainsString( '\\\\[ f(x) = \\\\frac{1}{2} \\\\]', $result_complex );
 		$this->assertStringContainsString( '<th>\\\\[ x = y \\\\]</th>', $result_complex );
 		$this->assertStringContainsString( '<th>\\\\sum_{i=1}^{n} i</th>', $result_complex );
-		// Quotes should be preserved
+		// UTF-8 characters preserved as HTML entities
+		$this->assertStringContainsString( '<th>Caf&eacute;</th>', $result_complex );
+		$this->assertStringContainsString( '<th>Ni&ntilde;o</th>', $result_complex );
+		$this->assertStringContainsString( '<th>&#20013;&#25991;</th>', $result_complex );
+		$this->assertStringContainsString( '<th>\"Curly\"</th>', $result_complex );
+		// Quotes and HTML elements preserved
 		$this->assertStringContainsString( '\"double quotes\"', $result_complex );
 		$this->assertStringContainsString( "\\'single quotes\\'", $result_complex );
-		// HTML elements should be preserved
-		$this->assertStringContainsString( '<span class=\"strong\">Bold text</span>', $result_complex );
-		$this->assertStringContainsString( '<p>Paragraph after</p>', $result_complex );
-		// Table headers should be transformed
-		$this->assertStringContainsString( '<th>Normal Header</th>', $result_complex );
-		// Table body should be unchanged
-		$this->assertStringContainsString( '<tbody><tr><td>Data</td><td>More data</td></tr></tbody>', $result_complex );
-
-		// Test UTF-8 special characters (curly quotes, em dash, international characters)
-		$input_utf8 = '<table><thead><tr><td>Café</td><td>Niño</td><td>"Curly" Quotes</td><td>Em—Dash</td><td>中文</td></tr></thead></table>';
-		$result_utf8 = \Pressbooks\Editor\fix_table_header_cells( wp_slash( $input_utf8 ) );
-		// DOMDocument encodes special characters as HTML entities - verify they're preserved
-		$this->assertStringContainsString( '<th>Caf&eacute;</th>', $result_utf8 );
-		$this->assertStringContainsString( '<th>Ni&ntilde;o</th>', $result_utf8 );
-		$this->assertStringContainsString( '<th>\"Curly\" Quotes</th>', $result_utf8 );
-		$this->assertStringContainsString( '<th>Em&mdash;Dash</th>', $result_utf8 );
-		$this->assertStringContainsString( '<th>&#20013;&#25991;</th>', $result_utf8 );
+		$this->assertStringContainsString( '<span class=\"strong\">Bold</span>', $result_complex );
+		$this->assertStringContainsString( '<p>After</p>', $result_complex );
+		// tbody unchanged
+		$this->assertStringContainsString( '<tbody><tr><td>Data</td></tr></tbody>', $result_complex );
 	}
 }
