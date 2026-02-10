@@ -278,7 +278,7 @@ class EditorTest extends \WP_UnitTestCase {
 		// Test that LaTeX backslashes are preserved
 		$input_with_latex = '<p>LaTeX: \[ f(x) = \frac{1}{2} \]</p><table><thead><tr><td>Header</td></tr></thead></table>';
 		$result_with_latex = \Pressbooks\Editor\fix_table_header_cells( wp_slash( $input_with_latex ) );
-		$this->assertStringContainsString( '\[ f(x) = \frac{1}{2} \]', $result_with_latex );
+		$this->assertStringContainsString( '\\[ f(x) = \\frac{1}{2} \\]', $result_with_latex );
 		$this->assertStringContainsString( '<th>Header</th>', $result_with_latex );
 
 		// Test that quotes are preserved (single and double)
