@@ -272,13 +272,13 @@ class EditorTest extends \WP_UnitTestCase {
 		// Test comprehensive content preservation: LaTeX, quotes, mixed HTML, and table transformations
 		$input_complex = '<p>LaTeX: \[ f(x) = \frac{1}{2} \]</p><p>There are "double quotes" and \'single quotes\' here.</p><span class="strong">Bold text</span><table class="grid"><thead><tr><td>\[ x = y \]</td><td>Normal Header</td><td>\sum_{i=1}^{n} i</td></tr></thead><tbody><tr><td>Data</td><td>More data</td></tr></tbody></table><p>Paragraph after</p>';
 		$result_complex = \Pressbooks\Editor\fix_table_header_cells( wp_slash( $input_complex ) );
-		// LaTeX should be preserved both inside and outside table
-		$this->assertStringContainsString( '\\[ f(x) = \\frac{1}{2} \\]', $result_complex );
-		$this->assertStringContainsString( '<th>\\[ x = y \\]</th>', $result_complex );
-		$this->assertStringContainsString( '<th>\\sum_{i=1}^{n} i</th>', $result_complex );
+		// LaTeX should be preserved with double backslashes (slashed output)
+		$this->assertStringContainsString( '\\\\[ f(x) = \\\\frac{1}{2} \\\\]', $result_complex );
+		$this->assertStringContainsString( '<th>\\\\[ x = y \\\\]</th>', $result_complex );
+		$this->assertStringContainsString( '<th>\\\\sum_{i=1}^{n} i</th>', $result_complex );
 		// Quotes should be preserved
 		$this->assertStringContainsString( '\"double quotes\"', $result_complex );
-		$this->assertStringContainsString( "\'single quotes\'", $result_complex );
+		$this->assertStringContainsString( "\\'single quotes\\'", $result_complex );
 		// HTML elements should be preserved
 		$this->assertStringContainsString( '<span class=\"strong\">Bold text</span>', $result_complex );
 		$this->assertStringContainsString( '<p>Paragraph after</p>', $result_complex );
