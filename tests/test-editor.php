@@ -240,21 +240,15 @@ class EditorTest extends \WP_UnitTestCase {
 		$result_no_table = \Pressbooks\Editor\fix_table_header_cells( wp_slash( $input_no_table ) );
 		$this->assertEquals( wp_slash( $input_no_table ), $result_no_table );
 
-		// Test thead with empty th elements (should convert to td)
-		$input_empty_th = '<table><thead><tr><th>Header</th><th></th><th>  </th><th>Another Header</th></tr></thead></table>';
-		$result_empty_th = \Pressbooks\Editor\fix_table_header_cells( wp_slash( $input_empty_th ) );
-		$this->assertStringContainsString( '<th>Header</th>', $result_empty_th );
-		$this->assertStringContainsString( '<td></td>', $result_empty_th );
-		$this->assertStringContainsString( '<td>  </td>', $result_empty_th );
-		$this->assertStringContainsString( '<th>Another Header</th>', $result_empty_th );
-
-		// Test thead with mix of empty and non-empty th and td
-		$input_mixed = '<table><thead><tr><td>Header</td><td></td><th></th><td>Another Header</td><th>  </th></tr></thead></table>';
-		$result_mixed = \Pressbooks\Editor\fix_table_header_cells( wp_slash( $input_mixed ) );
-		$this->assertStringContainsString( '<th>Header</th>', $result_mixed );
-		$this->assertStringContainsString( '<td></td>', $result_mixed );
-		$this->assertStringContainsString( '<td>  </td>', $result_mixed );
-		$this->assertStringContainsString( '<th>Another Header</th>', $result_mixed );
+		// Test empty and mixed cell handling in thead
+		$input_mixed_cells = '<table><thead><tr><th>Header</th><th></th><td>Another Header</td><td></td><th>  </th></tr></thead></table>';
+		$result_mixed_cells = \Pressbooks\Editor\fix_table_header_cells( wp_slash( $input_mixed_cells ) );
+		// Non-empty cells should be th
+		$this->assertStringContainsString( '<th>Header</th>', $result_mixed_cells );
+		$this->assertStringContainsString( '<th>Another Header</th>', $result_mixed_cells );
+		// Empty cells (both th and td) should become td
+		$this->assertStringContainsString( '<td></td>', $result_mixed_cells );
+		$this->assertStringContainsString( '<td>  </td>', $result_mixed_cells );
 
 		// Test that attributes are not double-encoded
 		$input_with_attrs = '<table class="grid" border="0"><thead><tr><th colspan="1" class="some-class">This is a Header</th><th colspan="1">This is another Header</th><td colspan="1"></td><td colspan="1"></td></tr></thead><tbody><tr><td>This is a column</td><td>This is another column</td><td>This is another column</td><td></td></tr></tbody></table>';
@@ -275,26 +269,22 @@ class EditorTest extends \WP_UnitTestCase {
 		// Verify empty td cells remain as td
 		$this->assertStringContainsString( '<td colspan=\"1\"></td>', $result_with_attrs );
 
-		// Test that LaTeX backslashes are preserved
-		$input_with_latex = '<p>LaTeX: \[ f(x) = \frac{1}{2} \]</p><table><thead><tr><td>Header</td></tr></thead></table>';
-		$result_with_latex = \Pressbooks\Editor\fix_table_header_cells( wp_slash( $input_with_latex ) );
-		$this->assertStringContainsString( '\\[ f(x) = \\frac{1}{2} \\]', $result_with_latex );
-		$this->assertStringContainsString( '<th>Header</th>', $result_with_latex );
-
-		// Test that quotes are preserved (single and double)
-		$input_with_quotes = '<p>There are "double quotes" and \'single quotes\' here.</p><table><thead><tr><td>Header</td></tr></thead></table>';
-		$result_with_quotes = \Pressbooks\Editor\fix_table_header_cells( wp_slash( $input_with_quotes ) );
-		$this->assertStringContainsString( '\"double quotes\"', $result_with_quotes );
-		$this->assertStringContainsString( "\'single quotes\'", $result_with_quotes );
-		$this->assertStringContainsString( '<th>Header</th>', $result_with_quotes );
-
-		// Test mixed content with tables and other HTML elements
-		$input_mixed = '<p>Paragraph before</p><span class="strong">Bold text</span><table class="grid"><thead><tr><td>Col 1</td><td>Col 2</td></tr></thead><tbody><tr><td>Data</td><td>More data</td></tr></tbody></table><p>Paragraph after</p>';
-		$result_mixed = \Pressbooks\Editor\fix_table_header_cells( wp_slash( $input_mixed ) );
-		$this->assertStringContainsString( '<p>Paragraph before</p>', $result_mixed );
-		$this->assertStringContainsString( '<span class=\"strong\">Bold text</span>', $result_mixed );
-		$this->assertStringContainsString( '<th>Col 1</th>', $result_mixed );
-		$this->assertStringContainsString( '<th>Col 2</th>', $result_mixed );
-		$this->assertStringContainsString( '<p>Paragraph after</p>', $result_mixed );
+		// Test comprehensive content preservation: LaTeX, quotes, mixed HTML, and table transformations
+		$input_complex = '<p>LaTeX: \[ f(x) = \frac{1}{2} \]</p><p>There are "double quotes" and \'single quotes\' here.</p><span class="strong">Bold text</span><table class="grid"><thead><tr><td>\[ x = y \]</td><td>Normal Header</td><td>\sum_{i=1}^{n} i</td></tr></thead><tbody><tr><td>Data</td><td>More data</td></tr></tbody></table><p>Paragraph after</p>';
+		$result_complex = \Pressbooks\Editor\fix_table_header_cells( wp_slash( $input_complex ) );
+		// LaTeX should be preserved both inside and outside table
+		$this->assertStringContainsString( '\\[ f(x) = \\frac{1}{2} \\]', $result_complex );
+		$this->assertStringContainsString( '<th>\\[ x = y \\]</th>', $result_complex );
+		$this->assertStringContainsString( '<th>\\sum_{i=1}^{n} i</th>', $result_complex );
+		// Quotes should be preserved
+		$this->assertStringContainsString( '\"double quotes\"', $result_complex );
+		$this->assertStringContainsString( "\'single quotes\'", $result_complex );
+		// HTML elements should be preserved
+		$this->assertStringContainsString( '<span class=\"strong\">Bold text</span>', $result_complex );
+		$this->assertStringContainsString( '<p>Paragraph after</p>', $result_complex );
+		// Table headers should be transformed
+		$this->assertStringContainsString( '<th>Normal Header</th>', $result_complex );
+		// Table body should be unchanged
+		$this->assertStringContainsString( '<tbody><tr><td>Data</td><td>More data</td></tr></tbody>', $result_complex );
 	}
 }
