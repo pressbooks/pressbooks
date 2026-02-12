@@ -88,7 +88,7 @@ class SideBar {
 			return;
 		}
 
-		wp_die( __( 'Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 ); // phpcs:ignore Pressbooks.Security.EscapeOutput.OutputNotEscaped
+		wp_die( esc_html__( 'Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 );
 	}
 
 	public function restrictPostsPageAccess(): void {
@@ -99,12 +99,12 @@ class SideBar {
 
 		// Block access to edit.php with no post_type (defaults to 'post') or post_type=post
 		if ( $pagenow === 'edit.php' && ( $post_type === null || $post_type === 'post' ) ) {
-			wp_die( __( 'Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 ); // phpcs:ignore Pressbooks.Security.EscapeOutput.OutputNotEscaped
+			wp_die( esc_html__( 'Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 );
 		}
 
 		// Block access to post-new.php with no post_type (defaults to 'post') or post_type=post
 		if ( $pagenow === 'post-new.php' && ( $post_type === null || $post_type === 'post' ) ) {
-			wp_die( __( 'Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 ); // phpcs:ignore Pressbooks.Security.EscapeOutput.OutputNotEscaped
+			wp_die( esc_html__( 'Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 );
 		}
 	}
 
