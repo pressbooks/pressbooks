@@ -92,13 +92,16 @@ class SideBar {
 	public function restrictPostsPageAccess(): void {
 		global $pagenow;
 
+		// Check both GET and POST parameters to prevent bypassing via POST requests
+		$post_type = $_GET['post_type'] ?? $_POST['post_type'] ?? null;
+
 		// Block access to edit.php with no post_type (defaults to 'post') or post_type=post
-		if ( $pagenow === 'edit.php' && ( ! isset( $_GET['post_type'] ) || $_GET['post_type'] === 'post' ) ) {
+		if ( $pagenow === 'edit.php' && ( $post_type === null || $post_type === 'post' ) ) {
 			wp_die( __( 'Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 ); // phpcs:ignore Pressbooks.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		// Block access to post-new.php with no post_type (defaults to 'post') or post_type=post
-		if ( $pagenow === 'post-new.php' && ( ! isset( $_GET['post_type'] ) || $_GET['post_type'] === 'post' ) ) {
+		if ( $pagenow === 'post-new.php' && ( $post_type === null || $post_type === 'post' ) ) {
 			wp_die( __( 'Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 ); // phpcs:ignore Pressbooks.Security.EscapeOutput.OutputNotEscaped
 		}
 	}

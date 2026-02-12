@@ -179,4 +179,56 @@ class testAdminSidebar extends \WP_UnitTestCase
 			$this->fail('Should allow access to edit.php?post_type=back-matter');
 		}
 	}
+
+	public function test_it_restricts_posts_page_access_via_post_with_no_post_type(): void {
+		global $pagenow;
+		$pagenow = 'edit.php';
+		$_SERVER['REQUEST_METHOD'] = 'POST';
+
+		$this->expectException(WPDieException::class);
+		(new SideBar)->restrictPostsPageAccess();
+
+		unset($_SERVER['REQUEST_METHOD']);
+	}
+
+	public function test_it_restricts_posts_page_access_via_post_with_post_type_post(): void {
+		global $pagenow;
+		$pagenow = 'edit.php';
+		$_POST['post_type'] = 'post';
+		$_SERVER['REQUEST_METHOD'] = 'POST';
+
+		$this->expectException(WPDieException::class);
+		(new SideBar)->restrictPostsPageAccess();
+
+		unset($_POST['post_type']);
+		unset($_SERVER['REQUEST_METHOD']);
+	}
+
+	public function test_it_allows_post_requests_to_book_post_types(): void {
+		global $pagenow;
+		$pagenow = 'edit.php';
+		$_POST['post_type'] = 'chapter';
+		$_SERVER['REQUEST_METHOD'] = 'POST';
+
+		try {
+			(new SideBar)->restrictPostsPageAccess();
+			$this->assertTrue(true);
+		} catch (WPDieException) {
+			$this->fail('POST request to chapter should not be restricted');
+		}
+
+		unset($_POST['post_type']);
+		unset($_SERVER['REQUEST_METHOD']);
+	}
+
+	public function test_it_restricts_new_post_page_access_via_post(): void {
+		global $pagenow;
+		$pagenow = 'post-new.php';
+		$_SERVER['REQUEST_METHOD'] = 'POST';
+
+		$this->expectException(WPDieException::class);
+		(new SideBar)->restrictPostsPageAccess();
+
+		unset($_SERVER['REQUEST_METHOD']);
+	}
 }
