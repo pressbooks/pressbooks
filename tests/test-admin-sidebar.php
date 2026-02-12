@@ -150,7 +150,7 @@ class testAdminSidebar extends \WP_UnitTestCase
 	 */
 	public function it_allows_access_to_book_post_types(): void {
 		global $pagenow;
-		
+
 		// Test chapter
 		$pagenow = 'edit.php';
 		$_GET['post_type'] = 'chapter';
@@ -187,8 +187,6 @@ class testAdminSidebar extends \WP_UnitTestCase
 
 		$this->expectException(WPDieException::class);
 		(new SideBar)->restrictPostsPageAccess();
-
-		unset($_SERVER['REQUEST_METHOD']);
 	}
 
 	public function test_it_restricts_posts_page_access_via_post_with_post_type_post(): void {
@@ -199,9 +197,6 @@ class testAdminSidebar extends \WP_UnitTestCase
 
 		$this->expectException(WPDieException::class);
 		(new SideBar)->restrictPostsPageAccess();
-
-		unset($_POST['post_type']);
-		unset($_SERVER['REQUEST_METHOD']);
 	}
 
 	public function test_it_allows_post_requests_to_book_post_types(): void {
@@ -216,9 +211,6 @@ class testAdminSidebar extends \WP_UnitTestCase
 		} catch (WPDieException) {
 			$this->fail('POST request to chapter should not be restricted');
 		}
-
-		unset($_POST['post_type']);
-		unset($_SERVER['REQUEST_METHOD']);
 	}
 
 	public function test_it_restricts_new_post_page_access_via_post(): void {
@@ -228,8 +220,6 @@ class testAdminSidebar extends \WP_UnitTestCase
 
 		$this->expectException(WPDieException::class);
 		(new SideBar)->restrictPostsPageAccess();
-
-		unset($_SERVER['REQUEST_METHOD']);
 	}
 
 	public function test_it_restricts_posts_on_main_site(): void {
@@ -247,7 +237,13 @@ class testAdminSidebar extends \WP_UnitTestCase
 
 		$this->expectException(WPDieException::class);
 		(new SideBar)->restrictPostsPageAccess();
-
-		unset($_GET['post_type']);
 	}
+
+	public function tearDown(): void {
+		unset($_GET['post_type']);
+		unset($_POST['post_type']);
+		$_SERVER['REQUEST_METHOD'] = 'GET';
+		parent::tearDown();
+	}
+
 }
