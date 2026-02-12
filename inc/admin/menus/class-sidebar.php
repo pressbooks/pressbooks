@@ -94,8 +94,9 @@ class SideBar {
 	public function restrictPostsPageAccess(): void {
 		global $pagenow;
 
-		// Check both GET and POST parameters to prevent bypassing via POST requests
-		$post_type = $_GET['post_type'] ?? $_POST['post_type'] ?? null;
+		// Get post_type from request (check both GET and POST)
+		// phpcs:ignore Pressbooks.Security.NonceVerification.Missing
+		$post_type = isset( $_GET['post_type'] ) ? sanitize_text_field( wp_unslash( $_GET['post_type'] ) ) : ( isset( $_POST['post_type'] ) ? sanitize_text_field( wp_unslash( $_POST['post_type'] ) ) : null );
 
 		// Block access to edit.php with no post_type (defaults to 'post') or post_type=post
 		if ( $pagenow === 'edit.php' && ( $post_type === null || $post_type === 'post' ) ) {
