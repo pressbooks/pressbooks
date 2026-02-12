@@ -95,16 +95,17 @@ class SideBar {
 		global $pagenow;
 
 		// Get post_type from request (check both GET and POST)
-		// phpcs:ignore Pressbooks.Security.NonceVerification.Missing
-		$post_type = isset( $_GET['post_type'] ) ? sanitize_text_field( wp_unslash( $_GET['post_type'] ) ) : ( isset( $_POST['post_type'] ) ? sanitize_text_field( wp_unslash( $_POST['post_type'] ) ) : null );
+		// phpcs:ignore Pressbooks.Security.NonceVerification.Missing, Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
+		$post_type = wp_unslash( $_GET['post_type'] ?? $_POST['post_type'] ?? null );
 
-		// Block access to edit.php with no post_type (defaults to 'post') or post_type=post
-		if ( $pagenow === 'edit.php' && ( $post_type === null || $post_type === 'post' ) ) {
-			wp_die( esc_html__( 'Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 );
+		if ( ! is_null( $post_type ) ) {
+			$post_type = sanitize_text_field( $post_type );
 		}
 
-		// Block access to post-new.php with no post_type (defaults to 'post') or post_type=post
-		if ( $pagenow === 'post-new.php' && ( $post_type === null || $post_type === 'post' ) ) {
+		$pages_to_block = [ 'edit.php', 'post-new.php' ];
+
+		// Block access to edit.php and post-new.php with no post_type (defaults to 'post') or post_type=post
+		if ( in_array( $pagenow, $pages_to_block, true ) && ( $post_type === null || $post_type === 'post' ) ) {
 			wp_die( esc_html__( 'Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 );
 		}
 	}
