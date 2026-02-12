@@ -56,6 +56,7 @@ class SideBar {
 		if ( ! is_main_site() ) {
 			add_action( 'admin_menu', [ $this, 'removePatternsSubMenuItem' ] );
 			add_action( 'admin_init', [ $this, 'restrictPatternsPageAccess' ] );
+			add_action( 'admin_init', [ $this, 'restrictPostsPageAccess' ] );
 			return;
 		}
 
@@ -86,6 +87,20 @@ class SideBar {
 		}
 
 		wp_die( __( 'Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 ); // phpcs:ignore Pressbooks.Security.EscapeOutput.OutputNotEscaped
+	}
+
+	public function restrictPostsPageAccess(): void {
+		global $pagenow;
+
+		// Block access to edit.php with no post_type (defaults to 'post') or post_type=post
+		if ( $pagenow === 'edit.php' && ( ! isset( $_GET['post_type'] ) || $_GET['post_type'] === 'post' ) ) {
+			wp_die( __( 'Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 ); // phpcs:ignore Pressbooks.Security.EscapeOutput.OutputNotEscaped
+		}
+
+		// Block access to post-new.php with no post_type (defaults to 'post') or post_type=post
+		if ( $pagenow === 'post-new.php' && ( ! isset( $_GET['post_type'] ) || $_GET['post_type'] === 'post' ) ) {
+			wp_die( __( 'Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 ); // phpcs:ignore Pressbooks.Security.EscapeOutput.OutputNotEscaped
+		}
 	}
 
 	public function manageNetworkAdminMenu(): void {
