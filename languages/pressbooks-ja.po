@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
-"POT-Creation-Date: 2025-07-23T14:38:58+00:00\n"
+"POT-Creation-Date: 2025-07-30T15:12:23+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
 "Last-Translator: Eduardo Vera, 2023-2024\n"
 "Language-Team: Japanese (http://app.transifex.com/pressbooks/pressbooks/language/ja/)\n"
@@ -128,19 +128,19 @@ msgstr "パスワードをリセット"
 msgid "Password Reset"
 msgstr "パスワードのリセット"
 
-#: inc/admin/class-catalog-list-table.php:76
+#: inc/admin/class-catalog-list-table.php:63
 msgid "Visit Admin"
 msgstr "管理を表示"
 
-#: inc/admin/class-catalog-list-table.php:106
-#: inc/admin/class-catalog-list-table.php:271
-#: inc/admin/class-catalog-list-table.php:533
+#: inc/admin/class-catalog-list-table.php:85
+#: inc/admin/class-catalog-list-table.php:267
+#: inc/admin/class-catalog-list-table.php:508
 msgid "Hide in Catalog"
 msgstr "カタログで非表示"
 
-#: inc/admin/class-catalog-list-table.php:111
-#: inc/admin/class-catalog-list-table.php:270
-#: inc/admin/class-catalog-list-table.php:531
+#: inc/admin/class-catalog-list-table.php:94
+#: inc/admin/class-catalog-list-table.php:266
+#: inc/admin/class-catalog-list-table.php:506
 msgid "Show in Catalog"
 msgstr "カタログで表示"
 
@@ -176,74 +176,74 @@ msgstr "注目"
 msgid "Pub Date"
 msgstr "刊行日付"
 
-#: inc/admin/class-catalog-list-table.php:396
+#: inc/admin/class-catalog-list-table.php:379
 msgid "Edit Tags"
 msgstr "タグを編集"
 
-#: inc/admin/class-catalog-list-table.php:435
+#: inc/admin/class-catalog-list-table.php:409
 #: templates/admin/organize.blade.php:18 templates/admin/organize.blade.php:40
 msgid "Private"
 msgstr "非公開"
 
-#: inc/admin/class-catalog-list-table.php:435
+#: inc/admin/class-catalog-list-table.php:409
 #: templates/admin/organize.blade.php:13 templates/admin/organize.blade.php:26
 msgid "Public"
 msgstr "公開"
 
-#: inc/admin/class-catalog-list-table.php:507 inc/admin/laf/namespace.php:466
+#: inc/admin/class-catalog-list-table.php:481 inc/admin/laf/namespace.php:466
 #: inc/admin/laf/namespace.php:646 inc/admin/laf/namespace.php:925
 msgid "My Catalog"
 msgstr "自分のカタログ"
 
-#: inc/admin/class-catalog-list-table.php:508
+#: inc/admin/class-catalog-list-table.php:482
 msgid "Edit Profile"
 msgstr "プロフィールを編集"
 
-#: inc/admin/class-catalog-list-table.php:509
+#: inc/admin/class-catalog-list-table.php:483
 msgid "Visit Catalog"
 msgstr "カタログを表示"
 
 #. translators: %s: search keywords
-#: inc/admin/class-catalog-list-table.php:515
+#: inc/admin/class-catalog-list-table.php:489
 #, php-format
 msgid "Search results for &#8220;%s&#8221; returned no items"
 msgstr "「%s」の検索結果で項目を返しませんでした。"
 
 #. translators: %s: search keywords
-#: inc/admin/class-catalog-list-table.php:518
+#: inc/admin/class-catalog-list-table.php:492
 #, php-format
 msgid "Search results for &#8220;%s&#8221; returned 1 item"
 msgstr "「%s」の検索結果で1件の項目を返しました。"
 
 #. translators: %s: search keywords, %d: total items found
-#: inc/admin/class-catalog-list-table.php:521
+#: inc/admin/class-catalog-list-table.php:495
 #, php-format
 msgid "Search results for &#8220;%1$s&#8221; returned %2$d items"
 msgstr "「%1$s」の検索結果で%2$d件の項目を返しました。"
 
-#: inc/admin/class-catalog-list-table.php:529
+#: inc/admin/class-catalog-list-table.php:504
 msgid "Organize your public Catalog page."
 msgstr "公開カタログページを整理する。"
 
-#: inc/admin/class-catalog-list-table.php:530
+#: inc/admin/class-catalog-list-table.php:505
 msgid "Show/Hide books"
 msgstr "本を表示/非表示"
 
-#: inc/admin/class-catalog-list-table.php:531
+#: inc/admin/class-catalog-list-table.php:506
 #, php-format
 msgid "To display a book in your catalog choose \"%s\" under Catalog Status. "
 msgstr "カタログで本を表示するには、「カタログステータス」で「%s」を選択します。 "
 
-#: inc/admin/class-catalog-list-table.php:533
+#: inc/admin/class-catalog-list-table.php:508
 #, php-format
 msgid "To hide a book in your catalog choose \"%s\" under Catalog Status."
 msgstr "カタログの本を非表示するには、「カタログステータス」で「%s」を選択します。"
 
-#: inc/admin/class-catalog-list-table.php:536
+#: inc/admin/class-catalog-list-table.php:511
 msgid "Catalog sorting"
 msgstr "カタログの並べ替え"
 
-#: inc/admin/class-catalog-list-table.php:537
+#: inc/admin/class-catalog-list-table.php:515
 #, php-format
 msgid ""
 "To add sorting ability, add your Tag names to your <a href=\"%s\">Catalog "
@@ -251,19 +251,19 @@ msgid ""
 " each individual book."
 msgstr "並べ替え機能を追加するには、<a href=\"%s\">カタログプロファイル</a>ページでタグ名を追加し (例: 著者、ジャンル) 、各本に適切なタグを追加します。"
 
-#: inc/admin/class-catalog-list-table.php:539
+#: inc/admin/class-catalog-list-table.php:519
 msgid "Share your catalog"
 msgstr "カタログを共有"
 
-#: inc/admin/class-catalog-list-table.php:540
+#: inc/admin/class-catalog-list-table.php:521
 msgid "The public link to your catalog page"
 msgstr "カタログページへの公開リンク"
 
-#: inc/admin/class-catalog-list-table.php:553
+#: inc/admin/class-catalog-list-table.php:539
 msgid "Add By URL"
 msgstr "URL から追加"
 
-#: inc/admin/class-catalog-list-table.php:564 templates/admin/search.php:81
+#: inc/admin/class-catalog-list-table.php:549 templates/admin/search.php:81
 #: templates/admin/cloner/page.blade.php:26
 msgid "Search"
 msgstr "検索"

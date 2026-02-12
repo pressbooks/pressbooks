@@ -1,5 +1,44 @@
 # Changelog
 
+## [6.36.1](https://github.com/pressbooks/pressbooks/compare/6.36.0...6.36.1) (2026-01-22)
+
+
+### Chores
+
+* revert "fix: convert all td elements to th in thead elements before save" ([#4330](https://github.com/pressbooks/pressbooks/issues/4330)) ([b65c538](https://github.com/pressbooks/pressbooks/commit/b65c5387fcd79114b4dcca9bef3fd167e06985cd))
+
+## [6.36.0](https://github.com/pressbooks/pressbooks/compare/6.35.0...6.36.0) (2026-01-20)
+
+
+### Features
+
+* add filter to adjust book menu order ([#4322](https://github.com/pressbooks/pressbooks/issues/4322)) ([9072abd](https://github.com/pressbooks/pressbooks/commit/9072abd62df73b66de2634f2781a4da14280c00b))
+
+
+### Bug Fixes
+
+* add support for search & replace in content toolkit menu ([#4325](https://github.com/pressbooks/pressbooks/issues/4325)) ([28c4308](https://github.com/pressbooks/pressbooks/commit/28c430857f2bdcf6d7cc563720989203639ec072))
+* convert all td elements to th in thead elements before save ([#4304](https://github.com/pressbooks/pressbooks/issues/4304)) ([985d1d6](https://github.com/pressbooks/pressbooks/commit/985d1d6a48342ef8bd48c5ceac55a95924f4e508))
+* improve handling of archived books ([#4326](https://github.com/pressbooks/pressbooks/issues/4326)) ([d56abd8](https://github.com/pressbooks/pressbooks/commit/d56abd8b6adc0610629172557c5e1628ea0e351b))
+
+
+### Chores
+
+* **i18n:** update translations and revert transifex setup ([#4327](https://github.com/pressbooks/pressbooks/issues/4327)) ([512696c](https://github.com/pressbooks/pressbooks/commit/512696c061197ad21e71412961578860c46b399d))
+
+## [6.35.0](https://github.com/pressbooks/pressbooks/compare/6.34.4...6.35.0) (2025-12-17)
+
+
+### Features
+
+* allow subscript and superscript in glossary terms ([#4305](https://github.com/pressbooks/pressbooks/issues/4305)) ([191c65b](https://github.com/pressbooks/pressbooks/commit/191c65b35ebca8e49aefae4bda7c547efedf74fa))
+* custom banner for archived books ([#4284](https://github.com/pressbooks/pressbooks/issues/4284)) ([d295805](https://github.com/pressbooks/pressbooks/commit/d29580565309e5332f59afd0593070f2bb1b7d5d))
+
+
+### Bug Fixes
+
+* wp request deprecation ([#4311](https://github.com/pressbooks/pressbooks/issues/4311)) ([3904cee](https://github.com/pressbooks/pressbooks/commit/3904cee00fa7f8e6229355a0e8b1fbd832e13b31))
+
 ## [6.34.4](https://github.com/pressbooks/pressbooks/compare/6.34.3...6.34.4) (2025-12-02)
 
 

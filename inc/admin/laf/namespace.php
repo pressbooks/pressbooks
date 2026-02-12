@@ -492,7 +492,7 @@ function custom_screen_options( $default, $option, $value ) {
  * @return array
  */
 function reorder_book_admin_menu( $menu_order = [] ) {
-	return [
+	$default_order = [
 		'index.php',
 		'separator1',
 		'pb_organize',
@@ -510,6 +510,17 @@ function reorder_book_admin_menu( $menu_order = [] ) {
 		'tools.php',
 		'options-general.php',
 	];
+
+	/**
+	 * Filter the book admin menu order.
+	 *
+	 * Allows plugins to modify the order of menu items in the book admin sidebar.
+	 *
+	 * @since 6.36.0
+	 *
+	 * @param array $default_order The default menu order array.
+	 */
+	return apply_filters( 'pb_admin_menu_order', $default_order );
 }
 
 /**

@@ -13,4 +13,13 @@ $icon-size: 24px;
       opacity: 1;
     }
   }
+
+  .wp-submenu li a[href*="_disabled"] {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    &:hover {
+      color: #000;
+    }
+  }
 }
