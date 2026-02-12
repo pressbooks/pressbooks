@@ -231,4 +231,23 @@ class testAdminSidebar extends \WP_UnitTestCase
 
 		unset($_SERVER['REQUEST_METHOD']);
 	}
+
+	public function test_it_restricts_posts_on_main_site(): void {
+		global $pagenow;
+		$pagenow = 'edit.php';
+
+		$this->expectException(WPDieException::class);
+		(new SideBar)->restrictPostsPageAccess();
+	}
+
+	public function test_it_restricts_post_new_on_main_site(): void {
+		global $pagenow;
+		$pagenow = 'post-new.php';
+		$_GET['post_type'] = 'post';
+
+		$this->expectException(WPDieException::class);
+		(new SideBar)->restrictPostsPageAccess();
+
+		unset($_GET['post_type']);
+	}
 }

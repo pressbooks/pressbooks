@@ -53,10 +53,12 @@ class SideBar {
 	}
 
 	public function hooks(): void {
+		// Apply posts restriction to all sites
+		add_action( 'admin_init', [ $this, 'restrictPostsPageAccess' ] );
+
 		if ( ! is_main_site() ) {
 			add_action( 'admin_menu', [ $this, 'removePatternsSubMenuItem' ] );
 			add_action( 'admin_init', [ $this, 'restrictPatternsPageAccess' ] );
-			add_action( 'admin_init', [ $this, 'restrictPostsPageAccess' ] );
 			return;
 		}
 
