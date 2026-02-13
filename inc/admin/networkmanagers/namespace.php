@@ -95,7 +95,7 @@ function update_admin_status() {
 		} else {
 			delete_site_option( 'pressbooks_network_managers' );
 		}
-		
+
 		// Fire hooks after successful manager changes
 		if ( isset( $was_added ) && $was_added ) {
 			do_action( 'pressbooks_network_manager_added', $id );
@@ -103,7 +103,7 @@ function update_admin_status() {
 		if ( isset( $was_removed ) && $was_removed ) {
 			do_action( 'pressbooks_network_manager_removed', $id );
 		}
-		
+
 		// Reset the cheap cache after updating the option
 		_restricted_users();
 	}
