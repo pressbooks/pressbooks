@@ -4965,6 +4965,11 @@
             "name": "Mt. San Antonio College",
             "url": "https:\/\/www.mtsac.edu/\/"
           }
+          {
+            "code": "US-CA-208",
+            "name": "East Lost Angeles College",
+            "url": "https:\/\/www.elac.edu/\/"
+          }
         ]
       },
       {
@@ -7572,7 +7577,7 @@
           },
           {
             "code": "US-LA-006",
-            "name": "Fletcher Technical Community College",
+            "name": "L.E. Fletcher Technical Community College",
             "url": "https:\/\/www.fletcher.edu\/"
           },
           {
@@ -7587,32 +7592,32 @@
           },
           {
             "code": "US-LA-009",
-            "name": "Louisiana State University",
+            "name": "LSU and A&M College",
             "url": "https:\/\/www.lsu.edu\/"
           },
           {
             "code": "US-LA-010",
-            "name": "Louisiana State University Alexandria",
+            "name": "LSU at Alexandria",
             "url": "https:\/\/www.lsua.edu\/"
           },
           {
             "code": "US-LA-011",
-            "name": "Louisiana State University Eunice",
+            "name": "LSU at Eunice",
             "url": "https:\/\/www.lsue.edu\/"
           },
           {
             "code": "US-LA-012",
-            "name": "Louisiana State University Health Sciences Center",
+            "name": "LSU Health Sciences Center - New Orleans",
             "url": "https:\/\/www.lsuhsc.edu\/"
           },
           {
             "code": "US-LA-013",
-            "name": "Louisiana State University Health Sciences Center Shreveport",
+            "name": "LSU Health Sciences Center - Shreveport",
             "url": "https:\/\/www.lsuhs.edu\/"
           },
           {
             "code": "US-LA-014",
-            "name": "Louisiana State University Shreveport",
+            "name": "LSU in Shreveport",
             "url": "https:\/\/www.lsus.edu\/"
           },
           {
@@ -7647,12 +7652,12 @@
           },
           {
             "code": "US-LA-021",
-            "name": "Northwestern State University of Louisiana",
+            "name": "Northwestern State University",
             "url": "https:\/\/www.nsula.edu\/"
           },
           {
             "code": "US-LA-022",
-            "name": "Nunez Community College",
+            "name": "Elaine P. Nunez Community College",
             "url": "https:\/\/www.nunez.edu\/"
           },
           {
@@ -7677,12 +7682,12 @@
           },
           {
             "code": "US-LA-027",
-            "name": "Southern University at New Orleans",
+            "name": "Southern University in New Orleans",
             "url": "https:\/\/www.suno.edu\/"
           },
           {
             "code": "US-LA-028",
-            "name": "Southern University at Shreveport",
+            "name": "Southern University in Shreveport",
             "url": "https:\/\/www.susla.edu\/"
           },
           {
@@ -7719,6 +7724,71 @@
             "code": "US-LA-035",
             "name": "Xavier University of Louisiana",
             "url": "https:\/\/www.xula.edu\/"
+          },
+          {
+            "code": "US-LA-036",
+            "name": "Louisiana Universities Marine Consortium",
+            "url": "https:\/\/lumcon.edu\/"
+          },
+          {
+            "code": "US-LA-037",
+            "name": "LSU Paul M. Hebert Law Center",
+            "url": "https:\/\/law.lsu.edu\/"
+          },
+          {
+            "code": "US-LA-038",
+            "name": "LSU School of Veterinary Medicine",
+            "url": "https:\/\/www.lsu.edu\/vetmed\/"
+          },
+          {
+            "code": "US-LA-039",
+            "name": "Pennington Biomedical Research Center",
+            "url": "https:\/\/www.pbrc.edu\/"
+          },
+          {
+            "code": "US-LA-040",
+            "name": "Centenary College",
+            "url": "https:\/\/www.centenary.edu\/"
+          },
+          {
+            "code": "US-LA-041",
+            "name": "Louisiana Christian University",
+            "url": "https:\/\/lcuniversity.edu\/"
+          },
+          {
+            "code": "US-LA-042",
+            "name": "Loyola University New Orleans College of Law",
+            "url": "https:\/\/law.loyno.edu\/"
+          },
+          {
+            "code": "US-LA-043",
+            "name": "New Orleans Baptist Theological Seminary",
+            "url": "https:\/\/www.nobts.edu\/"
+          },
+          {
+            "code": "US-LA-044",
+            "name": "Notre Dame Seminary Graduate School of Theology",
+            "url": "https:\/\/nds.edu\/"
+          },
+          {
+            "code": "US-LA-045",
+            "name": "Saint Joseph Abbey & Seminary College",
+            "url": "https:\/\/www.sjasc.edu\/"
+          },
+          {
+            "code": "US-LA-046",
+            "name": "Tulane University Law School",
+            "url": "https:\/\/law.tulane.edu\/"
+          },
+          {
+            "code": "US-LA-047",
+            "name": "University of Holy Cross",
+            "url": "https:\/\/uhcno.edu\/"
+          },
+          {
+            "code": "US-LA-048",
+            "name": "Franciscan Missionaries of Our Lady University",
+            "url": "https:\/\/franu.edu\/"
           }
         ]
       },
