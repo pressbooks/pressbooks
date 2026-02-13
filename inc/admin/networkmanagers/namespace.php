@@ -80,11 +80,13 @@ function update_admin_status() {
 		if ( 1 === absint( $_POST['status'] ) ) {
 			if ( ! in_array( absint( $id ), $restricted, true ) ) {
 				$restricted[] = $id;
+				$was_added = true;
 			}
 		} elseif ( 0 === absint( $_POST['status'] ) ) {
 			$key = array_search( absint( $id ), $restricted, true );
 			if ( $key !== false ) {
 				unset( $restricted[ $key ] );
+				$was_removed = true;
 			}
 		}
 
@@ -93,6 +95,15 @@ function update_admin_status() {
 		} else {
 			delete_site_option( 'pressbooks_network_managers' );
 		}
+		
+		// Fire hooks after successful manager changes
+		if ( isset( $was_added ) && $was_added ) {
+			do_action( 'pressbooks_network_manager_added', $id );
+		}
+		if ( isset( $was_removed ) && $was_removed ) {
+			do_action( 'pressbooks_network_manager_removed', $id );
+		}
+		
 		// Reset the cheap cache after updating the option
 		_restricted_users();
 	}
