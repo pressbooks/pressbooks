@@ -27,14 +27,12 @@ class ErrorHandler {
 	 * For WP_ENV = development, deprecations can be displayed if DISPLAY_PHP_DEPRECATIONS is defined and is true.
 	 *
 	 * @param int $errorno Only E_DEPRECATED errors are considered.
-	 * @param string $errstr Unused.
 	 * @param string $errfile Used to check source path.
-	 * @param int $errline Unused.
 	 * @return bool True to suppress, false to allow.
 	 */
-	public function silenceDeprecationNotices( int $errorno, string $_errstr, string $errfile, int $_errline ): bool {
-		if ( env( 'WP_ENV' ) === 'development' && env( 'DISPLAY_PHP_DEPRECATIONS' ) === true ) {
-			return false;
+	public function silenceDeprecationNotices( int $errorno, string $errfile ): bool {
+		if ( env( 'WP_ENV' ) === 'development' && env( 'DISPLAY_PHP_DEPRECATIONS' ) !== true ) {
+			return true;
 		}
 
 		if ( $errorno !== E_DEPRECATED ) {
