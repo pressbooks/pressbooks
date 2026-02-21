@@ -199,4 +199,53 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertFalse( is_plugin_active( 'gutenberg/gutenberg.php' ) );
 		$this->assertEquals( 'replace', get_option( 'classic-editor-replace' ) );
 	}
+
+	/**
+	 * @group editor
+	 */
+	public function test_fix_table_header_cells() {
+		// Test comprehensive table: td→th conversion, attributes, empty cells, tbody preservation
+		$input = '<table class="grid" border="0"><thead><tr><td>Header 1</td><td class="test">Header 2</td><td colspan="2">Header 3</td><td></td><th>  </th><th colspan="1" class="existing">Already TH</th></tr></thead><tbody><tr><td>Data 1</td><td>Data 2</td><td>Data 3</td><td></td></tr></tbody></table>';
+		$result = \Pressbooks\Editor\fix_table_header_cells( wp_slash( $input ) );
+		
+		// Non-empty td should convert to th with attributes preserved
+		$this->assertStringContainsString( '<th>Header 1</th>', $result );
+		$this->assertStringContainsString( '<th class=\"test\">Header 2</th>', $result );
+		$this->assertStringContainsString( '<th colspan=\"2\">Header 3</th>', $result );
+		$this->assertStringContainsString( '<th colspan=\"1\" class=\"existing\">Already TH</th>', $result );
+		// Empty cells should become td
+		$this->assertStringContainsString( '<td></td>', $result );
+		$this->assertStringContainsString( '<td>  </td>', $result );
+		// Table attributes preserved without double-encoding
+		$this->assertStringContainsString( 'class=\"grid\"', $result );
+		$this->assertStringContainsString( 'border=\"0\"', $result );
+		$this->assertStringNotContainsString( '&quot;&quot;', $result );
+		// tbody should remain unchanged
+		$this->assertStringContainsString( '<tbody><tr><td>Data 1</td><td>Data 2</td><td>Data 3</td><td></td></tr></tbody>', $result );
+
+		// Test edge cases: no thead, no tables, empty content
+		$this->assertEquals( wp_slash( '<table><tbody><tr><td>Data</td></tr></tbody></table>' ), \Pressbooks\Editor\fix_table_header_cells( wp_slash( '<table><tbody><tr><td>Data</td></tr></tbody></table>' ) ) );
+		$this->assertEquals( wp_slash( '<p>Just text</p>' ), \Pressbooks\Editor\fix_table_header_cells( wp_slash( '<p>Just text</p>' ) ) );
+		$this->assertEquals( '', \Pressbooks\Editor\fix_table_header_cells( '' ) );
+
+		// Test comprehensive content: LaTeX, UTF-8, quotes, mixed HTML
+		$input_complex = '<p>LaTeX: \[ f(x) = \frac{1}{2} \]</p><p>There are "double quotes" and \'single quotes\'.</p><span class="strong">Bold</span><table><thead><tr><td>\[ x = y \]</td><td>Café</td><td>Niño</td><td>"Curly"</td><td>中文</td><td>\sum_{i=1}^{n} i</td></tr></thead><tbody><tr><td>Data</td></tr></tbody></table><p>After</p>';
+		$result_complex = \Pressbooks\Editor\fix_table_header_cells( wp_slash( $input_complex ) );
+		// LaTeX preserved with double backslashes (slashed output)
+		$this->assertStringContainsString( '\\\\[ f(x) = \\\\frac{1}{2} \\\\]', $result_complex );
+		$this->assertStringContainsString( '<th>\\\\[ x = y \\\\]</th>', $result_complex );
+		$this->assertStringContainsString( '<th>\\\\sum_{i=1}^{n} i</th>', $result_complex );
+		// UTF-8 characters preserved as HTML entities
+		$this->assertStringContainsString( '<th>Caf&eacute;</th>', $result_complex );
+		$this->assertStringContainsString( '<th>Ni&ntilde;o</th>', $result_complex );
+		$this->assertStringContainsString( '<th>&#20013;&#25991;</th>', $result_complex );
+		$this->assertStringContainsString( '<th>\"Curly\"</th>', $result_complex );
+		// Quotes and HTML elements preserved
+		$this->assertStringContainsString( '\"double quotes\"', $result_complex );
+		$this->assertStringContainsString( "\\'single quotes\\'", $result_complex );
+		$this->assertStringContainsString( '<span class=\"strong\">Bold</span>', $result_complex );
+		$this->assertStringContainsString( '<p>After</p>', $result_complex );
+		// tbody unchanged
+		$this->assertStringContainsString( '<tbody><tr><td>Data</td></tr></tbody>', $result_complex );
+	}
 }

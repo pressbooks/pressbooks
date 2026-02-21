@@ -516,8 +516,83 @@ function show_kitchen_sink( $args ) {
 }
 
 /**
- * Force classic editor mode
+ * Convert <td> elements to <th> elements in table header rows if they contain content.
+ *
+ * @param string $content Post content
+ *
+ * @return string Modified content with proper <th> elements in table headers
  */
+function fix_table_header_cells( string $content ): string {
+	// Only process if content contains tables with thead
+	if ( empty( $content ) || ! str_contains( $content, '<thead' ) ) {
+		return $content;
+	}
+
+	// Protect backslashes through WordPress slashing/unslashing
+	$backslash_placeholder = '!@#BACKSLASH#@!';
+	$content = str_replace( '\\\\', $backslash_placeholder, $content );
+	$content = wp_unslash( $content );
+	$content = str_replace( $backslash_placeholder, '\\', $content );
+
+	// Parse HTML and transform table headers
+	libxml_use_internal_errors( true );
+	$dom = new \DOMDocument( '1.0', 'UTF-8' );
+	$dom->loadHTML( '<?xml encoding="UTF-8">' . $content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+	libxml_clear_errors();
+
+	$theads = $dom->getElementsByTagName( 'thead' );
+
+	foreach ( $theads as $thead ) {
+		$rows = $thead->getElementsByTagName( 'tr' );
+		foreach ( $rows as $row ) {
+			// Collect cells to avoid live collection issues
+			$cells = [];
+			foreach ( $row->childNodes as $node ) {
+				if ( $node->nodeType === XML_ELEMENT_NODE && ( $node->nodeName === 'td' || $node->nodeName === 'th' ) ) {
+					$cells[] = $node;
+				}
+			}
+
+			foreach ( $cells as $cell ) {
+				$has_content = trim( $cell->textContent ) !== '';
+				$is_td = $cell->nodeName === 'td';
+
+				// Convert td with content to th, or th without content to td
+				if ( ( $is_td && $has_content ) || ( ! $is_td && ! $has_content ) ) {
+					$new_cell = $dom->createElement( $is_td ? 'th' : 'td' );
+
+					// Copy attributes
+					if ( $cell->hasAttributes() ) {
+						foreach ( $cell->attributes as $attr ) {
+							$new_cell->setAttribute( $attr->name, $attr->value );
+						}
+					}
+
+					// Copy child nodes
+					while ( $cell->firstChild ) {
+						$new_cell->appendChild( $cell->firstChild );
+					}
+
+					$cell->parentNode->replaceChild( $new_cell, $cell );
+				}
+			}
+		}
+	}
+
+	// Save HTML and restore backslashes through slashing
+	$html = $dom->saveHTML();
+	// Remove the XML declaration we added for UTF-8 parsing
+	$html = str_replace( '<?xml encoding="UTF-8">', '', $html );
+	$html = str_replace( '\\', $backslash_placeholder, $html );
+	$html = wp_slash( $html );
+	$html = str_replace( $backslash_placeholder, '\\\\', $html );
+
+	return $html;
+}
+
+/**
+* Force classic editor mode
+*/
 function hide_gutenberg() {
 	// 4.9.X and below
 	deactivate_plugins( [ 'gutenberg/gutenberg.php' ] );
