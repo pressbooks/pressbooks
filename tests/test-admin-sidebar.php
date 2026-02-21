@@ -80,4 +80,170 @@ class testAdminSidebar extends \WP_UnitTestCase
 			$this->fail('Should not restrict access to other edit pages');
 		}
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_restricts_posts_page_access_with_no_post_type(): void {
+		global $pagenow;
+		$pagenow = 'edit.php';
+		unset($_GET['post_type']);
+
+		try {
+			(new SideBar)->restrictPostsPageAccess();
+			$this->fail('Should have restricted access to edit.php with no post_type');
+		} catch (WPDieException $e) {
+			$this->assertEquals('Sorry, you are not allowed to access this page.', $e->getMessage());
+		}
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_restricts_posts_page_access_with_post_type_post(): void {
+		global $pagenow;
+		$pagenow = 'edit.php';
+		$_GET['post_type'] = 'post';
+
+		try {
+			(new SideBar)->restrictPostsPageAccess();
+			$this->fail('Should have restricted access to edit.php?post_type=post');
+		} catch (WPDieException $e) {
+			$this->assertEquals('Sorry, you are not allowed to access this page.', $e->getMessage());
+		}
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_restricts_new_post_page_access_with_no_post_type(): void {
+		global $pagenow;
+		$pagenow = 'post-new.php';
+		unset($_GET['post_type']);
+
+		try {
+			(new SideBar)->restrictPostsPageAccess();
+			$this->fail('Should have restricted access to post-new.php with no post_type');
+		} catch (WPDieException $e) {
+			$this->assertEquals('Sorry, you are not allowed to access this page.', $e->getMessage());
+		}
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_restricts_new_post_page_access_with_post_type_post(): void {
+		global $pagenow;
+		$pagenow = 'post-new.php';
+		$_GET['post_type'] = 'post';
+
+		try {
+			(new SideBar)->restrictPostsPageAccess();
+			$this->fail('Should have restricted access to post-new.php?post_type=post');
+		} catch (WPDieException $e) {
+			$this->assertEquals('Sorry, you are not allowed to access this page.', $e->getMessage());
+		}
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_allows_access_to_book_post_types(): void {
+		global $pagenow;
+
+		// Test chapter
+		$pagenow = 'edit.php';
+		$_GET['post_type'] = 'chapter';
+		try {
+			(new SideBar)->restrictPostsPageAccess();
+			$this->assertTrue(true);
+		} catch (WPDieException) {
+			$this->fail('Should allow access to edit.php?post_type=chapter');
+		}
+
+		// Test front-matter
+		$_GET['post_type'] = 'front-matter';
+		try {
+			(new SideBar)->restrictPostsPageAccess();
+			$this->assertTrue(true);
+		} catch (WPDieException) {
+			$this->fail('Should allow access to edit.php?post_type=front-matter');
+		}
+
+		// Test back-matter
+		$_GET['post_type'] = 'back-matter';
+		try {
+			(new SideBar)->restrictPostsPageAccess();
+			$this->assertTrue(true);
+		} catch (WPDieException) {
+			$this->fail('Should allow access to edit.php?post_type=back-matter');
+		}
+	}
+
+	public function test_it_restricts_posts_page_access_via_post_with_no_post_type(): void {
+		global $pagenow;
+		$pagenow = 'edit.php';
+		$_SERVER['REQUEST_METHOD'] = 'POST';
+
+		$this->expectException(WPDieException::class);
+		(new SideBar)->restrictPostsPageAccess();
+	}
+
+	public function test_it_restricts_posts_page_access_via_post_with_post_type_post(): void {
+		global $pagenow;
+		$pagenow = 'edit.php';
+		$_POST['post_type'] = 'post';
+		$_SERVER['REQUEST_METHOD'] = 'POST';
+
+		$this->expectException(WPDieException::class);
+		(new SideBar)->restrictPostsPageAccess();
+	}
+
+	public function test_it_allows_post_requests_to_book_post_types(): void {
+		global $pagenow;
+		$pagenow = 'edit.php';
+		$_POST['post_type'] = 'chapter';
+		$_SERVER['REQUEST_METHOD'] = 'POST';
+
+		try {
+			(new SideBar)->restrictPostsPageAccess();
+			$this->assertTrue(true);
+		} catch (WPDieException) {
+			$this->fail('POST request to chapter should not be restricted');
+		}
+	}
+
+	public function test_it_restricts_new_post_page_access_via_post(): void {
+		global $pagenow;
+		$pagenow = 'post-new.php';
+		$_SERVER['REQUEST_METHOD'] = 'POST';
+
+		$this->expectException(WPDieException::class);
+		(new SideBar)->restrictPostsPageAccess();
+	}
+
+	public function test_it_restricts_posts_on_main_site(): void {
+		global $pagenow;
+		$pagenow = 'edit.php';
+
+		$this->expectException(WPDieException::class);
+		(new SideBar)->restrictPostsPageAccess();
+	}
+
+	public function test_it_restricts_post_new_on_main_site(): void {
+		global $pagenow;
+		$pagenow = 'post-new.php';
+		$_GET['post_type'] = 'post';
+
+		$this->expectException(WPDieException::class);
+		(new SideBar)->restrictPostsPageAccess();
+	}
+
+	public function tearDown(): void {
+		unset($_GET['post_type']);
+		unset($_POST['post_type']);
+		$_SERVER['REQUEST_METHOD'] = 'GET';
+		parent::tearDown();
+	}
+
 }
