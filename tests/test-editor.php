@@ -207,7 +207,7 @@ class EditorTest extends \WP_UnitTestCase {
 		// Test comprehensive table: td→th conversion, attributes, empty cells, tbody preservation
 		$input = '<table class="grid" border="0"><thead><tr><td>Header 1</td><td class="test">Header 2</td><td colspan="2">Header 3</td><td></td><th>  </th><th colspan="1" class="existing">Already TH</th></tr></thead><tbody><tr><td>Data 1</td><td>Data 2</td><td>Data 3</td><td></td></tr></tbody></table>';
 		$result = \Pressbooks\Editor\fix_table_header_cells( wp_slash( $input ) );
-		
+
 		// Non-empty td should convert to th with attributes preserved
 		$this->assertStringContainsString( '<th>Header 1</th>', $result );
 		$this->assertStringContainsString( '<th class=\"test\">Header 2</th>', $result );
@@ -215,7 +215,7 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<th colspan=\"1\" class=\"existing\">Already TH</th>', $result );
 		// Empty cells should become td
 		$this->assertStringContainsString( '<td></td>', $result );
-		$this->assertStringContainsString( '<td>  </td>', $result );
+		$this->assertStringContainsString( '<th>  </th>', $result );
 		// Table attributes preserved without double-encoding
 		$this->assertStringContainsString( 'class=\"grid\"', $result );
 		$this->assertStringContainsString( 'border=\"0\"', $result );
