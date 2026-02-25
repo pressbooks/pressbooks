@@ -1,3 +1,42 @@
 .check-column {
   padding: 9px 0 !important;
 }
+
+/**
+ * Opt-in responsive behaviour for Pressbooks-managed WP list tables.
+ *
+ * Add 'pb-table' in your WP_List_Table::get_table_classes() override to opt
+ * into horizontal-scroll / min-width behaviour when the table is placed inside
+ * a .pb-list-table-responsive wrapper:
+ *
+ *   protected function get_table_classes(): array {
+ *     return ['widefat', 'striped', 'table-view-list', 'pb-table', $this->_args['plural']];
+ *   }
+ *
+ * Column-level styles (widths, image rules, etc.) are intentionally NOT defined
+ * here. Each plugin is responsible for its own column styles, scoped to its own
+ * page context.
+ */
+
+/**
+ * Responsive WP list table container.
+ *
+ * Wrap a .pb-table output in this div to enforce a minimum table width and
+ * enable horizontal scrolling on viewports narrower than that width.
+ *
+ * Usage in a Blade template:
+ *   <div class="pb-list-table-responsive" style="--pb-list-table-min-width: 900px">
+ *     {!! $table->display() !!}
+ *   </div>
+ *
+ * The CSS custom property `--pb-list-table-min-width` controls the minimum
+ * width. It defaults to 640px when not set.
+ */
+.pb-list-table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+
+  .wp-list-table.pb-table {
+    min-width: var(--pb-list-table-min-width, 640px);
+  }
+}
