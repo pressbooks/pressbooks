@@ -86,7 +86,7 @@ class Book {
 
 		$current_user = wp_get_current_user();
 
-		if ( ! $current_user->exists() || ! is_super_admin( $current_user->ID ) ) {
+		if ( ! $current_user->exists() ) {
 			return $args;
 		}
 
