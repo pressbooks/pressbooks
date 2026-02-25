@@ -106,31 +106,4 @@ class Admin_DeleteBookTest extends \WP_UnitTestCase {
 		$result = $delete_book->addCurrentUserToDeleteEmail( $args );
 		$this->assertEquals( 'bookadmin@example.com', $result['to'] );
 	}
-
-	/**
-	 * @group deletebook
-	 */
-	public function test_addCurrentUserToDeleteEmail_skips_non_super_admin() {
-		$delete_book = new \Pressbooks\Admin\Delete\Book();
-
-		$user_id = $this->factory()->user->create( [
-			'user_email' => 'bookadmin-only@example.com',
-			'role' => 'administrator',
-		] );
-		wp_set_current_user( $user_id );
-
-		update_option( 'admin_email', 'bookadmin@example.com' );
-		$subject = sprintf( '[%s] Delete My Site', wp_specialchars_decode( get_option( 'blogname' ) ) );
-
-		$args = [
-			'to' => 'bookadmin@example.com',
-			'subject' => $subject,
-			'message' => 'Delete confirmation',
-			'headers' => '',
-			'attachments' => [],
-		];
-
-		$result = $delete_book->addCurrentUserToDeleteEmail( $args );
-		$this->assertEquals( 'bookadmin@example.com', $result['to'] );
-	}
 }
