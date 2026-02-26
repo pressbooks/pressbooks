@@ -33,6 +33,8 @@ class Book {
 		}
 		// Override delete site email
 		add_filter( 'delete_site_email_content', [ $obj, 'deleteBookEmailContent' ] );
+		// Send the delete confirmation email to the requesting user too (if book admin and not already a recipient)
+		add_filter( 'wp_mail', [ $obj, 'addCurrentUserToDeleteEmail' ] );
 	}
 
 	/**
@@ -56,13 +58,64 @@ class Book {
 	}
 
 	/**
+	 * If the current user's email differs from the book's admin_email,
+	 * add them as a recipient so they also receive the delete confirmation link.
+	 *
+	 * @param array $args {
+	 *     Array of wp_mail() arguments.
+	 *
+	 *     @type string|string[] $to          Email recipients.
+	 *     @type string          $subject     Email subject.
+	 *     @type string          $message     Email body.
+	 *     @type string|string[] $headers     Email headers.
+	 *     @type string|string[] $attachments Files to attach.
+	 * }
+	 *
+	 * @return array
+	 */
+	public function addCurrentUserToDeleteEmail( $args ) {
+		$subject_pattern = sprintf(
+			/* translators: %s: Site title. */
+			__( '[%s] Delete My Site' ),
+			wp_specialchars_decode( get_option( 'blogname' ) )
+		);
+
+		if ( $args['subject'] !== $subject_pattern ) {
+			return $args;
+		}
+
+		$current_user = wp_get_current_user();
+
+		if ( ! $current_user->exists() ) {
+			return $args;
+		}
+
+		$admin_email = get_option( 'admin_email' );
+		$current_user_email = $current_user->user_email;
+
+		if ( strcasecmp( $current_user_email, $admin_email ) === 0 ) {
+			return $args;
+		}
+
+		$recipients = is_array( $args['to'] ) ? $args['to'] : [ $args['to'] ];
+
+		if ( ! in_array( $current_user_email, $recipients, true ) ) {
+			$recipients[] = $current_user_email;
+		}
+
+		$args['to'] = $recipients;
+
+		return $args;
+	}
+
+	/**
 	 * @param string $content
 	 *
 	 * @return string
 	 */
 	public function deleteBookEmailContent( $content ) {
 
-		/* translators: Do not translate USERNAME, URL_DELETE, SITE_NAME: those are placeholders. */
+		/* translators: Do not translate USERNAME, URL_DELETE, SITENAME: those are placeholders. */
 		$content = __(
 			"Howdy ###USERNAME###,
 
@@ -78,7 +131,7 @@ some time in the future! (But remember your current book
 is gone forever.)
 
 Thanks for using Pressbooks,
-###SITE_NAME###", 'pressbooks'
+###SITENAME###", 'pressbooks'
 		);
 
 		return $content;
