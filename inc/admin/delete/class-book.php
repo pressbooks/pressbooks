@@ -33,7 +33,7 @@ class Book {
 		}
 		// Override delete site email
 		add_filter( 'delete_site_email_content', [ $obj, 'deleteBookEmailContent' ] );
-		// Send the delete confirmation email to the requesting user too (if super admin and not already a recipient)
+		// Send the delete confirmation email to the requesting user too (if book admin and not already a recipient)
 		add_filter( 'wp_mail', [ $obj, 'addCurrentUserToDeleteEmail' ] );
 	}
 
