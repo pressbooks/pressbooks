@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.36.3](https://github.com/pressbooks/pressbooks/compare/6.36.2...6.36.3) (2026-02-26)
+
+
+### Bug Fixes
+
+* enable book deletion email for requesting super admins ([#4357](https://github.com/pressbooks/pressbooks/issues/4357)) ([575f83b](https://github.com/pressbooks/pressbooks/commit/575f83beacc2778afae965fef7c0c413641279e1))
+
 ## [6.36.2](https://github.com/pressbooks/pressbooks/compare/6.36.1...6.36.2) (2026-02-25)
 
 
