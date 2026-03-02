@@ -3,40 +3,159 @@
 }
 
 /**
- * Opt-in responsive behaviour for Pressbooks-managed WP list tables.
+ * Responsive WP list table styles.
  *
  * Add 'pb-table' in your WP_List_Table::get_table_classes() override to opt
  * into horizontal-scroll / min-width behaviour when the table is placed inside
- * a .pb-list-table-responsive wrapper:
+ * a .pb-table-scroll-container wrapper:
  *
  *   protected function get_table_classes(): array {
  *     return ['widefat', 'striped', 'table-view-list', 'pb-table', $this->_args['plural']];
  *   }
+ *
+ * Usage in a Blade template:
+ *   <div class="pb-table-scroll-container">
+ *     {!! $table->display() !!}
+ *   </div>
+ *
+ * The CSS custom property `--pb-list-table-min-width` controls the minimum
+ * table width and is enforced via horizontal scrolling on narrower viewports.
+ * It defaults to 640px when not set.
  *
  * Column-level styles (widths, image rules, etc.) are intentionally NOT defined
  * here. Each plugin is responsible for its own column styles, scoped to its own
  * page context.
  */
 
-/**
- * Responsive WP list table container.
- *
- * Wrap a .pb-table output in this div to enforce a minimum table width and
- * enable horizontal scrolling on viewports narrower than that width.
- *
- * Usage in a Blade template:
- *   <div class="pb-list-table-responsive" style="--pb-list-table-min-width: 900px">
- *     {!! $table->display() !!}
- *   </div>
- *
- * The CSS custom property `--pb-list-table-min-width` controls the minimum
- * width. It defaults to 640px when not set.
- */
-.pb-list-table-responsive {
+.pb-table-scroll-container {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  width: 100%;
 
   .wp-list-table.pb-table {
     min-width: var(--pb-list-table-min-width, 640px);
+    max-width: none !important;
+  }
+
+  /**
+   * Filter controls and chips for list table filtering.
+   */
+  .tablenav .actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .tablenav .actions label {
+    margin-bottom: 0;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+  }
+
+  .tablenav .actions select {
+    float: none;
+    margin: 0 4px 0 0;
+    vertical-align: middle;
+    height: 32px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .tablenav .actions .button {
+    margin: 0;
+    height: 32px;
+    display: flex;
+    align-items: center;
+  }
+
+  .tablenav .filter-tags {
+    margin-left: 1rem;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* Filter chip styling */
+  .filter-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 6px 8px;
+    background-color: #f0f0f1;
+    border: 1px solid #c3c4c7;
+    border-radius: 3px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .filter-tag strong {
+    font-weight: 600;
+  }
+
+  .filter-tag .remove-filter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    margin-left: 4px;
+    color: #50575e;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 1;
+    border-radius: 2px;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .filter-tag .remove-filter:hover {
+    background-color: #d63638;
+    color: #fff;
+  }
+}
+
+/**
+ * Override WordPress core list-tables.css max-width constraint.
+ *
+ * WordPress applies `max-width: 782px` to WP_List_Table at its default
+ * mobile breakpoint, which triggers a complex mobile transformation including
+ * hidden columns, stacked cell values, and data-colname pseudo-elements.
+ *
+ * For pb-table instances, we need to preserve the custom responsive design
+ * that uses horizontal scrolling instead of stacking. This media query resets
+ * those WordPress mobile styles.
+ */
+@media screen and (max-width: 782px) {
+  .pb-table-scroll-container .wp-list-table.pb-table {
+    /* Prevent WordPress from hiding non-primary columns */
+    th.column-primary ~ th,
+    tr:not(.inline-edit-row):not(.no-items) td.column-primary ~ td:not(.check-column) {
+      display: table-cell !important;
+    }
+
+    /* Reset cell styling modified by WordPress mobile styles */
+    tr:not(.inline-edit-row):not(.no-items) td:not(.check-column) {
+      width: auto;
+      position: relative;
+      clear: none;
+      padding: 8px !important;
+    }
+
+    /* Hide WordPress-generated data-colname pseudo-elements */
+    tr:not(.inline-edit-row):not(.no-items) td:not(.column-primary)::before {
+      display: none !important;
+    }
+
+    /* Preserve normal row action styling */
+    .row-actions {
+      display: inline;
+      margin: 0;
+      padding: 0;
+
+      span {
+        font-size: inherit;
+      }
+    }
   }
 }
