@@ -557,8 +557,8 @@ function fix_table_header_cells( string $content ): string {
 				$has_content = trim( $cell->textContent ) !== '';
 				$is_td = $cell->nodeName === 'td';
 
-				// Convert td with content to th, or th without content to td
-				if ( ( $is_td && $has_content ) || ( ! $is_td && ! $has_content ) ) {
+				// Convert td with content to th
+				if ( $is_td && $has_content ) {
 					$new_cell = $dom->createElement( $is_td ? 'th' : 'td' );
 
 					// Copy attributes
