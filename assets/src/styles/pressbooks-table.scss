@@ -2,6 +2,91 @@
   padding: 9px 0 !important;
 }
 
+.pb-list-table-wrapper {
+  /**
+   * Filter controls and chips for list table filtering.
+   */
+
+  .tablenav {
+    margin-bottom: 10px;
+    
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    
+      label {
+        margin-bottom: 0;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+      }
+
+      select {
+        float: none;
+        margin: 0 4px 0 0;
+        vertical-align: middle;
+        height: 32px;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+
+      .button {
+        margin: 0;
+        height: 32px;
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .filter-tags {
+      margin-left: 1rem;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .filter-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0 10px;
+      height: 32px;
+      box-sizing: border-box;
+      background-color: #f0f0f1;
+      border: 1px solid #c3c4c7;
+      border-radius: 3px;
+      font-size: 13px;
+      line-height: 1.5;
+
+      strong {
+        font-weight: 600;
+      }
+
+      .remove-filter {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 18px;
+        height: 18px;
+        margin-left: 4px;
+        color: #50575e;
+        text-decoration: none;
+        font-size: 18px;
+        line-height: 1;
+        border-radius: 2px;
+        transition: all 0.1s ease-in-out;
+      }
+      
+      .remove-filter:hover {
+        background-color: #d63638;
+        color: #fff;
+      }
+    }
+  }
+}
+
 /**
  * Responsive WP list table styles.
  *
@@ -35,83 +120,6 @@
   .wp-list-table.pb-table {
     min-width: var(--pb-list-table-min-width, 640px);
     max-width: none !important;
-  }
-
-  /**
-   * Filter controls and chips for list table filtering.
-   */
-  .tablenav .actions {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .tablenav .actions label {
-    margin-bottom: 0;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-  }
-
-  .tablenav .actions select {
-    float: none;
-    margin: 0 4px 0 0;
-    vertical-align: middle;
-    height: 32px;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  .tablenav .actions .button {
-    margin: 0;
-    height: 32px;
-    display: flex;
-    align-items: center;
-  }
-
-  .tablenav .filter-tags {
-    margin-left: 1rem;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  /* Filter chip styling */
-  .filter-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 6px 8px;
-    background-color: #f0f0f1;
-    border: 1px solid #c3c4c7;
-    border-radius: 3px;
-    font-size: 13px;
-    line-height: 1.5;
-  }
-
-  .filter-tag strong {
-    font-weight: 600;
-  }
-
-  .filter-tag .remove-filter {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 18px;
-    height: 18px;
-    margin-left: 4px;
-    color: #50575e;
-    text-decoration: none;
-    font-size: 18px;
-    line-height: 1;
-    border-radius: 2px;
-    transition: all 0.1s ease-in-out;
-  }
-
-  .filter-tag .remove-filter:hover {
-    background-color: #d63638;
-    color: #fff;
   }
 }
 
