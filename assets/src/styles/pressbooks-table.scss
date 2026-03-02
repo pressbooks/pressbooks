@@ -160,7 +160,7 @@
 
     /* Override primary column width for custom wide tables */
     .column-primary {
-      width: auto;
+      max-width: 25%;
 
       /* Hide WordPress toggle button on primary column */
       .toggle-row{
