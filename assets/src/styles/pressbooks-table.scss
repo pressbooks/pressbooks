@@ -157,5 +157,16 @@
         font-size: inherit;
       }
     }
+
+    /* Override primary column width for custom wide tables */
+    .column-primary {
+      width: auto;
+
+      /* Hide WordPress toggle button on primary column */
+      .toggle-row{
+        display: none !important;
+      }
+    }
+    
   }
 }
