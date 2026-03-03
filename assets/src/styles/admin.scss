@@ -306,15 +306,15 @@ html #wpadminbar {
  *     <div class="cta">
  *       <a class="button button-primary" href="...">Button text</a>
  *     </div>
- *     <button type="button" class="pb-dismiss" aria-label="Dismiss notification">
- *       <i class="pb-heroicons pb-heroicons-outline_x-circle"></i>
- *     </button>
  *   </div>
+ *   <button type="button" class="pb-dismiss" aria-label="Dismiss notification">
+ *     <i class="pb-heroicons pb-heroicons-outline_x-circle"></i>
+ *   </button>
  * </div>
  * 
  * Responsive behavior:
- * - Desktop (>1024px): Content and actions lay out horizontally in a row
- * - Mobile (≤1024px): Content takes full width, actions stack below in a row
+ * - Desktop (>1024px): Content, actions, and dismiss button lay out horizontally in one row
+ * - Mobile (≤1024px): Content and dismiss button on first line, actions below on second line
  */
 .banner {
   align-items: center;
@@ -322,6 +322,7 @@ html #wpadminbar {
   border: 1px solid var(--pb-border-color);
   color: var(--pb-text-color);
   display: flex;
+  flex-wrap: wrap;
   font-family: Karla, sans-serif;
   font-size: 1rem;
   gap: 0.75rem;
@@ -380,11 +381,15 @@ html #wpadminbar {
   }
 
   @media (max-width: 1024px) {
-    flex-direction: column;
     align-items: flex-start;
 
-    .banner-content {
-      margin-bottom: 0.5rem;
+    button.pb-dismiss {
+      order: 2;
+    }
+
+    .banner-actions {
+      order: 3;
+      flex: 0 0 100%;
     }
 
     a.button-primary {
