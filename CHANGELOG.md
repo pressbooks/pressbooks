@@ -1,5 +1,28 @@
 # Changelog
 
+## [6.36.3](https://github.com/pressbooks/pressbooks/compare/6.36.2...6.36.3) (2026-02-26)
+
+
+### Bug Fixes
+
+* enable book deletion email for requesting super admins ([#4357](https://github.com/pressbooks/pressbooks/issues/4357)) ([575f83b](https://github.com/pressbooks/pressbooks/commit/575f83beacc2778afae965fef7c0c413641279e1))
+
+## [6.36.2](https://github.com/pressbooks/pressbooks/compare/6.36.1...6.36.2) (2026-02-25)
+
+
+### Bug Fixes
+
+* correctly handle th and td elements in thead upon save ([#4333](https://github.com/pressbooks/pressbooks/issues/4333)) ([ef1a65f](https://github.com/pressbooks/pressbooks/commit/ef1a65f8fb0df7430aa1f43e85b995362e053198))
+* restrict user access to posts ([#4345](https://github.com/pressbooks/pressbooks/issues/4345)) ([164f7c8](https://github.com/pressbooks/pressbooks/commit/164f7c82b46bd6e8a6c5fb4cf666250a108a0a8a))
+* td content improvement ([#4355](https://github.com/pressbooks/pressbooks/issues/4355)) ([51b59cf](https://github.com/pressbooks/pressbooks/commit/51b59cf4f3f05ee46cd9b7b0a971a4dfdda2de78))
+* wp 6.9 support ([#4356](https://github.com/pressbooks/pressbooks/issues/4356)) ([27913fe](https://github.com/pressbooks/pressbooks/commit/27913fe7bcb38b393b15c465aa9bf06438aa3e50))
+
+
+### Chores
+
+* bump minimum PHP to 8.3 ([#4338](https://github.com/pressbooks/pressbooks/issues/4338)) ([0f6c371](https://github.com/pressbooks/pressbooks/commit/0f6c37129c0a9b9cb96224b69106d7b8d9ff705e))
+* Update Louisiana Institutions and add East Los Angeles College to list of institutions ([#4348](https://github.com/pressbooks/pressbooks/issues/4348)) ([7352eee](https://github.com/pressbooks/pressbooks/commit/7352eeed070f816ce9ce90293f3e78fc90a085a5))
+
 ## [6.36.1](https://github.com/pressbooks/pressbooks/compare/6.36.0...6.36.1) (2026-01-22)
 
 

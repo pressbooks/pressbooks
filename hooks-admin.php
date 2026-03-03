@@ -91,6 +91,8 @@ if ( is_main_site() && is_network_admin() ) {
 
 // Replace strings
 add_action( 'gettext', '\Pressbooks\Admin\Laf\sites_to_books', 3, 20 );
+add_filter( 'gettext_with_context', '\Pressbooks\Admin\Laf\sites_to_books_with_context', 3, 4 );
+add_filter( 'ngettext', '\Pressbooks\Admin\Laf\sites_to_books_ngettext', 3, 5 );
 
 // Javascript, Css
 add_action( 'admin_init', '\Pressbooks\Admin\Laf\init_css_js' );
@@ -223,6 +225,7 @@ if ( $is_book ) {
 	add_filter( 'wp_link_query', '\Pressbooks\Editor\add_anchors_to_wp_link_query', 1, 2 );
 	add_action( 'admin_enqueue_scripts', '\Pressbooks\Editor\admin_enqueue_scripts' );
 	add_action( 'admin_init', '\Pressbooks\Editor\add_editor_style' );
+	add_filter( 'content_save_pre', '\Pressbooks\Editor\fix_table_header_cells', 10 );
 }
 if ( ! defined( 'PB_GUTENBERG_TESTING' ) || ! PB_GUTENBERG_TESTING ) {
 	// Hide Gutenberg
