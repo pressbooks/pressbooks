@@ -85,6 +85,53 @@
       }
     }
   }
+
+  @media (max-width: 768px) {
+    .tablenav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+
+      .actions {
+        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: stretch;
+
+        label {
+          width: 100%;
+        }
+
+        select {
+          width: 100%;
+          max-width: none;
+          margin: 0;
+        }
+
+        .button {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+
+      .filter-tags {
+        margin-left: 0;
+        flex-wrap: wrap;
+        align-content: flex-start;
+      }
+
+      .filter-tag {
+        height: auto;
+        min-height: 32px;
+        display: flex;
+        width: 100%;
+        box-sizing: border-box;
+
+        .remove-filter {
+          margin-left: auto;
+        }
+      }
+    }
+  }
 }
 
 /**
