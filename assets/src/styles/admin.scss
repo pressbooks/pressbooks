@@ -294,3 +294,83 @@ html #wpadminbar {
     width: var(--pb-toolbar-icon-size);
   }
 }
+
+/* Admin Banners Component */
+.banner {
+  align-items: center;
+  background-color: var(--pb-white);
+  border: 1px solid var(--pb-border-color);
+  color: var(--pb-text-color);
+  display: flex;
+  font-family: Karla, sans-serif;
+  font-size: 1rem;
+  gap: 0.75rem;
+  justify-content: space-between;
+  line-height: 1.5rem;
+  max-width: 1220px;
+  padding: 0.75rem;
+
+  p {
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .banner-content {
+    flex: 1;
+  }
+
+  .cta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .banner-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  a.button-primary {
+    background-color: var(--pb-action-red);
+    color: var(--pb-white);
+    font-size: 1rem;
+    margin: 0 1rem;
+    padding: 6px 22px;
+    text-decoration: none;
+
+    &:hover {
+      background-color: var(--pb-action-hover-red);
+    }
+  }
+
+  button.pb-dismiss {
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    padding: 0;
+
+    i {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .banner-content {
+      margin-bottom: 0.5rem;
+    }
+
+    a.button-primary {
+      margin: 0;
+      padding: 14px 44px;
+      text-align: center;
+    }
+  }
+}
