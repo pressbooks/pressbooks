@@ -295,7 +295,27 @@ html #wpadminbar {
   }
 }
 
-/* Admin Banners Component */
+/* Admin Banners Component
+ * 
+ * Expected markup structure for responsive banners:
+ * <div class="wrap banner is-dismissible" data-dismiss-key="...">
+ *   <div class="banner-content">
+ *     <p>Banner text content</p>
+ *   </div>
+ *   <div class="banner-actions">
+ *     <div class="cta">
+ *       <a class="button button-primary" href="...">Button text</a>
+ *     </div>
+ *     <button type="button" class="pb-dismiss" aria-label="Dismiss notification">
+ *       <i class="pb-heroicons pb-heroicons-outline_x-circle"></i>
+ *     </button>
+ *   </div>
+ * </div>
+ * 
+ * Responsive behavior:
+ * - Desktop (>1024px): Content and actions lay out horizontally in a row
+ * - Mobile (≤1024px): Content takes full width, actions stack below in a row
+ */
 .banner {
   align-items: center;
   background-color: var(--pb-white);
