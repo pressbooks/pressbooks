@@ -1,0 +1,101 @@
+@import 'partials/colors';
+@import 'partials/mixins';
+
+/**
+ * H5P MCE View Styles
+ *
+ * Styles for rendering H5P content previews within the TinyMCE editor.
+ * Uses WordPress's wp.mce.views system for shortcode visualization.
+ */
+
+.h5p-mce-preview {
+	background: $gallery;
+	border: 1px solid $alto;
+	border-radius: 4px;
+	margin: 1em 0;
+	overflow: hidden;
+
+	&.h5p-mce-loading {
+		padding: 1em;
+		text-align: center;
+	}
+}
+
+.h5p-mce-header {
+	align-items: center;
+	background: $white;
+	border-bottom: 1px solid $alto;
+	display: flex;
+	gap: 12px;
+	padding: 10px 16px;
+}
+
+.h5p-mce-icon {
+	color: $lochmara;
+	font-size: 20px;
+	line-height: 1;
+}
+
+.h5p-mce-title {
+	color: $mine-shaft;
+	flex: 1;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 1.4;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.h5p-mce-type {
+	background: $gallery;
+	border-radius: 3px;
+	color: $boulder;
+	font-size: 11px;
+	padding: 3px 8px;
+	text-transform: uppercase;
+}
+
+.h5p-mce-iframe-wrapper {
+	background: $white;
+	min-height: 400px;
+	position: relative;
+	width: 100%;
+}
+
+.h5p-mce-iframe {
+	border: 0;
+	display: block;
+	min-height: 400px;
+	width: 100%;
+}
+
+// Selected state when user clicks on the H5P block
+.wpview-wrap.wpview-type-h5p {
+	display: block;
+	margin: 1em 0;
+	max-width: 100%;
+	width: 100%;
+
+	&[data-mce-selected] {
+		outline: 2px solid $lochmara;
+		outline-offset: -2px;
+
+		.h5p-mce-preview {
+			border-color: $lochmara;
+		}
+	}
+}
+
+// Error state
+.h5p-mce-preview.h5p-mce-error {
+	background: $chablis;
+	border-color: $cornflower-lilac;
+	color: $monza;
+	padding: 1em;
+	text-align: center;
+
+	.h5p-mce-icon {
+		color: $monza;
+	}
+}
