@@ -1160,7 +1160,7 @@ class Catalog {
 				$catalog->deleteBook( $book_id );
 			} else {
 				// TODO: Throw Error
-				$_SESSION['pb_errors'][] = "Invalid action: $action";
+				$_SESSION['pb_errors'][] = sprintf( __( 'Invalid action: %s', 'pressbooks' ), $action );
 			}
 		}
 

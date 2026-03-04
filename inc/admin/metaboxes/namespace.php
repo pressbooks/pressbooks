@@ -318,12 +318,12 @@ function part_save_box( $post ) {
 	echo '<div class="submitbox" id="submitpost">';
 	if ( 'publish' === $post->post_status ) { ?>
 		<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Update' ); ?>"/>
-		<input name="save" id="publish" type="submit" class="button button-primary button-large" accesskey="p" value="Save"/>
+		<input name="save" id="publish" type="submit" class="button button-primary button-large" accesskey="p" value="<?php esc_attr_e( 'Save', 'pressbooks' ); ?>"/>
 		<?php
 	} else {
 		?>
 		<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Publish' ); ?>"/>
-		<input name="publish" id="publish" type="submit" class="button button-primary button-large" value="Save" tabindex="5" accesskey="p"/>
+		<input name="publish" id="publish" type="submit" class="button button-primary button-large" value="<?php esc_attr_e( 'Save', 'pressbooks' ); ?>" tabindex="5" accesskey="p"/>
 		<?php
 	}
 	echo '</div>';
@@ -339,12 +339,12 @@ function metadata_save_box( $post ) {
 	if ( 'publish' === $post->post_status ) {
 		?>
 		<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Update' ); ?>"/>
-		<input name="save" id="publish" type="submit" class="button button-primary button-large" accesskey="p" value="Save"/>
+		<input name="save" id="publish" type="submit" class="button button-primary button-large" accesskey="p" value="<?php esc_attr_e( 'Save', 'pressbooks' ); ?>"/>
 		<?php
 	} else {
 		?>
 		<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Publish' ); ?>"/>
-		<input name="publish" id="publish" type="submit" class="button button-primary button-large" accesskey="p" value="Save"/>
+		<input name="publish" id="publish" type="submit" class="button button-primary button-large" accesskey="p" value="<?php esc_attr_e( 'Save', 'pressbooks' ); ?>"/>
 		<?php
 	}
 	echo '</div>';
