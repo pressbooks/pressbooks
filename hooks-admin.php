@@ -249,6 +249,8 @@ add_action( 'wp_ajax_pb_get_thema_subjects', '\Pressbooks\Admin\Metaboxes\get_th
 add_action( 'wp_ajax_pb_get_institutions', '\Pressbooks\Admin\Metaboxes\get_institutions_to_select' );
 // Convert MS Word Footnotes
 add_action( 'wp_ajax_pb_ftnref_convert', [ '\Pressbooks\Shortcodes\Footnotes\Footnotes', 'convertWordFootnotes' ] );
+// H5P Preview for TinyMCE
+add_action( 'wp_ajax_pb_h5p_preview', '\Pressbooks\Editor\ajax_h5p_preview' );
 // User Catalog Page
 add_action( 'wp_ajax_pb_delete_catalog_logo', [ '\Pressbooks\Catalog', 'deleteLogo' ] );
 // Export page

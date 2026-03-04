@@ -153,6 +153,34 @@ function admin_enqueue_scripts( $hook ) {
 			wp_enqueue_script( 'my_custom_quicktags', $assets->getPath( 'scripts/quicktags.js' ), [ 'quicktags' ] );
 			wp_enqueue_script( 'wp-api' );
 		}
+
+		// H5P MCE View - only load if H5P plugin is active
+		if ( is_plugin_active( 'h5p/h5p.php' ) || shortcode_exists( 'h5p' ) ) {
+			wp_enqueue_script(
+				'pb-h5p-mce-view',
+				$assets->getPath( 'scripts/h5p-mce-view.js' ),
+				[ 'mce-view', 'wp-util', 'jquery' ],
+				null,
+				true
+			);
+			wp_localize_script(
+				'pb-h5p-mce-view',
+				'PB_H5PViewToken',
+				[
+					'nonce' => wp_create_nonce( 'pb-h5p-preview' ),
+					/* translators: Error message when H5P content ID is missing */
+					'error_no_id' => __( 'H5P content ID or slug is missing.', 'pressbooks' ),
+					/* translators: Error message when H5P content fails to load */
+					'error_loading' => __( 'Unable to load H5P preview.', 'pressbooks' ),
+					/* translators: Loading state text */
+					'loading' => __( 'Loading H5P content...', 'pressbooks' ),
+				]
+			);
+			wp_enqueue_style(
+				'pb-h5p-mce-view',
+				$assets->getPath( 'styles/h5p-editor.css' )
+			);
+		}
 	}
 }
 
@@ -433,6 +461,7 @@ function update_editor_style() {
  * @return bool
  */
 function add_editor_style() {
+	$assets = new Assets( 'pressbooks', 'plugin' );
 
 	$sass = Container::get( 'Sass' );
 	$path = $sass->pathToUserGeneratedCss() . '/editor.css';
@@ -440,10 +469,14 @@ function add_editor_style() {
 		$hash = md5( filemtime( $path ) );
 		$uri = $sass->urlToUserGeneratedCss() . '/editor.css?ver=' . $hash;
 		\add_editor_style( $uri );
-		return true;
 	}
 
-	return false;
+	// Add H5P MCE View styles to the editor if H5P is active
+	if ( is_plugin_active( 'h5p/h5p.php' ) || shortcode_exists( 'h5p' ) ) {
+		\add_editor_style( $assets->getPath( 'styles/h5p-editor.css' ) );
+	}
+
+	return true;
 }
 
 /**
@@ -620,4 +653,85 @@ function hide_gutenberg() {
 			return 'replace';
 		}
 	);
+}
+
+/**
+ * AJAX handler for H5P preview data in TinyMCE
+ *
+ * Returns H5P content metadata for rendering iframe previews
+ * in the editor. Used by the h5p MCE view.
+ */
+function ajax_h5p_preview(): void {
+	// Verify nonce
+	if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'pb-h5p-preview' ) ) {
+		wp_send_json_error( [ 'message' => __( 'Security check failed.', 'pressbooks' ) ] );
+	}
+
+	// Check capability
+	if ( ! current_user_can( 'edit_posts' ) ) {
+		wp_send_json_error( [ 'message' => __( 'Permission denied.', 'pressbooks' ) ] );
+	}
+
+	global $wpdb;
+
+	$id = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
+	$slug = isset( $_POST['slug'] ) ? sanitize_text_field( wp_unslash( $_POST['slug'] ) ) : '';
+
+	// Query H5P content table
+	$h5p_table = $wpdb->prefix . 'h5p_contents';
+
+	// Check if H5P table exists
+	$table_exists = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $h5p_table ) );
+	if ( ! $table_exists ) {
+		wp_send_json_error( [ 'message' => __( 'H5P is not properly configured.', 'pressbooks' ) ] );
+	}
+
+	$content = null;
+
+	// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table names cannot use placeholders
+	if ( $id > 0 ) {
+		$content = $wpdb->get_row(
+			$wpdb->prepare(
+				"SELECT c.id, c.title, c.slug, l.title as library_title
+				 FROM {$h5p_table} c
+				 LEFT JOIN {$wpdb->prefix}h5p_libraries l ON c.library_id = l.id
+				 WHERE c.id = %d",
+				$id
+			)
+		);
+	} elseif ( ! empty( $slug ) ) {
+		$content = $wpdb->get_row(
+			$wpdb->prepare(
+				"SELECT c.id, c.title, c.slug, l.title as library_title
+				 FROM {$h5p_table} c
+				 LEFT JOIN {$wpdb->prefix}h5p_libraries l ON c.library_id = l.id
+				 WHERE c.slug = %s",
+				$slug
+			)
+		);
+	}
+	// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+
+	if ( ! $content ) {
+		wp_send_json_error( [ 'message' => __( 'H5P content not found.', 'pressbooks' ) ] );
+	}
+
+	// Build embed URL
+	$embed_url = admin_url( 'admin-ajax.php?action=h5p_embed&id=' . $content->id );
+
+	// Get readable content type from library title (e.g., "H5P.InteractiveVideo" -> "Interactive Video")
+	$content_type = '';
+	if ( ! empty( $content->library_title ) ) {
+		// Remove "H5P." prefix and add spaces before capitals
+		$content_type = str_replace( 'H5P.', '', $content->library_title );
+		$content_type = preg_replace( '/([a-z])([A-Z])/', '$1 $2', $content_type );
+	}
+
+	wp_send_json_success( [
+		'id' => (int) $content->id,
+		'title' => $content->title,
+		'slug' => $content->slug,
+		'contentType' => $content_type,
+		'embedUrl' => $embed_url,
+	] );
 }
