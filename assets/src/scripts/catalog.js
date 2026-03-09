@@ -1,7 +1,7 @@
 import '../styles/catalog.scss';
 import './small-menu';
-import jQuery from 'jquery';
 import Isotope from 'isotope-layout';
+import jQuery from 'jquery';
 import jQueryBridget from 'jquery-bridget';
 import 'jquery-match-height';
 

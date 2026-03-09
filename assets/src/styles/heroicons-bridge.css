@@ -100,3 +100,7 @@ li#toplevel_page_h5p .wp-menu-image::before {
 .dashicons-building::before {
 	content: var(--heroicon-outline-building-office) !important;
 }
+
+.dashicons-content-readiness::before {
+	content: var(--heroicon-outline-clipboard-document-check) !important;
+}
