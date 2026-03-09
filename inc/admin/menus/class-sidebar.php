@@ -53,6 +53,9 @@ class SideBar {
 	}
 
 	public function hooks(): void {
+		// Apply posts restriction to all sites
+		add_action( 'admin_init', [ $this, 'restrictPostsPageAccess' ] );
+
 		if ( ! is_main_site() ) {
 			add_action( 'admin_menu', [ $this, 'removePatternsSubMenuItem' ] );
 			add_action( 'admin_init', [ $this, 'restrictPatternsPageAccess' ] );
@@ -85,7 +88,26 @@ class SideBar {
 			return;
 		}
 
-		wp_die( __( 'Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 ); // phpcs:ignore Pressbooks.Security.EscapeOutput.OutputNotEscaped
+		wp_die( esc_html__( 'Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 );
+	}
+
+	public function restrictPostsPageAccess(): void {
+		global $pagenow;
+
+		// Get post_type from request (check both GET and POST)
+		// phpcs:ignore Pressbooks.Security.NonceVerification.Missing, Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
+		$post_type = wp_unslash( $_GET['post_type'] ?? $_POST['post_type'] ?? null );
+
+		if ( ! is_null( $post_type ) ) {
+			$post_type = sanitize_text_field( $post_type );
+		}
+
+		$pages_to_block = [ 'edit.php', 'post-new.php' ];
+
+		// Block access to edit.php and post-new.php with no post_type (defaults to 'post') or post_type=post
+		if ( in_array( $pagenow, $pages_to_block, true ) && ( $post_type === null || $post_type === 'post' ) ) {
+			wp_die( esc_html__( 'Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 );
+		}
 	}
 
 	public function manageNetworkAdminMenu(): void {

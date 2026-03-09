@@ -497,7 +497,7 @@ function custom_screen_options( $default, $option, $value ) {
  * @return array
  */
 function reorder_book_admin_menu( $menu_order = [] ) {
-	return [
+	$default_order = [
 		'index.php',
 		'separator1',
 		'pb_organize',
@@ -515,6 +515,17 @@ function reorder_book_admin_menu( $menu_order = [] ) {
 		'tools.php',
 		'options-general.php',
 	];
+
+	/**
+	 * Filter the book admin menu order.
+	 *
+	 * Allows plugins to modify the order of menu items in the book admin sidebar.
+	 *
+	 * @since 6.36.0
+	 *
+	 * @param array $default_order The default menu order array.
+	 */
+	return apply_filters( 'pb_admin_menu_order', $default_order );
 }
 
 /**
@@ -1589,6 +1600,30 @@ function sites_to_books( $translated_text, $untranslated_text, $domain ) {
 			case 'Search Sites':
 				$translated_text = esc_html__( 'Search Books', 'pressbooks' );
 				break;
+			case 'You are about to flag the site %s for deletion.':
+				$translated_text = esc_html__( 'You are about to deactivate the site %s.', 'pressbooks' );
+				break;
+			case 'You are about to remove the deletion flag from the site %s.':
+				$translated_text = esc_html__( 'You are about to activate the site %s.', 'pressbooks' );
+				break;
+			case 'Flagging a site for deletion makes the site unavailable to its users and visitors. This is a reversible action. A super admin can permanently delete the site at a later date.':
+				$translated_text = esc_html__( 'Deactivating a site makes it unavailable to its users and visitors. This is a reversible action.', 'pressbooks' );
+				break;
+			case 'Site flagged for deletion.':
+				$translated_text = esc_html__( 'Site deactivated.', 'pressbooks' );
+				break;
+			case 'Site deletion flag removed.':
+				$translated_text = esc_html__( 'Site activated.', 'pressbooks' );
+				break;
+			case 'Flag for Deletion':
+				$translated_text = esc_html__( 'Deactivate', 'pressbooks' );
+				break;
+			case 'Flagged for Deletion':
+				$translated_text = esc_html__( 'Deactivated', 'pressbooks' );
+				break;
+			case 'Flag for Deletion, Archive, and Spam which lead to confirmation screens. These actions can be reversed later.':
+				$translated_text = esc_html__( 'Deactivate, Archive, and Spam which lead to confirmation screens. These actions can be reversed later.', 'pressbooks' );
+				break;
 		}
 	} elseif ( $pagenow === 'site-info.php' ) {
 		switch ( $untranslated_text ) {
@@ -1597,6 +1632,9 @@ function sites_to_books( $translated_text, $untranslated_text, $domain ) {
 				break;
 			case 'Site Address (URL)':
 				$translated_text = esc_html__( 'Book Address (URL)', 'pressbooks' );
+				break;
+			case 'Flagged for Deletion':
+				$translated_text = esc_html__( 'Deactivated', 'pressbooks' );
 				break;
 		}
 	} elseif ( $pagenow === 'site-new.php' ) {
@@ -1617,6 +1655,66 @@ function sites_to_books( $translated_text, $untranslated_text, $domain ) {
 				$translated_text = esc_html__( 'Add Book', 'pressbooks' );
 				break;
 		}
+	}
+
+	return $translated_text;
+}
+
+/**
+ * Override WP 6.9 "flag for deletion" language in context-aware translations on network book pages.
+ *
+ * Handles strings translated with _x() which pass through the gettext_with_context filter.
+ *
+ * @since 6.23.0
+ *
+ * @param string $translated_text The translated string.
+ * @param string $untranslated_text The original string.
+ * @param string $context The translation context.
+ * @param string $domain The textdomain.
+ *
+ * @return string The modified translated string.
+ */
+function sites_to_books_with_context( $translated_text, $untranslated_text, $context, $domain ) {
+	global $pagenow;
+
+	if ( $pagenow !== 'sites.php' || $context !== 'site' ) {
+		return $translated_text;
+	}
+
+	switch ( $untranslated_text ) {
+		case 'Remove Deletion Flag':
+			$translated_text = esc_html__( 'Activate', 'pressbooks' );
+			break;
+	}
+
+	return $translated_text;
+}
+
+/**
+ * Override WP 6.9 "Flagged for Deletion" plural label in the network book list views filter.
+ *
+ * Handles strings translated with _n() which pass through the ngettext filter.
+ *
+ * @since 6.23.0
+ *
+ * @param string $translated_text The translated string.
+ * @param string $single The singular form.
+ * @param string $plural The plural form.
+ * @param int    $number The number used to determine singular/plural.
+ * @param string $domain The textdomain.
+ *
+ * @return string The modified translated string.
+ */
+function sites_to_books_ngettext( $translated_text, $single, $plural, $number, $domain ) {
+	global $pagenow;
+
+	if ( $pagenow !== 'sites.php' ) {
+		return $translated_text;
+	}
+
+	if ( $single === 'Flagged for Deletion <span class="count">(%s)</span>' ) {
+		/* translators: %s: Number of books. */
+		$translated_text = esc_html__( 'Deactivated', 'pressbooks' ) . ' <span class="count">(%s)</span>';
 	}
 
 	return $translated_text;

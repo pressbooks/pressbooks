@@ -1,5 +1,54 @@
 # Changelog
 
+## [6.36.3](https://github.com/pressbooks/pressbooks/compare/6.36.2...6.36.3) (2026-02-26)
+
+
+### Bug Fixes
+
+* enable book deletion email for requesting super admins ([#4357](https://github.com/pressbooks/pressbooks/issues/4357)) ([575f83b](https://github.com/pressbooks/pressbooks/commit/575f83beacc2778afae965fef7c0c413641279e1))
+
+## [6.36.2](https://github.com/pressbooks/pressbooks/compare/6.36.1...6.36.2) (2026-02-25)
+
+
+### Bug Fixes
+
+* correctly handle th and td elements in thead upon save ([#4333](https://github.com/pressbooks/pressbooks/issues/4333)) ([ef1a65f](https://github.com/pressbooks/pressbooks/commit/ef1a65f8fb0df7430aa1f43e85b995362e053198))
+* restrict user access to posts ([#4345](https://github.com/pressbooks/pressbooks/issues/4345)) ([164f7c8](https://github.com/pressbooks/pressbooks/commit/164f7c82b46bd6e8a6c5fb4cf666250a108a0a8a))
+* td content improvement ([#4355](https://github.com/pressbooks/pressbooks/issues/4355)) ([51b59cf](https://github.com/pressbooks/pressbooks/commit/51b59cf4f3f05ee46cd9b7b0a971a4dfdda2de78))
+* wp 6.9 support ([#4356](https://github.com/pressbooks/pressbooks/issues/4356)) ([27913fe](https://github.com/pressbooks/pressbooks/commit/27913fe7bcb38b393b15c465aa9bf06438aa3e50))
+
+
+### Chores
+
+* bump minimum PHP to 8.3 ([#4338](https://github.com/pressbooks/pressbooks/issues/4338)) ([0f6c371](https://github.com/pressbooks/pressbooks/commit/0f6c37129c0a9b9cb96224b69106d7b8d9ff705e))
+* Update Louisiana Institutions and add East Los Angeles College to list of institutions ([#4348](https://github.com/pressbooks/pressbooks/issues/4348)) ([7352eee](https://github.com/pressbooks/pressbooks/commit/7352eeed070f816ce9ce90293f3e78fc90a085a5))
+
+## [6.36.1](https://github.com/pressbooks/pressbooks/compare/6.36.0...6.36.1) (2026-01-22)
+
+
+### Chores
+
+* revert "fix: convert all td elements to th in thead elements before save" ([#4330](https://github.com/pressbooks/pressbooks/issues/4330)) ([b65c538](https://github.com/pressbooks/pressbooks/commit/b65c5387fcd79114b4dcca9bef3fd167e06985cd))
+
+## [6.36.0](https://github.com/pressbooks/pressbooks/compare/6.35.0...6.36.0) (2026-01-20)
+
+
+### Features
+
+* add filter to adjust book menu order ([#4322](https://github.com/pressbooks/pressbooks/issues/4322)) ([9072abd](https://github.com/pressbooks/pressbooks/commit/9072abd62df73b66de2634f2781a4da14280c00b))
+
+
+### Bug Fixes
+
+* add support for search & replace in content toolkit menu ([#4325](https://github.com/pressbooks/pressbooks/issues/4325)) ([28c4308](https://github.com/pressbooks/pressbooks/commit/28c430857f2bdcf6d7cc563720989203639ec072))
+* convert all td elements to th in thead elements before save ([#4304](https://github.com/pressbooks/pressbooks/issues/4304)) ([985d1d6](https://github.com/pressbooks/pressbooks/commit/985d1d6a48342ef8bd48c5ceac55a95924f4e508))
+* improve handling of archived books ([#4326](https://github.com/pressbooks/pressbooks/issues/4326)) ([d56abd8](https://github.com/pressbooks/pressbooks/commit/d56abd8b6adc0610629172557c5e1628ea0e351b))
+
+
+### Chores
+
+* **i18n:** update translations and revert transifex setup ([#4327](https://github.com/pressbooks/pressbooks/issues/4327)) ([512696c](https://github.com/pressbooks/pressbooks/commit/512696c061197ad21e71412961578860c46b399d))
+
 ## [6.35.0](https://github.com/pressbooks/pressbooks/compare/6.34.4...6.35.0) (2025-12-17)
 
 

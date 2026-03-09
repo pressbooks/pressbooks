@@ -309,6 +309,164 @@ class Admin_LafTest extends \WP_UnitTestCase {
 	/**
 	 * @group branding
 	 */
+	function test_sites_to_books_deactivation_overrides() {
+		global $pagenow;
+		$pagenow = 'sites.php';
+
+		// Confirmation text
+		$result = \Pressbooks\Admin\Laf\sites_to_books(
+			'You are about to flag the site %s for deletion.',
+			'You are about to flag the site %s for deletion.',
+			'default'
+		);
+		$this->assertEquals( 'You are about to deactivate the site %s.', $result );
+
+		// Reactivation confirmation text
+		$result = \Pressbooks\Admin\Laf\sites_to_books(
+			'You are about to remove the deletion flag from the site %s.',
+			'You are about to remove the deletion flag from the site %s.',
+			'default'
+		);
+		$this->assertEquals( 'You are about to activate the site %s.', $result );
+
+		// Deactivation warning
+		$result = \Pressbooks\Admin\Laf\sites_to_books(
+			'Flagging a site for deletion makes the site unavailable to its users and visitors. This is a reversible action. A super admin can permanently delete the site at a later date.',
+			'Flagging a site for deletion makes the site unavailable to its users and visitors. This is a reversible action. A super admin can permanently delete the site at a later date.',
+			'default'
+		);
+		$this->assertEquals( 'Deactivating a site makes it unavailable to its users and visitors. This is a reversible action.', $result );
+
+		// Success messages
+		$result = \Pressbooks\Admin\Laf\sites_to_books(
+			'Site flagged for deletion.',
+			'Site flagged for deletion.',
+			'default'
+		);
+		$this->assertEquals( 'Site deactivated.', $result );
+
+		$result = \Pressbooks\Admin\Laf\sites_to_books(
+			'Site deletion flag removed.',
+			'Site deletion flag removed.',
+			'default'
+		);
+		$this->assertEquals( 'Site activated.', $result );
+
+		// Row action link
+		$result = \Pressbooks\Admin\Laf\sites_to_books(
+			'Flag for Deletion',
+			'Flag for Deletion',
+			'default'
+		);
+		$this->assertEquals( 'Deactivate', $result );
+
+		// Status label
+		$result = \Pressbooks\Admin\Laf\sites_to_books(
+			'Flagged for Deletion',
+			'Flagged for Deletion',
+			'default'
+		);
+		$this->assertEquals( 'Deactivated', $result );
+
+		// Help tab text
+		$result = \Pressbooks\Admin\Laf\sites_to_books(
+			'Flag for Deletion, Archive, and Spam which lead to confirmation screens. These actions can be reversed later.',
+			'Flag for Deletion, Archive, and Spam which lead to confirmation screens. These actions can be reversed later.',
+			'default'
+		);
+		$this->assertEquals( 'Deactivate, Archive, and Spam which lead to confirmation screens. These actions can be reversed later.', $result );
+
+		$pagenow = null;
+	}
+
+	/**
+	 * @group branding
+	 */
+	function test_sites_to_books_site_info_deactivated_label() {
+		global $pagenow;
+		$pagenow = 'site-info.php';
+
+		$result = \Pressbooks\Admin\Laf\sites_to_books(
+			'Flagged for Deletion',
+			'Flagged for Deletion',
+			'default'
+		);
+		$this->assertEquals( 'Deactivated', $result );
+
+		$pagenow = null;
+	}
+
+	/**
+	 * @group branding
+	 */
+	function test_sites_to_books_with_context() {
+		global $pagenow;
+		$pagenow = 'sites.php';
+
+		$result = \Pressbooks\Admin\Laf\sites_to_books_with_context(
+			'Remove Deletion Flag',
+			'Remove Deletion Flag',
+			'site',
+			'default'
+		);
+		$this->assertEquals( 'Activate', $result );
+
+		// Should not modify strings with different context
+		$result = \Pressbooks\Admin\Laf\sites_to_books_with_context(
+			'Remove Deletion Flag',
+			'Remove Deletion Flag',
+			'other',
+			'default'
+		);
+		$this->assertEquals( 'Remove Deletion Flag', $result );
+
+		// Should not modify strings on other pages
+		$pagenow = 'edit.php';
+		$result = \Pressbooks\Admin\Laf\sites_to_books_with_context(
+			'Remove Deletion Flag',
+			'Remove Deletion Flag',
+			'site',
+			'default'
+		);
+		$this->assertEquals( 'Remove Deletion Flag', $result );
+
+		$pagenow = null;
+	}
+
+	/**
+	 * @group branding
+	 */
+	function test_sites_to_books_ngettext() {
+		global $pagenow;
+		$pagenow = 'sites.php';
+
+		$result = \Pressbooks\Admin\Laf\sites_to_books_ngettext(
+			'Flagged for Deletion <span class="count">(5)</span>',
+			'Flagged for Deletion <span class="count">(%s)</span>',
+			'Flagged for Deletion <span class="count">(%s)</span>',
+			5,
+			'default'
+		);
+		$this->assertStringContainsString( 'Deactivated', $result );
+		$this->assertStringNotContainsString( 'Flagged', $result );
+
+		// Should not modify strings on other pages
+		$pagenow = 'edit.php';
+		$result = \Pressbooks\Admin\Laf\sites_to_books_ngettext(
+			'Flagged for Deletion <span class="count">(5)</span>',
+			'Flagged for Deletion <span class="count">(%s)</span>',
+			'Flagged for Deletion <span class="count">(%s)</span>',
+			5,
+			'default'
+		);
+		$this->assertStringContainsString( 'Flagged', $result );
+
+		$pagenow = null;
+	}
+
+	/**
+	 * @group branding
+	 */
 	function test_edit_screen_navigation() {
 		$this->_book();
 

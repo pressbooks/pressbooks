@@ -92,6 +92,8 @@ if ( is_main_site() && is_network_admin() ) {
 
 // Replace strings
 add_action( 'gettext', '\Pressbooks\Admin\Laf\sites_to_books', 3, 20 );
+add_filter( 'gettext_with_context', '\Pressbooks\Admin\Laf\sites_to_books_with_context', 3, 4 );
+add_filter( 'ngettext', '\Pressbooks\Admin\Laf\sites_to_books_ngettext', 3, 5 );
 
 // Javascript, Css
 add_action( 'admin_init', '\Pressbooks\Admin\Laf\init_css_js' );

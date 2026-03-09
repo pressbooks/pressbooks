@@ -45,7 +45,7 @@
     "isEntry": true
   },
   "assets/src/scripts/algolia-search.js": {
-    "file": "assets/algolia-search-BkeCRhs-.js",
+    "file": "assets/algolia-search-DcxrE8wr.js",
     "name": "algolia-search",
     "src": "assets/src/scripts/algolia-search.js",
     "isEntry": true,
@@ -201,12 +201,12 @@
     "isEntry": true
   },
   "assets/src/scripts/network-managers.js": {
-    "file": "assets/network-managers-Dhj6qpVh.js",
+    "file": "assets/network-managers-B8b0ttWY.js",
     "name": "network-managers",
     "src": "assets/src/scripts/network-managers.js",
     "isEntry": true,
     "css": [
-      "assets/network-managers-Cp112aME.css"
+      "assets/network-managers-BxJE2dwo.css"
     ]
   },
   "assets/src/scripts/organize.js": {
@@ -237,12 +237,12 @@
     "isEntry": true
   },
   "assets/src/scripts/pressbooks.js": {
-    "file": "assets/pressbooks-o1WrCUAT.js",
+    "file": "assets/pressbooks-DofDF4eX.js",
     "name": "pressbooks",
     "src": "assets/src/scripts/pressbooks.js",
     "isEntry": true,
     "css": [
-      "assets/pressbooks-admin-styles-wxydTVvD.css"
+      "assets/pressbooks-admin-styles-QawnemNv.css"
     ],
     "assets": [
       "assets/heroicons-CVYPToTZ.eot",
@@ -377,7 +377,7 @@
     ]
   },
   "assets/src/styles/pressbooks.scss": {
-    "file": "assets/pressbooks-admin-styles-wxydTVvD.css",
+    "file": "assets/pressbooks-admin-styles-QawnemNv.css",
     "src": "assets/src/styles/pressbooks.scss",
     "isEntry": true,
     "name": "pressbooks-admin-styles",
