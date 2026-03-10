@@ -70,7 +70,7 @@ function render_page() {
 	$output .= 'Network URL: ' . network_home_url() . "\n";
 	$output .= 'Network Type: ' . ( is_subdomain_install() ? 'Subdomain' : 'Subdirectory' ) . "\n";
 	$output .= 'Version: ' . get_bloginfo( 'version' ) . "\n";
-	$output .= 'Language: ' . ( defined( 'WPLANG' ) && WPLANG ? WPLANG : 'en_US' ) . "\n";
+	$output .= 'Language: ' . get_locale() . "\n";
 	$output .= 'WP_ENV: ' . ( defined( 'WP_ENV' ) ? WP_ENV : 'Not set' ) . "\n";
 	$output .= 'WP_DEBUG: ' . ( defined( 'WP_DEBUG' ) ? WP_DEBUG ? 'Enabled' : 'Disabled' : 'Not set' ) . "\n";
 	$output .= 'Memory Limit: ' . WP_MEMORY_LIMIT . "\n\n";

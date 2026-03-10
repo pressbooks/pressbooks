@@ -802,7 +802,7 @@ class Styles {
 
 		$supported = array_keys( $this->supported );
 		if ( ! in_array( $slug, $supported, true ) ) {
-			wp_die( "Unknown slug: $slug" );
+			wp_die( sprintf( __( 'Unknown slug: %s', 'pressbooks' ), $slug ) );
 		}
 
 		$style_post = $this->getPost( $slug );
