@@ -3592,7 +3592,7 @@ msgstr "Validation de l’exportation des liens Web réussie."
 
 #: inc/modules/export/traits/class-handlecontributors.php:33
 msgid "Edited by "
-msgstr "Sous la direction de"
+msgstr "Sous la direction de "
 
 #: inc/modules/export/wordpress/class-vanillawxr.php:24
 #: inc/modules/export/wordpress/class-vanillawxr.php:38
