@@ -265,7 +265,7 @@ function replace_book_admin_menu() {
 		'edit-tags.php?taxonomy=glossary-type&amp;post_type=glossary'
 	);
 
-	add_submenu_page( 'pb_organize', esc_html__( 'Trash' ), esc_html__( 'Trash' ), 'delete_posts', 'pb_trash', __NAMESPACE__ . '\display_trash' );
+	add_submenu_page( 'pb_organize', esc_html__( 'Trash', 'pressbooks' ), esc_html__( 'Trash', 'pressbooks' ), 'delete_posts', 'pb_trash', __NAMESPACE__ . '\display_trash' );
 
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) use ( $assets ) {
@@ -1809,7 +1809,7 @@ function enqueue_user_profile_scripts( string $hook ) {
  * @param \WP_User $user
  */
 function add_user_profile_fields( \WP_User $user ) {
-	$institution = esc_html__( 'Institution' );
+	$institution = esc_html__( 'Institution', 'pressbooks' );
 	$value = esc_attr( get_the_author_meta( 'institution', $user->ID ) );
 	$helper = esc_html__( 'Your institutional affiliation, e.g. Rebus Foundation, Open University, Amnesty International.', 'pressbooks' );
 

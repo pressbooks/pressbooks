@@ -219,7 +219,7 @@ class GoogleAnalytics {
 			$nonce = ( ! empty( $_REQUEST['_wpnonce'] ) ) ? $_REQUEST['_wpnonce'] : ''; // @codingStandardsIgnoreLine
 			if ( ! empty( $_POST ) ) {
 				if ( ! wp_verify_nonce( $nonce, 'pb_network_analytics-options' ) ) {
-					wp_die( 'Security check' );
+					wp_die( __( 'Security check', 'pressbooks' ) );
 				} else {
 					$this->saveNetworkIDOption( 'ga_4' );
 

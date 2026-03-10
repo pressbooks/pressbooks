@@ -1,0 +1,46 @@
+"project_id_env": "CROWDIN_OPEN_PROJECT_ID"
+"api_token_env": "CROWDIN_API_SECRET"
+"pull_request_title": "chore(l10n): update languages"
+"preserve_hierarchy": true
+"files": [
+  {
+    "source": "/languages/pressbooks.pot",
+    "dest": "/languages/pressbooks.pot",
+    "translation": "/languages/pressbooks-%locale_with_underscore%.po",
+    "languages_mapping": {
+      "locale_with_underscore": {
+        "bg": "bg_BG",
+        "ca": "ca",
+        "de": "de_DE",
+        "de-CH": "de_CH",
+        "el": "el",
+        "en-AU": "en_AU",
+        "en-CA": "en_CA",
+        "en-GB": "en_GB",
+        "es-ES": "es_ES",
+        "es-CR": "es_CR",
+        "fr": "fr_FR",
+        "hr": "hr",
+        "hu": "hu_HU",
+        "it": "it_IT",
+        "ja": "ja",
+        "kn": "kn",
+        "lt": "lt_LT",
+        "lv": "lv",
+        "nl": "nl_NL",
+        "pl": "pl",
+        "ru": "ru_RU",
+        "sv-SE": "sv_SE",
+        "ta": "ta_LK",
+        "ta-IN": "ta_IN",
+        "tr": "tr_TR",
+        "uk": "uk",
+        "zh-CN": "zh_CN",
+        "zh-TW": "zh_TW",
+        "nb": "nb_NO",
+        "gl": "gl_ES",
+        "ka": "ka_GE"
+      }
+    }
+  }
+]

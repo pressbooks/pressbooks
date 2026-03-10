@@ -14,6 +14,7 @@
  * Author URI: https://pressbooks.org
  * License: GPL v3 or later
  * Text Domain: pressbooks
+ * Domain Path: /languages
  * Network: True
  *
  * @package Pressbooks
