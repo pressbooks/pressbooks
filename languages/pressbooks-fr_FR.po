@@ -2562,7 +2562,7 @@ msgstr "$titre désapprouvé. La méthode déterminera le titre automatiquement 
 #: inc/modules/export/xhtml/class-xhtml11.php:1371
 #: templates/export/epub/opf.blade.php:100
 msgid "by"
-msgstr "par"
+msgstr "par "
 
 #: inc/class-licensing.php:394
 msgid "except where otherwise noted."
