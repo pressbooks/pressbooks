@@ -93,8 +93,7 @@
       gap: 0.75rem;
 
       .actions {
-        flex-wrap: wrap;
-        flex-direction: column;
+        flex-flow: column wrap;
         align-items: stretch;
 
         label {
@@ -185,12 +184,12 @@
   .pb-table-scroll-container .wp-list-table.pb-table {
     /* Prevent WordPress from hiding non-primary columns */
     th.column-primary ~ th,
-    tr:not(.inline-edit-row):not(.no-items) td.column-primary ~ td:not(.check-column) {
+    tr:not(.inline-edit-row, .no-items) td.column-primary ~ td:not(.check-column) {
       display: table-cell !important;
     }
 
     /* Reset cell styling modified by WordPress mobile styles */
-    tr:not(.inline-edit-row):not(.no-items) td:not(.check-column) {
+    tr:not(.inline-edit-row, .no-items) td:not(.check-column) {
       width: auto;
       position: relative;
       clear: none;
@@ -198,7 +197,7 @@
     }
 
     /* Hide WordPress-generated data-colname pseudo-elements */
-    tr:not(.inline-edit-row):not(.no-items) td:not(.column-primary)::before {
+    tr:not(.inline-edit-row, .no-items) td:not(.column-primary)::before {
       display: none !important;
     }
 

@@ -52,7 +52,7 @@
 		"maxbanton/cwh": "^2.0",
 		"monolog/monolog": "^2.2",
 		"phpcompatibility/php-compatibility": "^9.3",
-		"pressbooks/mix": "^2.1",
+		"pressbooks/frontend-tools": "^1.0.0",
 		"pressbooks/pb-cli": "^3",
 		"scssphp/scssphp": "^1.11.0",
 		"snordian/h5p-extractor": "^0.4.1",
@@ -92,7 +92,7 @@
 			"phpcs.ruleset.xml",
 			"phpunit.xml",
 			"tests",
-			"webpack.mix.js"
+			"vite.config.js"
 		]
 	},
 	"scripts": {

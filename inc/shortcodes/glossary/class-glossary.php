@@ -6,7 +6,6 @@
 
 namespace Pressbooks\Shortcodes\Glossary;
 
-use PressbooksMix\Assets;
 use Pressbooks\MathJax;
 use Pressbooks\PostType\FrontOrBackMatter;
 use Pressbooks\Utility\AutoDisplayable;
@@ -81,9 +80,9 @@ class Glossary implements FrontOrBackMatter {
 	 */
 	public function addTooltipScripts(): void {
 		if ( ! is_admin() ) {
-			$assets = new Assets( 'pressbooks', 'plugin' );
-			wp_enqueue_script( 'glossary-definition', $assets->getPath( 'scripts/glossary-definition.js' ), false, null, true );
-			wp_enqueue_style( 'glossary-definition', $assets->getPath( 'styles/glossary-definition.css' ), false, null );
+			/** @var Assets  $assets */
+			$assets = app( 'Assets' );
+			$assets->enqueue( 'assets/src/scripts/glossary-definition.js', 'glossary-definition' );
 		}
 	}
 

@@ -1,6 +1,9 @@
-/* global algoliasearch */
-/* global instantsearch */
 /* global PBAlgolia */
+
+import algoliasearch from 'algoliasearch/lite';
+import instantsearch from 'instantsearch.js';
+import { searchBox, hits, stats } from 'instantsearch.js/es/widgets';
+import '../styles/cloner.scss';
 
 const searchClient = algoliasearch( PBAlgolia.applicationId, PBAlgolia.apiKey );
 
@@ -53,13 +56,13 @@ document.querySelector( '#searchbox' ).addEventListener( 'input', event => {
 } );
 
 search.addWidgets( [
-	instantsearch.widgets.searchBox( {
+	searchBox( {
 		container: '#searchbox',
 		placeholder: 'Search openly licensed books',
 		showSubmit: false,
 	} ),
 
-	instantsearch.widgets.hits( {
+	hits( {
 		// cssClasses property -> custom css classes here folks: https://www.algolia.com/doc/api-reference/widgets/hits/js/#widget-param-cssclasses
 		escapeHTML: true,
 		container: '#book-cards',
@@ -67,7 +70,7 @@ search.addWidgets( [
 			item: `${ PBAlgolia.hitsTemplate }`,
 		},
 	} ),
-	instantsearch.widgets.stats( {
+	stats( {
 		container: '#stats',
 		templates: {
 			/**

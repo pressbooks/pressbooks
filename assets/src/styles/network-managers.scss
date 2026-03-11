@@ -1,4 +1,4 @@
-@import 'partials/colors';
+@use "partials/colors" as *;
 
 #the-list {
   tr td:first-child {

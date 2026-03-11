@@ -1,4 +1,4 @@
-@import 'partials/colors';
+@use "partials/colors" as *;
 
 .post-type-metadata .page-title-action {
   display: none;
