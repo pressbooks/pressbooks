@@ -104,7 +104,7 @@ function update_admin_status() {
  */
 function options() {
 	if ( ! current_user_can( 'manage_network' ) ) {
-		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+		wp_die( __( 'You do not have sufficient permissions to access this page.', 'pressbooks' ) );
 	}
 
 	$superadmins = new \Pressbooks\Admin\Network_Managers_List_Table();

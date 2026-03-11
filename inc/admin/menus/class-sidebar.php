@@ -409,24 +409,24 @@ class SideBar {
 		// Appearance
 		add_submenu_page(
 			$this->getContextSlug( 'customize.php', true ),
-			__( 'Customize Home Page' ),
-			__( 'Customize Home Page' ),
+			__( 'Customize Home Page', 'pressbooks' ),
+			__( 'Customize Home Page', 'pressbooks' ),
 			'manage_network',
 			$this->getContextSlug( 'customize.php', true )
 		);
 
 		add_submenu_page(
 			$this->getContextSlug( 'customize.php', true ),
-			__( 'Activate Book Themes' ),
-			__( 'Activate Book Themes' ),
+			__( 'Activate Book Themes', 'pressbooks' ),
+			__( 'Activate Book Themes', 'pressbooks' ),
 			'manage_network',
 			$this->getContextSlug( 'themes.php', false )
 		);
 
 		add_submenu_page(
 			$this->getContextSlug( 'customize.php', true ),
-			__( 'Change Root Site Theme' ),
-			__( 'Change Root Site Theme' ),
+			__( 'Change Root Site Theme', 'pressbooks' ),
+			__( 'Change Root Site Theme', 'pressbooks' ),
 			'manage_network',
 			$this->getContextSlug( 'themes.php', true )
 		);
