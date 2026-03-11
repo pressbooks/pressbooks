@@ -1,17 +1,17 @@
 {
-  "__commonjsHelpers-CqkleIqs.js": {
-    "file": "assets/_commonjsHelpers-CqkleIqs.js",
+  "__commonjsHelpers-DsqdWQfm.js": {
+    "file": "assets/_commonjsHelpers-DsqdWQfm.js",
     "name": "_commonjsHelpers"
   },
-  "_jquery-BI420F6r.js": {
-    "file": "assets/jquery-BI420F6r.js",
-    "name": "jquery",
+  "_jquery.bundler-require-wrapper-CKDLgtpV.js": {
+    "file": "assets/jquery.bundler-require-wrapper-CKDLgtpV.js",
+    "name": "jquery.bundler-require-wrapper",
     "imports": [
-      "__commonjsHelpers-CqkleIqs.js"
+      "__commonjsHelpers-DsqdWQfm.js"
     ]
   },
-  "_lit-element-DwTj7qCT.js": {
-    "file": "assets/lit-element-DwTj7qCT.js",
+  "_lit-element-BlzW_tbz.js": {
+    "file": "assets/lit-element-BlzW_tbz.js",
     "name": "lit-element"
   },
   "_startClock-BGTX34Vu.js": {
@@ -45,12 +45,12 @@
     "isEntry": true
   },
   "assets/src/scripts/algolia-search.js": {
-    "file": "assets/algolia-search-DcxrE8wr.js",
+    "file": "assets/algolia-search-Dqg3nHqj.js",
     "name": "algolia-search",
     "src": "assets/src/scripts/algolia-search.js",
     "isEntry": true,
     "imports": [
-      "__commonjsHelpers-CqkleIqs.js"
+      "__commonjsHelpers-DsqdWQfm.js"
     ],
     "css": [
       "assets/algolia-search-DoMTmBPl.css"
@@ -69,27 +69,27 @@
     "isEntry": true
   },
   "assets/src/scripts/book-information.js": {
-    "file": "assets/book-information-DEWwuNKk.js",
+    "file": "assets/book-information-CKvt9HHq.js",
     "name": "book-information",
     "src": "assets/src/scripts/book-information.js",
     "isEntry": true,
     "imports": [
       "assets/src/scripts/webcomponents/pressbooks-reorderable-multiselect.js",
-      "_lit-element-DwTj7qCT.js"
+      "_lit-element-BlzW_tbz.js"
     ],
     "css": [
       "assets/book-information-CCL6ZHe4.css"
     ]
   },
   "assets/src/scripts/catalog.js": {
-    "file": "assets/catalog-Du0FQKJu.js",
+    "file": "assets/catalog-BoBMf6wF.js",
     "name": "catalog",
     "src": "assets/src/scripts/catalog.js",
     "isEntry": true,
     "imports": [
       "assets/src/scripts/small-menu.js",
-      "__commonjsHelpers-CqkleIqs.js",
-      "_jquery-BI420F6r.js"
+      "__commonjsHelpers-DsqdWQfm.js",
+      "_jquery.bundler-require-wrapper-CKDLgtpV.js"
     ],
     "css": [
       "assets/catalog-MXHUcVWn.css"
@@ -210,7 +210,7 @@
     ]
   },
   "assets/src/scripts/organize.js": {
-    "file": "assets/organize-BKkWcT9c.js",
+    "file": "assets/organize-YOIt7TEH.js",
     "name": "organize",
     "src": "assets/src/scripts/organize.js",
     "isEntry": true,
@@ -237,7 +237,7 @@
     "isEntry": true
   },
   "assets/src/scripts/pressbooks.js": {
-    "file": "assets/pressbooks-BuNhfOwE.js",
+    "file": "assets/pressbooks-C1ek84On.js",
     "name": "pressbooks",
     "src": "assets/src/scripts/pressbooks.js",
     "isEntry": true,
@@ -273,13 +273,13 @@
     ]
   },
   "assets/src/scripts/select2.js": {
-    "file": "assets/select2-CGruY-Y5.js",
+    "file": "assets/select2-CcgYbemt.js",
     "name": "select2",
     "src": "assets/src/scripts/select2.js",
     "isEntry": true,
     "imports": [
-      "_jquery-BI420F6r.js",
-      "__commonjsHelpers-CqkleIqs.js"
+      "_jquery.bundler-require-wrapper-CKDLgtpV.js",
+      "__commonjsHelpers-DsqdWQfm.js"
     ],
     "css": [
       "assets/select2-Dav-ab6K.css"
@@ -310,34 +310,34 @@
     "isEntry": true
   },
   "assets/src/scripts/theme-options.js": {
-    "file": "assets/theme-options-Cr70yum1.js",
+    "file": "assets/theme-options-ZAbIQfpw.js",
     "name": "theme-options",
     "src": "assets/src/scripts/theme-options.js",
     "isEntry": true,
     "imports": [
       "assets/src/scripts/webcomponents/pressbooks-select.js",
-      "_lit-element-DwTj7qCT.js"
+      "_lit-element-BlzW_tbz.js"
     ],
     "css": [
       "assets/theme-options-ClJSavZj.css"
     ]
   },
   "assets/src/scripts/webcomponents/pressbooks-reorderable-multiselect.js": {
-    "file": "assets/pressbooks-reorderable-multiselect-DRPOa9hh.js",
+    "file": "assets/pressbooks-reorderable-multiselect-DhTgPBzg.js",
     "name": "pressbooks-reorderable-multiselect",
     "src": "assets/src/scripts/webcomponents/pressbooks-reorderable-multiselect.js",
     "isEntry": true,
     "imports": [
-      "_lit-element-DwTj7qCT.js"
+      "_lit-element-BlzW_tbz.js"
     ]
   },
   "assets/src/scripts/webcomponents/pressbooks-select.js": {
-    "file": "assets/pressbooks-select-D4kq13HV.js",
+    "file": "assets/pressbooks-select-i5s1_BZk.js",
     "name": "pressbooks-select",
     "src": "assets/src/scripts/webcomponents/pressbooks-select.js",
     "isEntry": true,
     "imports": [
-      "_lit-element-DwTj7qCT.js"
+      "_lit-element-BlzW_tbz.js"
     ]
   },
   "assets/src/styles/colors-pb-a11y.scss": {
