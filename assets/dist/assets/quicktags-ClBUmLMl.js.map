@@ -1,0 +1,1 @@
+{"version":3,"file":"quicktags-ClBUmLMl.js","sources":["../../src/scripts/quicktags.js"],"sourcesContent":["edButtons[edButtons.length] = new edButton(\n\t'ed_fn',\n\t'fn',\n\t'[footnote]',\n\t'[/footnote]',\n\t''\n);\n"],"names":[],"mappings":"AAAA,UAAU,UAAU,MAAM,EAAI,IAAI,SACjC,QACA,KACA,aACA,cACA,EACD"}

@@ -13,3 +13,6 @@ coverage-reports
 .env.*
 !.env.*.example
 LICENSE
+/.claude
+old-tests
+vite-dev-server.json

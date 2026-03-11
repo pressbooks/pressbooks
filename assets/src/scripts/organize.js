@@ -1,5 +1,6 @@
 /* global PB_OrganizeToken */
 
+import '../styles/organize.scss';
 import { CountUp } from 'countup.js';
 
 let $ = window.jQuery;
@@ -46,7 +47,6 @@ let pb = {
 
 /**
  * Clear a modal using jQuery.unBlockUI()
- *
  * @param {string | object} item
  */
 function showModal( item ) {
@@ -69,7 +69,6 @@ function showModal( item ) {
 
 /**
  * Clear a modal using jQuery.unBlockUI()
- *
  * @param {string | object} item
  * @param {string} status
  */
@@ -120,7 +119,6 @@ function updateWordCountForExport() {
 
 /**
  * Get the table before or after the current table.
- *
  * @param {object} table
  * @param {string} relationship
  * @returns {object}
@@ -135,7 +133,6 @@ function getAdjacentContainer( table, relationship ) {
 
 /**
  * Get data for a table row.
- *
  * @param {object} row
  * @returns {object}
  */
@@ -152,7 +149,6 @@ function getRowData( row ) {
 
 /**
  * Get an array object of IDs in a table.
- *
  * @param {object} table
  * @returns {Array} ids
  */
@@ -171,7 +167,6 @@ function getIdsInTable( table ) {
 
 /**
  * Adjust the reorder controls throughout a table as part of a reorder operation.
- *
  * @param {object} table
  */
 function updateControls( table ) {
@@ -222,7 +217,6 @@ function updateControls( table ) {
 
 /**
  * Reorder the contents of a table, optionally moving the target row to a new table.
- *
  * @param {object} row
  */
 function reorder( row ) {
@@ -278,7 +272,6 @@ function reorder( row ) {
 
 /**
  * Update post status for individual or multiple posts.
- *
  * @param ids
  * @param postType
  * @param output
@@ -319,7 +312,6 @@ function updateVisibility( ids, postType, output, visibility ) {
 
 /**
  * Update title visibility for individual or multiple posts.
- *
  * @param {string} ids Comma separated post IDs.
  * @param {string} postType
  * @param {bool} showTitle

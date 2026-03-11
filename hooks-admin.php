@@ -5,9 +5,10 @@
  * @license GPLv3 (or any later version)
  */
 
-use PressbooksMix\Assets;
+use function Pressbooks\Admin\Fonts\update_font_stacks;
 use Pressbooks\Admin\Menus\SideBar;
 use Pressbooks\Admin\Menus\TopBar;
+use Pressbooks\Admin\Users\User;
 use Pressbooks\Book;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -274,8 +275,8 @@ if ( $is_book ) {
 	add_action(
 		'updated_postmeta', function ( $meta_id, $object_id, $meta_key, $meta_value ) {
 			if ( 'pb_language' === $meta_key ) {
-				\Pressbooks\Book::deleteBookObjectCache();
-				\Pressbooks\Admin\Fonts\update_font_stacks();
+				Book::deleteBookObjectCache();
+				update_font_stacks();
 			}
 		}, 10, 4
 	);
@@ -400,13 +401,7 @@ add_action( 'personal_options_update', '\Pressbooks\Admin\Laf\update_user_profil
 
 add_action( 'plugins_loaded', [ SideBar::class, 'init' ] );
 add_action( 'plugins_loaded', [ TopBar::class, 'init' ] );
-
-add_action( 'admin_enqueue_scripts', function() {
-	$assets = new Assets( 'pressbooks', 'plugin' );
-	wp_enqueue_style( 'pb-table', $assets->getPath( 'styles/pressbooks-table.css' ) );
-} );
-
-add_action( 'plugins_loaded', [ \Pressbooks\Admin\Users\User::class, 'init' ], 10 );
+add_action( 'plugins_loaded', [ User::class, 'init' ], 10 );
 
 add_action( 'pb_new_blog', function() {
 	update_option( 'blog_public', 0 );

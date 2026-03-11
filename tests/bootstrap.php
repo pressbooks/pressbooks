@@ -5,6 +5,8 @@ if ( ! $_tests_dir ) {
 	$_tests_dir = '/tmp/wordpress-tests-lib';
 }
 
+define("WP_PLUGIN_DIR", dirname(__DIR__,2));
+
 require_once $_tests_dir . '/includes/functions.php';
 
 if ( ! defined( 'DOCRAPTOR_API_KEY' ) ) {

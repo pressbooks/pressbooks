@@ -33,7 +33,6 @@ jQuery( function ( $ ) {
 
 	/**
 	 * Return whether the image must be cropped, based on required dimensions.
-	 *
 	 * @param {boolean} flexW
 	 * @param {boolean} flexH
 	 * @param {number}  dstW
@@ -70,7 +69,6 @@ jQuery( function ( $ ) {
 	 * Returns a set of options, computed from the attached image data and
 	 * control-specific data, to be fed to the imgAreaSelect plugin in
 	 * wp.media.view.Cropper.
-	 *
 	 * @param {wp.media.model.Attachment} attachment
 	 * @param {wp.media.controller.Cropper} controller
 	 * @returns {object} Options
@@ -148,7 +146,6 @@ jQuery( function ( $ ) {
 		let Cropp = wp.media.controller.CustomizeImageCropper.extend( {
 			/**
 			 * Creates an object with the image attachment and crop properties.
-			 *
 			 * @param attachment
 			 * @returns {$.promise} A jQuery promise with the custom header crop details.
 			 */

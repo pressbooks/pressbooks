@@ -1,4 +1,4 @@
-@import 'partials/colors';
+@use "partials/colors" as *;
 
 .form-table.search-form {
   th {

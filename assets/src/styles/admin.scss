@@ -1,7 +1,8 @@
-@import "menus/sidebar";
-@import "partials/colors";
-@import "heroicons";
-@import "heroicons-bridge";
+@use "menus/sidebar";
+@use "partials/colors" as *;
+@use "pressbooks-table";
+@import "heroicons.css";
+@import "heroicons-bridge.css";
 
 :root {
   --pb-toolbar-item-height: 50px;
@@ -52,7 +53,7 @@ html #wpadminbar {
   background: inherit;
 }
 
-#wpadminbar:not(.mobile) .ab-top-menu > #wp-admin-bar-pb-logo:hover .ab-icon:before {
+#wpadminbar:not(.mobile) .ab-top-menu > #wp-admin-bar-pb-logo:hover .ab-icon::before {
   color: #fff;
 }
 
@@ -284,7 +285,7 @@ html #wpadminbar {
 
   #wpadminbar #wp-toolbar .ab-icon,
   #wpadminbar #wp-toolbar #wp-admin-bar-menu-toggle .ab-icon::before {
-    font: var(--pb-toolbar-icon-size)/1 dashicons !important;
+    font: var(--pb-toolbar-icon-size) dashicons !important;
     height: var(--pb-toolbar-icon-size);
     width: var(--pb-toolbar-icon-size);
   }

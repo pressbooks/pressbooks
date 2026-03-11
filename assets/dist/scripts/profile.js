@@ -1,1 +1,0 @@
-document.addEventListener("DOMContentLoaded",function(){var e={first_name:"given-name",last_name:"family-name",email:"email",url:"url",nickname:"nickname"};for(var n in e){var t=document.getElementById(n);t&&t.setAttribute("autocomplete",e[n])}});

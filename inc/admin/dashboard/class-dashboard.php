@@ -2,8 +2,6 @@
 
 namespace Pressbooks\Admin\Dashboard;
 
-use PressbooksMix\Assets;
-
 abstract class Dashboard {
 	protected static ?Dashboard $instance = null;
 
@@ -64,9 +62,15 @@ abstract class Dashboard {
 
 	public function enqueueStyles( string $page ): void {
 		add_action( "admin_print_styles-{$page}", function() {
-			$assets = new Assets( 'pressbooks', 'plugin' );
+			/** @var \PressbooksFrontendTools\Assets $assets */
+			$assets = app( 'Assets' );
+			$assets->enqueue( 'assets/src/scripts/dashboard.js', 'pb-book-dashboard' );
 
-			wp_enqueue_style( 'pb-book-dashboard', $assets->getPath( 'styles/pressbooks-dashboard.css' ) );
+			// Standalone CSS must use wp_enqueue_style (not $assets->enqueue which wraps in script tags)
+			wp_enqueue_style(
+				'pb-dashboard-styles',
+				$assets->getAssetUrl( 'assets/src/styles/pressbooks-dashboard.css' )
+			);
 		} );
 	}
 
