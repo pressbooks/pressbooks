@@ -5,9 +5,10 @@
  * @license GPLv3 (or any later version)
  */
 
-use PressbooksMix\Assets;
+use function Pressbooks\Admin\Fonts\update_font_stacks;
 use Pressbooks\Admin\Menus\SideBar;
 use Pressbooks\Admin\Menus\TopBar;
+use Pressbooks\Admin\Users\User;
 use Pressbooks\Book;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -95,6 +96,8 @@ if ( is_main_site() && is_network_admin() ) {
 
 // Replace strings
 add_action( 'gettext', '\Pressbooks\Admin\Laf\sites_to_books', 3, 20 );
+add_filter( 'gettext_with_context', '\Pressbooks\Admin\Laf\sites_to_books_with_context', 3, 4 );
+add_filter( 'ngettext', '\Pressbooks\Admin\Laf\sites_to_books_ngettext', 3, 5 );
 
 // Javascript, Css
 add_action( 'admin_init', '\Pressbooks\Admin\Laf\init_css_js' );
@@ -227,6 +230,7 @@ if ( $is_book ) {
 	add_filter( 'wp_link_query', '\Pressbooks\Editor\add_anchors_to_wp_link_query', 1, 2 );
 	add_action( 'admin_enqueue_scripts', '\Pressbooks\Editor\admin_enqueue_scripts' );
 	add_action( 'admin_init', '\Pressbooks\Editor\add_editor_style' );
+	add_filter( 'content_save_pre', '\Pressbooks\Editor\fix_table_header_cells', 10 );
 }
 if ( ! defined( 'PB_GUTENBERG_TESTING' ) || ! PB_GUTENBERG_TESTING ) {
 	// Hide Gutenberg
@@ -275,8 +279,8 @@ if ( $is_book ) {
 	add_action(
 		'updated_postmeta', function ( $meta_id, $object_id, $meta_key, $meta_value ) {
 			if ( 'pb_language' === $meta_key ) {
-				\Pressbooks\Book::deleteBookObjectCache();
-				\Pressbooks\Admin\Fonts\update_font_stacks();
+				Book::deleteBookObjectCache();
+				update_font_stacks();
 			}
 		}, 10, 4
 	);
@@ -401,13 +405,7 @@ add_action( 'personal_options_update', '\Pressbooks\Admin\Laf\update_user_profil
 
 add_action( 'plugins_loaded', [ SideBar::class, 'init' ] );
 add_action( 'plugins_loaded', [ TopBar::class, 'init' ] );
-
-add_action( 'admin_enqueue_scripts', function() {
-	$assets = new Assets( 'pressbooks', 'plugin' );
-	wp_enqueue_style( 'pb-table', $assets->getPath( 'styles/pressbooks-table.css' ) );
-} );
-
-add_action( 'plugins_loaded', [ \Pressbooks\Admin\Users\User::class, 'init' ], 10 );
+add_action( 'plugins_loaded', [ User::class, 'init' ], 10 );
 
 add_action( 'pb_new_blog', function() {
 	update_option( 'blog_public', 0 );

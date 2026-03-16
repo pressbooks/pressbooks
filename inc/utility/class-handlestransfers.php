@@ -197,7 +197,7 @@ trait HandlesTransfers {
 		}
 
 		if ( $_FILES['import_file']['type'] !== 'application/json' ) {
-			$_SESSION['pb_errors'][] = __( 'Sorry, this file type is not permitted for security reasons.' );
+			$_SESSION['pb_errors'][] = __( 'Sorry, this file type is not permitted for security reasons.', 'pressbooks' );
 
 			return false;
 		}

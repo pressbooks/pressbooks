@@ -1,7 +1,8 @@
-@import "menus/sidebar";
-@import "partials/colors";
-@import "heroicons";
-@import "heroicons-bridge";
+@use "menus/sidebar";
+@use "partials/colors" as *;
+@use "pressbooks-table";
+@import "heroicons.css";
+@import "heroicons-bridge.css";
 
 :root {
   --pb-toolbar-item-height: 50px;
@@ -52,7 +53,7 @@ html #wpadminbar {
   background: inherit;
 }
 
-#wpadminbar:not(.mobile) .ab-top-menu > #wp-admin-bar-pb-logo:hover .ab-icon:before {
+#wpadminbar:not(.mobile) .ab-top-menu > #wp-admin-bar-pb-logo:hover .ab-icon::before {
   color: #fff;
 }
 
@@ -284,7 +285,7 @@ html #wpadminbar {
 
   #wpadminbar #wp-toolbar .ab-icon,
   #wpadminbar #wp-toolbar #wp-admin-bar-menu-toggle .ab-icon::before {
-    font: var(--pb-toolbar-icon-size)/1 dashicons !important;
+    font: var(--pb-toolbar-icon-size) dashicons !important;
     height: var(--pb-toolbar-icon-size);
     width: var(--pb-toolbar-icon-size);
   }
@@ -292,5 +293,110 @@ html #wpadminbar {
   #wpadminbar .quicklinks li#wp-admin-bar-my-account.with-avatar > a img {
     height: var(--pb-toolbar-icon-size);
     width: var(--pb-toolbar-icon-size);
+  }
+}
+
+/* Admin Banners Component
+ * 
+ * Expected markup structure for responsive banners:
+ * <div class="wrap banner is-dismissible" data-dismiss-key="...">
+ *   <div class="banner-content">
+ *     <p>Banner text content</p>
+ *   </div>
+ *   <div class="banner-actions">
+ *     <div class="cta">
+ *       <a class="button button-primary" href="...">Button text</a>
+ *     </div>
+ *   </div>
+ *   <button type="button" class="pb-dismiss" aria-label="Dismiss notification">
+ *     <i class="pb-heroicons pb-heroicons-outline_x-circle"></i>
+ *   </button>
+ * </div>
+ * 
+ * Responsive behavior:
+ * - Desktop (>1024px): Content, actions, and dismiss button lay out horizontally in one row
+ * - Mobile (≤1024px): Content and dismiss button on first line, actions below on second line
+ */
+.banner {
+  align-items: center;
+  background-color: var(--pb-white);
+  border: 1px solid var(--pb-border-color);
+  color: var(--pb-text-color);
+  display: flex;
+  flex-wrap: wrap;
+  font-family: Karla, sans-serif;
+  font-size: 1rem;
+  gap: 0.75rem;
+  justify-content: space-between;
+  line-height: 1.5rem;
+  max-width: 1220px;
+  padding: 0.75rem;
+
+  p {
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .banner-content {
+    flex: 1;
+  }
+
+  .cta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .banner-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  a.button-primary {
+    background-color: var(--pb-action-red);
+    color: var(--pb-white);
+    font-size: 1rem;
+    margin: 0 1rem;
+    padding: 6px 22px;
+    text-decoration: none;
+
+    &:hover {
+      background-color: var(--pb-action-hover-red);
+    }
+  }
+
+  button.pb-dismiss {
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    padding: 0;
+
+    i {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    align-items: flex-start;
+
+    button.pb-dismiss {
+      order: 2;
+    }
+
+    .banner-actions {
+      order: 3;
+      flex: 0 0 100%;
+    }
+
+    a.button-primary {
+      margin: 0;
+      padding: 14px 44px;
+      text-align: center;
+    }
   }
 }

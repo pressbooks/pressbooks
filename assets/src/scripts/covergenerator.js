@@ -3,6 +3,7 @@
 import displayNotice from './utils/displayNotice';
 import resetClock from './utils/resetClock';
 import startClock from './utils/startClock';
+import '../styles/covergenerator.scss';
 
 jQuery( function ( $ ) {
 	// Media

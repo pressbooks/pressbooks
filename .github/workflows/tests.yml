@@ -2,9 +2,9 @@ name: Run Tests
 
 on:
   push:
-    branches: [ dev ]
+    branches: [dev]
   pull_request:
-    branches: [ dev ]
+    branches: [dev]
 
 jobs:
   tests:
@@ -14,7 +14,7 @@ jobs:
       matrix:
         include:
           - php: 8.3
-            wordpress: 6.8.3
+            wordpress: 6.9.4
             prince: 15.4-1
             epubcheck: 4.2.6
             experimental: false
@@ -24,7 +24,7 @@ jobs:
             epubcheck: 4.2.6
             experimental: true
           - php: 8.4
-            wordpress: 6.8.3
+            wordpress: 6.9.4
             prince: 15.4-1
             epubcheck: 4.2.6
             experimental: true
@@ -54,7 +54,7 @@ jobs:
           rm prince_${{ matrix.prince }}_ubuntu24.04_amd64.deb
 
       - name: Cache Composer packages
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: vendor
           key: php-${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -88,7 +88,7 @@ jobs:
         if: matrix.experimental == false
 
       - name: Save code coverage to artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: matrix.experimental == false
         with:
           name: code-coverage
@@ -104,7 +104,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Fetch code coverage artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: code-coverage
       - name: Upload coverage to Codecov
@@ -126,4 +126,3 @@ jobs:
           AWS_SNS_ARN_STAGING: ${{ secrets.AWS_SNS_ARN_STAGING }}
           INPUT_TRIGGERED_BY: ${{ github.repository }}
           REF: ${{ github.ref }}
-

@@ -12,7 +12,6 @@ use function \Pressbooks\Utility\apply_https_if_available;
 use function \Pressbooks\Utility\explode_remove_and;
 use function \Pressbooks\Utility\get_contents;
 use function \Pressbooks\Utility\get_contributors_name_imploded;
-use PressbooksMix\Assets;
 use Pressbooks\Book;
 use Pressbooks\Contributors;
 use Pressbooks\Licensing;
@@ -953,16 +952,15 @@ function register_contributor_meta() {
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) {
 			if ( $hook === 'edit-tags.php' || $hook === 'term.php' ) {
-				$assets = new Assets( 'pressbooks', 'plugin' );
+				/** @var Assets $assets */
+				$assets = app( 'Assets' );
 				wp_enqueue_media();
-				wp_enqueue_script(
-					'pb_contributors', $assets->getPath( 'scripts/contributors.js' ),
-					[
+				$assets->enqueue('assets/src/scripts/contributors.js', 'pb_contributors', [
+					'dependencies' => [
 						'jquery',
 						'jquery-form',
-						'eventsource-polyfill',
-					], null
-				);
+					],
+				]);
 				wp_localize_script(
 					'pb_contributors',
 					'pictureSize',

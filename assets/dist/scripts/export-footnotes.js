@@ -1,1 +1,0 @@
-"undefined"!=typeof Prince&&function(){for(var e=document.getElementsByClassName("footnote-indirect"),t=0;t<e.length;t++){var n=document.getElementById(e[t].getAttribute("data-fnref"));n&&e[t].appendChild(n)}}();

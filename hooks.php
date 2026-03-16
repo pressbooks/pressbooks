@@ -4,11 +4,13 @@
  * @license GPLv3 (or any later version)
  */
 
+use function Pressbooks\Api\is_enabled;
 use function \Pressbooks\Utility\include_plugins as include_symbionts;
 use Pressbooks\Book;
 use Pressbooks\CloneComplete;
 use Pressbooks\Container;
 use Pressbooks\Privacy;
+use Pressbooks\ServiceProvider;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -26,13 +28,13 @@ include_symbionts();
 // -------------------------------------------------------------------------------------------------------------------
 
 $is_book = Book::isBook();
-$enable_network_api = \Pressbooks\Api\is_enabled();
+$enable_network_api = is_enabled();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Initialize services
 // -------------------------------------------------------------------------------------------------------------------
 
-\Pressbooks\ServiceProvider::init();
+ServiceProvider::init();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Activation
