@@ -27,25 +27,15 @@ class SideBar {
 		$this->isKokoAnalyticsActive = is_plugin_active( 'koko-analytics/koko-analytics.php' );
 		$this->isNetworkAnalyticsActive = is_plugin_active( 'pressbooks-network-analytics/pressbooks-network-analytics.php' );
 
-		if ( $this->isNetworkAnalyticsActive ) {
-			$this->booksCallback = [ \PressbooksNetworkAnalytics\Admin\Books::init(), 'printMenuBookList' ];
-			$this->booksSlug = 'pb_network_analytics_booklist';
+		// Use default menu slugs - plugins can customize via hooks
+		$this->booksCallback = '';
+		$this->booksSlug = $this->getContextSlug( 'sites.php', false );
 
-			$this->usersCallback = [ \PressbooksNetworkAnalytics\Admin\Users::init(), 'printMenuUserList' ];
-			$this->usersSlug = 'pb_network_analytics_userlist';
+		$this->usersCallback = '';
+		$this->usersSlug = $this->getContextSlug( 'users.php', false );
 
-			$this->settingsCallback = [ \PressbooksNetworkAnalytics\Admin\Options::init(), 'printMenuSettings' ];
-			$this->settingsSlug = $this->getContextSlug( 'admin.php?page=pb_network_analytics_options', false );
-		} else {
-			$this->booksCallback = '';
-			$this->booksSlug = $this->getContextSlug( 'sites.php', false );
-
-			$this->usersCallback = '';
-			$this->usersSlug = $this->getContextSlug( 'users.php', false );
-
-			$this->settingsCallback = '';
-			$this->settingsSlug = $this->getContextSlug( 'settings.php', false );
-		}
+		$this->settingsCallback = '';
+		$this->settingsSlug = $this->getContextSlug( 'settings.php', false );
 	}
 
 	public static function init(): void {
@@ -356,55 +346,37 @@ class SideBar {
 				network_admin_url( 'index.php' ),
 				__( 'Upgrade Network', 'pressbooks' ),
 				__( 'Upgrade Network', 'pressbooks' ),
-				'maanger_network',
+				'manager_network',
 				network_admin_url( 'upgrade.php' )
 			);
 		}
 
-		// Users
-		remove_submenu_page( $this->usersSlug, $this->usersSlug );
+		/**
+		 * Allow plugins to register custom menu items or submenu pages in the Dashboard section.
+		 *
+		 * @since 6.38.0
+		 */
+		do_action( 'pressbooks_register_network_dashboard_submenu_pages' );
 
-		if ( $this->isNetworkAnalyticsActive ) {
-			add_submenu_page(
-				$this->usersSlug,
-				__( 'Network Users', 'pressbooks' ),
-				__( 'Network Users', 'pressbooks' ),
-				'manager_network',
-				$this->usersSlug
-			);
-		} else {
-			remove_submenu_page( $this->usersSlug, $this->usersSlug );
-			add_submenu_page(
-				$this->usersSlug,
-				__( 'Network Users', 'pressbooks' ),
-				__( 'Network Users', 'pressbooks' ),
-				'manager_network',
-				$this->getContextSlug( 'users.php', false )
-			);
-			global $submenu;
-			unset( $submenu[ $this->usersSlug ][11] );
-		}
+		/**
+		 * Allow plugins to register custom menu items or submenu pages in the Books section.
+		 * This hook allows extensions like pressbooks-plugins-config to customize the Books menu
+		 * when Pressbooks ecosystem plugins are active.
+		 *
+		 * @since 6.38.0
+		 * @param string $books_slug The slug for the Books menu parent page.
+		 */
+		do_action( 'pressbooks_register_network_books_submenu_pages', $this->booksSlug );
 
-		add_submenu_page(
-			$this->usersSlug,
-			__( 'Root Site Users', 'pressbooks' ),
-			__( 'Root Site Users', 'pressbooks' ),
-			'manager_network',
-			$this->getContextSlug( 'users.php', true )
-		);
-
-		if ( is_plugin_active( 'user-activation-keys/ds_wp3_user_activation_keys.php' ) ) {
-			require_once WP_PLUGIN_DIR . '/user-activation-keys/ds_wp3_user_activation_keys.php';
-			$ds_wp3_user_activation_keys = new \DS_User_Activation_Keys();
-			add_submenu_page(
-				'pb-null',
-				__( 'User Activation Keys', 'pressbooks' ),
-				__( 'User Activation Keys', 'pressbooks' ),
-				'edit_users',
-				'act_keys',
-				is_network_admin() ? '' : [ $ds_wp3_user_activation_keys, 'ds_delete_stale' ]
-			);
-		}
+		/**
+		 * Allow plugins to register custom menu items or submenu pages in the Users section.
+		 * This hook allows extensions like pressbooks-plugins-config to customize the Users menu
+		 * when Pressbooks ecosystem plugins are active.
+		 *
+		 * @since 6.38.0
+		 * @param string $users_slug The slug for the Users menu parent page.
+		 */
+		do_action( 'pressbooks_register_network_users_submenu_pages', $this->usersSlug );
 
 		// Appearance
 		add_submenu_page(
@@ -430,6 +402,14 @@ class SideBar {
 			'manage_network',
 			$this->getContextSlug( 'themes.php', true )
 		);
+
+		/**
+		 * Allow plugins to register custom submenu pages under the Appearance menu.
+		 *
+		 * @since 5.X.X
+		 * @param string $appearance_slug The slug for the Appearance menu parent page.
+		 */
+		do_action( 'pressbooks_register_network_appearance_submenu_pages', $this->getContextSlug( 'customize.php', true ) );
 
 		// Plugins
 		if ( is_network_admin() ) {
@@ -465,6 +445,14 @@ class SideBar {
 			'manage_network',
 			$this->getContextSlug( 'plugins.php', true )
 		);
+
+		/**
+		 * Allow plugins to register custom submenu pages under the Plugins menu.
+		 *
+		 * @since 5.X.X
+		 * @param string $plugins_slug The slug for the Plugins menu parent page.
+		 */
+		do_action( 'pressbooks_register_network_plugins_submenu_pages', $this->getContextSlug( 'plugins.php', false ) );
 
 		// Settings
 		if ( ! is_network_admin() ) {
@@ -504,26 +492,6 @@ class SideBar {
 				$this->getContextSlug( 'settings.php?page=pb_network_managers', false )
 			);
 
-			if ( is_plugin_active( 'pressbooks-whitelabel/pressbooks-whitelabel.php' ) ) {
-				add_submenu_page(
-					$this->getContextSlug( 'settings.php', false ),
-					__( 'Whitelabel Settings', 'pressbooks' ),
-					__( 'Whitelabel Settings', 'pressbooks' ),
-					'manage_network',
-					$this->getContextSlug( 'settings.php?page=pb_whitelabel_settings', false )
-				);
-			}
-
-			if ( is_plugin_active( 'object-cache-pro/object-cache-pro.php' ) ) {
-				add_submenu_page(
-					$this->getContextSlug( 'settings.php', false ),
-					__( 'Object Cache', 'pressbooks' ),
-					__( 'Object Cache', 'pressbooks' ),
-					'manage_network',
-					$this->getContextSlug( 'settings.php?page=objectcache', false )
-				);
-			}
-
 			add_submenu_page(
 				$this->getContextSlug( 'settings.php', false ),
 				__( 'Google Analytics', 'pressbooks' ),
@@ -533,25 +501,7 @@ class SideBar {
 			);
 		}
 
-		if ( $this->isNetworkAnalyticsActive ) {
-			if ( ! is_network_admin() ) {
-				add_submenu_page(
-					$this->getContextSlug( 'settings.php', false ),
-					__( 'Network Options', 'pressbooks' ),
-					__( 'Network Options', 'pressbooks' ),
-					'manage_network',
-					$this->getContextSlug( 'admin.php?page=pb_network_analytics_options', false ),
-				);
 
-				add_submenu_page(
-					$this->getContextSlug( 'settings.php', false ),
-					__( 'Sharing & Privacy', 'pressbooks' ),
-					__( 'Sharing & Privacy', 'pressbooks' ),
-					'manage_network',
-					$this->getContextSlug( 'settings.php?page=pressbooks_sharingandprivacy_options', false )
-				);
-			}
-		}
 
 		remove_submenu_page( $this->getContextSlug( 'options-general.php', true ), $this->getContextSlug( 'options-general.php', true ) );
 
@@ -589,54 +539,22 @@ class SideBar {
 			$this->getContextSlug( 'options-privacy.php', true )
 		);
 
-		// Stats
-		if ( is_plugin_active( 'pressbooks-stats/pressbooks-stats.php' ) ) {
-			if ( ! $this->isNetworkAnalyticsActive && $this->isKokoAnalyticsActive ) {
-				$stats_slug = 'pressbooks_network_stats';
-				add_submenu_page(
-					$stats_slug,
-					__( 'PB Stats', 'pressbooks' ),
-					__( 'PB Stats', 'pressbooks' ),
-					'manage_network',
-					is_network_admin() ? 'pb_stats' : network_admin_url( 'admin.php?page=pb_stats' )
-				);
-			}
+		/**
+		 * Allow plugins to register custom submenu pages under the Settings menu.
+		 *
+		 * @since 5.X.X
+		 * @param string $settings_slug The slug for the Settings menu parent page.
+		 */
+		do_action( 'pressbooks_register_network_settings_submenu_pages', $this->getContextSlug( 'settings.php', false ) );
 
-			if ( $this->isNetworkAnalyticsActive ) {
-				$stats_slug = is_network_admin() ? 'pb_network_analytics_admin' : network_admin_url( 'admin.php?page=pb_network_analytics_admin' );
-				add_submenu_page(
-					$stats_slug,
-					__( 'PB Stats', 'pressbooks' ),
-					__( 'PB Stats', 'pressbooks' ),
-					'manage_network',
-					is_network_admin() ? 'pb_stats' : network_admin_url( 'admin.php?page=pb_stats' )
-				);
-			}
-
-			if ( ! $this->isKokoAnalyticsActive && ! $this->isNetworkAnalyticsActive ) {
-				$stats_slug = is_network_admin() ? 'pb_stats' : network_admin_url( 'admin.php?page=pb_stats' );
-				add_menu_page(
-					__( 'Stats', 'pressbooks' ),
-					__( 'Stats', 'pressbooks' ),
-					'manage_network',
-					$stats_slug,
-					'',
-					'dashicons-chart-area',
-					66
-				);
-			}
-		}
+		/**
+		 * Allow plugins to register custom menu pages for Stats section.
+		 *
+		 * @since 6.38.0
+		 */
+		do_action( 'pressbooks_register_network_stats_submenu_pages' );
 	}
 	public function reorderSuperAdminMenu( array $menu_order ): array {
-		if ( ! is_network_admin() && $this->isNetworkAnalyticsActive ) {
-			array_splice( $menu_order, 8, 0, network_admin_url( 'admin.php?page=pb_network_analytics_admin' ) );
-			unset( $menu_order[5] );
-		}
-
-		if ( isset( $menu_order[5] ) && $menu_order[5] === 'pressbooks_network_stats' ) {
-			array_splice( $menu_order, 8, 0, 'pressbooks_network_stats' );
-			unset( $menu_order[5] );
-		}
 
 		$this->reorderSettingsSubMenu();
 
