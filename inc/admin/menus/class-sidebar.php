@@ -115,12 +115,10 @@ class SideBar {
 		array_map( 'remove_submenu_page',
 			[
 				'sites.php',
-				'sites.php',
 				'users.php',
 				'users.php',
 			],
 			[
-				'pb_network_analytics_booklist',
 				'site-new.php',
 				'pb_network_analytics_userlist',
 				'user-new.php',
@@ -500,8 +498,6 @@ class SideBar {
 				$this->getContextSlug( 'settings.php?page=pb_analytics', false )
 			);
 		}
-
-
 
 		remove_submenu_page( $this->getContextSlug( 'options-general.php', true ), $this->getContextSlug( 'options-general.php', true ) );
 
