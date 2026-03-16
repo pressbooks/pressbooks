@@ -226,6 +226,11 @@ class SideBar {
 			2
 		);
 
+		if ( is_network_admin() ) {
+			global $admin_page_hooks;
+			$admin_page_hooks['sites.php'] = 'sites';
+		}
+
 		add_menu_page(
 			__( 'Users', 'pressbooks' ),
 			__( 'Users', 'pressbooks' ),
