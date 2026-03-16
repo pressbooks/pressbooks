@@ -1,5 +1,26 @@
 # Changelog
 
+## [6.37.0](https://github.com/pressbooks/pressbooks/compare/6.36.3...6.37.0) (2026-03-11)
+
+
+### Features
+
+* add responsive styles for tables and banners ([#4358](https://github.com/pressbooks/pressbooks/issues/4358)) ([1921c21](https://github.com/pressbooks/pressbooks/commit/1921c2135f8d0483c90742ec2a7f5dbfc45d58d8))
+* new pressbooks build tools ([#4199](https://github.com/pressbooks/pressbooks/issues/4199)) ([3a70abf](https://github.com/pressbooks/pressbooks/commit/3a70abf11ea4d1bead79c6574ef653afb22ca713))
+
+
+### Bug Fixes
+
+* language mapping ([#4375](https://github.com/pressbooks/pressbooks/issues/4375)) ([e3506b6](https://github.com/pressbooks/pressbooks/commit/e3506b6de0b55c25f87ad5124b116ed86e0825a7))
+* make PHP compatibility error handler filterable ([#4008](https://github.com/pressbooks/pressbooks/issues/4008)) ([7c6656e](https://github.com/pressbooks/pressbooks/commit/7c6656e05f3fbc0eaeb8cb740fe0bc09c163b72f))
+
+
+### Chores
+
+* **i18n:** update POT file for translations ([#4374](https://github.com/pressbooks/pressbooks/issues/4374)) ([31dda55](https://github.com/pressbooks/pressbooks/commit/31dda55b67f2e880829352306e58fcf41aff3606))
+* **l10n:** migrate from Transifex to Crowdin ([#4367](https://github.com/pressbooks/pressbooks/issues/4367)) ([24b9dda](https://github.com/pressbooks/pressbooks/commit/24b9ddad5eeff22c2bb7a6c481e112377f29f9bb))
+* update POT file for translations ([31dda55](https://github.com/pressbooks/pressbooks/commit/31dda55b67f2e880829352306e58fcf41aff3606))
+
 ## [6.36.3](https://github.com/pressbooks/pressbooks/compare/6.36.2...6.36.3) (2026-02-26)
 
 
