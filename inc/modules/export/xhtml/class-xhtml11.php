@@ -584,7 +584,7 @@ class Xhtml11 extends Export {
 
 		$e = '<div class="endnotes">';
 		$e .= '<hr />';
-		$e .= '<h3>' . __( 'Notes', 'pressbooks' ) . '</h3>';
+		$e .= '<h2>' . __( 'Notes', 'pressbooks' ) . '</h2>';
 		$e .= '<ol>';
 		foreach ( $this->endnotes[ $id ] as $endnote ) {
 			$e .= "<li><span>$endnote</span></li>";
