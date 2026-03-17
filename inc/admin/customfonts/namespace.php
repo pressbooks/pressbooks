@@ -127,9 +127,12 @@ function handle_uploaded_font( array $file, string $key, string $target_dir ) {
 }
 
 /**
- * Generate @font-face declarations for custom fonts and write them to a CSS file.
+ * Generate @font-face declarations for custom fonts and write them to CSS files.
+ * Creates two versions:
+ * - custom-fonts.css: Web version with HTTP URLs for browser access
+ * - custom-fonts-embedded.css: PDF/EPUB version with relative paths to font files
  *
- * return void
+ * @return void
  */
 function generate_custom_font_css() {
 	$fonts = get_site_option( 'pressbooks_custom_fonts', [] );
@@ -138,7 +141,8 @@ function generate_custom_font_css() {
 		return;
 	}
 
-	$custom_css = '';
+	$custom_css_web = '';
+	$custom_css_embedded = '';
 
 	foreach ( $fonts as $slug => $font ) {
 
@@ -162,15 +166,32 @@ function generate_custom_font_css() {
 				'otf' => 'opentype',
 			];
 			$format = isset( $format_map[ $ext ] ) ? $format_map[ $ext ] : 'truetype';
-			$custom_css .= "@font-face {
+
+			// Web version: keep HTTP URL
+			$custom_css_web .= "@font-face {
 			font-family: '{$family}';
             font-style: {$style};
             font-weight: {$weight};
             src: url('{$url}') format('{$format}');
         }\n\n";
+
+			// Embedded version: relative path for PDF/EPUB
+			$font_filename = basename( $url );
+			$relative_path = '../../assets/custom-fonts/' . $font_filename;
+			$custom_css_embedded .= "@font-face {
+			font-family: '{$family}';
+            font-style: {$style};
+            font-weight: {$weight};
+            src: url('{$relative_path}') format('{$format}');
+        }\n\n";
 		}
 	}
 
-	$css_file_path = WP_CONTENT_DIR . '/uploads/assets/custom-fonts/custom-fonts.css';
-	file_put_contents( $css_file_path, $custom_css ); // @codingStandardsIgnoreLine
+	// Write web version (HTTP URLs)
+	$css_web_path = WP_CONTENT_DIR . '/uploads/assets/custom-fonts/custom-fonts.css';
+	file_put_contents( $css_web_path, $custom_css_web ); // @codingStandardsIgnoreLine
+
+	// Write embedded version (relative paths for PDF/EPUB)
+	$css_embedded_path = WP_CONTENT_DIR . '/uploads/assets/custom-fonts/custom-fonts-embedded.css';
+	file_put_contents( $css_embedded_path, $custom_css_embedded ); // @codingStandardsIgnoreLine
 }

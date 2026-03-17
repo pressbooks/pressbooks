@@ -2237,8 +2237,8 @@ class PDFOptions extends \Pressbooks\Options {
 			}
 		}
 
-		// Custom Fonts
-		$scss = GlobalTypography::appendCustomFonts( $scss );
+		// Custom Fonts (relative paths for self-contained PDF)
+		$scss = GlobalTypography::appendCustomFonts( $scss, 'pdf' );
 
 		return $scss;
 	}

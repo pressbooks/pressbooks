@@ -515,10 +515,20 @@ class GlobalTypography {
 		return true;
 	}
 
-	public static function appendCustomFonts( $scss ) {
+	/**
+	 * Prepend custom fonts CSS to SCSS based on output format.
+	 *
+	 * @param string $scss The SCSS content to prepend fonts to
+	 * @param string $format The output format: 'web', 'epub', or 'pdf'
+	 *
+	 * @return string The SCSS with prepended custom fonts
+	 */
+	public static function appendCustomFonts( $scss, $format = 'web' ) {
 		$custom_fonts = get_site_option( 'pressbooks_custom_fonts', [] );
 		if ( ! empty( $custom_fonts ) ) {
-			$css_file = WP_CONTENT_DIR . '/uploads/assets/custom-fonts/custom-fonts.css';
+			// Use relative paths for EPUB and PDF, HTTP URLs for web
+			$css_filename = ( 'web' === $format ) ? 'custom-fonts.css' : 'custom-fonts-embedded.css';
+			$css_file = WP_CONTENT_DIR . '/uploads/assets/custom-fonts/' . $css_filename;
 			if ( file_exists( $css_file ) ) {
 				$scss = file_get_contents( $css_file ) . "\n" . $scss; // @codingStandardsIgnoreLine
 			}

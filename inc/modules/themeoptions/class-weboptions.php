@@ -636,8 +636,8 @@ class WebOptions extends \Pressbooks\Options {
 			}
 		}
 
-		// Custom Fonts
-		$scss = GlobalTypography::appendCustomFonts( $scss );
+		// Custom Fonts (web version with HTTP URLs)
+		$scss = GlobalTypography::appendCustomFonts( $scss, 'web' );
 
 		return $scss;
 	}
