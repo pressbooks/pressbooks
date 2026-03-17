@@ -515,16 +515,14 @@ class GlobalTypography {
 		return true;
 	}
 
-	public static function setCustomFonts( $styles ) {
-		// Custom Fonts
+	public static function appendCustomFonts( $scss ) {
 		$custom_fonts = get_site_option( 'pressbooks_custom_fonts', [] );
 		if ( ! empty( $custom_fonts ) ) {
-			$styles->getSass()->setVariables(
-				[
-					'custom-fonts-imported' => true,
-				]
-			);
+			$css_file = WP_CONTENT_DIR . '/uploads/assets/custom-fonts/custom-fonts.css';
+			if ( file_exists( $css_file ) ) {
+				$scss = file_get_contents( $css_file ) . "\n" . $scss; // @codingStandardsIgnoreLine
+			}
 		}
-		return $styles;
+		return $scss;
 	}
 }

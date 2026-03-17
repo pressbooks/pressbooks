@@ -631,7 +631,7 @@ class EbookOptions extends \Pressbooks\Options {
 		}
 
 		// Custom Fonts
-		GlobalTypography::setCustomFonts( $styles );
+		$scss = GlobalTypography::appendCustomFonts( $scss );
 
 		return $scss;
 	}
