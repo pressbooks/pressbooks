@@ -127,7 +127,7 @@ function handle_uploaded_font( array $file, string $key, string $target_dir ) {
 }
 
 /**
- * Generate font face declarations for custom fonts and make this SCSS partial available to themes
+ * Generate @font-face declarations for custom fonts and write them to a CSS file.
  *
  * return void
  */
@@ -170,12 +170,8 @@ function generate_custom_font_css() {
         }\n\n";
 		}
 
-		$css_file_path = WP_CONTENT_DIR . '/uploads/assets/custom-fonts/custom-fonts.css';
-		file_put_contents( $css_file_path, $custom_css );
-
-		// Also write an SCSS partial so theme tooling can import the generated font-face rules.
-		$scss_file_path = WP_CONTENT_DIR . '/uploads/assets/custom-fonts/_custom-fonts.scss';
-		file_put_contents( $scss_file_path, $custom_css );
-
 	}
+
+	$css_file_path = WP_CONTENT_DIR . '/uploads/assets/custom-fonts/custom-fonts.css';
+	file_put_contents( $css_file_path, $custom_css ); // @codingStandardsIgnoreLine
 }

@@ -637,12 +637,11 @@ class WebOptions extends \Pressbooks\Options {
 
 		// Custom Fonts
 		$custom_fonts = get_site_option( 'pressbooks_custom_fonts', [] );
-		if ( isset( $custom_fonts ) && ! empty( $custom_fonts ) ) {
-			$styles->getSass()->setVariables(
-				[
-					'custom-fonts-imported' => true,
-				]
-			);
+		if ( ! empty( $custom_fonts ) ) {
+			$css_file = WP_CONTENT_DIR . '/uploads/assets/custom-fonts/custom-fonts.css';
+			if ( file_exists( $css_file ) ) {
+				$scss = file_get_contents( $css_file ) . "\n" . $scss; // @codingStandardsIgnoreLine
+			}
 		}
 
 		return $scss;

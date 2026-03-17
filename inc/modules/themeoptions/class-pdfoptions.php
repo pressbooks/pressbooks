@@ -2239,11 +2239,10 @@ class PDFOptions extends \Pressbooks\Options {
 		// Custom Fonts
 		$custom_fonts = get_site_option( 'pressbooks_custom_fonts', [] );
 		if ( ! empty( $custom_fonts ) ) {
-			$styles->getSass()->setVariables(
-				[
-					'custom-fonts-imported' => 'true',
-				]
-			);
+			$css_file = WP_CONTENT_DIR . '/uploads/assets/custom-fonts/custom-fonts.css';
+			if ( file_exists( $css_file ) ) {
+				$scss = file_get_contents( $css_file ) . "\n" . $scss; // @codingStandardsIgnoreLine
+			}
 		}
 		return $scss;
 	}
