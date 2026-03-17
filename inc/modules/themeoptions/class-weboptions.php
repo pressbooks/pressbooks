@@ -9,6 +9,7 @@
 namespace Pressbooks\Modules\ThemeOptions;
 
 use Pressbooks\Container;
+use Pressbooks\GlobalTypography;
 use Pressbooks\Metadata;
 
 class WebOptions extends \Pressbooks\Options {
@@ -636,14 +637,7 @@ class WebOptions extends \Pressbooks\Options {
 		}
 
 		// Custom Fonts
-		$custom_fonts = get_site_option( 'pressbooks_custom_fonts', [] );
-		if ( isset( $custom_fonts ) && ! empty( $custom_fonts ) ) {
-			$styles->getSass()->setVariables(
-				[
-					'custom-fonts-imported' => true,
-				]
-			);
-		}
+		GlobalTypography::setCustomFonts( $styles );
 
 		return $scss;
 	}

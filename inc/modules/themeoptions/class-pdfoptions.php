@@ -11,6 +11,7 @@ namespace Pressbooks\Modules\ThemeOptions;
 use function \Pressbooks\Utility\getset;
 use Pressbooks\Container;
 use Pressbooks\CustomCss;
+use Pressbooks\GlobalTypography;
 
 class PDFOptions extends \Pressbooks\Options {
 
@@ -2237,14 +2238,8 @@ class PDFOptions extends \Pressbooks\Options {
 		}
 
 		// Custom Fonts
-		$custom_fonts = get_site_option( 'pressbooks_custom_fonts', [] );
-		if ( ! empty( $custom_fonts ) ) {
-			$styles->getSass()->setVariables(
-				[
-					'custom-fonts-imported' => 'true',
-				]
-			);
-		}
+		GlobalTypography::setCustomFonts( $styles );
+
 		return $scss;
 	}
 }

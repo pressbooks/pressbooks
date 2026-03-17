@@ -514,4 +514,17 @@ class GlobalTypography {
 
 		return true;
 	}
+
+	public static function setCustomFonts( $styles ) {
+		// Custom Fonts
+		$custom_fonts = get_site_option( 'pressbooks_custom_fonts', [] );
+		if ( ! empty( $custom_fonts ) ) {
+			$styles->getSass()->setVariables(
+				[
+					'custom-fonts-imported' => true,
+				]
+			);
+		}
+		return $styles;
+	}
 }
