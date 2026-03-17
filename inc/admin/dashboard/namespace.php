@@ -26,8 +26,8 @@ function init_network_integrations_menu(): string {
 			'dashicons-networking',
 		);
 		add_action(
-			'admin_bar_init', function () {
-				remove_submenu_page( 'pb_network_integrations', 'pb_network_integrations' );
+			'admin_bar_init', function () use ( $parent_slug ) {
+				remove_submenu_page( $parent_slug, $parent_slug );
 			}
 		);
 		$init_pb_network_integrations_menu = true;
