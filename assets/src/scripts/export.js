@@ -411,15 +411,13 @@ jQuery( function ( $ ) {
 	 * Save pins to user meta (via transient)
 	 */
 	function savePins() {
-		// Disable all pin checkboxes during save
 		$( 'input[name^="pin"]' ).prop( 'disabled', true );
 
 		$.post( PB_ExportToken.ajaxUrl, {
-			action: 'pb_export_pins',
-			pins: pins,
-			_ajax_nonce: PB_ExportToken.pinsNonce, // Assuming pinsNonce is localized
+			action: 'pb_update_pins',
+			pins: JSON.stringify( pins ),
+			_ajax_nonce: PB_ExportToken.pinsNonce,
 		} ).always( function () {
-			// Re-enable all pin checkboxes after save attempt
 			$( 'input[name^="pin"]' ).prop( 'disabled', false );
 		} );
 	}
