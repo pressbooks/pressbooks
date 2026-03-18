@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-18T20:26:37+00:00\n"
+"POT-Creation-Date: 2026-03-18T21:08:07+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -189,9 +189,9 @@ msgid "Public"
 msgstr ""
 
 #: inc/admin/class-catalog-list-table.php:481
-#: inc/admin/laf/namespace.php:472
-#: inc/admin/laf/namespace.php:663
-#: inc/admin/laf/namespace.php:946
+#: inc/admin/laf/namespace.php:477
+#: inc/admin/laf/namespace.php:668
+#: inc/admin/laf/namespace.php:951
 msgid "My Catalog"
 msgstr ""
 
@@ -325,7 +325,7 @@ msgid "This will prevent any changes to your book&rsquo;s appearance and page co
 msgstr ""
 
 #: inc/admin/class-exportoptions.php:225
-#: inc/admin/laf/namespace.php:437
+#: inc/admin/laf/namespace.php:442
 msgid "Export Settings"
 msgstr ""
 
@@ -378,7 +378,7 @@ msgid "Enter the URLs for locations where your book can be purchased below. <a h
 msgstr ""
 
 #: inc/admin/class-publishoptions.php:182
-#: inc/admin/laf/namespace.php:421
+#: inc/admin/laf/namespace.php:426
 msgid "Publish"
 msgstr ""
 
@@ -393,7 +393,7 @@ msgid "Cover Generator"
 msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:45
-#: inc/admin/laf/namespace.php:402
+#: inc/admin/laf/namespace.php:407
 msgid "Saving settings"
 msgstr ""
 
@@ -403,9 +403,9 @@ msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:49
 #: inc/admin/laf/namespace.php:366
-#: inc/admin/laf/namespace.php:401
-#: inc/admin/laf/namespace.php:461
-#: inc/admin/laf/namespace.php:690
+#: inc/admin/laf/namespace.php:406
+#: inc/admin/laf/namespace.php:466
+#: inc/admin/laf/namespace.php:695
 msgid "Reload"
 msgstr ""
 
@@ -595,8 +595,8 @@ msgid "Your image is the wrong aspect ratio. The image must have an aspect ratio
 msgstr ""
 
 #: inc/admin/dashboard/class-dashboard.php:52
-#: inc/admin/laf/namespace.php:843
-#: inc/admin/laf/namespace.php:918
+#: inc/admin/laf/namespace.php:848
+#: inc/admin/laf/namespace.php:923
 #: inc/admin/menus/class-sidebar.php:221
 #: inc/admin/menus/class-sidebar.php:222
 #: inc/admin/menus/class-topbar.php:124
@@ -836,7 +836,7 @@ msgid "Contributors"
 msgstr ""
 
 #: inc/admin/laf/namespace.php:340
-#: inc/admin/laf/namespace.php:437
+#: inc/admin/laf/namespace.php:442
 #: templates/admin/export.blade.php:11
 #: templates/admin/icon.blade.php:15
 #: templates/admin/organize.blade.php:60
@@ -912,45 +912,45 @@ msgstr ""
 msgid "Import"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:400
+#: inc/admin/laf/namespace.php:405
 msgid "Imports are not done. Leaving this page, now, will cause problems. Are you sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:424
-#: inc/admin/laf/namespace.php:631
-#: inc/admin/laf/namespace.php:1534
+#: inc/admin/laf/namespace.php:429
+#: inc/admin/laf/namespace.php:636
+#: inc/admin/laf/namespace.php:1539
 #: inc/admin/network/class-sharingandprivacyoptions.php:473
 msgid "Sharing and Privacy Settings"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:424
-#: inc/admin/laf/namespace.php:631
+#: inc/admin/laf/namespace.php:429
+#: inc/admin/laf/namespace.php:636
 msgid "Sharing &amp; Privacy"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:442
-#: inc/admin/laf/namespace.php:443
+#: inc/admin/laf/namespace.php:447
+#: inc/admin/laf/namespace.php:448
 msgid "QuickLaTeX"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:452
-#: inc/admin/laf/namespace.php:672
-#: inc/admin/laf/namespace.php:673
+#: inc/admin/laf/namespace.php:457
+#: inc/admin/laf/namespace.php:677
+#: inc/admin/laf/namespace.php:678
 #: templates/admin/cloner/page.blade.php:3
 msgid "Clone a Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:460
-#: inc/admin/laf/namespace.php:689
+#: inc/admin/laf/namespace.php:465
+#: inc/admin/laf/namespace.php:694
 msgid "Cloning is not done. Leaving this page, now, will cause problems. Are you sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:702
-#: inc/admin/laf/namespace.php:703
+#: inc/admin/laf/namespace.php:707
+#: inc/admin/laf/namespace.php:708
 msgid "Cloning Stats"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:720
+#: inc/admin/laf/namespace.php:725
 #: inc/admin/metaboxes/namespace.php:184
 #: inc/api/endpoints/controller/class-toc.php:192
 #: inc/posttype/namespace.php:115
@@ -961,7 +961,7 @@ msgstr ""
 msgid "Front Matter"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:728
+#: inc/admin/laf/namespace.php:733
 #: inc/admin/metaboxes/namespace.php:188
 #: inc/api/endpoints/controller/class-toc.php:209
 #: inc/class-sass.php:78
@@ -973,7 +973,7 @@ msgstr ""
 msgid "Chapter"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:738
+#: inc/admin/laf/namespace.php:743
 #: inc/admin/metaboxes/namespace.php:192
 #: inc/api/endpoints/controller/class-toc.php:225
 #: inc/posttype/namespace.php:143
@@ -984,152 +984,152 @@ msgstr ""
 msgid "Back Matter"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:832
+#: inc/admin/laf/namespace.php:837
 msgid "Network Admin"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:851
-#: inc/admin/laf/namespace.php:1589
-#: inc/admin/laf/namespace.php:1599
+#: inc/admin/laf/namespace.php:856
+#: inc/admin/laf/namespace.php:1594
+#: inc/admin/laf/namespace.php:1604
 #: inc/admin/menus/class-sidebar.php:232
 #: inc/admin/menus/class-sidebar.php:233
 #: inc/admin/menus/class-topbar.php:129
 msgid "Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:859
+#: inc/admin/laf/namespace.php:864
 #: inc/admin/menus/class-sidebar.php:242
 #: inc/admin/menus/class-sidebar.php:243
 #: inc/admin/menus/class-topbar.php:134
 msgid "Users"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:868
+#: inc/admin/laf/namespace.php:873
 msgid "Themes"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:876
+#: inc/admin/laf/namespace.php:881
 #: inc/admin/menus/class-sidebar.php:439
 #: inc/admin/menus/class-sidebar.php:440
 #: inc/admin/menus/class-topbar.php:149
 msgid "Plugins"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:926
+#: inc/admin/laf/namespace.php:931
 msgid "Visit Website"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:936
+#: inc/admin/laf/namespace.php:941
 #: inc/admin/menus/class-topbar.php:191
 msgid "My Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:956
+#: inc/admin/laf/namespace.php:961
 msgid "Create A New Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:968
+#: inc/admin/laf/namespace.php:973
 msgid "Clone A Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1196
+#: inc/admin/laf/namespace.php:1201
 msgid "Are you sure you want to unlock your theme? This will update your book to the most recent version of your selected theme, which may change your book&rsquo;s appearance and page count. Once you save your settings on this page, this action will NOT be reversable!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1243
+#: inc/admin/laf/namespace.php:1248
 #: templates/admin/settings/book-visibility.blade.php:2
 msgid "Book Visibility"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1257
+#: inc/admin/laf/namespace.php:1262
 #: templates/admin/settings/book-robots.blade.php:2
 msgid "Robots"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1272
+#: inc/admin/laf/namespace.php:1277
 #: templates/admin/settings/private-content.blade.php:2
 msgid "Private Content"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1286
+#: inc/admin/laf/namespace.php:1291
 #: templates/admin/settings/disable-comments.blade.php:2
 msgid "Disable Comments"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1304
+#: inc/admin/laf/namespace.php:1309
 #: templates/admin/settings/share-latest-export-files.blade.php:2
 msgid "Share Latest Export Files"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1334
+#: inc/admin/laf/namespace.php:1339
 #: templates/admin/settings/pressbooks-directory.blade.php:2
 msgid "Pressbooks Directory"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1351
+#: inc/admin/laf/namespace.php:1356
 msgid "Sharing and Privacy settings"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1592
+#: inc/admin/laf/namespace.php:1597
 msgid "All Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1602
+#: inc/admin/laf/namespace.php:1607
 msgid "Search Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1605
+#: inc/admin/laf/namespace.php:1610
 #, php-format
 msgid "You are about to deactivate the site %s."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1608
+#: inc/admin/laf/namespace.php:1613
 #, php-format
 msgid "You are about to activate the site %s."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1611
+#: inc/admin/laf/namespace.php:1616
 msgid "Deactivating a site makes it unavailable to its users and visitors. This is a reversible action."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1614
+#: inc/admin/laf/namespace.php:1619
 msgid "Site deactivated."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1617
+#: inc/admin/laf/namespace.php:1622
 msgid "Site activated."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1620
+#: inc/admin/laf/namespace.php:1625
 msgid "Deactivate"
 msgstr ""
 
 #. translators: %s: Number of books.
-#: inc/admin/laf/namespace.php:1623
-#: inc/admin/laf/namespace.php:1638
-#: inc/admin/laf/namespace.php:1718
+#: inc/admin/laf/namespace.php:1628
+#: inc/admin/laf/namespace.php:1643
+#: inc/admin/laf/namespace.php:1723
 msgid "Deactivated"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1626
+#: inc/admin/laf/namespace.php:1631
 msgid "Deactivate, Archive, and Spam which lead to confirmation screens. These actions can be reversed later."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1632
+#: inc/admin/laf/namespace.php:1637
 #, php-format
 msgid "Edit Book: %s"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1635
-#: inc/admin/laf/namespace.php:1647
+#: inc/admin/laf/namespace.php:1640
+#: inc/admin/laf/namespace.php:1652
 msgid "Book Address (URL)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1644
+#: inc/admin/laf/namespace.php:1649
 msgid "Add New Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1650
+#: inc/admin/laf/namespace.php:1655
 #: inc/modules/themeoptions/class-pdfoptions.php:408
 #: inc/modules/themeoptions/class-pdfoptions.php:428
 #: inc/modules/themeoptions/class-pdfoptions.php:448
@@ -1143,50 +1143,50 @@ msgstr ""
 msgid "Book Title"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1653
+#: inc/admin/laf/namespace.php:1658
 msgid "Book Language"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1656
+#: inc/admin/laf/namespace.php:1661
 msgid "Add Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1687
+#: inc/admin/laf/namespace.php:1692
 msgid "Activate"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1733
-msgid "Edit previous or next item"
-msgstr ""
-
 #: inc/admin/laf/namespace.php:1738
-#, php-format
-msgid "Edit Previous (%s)"
+msgid "Edit previous or next item"
 msgstr ""
 
 #: inc/admin/laf/namespace.php:1743
 #, php-format
+msgid "Edit Previous (%s)"
+msgstr ""
+
+#: inc/admin/laf/namespace.php:1748
+#, php-format
 msgid "Edit Next (%s)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1758
+#: inc/admin/laf/namespace.php:1763
 msgid "X/Twitter URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1759
+#: inc/admin/laf/namespace.php:1764
 msgid "LinkedIn URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1760
+#: inc/admin/laf/namespace.php:1765
 msgid "GitHub URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1813
+#: inc/admin/laf/namespace.php:1818
 #: inc/class-contributors.php:476
 msgid "Institution"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1815
+#: inc/admin/laf/namespace.php:1820
 msgid "Your institutional affiliation, e.g. Rebus Foundation, Open University, Amnesty International."
 msgstr ""
 
