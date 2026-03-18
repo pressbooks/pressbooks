@@ -116,7 +116,8 @@ function handle_uploaded_font( array $file, string $key, string $target_dir ) {
 	// provide a namespaced shim to make is_uploaded_file()/move_uploaded_file
 	// work with temp files.
 	if ( move_uploaded_file( $file['tmp_name'], $target_file ) ) {
-		$url = content_url( '/uploads/assets/custom-fonts/' . $file_name );
+		$upload_dir = wp_upload_dir();
+		$url = $upload_dir['baseurl'] . '/assets/custom-fonts/' . $file_name;
 		return [
 			'file' => esc_url_raw( $url ),
 			'variation' => $key,
