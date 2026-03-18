@@ -516,19 +516,18 @@ class GlobalTypography {
 	}
 
 	/**
-	 * Prepend custom fonts CSS to SCSS based on output format.
+	 * Prepend custom fonts @font-face CSS to SCSS before compilation.
+	 * Uses absolute HTTP URLs which are preserved correctly by normalize_css_urls
+	 * across all export formats (web, PDF via Prince, EPUB bundling).
 	 *
 	 * @param string $scss The SCSS content to prepend fonts to
-	 * @param string $format The output format: 'web', 'epub', or 'pdf'
 	 *
 	 * @return string The SCSS with prepended custom fonts
 	 */
-	public static function appendCustomFonts( $scss, $format = 'web' ) {
+	public static function appendCustomFonts( $scss ) {
 		$custom_fonts = get_site_option( 'pressbooks_custom_fonts', [] );
 		if ( ! empty( $custom_fonts ) ) {
-			// Use relative paths for EPUB and PDF, HTTP URLs for web
-			$css_filename = ( 'web' === $format ) ? 'custom-fonts.css' : 'custom-fonts-embedded.css';
-			$css_file = WP_CONTENT_DIR . '/uploads/assets/custom-fonts/' . $css_filename;
+			$css_file = WP_CONTENT_DIR . '/uploads/assets/custom-fonts/custom-fonts.css';
 			if ( file_exists( $css_file ) ) {
 				$scss = file_get_contents( $css_file ) . "\n" . $scss; // @codingStandardsIgnoreLine
 			}

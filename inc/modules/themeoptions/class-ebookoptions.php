@@ -631,7 +631,7 @@ class EbookOptions extends \Pressbooks\Options {
 		}
 
 		// Custom Fonts (relative paths for self-contained EPUB)
-		$scss = GlobalTypography::appendCustomFonts( $scss, 'epub' );
+		$scss = GlobalTypography::appendCustomFonts( $scss );
 
 		return $scss;
 	}
