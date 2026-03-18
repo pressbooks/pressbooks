@@ -177,7 +177,7 @@ function generate_custom_font_css() {
 
 			// Embedded version: relative path for PDF/EPUB
 			$font_filename = basename( $url );
-			$relative_path = '../../assets/custom-fonts/' . $font_filename;
+			$relative_path = '../../../../assets/custom-fonts/' . $font_filename;
 			$custom_css_embedded .= "@font-face {
 			font-family: '{$family}';
             font-style: {$style};
