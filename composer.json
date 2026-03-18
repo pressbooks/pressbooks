@@ -87,7 +87,6 @@
 			".gitignore",
 			".phpstorm.meta.php",
 			".tx",
-			"assets/src",
 			"bin",
 			"codecov.yml",
 			"phpcs.ruleset.xml",
