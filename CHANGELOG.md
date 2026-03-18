@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.37.2](https://github.com/pressbooks/pressbooks/compare/6.37.1...6.37.2) (2026-03-18)
+
+
+### Bug Fixes
+
+* missing jquery dependency in import ([#4391](https://github.com/pressbooks/pressbooks/issues/4391)) ([acb9f3b](https://github.com/pressbooks/pressbooks/commit/acb9f3b2d5eb9139eacf4dc0f535652f1c397978))
+
 ## [6.37.1](https://github.com/pressbooks/pressbooks/compare/6.37.0...6.37.1) (2026-03-18)
 
 
