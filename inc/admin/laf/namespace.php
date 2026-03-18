@@ -322,6 +322,7 @@ function replace_book_admin_menu() {
 				$post_type = get_post_type();
 				if ( in_array( $post_type, [ 'metadata', 'front-matter', 'chapter', 'back-matter' ], true ) ) {
 					$assets->enqueue( 'assets/src/scripts/webcomponents/pressbooks-select.js', 'pressbooks-select' );
+					$assets->enqueue( 'assets/src/scripts/webcomponents/pressbooks-reorderable-multiselect.js', 'pressbooks-reorderable-multiselect' );
 				}
 			}
 		}
