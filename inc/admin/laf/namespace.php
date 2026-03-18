@@ -392,7 +392,12 @@ function replace_book_admin_menu() {
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) use ( $import_page, $assets ) {
 			if ( $hook === $import_page ) {
-				$assets->enqueue( 'assets/src/scripts/import.js', 'pb-import' );
+				$assets->enqueue( 'assets/src/scripts/import.js', 'pb-import', [
+					'dependencies' => [
+						'jquery',
+						'jquery-form',
+					],
+				] );
 				wp_localize_script(
 					'pb-import', 'PB_ImportToken', [
 						'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=import-book' ), 'pb-import' ),
