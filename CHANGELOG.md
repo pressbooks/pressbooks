@@ -1,5 +1,21 @@
 # Changelog
 
+## [6.37.1](https://github.com/pressbooks/pressbooks/compare/6.37.0...6.37.1) (2026-03-18)
+
+
+### Bug Fixes
+
+* export pins store ([abf3071](https://github.com/pressbooks/pressbooks/commit/abf3071343f908b2e35156ca3f5d405b7602be8a))
+* reorderable enqueue for chapters ([#4387](https://github.com/pressbooks/pressbooks/issues/4387)) ([2f8ca9d](https://github.com/pressbooks/pressbooks/commit/2f8ca9d7343da0bb805117d3fb53de8578e1aaf1))
+* replace h3 for h2 for footnotes title ([#4384](https://github.com/pressbooks/pressbooks/issues/4384)) ([6f44e48](https://github.com/pressbooks/pressbooks/commit/6f44e4855c5b90084578808e1c09f9ad7296bdba))
+* restore pin toggle functionality ([#4383](https://github.com/pressbooks/pressbooks/issues/4383)) ([abf3071](https://github.com/pressbooks/pressbooks/commit/abf3071343f908b2e35156ca3f5d405b7602be8a))
+
+
+### Chores
+
+* improved release artifact to include required files ([#4389](https://github.com/pressbooks/pressbooks/issues/4389)) ([805e50f](https://github.com/pressbooks/pressbooks/commit/805e50f5c81c77ef965bdcef6efc4bb65d73e683))
+* **l10n:** update languages ([#4379](https://github.com/pressbooks/pressbooks/issues/4379)) ([8e22e36](https://github.com/pressbooks/pressbooks/commit/8e22e369d82af15a266b5ca0f3ff2f5da0953012))
+
 ## [6.37.0](https://github.com/pressbooks/pressbooks/compare/6.36.3...6.37.0) (2026-03-11)
 
 
