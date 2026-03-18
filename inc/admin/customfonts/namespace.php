@@ -130,7 +130,7 @@ function handle_uploaded_font( array $file, string $key, string $target_dir ) {
 /**
  * Generate @font-face declarations for custom fonts and write them to a CSS file.
  * Uses absolute HTTP URLs so they are resolved correctly by all export engines
- * 
+ *
  * @return void
  */
 function generate_custom_font_css() {
