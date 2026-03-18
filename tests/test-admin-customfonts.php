@@ -572,20 +572,31 @@ public function fontProvider(): array {
 
 		\Pressbooks\Admin\CustomFonts\generate_custom_font_css();
 
-		$css_file_path = $upload_dir . '_custom-fonts.scss';
-		$this->assertFileExists( $css_file_path );
+		// Check web version (HTTP URLs)
+		$css_web_path = $upload_dir . 'custom-fonts.css';
+		$this->assertFileExists( $css_web_path );
 
-		$css_content = file_get_contents( $css_file_path );
-		$this->assertStringContainsString( "@font-face", $css_content );
-		$this->assertStringContainsString( "font-family: 'Test Font'", $css_content );
-		$this->assertStringContainsString( "font-style: normal", $css_content );
-		$this->assertStringContainsString( "font-weight: normal", $css_content );
-		$this->assertStringContainsString( "font-style: normal", $css_content );
-		$this->assertStringContainsString( "font-weight: bold", $css_content );
-		$this->assertStringContainsString( "font-style: italic", $css_content );
-		$this->assertStringContainsString( "font-weight: normal", $css_content );
-		$this->assertStringContainsString( "font-style: italic", $css_content );
-		$this->assertStringContainsString( "font-weight: bold", $css_content );
+		$css_web_content = file_get_contents( $css_web_path );
+		$this->assertStringContainsString( "@font-face", $css_web_content );
+		$this->assertStringContainsString( "font-family: 'Test Font'", $css_web_content );
+		$this->assertStringContainsString( "font-style: normal", $css_web_content );
+		$this->assertStringContainsString( "font-weight: normal", $css_web_content );
+		$this->assertStringContainsString( "font-style: italic", $css_web_content );
+		$this->assertStringContainsString( "font-weight: bold", $css_web_content );
+		$this->assertStringContainsString( "http://example.com/test-font", $css_web_content );
+
+		// Check embedded version (relative paths)
+		$css_embedded_path = $upload_dir . 'custom-fonts-embedded.css';
+		$this->assertFileExists( $css_embedded_path );
+
+		$css_embedded_content = file_get_contents( $css_embedded_path );
+		$this->assertStringContainsString( "@font-face", $css_embedded_content );
+		$this->assertStringContainsString( "font-family: 'Test Font'", $css_embedded_content );
+		$this->assertStringContainsString( "font-style: normal", $css_embedded_content );
+		$this->assertStringContainsString( "font-weight: normal", $css_embedded_content );
+		$this->assertStringContainsString( "font-style: italic", $css_embedded_content );
+		$this->assertStringContainsString( "font-weight: bold", $css_embedded_content );
+		$this->assertStringContainsString( "../../../../assets/custom-fonts/", $css_embedded_content );
 	}
 
 	/**
@@ -621,13 +632,23 @@ public function fontProvider(): array {
 
 		\Pressbooks\Admin\CustomFonts\generate_custom_font_css();
 
-		$css_file_path = $upload_dir . '_custom-fonts.scss';
-		$this->assertFileExists( $css_file_path );
+		// Check web version (HTTP URLs)
+		$css_web_path = $upload_dir . 'custom-fonts.css';
+		$this->assertFileExists( $css_web_path );
 
-		$css_content = file_get_contents( $css_file_path );
-		$this->assertStringContainsString( "format('woff2')", $css_content );
-		$this->assertStringContainsString( "format('truetype')", $css_content );
-		$this->assertStringContainsString( "format('opentype')", $css_content );
+		$css_web_content = file_get_contents( $css_web_path );
+		$this->assertStringContainsString( "format('woff2')", $css_web_content );
+		$this->assertStringContainsString( "format('truetype')", $css_web_content );
+		$this->assertStringContainsString( "format('opentype')", $css_web_content );
+
+		// Check embedded version (relative paths)
+		$css_embedded_path = $upload_dir . 'custom-fonts-embedded.css';
+		$this->assertFileExists( $css_embedded_path );
+
+		$css_embedded_content = file_get_contents( $css_embedded_path );
+		$this->assertStringContainsString( "format('woff2')", $css_embedded_content );
+		$this->assertStringContainsString( "format('truetype')", $css_embedded_content );
+		$this->assertStringContainsString( "format('opentype')", $css_embedded_content );
 	}
 
 	/**
@@ -655,12 +676,21 @@ public function fontProvider(): array {
 
 		\Pressbooks\Admin\CustomFonts\generate_custom_font_css();
 
-		$css_file_path = $upload_dir . '_custom-fonts.scss';
-		$this->assertFileExists( $css_file_path );
+		// Check web version (HTTP URLs)
+		$css_web_path = $upload_dir . 'custom-fonts.css';
+		$this->assertFileExists( $css_web_path );
 
-		$css_content = file_get_contents( $css_file_path );
+		$css_web_content = file_get_contents( $css_web_path );
 		// Should default to truetype for unknown extensions
-		$this->assertStringContainsString( "format('truetype')", $css_content );
+		$this->assertStringContainsString( "format('truetype')", $css_web_content );
+
+		// Check embedded version (relative paths)
+		$css_embedded_path = $upload_dir . 'custom-fonts-embedded.css';
+		$this->assertFileExists( $css_embedded_path );
+
+		$css_embedded_content = file_get_contents( $css_embedded_path );
+		// Should default to truetype for unknown extensions
+		$this->assertStringContainsString( "format('truetype')", $css_embedded_content );
 	}
 
 	/**
