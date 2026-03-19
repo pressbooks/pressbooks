@@ -367,6 +367,15 @@
       "login-styles.css"
     ]
   },
+  "assets/src/styles/metadata.scss": {
+    "file": "assets/metadata-styles-o-ixH8Bk.css",
+    "src": "assets/src/styles/metadata.scss",
+    "isEntry": true,
+    "name": "metadata-styles",
+    "names": [
+      "metadata-styles.css"
+    ]
+  },
   "assets/src/styles/pressbooks-dashboard.css": {
     "file": "assets/pressbooks-dashboard-styles-CrFa-ERN.css",
     "src": "assets/src/styles/pressbooks-dashboard.css",

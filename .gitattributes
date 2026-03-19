@@ -7,7 +7,6 @@
 /.stylelintrc export-ignore
 /.travis.yml export-ignore
 /.tx export-ignore
-/assets/src export-ignore
 /bin export-ignore
 /codecov.yml export-ignore
 /phpcs.ruleset.xml export-ignore
