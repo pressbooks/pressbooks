@@ -237,12 +237,12 @@
     "isEntry": true
   },
   "assets/src/scripts/pressbooks.js": {
-    "file": "assets/pressbooks-2ynsFDhJ.js",
+    "file": "assets/pressbooks-BvVOg7C8.js",
     "name": "pressbooks",
     "src": "assets/src/scripts/pressbooks.js",
     "isEntry": true,
     "css": [
-      "assets/pressbooks-admin-styles-Ne_kWzH1.css"
+      "assets/pressbooks-admin-styles-sjgVBJ7H.css"
     ],
     "assets": [
       "assets/heroicons-CVYPToTZ.eot",
@@ -386,7 +386,7 @@
     ]
   },
   "assets/src/styles/pressbooks.scss": {
-    "file": "assets/pressbooks-admin-styles-Ne_kWzH1.css",
+    "file": "assets/pressbooks-admin-styles-sjgVBJ7H.css",
     "src": "assets/src/styles/pressbooks.scss",
     "isEntry": true,
     "name": "pressbooks-admin-styles",

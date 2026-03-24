@@ -402,14 +402,12 @@ html #wpadminbar {
 }
 
 .font-variant {
-  display: flex;
   align-items: center;
+  column-gap: 0.5em;
+  display: grid;
+  grid-template-columns: 190px auto;
 }
 
-.font-variant + .font-variant, .delete-font-family {
+.font-variant + .font-variant {
   margin-top: 0.5em;
-}
-
-.delete-font-variant {
-  margin-left: 0.5em;
 }

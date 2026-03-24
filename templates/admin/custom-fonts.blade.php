@@ -78,36 +78,36 @@
                 <th>{{ __('Font Family Name', 'pressbooks') }}</th>
                 <th>{{ __('Font Variants', 'pressbooks') }}</th>
                 <th>{{ __('Font Fallback', 'pressbooks') }}</th>
+                <th>{{ __('Actions', 'pressbooks') }}</th>
             </tr>
             </thead>
             <tbody>
             @foreach ($fonts as $slug => $font)
                 <tr>
+                    <td>{{ esc_html( $font['name'] ?? '' ) }}</td>
                     <td>
-                        {{ esc_html( $font['name'] ?? '' ) }}
-                        <br>
-                        <form class="delete-font-family" method="post" action="{{ esc_url( admin_url('admin-post.php') ) }}" onsubmit="return confirm('{{ esc_js( __('Are you sure you want to delete this font? Any books currently using it will revert to their theme default font.', 'pressbooks') ) }}')">
+                        @foreach (($font['files'] ?? []) as $variant => $file)
+                            <div class="font-variant">
+                                <span>{{ esc_html( ucwords(str_replace('_', ' ', $variant)) ) }} (<a href="{{ esc_url( $file['file'] ?? '' ) }}">{{ __('Download font file', 'pressbooks') }}</a>)</span>
+                                <form class="delete-font-variant" method="post" action="{{ esc_url( admin_url('admin-post.php') ) }}" onsubmit="return confirm('{{ esc_js( __('Are you sure you want to remove this font variant?', 'pressbooks') ) }}')">
+                                    <input type="hidden" name="action" value="pb_delete_custom_font_variant">
+                                    <input type="hidden" name="_wpnonce" value="{{ esc_attr( wp_create_nonce('pb_delete_custom_font_variant') ) }}">
+                                    <input type="hidden" name="font_slug" value="{{ esc_attr( $slug ) }}">
+                                    <input type="hidden" name="variant" value="{{ esc_attr( $variant ) }}">
+                                    <button type="submit" class="button button-link-delete">{{ __('Remove Variant', 'pressbooks') }}</button>
+                                </form>
+                            </div>
+                        @endforeach
+                    </td>
+                    <td>{{ esc_html( $font['fallback'] ?? '' ) }}</td>
+                    <td>
+                        <form class="delete-font-family" method="post" action="{{ esc_url( admin_url('admin-post.php') ) }}" onsubmit="return confirm('{{ esc_js( __('Are you sure you want to delete this font family? Any books currently using it will need to have their theme settings updated to replace this font with a desired replacement.', 'pressbooks') ) }}')">
                             <input type="hidden" name="action" value="pb_delete_custom_font">
                             <input type="hidden" name="_wpnonce" value="{{ esc_attr( wp_create_nonce('pb_delete_custom_font') ) }}">
                             <input type="hidden" name="font_slug" value="{{ esc_attr( $slug ) }}">
                             <button type="submit" class="button button-link-delete">{{ __('Delete Font Family', 'pressbooks') }}</button>
                         </form>
                     </td>
-                    <td>
-                        @foreach (($font['files'] ?? []) as $variant => $file)
-                            <div class="font-variant">
-                                {{ esc_html( ucwords(str_replace('_', ' ', $variant)) ) }} (<a href="{{ esc_url( $file['file'] ?? '' ) }}">{{ __('Download font file', 'pressbooks') }}</a>)
-                                <form class="delete-font-variant" method="post" action="{{ esc_url( admin_url('admin-post.php') ) }}" onsubmit="return confirm('{{ esc_js( __('Are you sure you want to remove this font variant?', 'pressbooks') ) }}')">
-                                    <input type="hidden" name="action" value="pb_delete_custom_font_variant">
-                                    <input type="hidden" name="_wpnonce" value="{{ esc_attr( wp_create_nonce('pb_delete_custom_font_variant') ) }}">
-                                    <input type="hidden" name="font_slug" value="{{ esc_attr( $slug ) }}">
-                                    <input type="hidden" name="variant" value="{{ esc_attr( $variant ) }}">
-                                    <button type="submit" class="button button-link-delete">{{ __('Remove', 'pressbooks') }}</button>
-                                </form>
-                            </div>
-                        @endforeach
-                    </td>
-                    <td>{{ esc_html( $font['fallback'] ?? '' ) }}</td>
                 </tr>
             @endforeach
             </tbody>
