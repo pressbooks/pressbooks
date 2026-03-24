@@ -773,6 +773,222 @@ public function fontProvider(): array {
 		$this->assertDirectoryExists( $upload_dir );
 	}
 
+	// -----------------------------------------------------------------------
+	// Tests for handle_delete_font()
+	// -----------------------------------------------------------------------
+
+	/**
+	 * Test handle_delete_font deletes the font and its physical files from disk.
+	 */
+	public function test_handle_delete_font_removes_font_and_files() {
+		$user_id = $this->createSuperAdminUser();
+		wp_set_current_user( $user_id );
+
+		// Create a real font file on disk so the deletion code finds it
+		$upload_dir    = wp_upload_dir();
+		$font_dir      = $upload_dir['basedir'] . '/assets/custom-fonts/';
+		wp_mkdir_p( $font_dir );
+		$font_filename = 'delete-test-font.woff';
+		file_put_contents( $font_dir . $font_filename, 'dummy' );
+
+		$font_url = $upload_dir['baseurl'] . '/assets/custom-fonts/' . $font_filename;
+
+		update_site_option( 'pressbooks_custom_fonts', [
+			'delete-test-font' => [
+				'name'     => 'Delete Test Font',
+				'fallback' => 'sans-serif',
+				'files'    => [
+					'regular' => [
+						'file'      => $font_url,
+						'variation' => 'regular',
+					],
+				],
+			],
+		] );
+
+		add_filter( 'wp_redirect', '__return_false', 10 );
+
+		$_POST = [
+			'_wpnonce'  => wp_create_nonce( 'pb_delete_custom_font' ),
+			'font_slug' => 'delete-test-font',
+		];
+
+		ob_start();
+		\Pressbooks\Admin\CustomFonts\handle_delete_font();
+		ob_get_clean();
+
+		remove_filter( 'wp_redirect', '__return_false', 10 );
+
+		// Font removed from site option
+		$fonts = get_site_option( 'pressbooks_custom_fonts', [] );
+		$this->assertArrayNotHasKey( 'delete-test-font', $fonts );
+
+		// Physical file deleted
+		$this->assertFileDoesNotExist( $font_dir . $font_filename );
+	}
+
+	/**
+	 * Test handle_delete_font with invalid nonce.
+	 */
+	public function test_handle_delete_font_invalid_nonce() {
+		$user_id = $this->createSuperAdminUser();
+		wp_set_current_user( $user_id );
+
+		$_POST = [
+			'_wpnonce'  => 'bad-nonce',
+			'font_slug' => 'some-font',
+		];
+
+		$this->expectException( WPDieException::class );
+		$this->expectExceptionMessage( 'Permission denied' );
+		\Pressbooks\Admin\CustomFonts\handle_delete_font();
+	}
+
+	/**
+	 * Test handle_delete_font with insufficient permissions.
+	 */
+	public function test_handle_delete_font_insufficient_permissions() {
+		$user_id = $this->createSubscriberUser();
+		wp_set_current_user( $user_id );
+
+		$_POST = [
+			'_wpnonce'  => wp_create_nonce( 'pb_delete_custom_font' ),
+			'font_slug' => 'some-font',
+		];
+
+		$this->expectException( WPDieException::class );
+		$this->expectExceptionMessage( 'Permission denied' );
+		\Pressbooks\Admin\CustomFonts\handle_delete_font();
+	}
+
+	/**
+	 * Test handle_delete_font redirects with an error when the font slug is not found.
+	 */
+	public function test_handle_delete_font_not_found() {
+		$user_id = $this->createSuperAdminUser();
+		wp_set_current_user( $user_id );
+
+		update_site_option( 'pressbooks_custom_fonts', [] );
+
+		$redirect_location = null;
+		add_filter(
+			'wp_redirect',
+			function ( $location ) use ( &$redirect_location ) {
+				$redirect_location = $location;
+				return false;
+			},
+			10
+		);
+
+		$_POST = [
+			'_wpnonce'  => wp_create_nonce( 'pb_delete_custom_font' ),
+			'font_slug' => 'nonexistent-font',
+		];
+
+		ob_start();
+		\Pressbooks\Admin\CustomFonts\handle_delete_font();
+		ob_get_clean();
+
+		remove_all_filters( 'wp_redirect' );
+
+		$this->assertNotNull( $redirect_location, 'A redirect should have occurred' );
+		$this->assertStringContainsString( 'delete_error=not_found', $redirect_location );
+	}
+
+	// -----------------------------------------------------------------------
+	// Tests for reset_books_using_font()
+	// -----------------------------------------------------------------------
+
+	/**
+	 * Test that reset_books_using_font clears web, PDF, and ebook options that reference
+	 * the deleted font name, leaving other fonts untouched.
+	 */
+	public function test_reset_books_using_font_clears_matching_options() {
+		// Use the main site (blog_id 1)
+		switch_to_blog( 1 );
+
+		update_option( 'pressbooks_theme_options_web', [
+			'webbook_header_font' => 'Deleted Font',
+			'webbook_body_font'   => 'Deleted Font',
+		] );
+		update_option( 'pressbooks_theme_options_pdf', [
+			'pdf_header_font' => 'Deleted Font',
+			'pdf_body_font'   => 'Some Other Font',
+		] );
+		update_option( 'pressbooks_theme_options_ebook', [
+			'ebook_header_font' => 'Some Other Font',
+			'ebook_body_font'   => 'Deleted Font',
+		] );
+
+		restore_current_blog();
+
+		\Pressbooks\Admin\CustomFonts\reset_books_using_font( 'Deleted Font' );
+
+		switch_to_blog( 1 );
+
+		$web = get_option( 'pressbooks_theme_options_web' );
+		$this->assertEquals( '', $web['webbook_header_font'], 'Header font should be cleared' );
+		$this->assertEquals( '', $web['webbook_body_font'], 'Body font should be cleared' );
+
+		$pdf = get_option( 'pressbooks_theme_options_pdf' );
+		$this->assertEquals( '', $pdf['pdf_header_font'], 'PDF header font should be cleared' );
+		$this->assertEquals( 'Some Other Font', $pdf['pdf_body_font'], 'Unrelated PDF body font should be unchanged' );
+
+		$ebook = get_option( 'pressbooks_theme_options_ebook' );
+		$this->assertEquals( 'Some Other Font', $ebook['ebook_header_font'], 'Unrelated ebook header font should be unchanged' );
+		$this->assertEquals( '', $ebook['ebook_body_font'], 'Ebook body font should be cleared' );
+
+		restore_current_blog();
+
+		// Clean up
+		switch_to_blog( 1 );
+		delete_option( 'pressbooks_theme_options_web' );
+		delete_option( 'pressbooks_theme_options_pdf' );
+		delete_option( 'pressbooks_theme_options_ebook' );
+		restore_current_blog();
+	}
+
+	/**
+	 * Test that reset_books_using_font is a no-op when no book uses the font.
+	 */
+	public function test_reset_books_using_font_no_books_affected() {
+		switch_to_blog( 1 );
+		update_option( 'pressbooks_theme_options_web', [
+			'webbook_header_font' => 'Other Font',
+			'webbook_body_font'   => 'Other Font',
+		] );
+		restore_current_blog();
+
+		// Should not throw or modify the unrelated font
+		\Pressbooks\Admin\CustomFonts\reset_books_using_font( 'Nonexistent Font' );
+
+		switch_to_blog( 1 );
+		$web = get_option( 'pressbooks_theme_options_web' );
+		$this->assertEquals( 'Other Font', $web['webbook_header_font'] );
+		restore_current_blog();
+
+		// Clean up
+		switch_to_blog( 1 );
+		delete_option( 'pressbooks_theme_options_web' );
+		restore_current_blog();
+	}
+
+	/**
+	 * Test generate_custom_font_css clears the CSS file when the last font is deleted.
+	 */
+	public function test_generate_custom_font_css_clears_file_when_no_fonts() {
+		$css_path = WP_CONTENT_DIR . '/uploads/assets/custom-fonts/custom-fonts.css';
+		wp_mkdir_p( dirname( $css_path ) );
+		file_put_contents( $css_path, '@font-face { font-family: "Old"; }' );
+
+		delete_site_option( 'pressbooks_custom_fonts' );
+
+		\Pressbooks\Admin\CustomFonts\generate_custom_font_css();
+
+		$this->assertFileExists( $css_path, 'CSS file should still exist but be emptied' );
+		$this->assertEmpty( trim( file_get_contents( $css_path ) ), 'CSS file should be empty after all fonts deleted' );
+	}
+
 	/**
 	 * Helper method to recursively remove directory
 	 */

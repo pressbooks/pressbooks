@@ -10,6 +10,18 @@
         </div>
     @endif
 
+    @if (isset($_GET['deleted']) && sanitize_text_field( wp_unslash( $_GET['deleted'] ) ) === 'true')
+        <div class="notice notice-success is-dismissible">
+            <p>{{ __('Font deleted successfully.', 'pressbooks') }}</p>
+        </div>
+    @endif
+
+    @if (isset($_GET['delete_error']) && sanitize_text_field( wp_unslash( $_GET['delete_error'] ) ) === 'not_found')
+        <div class="notice notice-error is-dismissible">
+            <p>{{ __('Font not found. It may have already been deleted.', 'pressbooks') }}</p>
+        </div>
+    @endif
+
     <form method="post" enctype="multipart/form-data" action="{{ esc_url( admin_url('admin-post.php') ) }}">
         <input type="hidden" name="action" value="pb_save_custom_fonts">
         <input type="hidden" name="_wpnonce" value="{{ esc_attr( $nonce ) }}">
@@ -69,12 +81,30 @@
             </tr>
             </thead>
             <tbody>
-            @foreach ($fonts as $font)
+            @foreach ($fonts as $slug => $font)
                 <tr>
-                    <td>{{ esc_html( $font['name'] ?? '' ) }}</td>
+                    <td>
+                        {{ esc_html( $font['name'] ?? '' ) }}
+                        <br>
+                        <form method="post" action="{{ esc_url( admin_url('admin-post.php') ) }}" style="display: inline;" onsubmit="return confirm('{{ esc_js( __('Are you sure you want to delete this font? Any books currently using it will revert to their theme default font.', 'pressbooks') ) }}')">
+                            <input type="hidden" name="action" value="pb_delete_custom_font">
+                            <input type="hidden" name="_wpnonce" value="{{ esc_attr( wp_create_nonce('pb_delete_custom_font') ) }}">
+                            <input type="hidden" name="font_slug" value="{{ esc_attr( $slug ) }}">
+                            <button type="submit" class="button button-link-delete">{{ __('Delete Font Family', 'pressbooks') }}</button>
+                        </form>
+                    </td>
                     <td>
                         @foreach (($font['files'] ?? []) as $variant => $file)
-							{{ esc_html( ucwords(str_replace('_', ' ', $variant)) ) }} (<a href="{{ esc_url( $file['file'] ?? '' ) }}">{{ __('Download font file', 'pressbooks') }}</a>)<br>
+                            <div style="margin-bottom: 8px;">
+                                {{ esc_html( ucwords(str_replace('_', ' ', $variant)) ) }} (<a href="{{ esc_url( $file['file'] ?? '' ) }}">{{ __('Download font file', 'pressbooks') }}</a>)
+                                <form method="post" action="{{ esc_url( admin_url('admin-post.php') ) }}" style="display: inline;" onsubmit="return confirm('{{ esc_js( __('Are you sure you want to delete this font variant?', 'pressbooks') ) }}')">
+                                    <input type="hidden" name="action" value="pb_delete_custom_font_variant">
+                                    <input type="hidden" name="_wpnonce" value="{{ esc_attr( wp_create_nonce('pb_delete_custom_font_variant') ) }}">
+                                    <input type="hidden" name="font_slug" value="{{ esc_attr( $slug ) }}">
+                                    <input type="hidden" name="variant" value="{{ esc_attr( $variant ) }}">
+                                    <button type="submit" class="button button-link-delete" style="font-size: 0.9em;">{{ __('Remove', 'pressbooks') }}</button>
+                                </form>
+                            </div>
                         @endforeach
                     </td>
                     <td>{{ esc_html( $font['fallback'] ?? '' ) }}</td>
