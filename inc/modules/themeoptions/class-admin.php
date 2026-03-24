@@ -107,11 +107,24 @@ class Admin {
 		if ( wp_doing_ajax() || wp_doing_cron() ) {
 			return;
 		}
+		$font_fields_map = [
+			'web'   => [ 'webbook_header_font', 'webbook_body_font' ],
+			'pdf'   => [ 'pdf_header_font', 'pdf_body_font' ],
+			'ebook' => [ 'ebook_header_font', 'ebook_body_font' ],
+		];
+
 		foreach ( $this->getTabs() as $slug => $subclass ) {
 			/** @var \Pressbooks\Options $subclass (not instantiated, just a string) */
 			add_filter( "option_page_capability_pressbooks_theme_options_$slug", [ $this, 'setPermissions' ], 10, 1 );
 			add_filter( "pb_theme_options_{$slug}_defaults", [ $subclass, 'filterDefaults' ], 10, 1 );
 			$options = get_option( "pressbooks_theme_options_{$slug}", [] );
+
+			// Lazily clean up stale custom font references
+			if ( isset( $font_fields_map[ $slug ] ) ) {
+				\Pressbooks\Admin\CustomFonts\sanitize_font_options( "pressbooks_theme_options_{$slug}", $font_fields_map[ $slug ] );
+				$options = get_option( "pressbooks_theme_options_{$slug}", [] );
+			}
+
 			/** @var \Pressbooks\Options $tab */
 			$tab = new $subclass( $options );
 			$tab->init();

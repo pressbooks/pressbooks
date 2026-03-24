@@ -400,3 +400,16 @@ html #wpadminbar {
     }
   }
 }
+
+.font-variant {
+  display: flex;
+  align-items: center;
+}
+
+.font-variant + .font-variant, .delete-font-family {
+  margin-top: 0.5em;
+}
+
+.delete-font-variant {
+  margin-left: 0.5em;
+}

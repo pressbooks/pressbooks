@@ -131,8 +131,8 @@ function handle_uploaded_font( array $file, string $key, string $target_dir ) {
  * Handle form submission to delete a custom font.
  *
  * Removes the font from the network site option, deletes physical font files from disk,
- * regenerates the font CSS, and resets any per-book theme options that referenced the
- * deleted font so those books fall back to their theme default.
+ * and regenerates the font CSS. Stale per-book font references are cleaned up lazily
+ * via sanitize_font_options() when each book's theme options page is loaded.
  */
 function handle_delete_font() {
 	if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'pb_delete_custom_font' ) ) {
@@ -151,7 +151,6 @@ function handle_delete_font() {
 		return;
 	}
 
-	$font_name = $fonts[ $slug ]['name'];
 	$upload_dir = wp_upload_dir();
 
 	// Delete physical font files from disk
@@ -169,9 +168,6 @@ function handle_delete_font() {
 	unset( $fonts[ $slug ] );
 	update_site_option( 'pressbooks_custom_fonts', $fonts );
 	generate_custom_font_css();
-
-	// Reset theme options for books that were using this font
-	reset_books_using_font( $font_name );
 
 	wp_safe_redirect( network_admin_url( 'settings.php?page=pb_custom_fonts&deleted=true' ) );
 	return;
@@ -229,40 +225,40 @@ function handle_delete_font_variant() {
 }
 
 /**
- * Iterate over all sites in the network and clear any shapeshifter font selections
- * that reference a deleted font, resetting them to the theme default (empty string).
+ * Clean up stale custom font references in a book's theme options.
  *
- * @param string $font_name The human‑readable font family name that was deleted.
+ * Called lazily when a book's theme options page is loaded, rather than
+ * eagerly iterating every site on the network when a font is deleted.
+ * If a stored font selection no longer exists in the available fonts list,
+ * it is reset to the theme default (empty string).
+ *
+ * @param string $option_key The option key (e.g. 'pressbooks_theme_options_web').
+ * @param array  $font_fields The font field keys to check within the option.
  */
-function reset_books_using_font( string $font_name ) {
-	$sites = get_sites( [ 'number' => 0 ] );
+function sanitize_font_options( string $option_key, array $font_fields ) {
+	$options = get_option( $option_key, [] );
+	$custom_fonts = get_site_option( 'pressbooks_custom_fonts', [] );
+	$custom_font_names = array_column( $custom_fonts, 'name' );
 
-	$option_keys = [
-		'pressbooks_theme_options_web'   => [ 'webbook_header_font', 'webbook_body_font' ],
-		'pressbooks_theme_options_pdf'   => [ 'pdf_header_font', 'pdf_body_font' ],
-		'pressbooks_theme_options_ebook' => [ 'ebook_header_font', 'ebook_body_font' ],
-	];
-
-	foreach ( $sites as $site ) {
-		switch_to_blog( $site->blog_id );
-
-		foreach ( $option_keys as $option_key => $font_fields ) {
-			$options = get_option( $option_key, [] );
-			$updated = false;
-
-			foreach ( $font_fields as $field ) {
-				if ( isset( $options[ $field ] ) && $options[ $field ] === $font_name ) {
-					$options[ $field ] = '';
-					$updated = true;
-				}
-			}
-
-			if ( $updated ) {
-				update_option( $option_key, $options );
-			}
+	$styles = \Pressbooks\Container::get( 'Styles' );
+	$available = $styles->getShapeShifterFonts();
+	$all_font_names = [];
+	foreach ( $available as $value ) {
+		if ( is_array( $value ) ) {
+			$all_font_names = array_merge( $all_font_names, array_keys( $value ) );
 		}
+	}
 
-		restore_current_blog();
+	$updated = false;
+	foreach ( $font_fields as $field ) {
+		if ( ! empty( $options[ $field ] ) && ! in_array( $options[ $field ], $all_font_names, true ) ) {
+			$options[ $field ] = '';
+			$updated = true;
+		}
+	}
+
+	if ( $updated ) {
+		update_option( $option_key, $options );
 	}
 }
 

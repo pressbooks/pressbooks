@@ -896,81 +896,90 @@ public function fontProvider(): array {
 	}
 
 	// -----------------------------------------------------------------------
-	// Tests for reset_books_using_font()
+	// Tests for sanitize_font_options()
 	// -----------------------------------------------------------------------
 
 	/**
-	 * Test that reset_books_using_font clears web, PDF, and ebook options that reference
-	 * the deleted font name, leaving other fonts untouched.
+	 * Test that sanitize_font_options clears font selections that no longer
+	 * exist in the available fonts list.
 	 */
-	public function test_reset_books_using_font_clears_matching_options() {
-		// Use the main site (blog_id 1)
-		switch_to_blog( 1 );
+	public function test_sanitize_font_options_clears_stale_fonts() {
+		// Ensure no custom fonts are registered so 'Deleted Font' is invalid
+		delete_site_option( 'pressbooks_custom_fonts' );
 
 		update_option( 'pressbooks_theme_options_web', [
 			'webbook_header_font' => 'Deleted Font',
-			'webbook_body_font'   => 'Deleted Font',
-		] );
-		update_option( 'pressbooks_theme_options_pdf', [
-			'pdf_header_font' => 'Deleted Font',
-			'pdf_body_font'   => 'Some Other Font',
-		] );
-		update_option( 'pressbooks_theme_options_ebook', [
-			'ebook_header_font' => 'Some Other Font',
-			'ebook_body_font'   => 'Deleted Font',
+			'webbook_body_font'   => 'Noto Sans',
 		] );
 
-		restore_current_blog();
-
-		\Pressbooks\Admin\CustomFonts\reset_books_using_font( 'Deleted Font' );
-
-		switch_to_blog( 1 );
+		\Pressbooks\Admin\CustomFonts\sanitize_font_options(
+			'pressbooks_theme_options_web',
+			[ 'webbook_header_font', 'webbook_body_font' ]
+		);
 
 		$web = get_option( 'pressbooks_theme_options_web' );
-		$this->assertEquals( '', $web['webbook_header_font'], 'Header font should be cleared' );
-		$this->assertEquals( '', $web['webbook_body_font'], 'Body font should be cleared' );
-
-		$pdf = get_option( 'pressbooks_theme_options_pdf' );
-		$this->assertEquals( '', $pdf['pdf_header_font'], 'PDF header font should be cleared' );
-		$this->assertEquals( 'Some Other Font', $pdf['pdf_body_font'], 'Unrelated PDF body font should be unchanged' );
-
-		$ebook = get_option( 'pressbooks_theme_options_ebook' );
-		$this->assertEquals( 'Some Other Font', $ebook['ebook_header_font'], 'Unrelated ebook header font should be unchanged' );
-		$this->assertEquals( '', $ebook['ebook_body_font'], 'Ebook body font should be cleared' );
-
-		restore_current_blog();
+		$this->assertEquals( '', $web['webbook_header_font'], 'Stale font should be cleared' );
+		$this->assertEquals( 'Noto Sans', $web['webbook_body_font'], 'Valid font should be unchanged' );
 
 		// Clean up
-		switch_to_blog( 1 );
 		delete_option( 'pressbooks_theme_options_web' );
-		delete_option( 'pressbooks_theme_options_pdf' );
-		delete_option( 'pressbooks_theme_options_ebook' );
-		restore_current_blog();
 	}
 
 	/**
-	 * Test that reset_books_using_font is a no-op when no book uses the font.
+	 * Test that sanitize_font_options is a no-op when all fonts are valid.
 	 */
-	public function test_reset_books_using_font_no_books_affected() {
-		switch_to_blog( 1 );
+	public function test_sanitize_font_options_no_change_for_valid_fonts() {
+		delete_site_option( 'pressbooks_custom_fonts' );
+
 		update_option( 'pressbooks_theme_options_web', [
-			'webbook_header_font' => 'Other Font',
-			'webbook_body_font'   => 'Other Font',
+			'webbook_header_font' => 'Noto Sans',
+			'webbook_body_font'   => 'Noto Serif',
 		] );
-		restore_current_blog();
 
-		// Should not throw or modify the unrelated font
-		\Pressbooks\Admin\CustomFonts\reset_books_using_font( 'Nonexistent Font' );
+		\Pressbooks\Admin\CustomFonts\sanitize_font_options(
+			'pressbooks_theme_options_web',
+			[ 'webbook_header_font', 'webbook_body_font' ]
+		);
 
-		switch_to_blog( 1 );
 		$web = get_option( 'pressbooks_theme_options_web' );
-		$this->assertEquals( 'Other Font', $web['webbook_header_font'] );
-		restore_current_blog();
+		$this->assertEquals( 'Noto Sans', $web['webbook_header_font'] );
+		$this->assertEquals( 'Noto Serif', $web['webbook_body_font'] );
 
 		// Clean up
-		switch_to_blog( 1 );
 		delete_option( 'pressbooks_theme_options_web' );
-		restore_current_blog();
+	}
+
+	/**
+	 * Test that sanitize_font_options preserves custom fonts that still exist.
+	 */
+	public function test_sanitize_font_options_preserves_valid_custom_font() {
+		update_site_option( 'pressbooks_custom_fonts', [
+			'my-custom' => [
+				'name'     => 'My Custom Font',
+				'fallback' => 'sans-serif',
+				'files'    => [
+					'regular' => [ 'file' => 'http://example.com/font.woff2', 'variation' => 'regular' ],
+				],
+			],
+		] );
+
+		update_option( 'pressbooks_theme_options_web', [
+			'webbook_header_font' => 'My Custom Font',
+			'webbook_body_font'   => 'Noto Sans',
+		] );
+
+		\Pressbooks\Admin\CustomFonts\sanitize_font_options(
+			'pressbooks_theme_options_web',
+			[ 'webbook_header_font', 'webbook_body_font' ]
+		);
+
+		$web = get_option( 'pressbooks_theme_options_web' );
+		$this->assertEquals( 'My Custom Font', $web['webbook_header_font'], 'Valid custom font should be preserved' );
+		$this->assertEquals( 'Noto Sans', $web['webbook_body_font'] );
+
+		// Clean up
+		delete_option( 'pressbooks_theme_options_web' );
+		delete_site_option( 'pressbooks_custom_fonts' );
 	}
 
 	/**
