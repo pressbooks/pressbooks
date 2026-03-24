@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a16665bca836da937f54593638b2e16a",
+    "content-hash": "6064614ed76dceead5cc0ffe4457f746",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -62,16 +62,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.373.7",
+            "version": "3.373.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "4402bd10f913e66b7271f44466be8d5ba6c9146e"
+                "reference": "a73e12fe5d010f3c6cda2f6f020b5a475444487d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4402bd10f913e66b7271f44466be8d5ba6c9146e",
-                "reference": "4402bd10f913e66b7271f44466be8d5ba6c9146e",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a73e12fe5d010f3c6cda2f6f020b5a475444487d",
+                "reference": "a73e12fe5d010f3c6cda2f6f020b5a475444487d",
                 "shasum": ""
             },
             "require": {
@@ -153,9 +153,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.373.7"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.373.9"
             },
-            "time": "2026-03-20T18:14:19+00:00"
+            "time": "2026-03-24T18:06:07+00:00"
         },
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -3823,20 +3823,20 @@
         },
         {
             "name": "snordian/h5p-extractor",
-            "version": "0.4.1",
+            "version": "0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/otacke/H5PExtractor.git",
-                "reference": "9b8dcb11eb472ef687bdfb4f5170a2b74e685509"
+                "reference": "f51ed9aa4335624ff979677e1a5875c7896f9bf4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/otacke/H5PExtractor/zipball/9b8dcb11eb472ef687bdfb4f5170a2b74e685509",
-                "reference": "9b8dcb11eb472ef687bdfb4f5170a2b74e685509",
+                "url": "https://api.github.com/repos/otacke/H5PExtractor/zipball/f51ed9aa4335624ff979677e1a5875c7896f9bf4",
+                "reference": "f51ed9aa4335624ff979677e1a5875c7896f9bf4",
                 "shasum": ""
             },
             "require": {
-                "h5p/h5p-core": "^1.26.0"
+                "h5p/h5p-core": "1.28.0"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -3856,9 +3856,9 @@
             ],
             "support": {
                 "issues": "https://github.com/otacke/H5PExtractor/issues",
-                "source": "https://github.com/otacke/H5PExtractor/tree/0.4.1"
+                "source": "https://github.com/otacke/H5PExtractor/tree/0.5.0"
             },
-            "time": "2025-10-03T07:00:15+00:00"
+            "time": "2026-03-24T17:26:07+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",

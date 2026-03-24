@@ -58,7 +58,7 @@
     "pressbooks/frontend-tools": "^1.0.0",
     "pressbooks/pb-cli": "^3",
     "scssphp/scssphp": "^1.11.0",
-    "snordian/h5p-extractor": "^0.4.1",
+    "snordian/h5p-extractor": "^0.5.0",
     "symfony/process": "^6.0",
     "vanilla/htmlawed": "^2.2",
     "vlucas/phpdotenv": "^5.4"
