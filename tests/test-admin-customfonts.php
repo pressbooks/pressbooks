@@ -207,12 +207,12 @@ public function fontProvider(): array {
 
         // Test "Registered Fonts" section appears when fonts exist
         $this->assertStringContainsString('<h2>Registered Fonts</h2>', $output, 'Should show registered fonts heading');
-        $this->assertStringContainsString('<table class="widefat fixed striped">', $output, 'Should contain fonts table');
+        $this->assertStringContainsString('<table class="wp-list-table widefat striped pb-table custom-fonts">', $output, 'Should contain fonts table');
 
         // Test table headers
-        $this->assertStringContainsString('<th>Font Family Name</th>', $output, 'Should have font family header');
-        $this->assertStringContainsString('<th>Font Variants</th>', $output, 'Should have font variants header');
-        $this->assertStringContainsString('<th>Font Fallback</th>', $output, 'Should have font fallback header');
+        $this->assertStringContainsString('<th class="font-family">Font Family Name</th>', $output, 'Should have font family header');
+        $this->assertStringContainsString('<th class="font-variants">Font Variants</th>', $output, 'Should have font variants header');
+        $this->assertStringContainsString('<th class="font-fallback">Font Fallback</th>', $output, 'Should have font fallback header');
 
         // Test actual font data appears in table
         $this->assertStringContainsString('Arial Custom', $output, 'Should display Arial Custom font name');
@@ -241,7 +241,7 @@ public function fontProvider(): array {
 
         // Should NOT show registered fonts section when empty
         $this->assertStringNotContainsString('<h2>Registered Fonts</h2>', $output, 'Should not show registered fonts heading when empty');
-        $this->assertStringNotContainsString('<table class="widefat fixed striped">', $output, 'Should not show fonts table when empty');
+        $this->assertStringNotContainsString('<table class="wp-list-table widefat striped pb-table custom-fonts">', $output, 'Should not show fonts table when empty');
     }
 
     /**
