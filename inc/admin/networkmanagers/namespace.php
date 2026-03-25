@@ -139,6 +139,7 @@ function is_restricted() {
 function permitted_setting_menus() {
 	return [
 		'pb_analytics',
+		'pb_custom_fonts',
 		'pb_network_analytics_options',
 		'pb_whitelabel_settings',
 		'pressbooks_sharingandprivacy_options',
