@@ -9,6 +9,7 @@
 namespace Pressbooks\Modules\ThemeOptions;
 
 use Pressbooks\Container;
+use Pressbooks\GlobalTypography;
 use Pressbooks\Metadata;
 
 class WebOptions extends \Pressbooks\Options {
@@ -634,6 +635,9 @@ class WebOptions extends \Pressbooks\Options {
 				);
 			}
 		}
+
+		// Custom Fonts (web version with HTTP URLs)
+		$scss = GlobalTypography::appendCustomFonts( $scss );
 
 		return $scss;
 	}
