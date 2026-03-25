@@ -1,5 +1,17 @@
 # Changelog
 
+## [6.38.0](https://github.com/pressbooks/pressbooks/compare/6.37.2...6.38.0) (2026-03-25)
+
+
+### Features
+
+* Allow network managers to upload custom fonts ([#3986](https://github.com/pressbooks/pressbooks/issues/3986)) ([edb27b3](https://github.com/pressbooks/pressbooks/commit/edb27b35ee2d523f9202ee3b4d75040d7daae7ee))
+
+
+### Bug Fixes
+
+* display custom fonts for network managers ([#4402](https://github.com/pressbooks/pressbooks/issues/4402)) ([dec8d31](https://github.com/pressbooks/pressbooks/commit/dec8d31357da1632bd7795d235886e4c08f69804))
+
 ## [6.37.2](https://github.com/pressbooks/pressbooks/compare/6.37.1...6.37.2) (2026-03-18)
 
 
