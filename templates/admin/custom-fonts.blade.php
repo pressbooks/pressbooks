@@ -2,7 +2,8 @@
 
 <div class="wrap">
     <h1>{{ __('Upload Custom Font', 'pressbooks') }}</h1>
-    <p>{{ __('Upload custom font files for any additional font families you want to make available for books on your network. Permitted file types: .otf, .ttf, .woff, .woff2.') }}</p>
+    <p>{{ __('Upload custom font files for any additional font families you want to make available for books on your network. Uploaded fonts will be available for selection in theme options.', 'pressbooks') }}</p>
+    <p>{{ __('Permitted file types: .otf, .ttf, .woff, .woff2.', 'pressbooks') }}</p>
 
     @if (isset($_GET['updated']) && sanitize_text_field( wp_unslash( $_GET['updated'] ) ) === 'true')
         <div class="notice notice-success is-dismissible">
@@ -72,13 +73,14 @@
 
     @if (!empty($fonts))
         <h2>{{ __('Registered Fonts', 'pressbooks') }}</h2>
-        <table class="widefat fixed striped">
+        <div class="pb-table-scroll-container">
+        <table class="wp-list-table widefat striped pb-table custom-fonts">
             <thead>
             <tr>
-                <th>{{ __('Font Family Name', 'pressbooks') }}</th>
-                <th>{{ __('Font Variants', 'pressbooks') }}</th>
-                <th>{{ __('Font Fallback', 'pressbooks') }}</th>
-                <th>{{ __('Actions', 'pressbooks') }}</th>
+                <th class="font-family">{{ __('Font Family Name', 'pressbooks') }}</th>
+                <th class="font-variants">{{ __('Font Variants', 'pressbooks') }}</th>
+                <th class="font-fallback">{{ __('Font Fallback', 'pressbooks') }}</th>
+                <th class="font-actions">{{ __('Actions', 'pressbooks') }}</th>
             </tr>
             </thead>
             <tbody>
@@ -112,5 +114,6 @@
             @endforeach
             </tbody>
         </table>
+        </div>
     @endif
 </div>

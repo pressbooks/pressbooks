@@ -401,13 +401,22 @@ html #wpadminbar {
   }
 }
 
-.font-variant {
-  align-items: center;
-  column-gap: 0.5em;
-  display: grid;
-  grid-template-columns: 190px auto;
-}
+.pb-table.custom-fonts {
+  --pb-list-table-min-width: 760px;
+  max-width: 1500px;
 
-.font-variant + .font-variant {
-  margin-top: 0.5em;
+  .font-family   { max-width: 275px; }
+  .font-variants { max-width: 400px; }
+  .font-fallback { max-width: 150px; }
+
+  .font-variant {
+    align-items: center;
+    column-gap: 0.5em;
+    display: grid;
+    grid-template-columns: 190px auto;
+
+    & + .font-variant {
+      margin-top: 0.5em;
+    }
+  }
 }
