@@ -131,12 +131,6 @@
       "assets/covergenerator-BPTG2Ppo.css"
     ]
   },
-  "assets/src/scripts/dashboard.js": {
-    "file": "assets/dashboard-l0sNRNKZ.js",
-    "name": "dashboard",
-    "src": "assets/src/scripts/dashboard.js",
-    "isEntry": true
-  },
   "assets/src/scripts/export-footnotes.js": {
     "file": "assets/export-footnotes-B7O5MUFm.js",
     "name": "export-footnotes",
@@ -174,7 +168,7 @@
     ]
   },
   "assets/src/scripts/glossary.js": {
-    "file": "assets/glossary-SRwXiJDv.js",
+    "file": "assets/glossary-O4ClJyGY.js",
     "name": "glossary",
     "src": "assets/src/scripts/glossary.js",
     "isEntry": true
