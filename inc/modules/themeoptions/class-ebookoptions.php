@@ -8,6 +8,8 @@
 
 namespace Pressbooks\Modules\ThemeOptions;
 
+use Pressbooks\GlobalTypography;
+
 class EbookOptions extends \Pressbooks\Options {
 
 	/**
@@ -627,6 +629,9 @@ class EbookOptions extends \Pressbooks\Options {
 				);
 			}
 		}
+
+		// Custom Fonts (relative paths for self-contained EPUB)
+		$scss = GlobalTypography::appendCustomFonts( $scss );
 
 		return $scss;
 	}

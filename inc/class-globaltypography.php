@@ -514,4 +514,24 @@ class GlobalTypography {
 
 		return true;
 	}
+
+	/**
+	 * Prepend custom fonts @font-face CSS to SCSS before compilation.
+	 * Uses absolute HTTP URLs which are preserved correctly by normalize_css_urls
+	 * across all export formats (web, PDF via Prince, EPUB bundling).
+	 *
+	 * @param string $scss The SCSS content to prepend fonts to
+	 *
+	 * @return string The SCSS with prepended custom fonts
+	 */
+	public static function appendCustomFonts( $scss ) {
+		$custom_fonts = get_site_option( 'pressbooks_custom_fonts', [] );
+		if ( ! empty( $custom_fonts ) ) {
+			$css_file = WP_CONTENT_DIR . '/uploads/assets/custom-fonts/custom-fonts.css';
+			if ( file_exists( $css_file ) ) {
+				$scss = file_get_contents( $css_file ) . "\n" . $scss; // @codingStandardsIgnoreLine
+			}
+		}
+		return $scss;
+	}
 }

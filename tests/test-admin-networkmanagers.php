@@ -132,6 +132,7 @@ class Admin_NetworkManagers extends \WP_UnitTestCase {
 		$allowed = \Pressbooks\Admin\NetworkManagers\permitted_setting_menus();
 		$this->assertTrue( is_array( $allowed ) );
 		$this->assertContains( 'pb_analytics', $allowed );
+		$this->assertContains( 'pb_custom_fonts', $allowed );
 		$this->assertContains( 'pb_whitelabel_settings', $allowed );
 		$this->assertContains( 'pressbooks_sharingandprivacy_options', $allowed );
 		$this->assertContains( 'pb_network_analytics_options', $allowed );
