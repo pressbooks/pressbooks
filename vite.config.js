@@ -23,7 +23,6 @@ export default createWpViteConfig({
 		'pressbooks': resolve(__dirname, 'assets/src/scripts/pressbooks.js'),
 		'pressbooks-select': resolve(__dirname, 'assets/src/scripts/webcomponents/pressbooks-select.js'),
 		'pressbooks-reorderable-multiselect': resolve(__dirname, 'assets/src/scripts/webcomponents/pressbooks-reorderable-multiselect.js'),
-		'dashboard': resolve(__dirname, 'assets/src/scripts/dashboard.js'),
 		'post-back-matter': resolve(__dirname, 'assets/src/scripts/post-back-matter.js'),
 		'post-visibility': resolve(__dirname, 'assets/src/scripts/post-visibility.js'),
 		'post-mathjax': resolve(__dirname, 'assets/src/scripts/post-mathjax.js'),
