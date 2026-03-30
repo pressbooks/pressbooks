@@ -64,7 +64,6 @@ abstract class Dashboard {
 		add_action( "admin_print_styles-{$page}", function() {
 			/** @var \PressbooksFrontendTools\Assets $assets */
 			$assets = app( 'Assets' );
-			$assets->enqueue( 'assets/src/scripts/dashboard.js', 'pb-book-dashboard' );
 
 			// Standalone CSS must use wp_enqueue_style (not $assets->enqueue which wraps in script tags)
 			wp_enqueue_style(
