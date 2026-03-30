@@ -11,6 +11,7 @@ namespace Pressbooks\Modules\ThemeOptions;
 use function \Pressbooks\Utility\getset;
 use Pressbooks\Container;
 use Pressbooks\CustomCss;
+use Pressbooks\GlobalTypography;
 
 class PDFOptions extends \Pressbooks\Options {
 
@@ -2235,6 +2236,9 @@ class PDFOptions extends \Pressbooks\Options {
 				);
 			}
 		}
+
+		// Custom Fonts (relative paths for self-contained PDF)
+		$scss = GlobalTypography::appendCustomFonts( $scss );
 
 		return $scss;
 	}

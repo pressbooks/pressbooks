@@ -638,6 +638,15 @@ function network_admin_menu() {
 			'render',
 		]
 	);
+
+	add_submenu_page(
+		'settings.php',
+		__( 'Custom Fonts', 'pressbooks' ),
+		__( 'Custom Fonts', 'pressbooks' ),
+		'manage_network',
+		'pb_custom_fonts',
+		'\Pressbooks\Admin\CustomFonts\render_custom_fonts_page'
+	);
 }
 
 /**
