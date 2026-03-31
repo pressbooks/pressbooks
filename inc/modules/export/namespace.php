@@ -284,30 +284,6 @@ function template_data(): array {
 }
 
 /**
- * Get the number of pinned exports per format hash.
- *
- * @param int $max_per_format The maximum number of pins allowed per format (default 3).
- *
- * @return array Associative array of format hash => count for formats that have reached the limit.
- */
-function get_pinned_format_counts( int $max_per_format = 3 ): array {
-	$pins = get_option( Table::PIN, [] );
-	if ( ! is_array( $pins ) ) {
-		return [];
-	}
-	$counts = [];
-	foreach ( $pins as $pin_value ) {
-		if ( ! isset( $counts[ $pin_value ] ) ) {
-			$counts[ $pin_value ] = 0;
-		}
-		$counts[ $pin_value ]++;
-	}
-	return array_filter( $counts, function ( $count ) use ( $max_per_format ) {
-		return $count >= $max_per_format;
-	} );
-}
-
-/**
  * Check if a given export module classname has reached the pinned export limit.
  *
  * @param string $module_classname The export module classname.
@@ -316,10 +292,13 @@ function get_pinned_format_counts( int $max_per_format = 3 ): array {
  * @return bool True if the format has reached its pin limit.
  */
 function is_format_pin_limited( string $module_classname, int $max_per_format = 3 ): bool {
-	$format_name = get_name_from_module_classname( $module_classname );
-	$format_hash = hash( 'crc32b', $format_name );
-	$full_counts = get_pinned_format_counts( $max_per_format );
-	return isset( $full_counts[ $format_hash ] );
+	$pins = get_option( Table::PIN, [] );
+	if ( ! is_array( $pins ) || empty( $pins ) ) {
+		return false;
+	}
+	$format_hash = hash( 'crc32b', get_name_from_module_classname( $module_classname ) );
+	$count = count( array_filter( $pins, fn( $v ) => $v === $format_hash ) );
+	return $count >= $max_per_format;
 }
 
 /**
