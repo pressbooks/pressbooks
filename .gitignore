@@ -16,3 +16,4 @@ LICENSE
 /.claude
 old-tests
 vite-dev-server.json
+.opencode/

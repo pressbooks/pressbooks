@@ -900,7 +900,7 @@ class Xhtml11 extends Export {
 	/**
 	 * Optimized content processing with caching
 	 */
-	protected function optimizedPreProcessPostContent( string $content, int $id = null ): string {
+	protected function optimizedPreProcessPostContent( string $content, ?int $id = null ): string {
 		$cache_key = 'content_' . md5( $content . $id );
 
 		if ( isset( $this->processingCache[ $cache_key ] ) ) {

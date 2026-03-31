@@ -21,7 +21,7 @@ class CreateBookChapter
 		$this->acceptanceTester = $I;
 	}
 
-	public function createChapter( string $bookURL, string $title, string $content = null ): void
+	public function createChapter( string $bookURL, string $title, ?string $content = null ): void
 	{
 		$I = $this->acceptanceTester;
 
