@@ -257,7 +257,21 @@ document.addEventListener( 'DOMContentLoaded', function () {
 					return;
 				}
 
-				const response = await submitExportJobs( selectedFormats );
+				// Check for formats that have reached the pinned export limit
+				const { allowed, blocked } = filterPinLimitedFormats( selectedFormats );
+
+				if ( blocked.length > 0 ) {
+					const blockedNames = blocked.map( f => getFormatLabel( f ) ).join( ', ' );
+					const message = ( PB_ExportToken?.text?.pinned_format_limit || 'The following formats already have 3 pinned exports: %s. Please unpin an export before generating a new one in these formats.' )
+						.replace( '%s', blockedNames );
+					showError( message );
+				}
+
+				if ( allowed.length === 0 ) {
+					return;
+				}
+
+				const response = await submitExportJobs( allowed );
 
 				if ( response.success && response.data?.results ) {
 					handleSubmissionSuccess( response.data );
@@ -289,6 +303,51 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		}
 
 		return selectedFormats;
+	}
+
+	/**
+	 * Filter out formats that have reached the pinned export limit (3 per format).
+	 * @param {string[]} selectedFormats - Array of format slugs (e.g. ['epub', 'pdf'])
+	 * @returns {{ allowed: string[], blocked: string[] }}
+	 */
+	function filterPinLimitedFormats( selectedFormats ) {
+		const allowed = [];
+		const blocked = [];
+		const maxPinsPerFormat = 3;
+
+		// Count pins per format hash
+		const pinCounts = {};
+		if ( typeof _pb_export_pins_inventory === 'object' && _pb_export_pins_inventory !== null ) {
+			for ( const key in _pb_export_pins_inventory ) {
+				if ( Object.prototype.hasOwnProperty.call( _pb_export_pins_inventory, key ) ) {
+					const formatHash = _pb_export_pins_inventory[ key ];
+					pinCounts[ formatHash ] = ( pinCounts[ formatHash ] || 0 ) + 1;
+				}
+			}
+		}
+
+		selectedFormats.forEach( format => {
+			const mapKey = `export_formats[${ format }]`;
+			const formatHash = typeof _pb_export_formats_map === 'object' ? _pb_export_formats_map[ mapKey ] : undefined;
+
+			if ( formatHash && ( pinCounts[ formatHash ] || 0 ) >= maxPinsPerFormat ) {
+				blocked.push( format );
+			} else {
+				allowed.push( format );
+			}
+		} );
+
+		return { allowed, blocked };
+	}
+
+	/**
+	 * Get the human-readable label for a format slug from the form checkbox label.
+	 * @param {string} formatSlug
+	 * @returns {string}
+	 */
+	function getFormatLabel( formatSlug ) {
+		const label = document.querySelector( `label[for="${ formatSlug }"]` );
+		return label ? label.textContent.trim() : formatSlug;
 	}
 
 	/**

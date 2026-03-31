@@ -284,13 +284,52 @@ function template_data(): array {
 }
 
 /**
+ * Get the number of pinned exports per format hash.
+ *
+ * @param int $max_per_format The maximum number of pins allowed per format (default 3).
+ *
+ * @return array Associative array of format hash => count for formats that have reached the limit.
+ */
+function get_pinned_format_counts( int $max_per_format = 3 ): array {
+	$pins = get_option( Table::PIN, [] );
+	if ( ! is_array( $pins ) ) {
+		return [];
+	}
+	$counts = [];
+	foreach ( $pins as $pin_value ) {
+		if ( ! isset( $counts[ $pin_value ] ) ) {
+			$counts[ $pin_value ] = 0;
+		}
+		$counts[ $pin_value ]++;
+	}
+	return array_filter( $counts, function ( $count ) use ( $max_per_format ) {
+		return $count >= $max_per_format;
+	} );
+}
+
+/**
+ * Check if a given export module classname has reached the pinned export limit.
+ *
+ * @param string $module_classname The export module classname.
+ * @param int $max_per_format The maximum number of pins allowed per format (default 3).
+ *
+ * @return bool True if the format has reached its pin limit.
+ */
+function is_format_pin_limited( string $module_classname, int $max_per_format = 3 ): bool {
+	$format_name = get_name_from_module_classname( $module_classname );
+	$format_hash = hash( 'crc32b', $format_name );
+	$full_counts = get_pinned_format_counts( $max_per_format );
+	return isset( $full_counts[ $format_hash ] );
+}
+
+/**
  * WP_Ajax
  */
 function update_pins(): void {
 	check_ajax_referer( 'pb-export-pins' );
 	$pins = json_decode( stripcslashes( $_POST['pins'] ), true );
 	if ( is_array( $pins ) ) {
-		set_transient( Table::PIN, $pins );
+		update_option( Table::PIN, $pins );
 		$data = [
 			'message' => sprintf(
 				__( 'The file %1$s has been %2$s successfully.', 'pressbooks' ),
@@ -434,6 +473,25 @@ function process_and_queue_job_requests( array $export_formats_input, array $exp
 
 		// Only proceed if this module is available and valid.
 		if ( in_array( $module_classname, $available_modules, true ) ) {
+
+			// Check if the format has reached the pinned export limit.
+			if ( is_format_pin_limited( $module_classname ) ) {
+				$friendly_name = get_friendly_name_for_module( $module_classname );
+				$results[] = [
+					'event_type' => 'job_queue_failed',
+					'message' => sprintf(
+						/* translators: %s: human-readable export format name (e.g. "EPUB", "Digital PDF") */
+						__( 'You already have 3 pinned %s exports. Please unpin one before generating a new export in this format.', 'pressbooks' ),
+						$friendly_name
+					),
+					'module_slug' => $format_slug,
+					'module_classname' => $module_classname,
+					'format_name' => $friendly_name,
+					'status' => 'error',
+				];
+				continue;
+			}
+
 			$constructor_args = [];
 
 			$book_id = get_current_blog_id();

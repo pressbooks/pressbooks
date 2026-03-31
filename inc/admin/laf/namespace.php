@@ -363,6 +363,7 @@ function replace_book_admin_menu() {
 							'download_file'   => esc_html__( 'Download File', 'pressbooks' ),
 							'maximum_files_warning' => esc_html__( 'Up to 5 files can be pinned at once.', 'pressbooks' ),
 							'maximum_file_type_warning' => esc_html__( 'Cannot pin more than 3 of the same file type.', 'pressbooks' ),
+							'pinned_format_limit' => esc_html__( 'The following formats already have 3 pinned exports: %s. Please unpin an export before generating a new one in these formats.', 'pressbooks' ),
 							'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . esc_html__( 'Reload', 'pressbooks' ) . '</a>)</em>',
 							'jobs_submitted' => esc_html__( 'Export job(s) successfully added to the queue. Progress updates will appear below until the export process is completed. In the meantime, you can safely navigate away from this page.', 'pressbooks' ),
 							'cancel_confirmation' => esc_html__( 'Are you sure you want to cancel this export job?', 'pressbooks' ),
