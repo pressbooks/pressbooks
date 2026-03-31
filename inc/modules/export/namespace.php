@@ -420,16 +420,15 @@ function handle_exports_submit(): void {
 		] );
 	} else {
 		// If all failed or were skipped
-		$error_message = __( 'No export jobs were successfully queued.', 'pressbooks' );
 		$specific_errors = [];
 		foreach ( $results as $result ) {
 			if ( isset( $result['status'] ) && $result['status'] === 'error' && isset( $result['message'] ) ) {
 				$specific_errors[] = $result['message'];
 			}
 		}
-		if ( ! empty( $specific_errors ) ) {
-			$error_message .= ' ' . __( 'Details:', 'pressbooks' ) . ' ' . implode( '; ', $specific_errors );
-		}
+		$error_message = ! empty( $specific_errors )
+			? implode( '; ', $specific_errors )
+			: __( 'No export jobs were successfully queued.', 'pressbooks' );
 		wp_send_json_error( [
 			'message' => $error_message,
 			'results' => $results,
