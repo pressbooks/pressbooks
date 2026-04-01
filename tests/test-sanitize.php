@@ -141,6 +141,20 @@ class SanitizeTest extends \WP_UnitTestCase {
 	 * @group sanitize
 	 * @test
 	 */
+	public function decode_handles_double_quotes_from_sanitize_xml_attribute(): void {
+		// Simulate the encode/decode roundtrip for titles with lang spans
+		$title = 'A Title: <span lang="de">Vunderkind</span>';
+		$encoded = \Pressbooks\Sanitize\sanitize_xml_attribute( $title );
+		$decoded = \Pressbooks\Sanitize\decode( $encoded );
+
+		$this->assertStringNotContainsString( '&quot;', $decoded );
+		$this->assertStringContainsString( '<span lang="de">', $decoded );
+	}
+
+	/**
+	 * @group sanitize
+	 * @test
+	 */
 	public function sanitize_excluding_ampersand(): void {
 		$string = 'Hello & World';
 		$this->assertEquals( 'Hello &#038; World', \Pressbooks\Sanitize\decode( $string ) );
