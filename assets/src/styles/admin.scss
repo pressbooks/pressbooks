@@ -37,7 +37,7 @@ html #wpadminbar {
   margin-right: 0 !important;
 }
 
-#wpadminbar #wp-toolbar .ab-top-menu > li#wp-admin-bar-menu-toggle > .ab-item {
+#wpadminbar #wp-toolbar .ab-top-menu > li#wp-admin-bar-menu-toggle {
   display: none;
 }
 
@@ -231,8 +231,12 @@ html #wpadminbar {
     --pb-toolbar-icon-size: 36px;
   }
 
-  #wpadminbar #wp-toolbar .ab-top-menu > li#wp-admin-bar-menu-toggle > .ab-item {
-    display: flex;
+  #wpadminbar #wp-toolbar .ab-top-menu > li#wp-admin-bar-menu-toggle {
+    display: list-item;
+
+    > .ab-item {
+      display: flex;
+    }
   }
 
   #wpadminbar #wp-toolbar #wp-admin-bar-updates .ab-icon::before {

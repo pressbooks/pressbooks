@@ -397,19 +397,6 @@ class SideBar {
 			$this->getContextSlug( 'users.php', true )
 		);
 
-		if ( is_plugin_active( 'user-activation-keys/ds_wp3_user_activation_keys.php' ) ) {
-			require_once WP_PLUGIN_DIR . '/user-activation-keys/ds_wp3_user_activation_keys.php';
-			$ds_wp3_user_activation_keys = new \DS_User_Activation_Keys();
-			add_submenu_page(
-				'pb-null',
-				__( 'User Activation Keys', 'pressbooks' ),
-				__( 'User Activation Keys', 'pressbooks' ),
-				'edit_users',
-				'act_keys',
-				is_network_admin() ? '' : [ $ds_wp3_user_activation_keys, 'ds_delete_stale' ]
-			);
-		}
-
 		// Appearance
 		add_submenu_page(
 			$this->getContextSlug( 'customize.php', true ),
