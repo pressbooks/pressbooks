@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-04-01T09:36:35+00:00\n"
+"POT-Creation-Date: 2026-04-01T15:10:24+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -3347,73 +3347,75 @@ msgstr ""
 msgid "IMSCC"
 msgstr ""
 
-#: inc/modules/export/namespace.php:296
+#: inc/modules/export/namespace.php:314
 #, php-format
 msgid "The file %1$s has been %2$s successfully."
 msgstr ""
 
-#: inc/modules/export/namespace.php:298
+#: inc/modules/export/namespace.php:316
 msgid "pinned"
 msgstr ""
 
-#: inc/modules/export/namespace.php:298
+#: inc/modules/export/namespace.php:316
 msgid "unpinned"
 msgstr ""
 
-#: inc/modules/export/namespace.php:317
+#: inc/modules/export/namespace.php:335
 msgid "About the author"
 msgid_plural "About the authors"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/modules/export/namespace.php:346
-#: inc/modules/export/namespace.php:605
+#: inc/modules/export/namespace.php:364
+#: inc/modules/export/namespace.php:641
 msgid "Permission denied."
 msgstr ""
 
-#: inc/modules/export/namespace.php:358
+#: inc/modules/export/namespace.php:376
 msgid "No export formats selected."
 msgstr ""
 
-#: inc/modules/export/namespace.php:377
+#: inc/modules/export/namespace.php:395
 #, php-format
 msgid "%d export job queued."
 msgid_plural "%d export jobs processed."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/modules/export/namespace.php:384
+#: inc/modules/export/namespace.php:410
 msgid "No export jobs were successfully queued."
 msgstr ""
 
-#: inc/modules/export/namespace.php:392
-msgid "Details:"
-msgstr ""
-
-#: inc/modules/export/namespace.php:428
+#: inc/modules/export/namespace.php:445
 #, php-format
 msgid "Invalid or unsupported export format: %s"
 msgstr ""
 
-#: inc/modules/export/namespace.php:466
+#. translators: %s: human-readable export format name (e.g. "EPUB", "Digital PDF")
+#: inc/modules/export/namespace.php:462
+#, php-format
+msgid "You already have 3 pinned %s exports. Please unpin one before generating a new export in this format."
+msgstr ""
+
+#: inc/modules/export/namespace.php:502
 #, php-format
 msgid "%s export has been queued (Job ID: %d)."
 msgstr ""
 
-#: inc/modules/export/namespace.php:475
+#: inc/modules/export/namespace.php:511
 #, php-format
 msgid "Failed to queue %s export."
 msgstr ""
 
-#: inc/modules/export/namespace.php:612
+#: inc/modules/export/namespace.php:648
 msgid "Invalid job ID."
 msgstr ""
 
-#: inc/modules/export/namespace.php:621
+#: inc/modules/export/namespace.php:657
 msgid "Job not found or already processed."
 msgstr ""
 
-#: inc/modules/export/namespace.php:629
+#: inc/modules/export/namespace.php:665
 msgid "Export job canceled successfully."
 msgstr ""
 
