@@ -310,13 +310,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			body: serverFormData,
 		} );
 
-		const data = await response.json();
-
-		if ( ! response.ok ) {
-			return data;
-		}
-
-		return data;
+		return await response.json();
 	}
 
 	/**
