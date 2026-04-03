@@ -54,7 +54,10 @@
                     <input type="checkbox" name="use_single_dollar" id="mathjax-use-single-dollar"
                            value="1" @if ( $use_single_dollar ) checked @endif />
                     <p>
-                        {!! sprintf( __( 'When enabled, %s will be treated as inline LaTeX math.', 'pressbooks' ), '<code>$e^{i \pi} + 1 = 0$</code>' ) !!}
+                        {!! sprintf( __( 'When enabled, %1$s will be treated as inline LaTeX math. Use %2$s to display a literal dollar sign.', 'pressbooks'	), '<code>$e^{i \\pi} + 1 = 0$</code>', '<code>\\$</code>' ) !!}
+                    </p>
+                    <p>
+                        {{ __( 'Note: The opening $ must not be followed by a space and the closing $ must not be preceded by a space.', 'pressbooks' ) }}
                     </p>
                     <p>
                         {{ __( 'The opening $ must not be followed by a space and the closing $ must not be preceded by a space, so currency like "$ 5,000" is not affected.', 'pressbooks' ) }}
