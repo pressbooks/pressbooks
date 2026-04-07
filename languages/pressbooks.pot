@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-04-01T15:10:24+00:00\n"
+"POT-Creation-Date: 2026-04-07T19:14:42+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -2606,13 +2606,13 @@ msgstr ""
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
 msgstr ""
 
-#: inc/class-mathjax.php:152
-#: inc/class-mathjax.php:153
+#: inc/class-mathjax.php:154
+#: inc/class-mathjax.php:155
 #: templates/admin/mathjax.blade.php:2
 msgid "MathJax"
 msgstr ""
 
-#: inc/class-mathjax.php:173
+#: inc/class-mathjax.php:175
 msgid "<code>PB_MATHJAX_URL</code> is not configured."
 msgstr ""
 
@@ -5539,43 +5539,70 @@ msgid "Display math delimiter: %s"
 msgstr ""
 
 #: templates/admin/mathjax.blade.php:23
-#: templates/admin/mathjax.blade.php:32
+#: templates/admin/mathjax.blade.php:40
 #, php-format
 msgid "Shortcode syntax: %s"
 msgstr ""
 
-#: templates/admin/mathjax.blade.php:25
+#: templates/admin/mathjax.blade.php:27
 #, php-format
 msgid "Double dollar sign syntax: %s"
 msgstr ""
 
-#: templates/admin/mathjax.blade.php:30
+#: templates/admin/mathjax.blade.php:32
+#, php-format
+msgid "Single dollar sign syntax: %s"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:38
 msgid "AsciiMath"
 msgstr ""
 
-#: templates/admin/mathjax.blade.php:36
+#: templates/admin/mathjax.blade.php:44
 #, php-format
 msgid "Dollar sign syntax: %s"
 msgstr ""
 
-#: templates/admin/mathjax.blade.php:41
+#: templates/admin/mathjax.blade.php:49
 msgid "MathML"
 msgstr ""
 
-#: templates/admin/mathjax.blade.php:43
+#: templates/admin/mathjax.blade.php:51
 #, php-format
 msgid "Markup syntax: %s"
 msgstr ""
 
-#: templates/admin/mathjax.blade.php:50
+#: templates/admin/mathjax.blade.php:59
+msgid "Single dollar sign delimiter"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:65
+#, php-format
+msgid "When enabled, %1$s will be treated as inline LaTeX math. Use %2$s to display a literal dollar sign."
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:69
+msgid "Note: The opening $ must not be followed by a space and the closing $ must not be preceded by a space."
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:73
+msgid "The opening $ must not be followed by a space and the closing $ must not be preceded by a space, so currency like \"$ 5,000\" is not affected."
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:75
+#, php-format
+msgid "Use %s to display a literal dollar sign."
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:81
 msgid "Text color"
 msgstr ""
 
-#: templates/admin/mathjax.blade.php:53
+#: templates/admin/mathjax.blade.php:84
 msgid "A six digit hexadecimal number like <code>000000</code> or <code>ffffff</code>"
 msgstr ""
 
-#: templates/admin/mathjax.blade.php:59
+#: templates/admin/mathjax.blade.php:90
 msgid "Save Changes"
 msgstr ""
 
