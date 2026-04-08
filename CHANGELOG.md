@@ -1,5 +1,25 @@
 # Changelog
 
+## [6.39.0](https://github.com/pressbooks/pressbooks/compare/6.38.0...6.39.0) (2026-04-07)
+
+
+### Features
+
+* allow single dollar delimiters ([#4415](https://github.com/pressbooks/pressbooks/issues/4415)) ([d094046](https://github.com/pressbooks/pressbooks/commit/d09404681f471b419ca43804f8b36a11c6242cc9))
+
+
+### Bug Fixes
+
+* language attributes display on PDF ([#4414](https://github.com/pressbooks/pressbooks/issues/4414)) ([f38b75e](https://github.com/pressbooks/pressbooks/commit/f38b75e552c5c66bfd7870f96e4cda8dbeaa7890))
+* restore native WordPress jquery functionality for submenu items ([#4187](https://github.com/pressbooks/pressbooks/issues/4187)) ([#4396](https://github.com/pressbooks/pressbooks/issues/4396)) ([aeab279](https://github.com/pressbooks/pressbooks/commit/aeab2790247a2af3bbf06f08e9c676f215493213))
+* stats analytics submenu highlight ([#4408](https://github.com/pressbooks/pressbooks/issues/4408)) ([c123c13](https://github.com/pressbooks/pressbooks/commit/c123c13b04df0a93b9b3259fd0446841c974b68b))
+* store export pins as options instead of transients ([#4411](https://github.com/pressbooks/pressbooks/issues/4411)) ([ffb0dd8](https://github.com/pressbooks/pressbooks/commit/ffb0dd89516837da5fbcab9accb69f72b61f1d1d))
+
+
+### Chores
+
+* remove user activation keys menu (plugin deprecation) ([#4413](https://github.com/pressbooks/pressbooks/issues/4413)) ([0610615](https://github.com/pressbooks/pressbooks/commit/06106150efd6639b2d551dd80d55fd31c25fb60a))
+
 ## [6.38.0](https://github.com/pressbooks/pressbooks/compare/6.37.2...6.38.0) (2026-03-25)
 
 
