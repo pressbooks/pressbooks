@@ -24,7 +24,7 @@
                         </p>
                         @if ( $use_single_dollar )
                         <p>
-                            {!! sprintf( __( 'Single dollar sign syntax: %s', 'pressbooks' ), '<code>$e^{i \pi} + 1 = 0$</code>' ) !!}
+                            {!! sprintf( __( 'Single dollar sign syntax (if enabled below): %s', 'pressbooks' ), '<code>$e^{i \pi} + 1 = 0$</code>' ) !!}
                         </p>
                         @endif
                     </section>
