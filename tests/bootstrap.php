@@ -5,6 +5,8 @@ if ( ! $_tests_dir ) {
 	$_tests_dir = '/tmp/wordpress-tests-lib';
 }
 
+define("WP_PLUGIN_DIR", dirname(__DIR__,2));
+
 require_once $_tests_dir . '/includes/functions.php';
 
 if ( ! defined( 'DOCRAPTOR_API_KEY' ) ) {
@@ -24,6 +26,11 @@ tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
 require $_tests_dir . '/includes/bootstrap.php';
 require 'utils-trait.php';
+
+// Load test-only shims for custom fonts namespace (must be loaded after plugin)
+if ( file_exists( __DIR__ . '/bootstrap-customfonts-shim.php' ) ) {
+	require_once __DIR__ . '/bootstrap-customfonts-shim.php';
+}
 
 if ( ! defined( 'NONCE_KEY' ) ) {
 	define( 'NONCE_KEY', '40~wF,SH)lm,Zr+^[b?_M8Z.g4gk%^gnqr+ZtnT,p6_K5.NuuN 0g@Y|T9+yBI|{' );

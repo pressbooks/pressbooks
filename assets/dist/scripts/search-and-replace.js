@@ -1,1 +1,0 @@
-jQuery(function(e){var t=e("#search-form");e(".replace-and-save").on("click",function(e){if(confirm(pb_sr.warning_text)){var n=document.createElement("input");n.setAttribute("type","hidden"),n.setAttribute("name","replace_and_save"),document.getElementById("search-form").appendChild(n),t.submit()}})});

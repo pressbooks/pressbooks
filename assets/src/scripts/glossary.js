@@ -63,8 +63,8 @@
 					} else {
 						myActiveTab = 0;
 						if ( mySelection ) {
-							let templateString1 = mySelection.trim(); // eslint-disable-line no-unused-vars
-							termExistsMessage = eval( '`' + PB_GlossaryToken.not_found.replace( /`/g, '' ) + '`' ); // eslint-disable-line no-eval
+							let templateString1 = mySelection.trim();
+							termExistsMessage = PB_GlossaryToken.not_found.replace( '${templateString1}', templateString1 );
 						}
 					}
 

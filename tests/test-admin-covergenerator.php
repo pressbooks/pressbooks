@@ -1,5 +1,28 @@
 <?php
 
+use function Pressbooks\Admin\Covergenerator\cg_options_init;
+use function Pressbooks\Admin\Covergenerator\display_generator;
+use function Pressbooks\Admin\Covergenerator\generator_css_js;
+use function Pressbooks\Admin\Covergenerator\pressbooks_cg_about_callback;
+use function Pressbooks\Admin\Covergenerator\pressbooks_cg_author_callback;
+use function Pressbooks\Admin\Covergenerator\pressbooks_cg_author_spine_callback;
+use function Pressbooks\Admin\Covergenerator\pressbooks_cg_color_callback;
+use function Pressbooks\Admin\Covergenerator\pressbooks_cg_colors_callback;
+use function Pressbooks\Admin\Covergenerator\pressbooks_cg_custom_ppi_callback;
+use function Pressbooks\Admin\Covergenerator\pressbooks_cg_design_callback;
+use function Pressbooks\Admin\Covergenerator\pressbooks_cg_front_background_image_callback;
+use function Pressbooks\Admin\Covergenerator\pressbooks_cg_isbn_callback;
+use function Pressbooks\Admin\Covergenerator\pressbooks_cg_options_sanitize;
+use function Pressbooks\Admin\Covergenerator\pressbooks_cg_pdf_pagecount_callback;
+use function Pressbooks\Admin\Covergenerator\pressbooks_cg_ppi_callback;
+use function Pressbooks\Admin\Covergenerator\pressbooks_cg_sku_callback;
+use function Pressbooks\Admin\Covergenerator\pressbooks_cg_spine_size_callback;
+use function Pressbooks\Admin\Covergenerator\pressbooks_cg_subtitle_callback;
+use function Pressbooks\Admin\Covergenerator\pressbooks_cg_text_callback;
+use function Pressbooks\Admin\Covergenerator\pressbooks_cg_text_transform_callback;
+use function Pressbooks\Admin\Covergenerator\pressbooks_cg_title_callback;
+use function Pressbooks\Admin\Covergenerator\pressbooks_cg_title_spine_callback;
+
 require_once( PB_PLUGIN_DIR . 'inc/admin/covergenerator/namespace.php' );
 
 class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
@@ -15,7 +38,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 	 */
 	function test_display_generator() {
 		ob_start();
-		\Pressbooks\Admin\Covergenerator\display_generator();
+		display_generator();
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '<h1>Cover Generator</h1>', $buffer );
 	}
@@ -27,9 +50,8 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 		global $wp_scripts, $wp_styles;
 		$_REQUEST['page'] = 'pressbooks_cg';
 		$hooks_suffix = get_plugin_page_hookname( 'pressbooks_cg', 'pb_export' );
-		\Pressbooks\Admin\Covergenerator\generator_css_js( $hooks_suffix );
+		generator_css_js( $hooks_suffix );
 		$this->assertContains( 'cg/js', $wp_scripts->queue );
-		$this->assertContains( 'cg/css', $wp_styles->queue );
 	}
 
 	/**
@@ -37,7 +59,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 	 */
 	function test_cg_options_init() {
 		global $wp_settings_sections;
-		\Pressbooks\Admin\Covergenerator\cg_options_init();
+		cg_options_init();
 		$this->assertArrayHasKey( 'pressbooks_cg', $wp_settings_sections );
 	}
 
@@ -46,7 +68,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 	 */
 	function test_pressbooks_cg_text_callback() {
 		ob_start();
-		\Pressbooks\Admin\Covergenerator\pressbooks_cg_text_callback();
+		pressbooks_cg_text_callback();
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( 'The text below is pulled from', $buffer );
 	}
@@ -56,7 +78,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 	 */
 	function test_pressbooks_cg_title_callback() {
 		ob_start();
-		\Pressbooks\Admin\Covergenerator\pressbooks_cg_title_callback( null );
+		pressbooks_cg_title_callback( null );
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '<textarea id="pb_title"', $buffer );
 	}
@@ -66,7 +88,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 	 */
 	function test_pressbooks_cg_title_spine_callback() {
 		ob_start();
-		\Pressbooks\Admin\Covergenerator\pressbooks_cg_title_spine_callback( null );
+		pressbooks_cg_title_spine_callback( null );
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '<input id="pb_title_spine"', $buffer );
 	}
@@ -76,7 +98,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 	 */
 	function test_pressbooks_cg_subtitle_callback() {
 		ob_start();
-		\Pressbooks\Admin\Covergenerator\pressbooks_cg_subtitle_callback( null );
+		pressbooks_cg_subtitle_callback( null );
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '<textarea id="pb_subtitle"', $buffer );
 	}
@@ -86,7 +108,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 	 */
 	function test_pressbooks_cg_author_callback() {
 		ob_start();
-		\Pressbooks\Admin\Covergenerator\pressbooks_cg_author_callback( null );
+		pressbooks_cg_author_callback( null );
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '<textarea id="pb_author"', $buffer );
 	}
@@ -96,7 +118,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 	 */
 	function test_pressbooks_cg_author_spine_callback() {
 		ob_start();
-		\Pressbooks\Admin\Covergenerator\pressbooks_cg_author_spine_callback( null );
+		pressbooks_cg_author_spine_callback( null );
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '<input id="pb_author_spine"', $buffer );
 	}
@@ -106,7 +128,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 	 */
 	function test_pressbooks_cg_about_callback() {
 		ob_start();
-		\Pressbooks\Admin\Covergenerator\pressbooks_cg_about_callback( null );
+		pressbooks_cg_about_callback( null );
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '<div id="wp-pb_about_unlimited-wrap"', $buffer );
 	}
@@ -116,7 +138,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 	 */
 	function test_pressbooks_cg_isbn_callback() {
 		ob_start();
-		\Pressbooks\Admin\Covergenerator\pressbooks_cg_isbn_callback( [ 'Description ' ] );
+		pressbooks_cg_isbn_callback( [ 'Description ' ] );
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '<input id="pb_print_isbn"', $buffer );
 	}
@@ -126,7 +148,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 	 */
 	function test_pressbooks_cg_sku_callback() {
 		ob_start();
-		\Pressbooks\Admin\Covergenerator\pressbooks_cg_sku_callback( [ 'Description ' ] );
+		pressbooks_cg_sku_callback( [ 'Description ' ] );
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '<input id="pb_print_sku"', $buffer );
 	}
@@ -136,7 +158,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 	 */
 	function test_pressbooks_cg_design_callback() {
 		ob_start();
-		\Pressbooks\Admin\Covergenerator\pressbooks_cg_design_callback();
+		pressbooks_cg_design_callback();
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( 'You can upload a background image here', $buffer );
 	}
@@ -146,7 +168,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 	 */
 	function test_pressbooks_cg_front_background_image_callback() {
 		ob_start();
-		\Pressbooks\Admin\Covergenerator\pressbooks_cg_front_background_image_callback( null );
+		pressbooks_cg_front_background_image_callback( null );
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '<input id="front_background_image"', $buffer );
 	}
@@ -156,7 +178,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 	 */
 	function test_pressbooks_cg_text_transform_callback() {
 		ob_start();
-		\Pressbooks\Admin\Covergenerator\pressbooks_cg_text_transform_callback( [] );
+		pressbooks_cg_text_transform_callback( [] );
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '<select name=\'pressbooks_cg_options[text_transform]', $buffer );
 	}
@@ -166,7 +188,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 	 */
 	function test_pressbooks_cg_spine_size_callback() {
 		ob_start();
-		\Pressbooks\Admin\Covergenerator\pressbooks_cg_spine_size_callback();
+		pressbooks_cg_spine_size_callback();
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( 'We can calculate the spine size based on CreateSpace and Ingram specifications', $buffer );
 	}
@@ -176,7 +198,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 	 */
 	function test_pressbooks_cg_pdf_pagecount_callback() {
 		ob_start();
-		\Pressbooks\Admin\Covergenerator\pressbooks_cg_pdf_pagecount_callback( null );
+		pressbooks_cg_pdf_pagecount_callback( null );
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '<input id="pdf_pagecount"', $buffer );
 	}
@@ -186,7 +208,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 	 */
 	function test_pressbooks_cg_ppi_callback() {
 		ob_start();
-		\Pressbooks\Admin\Covergenerator\pressbooks_cg_ppi_callback( [] );
+		pressbooks_cg_ppi_callback( [] );
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '<select name=\'pressbooks_cg_options[ppi]', $buffer );
 	}
@@ -196,7 +218,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 	 */
 	function test_pressbooks_cg_custom_ppi_callback() {
 		ob_start();
-		\Pressbooks\Admin\Covergenerator\pressbooks_cg_custom_ppi_callback( null );
+		pressbooks_cg_custom_ppi_callback( null );
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '<input id="custom_ppi"', $buffer );
 	}
@@ -206,7 +228,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 	 */
 	function test_pressbooks_cg_colors_callback() {
 		ob_start();
-		\Pressbooks\Admin\Covergenerator\pressbooks_cg_colors_callback();
+		pressbooks_cg_colors_callback();
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( 'Choose text color and background colors below', $buffer );
 	}
@@ -216,7 +238,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 	 */
 	function test_pressbooks_cg_color_callback() {
 		ob_start();
-		\Pressbooks\Admin\Covergenerator\pressbooks_cg_color_callback( [ 'id' ] );
+		pressbooks_cg_color_callback( [ 'id' ] );
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '<input class="coloris"', $buffer );
 	}
@@ -225,7 +247,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 	 * @group covergenerator
 	 */
 	function test_pressbooks_cg_options_sanitize() {
-		$input = \Pressbooks\Admin\Covergenerator\pressbooks_cg_options_sanitize( [] );
+		$input = pressbooks_cg_options_sanitize( [] );
 		$this->assertArrayHasKey( 'pb_title', $input );
 	}
 }

@@ -131,4 +131,65 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSerifBengali-Regular.otf' );
 		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSerifBengali-Bold.otf' );
 	}
+
+	/**
+	 * @group typography
+	 */
+	public function test_appendCustomFonts_no_custom_fonts_option() {
+		delete_site_option( 'pressbooks_custom_fonts' );
+
+		$scss = '$color: red;';
+		$result = GlobalTypography::appendCustomFonts( $scss );
+
+		$this->assertEquals( $scss, $result );
+	}
+
+	/**
+	 * @group typography
+	 */
+	public function test_appendCustomFonts_empty_custom_fonts_option() {
+		update_site_option( 'pressbooks_custom_fonts', [] );
+
+		$scss = '$color: red;';
+		$result = GlobalTypography::appendCustomFonts( $scss );
+
+		$this->assertEquals( $scss, $result );
+	}
+
+	/**
+	 * @group typography
+	 */
+	public function test_appendCustomFonts_css_file_does_not_exist() {
+		update_site_option( 'pressbooks_custom_fonts', [ 'MyFont' => [] ] );
+
+		$scss = '$color: red;';
+		$result = GlobalTypography::appendCustomFonts( $scss );
+
+		$this->assertEquals( $scss, $result );
+	}
+
+	/**
+	 * @group typography
+	 */
+	public function test_appendCustomFonts_prepends_css_content() {
+		update_site_option( 'pressbooks_custom_fonts', [ 'MyFont' => [] ] );
+
+		$dir = WP_CONTENT_DIR . '/uploads/assets/custom-fonts';
+		if ( ! is_dir( $dir ) ) {
+			mkdir( $dir, 0755, true );
+		}
+
+		$css_file = $dir . '/custom-fonts.css';
+		$css_content = '@font-face { font-family: "MyFont"; }';
+		file_put_contents( $css_file, $css_content );
+
+		$scss = '$color: red;';
+		$result = GlobalTypography::appendCustomFonts( $scss );
+
+		$this->assertStringContainsString( $css_content, $result );
+		$this->assertStringContainsString( $scss, $result );
+		$this->assertStringStartsWith( $css_content, $result );
+
+		unlink( $css_file );
+	}
 }

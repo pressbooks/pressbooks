@@ -1,3 +1,4 @@
+import '../styles/search-and-replace.scss';
 jQuery( function ( $ ) {
 	const form = $( '#search-form' );
 	$( '.replace-and-save' ).on( 'click', function ( e ) {

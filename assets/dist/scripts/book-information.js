@@ -1,1 +1,0 @@
-jQuery(document).ready(function(e){e("#pb_title").trigger("focus"),document.querySelectorAll("duet-date-picker").forEach(function(e){e.addEventListener("duetFocus",function(){var t=e.querySelector("input.duet-date__input"),r=e.getAttribute("aria-describedby");t&&t.setAttribute("aria-describedby",r)})})});

@@ -1,42 +1,89 @@
-@import "partials/colors";
+@use "partials/colors" as *;
+@use "sass:color";
 
-$base-color: $alto;
-$icon-color: $mine-shaft;
+@use "wp-admin-colors/dist/admin" with (
+	$base-color: $alto,
+	$icon-color: $mine-shaft,
+	$highlight-color: $monza,
+	$notification-color: $mercury,
+	$button-color: $monza,
+	$text-color: $mine-shaft,
+	$body-background: $gallery,
+	$link: color.adjust($monza, $lightness: -5%),
+	$link-focus: $monza,
+	$form-checked: $monza,
+	$menu-highlight-background: $gallery,
+	$menu-highlight-text: $monza,
+	$menu-highlight-icon: $monza,
+	$menu-submenu-background: $white,
+	$menu-submenu-text: $mine-shaft,
+	$menu-submenu-focus-text: $monza,
+	$menu-bubble-text: $mine-shaft,
+	$menu-collapse-text: $mine-shaft,
+	$menu-collapse-focus-icon: $monza
+);
+
 $highlight-color: $monza;
-$notification-color: $mercury;
-$button-color: $monza;
-$text-color: $mine-shaft;
-$body-background: $gallery;
-$link: darken($monza, 5%);
+$link: color.adjust($monza, $lightness: -5%);
 $link-focus: $monza;
-$form-checked: $monza;
-$menu-background: $alto;
-$menu-text: $mine-shaft;
-$menu-icon: $mine-shaft;
-$menu-highlight-background: $gallery;
-$menu-highlight-text: $monza;
-$menu-highlight-icon: $monza;
-$menu-current-background: darken($boulder, 5%);
-$menu-current-text: $white;
-$menu-current-icon: $white;
-$menu-submenu-background: $white;
-$menu-submenu-text: $mine-shaft;
-$menu-submenu-background-alt: $white;
-$menu-submenu-focus-text: $monza;
-$menu-submenu-current-text: $mine-shaft;
-$menu-bubble-background: $mercury;
-$menu-bubble-text: $mine-shaft;
-$menu-bubble-current-background: $white;
-$menu-bubble-current-text: $monza;
-$menu-collapse-text: $mine-shaft;
-$menu-collapse-icon: $mine-shaft;
-$menu-collapse-focus-text: $monza;
-$menu-collapse-focus-icon: $monza;
-$adminbar-avatar-frame: $white;
-$adminbar-input-background: $white;
-$active-button-text: $white;
+$text-color: $mine-shaft;
 
-@import "~wp-admin-colors/dist/admin";
+// Override menu styles that can't be configured via module system
+// These variables aren't forwarded by wp-admin-colors, so we override with CSS
+
+// Admin Menu: current item styles
+#adminmenu li.current a.menu-top,
+#adminmenu li.wp-has-current-submenu a.wp-has-current-submenu,
+#adminmenu li.wp-has-current-submenu .wp-submenu .wp-submenu-head,
+.folded #adminmenu li.current.menu-top {
+	color: $white;
+	background: color.adjust($boulder, $lightness: -5%);
+}
+
+#adminmenu li.wp-has-current-submenu div.wp-menu-image::before,
+#adminmenu a.current:hover div.wp-menu-image::before,
+#adminmenu li.current div.wp-menu-image::before,
+#adminmenu li.wp-has-current-submenu a:focus div.wp-menu-image::before,
+#adminmenu li.wp-has-current-submenu.opensub div.wp-menu-image::before {
+	color: $white;
+}
+
+// Admin Menu: submenu alternate background
+#adminmenu .wp-submenu {
+	background: $white;
+}
+
+// Admin Menu: submenu current text
+#adminmenu .wp-submenu li.current a,
+#adminmenu a.wp-has-current-submenu:focus + .wp-submenu li.current a,
+#adminmenu .wp-has-current-submenu.opensub .wp-submenu li.current a {
+	color: $mine-shaft;
+}
+
+// Admin Menu: bubble current styles
+#adminmenu li.current a .awaiting-mod,
+#adminmenu li a.wp-has-current-submenu .update-plugins,
+#adminmenu li:hover a .awaiting-mod,
+#adminmenu li.menu-top:hover > a .update-plugins {
+	color: $monza;
+	background: $white;
+}
+
+// Admin Menu: collapse focus
+#collapse-button:hover,
+#collapse-button:focus {
+	color: $monza;
+}
+
+// Admin Bar: avatar and input
+#wpadminbar .quicklinks li#wp-admin-bar-my-account.with-avatar > a img {
+	border-color: $white;
+	background-color: $white;
+}
+
+#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary > #wp-admin-bar-search #adminbarsearch input.adminbar-input:focus {
+	background: $white;
+}
 
 // Core UI
 
@@ -83,7 +130,7 @@ div.error {
 
 #wpadminbar {
   color: $white;
-  background: darken($monza, 5%);
+  background: color.adjust($monza, $lightness: -5%);
 
   .ab-icon,
   .ab-icon::before,
@@ -107,7 +154,7 @@ div.error {
   }
 
   #wp-admin-bar-menu-toggle .ab-item {
-    background: darken($monza, 5%);
+    background: color.adjust($monza, $lightness: -5%);
 
     .ab-icon,
     .ab-icon::before {
@@ -129,7 +176,7 @@ div.error {
 
       .ab-icon,
       .ab-icon::before {
-        color: darken($monza, 5%);
+        color: color.adjust($monza, $lightness: -5%);
       }
 
       &:hover,
@@ -156,7 +203,7 @@ div.error {
 .theme-browser .theme.active .theme-name,
 .theme-browser .theme.add-new-theme a:hover::after,
 .theme-browser .theme.add-new-theme a:focus::after {
-  background: darken($monza, 5%);
+  background: color.adjust($monza, $lightness: -5%);
 }
 
 .theme-browser .theme.active .theme-actions {

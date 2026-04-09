@@ -1,10 +1,10 @@
 # Pressbooks
 Contributors: Pressbooks <code@pressbooks.com>
 Tags: ebooks, publishing, webbooks
-Requires at least: 6.8.3
-Tested up to: 6.8.3
+Requires at least: 6.9.1
+Tested up to: 6.9.1
 <!-- x-release-please-start-version -->
-Stable tag: 6.36.1
+Stable tag: 6.39.0
 <!-- x-release-please-end -->
 Requires PHP: 8.3
 License: GPL v3.0 or later
@@ -30,7 +30,7 @@ Our webbooks and EPUB/[PDF][pdf] exports are all driven by HTML + CSS. XML outpu
 
 ## Requirements
 
-Pressbooks works with PHP 8.3 and WordPress 6.8.3. Lower versions are not supported.
+Pressbooks works with PHP 8.3 and WordPress 6.9.1. Lower versions are not supported.
 
 ## Installing the Plugin
 

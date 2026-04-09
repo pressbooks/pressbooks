@@ -21,7 +21,6 @@ use function Pressbooks\Utility\check_xmllint_install;
 use function Pressbooks\Utility\put_contents;
 use function Pressbooks\Utility\str_starts_with;
 use Generator;
-use PressbooksMix\Assets;
 use Pressbooks\Book;
 use Pressbooks\Container;
 use Pressbooks\Contributors;
@@ -377,9 +376,10 @@ class Xhtml11 extends Export {
 
 		if ( current_user_can( 'edit_posts' ) ) {
 			if ( ! empty( $_GET['debug'] ) ) {
-				$assets = new Assets( 'pressbooks', 'plugin' );
+				/** @var Assets $assets */
+				$assets = app( 'Assets' );
 				$css = ( $_GET['debug'] === 'prince' ) ? $this->getLatestExportStyleUrl( 'prince' ) : false;
-				$js = $assets->getPath( 'scripts/paged.polyfill.js' );
+				$js = $assets->getAssetPath( 'assets/dist/scripts/paged.polyfill.js' );
 				if ( $css ) {
 					echo "<link rel='stylesheet' href='$css' type='text/css' />\n";
 				}
@@ -584,7 +584,7 @@ class Xhtml11 extends Export {
 
 		$e = '<div class="endnotes">';
 		$e .= '<hr />';
-		$e .= '<h3>' . __( 'Notes', 'pressbooks' ) . '</h3>';
+		$e .= '<h2>' . __( 'Notes', 'pressbooks' ) . '</h2>';
 		$e .= '<ol>';
 		foreach ( $this->endnotes[ $id ] as $endnote ) {
 			$e .= "<li><span>$endnote</span></li>";
@@ -1148,6 +1148,7 @@ class Xhtml11 extends Export {
 
 		$config = [
 			'valid_xhtml' => 1,
+			'xml:lang' => 1,
 			'no_deprecated_attr' => 2,
 			'unique_ids' => 'fixme-',
 			'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
@@ -1170,6 +1171,7 @@ class Xhtml11 extends Export {
 	protected function html5ToXhtml( $html ) {
 		$config = [
 			'valid_xhtml' => 1,
+			'xml:lang' => 1,
 			'unique_ids' => 0,
 		];
 		return HtmLawed::filter( $html, $config );
@@ -1187,7 +1189,7 @@ class Xhtml11 extends Export {
 
 		echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
 		echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">' . "\n";
-		echo '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="' . $this->lang . '">' . "\n";
+		echo '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="' . $this->lang . '" lang="' . $this->lang . '">' . "\n";
 	}
 
 	/**

@@ -1,5 +1,6 @@
-@import 'partials/colors';
-@import 'partials/mixins';
+@use "partials/colors" as *;
+@use 'partials/mixins' as *;
+@use 'sass:color';
 
 /* Organize Page */
 
@@ -53,7 +54,7 @@
     button {
       padding: 0;
       border: 0;
-      color: darken($monza, 5%);
+      color: color.adjust($monza, $lightness: -5%);
       background-color: transparent;
       cursor: pointer;
 

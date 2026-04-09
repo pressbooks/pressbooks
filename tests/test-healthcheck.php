@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Str;
 use Pressbooks\Health\Checks\CacheCheck;
 use Pressbooks\Health\Checks\DatabaseCheck;
 use Pressbooks\Health\Checks\FilesystemCheck;

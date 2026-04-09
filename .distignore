@@ -1,6 +1,6 @@
 .git
 .idea
-.tx
+crowdin.yml
 assets/src
 bin
 node_modules
