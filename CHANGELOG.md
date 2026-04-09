@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.39.1](https://github.com/pressbooks/pressbooks/compare/6.39.0...6.39.1) (2026-04-09)
+
+
+### Chores
+
+* improve single delimiter settings page instructions ([#4419](https://github.com/pressbooks/pressbooks/issues/4419)) ([f7636b4](https://github.com/pressbooks/pressbooks/commit/f7636b41393891a6116b82341d3e7bc09606008b))
+
 ## [6.39.0](https://github.com/pressbooks/pressbooks/compare/6.38.0...6.39.0) (2026-04-07)
 
 
