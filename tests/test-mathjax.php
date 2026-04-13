@@ -441,4 +441,21 @@ class MathjaxTest extends \WP_UnitTestCase {
 		// Must produce display-math, not get mangled by single-dollar processing
 		$this->assertStringStartsWith( '<div class="display-math"><img', $content );
 	}
+
+	public function testAddHeadersDoesNotIncludePhysicsPackage() {
+		$new_post = [
+			'post_title'   => 'Test Chapter: ' . wp_rand(),
+			'post_type'    => 'chapter',
+			'post_status'  => 'published',
+			'post_content' => '\(x^2\)',
+		];
+		$pid             = $this->factory()->post->create_object( $new_post );
+		$GLOBALS['post'] = get_post( $pid );
+
+		ob_start();
+		$this->mathjax->addHeaders();
+		$buffer = ob_get_clean();
+
+		$this->assertStringNotContainsString( 'physics', $buffer );
+	}
 }

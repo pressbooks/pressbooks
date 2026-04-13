@@ -312,7 +312,6 @@ window.MathJax = {
             '[tex]/textmacros',
             '[tex]/newcommand',
             '[tex]/noerrors',
-            '[tex]/physics',
             '[tex]/unicode'
         ]
     },
@@ -337,7 +336,6 @@ window.MathJax = {
                 'textmacros',
                 'newcommand',
                 'noerrors',
-                'physics',
                 'unicode'
             ]
         },
