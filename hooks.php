@@ -60,9 +60,24 @@ add_filter( 'ms_site_check', function() {
 
 	$site_details = get_blog_details();
 
-	// If this book is archived and public=1, allow access (archived books remain accessible with banner)
-	if ( ! empty( $site_details->archived ) && '1' === $site_details->archived && ! empty( $site_details->public ) && '1' === $site_details->public ) {
-		return true;
+	$is_archived = ! empty( $site_details->archived ) && '1' === $site_details->archived;
+
+	if ( $is_archived ) {
+		// Archived public books remain accessible (with banner)
+		if ( ! empty( $site_details->public ) && '1' === $site_details->public ) {
+			return true;
+		}
+
+		// Archived private books: allow access for logged-in book members
+		$user_id = get_current_user_id();
+		if ( $user_id ) {
+			global $wpdb;
+			$capabilities_key = $wpdb->get_blog_prefix() . 'capabilities';
+			$has_cap = get_user_meta( $user_id, $capabilities_key, true );
+			if ( is_array( $has_cap ) ) {
+				return true;
+			}
+		}
 	}
 
 	// Let WordPress handle normal archived/spam/deleted checks
