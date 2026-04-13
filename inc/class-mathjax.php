@@ -30,10 +30,11 @@ class MathJax {
 	private static $instance = null;
 
 	/**
-	 * @var array{fg: string}
+	 * @var array{fg: string, use_single_dollar: bool}
 	 */
 	private $defaultOptions = [
-		'fg' => '000000',
+		'fg'                => '000000',
+		'use_single_dollar' => false,
 	];
 
 	/**
@@ -120,6 +121,7 @@ class MathJax {
 		);
 		add_action( 'wp_enqueue_scripts', [ $obj, 'addScripts' ] );
 		add_action( 'wp_head', [ $obj, 'addHeaders' ] );
+		add_filter( 'the_content', [ $obj, 'replaceSingleDollarDelimiters' ], 8 ); // before wptexturize
 		add_filter( 'pb_pdf_css_override', [ $obj, 'displayMathHandler' ] );
 		add_filter( 'pb_epub_css_override', [ $obj, 'displayMathHandler' ] );
 		add_action( 'pb_pre_export', [ $obj, 'beforeExport' ] );
@@ -177,9 +179,10 @@ class MathJax {
 		echo $blade->render(
 			'admin.mathjax',
 			[
-				'wp_nonce_field' => wp_nonce_field( 'save', 'pb-mathjax-nonce', true, false ),
-				'test_image' => $test_image,
-				'fg' => $options['fg'],
+				'wp_nonce_field'    => wp_nonce_field( 'save', 'pb-mathjax-nonce', true, false ),
+				'test_image'        => $test_image,
+				'fg'                => $options['fg'],
+				'use_single_dollar' => $options['use_single_dollar'],
 			]
 		);
 	}
@@ -201,8 +204,11 @@ class MathJax {
 			$fg .= str_repeat( '0', 6 - $l );
 		}
 
+		$use_single_dollar = isset( $_POST['use_single_dollar'] ) && '1' === $_POST['use_single_dollar'];
+
 		$options = [
-			'fg' => $fg,
+			'fg'                => $fg,
+			'use_single_dollar' => $use_single_dollar,
 		];
 
 		if ( update_option( self::OPTION, $options ) ) {
@@ -252,7 +258,16 @@ class MathJax {
 		}
 
 		// Use regex to check for LaTeX delimiters
-		$has_math = (bool) preg_match( '/(?:\\\\\[|\\\\\]|\\\\\(|\\\\\)|\$\$|\$latex\s+[^$]+\$|\$\s+[^$]+\s+\$)/', $content );
+		$has_math = (bool) preg_match( '/(?:\\\\\[|\\\\\]|\\\\\(|\\\\\)|\$\$|\$latex\s+[^$]+\$)/', $content );
+
+		// Check for single-dollar inline math if opt-in is enabled
+		if ( ! $has_math ) {
+			$options = $this->getOptions();
+			if ( $options['use_single_dollar'] ) {
+				$has_math = (bool) preg_match( '/(?<!\\\\)\$(?!\s|\$).+?(?<!\s)\$(?!\$)/', $content );
+			}
+		}
+
 		$this->sectionHasMath[ $id ] = $has_math;
 		return $has_math;
 	}
@@ -275,8 +290,8 @@ class MathJax {
 	 */
 	public function addHeaders() {
 		if ( ! is_admin() && $this->sectionHasMath() ) {
-			// Color
-			$options = $this->getOptions();
+			$options     = $this->getOptions();
+			$inline_math = "[['\\\\(', '\\\\)'], ['[latex]','[/latex]']]";
 			echo "<script>
 window.MathJax = {
 	versionWarnings: false,
@@ -305,24 +320,25 @@ window.MathJax = {
 			delimiters: [['`','`'],['[asciimath]','[/asciimath]']]
 		},
     tex: {
-        inlineMath: [['\\\\(', '\\\\)'], ['[latex]','[/latex]']],
+        inlineMath: {$inline_math},
         displayMath: [['$$', '$$'], ['\\\\[', '\\\\]']],
         packages: {
             '[+]': [
-                'ams',        // AMS math features
-                'bbox',       // Boxed expressions
-                'boldsymbol', // Bold symbols
-                'braket',     // Quantum mechanics notation
-                'cancel',     // Strike-through notation
-                'color',      // Colored text
-                'enclose',    // Provide notations like rounded boxes and underlining
-                'gensymb',    // General symbols (degrees, angles, etc.)
-                'mathtools',  // Extended math tools
-                'mhchem',     // Chemistry formulas
-                'textmacros', // Text formatting macros
-                'newcommand', // Define custom LaTeX commands useful for macros
-                'noerrors',   // Suppresses errors
-                'unicode'     // Unicode math symbols
+                'ams',
+                'bbox',
+                'boldsymbol',
+                'braket',
+                'cancel',
+                'color',
+                'enclose',
+                'gensymb',
+                'mathtools',
+                'mhchem',
+                'textmacros',
+                'newcommand',
+                'noerrors',
+                'physics',
+                'unicode'
             ]
         },
         tags: 'ams',
@@ -347,14 +363,26 @@ STYLES;
 	}
 
 	/**
-	 * @return array{fg: string}
+	 * @return array{fg: string, use_single_dollar: bool}
 	 * @see    MathJax
 	 */
 	public function getOptions() {
 		$options = get_option( self::OPTION, [] );
 		$fg = trim( $options['fg'] ?? $this->defaultOptions['fg'] );
+		$use_single_dollar = (bool) ( $options['use_single_dollar'] ?? $this->defaultOptions['use_single_dollar'] );
+
+		/**
+		 * Override whether single dollar sign delimiters are enabled.
+		 *
+		 * @since  [next version]
+		 * @param  bool $use_single_dollar
+		 * @return bool
+		 */
+		$use_single_dollar = (bool) apply_filters( 'pb_mathjax_use_single_dollar', $use_single_dollar );
+
 		return [
-			'fg' => $fg,
+			'fg'                => $fg,
+			'use_single_dollar' => $use_single_dollar,
 		];
 	}
 
@@ -453,16 +481,49 @@ STYLES;
 			'%\$\$(.*?)\$\$%s', // $$ ... $$
 		];
 		foreach ( $patterns as $index => $pattern ) {
-			$content = preg_replace_callback($pattern, function ( $matches ) use ( $index ) {
+			$content = preg_replace_callback( $pattern, function ( $matches ) use ( $index ) {
 				$rendered = $this->renderFormula( $matches[1], 'latex' );
 				// Wrap in div if it's display math (\[...\]) or $$...$$
 				if ( $index === 0 || $index === 2 ) {
 					return '<div class="display-math">' . $rendered . '</div>';
 				}
 				return $rendered;
-			}, $content);
+			}, $content );
 		}
+
 		return $content;
+	}
+
+	/**
+	 * Replace single-dollar delimiters ($...$) with \(...\) in webbook content.
+	 *
+	 * MathJax v3 has no built-in heuristic to skip '$' delimiters adjacent to
+	 * whitespace, so adding ['$','$'] to inlineMath greedily matches currency
+	 * like "$ 5,000". Instead, we pre-process content server-side with the same
+	 * no-adjacent-whitespace regex the export pipeline uses, converting $...$
+	 * to \(...\) which MathJax already recognises.
+	 *
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	public function replaceSingleDollarDelimiters( string $content ): string {
+		$options = $this->getOptions();
+		if ( ! $options['use_single_dollar'] ) {
+			return $content;
+		}
+
+		// Match $...$ where:
+		//   (?<!\\)   - opening $ not preceded by backslash (respects \$ escape)
+		//   (?!\s|\$) - opening $ not followed by whitespace or another $ (avoids $$ and currency)
+		//   ([^$]+?)  - non-greedy capture that cannot contain $ (prevents $$ leaking)
+		//   (?<!\s)   - closing $ not preceded by whitespace
+		//   (?!\$)    - closing $ not followed by $ (avoids $$ collision)
+		return preg_replace(
+			'/(?<!\\\\)\$(?!\s|\$)([^$]+?)(?<!\s)\$(?!\$)/',
+			'\\($1\\)',
+			$content
+		);
 	}
 
 	// ------------------------------------------------------------------------

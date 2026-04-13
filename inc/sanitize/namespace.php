@@ -210,7 +210,7 @@ function force_ascii( $slug ) {
  */
 function decode( string $slug, bool $exclude_ampersands = true ): string {
 
-	$slug = html_entity_decode( $slug, ENT_NOQUOTES | ENT_XHTML, 'UTF-8' );
+	$slug = html_entity_decode( $slug, ENT_COMPAT | ENT_XHTML, 'UTF-8' );
 
 	return $exclude_ampersands ? encode_ampersand( $slug ) : $slug;
 }

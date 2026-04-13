@@ -131,12 +131,6 @@
       "assets/covergenerator-BPTG2Ppo.css"
     ]
   },
-  "assets/src/scripts/dashboard.js": {
-    "file": "assets/dashboard-l0sNRNKZ.js",
-    "name": "dashboard",
-    "src": "assets/src/scripts/dashboard.js",
-    "isEntry": true
-  },
   "assets/src/scripts/export-footnotes.js": {
     "file": "assets/export-footnotes-B7O5MUFm.js",
     "name": "export-footnotes",
@@ -144,7 +138,7 @@
     "isEntry": true
   },
   "assets/src/scripts/export.js": {
-    "file": "assets/export-CS6HXBdA.js",
+    "file": "assets/export-DL-5LhtF.js",
     "name": "export",
     "src": "assets/src/scripts/export.js",
     "isEntry": true,
@@ -174,7 +168,7 @@
     ]
   },
   "assets/src/scripts/glossary.js": {
-    "file": "assets/glossary-SRwXiJDv.js",
+    "file": "assets/glossary-O4ClJyGY.js",
     "name": "glossary",
     "src": "assets/src/scripts/glossary.js",
     "isEntry": true
@@ -237,12 +231,12 @@
     "isEntry": true
   },
   "assets/src/scripts/pressbooks.js": {
-    "file": "assets/pressbooks-D7iIR_GZ.js",
+    "file": "assets/pressbooks-W1qZ-Zgu.js",
     "name": "pressbooks",
     "src": "assets/src/scripts/pressbooks.js",
     "isEntry": true,
     "css": [
-      "assets/pressbooks-admin-styles-DIoyUSXR.css"
+      "assets/pressbooks-admin-styles--LilPr96.css"
     ],
     "assets": [
       "assets/heroicons-CVYPToTZ.eot",
@@ -386,7 +380,7 @@
     ]
   },
   "assets/src/styles/pressbooks.scss": {
-    "file": "assets/pressbooks-admin-styles-DIoyUSXR.css",
+    "file": "assets/pressbooks-admin-styles--LilPr96.css",
     "src": "assets/src/styles/pressbooks.scss",
     "isEntry": true,
     "name": "pressbooks-admin-styles",

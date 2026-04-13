@@ -310,10 +310,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			body: serverFormData,
 		} );
 
-		if ( ! response.ok ) {
-			throw new Error( `HTTP error! status: ${ response.status }` );
-		}
-
 		return await response.json();
 	}
 

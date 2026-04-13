@@ -68,6 +68,10 @@ class SideBar {
 		add_action( 'network_admin_menu', [ $this, 'manageNetworkAdminMenu' ], 999 );
 		add_action( 'admin_menu', [ $this, 'manageAdminMenu' ], 999 );
 
+		if ( $this->isKokoAnalyticsActive ) {
+			add_filter( 'parent_file', [ $this, 'fixKokoAnalyticsParentFile' ] );
+		}
+
 		if ( ! is_restricted() ) {
 			add_filter( 'custom_menu_order', '__return_true' );
 			add_filter( 'menu_order', [ $this, 'reorderSuperAdminMenu' ], 998 );
@@ -393,19 +397,6 @@ class SideBar {
 			$this->getContextSlug( 'users.php', true )
 		);
 
-		if ( is_plugin_active( 'user-activation-keys/ds_wp3_user_activation_keys.php' ) ) {
-			require_once WP_PLUGIN_DIR . '/user-activation-keys/ds_wp3_user_activation_keys.php';
-			$ds_wp3_user_activation_keys = new \DS_User_Activation_Keys();
-			add_submenu_page(
-				'pb-null',
-				__( 'User Activation Keys', 'pressbooks' ),
-				__( 'User Activation Keys', 'pressbooks' ),
-				'edit_users',
-				'act_keys',
-				is_network_admin() ? '' : [ $ds_wp3_user_activation_keys, 'ds_delete_stale' ]
-			);
-		}
-
 		// Appearance
 		add_submenu_page(
 			$this->getContextSlug( 'customize.php', true ),
@@ -627,6 +618,30 @@ class SideBar {
 			}
 		}
 	}
+
+	/**
+	 * Fix the parent file for Koko Analytics so the Stats menu is highlighted.
+	 *
+	 * We remove the orphaned $submenu['index.php'] entry here (after the page
+	 * hook has already been resolved in admin.php) so get_admin_page_parent()
+	 * finds koko-analytics only under the correct Stats parent.
+	 * TODO: refactor sidebar menu
+	 */
+	public function fixKokoAnalyticsParentFile( string $parent_file ): string {
+		global $submenu;
+
+		if ( isset( $submenu['index.php'] ) ) {
+			foreach ( $submenu['index.php'] as $key => $item ) {
+				if ( isset( $item[2] ) && $item[2] === 'koko-analytics' ) {
+					unset( $submenu['index.php'][ $key ] );
+					break;
+				}
+			}
+		}
+
+		return $parent_file;
+	}
+
 	public function reorderSuperAdminMenu( array $menu_order ): array {
 		if ( ! is_network_admin() && $this->isNetworkAnalyticsActive ) {
 			array_splice( $menu_order, 8, 0, network_admin_url( 'admin.php?page=pb_network_analytics_admin' ) );

@@ -227,7 +227,7 @@ class Table extends \WP_List_Table {
 			$key = 'pin[' . $this->getTinyHash( $file ) . ']';
 			$all_possible_pins[ $key ] = $this->getTinyHash( $this->getFormat( $file ) );
 		}
-		$pins = get_transient( self::PIN );
+		$pins = get_option( self::PIN, [] );
 		if ( ! is_array( $pins ) ) {
 			$pins = [];
 		}
@@ -268,7 +268,7 @@ class Table extends \WP_List_Table {
 			$this->_pins = [];
 		}
 		if ( empty( $this->_pins ) ) {
-			$pins = get_transient( self::PIN );
+			$pins = get_option( self::PIN, [] );
 			if ( ! is_array( $pins ) ) {
 				$pins = [];
 			}
