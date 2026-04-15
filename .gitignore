@@ -16,3 +16,7 @@ LICENSE
 /.claude
 old-tests
 vite-dev-server.json
+
+# Copilot agent reports (transient output)
+.github/reports/*
+!.github/reports/.gitkeep
