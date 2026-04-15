@@ -103,23 +103,37 @@ npm run build     # Compile assets
 
 ## Code Conventions
 ### PHP Coding Standards
-- Code should be compatible with WordPress and multisite environments.
-- We are gradually adopting stricter typing and more modern PHP practices. When possible, follow PSR-1, PSR-4, and PSR-12.
-- **Two standards in use**:
-  - **Older plugins/themes** (pressbooks, pressbooks-book): Use **PHP_CodeSniffer** with Pressbooks Coding Standards
-    - Run: `composer fix` (vendor/bin/phpcbf)
-    - Check: `composer standards` (vendor/bin/phpcs)
-  - Pressbooks' coding standards are based on Human Made + WordPress Coding Standards, with [Pressbooks-specific rules](https://github.com/pressbooks/coding-standards/blob/production/Pressbooks/ruleset.xml)
-  - **Newer plugins** (pressbooks-lti, pressbooks-multi-institution, etc.): Use **Laravel Pint** with PSR-12
-    - Run: `composer fix` (vendor/bin/pint)
-    - Check: `composer standards` (vendor/bin/pint --test)
+### General Rule
+Different Pressbooks repositories may use different coding standards and tooling.
+Always inspect the repository you are working in and match its configured standard.
 
-- **Namespace conventions**:
-  - Core uses `Pressbooks\` namespace with class files in `inc/` directory
-  - Plugins use `PressbooksPluginName\` (e.g., `PressbooksLti\`, `PressbooksTos\`)
-  - PSR-4 autoloading configured in composer.json
+### `pressbooks/pressbooks` (core plugin)
+The core plugin uses Pressbooks Coding Standards based on:
+- Human Made Coding Standards
+- WordPress Coding Standards
+- Pressbooks-specific rules
 
-- **Function shortcuts**: [functions.php](functions.php) provides non-namespaced helper functions (`pb_get_next()`, `pb_get_book_information()`) that wrap namespaced classes for template designers
+Reference:
+- `https://github.com/pressbooks/coding-standards/blob/production/Pressbooks/ruleset.xml`
+
+Typical commands:
+```bash
+composer fix
+composer standards
+```
+Underlying tools:
+- composer fix → vendor/bin/phpcbf
+- composer standards → vendor/bin/phpcs
+
+When working in core:
+- prioritize consistency with surrounding code
+- be careful not to impose conventions from newer plugins
+- prefer established core patterns unless there is a strong reason not to
+
+### Other repositories
+
+Some newer plugins may use Laravel Pint / PSR-12 style and different project structures.
+Do not assume those standards apply to core.
 
 ### Language & Structure
 - `declare(strict_types=1);` is encouraged for new code, but may not be present everywhere
