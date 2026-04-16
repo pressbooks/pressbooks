@@ -59,7 +59,8 @@
 		"symfony/process": "^6.0",
 		"vanilla/htmlawed": "^2.2",
 		"vlucas/phpdotenv": "^5.4",
-		"h5p/h5p-core": "1.27.0"
+		"h5p/h5p-core": "1.27.0",
+		"google/apiclient": "^2.15"
 	},
 	"require-dev": {
 		"codeception/module-asserts": "^1.3",
