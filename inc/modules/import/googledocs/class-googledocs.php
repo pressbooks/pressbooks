@@ -60,6 +60,17 @@ class GoogleDocs extends Import {
 			return false;
 		}
 
+		// Set up the fetcher for image downloads
+		try {
+			$store = new CredentialsStore();
+			$oauth = new OAuthClient( $store );
+			$client = $oauth->getAuthedClient( get_current_user_id() );
+			$this->fetcher = new DocsFetcher( $client );
+		} catch ( \Exception $e ) {
+			// Continue without image support
+			$this->import_warnings[] = __( 'Could not authenticate with Google. Images will not be imported.', 'pressbooks' );
+		}
+
 		$json = json_decode( file_get_contents( $current_import['file'] ), true );
 		if ( empty( $json ) ) {
 			return false;
@@ -78,7 +89,7 @@ class GoogleDocs extends Import {
 			}
 
 			$ch = $chapters_data[ $id ];
-			$html = $ch['html'];
+			$html = $ch['body'] ?? '';
 
 			$html = $this->processImages( $html, $ch['images'] ?? [] );
 			$html = $this->tidy( $html );

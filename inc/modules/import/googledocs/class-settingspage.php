@@ -18,7 +18,7 @@ class SettingsPage {
 
 	public function hooks(): void {
 		add_action( 'network_admin_menu', [ $this, 'addMenu' ] );
-		add_action( 'network_admin_edit_pb_save_google_docs_settings', [ $this, 'saveSettings' ] );
+		add_action( 'load-settings_page_pb_network_google_docs', [ $this, 'handleOAuthCallbackEarly' ] );
 	}
 
 	public function addMenu(): void {
@@ -33,9 +33,16 @@ class SettingsPage {
 	}
 
 	public function renderPage(): void {
-		if ( isset( $_GET['pb_oauth_callback'] ) && isset( $_GET['code'] ) ) {
-			$this->handleOAuthCallback();
-			return;
+		// Handle form submission inline (matches Pressbooks network settings convention).
+		$updated = false;
+		if ( ! empty( $_POST ) && check_admin_referer( 'pb_save_google_docs_settings' ) ) {
+			if ( ! current_user_can( 'manage_network_options' ) ) {
+				wp_die( __( 'Unauthorized.', 'pressbooks' ) );
+			}
+			$client_id = sanitize_text_field( $_POST['client_id'] ?? '' );
+			$client_secret = sanitize_text_field( $_POST['client_secret'] ?? '' );
+			$this->store->saveClientCredentials( $client_id, $client_secret );
+			$updated = true;
 		}
 
 		$creds = $this->store->getClientCredentials();
@@ -43,6 +50,9 @@ class SettingsPage {
 		?>
 		<div class="wrap">
 			<h1><?php _e( 'Google Docs Import Settings', 'pressbooks' ); ?></h1>
+			<?php if ( $updated ) : ?>
+				<div id="message" role="status" class="updated notice is-dismissible"><p><strong><?php _e( 'Settings saved.', 'pressbooks' ); ?></strong></p></div>
+			<?php endif; ?>
 			<p><?php _e( 'Configure your Google Cloud OAuth credentials to enable Google Docs import.', 'pressbooks' ); ?></p>
 			<h2><?php _e( 'Required Configuration in Google Cloud Console', 'pressbooks' ); ?></h2>
 			<p><?php _e( 'Add the following Authorized Redirect URI to your Google Cloud OAuth client:', 'pressbooks' ); ?></p>
@@ -52,7 +62,7 @@ class SettingsPage {
 				<li><code>https://www.googleapis.com/auth/documents.readonly</code></li>
 				<li><code>https://www.googleapis.com/auth/drive.readonly</code></li>
 			</ul>
-			<form method="post" action="<?php echo esc_url( network_admin_url( 'edit.php?action=pb_save_google_docs_settings' ) ); ?>">
+			<form method="post" action="">
 				<?php wp_nonce_field( 'pb_save_google_docs_settings' ); ?>
 				<table class="form-table" role="presentation">
 					<tr>
@@ -70,22 +80,10 @@ class SettingsPage {
 		<?php
 	}
 
-	public function saveSettings(): void {
-		check_admin_referer( 'pb_save_google_docs_settings' );
-		if ( ! current_user_can( 'manage_network_options' ) ) {
-			wp_die( __( 'Unauthorized.', 'pressbooks' ) );
+	public function handleOAuthCallbackEarly(): void {
+		if ( ! isset( $_GET['pb_oauth_callback'] ) || ! isset( $_GET['code'] ) ) {
+			return;
 		}
-		$client_id = sanitize_text_field( $_POST['client_id'] ?? '' );
-		$client_secret = sanitize_text_field( $_POST['client_secret'] ?? '' );
-		$this->store->saveClientCredentials( $client_id, $client_secret );
-		wp_safe_redirect( add_query_arg( [
-			'page'    => 'pb_network_google_docs',
-			'updated' => 'true',
-		], network_admin_url( 'settings.php' ) ) );
-		exit;
-	}
-
-	protected function handleOAuthCallback(): void {
 		$code = sanitize_text_field( $_GET['code'] ?? '' );
 		$state = sanitize_text_field( $_GET['state'] ?? '' );
 		if ( empty( $code ) || empty( $state ) ) {
@@ -93,7 +91,7 @@ class SettingsPage {
 		}
 		try {
 			$return_url = $this->oauth->handleCallback( $code, $state, get_current_user_id() );
-			wp_safe_redirect( add_query_arg( 'pb_gdocs', 'connected', $return_url ) );
+			wp_redirect( add_query_arg( 'pb_gdocs', 'connected', $return_url ) );
 			exit;
 		} catch ( \Exception $e ) {
 			wp_die( esc_html( $e->getMessage() ) );

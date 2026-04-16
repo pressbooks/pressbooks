@@ -14,7 +14,7 @@ class DocsMapper {
 	/**
 	 * Convert a Google Docs API document array into an array of chapters.
 	 *
-	 * Each chapter is: ['title' => string, 'body' => string]
+	 * Each chapter is: ['title' => string, 'body' => string, 'images' => array]
 	 *
 	 * @param array $doc The full document array from the Google Docs API.
 	 * @return array
@@ -28,6 +28,7 @@ class DocsMapper {
 		$chapters = [];
 		$current_title = '';
 		$current_body = '';
+		$current_images = [];
 		$has_h1 = false;
 
 		foreach ( $content as $element ) {
@@ -46,10 +47,12 @@ class DocsMapper {
 						$chapters[] = [
 							'title' => $current_title,
 							'body' => $this->finalize( $current_body ),
+							'images' => $current_images,
 						];
 					}
 					$current_title = $this->extractPlainText( $para['elements'] ?? [] );
 					$current_body = '';
+					$current_images = [];
 					continue;
 				}
 
@@ -58,6 +61,9 @@ class DocsMapper {
 					$current_title = $doc['title'] ?? 'Untitled';
 				}
 
+				// Collect image metadata from inline objects in this paragraph
+				$this->collectImageMeta( $para['elements'] ?? [], $inline_objects, $current_images );
+
 				$current_body .= $this->renderParagraph( $para, $style_type, $inline_objects, $lists );
 			}
 
@@ -65,6 +71,8 @@ class DocsMapper {
 				if ( ! $has_h1 && $current_title === '' ) {
 					$current_title = $doc['title'] ?? 'Untitled';
 				}
+				// Collect image metadata from table cells
+				$this->collectTableImageMeta( $element['table'], $inline_objects, $current_images );
 				$current_body .= $this->renderTable( $element['table'], $inline_objects, $lists );
 			}
 		}
@@ -77,6 +85,7 @@ class DocsMapper {
 			$chapters[] = [
 				'title' => $current_title,
 				'body' => $this->finalize( $current_body ),
+				'images' => $current_images,
 			];
 		}
 
@@ -90,6 +99,43 @@ class DocsMapper {
 	 */
 	public function getWarnings(): array {
 		return $this->warnings;
+	}
+
+	/**
+	 * Collect image metadata from paragraph elements.
+	 */
+	protected function collectImageMeta( array $elements, array $inline_objects, array &$images ): void {
+		foreach ( $elements as $el ) {
+			if ( isset( $el['inlineObjectElement'] ) ) {
+				$obj_id = $el['inlineObjectElement']['inlineObjectId'] ?? '';
+				if ( $obj_id && isset( $inline_objects[ $obj_id ] ) ) {
+					$obj = $inline_objects[ $obj_id ]['inlineObjectProperties']['embeddedObject'] ?? [];
+					if ( isset( $obj['imageProperties']['contentUri'] ) ) {
+						$images[] = [
+							'object_id'   => $obj_id,
+							'content_uri' => $obj['imageProperties']['contentUri'],
+							'alt'         => $obj['description'] ?? '',
+							'title'       => $obj['title'] ?? '',
+						];
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Collect image metadata from table cells.
+	 */
+	protected function collectTableImageMeta( array $table, array $inline_objects, array &$images ): void {
+		foreach ( $table['tableRows'] ?? [] as $row ) {
+			foreach ( $row['tableCells'] ?? [] as $cell ) {
+				foreach ( $cell['content'] ?? [] as $cell_element ) {
+					if ( isset( $cell_element['paragraph']['elements'] ) ) {
+						$this->collectImageMeta( $cell_element['paragraph']['elements'], $inline_objects, $images );
+					}
+				}
+			}
+		}
 	}
 
 	/**

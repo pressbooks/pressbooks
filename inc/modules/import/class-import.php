@@ -563,11 +563,6 @@ abstract class Import {
 		$fetcher = new GoogleDocs\DocsFetcher( $client );
 
 		try {
-			if ( ! $fetcher->isGoogleDoc( $doc_id ) ) {
-				$_SESSION['pb_errors'][] = __( 'That URL is not a Google Doc.', 'pressbooks' );
-				return false;
-			}
-
 			$imports_dir = wp_upload_dir()['basedir'] . '/imports';
 			if ( ! is_dir( $imports_dir ) ) {
 				wp_mkdir_p( $imports_dir );
@@ -576,13 +571,18 @@ abstract class Import {
 			$cached_path = $fetcher->fetchAndCache( $doc_id, $imports_dir );
 		} catch ( \Google\Service\Exception $e ) {
 			$code = $e->getCode();
-			if ( $code === 404 || $code === 403 ) {
-				$_SESSION['pb_errors'][] = __( "This Google Doc couldn't be opened. Make sure you have access to it.", 'pressbooks' );
+			if ( $code === 403 ) {
+				$_SESSION['pb_errors'][] = __( 'Access denied. Make sure the Google Docs API is enabled in your Google Cloud project and you have permission to view this document.', 'pressbooks' );
+			} elseif ( $code === 404 ) {
+				$_SESSION['pb_errors'][] = __( 'Document not found. Check the URL and make sure you have access.', 'pressbooks' );
 			} elseif ( $code === 429 ) {
 				$_SESSION['pb_errors'][] = __( 'Google is rate-limiting us. Try again in a few minutes.', 'pressbooks' );
 			} else {
-				$_SESSION['pb_errors'][] = __( 'Error fetching the Google Doc.', 'pressbooks' ) . ' ' . $e->getMessage();
+				$_SESSION['pb_errors'][] = __( 'Error fetching the Google Doc.', 'pressbooks' ) . " (HTTP {$code}) " . $e->getMessage();
 			}
+			return false;
+		} catch ( \Exception $e ) {
+			$_SESSION['pb_errors'][] = sprintf( __( 'Could not access the Google Doc: %s', 'pressbooks' ), $e->getMessage() );
 			return false;
 		}
 

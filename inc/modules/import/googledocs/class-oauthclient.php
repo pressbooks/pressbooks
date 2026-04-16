@@ -6,8 +6,6 @@
 
 namespace Pressbooks\Modules\Import\GoogleDocs;
 
-class ReauthorizationRequiredException extends \RuntimeException {}
-
 class OAuthClient {
 
 	const SCOPES = [
@@ -45,7 +43,7 @@ class OAuthClient {
 	public function getAuthorizeUrl( string $return_url ): string {
 		$client = $this->buildClient();
 		$state = wp_generate_password( 32, false );
-		set_transient( 'pb_gdocs_state_' . $state, $return_url, self::STATE_TRANSIENT_TTL );
+		set_site_transient( 'pb_gdocs_state_' . $state, $return_url, self::STATE_TRANSIENT_TTL );
 		$client->setState( $state );
 
 		return $client->createAuthUrl();
@@ -59,13 +57,13 @@ class OAuthClient {
 	 */
 	public function handleCallback( string $code, string $state, int $user_id ): string {
 		$transient_key = 'pb_gdocs_state_' . $state;
-		$return_url = get_transient( $transient_key );
+		$return_url = get_site_transient( $transient_key );
 
 		if ( empty( $return_url ) ) {
 			throw new \RuntimeException( 'Invalid or expired OAuth state.' );
 		}
 
-		delete_transient( $transient_key );
+		delete_site_transient( $transient_key );
 
 		$client = $this->buildClient();
 		$token = $client->fetchAccessTokenWithAuthCode( $code );
