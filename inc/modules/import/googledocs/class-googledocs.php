@@ -126,6 +126,8 @@ class GoogleDocs extends Import {
 			}
 		}
 
+		$this->revokeCurrentImport();
+
 		return true;
 	}
 
