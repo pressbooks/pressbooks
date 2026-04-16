@@ -72,8 +72,6 @@ Where should imported content land in Pressbooks?
 Options may include:
 - single draft chapter
 - multiple chapters
-- front matter / back matter mapping
-- temporary staging area
 
 **Decision:**
 -
@@ -86,18 +84,6 @@ How should unsupported or failed content be communicated?
 
 ## 10. Technical Approach
 What implementation path are we choosing for the lab?
-
-**Decision:**
--
-
-## 11. Testing Expectations
-What level of testing is required during the lab?
-
-**Decision:**
--
-
-## 12. Definition of Done for Today
-What must be true by the end of the lab to call it a success?
 
 **Decision:**
 -
