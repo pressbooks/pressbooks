@@ -32,8 +32,6 @@ How does the user specify the Google Doc?
 Options may include:
 - paste Google Doc URL
 - choose from connected account
-- upload exported format
-- mocked or simplified source for lab only
 
 **Decision:**
 -
