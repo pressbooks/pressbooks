@@ -37,10 +37,10 @@ class SettingsPage {
 		$updated = false;
 		if ( ! empty( $_POST ) && check_admin_referer( 'pb_save_google_docs_settings' ) ) {
 			if ( ! current_user_can( 'manage_network_options' ) ) {
-				wp_die( __( 'Unauthorized.', 'pressbooks' ) );
+				wp_die( esc_html__( 'Unauthorized.', 'pressbooks' ) );
 			}
-			$client_id = sanitize_text_field( $_POST['client_id'] ?? '' );
-			$client_secret = sanitize_text_field( $_POST['client_secret'] ?? '' );
+			$client_id = sanitize_text_field( wp_unslash( $_POST['client_id'] ?? '' ) );
+			$client_secret = sanitize_text_field( wp_unslash( $_POST['client_secret'] ?? '' ) );
 			$this->store->saveClientCredentials( $client_id, $client_secret );
 			$updated = true;
 		}
@@ -84,10 +84,10 @@ class SettingsPage {
 		if ( ! isset( $_GET['pb_oauth_callback'] ) || ! isset( $_GET['code'] ) ) {
 			return;
 		}
-		$code = sanitize_text_field( $_GET['code'] ?? '' );
-		$state = sanitize_text_field( $_GET['state'] ?? '' );
+		$code = sanitize_text_field( wp_unslash( $_GET['code'] ?? '' ) );
+		$state = sanitize_text_field( wp_unslash( $_GET['state'] ?? '' ) );
 		if ( empty( $code ) || empty( $state ) ) {
-			wp_die( __( 'Invalid OAuth callback parameters.', 'pressbooks' ) );
+			wp_die( esc_html__( 'Invalid OAuth callback parameters.', 'pressbooks' ) );
 		}
 		try {
 			$return_url = $this->oauth->handleCallback( $code, $state, get_current_user_id() );

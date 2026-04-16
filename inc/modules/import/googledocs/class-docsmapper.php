@@ -346,17 +346,26 @@ class DocsMapper {
 						$closed = array_pop( $open_lists );
 						$output .= "</{$closed['type']}>\n";
 						$output .= "<{$list_type}>\n";
-						$open_lists[] = [ 'type' => $list_type, 'nesting' => $nesting ];
+						$open_lists[] = [
+							'type' => $list_type,
+							'nesting' => $nesting,
+						];
 					}
 					$output .= $item_html . "\n";
 				} elseif ( count( $open_lists ) <= $nesting ) {
 					// Need to open deeper lists
 					while ( count( $open_lists ) < $nesting ) {
 						$output .= "<ul>\n<li>\n";
-						$open_lists[] = [ 'type' => 'ul', 'nesting' => count( $open_lists ) ];
+						$open_lists[] = [
+							'type' => 'ul',
+							'nesting' => count( $open_lists ),
+						];
 					}
 					$output .= "<{$list_type}>\n";
-					$open_lists[] = [ 'type' => $list_type, 'nesting' => $nesting ];
+					$open_lists[] = [
+						'type' => $list_type,
+						'nesting' => $nesting,
+					];
 					$output .= $item_html . "\n";
 				}
 			} else {
