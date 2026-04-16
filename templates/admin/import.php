@@ -33,6 +33,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 ] );
 
 ?>
+<style>[x-cloak] { display: none !important; }</style>
 <div class="wrap">
 
 	<h1><?php _e( 'Import', 'pressbooks' ); ?></h1>
