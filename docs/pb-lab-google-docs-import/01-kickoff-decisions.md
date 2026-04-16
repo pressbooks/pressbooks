@@ -6,13 +6,13 @@ Use this document during the first 30 to 60 minutes of the PB Lab to align on sc
 What exact user problem are we solving today?
 
 **Decision:**
--
+In order to be able to bring Google Docs content into Pressbooks via Google API, we need to allow authentication with Google from an Import page.
 
 ## 2. Demo Goal
 What do we want to be able to demonstrate by the end of the lab?
 
 **Decision:**
--
+Google authentication as a prerequisite for importing a Google Doc (no .docx export/import involved).
 
 ## 3. Entry Point
 How does the user start the import flow?
