@@ -43,7 +43,7 @@ class Modules_ImportGoogleDocsOAuthTest extends \WP_UnitTestCase {
 		parse_str( parse_url( $url, PHP_URL_QUERY ), $params );
 		$state = $params['state'] ?? '';
 		$this->assertNotEmpty( $state );
-		$return = get_transient( 'pb_gdocs_state_' . $state );
+		$return = get_site_transient( 'pb_gdocs_state_' . $state );
 		$this->assertSame( 'https://example.com/return', $return );
 	}
 
@@ -80,6 +80,8 @@ class Modules_ImportGoogleDocsOAuthTest extends \WP_UnitTestCase {
 			'access_token'  => 'valid-token',
 			'refresh_token' => 'rt',
 			'expires_at'    => time() + 3600,
+			'expires_in'    => 3600,
+			'created'       => time(),
 		] );
 		$oauth = new OAuthClient( $this->store );
 		$client = $oauth->getAuthedClient( $this->user_id );

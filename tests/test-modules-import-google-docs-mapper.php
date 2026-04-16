@@ -59,7 +59,7 @@ class Modules_ImportGoogleDocsMapperTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<li>Nested item</li>', $body );
 		$this->assertStringContainsString( '<li>Back to top</li>', $body );
 		// Verify nesting structure: ul > li > ul > li
-		$this->assertSame( 1, substr_count( $body, '<ul>' ) - substr_count( $body, '</ul>' ) + substr_count( $body, '</ul>' ) );
+		$this->assertSame( substr_count( $body, '<ul>' ), substr_count( $body, '</ul>' ) );
 	}
 
 	/**
