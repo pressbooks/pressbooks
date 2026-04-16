@@ -414,3 +414,38 @@ add_action( 'pb_new_blog', function() {
 } );
 
 add_action( 'admin_init', '\Pressbooks\Sanitize\escape_file_names_in_blob_mimes' );
+
+// Google Docs Import
+$gdocs_creds_store = new \Pressbooks\Modules\Import\GoogleDocs\CredentialsStore();
+$gdocs_oauth = new \Pressbooks\Modules\Import\GoogleDocs\OAuthClient( $gdocs_creds_store );
+
+// Network admin settings page
+$gdocs_settings = new \Pressbooks\Modules\Import\GoogleDocs\SettingsPage( $gdocs_creds_store, $gdocs_oauth );
+$gdocs_settings->hooks();
+
+// Register import type in the dropdown
+add_filter( 'pb_select_import_type', function ( array $types ) {
+	$types[ \Pressbooks\Modules\Import\GoogleDocs\GoogleDocs::TYPE_OF ] = __( 'Google Docs', 'pressbooks' );
+	return $types;
+} );
+
+// OAuth authorize action
+add_action( 'admin_post_pb_gdocs_authorize', function () use ( $gdocs_oauth, $gdocs_creds_store ) {
+	check_admin_referer( 'pb_gdocs_authorize' );
+	if ( ! $gdocs_creds_store->isConfigured() ) {
+		wp_die( __( 'Google Docs import is not configured.', 'pressbooks' ) );
+	}
+	$return_url = wp_get_referer() ?: admin_url( 'admin.php?page=pb_import' );
+	$auth_url = $gdocs_oauth->getAuthorizeUrl( $return_url );
+	wp_redirect( $auth_url );
+	exit;
+} );
+
+// OAuth disconnect action
+add_action( 'admin_post_pb_gdocs_disconnect', function () use ( $gdocs_oauth ) {
+	check_admin_referer( 'pb_gdocs_disconnect' );
+	$gdocs_oauth->disconnect( get_current_user_id() );
+	$return_url = wp_get_referer() ?: admin_url( 'admin.php?page=pb_import' );
+	wp_safe_redirect( add_query_arg( 'pb_gdocs', 'disconnected', $return_url ) );
+	exit;
+} );

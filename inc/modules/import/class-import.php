@@ -332,6 +332,18 @@ abstract class Import {
 				$importer = new Html\Xhtml();
 				break;
 
+			case GoogleDocs\GoogleDocs::TYPE_OF:
+				$importer = new GoogleDocs\GoogleDocs();
+				$store = new GoogleDocs\CredentialsStore();
+				$oauth = new GoogleDocs\OAuthClient( $store );
+				try {
+					$client = $oauth->getAuthedClient( get_current_user_id() );
+					$importer->setFetcher( new GoogleDocs\DocsFetcher( $client ) );
+				} catch ( GoogleDocs\ReauthorizationRequiredException $e ) {
+					// Images will be skipped; text still imports
+				}
+				break;
+
 			default:
 				/**
 				 * Allows users to add a custom import routine for custom import type.
@@ -391,6 +403,11 @@ abstract class Import {
 
 		if ( ! check_admin_referer( 'pb-import' ) ) {
 			return false;
+		}
+
+		// Google Docs: intercept before file upload handling
+		if ( isset( $_POST['type_of'] ) && $_POST['type_of'] === GoogleDocs\GoogleDocs::TYPE_OF ) {
+			return self::setGoogleDocsImportOptions();
 		}
 
 		$overrides = [
@@ -506,6 +523,77 @@ abstract class Import {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Handle Google Docs import: fetch doc via API, cache JSON, set import option.
+	 *
+	 * @return bool
+	 */
+	static protected function setGoogleDocsImportOptions(): bool {
+		$url = sanitize_text_field( getset( '_POST', 'import_http' ) );
+		$doc_id = GoogleDocs\OAuthClient::extractDocId( $url );
+
+		if ( ! $doc_id ) {
+			$_SESSION['pb_errors'][] = __( 'Please enter a valid Google Docs URL.', 'pressbooks' );
+			return false;
+		}
+
+		$store = new GoogleDocs\CredentialsStore();
+		if ( ! $store->isConfigured() ) {
+			$_SESSION['pb_errors'][] = __( 'Google Docs import is not configured. Ask a network admin to set it up.', 'pressbooks' );
+			return false;
+		}
+
+		$oauth = new GoogleDocs\OAuthClient( $store );
+		$user_id = get_current_user_id();
+
+		if ( ! $store->isUserConnected( $user_id ) ) {
+			$_SESSION['pb_errors'][] = __( 'Please connect your Google account first.', 'pressbooks' );
+			return false;
+		}
+
+		try {
+			$client = $oauth->getAuthedClient( $user_id );
+		} catch ( GoogleDocs\ReauthorizationRequiredException $e ) {
+			$_SESSION['pb_errors'][] = __( 'Your Google connection expired. Please reconnect.', 'pressbooks' );
+			return false;
+		}
+
+		$fetcher = new GoogleDocs\DocsFetcher( $client );
+
+		try {
+			if ( ! $fetcher->isGoogleDoc( $doc_id ) ) {
+				$_SESSION['pb_errors'][] = __( 'That URL is not a Google Doc.', 'pressbooks' );
+				return false;
+			}
+
+			$imports_dir = wp_upload_dir()['basedir'] . '/imports';
+			if ( ! is_dir( $imports_dir ) ) {
+				wp_mkdir_p( $imports_dir );
+			}
+
+			$cached_path = $fetcher->fetchAndCache( $doc_id, $imports_dir );
+		} catch ( \Google\Service\Exception $e ) {
+			$code = $e->getCode();
+			if ( $code === 404 || $code === 403 ) {
+				$_SESSION['pb_errors'][] = __( "This Google Doc couldn't be opened. Make sure you have access to it.", 'pressbooks' );
+			} elseif ( $code === 429 ) {
+				$_SESSION['pb_errors'][] = __( 'Google is rate-limiting us. Try again in a few minutes.', 'pressbooks' );
+			} else {
+				$_SESSION['pb_errors'][] = __( 'Error fetching the Google Doc.', 'pressbooks' ) . ' ' . $e->getMessage();
+			}
+			return false;
+		}
+
+		$upload = [
+			'file' => $cached_path,
+			'url'  => $url,
+			'type' => 'application/json',
+		];
+
+		$importer = new GoogleDocs\GoogleDocs();
+		return $importer->setCurrentImportOption( $upload );
 	}
 
 	/**
