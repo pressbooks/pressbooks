@@ -1,5 +1,40 @@
 # Changelog
 
+## [6.39.2](https://github.com/pressbooks/pressbooks/compare/6.39.1...6.39.2) (2026-04-15)
+
+
+### Bug Fixes
+
+* allow book's users to see archived private books ([#4425](https://github.com/pressbooks/pressbooks/issues/4425)) ([d54c577](https://github.com/pressbooks/pressbooks/commit/d54c577062a83b939e87214e857102cabf8d411c))
+* mathjax \div regression ([#4423](https://github.com/pressbooks/pressbooks/issues/4423)) ([75b04c1](https://github.com/pressbooks/pressbooks/commit/75b04c15e5a0835c9a64c92f4d6d27a937df71dc))
+
+## [6.39.1](https://github.com/pressbooks/pressbooks/compare/6.39.0...6.39.1) (2026-04-09)
+
+
+### Chores
+
+* improve single delimiter settings page instructions ([#4419](https://github.com/pressbooks/pressbooks/issues/4419)) ([f7636b4](https://github.com/pressbooks/pressbooks/commit/f7636b41393891a6116b82341d3e7bc09606008b))
+
+## [6.39.0](https://github.com/pressbooks/pressbooks/compare/6.38.0...6.39.0) (2026-04-07)
+
+
+### Features
+
+* allow single dollar delimiters ([#4415](https://github.com/pressbooks/pressbooks/issues/4415)) ([d094046](https://github.com/pressbooks/pressbooks/commit/d09404681f471b419ca43804f8b36a11c6242cc9))
+
+
+### Bug Fixes
+
+* language attributes display on PDF ([#4414](https://github.com/pressbooks/pressbooks/issues/4414)) ([f38b75e](https://github.com/pressbooks/pressbooks/commit/f38b75e552c5c66bfd7870f96e4cda8dbeaa7890))
+* restore native WordPress jquery functionality for submenu items ([#4187](https://github.com/pressbooks/pressbooks/issues/4187)) ([#4396](https://github.com/pressbooks/pressbooks/issues/4396)) ([aeab279](https://github.com/pressbooks/pressbooks/commit/aeab2790247a2af3bbf06f08e9c676f215493213))
+* stats analytics submenu highlight ([#4408](https://github.com/pressbooks/pressbooks/issues/4408)) ([c123c13](https://github.com/pressbooks/pressbooks/commit/c123c13b04df0a93b9b3259fd0446841c974b68b))
+* store export pins as options instead of transients ([#4411](https://github.com/pressbooks/pressbooks/issues/4411)) ([ffb0dd8](https://github.com/pressbooks/pressbooks/commit/ffb0dd89516837da5fbcab9accb69f72b61f1d1d))
+
+
+### Chores
+
+* remove user activation keys menu (plugin deprecation) ([#4413](https://github.com/pressbooks/pressbooks/issues/4413)) ([0610615](https://github.com/pressbooks/pressbooks/commit/06106150efd6639b2d551dd80d55fd31c25fb60a))
+
 ## [6.38.0](https://github.com/pressbooks/pressbooks/compare/6.37.2...6.38.0) (2026-03-25)
 
 

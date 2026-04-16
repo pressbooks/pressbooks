@@ -737,6 +737,7 @@ class Epub extends Export {
 
 		$config = [
 			'valid_xhtml' => 1,
+			'xml:lang' => 1,
 			'no_deprecated_attr' => 2,
 			'unique_ids' => 'fixme-',
 			'hook' => '\Pressbooks\Sanitize\html5_to_epub3',
@@ -866,6 +867,7 @@ class Epub extends Export {
 	protected function html5ToXhtml( string $html ): string {
 		$config = [
 			'valid_xhtml' => 1,
+			'xml:lang' => 1,
 			'unique_ids' => 0,
 		];
 

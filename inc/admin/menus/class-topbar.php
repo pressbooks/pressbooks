@@ -199,6 +199,12 @@ class TopBar {
 
 		$books = collect( $bar->user->blogs );
 
+		$archived_books = collect( get_blogs_of_user( get_current_user_id(), true ) )
+			->filter( fn( object $book ) => ! empty( $book->archived ) && '1' === $book->archived )
+			->keyBy( 'userblog_id' );
+
+		$books = $books->merge( $archived_books );
+
 		if ( $books->isEmpty() ) {
 			return;
 		}

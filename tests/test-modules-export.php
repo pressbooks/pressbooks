@@ -156,8 +156,8 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 			$this->assertStringContainsString( 'success', $output );
 			$this->assertStringContainsString( 'pinned successfully', $output );
 
-			// Check that transient was set
-			$pins = get_transient( Table::PIN );
+			// Check that option was set
+			$pins = get_option( Table::PIN );
 			$this->assertIsArray( $pins );
 			$this->assertTrue( $pins['test-file.pdf'] );
 			$this->assertFalse( $pins['another-file.epub'] );
@@ -172,7 +172,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 		// Clean up
 		unset( $_POST['pins'], $_POST['file'], $_POST['pinned'], $_POST['_ajax_nonce'] );
-		delete_transient( Table::PIN );
+		delete_option( Table::PIN );
 	}
 
 	/**
@@ -195,8 +195,8 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 			update_pins();
 			ob_get_clean();
 
-			// Should not set transient with invalid data
-			$pins = get_transient( Table::PIN );
+			// Should not set option with invalid data
+			$pins = get_option( Table::PIN );
 			$this->assertFalse( $pins );
 
 		} catch ( \WPAjaxDieContinueException $e ) {
