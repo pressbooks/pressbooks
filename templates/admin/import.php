@@ -37,6 +37,18 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 
 	<h1><?php _e( 'Import', 'pressbooks' ); ?></h1>
 
+	<?php if ( isset( $_GET['pb_gdocs'] ) ) : ?>
+		<?php if ( $_GET['pb_gdocs'] === 'connected' ) : ?>
+			<div class="notice notice-success is-dismissible">
+				<p><?php _e( 'Google account connected successfully. You can now import from Google Docs.', 'pressbooks' ); ?></p>
+			</div>
+		<?php elseif ( $_GET['pb_gdocs'] === 'disconnected' ) : ?>
+			<div class="notice notice-info is-dismissible">
+				<p><?php _e( 'Google account disconnected.', 'pressbooks' ); ?></p>
+			</div>
+		<?php endif; ?>
+	<?php endif; ?>
+
 	<?php if ( is_array( $current_import ) && isset( $current_import['file'] ) ) { ?>
 
 	<!-- STEP 2: Import in progress -->
@@ -210,6 +222,44 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 
 				</tbody>
 			</table>
+
+			<?php
+			$gdocs_store = new \Pressbooks\Modules\Import\GoogleDocs\CredentialsStore();
+			$gdocs_is_configured = $gdocs_store->isConfigured();
+			$gdocs_is_connected = $gdocs_is_configured && $gdocs_store->isUserConnected( get_current_user_id() );
+			?>
+			<div x-data="{ typeOf: document.getElementById('type_of')?.value || '' }"
+			     x-init="document.getElementById('type_of')?.addEventListener('change', (e) => typeOf = e.target.value)"
+			     x-show="typeOf === 'google-docs'"
+			     x-cloak
+			     style="margin: 1em 0;">
+
+				<?php if ( ! $gdocs_is_configured ) : ?>
+					<div class="notice notice-warning inline">
+						<p><?php _e( 'Google Docs import is not configured. Ask a network admin to set it up under Network Admin → Settings → Google Docs Import.', 'pressbooks' ); ?></p>
+					</div>
+				<?php elseif ( ! $gdocs_is_connected ) : ?>
+					<div class="notice notice-info inline">
+						<p><?php _e( 'Connect your Google account to import from Google Docs.', 'pressbooks' ); ?></p>
+					</div>
+					<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+						<?php wp_nonce_field( 'pb_gdocs_authorize' ); ?>
+						<input type="hidden" name="action" value="pb_gdocs_authorize" />
+						<?php submit_button( __( 'Connect Google Account', 'pressbooks' ), 'secondary', 'submit', false ); ?>
+					</form>
+				<?php else : ?>
+					<div class="notice notice-success inline">
+						<p>
+							<?php _e( 'Google account connected.', 'pressbooks' ); ?>
+							<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline;">
+								<?php wp_nonce_field( 'pb_gdocs_disconnect' ); ?>
+								<input type="hidden" name="action" value="pb_gdocs_disconnect" />
+								<button type="submit" class="button-link"><?php _e( 'Disconnect', 'pressbooks' ); ?></button>
+							</form>
+						</p>
+					</div>
+				<?php endif; ?>
+			</div>
 
 			<?php submit_button( __( 'Begin Import', 'pressbooks' ) ); ?>
 		</form>
