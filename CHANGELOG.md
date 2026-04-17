@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.39.2](https://github.com/pressbooks/pressbooks/compare/6.39.1...6.39.2) (2026-04-15)
+
+
+### Bug Fixes
+
+* allow book's users to see archived private books ([#4425](https://github.com/pressbooks/pressbooks/issues/4425)) ([d54c577](https://github.com/pressbooks/pressbooks/commit/d54c577062a83b939e87214e857102cabf8d411c))
+* mathjax \div regression ([#4423](https://github.com/pressbooks/pressbooks/issues/4423)) ([75b04c1](https://github.com/pressbooks/pressbooks/commit/75b04c15e5a0835c9a64c92f4d6d27a937df71dc))
+
 ## [6.39.1](https://github.com/pressbooks/pressbooks/compare/6.39.0...6.39.1) (2026-04-09)
 
 
