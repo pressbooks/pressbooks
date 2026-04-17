@@ -218,4 +218,91 @@ class Modules_ImportGoogleDocsMapperTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<u>underlined</u>', $body );
 		$this->assertStringContainsString( '<a href="https://example.com">a link</a>', $body );
 	}
+
+	/**
+	 * @group import
+	 */
+	public function test_footnotes_rendered_as_shortcodes(): void {
+		$mapper = new DocsMapper();
+		$doc = $this->loadFixture( 'with-footnotes' );
+		$chapters = $mapper->toChapters( $doc );
+
+		$this->assertCount( 1, $chapters );
+		$body = $chapters[0]['body'];
+		$this->assertStringContainsString( '[footnote]First footnote text.[/footnote]', $body );
+		$this->assertStringContainsString( '[footnote]Second footnote with <strong>bold</strong> text.[/footnote]', $body );
+		$this->assertStringContainsString( 'This has a footnote', $body );
+		$this->assertStringContainsString( 'and continues', $body );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_footnote_inline_placement(): void {
+		$mapper = new DocsMapper();
+		$doc = $this->loadFixture( 'with-footnotes' );
+		$chapters = $mapper->toChapters( $doc );
+
+		$body = $chapters[0]['body'];
+		// Footnote shortcode should appear inline within the paragraph
+		$this->assertStringContainsString( '<p>This has a footnote[footnote]', $body );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_merged_cells_colspan(): void {
+		$mapper = new DocsMapper();
+		$doc = $this->loadFixture( 'merged-cells-table' );
+		$chapters = $mapper->toChapters( $doc );
+
+		$this->assertCount( 1, $chapters );
+		$body = $chapters[0]['body'];
+		$this->assertStringContainsString( 'colspan="3"', $body );
+		$this->assertStringContainsString( 'Merged Header', $body );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_merged_cells_rowspan(): void {
+		$mapper = new DocsMapper();
+		$doc = $this->loadFixture( 'merged-cells-table' );
+		$chapters = $mapper->toChapters( $doc );
+
+		$body = $chapters[0]['body'];
+		$this->assertStringContainsString( 'rowspan="2"', $body );
+		$this->assertStringContainsString( 'Tall Cell', $body );
+		// Non-merged cells should render normally without span attributes
+		$this->assertStringContainsString( '<td>B2</td>', $body );
+		$this->assertStringContainsString( '<td>C3</td>', $body );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_merged_cells_warning(): void {
+		$mapper = new DocsMapper();
+		$doc = $this->loadFixture( 'merged-cells-table' );
+		$mapper->toChapters( $doc );
+
+		$warnings = $mapper->getWarnings();
+		$this->assertContains( 'Table contains merged cells; verify layout after import.', $warnings );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_simple_table_no_span_attributes(): void {
+		$mapper = new DocsMapper();
+		$doc = $this->loadFixture( 'simple-table' );
+		$chapters = $mapper->toChapters( $doc );
+
+		$body = $chapters[0]['body'];
+		$this->assertStringNotContainsString( 'colspan', $body );
+		$this->assertStringNotContainsString( 'rowspan', $body );
+
+		$warnings = $mapper->getWarnings();
+		$this->assertNotContains( 'Table contains merged cells; verify layout after import.', $warnings );
+	}
 }

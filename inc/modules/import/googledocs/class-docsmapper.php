@@ -11,6 +11,9 @@ class DocsMapper {
 	/** @var array */
 	protected array $warnings = [];
 
+	/** @var array Footnote definitions keyed by footnote ID. */
+	protected array $footnotes = [];
+
 	/**
 	 * Convert a Google Docs API document array into an array of chapters.
 	 *
@@ -21,6 +24,7 @@ class DocsMapper {
 	 */
 	public function toChapters( array $doc ): array {
 		$this->warnings = [];
+		$this->footnotes = $doc['footnotes'] ?? [];
 		$content = $doc['body']['content'] ?? [];
 		$inline_objects = $doc['inlineObjects'] ?? [];
 		$lists = $doc['lists'] ?? [];
@@ -210,6 +214,8 @@ class DocsMapper {
 			} elseif ( isset( $el['inlineObjectElement'] ) ) {
 				$obj_id = $el['inlineObjectElement']['inlineObjectId'] ?? '';
 				$html .= $this->renderInlineObject( $obj_id, $inline_objects );
+			} elseif ( isset( $el['footnoteReference'] ) ) {
+				$html .= $this->renderFootnoteReference( $el['footnoteReference'], $inline_objects );
 			} elseif ( isset( $el['equation'] ) ) {
 				$this->warnings[] = 'Equation element skipped (unsupported).';
 			}
@@ -276,6 +282,35 @@ class DocsMapper {
 	}
 
 	/**
+	 * Render a footnote reference as a Pressbooks [footnote] shortcode.
+	 */
+	protected function renderFootnoteReference( array $ref, array $inline_objects ): string {
+		$footnote_id = $ref['footnoteId'] ?? '';
+		if ( $footnote_id === '' || ! isset( $this->footnotes[ $footnote_id ] ) ) {
+			return '';
+		}
+
+		$footnote = $this->footnotes[ $footnote_id ];
+		$footnote_html = '';
+
+		foreach ( $footnote['content'] ?? [] as $element ) {
+			if ( isset( $element['paragraph'] ) ) {
+				$text = $this->renderElements( $element['paragraph']['elements'] ?? [], $inline_objects );
+				$text = trim( $text );
+				if ( $text !== '' ) {
+					$footnote_html .= ( $footnote_html !== '' ? ' ' : '' ) . $text;
+				}
+			}
+		}
+
+		if ( $footnote_html === '' ) {
+			return '';
+		}
+
+		return '[footnote]' . $footnote_html . '[/footnote]';
+	}
+
+	/**
 	 * Determine list type (ul or ol).
 	 */
 	protected function getListType( string $list_id, int $nesting, array $lists ): string {
@@ -301,9 +336,37 @@ class DocsMapper {
 	 */
 	protected function renderTable( array $table, array $inline_objects, array $lists ): string {
 		$html = "<table>\n";
-		foreach ( $table['tableRows'] ?? [] as $row ) {
+		$rows = $table['tableRows'] ?? [];
+		$has_merged = false;
+
+		// Build a skip map for cells covered by rowspan/colspan.
+		$skip = [];
+
+		foreach ( $rows as $row_idx => $row ) {
 			$html .= '<tr>';
+			$col_idx = 0;
 			foreach ( $row['tableCells'] ?? [] as $cell ) {
+				// Advance past skipped cells.
+				while ( ! empty( $skip[ $row_idx ][ $col_idx ] ) ) {
+					$col_idx++;
+				}
+
+				$row_span = $cell['tableCellStyle']['rowSpan'] ?? 1;
+				$col_span = $cell['tableCellStyle']['columnSpan'] ?? 1;
+
+				// Mark spanned cells in skip map.
+				if ( $row_span > 1 || $col_span > 1 ) {
+					$has_merged = true;
+					for ( $r = 0; $r < $row_span; $r++ ) {
+						for ( $c = 0; $c < $col_span; $c++ ) {
+							if ( $r === 0 && $c === 0 ) {
+								continue;
+							}
+							$skip[ $row_idx + $r ][ $col_idx + $c ] = true;
+						}
+					}
+				}
+
 				$cell_content = '';
 				foreach ( $cell['content'] ?? [] as $element ) {
 					if ( isset( $element['paragraph'] ) ) {
@@ -311,11 +374,26 @@ class DocsMapper {
 						$cell_content .= $text;
 					}
 				}
-				$html .= '<td>' . trim( $cell_content ) . '</td>';
+
+				$attrs = '';
+				if ( $col_span > 1 ) {
+					$attrs .= ' colspan="' . $col_span . '"';
+				}
+				if ( $row_span > 1 ) {
+					$attrs .= ' rowspan="' . $row_span . '"';
+				}
+
+				$html .= '<td' . $attrs . '>' . trim( $cell_content ) . '</td>';
+				$col_idx += $col_span;
 			}
 			$html .= "</tr>\n";
 		}
 		$html .= "</table>\n";
+
+		if ( $has_merged ) {
+			$this->warnings[] = 'Table contains merged cells; verify layout after import.';
+		}
+
 		return $html;
 	}
 
