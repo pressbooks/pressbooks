@@ -9,8 +9,8 @@ namespace Pressbooks\Modules\Import\GoogleDocs;
 class OAuthClient {
 
 	const SCOPES = [
-		\Google\Service\Docs::DOCUMENTS_READONLY,
-		\Google\Service\Drive::DRIVE_READONLY,
+		'https://www.googleapis.com/auth/documents.readonly',
+		'https://www.googleapis.com/auth/drive.readonly',
 	];
 
 	const STATE_TRANSIENT_TTL = 600;

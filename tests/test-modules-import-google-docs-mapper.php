@@ -146,6 +146,38 @@ class Modules_ImportGoogleDocsMapperTest extends \WP_UnitTestCase {
 	/**
 	 * @group import
 	 */
+	public function test_image_metadata_collected(): void {
+		$mapper = new DocsMapper();
+		$doc = $this->loadFixture( 'with-images' );
+		$chapters = $mapper->toChapters( $doc );
+
+		$this->assertCount( 1, $chapters );
+		$this->assertArrayHasKey( 'images', $chapters[0] );
+		$this->assertCount( 1, $chapters[0]['images'] );
+
+		$img = $chapters[0]['images'][0];
+		$this->assertSame( 'kix.img1', $img['object_id'] );
+		$this->assertSame( 'A beautiful landscape', $img['alt'] );
+		$this->assertSame( 'My Photo', $img['title'] );
+		$this->assertSame( 'https://lh3.googleusercontent.com/fake-image-uri', $img['content_uri'] );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_chapter_without_images_has_empty_images_array(): void {
+		$mapper = new DocsMapper();
+		$doc = $this->loadFixture( 'headings-only' );
+		$chapters = $mapper->toChapters( $doc );
+
+		$this->assertCount( 2, $chapters );
+		$this->assertArrayHasKey( 'images', $chapters[0] );
+		$this->assertSame( [], $chapters[0]['images'] );
+	}
+
+	/**
+	 * @group import
+	 */
 	public function test_text_styling(): void {
 		$doc = [
 			'title' => 'Style Test',
