@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.39.3](https://github.com/pressbooks/pressbooks/compare/6.39.2...6.39.3) (2026-04-28)
+
+
+### Chores
+
+* remove ip message from reset password email ([#4435](https://github.com/pressbooks/pressbooks/issues/4435)) ([d2726c1](https://github.com/pressbooks/pressbooks/commit/d2726c149a164c13bd05212ec5ec2a86fd317e1f))
+
 ## [6.39.2](https://github.com/pressbooks/pressbooks/compare/6.39.1...6.39.2) (2026-04-15)
 
 
