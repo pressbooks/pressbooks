@@ -411,3 +411,9 @@ function clean_invitation_data( $user_id, $result ) {
 		wp_redirect( network_site_url( 'wp-admin' ) );
 	}
 }
+
+function remove_ip_from_password_reset_email( $message ) {
+	$lines = explode( "\r\n", trim( $message ) );
+	array_pop( $lines );
+	return implode( "\r\n", $lines ) . "\r\n";
+}
