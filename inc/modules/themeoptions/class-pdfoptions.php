@@ -340,32 +340,6 @@ class PDFOptions extends \Pressbooks\Options {
 			]
 		);
 
-		add_settings_field(
-			'pdf_prince_version',
-			__( 'Prince Version', 'pressbooks' ),
-			[ $this, 'renderPrinceVersionField' ],
-			$_page,
-			$_section,
-			[
-				'prince-16' => __( 'Prince 16', 'pressbooks' ),
-				'prince-15' => __( 'Prince 15', 'pressbooks' ),
-				'label_for' => 'pdf_prince_version',
-			]
-		);
-
-		add_settings_field(
-			'pdf_box_decoration_break',
-			__( 'Box Decoration Break', 'pressbooks' ),
-			[ $this, 'renderBoxDecorationBreakField' ],
-			$_page,
-			$_section,
-			[
-				'slice' => __( 'Slice (CSS spec)', 'pressbooks' ),
-				'clone' => __( 'Clone (repeat styling across page breaks)', 'pressbooks' ),
-				'label_for' => 'pdf_box_decoration_break',
-			]
-		);
-
 		if ( CustomCss::isCustomCss() ) {
 			add_settings_field(
 				'pdf_romanize_parts',
@@ -624,6 +598,34 @@ class PDFOptions extends \Pressbooks\Options {
 					'%blank%' => __( 'Blank', 'pressbooks' ),
 					'' => __( 'Custom&hellip;', 'pressbooks' ),
 					'label_for' => 'running_content_back_matter_right',
+				]
+			);
+		}
+
+		if ( $v2_compatible ) {
+			add_settings_field(
+				'pdf_prince_version',
+				__( 'Prince Version', 'pressbooks' ),
+				[ $this, 'renderPrinceVersionField' ],
+				$_page,
+				$_section,
+				[
+					'prince-16' => __( 'Prince 16', 'pressbooks' ),
+					'prince-15' => __( 'Prince 15', 'pressbooks' ),
+					'label_for' => 'pdf_prince_version',
+				]
+			);
+
+			add_settings_field(
+				'pdf_box_decoration_break',
+				__( 'Box Decoration Break', 'pressbooks' ),
+				[ $this, 'renderBoxDecorationBreakField' ],
+				$_page,
+				$_section,
+				[
+					'slice' => __( 'Slice (CSS spec)', 'pressbooks' ),
+					'clone' => __( 'Clone (repeat styling across page breaks)', 'pressbooks' ),
+					'label_for' => 'pdf_box_decoration_break',
 				]
 			);
 		}
@@ -1195,14 +1197,14 @@ class PDFOptions extends \Pressbooks\Options {
 
 	function renderPrinceVersionField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderRadioButtons(
+		$this->renderSelect(
 			[
 				'id' => 'pdf_prince_version',
 				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 				'option' => 'pdf_prince_version',
 				'value' => getset( $this->options, 'pdf_prince_version' ),
 				'choices' => $args,
-				'legend' => __( 'Prince Version', 'pressbooks' ),
+				'description' => __( 'Controls the CSS rendering behavior and DocRaptor pipeline version used for PDF exports.', 'pressbooks' ),
 			]
 		);
 	}
@@ -1210,17 +1212,34 @@ class PDFOptions extends \Pressbooks\Options {
 	function renderBoxDecorationBreakField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$prince_version = getset( $this->options, 'pdf_prince_version', 'prince-16' );
-		$this->renderRadioButtons(
+		$hidden = ( $prince_version !== 'prince-16' ) ? ' style="display:none;"' : '';
+		echo '<div id="pdf_box_decoration_break_wrapper"' . $hidden . '>';
+		$this->renderSelect(
 			[
 				'id' => 'pdf_box_decoration_break',
 				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 				'option' => 'pdf_box_decoration_break',
 				'value' => getset( $this->options, 'pdf_box_decoration_break' ),
 				'choices' => $args,
-				'legend' => __( 'Box Decoration Break', 'pressbooks' ),
-				'disabled' => ( $prince_version === 'prince-15' ),
+				'description' => __( 'Controls how borders, backgrounds, and padding behave when elements span across page breaks. Only applies to Prince 16.', 'pressbooks' ),
 			]
 		);
+		echo '</div>';
+		?>
+		<script>
+		(function() {
+			var select = document.getElementById('pdf_prince_version');
+			var wrapper = document.getElementById('pdf_box_decoration_break_wrapper');
+			if (select && wrapper) {
+				function toggleBoxDecoration() {
+					wrapper.style.display = (select.value === 'prince-16') ? '' : 'none';
+				}
+				select.addEventListener('change', toggleBoxDecoration);
+				toggleBoxDecoration();
+			}
+		})();
+		</script>
+		<?php
 	}
 
 	/**
