@@ -21,7 +21,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 2;
+	const VERSION = 3;
 
 	/**
 	 * PDF theme options.
@@ -340,6 +340,32 @@ class PDFOptions extends \Pressbooks\Options {
 			]
 		);
 
+		add_settings_field(
+			'pdf_prince_version',
+			__( 'Prince Version', 'pressbooks' ),
+			[ $this, 'renderPrinceVersionField' ],
+			$_page,
+			$_section,
+			[
+				'prince-16' => __( 'Prince 16', 'pressbooks' ),
+				'prince-15' => __( 'Prince 15', 'pressbooks' ),
+				'label_for' => 'pdf_prince_version',
+			]
+		);
+
+		add_settings_field(
+			'pdf_box_decoration_break',
+			__( 'Box Decoration Break', 'pressbooks' ),
+			[ $this, 'renderBoxDecorationBreakField' ],
+			$_page,
+			$_section,
+			[
+				'slice' => __( 'Slice (CSS spec)', 'pressbooks' ),
+				'clone' => __( 'Clone (repeat styling across page breaks)', 'pressbooks' ),
+				'label_for' => 'pdf_box_decoration_break',
+			]
+		);
+
 		if ( CustomCss::isCustomCss() ) {
 			add_settings_field(
 				'pdf_romanize_parts',
@@ -655,6 +681,8 @@ class PDFOptions extends \Pressbooks\Options {
 			$this->doInitialUpgrade();
 		} elseif ( $version < 2 ) {
 			$this->upgradeSectionOpenings();
+		} elseif ( $version < 3 ) {
+			$this->upgradePrinceVersion();
 		}
 	}
 
@@ -755,6 +783,16 @@ class PDFOptions extends \Pressbooks\Options {
 			$options['pdf_sectionopenings'] = 'remove';
 		}
 		unset( $options['pdf_blankpages'] );
+
+		update_option( 'pressbooks_theme_options_' . $_option, $options );
+	}
+
+	function upgradePrinceVersion() {
+		$_option = $this->getSlug();
+		$options = get_option( 'pressbooks_theme_options_' . $_option, $this->defaults );
+
+		$options['pdf_prince_version'] = 'prince-15';
+		$options['pdf_box_decoration_break'] = 'clone';
 
 		update_option( 'pressbooks_theme_options_' . $_option, $options );
 	}
@@ -1151,6 +1189,36 @@ class PDFOptions extends \Pressbooks\Options {
 				'option' => 'pdf_crop_marks',
 				'value' => getset( $this->options, 'pdf_crop_marks' ),
 				'label' => $args[0],
+			]
+		);
+	}
+
+	function renderPrinceVersionField( $args ) {
+		unset( $args['label_for'], $args['class'] );
+		$this->renderRadioButtons(
+			[
+				'id' => 'pdf_prince_version',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'pdf_prince_version',
+				'value' => getset( $this->options, 'pdf_prince_version' ),
+				'choices' => $args,
+				'legend' => __( 'Prince Version', 'pressbooks' ),
+			]
+		);
+	}
+
+	function renderBoxDecorationBreakField( $args ) {
+		unset( $args['label_for'], $args['class'] );
+		$prince_version = getset( $this->options, 'pdf_prince_version', 'prince-16' );
+		$this->renderRadioButtons(
+			[
+				'id' => 'pdf_box_decoration_break',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'pdf_box_decoration_break',
+				'value' => getset( $this->options, 'pdf_box_decoration_break' ),
+				'choices' => $args,
+				'legend' => __( 'Box Decoration Break', 'pressbooks' ),
+				'disabled' => ( $prince_version === 'prince-15' ),
 			]
 		);
 	}
@@ -1592,6 +1660,8 @@ class PDFOptions extends \Pressbooks\Options {
 				'running_content_back_matter_left' => '%book_title%',
 				'running_content_back_matter_right' => '%section_title%',
 				'pdf_fontsize' => 0,
+				'pdf_prince_version' => 'prince-16',
+				'pdf_box_decoration_break' => 'slice',
 			]
 		);
 	}
@@ -1757,6 +1827,8 @@ class PDFOptions extends \Pressbooks\Options {
 				'running_content_chapter_right',
 				'running_content_back_matter_left',
 				'running_content_back_matter_right',
+				'pdf_prince_version',
+				'pdf_box_decoration_break',
 			]
 		);
 	}
@@ -1822,6 +1894,8 @@ class PDFOptions extends \Pressbooks\Options {
 				'pdf_paragraph_separation',
 				'pdf_sectionopenings',
 				'pdf_footnotes_style',
+				'pdf_prince_version',
+				'pdf_box_decoration_break',
 			]
 		);
 	}
@@ -1923,6 +1997,27 @@ class PDFOptions extends \Pressbooks\Options {
 
 		if ( ! $v2_compatible ) {
 			$scss .= "/* Theme Options */\n";
+		}
+
+		// --------------------------------------------------------------------
+		// Prince Version
+
+		$options_pdf = get_option( 'pressbooks_theme_options_pdf' );
+		$prince_version = $options_pdf['pdf_prince_version'] ?? 'prince-16';
+		$box_decoration = $options_pdf['pdf_box_decoration_break'] ?? 'slice';
+
+		if ( $v2_compatible ) {
+			$styles->getSass()->setVariables( [
+				'first-page-pseudo' => 'first-of-group',
+				'box-decoration-break' => $box_decoration,
+			] );
+
+			if ( $prince_version === 'prince-15' ) {
+				$styles->getSass()->setVariables( [
+					'first-page-pseudo' => 'first',
+					'box-decoration-break' => 'clone',
+				] );
+			}
 		}
 
 		// --------------------------------------------------------------------
