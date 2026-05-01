@@ -442,7 +442,13 @@ abstract class Generator {
 			$doc->setDocumentContent( $document_content );
 			$doc->setName( get_bloginfo( 'name' ) . ' Cover' );
 			$doc->setPrinceOptions( $prince_options );
-			$doc->setPipeline( defined( 'DOCRAPTOR_PIPELINE' ) ? DOCRAPTOR_PIPELINE : '11' ); // Prince 16, see: https://docraptor.com/documentation/api#api_pipeline
+			$pdf_options = get_option( 'pressbooks_theme_options_pdf', [] );
+			$prince_version = $pdf_options['pdf_prince_version'] ?? 'prince-16';
+			$pipeline = defined( 'DOCRAPTOR_PIPELINE' ) ? DOCRAPTOR_PIPELINE : '11';
+			if ( $prince_version === 'prince-15' ) {
+				$pipeline = '10.1';
+			}
+			$doc->setPipeline( $pipeline ); // See: https://docraptor.com/documentation/api#api_pipeline
 
 			$create_response = $docraptor->createAsyncDoc( $doc );
 			$done = false;
