@@ -334,6 +334,16 @@ function check_prince_install() {
 	return false;
 }
 
+function get_docraptor_pipeline(): string {
+	$pdf_options = get_option( 'pressbooks_theme_options_pdf', [] );
+	$prince_version = $pdf_options['pdf_prince_version'] ?? 'prince-16';
+	$pipeline = defined( 'DOCRAPTOR_PIPELINE' ) ? DOCRAPTOR_PIPELINE : '11';
+	if ( $prince_version === 'prince-15' ) {
+		$pipeline = '10.1';
+	}
+	return $pipeline;
+}
+
 /**
  * Lightweight check to see if the xmllint executable is installed and up to date.
  *

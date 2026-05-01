@@ -7,6 +7,7 @@ namespace Pressbooks\Covergenerator;
 
 use function Pressbooks\Utility\create_tmp_file;
 use function Pressbooks\Utility\debug_error_log;
+use function Pressbooks\Utility\get_docraptor_pipeline;
 
 /**
  * Abstract Generator Class
@@ -442,13 +443,7 @@ abstract class Generator {
 			$doc->setDocumentContent( $document_content );
 			$doc->setName( get_bloginfo( 'name' ) . ' Cover' );
 			$doc->setPrinceOptions( $prince_options );
-			$pdf_options = get_option( 'pressbooks_theme_options_pdf', [] );
-			$prince_version = $pdf_options['pdf_prince_version'] ?? 'prince-16';
-			$pipeline = defined( 'DOCRAPTOR_PIPELINE' ) ? DOCRAPTOR_PIPELINE : '11';
-			if ( $prince_version === 'prince-15' ) {
-				$pipeline = '10.1';
-			}
-			$doc->setPipeline( $pipeline ); // See: https://docraptor.com/documentation/api#api_pipeline
+			$doc->setPipeline( get_docraptor_pipeline() ); // See: https://docraptor.com/documentation/api#api_pipeline
 
 			$create_response = $docraptor->createAsyncDoc( $doc );
 			$done = false;
