@@ -1207,7 +1207,7 @@ class PDFOptions extends \Pressbooks\Options {
 				'option' => 'pdf_prince_version',
 				'value' => getset( $this->options, 'pdf_prince_version' ),
 				'choices' => $args,
-				'description' => __( 'Controls the CSS rendering behavior and DocRaptor pipeline version used for PDF exports.', 'pressbooks' ),
+				'description' => __( 'Controls the CSS rendering behavior used for PDF exports.', 'pressbooks' ),
 			]
 		);
 	}
