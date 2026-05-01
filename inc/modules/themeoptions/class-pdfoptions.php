@@ -616,18 +616,21 @@ class PDFOptions extends \Pressbooks\Options {
 				]
 			);
 
-			add_settings_field(
-				'pdf_box_decoration_break',
-				__( 'Box Decoration Break', 'pressbooks' ),
-				[ $this, 'renderBoxDecorationBreakField' ],
-				$_page,
-				$_section,
-				[
-					'slice' => __( 'Slice (CSS spec)', 'pressbooks' ),
-					'clone' => __( 'Clone (repeat styling across page breaks)', 'pressbooks' ),
-					'label_for' => 'pdf_box_decoration_break',
-				]
-			);
+			$prince_version = getset( $this->options, 'pdf_prince_version', 'prince-16' );
+			if ( $prince_version === 'prince-16' ) {
+				add_settings_field(
+					'pdf_box_decoration_break',
+					__( 'Box Decoration Break', 'pressbooks' ),
+					[ $this, 'renderBoxDecorationBreakField' ],
+					$_page,
+					$_section,
+					[
+						'slice' => __( 'Slice (CSS spec)', 'pressbooks' ),
+						'clone' => __( 'Clone (repeat styling across page breaks)', 'pressbooks' ),
+						'label_for' => 'pdf_box_decoration_break',
+					]
+				);
+			}
 		}
 
 		if ( ! $v2_compatible ) {
@@ -1211,9 +1214,6 @@ class PDFOptions extends \Pressbooks\Options {
 
 	function renderBoxDecorationBreakField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$prince_version = getset( $this->options, 'pdf_prince_version', 'prince-16' );
-		$hidden = ( $prince_version !== 'prince-16' ) ? ' style="display:none;"' : '';
-		echo '<div id="pdf_box_decoration_break_wrapper"' . $hidden . '>';
 		$this->renderSelect(
 			[
 				'id' => 'pdf_box_decoration_break',
@@ -1221,27 +1221,9 @@ class PDFOptions extends \Pressbooks\Options {
 				'option' => 'pdf_box_decoration_break',
 				'value' => getset( $this->options, 'pdf_box_decoration_break' ),
 				'choices' => $args,
-				'description' => __( 'Controls how borders, backgrounds, and padding behave when elements span across page breaks. Only applies to Prince 16.', 'pressbooks' ),
+				'description' => __( 'Controls how borders, backgrounds, and padding behave when elements span across page breaks.', 'pressbooks' ),
 			]
 		);
-		echo '</div>';
-		?>
-		<script>
-		(function() {
-			var select = document.getElementById('pdf_prince_version');
-			var wrapper = document.getElementById('pdf_box_decoration_break_wrapper');
-			if (select && wrapper) {
-				var row = wrapper.closest('tr');
-				function toggleBoxDecoration() {
-					var show = (select.value === 'prince-16');
-					if (row) row.style.display = show ? '' : 'none';
-				}
-				select.addEventListener('change', toggleBoxDecoration);
-				toggleBoxDecoration();
-			}
-		})();
-		</script>
-		<?php
 	}
 
 	/**
