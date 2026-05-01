@@ -605,7 +605,7 @@ class PDFOptions extends \Pressbooks\Options {
 		if ( $v2_compatible ) {
 			add_settings_field(
 				'pdf_prince_version',
-				__( 'Prince Version', 'pressbooks' ),
+				__( 'Rendering Engine', 'pressbooks' ),
 				[ $this, 'renderPrinceVersionField' ],
 				$_page,
 				$_section,
