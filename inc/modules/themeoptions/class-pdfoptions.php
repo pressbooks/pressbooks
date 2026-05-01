@@ -1231,8 +1231,10 @@ class PDFOptions extends \Pressbooks\Options {
 			var select = document.getElementById('pdf_prince_version');
 			var wrapper = document.getElementById('pdf_box_decoration_break_wrapper');
 			if (select && wrapper) {
+				var row = wrapper.closest('tr');
 				function toggleBoxDecoration() {
-					wrapper.style.display = (select.value === 'prince-16') ? '' : 'none';
+					var show = (select.value === 'prince-16');
+					if (row) row.style.display = show ? '' : 'none';
 				}
 				select.addEventListener('change', toggleBoxDecoration);
 				toggleBoxDecoration();
