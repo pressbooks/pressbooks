@@ -6,6 +6,9 @@
 
 namespace Pressbooks\Modules\Import\GoogleDocs;
 
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
 class OAuthClient {
 
 	const SCOPES = [
@@ -17,13 +20,17 @@ class OAuthClient {
 
 	private CredentialsStore $store;
 
+	private bool $useBroker;
+
 	public function __construct( CredentialsStore $store ) {
 		$this->store = $store;
+		$this->useBroker = defined( 'PRESSBOOKS_AUTH_BROKER_URL' ) && ! empty( PRESSBOOKS_AUTH_BROKER_URL );
 	}
 
-	/**
-	 * Build a base Google\Client with credentials but no user token.
-	 */
+	public function isBrokerMode(): bool {
+		return $this->useBroker;
+	}
+
 	public function buildClient(): \Google\Client {
 		$creds = $this->store->getClientCredentials();
 		$client = new \Google\Client();
@@ -37,53 +44,27 @@ class OAuthClient {
 		return $client;
 	}
 
-	/**
-	 * Generate the OAuth authorize URL and store a CSRF state transient.
-	 */
 	public function getAuthorizeUrl( string $return_url ): string {
-		$client = $this->buildClient();
 		$state = wp_generate_password( 32, false );
 		set_site_transient( 'pb_gdocs_state_' . $state, $return_url, self::STATE_TRANSIENT_TTL );
-		$client->setState( $state );
 
+		if ( $this->useBroker ) {
+			return $this->getBrokerAuthorizeUrl( $state );
+		}
+
+		$client = $this->buildClient();
+		$client->setState( $state );
 		return $client->createAuthUrl();
 	}
 
-	/**
-	 * Handle the OAuth callback: validate state, exchange code for token, store it.
-	 *
-	 * @return string The return URL stored in the state transient.
-	 * @throws \RuntimeException If state is invalid.
-	 */
-	public function handleCallback( string $code, string $state, int $user_id ): string {
-		$transient_key = 'pb_gdocs_state_' . $state;
-		$return_url = get_site_transient( $transient_key );
-
-		if ( empty( $return_url ) ) {
-			throw new \RuntimeException( 'Invalid or expired OAuth state.' );
+	public function handleCallback( string $jwt_or_code, string $state, int $user_id ): string {
+		if ( $this->useBroker ) {
+			return $this->handleBrokerCallback( $jwt_or_code, $state, $user_id );
 		}
 
-		delete_site_transient( $transient_key );
-
-		$client = $this->buildClient();
-		$token = $client->fetchAccessTokenWithAuthCode( $code );
-
-		if ( isset( $token['error'] ) ) {
-			throw new \RuntimeException( 'Token exchange failed: ' . ( $token['error_description'] ?? $token['error'] ) );
-		}
-
-		$token['expires_at'] = time() + ( $token['expires_in'] ?? 3600 );
-		$this->store->saveUserToken( $user_id, $token );
-
-		return $return_url;
+		return $this->handleGoogleCallback( $jwt_or_code, $state, $user_id );
 	}
 
-	/**
-	 * Return an authenticated Google\Client for the given user.
-	 * Refreshes the token if it has expired.
-	 *
-	 * @throws ReauthorizationRequiredException If no token exists or refresh fails.
-	 */
 	public function getAuthedClient( int $user_id ): \Google\Client {
 		$token = $this->store->getUserToken( $user_id );
 
@@ -118,9 +99,6 @@ class OAuthClient {
 		return $client;
 	}
 
-	/**
-	 * Revoke the user's token and delete it from storage.
-	 */
 	public function disconnect( int $user_id ): void {
 		$token = $this->store->getUserToken( $user_id );
 
@@ -130,18 +108,12 @@ class OAuthClient {
 				$client->setAccessToken( $token );
 				$client->revokeToken();
 			} catch ( \Exception $e ) {
-				// Revocation is best-effort; proceed with local cleanup.
 			}
 		}
 
 		$this->store->deleteUserToken( $user_id );
 	}
 
-	/**
-	 * Extract a Google Docs document ID from a URL.
-	 *
-	 * @return string|null The document ID or null if not a valid Google Docs URL.
-	 */
 	public static function extractDocId( string $url ): ?string {
 		if ( preg_match( '#docs\.google\.com/document/d/([a-zA-Z0-9_-]+)#', $url, $matches ) ) {
 			return $matches[1];
@@ -150,10 +122,92 @@ class OAuthClient {
 		return null;
 	}
 
-	/**
-	 * The OAuth redirect URI for the network admin callback.
-	 */
 	public function getRedirectUri(): string {
 		return network_admin_url( 'settings.php?page=pb_network_google_docs&pb_oauth_callback=1' );
+	}
+
+	private function getBrokerAuthorizeUrl( string $state ): string {
+		$params = [
+			'redirect_uri' => $this->getRedirectUri(),
+			'state' => $state,
+		];
+		return rtrim( PRESSBOOKS_AUTH_BROKER_URL, '/' ) . '/auth/redirect?' . http_build_query( $params );
+	}
+
+	private function handleBrokerCallback( string $jwt, string $state, int $user_id ): string {
+		$transient_key = 'pb_gdocs_state_' . $state;
+		$return_url = get_site_transient( $transient_key );
+
+		if ( empty( $return_url ) ) {
+			throw new \RuntimeException( 'Invalid or expired OAuth state.' );
+		}
+
+		delete_site_transient( $transient_key );
+
+		if ( ! defined( 'PRESSBOOKS_AUTH_BROKER_PUBLIC_KEY' ) || empty( PRESSBOOKS_AUTH_BROKER_PUBLIC_KEY ) ) {
+			throw new \RuntimeException( 'Broker public key not configured.' );
+		}
+
+		$decoded = JWT::decode( $jwt, new Key( PRESSBOOKS_AUTH_BROKER_PUBLIC_KEY, 'RS256' ) );
+
+		if ( ! isset( $decoded->iss ) || $decoded->iss !== PRESSBOOKS_AUTH_BROKER_URL ) {
+			throw new \RuntimeException( 'Invalid JWT issuer.' );
+		}
+
+		$expected_aud = parse_url( home_url(), PHP_URL_HOST );
+		if ( ! isset( $decoded->aud ) || $decoded->aud !== $expected_aud ) {
+			throw new \RuntimeException( 'Invalid JWT audience.' );
+		}
+
+		if ( ! isset( $decoded->exp ) || $decoded->exp < time() ) {
+			throw new \RuntimeException( 'JWT has expired.' );
+		}
+
+		if ( ! isset( $decoded->jti ) ) {
+			throw new \RuntimeException( 'Missing JWT ID.' );
+		}
+
+		$jti_key = 'pb_gdocs_jti_' . $decoded->jti;
+		if ( get_site_transient( $jti_key ) ) {
+			throw new \RuntimeException( 'JWT has already been used.' );
+		}
+		set_site_transient( $jti_key, '1', 300 );
+
+		if ( ! isset( $decoded->wp_state ) || $decoded->wp_state !== $state ) {
+			throw new \RuntimeException( 'JWT state mismatch.' );
+		}
+
+		if ( ! isset( $decoded->tokens ) ) {
+			throw new \RuntimeException( 'Missing tokens in JWT.' );
+		}
+
+		$tokens = (array) $decoded->tokens;
+		$tokens['expires_at'] = time() + ( $tokens['expires_in'] ?? 3600 );
+		$this->store->saveUserToken( $user_id, $tokens );
+
+		return $return_url;
+	}
+
+	private function handleGoogleCallback( string $code, string $state, int $user_id ): string {
+		$transient_key = 'pb_gdocs_state_' . $state;
+		$return_url = get_site_transient( $transient_key );
+
+		if ( empty( $return_url ) ) {
+			throw new \RuntimeException( 'Invalid or expired OAuth state.' );
+		}
+
+		delete_site_transient( $transient_key );
+
+		$client = $this->buildClient();
+		$token = $client->fetchAccessTokenWithAuthCode( $code );
+
+		if ( isset( $token['error'] ) ) {
+			throw new \RuntimeException( 'Token exchange failed: ' . ( $token['error_description'] ?? $token['error'] ) );
+		}
+
+		$token['expires_at'] = time() + ( $token['expires_in'] ?? 3600 );
+		$this->store->saveUserToken( $user_id, $token );
+
+		return $return_url;
 	}
 }

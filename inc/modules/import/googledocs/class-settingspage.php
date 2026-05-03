@@ -33,7 +33,11 @@ class SettingsPage {
 	}
 
 	public function renderPage(): void {
-		// Handle form submission inline (matches Pressbooks network settings convention).
+		if ( $this->oauth->isBrokerMode() ) {
+			$this->renderBrokerPage();
+			return;
+		}
+
 		$updated = false;
 		if ( ! empty( $_POST ) && check_admin_referer( 'pb_save_google_docs_settings' ) ) {
 			if ( ! current_user_can( 'manage_network_options' ) ) {
@@ -81,20 +85,49 @@ class SettingsPage {
 	}
 
 	public function handleOAuthCallbackEarly(): void {
-		if ( ! isset( $_GET['pb_oauth_callback'] ) || ! isset( $_GET['code'] ) ) {
+		if ( ! isset( $_GET['pb_oauth_callback'] ) ) {
 			return;
 		}
+
+		$broker_token = sanitize_text_field( wp_unslash( $_GET['token'] ?? '' ) );
 		$code = sanitize_text_field( wp_unslash( $_GET['code'] ?? '' ) );
 		$state = sanitize_text_field( wp_unslash( $_GET['state'] ?? '' ) );
-		if ( empty( $code ) || empty( $state ) ) {
-			wp_die( esc_html__( 'Invalid OAuth callback parameters.', 'pressbooks' ) );
+
+		if ( $broker_token ) {
+			if ( empty( $state ) ) {
+				wp_die( esc_html__( 'Invalid OAuth callback parameters.', 'pressbooks' ) );
+			}
+			try {
+				$return_url = $this->oauth->handleCallback( $broker_token, $state, get_current_user_id() );
+				wp_redirect( add_query_arg( 'pb_gdocs', 'connected', $return_url ) );
+				exit;
+			} catch ( \Exception $e ) {
+				wp_die( esc_html( $e->getMessage() ) );
+			}
 		}
-		try {
-			$return_url = $this->oauth->handleCallback( $code, $state, get_current_user_id() );
-			wp_redirect( add_query_arg( 'pb_gdocs', 'connected', $return_url ) );
-			exit;
-		} catch ( \Exception $e ) {
-			wp_die( esc_html( $e->getMessage() ) );
+
+		if ( $code ) {
+			if ( empty( $state ) ) {
+				wp_die( esc_html__( 'Invalid OAuth callback parameters.', 'pressbooks' ) );
+			}
+			try {
+				$return_url = $this->oauth->handleCallback( $code, $state, get_current_user_id() );
+				wp_redirect( add_query_arg( 'pb_gdocs', 'connected', $return_url ) );
+				exit;
+			} catch ( \Exception $e ) {
+				wp_die( esc_html( $e->getMessage() ) );
+			}
 		}
+	}
+
+	protected function renderBrokerPage(): void {
+		?>
+		<div class="wrap">
+			<h1><?php _e( 'Google Docs Import Settings', 'pressbooks' ); ?></h1>
+			<div class="notice notice-info inline">
+				<p><?php _e( 'Google authentication is managed centrally via the Pressbooks Auth Broker. No local configuration is required.', 'pressbooks' ); ?></p>
+			</div>
+		</div>
+		<?php
 	}
 }
