@@ -134,6 +134,20 @@ class OAuthClient {
 		return rtrim( PRESSBOOKS_AUTH_BROKER_URL, '/' ) . '/auth/redirect?' . http_build_query( $params );
 	}
 
+	private function getPublicKey(): string {
+		$value = PRESSBOOKS_AUTH_BROKER_PUBLIC_KEY;
+
+		if ( file_exists( $value ) ) {
+			$contents = file_get_contents( $value );
+			if ( $contents === false ) {
+				throw new \RuntimeException( 'Failed to read broker public key file: ' . $value );
+			}
+			return $contents;
+		}
+
+		return $value;
+	}
+
 	private function handleBrokerCallback( string $jwt, string $state, int $user_id ): string {
 		$transient_key = 'pb_gdocs_state_' . $state;
 		$return_url = get_site_transient( $transient_key );
@@ -148,7 +162,8 @@ class OAuthClient {
 			throw new \RuntimeException( 'Broker public key not configured.' );
 		}
 
-		$decoded = JWT::decode( $jwt, new Key( PRESSBOOKS_AUTH_BROKER_PUBLIC_KEY, 'RS256' ) );
+		$public_key = $this->getPublicKey();
+		$decoded = JWT::decode( $jwt, new Key( $public_key, 'RS256' ) );
 
 		if ( ! isset( $decoded->iss ) || $decoded->iss !== PRESSBOOKS_AUTH_BROKER_URL ) {
 			throw new \RuntimeException( 'Invalid JWT issuer.' );
