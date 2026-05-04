@@ -197,7 +197,12 @@ class OAuthClient {
 		}
 
 		$tokens = (array) $decoded->tokens;
-		$tokens['expires_at'] = time() + ( $tokens['expires_in'] ?? 3600 );
+		if ( isset( $tokens['expires_at'] ) && ! isset( $tokens['expires_in'] ) ) {
+			$tokens['expires_in'] = $tokens['expires_at'] - time();
+			$tokens['created'] = time();
+		} elseif ( ! isset( $tokens['expires_at'] ) ) {
+			$tokens['expires_at'] = time() + ( $tokens['expires_in'] ?? 3600 );
+		}
 		$this->store->saveUserToken( $user_id, $tokens );
 
 		return $return_url;
