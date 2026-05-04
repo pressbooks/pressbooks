@@ -222,23 +222,23 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 						</div>
 					</td>
 				</tr>
-				<tr x-show="typeOf === 'google-docs'" x-cloak>
-					<th scope="row">
-						<label for="import_http_gdocs"><?php _e( 'Google Docs URL', 'pressbooks' ); ?></label>
-					</th>
-					<td>
-						<input type="url" class="widefat" name="import_http" id="import_http_gdocs" placeholder="https://docs.google.com/document/d/..." style="display:block;" aria-label="<?php _e( 'Google Docs URL', 'pressbooks' ); ?>" />
-					</td>
-				</tr>
-
-				</tbody>
-			</table>
-
 			<?php
 			$gdocs_store = new \Pressbooks\Modules\Import\GoogleDocs\CredentialsStore();
 			$gdocs_is_configured = $gdocs_store->isConfigured();
 			$gdocs_is_connected = $gdocs_is_configured && $gdocs_store->isUserConnected( get_current_user_id() );
 			?>
+			<tr x-show="typeOf === 'google-docs' && <?php echo $gdocs_is_connected ? 'true' : 'false'; ?>" x-cloak>
+				<th scope="row">
+					<label for="import_http_gdocs"><?php _e( 'Google Docs URL', 'pressbooks' ); ?></label>
+				</th>
+				<td>
+					<input type="url" class="widefat" name="import_http" id="import_http_gdocs" placeholder="https://docs.google.com/document/d/..." style="display:block;" aria-label="<?php _e( 'Google Docs URL', 'pressbooks' ); ?>" />
+				</td>
+			</tr>
+
+			</tbody>
+		</table>
+
 			<div x-show="typeOf === 'google-docs'"
 			     x-cloak
 			     style="margin: 1em 0;">
