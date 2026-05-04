@@ -162,15 +162,15 @@ class Modules_ImportGoogleDocsOAuthTest extends \WP_UnitTestCase {
 
 		$url = $oauth->getAuthorizeUrl( 'https://example.com/return' );
 		$this->assertStringContainsString( 'auth-broker.example.com', $url );
-		$this->assertStringContainsString( 'auth/redirect', $url );
+		$this->assertStringContainsString( 'oauth/start', $url );
 
 		$parsed = parse_url( $url );
 		parse_str( $parsed['query'] ?? '', $params );
-		$this->assertArrayHasKey( 'state', $params );
-		$this->assertArrayHasKey( 'redirect_uri', $params );
-		$this->assertNotEmpty( $params['state'] );
+		$this->assertArrayHasKey( 'origin', $params );
+		$this->assertArrayHasKey( 'wp_state', $params );
+		$this->assertNotEmpty( $params['wp_state'] );
 
-		$state = $params['state'];
+		$state = $params['wp_state'];
 		$this->assertSame( 'https://example.com/return', get_site_transient( 'pb_gdocs_state_' . $state ) );
 	}
 

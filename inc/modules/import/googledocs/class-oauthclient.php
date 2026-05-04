@@ -128,10 +128,10 @@ class OAuthClient {
 
 	private function getBrokerAuthorizeUrl( string $state ): string {
 		$params = [
-			'redirect_uri' => $this->getRedirectUri(),
-			'state' => $state,
+			'origin' => parse_url( home_url(), PHP_URL_HOST ),
+			'wp_state' => $state,
 		];
-		return rtrim( PRESSBOOKS_AUTH_BROKER_URL, '/' ) . '/auth/redirect?' . http_build_query( $params );
+		return rtrim( PRESSBOOKS_AUTH_BROKER_URL, '/' ) . '/oauth/start?' . http_build_query( $params );
 	}
 
 	private function getPublicKey(): string {
