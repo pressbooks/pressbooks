@@ -424,8 +424,10 @@ $gdocs_settings = new \Pressbooks\Modules\Import\GoogleDocs\SettingsPage( $gdocs
 $gdocs_settings->hooks();
 
 // Register import type in the dropdown
-add_filter( 'pb_select_import_type', function ( array $types ) {
-	$types[ \Pressbooks\Modules\Import\GoogleDocs\GoogleDocs::TYPE_OF ] = __( 'Google Docs', 'pressbooks' );
+add_filter( 'pb_select_import_type', function ( array $types ) use ( $gdocs_creds_store ) {
+	if ( $gdocs_creds_store->isConfigured() ) {
+		$types[ \Pressbooks\Modules\Import\GoogleDocs\GoogleDocs::TYPE_OF ] = __( 'Google Docs', 'pressbooks' );
+	}
 	return $types;
 } );
 
