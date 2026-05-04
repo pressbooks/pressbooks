@@ -89,6 +89,19 @@ class SettingsPage {
 			return;
 		}
 
+		$error = sanitize_text_field( wp_unslash( $_GET['error'] ?? '' ) );
+		if ( $error ) {
+			$state = sanitize_text_field( wp_unslash( $_GET['state'] ?? '' ) );
+			$return_url = $state ? get_site_transient( 'pb_gdocs_state_' . $state ) : false;
+			if ( $return_url ) {
+				delete_site_transient( 'pb_gdocs_state_' . $state );
+				wp_redirect( add_query_arg( 'pb_gdocs', 'denied', $return_url ) );
+			} else {
+				wp_redirect( admin_url( 'admin.php?page=pb_network_google_docs&pb_gdocs=denied' ) );
+			}
+			exit;
+		}
+
 		$broker_token = sanitize_text_field( wp_unslash( $_GET['token'] ?? '' ) );
 		$code = sanitize_text_field( wp_unslash( $_GET['code'] ?? '' ) );
 		$state = sanitize_text_field( wp_unslash( $_GET['state'] ?? '' ) );
