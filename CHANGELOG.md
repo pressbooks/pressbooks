@@ -1,5 +1,17 @@
 # Changelog
 
+## [6.40.0](https://github.com/pressbooks/pressbooks/compare/6.39.3...6.40.0) (2026-05-05)
+
+
+### Features
+
+* add hooks when network managers are added or removed ([#4347](https://github.com/pressbooks/pressbooks/issues/4347)) ([d3fd14e](https://github.com/pressbooks/pressbooks/commit/d3fd14e7e9220ac2bb5ca6e2c755b429c5874272))
+
+
+### Bug Fixes
+
+* cover generator js enqueue ([#4441](https://github.com/pressbooks/pressbooks/issues/4441)) ([4ad2287](https://github.com/pressbooks/pressbooks/commit/4ad22872e9042b342d65af381fd31ec3ebe02f3e))
+
 ## [6.39.3](https://github.com/pressbooks/pressbooks/compare/6.39.2...6.39.3) (2026-04-28)
 
 
