@@ -796,8 +796,8 @@ class PDFOptions extends \Pressbooks\Options {
 		$_option = $this->getSlug();
 		$options = get_option( 'pressbooks_theme_options_' . $_option, $this->defaults );
 
-		$options['pdf_prince_version'] = 'prince-15';
-		$options['pdf_box_decoration_break'] = 'clone';
+		$options['pdf_prince_version'] = 'prince-16';
+		$options['pdf_box_decoration_break'] = 'slice';
 
 		update_option( 'pressbooks_theme_options_' . $_option, $options );
 	}
