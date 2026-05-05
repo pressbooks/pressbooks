@@ -373,6 +373,7 @@ add_action( 'added_existing_user', '\Pressbooks\Registration\clean_invitation_da
 // Email configuration
 add_filter( 'wp_mail_from', '\Pressbooks\Utility\mail_from' );
 add_filter( 'wp_mail_from_name', '\Pressbooks\Utility\mail_from_name' );
+add_filter( 'retrieve_password_message', '\Pressbooks\Registration\remove_ip_from_password_reset_email' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // (Custom) Styles
