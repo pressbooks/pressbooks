@@ -99,6 +99,6 @@ class PDFOptionsTest extends \WP_UnitTestCase {
 
 		$saved = get_option( 'pressbooks_theme_options_pdf' );
 		$this->assertEquals( 'prince-16', $saved['pdf_prince_version'] );
-		$this->assertEquals( 'clone', $saved['pdf_box_decoration_break'] );
+		$this->assertEquals( 'slice', $saved['pdf_box_decoration_break'] );
 	}
 }
