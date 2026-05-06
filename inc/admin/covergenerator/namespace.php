@@ -32,11 +32,11 @@ function generator_css_js( $hooks_suffix ) {
 		/** @var Assets $assets */
 		$assets = app( 'Assets' );
 		wp_enqueue_media();
+		$assets->enqueue( 'assets/src/scripts/color-picker.js', 'color-picker' );
 		$assets->enqueue( 'assets/src/scripts/covergenerator.js', 'cg/js', [
 			'dependencies' => [
 				'jquery',
 				'jquery-form',
-				'eventsource-polyfill',
 				'color-picker',
 			],
 		] );
