@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-06T14:12:03+00:00\n"
+"POT-Creation-Date: 2026-05-07T16:34:20+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -1519,7 +1519,7 @@ msgstr ""
 #: inc/class-licensing.php:333
 #: inc/modules/export/epub/class-epub.php:1432
 #: inc/modules/export/epub/class-epub.php:1454
-#: inc/modules/export/xhtml/class-xhtml11.php:1364
+#: inc/modules/export/xhtml/class-xhtml11.php:1372
 msgid "Copyright"
 msgstr ""
 
@@ -2569,7 +2569,7 @@ msgstr ""
 #: inc/class-licensing.php:335
 #: inc/class-styles.php:900
 #: inc/modules/export/epub/class-epub.php:1441
-#: inc/modules/export/xhtml/class-xhtml11.php:1373
+#: inc/modules/export/xhtml/class-xhtml11.php:1381
 #: templates/export/epub/opf.blade.php:100
 msgid "by"
 msgstr ""
@@ -2711,7 +2711,7 @@ msgid "Cloning glossary terms"
 msgstr ""
 
 #: inc/cloner/class-cloner.php:556
-#: inc/covergenerator/class-generator.php:298
+#: inc/covergenerator/class-generator.php:299
 #: inc/modules/import/class-import.php:373
 msgid "Finishing up"
 msgstr ""
@@ -2792,29 +2792,29 @@ msgstr ""
 msgid "Sorry, that book URL already exists!"
 msgstr ""
 
-#: inc/covergenerator/class-generator.php:201
+#: inc/covergenerator/class-generator.php:202
 msgid "Calculating spine width"
 msgstr ""
 
-#: inc/covergenerator/class-generator.php:217
+#: inc/covergenerator/class-generator.php:218
 msgid "Creating barcode"
 msgstr ""
 
-#: inc/covergenerator/class-generator.php:225
+#: inc/covergenerator/class-generator.php:226
 msgid "Loading metadata"
 msgstr ""
 
-#: inc/covergenerator/class-generator.php:283
+#: inc/covergenerator/class-generator.php:284
 msgid "Generating cover"
 msgstr ""
 
-#: inc/covergenerator/class-generator.php:363
+#: inc/covergenerator/class-generator.php:364
 #: inc/modules/export/class-export.php:335
 msgid "book"
 msgstr ""
 
-#: inc/covergenerator/class-generator.php:458
-#: inc/modules/export/prince/class-docraptor.php:149
+#: inc/covergenerator/class-generator.php:459
+#: inc/modules/export/prince/class-docraptor.php:150
 msgid "Your PDF could not be retrieved."
 msgstr ""
 
@@ -3001,7 +3001,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: inc/interactive/class-h5p.php:547
+#: inc/interactive/class-h5p.php:549
 msgid "The original version of this chapter contained H5P content. You may want to remove or replace this element."
 msgstr ""
 
@@ -3195,7 +3195,7 @@ msgstr ""
 #: inc/modules/export/epub/class-epub.php:989
 #: inc/modules/export/epub/class-epub.php:1586
 #: inc/modules/export/xhtml/class-xhtml11.php:475
-#: inc/modules/export/xhtml/class-xhtml11.php:1548
+#: inc/modules/export/xhtml/class-xhtml11.php:1556
 msgid "Exporting front matter"
 msgstr ""
 
@@ -3203,15 +3203,15 @@ msgstr ""
 #: inc/modules/export/epub/class-epub.php:1687
 #: inc/modules/export/epub/class-epub.php:1717
 #: inc/modules/export/xhtml/class-xhtml11.php:482
-#: inc/modules/export/xhtml/class-xhtml11.php:1616
-#: inc/modules/export/xhtml/class-xhtml11.php:1657
+#: inc/modules/export/xhtml/class-xhtml11.php:1624
+#: inc/modules/export/xhtml/class-xhtml11.php:1665
 msgid "Exporting parts and chapters"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub.php:1000
 #: inc/modules/export/epub/class-epub.php:1848
 #: inc/modules/export/xhtml/class-xhtml11.php:486
-#: inc/modules/export/xhtml/class-xhtml11.php:1770
+#: inc/modules/export/xhtml/class-xhtml11.php:1778
 msgid "Exporting back matter"
 msgstr ""
 
@@ -3237,7 +3237,7 @@ msgid "Table Of Contents"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub.php:1972
-#: inc/modules/export/xhtml/class-xhtml11.php:1529
+#: inc/modules/export/xhtml/class-xhtml11.php:1537
 msgid "Contents"
 msgstr ""
 
@@ -3249,11 +3249,11 @@ msgstr ""
 
 #: inc/modules/export/namespace.php:78
 #: inc/modules/themeoptions/class-globaloptions.php:455
-#: inc/utility/namespace.php:1335
-#: inc/utility/namespace.php:1340
-#: inc/utility/namespace.php:1374
+#: inc/utility/namespace.php:1345
+#: inc/utility/namespace.php:1350
 #: inc/utility/namespace.php:1384
-#: inc/utility/namespace.php:1390
+#: inc/utility/namespace.php:1394
+#: inc/utility/namespace.php:1400
 #: templates/admin/covergenerator.php:53
 msgid "and"
 msgstr ""
@@ -3419,41 +3419,41 @@ msgstr ""
 msgid "Export job canceled successfully."
 msgstr ""
 
-#: inc/modules/export/prince/class-docraptor.php:52
+#: inc/modules/export/prince/class-docraptor.php:53
 msgid "Starting conversion..."
 msgstr ""
 
-#: inc/modules/export/prince/class-docraptor.php:60
+#: inc/modules/export/prince/class-docraptor.php:61
 msgid "Creating temporary files..."
 msgstr ""
 
-#: inc/modules/export/prince/class-docraptor.php:68
+#: inc/modules/export/prince/class-docraptor.php:69
 #: inc/modules/export/prince/class-pdf.php:238
 msgid "Loading fonts..."
 msgstr ""
 
-#: inc/modules/export/prince/class-docraptor.php:72
+#: inc/modules/export/prince/class-docraptor.php:73
 #: inc/modules/export/prince/class-pdf.php:242
 msgid "Generating CSS..."
 msgstr ""
 
-#: inc/modules/export/prince/class-docraptor.php:87
+#: inc/modules/export/prince/class-docraptor.php:88
 msgid "Configuring DocRaptor..."
 msgstr ""
 
-#: inc/modules/export/prince/class-docraptor.php:107
+#: inc/modules/export/prince/class-docraptor.php:108
 msgid "Processing content..."
 msgstr ""
 
-#: inc/modules/export/prince/class-docraptor.php:136
+#: inc/modules/export/prince/class-docraptor.php:137
 msgid "Converting document..."
 msgstr ""
 
-#: inc/modules/export/prince/class-docraptor.php:143
+#: inc/modules/export/prince/class-docraptor.php:144
 msgid "Fetching converted file..."
 msgstr ""
 
-#: inc/modules/export/prince/class-docraptor.php:183
+#: inc/modules/export/prince/class-docraptor.php:184
 msgid "Conversion complete."
 msgstr ""
 
@@ -3762,7 +3762,7 @@ msgstr ""
 #: inc/modules/themeoptions/class-ebookoptions.php:148
 #: inc/modules/themeoptions/class-ebookoptions.php:318
 #: inc/modules/themeoptions/class-pdfoptions.php:298
-#: inc/modules/themeoptions/class-pdfoptions.php:1098
+#: inc/modules/themeoptions/class-pdfoptions.php:1141
 #: inc/modules/themeoptions/class-weboptions.php:164
 #: inc/modules/themeoptions/class-weboptions.php:316
 msgid "Paragraph Separation"
@@ -4016,7 +4016,7 @@ msgid "Customize your book&rsquo;s margins using the fields below."
 msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:238
-#: inc/modules/themeoptions/class-pdfoptions.php:973
+#: inc/modules/themeoptions/class-pdfoptions.php:1016
 msgid "Outside Margin"
 msgstr ""
 
@@ -4028,17 +4028,17 @@ msgid "Margins must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsqu
 msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:250
-#: inc/modules/themeoptions/class-pdfoptions.php:974
+#: inc/modules/themeoptions/class-pdfoptions.php:1017
 msgid "Inside Margin"
 msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:262
-#: inc/modules/themeoptions/class-pdfoptions.php:975
+#: inc/modules/themeoptions/class-pdfoptions.php:1018
 msgid "Top Margin"
 msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:274
-#: inc/modules/themeoptions/class-pdfoptions.php:976
+#: inc/modules/themeoptions/class-pdfoptions.php:1019
 msgid "Bottom Margin"
 msgstr ""
 
@@ -4051,7 +4051,7 @@ msgid "Enable hyphenation"
 msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:310
-#: inc/modules/themeoptions/class-pdfoptions.php:1117
+#: inc/modules/themeoptions/class-pdfoptions.php:1160
 msgid "Section Openings"
 msgstr ""
 
@@ -4088,7 +4088,7 @@ msgid "Convert part numbers into Roman numerals"
 msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:358
-#: inc/modules/themeoptions/class-pdfoptions.php:1190
+#: inc/modules/themeoptions/class-pdfoptions.php:1261
 msgid "Footnote Style"
 msgstr ""
 
@@ -4283,22 +4283,54 @@ msgid "Back Matter Right Page Running Content"
 msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:608
-msgid "Increase Font Size"
+msgid "Rendering Engine"
 msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:613
-msgid "Increases font size and line height for greater accessibility"
+msgid "Prince 16"
+msgstr ""
+
+#: inc/modules/themeoptions/class-pdfoptions.php:614
+msgid "Prince 15"
+msgstr ""
+
+#: inc/modules/themeoptions/class-pdfoptions.php:623
+msgid "Box Decoration Break"
+msgstr ""
+
+#: inc/modules/themeoptions/class-pdfoptions.php:628
+msgid "Slice (CSS spec)"
+msgstr ""
+
+#: inc/modules/themeoptions/class-pdfoptions.php:629
+msgid "Clone (repeat styling across page breaks)"
 msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:639
+msgid "Increase Font Size"
+msgstr ""
+
+#: inc/modules/themeoptions/class-pdfoptions.php:644
+msgid "Increases font size and line height for greater accessibility"
+msgstr ""
+
+#: inc/modules/themeoptions/class-pdfoptions.php:670
 msgid "These options apply to PDF exports."
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:981
+#: inc/modules/themeoptions/class-pdfoptions.php:1024
 msgid "IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm on any side can cause your file to be rejected."
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:1548
+#: inc/modules/themeoptions/class-pdfoptions.php:1210
+msgid "Controls the CSS rendering behavior used for PDF exports."
+msgstr ""
+
+#: inc/modules/themeoptions/class-pdfoptions.php:1224
+msgid "Controls how borders, backgrounds, and padding behave when elements span across page breaks."
+msgstr ""
+
+#: inc/modules/themeoptions/class-pdfoptions.php:1619
 msgid "PDF Options"
 msgstr ""
 
@@ -4689,17 +4721,17 @@ msgstr ""
 msgid " (%1$d of %2$d)"
 msgstr ""
 
-#: inc/utility/namespace.php:594
-#: inc/utility/namespace.php:605
-#: inc/utility/namespace.php:621
+#: inc/utility/namespace.php:604
+#: inc/utility/namespace.php:615
+#: inc/utility/namespace.php:631
 msgid "An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration."
 msgstr ""
 
-#: inc/utility/namespace.php:594
+#: inc/utility/namespace.php:604
 msgid "(Pressbooks could not establish a secure connection to the plugin recommendations server. Please contact your server administrator.)"
 msgstr ""
 
-#: inc/utility/namespace.php:645
+#: inc/utility/namespace.php:655
 msgid "These plugins have been created and/or recommended by the Pressbooks community."
 msgstr ""
 
