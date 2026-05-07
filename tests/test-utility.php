@@ -177,6 +177,34 @@ class UtilityTest extends \WP_UnitTestCase {
 	/**
 	 * @group utility
 	 */
+	public function test_get_docraptor_pipeline_defaults_to_11() {
+		delete_option( 'pressbooks_theme_options_pdf' );
+		$this->assertEquals( '11', \Pressbooks\Utility\get_docraptor_pipeline() );
+	}
+
+	/**
+	 * @group utility
+	 */
+	public function test_get_docraptor_pipeline_prince_15() {
+		update_option( 'pressbooks_theme_options_pdf', [
+			'pdf_prince_version' => 'prince-15',
+		] );
+		$this->assertEquals( '10.1', \Pressbooks\Utility\get_docraptor_pipeline() );
+	}
+
+	/**
+	 * @group utility
+	 */
+	public function test_get_docraptor_pipeline_prince_16() {
+		update_option( 'pressbooks_theme_options_pdf', [
+			'pdf_prince_version' => 'prince-16',
+		] );
+		$this->assertEquals( '11', \Pressbooks\Utility\get_docraptor_pipeline() );
+	}
+
+	/**
+	 * @group utility
+	 */
 	public function test_check_epubcheck_install() {
 		$this->assertIsBool( \Pressbooks\Utility\check_epubcheck_install() );
 		$this->assertTrue( defined( 'PB_EPUBCHECK_COMMAND' ) );
