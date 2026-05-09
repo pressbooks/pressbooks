@@ -8,7 +8,6 @@ namespace Pressbooks\Admin\Covergenerator;
 // @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
 // @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
 
-use PressbooksMix\Assets;
 use Pressbooks\Modules\ThemeOptions\PDFOptions;
 
 /**
@@ -30,16 +29,17 @@ function display_generator() {
  */
 function generator_css_js( $hooks_suffix ) {
 	if ( $hooks_suffix === get_plugin_page_hookname( 'pressbooks_cg', 'pb_export' ) ) {
-		$assets = new Assets( 'pressbooks', 'plugin' );
+		/** @var Assets $assets */
+		$assets = app( 'Assets' );
 		wp_enqueue_media();
-		wp_enqueue_style( 'cg/css', $assets->getPath( 'styles/covergenerator.css' ) );
-		wp_enqueue_script(
-			'cg/js', $assets->getPath( 'scripts/covergenerator.js' ), [
+		$assets->enqueue( 'assets/src/scripts/color-picker.js', 'color-picker' );
+		$assets->enqueue( 'assets/src/scripts/covergenerator.js', 'cg/js', [
+			'dependencies' => [
 				'jquery',
 				'jquery-form',
-				'eventsource-polyfill',
-			], null
-		);
+				'color-picker',
+			],
+		] );
 		wp_localize_script(
 			'cg/js', 'PB_CoverGeneratorToken', [
 				'ajaxSubmitMsg' => __( 'Saving settings', 'pressbooks' ),
@@ -49,7 +49,6 @@ function generator_css_js( $hooks_suffix ) {
 				'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . __( 'Reload', 'pressbooks' ) . '</a>)</em>',
 			]
 		);
-		wp_enqueue_script( 'color-picker' );
 		wp_deregister_script( 'heartbeat' );
 	}
 }

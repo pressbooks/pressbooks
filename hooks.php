@@ -4,11 +4,13 @@
  * @license GPLv3 (or any later version)
  */
 
+use function Pressbooks\Api\is_enabled;
 use function \Pressbooks\Utility\include_plugins as include_symbionts;
 use Pressbooks\Book;
 use Pressbooks\CloneComplete;
 use Pressbooks\Container;
 use Pressbooks\Privacy;
+use Pressbooks\ServiceProvider;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -26,13 +28,13 @@ include_symbionts();
 // -------------------------------------------------------------------------------------------------------------------
 
 $is_book = Book::isBook();
-$enable_network_api = \Pressbooks\Api\is_enabled();
+$enable_network_api = is_enabled();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Initialize services
 // -------------------------------------------------------------------------------------------------------------------
 
-\Pressbooks\ServiceProvider::init();
+ServiceProvider::init();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Activation
@@ -58,9 +60,24 @@ add_filter( 'ms_site_check', function() {
 
 	$site_details = get_blog_details();
 
-	// If this book is archived and public=1, allow access (archived books remain accessible with banner)
-	if ( ! empty( $site_details->archived ) && '1' === $site_details->archived && ! empty( $site_details->public ) && '1' === $site_details->public ) {
-		return true;
+	$is_archived = ! empty( $site_details->archived ) && '1' === $site_details->archived;
+
+	if ( $is_archived ) {
+		// Archived public books remain accessible (with banner)
+		if ( ! empty( $site_details->public ) && '1' === $site_details->public ) {
+			return true;
+		}
+
+		// Archived private books: allow access for logged-in book members
+		$user_id = get_current_user_id();
+		if ( $user_id ) {
+			global $wpdb;
+			$capabilities_key = $wpdb->get_blog_prefix() . 'capabilities';
+			$has_cap = get_user_meta( $user_id, $capabilities_key, true );
+			if ( is_array( $has_cap ) ) {
+				return true;
+			}
+		}
 	}
 
 	// Let WordPress handle normal archived/spam/deleted checks
@@ -356,6 +373,7 @@ add_action( 'added_existing_user', '\Pressbooks\Registration\clean_invitation_da
 // Email configuration
 add_filter( 'wp_mail_from', '\Pressbooks\Utility\mail_from' );
 add_filter( 'wp_mail_from_name', '\Pressbooks\Utility\mail_from_name' );
+add_filter( 'retrieve_password_message', '\Pressbooks\Registration\remove_ip_from_password_reset_email' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // (Custom) Styles

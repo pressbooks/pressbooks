@@ -539,7 +539,7 @@ class Cloner {
 		// Clone Glossary
 		$y = new PercentageYield( 90, 100, count( $this->sourceBookGlossary ) );
 		foreach ( $this->sourceBookGlossary as $glossary ) {
-			yield from $y->tick( __( 'Cloning glossary terms' ) );
+			yield from $y->tick( __( 'Cloning glossary terms', 'pressbooks' ) );
 			$new_glossary = $this->cloneGlossary( $glossary['id'] );
 			if ( $new_glossary !== false ) {
 				$this->clonedItems['glossary'][] = $new_glossary;

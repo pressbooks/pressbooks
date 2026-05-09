@@ -1,0 +1,57 @@
+name: Crowdin Translations Sync
+
+on:
+  push:
+    branches:
+      - dev
+    paths:
+      - 'languages/pressbooks.pot'
+
+  schedule:
+    - cron: '0 0 * * *'
+
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Action to perform'
+        type: choice
+        options:
+          - Pull Translations
+          - Seed Translations
+        default: Pull Translations
+
+jobs:
+  upload-sources:
+    name: Upload Sources
+    if: github.event_name == 'push'
+    uses: pressbooks/reusable-workflows/.github/workflows/crowdin.yml@main
+    with:
+      action: upload
+      pot_file_path: languages/pressbooks.pot
+      crowdin_branch_name: pressbooks
+      base_branch: dev
+    secrets: inherit
+
+  download-translations:
+    name: Pull Translations
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'Pull Translations')
+    uses: pressbooks/reusable-workflows/.github/workflows/crowdin.yml@main
+    with:
+      action: download
+      pot_file_path: languages/pressbooks.pot
+      languages_dir: languages/
+      crowdin_branch_name: pressbooks
+      base_branch: dev
+    secrets: inherit
+
+  seed-translations:
+    name: Seed Translations
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'Seed Translations'
+    uses: pressbooks/reusable-workflows/.github/workflows/crowdin.yml@main
+    with:
+      action: seed
+      pot_file_path: languages/pressbooks.pot
+      languages_dir: languages/
+      crowdin_branch_name: pressbooks
+      base_branch: dev
+    secrets: inherit

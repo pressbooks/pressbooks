@@ -53,6 +53,9 @@ class SideBar {
 	}
 
 	public function hooks(): void {
+		// Apply posts restriction to all sites
+		add_action( 'admin_init', [ $this, 'restrictPostsPageAccess' ] );
+
 		if ( ! is_main_site() ) {
 			add_action( 'admin_menu', [ $this, 'removePatternsSubMenuItem' ] );
 			add_action( 'admin_init', [ $this, 'restrictPatternsPageAccess' ] );
@@ -64,6 +67,10 @@ class SideBar {
 		}
 		add_action( 'network_admin_menu', [ $this, 'manageNetworkAdminMenu' ], 999 );
 		add_action( 'admin_menu', [ $this, 'manageAdminMenu' ], 999 );
+
+		if ( $this->isKokoAnalyticsActive ) {
+			add_filter( 'parent_file', [ $this, 'fixKokoAnalyticsParentFile' ] );
+		}
 
 		if ( ! is_restricted() ) {
 			add_filter( 'custom_menu_order', '__return_true' );
@@ -85,7 +92,26 @@ class SideBar {
 			return;
 		}
 
-		wp_die( __( 'Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 ); // phpcs:ignore Pressbooks.Security.EscapeOutput.OutputNotEscaped
+		wp_die( esc_html__( 'Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 );
+	}
+
+	public function restrictPostsPageAccess(): void {
+		global $pagenow;
+
+		// Get post_type from request (check both GET and POST)
+		// phpcs:ignore Pressbooks.Security.NonceVerification.Missing, Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
+		$post_type = wp_unslash( $_GET['post_type'] ?? $_POST['post_type'] ?? null );
+
+		if ( ! is_null( $post_type ) ) {
+			$post_type = sanitize_text_field( $post_type );
+		}
+
+		$pages_to_block = [ 'edit.php', 'post-new.php' ];
+
+		// Block access to edit.php and post-new.php with no post_type (defaults to 'post') or post_type=post
+		if ( in_array( $pagenow, $pages_to_block, true ) && ( $post_type === null || $post_type === 'post' ) ) {
+			wp_die( esc_html__( 'Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 );
+		}
 	}
 
 	public function manageNetworkAdminMenu(): void {
@@ -371,40 +397,27 @@ class SideBar {
 			$this->getContextSlug( 'users.php', true )
 		);
 
-		if ( is_plugin_active( 'user-activation-keys/ds_wp3_user_activation_keys.php' ) ) {
-			require_once WP_PLUGIN_DIR . '/user-activation-keys/ds_wp3_user_activation_keys.php';
-			$ds_wp3_user_activation_keys = new \DS_User_Activation_Keys();
-			add_submenu_page(
-				'pb-null',
-				__( 'User Activation Keys', 'pressbooks' ),
-				__( 'User Activation Keys', 'pressbooks' ),
-				'edit_users',
-				'act_keys',
-				is_network_admin() ? '' : [ $ds_wp3_user_activation_keys, 'ds_delete_stale' ]
-			);
-		}
-
 		// Appearance
 		add_submenu_page(
 			$this->getContextSlug( 'customize.php', true ),
-			__( 'Customize Home Page' ),
-			__( 'Customize Home Page' ),
+			__( 'Customize Home Page', 'pressbooks' ),
+			__( 'Customize Home Page', 'pressbooks' ),
 			'manage_network',
 			$this->getContextSlug( 'customize.php', true )
 		);
 
 		add_submenu_page(
 			$this->getContextSlug( 'customize.php', true ),
-			__( 'Activate Book Themes' ),
-			__( 'Activate Book Themes' ),
+			__( 'Activate Book Themes', 'pressbooks' ),
+			__( 'Activate Book Themes', 'pressbooks' ),
 			'manage_network',
 			$this->getContextSlug( 'themes.php', false )
 		);
 
 		add_submenu_page(
 			$this->getContextSlug( 'customize.php', true ),
-			__( 'Change Root Site Theme' ),
-			__( 'Change Root Site Theme' ),
+			__( 'Change Root Site Theme', 'pressbooks' ),
+			__( 'Change Root Site Theme', 'pressbooks' ),
 			'manage_network',
 			$this->getContextSlug( 'themes.php', true )
 		);
@@ -605,6 +618,30 @@ class SideBar {
 			}
 		}
 	}
+
+	/**
+	 * Fix the parent file for Koko Analytics so the Stats menu is highlighted.
+	 *
+	 * We remove the orphaned $submenu['index.php'] entry here (after the page
+	 * hook has already been resolved in admin.php) so get_admin_page_parent()
+	 * finds koko-analytics only under the correct Stats parent.
+	 * TODO: refactor sidebar menu
+	 */
+	public function fixKokoAnalyticsParentFile( string $parent_file ): string {
+		global $submenu;
+
+		if ( isset( $submenu['index.php'] ) ) {
+			foreach ( $submenu['index.php'] as $key => $item ) {
+				if ( isset( $item[2] ) && $item[2] === 'koko-analytics' ) {
+					unset( $submenu['index.php'][ $key ] );
+					break;
+				}
+			}
+		}
+
+		return $parent_file;
+	}
+
 	public function reorderSuperAdminMenu( array $menu_order ): array {
 		if ( ! is_network_admin() && $this->isNetworkAnalyticsActive ) {
 			array_splice( $menu_order, 8, 0, network_admin_url( 'admin.php?page=pb_network_analytics_admin' ) );

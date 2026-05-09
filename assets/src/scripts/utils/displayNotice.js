@@ -1,3 +1,9 @@
+/**
+ *
+ * @param type
+ * @param message
+ * @param dismissable
+ */
 export default ( type, message, dismissable ) => {
 	const notice = document.createElement( 'div' );
 	const p = document.createElement( 'p' );
@@ -5,7 +11,7 @@ export default ( type, message, dismissable ) => {
 	const h1 = document.getElementsByTagName( 'h1' )[0];
 	p.setAttribute( 'aria-live', 'assertive' );
 	p.insertAdjacentHTML( 'beforeend', message );
-	notice.classList.add( 'notice', `notice-${type}` );
+	notice.classList.add( 'notice', `notice-${ type }` );
 	notice.appendChild( p );
 
 	if ( dismissable ) {
@@ -19,16 +25,19 @@ export default ( type, message, dismissable ) => {
 		notice.appendChild( button );
 	}
 
-	if (h1 && h1.parentNode) {
+	if ( h1 && h1.parentNode ) {
 		h1.parentNode.insertBefore( notice, h1.nextSibling );
 	} else {
-		console.warn('displayNotice: Could not find h1 element or its parent to insert notice. Appending to body as a fallback.');
-		document.body.appendChild(notice);
+		console.warn( 'displayNotice: Could not find h1 element or its parent to insert notice. Appending to body as a fallback.' );
+		document.body.appendChild( notice );
 	}
 
 	if ( button ) {
+		/**
+		 *
+		 */
 		button.onclick = () => {
 			notice.parentNode.removeChild( notice );
 		};
 	}
-}
+};

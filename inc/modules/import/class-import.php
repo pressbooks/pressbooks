@@ -417,7 +417,7 @@ abstract class Import {
 		}
 		$bad_extensions = '/\.(php([0-9])?|htaccess|htpasswd|cgi|sh|pl|bat|exe|cmd|dll)$/i';
 		if ( preg_match( $bad_extensions, $_FILES['import_file']['name'] ) ) {
-			$_SESSION['pb_errors'][] = __( 'Sorry, this file type is not permitted for security reasons.' );
+			$_SESSION['pb_errors'][] = __( 'Sorry, this file type is not permitted for security reasons.', 'pressbooks' );
 			return false;
 		}
 

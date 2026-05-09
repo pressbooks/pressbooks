@@ -1,5 +1,8 @@
 import pad from './pad';
 
+/**
+ *
+ */
 export default () => {
 	// Init clock
 	const seconds = document.getElementById( 'pb-sse-seconds' );
@@ -13,4 +16,4 @@ export default () => {
 		seconds.textContent = pad( ++sec % 60 );
 		minutes.textContent = pad( parseInt( sec / 60, 10 ) ) + ':';
 	}, 1000 );
-}
+};

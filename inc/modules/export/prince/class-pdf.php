@@ -10,7 +10,6 @@ use function Pressbooks\Sanitize\normalize_css_urls;
 use function Pressbooks\Utility\get_contents;
 use function Pressbooks\Utility\put_contents;
 use Generator;
-use PressbooksMix\Assets;
 use Pressbooks\Container;
 use Pressbooks\Modules\Export\Export;
 use PrinceXMLPhp\PrinceWrapper;
@@ -217,6 +216,7 @@ class Pdf extends Export {
 	 * @return Generator
 	 * @throws ContainerExceptionInterface
 	 * @throws NotFoundExceptionInterface
+	 * @throws \Exception
 	 */
 	public function convert(): Generator {
 
@@ -271,8 +271,9 @@ class Pdf extends Export {
 		// Add resources
 		$prince->addStyleSheet( $css_file );
 		$prince->addStyleSheet( $scoped_file );
-		$assets = new Assets( 'pressbooks', 'plugin' );
-		$js_path = $assets->getPath( 'scripts/export-footnotes.js' );
+		/** @var Assets $assets */
+		$assets = app( 'Assets' );
+		$js_path = $assets->getAssetUrl( 'assets/src/scripts/export-footnotes.js' );
 		$prince->addScript( $js_path );
 
 		if ( $this->exportScriptPath ) {

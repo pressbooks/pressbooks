@@ -185,7 +185,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			$nonce = ( ! empty( $_REQUEST['_wpnonce'] ) ) ? $_REQUEST['_wpnonce'] : '';
 			if ( ! empty( $_POST ) ) {
 				if ( ! wp_verify_nonce( $nonce, $_option . '-options' ) ) {
-					wp_die( 'Security check' );
+					wp_die( __( 'Security check', 'pressbooks' ) );
 				} else {
 					if ( isset( $_REQUEST[ $_option ] ) ) {
 						$options = $this->sanitize( $_REQUEST[ $_option ] );

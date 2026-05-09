@@ -1,5 +1,138 @@
 # Changelog
 
+## [6.40.0](https://github.com/pressbooks/pressbooks/compare/6.39.3...6.40.0) (2026-05-05)
+
+
+### Features
+
+* add hooks when network managers are added or removed ([#4347](https://github.com/pressbooks/pressbooks/issues/4347)) ([d3fd14e](https://github.com/pressbooks/pressbooks/commit/d3fd14e7e9220ac2bb5ca6e2c755b429c5874272))
+
+
+### Bug Fixes
+
+* cover generator js enqueue ([#4441](https://github.com/pressbooks/pressbooks/issues/4441)) ([4ad2287](https://github.com/pressbooks/pressbooks/commit/4ad22872e9042b342d65af381fd31ec3ebe02f3e))
+
+## [6.39.3](https://github.com/pressbooks/pressbooks/compare/6.39.2...6.39.3) (2026-04-28)
+
+
+### Chores
+
+* remove ip message from reset password email ([#4435](https://github.com/pressbooks/pressbooks/issues/4435)) ([d2726c1](https://github.com/pressbooks/pressbooks/commit/d2726c149a164c13bd05212ec5ec2a86fd317e1f))
+
+## [6.39.2](https://github.com/pressbooks/pressbooks/compare/6.39.1...6.39.2) (2026-04-15)
+
+
+### Bug Fixes
+
+* allow book's users to see archived private books ([#4425](https://github.com/pressbooks/pressbooks/issues/4425)) ([d54c577](https://github.com/pressbooks/pressbooks/commit/d54c577062a83b939e87214e857102cabf8d411c))
+* mathjax \div regression ([#4423](https://github.com/pressbooks/pressbooks/issues/4423)) ([75b04c1](https://github.com/pressbooks/pressbooks/commit/75b04c15e5a0835c9a64c92f4d6d27a937df71dc))
+
+## [6.39.1](https://github.com/pressbooks/pressbooks/compare/6.39.0...6.39.1) (2026-04-09)
+
+
+### Chores
+
+* improve single delimiter settings page instructions ([#4419](https://github.com/pressbooks/pressbooks/issues/4419)) ([f7636b4](https://github.com/pressbooks/pressbooks/commit/f7636b41393891a6116b82341d3e7bc09606008b))
+
+## [6.39.0](https://github.com/pressbooks/pressbooks/compare/6.38.0...6.39.0) (2026-04-07)
+
+
+### Features
+
+* allow single dollar delimiters ([#4415](https://github.com/pressbooks/pressbooks/issues/4415)) ([d094046](https://github.com/pressbooks/pressbooks/commit/d09404681f471b419ca43804f8b36a11c6242cc9))
+
+
+### Bug Fixes
+
+* language attributes display on PDF ([#4414](https://github.com/pressbooks/pressbooks/issues/4414)) ([f38b75e](https://github.com/pressbooks/pressbooks/commit/f38b75e552c5c66bfd7870f96e4cda8dbeaa7890))
+* restore native WordPress jquery functionality for submenu items ([#4187](https://github.com/pressbooks/pressbooks/issues/4187)) ([#4396](https://github.com/pressbooks/pressbooks/issues/4396)) ([aeab279](https://github.com/pressbooks/pressbooks/commit/aeab2790247a2af3bbf06f08e9c676f215493213))
+* stats analytics submenu highlight ([#4408](https://github.com/pressbooks/pressbooks/issues/4408)) ([c123c13](https://github.com/pressbooks/pressbooks/commit/c123c13b04df0a93b9b3259fd0446841c974b68b))
+* store export pins as options instead of transients ([#4411](https://github.com/pressbooks/pressbooks/issues/4411)) ([ffb0dd8](https://github.com/pressbooks/pressbooks/commit/ffb0dd89516837da5fbcab9accb69f72b61f1d1d))
+
+
+### Chores
+
+* remove user activation keys menu (plugin deprecation) ([#4413](https://github.com/pressbooks/pressbooks/issues/4413)) ([0610615](https://github.com/pressbooks/pressbooks/commit/06106150efd6639b2d551dd80d55fd31c25fb60a))
+
+## [6.38.0](https://github.com/pressbooks/pressbooks/compare/6.37.2...6.38.0) (2026-03-25)
+
+
+### Features
+
+* Allow network managers to upload custom fonts ([#3986](https://github.com/pressbooks/pressbooks/issues/3986)) ([edb27b3](https://github.com/pressbooks/pressbooks/commit/edb27b35ee2d523f9202ee3b4d75040d7daae7ee))
+
+
+### Bug Fixes
+
+* display custom fonts for network managers ([#4402](https://github.com/pressbooks/pressbooks/issues/4402)) ([dec8d31](https://github.com/pressbooks/pressbooks/commit/dec8d31357da1632bd7795d235886e4c08f69804))
+
+## [6.37.2](https://github.com/pressbooks/pressbooks/compare/6.37.1...6.37.2) (2026-03-18)
+
+
+### Bug Fixes
+
+* missing jquery dependency in import ([#4391](https://github.com/pressbooks/pressbooks/issues/4391)) ([acb9f3b](https://github.com/pressbooks/pressbooks/commit/acb9f3b2d5eb9139eacf4dc0f535652f1c397978))
+
+## [6.37.1](https://github.com/pressbooks/pressbooks/compare/6.37.0...6.37.1) (2026-03-18)
+
+
+### Bug Fixes
+
+* export pins store ([abf3071](https://github.com/pressbooks/pressbooks/commit/abf3071343f908b2e35156ca3f5d405b7602be8a))
+* reorderable enqueue for chapters ([#4387](https://github.com/pressbooks/pressbooks/issues/4387)) ([2f8ca9d](https://github.com/pressbooks/pressbooks/commit/2f8ca9d7343da0bb805117d3fb53de8578e1aaf1))
+* replace h3 for h2 for footnotes title ([#4384](https://github.com/pressbooks/pressbooks/issues/4384)) ([6f44e48](https://github.com/pressbooks/pressbooks/commit/6f44e4855c5b90084578808e1c09f9ad7296bdba))
+* restore pin toggle functionality ([#4383](https://github.com/pressbooks/pressbooks/issues/4383)) ([abf3071](https://github.com/pressbooks/pressbooks/commit/abf3071343f908b2e35156ca3f5d405b7602be8a))
+
+
+### Chores
+
+* improved release artifact to include required files ([#4389](https://github.com/pressbooks/pressbooks/issues/4389)) ([805e50f](https://github.com/pressbooks/pressbooks/commit/805e50f5c81c77ef965bdcef6efc4bb65d73e683))
+* **l10n:** update languages ([#4379](https://github.com/pressbooks/pressbooks/issues/4379)) ([8e22e36](https://github.com/pressbooks/pressbooks/commit/8e22e369d82af15a266b5ca0f3ff2f5da0953012))
+
+## [6.37.0](https://github.com/pressbooks/pressbooks/compare/6.36.3...6.37.0) (2026-03-11)
+
+
+### Features
+
+* add responsive styles for tables and banners ([#4358](https://github.com/pressbooks/pressbooks/issues/4358)) ([1921c21](https://github.com/pressbooks/pressbooks/commit/1921c2135f8d0483c90742ec2a7f5dbfc45d58d8))
+* new pressbooks build tools ([#4199](https://github.com/pressbooks/pressbooks/issues/4199)) ([3a70abf](https://github.com/pressbooks/pressbooks/commit/3a70abf11ea4d1bead79c6574ef653afb22ca713))
+
+
+### Bug Fixes
+
+* language mapping ([#4375](https://github.com/pressbooks/pressbooks/issues/4375)) ([e3506b6](https://github.com/pressbooks/pressbooks/commit/e3506b6de0b55c25f87ad5124b116ed86e0825a7))
+* make PHP compatibility error handler filterable ([#4008](https://github.com/pressbooks/pressbooks/issues/4008)) ([7c6656e](https://github.com/pressbooks/pressbooks/commit/7c6656e05f3fbc0eaeb8cb740fe0bc09c163b72f))
+
+
+### Chores
+
+* **i18n:** update POT file for translations ([#4374](https://github.com/pressbooks/pressbooks/issues/4374)) ([31dda55](https://github.com/pressbooks/pressbooks/commit/31dda55b67f2e880829352306e58fcf41aff3606))
+* **l10n:** migrate from Transifex to Crowdin ([#4367](https://github.com/pressbooks/pressbooks/issues/4367)) ([24b9dda](https://github.com/pressbooks/pressbooks/commit/24b9ddad5eeff22c2bb7a6c481e112377f29f9bb))
+* update POT file for translations ([31dda55](https://github.com/pressbooks/pressbooks/commit/31dda55b67f2e880829352306e58fcf41aff3606))
+
+## [6.36.3](https://github.com/pressbooks/pressbooks/compare/6.36.2...6.36.3) (2026-02-26)
+
+
+### Bug Fixes
+
+* enable book deletion email for requesting super admins ([#4357](https://github.com/pressbooks/pressbooks/issues/4357)) ([575f83b](https://github.com/pressbooks/pressbooks/commit/575f83beacc2778afae965fef7c0c413641279e1))
+
+## [6.36.2](https://github.com/pressbooks/pressbooks/compare/6.36.1...6.36.2) (2026-02-25)
+
+
+### Bug Fixes
+
+* correctly handle th and td elements in thead upon save ([#4333](https://github.com/pressbooks/pressbooks/issues/4333)) ([ef1a65f](https://github.com/pressbooks/pressbooks/commit/ef1a65f8fb0df7430aa1f43e85b995362e053198))
+* restrict user access to posts ([#4345](https://github.com/pressbooks/pressbooks/issues/4345)) ([164f7c8](https://github.com/pressbooks/pressbooks/commit/164f7c82b46bd6e8a6c5fb4cf666250a108a0a8a))
+* td content improvement ([#4355](https://github.com/pressbooks/pressbooks/issues/4355)) ([51b59cf](https://github.com/pressbooks/pressbooks/commit/51b59cf4f3f05ee46cd9b7b0a971a4dfdda2de78))
+* wp 6.9 support ([#4356](https://github.com/pressbooks/pressbooks/issues/4356)) ([27913fe](https://github.com/pressbooks/pressbooks/commit/27913fe7bcb38b393b15c465aa9bf06438aa3e50))
+
+
+### Chores
+
+* bump minimum PHP to 8.3 ([#4338](https://github.com/pressbooks/pressbooks/issues/4338)) ([0f6c371](https://github.com/pressbooks/pressbooks/commit/0f6c37129c0a9b9cb96224b69106d7b8d9ff705e))
+* Update Louisiana Institutions and add East Los Angeles College to list of institutions ([#4348](https://github.com/pressbooks/pressbooks/issues/4348)) ([7352eee](https://github.com/pressbooks/pressbooks/commit/7352eeed070f816ce9ce90293f3e78fc90a085a5))
+
 ## [6.36.1](https://github.com/pressbooks/pressbooks/compare/6.36.0...6.36.1) (2026-01-22)
 
 

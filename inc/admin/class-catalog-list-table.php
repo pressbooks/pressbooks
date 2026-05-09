@@ -55,7 +55,7 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		// Build row actions
 		$actions = [
-			'visit' => sprintf( '<a href="%s">%s</a>', get_home_url( $blog_id ), __( 'Visit Book' ) ),
+			'visit' => sprintf( '<a href="%s">%s</a>', get_home_url( $blog_id ), __( 'Visit Book', 'pressbooks' ) ),
 		];
 
 		// Only include admin link if user has admin rights to the book in question
@@ -598,14 +598,14 @@ class Catalog_List_Table extends \WP_List_Table {
 		if ( isset( $_REQUEST['user_id'] ) ) {
 			if ( false === current_user_can( 'edit_user', (int) $_REQUEST['user_id'] ) ) {
 				// @phpcs:ignore Pressbooks.Security.EscapeOutput.OutputNotEscaped
-				wp_die( __( 'You do not have permission to do that.' ) );
+				wp_die( __( 'You do not have permission to do that.', 'pressbooks' ) );
 			}
 
 			$u = get_userdata( (int) $_REQUEST['user_id'] );
 
 			if ( false === $u ) {
 				// @phpcs:ignore Pressbooks.Security.EscapeOutput.OutputNotEscaped
-				wp_die( __( 'The requested user does not exist.' ) );
+				wp_die( __( 'The requested user does not exist.', 'pressbooks' ) );
 			}
 
 			$user_login = get_userdata( (int) $_REQUEST['user_id'] )->user_login;

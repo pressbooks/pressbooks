@@ -6,7 +6,7 @@
  * Release Asset: true
  * Description: Simple Book Production
  * x-release-please-start-version
- * Version: 6.36.1
+ * Version: 6.40.0
  * x-release-please-end
  * Requires at least: WordPress 6.8.3
  * Requires PHP: 8.3
@@ -14,6 +14,7 @@
  * Author URI: https://pressbooks.org
  * License: GPL v3 or later
  * Text Domain: pressbooks
+ * Domain Path: /languages
  * Network: True
  *
  * @package Pressbooks
@@ -80,6 +81,7 @@ add_action( 'wp_login', '\Pressbooks\session_kill' );
 // -------------------------------------------------------------------------------------------------------------------
 
 $composer = PB_PLUGIN_DIR . 'vendor/autoload.php';
+
 if ( file_exists( $composer ) ) {
 	require_once( $composer );
 } else {

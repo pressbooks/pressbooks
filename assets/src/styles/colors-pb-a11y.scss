@@ -1,11 +1,41 @@
-@import "partials/colors";
-@import "~wp-admin-colors/dist/admin";
+@use "partials/colors" as *;
+@use "sass:color";
 
-$mine-shaft2: darken($mine-shaft, 5%);
+// Local variables for this theme
+$mine-shaft2: color.adjust($mine-shaft, $lightness: -5%);
 $monza2: #3a3a3a;
 $highlight: #AD0000;
-$boulder: darken($boulder, 5%);
+$boulder2: color.adjust($boulder, $lightness: -5%);
 
+@use "wp-admin-colors/dist/admin" with (
+  $base-color: $alto,
+  $icon-color: $mine-shaft2,
+  $highlight-color: $highlight,
+  $notification-color: $mercury,
+  $button-color: $monza2,
+  $text-color: $mine-shaft2,
+  $body-background: $gallery,
+  $link: color.adjust($monza2, $lightness: -5%),
+  $link-focus: $highlight,
+  $form-checked: $monza2,
+  $menu-highlight-background: $gallery,
+  $menu-highlight-text: $highlight,
+  $menu-highlight-icon: $highlight,
+  $menu-submenu-background: $white,
+  $menu-submenu-text: $mine-shaft2,
+  $menu-submenu-focus-text: $highlight,
+  $menu-bubble-text: $mine-shaft2,
+  $menu-collapse-text: $mine-shaft2,
+  $menu-collapse-focus-icon: $monza2
+);
+
+// Local variables for use in this file
+$link: color.adjust($monza2, $lightness: -5%);
+$link-focus: $highlight;
+$text-color: $mine-shaft2;
+$button-color: $monza2; // Added this line
+
+// Global a11y improvements
 a {
   text-decoration: underline !important;
 
@@ -15,41 +45,6 @@ a {
     text-decoration: underline !important;
   }
 }
-
-$base-color: $alto;
-$icon-color: $mine-shaft2;
-$highlight-color: $highlight;
-$notification-color: $mercury;
-$button-color: $monza2;
-$text-color: $mine-shaft2;
-$body-background: $gallery;
-$link: darken($monza2, 5%);
-$link-focus: $highlight;
-$form-checked: $monza2;
-$menu-background: $alto;
-$menu-text: $mine-shaft2;
-$menu-icon: $mine-shaft2;
-$menu-highlight-background: $white;
-$menu-highlight-text: $highlight;
-$menu-highlight-icon: $highlight;
-$menu-current-background: $boulder;
-$menu-current-text: $white;
-$menu-current-icon: $white;
-$menu-submenu-background: $white;
-$menu-submenu-text: $mine-shaft2;
-$menu-submenu-background-alt: $white;
-$menu-submenu-focus-text: $highlight;
-$menu-submenu-current-text: $mine-shaft2;
-$menu-bubble-background: $mercury;
-$menu-bubble-text: $mine-shaft2;
-$menu-bubble-current-background: $white;
-$menu-bubble-current-text: $monza2;
-$menu-collapse-text: $mine-shaft2;
-$menu-collapse-icon: $mine-shaft2;
-$menu-collapse-focus-text: $monza2;
-$menu-collapse-focus-icon: $monza2;
-$adminbar-avatar-frame: $white;
-$adminbar-input-background: $white;
 
 // Core UI
 
@@ -96,7 +91,7 @@ div.error {
 
 #wpadminbar {
   color: $white;
-  background: darken($monza2, 5%);
+  background: color.adjust($monza2, $lightness: -5%);
 
   .ab-icon,
   .ab-icon::before,
@@ -120,7 +115,7 @@ div.error {
   }
 
   #wp-admin-bar-menu-toggle .ab-item {
-    background: darken($monza2, 5%);
+    background: color.adjust($monza2, $lightness: -5%);
 
     .ab-icon,
     .ab-icon::before {
@@ -142,7 +137,7 @@ div.error {
 
       .ab-icon,
       .ab-icon::before {
-        color: darken($monza2, 5%);
+        color: color.adjust($monza2, $lightness: -5%);
       }
 
       &:hover,
@@ -156,7 +151,7 @@ div.error {
   }
 
   .you-are-here {
-    background: lighten($monza2, 7%);
+    background: color.adjust($monza2, $lightness: 7%);
 
     a.ab-item {
       color: white;
@@ -169,7 +164,7 @@ div.error {
 .theme-browser .theme.active .theme-name,
 .theme-browser .theme.add-new-theme a:hover::after,
 .theme-browser .theme.add-new-theme a:focus::after {
-  background: darken($monza2, 5%);
+  background: color.adjust($monza2, $lightness: -5%);
 }
 
 .theme-browser .theme.active .theme-actions {
@@ -180,9 +175,9 @@ div.error {
 
 .page-title-action {
   color: $link-focus;
-  border-color: $button-color !important;
+  border-color: $monza2 !important; // Changed to use $monza2 directly
 
-  &:focus{
+  &:focus {
     color: $link-focus;
   }
 }
@@ -243,13 +238,13 @@ button.move-up,
 button.move-down,
 button.editinline,
 button.button-link {
-  color: darken($monza2, 5%) !important;
+  color: color.adjust($monza2, $lightness: -5%) !important;
 
   &:hover {
     color: $highlight !important;
   }
 }
 
-.wp-admin select       {
+.wp-admin select {
   color: $text-color !important;
 }

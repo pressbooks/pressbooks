@@ -12,7 +12,6 @@
 namespace Pressbooks\Editor;
 
 use function Pressbooks\Sanitize\normalize_css_urls;
-use PressbooksMix\Assets;
 use Pressbooks\Container;
 use Pressbooks\HtmlParser;
 use Pressbooks\Shortcodes\Glossary\Glossary;
@@ -101,7 +100,8 @@ function mce_buttons_3( $buttons ) {
  */
 function admin_enqueue_scripts( $hook ) {
 	global $post;
-	$assets = new Assets( 'pressbooks', 'plugin' );
+	/** @var Assets $assets */
+	$assets = app( 'Assets' );
 
 	// Footnotes
 	wp_localize_script(
@@ -150,7 +150,9 @@ function admin_enqueue_scripts( $hook ) {
 
 	if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
 		if ( ! is_object( $post ) || $post->post_type !== 'glossary' ) {
-			wp_enqueue_script( 'my_custom_quicktags', $assets->getPath( 'scripts/quicktags.js' ), [ 'quicktags' ] );
+			$assets->enqueue('assets/src/scripts/quicktags.js', 'my_custom_quicktags', [
+				'dependencies' => [ 'quicktags' ],
+			]);
 			wp_enqueue_script( 'wp-api' );
 		}
 	}
@@ -162,29 +164,31 @@ function admin_enqueue_scripts( $hook ) {
  * @param array $plugin_array
  *
  * @return array
+ * @throws \Exception
  */
 function mce_button_scripts( $plugin_array ) {
-	$assets = new Assets( 'pressbooks', 'plugin' );
-	$styles = Container::get( 'Styles' );
+	/** @var Assets $assets */
+	$assets = app( 'Assets' );
+	$styles = app( 'Styles' );
 
-	$plugin_array['apply_class'] = $assets->getPath( 'scripts/applyclass.js' );
+	$plugin_array['apply_class'] = $assets->getAssetPath( 'assets/src/scripts/applyclass.js' );
 	if ( $styles->hasBuckram( '1.0' ) ) {
-		$plugin_array['textboxes'] = $assets->getPath( 'scripts/textboxes.js' );
+		$plugin_array['textboxes'] = $assets->getAssetPath( 'assets/src/scripts/textboxes.js' );
 	} else {
-		$plugin_array['textboxes'] = $assets->getPath( 'scripts/textboxes-legacy.js' );
+		$plugin_array['textboxes'] = $assets->getAssetPath( 'assets/src/scripts/textboxes-legacy.js' );
 	}
-	$plugin_array['anchor'] = $assets->getPath( 'scripts/anchor.js' );
-	$plugin_array['table'] = $assets->getPath( 'scripts/table.js' );
+	$plugin_array['anchor'] = $assets->getAssetPath( 'assets/src/scripts/anchor.js' );
+	$plugin_array['table'] = $assets->getAssetPath( 'assets/dist/scripts/plugin.js' );
 
 	// Footnotes
-	$plugin_array['footnote'] = $assets->getPath( 'scripts/footnote.js' );
-	$plugin_array['ftnref_convert'] = $assets->getPath( 'scripts/ftnref-convert.js' );
+	$plugin_array['footnote'] = $assets->getAssetPath( 'assets/src/scripts/footnote.js' );
+	$plugin_array['ftnref_convert'] = $assets->getAssetPath( 'assets/src/scripts/ftnref-convert.js' );
 
 	// LaTeX
-	$plugin_array['latex'] = $assets->getPath( 'scripts/latex.js' );
+	$plugin_array['latex'] = $assets->getAssetPath( 'assets/src/scripts/latex.js' );
 
 	// Glossary
-	$plugin_array['glossary'] = $assets->getPath( 'scripts/glossary.js' );
+	$plugin_array['glossary'] = $assets->getAssetPath( 'assets/src/scripts/glossary.js' );
 
 	return $plugin_array;
 }
@@ -537,8 +541,83 @@ JS;
 }
 
 /**
- * Force classic editor mode
+ * Convert <td> elements to <th> elements in table header rows if they contain content.
+ *
+ * @param string $content Post content
+ *
+ * @return string Modified content with proper <th> elements in table headers
  */
+function fix_table_header_cells( string $content ): string {
+	// Only process if content contains tables with thead
+	if ( empty( $content ) || ! str_contains( $content, '<thead' ) ) {
+		return $content;
+	}
+
+	// Protect backslashes through WordPress slashing/unslashing
+	$backslash_placeholder = '!@#BACKSLASH#@!';
+	$content = str_replace( '\\\\', $backslash_placeholder, $content );
+	$content = wp_unslash( $content );
+	$content = str_replace( $backslash_placeholder, '\\', $content );
+
+	// Parse HTML and transform table headers
+	libxml_use_internal_errors( true );
+	$dom = new \DOMDocument( '1.0', 'UTF-8' );
+	$dom->loadHTML( '<?xml encoding="UTF-8">' . $content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+	libxml_clear_errors();
+
+	$theads = $dom->getElementsByTagName( 'thead' );
+
+	foreach ( $theads as $thead ) {
+		$rows = $thead->getElementsByTagName( 'tr' );
+		foreach ( $rows as $row ) {
+			// Collect cells to avoid live collection issues
+			$cells = [];
+			foreach ( $row->childNodes as $node ) {
+				if ( $node->nodeType === XML_ELEMENT_NODE && ( $node->nodeName === 'td' || $node->nodeName === 'th' ) ) {
+					$cells[] = $node;
+				}
+			}
+
+			foreach ( $cells as $cell ) {
+				$has_content = trim( $cell->textContent ) !== '';
+				$is_td = $cell->nodeName === 'td';
+
+				// Convert td with content to th
+				if ( $is_td && $has_content ) {
+					$new_cell = $dom->createElement( $is_td ? 'th' : 'td' );
+
+					// Copy attributes
+					if ( $cell->hasAttributes() ) {
+						foreach ( $cell->attributes as $attr ) {
+							$new_cell->setAttribute( $attr->name, $attr->value );
+						}
+					}
+
+					// Copy child nodes
+					while ( $cell->firstChild ) {
+						$new_cell->appendChild( $cell->firstChild );
+					}
+
+					$cell->parentNode->replaceChild( $new_cell, $cell );
+				}
+			}
+		}
+	}
+
+	// Save HTML and restore backslashes through slashing
+	$html = $dom->saveHTML();
+	// Remove the XML declaration we added for UTF-8 parsing
+	$html = str_replace( '<?xml encoding="UTF-8">', '', $html );
+	$html = str_replace( '\\', $backslash_placeholder, $html );
+	$html = wp_slash( $html );
+	$html = str_replace( $backslash_placeholder, '\\\\', $html );
+
+	return $html;
+}
+
+/**
+* Force classic editor mode
+*/
 function hide_gutenberg() {
 	// 4.9.X and below
 	deactivate_plugins( [ 'gutenberg/gutenberg.php' ] );

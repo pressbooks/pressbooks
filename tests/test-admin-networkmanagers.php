@@ -1,5 +1,8 @@
 <?php
 
+use function Pressbooks\Admin\NetworkManagers\_restricted_users;
+use function Pressbooks\Admin\NetworkManagers\add_menu;
+use function Pressbooks\Admin\NetworkManagers\admin_enqueues;
 use function Pressbooks\Admin\NetworkManagers\update_admin_status;
 
 require_once( PB_PLUGIN_DIR . 'inc/admin/networkmanagers/namespace.php' );
@@ -9,7 +12,7 @@ class Admin_NetworkManagers extends \WP_UnitTestCase {
 	 * @group networkmanagers
 	 */
 	public function test_add_menu() {
-		\Pressbooks\Admin\NetworkManagers\add_menu();
+		add_menu();
 		$this->assertTrue( true ); // Did not crash
 	}
 
@@ -17,10 +20,9 @@ class Admin_NetworkManagers extends \WP_UnitTestCase {
 	 * @group networkmanagers
 	 */
 	public function test_admin_enqueues() {
-		global $wp_scripts, $wp_styles;
-		\Pressbooks\Admin\NetworkManagers\admin_enqueues();
+		global $wp_scripts;
+		admin_enqueues();
 		$this->assertContains( 'pb-network-managers', $wp_scripts->queue );
-		$this->assertContains( 'pb-network-managers', $wp_styles->queue );
 	}
 
 	public function test_it_returns_a_list_of_restricted_users(): void {
@@ -41,7 +43,7 @@ class Admin_NetworkManagers extends \WP_UnitTestCase {
 		$this->assertEquals( [
 			$first_user->ID,
 			$second_user->ID,
-		], \Pressbooks\Admin\NetworkManagers\_restricted_users() );
+		], _restricted_users() );
 
 		// Force delete the user since WP does not allow deleting super admins
 		global $wpdb;
@@ -59,7 +61,7 @@ class Admin_NetworkManagers extends \WP_UnitTestCase {
 		// Check restricted users once again
 		$this->assertEquals( [
 			$second_user->ID,
-		], \Pressbooks\Admin\NetworkManagers\_restricted_users() );
+		], _restricted_users() );
 	}
 
 	/**
@@ -130,6 +132,7 @@ class Admin_NetworkManagers extends \WP_UnitTestCase {
 		$allowed = \Pressbooks\Admin\NetworkManagers\permitted_setting_menus();
 		$this->assertTrue( is_array( $allowed ) );
 		$this->assertContains( 'pb_analytics', $allowed );
+		$this->assertContains( 'pb_custom_fonts', $allowed );
 		$this->assertContains( 'pb_whitelabel_settings', $allowed );
 		$this->assertContains( 'pressbooks_sharingandprivacy_options', $allowed );
 		$this->assertContains( 'pb_network_analytics_options', $allowed );

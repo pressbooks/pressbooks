@@ -1,5 +1,7 @@
 /* global MathJax */
 
+import '../styles/glossary-definition.scss';
+
 const glossaryTerms = document.querySelectorAll( '#content .glossary-term' );
 
 Array.prototype.forEach.call( glossaryTerms, glossaryTerm => {
@@ -34,7 +36,6 @@ Array.prototype.forEach.call( glossaryTerms, glossaryTerm => {
 
 	/**
 	 * Show a term definition.
-	 *
 	 * @param template The definition template to display.
 	 */
 	function showDefinition( template ) {

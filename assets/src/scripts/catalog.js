@@ -1,3 +1,13 @@
+import '../styles/catalog.scss';
+import './small-menu';
+import Isotope from 'isotope-layout';
+import jQuery from 'jquery';
+import jQueryBridget from 'jquery-bridget';
+import 'jquery-match-height';
+
+// Make Isotope a jQuery plugin
+jQueryBridget( 'isotope', Isotope, jQuery );
+
 jQuery( function ( $ ) {
 	let $container = $( '#catalog-content' );
 	$container.isotope( {

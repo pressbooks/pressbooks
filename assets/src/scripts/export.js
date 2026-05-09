@@ -1,6 +1,7 @@
 /* global PB_ExportToken */
 /* global _pb_export_formats_map */
 /* global _pb_export_pins_inventory */
+import '../styles/export.scss';
 
 // Stores the single global EventSource instance for all user jobs.
 let globalExportSSE = null;
@@ -12,7 +13,6 @@ let failedJobs = new Set();
 
 /**
  * Updates the UI for a specific job row based on SSE data.
- *
  * @param {object} jobData - Data received from SSE for a job.
  */
 function updateJobRowUI( jobData ) {
@@ -116,7 +116,6 @@ function preselectActiveFormats( activeFormats ) {
 
 /**
  * Creates a new job row if it doesn't exist (for handling page refreshes)
- *
  * @param {object} jobData - Job data to create row for
  * @returns {HTMLElement} - The created table row element
  */
@@ -139,7 +138,7 @@ function createJobRow( jobData ) {
                     <span class="progress-text">${ jobData.progress_percentage || 0 }%</span>
                 </div>
                 <div class="export-actions">
-               	  <button class="button button-secondary cancel-job" data-job-id="${ jobData.job_id }" type="button">${PB_ExportToken?.text?.cancel_button || 'Cancel'}</button>
+               	  <button class="button button-secondary cancel-job" data-job-id="${ jobData.job_id }" type="button">${ PB_ExportToken?.text?.cancel_button || 'Cancel' }</button>
 				</div>
             </div>
         </td>
@@ -190,7 +189,7 @@ function initializeGlobalExportFeed() {
 				preselectActiveFormats( [ ...new Set( activeFormats ) ] );
 			} );
 		} catch ( e ) {
-
+			console.warn( 'Error parsing SSE data:', e );
 		}
 	} );
 
@@ -204,43 +203,43 @@ function initializeGlobalExportFeed() {
 		}
 	};
 	// Trigger cancel button functionality
-	document.querySelector('table.wp-list-table').addEventListener('click', function(event) {
-		const button = event.target.closest('button.cancel-job');
-		if (!button) return;
+	document.querySelector( 'table.wp-list-table' ).addEventListener( 'click', function ( event ) {
+		const button = event.target.closest( 'button.cancel-job' );
+		if ( ! button ) return;
 
-		const jobId = button.getAttribute('data-job-id');
-		if (!jobId) return;
+		const jobId = button.getAttribute( 'data-job-id' );
+		if ( ! jobId ) return;
 
-		if (confirm(PB_ExportToken?.text?.cancel_confirmation || 'Are you sure you want to cancel this export job?')) {
-			fetch(PB_ExportToken.ajaxUrl, {
+		if ( confirm( PB_ExportToken?.text?.cancel_confirmation || 'Are you sure you want to cancel this export job?' ) ) {
+			fetch( PB_ExportToken.ajaxUrl, {
 			    method: 'POST',
 			    headers: {
 			        'Content-Type': 'application/x-www-form-urlencoded',
 			    },
-			    body: new URLSearchParams({
+			    body: new URLSearchParams( {
 			        action: 'pb_cancel_job',
 			        job_id: jobId,
 			        pb_cancel_nonce: PB_ExportToken.nonce,
-			    })
-			})
-			.then(response => {
-			    if (!response.ok) throw new Error('Network response was not ok');
+			    } ),
+			} )
+				.then( response => {
+			    if ( ! response.ok ) throw new Error( 'Network response was not ok' );
 			    window.location.reload();
-			})
-			.catch(() => {
-			    alert(PB_ExportToken?.text?.cancel_failed || 'Failed to cancel export job.');
-			});
+				} )
+				.catch( () => {
+			    alert( PB_ExportToken?.text?.cancel_failed || 'Failed to cancel export job.' );
+				} );
 		}
-	});
+	} );
 
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-	const exportForm = document.getElementById('pb-export-form');
-	const exportButton = document.getElementById('pb-export-button');
+document.addEventListener( 'DOMContentLoaded', function () {
+	const exportForm = document.getElementById( 'pb-export-form' );
+	const exportButton = document.getElementById( 'pb-export-button' );
 
-	if (exportForm && exportButton) {
-		exportForm.addEventListener('submit', async function (event) {
+	if ( exportForm && exportButton ) {
+		exportForm.addEventListener( 'submit', async function ( event ) {
 			event.preventDefault();
 
 			// Disable button and show loading state
@@ -250,41 +249,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			try {
 				// Get selected formats
-				const formData = new FormData(exportForm);
-				const selectedFormats = getSelectedFormats(formData);
+				const formData = new FormData( exportForm );
+				const selectedFormats = getSelectedFormats( formData );
 
-				if (selectedFormats.length === 0) {
-					showError(PB_ExportToken?.text?.select_format || 'Please select at least one export format.');
+				if ( selectedFormats.length === 0 ) {
+					showError( PB_ExportToken?.text?.select_format || 'Please select at least one export format.' );
 					return;
 				}
 
-				const response = await submitExportJobs(selectedFormats);
+				const response = await submitExportJobs( selectedFormats );
 
-				if (response.success && response.data?.results) {
-					handleSubmissionSuccess(response.data);
+				if ( response.success && response.data?.results ) {
+					handleSubmissionSuccess( response.data );
 				} else {
-					handleSubmissionError(response);
+					handleSubmissionError( response );
 				}
 
-			} catch (error) {
-				showError(PB_ExportToken?.text?.error_jobs || 'Error submitting export jobs:' + error.message);
+			} catch ( error ) {
+				showError( PB_ExportToken?.text?.error_jobs || 'Error submitting export jobs:' + error.message );
 			} finally {
 				exportButton.disabled = false;
 				exportButton.textContent = originalButtonText;
 			}
-		});
+		} );
 	}
 
 	/**
 	 * Extract selected export formats from form data
+	 * @param formData
 	 */
-	function getSelectedFormats(formData) {
+	function getSelectedFormats( formData ) {
 		const selectedFormats = [];
 
-		for (const [key, value] of formData.entries()) {
-			if (key.startsWith('export_formats[') && value) {
-				const formatKey = key.substring(key.indexOf('[') + 1, key.indexOf(']'));
-				selectedFormats.push(formatKey);
+		for ( const [ key, value ] of formData.entries() ) {
+			if ( key.startsWith( 'export_formats[' ) && value ) {
+				const formatKey = key.substring( key.indexOf( '[' ) + 1, key.indexOf( ']' ) );
+				selectedFormats.push( formatKey );
 			}
 		}
 
@@ -293,102 +293,102 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	/**
 	 * Submit export jobs to the server
+	 * @param selectedFormats
 	 */
-	async function submitExportJobs(selectedFormats) {
+	async function submitExportJobs( selectedFormats ) {
 		const serverFormData = new FormData();
 
+		selectedFormats.forEach( format => {
+			serverFormData.append( `export_formats[${ format }]`, '1' );
+		} );
 
-		selectedFormats.forEach(format => {
-			serverFormData.append(`export_formats[${format}]`, '1');
-		});
+		serverFormData.append( 'action', 'pb_export_book' );
+		serverFormData.append( 'pb_export_nonce', PB_ExportToken.nonce );
 
-		serverFormData.append('action', 'pb_export_book');
-		serverFormData.append('pb_export_nonce', PB_ExportToken.nonce);
-
-		const response = await fetch(PB_ExportToken.ajaxUrl, {
+		const response = await fetch( PB_ExportToken.ajaxUrl, {
 			method: 'POST',
-			body: serverFormData
-		});
-
-		if (!response.ok) {
-			throw new Error(`HTTP error! status: ${response.status}`);
-		}
+			body: serverFormData,
+		} );
 
 		return await response.json();
 	}
 
 	/**
 	 * Handle successful job submission
+	 * @param data
 	 */
-	function handleSubmissionSuccess(data) {
+	function handleSubmissionSuccess( data ) {
 		// Store reload preference
-		if (data.reload_on_complete === true) {
+		if ( data.reload_on_complete === true ) {
 			window.PB_Export_ReloadOnComplete = true;
 		}
 
-		data.results.forEach(jobResult => {
-			if (jobResult.event_type === 'job_queued') {
-			} else if (jobResult.event_type === 'job_queue_failed') {
-				console.error(`Failed to queue job: ${jobResult.module_slug} - ${jobResult.message}`);
+		data.results.forEach( jobResult => {
+			if ( jobResult.event_type === 'job_queue_failed' ) {
+				console.error( `Failed to queue job: ${ jobResult.module_slug } - ${ jobResult.message }` );
 			}
-		});
+		} );
 
-		if (typeof window.PB_EnsureGlobalExportFeed === 'function') {
+		if ( typeof window.PB_EnsureGlobalExportFeed === 'function' ) {
 			window.PB_EnsureGlobalExportFeed();
 		}
 
-		showSuccess((PB_ExportToken?.text?.jobs_submitted) || 'Export job(s) successfully added to the queue. Progress updates will appear below until the export process is completed. In the meantime, you can safely navigate away from this page.');
+		showSuccess( ( PB_ExportToken?.text?.jobs_submitted ) || 'Export job(s) successfully added to the queue. Progress updates will appear below until the export process is completed. In the meantime, you can safely navigate away from this page.' );
 	}
 
 	/**
 	 * Handle submission errors
+	 * @param response
 	 */
-	function handleSubmissionError(response) {
+	function handleSubmissionError( response ) {
 		const errorMessage = response.data?.message || response.message || 'Failed to submit export jobs.';
-		showError(errorMessage);
+		showError( errorMessage );
 	}
 
 	/**
 	 * Show error message to user
+	 * @param message
 	 */
-	function showError(message) {
-		alert(message);
+	function showError( message ) {
+		alert( message );
 	}
 
 	/**
 	 * Show success message to user
+	 * @param message
 	 */
-	function showSuccess(message) {
-		createNotification(message, 'success');
+	function showSuccess( message ) {
+		createNotification( message, 'success' );
 	}
 
 	/**
 	 * Create an accessible notification banner
+	 * @param message
+	 * @param type
 	 */
-	function createNotification(message, type = 'info') {
-		const notification = document.createElement('div');
-		notification.className = `notice notice-${type} is-dismissible`;
-		notification.setAttribute('role', 'alert');
-		notification.setAttribute('aria-live', 'polite');
+	function createNotification( message, type = 'info' ) {
+		const notification = document.createElement( 'div' );
+		notification.className = `notice notice-${ type } is-dismissible`;
+		notification.setAttribute( 'role', 'alert' );
+		notification.setAttribute( 'aria-live', 'polite' );
 		notification.innerHTML = `
-        <p>${message}</p>
+        <p>${ message }</p>
         <button type="button" class="notice-dismiss"
-                aria-label="${PB_ExportToken?.text?.job_notice_dismissal || 'Dismiss this notice'}"
+                aria-label="${ PB_ExportToken?.text?.job_notice_dismissal || 'Dismiss this notice' }"
                 onclick="this.parentElement.remove()">
-            <span class="screen-reader-text">${PB_ExportToken?.text?.job_notice_dismissal || 'Dismiss this notice'}.</span>
+            <span class="screen-reader-text">${ PB_ExportToken?.text?.job_notice_dismissal || 'Dismiss this notice' }.</span>
         </button>
     `;
 
 		const insertAfter = exportForm.parentElement || document.body;
-		insertAfter.insertBefore(notification, insertAfter.firstChild);
+		insertAfter.insertBefore( notification, insertAfter.firstChild );
 
-		if (type === 'error') {
+		if ( type === 'error' ) {
 			notification.focus();
-			notification.setAttribute('tabindex', '-1');
+			notification.setAttribute( 'tabindex', '-1' );
 		}
 	}
-});
-
+} );
 
 jQuery( function ( $ ) {
 
@@ -407,15 +407,13 @@ jQuery( function ( $ ) {
 	 * Save pins to user meta (via transient)
 	 */
 	function savePins() {
-		// Disable all pin checkboxes during save
 		$( 'input[name^="pin"]' ).prop( 'disabled', true );
 
 		$.post( PB_ExportToken.ajaxUrl, {
-			action: 'pb_export_pins',
-			pins: pins,
-			_ajax_nonce: PB_ExportToken.pinsNonce, // Assuming pinsNonce is localized
+			action: 'pb_update_pins',
+			pins: JSON.stringify( pins ),
+			_ajax_nonce: PB_ExportToken.pinsNonce,
 		} ).always( function () {
-			// Re-enable all pin checkboxes after save attempt
 			$( 'input[name^="pin"]' ).prop( 'disabled', false );
 		} );
 	}
@@ -434,7 +432,7 @@ jQuery( function ( $ ) {
 		const count = Object.keys( pins ).length;
 		let types = {};
 		for ( let k in pins ) {
-			if ( pins.hasOwnProperty( k ) ) {
+			if ( Object.prototype.hasOwnProperty.call( pins, k ) ) {
 				if ( ! types[pins[k]] ) {
 					types[pins[k]] = 0;
 				}
@@ -450,7 +448,7 @@ jQuery( function ( $ ) {
 			error = true;
 		} else {
 			for ( let k in types ) {
-				if ( types.hasOwnProperty( k ) ) {
+				if ( Object.prototype.hasOwnProperty.call( types, k ) ) {
 					if ( types[k] > 3 ) {
 						$( this ).prop( 'checked', false );
 						delete pins[postId];

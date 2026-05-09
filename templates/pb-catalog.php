@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use Pressbooks\Image as PB_Image;
 use Pressbooks\Catalog as PB_Catalog;
-use PressbooksMix\Assets;
+use PressbooksFrontendTools\Assets;
 
 // TODO: Move logic out of the template
 
@@ -133,7 +133,8 @@ function _base_url() {
 // -------------------------------------------------------------------------------------------------------------------
 
 $pb_user_id = get_user_by( 'login', get_query_var( 'pb_catalog_user' ) )->ID;
-$assets = new Assets( 'pressbooks', 'plugin' );
+/** @var Assets $assets */
+$assets = app( 'Assets' );
 $catalog = new PB_Catalog( absint( $pb_user_id ) ); // Note: $pb_user_id is set in PB_Catalog::loadTemplate()
 $profile = $catalog->getProfile();
 $books = _books( $catalog );
@@ -159,13 +160,10 @@ $_current_user_id = $catalog->getUserId();
 	<title><?php echo ucfirst( get_userdata( $pb_user_id )->user_login );
 	_e( '\'s Catalog Page', 'pressbooks' ); ?> | Pressbooks</title>
  	<?php // @codingStandardsIgnoreStart ?>
- 	<link rel="stylesheet" type="text/css" href="<?php echo $assets->getPath( 'styles/style-catalog.css' ); ?>" />
+ 	<link rel="stylesheet" type="text/css" href="<?php echo $assets->getAssetUrl( 'assets/src/styles/style-catalog.scss' ); ?>" />
 	<link href='https://fonts.googleapis.com/css?family=Oswald|Open+Sans:400,400italic,600' rel='stylesheet' type='text/css'>
-	<script type="text/javascript" src="<?php echo network_site_url( '/wp-includes/js/jquery/jquery.js?ver=1.10.2' ); ?>"></script>
-	<script src="<?php echo $assets->getPath( 'scripts/matchheight.js' ); ?>" type="text/javascript"></script>
-	<script src="<?php echo $assets->getPath( 'scripts/isotope.js' ); ?>" type="text/javascript"></script>
-	<script src="<?php echo $assets->getPath( 'scripts/small-menu.js' ); ?>" type="text/javascript"></script>
-	<script src="<?php echo $assets->getPath( 'scripts/catalog.js' ); ?>" type="text/javascript"></script>
+	<script src="<?php echo $assets->getAssetUrl( 'assets/src/scripts/small-menu.js' ); ?>" type="module"></script>
+	<script src="<?php echo $assets->getAssetUrl( 'assets/src/scripts/catalog.js' ); ?>" type="module"></script>
 	<?php // @codingStandardsIgnoreEnd ?>
 	<?php \Pressbooks\GoogleAnalytics::init()->printScripts(); ?>
 </head>

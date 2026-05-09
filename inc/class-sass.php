@@ -35,6 +35,13 @@ class Sass {
 	}
 
 	/**
+	 * Get variables. Helpful for debugging.
+	 */
+	public function getVariables() {
+		return $this->vars;
+	}
+
+	/**
 	 * Get default include paths
 	 *
 	 * @param string $type
@@ -310,7 +317,7 @@ class Sass {
 	}
 
 	/**
-	 * Write CSS to a a debug dir
+	 * Write CSS to a debug dir
 	 *
 	 * @param string $css
 	 * @param string $scss

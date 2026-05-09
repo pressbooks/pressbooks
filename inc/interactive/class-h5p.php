@@ -407,6 +407,8 @@ class H5P {
 		$custom_css_pre .= '.h5p-extractor .h5p-accordion .h5p-panel-title { padding-left: 0; font-size: unset;}';
 
 		// Workaround for Advanced Text, the > selector in the original CSS will be replaced by &gt; for XML
+		$custom_css_pre .= '.h5p-extractor .h5p-advanced-text ul { padding-left: 1.5em; }';
+		$custom_css_pre .= '.h5p-extractor .h5p-advanced-text ol { padding-left: 1.5em; }';
 		$custom_css_pre .= '.h5p-extractor .h5p-advanced-text ul li { list-style-type: disc; margin: 0 0 1em 1.5em; padding: 0;}';
 		$custom_css_pre .= '.h5p-extractor .h5p-advanced-text ol li { list-style-type: decimal; margin: 0 0 1em 1.5em; padding: 0;}';
 		$custom_css_pre .= '.h5p-extractor .h5p-advanced-text ul li:last-child { margin-bottom: 0; }';

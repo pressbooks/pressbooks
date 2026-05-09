@@ -210,7 +210,7 @@ class Content {
 		$dom = $html5->loadHTML( $content );
 		$elements = $dom->getElementsByTagName( 'iframe' );
 		$title = $this->getTitle( $id );
-		$url = wp_get_shortlink( $id );
+		$url = wp_get_shortlink( $id ) ?: get_permalink( $id );
 		for ( $i = $elements->length; --$i >= 0; ) {  // If you're deleting elements from within a loop, you need to loop backwards
 			$iframe = $elements->item( $i );
 			$template = $this->blade->render(
@@ -280,7 +280,7 @@ class Content {
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 
 		$title = $data->title ?? $this->getTitle( $id );
-		$post_url = wp_get_shortlink( $id );
+		$post_url = wp_get_shortlink( $id ) ?: get_permalink( $id );
 		if ( isset( $this->iframes[ $id ] ) ) {
 			$this->iframes[ $id ] ++;
 		} else {
@@ -330,7 +330,7 @@ class Content {
 		$html5 = new HtmlParser();
 		$dom = $html5->loadHTML( $html );
 		$title = $this->getTitle( $id );
-		$url = wp_get_shortlink( $id );
+		$url = wp_get_shortlink( $id ) ?: get_permalink( $id );
 		foreach ( $tags as $tag ) {
 			// Replace
 			$elements = $dom->getElementsByTagName( $tag );
