@@ -168,11 +168,21 @@ class BookTest extends \WP_UnitTestCase {
 		$book = \Pressbooks\Book::getInstance();
 
 		$this->_book();
+
 		$wc = $book::wordCount();
 		$wc_selected_for_export = $book::wordCount( true );
 
-		$this->assertEquals( 166, $wc );
-		$this->assertEquals( 166, $wc_selected_for_export );
+		$this->assertEquals( 170, $wc );
+		$this->assertEquals( 170, $wc_selected_for_export );
+
+		$part_id = $book::getBookStructure()['part'][0]['ID'];
+		$this->factory()->post->update_object( $part_id, [ 'post_content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' ] );
+		$book::deleteBookObjectCache();
+		$wc = $book::wordCount();
+		$wc_selected_for_export = $book::wordCount( true );
+
+		$this->assertEquals( 176, $wc );
+		$this->assertEquals( 176, $wc_selected_for_export );
 	}
 
 	/**
