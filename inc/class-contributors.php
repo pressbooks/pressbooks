@@ -807,6 +807,17 @@ class Contributors implements FrontOrBackMatter, Transferable {
 			$term = get_term_by( 'slug', $contributor, self::TAXONOMY );
 			if ( $term ) {
 				$full_contributors[ $key ]['name'] = $this->personalName( $contributor );
+				/* Attempt to fetch the attachment ID for the contributor's picture. */
+				$contributor_picture_id = attachment_url_to_postid ( get_term_meta( $term->term_id, 'contributor_picture', true ) );
+				if ( $contributor_picture_id ) {
+					/* Attempt to retrieve alt text for the contributor's picture. */
+					$alt = get_post_meta( $contributor_picture_id, '_wp_attachment_image_alt', true );
+					/* Set the alt text if found, falling back to a generic string which describes the purpose of the image. */
+					$full_contributors[ $key ]['contributor_picture_alt'] = $alt ?
+						get_post_meta( $contributor_picture_id, '_wp_attachment_image_alt', true ) :
+						/* Translators: %s: name of contributor */
+						sprintf( __( 'Profile picture for %s', 'pressbooks' ), $full_contributors[ $key ]['name'] );
+				}
 				foreach ( self::getContributorFields() as $field => $value ) {
 					$full_contributors[ $key ][ $field ] = get_term_meta( $term->term_id, $field, true );
 				}
