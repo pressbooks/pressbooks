@@ -3,7 +3,7 @@
 use Pressbooks\Contributors;
 
 /**
- * 
+ *
  * @group contributors
  */
 class ContributorsTest extends \WP_UnitTestCase {
@@ -234,6 +234,8 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertCount( 2, $contributors );
 		$this->assertArrayHasKey( 'contributor_twitter', $contributors[0] );
 		$this->assertArrayHasKey( 'contributor_picture', $contributors[0] );
+		$this->assertArrayHasKey( 'contributor_picture_alt', $contributors[0] );
+		$this->assertEquals( 'Profile picture for Zig Zag', $contributors[0] );
 
 		$contributors = $this->contributor->getContributorsWithMeta( $post_id, 'fake_reviewer' );
 
@@ -671,7 +673,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 		] );
 
 		$this->contributor->addBlogUser( $john_doe_id );
-		
+
 		$this->contributor->removeBlogUser( $john_doe_id );
 
 		$term = get_term_by( 'slug', 'johndoe', 'contributor' );
