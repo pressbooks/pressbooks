@@ -73,6 +73,7 @@ html #wpadminbar {
   border: 0 !important;
 }
 
+#wpadminbar #wp-toolbar .ab-top-menu > li#wp-admin-bar-view > .ab-item,
 #wpadminbar #wp-toolbar .ab-top-menu > li > .ab-item span {
   font-size: 1rem;
 }
@@ -149,12 +150,12 @@ html #wpadminbar {
     --pb-toolbar-item-width: 50px;
   }
 
-  #wpadminbar #wp-toolbar .ab-top-menu > li > .ab-item,
+  #wpadminbar #wp-toolbar .ab-top-menu > li:not(#wp-admin-bar-view) > .ab-item,
   #wpadminbar #wp-toolbar .ab-icon {
     padding: 0;
   }
 
-  #wpadminbar #wp-toolbar .ab-top-menu > li > .ab-item {
+  #wpadminbar #wp-toolbar .ab-top-menu > li:not(#wp-admin-bar-view) > .ab-item {
     width: var(--pb-toolbar-item-width);
   }
 
@@ -194,12 +195,12 @@ html #wpadminbar {
   }
 
   body.book-context {
-    #wpadminbar #wp-toolbar .ab-top-menu > li > .ab-item,
+    #wpadminbar #wp-toolbar .ab-top-menu > li:not(#wp-admin-bar-view) > .ab-item,
     #wpadminbar #wp-toolbar .ab-icon {
       padding: 0;
     }
 
-    #wpadminbar #wp-toolbar .ab-top-menu > li > .ab-item {
+    #wpadminbar #wp-toolbar .ab-top-menu > li:not(#wp-admin-bar-view) > .ab-item {
       width: var(--pb-toolbar-item-width);
     }
 
@@ -301,7 +302,7 @@ html #wpadminbar {
 }
 
 /* Admin Banners Component
- * 
+ *
  * Expected markup structure for responsive banners:
  * <div class="wrap banner is-dismissible" data-dismiss-key="...">
  *   <div class="banner-content">
@@ -316,7 +317,7 @@ html #wpadminbar {
  *     <i class="pb-heroicons pb-heroicons-outline_x-circle"></i>
  *   </button>
  * </div>
- * 
+ *
  * Responsive behavior:
  * - Desktop (>1024px): Content, actions, and dismiss button lay out horizontally in one row
  * - Mobile (≤1024px): Content and dismiss button on first line, actions below on second line
