@@ -806,8 +806,8 @@ class Contributors implements FrontOrBackMatter, Transferable {
 		foreach ( $contributors as $key => $contributor ) {
 			$term = get_term_by( 'slug', $contributor, self::TAXONOMY );
 			if ( $term ) {
+				$full_contributors[ $key ]['name'] = $this->personalName( $contributor );
 				foreach ( self::getContributorFields() as $field => $value ) {
-					$full_contributors[ $key ]['name'] = $this->personalName( $contributor );
 					$full_contributors[ $key ][ $field ] = get_term_meta( $term->term_id, $field, true );
 				}
 			}
