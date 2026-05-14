@@ -808,7 +808,7 @@ class Contributors implements FrontOrBackMatter, Transferable {
 			if ( $term ) {
 				$full_contributors[ $key ]['name'] = $this->personalName( $contributor );
 				/* Attempt to fetch the attachment ID for the contributor's picture. */
-				$contributor_picture_id = attachment_url_to_postid ( get_term_meta( $term->term_id, 'contributor_picture', true ) );
+				$contributor_picture_id = attachment_url_to_postid( get_term_meta( $term->term_id, 'contributor_picture', true ) );
 				if ( $contributor_picture_id ) {
 					/* Attempt to retrieve alt text for the contributor's picture. */
 					$alt = get_post_meta( $contributor_picture_id, '_wp_attachment_image_alt', true );
