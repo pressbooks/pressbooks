@@ -8,7 +8,7 @@ jQuery( function ( $ ) {
 	// Set element variables
 	const button = $( 'input[type=submit]' );
 	const bar = $( '#pb-sse-progressbar' );
-	const info = $('#pb-sse-info');
+	const info = $( '#pb-sse-info' );
 	const status = $( '#pb-sse-status' );
 	const notices = $( '.notice' );
 

@@ -93,7 +93,7 @@ $( function () {
 			let data = JSON.parse( message.data );
 			switch ( data.action ) {
 				case 'updateStatusBar':
-					bar.val(parseInt(data.percentage, 10));
+					bar.val( parseInt( data.percentage, 10 ) );
 					status.html( `${ data.percentage }%` );
 					info.html( data.info );
 					break;
