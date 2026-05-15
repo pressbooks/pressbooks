@@ -240,6 +240,75 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertCount( 0, $contributors );
 	}
 
+	public function test_pictureHasAltText() {
+		$this->taxonomy->registerTaxonomies();
+		$post_id = $this->_createChapter();
+
+		// Test 1: Contributor with picture that has alt text
+		$contributor_name_with_alt = 'Zig Zag';
+		$this->contributor->insert( $contributor_name_with_alt, $post_id, 'contributors' );
+		$term_with_alt = get_term_by( 'slug', 'zig-zag', 'contributor' );
+
+		// Create an attachment with alt text
+		$temp = tempnam( sys_get_temp_dir(), 'TMP_' );
+		file_put_contents( $temp, file_get_contents( __DIR__ . '/data/mountains.jpg' ) );
+		$attachment_id_with_alt = media_handle_sideload(
+			[
+				'name' => 'test-picture.jpg',
+				'tmp_name' => $temp,
+			],
+			0
+		);
+		$picture_url_with_alt = wp_get_attachment_url( $attachment_id_with_alt );
+		update_term_meta( $term_with_alt->term_id, 'contributor_picture', $picture_url_with_alt );
+
+		// Set alt text on the attachment
+		$expected_alt_text = 'Custom alt text for Zig Zag';
+		update_post_meta( $attachment_id_with_alt, '_wp_attachment_image_alt', $expected_alt_text );
+
+		// Test 2: Contributor with picture but without alt text
+		$contributor_name_without_alt = 'Jane Doe';
+		$this->contributor->insert( $contributor_name_without_alt, $post_id, 'contributors' );
+		$term_without_alt = get_term_by( 'slug', 'jane-doe', 'contributor' );
+
+		// Create another attachment without alt text
+		$temp2 = tempnam( sys_get_temp_dir(), 'TMP_' );
+		file_put_contents( $temp2, file_get_contents( __DIR__ . '/data/mountains.jpg' ) );
+		$attachment_id_without_alt = media_handle_sideload(
+			[
+				'name' => 'test-picture-2.jpg',
+				'tmp_name' => $temp2,
+			],
+			0
+		);
+		$picture_url_without_alt = wp_get_attachment_url( $attachment_id_without_alt );
+		update_term_meta( $term_without_alt->term_id, 'contributor_picture', $picture_url_without_alt );
+
+		// Do NOT set alt text on this attachment
+
+		// Test 3: Contributor without a picture
+		$contributor_name_no_picture = 'Bob Smith';
+		$this->contributor->insert( $contributor_name_no_picture, $post_id, 'contributors' );
+
+		// Get all contributors with meta
+		$contributors = $this->contributor->getContributorsWithMeta( $post_id, 'contributors' );
+
+		// Verify we have 3 contributors
+		$this->assertCount( 3, $contributors );
+
+		// Test 1: Verify custom alt text is used when available
+		$this->assertArrayHasKey( 'contributor_picture_alt', $contributors[0] );
+		$this->assertEquals( $expected_alt_text, $contributors[0]['contributor_picture_alt'] );
+
+		// Test 2: Verify fallback alt text is used when no custom alt text exists
+		$this->assertArrayHasKey( 'contributor_picture_alt', $contributors[1] );
+		$expected_fallback_alt = sprintf( __( 'Profile picture for %s', 'pressbooks' ), $contributor_name_without_alt );
+		$this->assertEquals( $expected_fallback_alt, $contributors[1]['contributor_picture_alt'] );
+
+		// Test 3: Verify no alt text key is added when there's no picture
+		$this->assertArrayNotHasKey( 'contributor_picture_alt', $contributors[2] );
+	}
+
 	public function test_personalName() {
 
 		$this->taxonomy->registerTaxonomies();
