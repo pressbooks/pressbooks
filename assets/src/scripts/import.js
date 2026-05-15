@@ -8,7 +8,8 @@ jQuery( function ( $ ) {
 	// Set element variables
 	const button = $( 'input[type=submit]' );
 	const bar = $( '#pb-sse-progressbar' );
-	const info = $( '#pb-sse-info' );
+	const info = $('#pb-sse-info');
+	const status = $( '#pb-sse-status' );
 	const notices = $( '.notice' );
 
 	// Init clock
@@ -45,11 +46,12 @@ jQuery( function ( $ ) {
 			switch ( data.action ) {
 				case 'updateStatusBar':
 					bar.val( parseInt( data.percentage, 10 ) );
+					status.html( `${ data.percentage }%` );
 					info.html( data.info );
 					break;
 				case 'complete':
 					evtSource.close();
-					$( window ).unbind( 'beforeunload' );
+					$( window ).off( 'beforeunload' );
 					if ( data.error ) {
 						bar.val( 0 ).hide();
 						button.attr( 'disabled', false ).show();
@@ -74,7 +76,7 @@ jQuery( function ( $ ) {
 			evtSource.close();
 			bar.removeAttr( 'value' );
 			info.html( 'EventStream Connection Error ' + PB_ImportToken.reloadSnippet );
-			$( window ).unbind( 'beforeunload' );
+			$( window ).off( 'beforeunload' );
 			if ( clock ) {
 				resetClock( clock );
 			}

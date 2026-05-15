@@ -56,6 +56,7 @@ $( function () {
 	const makeEbookButton = $( '#generate-jpg' );
 	const bar = $( '#pb-sse-progressbar' );
 	const info = $( '#pb-sse-info' );
+	const status = $( '#pb-sse-status' );
 	const notices = $( '.notice' );
 
 	// Initialize clock
@@ -92,12 +93,13 @@ $( function () {
 			let data = JSON.parse( message.data );
 			switch ( data.action ) {
 				case 'updateStatusBar':
-					bar.val( parseInt( data.percentage, 10 ) );
+					bar.val(parseInt(data.percentage, 10));
+					status.html( `${ data.percentage }%` );
 					info.html( data.info );
 					break;
 				case 'complete':
 					evtSource.close();
-					$( window ).unbind( 'beforeunload' );
+					$( window ).off( 'beforeunload' );
 					if ( data.error ) {
 						bar.val( 0 ).hide();
 						makePdfButton.attr( 'disabled', false ).show();
@@ -123,7 +125,7 @@ $( function () {
 			evtSource.close();
 			bar.removeAttr( 'value' );
 			info.html( 'EventStream Connection Error ' + PB_CG.reloadSnippet );
-			$( window ).unbind( 'beforeunload' );
+			$( window ).off( 'beforeunload' );
 			if ( clock ) {
 				resetClock( clock );
 			}
