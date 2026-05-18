@@ -1,19 +1,19 @@
 <div class="contributor">
 	<div class="contributor__name__and__links">
 		@if ( $contributor['contributor_picture'] )
-			<img class="contributor__profile__picture" alt="Contributor photo" src="{{ $contributor['contributor_picture'] }}"/>
+			<img class="contributor__profile__picture" alt="{{ __( 'Contributor photo', 'pressbooks' ) }}" src="{{ $contributor['contributor_picture'] }}"/>
 		@endif
 		<div class="{{ $contributor['contributor_picture']  ? 'contributor__info__small' : 'contributor__info__large' }}">
 			<p class="contributor__name">
 				@if ( !isset( $exporting ) )
-					<span class="screen-reader-text">name: </span>
+					<span class="screen-reader-text">{{ __( 'name:', 'pressbooks' ) }}</span>
 				@endif
 				{!! $contributor['name'] !!}
 			</p>
 			@if ( $contributor['contributor_institution'] )
 				<p class="contributor__institution">
 					@if ( !isset( $exporting ) )
-						<span class="screen-reader-text">institution: </span>
+						<span class="screen-reader-text">{{ __( 'institution:', 'pressbooks' ) }}</span>
 					@endif
 					{!! $contributor['contributor_institution'] !!}
 				</p>
@@ -21,7 +21,7 @@
 			@if ( $contributor['contributor_user_url'] )
 				<p class="contributor__website">
 					@if ( !isset( $exporting ) )
-						<span class="screen-reader-text">website: </span>
+						<span class="screen-reader-text">{{ __( 'website:', 'pressbooks' ) }}</span>
 					@endif
 					<a href="{{ $contributor['contributor_user_url'] }}" target="_blank">{{ $contributor['contributor_user_url'] }}</a>
 				</p>
@@ -36,7 +36,7 @@
 						@else
 							<a href="{{$contributor['contributor_twitter']}}" target="_blank">
 								<svg role="img" aria-labelledby="x-logo-{{ $key }}" class="contributor__icon-svg">
-									<title id="x-logo-{{ $key }}">X logo</title>
+									<title id="x-logo-{{ $key }}">{{ __( 'X logo', 'pressbooks' ) }}</title>
 									<use href="#twitter"/>
 								</svg>
 							</a>
@@ -50,7 +50,7 @@
 						@else
 							<a href="{{$contributor['contributor_linkedin']}}" target="_blank">
 								<svg role="img" aria-labelledby="linkedin-logo-{{ $key }}" class="contributor__icon-svg">
-									<title id="linkedin-logo-{{ $key }}">LinkedIn logo</title>
+									<title id="linkedin-logo-{{ $key }}">{{ __( 'LinkedIn logo', 'pressbooks' ) }}</title>
 									<use href="#linkedin-icon"/>
 								</svg>
 							</a>
@@ -64,7 +64,7 @@
 						@else
 							<a href="{{$contributor['contributor_github']}}" target="_blank">
 								<svg role="img" aria-labelledby="github-logo-{{ $key }}" class="contributor__icon-svg">
-									<title id="github-logo-{{ $key }}">GitHub logo</title>
+									<title id="github-logo-{{ $key }}">{{ __( 'GitHub logo', 'pressbooks' ) }}</title>
 									<use href="#github-icon"/>
 								</svg>
 							</a>

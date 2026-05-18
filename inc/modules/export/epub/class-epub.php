@@ -430,7 +430,7 @@ class Epub extends Export {
 		$properties = [];
 
 		if ( empty( $html ) ) {
-			throw new Exception( 'File contents empty for getProperties' );
+			throw new Exception( __( 'File contents empty for getProperties', 'pressbooks' ) );
 		}
 
 		if ( $this->isMathML( $html ) ) {
@@ -815,7 +815,7 @@ class Epub extends Export {
 					]
 				);
 				if ( is_wp_error( $response ) ) {
-					throw new Exception( 'Bad URL: ' . $url );
+					throw new Exception( __( 'Bad URL: ', 'pressbooks' ) . $url );
 				}
 			} catch ( Exception $exc ) {
 				$this->fetchedImageCache[ $url ] = '';
@@ -2232,7 +2232,7 @@ class Epub extends Export {
 				}
 				$response = wp_remote_get( $url, $args );
 				if ( is_wp_error( $response ) ) {
-					throw new Exception( 'Bad URL: ' . $url );
+					throw new Exception( __( 'Bad URL: ', 'pressbooks' ) . $url );
 				}
 			} catch ( Exception $exc ) {
 				$this->fetchedImageCache[ $url ] = '';
@@ -2994,23 +2994,23 @@ class Epub extends Export {
 
 				if ( str_contains( $line, 'ERROR(RSC-005)' ) ) {
 					if ( str_contains( $line, 'role" is invalid' ) ) {
-						$error_groups[ $file ]['rsc_005'][] = 'Invalid role attribute';
+						$error_groups[ $file ]['rsc_005'][] = __( 'Invalid role attribute', 'pressbooks' );
 					} elseif ( str_contains( $line, 'missing required attribute "aria-checked"' ) ) {
-						$error_groups[ $file ]['rsc_005'][] = 'Missing aria-checked attribute on <li> element';
+						$error_groups[ $file ]['rsc_005'][] = __( 'Missing aria-checked attribute on <li> element', 'pressbooks' );
 					}
 				} elseif ( str_contains( $line, 'ERROR(OPF-014)' ) ) {
-					$error_groups[ $file ]['opf_014'][] = 'Remote resources property not declared in OPF file';
+					$error_groups[ $file ]['opf_014'][] = __( 'Remote resources property not declared in OPF file', 'pressbooks' );
 				} elseif ( str_contains( $line, 'ERROR(RSC-006)' ) ) {
-					$error_groups[ $file ]['rsc_006'][] = 'Remote resource reference not allowed';
+					$error_groups[ $file ]['rsc_006'][] = __( 'Remote resource reference not allowed', 'pressbooks' );
 				} elseif ( str_contains( $line, 'WARNING(PKG-022)' ) ) {
-					$error_groups[ $file ]['pkg_022'][] = 'Wrong file extension for image (PNG with .jpg extension)';
+					$error_groups[ $file ]['pkg_022'][] = __( 'Wrong file extension for image (PNG with .jpg extension)', 'pressbooks' );
 				} else {
 					$error_groups[ $file ]['other'][] = $line;
 				}
 			}
 		}
 
-		$formatted_output .= "EPUB VALIDATION REPORT\n";
+		$formatted_output .= __( 'EPUB VALIDATION REPORT', 'pressbooks' ) . "\n";
 		$formatted_output .= str_repeat( '=', 50 ) . "\n\n";
 
 		$total_errors = 0;
@@ -3042,35 +3042,35 @@ class Epub extends Export {
 			$total_errors += $file_error_count;
 			$total_warnings += $file_warning_count;
 
-			$file_output .= 'FILE: ' . $file . "\n";
-			$file_output .= "Errors: {$file_error_count} | Warnings: {$file_warning_count}\n";
+			$file_output .= __( 'FILE: ', 'pressbooks' ) . $file . "\n";
+			$file_output .= sprintf( __( 'Errors: %d | Warnings: %d', 'pressbooks' ), $file_error_count, $file_warning_count ) . "\n";
 			$file_output .= str_repeat( '-', 40 ) . "\n";
 
 			// RSC-005 errors (Invalid attributes)
 			if ( ! empty( $errors['rsc_005'] ) ) {
-				$file_output .= "• ATTRIBUTE ERRORS (RSC-005):\n";
+				$file_output .= __( '• ATTRIBUTE ERRORS (RSC-005):', 'pressbooks' ) . "\n";
 				$unique_rsc_errors = array_count_values( $errors['rsc_005'] );
 				foreach ( $unique_rsc_errors as $error => $count ) {
-					$file_output .= "  - {$error} ({$count} occurrence" . ( $count > 1 ? 's' : '' ) . ")\n";
+					$file_output .= "  - {$error} ({$count} " . _n( 'occurrence', 'occurrences', $count, 'pressbooks' ) . ")\n";
 				}
 				$file_output .= "\n";
 			}
 
 			// OPF-014 errors (Remote resources)
 			if ( ! empty( $errors['opf_014'] ) ) {
-				$file_output .= "• REMOTE RESOURCES ERRORS (OPF-014):\n";
+				$file_output .= __( '• REMOTE RESOURCES ERRORS (OPF-014):', 'pressbooks' ) . "\n";
 				$file_output .= "  - Remote resources property not declared in OPF file\n\n";
 			}
 
 			// RSC-006 errors (Remote resource references)
 			if ( ! empty( $errors['rsc_006'] ) ) {
-				$file_output .= "• REMOTE REFERENCE ERRORS (RSC-006):\n";
-				$file_output .= '  - Remote resource references not allowed (' . count( $errors['rsc_006'] ) . " occurrences)\n\n";
+				$file_output .= __( '• REMOTE REFERENCE ERRORS (RSC-006):', 'pressbooks' ) . "\n";
+				$file_output .= sprintf( __( '  - Remote resource references not allowed (%d occurrences)', 'pressbooks' ), count( $errors['rsc_006'] ) ) . "\n\n";
 			}
 
 			// PKG-022 warnings (File extension)
 			if ( ! empty( $errors['pkg_022'] ) ) {
-				$file_output .= "• FILE EXTENSION WARNINGS (PKG-022):\n";
+				$file_output .= __( '• FILE EXTENSION WARNINGS (PKG-022):', 'pressbooks' ) . "\n";
 				foreach ( $errors['pkg_022'] as $warning ) {
 					$file_output .= "  - {$warning}\n";
 				}
@@ -3079,7 +3079,7 @@ class Epub extends Export {
 
 			// Other errors
 			if ( ! empty( $errors['other'] ) ) {
-				$file_output .= "• OTHER ISSUES:\n";
+				$file_output .= __( '• OTHER ISSUES:', 'pressbooks' ) . "\n";
 				foreach ( $errors['other'] as $error ) {
 					$file_output .= "  - {$error}\n";
 				}
@@ -3090,12 +3090,12 @@ class Epub extends Export {
 		}
 
 		$formatted_output .= str_repeat( '=', 50 ) . "\n";
-		$formatted_output .= "SUMMARY\n";
-		$formatted_output .= "Total Errors: {$total_errors}\n";
-		$formatted_output .= "Total Warnings: {$total_warnings}\n";
-		$formatted_output .= 'Files Affected: ' . count( array_filter( $error_groups, function( $errors ) {
+		$formatted_output .= __( 'SUMMARY', 'pressbooks' ) . "\n";
+		$formatted_output .= sprintf( __( 'Total Errors: %d', 'pressbooks' ), $total_errors ) . "\n";
+		$formatted_output .= sprintf( __( 'Total Warnings: %d', 'pressbooks' ), $total_warnings ) . "\n";
+		$formatted_output .= sprintf( __( 'Files Affected: %d', 'pressbooks' ), count( array_filter( $error_groups, function( $errors ) {
 				return ! empty( array_filter( $errors ) );
-		} ) ) . "\n";
+		} ) ) ) . "\n";
 
 		return $formatted_output;
 	}
@@ -3144,7 +3144,7 @@ class Epub extends Export {
 			$error_summary = $this->getValidationSummary( $message );
 			$more_info['validation_summary'] = $error_summary;
 
-			$message = 'EPUB validation completed with issues. See formatted report above.';
+			$message = __( 'EPUB validation completed with issues. See formatted report above.', 'pressbooks' );
 		}
 
 		parent::logError( $message, $more_info );

@@ -286,14 +286,14 @@ class Epub201 extends ImportGenerator {
 
 		$result = $this->zip->open( $fullpath );
 		if ( true !== $result ) {
-			throw new \Exception( 'Opening epub file failed' );
+			throw new \Exception( __( 'Opening epub file failed', 'pressbooks' ) );
 		}
 
 		/* Safety dance */
 
 		$ok = $this->getZipContent( 'META-INF/container.xml' );
 		if ( ! $ok ) {
-			throw new \Exception( 'Bad or corrupted META-INF/container.xml' );
+			throw new \Exception( __( 'Bad or corrupted META-INF/container.xml', 'pressbooks' ) );
 		}
 
 	}
@@ -537,7 +537,7 @@ class Epub201 extends ImportGenerator {
 				$image_content = $this->getZipContent( $this->basedir . $trim_url, false );
 
 				if ( ! $image_content ) {
-					throw new \Exception( 'Could not import images from EPUB' );
+					throw new \Exception( __( 'Could not import images from EPUB', 'pressbooks' ) );
 				}
 			} catch ( \Exception $e ) {
 				$already_done[ $img_location ] = '';
@@ -554,7 +554,7 @@ class Epub201 extends ImportGenerator {
 				$filename = $this->properImageExtension( $tmp_name, $filename );
 
 				if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
-					throw new \Exception( 'Image is corrupt, and file extension matches the mime type' );
+					throw new \Exception( __( 'Image is corrupt, and file extension matches the mime type', 'pressbooks' ) );
 				}
 			} catch ( \Exception $exc ) {
 				// Garbage, Don't import

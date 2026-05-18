@@ -499,7 +499,7 @@ function resize_down( $format, $fullpath, $max_w = 1024, $max_h = 1024 ) {
 		$format = 'jpeg'; // fix stupid mistake
 	}
 	if ( ! ( 'jpeg' === $format || 'gif' === $format || 'png' === $format ) ) {
-		throw new \Exception( 'Invalid image format' );
+		throw new \Exception( __( 'Invalid image format', 'pressbooks' ) );
 	}
 
 	/* Try to avoid problems with memory limit */
@@ -523,7 +523,7 @@ function resize_down( $format, $fullpath, $max_w = 1024, $max_h = 1024 ) {
 		$font_color = imagecolorallocate( $src, 0, 0, 0 );
 
 		imagefilledrectangle( $src, 0, 0, 150, 100, $bkgd_color );
-		imagestring( $src, 3, 5, 5, 'Error loading image', $font_color );
+		imagestring( $src, 3, 5, 5, __( 'Error loading image', 'pressbooks' ), $font_color );
 
 	}
 

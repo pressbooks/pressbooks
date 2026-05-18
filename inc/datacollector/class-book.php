@@ -426,7 +426,7 @@ class Book {
 		update_site_meta(
 			$book_id,
 			self::LICENSE_CODE,
-			$supported_types[ $book_license ]['abbreviation'] ?? 'All Rights Reserved'
+			$supported_types[ $book_license ]['abbreviation'] ?? __( 'All Rights Reserved', 'pressbooks' )
 		);
 
 		// pb_license_name
@@ -648,7 +648,7 @@ class Book {
 			return false;
 		}
 		if ( is_object( $val ) ) {
-			throw new \LogicException( 'Objects are forbidden. Unserialization can result in code being loaded and executed due to object instantiation and autoloading, and a malicious user may be able to exploit this. Fix your code!' );
+			throw new \LogicException( __( 'Objects are forbidden. Unserialization can result in code being loaded and executed due to object instantiation and autoloading, and a malicious user may be able to exploit this. Fix your code!', 'pressbooks' ) );
 		}
 		return $val;
 	}

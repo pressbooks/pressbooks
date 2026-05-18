@@ -106,9 +106,9 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 **************************************************************************/
 	function get_columns() {
 		$columns = [
-			'user_login' => 'Username',
-			'display_name' => 'Name',
-			'user_email' => 'E-mail',
+			'user_login' => __( 'Username', 'pressbooks' ),
+			'display_name' => __( 'Name', 'pressbooks' ),
+			'user_email' => __( 'E-mail', 'pressbooks' ),
 		];
 		return $columns;
 	}

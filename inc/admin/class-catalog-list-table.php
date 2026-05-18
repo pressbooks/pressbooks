@@ -333,7 +333,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	public function print_column_headers( $with_id = true ): void {
 		if ( isset( $_GET['pb_catalog_search'] ) ) {
 			if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['pb_catalog_search'] ) ), 'pb_catalog_search' ) ) {
-				die( 'Security check.' );
+				die( __( 'Security check.', 'pressbooks' ) );
 			}
 		}
 

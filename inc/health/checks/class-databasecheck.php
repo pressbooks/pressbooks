@@ -11,7 +11,7 @@ class DatabaseCheck extends Check {
 
 		return $this->checkConnection()
 			? $result->ok()
-			: $result->failed( 'Could not connect to the database.' );
+			: $result->failed( __( 'Could not connect to the database.', 'pressbooks' ) );
 	}
 
 	protected function checkConnection(): bool {

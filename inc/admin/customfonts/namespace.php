@@ -30,12 +30,12 @@ function render_custom_fonts_page() {
 function handle_form_submission() {
 	// Verify the nonce
 	if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'pb_save_custom_fonts' ) ) {
-		wp_die( 'Permission denied' );
+		wp_die( __( 'Permission denied', 'pressbooks' ) );
 	}
 
 	// Check if the user has the correct permissions
 	if ( ! current_user_can( 'manage_network' ) ) {
-		wp_die( 'Permission denied' );
+		wp_die( __( 'Permission denied', 'pressbooks' ) );
 	}
 
 	$fonts = get_site_option( 'pressbooks_custom_fonts', [] );
@@ -107,7 +107,7 @@ function handle_uploaded_font( array $file, string $key, string $target_dir ) {
 	$file_extension = strtolower( pathinfo( $file_name, PATHINFO_EXTENSION ) );
 
 	if ( ! in_array( $file_extension, $allowed_types, true ) ) {
-		return new \WP_Error( 'invalid_type', 'Invalid font file type.' );
+		return new \WP_Error( 'invalid_type', __( 'Invalid font file type.', 'pressbooks' ) );
 	}
 
 	$target_file = $target_dir . $file_name;
@@ -124,7 +124,7 @@ function handle_uploaded_font( array $file, string $key, string $target_dir ) {
 		];
 	}
 
-	return new \WP_Error( 'upload_failed', 'Font upload failed for ' . $key );
+	return new \WP_Error( 'upload_failed', __( 'Font upload failed for ', 'pressbooks' ) . $key );
 }
 
 /**
@@ -136,11 +136,11 @@ function handle_uploaded_font( array $file, string $key, string $target_dir ) {
  */
 function handle_delete_font() {
 	if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'pb_delete_custom_font' ) ) {
-		wp_die( 'Permission denied' );
+		wp_die( __( 'Permission denied', 'pressbooks' ) );
 	}
 
 	if ( ! current_user_can( 'manage_network' ) ) {
-		wp_die( 'Permission denied' );
+		wp_die( __( 'Permission denied', 'pressbooks' ) );
 	}
 
 	$slug = sanitize_title( wp_unslash( $_POST['font_slug'] ?? '' ) );
@@ -181,11 +181,11 @@ function handle_delete_font() {
  */
 function handle_delete_font_variant() {
 	if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'pb_delete_custom_font_variant' ) ) {
-		wp_die( 'Permission denied' );
+		wp_die( __( 'Permission denied', 'pressbooks' ) );
 	}
 
 	if ( ! current_user_can( 'manage_network' ) ) {
-		wp_die( 'Permission denied' );
+		wp_die( __( 'Permission denied', 'pressbooks' ) );
 	}
 
 	$slug = sanitize_title( wp_unslash( $_POST['font_slug'] ?? '' ) );

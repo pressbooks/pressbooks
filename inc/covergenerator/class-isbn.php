@@ -97,7 +97,7 @@ class Isbn {
 		$src = wp_get_attachment_url( $pid );
 
 		if ( false === $src ) {
-			throw new \Exception( 'No attachment url.' );
+			throw new \Exception( __( 'No attachment url.', 'pressbooks' ) );
 		}
 
 		update_option( 'pressbooks_cg_isbn', $src );

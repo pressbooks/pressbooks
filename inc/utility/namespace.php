@@ -226,7 +226,7 @@ function latest_exports() {
 function add_sitemap_to_robots_txt() {
 
 	if ( 1 === absint( get_option( 'blog_public' ) ) ) {
-		echo 'Sitemap: ' . get_option( 'siteurl' ) . "/?feed=sitemap.xml\n\n";
+		echo __( 'Sitemap: ', 'pressbooks' ) . get_option( 'siteurl' ) . "/?feed=sitemap.xml\n\n";
 	}
 }
 
@@ -263,8 +263,8 @@ function do_sitemap() {
 	} else {
 		status_header( 404 );
 		nocache_headers();
-		echo '<h1>404 Not Found</h1>';
-		echo 'The page that you have requested could not be found.';
+		echo '<h1>' . __( '404 Not Found', 'pressbooks' ) . '</h1>';
+		echo __( 'The page that you have requested could not be found.', 'pressbooks' );
 	}
 }
 
@@ -1646,7 +1646,7 @@ function objects_to_csv( array $array ): string {
 
 	$output = fopen( 'php://memory', 'w' );
 	if ( $output === false ) {
-		throw new RuntimeException( 'Failed to open memory stream for CSV conversion.' );
+		throw new RuntimeException( __( 'Failed to open memory stream for CSV conversion.', 'pressbooks' ) );
 	}
 
 	// Extract headers from the first object
