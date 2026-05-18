@@ -136,11 +136,11 @@ function handle_uploaded_font( array $file, string $key, string $target_dir ) {
  */
 function handle_delete_font() {
 	if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'pb_delete_custom_font' ) ) {
-		wp_die( __( 'Permission denied', 'pressbooks' ) );
+		wp_die( esc_html( __( 'Permission denied', 'pressbooks' ) ) );
 	}
 
 	if ( ! current_user_can( 'manage_network' ) ) {
-		wp_die( __( 'Permission denied', 'pressbooks' ) );
+		wp_die( esc_html( __( 'Permission denied', 'pressbooks' ) ) );
 	}
 
 	$slug = sanitize_title( wp_unslash( $_POST['font_slug'] ?? '' ) );
@@ -181,11 +181,11 @@ function handle_delete_font() {
  */
 function handle_delete_font_variant() {
 	if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'pb_delete_custom_font_variant' ) ) {
-		wp_die( __( 'Permission denied', 'pressbooks' ) );
+		wp_die( esc_html( esc_html( __( 'Permission denied', 'pressbooks' ) ) ) );
 	}
 
 	if ( ! current_user_can( 'manage_network' ) ) {
-		wp_die( __( 'Permission denied', 'pressbooks' ) );
+		wp_die( esc_html( esc_html( __( 'Permission denied', 'pressbooks' ) ) ) );
 	}
 
 	$slug = sanitize_title( wp_unslash( $_POST['font_slug'] ?? '' ) );
