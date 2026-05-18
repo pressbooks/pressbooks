@@ -30,12 +30,12 @@ function render_custom_fonts_page() {
 function handle_form_submission() {
 	// Verify the nonce
 	if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'pb_save_custom_fonts' ) ) {
-		wp_die( __( 'Permission denied', 'pressbooks' ) );
+		wp_die( esc_html( __( 'Permission denied', 'pressbooks' ) ) );
 	}
 
 	// Check if the user has the correct permissions
 	if ( ! current_user_can( 'manage_network' ) ) {
-		wp_die( __( 'Permission denied', 'pressbooks' ) );
+		wp_die( esc_html( __( 'Permission denied', 'pressbooks' ) ) );
 	}
 
 	$fonts = get_site_option( 'pressbooks_custom_fonts', [] );

@@ -21,7 +21,7 @@ class FilesystemCheck extends Check {
 		if ( ! $this->canReadFromFilesystem() ) {
 			return $result->failed( __( 'The filesystem is not readable.', 'pressbooks' ) );
 		}
-		ß
+
 		$disk_usage = $this->getDiskUsagePercentage();
 
 		// TODO: allow users to customise the failure threshold
