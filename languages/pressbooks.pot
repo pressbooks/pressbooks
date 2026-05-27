@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-26T19:12:50+00:00\n"
+"POT-Creation-Date: 2026-05-27T12:39:44+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -5492,23 +5492,14 @@ msgid "To copy the system info, click below then press Ctrl + C (PC) or Cmd + C 
 msgstr ""
 
 #: templates/admin/diagnostics.blade.php:8
-#: templates/admin/diagnostics.blade.php:10
-msgid "View PDF Preview"
-msgstr ""
-
-#: templates/admin/diagnostics.blade.php:9
-msgid "Generating a PDF preview can help you diagnose issues you may be encountering with your PDF exports."
-msgstr ""
-
-#: templates/admin/diagnostics.blade.php:11
 msgid "Regenerate Webbook Stylesheet"
 msgstr ""
 
-#: templates/admin/diagnostics.blade.php:12
+#: templates/admin/diagnostics.blade.php:9
 msgid "If your webbook stylesheet has issues, it may help to regenerate it."
 msgstr ""
 
-#: templates/admin/diagnostics.blade.php:13
+#: templates/admin/diagnostics.blade.php:10
 msgid "Regenerate Stylesheet"
 msgstr ""
 
@@ -5537,14 +5528,18 @@ msgid "Your Theme"
 msgstr ""
 
 #: templates/admin/export.blade.php:81
-msgid "Preview PDF"
+msgid "Preview Digital PDF"
 msgstr ""
 
-#: templates/admin/export.blade.php:84
+#: templates/admin/export.blade.php:85
+msgid "Preview Print PDF"
+msgstr ""
+
+#: templates/admin/export.blade.php:88
 msgid "Export Book"
 msgstr ""
 
-#: templates/admin/export.blade.php:89
+#: templates/admin/export.blade.php:93
 msgid "Latest Exports"
 msgstr ""
 
