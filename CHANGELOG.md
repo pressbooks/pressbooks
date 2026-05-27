@@ -1,5 +1,17 @@
 # Changelog
 
+## [6.41.0](https://github.com/pressbooks/pressbooks/compare/6.40.0...6.41.0) (2026-05-12)
+
+
+### Features
+
+* prince 16 support ([#4428](https://github.com/pressbooks/pressbooks/issues/4428)) ([51c412d](https://github.com/pressbooks/pressbooks/commit/51c412dab377dbe4c03957730c36e74448bcc5a2))
+
+
+### Bug Fixes
+
+* consider parts post content for word counting ([#4453](https://github.com/pressbooks/pressbooks/issues/4453)) ([d3f6964](https://github.com/pressbooks/pressbooks/commit/d3f69641310ea14919438558237a6d71b370c561))
+
 ## [6.40.0](https://github.com/pressbooks/pressbooks/compare/6.39.3...6.40.0) (2026-05-05)
 
 
