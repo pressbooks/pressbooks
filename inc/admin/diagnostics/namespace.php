@@ -205,7 +205,7 @@ function handle_stylesheet_regeneration() {
 /**
  * @since 6.23.0
  *
- * Handle form submission on the diagnostics page which generates a PDF preview.
+ * Update PDF stylesheet before loading page preview.
  *
  * @return void
  */
@@ -214,7 +214,11 @@ function handle_pdf_preview(): void {
 		( new Admin() )->clearCache();
 		Container::get( 'Styles' )->updatePdfStyleSheet();
 	}
-	location( get_site_url( get_current_blog_id() ) . '/format/xhtml?debug=prince' );
+	$url = get_site_url( get_current_blog_id() ) . '/format/xhtml?debug=prince';
+	if ( ! empty( $_POST['optimize_for_print'] ) ) {
+		$url .= '&optimize-for-print=1';
+	}
+	location( $url );
 }
 
 
