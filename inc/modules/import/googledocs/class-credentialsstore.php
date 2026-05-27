@@ -27,8 +27,15 @@ class CredentialsStore {
 	}
 
 	public function isConfigured(): bool {
+		if ( $this->isBrokerMode() ) {
+			return true;
+		}
 		$creds = $this->getClientCredentials();
 		return ! empty( $creds['client_id'] ) && ! empty( $creds['client_secret'] );
+	}
+
+	public function isBrokerMode(): bool {
+		return defined( 'PRESSBOOKS_AUTH_BROKER_URL' ) && ! empty( PRESSBOOKS_AUTH_BROKER_URL );
 	}
 
 	public function getUserToken( int $user_id ): ?array {

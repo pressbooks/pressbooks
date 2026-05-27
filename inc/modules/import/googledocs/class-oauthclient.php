@@ -32,6 +32,10 @@ class OAuthClient {
 	}
 
 	public function buildClient(): \Google\Client {
+		if ( $this->useBroker ) {
+			throw new \RuntimeException( 'buildClient() must not be called in broker mode. OAuth is handled by the Pressbooks Auth Broker.' );
+		}
+
 		$creds = $this->store->getClientCredentials();
 		$client = new \Google\Client();
 		$client->setClientId( $creds['client_id'] );
@@ -72,6 +76,16 @@ class OAuthClient {
 			throw new ReauthorizationRequiredException( 'No token found. Please authorize first.' );
 		}
 
+		if ( $this->useBroker ) {
+			if ( isset( $token['expires_at'] ) && $token['expires_at'] < time() ) {
+				$this->store->deleteUserToken( $user_id );
+				throw new ReauthorizationRequiredException( 'Token expired. Please reconnect via the Auth Broker.' );
+			}
+			$client = new \Google\Client();
+			$client->setAccessToken( $token );
+			return $client;
+		}
+
 		$client = $this->buildClient();
 		$client->setAccessToken( $token );
 
@@ -102,7 +116,7 @@ class OAuthClient {
 	public function disconnect( int $user_id ): void {
 		$token = $this->store->getUserToken( $user_id );
 
-		if ( $token ) {
+		if ( $token && ! $this->useBroker ) {
 			try {
 				$client = $this->buildClient();
 				$client->setAccessToken( $token );
