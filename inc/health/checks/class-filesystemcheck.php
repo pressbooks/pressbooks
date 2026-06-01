@@ -11,22 +11,22 @@ class FilesystemCheck extends Check {
 		$result = Result::make();
 
 		if ( ! $this->canConnectToFilesystem() ) {
-			return $result->failed( 'Failed to obtain filesystem write access.' );
+			return $result->failed( __( 'Failed to obtain filesystem write access.', 'pressbooks' ) );
 		}
 
 		if ( ! $this->canWriteToFilesystem() ) {
-			return $result->failed( 'The filesystem is not writable.' );
+			return $result->failed( __( 'The filesystem is not writable.', 'pressbooks' ) );
 		}
 
 		if ( ! $this->canReadFromFilesystem() ) {
-			return $result->failed( 'The filesystem is not readable.' );
+			return $result->failed( __( 'The filesystem is not readable.', 'pressbooks' ) );
 		}
 
 		$disk_usage = $this->getDiskUsagePercentage();
 
 		// TODO: allow users to customise the failure threshold
 		if ( $disk_usage > 90 ) {
-			return $result->failed( "The disk is almost full ({$disk_usage}% used)." );
+			return $result->failed( sprintf( __( 'The disk is almost full (%d%% used).', 'pressbooks' ), $disk_usage ) );
 		}
 
 		return $result->ok();

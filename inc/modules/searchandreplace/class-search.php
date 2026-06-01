@@ -60,7 +60,7 @@ abstract class Search {
 		// detect possibility to execute code:
 		// https://bitquark.co.uk/blog/2013/07/23/the_unexpected_dangers_of_preg_replace
 		if ( false !== strpos( $expr, "\0" ) ) {
-			return 'Null byte in regex';
+			return __( 'Null byte in regex', 'pressbooks' );
 		}
 		// @codingStandardsIgnoreStart
 		set_error_handler( $error_handler );

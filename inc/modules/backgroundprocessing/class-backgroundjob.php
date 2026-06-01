@@ -157,7 +157,7 @@ class BackgroundJob {
 			if ( ! $exporter instanceof Export ) {
 				throw new \RuntimeException(
 					sprintf(
-						'Exporter class %s must extends Export class.',
+						__( 'Exporter class %s must extends Export class.', 'pressbooks' ),
 						get_class( $exporter )
 					)
 				);

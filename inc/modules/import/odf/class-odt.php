@@ -244,7 +244,7 @@ class Odt extends Import {
 				$filename = $this->properImageExtension( $tmp_name, $filename );
 
 				if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
-					throw new \Exception( 'Image is corrupt, and file extension matches the mime type' );
+					throw new \Exception( __( 'Image is corrupt, and file extension matches the mime type', 'pressbooks' ) );
 				}
 			} catch ( \Exception $exc ) {
 				// Garbage, Don't import
@@ -333,13 +333,13 @@ class Odt extends Import {
 		$result = $this->zip->open( $fullpath );
 
 		if ( true !== $result ) {
-			throw new \Exception( 'Opening odt file failed' );
+			throw new \Exception( __( 'Opening odt file failed', 'pressbooks' ) );
 		}
 
 		$ok = $this->getZipContent( 'META-INF/manifest.xml' );
 
 		if ( ! $ok ) {
-			throw new \Exception( 'Bad or corrupted META-INF/manifest.xml' );
+			throw new \Exception( __( 'Bad or corrupted META-INF/manifest.xml', 'pressbooks' ) );
 		}
 	}
 

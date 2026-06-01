@@ -178,7 +178,7 @@ class DocraptorJpg extends Generator {
 			$src = wp_get_attachment_url( $pid );
 
 			if ( false === $src ) {
-				throw new \Exception( 'No attachment url.' );
+				throw new \Exception( __( 'No attachment url.', 'pressbooks' ) );
 			}
 
 			update_post_meta( $post->ID, 'pb_cover_image', $src );

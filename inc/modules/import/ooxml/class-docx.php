@@ -250,7 +250,7 @@ class Docx extends Import {
 		// TODO
 		// could be more sophisticated
 		if ( $text_tags->length !== $limit + 2 ) {
-			throw new \Exception( 'mismatch between length of FootnoteReference array number of footnotes available' );
+			throw new \Exception( __( 'mismatch between length of FootnoteReference array number of footnotes available', 'pressbooks' ) );
 		}
 
 		// get all the footnote ids
@@ -460,7 +460,7 @@ class Docx extends Import {
 				$filename = $this->properImageExtension( $tmp_name, $filename );
 
 				if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
-					throw new \Exception( 'Image is corrupt, and file extension matches the mime type' );
+					throw new \Exception( __( 'Image is corrupt, and file extension matches the mime type', 'pressbooks' ) );
 				}
 			} catch ( \Exception $exc ) {
 				// Garbage, Don't import
@@ -840,7 +840,7 @@ class Docx extends Import {
 		$result = $this->zip->open( $fullpath );
 
 		if ( true !== $result ) {
-			throw new \Exception( 'Opening docx file failed' );
+			throw new \Exception( __( 'Opening docx file failed', 'pressbooks' ) );
 		}
 
 		// check if a document file exists

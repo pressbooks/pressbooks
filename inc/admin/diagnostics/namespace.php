@@ -53,29 +53,29 @@ function render_page() {
 	$output = "### System Information\n\n";
 	if ( Book::isBook() ) {
 		$output .= "#### Book Info\n\n";
-		$output .= 'Book ID: ' . get_current_blog_id() . "\n";
-		$output .= 'Book URL: ' . trailingslashit( get_bloginfo( 'url' ) ) . "\n";
-		$output .= 'Book Privacy: ' . ( get_bloginfo( 'blog_public' ) ? 'Public' : 'Private' ) . "\n\n";
+		$output .= __( 'Book ID: ', 'pressbooks' ) . get_current_blog_id() . "\n";
+		$output .= __( 'Book URL: ', 'pressbooks' ) . trailingslashit( get_bloginfo( 'url' ) ) . "\n";
+		$output .= __( 'Book Privacy: ', 'pressbooks' ) . ( get_bloginfo( 'blog_public' ) ? __( 'Public', 'pressbooks' ) : __( 'Private', 'pressbooks' ) ) . "\n\n";
 	} else {
 		$output .= "#### Root Blog Info\n\n";
-		$output .= 'Root Blog ID: ' . get_current_blog_id() . "\n";
-		$output .= 'Root Blog URL: ' . trailingslashit( get_bloginfo( 'url' ) ) . "\n\n";
+		$output .= __( 'Root Blog ID: ', 'pressbooks' ) . get_current_blog_id() . "\n";
+		$output .= __( 'Root Blog URL: ', 'pressbooks' ) . trailingslashit( get_bloginfo( 'url' ) ) . "\n\n";
 	}
 	$output .= "#### Browser\n\n";
-	$output .= 'Platform: ' . $dd->getOs( 'name' ) . ' ' . $dd->getOs( 'version' ) . "\n";
-	$output .= 'Browser Name: ' . $dd->getClient( 'name' ) . "\n";
-	$output .= 'Browser Version: ' . $dd->getClient( 'version' ) . "\n";
-	$output .= 'User Agent String: ' . $user_agent . "\n\n";
-	$output .= '#### WordPress Configuration' . "\n\n";
-	$output .= 'Network URL: ' . network_home_url() . "\n";
-	$output .= 'Network Type: ' . ( is_subdomain_install() ? 'Subdomain' : 'Subdirectory' ) . "\n";
-	$output .= 'Version: ' . get_bloginfo( 'version' ) . "\n";
-	$output .= 'Language: ' . get_locale() . "\n";
-	$output .= 'WP_ENV: ' . ( defined( 'WP_ENV' ) ? WP_ENV : 'Not set' ) . "\n";
-	$output .= 'WP_DEBUG: ' . ( defined( 'WP_DEBUG' ) ? WP_DEBUG ? 'Enabled' : 'Disabled' : 'Not set' ) . "\n";
-	$output .= 'Memory Limit: ' . WP_MEMORY_LIMIT . "\n\n";
-	$output .= "#### Pressbooks Configuration\n\n";
-	$output .= 'Version: ' . PB_PLUGIN_VERSION . "\n";
+	$output .= __( 'Platform: ', 'pressbooks' ) . $dd->getOs( 'name' ) . ' ' . $dd->getOs( 'version' ) . "\n";
+	$output .= __( 'Browser Name: ', 'pressbooks' ) . $dd->getClient( 'name' ) . "\n";
+	$output .= __( 'Browser Version: ', 'pressbooks' ) . $dd->getClient( 'version' ) . "\n";
+	$output .= __( 'User Agent String: ', 'pressbooks' ) . $user_agent . "\n\n";
+	$output .= __( '#### WordPress Configuration', 'pressbooks' ) . "\n\n";
+	$output .= __( 'Network URL: ', 'pressbooks' ) . network_home_url() . "\n";
+	$output .= __( 'Network Type: ', 'pressbooks' ) . ( is_subdomain_install() ? __( 'Subdomain', 'pressbooks' ) : __( 'Subdirectory', 'pressbooks' ) ) . "\n";
+	$output .= __( 'Version: ', 'pressbooks' ) . get_bloginfo( 'version' ) . "\n";
+	$output .= __( 'Language: ', 'pressbooks' ) . get_locale() . "\n";
+	$output .= __( 'WP_ENV: ', 'pressbooks' ) . ( defined( 'WP_ENV' ) ? WP_ENV : __( 'Not set', 'pressbooks' ) ) . "\n";
+	$output .= __( 'WP_DEBUG: ', 'pressbooks' ) . ( defined( 'WP_DEBUG' ) ? WP_DEBUG ? __( 'Enabled', 'pressbooks' ) : __( 'Disabled', 'pressbooks' ) : __( 'Not set', 'pressbooks' ) ) . "\n";
+	$output .= __( 'Memory Limit: ', 'pressbooks' ) . WP_MEMORY_LIMIT . "\n\n";
+	$output .= __( '#### Pressbooks Configuration', 'pressbooks' ) . "\n\n";
+	$output .= __( 'Version: ', 'pressbooks' ) . PB_PLUGIN_VERSION . "\n";
 	if ( $is_book ) {
 		switch_to_blog( $GLOBALS['current_site']->blog_id );
 		$root_theme = wp_get_theme();
@@ -84,31 +84,31 @@ function render_page() {
 			$theme = wp_get_theme();
 			$data = $lock->getLockData();
 			$datetime = date( 'm/d/y', $data['timestamp'] ) . ' at ' . date( 'H:i:s', $data['timestamp'] );
-			$output .= 'Book Theme: ' . $data['name'] . " (LOCKED on $datetime)\n";
-			$output .= 'Book Theme Version: ' . $data['version'] . " (LOCKED on $datetime &mdash; Current Version " . $theme->get( 'Version' ) . ")\n";
+			$output .= __( 'Book Theme: ', 'pressbooks' ) . $data['name'] . " (LOCKED on $datetime)\n";
+			$output .= __( 'Book Theme Version: ', 'pressbooks' ) . $data['version'] . " (LOCKED on $datetime &mdash; " . __( 'Current Version', 'pressbooks' ) . ' ' . $theme->get( 'Version' ) . ")\n";
 		} else {
 			$theme = wp_get_theme();
-			$output .= 'Book Theme: ' . $theme->get( 'Name' ) . "\n";
-			$output .= 'Book Theme Version: ' . $theme->get( 'Version' ) . "\n";
+			$output .= __( 'Book Theme: ', 'pressbooks' ) . $theme->get( 'Name' ) . "\n";
+			$output .= __( 'Book Theme Version: ', 'pressbooks' ) . $theme->get( 'Version' ) . "\n";
 		}
 	} else {
 		$root_theme = wp_get_theme();
 	}
-	$output .= 'Root Theme: ' . $root_theme->get( 'Name' ) . "\n";
-	$output .= 'Root Theme Version: ' . $root_theme->get( 'Version' ) . "\n\n";
-	$output .= "#### Pressbooks Dependencies\n\n";
-	$output .= 'Epubcheck: ' . ( check_epubcheck_install() ? 'Installed' : 'Not Installed' ) . "\n"; // TODO: version
-	$output .= 'xmllint: ' . ( check_xmllint_install() ? 'Installed' : 'Not Installed' ) . "\n"; // TODO: version
-	$output .= 'PrinceXML: ' . ( check_prince_install() ? 'Installed' : 'Not Installed' ) . "\n"; // TODO: version
-	$output .= 'Saxon-HE: ' . ( check_saxonhe_install() ? 'Installed' : 'Not Installed' ) . "\n\n"; // TODO: version
+	$output .= __( 'Root Theme: ', 'pressbooks' ) . $root_theme->get( 'Name' ) . "\n";
+	$output .= __( 'Root Theme Version: ', 'pressbooks' ) . $root_theme->get( 'Version' ) . "\n\n";
+	$output .= __( '#### Pressbooks Dependencies', 'pressbooks' ) . "\n\n";
+	$output .= __( 'Epubcheck: ', 'pressbooks' ) . ( check_epubcheck_install() ? __( 'Installed', 'pressbooks' ) : __( 'Not Installed', 'pressbooks' ) ) . "\n"; // TODO: version
+	$output .= __( 'xmllint: ', 'pressbooks' ) . ( check_xmllint_install() ? __( 'Installed', 'pressbooks' ) : __( 'Not Installed', 'pressbooks' ) ) . "\n"; // TODO: version
+	$output .= __( 'PrinceXML: ', 'pressbooks' ) . ( check_prince_install() ? __( 'Installed', 'pressbooks' ) : __( 'Not Installed', 'pressbooks' ) ) . "\n"; // TODO: version
+	$output .= __( 'Saxon-HE: ', 'pressbooks' ) . ( check_saxonhe_install() ? __( 'Installed', 'pressbooks' ) : __( 'Not Installed', 'pressbooks' ) ) . "\n\n"; // TODO: version
 	$muplugins = get_mu_plugins();
 	if ( count( $muplugins ) > 0 ) {
-		$output .= '#### Must-Use Plugins' . "\n\n";
+		$output .= __( '#### Must-Use Plugins', 'pressbooks' ) . "\n\n";
 		foreach ( $muplugins as $plugin => $plugin_data ) {
-			$output .= $plugin_data['Name'] . ': ' . ( $plugin_data['Version'] ? $plugin_data['Version'] : 'n/a' ) . "\n";
+			$output .= $plugin_data['Name'] . ': ' . ( $plugin_data['Version'] ? $plugin_data['Version'] : __( 'n/a', 'pressbooks' ) ) . "\n";
 		}
 	}
-	$output .= "\n#### Network Active Plugins\n\n";
+	$output .= __( '#### Network Active Plugins', 'pressbooks' ) . "\n\n";
 	$plugins = get_plugins();
 	foreach ( $plugins as $plugin_path => $plugin ) {
 		if ( ! is_plugin_active_for_network( $plugin_path ) ) {
@@ -117,9 +117,9 @@ function render_page() {
 		$output .= $plugin['Name'] . ': ' . $plugin['Version'] . "\n";
 	}
 	if ( $is_book ) {
-		$output .= "\n#### Book Active Plugins\n\n";
+		$output .= __( '#### Book Active Plugins', 'pressbooks' ) . "\n\n";
 	} else {
-		$output .= "\n#### Root Blog Active Plugins\n\n";
+		$output .= __( '#### Root Blog Active Plugins', 'pressbooks' ) . "\n\n";
 	}
 	$plugins = get_plugins();
 	foreach ( $plugins as $plugin_path => $plugin ) {
@@ -128,28 +128,28 @@ function render_page() {
 		}
 		$output .= $plugin['Name'] . ': ' . $plugin['Version'] . "\n";
 	}
-	$output .= "\n#### Inactive Plugins\n\n";
+	$output .= __( '#### Inactive Plugins', 'pressbooks' ) . "\n\n";
 	foreach ( $plugins as $plugin_path => $plugin ) {
 		if ( is_plugin_active_for_network( $plugin_path ) || is_plugin_active( $plugin_path ) ) {
 			continue;
 		}
 		$output .= $plugin['Name'] . ': ' . $plugin['Version'] . "\n";
 	}
-	$output .= "\n#### Server Configuration\n\n";
-	$output .= 'PHP Version: ' . PHP_VERSION . "\n";
-	$output .= 'MySQL Version: ' . $wpdb->db_version() . "\n";
-	$output .= 'Webserver Info: ' . $_SERVER['SERVER_SOFTWARE'] . "\n\n";
-	$output .= "#### PHP Configuration\n\n";
-	$output .= 'Memory Limit: ' . ini_get( 'memory_limit' ) . "\n";
-	$output .= 'Upload Max Size: ' . ini_get( 'upload_max_filesize' ) . "\n";
-	$output .= 'Post Max Size: ' . ini_get( 'post_max_size' ) . "\n";
-	$output .= 'Upload Max Filesize: ' . ini_get( 'upload_max_filesize' ) . "\n";
-	$output .= 'Time Limit: ' . ini_get( 'max_execution_time' ) . "\n";
-	$output .= 'Max Input Vars: ' . ini_get( 'max_input_vars' ) . "\n";
-	$output .= 'URL-aware fopen: ' . ( ini_get( 'allow_url_fopen' ) ? 'On (' . ini_get( 'allow_url_fopen' ) . ')' : 'N/A' ) . "\n";
-	$output .= 'Display Errors: ' . ( ini_get( 'display_errors' ) ? 'On (' . ini_get( 'display_errors' ) . ')' : 'N/A' ) . "\n\n";
-	$output .= "#### PHP Extensions\n\n";
-	$output .= 'OPcache: ';
+	$output .= __( '#### Server Configuration', 'pressbooks' ) . "\n\n";
+	$output .= __( 'PHP Version: ', 'pressbooks' ) . PHP_VERSION . "\n";
+	$output .= __( 'MySQL Version: ', 'pressbooks' ) . $wpdb->db_version() . "\n";
+	$output .= __( 'Webserver Info: ', 'pressbooks' ) . $_SERVER['SERVER_SOFTWARE'] . "\n\n";
+	$output .= __( '#### PHP Configuration', 'pressbooks' ) . "\n\n";
+	$output .= __( 'Memory Limit: ', 'pressbooks' ) . ini_get( 'memory_limit' ) . "\n";
+	$output .= __( 'Upload Max Size: ', 'pressbooks' ) . ini_get( 'upload_max_filesize' ) . "\n";
+	$output .= __( 'Post Max Size: ', 'pressbooks' ) . ini_get( 'post_max_size' ) . "\n";
+	$output .= __( 'Upload Max Filesize: ', 'pressbooks' ) . ini_get( 'upload_max_filesize' ) . "\n";
+	$output .= __( 'Time Limit: ', 'pressbooks' ) . ini_get( 'max_execution_time' ) . "\n";
+	$output .= __( 'Max Input Vars: ', 'pressbooks' ) . ini_get( 'max_input_vars' ) . "\n";
+	$output .= __( 'URL-aware fopen: ', 'pressbooks' ) . ( ini_get( 'allow_url_fopen' ) ? 'On (' . ini_get( 'allow_url_fopen' ) . ')' : 'N/A' ) . "\n";
+	$output .= __( 'Display Errors: ', 'pressbooks' ) . ( ini_get( 'display_errors' ) ? 'On (' . ini_get( 'display_errors' ) . ')' : 'N/A' ) . "\n\n";
+	$output .= __( '#### PHP Extensions', 'pressbooks' ) . "\n\n";
+	$output .= __( 'OPcache: ', 'pressbooks' );
 	$opcache = false;
 	if ( extension_loaded( 'Zend OPcache' ) ) {
 		$output .= 'Zend,';
