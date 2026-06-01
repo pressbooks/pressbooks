@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-27T12:39:44+00:00\n"
+"POT-Creation-Date: 2026-06-01T21:08:44+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -78,7 +78,7 @@ msgstr ""
 #: inc/admin/attachments/namespace.php:54
 #: inc/admin/class-catalog-list-table.php:232
 #: inc/admin/covergenerator/namespace.php:108
-#: inc/class-contributors.php:845
+#: inc/class-contributors.php:856
 msgid "Author"
 msgid_plural "Authors"
 msgstr[0] ""
@@ -2242,31 +2242,37 @@ msgstr ""
 msgid "Import Contributors"
 msgstr ""
 
-#: inc/class-contributors.php:844
+#. Translators: %s: name of contributor
+#: inc/class-contributors.php:819
+#, php-format
+msgid "Profile picture for %s"
+msgstr ""
+
+#: inc/class-contributors.php:855
 msgid "Editor"
 msgid_plural "Editors"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-contributors.php:846
+#: inc/class-contributors.php:857
 msgid "Contributor"
 msgid_plural "Contributors"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-contributors.php:847
+#: inc/class-contributors.php:858
 msgid "Translator"
 msgid_plural "Translators"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-contributors.php:848
+#: inc/class-contributors.php:859
 msgid "Reviewer"
 msgid_plural "Reviewers"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-contributors.php:849
+#: inc/class-contributors.php:860
 msgid "Illustrator"
 msgid_plural "Illustrators"
 msgstr[0] ""
