@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-01T21:53:18+00:00\n"
+"POT-Creation-Date: 2026-06-03T15:25:25+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -599,7 +599,7 @@ msgstr ""
 #: inc/admin/laf/namespace.php:932
 #: inc/admin/menus/class-sidebar.php:225
 #: inc/admin/menus/class-sidebar.php:226
-#: inc/admin/menus/class-topbar.php:124
+#: inc/admin/menus/class-topbar.php:126
 msgid "Dashboard"
 msgstr ""
 
@@ -998,14 +998,14 @@ msgstr ""
 #: inc/admin/laf/namespace.php:1613
 #: inc/admin/menus/class-sidebar.php:236
 #: inc/admin/menus/class-sidebar.php:237
-#: inc/admin/menus/class-topbar.php:129
+#: inc/admin/menus/class-topbar.php:131
 msgid "Books"
 msgstr ""
 
 #: inc/admin/laf/namespace.php:873
 #: inc/admin/menus/class-sidebar.php:246
 #: inc/admin/menus/class-sidebar.php:247
-#: inc/admin/menus/class-topbar.php:134
+#: inc/admin/menus/class-topbar.php:136
 msgid "Users"
 msgstr ""
 
@@ -1016,7 +1016,7 @@ msgstr ""
 #: inc/admin/laf/namespace.php:890
 #: inc/admin/menus/class-sidebar.php:430
 #: inc/admin/menus/class-sidebar.php:431
-#: inc/admin/menus/class-topbar.php:149
+#: inc/admin/menus/class-topbar.php:151
 msgid "Plugins"
 msgstr ""
 
@@ -1025,7 +1025,7 @@ msgid "Visit Website"
 msgstr ""
 
 #: inc/admin/laf/namespace.php:950
-#: inc/admin/menus/class-topbar.php:191
+#: inc/admin/menus/class-topbar.php:193
 msgid "My Books"
 msgstr ""
 
@@ -1202,13 +1202,13 @@ msgstr ""
 
 #: inc/admin/menus/class-sidebar.php:256
 #: inc/admin/menus/class-sidebar.php:257
-#: inc/admin/menus/class-topbar.php:139
+#: inc/admin/menus/class-topbar.php:141
 msgid "Appearance"
 msgstr ""
 
 #: inc/admin/menus/class-sidebar.php:266
 #: inc/admin/menus/class-sidebar.php:267
-#: inc/admin/menus/class-topbar.php:144
+#: inc/admin/menus/class-topbar.php:146
 msgid "Pages"
 msgstr ""
 
@@ -1216,7 +1216,7 @@ msgstr ""
 #: inc/admin/menus/class-sidebar.php:278
 #: inc/admin/menus/class-sidebar.php:463
 #: inc/admin/menus/class-sidebar.php:464
-#: inc/admin/menus/class-topbar.php:154
+#: inc/admin/menus/class-topbar.php:156
 msgid "Settings"
 msgstr ""
 
@@ -1233,7 +1233,7 @@ msgstr ""
 #: inc/admin/menus/class-sidebar.php:332
 #: inc/admin/menus/class-sidebar.php:610
 #: inc/admin/menus/class-sidebar.php:611
-#: inc/admin/menus/class-topbar.php:159
+#: inc/admin/menus/class-topbar.php:161
 msgid "Stats"
 msgstr ""
 
@@ -1356,24 +1356,24 @@ msgstr ""
 msgid "PB Stats"
 msgstr ""
 
-#: inc/admin/menus/class-topbar.php:109
+#: inc/admin/menus/class-topbar.php:111
 msgid "Pressbooks logo"
 msgstr ""
 
-#: inc/admin/menus/class-topbar.php:165
+#: inc/admin/menus/class-topbar.php:167
 msgid "Administer Network"
 msgstr ""
 
-#: inc/admin/menus/class-topbar.php:250
+#: inc/admin/menus/class-topbar.php:265
 #: inc/registration/namespace.php:59
 msgid "Create Book"
 msgstr ""
 
-#: inc/admin/menus/class-topbar.php:269
+#: inc/admin/menus/class-topbar.php:284
 msgid "Clone Book"
 msgstr ""
 
-#: inc/admin/menus/class-topbar.php:283
+#: inc/admin/menus/class-topbar.php:298
 msgid "Add Users"
 msgstr ""
 
