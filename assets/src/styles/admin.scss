@@ -258,6 +258,13 @@ html #wpadminbar {
   }
 }
 
+@media screen and (max-width: 640px) {
+  #wp-admin-bar-root-default #wp-admin-bar-pb-logo,
+  #wp-admin-bar-top-secondary li:not(#wp-admin-bar-my-account) {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 540px) {
   :root {
     --pb-toolbar-icon-size: 36px;
@@ -268,7 +275,7 @@ html #wpadminbar {
     height: var(--pb-toolbar-item-height);
   }
 
-  #wpadminbar #wp-toolbar .ab-top-menu > li > .ab-item,
+  #wpadminbar #wp-toolbar .ab-top-menu > li:not(#wp-admin-bar-view) > .ab-item,
   #wpadminbar #wp-toolbar .quicklinks > ul > li > a {
     height: var(--pb-toolbar-item-height);
     width: var(--pb-toolbar-item-width);
@@ -276,11 +283,6 @@ html #wpadminbar {
 
   #wp-toolbar > ul > li {
     display: list-item;
-  }
-
-  #wp-admin-bar-root-default #wp-admin-bar-pb-logo,
-  #wp-admin-bar-top-secondary li:not(#wp-admin-bar-my-account) {
-    display: none;
   }
 
   #wp-toolbar .pb-heroicons {
