@@ -17,7 +17,7 @@
 			<p class="description" id="target_book_url_description">{{ __( 'Enter the URL where you want this book to be cloned. This URL cannot be changed later, so choose carefully.', 'pressbooks' ) }}</p>
 			<input id="pb-cloner-button" class="button button-hero button-primary" type="submit" value="{{ __( 'Clone book', 'pressbooks' ) }}">
 			<progress id="pb-sse-progressbar" max="100" aria-label="{{ __( 'Cloning progress', 'pressbooks' ) }}"></progress>
-			<strong><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></strong> <span id="pb-sse-info" aria-live="polite"></span>
+			<strong><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></strong> <span id="pb-sse-info" aria-live="polite"></span> <span id="pb-sse-status" class="screen-reader-text" aria-live="polite">0%</span>
 		</form>
 	</div>
 	@if( \Pressbooks\Utility\is_algolia_search_enabled() )
