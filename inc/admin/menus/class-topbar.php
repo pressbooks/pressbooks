@@ -64,6 +64,8 @@ class TopBar {
 
 		$this->updateCurrentBook( $bar );
 
+		$this->updateViewItem( $bar );
+
 		if ( can_create_new_books() || is_super_admin() ) {
 			$this->addCreateBook( $bar );
 		}
@@ -243,6 +245,19 @@ class TopBar {
 		$bar->add_node( [
 			'id' => $node->id,
 			'title' => "<i aria-hidden='true' class='pb-heroicons pb-heroicons-outline_book-open'></i><span>{$node->title}</span>",
+		] );
+	}
+
+	protected function updateViewItem( WP_Admin_Bar $bar ): void {
+		$node = $bar->get_node( 'view' ) ?? null;
+
+		if ( ! $node ) {
+			return;
+		}
+
+		$bar->add_node( [
+			'id' => $node->id,
+			'title' => "<i aria-hidden='true' class='pb-heroicons pb-heroicons-outline_document-magnifying-glass'></i><span>{$node->title}</span>",
 		] );
 	}
 
