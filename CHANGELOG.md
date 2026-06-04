@@ -1,5 +1,26 @@
 # Changelog
 
+## [6.42.0](https://github.com/pressbooks/pressbooks/compare/6.41.0...6.42.0) (2026-06-04)
+
+
+### Features
+
+* add second PDF preview option ([#4344](https://github.com/pressbooks/pressbooks/issues/4344)) ([#4394](https://github.com/pressbooks/pressbooks/issues/4394)) ([bd06639](https://github.com/pressbooks/pressbooks/commit/bd066398e562949d3e9d0797c77a10686221414a))
+* announce progress bar progress (resolves [#3718](https://github.com/pressbooks/pressbooks/issues/3718)) ([#4460](https://github.com/pressbooks/pressbooks/issues/4460)) ([4ef0ff4](https://github.com/pressbooks/pressbooks/commit/4ef0ff44e90e41a1968948cfd121cbd5c515c2eb))
+* use provided alt text for contributor pictures ([#4459](https://github.com/pressbooks/pressbooks/issues/4459)) ([783bac7](https://github.com/pressbooks/pressbooks/commit/783bac722ac929de3b7738e7036ed95cfd5a0357))
+
+
+### Bug Fixes
+
+* include src/js assets for distribution ([#4480](https://github.com/pressbooks/pressbooks/issues/4480)) ([845d07e](https://github.com/pressbooks/pressbooks/commit/845d07ed2f25eb13d1cde8e89f38ef807d9e9792))
+* resolve display issue with admin bar View link ([#4456](https://github.com/pressbooks/pressbooks/issues/4456)) ([0fc8465](https://github.com/pressbooks/pressbooks/commit/0fc8465e71ee10ed65d8737b81faf09fbc2bf8ce))
+
+
+### Chores
+
+* change institution 'University of Adelaide' to 'Adelaide University' ([45aa7f2](https://github.com/pressbooks/pressbooks/commit/45aa7f295a57d4fc0f2c14f839fa0c1c3a0a2b56))
+* change institution name Adelaide ([#4471](https://github.com/pressbooks/pressbooks/issues/4471)) ([45aa7f2](https://github.com/pressbooks/pressbooks/commit/45aa7f295a57d4fc0f2c14f839fa0c1c3a0a2b56))
+
 ## [6.41.0](https://github.com/pressbooks/pressbooks/compare/6.40.0...6.41.0) (2026-05-12)
 
 
