@@ -18,7 +18,7 @@ class SettingsPage {
 
 	public function hooks(): void {
 		add_action( 'network_admin_menu', [ $this, 'addMenu' ] );
-		add_action( 'load-settings_page_pb_network_google_docs', [ $this, 'handleOAuthCallbackEarly' ] );
+		add_action( 'admin_post_pb_gdocs_callback', [ $this, 'handleOAuthCallback' ] );
 	}
 
 	public function addMenu(): void {
@@ -84,9 +84,9 @@ class SettingsPage {
 		<?php
 	}
 
-	public function handleOAuthCallbackEarly(): void {
-		if ( ! isset( $_GET['pb_oauth_callback'] ) ) {
-			return;
+	public function handleOAuthCallback(): void {
+		if ( ! is_user_logged_in() ) {
+			auth_redirect();
 		}
 
 		$error = sanitize_text_field( wp_unslash( $_GET['error'] ?? '' ) );
@@ -97,7 +97,7 @@ class SettingsPage {
 				delete_site_transient( 'pb_gdocs_state_' . $state );
 				wp_redirect( add_query_arg( 'pb_gdocs', 'denied', $return_url ) );
 			} else {
-				wp_redirect( admin_url( 'admin.php?page=pb_network_google_docs&pb_gdocs=denied' ) );
+				wp_redirect( admin_url( 'admin.php?page=pb_import&pb_gdocs=denied' ) );
 			}
 			exit;
 		}

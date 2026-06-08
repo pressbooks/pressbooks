@@ -137,7 +137,7 @@ class OAuthClient {
 	}
 
 	public function getRedirectUri(): string {
-		return network_admin_url( 'settings.php?page=pb_network_google_docs&pb_oauth_callback=1' );
+		return admin_url( 'admin-post.php?action=pb_gdocs_callback' );
 	}
 
 	private function getBrokerAuthorizeUrl( string $state ): string {
