@@ -1,5 +1,19 @@
 # Changelog
 
+## [6.42.1](https://github.com/pressbooks/pressbooks/compare/6.42.0...6.42.1) (2026-06-11)
+
+
+### Bug Fixes
+
+* debounce algolia search ([#4490](https://github.com/pressbooks/pressbooks/issues/4490)) ([a90ab33](https://github.com/pressbooks/pressbooks/commit/a90ab3363dfbc1586a3fccfaaea5038ef8df1c1f))
+* hook correctness & escape site name for XHTML exports ([#4485](https://github.com/pressbooks/pressbooks/issues/4485)) ([e3309d3](https://github.com/pressbooks/pressbooks/commit/e3309d3ab8ead831177cece3ebfe4d9ada7596eb))
+
+
+### Chores
+
+* **i18n:** update POT file for translations ([#4388](https://github.com/pressbooks/pressbooks/issues/4388)) ([042bc13](https://github.com/pressbooks/pressbooks/commit/042bc131f89f81b06d874fd37236cfc0c03300b3))
+* **l10n:** update languages ([#4393](https://github.com/pressbooks/pressbooks/issues/4393)) ([cfc6d11](https://github.com/pressbooks/pressbooks/commit/cfc6d11a3084945e0974e44703fb9b32903d0662))
+
 ## [6.42.0](https://github.com/pressbooks/pressbooks/compare/6.41.0...6.42.0) (2026-06-04)
 
 
