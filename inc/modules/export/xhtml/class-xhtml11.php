@@ -372,7 +372,7 @@ class Xhtml11 extends Export {
 
 		$this->echoMetaData( $_unused, $metadata );
 
-		echo '<title>' . get_bloginfo( 'name' ) . "</title>\n";
+		echo '<title>' . esc_html( get_bloginfo( 'name' ) ) . "</title>\n";
 
 		if ( current_user_can( 'edit_posts' ) ) {
 			if ( ! empty( $_GET['debug'] ) ) {

@@ -310,4 +310,50 @@ CSS;
 		$this->assertEquals($expected, $result);
 
 	}
+
+	/**
+	 * @group export_helpers
+	 */
+	public function test_xhtml_title_element_escapes_special_characters() {
+		$original_memory_limit = ini_get( 'memory_limit' );
+		$this->_book();
+
+		$unsafe_name = 'Arts & Sciences <Test>';
+		$override_blogname = function () use ( $unsafe_name ) {
+			return $unsafe_name;
+		};
+		add_filter( 'pre_option_blogname', $override_blogname );
+
+		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
+		wp_set_current_user( $user_id );
+		add_filter( 'pb_mathjax_use', '__return_false' );
+
+		$exporter = new Xhtml11( [] );
+		$converter = $exporter->convert();
+		$this->runGenerator( $converter );
+
+		$this->assertNotEmpty( $converter->getReturn() );
+
+		$xhtml_content = file_get_contents( $exporter->getOutputPath() );
+
+		$this->assertStringContainsString(
+			'<title>Arts &amp; Sciences &lt;Test&gt;</title>',
+			$xhtml_content,
+			'The XHTML <title> element must escape special HTML characters in the site name.'
+		);
+		$this->assertStringNotContainsString(
+			'<title>Arts & Sciences <Test></title>',
+			$xhtml_content,
+			'The XHTML <title> element must not contain unescaped special characters.'
+		);
+
+		remove_filter( 'pre_option_blogname', $override_blogname );
+		remove_filter( 'pb_mathjax_use', '__return_false' );
+		wp_set_current_user( 0 );
+		unlink( $exporter->getOutputPath() );
+		delete_transient( Xhtml11::TRANSIENT );
+		Book::deleteBookObjectCache();
+		restore_current_blog();
+		ini_set( 'memory_limit', $original_memory_limit );
+	}
 }
