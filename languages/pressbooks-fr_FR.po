@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-03-10T15:37:24+00:00\n"
-"PO-Revision-Date: 2026-03-18 00:09\n"
+"PO-Revision-Date: 2026-06-11 00:30\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -628,7 +628,7 @@ msgstr "Intégrations"
 
 #: inc/admin/delete/class-book.php:54
 msgid "Delete Book"
-msgstr "Supprimer le livre"
+msgstr "Supprimer ce livre"
 
 #. translators: Do not translate USERNAME, URL_DELETE, SITENAME: those are placeholders.
 #: inc/admin/delete/class-book.php:119
@@ -5265,7 +5265,7 @@ msgstr "Date de dupliquage"
 
 #: templates/admin/dashboard/book.blade.php:7
 msgid "Visit book"
-msgstr "Visitez ce livre"
+msgstr "Voir le livre"
 
 #: templates/admin/dashboard/book.blade.php:26
 msgid "Edit book info"
