@@ -6,6 +6,7 @@ import { searchBox, hits, stats } from 'instantsearch.js/es/widgets';
 import '../styles/cloner.scss';
 
 const searchClient = algoliasearch( PBAlgolia.applicationId, PBAlgolia.apiKey );
+let debounceTimer;
 
 const searchWrapper = document.getElementById( 'book-cards' );
 const statsHelper = document.getElementById( 'stats' );
@@ -18,14 +19,18 @@ const search = instantsearch( {
 	 * @param helper
 	 */
 	searchFunction( helper ) {
-		// Ensure we only trigger a search when there's a query
 		if ( helper.state.query ) {
+			searchWrapper.classList.remove( 'is-hidden' );
+			statsHelper.classList.remove( 'is-hidden' );
 			helper
 				.setQueryParameter( 'facets', [ 'licenseCode' ] )
 				.addFacetExclusion( 'licenseCode', 'All Rights Reserved' )
 				.addFacetExclusion( 'licenseCode', 'CC BY-BC-ND' )
 				.addFacetExclusion( 'licenseCode', 'CC BY-ND' )
 				.search();
+		} else {
+			searchWrapper.classList.add( 'is-hidden' );
+			statsHelper.classList.add( 'is-hidden' );
 		}
 		window.algoliaHelper = helper;
 	},
@@ -41,25 +46,26 @@ window.selectBookToClone = function ( url ) {
 	cloneBook.value = url;
 	const path = url.split( '/' );
 	newBook.value = path.length > 2 ? path[3] : '';
-	// scroll to top
 	window.scrollTo( 0, 0 );
-	searchWrapper.innerHTML = '';
-	statsHelper.innerHTML = '';
+	searchWrapper.classList.add( 'is-hidden' );
+	statsHelper.classList.add( 'is-hidden' );
 	document.querySelector( '#searchbox input' ).value = '';
 };
-document.querySelector( '#searchbox' ).addEventListener( 'input', event => {
-	if ( event.target.value.length === 0 ) {
-		event.target.value = '';
-		searchWrapper.innerHTML = '';
-		statsHelper.innerHTML = '';
-	}
-} );
 
 search.addWidgets( [
 	searchBox( {
 		container: '#searchbox',
 		placeholder: 'Search openly licensed books',
 		showSubmit: false,
+		/**
+		 *
+		 * @param query
+		 * @param search
+		 */
+		queryHook( query, search ) {
+			clearTimeout( debounceTimer );
+			debounceTimer = setTimeout( () => search( query ), 1000 );
+		},
 	} ),
 
 	hits( {

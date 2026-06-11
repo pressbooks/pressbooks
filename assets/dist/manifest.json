@@ -45,7 +45,7 @@
     "isEntry": true
   },
   "assets/src/scripts/algolia-search.js": {
-    "file": "assets/algolia-search-Dqg3nHqj.js",
+    "file": "assets/algolia-search-462sVLNs.js",
     "name": "algolia-search",
     "src": "assets/src/scripts/algolia-search.js",
     "isEntry": true,
@@ -53,7 +53,7 @@
       "__commonjsHelpers-DsqdWQfm.js"
     ],
     "css": [
-      "assets/algolia-search-DoMTmBPl.css"
+      "assets/algolia-search-DNLkBxAQ.css"
     ]
   },
   "assets/src/scripts/anchor.js": {
