@@ -287,6 +287,34 @@ class Modules_ImportGoogleDocsStorageTest extends \WP_UnitTestCase {
 		$this->assertNull( $loaded->refreshToken(), 'Refresh token must be stripped before persistence in broker mode' );
 	}
 
+	/**
+	 * @group import
+	 */
+	public function test_purge_legacy_tokens_deletes_user_meta_rows(): void {
+		$user_id = self::factory()->user->create();
+		update_user_meta( $user_id, 'pressbooks_google_docs_token', [ 'access_token' => 'legacy', 'refresh_token' => 'legacy-rt' ] );
+
+		$marker = $this->make_purge_marker();
+		\Pressbooks\Modules\Import\GoogleDocs\purge_legacy_tokens( $marker );
+
+		$this->assertEmpty( get_user_meta( $user_id, 'pressbooks_google_docs_token', true ) );
+		$this->assertSame( '1', get_site_option( $marker ) );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_purge_legacy_tokens_is_idempotent(): void {
+		$user_id = self::factory()->user->create();
+		update_user_meta( $user_id, 'pressbooks_google_docs_token', [ 'access_token' => 'legacy' ] );
+
+		$marker = $this->make_purge_marker();
+		\Pressbooks\Modules\Import\GoogleDocs\purge_legacy_tokens( $marker );
+		\Pressbooks\Modules\Import\GoogleDocs\purge_legacy_tokens( $marker );
+
+		$this->assertSame( '1', get_site_option( $marker ) );
+	}
+
 	private function build_direct_storage( ?string $key = null ): \Pressbooks\Modules\Import\GoogleDocs\Storage\DirectEncryptedStorage {
 		if ( $key === null ) {
 			$key = sodium_bin2base64( random_bytes( SODIUM_CRYPTO_SECRETBOX_KEYBYTES ), SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING );
@@ -305,5 +333,9 @@ class Modules_ImportGoogleDocsStorageTest extends \WP_UnitTestCase {
 			new \Pressbooks\Modules\Import\GoogleDocs\Storage\SodiumCipher(),
 			$key
 		);
+	}
+
+	private function make_purge_marker(): string {
+		return 'pressbooks_google_docs_purge_test_' . uniqid();
 	}
 }

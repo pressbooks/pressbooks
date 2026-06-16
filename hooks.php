@@ -429,3 +429,11 @@ add_action( 'deleted_user', '\Pressbooks\Admin\NetworkManagers\remove_from_press
 
 // Optimize H5P CSS files for export
 add_action( 'pb_xhtml_after_content_processed', '\Pressbooks\Modules\Export\pb_xhtml_after_content_processed' );
+
+add_action( 'plugins_loaded', function () {
+	$marker = 'pressbooks_google_docs_purge_v7_0_0_done';
+	if ( get_site_option( $marker ) !== '1' ) {
+		require_once __DIR__ . '/inc/modules/import/googledocs/upgrade.php';
+		\Pressbooks\Modules\Import\GoogleDocs\purge_legacy_tokens( $marker );
+	}
+} );
