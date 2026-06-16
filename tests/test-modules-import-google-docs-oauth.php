@@ -339,6 +339,35 @@ class Modules_ImportGoogleDocsOAuthTest extends \WP_UnitTestCase {
 	/**
 	 * @group import
 	 */
+	public function test_handle_callback_rejects_refresh_token_in_jwt(): void {
+		$this->skipWithoutBrokerKeys();
+		$this->defineBrokerConstants();
+
+		$oauth = $this->make_oauth_client( true );
+		$state = 'refresh-token-state';
+		set_site_transient( 'pb_gdocs_state_' . $state, 'https://example.com/return', 600 );
+
+		$jwt = $this->createBrokerJwt(
+			[
+				'wp_state' => $state,
+				'tokens'   => [
+					'access_token'   => 'broker-access-token',
+					'expires_at'     => time() + 3600,
+					'token_type'     => 'Bearer',
+					'session_handle' => 'broker-session-handle',
+					'refresh_token'  => 'should-not-be-here',
+				],
+			]
+		);
+
+		$this->expectException( \RuntimeException::class );
+		$this->expectExceptionMessage( 'must not contain a refresh_token' );
+		$oauth->handleCallback( $jwt, $state, $this->user_id );
+	}
+
+	/**
+	 * @group import
+	 */
 	public function test_handle_callback_rejects_replayed_jwt(): void {
 		$this->skipWithoutBrokerKeys();
 		$this->defineBrokerConstants();
