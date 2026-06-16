@@ -417,15 +417,20 @@ add_action( 'admin_init', '\Pressbooks\Sanitize\escape_file_names_in_blob_mimes'
 
 // Google Docs Import
 $gdocs_creds_store = new \Pressbooks\Modules\Import\GoogleDocs\CredentialsStore();
-$gdocs_oauth = new \Pressbooks\Modules\Import\GoogleDocs\OAuthClient( $gdocs_creds_store );
+$gdocs_cipher = new \Pressbooks\Modules\Import\GoogleDocs\Storage\SodiumCipher();
+$gdocs_encryption_key = defined( 'PRESSBOOKS_GOOGLE_DOCS_ENCRYPTION_KEY' ) ? PRESSBOOKS_GOOGLE_DOCS_ENCRYPTION_KEY : '';
+$gdocs_token_storage = $gdocs_creds_store->isBrokerMode()
+	? new \Pressbooks\Modules\Import\GoogleDocs\Storage\BrokerBackedStorage( $gdocs_cipher, $gdocs_encryption_key )
+	: new \Pressbooks\Modules\Import\GoogleDocs\Storage\DirectEncryptedStorage( $gdocs_cipher, $gdocs_encryption_key );
+$gdocs_oauth = new \Pressbooks\Modules\Import\GoogleDocs\OAuthClient( $gdocs_token_storage, $gdocs_creds_store );
 
 // Network admin settings page
 $gdocs_settings = new \Pressbooks\Modules\Import\GoogleDocs\SettingsPage( $gdocs_creds_store, $gdocs_oauth );
 $gdocs_settings->hooks();
 
 // Register import type in the dropdown
-add_filter( 'pb_select_import_type', function ( array $types ) use ( $gdocs_creds_store ) {
-	if ( $gdocs_creds_store->isConfigured() ) {
+add_filter( 'pb_select_import_type', function ( array $types ) use ( $gdocs_creds_store, $gdocs_token_storage ) {
+	if ( $gdocs_creds_store->isConfigured() && $gdocs_token_storage->isAvailable() ) {
 		$types[ \Pressbooks\Modules\Import\GoogleDocs\GoogleDocs::TYPE_OF ] = __( 'Google Docs', 'pressbooks' );
 	}
 	return $types;
