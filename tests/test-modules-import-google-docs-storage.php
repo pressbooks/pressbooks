@@ -68,4 +68,58 @@ class Modules_ImportGoogleDocsStorageTest extends \WP_UnitTestCase {
 		$this->expectException( \Error::class );
 		$token->payload = [ 'access_token' => 'mutated' ]; // @phpstan-ignore-line
 	}
+
+	/**
+	 * @group import
+	 */
+	public function test_sodium_cipher_round_trip(): void {
+		$cipher = new \Pressbooks\Modules\Import\GoogleDocs\Storage\SodiumCipher();
+		$key = sodium_bin2base64( random_bytes( SODIUM_CRYPTO_SECRETBOX_KEYBYTES ), SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING );
+		$plaintext = '{"access_token":"at-123","refresh_token":"rt-456"}';
+
+		$blob = $cipher->encrypt( $plaintext, $key );
+		$decrypted = $cipher->decrypt( $blob, $key );
+
+		$this->assertSame( $plaintext, $decrypted );
+		$this->assertNotEquals( $plaintext, $blob, 'Ciphertext must not equal plaintext' );
+		$this->assertStringNotContainsString( 'at-123', $blob, 'Ciphertext must not contain plaintext substrings' );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_sodium_cipher_blob_format(): void {
+		$cipher = new \Pressbooks\Modules\Import\GoogleDocs\Storage\SodiumCipher();
+		$key = sodium_bin2base64( random_bytes( SODIUM_CRYPTO_SECRETBOX_KEYBYTES ), SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING );
+
+		$blob = $cipher->encrypt( 'hello', $key );
+
+		// Format is base64url(nonce || ciphertext). Decoded length = 24 (nonce) + ciphertext+tag.
+		$raw = sodium_base642bin( $blob, SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING );
+		$this->assertSame( SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, strlen( substr( $raw, 0, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES ) ) );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_sodium_cipher_rejects_tampered_blob(): void {
+		$cipher = new \Pressbooks\Modules\Import\GoogleDocs\Storage\SodiumCipher();
+		$key = sodium_bin2base64( random_bytes( SODIUM_CRYPTO_SECRETBOX_KEYBYTES ), SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING );
+		$blob = $cipher->encrypt( 'hello', $key );
+
+		$raw = sodium_base642bin( $blob, SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING );
+		$raw[30] = $raw[30] === 'a' ? 'b' : 'a'; // flip one byte in the ciphertext region
+		$tampered = sodium_bin2base64( $raw, SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING );
+
+		$this->expectException( \RuntimeException::class );
+		$cipher->decrypt( $tampered, $key );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_sodium_cipher_algorithm_name(): void {
+		$cipher = new \Pressbooks\Modules\Import\GoogleDocs\Storage\SodiumCipher();
+		$this->assertSame( 'crypto_secretbox', $cipher->algorithm() );
+	}
 }
