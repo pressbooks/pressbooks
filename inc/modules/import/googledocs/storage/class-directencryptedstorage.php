@@ -8,7 +8,7 @@ namespace Pressbooks\Modules\Import\GoogleDocs\Storage;
 
 use Pressbooks\Modules\Import\GoogleDocs\EncryptionKeyMissingException;
 
-class DirectEncryptedStorage implements TokenStorage {
+final class DirectEncryptedStorage implements TokenStorage {
 
 	const META_KEY = 'pressbooks_google_docs_token';
 
