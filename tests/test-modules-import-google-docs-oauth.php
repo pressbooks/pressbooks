@@ -51,7 +51,7 @@ class Modules_ImportGoogleDocsOAuthTest extends \WP_UnitTestCase {
 
 	public function set_up(): void {
 		parent::set_up();
-		$this->store = new CredentialsStore();
+		$this->store = CredentialsStore::fromEnvironment();
 		$this->store->saveClientCredentials( 'test-client-id', 'test-client-secret' );
 		$this->user_id = self::factory()->user->create();
 	}
@@ -70,7 +70,7 @@ class Modules_ImportGoogleDocsOAuthTest extends \WP_UnitTestCase {
 			: new DirectEncryptedStorage( $cipher, self::$encryption_key );
 		return new OAuthClient(
 			$storage,
-			new CredentialsStore()
+			CredentialsStore::fromEnvironment()
 		);
 	}
 
@@ -145,7 +145,7 @@ class Modules_ImportGoogleDocsOAuthTest extends \WP_UnitTestCase {
 			)
 		);
 
-		$oauth = new OAuthClient( $storage, new CredentialsStore() );
+		$oauth = new OAuthClient( $storage, CredentialsStore::fromEnvironment() );
 		$client = $oauth->getAuthedClient( $this->user_id );
 		$this->assertInstanceOf( \Google\Client::class, $client );
 		$this->assertSame( 'valid-token', $client->getAccessToken()['access_token'] );
@@ -229,7 +229,7 @@ class Modules_ImportGoogleDocsOAuthTest extends \WP_UnitTestCase {
 
 		$cipher = new SodiumCipher();
 		$storage = new BrokerBackedStorage( $cipher, self::$encryption_key );
-		$oauth = new OAuthClient( $storage, new CredentialsStore() );
+		$oauth = new OAuthClient( $storage, CredentialsStore::fromEnvironment() );
 		$this->assertTrue( $oauth->isBrokerMode() );
 
 		$state = 'test-state-value';
@@ -415,7 +415,7 @@ class Modules_ImportGoogleDocsOAuthTest extends \WP_UnitTestCase {
 
 		$cipher = new SodiumCipher();
 		$storage = new BrokerBackedStorage( $cipher, self::$encryption_key );
-		$oauth = new OAuthClient( $storage, new CredentialsStore() );
+		$oauth = new OAuthClient( $storage, CredentialsStore::fromEnvironment() );
 
 		$stub = $this->getMockBuilder( \Pressbooks\Modules\Import\GoogleDocs\Broker\BrokerRefreshClient::class )
 			->disableOriginalConstructor()

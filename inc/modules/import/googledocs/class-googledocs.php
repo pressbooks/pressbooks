@@ -62,7 +62,7 @@ class GoogleDocs extends Import {
 
 		// Set up the fetcher for image downloads
 		try {
-			$store = new CredentialsStore();
+			$store = CredentialsStore::fromEnvironment();
 			$oauth = OAuthClient::fromEnvironment( $store );
 			$client = $oauth->getAuthedClient( get_current_user_id() );
 			$this->fetcher = new DocsFetcher( $client );

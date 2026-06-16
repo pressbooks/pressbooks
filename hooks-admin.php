@@ -416,7 +416,7 @@ add_action( 'pb_new_blog', function() {
 add_action( 'admin_init', '\Pressbooks\Sanitize\escape_file_names_in_blob_mimes' );
 
 // Google Docs Import
-$gdocs_creds_store = new \Pressbooks\Modules\Import\GoogleDocs\CredentialsStore();
+$gdocs_creds_store = \Pressbooks\Modules\Import\GoogleDocs\CredentialsStore::fromEnvironment();
 $gdocs_cipher = new \Pressbooks\Modules\Import\GoogleDocs\Storage\SodiumCipher();
 $gdocs_encryption_key = defined( 'PRESSBOOKS_GOOGLE_DOCS_ENCRYPTION_KEY' ) ? PRESSBOOKS_GOOGLE_DOCS_ENCRYPTION_KEY : '';
 $gdocs_token_storage = $gdocs_creds_store->isBrokerMode()

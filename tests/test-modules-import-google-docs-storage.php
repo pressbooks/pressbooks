@@ -343,10 +343,10 @@ class Modules_ImportGoogleDocsStorageTest extends \WP_UnitTestCase {
 		$storage = new \Pressbooks\Modules\Import\GoogleDocs\Storage\DirectEncryptedStorage( $cipher, '' ); // unavailable
 		$oauth = new \Pressbooks\Modules\Import\GoogleDocs\OAuthClient(
 			$storage,
-			new \Pressbooks\Modules\Import\GoogleDocs\CredentialsStore()
+			\Pressbooks\Modules\Import\GoogleDocs\CredentialsStore::fromEnvironment()
 		);
 		$page = new \Pressbooks\Modules\Import\GoogleDocs\SettingsPage(
-			new \Pressbooks\Modules\Import\GoogleDocs\CredentialsStore(),
+			\Pressbooks\Modules\Import\GoogleDocs\CredentialsStore::fromEnvironment(),
 			$oauth,
 			$storage
 		);

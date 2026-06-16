@@ -334,7 +334,7 @@ abstract class Import {
 
 			case GoogleDocs\GoogleDocs::TYPE_OF:
 				$importer = new GoogleDocs\GoogleDocs();
-				$store = new GoogleDocs\CredentialsStore();
+				$store = GoogleDocs\CredentialsStore::fromEnvironment();
 				$oauth = GoogleDocs\OAuthClient::fromEnvironment( $store );
 				try {
 					$client = $oauth->getAuthedClient( get_current_user_id() );
@@ -539,7 +539,7 @@ abstract class Import {
 			return false;
 		}
 
-		$store = new GoogleDocs\CredentialsStore();
+		$store = GoogleDocs\CredentialsStore::fromEnvironment();
 		if ( ! $store->isConfigured() ) {
 			$_SESSION['pb_errors'][] = __( 'Google Docs import is not configured. Ask a network admin to set it up.', 'pressbooks' );
 			return false;
