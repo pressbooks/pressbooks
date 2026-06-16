@@ -72,8 +72,12 @@
         </div>
     </div>
     <div class="export-control">
-		<form id="pdf-preview-form" class="pdf-preview-form" action="{!! $pdf_preview_url !!}" method="POST">
-			<input type="submit" name="submit" id="submit" class="button button-hero" value="{{ __( 'Preview PDF', 'pressbooks' ) }}" />
+		<form id="pdf-digital-preview-form" class="pdf-preview-form" action="{!! $pdf_preview_url !!}" method="POST">
+			<input type="submit" name="submit" id="submit" class="button button-hero" value="{{ __( 'Preview Digital PDF', 'pressbooks' ) }}" />
+		</form>
+		<form id="pdf-print-preview-form" class="pdf-preview-form" action="{!! $pdf_preview_url !!}" method="POST">
+			<input type="hidden" name="optimize_for_print" value="1" />
+			<input type="submit" name="submit" id="submit" class="button button-hero" value="{{ __( 'Preview Print PDF', 'pressbooks' ) }}" />
 		</form>
 		<button type="submit" id="pb-export-button" form="pb-export-form" class="button button-hero button-primary generate">
 			{{ __( 'Export Book', 'pressbooks' ) }}

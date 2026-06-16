@@ -1,7 +1,7 @@
 <div class="contributor">
 	<div class="contributor__name__and__links">
 		@if ( $contributor['contributor_picture'] )
-			<img class="contributor__profile__picture" alt="Contributor photo" src="{{ $contributor['contributor_picture'] }}"/>
+			<img class="contributor__profile__picture" alt="{{ $contributor['contributor_picture_alt'] }}" src="{{ $contributor['contributor_picture'] }}"/>
 		@endif
 		<div class="{{ $contributor['contributor_picture']  ? 'contributor__info__small' : 'contributor__info__large' }}">
 			<p class="contributor__name">

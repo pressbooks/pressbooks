@@ -254,4 +254,23 @@ class Registration extends \WP_UnitTestCase {
 
 		$this->assertNotEmpty( get_user_meta( $user->ID, $meta_key, true ) );
 	}
+
+	/**
+	 * @group registration
+	 */
+	public function test_remove_ip_from_password_reset_email() {
+		$message = "Someone has requested a password reset for the following account:\r\n";
+		$message .= "Site Name: Test Site\r\n";
+		$message .= "Username: testuser\r\n";
+		$message .= "If this was a mistake, ignore this email and nothing will happen.\r\n";
+		$message .= "To reset your password, visit the following address:\r\n";
+		$message .= "http://example.com/reset\r\n";
+		$message .= "This password reset request originated from the IP address 127.0.0.1.\r\n";
+
+		$result = \Pressbooks\Registration\remove_ip_from_password_reset_email( $message );
+
+		$this->assertStringNotContainsString( '127.0.0.1', $result );
+		$this->assertStringContainsString( 'Username: testuser', $result );
+		$this->assertStringContainsString( 'http://example.com/reset', $result );
+	}
 }

@@ -555,26 +555,25 @@ class Book {
 	 * @return int
 	 */
 	static function wordCount( $selected_for_export = false ) {
-		$wc = 0;
-		$wc_selected_for_export = 0;
+		$items = [];
 		foreach ( static::getBookStructure() as $key => $section ) {
 			if ( $key === 'front-matter' || $key === 'back-matter' ) {
-				foreach ( $section as $val ) {
-					$wc += $val['word_count'];
-					if ( $val['export'] ) {
-						$wc_selected_for_export += $val['word_count'];
-					}
-				}
+				array_push( $items, ...$section );
 			}
 			if ( $key === 'part' ) {
 				foreach ( $section as $part ) {
-					foreach ( $part['chapters'] as $val ) {
-						$wc += $val['word_count'];
-						if ( $val['export'] ) {
-							$wc_selected_for_export += $val['word_count'];
-						}
-					}
+					$items[] = $part;
+					array_push( $items, ...$part['chapters'] );
 				}
+			}
+		}
+
+		$wc = 0;
+		$wc_selected_for_export = 0;
+		foreach ( $items as $item ) {
+			$wc += $item['word_count'];
+			if ( $item['export'] ) {
+				$wc_selected_for_export += $item['word_count'];
 			}
 		}
 

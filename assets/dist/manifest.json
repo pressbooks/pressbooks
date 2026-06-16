@@ -45,7 +45,7 @@
     "isEntry": true
   },
   "assets/src/scripts/algolia-search.js": {
-    "file": "assets/algolia-search-Dqg3nHqj.js",
+    "file": "assets/algolia-search-462sVLNs.js",
     "name": "algolia-search",
     "src": "assets/src/scripts/algolia-search.js",
     "isEntry": true,
@@ -53,7 +53,7 @@
       "__commonjsHelpers-DsqdWQfm.js"
     ],
     "css": [
-      "assets/algolia-search-DoMTmBPl.css"
+      "assets/algolia-search-DNLkBxAQ.css"
     ]
   },
   "assets/src/scripts/anchor.js": {
@@ -99,7 +99,7 @@
     ]
   },
   "assets/src/scripts/cloner.js": {
-    "file": "assets/cloner-CVZVQquv.js",
+    "file": "assets/cloner-CNw2JrE-.js",
     "name": "cloner",
     "src": "assets/src/scripts/cloner.js",
     "isEntry": true,
@@ -120,7 +120,7 @@
     "isEntry": true
   },
   "assets/src/scripts/covergenerator.js": {
-    "file": "assets/covergenerator-C-vU-eb8.js",
+    "file": "assets/covergenerator-CiR2NV4H.js",
     "name": "covergenerator",
     "src": "assets/src/scripts/covergenerator.js",
     "isEntry": true,
@@ -138,7 +138,7 @@
     "isEntry": true
   },
   "assets/src/scripts/export.js": {
-    "file": "assets/export-DL-5LhtF.js",
+    "file": "assets/export-CXiNmMJV.js",
     "name": "export",
     "src": "assets/src/scripts/export.js",
     "isEntry": true,
@@ -174,7 +174,7 @@
     "isEntry": true
   },
   "assets/src/scripts/import.js": {
-    "file": "assets/import-sc0Pz6UE.js",
+    "file": "assets/import-4WIXLa_h.js",
     "name": "import",
     "src": "assets/src/scripts/import.js",
     "isEntry": true,
@@ -231,12 +231,12 @@
     "isEntry": true
   },
   "assets/src/scripts/pressbooks.js": {
-    "file": "assets/pressbooks-W1qZ-Zgu.js",
+    "file": "assets/pressbooks-Bbox_Dgb.js",
     "name": "pressbooks",
     "src": "assets/src/scripts/pressbooks.js",
     "isEntry": true,
     "css": [
-      "assets/pressbooks-admin-styles--LilPr96.css"
+      "assets/pressbooks-admin-styles-CxMQmNIJ.css"
     ],
     "assets": [
       "assets/heroicons-CVYPToTZ.eot",
@@ -380,7 +380,7 @@
     ]
   },
   "assets/src/styles/pressbooks.scss": {
-    "file": "assets/pressbooks-admin-styles--LilPr96.css",
+    "file": "assets/pressbooks-admin-styles-CxMQmNIJ.css",
     "src": "assets/src/styles/pressbooks.scss",
     "isEntry": true,
     "name": "pressbooks-admin-styles",
