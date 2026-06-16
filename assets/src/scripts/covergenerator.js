@@ -5,31 +5,30 @@ import resetClock from './utils/resetClock';
 import startClock from './utils/startClock';
 import '../styles/covergenerator.scss';
 
-jQuery( function ( $ ) {
-	// Media
-	$( document ).ready( function () {
-		let mediaUploader;
-		$( '.front-background-image-upload-button' ).on( 'click', function ( e ) {
-			e.preventDefault();
-			if ( ! mediaUploader ) {
-				// Extend the wp.media object
-				mediaUploader = wp.media.frames.file_frame = wp.media( {
-					multiple: false,
-				} );
+const $ = window.jQuery;
+const PB_CG = window.PB_CoverGeneratorToken;
 
-				// When a file is selected, grab the URL and set it as the text field's value
-				mediaUploader.on( 'select', function () {
-					let attachment = mediaUploader.state().get( 'selection' ).first().toJSON();
-					$( '#front_background_image' ).val( attachment.url );
-					$( '.front-background-image' ).attr( 'src', attachment.url );
-					$( '.front-background-image-preview-wrap' ).removeClass( 'hidden' );
-					$( '.front-background-image-upload-button, .front-background-image-description' ).addClass( 'hidden' );
-				} );
-			}
-			// Open the uploader dialog
-			mediaUploader.open();
-		} );
+$( function () {
+	// Media
+	let mediaUploader;
+	$( '.front-background-image-upload-button' ).on( 'click', function ( e ) {
+		e.preventDefault();
+		if ( ! mediaUploader ) {
+			mediaUploader = window.wp.media.frames.file_frame = window.wp.media( {
+				multiple: false,
+			} );
+
+			mediaUploader.on( 'select', function () {
+				let attachment = mediaUploader.state().get( 'selection' ).first().toJSON();
+				$( '#front_background_image' ).val( attachment.url );
+				$( '.front-background-image' ).attr( 'src', attachment.url );
+				$( '.front-background-image-preview-wrap' ).removeClass( 'hidden' );
+				$( '.front-background-image-upload-button, .front-background-image-description' ).addClass( 'hidden' );
+			} );
+		}
+		mediaUploader.open();
 	} );
+
 	$( '.delete-front-background-image' ).on( 'click', function () {
 		$( '#front_background_image' ).val( '' );
 		$( '.front-background-image-preview-wrap' ).addClass( 'hidden' );
@@ -57,6 +56,7 @@ jQuery( function ( $ ) {
 	const makeEbookButton = $( '#generate-jpg' );
 	const bar = $( '#pb-sse-progressbar' );
 	const info = $( '#pb-sse-info' );
+	const status = $( '#pb-sse-status' );
 	const notices = $( '.notice' );
 
 	// Initialize clock
@@ -69,7 +69,7 @@ jQuery( function ( $ ) {
 	let eventSourceHandler = function ( fileType ) {
 		// Initialize event data
 		const hiddenForm = $( 'form.' + fileType );
-		const eventSourceUrl = PB_CoverGeneratorToken.ajaxUrl + ( PB_CoverGeneratorToken.ajaxUrl.includes( '?' ) ? '&' : '?' ) + $.param( hiddenForm.find( ':input' ) );
+		const eventSourceUrl = PB_CG.ajaxUrl + ( PB_CG.ajaxUrl.includes( '?' ) ? '&' : '?' ) + $.param( hiddenForm.find( ':input' ) );
 		const evtSource = new EventSource( eventSourceUrl );
 
 		// Handle open
@@ -81,7 +81,7 @@ jQuery( function ( $ ) {
 			$( window ).on( 'beforeunload', function () {
 				// In some browsers, the return value of the event is displayed in this dialog. Starting with Firefox 44, Chrome 51, Opera 38 and Safari 9.1, a generic string not under the control of the webpage will be shown.
 				// @see https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onbeforeunload#Notes
-				return PB_CoverGeneratorToken.unloadWarning;
+				return PB_CG.unloadWarning;
 			} );
 		};
 
@@ -94,11 +94,12 @@ jQuery( function ( $ ) {
 			switch ( data.action ) {
 				case 'updateStatusBar':
 					bar.val( parseInt( data.percentage, 10 ) );
+					status.html( `${ data.percentage }%` );
 					info.html( data.info );
 					break;
 				case 'complete':
 					evtSource.close();
-					$( window ).unbind( 'beforeunload' );
+					$( window ).off( 'beforeunload' );
 					if ( data.error ) {
 						bar.val( 0 ).hide();
 						makePdfButton.attr( 'disabled', false ).show();
@@ -108,7 +109,7 @@ jQuery( function ( $ ) {
 							resetClock( clock );
 						}
 					} else {
-						window.location = PB_CoverGeneratorToken.redirectUrl;
+						window.location = PB_CG.redirectUrl;
 					}
 					break;
 				default:
@@ -123,8 +124,8 @@ jQuery( function ( $ ) {
 		evtSource.onerror = function () {
 			evtSource.close();
 			bar.removeAttr( 'value' );
-			info.html( 'EventStream Connection Error ' + PB_CoverGeneratorToken.reloadSnippet );
-			$( window ).unbind( 'beforeunload' );
+			info.html( 'EventStream Connection Error ' + PB_CG.reloadSnippet );
+			$( window ).off( 'beforeunload' );
 			if ( clock ) {
 				resetClock( clock );
 			}
@@ -138,7 +139,7 @@ jQuery( function ( $ ) {
 		notices.remove();
 
 		clock = startClock();
-		info.html( PB_CoverGeneratorToken.ajaxSubmitMsg );
+		info.html( PB_CG.ajaxSubmitMsg );
 
 		// Save the WP options and WP Media before triggering the generator
 		// @see https://github.com/jquery-form/form
@@ -152,7 +153,7 @@ jQuery( function ( $ ) {
 	} );
 
 	makePdfButton.on( 'click', function () {
-		let editor = tinymce.get( 'pb_about_unlimited' );
+		let editor = window.tinymce.get( 'pb_about_unlimited' );
 		if ( editor ) {
 			let content = editor.getContent();
 			$( '#pb_about_unlimited' ).val( content );

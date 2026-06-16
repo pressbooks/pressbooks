@@ -1,7 +1,8 @@
 .git
 .idea
 crowdin.yml
-assets/src
+assets/src/*
+!assets/src/scripts
 bin
 node_modules
 tests

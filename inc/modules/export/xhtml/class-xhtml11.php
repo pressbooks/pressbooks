@@ -372,7 +372,7 @@ class Xhtml11 extends Export {
 
 		$this->echoMetaData( $_unused, $metadata );
 
-		echo '<title>' . get_bloginfo( 'name' ) . "</title>\n";
+		echo '<title>' . esc_html( get_bloginfo( 'name' ) ) . "</title>\n";
 
 		if ( current_user_can( 'edit_posts' ) ) {
 			if ( ! empty( $_GET['debug'] ) ) {
@@ -1020,7 +1020,15 @@ class Xhtml11 extends Export {
 
 				if ( $fragment ) {
 					$external_anchors = [ Content::ANCHOR ];
-					if ( ! in_array( "#{$fragment}", $external_anchors, true ) && ! str_starts_with( $fragment, 'h5p' ) ) {
+					$interactive_prefixes = [ 'h5p', 'oembed-', 'iframe-phet-', 'audio-', 'video-' ];
+					$is_interactive = false;
+					foreach ( $interactive_prefixes as $prefix ) {
+						if ( str_starts_with( $fragment, $prefix ) ) {
+							$is_interactive = true;
+							break;
+						}
+					}
+					if ( ! in_array( "#{$fragment}", $external_anchors, true ) && ! $is_interactive ) {
 						$link->setAttribute( 'href', "#{$fragment}" );
 						$has_changes = true;
 					}

@@ -326,12 +326,22 @@ function check_prince_install() {
 	if ( false !== strpos( $output, 'Prince' ) ) { // Command found.
 		$output = explode( 'Prince ', $output );
 		$version = $output[1];
-		if ( version_compare( $version, '11' ) >= 0 ) {
+		if ( version_compare( $version, '15' ) >= 0 ) {
 			return true;
 		}
 	}
 
 	return false;
+}
+
+function get_docraptor_pipeline(): string {
+	$pdf_options = get_option( 'pressbooks_theme_options_pdf', [] );
+	$prince_version = $pdf_options['pdf_prince_version'] ?? 'prince-16';
+	$pipeline = defined( 'DOCRAPTOR_PIPELINE' ) ? DOCRAPTOR_PIPELINE : '11';
+	if ( $prince_version === 'prince-15' ) {
+		$pipeline = '10.1';
+	}
+	return $pipeline;
 }
 
 /**

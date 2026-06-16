@@ -14,6 +14,7 @@ jQuery( function ( $ ) {
 		const button = $( '#pb-cloner-button' );
 		const bar = $( '#pb-sse-progressbar' );
 		const info = $( '#pb-sse-info' );
+		const status = $( '#pb-sse-status' );
 		const notices = $( '.notice' );
 
 		// Init clock
@@ -53,11 +54,12 @@ jQuery( function ( $ ) {
 			switch ( data.action ) {
 				case 'updateStatusBar':
 					bar.val( parseInt( data.percentage, 10 ) );
+					status.html( `${ data.percentage }%` );
 					info.html( data.info );
 					break;
 				case 'complete':
 					evtSource.close();
-					$( window ).unbind( 'beforeunload' );
+					$( window ).off( 'beforeunload' );
 					if ( data.error ) {
 						bar.val( 0 ).hide();
 						button.attr( 'disabled', false ).show();
@@ -83,7 +85,7 @@ jQuery( function ( $ ) {
 			evtSource.close();
 			$( '#pb-sse-progressbar' ).removeAttr( 'value' );
 			$( '#pb-sse-info' ).html( 'EventStream Connection Error ' + PB_ClonerToken.reloadSnippet );
-			$( window ).unbind( 'beforeunload' );
+			$( window ).off( 'beforeunload' );
 			if ( clock ) {
 				resetClock( clock );
 			}

@@ -12,6 +12,7 @@ use DocRaptor\DocApi;
 use DocRaptor\PrinceOptions;
 use function Pressbooks\Utility\check_xmllint_install;
 use function Pressbooks\Utility\get_contents;
+use function Pressbooks\Utility\get_docraptor_pipeline;
 use function Pressbooks\Utility\put_contents;
 use Generator;
 use Pressbooks\Container;
@@ -131,7 +132,7 @@ class Docraptor extends Pdf {
 			}
 			$doc->setName( get_bloginfo( 'name' ) );
 			$doc->setPrinceOptions( $prince_options );
-			$doc->setPipeline( defined( 'DOCRAPTOR_PIPELINE' ) ? DOCRAPTOR_PIPELINE : '9.2' ); // Prince 14.3, see: https://docraptor.com/documentation/api#api_pipeline
+			$doc->setPipeline( get_docraptor_pipeline() ); // See: https://docraptor.com/documentation/api#api_pipeline
 
 			yield 80 => __( 'Converting document...', 'pressbooks' );
 			$create_response = $docraptor->createAsyncDoc( $doc );

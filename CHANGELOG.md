@@ -1,5 +1,57 @@
 # Changelog
 
+## [6.42.0](https://github.com/pressbooks/pressbooks/compare/6.41.0...6.42.0) (2026-06-04)
+
+
+### Features
+
+* add second PDF preview option ([#4344](https://github.com/pressbooks/pressbooks/issues/4344)) ([#4394](https://github.com/pressbooks/pressbooks/issues/4394)) ([bd06639](https://github.com/pressbooks/pressbooks/commit/bd066398e562949d3e9d0797c77a10686221414a))
+* announce progress bar progress (resolves [#3718](https://github.com/pressbooks/pressbooks/issues/3718)) ([#4460](https://github.com/pressbooks/pressbooks/issues/4460)) ([4ef0ff4](https://github.com/pressbooks/pressbooks/commit/4ef0ff44e90e41a1968948cfd121cbd5c515c2eb))
+* use provided alt text for contributor pictures ([#4459](https://github.com/pressbooks/pressbooks/issues/4459)) ([783bac7](https://github.com/pressbooks/pressbooks/commit/783bac722ac929de3b7738e7036ed95cfd5a0357))
+
+
+### Bug Fixes
+
+* include src/js assets for distribution ([#4480](https://github.com/pressbooks/pressbooks/issues/4480)) ([845d07e](https://github.com/pressbooks/pressbooks/commit/845d07ed2f25eb13d1cde8e89f38ef807d9e9792))
+* resolve display issue with admin bar View link ([#4456](https://github.com/pressbooks/pressbooks/issues/4456)) ([0fc8465](https://github.com/pressbooks/pressbooks/commit/0fc8465e71ee10ed65d8737b81faf09fbc2bf8ce))
+
+
+### Chores
+
+* change institution 'University of Adelaide' to 'Adelaide University' ([45aa7f2](https://github.com/pressbooks/pressbooks/commit/45aa7f295a57d4fc0f2c14f839fa0c1c3a0a2b56))
+* change institution name Adelaide ([#4471](https://github.com/pressbooks/pressbooks/issues/4471)) ([45aa7f2](https://github.com/pressbooks/pressbooks/commit/45aa7f295a57d4fc0f2c14f839fa0c1c3a0a2b56))
+
+## [6.41.0](https://github.com/pressbooks/pressbooks/compare/6.40.0...6.41.0) (2026-05-12)
+
+
+### Features
+
+* prince 16 support ([#4428](https://github.com/pressbooks/pressbooks/issues/4428)) ([51c412d](https://github.com/pressbooks/pressbooks/commit/51c412dab377dbe4c03957730c36e74448bcc5a2))
+
+
+### Bug Fixes
+
+* consider parts post content for word counting ([#4453](https://github.com/pressbooks/pressbooks/issues/4453)) ([d3f6964](https://github.com/pressbooks/pressbooks/commit/d3f69641310ea14919438558237a6d71b370c561))
+
+## [6.40.0](https://github.com/pressbooks/pressbooks/compare/6.39.3...6.40.0) (2026-05-05)
+
+
+### Features
+
+* add hooks when network managers are added or removed ([#4347](https://github.com/pressbooks/pressbooks/issues/4347)) ([d3fd14e](https://github.com/pressbooks/pressbooks/commit/d3fd14e7e9220ac2bb5ca6e2c755b429c5874272))
+
+
+### Bug Fixes
+
+* cover generator js enqueue ([#4441](https://github.com/pressbooks/pressbooks/issues/4441)) ([4ad2287](https://github.com/pressbooks/pressbooks/commit/4ad22872e9042b342d65af381fd31ec3ebe02f3e))
+
+## [6.39.3](https://github.com/pressbooks/pressbooks/compare/6.39.2...6.39.3) (2026-04-28)
+
+
+### Chores
+
+* remove ip message from reset password email ([#4435](https://github.com/pressbooks/pressbooks/issues/4435)) ([d2726c1](https://github.com/pressbooks/pressbooks/commit/d2726c149a164c13bd05212ec5ec2a86fd317e1f))
+
 ## [6.39.2](https://github.com/pressbooks/pressbooks/compare/6.39.1...6.39.2) (2026-04-15)
 
 
