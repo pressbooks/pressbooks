@@ -118,7 +118,7 @@ class BrokerRefreshClient {
 		] );
 
 		$encoded = json_encode( $body, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
-		$key_bytes = sodium_base642bin( $this->network_secret, SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING );
+		$key_bytes = $this->decodeSecret( $this->network_secret );
 		$signature = hash_hmac( 'sha256', $encoded, $key_bytes );
 		sodium_memzero( $key_bytes );
 
@@ -170,5 +170,23 @@ class BrokerRefreshClient {
 		}
 
 		return $response;
+	}
+
+	private function decodeSecret( string $secret ): string {
+		$variants = [
+			SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING,
+			SODIUM_BASE64_VARIANT_ORIGINAL,
+			SODIUM_BASE64_VARIANT_URLSAFE,
+		];
+
+		foreach ( $variants as $variant ) {
+			try {
+				return sodium_base642bin( $secret, $variant );
+			} catch ( \SodiumException $e ) {
+				continue;
+			}
+		}
+
+		throw new \RuntimeException( 'Network secret must be a valid base64-encoded string.' );
 	}
 }
