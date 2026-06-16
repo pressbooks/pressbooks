@@ -49,7 +49,7 @@
 ### Out of scope for this plan
 
 - Broker-side changes (separate plan).
-- The token-theft verification procedure from spec §12 (executed in Phase 1 of rollout, not part of code plan).
+- The token-theft verification procedure from spec Section 12 (executed in Phase 1 of rollout, not part of code plan).
 - Documentation beyond the spec itself.
 
 ---
@@ -2521,13 +2521,13 @@ git commit -m "chore(google-docs): standards and final cleanup"
 - **F3 (P1: broker-mode disconnect doesn't revoke at Google):** Task 11 (calls broker `/oauth/revoke` which the broker plan wires to Google's revoke endpoint).
 - **F4 (P1: no broker-mode refresh path):** Tasks 10, 11 (`BrokerRefreshClient::refresh`).
 - **F5 (P2: scope minimality):** Risk-accepted in spec; no code task.
-- **F6 (P2: rotation strategy):** Out of code scope for this plan; documented in spec §10. Future task: add keyring constant support.
+- **F6 (P2: rotation strategy):** Out of code scope for this plan; documented in spec Section 10. Future task: add keyring constant support.
 - **F7 (P3: no audit logging):** Task 12 (`pb.gdocs.tokens_purged count=N` log line).
 - **F8 (P3: PHP-serialized blob):** Addressed in Tasks 4, 5 (ciphertext blob uses JSON inside the envelope).
 - **A1 (drive.file evaluation):** Risk-accepted; no code task.
-- **Edge cases 1–9 (spec §7.7):** Tasks 9, 10, 11 (surfacing failures, 410 handling, replay protection via broker side, etc.). All edge cases that span the broker boundary require the broker plan to implement the matching side; this plan covers the WP side.
+- **Edge cases 1–9 (spec Section 7.7):** Tasks 9, 10, 11 (surfacing failures, 410 handling, replay protection via broker side, etc.). All edge cases that span the broker boundary require the broker plan to implement the matching side; this plan covers the WP side.
 - **Disconnect when broker unreachable (edge case 9):** Task 11 (`OAuthClient::disconnect` rethrows the broker-revoke failure; `BrokerRefreshClient::revoke` rethrows on 5xx).
-- **Purge-on-upgrade (spec §9.2):** Task 12.
+- **Purge-on-upgrade (spec Section 9.2):** Task 12.
 - **Admin notice when key missing:** Task 13.
 
 ---
