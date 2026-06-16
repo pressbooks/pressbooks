@@ -30,7 +30,7 @@ class BrokerRefreshClient {
 		TokenStorage $storage
 	) {
 		$this->broker_url = rtrim( $broker_url, '/' );
-		$this->broker_public_key = $broker_public_key;
+		$this->broker_public_key = $this->resolvePublicKey( $broker_public_key );
 		$this->network_secret = $network_secret;
 		$this->storage = $storage;
 	}
@@ -168,5 +168,17 @@ class BrokerRefreshClient {
 		}
 
 		return $response;
+	}
+
+	private function resolvePublicKey( string $value ): string {
+		if ( file_exists( $value ) ) {
+			$contents = file_get_contents( $value );
+			if ( $contents === false ) {
+				throw new \RuntimeException( 'Failed to read broker public key file: ' . $value );
+			}
+			return $contents;
+		}
+
+		return $value;
 	}
 }
