@@ -94,9 +94,12 @@ class Modules_ImportGoogleDocsStorageTest extends \WP_UnitTestCase {
 
 		$blob = $cipher->encrypt( 'hello', $key );
 
-		// Format is base64url(nonce || ciphertext). Decoded length = 24 (nonce) + ciphertext+tag.
+		// Format is base64url(nonce || ciphertext+tag). Length must equal nonce + MAC + plaintext length.
 		$raw = sodium_base642bin( $blob, SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING );
-		$this->assertSame( SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, strlen( substr( $raw, 0, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES ) ) );
+		$this->assertSame(
+			SODIUM_CRYPTO_SECRETBOX_NONCEBYTES + SODIUM_CRYPTO_SECRETBOX_MACBYTES + strlen( 'hello' ),
+			strlen( $raw )
+		);
 	}
 
 	/**

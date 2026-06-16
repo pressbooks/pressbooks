@@ -6,7 +6,7 @@
 
 namespace Pressbooks\Modules\Import\GoogleDocs\Storage;
 
-class SodiumCipher implements Cipher {
+final class SodiumCipher implements Cipher {
 
 	public function encrypt( string $plaintext, string $key ): string {
 		$key_bytes = sodium_base642bin( $key, SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING );
