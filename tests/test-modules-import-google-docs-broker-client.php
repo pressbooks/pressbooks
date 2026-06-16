@@ -152,8 +152,19 @@ class Modules_ImportGoogleDocsBrokerClientTest extends \WP_UnitTestCase {
 
 		$this->set_http_response( 410, $this->sign_broker_response( [ 'error' => 'handle_unknown' ] ) );
 
-		$this->expectException( \Pressbooks\Modules\Import\GoogleDocs\ReauthorizationRequiredException::class );
-		$client->refresh( $user_id );
+		try {
+			$client->refresh( $user_id );
+			$this->fail( 'Expected ReauthorizationRequiredException was not thrown.' );
+		} catch ( \Pressbooks\Modules\Import\GoogleDocs\ReauthorizationRequiredException $e ) {
+			// Expected — broker says session is gone.
+		}
+
+		// The 410 path must delete local state so retries don't loop on a dead session.
+		$storage = new \Pressbooks\Modules\Import\GoogleDocs\Storage\BrokerBackedStorage(
+			new \Pressbooks\Modules\Import\GoogleDocs\Storage\SodiumCipher(),
+			self::$encryptionKey
+		);
+		$this->assertNull( $storage->load( $user_id ), 'Local token must be deleted after broker reports 410.' );
 	}
 
 	/**

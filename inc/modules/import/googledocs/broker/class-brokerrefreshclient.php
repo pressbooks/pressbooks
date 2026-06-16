@@ -155,7 +155,7 @@ final class BrokerRefreshClient {
 	}
 
 	private function post( string $path, array $signed ): array {
-		return wp_remote_post(
+		$response = wp_remote_post(
 			$this->broker_url . $path,
 			[
 				'method'  => 'POST',
@@ -164,5 +164,11 @@ final class BrokerRefreshClient {
 				'timeout' => 15,
 			]
 		);
+
+		if ( is_wp_error( $response ) ) {
+			throw new \RuntimeException( 'Broker unreachable: ' . $response->get_error_message() );
+		}
+
+		return $response;
 	}
 }
