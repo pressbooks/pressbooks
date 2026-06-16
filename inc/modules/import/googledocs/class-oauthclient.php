@@ -27,10 +27,39 @@ class OAuthClient {
 
 	private bool $useBroker;
 
-	public function __construct( TokenStorage $token_storage, CredentialsStore $creds_store ) {
+	private ?Broker\BrokerRefreshClient $broker_refresh_client;
+
+	public function __construct(
+		TokenStorage $token_storage,
+		CredentialsStore $creds_store,
+		?Broker\BrokerRefreshClient $broker_refresh_client = null
+	) {
 		$this->token_storage = $token_storage;
 		$this->creds_store = $creds_store;
+		$this->broker_refresh_client = $broker_refresh_client;
 		$this->useBroker = $creds_store->isBrokerMode();
+	}
+
+	public function setBrokerRefreshClient( Broker\BrokerRefreshClient $client ): void {
+		$this->broker_refresh_client = $client;
+	}
+
+	public static function fromEnvironment( CredentialsStore $creds_store ): self {
+		$cipher = new Storage\SodiumCipher();
+		$encryption_key = defined( 'PRESSBOOKS_GOOGLE_DOCS_ENCRYPTION_KEY' ) ? PRESSBOOKS_GOOGLE_DOCS_ENCRYPTION_KEY : '';
+		$storage = $creds_store->isBrokerMode()
+			? new Storage\BrokerBackedStorage( $cipher, $encryption_key )
+			: new Storage\DirectEncryptedStorage( $cipher, $encryption_key );
+		$broker_refresh = null;
+		if ( $creds_store->isBrokerMode() && defined( 'PRESSBOOKS_AUTH_BROKER_PUBLIC_KEY' ) && defined( 'PRESSBOOKS_AUTH_BROKER_NETWORK_SECRET' ) ) {
+			$broker_refresh = new Broker\BrokerRefreshClient(
+				PRESSBOOKS_AUTH_BROKER_URL,
+				PRESSBOOKS_AUTH_BROKER_PUBLIC_KEY,
+				PRESSBOOKS_AUTH_BROKER_NETWORK_SECRET,
+				$storage
+			);
+		}
+		return new self( $storage, $creds_store, $broker_refresh );
 	}
 
 	public function isBrokerMode(): bool {
@@ -95,7 +124,10 @@ class OAuthClient {
 
 		if ( $this->useBroker ) {
 			if ( $token->isExpired() ) {
-				throw new ReauthorizationRequiredException( 'Token expired. Refresh via broker not yet wired (see Task 11).' );
+				if ( $this->broker_refresh_client === null ) {
+					throw new ReauthorizationRequiredException( 'Token expired and no BrokerRefreshClient is configured.' );
+				}
+				$token = $this->broker_refresh_client->refresh( $user_id );
 			}
 			$client = new \Google\Client();
 			$client->setAccessToken( $token->payload );
@@ -132,16 +164,30 @@ class OAuthClient {
 	public function disconnect( int $user_id ): void {
 		$token = $this->token_storage->load( $user_id );
 
-		if ( $token && ! $this->useBroker ) {
-			try {
-				$client = $this->buildClient();
-				$client->setAccessToken( $token->payload );
-				$client->revokeToken();
-			} catch ( \Exception $e ) {
-				throw new \RuntimeException( 'Failed to revoke token at Google: ' . $e->getMessage() . ' Please try again.', 0, $e );
-			}
+		if ( $token === null ) {
+			return;
 		}
 
+		if ( $this->useBroker ) {
+			if ( $this->broker_refresh_client !== null ) {
+				try {
+					$this->broker_refresh_client->revoke( $user_id );
+					return;
+				} catch ( \Throwable $e ) {
+					throw new \RuntimeException( 'Failed to revoke token at broker: ' . $e->getMessage() . ' Please try again.', 0, $e );
+				}
+			}
+			$this->token_storage->delete( $user_id );
+			return;
+		}
+
+		try {
+			$client = $this->buildClient();
+			$client->setAccessToken( $token->payload );
+			$client->revokeToken();
+		} catch ( \Exception $e ) {
+			throw new \RuntimeException( 'Failed to revoke token at Google: ' . $e->getMessage() . ' Please try again.', 0, $e );
+		}
 		$this->token_storage->delete( $user_id );
 	}
 

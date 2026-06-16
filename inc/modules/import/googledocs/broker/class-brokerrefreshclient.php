@@ -13,7 +13,7 @@ use Pressbooks\Modules\Import\GoogleDocs\Storage\StoredToken;
 use Pressbooks\Modules\Import\GoogleDocs\Storage\TokenMode;
 use Pressbooks\Modules\Import\GoogleDocs\Storage\TokenStorage;
 
-final class BrokerRefreshClient {
+class BrokerRefreshClient {
 
 	private const REFRESH_PATH = '/oauth/refresh';
 	private const REVOKE_PATH = '/oauth/revoke';

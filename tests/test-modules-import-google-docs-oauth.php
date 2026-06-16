@@ -405,4 +405,48 @@ class Modules_ImportGoogleDocsOAuthTest extends \WP_UnitTestCase {
 		$this->expectExceptionMessage( 'Invalid or expired OAuth state.' );
 		$oauth->handleCallback( $jwt, $state, $this->user_id );
 	}
+
+	/**
+	 * @group import
+	 */
+	public function test_get_authed_client_calls_broker_refresh_when_expired(): void {
+		$this->skipWithoutBrokerKeys();
+		$this->defineBrokerConstants();
+
+		$cipher = new SodiumCipher();
+		$storage = new BrokerBackedStorage( $cipher, self::$encryption_key );
+		$oauth = new OAuthClient( $storage, new CredentialsStore() );
+
+		$stub = $this->getMockBuilder( \Pressbooks\Modules\Import\GoogleDocs\Broker\BrokerRefreshClient::class )
+			->disableOriginalConstructor()
+			->getMock();
+		$stub->method( 'refresh' )
+			->willReturnCallback( function ( $user_id ) use ( $storage ) {
+				$storage->save( $user_id, new StoredToken(
+					[
+						'session_handle' => 'sh-abc',
+						'access_token'   => 'fresh-at',
+						'expires_at'     => time() + 3600,
+						'google_sub'     => 'sub-001',
+					],
+					TokenMode::Broker
+				) );
+				return $storage->load( $user_id );
+			} );
+		$oauth->setBrokerRefreshClient( $stub );
+
+		$storage->save( $this->user_id, new StoredToken(
+			[
+				'session_handle' => 'sh-abc',
+				'access_token'   => 'expired-at',
+				'expires_at'     => time() - 60,
+				'google_sub'     => 'sub-001',
+			],
+			TokenMode::Broker
+		) );
+
+		$client = $oauth->getAuthedClient( $this->user_id );
+		$this->assertInstanceOf( \Google\Client::class, $client );
+		$this->assertSame( 'fresh-at', $client->getAccessToken()['access_token'] );
+	}
 }

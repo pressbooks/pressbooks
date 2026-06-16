@@ -335,12 +335,7 @@ abstract class Import {
 			case GoogleDocs\GoogleDocs::TYPE_OF:
 				$importer = new GoogleDocs\GoogleDocs();
 				$store = new GoogleDocs\CredentialsStore();
-				$cipher = new GoogleDocs\Storage\SodiumCipher();
-				$encryption_key = defined( 'PRESSBOOKS_GOOGLE_DOCS_ENCRYPTION_KEY' ) ? PRESSBOOKS_GOOGLE_DOCS_ENCRYPTION_KEY : '';
-				$token_storage = $store->isBrokerMode()
-					? new GoogleDocs\Storage\BrokerBackedStorage( $cipher, $encryption_key )
-					: new GoogleDocs\Storage\DirectEncryptedStorage( $cipher, $encryption_key );
-				$oauth = new GoogleDocs\OAuthClient( $token_storage, $store );
+				$oauth = GoogleDocs\OAuthClient::fromEnvironment( $store );
 				try {
 					$client = $oauth->getAuthedClient( get_current_user_id() );
 					$importer->setFetcher( new GoogleDocs\DocsFetcher( $client ) );
@@ -550,12 +545,7 @@ abstract class Import {
 			return false;
 		}
 
-		$cipher = new GoogleDocs\Storage\SodiumCipher();
-		$encryption_key = defined( 'PRESSBOOKS_GOOGLE_DOCS_ENCRYPTION_KEY' ) ? PRESSBOOKS_GOOGLE_DOCS_ENCRYPTION_KEY : '';
-		$token_storage = $store->isBrokerMode()
-			? new GoogleDocs\Storage\BrokerBackedStorage( $cipher, $encryption_key )
-			: new GoogleDocs\Storage\DirectEncryptedStorage( $cipher, $encryption_key );
-		$oauth = new GoogleDocs\OAuthClient( $token_storage, $store );
+		$oauth = GoogleDocs\OAuthClient::fromEnvironment( $store );
 		$user_id = get_current_user_id();
 
 		if ( ! $oauth->isConnected( $user_id ) ) {
