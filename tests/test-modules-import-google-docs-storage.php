@@ -219,11 +219,89 @@ class Modules_ImportGoogleDocsStorageTest extends \WP_UnitTestCase {
 		);
 	}
 
+	/**
+	 * @group import
+	 */
+	public function test_broker_storage_save_and_load_round_trip(): void {
+		$storage = $this->build_broker_storage();
+		$user_id = self::factory()->user->create();
+
+		$token = new \Pressbooks\Modules\Import\GoogleDocs\Storage\StoredToken(
+			[
+				'session_handle' => 'sh-abc',
+				'access_token'   => 'at-789',
+				'expires_at'     => time() + 3600,
+				'google_sub'     => 'sub-001',
+			],
+			\Pressbooks\Modules\Import\GoogleDocs\Storage\TokenMode::Broker
+		);
+
+		$this->assertTrue( $storage->save( $user_id, $token ) );
+
+		$loaded = $storage->load( $user_id );
+		$this->assertNotNull( $loaded );
+		$this->assertSame( 'sh-abc', $loaded->brokerSessionHandle() );
+		$this->assertSame( 'at-789', $loaded->accessToken() );
+		$this->assertSame( 'sub-001', $loaded->googleSub() );
+		$this->assertNull( $loaded->refreshToken(), 'Broker mode must never persist a refresh token' );
+		$this->assertSame( \Pressbooks\Modules\Import\GoogleDocs\Storage\TokenMode::Broker, $loaded->mode );
+
+		// Raw user_meta must NOT contain plaintext values.
+		$raw = get_user_meta( $user_id, \Pressbooks\Modules\Import\GoogleDocs\Storage\BrokerBackedStorage::META_KEY, true );
+		$this->assertIsString( $raw );
+		$this->assertStringNotContainsString( 'sh-abc', $raw );
+		$this->assertStringNotContainsString( 'at-789', $raw );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_broker_storage_uses_separate_meta_key(): void {
+		$this->assertNotSame(
+			\Pressbooks\Modules\Import\GoogleDocs\Storage\DirectEncryptedStorage::META_KEY,
+			\Pressbooks\Modules\Import\GoogleDocs\Storage\BrokerBackedStorage::META_KEY
+		);
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_broker_storage_save_strips_refresh_token_if_present(): void {
+		$storage = $this->build_broker_storage();
+		$user_id = self::factory()->user->create();
+
+		// Caller mistake: includes refresh_token in payload. Storage must refuse to persist it.
+		$token = new \Pressbooks\Modules\Import\GoogleDocs\Storage\StoredToken(
+			[
+				'session_handle' => 'sh-abc',
+				'access_token'   => 'at-789',
+				'refresh_token'  => 'rt-LEAK',
+				'expires_at'     => time() + 3600,
+				'google_sub'     => 'sub-001',
+			],
+			\Pressbooks\Modules\Import\GoogleDocs\Storage\TokenMode::Broker
+		);
+
+		$storage->save( $user_id, $token );
+		$loaded = $storage->load( $user_id );
+		$this->assertNull( $loaded->refreshToken(), 'Refresh token must be stripped before persistence in broker mode' );
+	}
+
 	private function build_direct_storage( ?string $key = null ): \Pressbooks\Modules\Import\GoogleDocs\Storage\DirectEncryptedStorage {
 		if ( $key === null ) {
 			$key = sodium_bin2base64( random_bytes( SODIUM_CRYPTO_SECRETBOX_KEYBYTES ), SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING );
 		}
 		return new \Pressbooks\Modules\Import\GoogleDocs\Storage\DirectEncryptedStorage(
+			new \Pressbooks\Modules\Import\GoogleDocs\Storage\SodiumCipher(),
+			$key
+		);
+	}
+
+	private function build_broker_storage( ?string $key = null ): \Pressbooks\Modules\Import\GoogleDocs\Storage\BrokerBackedStorage {
+		if ( $key === null ) {
+			$key = sodium_bin2base64( random_bytes( SODIUM_CRYPTO_SECRETBOX_KEYBYTES ), SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING );
+		}
+		return new \Pressbooks\Modules\Import\GoogleDocs\Storage\BrokerBackedStorage(
 			new \Pressbooks\Modules\Import\GoogleDocs\Storage\SodiumCipher(),
 			$key
 		);
