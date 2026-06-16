@@ -125,4 +125,107 @@ class Modules_ImportGoogleDocsStorageTest extends \WP_UnitTestCase {
 		$cipher = new \Pressbooks\Modules\Import\GoogleDocs\Storage\SodiumCipher();
 		$this->assertSame( 'crypto_secretbox', $cipher->algorithm() );
 	}
+
+	/**
+	 * @group import
+	 */
+	public function test_direct_storage_is_unavailable_without_key(): void {
+		$storage = $this->build_direct_storage( '' );
+		$this->assertFalse( $storage->isAvailable() );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_direct_storage_save_and_load_round_trip(): void {
+		$storage = $this->build_direct_storage();
+		$user_id = self::factory()->user->create();
+
+		$token = new \Pressbooks\Modules\Import\GoogleDocs\Storage\StoredToken(
+			[
+				'access_token'  => 'at-123',
+				'refresh_token' => 'rt-456',
+				'expires_at'    => time() + 3600,
+				'token_type'    => 'Bearer',
+			],
+			\Pressbooks\Modules\Import\GoogleDocs\Storage\TokenMode::Direct
+		);
+
+		$this->assertTrue( $storage->save( $user_id, $token ) );
+
+		$loaded = $storage->load( $user_id );
+		$this->assertNotNull( $loaded );
+		$this->assertSame( 'at-123', $loaded->accessToken() );
+		$this->assertSame( 'rt-456', $loaded->refreshToken() );
+		$this->assertSame( \Pressbooks\Modules\Import\GoogleDocs\Storage\TokenMode::Direct, $loaded->mode );
+
+		// The raw user_meta value must NOT be the plaintext token array.
+		$raw = get_user_meta( $user_id, \Pressbooks\Modules\Import\GoogleDocs\Storage\DirectEncryptedStorage::META_KEY, true );
+		$this->assertIsString( $raw );
+		$this->assertStringNotContainsString( 'at-123', $raw );
+		$this->assertStringNotContainsString( 'rt-456', $raw );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_direct_storage_load_returns_null_when_no_token(): void {
+		$storage = $this->build_direct_storage();
+		$user_id = self::factory()->user->create();
+		$this->assertNull( $storage->load( $user_id ) );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_direct_storage_delete(): void {
+		$storage = $this->build_direct_storage();
+		$user_id = self::factory()->user->create();
+		$storage->save(
+			$user_id,
+			new \Pressbooks\Modules\Import\GoogleDocs\Storage\StoredToken(
+				[ 'access_token' => 'x', 'refresh_token' => 'y', 'expires_at' => time() + 100 ],
+				\Pressbooks\Modules\Import\GoogleDocs\Storage\TokenMode::Direct
+			)
+		);
+		$this->assertNotNull( $storage->load( $user_id ) );
+		$storage->delete( $user_id );
+		$this->assertNull( $storage->load( $user_id ) );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_direct_storage_load_returns_null_on_decrypt_failure(): void {
+		$storage = $this->build_direct_storage();
+		$user_id = self::factory()->user->create();
+		// Plant garbage ciphertext directly.
+		update_user_meta( $user_id, \Pressbooks\Modules\Import\GoogleDocs\Storage\DirectEncryptedStorage::META_KEY, 'not-valid-base64!!' );
+		$this->assertNull( $storage->load( $user_id ) );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_direct_storage_save_throws_when_unavailable(): void {
+		$this->expectException( \Pressbooks\Modules\Import\GoogleDocs\EncryptionKeyMissingException::class );
+		$storage = $this->build_direct_storage( '' );
+		$storage->save(
+			self::factory()->user->create(),
+			new \Pressbooks\Modules\Import\GoogleDocs\Storage\StoredToken(
+				[ 'access_token' => 'x', 'refresh_token' => 'y', 'expires_at' => time() + 100 ],
+				\Pressbooks\Modules\Import\GoogleDocs\Storage\TokenMode::Direct
+			)
+		);
+	}
+
+	private function build_direct_storage( ?string $key = null ): \Pressbooks\Modules\Import\GoogleDocs\Storage\DirectEncryptedStorage {
+		if ( $key === null ) {
+			$key = sodium_bin2base64( random_bytes( SODIUM_CRYPTO_SECRETBOX_KEYBYTES ), SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING );
+		}
+		return new \Pressbooks\Modules\Import\GoogleDocs\Storage\DirectEncryptedStorage(
+			new \Pressbooks\Modules\Import\GoogleDocs\Storage\SodiumCipher(),
+			$key
+		);
+	}
 }
