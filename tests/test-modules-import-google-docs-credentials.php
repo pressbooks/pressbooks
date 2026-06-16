@@ -48,49 +48,11 @@ class Modules_ImportGoogleDocsCredentialsTest extends \WP_UnitTestCase {
 	/**
 	 * @group import
 	 */
-	public function test_get_user_token_returns_null_when_not_set(): void {
+	public function test_is_configured_returns_true_in_broker_mode(): void {
+		if ( ! defined( 'PRESSBOOKS_AUTH_BROKER_URL' ) ) {
+			define( 'PRESSBOOKS_AUTH_BROKER_URL', 'https://broker.example.test' );
+		}
 		$store = new \Pressbooks\Modules\Import\GoogleDocs\CredentialsStore();
-		$this->assertNull( $store->getUserToken( 1 ) );
-	}
-
-	/**
-	 * @group import
-	 */
-	public function test_save_and_get_user_token(): void {
-		$store = new \Pressbooks\Modules\Import\GoogleDocs\CredentialsStore();
-		$token = [
-			'access_token'  => 'at-123',
-			'refresh_token' => 'rt-456',
-			'expires_at'    => time() + 3600,
-			'scopes'        => 'documents.readonly drive.readonly',
-			'connected_at'  => time(),
-		];
-		$user_id = self::factory()->user->create();
-		$store->saveUserToken( $user_id, $token );
-		$saved = $store->getUserToken( $user_id );
-		$this->assertSame( 'at-123', $saved['access_token'] );
-		$this->assertSame( 'rt-456', $saved['refresh_token'] );
-	}
-
-	/**
-	 * @group import
-	 */
-	public function test_delete_user_token(): void {
-		$store = new \Pressbooks\Modules\Import\GoogleDocs\CredentialsStore();
-		$user_id = self::factory()->user->create();
-		$store->saveUserToken( $user_id, [ 'access_token' => 'x' ] );
-		$store->deleteUserToken( $user_id );
-		$this->assertNull( $store->getUserToken( $user_id ) );
-	}
-
-	/**
-	 * @group import
-	 */
-	public function test_user_is_connected(): void {
-		$store = new \Pressbooks\Modules\Import\GoogleDocs\CredentialsStore();
-		$user_id = self::factory()->user->create();
-		$this->assertFalse( $store->isUserConnected( $user_id ) );
-		$store->saveUserToken( $user_id, [ 'access_token' => 'x', 'refresh_token' => 'y' ] );
-		$this->assertTrue( $store->isUserConnected( $user_id ) );
+		$this->assertTrue( $store->isConfigured() );
 	}
 }
