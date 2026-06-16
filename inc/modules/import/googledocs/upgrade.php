@@ -21,7 +21,7 @@ function purge_legacy_tokens( string $marker_option_key ): void {
 
 	update_site_option( $marker_option_key, '1' );
 
-	if ( function_exists( 'error_log' ) ) {
+	if ( function_exists( 'error_log' ) && ! defined( 'WP_TESTS_DOMAIN' ) ) {
 		error_log( 'pb.gdocs.tokens_purged count=' . (int) $count );
 	}
 }
