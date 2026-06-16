@@ -8,6 +8,9 @@ namespace Pressbooks\Modules\Import\GoogleDocs;
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use Pressbooks\Modules\Import\GoogleDocs\Storage\StoredToken;
+use Pressbooks\Modules\Import\GoogleDocs\Storage\TokenMode;
+use Pressbooks\Modules\Import\GoogleDocs\Storage\TokenStorage;
 
 class OAuthClient {
 
@@ -18,17 +21,31 @@ class OAuthClient {
 
 	const STATE_TRANSIENT_TTL = 600;
 
-	private CredentialsStore $store;
+	private CredentialsStore $creds_store;
+
+	private TokenStorage $token_storage;
 
 	private bool $useBroker;
 
-	public function __construct( CredentialsStore $store ) {
-		$this->store = $store;
-		$this->useBroker = defined( 'PRESSBOOKS_AUTH_BROKER_URL' ) && ! empty( PRESSBOOKS_AUTH_BROKER_URL );
+	public function __construct( TokenStorage $token_storage, CredentialsStore $creds_store ) {
+		$this->token_storage = $token_storage;
+		$this->creds_store = $creds_store;
+		$this->useBroker = $creds_store->isBrokerMode();
 	}
 
 	public function isBrokerMode(): bool {
 		return $this->useBroker;
+	}
+
+	public function isConnected( int $user_id ): bool {
+		$token = $this->token_storage->load( $user_id );
+		if ( $token === null ) {
+			return false;
+		}
+		if ( $this->useBroker ) {
+			return $token->brokerSessionHandle() !== null;
+		}
+		return $token->refreshToken() !== null;
 	}
 
 	public function buildClient(): \Google\Client {
@@ -36,7 +53,7 @@ class OAuthClient {
 			throw new \RuntimeException( 'buildClient() must not be called in broker mode. OAuth is handled by the Pressbooks Auth Broker.' );
 		}
 
-		$creds = $this->store->getClientCredentials();
+		$creds = $this->creds_store->getClientCredentials();
 		$client = new \Google\Client();
 		$client->setClientId( $creds['client_id'] );
 		$client->setClientSecret( $creds['client_secret'] );
@@ -70,43 +87,42 @@ class OAuthClient {
 	}
 
 	public function getAuthedClient( int $user_id ): \Google\Client {
-		$token = $this->store->getUserToken( $user_id );
+		$token = $this->token_storage->load( $user_id );
 
-		if ( ! $token ) {
+		if ( $token === null ) {
 			throw new ReauthorizationRequiredException( 'No token found. Please authorize first.' );
 		}
 
 		if ( $this->useBroker ) {
-			if ( isset( $token['expires_at'] ) && $token['expires_at'] < time() ) {
-				$this->store->deleteUserToken( $user_id );
-				throw new ReauthorizationRequiredException( 'Token expired. Please reconnect via the Auth Broker.' );
+			if ( $token->isExpired() ) {
+				throw new ReauthorizationRequiredException( 'Token expired. Refresh via broker not yet wired (see Task 11).' );
 			}
 			$client = new \Google\Client();
-			$client->setAccessToken( $token );
+			$client->setAccessToken( $token->payload );
 			return $client;
 		}
 
 		$client = $this->buildClient();
-		$client->setAccessToken( $token );
+		$client->setAccessToken( $token->payload );
 
 		if ( $client->isAccessTokenExpired() ) {
-			$refresh_token = $token['refresh_token'] ?? null;
-
+			$refresh_token = $token->refreshToken();
 			if ( ! $refresh_token ) {
-				$this->store->deleteUserToken( $user_id );
+				$this->token_storage->delete( $user_id );
 				throw new ReauthorizationRequiredException( 'No refresh token available. Please reauthorize.' );
 			}
 
 			$new_token = $client->fetchAccessTokenWithRefreshToken( $refresh_token );
 
 			if ( isset( $new_token['error'] ) ) {
-				$this->store->deleteUserToken( $user_id );
+				$this->token_storage->delete( $user_id );
 				throw new ReauthorizationRequiredException( 'Token refresh failed: ' . ( $new_token['error_description'] ?? $new_token['error'] ) );
 			}
 
 			$new_token['refresh_token'] = $refresh_token;
 			$new_token['expires_at'] = time() + ( $new_token['expires_in'] ?? 3600 );
-			$this->store->saveUserToken( $user_id, $new_token );
+
+			$this->token_storage->save( $user_id, new StoredToken( $new_token, TokenMode::Direct ) );
 			$client->setAccessToken( $new_token );
 		}
 
@@ -114,18 +130,19 @@ class OAuthClient {
 	}
 
 	public function disconnect( int $user_id ): void {
-		$token = $this->store->getUserToken( $user_id );
+		$token = $this->token_storage->load( $user_id );
 
 		if ( $token && ! $this->useBroker ) {
 			try {
 				$client = $this->buildClient();
-				$client->setAccessToken( $token );
+				$client->setAccessToken( $token->payload );
 				$client->revokeToken();
 			} catch ( \Exception $e ) {
+				throw new \RuntimeException( 'Failed to revoke token at Google: ' . $e->getMessage() . ' Please try again.', 0, $e );
 			}
 		}
 
-		$this->store->deleteUserToken( $user_id );
+		$this->token_storage->delete( $user_id );
 	}
 
 	public static function extractDocId( string $url ): ?string {
@@ -206,18 +223,31 @@ class OAuthClient {
 			throw new \RuntimeException( 'JWT state mismatch.' );
 		}
 
-		if ( ! isset( $decoded->tokens ) ) {
-			throw new \RuntimeException( 'Missing tokens in JWT.' );
+		if ( ! isset( $decoded->tokens->access_token, $decoded->tokens->session_handle ) ) {
+			throw new \RuntimeException( 'Missing access_token or session_handle in JWT.' );
 		}
 
-		$tokens = (array) $decoded->tokens;
-		if ( isset( $tokens['expires_at'] ) && ! isset( $tokens['expires_in'] ) ) {
-			$tokens['expires_in'] = $tokens['expires_at'] - time();
-			$tokens['created'] = time();
-		} elseif ( ! isset( $tokens['expires_at'] ) ) {
-			$tokens['expires_at'] = time() + ( $tokens['expires_in'] ?? 3600 );
+		if ( property_exists( $decoded->tokens, 'refresh_token' ) && ! empty( $decoded->tokens->refresh_token ) ) {
+			throw new \RuntimeException( 'Broker handoff JWT must not contain a refresh_token.' );
 		}
-		$this->store->saveUserToken( $user_id, $tokens );
+
+		if ( ! isset( $decoded->google_sub ) || ! is_string( $decoded->google_sub ) || $decoded->google_sub === '' ) {
+			throw new \RuntimeException( 'Missing google_sub in JWT.' );
+		}
+
+		$payload = [
+			'session_handle' => (string) $decoded->tokens->session_handle,
+			'access_token'   => (string) $decoded->tokens->access_token,
+			'expires_at'     => isset( $decoded->tokens->expires_at )
+				? (int) $decoded->tokens->expires_at
+				: ( time() + ( $decoded->tokens->expires_in ?? 3600 ) ),
+			'google_sub'     => (string) $decoded->google_sub,
+		];
+
+		$this->token_storage->save(
+			$user_id,
+			new StoredToken( $payload, TokenMode::Broker )
+		);
 
 		return $return_url;
 	}
@@ -240,7 +270,7 @@ class OAuthClient {
 		}
 
 		$token['expires_at'] = time() + ( $token['expires_in'] ?? 3600 );
-		$this->store->saveUserToken( $user_id, $token );
+		$this->token_storage->save( $user_id, new StoredToken( $token, TokenMode::Direct ) );
 
 		return $return_url;
 	}
