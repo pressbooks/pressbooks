@@ -335,6 +335,30 @@ class Modules_ImportGoogleDocsStorageTest extends \WP_UnitTestCase {
 		);
 	}
 
+	/**
+	 * @group import
+	 */
+	public function test_settings_page_notice_does_not_render_when_not_configured(): void {
+		$cipher = new \Pressbooks\Modules\Import\GoogleDocs\Storage\SodiumCipher();
+		$storage = new \Pressbooks\Modules\Import\GoogleDocs\Storage\DirectEncryptedStorage( $cipher, '' ); // unavailable
+		$oauth = new \Pressbooks\Modules\Import\GoogleDocs\OAuthClient(
+			$storage,
+			new \Pressbooks\Modules\Import\GoogleDocs\CredentialsStore()
+		);
+		$page = new \Pressbooks\Modules\Import\GoogleDocs\SettingsPage(
+			new \Pressbooks\Modules\Import\GoogleDocs\CredentialsStore(),
+			$oauth,
+			$storage
+		);
+
+		ob_start();
+		$page->maybeRenderEncryptionKeyNotice();
+		$output = ob_get_clean();
+
+		// Notice only renders when configured AND key missing. Not configured here, so no output.
+		$this->assertSame( '', $output );
+	}
+
 	private function make_purge_marker(): string {
 		return 'pressbooks_google_docs_purge_test_' . uniqid();
 	}

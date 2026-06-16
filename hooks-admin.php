@@ -434,7 +434,7 @@ if ( $gdocs_creds_store->isBrokerMode() && defined( 'PRESSBOOKS_AUTH_BROKER_PUBL
 $gdocs_oauth = new \Pressbooks\Modules\Import\GoogleDocs\OAuthClient( $gdocs_token_storage, $gdocs_creds_store, $gdocs_broker_refresh );
 
 // Network admin settings page
-$gdocs_settings = new \Pressbooks\Modules\Import\GoogleDocs\SettingsPage( $gdocs_creds_store, $gdocs_oauth );
+$gdocs_settings = new \Pressbooks\Modules\Import\GoogleDocs\SettingsPage( $gdocs_creds_store, $gdocs_oauth, $gdocs_token_storage );
 $gdocs_settings->hooks();
 
 // Register import type in the dropdown

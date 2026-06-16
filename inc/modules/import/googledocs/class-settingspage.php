@@ -6,19 +6,55 @@
 
 namespace Pressbooks\Modules\Import\GoogleDocs;
 
+use Pressbooks\Modules\Import\GoogleDocs\Storage\TokenStorage;
+
 class SettingsPage {
 
 	protected CredentialsStore $store;
 	protected OAuthClient $oauth;
+	protected TokenStorage $token_storage;
 
-	public function __construct( CredentialsStore $store, OAuthClient $oauth ) {
+	public function __construct(
+		CredentialsStore $store,
+		OAuthClient $oauth,
+		TokenStorage $token_storage
+	) {
 		$this->store = $store;
 		$this->oauth = $oauth;
+		$this->token_storage = $token_storage;
 	}
 
 	public function hooks(): void {
 		add_action( 'network_admin_menu', [ $this, 'addMenu' ] );
 		add_action( 'admin_post_pb_gdocs_callback', [ $this, 'handleOAuthCallback' ] );
+		add_action( 'network_admin_notices', [ $this, 'maybeRenderEncryptionKeyNotice' ] );
+		add_action( 'admin_notices', [ $this, 'maybeRenderEncryptionKeyNotice' ] );
+	}
+
+	public function maybeRenderEncryptionKeyNotice(): void {
+		if ( ! current_user_can( 'manage_network_options' ) ) {
+			return;
+		}
+		if ( $this->token_storage->isAvailable() ) {
+			return;
+		}
+		if ( ! $this->store->isConfigured() ) {
+			return;
+		}
+		?>
+		<div class="notice notice-error">
+			<p><strong><?php _e( 'Google Docs Import is disabled.', 'pressbooks' ); ?></strong></p>
+			<p>
+			<?php
+				printf(
+					/* translators: %s: configuration constant name */
+					esc_html__( 'The %s constant must be defined in wp-config.php (or Bedrock config/application.php) with a 32-byte base64-encoded key. Generate one with: openssl rand -base64 32', 'pressbooks' ),
+					'<code>PRESSBOOKS_GOOGLE_DOCS_ENCRYPTION_KEY</code>'
+				);
+			?>
+			</p>
+		</div>
+		<?php
 	}
 
 	public function addMenu(): void {
