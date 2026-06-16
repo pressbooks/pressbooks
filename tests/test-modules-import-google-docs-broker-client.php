@@ -118,7 +118,7 @@ class Modules_ImportGoogleDocsBrokerClientTest extends \WP_UnitTestCase {
 		$this->assertNotEmpty( $body['iat'] );
 
 		$this->assertArrayHasKey( 'X-Network-Signature', $this->captured_request_args['headers'] );
-		$expected_sig = hash_hmac( 'sha256', $this->captured_request_args['body'], sodium_base642bin( self::$networkSecret, SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING ) );
+		$expected_sig = hash_hmac( 'sha256', $this->captured_request_args['body'], self::$networkSecret );
 		$this->assertSame( $expected_sig, $this->captured_request_args['headers']['X-Network-Signature'] );
 	}
 
