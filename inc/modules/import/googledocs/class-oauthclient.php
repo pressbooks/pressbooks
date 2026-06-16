@@ -200,7 +200,7 @@ class OAuthClient {
 	}
 
 	public function getRedirectUri(): string {
-		return admin_url( 'admin-post.php?action=pb_gdocs_callback' );
+		return network_home_url( 'wp-admin/admin-post.php?action=pb_gdocs_callback' );
 	}
 
 	private function getBrokerAuthorizeUrl( string $state ): string {
