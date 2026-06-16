@@ -8,7 +8,7 @@
 
 **Tech Stack:** PHP 8.3+, WordPress Multisite (Bedrock-compatible), `ext-sodium` (loaded), `firebase/php-jwt` (already in vendor via `google/apiclient`), WP PHPUnit (`yoast/phpunit-polyfills`).
 
-**Spec:** `docs/superpowers/specs/2026-06-15-google-docs-token-security-audit-and-remediation.md` in the `pb-google-auth` repo.
+**Spec:** `docs/superpowers/specs/2026-06-15-google-docs-token-security-audit-and-remediation.md` in the `google-auth-broker` repo.
 
 **Repo for this plan:** `/Users/arzola/code/pbdev/web/app/plugins/pressbooks/` (run all `cd`-less commands from this path).
 
@@ -2537,4 +2537,4 @@ git commit -m "chore(google-docs): standards and final cleanup"
 - The `BrokerRefreshClient` test uses the `pre_http_request` filter to stub HTTP. This is the canonical WordPress way to mock external HTTP in tests.
 - All new classes are autoloaded via the existing HM Autoloader (prefix `Pressbooks`, path `inc/`). Verify with `composer dump-autoload` if classes aren't found at runtime (the HM autoloader is not Composer-managed, so no dump is needed — but worth confirming).
 - The encryption key constant is `PRESSBOOKS_GOOGLE_DOCS_ENCRYPTION_KEY`. The test for `wpSetUpBeforeClass` deliberately defines it only if not already defined, so a global test bootstrap can pre-seed it.
-- The broker-side counterpart to this work is **Plan 2: broker token security remediation** (separate document, lives in `pb-google-auth/docs/superpowers/plans/`). It must ship in lockstep with this plan for broker mode to actually function end-to-end; in the meantime, the WP side is fully testable via mocks.
+- The broker-side counterpart to this work is **Plan 2: broker token security remediation** (separate document, lives in `google-auth-broker/docs/superpowers/plans/`). It must ship in lockstep with this plan for broker mode to actually function end-to-end; in the meantime, the WP side is fully testable via mocks.
