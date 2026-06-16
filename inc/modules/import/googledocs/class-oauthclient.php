@@ -269,7 +269,7 @@ class OAuthClient {
 			throw new \RuntimeException( 'JWT state mismatch.' );
 		}
 
-		if ( ! isset( $decoded->tokens->access_token, $decoded->tokens->session_handle ) ) {
+		if ( ! isset( $decoded->tokens->access_token, $decoded->session_handle ) ) {
 			throw new \RuntimeException( 'Missing access_token or session_handle in JWT.' );
 		}
 
@@ -282,7 +282,7 @@ class OAuthClient {
 		}
 
 		$payload = [
-			'session_handle' => (string) $decoded->tokens->session_handle,
+			'session_handle' => (string) $decoded->session_handle,
 			'access_token'   => (string) $decoded->tokens->access_token,
 			'expires_at'     => isset( $decoded->tokens->expires_at )
 				? (int) $decoded->tokens->expires_at
