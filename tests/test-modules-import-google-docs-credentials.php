@@ -46,6 +46,8 @@ class Modules_ImportGoogleDocsCredentialsTest extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
 	 * @group import
 	 */
 	public function test_is_configured_returns_true_in_broker_mode(): void {
