@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-17T15:42:04+00:00\n"
+"POT-Creation-Date: 2026-06-17T18:27:19+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -644,14 +644,14 @@ msgid ""
 "###SITENAME###"
 msgstr ""
 
+#: inc/admin/diagnostics/namespace.php:32
 #: inc/admin/diagnostics/namespace.php:33
-#: inc/admin/diagnostics/namespace.php:34
 #: inc/admin/laf/namespace.php:109
 #: templates/admin/diagnostics.blade.php:4
 msgid "Diagnostics"
 msgstr ""
 
-#: inc/admin/diagnostics/namespace.php:200
+#: inc/admin/diagnostics/namespace.php:198
 msgid "Stylesheet regenerated."
 msgstr ""
 
@@ -3255,11 +3255,11 @@ msgstr ""
 
 #: inc/modules/export/namespace.php:78
 #: inc/modules/themeoptions/class-globaloptions.php:455
-#: inc/utility/namespace.php:1345
-#: inc/utility/namespace.php:1350
-#: inc/utility/namespace.php:1384
-#: inc/utility/namespace.php:1394
-#: inc/utility/namespace.php:1400
+#: inc/utility/namespace.php:1312
+#: inc/utility/namespace.php:1317
+#: inc/utility/namespace.php:1351
+#: inc/utility/namespace.php:1361
+#: inc/utility/namespace.php:1367
 #: templates/admin/covergenerator.php:53
 msgid "and"
 msgstr ""
@@ -4727,17 +4727,17 @@ msgstr ""
 msgid " (%1$d of %2$d)"
 msgstr ""
 
-#: inc/utility/namespace.php:604
-#: inc/utility/namespace.php:615
-#: inc/utility/namespace.php:631
+#: inc/utility/namespace.php:571
+#: inc/utility/namespace.php:582
+#: inc/utility/namespace.php:598
 msgid "An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration."
 msgstr ""
 
-#: inc/utility/namespace.php:604
+#: inc/utility/namespace.php:571
 msgid "(Pressbooks could not establish a secure connection to the plugin recommendations server. Please contact your server administrator.)"
 msgstr ""
 
-#: inc/utility/namespace.php:655
+#: inc/utility/namespace.php:622
 msgid "These plugins have been created and/or recommended by the Pressbooks community."
 msgstr ""
 
