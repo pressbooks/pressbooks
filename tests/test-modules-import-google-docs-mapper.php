@@ -625,4 +625,21 @@ class Modules_ImportGoogleDocsMapperTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<p>Just text.</p>', $chapters[0]['body'] );
 		$this->assertSame( [], $chapters[0]['images'] );
 	}
+
+	/**
+	 * @group import
+	 */
+	public function test_positioned_image_fixture_end_to_end(): void {
+		$mapper = new DocsMapper();
+		$chapters = $mapper->toChapters( $this->loadFixture( 'positioned-image' ) );
+		$body = $chapters[0]['body'];
+
+		$this->assertStringContainsString( '<img src="#gdoc-image-kix.he6ar3rdivr8"', $body );
+		$this->assertStringContainsString( 'alt="Figure 1.1 The United States Supreme Court building."', $body );
+		// Image emitted before its caption paragraph.
+		$this->assertLessThan( strpos( $body, '<p>Figure 1.1' ), strpos( $body, '<img' ) );
+		// Download metadata queued for the importer.
+		$this->assertCount( 1, $chapters[0]['images'] );
+		$this->assertSame( 'https://lh7-rt.googleusercontent.com/example-supreme-court.png', $chapters[0]['images'][0]['content_uri'] );
+	}
 }
