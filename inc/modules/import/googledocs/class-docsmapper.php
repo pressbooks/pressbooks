@@ -227,13 +227,20 @@ class DocsMapper {
 	 * Render a single text run with styling.
 	 */
 	protected function renderTextRun( array $run ): string {
-		$text = $run['content'] ?? '';
-		$text = rtrim( $text, "\n" );
+		$text = rtrim( $run['content'] ?? '', "\n" );
 		if ( $text === '' ) {
 			return '';
 		}
+		return $this->applyTextStyle( $text, $run['textStyle'] ?? [] );
+	}
 
-		$style = $run['textStyle'] ?? [];
+	/**
+	 * Wrap text in inline formatting tags based on a Google Docs textStyle.
+	 */
+	protected function applyTextStyle( string $text, array $style ): string {
+		if ( $text === '' ) {
+			return '';
+		}
 
 		// Apply link
 		if ( ! empty( $style['link']['url'] ) ) {
