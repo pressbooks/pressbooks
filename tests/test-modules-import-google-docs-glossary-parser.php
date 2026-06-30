@@ -129,4 +129,30 @@ class Modules_ImportGoogleDocsGlossaryParserTest extends \WP_UnitTestCase {
 		$html = '<h2>Intro</h2><p>A glossary is useful here.</p>';
 		$this->assertSame( $html, $this->parser()->stripGlossarySection( $html ) );
 	}
+
+	/**
+	 * @group import
+	 */
+	public function test_replace_markers_wraps_with_shortcode_and_preserves_display(): void {
+		$idMap = [ 'kernel' => 42, 'operating system (os)' => 7 ];
+		$html = 'Use the [GT]Kernel[/GT] in the [GT]operating system (OS)[/GT].';
+		$out = $this->parser()->replaceMarkers( $html, $idMap );
+
+		$this->assertSame(
+			'Use the [pb_glossary id="42"]Kernel[/pb_glossary] in the [pb_glossary id="7"]operating system (OS)[/pb_glossary].',
+			$out
+		);
+		$this->assertStringNotContainsString( '[GT]', $out );
+		$this->assertStringNotContainsString( '[/GT]', $out );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_replace_markers_unmapped_key_falls_back_to_plain_text(): void {
+		$out = $this->parser()->replaceMarkers( 'A [GT]ghost[/GT] term.', [] );
+
+		$this->assertSame( 'A ghost term.', $out );
+		$this->assertStringNotContainsString( '[GT]', $out );
+	}
 }

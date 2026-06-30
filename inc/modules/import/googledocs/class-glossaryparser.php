@@ -103,6 +103,26 @@ class GlossaryParser {
 	}
 
 	/**
+	 * Replace [GT]term[/GT] markers with [pb_glossary id="N"]term[/pb_glossary].
+	 *
+	 * @param array<string,int> $idMap normalizedKey => glossary post ID
+	 */
+	public function replaceMarkers( string $html, array $idMap ): string {
+		return preg_replace_callback(
+			self::MARKER_REGEX,
+			function ( array $match ) use ( $idMap ): string {
+				$inner = $match[1];
+				$key = self::normalizeKey( $inner );
+				if ( isset( $idMap[ $key ] ) ) {
+					return '[pb_glossary id="' . (int) $idMap[ $key ] . '"]' . $inner . '[/pb_glossary]';
+				}
+				return $inner;
+			},
+			$html
+		);
+	}
+
+	/**
 	 * Load an HTML fragment into a DOMDocument wrapped in a single <div>.
 	 */
 	protected function loadDom( string $html ): ?\DOMDocument {
