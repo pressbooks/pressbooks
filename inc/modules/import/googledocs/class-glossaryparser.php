@@ -127,12 +127,13 @@ class GlossaryParser {
 	 */
 	protected function loadDom( string $html ): ?\DOMDocument {
 		$dom = new \DOMDocument();
-		libxml_use_internal_errors( true );
+		$prev = libxml_use_internal_errors( true );
 		$ok = $dom->loadHTML(
 			'<?xml encoding="UTF-8"?><div>' . $html . '</div>',
 			LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
 		);
 		libxml_clear_errors();
+		libxml_use_internal_errors( $prev );
 		return $ok ? $dom : null;
 	}
 
@@ -155,7 +156,8 @@ class GlossaryParser {
 			}
 			$tag = strtolower( $node->nodeName );
 			if ( ! $collecting ) {
-				if ( 'h3' === $tag && 'glossary' === strtolower( trim( $node->textContent ) ) ) {
+				$heading_text = strtolower( trim( preg_replace( '/\s+/u', ' ', str_replace( "\xc2\xa0", ' ', $node->textContent ) ) ) );
+				if ( 'h3' === $tag && 'glossary' === $heading_text ) {
 					$heading = $node;
 					$collecting = true;
 				}
@@ -170,10 +172,11 @@ class GlossaryParser {
 	}
 
 	/**
-	 * Convert section nodes into plain-text lines (splitting <p> on <br>).
+	 * Convert section nodes into lines, each carrying a plain-text projection
+	 * (for boundary detection) and sanitized inline HTML (for the definition).
 	 *
 	 * @param array<int,\DOMNode> $nodes
-	 * @return array<int,string>
+	 * @return array<int, array{text:string, html:string}>
 	 */
 	protected function nodesToLines( array $nodes ): array {
 		$lines = [];
@@ -181,19 +184,28 @@ class GlossaryParser {
 			if ( XML_ELEMENT_NODE !== $node->nodeType ) {
 				$text = trim( $node->textContent ?? '' );
 				if ( '' !== $text ) {
-					$lines[] = $text;
+					$lines[] = [ 'text' => $text, 'html' => $text ];
 				}
 				continue;
 			}
 			$inner = $this->innerHtml( $node );
 			foreach ( preg_split( '/<br\s*\/?>/i', $inner ) as $part ) {
 				$text = trim( html_entity_decode( strip_tags( $part ), ENT_QUOTES | ENT_HTML5, 'UTF-8' ) );
-				if ( '' !== $text ) {
-					$lines[] = $text;
+				if ( '' === $text ) {
+					continue;
 				}
+				$lines[] = [ 'text' => $text, 'html' => trim( $this->sanitizeInline( $part ) ) ];
 			}
 		}
 		return $lines;
+	}
+
+	/**
+	 * Keep only the inline tags allowed in glossary definitions. Attribute
+	 * scrubbing happens later via wp_kses on save (sanitizeGlossaryTerm()).
+	 */
+	protected function sanitizeInline( string $html ): string {
+		return strip_tags( $html, '<a><em><strong><sub><sup>' );
 	}
 
 	/**
@@ -208,19 +220,20 @@ class GlossaryParser {
 	}
 
 	/**
-	 * Build entries from plain-text lines using the boundary heuristic.
+	 * Build entries from lines using the boundary heuristic. Titles are plain
+	 * text; definitions preserve sanitized inline HTML.
 	 *
-	 * @param array<int,string> $lines
+	 * @param array<int, array{text:string, html:string}> $lines
 	 * @return array<string, array{title:string, definition:string}>
 	 */
 	protected function entriesFromLines( array $lines ): array {
 		$entries = [];
 		$current = null;
 		foreach ( $lines as $line ) {
-			if ( $this->startsNewEntry( $line ) ) {
-				$pos = mb_strpos( $line, ':' );
-				$title = trim( mb_substr( $line, 0, $pos ) );
-				$definition = trim( mb_substr( $line, $pos + 1 ) );
+			if ( $this->startsNewEntry( $line['text'] ) ) {
+				$pos = mb_strpos( $line['text'], ':' );
+				$title = trim( mb_substr( $line['text'], 0, $pos ) );
+				$definition = trim( ltrim( preg_replace( '/^.*?:/s', '', $line['html'], 1 ) ) );
 				$key = self::normalizeKey( $title );
 				if ( ! isset( $entries[ $key ] ) ) {
 					$entries[ $key ] = [ 'title' => $title, 'definition' => $definition ];
@@ -228,7 +241,7 @@ class GlossaryParser {
 				$current = $key;
 			} elseif ( null !== $current ) {
 				$entries[ $current ]['definition'] = trim(
-					$entries[ $current ]['definition'] . '<br>' . $line
+					$entries[ $current ]['definition'] . '<br>' . $line['html']
 				);
 			}
 		}

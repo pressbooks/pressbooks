@@ -155,4 +155,34 @@ class Modules_ImportGoogleDocsGlossaryParserTest extends \WP_UnitTestCase {
 		$this->assertSame( 'A ghost term.', $out );
 		$this->assertStringNotContainsString( '[GT]', $out );
 	}
+
+	/**
+	 * @group import
+	 */
+	public function test_definition_preserves_allowed_inline_formatting(): void {
+		$bodies = [ '<h3>Glossary</h3><p>Water: H<sub>2</sub>O is <strong>essential</strong>.</p>' ];
+		$entries = $this->parser()->parseGlossaryEntries( $bodies );
+
+		$this->assertSame( 'H<sub>2</sub>O is <strong>essential</strong>.', $entries['water']['definition'] );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_definition_strips_disallowed_tags_keeps_text(): void {
+		$bodies = [ '<h3>Glossary</h3><p>Term: a <span class="x">styled</span> word.</p>' ];
+		$entries = $this->parser()->parseGlossaryEntries( $bodies );
+
+		$this->assertSame( 'a styled word.', $entries['term']['definition'] );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_glossary_heading_matches_despite_nbsp(): void {
+		$bodies = [ "<h3>Glossary\xc2\xa0</h3><p>Term: Def.</p>" ];
+		$entries = $this->parser()->parseGlossaryEntries( $bodies );
+
+		$this->assertArrayHasKey( 'term', $entries );
+	}
 }

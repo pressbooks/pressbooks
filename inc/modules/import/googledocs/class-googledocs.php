@@ -263,6 +263,11 @@ class GoogleDocs extends Import {
 			] ) );
 			if ( $pid && ! is_wp_error( $pid ) ) {
 				$id_map[ $key ] = (int) $pid;
+			} else {
+				$this->import_warnings[] = sprintf(
+					__( 'Could not create glossary term: %s', 'pressbooks' ),
+					$term['title']
+				);
 			}
 		}
 

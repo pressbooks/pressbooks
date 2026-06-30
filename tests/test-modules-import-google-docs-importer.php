@@ -373,4 +373,18 @@ class Modules_ImportGoogleDocsImporterTest extends \WP_UnitTestCase {
 
 		@unlink( $tmp );
 	}
+
+	/**
+	 * @group import
+	 */
+	public function test_is_effectively_empty_treats_media_as_non_empty(): void {
+		$importer = new GoogleDocs();
+		$method = new \ReflectionMethod( GoogleDocs::class, 'isEffectivelyEmpty' );
+		$method->setAccessible( true );
+
+		$this->assertTrue( $method->invoke( $importer, '<p></p>' ) );
+		$this->assertTrue( $method->invoke( $importer, '   ' ) );
+		$this->assertFalse( $method->invoke( $importer, '<p><img src="x.png"></p>' ) );
+		$this->assertFalse( $method->invoke( $importer, '<p>Hello</p>' ) );
+	}
 }
