@@ -15,7 +15,6 @@ use DeviceDetector\DeviceDetector;
 use function Pressbooks\Redirect\location;
 use function Pressbooks\Utility\check_epubcheck_install;
 use function Pressbooks\Utility\check_prince_install;
-use function Pressbooks\Utility\check_saxonhe_install;
 use function Pressbooks\Utility\check_xmllint_install;
 use Pressbooks\Book;
 use Pressbooks\Container;
@@ -99,8 +98,7 @@ function render_page() {
 	$output .= "#### Pressbooks Dependencies\n\n";
 	$output .= 'Epubcheck: ' . ( check_epubcheck_install() ? 'Installed' : 'Not Installed' ) . "\n"; // TODO: version
 	$output .= 'xmllint: ' . ( check_xmllint_install() ? 'Installed' : 'Not Installed' ) . "\n"; // TODO: version
-	$output .= 'PrinceXML: ' . ( check_prince_install() ? 'Installed' : 'Not Installed' ) . "\n"; // TODO: version
-	$output .= 'Saxon-HE: ' . ( check_saxonhe_install() ? 'Installed' : 'Not Installed' ) . "\n\n"; // TODO: version
+	$output .= 'PrinceXML: ' . ( check_prince_install() ? 'Installed' : 'Not Installed' ) . "\n\n"; // TODO: version
 	$muplugins = get_mu_plugins();
 	if ( count( $muplugins ) > 0 ) {
 		$output .= '#### Must-Use Plugins' . "\n\n";

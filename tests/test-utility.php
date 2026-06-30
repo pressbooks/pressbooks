@@ -221,14 +221,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	/**
 	 * @group utility
 	 */
-	public function test_check_saxonhe_install() {
-		$this->assertIsBool( \Pressbooks\Utility\check_saxonhe_install() );
-		$this->assertTrue( defined( 'PB_SAXON_COMMAND' ) );
-	}
-
-	/**
-	 * @group utility
-	 */
 	public function test_show_experimental_features() {
 		$this->assertIsBool( \Pressbooks\Utility\show_experimental_features() );
 		$this->assertIsBool( \Pressbooks\Utility\show_experimental_features( 'http://pressbooks.com' ) );
