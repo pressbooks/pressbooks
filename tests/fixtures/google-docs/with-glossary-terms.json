@@ -1,0 +1,17 @@
+{
+  "title": "Glossary Terms Test",
+  "body": {
+    "content": [
+      {"sectionBreak": {"sectionStyle": {}}},
+      {"paragraph": {"elements": [{"textRun": {"content": "Chapter One\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "HEADING_1"}}},
+      {"paragraph": {"elements": [{"textRun": {"content": "An [GT]operating system (OS)[/GT] manages hardware via its [GT]kernel[/GT]. Data lives in [GT]RAM[/GT].\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}},
+      {"paragraph": {"elements": [{"textRun": {"content": "Glossary\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "HEADING_3"}}},
+      {"paragraph": {"elements": [{"textRun": {"content": "operating system (OS): Software that manages computer hardware and software resources.\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}},
+      {"paragraph": {"elements": [{"textRun": {"content": "kernel: The core of an operating system.\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}},
+      {"paragraph": {"elements": [{"textRun": {"content": "It manages system resources.\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}},
+      {"paragraph": {"elements": [{"textRun": {"content": "daemon: A background process.\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}}
+    ]
+  },
+  "footnotes": {},
+  "inlineObjects": {}
+}

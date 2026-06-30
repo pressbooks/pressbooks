@@ -8,6 +8,7 @@ namespace Pressbooks\Modules\Import\GoogleDocs;
 
 use Pressbooks\Book;
 use Pressbooks\Modules\Import\Import;
+use Pressbooks\Modules\Import\GoogleDocs\GlossaryParser;
 
 class GoogleDocs extends Import {
 
@@ -79,6 +80,38 @@ class GoogleDocs extends Import {
 		$chapters_data = $this->mapper->toChapters( $json );
 		$chapter_parent = $this->getChapterParent();
 
+		// --- Glossary pre-pass: resolve [GT] terms book-wide before saving. ---
+		$glossary_parser = new GlossaryParser();
+
+		// Which chapters will actually be saved?
+		$saved_ids = [];
+		foreach ( $current_import['chapters'] as $id => $chapter_title ) {
+			if ( $this->flaggedForImport( $id ) && isset( $chapters_data[ $id ] ) ) {
+				$saved_ids[] = $id;
+			}
+		}
+
+		// Glossary definitions can live in any chapter; scan them all.
+		$all_bodies = [];
+		foreach ( $chapters_data as $ch ) {
+			$all_bodies[] = $ch['body'] ?? '';
+		}
+		$glossary_entries = $glossary_parser->parseGlossaryEntries( $all_bodies );
+
+		// [GT] markers only matter in chapters being saved.
+		$marker_terms = [];
+		foreach ( $saved_ids as $id ) {
+			$marker_terms += $glossary_parser->extractMarkerTerms( $chapters_data[ $id ]['body'] ?? '' );
+		}
+
+		$glossary_id_map = $this->resolveGlossaryTerms( $glossary_entries, $marker_terms );
+
+		// Strip the Glossary section from every chapter body.
+		foreach ( $chapters_data as $id => $ch ) {
+			$chapters_data[ $id ]['body'] = $glossary_parser->stripGlossarySection( $ch['body'] ?? '' );
+		}
+		// --- end glossary pre-pass ---
+
 		foreach ( $current_import['chapters'] as $id => $chapter_title ) {
 			if ( ! $this->flaggedForImport( $id ) ) {
 				continue;
@@ -93,6 +126,12 @@ class GoogleDocs extends Import {
 
 			$html = $this->processImages( $html, $ch['images'] ?? [] );
 			$html = $this->tidy( $html );
+			$html = $glossary_parser->replaceMarkers( $html, $glossary_id_map );
+
+			// A chapter that held only the (now stripped) Glossary section is consumed, not imported.
+			if ( $this->isEffectivelyEmpty( $html ) ) {
+				continue;
+			}
 
 			$post_type = $this->determinePostType( $id );
 			$post_status = $current_import['default_post_status'] ?? 'draft';
@@ -186,6 +225,58 @@ class GoogleDocs extends Import {
 		}
 
 		return $html;
+	}
+
+	/**
+	 * Create or reuse glossary posts for resolved terms; returns normalizedKey => post ID.
+	 *
+	 * @param array<string, array{title:string, definition:string}> $entries
+	 * @param array<string, string> $marker_terms normalizedKey => display term
+	 * @return array<string, int>
+	 */
+	protected function resolveGlossaryTerms( array $entries, array $marker_terms ): array {
+		$glossary = \Pressbooks\Shortcodes\Glossary\Glossary::init();
+		$existing_by_key = [];
+		foreach ( $glossary->getGlossaryTerms() as $title => $data ) {
+			$existing_by_key[ GlossaryParser::normalizeKey( $title ) ] = (int) $data['id'];
+		}
+
+		// Union: every glossary entry, plus marker terms with no entry (empty definition).
+		$to_resolve = $entries;
+		foreach ( $marker_terms as $key => $display ) {
+			if ( ! isset( $to_resolve[ $key ] ) ) {
+				$to_resolve[ $key ] = [ 'title' => $display, 'definition' => '' ];
+			}
+		}
+
+		$id_map = [];
+		foreach ( $to_resolve as $key => $term ) {
+			if ( isset( $existing_by_key[ $key ] ) ) {
+				$id_map[ $key ] = $existing_by_key[ $key ];
+				continue;
+			}
+			$pid = wp_insert_post( add_magic_quotes( [
+				'post_title'   => $term['title'],
+				'post_content' => $term['definition'],
+				'post_type'    => 'glossary',
+				'post_status'  => 'publish',
+			] ) );
+			if ( $pid && ! is_wp_error( $pid ) ) {
+				$id_map[ $key ] = (int) $pid;
+			}
+		}
+
+		return $id_map;
+	}
+
+	/**
+	 * Whether a chapter body has no visible content after stripping/replacement.
+	 */
+	protected function isEffectivelyEmpty( string $html ): bool {
+		if ( '' !== trim( wp_strip_all_tags( $html ) ) ) {
+			return false;
+		}
+		return ! preg_match( '/<(img|iframe|audio|video|embed|object|table|hr)\b/i', $html );
 	}
 
 	public function setFetcher( DocsFetcher $fetcher ): void {

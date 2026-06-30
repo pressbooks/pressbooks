@@ -2,6 +2,7 @@
 
 use Pressbooks\Modules\Import\GoogleDocs\GoogleDocs;
 use Pressbooks\Modules\Import\GoogleDocs\DocsMapper;
+use Pressbooks\Modules\Import\GoogleDocs\GlossaryParser;
 
 class Modules_ImportGoogleDocsImporterTest extends \WP_UnitTestCase {
 	use utilsTrait;
@@ -234,5 +235,85 @@ class Modules_ImportGoogleDocsImporterTest extends \WP_UnitTestCase {
 	 */
 	public function test_type_of_constant(): void {
 		$this->assertSame( 'google-docs', GoogleDocs::TYPE_OF );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_import_creates_and_links_glossary_terms(): void {
+		$this->_book();
+
+		$tmp = tempnam( sys_get_temp_dir(), 'pb_test_' );
+		copy( __DIR__ . '/fixtures/google-docs/with-glossary-terms.json', $tmp );
+
+		$importer = new GoogleDocs();
+		$importer->setCurrentImportOption( [ 'file' => $tmp ] );
+		$current_import = get_option( 'pressbooks_current_import' );
+
+		$_POST['chapters'] = [
+			0 => [ 'import' => '1', 'type' => 'chapter' ],
+		];
+
+		$this->assertTrue( $importer->import( $current_import ) );
+
+		// Four glossary terms created: operating system (OS), kernel, daemon, RAM.
+		$terms = get_posts( [
+			'post_type'   => 'glossary',
+			'post_status' => 'any',
+			'numberposts' => -1,
+		] );
+		$by_title = [];
+		foreach ( $terms as $t ) {
+			$by_title[ strtolower( $t->post_title ) ] = $t;
+		}
+
+		$this->assertArrayHasKey( 'operating system (os)', $by_title );
+		$this->assertArrayHasKey( 'kernel', $by_title );
+		$this->assertArrayHasKey( 'daemon', $by_title );
+		$this->assertArrayHasKey( 'ram', $by_title );
+
+		// Definitions.
+		$this->assertStringContainsString(
+			'manages computer hardware',
+			$by_title['operating system (os)']->post_content
+		);
+		// Multiline definition joined.
+		$this->assertStringContainsString( 'The core of an operating system.', $by_title['kernel']->post_content );
+		$this->assertStringContainsString( 'It manages system resources.', $by_title['kernel']->post_content );
+		// Referenced-but-undefined term has empty definition.
+		$this->assertSame( '', trim( $by_title['ram']->post_content ) );
+		// Terms are published so they surface in back matter.
+		$this->assertSame( 'publish', $by_title['kernel']->post_status );
+
+		// Chapter content: markers replaced, glossary section stripped.
+		// Select the imported chapter by title; _book() seeds its own sample
+		// chapter, so [0] ordering is not deterministic.
+		$chapters = get_posts( [
+			'post_type'   => 'chapter',
+			'post_status' => 'any',
+			'numberposts' => -1,
+		] );
+		$chapter = null;
+		foreach ( $chapters as $candidate ) {
+			if ( 'Chapter One' === $candidate->post_title ) {
+				$chapter = $candidate;
+				break;
+			}
+		}
+		$this->assertNotNull( $chapter );
+
+		$this->assertStringNotContainsString( '[GT]', $chapter->post_content );
+		$this->assertStringNotContainsString( '[/GT]', $chapter->post_content );
+		$this->assertStringNotContainsString( 'daemon: A background process', $chapter->post_content );
+		$this->assertStringNotContainsString( '>Glossary<', $chapter->post_content );
+
+		// Shortcodes reference the created term IDs.
+		$os_id = $by_title['operating system (os)']->ID;
+		$this->assertStringContainsString(
+			'[pb_glossary id="' . $os_id . '"]operating system (OS)[/pb_glossary]',
+			$chapter->post_content
+		);
+
+		@unlink( $tmp );
 	}
 }
