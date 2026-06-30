@@ -2,7 +2,6 @@
 
 use Pressbooks\Modules\Import\GoogleDocs\GoogleDocs;
 use Pressbooks\Modules\Import\GoogleDocs\DocsMapper;
-use Pressbooks\Modules\Import\GoogleDocs\GlossaryParser;
 
 class Modules_ImportGoogleDocsImporterTest extends \WP_UnitTestCase {
 	use utilsTrait;

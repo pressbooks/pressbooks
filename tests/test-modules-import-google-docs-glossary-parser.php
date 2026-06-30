@@ -134,9 +134,12 @@ class Modules_ImportGoogleDocsGlossaryParserTest extends \WP_UnitTestCase {
 	 * @group import
 	 */
 	public function test_replace_markers_wraps_with_shortcode_and_preserves_display(): void {
-		$idMap = [ 'kernel' => 42, 'operating system (os)' => 7 ];
+		$id_map = [
+			'kernel'                => 42,
+			'operating system (os)' => 7,
+		];
 		$html = 'Use the [GT]Kernel[/GT] in the [GT]operating system (OS)[/GT].';
-		$out = $this->parser()->replaceMarkers( $html, $idMap );
+		$out = $this->parser()->replaceMarkers( $html, $id_map );
 
 		$this->assertSame(
 			'Use the [pb_glossary id="42"]Kernel[/pb_glossary] in the [pb_glossary id="7"]operating system (OS)[/pb_glossary].',
