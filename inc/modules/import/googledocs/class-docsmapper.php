@@ -14,6 +14,9 @@ class DocsMapper {
 	/** @var array Footnote definitions keyed by footnote ID. */
 	protected array $footnotes = [];
 
+	/** @var string[] Leading glyphs always treated as literal bullet markers. */
+	protected const BULLET_GLYPHS = [ '●', '•', '○', '▪', '◦', '‣', '⁃', '✔', '✓', '✗', '➜', '➤' ];
+
 	/**
 	 * Convert a Google Docs API document array into an array of chapters.
 	 *
@@ -222,8 +225,34 @@ class DocsMapper {
 	}
 
 	/**
-	 * Render a NORMAL_TEXT paragraph that contains soft line breaks.
-	 * (Task 3: join lines with <br>. Replaced in Task 4 to detect glyph lists.)
+	 * If the line begins with a literal bullet glyph, return the line with the
+	 * glyph stripped; otherwise return null. '-', '–' and '*' count only when
+	 * followed by a space.
+	 */
+	protected function stripBulletGlyph( string $line ): ?string {
+		$trimmed = ltrim( $line );
+
+		foreach ( self::BULLET_GLYPHS as $glyph ) {
+			if ( mb_strpos( $trimmed, $glyph ) === 0 ) {
+				return ltrim( mb_substr( $trimmed, mb_strlen( $glyph ) ) );
+			}
+		}
+
+		foreach ( [ '-', '–', '*' ] as $glyph ) {
+			if ( mb_strpos( $trimmed, $glyph ) === 0 && mb_substr( $trimmed, mb_strlen( $glyph ), 1 ) === ' ' ) {
+				return ltrim( mb_substr( $trimmed, mb_strlen( $glyph ) ) );
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Render a NORMAL_TEXT paragraph containing soft line breaks.
+	 *
+	 * A maximal run of >= 2 consecutive bullet-glyph lines becomes a <ul> (via
+	 * list-item markers resolved in finalize()); other lines are joined with <br>
+	 * inside a <p>.
 	 */
 	protected function renderMultilineParagraph( array $elements, array $inline_objects ): string {
 		$lines = array_map( 'trim', $this->splitElementsIntoLines( $elements, $inline_objects ) );
@@ -231,7 +260,45 @@ class DocsMapper {
 		if ( empty( $lines ) ) {
 			return '';
 		}
-		return '<p>' . implode( '<br>', $lines ) . "</p>\n";
+
+		$items = array_map( fn( $l ) => $this->stripBulletGlyph( $l ), $lines );
+
+		$out = '';
+		$buffer = [];
+		$flush = function () use ( &$buffer, &$out ): void {
+			if ( ! empty( $buffer ) ) {
+				$out .= '<p>' . implode( '<br>', $buffer ) . "</p>\n";
+				$buffer = [];
+			}
+		};
+
+		$i = 0;
+		$n = count( $lines );
+		while ( $i < $n ) {
+			if ( $items[ $i ] !== null ) {
+				$j = $i;
+				while ( $j < $n && $items[ $j ] !== null ) {
+					$j++;
+				}
+				if ( $j - $i >= 2 ) {
+					$flush();
+					for ( $k = $i; $k < $j; $k++ ) {
+						$out .= $this->makeListItem( $items[ $k ], 'glyph', 0, 'ul' );
+					}
+					$i = $j;
+					continue;
+				}
+				// Lone bullet line: keep as text (glyph retained).
+				$buffer[] = $lines[ $i ];
+				$i++;
+				continue;
+			}
+			$buffer[] = $lines[ $i ];
+			$i++;
+		}
+		$flush();
+
+		return $out;
 	}
 
 	/**

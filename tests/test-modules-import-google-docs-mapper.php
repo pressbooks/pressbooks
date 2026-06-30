@@ -396,4 +396,84 @@ class Modules_ImportGoogleDocsMapperTest extends \WP_UnitTestCase {
 		$this->assertStringNotContainsString( "\x0b", $body );
 		$this->assertStringNotContainsString( 'First lineSecond', $body );
 	}
+
+	/**
+	 * @group import
+	 */
+	public function test_checkmark_glyph_lines_become_list(): void {
+		$doc = [
+			'title' => 'Glyphs',
+			'body' => [ 'content' => [
+				[ 'sectionBreak' => [ 'sectionStyle' => [] ] ],
+				[ 'paragraph' => [ 'elements' => [ [ 'textRun' => [ 'content' => "Chapter\n", 'textStyle' => [] ] ] ], 'paragraphStyle' => [ 'namedStyleType' => 'HEADING_1' ] ] ],
+				[ 'paragraph' => [
+					'elements' => [
+						[ 'textRun' => [ 'content' => '✔ Standardize definitions and clarify ', 'textStyle' => [] ] ],
+						[ 'textRun' => [ 'content' => 'what the credential represents', 'textStyle' => [ 'italic' => true ] ] ],
+						[ 'textRun' => [ 'content' => "\x0b ✔ Articulate purpose\x0b ✔ Embed evidence\n", 'textStyle' => [] ] ],
+					],
+					'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ],
+				] ],
+			] ],
+			'inlineObjects' => [],
+		];
+
+		$mapper = new DocsMapper();
+		$chapters = $mapper->toChapters( $doc );
+		$body = $chapters[0]['body'];
+
+		$this->assertStringContainsString( '<ul>', $body );
+		$this->assertStringContainsString( '<li>Standardize definitions and clarify <em>what the credential represents</em></li>', $body );
+		$this->assertStringContainsString( '<li>Articulate purpose</li>', $body );
+		$this->assertStringContainsString( '<li>Embed evidence</li>', $body );
+		$this->assertStringNotContainsString( '✔', $body );
+		$this->assertStringNotContainsString( "\x0b", $body );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_dash_and_asterisk_require_trailing_space(): void {
+		$doc = [
+			'title' => 'Dashes',
+			'body' => [ 'content' => [
+				[ 'sectionBreak' => [ 'sectionStyle' => [] ] ],
+				[ 'paragraph' => [ 'elements' => [ [ 'textRun' => [ 'content' => "Chapter\n", 'textStyle' => [] ] ] ], 'paragraphStyle' => [ 'namedStyleType' => 'HEADING_1' ] ] ],
+				[ 'paragraph' => [ 'elements' => [ [ 'textRun' => [ 'content' => "- apples\x0b- oranges\n", 'textStyle' => [] ] ] ], 'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ] ] ],
+				[ 'paragraph' => [ 'elements' => [ [ 'textRun' => [ 'content' => "well-known fact\x0bself-evident truth\n", 'textStyle' => [] ] ] ], 'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ] ] ],
+			] ],
+			'inlineObjects' => [],
+		];
+
+		$mapper = new DocsMapper();
+		$chapters = $mapper->toChapters( $doc );
+		$body = $chapters[0]['body'];
+
+		$this->assertStringContainsString( '<li>apples</li>', $body );
+		$this->assertStringContainsString( '<li>oranges</li>', $body );
+		// No trailing space after the dash -> not a list, stays text with <br>.
+		$this->assertStringContainsString( '<p>well-known fact<br>self-evident truth</p>', $body );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_single_glyph_line_is_not_a_list(): void {
+		$doc = [
+			'title' => 'Lone glyph',
+			'body' => [ 'content' => [
+				[ 'sectionBreak' => [ 'sectionStyle' => [] ] ],
+				[ 'paragraph' => [ 'elements' => [ [ 'textRun' => [ 'content' => "Chapter\n", 'textStyle' => [] ] ] ], 'paragraphStyle' => [ 'namedStyleType' => 'HEADING_1' ] ] ],
+				[ 'paragraph' => [ 'elements' => [ [ 'textRun' => [ 'content' => "Intro line\x0b✔ a single checked note\n", 'textStyle' => [] ] ] ], 'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ] ] ],
+			] ],
+			'inlineObjects' => [],
+		];
+
+		$mapper = new DocsMapper();
+		$chapters = $mapper->toChapters( $doc );
+		$body = $chapters[0]['body'];
+
+		$this->assertStringNotContainsString( '<ul>', $body );
+		$this->assertStringContainsString( '<p>Intro line<br>✔ a single checked note</p>', $body );
+	}
 }
