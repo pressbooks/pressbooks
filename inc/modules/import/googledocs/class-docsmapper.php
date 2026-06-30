@@ -188,6 +188,18 @@ class DocsMapper {
 	}
 
 	/**
+	 * True if any text run in the elements contains a soft line break (vertical tab).
+	 */
+	protected function paragraphHasSoftBreak( array $elements ): bool {
+		foreach ( $elements as $el ) {
+			if ( isset( $el['textRun']['content'] ) && strpos( $el['textRun']['content'], "\x0b" ) !== false ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Map named style types to HTML heading tags.
 	 */
 	protected function styleToTag( string $style_type ): ?string {
@@ -374,13 +386,7 @@ class DocsMapper {
 					}
 				}
 
-				$cell_content = '';
-				foreach ( $cell['content'] ?? [] as $element ) {
-					if ( isset( $element['paragraph'] ) ) {
-						$text = $this->renderElements( $element['paragraph']['elements'] ?? [], $inline_objects );
-						$cell_content .= $text;
-					}
-				}
+				$cell_html = $this->renderCellContent( $cell, $inline_objects, $lists );
 
 				$attrs = '';
 				if ( $col_span > 1 ) {
@@ -390,7 +396,7 @@ class DocsMapper {
 					$attrs .= ' rowspan="' . $row_span . '"';
 				}
 
-				$html .= '<td' . $attrs . '>' . trim( $cell_content ) . '</td>';
+				$html .= '<td' . $attrs . '>' . $cell_html . '</td>';
 				$col_idx += $col_span;
 			}
 			$html .= "</tr>\n";
@@ -402,6 +408,48 @@ class DocsMapper {
 		}
 
 		return $html;
+	}
+
+	/**
+	 * Render the inner HTML of a single table cell.
+	 *
+	 * Simple single plain-text paragraphs render as bare text (legacy behavior).
+	 * Cells containing a list, a heading, multiple paragraphs, or a soft-break
+	 * paragraph are rendered through the block pipeline so structure is kept.
+	 */
+	protected function renderCellContent( array $cell, array $inline_objects, array $lists ): string {
+		$paragraphs = [];
+		foreach ( $cell['content'] ?? [] as $element ) {
+			if ( isset( $element['paragraph'] ) ) {
+				$paragraphs[] = $element['paragraph'];
+			}
+		}
+
+		$needs_block = count( $paragraphs ) > 1;
+		if ( ! $needs_block ) {
+			foreach ( $paragraphs as $p ) {
+				$style = $p['paragraphStyle']['namedStyleType'] ?? 'NORMAL_TEXT';
+				if ( isset( $p['bullet'] ) || $this->styleToTag( $style ) !== null || $this->paragraphHasSoftBreak( $p['elements'] ?? [] ) ) {
+					$needs_block = true;
+					break;
+				}
+			}
+		}
+
+		if ( ! $needs_block ) {
+			$text = '';
+			foreach ( $paragraphs as $p ) {
+				$text .= $this->renderElements( $p['elements'] ?? [], $inline_objects );
+			}
+			return trim( $text );
+		}
+
+		$cell_body = '';
+		foreach ( $paragraphs as $p ) {
+			$style = $p['paragraphStyle']['namedStyleType'] ?? 'NORMAL_TEXT';
+			$cell_body .= $this->renderParagraph( $p, $style, $inline_objects, $lists );
+		}
+		return $this->finalize( $cell_body );
 	}
 
 	/**

@@ -305,4 +305,67 @@ class Modules_ImportGoogleDocsMapperTest extends \WP_UnitTestCase {
 		$warnings = $mapper->getWarnings();
 		$this->assertNotContains( 'Table contains merged cells; verify layout after import.', $warnings );
 	}
+
+	/**
+	 * @group import
+	 */
+	public function test_table_cell_with_heading_and_bullet_list(): void {
+		$doc = [
+			'title' => 'Callout',
+			'body' => [ 'content' => [
+				[ 'sectionBreak' => [ 'sectionStyle' => [] ] ],
+				[ 'paragraph' => [ 'elements' => [ [ 'textRun' => [ 'content' => "Chapter\n", 'textStyle' => [] ] ] ], 'paragraphStyle' => [ 'namedStyleType' => 'HEADING_1' ] ] ],
+				[ 'table' => [ 'tableRows' => [
+					[ 'tableCells' => [ [ 'content' => [
+						[ 'paragraph' => [ 'elements' => [ [ 'textRun' => [ 'content' => "LEARNING OBJECTIVES\n", 'textStyle' => [] ] ] ], 'paragraphStyle' => [ 'namedStyleType' => 'HEADING_3' ] ] ],
+					] ] ] ],
+					[ 'tableCells' => [ [ 'content' => [
+						[ 'paragraph' => [ 'elements' => [ [ 'textRun' => [ 'content' => "Define crime.\n", 'textStyle' => [] ] ] ], 'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ], 'bullet' => [ 'listId' => 'kix.list.100', 'nestingLevel' => 0 ] ] ],
+						[ 'paragraph' => [ 'elements' => [ [ 'textRun' => [ 'content' => "Examine the act.\n", 'textStyle' => [] ] ] ], 'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ], 'bullet' => [ 'listId' => 'kix.list.100', 'nestingLevel' => 0 ] ] ],
+					] ] ] ],
+				] ] ],
+			] ],
+			'inlineObjects' => [],
+			'lists' => [ 'kix.list.100' => [ 'listProperties' => [ 'nestingLevels' => [ [ 'glyphSymbol' => '●' ] ] ] ] ],
+		];
+
+		$mapper = new DocsMapper();
+		$chapters = $mapper->toChapters( $doc );
+		$body = $chapters[0]['body'];
+
+		$this->assertStringContainsString( '<h3>LEARNING OBJECTIVES</h3>', $body );
+		$this->assertStringContainsString( '<ul>', $body );
+		$this->assertStringContainsString( '<li>Define crime.</li>', $body );
+		$this->assertStringContainsString( '<li>Examine the act.</li>', $body );
+		$this->assertStringNotContainsString( 'Define crime.Examine', $body );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_table_cell_with_ordered_list(): void {
+		$doc = [
+			'title' => 'Callout',
+			'body' => [ 'content' => [
+				[ 'sectionBreak' => [ 'sectionStyle' => [] ] ],
+				[ 'paragraph' => [ 'elements' => [ [ 'textRun' => [ 'content' => "Chapter\n", 'textStyle' => [] ] ] ], 'paragraphStyle' => [ 'namedStyleType' => 'HEADING_1' ] ] ],
+				[ 'table' => [ 'tableRows' => [
+					[ 'tableCells' => [ [ 'content' => [
+						[ 'paragraph' => [ 'elements' => [ [ 'textRun' => [ 'content' => "Step one.\n", 'textStyle' => [] ] ] ], 'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ], 'bullet' => [ 'listId' => 'kix.list.7', 'nestingLevel' => 0 ] ] ],
+						[ 'paragraph' => [ 'elements' => [ [ 'textRun' => [ 'content' => "Step two.\n", 'textStyle' => [] ] ] ], 'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ], 'bullet' => [ 'listId' => 'kix.list.7', 'nestingLevel' => 0 ] ] ],
+					] ] ] ],
+				] ] ],
+			] ],
+			'inlineObjects' => [],
+			'lists' => [ 'kix.list.7' => [ 'listProperties' => [ 'nestingLevels' => [ [ 'glyphType' => 'DECIMAL' ] ] ] ] ],
+		];
+
+		$mapper = new DocsMapper();
+		$chapters = $mapper->toChapters( $doc );
+		$body = $chapters[0]['body'];
+
+		$this->assertStringContainsString( '<ol>', $body );
+		$this->assertStringContainsString( '<li>Step one.</li>', $body );
+		$this->assertStringContainsString( '<li>Step two.</li>', $body );
+	}
 }
