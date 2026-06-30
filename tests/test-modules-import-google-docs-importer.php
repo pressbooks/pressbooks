@@ -316,4 +316,61 @@ class Modules_ImportGoogleDocsImporterTest extends \WP_UnitTestCase {
 
 		@unlink( $tmp );
 	}
+
+	/**
+	 * @group import
+	 */
+	public function test_import_skips_glossary_only_chapter(): void {
+		$this->_book();
+
+		$tmp = tempnam( sys_get_temp_dir(), 'pb_test_' );
+		copy( __DIR__ . '/fixtures/google-docs/with-glossary-only-chapter.json', $tmp );
+
+		$importer = new GoogleDocs();
+		$importer->setCurrentImportOption( [ 'file' => $tmp ] );
+		$current_import = get_option( 'pressbooks_current_import' );
+
+		// Flag both chapters for import; the second holds only the Glossary section.
+		$_POST['chapters'] = [
+			0 => [ 'import' => '1', 'type' => 'chapter' ],
+			1 => [ 'import' => '1', 'type' => 'chapter' ],
+		];
+
+		$this->assertTrue( $importer->import( $current_import ) );
+
+		$chapters = get_posts( [
+			'post_type'   => 'chapter',
+			'post_status' => 'any',
+			'numberposts' => -1,
+		] );
+
+		// The glossary-only chapter was consumed, not imported.
+		$chapter_one = null;
+		foreach ( $chapters as $candidate ) {
+			$this->assertNotSame( 'Glossary Reference', $candidate->post_title );
+			if ( 'Chapter One' === $candidate->post_title ) {
+				$chapter_one = $candidate;
+			}
+		}
+		$this->assertNotNull( $chapter_one );
+
+		// Glossary terms were still created from the (skipped) glossary chapter.
+		$terms = get_posts( [
+			'post_type'   => 'glossary',
+			'post_status' => 'any',
+			'numberposts' => -1,
+		] );
+		$term_titles = [];
+		foreach ( $terms as $t ) {
+			$term_titles[] = strtolower( $t->post_title );
+		}
+		$this->assertContains( 'operating system', $term_titles );
+		$this->assertContains( 'daemon', $term_titles );
+
+		// Marker in the surviving chapter was linked.
+		$this->assertStringContainsString( '[pb_glossary id="', $chapter_one->post_content );
+		$this->assertStringNotContainsString( '[GT]', $chapter_one->post_content );
+
+		@unlink( $tmp );
+	}
 }
