@@ -642,4 +642,34 @@ class Modules_ImportGoogleDocsMapperTest extends \WP_UnitTestCase {
 		$this->assertCount( 1, $chapters[0]['images'] );
 		$this->assertSame( 'https://lh7-rt.googleusercontent.com/example-supreme-court.png', $chapters[0]['images'][0]['content_uri'] );
 	}
+
+	/**
+	 * @group import
+	 */
+	public function test_positioned_image_attributes_are_escaped(): void {
+		$doc = [
+			'title' => 'XSS',
+			'body' => [ 'content' => [
+				[ 'sectionBreak' => [ 'sectionStyle' => [] ] ],
+				[ 'paragraph' => [ 'elements' => [ [ 'textRun' => [ 'content' => "Chapter\n", 'textStyle' => [] ] ] ], 'paragraphStyle' => [ 'namedStyleType' => 'HEADING_1' ] ] ],
+				[ 'paragraph' => [
+					'elements' => [ [ 'textRun' => [ 'content' => "Caption.\n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ],
+					'positionedObjectIds' => [ 'kix.x' ],
+				] ],
+			] ],
+			'inlineObjects' => [],
+			'positionedObjects' => [ 'kix.x' => [ 'positionedObjectProperties' => [ 'embeddedObject' => [
+				'description' => 'a" onerror="alert(1)',
+				'imageProperties' => [ 'contentUri' => 'https://example.com/x.png' ],
+			] ] ] ],
+		];
+
+		$mapper = new DocsMapper();
+		$chapters = $mapper->toChapters( $doc );
+		$body = $chapters[0]['body'];
+
+		$this->assertStringNotContainsString( 'onerror="alert(1)"', $body );
+		$this->assertStringContainsString( 'alt="a&quot; onerror=&quot;alert(1)"', $body );
+	}
 }
