@@ -79,7 +79,7 @@ class GlossaryParser {
 	 * The input is returned unchanged when no Glossary section is present.
 	 */
 	public function stripGlossarySection( string $html ): string {
-		if ( false === stripos( $html, 'glossary' ) ) {
+		if ( '' === $html || false === stripos( $html, 'glossary' ) ) {
 			return $html;
 		}
 		$dom = $this->loadDom( $html );
@@ -94,9 +94,8 @@ class GlossaryParser {
 		if ( null === $section['heading'] ) {
 			return $html;
 		}
-		$section['heading']->parentNode->removeChild( $section['heading'] );
-		foreach ( $section['nodes'] as $node ) {
-			if ( null !== $node->parentNode ) {
+		foreach ( array_merge( [ $section['heading'] ], $section['nodes'] ) as $node ) {
+			if ( $node->parentNode ) {
 				$node->parentNode->removeChild( $node );
 			}
 		}

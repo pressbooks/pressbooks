@@ -121,4 +121,12 @@ class Modules_ImportGoogleDocsGlossaryParserTest extends \WP_UnitTestCase {
 		$html = '<h2>Intro</h2><p>Some text here.</p>';
 		$this->assertSame( $html, $this->parser()->stripGlossarySection( $html ) );
 	}
+
+	/**
+	 * @group import
+	 */
+	public function test_strip_returns_unchanged_when_glossary_word_but_no_h3(): void {
+		$html = '<h2>Intro</h2><p>A glossary is useful here.</p>';
+		$this->assertSame( $html, $this->parser()->stripGlossarySection( $html ) );
+	}
 }
