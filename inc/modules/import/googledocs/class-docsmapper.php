@@ -159,10 +159,8 @@ class DocsMapper {
 	 * Render a paragraph element to HTML.
 	 */
 	protected function renderParagraph( array $para, string $style_type, array $inline_objects, array $lists ): string {
-		$is_list_item = isset( $para['bullet'] );
-
 		// Handle list items
-		if ( $is_list_item ) {
+		if ( isset( $para['bullet'] ) ) {
 			$list_id = $para['bullet']['listId'];
 			$nesting = $para['bullet']['nestingLevel'] ?? 0;
 			$text = $this->renderElements( $para['elements'] ?? [], $inline_objects );
@@ -171,20 +169,69 @@ class DocsMapper {
 			return $this->makeListItem( $text, $list_id, $nesting, $list_type );
 		}
 
-		$text = $this->renderElements( $para['elements'] ?? [], $inline_objects );
-
 		// Handle heading styles
 		$tag = $this->styleToTag( $style_type );
 		if ( $tag !== null ) {
+			$text = $this->renderElements( $para['elements'] ?? [], $inline_objects );
 			return "<{$tag}>{$text}</{$tag}>\n";
 		}
 
-		// Normal text
+		$elements = $para['elements'] ?? [];
+
+		// Normal text with manual (soft) line breaks
+		if ( $this->paragraphHasSoftBreak( $elements ) ) {
+			return $this->renderMultilineParagraph( $elements, $inline_objects );
+		}
+
+		$text = $this->renderElements( $elements, $inline_objects );
 		if ( trim( $text ) === '' ) {
 			return '';
 		}
 
 		return "<p>{$text}</p>\n";
+	}
+
+	/**
+	 * Split paragraph elements into per-line HTML strings on \x0b soft line breaks,
+	 * preserving inline formatting within each line.
+	 */
+	protected function splitElementsIntoLines( array $elements, array $inline_objects ): array {
+		$lines = [];
+		$current = '';
+		foreach ( $elements as $el ) {
+			if ( isset( $el['textRun'] ) ) {
+				$content = rtrim( $el['textRun']['content'] ?? '', "\n" );
+				$style = $el['textRun']['textStyle'] ?? [];
+				$segments = explode( "\x0b", $content );
+				$last = count( $segments ) - 1;
+				foreach ( $segments as $i => $segment ) {
+					$current .= $this->applyTextStyle( $segment, $style );
+					if ( $i !== $last ) {
+						$lines[] = $current;
+						$current = '';
+					}
+				}
+			} elseif ( isset( $el['inlineObjectElement'] ) ) {
+				$current .= $this->renderInlineObject( $el['inlineObjectElement']['inlineObjectId'] ?? '', $inline_objects );
+			} elseif ( isset( $el['footnoteReference'] ) ) {
+				$current .= $this->renderFootnoteReference( $el['footnoteReference'], $inline_objects );
+			}
+		}
+		$lines[] = $current;
+		return $lines;
+	}
+
+	/**
+	 * Render a NORMAL_TEXT paragraph that contains soft line breaks.
+	 * (Task 3: join lines with <br>. Replaced in Task 4 to detect glyph lists.)
+	 */
+	protected function renderMultilineParagraph( array $elements, array $inline_objects ): string {
+		$lines = array_map( 'trim', $this->splitElementsIntoLines( $elements, $inline_objects ) );
+		$lines = array_values( array_filter( $lines, static fn( $l ) => $l !== '' ) );
+		if ( empty( $lines ) ) {
+			return '';
+		}
+		return '<p>' . implode( '<br>', $lines ) . "</p>\n";
 	}
 
 	/**

@@ -368,4 +368,32 @@ class Modules_ImportGoogleDocsMapperTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<li>Step one.</li>', $body );
 		$this->assertStringContainsString( '<li>Step two.</li>', $body );
 	}
+
+	/**
+	 * @group import
+	 */
+	public function test_soft_break_paragraph_uses_line_breaks(): void {
+		$doc = [
+			'title' => 'Soft breaks',
+			'body' => [ 'content' => [
+				[ 'sectionBreak' => [ 'sectionStyle' => [] ] ],
+				[ 'paragraph' => [ 'elements' => [ [ 'textRun' => [ 'content' => "Chapter\n", 'textStyle' => [] ] ] ], 'paragraphStyle' => [ 'namedStyleType' => 'HEADING_1' ] ] ],
+				[ 'paragraph' => [
+					'elements' => [
+						[ 'textRun' => [ 'content' => "First line\x0bSecond line\x0bThird line\n", 'textStyle' => [] ] ],
+					],
+					'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ],
+				] ],
+			] ],
+			'inlineObjects' => [],
+		];
+
+		$mapper = new DocsMapper();
+		$chapters = $mapper->toChapters( $doc );
+		$body = $chapters[0]['body'];
+
+		$this->assertStringContainsString( '<p>First line<br>Second line<br>Third line</p>', $body );
+		$this->assertStringNotContainsString( "\x0b", $body );
+		$this->assertStringNotContainsString( 'First lineSecond', $body );
+	}
 }
