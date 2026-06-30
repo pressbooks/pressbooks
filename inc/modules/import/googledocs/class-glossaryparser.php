@@ -74,6 +74,36 @@ class GlossaryParser {
 	}
 
 	/**
+	 * Remove the "Glossary" H3 heading and its entry nodes (up to the next
+	 * h1/h2/h3) from a chapter body, returning the remaining HTML trimmed.
+	 * The input is returned unchanged when no Glossary section is present.
+	 */
+	public function stripGlossarySection( string $html ): string {
+		if ( false === stripos( $html, 'glossary' ) ) {
+			return $html;
+		}
+		$dom = $this->loadDom( $html );
+		if ( null === $dom ) {
+			return $html;
+		}
+		$wrap = $dom->getElementsByTagName( 'div' )->item( 0 );
+		if ( null === $wrap ) {
+			return $html;
+		}
+		$section = $this->findGlossarySection( $wrap );
+		if ( null === $section['heading'] ) {
+			return $html;
+		}
+		$section['heading']->parentNode->removeChild( $section['heading'] );
+		foreach ( $section['nodes'] as $node ) {
+			if ( null !== $node->parentNode ) {
+				$node->parentNode->removeChild( $node );
+			}
+		}
+		return trim( $this->innerHtml( $wrap ) );
+	}
+
+	/**
 	 * Load an HTML fragment into a DOMDocument wrapped in a single <div>.
 	 */
 	protected function loadDom( string $html ): ?\DOMDocument {

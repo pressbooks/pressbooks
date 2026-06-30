@@ -97,4 +97,28 @@ class Modules_ImportGoogleDocsGlossaryParserTest extends \WP_UnitTestCase {
 		$bodies = [ '<h2>Intro</h2><p>Some text with a colon: here.</p>' ];
 		$this->assertSame( [], $this->parser()->parseGlossaryEntries( $bodies ) );
 	}
+
+	/**
+	 * @group import
+	 */
+	public function test_strip_removes_glossary_heading_and_entries(): void {
+		$html = '<p>Intro.</p><h3>Glossary</h3><p>Kernel: The core of an OS.</p>';
+		$this->assertSame( '<p>Intro.</p>', $this->parser()->stripGlossarySection( $html ) );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_strip_keeps_content_after_next_heading(): void {
+		$html = '<h3>Glossary</h3><p>Kernel: The core of an OS.</p><h2>Next</h2><p>After.</p>';
+		$this->assertSame( '<h2>Next</h2><p>After.</p>', $this->parser()->stripGlossarySection( $html ) );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_strip_returns_unchanged_when_no_glossary(): void {
+		$html = '<h2>Intro</h2><p>Some text here.</p>';
+		$this->assertSame( $html, $this->parser()->stripGlossarySection( $html ) );
+	}
 }
