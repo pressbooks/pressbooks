@@ -509,4 +509,120 @@ class Modules_ImportGoogleDocsMapperTest extends \WP_UnitTestCase {
 		$this->assertStringNotContainsString( '✔', $body );
 		$this->assertStringNotContainsString( "\x0b", $body );
 	}
+
+	/**
+	 * @group import
+	 */
+	public function test_positioned_image_rendered_before_caption(): void {
+		$doc = [
+			'title' => 'Figures',
+			'body' => [ 'content' => [
+				[ 'sectionBreak' => [ 'sectionStyle' => [] ] ],
+				[ 'paragraph' => [ 'elements' => [ [ 'textRun' => [ 'content' => "Chapter\n", 'textStyle' => [] ] ] ], 'paragraphStyle' => [ 'namedStyleType' => 'HEADING_1' ] ] ],
+				[ 'paragraph' => [
+					'elements' => [ [ 'textRun' => [ 'content' => "Figure 1.1: The United States Supreme Court.\n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ],
+					'positionedObjectIds' => [ 'kix.img99' ],
+				] ],
+			] ],
+			'inlineObjects' => [],
+			'positionedObjects' => [ 'kix.img99' => [ 'positionedObjectProperties' => [ 'embeddedObject' => [
+				'title' => 'Figure 1.1: The United States Supreme Court.',
+				'description' => 'Figure 1.1 The United States Supreme Court building.',
+				'imageProperties' => [ 'contentUri' => 'https://example.com/supreme.png' ],
+			] ] ] ],
+		];
+
+		$mapper = new DocsMapper();
+		$chapters = $mapper->toChapters( $doc );
+		$body = $chapters[0]['body'];
+
+		$this->assertStringContainsString( '<img src="#gdoc-image-kix.img99" alt="Figure 1.1 The United States Supreme Court building." />', $body );
+		$this->assertLessThan( strpos( $body, '<p>Figure 1.1' ), strpos( $body, '<img' ) );
+
+		$this->assertCount( 1, $chapters[0]['images'] );
+		$this->assertSame( 'kix.img99', $chapters[0]['images'][0]['object_id'] );
+		$this->assertSame( 'https://example.com/supreme.png', $chapters[0]['images'][0]['content_uri'] );
+		$this->assertSame( 'Figure 1.1 The United States Supreme Court building.', $chapters[0]['images'][0]['alt'] );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_positioned_drawing_skipped_with_warning(): void {
+		$doc = [
+			'title' => 'Drawings',
+			'body' => [ 'content' => [
+				[ 'sectionBreak' => [ 'sectionStyle' => [] ] ],
+				[ 'paragraph' => [ 'elements' => [ [ 'textRun' => [ 'content' => "Chapter\n", 'textStyle' => [] ] ] ], 'paragraphStyle' => [ 'namedStyleType' => 'HEADING_1' ] ] ],
+				[ 'paragraph' => [
+					'elements' => [ [ 'textRun' => [ 'content' => "Body text.\n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ],
+					'positionedObjectIds' => [ 'draw1' ],
+				] ],
+			] ],
+			'inlineObjects' => [],
+			'positionedObjects' => [ 'draw1' => [ 'positionedObjectProperties' => [ 'embeddedObject' => [
+				'embeddedDrawingProperties' => [],
+			] ] ] ],
+		];
+
+		$mapper = new DocsMapper();
+		$chapters = $mapper->toChapters( $doc );
+
+		$this->assertStringNotContainsString( '<img', $chapters[0]['body'] );
+		$this->assertSame( [], $chapters[0]['images'] );
+		$this->assertContains( 'Positioned drawing skipped (unsupported): draw1', $mapper->getWarnings() );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_positioned_image_alt_falls_back_to_title(): void {
+		$doc = [
+			'title' => 'Figures',
+			'body' => [ 'content' => [
+				[ 'sectionBreak' => [ 'sectionStyle' => [] ] ],
+				[ 'paragraph' => [ 'elements' => [ [ 'textRun' => [ 'content' => "Chapter\n", 'textStyle' => [] ] ] ], 'paragraphStyle' => [ 'namedStyleType' => 'HEADING_1' ] ] ],
+				[ 'paragraph' => [
+					'elements' => [ [ 'textRun' => [ 'content' => "Caption.\n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ],
+					'positionedObjectIds' => [ 'kix.img7' ],
+				] ],
+			] ],
+			'inlineObjects' => [],
+			'positionedObjects' => [ 'kix.img7' => [ 'positionedObjectProperties' => [ 'embeddedObject' => [
+				'title' => 'My Title',
+				'description' => '',
+				'imageProperties' => [ 'contentUri' => 'https://example.com/x.png' ],
+			] ] ] ],
+		];
+
+		$mapper = new DocsMapper();
+		$chapters = $mapper->toChapters( $doc );
+
+		$this->assertStringContainsString( 'alt="My Title"', $chapters[0]['body'] );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_paragraph_without_positioned_ids_unchanged(): void {
+		$doc = [
+			'title' => 'Plain',
+			'body' => [ 'content' => [
+				[ 'sectionBreak' => [ 'sectionStyle' => [] ] ],
+				[ 'paragraph' => [ 'elements' => [ [ 'textRun' => [ 'content' => "Chapter\n", 'textStyle' => [] ] ] ], 'paragraphStyle' => [ 'namedStyleType' => 'HEADING_1' ] ] ],
+				[ 'paragraph' => [ 'elements' => [ [ 'textRun' => [ 'content' => "Just text.\n", 'textStyle' => [] ] ] ], 'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ] ] ],
+			] ],
+			'inlineObjects' => [],
+		];
+
+		$mapper = new DocsMapper();
+		$chapters = $mapper->toChapters( $doc );
+
+		$this->assertStringNotContainsString( '<img', $chapters[0]['body'] );
+		$this->assertStringContainsString( '<p>Just text.</p>', $chapters[0]['body'] );
+		$this->assertSame( [], $chapters[0]['images'] );
+	}
 }

@@ -31,6 +31,7 @@ class DocsMapper {
 		$content = $doc['body']['content'] ?? [];
 		$inline_objects = $doc['inlineObjects'] ?? [];
 		$lists = $doc['lists'] ?? [];
+		$positioned_objects = $doc['positionedObjects'] ?? [];
 
 		$chapters = [];
 		$current_title = '';
@@ -70,6 +71,8 @@ class DocsMapper {
 
 				// Collect image metadata from inline objects in this paragraph
 				$this->collectImageMeta( $para['elements'] ?? [], $inline_objects, $current_images );
+
+				$current_body .= $this->renderPositionedImages( $para['positionedObjectIds'] ?? [], $positioned_objects, $current_images );
 
 				$current_body .= $this->renderParagraph( $para, $style_type, $inline_objects, $lists );
 			}
@@ -412,6 +415,39 @@ class DocsMapper {
 		}
 
 		return '';
+	}
+
+	/**
+	 * Render positioned (floating) images anchored to a paragraph, and queue
+	 * their download metadata. Positioned drawings are skipped with a warning.
+	 */
+	protected function renderPositionedImages( array $ids, array $positioned_objects, array &$images ): string {
+		$html = '';
+		foreach ( $ids as $id ) {
+			$obj = $positioned_objects[ $id ]['positionedObjectProperties']['embeddedObject'] ?? [];
+
+			if ( isset( $obj['embeddedDrawingProperties'] ) ) {
+				$this->warnings[] = "Positioned drawing skipped (unsupported): {$id}";
+				continue;
+			}
+
+			if ( ! isset( $obj['imageProperties']['contentUri'] ) ) {
+				continue;
+			}
+
+			$alt = ( $obj['description'] ?? '' ) ?: ( $obj['title'] ?? '' );
+
+			$images[] = [
+				'object_id'   => $id,
+				'content_uri' => $obj['imageProperties']['contentUri'],
+				'alt'         => $alt,
+				'title'       => $obj['title'] ?? '',
+			];
+
+			$src = '#gdoc-image-' . $id;
+			$html .= '<img src="' . htmlspecialchars( $src, ENT_QUOTES, 'UTF-8' ) . '" alt="' . htmlspecialchars( $alt, ENT_QUOTES, 'UTF-8' ) . '" />';
+		}
+		return $html;
 	}
 
 	/**
