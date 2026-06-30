@@ -476,4 +476,37 @@ class Modules_ImportGoogleDocsMapperTest extends \WP_UnitTestCase {
 		$this->assertStringNotContainsString( '<ul>', $body );
 		$this->assertStringContainsString( '<p>Intro line<br>✔ a single checked note</p>', $body );
 	}
+
+	/**
+	 * @group import
+	 */
+	public function test_callout_table_fixture_renders_heading_and_list(): void {
+		$mapper = new DocsMapper();
+		$chapters = $mapper->toChapters( $this->loadFixture( 'callout-table-list' ) );
+		$body = $chapters[0]['body'];
+
+		$this->assertStringContainsString( '<table>', $body );
+		$this->assertStringContainsString( '<h4>KEY TERMS</h4>', $body );
+		$this->assertStringContainsString( '<ul>', $body );
+		$this->assertStringContainsString( '<li>Crime</li>', $body );
+		$this->assertStringContainsString( '<li>Tort</li>', $body );
+		$this->assertStringContainsString( '<li>Mens Rea</li>', $body );
+		$this->assertStringNotContainsString( 'CrimeTort', $body );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_soft_break_glyph_fixture_renders_list(): void {
+		$mapper = new DocsMapper();
+		$chapters = $mapper->toChapters( $this->loadFixture( 'soft-break-glyph-list' ) );
+		$body = $chapters[0]['body'];
+
+		$this->assertStringContainsString( '<ul>', $body );
+		$this->assertStringContainsString( '<li>Standardize definitions</li>', $body );
+		$this->assertStringContainsString( '<li>Provide materials</li>', $body );
+		$this->assertSame( 4, substr_count( $body, '<li>' ) );
+		$this->assertStringNotContainsString( '✔', $body );
+		$this->assertStringNotContainsString( "\x0b", $body );
+	}
 }
