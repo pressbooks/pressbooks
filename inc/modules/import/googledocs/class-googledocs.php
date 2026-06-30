@@ -8,7 +8,6 @@ namespace Pressbooks\Modules\Import\GoogleDocs;
 
 use Pressbooks\Book;
 use Pressbooks\Modules\Import\Import;
-use Pressbooks\Modules\Import\GoogleDocs\GlossaryParser;
 
 class GoogleDocs extends Import {
 
@@ -245,7 +244,10 @@ class GoogleDocs extends Import {
 		$to_resolve = $entries;
 		foreach ( $marker_terms as $key => $display ) {
 			if ( ! isset( $to_resolve[ $key ] ) ) {
-				$to_resolve[ $key ] = [ 'title' => $display, 'definition' => '' ];
+				$to_resolve[ $key ] = [
+					'title' => $display,
+					'definition' => '',
+				];
 			}
 		}
 

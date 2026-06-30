@@ -18,7 +18,7 @@ class GlossaryParser {
 	 * Normalize a term for case-insensitive matching and de-dupe.
 	 */
 	public static function normalizeKey( string $term ): string {
-		return mb_strtolower( trim( strip_tags( $term ) ) );
+		return mb_strtolower( trim( strip_tags( $term ) ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.strip_tags_strip_tags -- WordPress-independent parser; plain tag-stripping only.
 	}
 
 	/**
@@ -105,16 +105,16 @@ class GlossaryParser {
 	/**
 	 * Replace [GT]term[/GT] markers with [pb_glossary id="N"]term[/pb_glossary].
 	 *
-	 * @param array<string,int> $idMap normalizedKey => glossary post ID
+	 * @param array<string,int> $id_map normalizedKey => glossary post ID
 	 */
-	public function replaceMarkers( string $html, array $idMap ): string {
+	public function replaceMarkers( string $html, array $id_map ): string {
 		return preg_replace_callback(
 			self::MARKER_REGEX,
-			function ( array $match ) use ( $idMap ): string {
+			function ( array $match ) use ( $id_map ): string {
 				$inner = $match[1];
 				$key = self::normalizeKey( $inner );
-				if ( isset( $idMap[ $key ] ) ) {
-					return '[pb_glossary id="' . (int) $idMap[ $key ] . '"]' . $inner . '[/pb_glossary]';
+				if ( isset( $id_map[ $key ] ) ) {
+					return '[pb_glossary id="' . (int) $id_map[ $key ] . '"]' . $inner . '[/pb_glossary]';
 				}
 				return $inner;
 			},
@@ -168,7 +168,10 @@ class GlossaryParser {
 			}
 			$nodes[] = $node;
 		}
-		return [ 'heading' => $heading, 'nodes' => $nodes ];
+		return [
+			'heading' => $heading,
+			'nodes' => $nodes,
+		];
 	}
 
 	/**
@@ -184,17 +187,23 @@ class GlossaryParser {
 			if ( XML_ELEMENT_NODE !== $node->nodeType ) {
 				$text = trim( $node->textContent ?? '' );
 				if ( '' !== $text ) {
-					$lines[] = [ 'text' => $text, 'html' => $text ];
+					$lines[] = [
+						'text' => $text,
+						'html' => $text,
+					];
 				}
 				continue;
 			}
 			$inner = $this->innerHtml( $node );
 			foreach ( preg_split( '/<br\s*\/?>/i', $inner ) as $part ) {
-				$text = trim( html_entity_decode( strip_tags( $part ), ENT_QUOTES | ENT_HTML5, 'UTF-8' ) );
+				$text = trim( html_entity_decode( strip_tags( $part ), ENT_QUOTES | ENT_HTML5, 'UTF-8' ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.strip_tags_strip_tags -- WordPress-independent parser; plain-text projection only.
 				if ( '' === $text ) {
 					continue;
 				}
-				$lines[] = [ 'text' => $text, 'html' => trim( $this->sanitizeInline( $part ) ) ];
+				$lines[] = [
+					'text' => $text,
+					'html' => trim( $this->sanitizeInline( $part ) ),
+				];
 			}
 		}
 		return $lines;
@@ -236,7 +245,10 @@ class GlossaryParser {
 				$definition = trim( ltrim( preg_replace( '/^.*?:/s', '', $line['html'], 1 ) ) );
 				$key = self::normalizeKey( $title );
 				if ( ! isset( $entries[ $key ] ) ) {
-					$entries[ $key ] = [ 'title' => $title, 'definition' => $definition ];
+					$entries[ $key ] = [
+						'title' => $title,
+						'definition' => $definition,
+					];
 				}
 				$current = $key;
 			} elseif ( null !== $current ) {
