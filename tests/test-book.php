@@ -1,6 +1,6 @@
 <?php
 
-// require_once( PB_PLUGIN_DIR . 'inc/class-book.php' );
+use Pressbooks\Container;
 use Pressbooks\DataCollector\Book as BookDataCollector;
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 
@@ -159,6 +159,11 @@ class BookTest extends \WP_UnitTestCase {
 		$book::deleteBookObjectCache();
 		$info = $book::getBookInformation();
 		$this->assertArrayNotHasKey( 'pb_about_unlimited', $info );
+
+		// Book information includes Pressbooks and Buckram versions
+		$info = $book::getBookInformation();
+		$this->assertEquals( $info['pb_plugin_version'], PB_PLUGIN_VERSION );
+		$this->assertEquals( $info['pb_buckram_version'], Container::get( 'Styles' )->getBuckramVersion() );
 	}
 
 	/**
