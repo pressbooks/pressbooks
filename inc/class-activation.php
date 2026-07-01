@@ -9,6 +9,8 @@
 
 namespace Pressbooks;
 
+use Pressbooks\Container;
+
 class Activation {
 
 	/**
@@ -397,6 +399,8 @@ class Activation {
 						} else {
 							$locale = 'en';
 						}
+						update_post_meta( $metadata_id, 'pb_plugin_version', PB_PLUGIN_VERSION );
+						update_post_meta( $metadata_id, 'pb_buckram_version', Container::get( 'Styles' )->getBuckramVersion() );
 						update_post_meta( $metadata_id, 'pb_title', get_option( 'blogname' ) );
 						update_post_meta( $metadata_id, 'pb_language', $locale );
 						update_post_meta( $metadata_id, 'pb_cover_image', \Pressbooks\Image\default_cover_url() );

@@ -50,11 +50,19 @@ function render_page() {
 	$regenerate_webbook_stylesheet_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin-post.php?action=pb_regenerate_webbook_stylesheet' ), 'pb-regenerate-webbook-stylesheet' );
 	$pdf_preview_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin-post.php?action=pdf_preview' ), 'pdf-preview' );
 	$output = "### System Information\n\n";
-	if ( Book::isBook() ) {
+	if ( $is_book ) {
+		$metadata = Book::getBookInformation();
 		$output .= "#### Book Info\n\n";
 		$output .= 'Book ID: ' . get_current_blog_id() . "\n";
 		$output .= 'Book URL: ' . trailingslashit( get_bloginfo( 'url' ) ) . "\n";
-		$output .= 'Book Privacy: ' . ( get_bloginfo( 'blog_public' ) ? 'Public' : 'Private' ) . "\n\n";
+		$output .= 'Book Privacy: ' . ( get_bloginfo( 'blog_public' ) ? 'Public' : 'Private' ) . "\n";
+		if ( isset( $metadata['pb_plugin_version'] ) ) {
+			$output .= 'Book created with Pressbooks ' . $metadata['pb_plugin_version'] . "\n";
+		}
+		if ( isset( $metadata['pb_buckram_version'] ) ) {
+			$output .= 'Book created with Buckram ' . $metadata['pb_buckram_version'] . "\n";
+		}
+		$output .= "\n";
 	} else {
 		$output .= "#### Root Blog Info\n\n";
 		$output .= 'Root Blog ID: ' . get_current_blog_id() . "\n";
@@ -218,6 +226,3 @@ function handle_pdf_preview(): void {
 	}
 	location( $url );
 }
-
-
-
