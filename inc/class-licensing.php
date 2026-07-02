@@ -8,7 +8,7 @@ namespace Pressbooks;
 
 use function \Pressbooks\Utility\debug_error_log;
 use function \Pressbooks\Utility\explode_remove_and;
-use function \Pressbooks\Utility\implode_add_and;
+use function \Pressbooks\Utility\get_contributors_name_imploded;
 
 /**
  * TODO: Refactor
@@ -303,17 +303,7 @@ class Licensing {
 			return $contributors;
 		}
 
-		$names = [];
-
-		foreach ( $contributors as $contributor ) {
-			if ( empty( $contributor['name'] ) ) {
-				continue;
-			}
-
-			$names[] = $contributor['name'];
-		}
-
-		return implode_add_and( ';', $names );
+		return get_contributors_name_imploded( $contributors );
 	}
 
 	/**
