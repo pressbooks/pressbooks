@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-17T18:27:19+00:00\n"
+"POT-Creation-Date: 2026-07-02T14:58:32+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -1516,7 +1516,7 @@ msgid "BISAC Regional Themes help libraries and bookstores properly classify you
 msgstr ""
 
 #: inc/admin/metaboxes/class-copyright.php:31
-#: inc/class-licensing.php:333
+#: inc/class-licensing.php:346
 #: inc/modules/export/epub/class-epub.php:1432
 #: inc/modules/export/epub/class-epub.php:1454
 #: inc/modules/export/xhtml/class-xhtml11.php:1372
@@ -2564,7 +2564,7 @@ msgid "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 Internationa
 msgstr ""
 
 #: inc/class-licensing.php:139
-#: inc/class-licensing.php:338
+#: inc/class-licensing.php:351
 msgid "All Rights Reserved"
 msgstr ""
 
@@ -2572,7 +2572,7 @@ msgstr ""
 msgid "$title is deprecated. Method will automatically determine title from licenses"
 msgstr ""
 
-#: inc/class-licensing.php:335
+#: inc/class-licensing.php:348
 #: inc/class-styles.php:900
 #: inc/modules/export/epub/class-epub.php:1441
 #: inc/modules/export/xhtml/class-xhtml11.php:1381
@@ -2580,34 +2580,34 @@ msgstr ""
 msgid "by"
 msgstr ""
 
-#: inc/class-licensing.php:394
+#: inc/class-licensing.php:407
 msgid "except where otherwise noted."
 msgstr ""
 
-#: inc/class-licensing.php:421
-#: inc/class-licensing.php:446
+#: inc/class-licensing.php:434
+#: inc/class-licensing.php:459
 #, php-format
 msgid "%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved."
 msgstr ""
 
-#: inc/class-licensing.php:433
+#: inc/class-licensing.php:446
 #, php-format
 msgid "Icon for the %s"
 msgstr ""
 
-#: inc/class-licensing.php:435
-#: inc/class-licensing.php:482
+#: inc/class-licensing.php:448
+#: inc/class-licensing.php:495
 #, php-format
 msgid "%1$s Copyright &copy;%2$s by %3$s is licensed under a %4$s, except where otherwise noted."
 msgstr ""
 
-#: inc/class-licensing.php:455
-#: inc/class-licensing.php:465
+#: inc/class-licensing.php:468
+#: inc/class-licensing.php:478
 #, php-format
 msgid "Icon for the %s license"
 msgstr ""
 
-#: inc/class-licensing.php:457
+#: inc/class-licensing.php:470
 #, php-format
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
 msgstr ""
