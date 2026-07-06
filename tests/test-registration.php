@@ -273,4 +273,25 @@ class Registration extends \WP_UnitTestCase {
 		$this->assertStringContainsString( 'Username: testuser', $result );
 		$this->assertStringContainsString( 'http://example.com/reset', $result );
 	}
+
+	/**
+	 * When the reset is requested by a logged-in user (e.g. a network manager from
+	 * the user-edit screen), WordPress does not append the IP line, so the reset URL
+	 * is the last line of the message. It must be preserved (#4469). This is the
+	 * delete-the-fix guard: with the previous array_pop() the URL was removed.
+	 *
+	 * @group registration
+	 */
+	public function test_remove_ip_from_password_reset_email_preserves_url_when_no_ip_line() {
+		$message = "Someone has requested a password reset for the following account:\r\n\r\n";
+		$message .= "Site Name: Test Site\r\n\r\n";
+		$message .= "Username: testuser\r\n\r\n";
+		$message .= "To reset your password, visit the following address:\r\n\r\n";
+		$message .= "http://example.com/reset\r\n\r\n";
+
+		$result = \Pressbooks\Registration\remove_ip_from_password_reset_email( $message );
+
+		$this->assertStringContainsString( 'http://example.com/reset', $result );
+		$this->assertStringContainsString( 'Username: testuser', $result );
+	}
 }
