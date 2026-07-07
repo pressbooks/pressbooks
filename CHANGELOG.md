@@ -1,5 +1,21 @@
 # Changelog
 
+## [6.42.2](https://github.com/pressbooks/pressbooks/compare/6.42.1...6.42.2) (2026-07-07)
+
+
+### Bug Fixes
+
+* fall back to editors for copyright when book has no authors ([#4508](https://github.com/pressbooks/pressbooks/issues/4508)) ([88d74c9](https://github.com/pressbooks/pressbooks/commit/88d74c9edb24dde26f1732b1ecdd76f30ebbd495))
+* keep reset URL in password reset email when no IP line is present ([#4507](https://github.com/pressbooks/pressbooks/issues/4507)) ([6c54070](https://github.com/pressbooks/pressbooks/commit/6c54070932d743ed1809439a4fc054f7eea870db)), closes [#4469](https://github.com/pressbooks/pressbooks/issues/4469)
+
+
+### Chores
+
+* add institution HfH in Switzerland ([#4511](https://github.com/pressbooks/pressbooks/issues/4511)) ([9cefd7c](https://github.com/pressbooks/pressbooks/commit/9cefd7c33609d901e1d1f8b9e72f209450f91c7f))
+* add institution HfH Interkantonale Hochschule für Heilpädagogik in Switzerland ([9cefd7c](https://github.com/pressbooks/pressbooks/commit/9cefd7c33609d901e1d1f8b9e72f209450f91c7f))
+* **l10n:** update languages ([#4494](https://github.com/pressbooks/pressbooks/issues/4494)) ([b2181b6](https://github.com/pressbooks/pressbooks/commit/b2181b60cdbb576de99ca2586b631576cb9ad7a8))
+* removing SaxonHE requirements and tests ([#4501](https://github.com/pressbooks/pressbooks/issues/4501)) ([b0b4969](https://github.com/pressbooks/pressbooks/commit/b0b4969deb149844758ddb1960816ef189f97fb1))
+
 ## [6.42.1](https://github.com/pressbooks/pressbooks/compare/6.42.0...6.42.1) (2026-06-11)
 
 
