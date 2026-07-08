@@ -8,7 +8,7 @@ namespace Pressbooks;
 
 use function \Pressbooks\Utility\debug_error_log;
 use function \Pressbooks\Utility\explode_remove_and;
-use function \Pressbooks\Utility\implode_add_and;
+use function \Pressbooks\Utility\get_contributors_name_imploded;
 
 /**
  * TODO: Refactor
@@ -252,20 +252,15 @@ class Licensing {
 		if ( ! empty( $section_author ) && ! empty( $section_license ) ) {
 			// section author higher priority than book author when there's a custom license
 			$copyright_holder = $section_author;
-		} elseif ( isset( $metadata['pb_copyright_holder'] ) ) {
+		} elseif ( ! empty( $metadata['pb_copyright_holder'] ) ) {
 			// book copyright holder higher priority than book author
 			$copyright_holder = $metadata['pb_copyright_holder'];
-		} elseif ( isset( $metadata['pb_authors'] ) ) {
+		} elseif ( ! empty( $metadata['pb_authors'] ) ) {
 			// book author is the fallback, default
-			if ( is_array( $metadata['pb_authors'] ) ) {
-				$authors = [];
-				foreach ( $metadata['pb_authors'] as $author ) {
-					$authors[] = $author['name'];
-				}
-				$copyright_holder = implode_add_and( ';', $authors );
-			} else {
-				$copyright_holder = $metadata['pb_authors'];
-			}
+			$copyright_holder = $this->contributorsToString( $metadata['pb_authors'] );
+		} elseif ( ! empty( $metadata['pb_editors'] ) ) {
+			// book editors are used as copyright holder when there are no authors
+			$copyright_holder = $this->contributorsToString( $metadata['pb_editors'] );
 		} else {
 			$copyright_holder = '';
 		}
@@ -291,6 +286,24 @@ class Licensing {
 		$html = $this->getLicense( $license, $copyright_holder, $link, $title, $copyright_year );
 
 		return $html;
+	}
+
+	/**
+	 * Normalize a contributor metadata value into a display string.
+	 *
+	 * Contributor metadata can be either a pre-formatted string or an array of
+	 * entries, depending on how the book information was loaded.
+	 *
+	 * @param string|array{name: string} $contributors
+	 *
+	 * @return string
+	 */
+	private function contributorsToString( string|array $contributors ): string {
+		if ( ! is_array( $contributors ) ) {
+			return $contributors;
+		}
+
+		return get_contributors_name_imploded( $contributors );
 	}
 
 	/**
