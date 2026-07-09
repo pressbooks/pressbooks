@@ -449,4 +449,219 @@ class Modules_ImportGoogleDocsOAuthTest extends \WP_UnitTestCase {
 		$this->assertInstanceOf( \Google\Client::class, $client );
 		$this->assertSame( 'fresh-at', $client->getAccessToken()['access_token'] );
 	}
+
+	// ─── Direct mode helpers ──────────────────────────────────────────────
+
+	private function makeDirectOAuth( \Pressbooks\Modules\Import\GoogleDocs\Storage\TokenStorage $storage ): array {
+		$creds = $this->createMock( CredentialsStore::class );
+		$creds->method( 'isBrokerMode' )->willReturn( false );
+		$creds->method( 'getClientCredentials' )->willReturn( [
+			'client_id'     => 'test_client_id',
+			'client_secret' => 'test_client_secret',
+		] );
+
+		$mock_google = $this->createMock( \Google\Client::class );
+
+		$oauth = $this->getMockBuilder( OAuthClient::class )
+			->setConstructorArgs( [ $storage, $creds ] )
+			->onlyMethods( [ 'buildClient' ] )
+			->getMock();
+		$oauth->method( 'buildClient' )->willReturn( $mock_google );
+
+		return [ $oauth, $mock_google ];
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_disconnect_is_noop_when_no_token(): void {
+		$storage = $this->createMock( \Pressbooks\Modules\Import\GoogleDocs\Storage\TokenStorage::class );
+		$storage->method( 'load' )->willReturn( null );
+		$storage->expects( $this->never() )->method( 'delete' );
+
+		[ $oauth ] = $this->makeDirectOAuth( $storage );
+		$oauth->disconnect( 1 );
+		$this->assertTrue( true ); // must not throw
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_disconnect_deletes_token_in_direct_mode(): void {
+		$token = new StoredToken(
+			[ 'access_token' => 'tok', 'expires_at' => time() + 3600 ],
+			TokenMode::Direct
+		);
+
+		$storage = $this->createMock( \Pressbooks\Modules\Import\GoogleDocs\Storage\TokenStorage::class );
+		$storage->method( 'load' )->willReturn( $token );
+		$storage->expects( $this->once() )->method( 'delete' )->with( 42 );
+
+		[ $oauth, $mock_google ] = $this->makeDirectOAuth( $storage );
+		$mock_google->method( 'revokeToken' )->willReturn( null );
+
+		$oauth->disconnect( 42 );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_disconnect_throws_when_google_revoke_fails(): void {
+		$token = new StoredToken(
+			[ 'access_token' => 'tok', 'expires_at' => time() + 3600 ],
+			TokenMode::Direct
+		);
+
+		$storage = $this->createMock( \Pressbooks\Modules\Import\GoogleDocs\Storage\TokenStorage::class );
+		$storage->method( 'load' )->willReturn( $token );
+
+		[ $oauth, $mock_google ] = $this->makeDirectOAuth( $storage );
+		$mock_google->method( 'revokeToken' )
+			->willThrowException( new \Exception( 'revoke failed' ) );
+
+		$this->expectException( \RuntimeException::class );
+		$this->expectExceptionMessageMatches( '/Failed to revoke token at Google/' );
+		$oauth->disconnect( 1 );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_handle_callback_direct_mode_stores_token_and_returns_url(): void {
+		$user_id    = $this->factory->user->create();
+		$state      = 'state_direct_123';
+		$return_url = 'https://example.com/return';
+		set_site_transient( 'pb_gdocs_state_' . $state, $return_url, 600 );
+
+		$saved_token = null;
+		$storage     = $this->createMock( \Pressbooks\Modules\Import\GoogleDocs\Storage\TokenStorage::class );
+		$storage->method( 'save' )->willReturnCallback( function ( $uid, $tok ) use ( &$saved_token ) {
+			$saved_token = $tok;
+			return true;
+		} );
+
+		[ $oauth, $mock_google ] = $this->makeDirectOAuth( $storage );
+		$mock_google->method( 'fetchAccessTokenWithAuthCode' )->willReturn( [
+			'access_token'  => 'access_123',
+			'refresh_token' => 'refresh_456',
+			'expires_in'    => 3600,
+			'token_type'    => 'Bearer',
+		] );
+
+		$result = $oauth->handleCallback( 'auth_code', $state, $user_id );
+
+		$this->assertSame( $return_url, $result );
+		$this->assertNotNull( $saved_token );
+		$this->assertSame( 'access_123', $saved_token->accessToken() );
+		$this->assertSame( 'refresh_456', $saved_token->refreshToken() );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_handle_callback_direct_mode_throws_on_token_error(): void {
+		$state = 'state_error_456';
+		set_site_transient( 'pb_gdocs_state_' . $state, 'https://example.com', 600 );
+
+		$storage = $this->createMock( \Pressbooks\Modules\Import\GoogleDocs\Storage\TokenStorage::class );
+		[ $oauth, $mock_google ] = $this->makeDirectOAuth( $storage );
+		$mock_google->method( 'fetchAccessTokenWithAuthCode' )->willReturn( [
+			'error'             => 'invalid_grant',
+			'error_description' => 'Token has been expired or revoked.',
+		] );
+
+		$this->expectException( \RuntimeException::class );
+		$this->expectExceptionMessageMatches( '/Token exchange failed/' );
+		$oauth->handleCallback( 'bad_code', $state, 1 );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_get_authed_client_refreshes_expired_direct_token(): void {
+		$user_id        = $this->factory->user->create();
+		$original_token = new StoredToken(
+			[
+				'access_token'  => 'old_access',
+				'refresh_token' => 'my_refresh',
+				'expires_at'    => time() - 100,
+			],
+			TokenMode::Direct
+		);
+
+		$saved_token = null;
+		$storage     = $this->createMock( \Pressbooks\Modules\Import\GoogleDocs\Storage\TokenStorage::class );
+		$storage->method( 'load' )->willReturn( $original_token );
+		$storage->method( 'save' )->willReturnCallback( function ( $uid, $tok ) use ( &$saved_token ) {
+			$saved_token = $tok;
+			return true;
+		} );
+
+		[ $oauth, $mock_google ] = $this->makeDirectOAuth( $storage );
+		$mock_google->method( 'isAccessTokenExpired' )->willReturn( true );
+		$mock_google->method( 'fetchAccessTokenWithRefreshToken' )
+			->with( 'my_refresh' )
+			->willReturn( [
+				'access_token' => 'new_access',
+				'expires_in'   => 3600,
+				'token_type'   => 'Bearer',
+			] );
+
+		$client = $oauth->getAuthedClient( $user_id );
+
+		$this->assertInstanceOf( \Google\Client::class, $client );
+		$this->assertNotNull( $saved_token );
+		$this->assertSame( 'new_access', $saved_token->accessToken() );
+		$this->assertSame( 'my_refresh', $saved_token->refreshToken() );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_get_authed_client_throws_when_no_refresh_token(): void {
+		$user_id = $this->factory->user->create();
+		$token   = new StoredToken(
+			[ 'access_token' => 'old', 'expires_at' => time() - 100 ],
+			TokenMode::Direct
+		);
+
+		$storage = $this->createMock( \Pressbooks\Modules\Import\GoogleDocs\Storage\TokenStorage::class );
+		$storage->method( 'load' )->willReturn( $token );
+		$storage->expects( $this->once() )->method( 'delete' )->with( $user_id );
+
+		[ $oauth, $mock_google ] = $this->makeDirectOAuth( $storage );
+		$mock_google->method( 'isAccessTokenExpired' )->willReturn( true );
+
+		$this->expectException( \Pressbooks\Modules\Import\GoogleDocs\ReauthorizationRequiredException::class );
+		$oauth->getAuthedClient( $user_id );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_get_authed_client_throws_when_direct_refresh_returns_error(): void {
+		$user_id = $this->factory->user->create();
+		$token   = new StoredToken(
+			[
+				'access_token'  => 'old',
+				'refresh_token' => 'stale_refresh',
+				'expires_at'    => time() - 100,
+			],
+			TokenMode::Direct
+		);
+
+		$storage = $this->createMock( \Pressbooks\Modules\Import\GoogleDocs\Storage\TokenStorage::class );
+		$storage->method( 'load' )->willReturn( $token );
+		$storage->expects( $this->once() )->method( 'delete' )->with( $user_id );
+
+		[ $oauth, $mock_google ] = $this->makeDirectOAuth( $storage );
+		$mock_google->method( 'isAccessTokenExpired' )->willReturn( true );
+		$mock_google->method( 'fetchAccessTokenWithRefreshToken' )->willReturn( [
+			'error'             => 'invalid_grant',
+			'error_description' => 'Token has been expired or revoked.',
+		] );
+
+		$this->expectException( \Pressbooks\Modules\Import\GoogleDocs\ReauthorizationRequiredException::class );
+		$oauth->getAuthedClient( $user_id );
+	}
 }
