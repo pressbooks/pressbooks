@@ -79,7 +79,7 @@ class OAuthClient {
 
 	public function buildClient(): \Google\Client {
 		if ( $this->useBroker ) {
-			throw new \RuntimeException( 'buildClient() must not be called in broker mode. OAuth is handled by the Pressbooks Auth Broker.' );
+			throw new \RuntimeException( __( 'buildClient() must not be called in broker mode. OAuth is handled by the Pressbooks Auth Broker.', 'pressbooks' ) );
 		}
 
 		$creds = $this->creds_store->getClientCredentials();
@@ -119,13 +119,13 @@ class OAuthClient {
 		$token = $this->token_storage->load( $user_id );
 
 		if ( $token === null ) {
-			throw new ReauthorizationRequiredException( 'No token found. Please authorize first.' );
+			throw new ReauthorizationRequiredException( __( 'No token found. Please authorize first.', 'pressbooks' ) );
 		}
 
 		if ( $this->useBroker ) {
 			if ( $token->isExpired() ) {
 				if ( $this->broker_refresh_client === null ) {
-					throw new ReauthorizationRequiredException( 'Token expired and no BrokerRefreshClient is configured.' );
+					throw new ReauthorizationRequiredException( __( 'Token expired and no BrokerRefreshClient is configured.', 'pressbooks' ) );
 				}
 				$token = $this->broker_refresh_client->refresh( $user_id );
 			}
@@ -141,14 +141,20 @@ class OAuthClient {
 			$refresh_token = $token->refreshToken();
 			if ( ! $refresh_token ) {
 				$this->token_storage->delete( $user_id );
-				throw new ReauthorizationRequiredException( 'No refresh token available. Please reauthorize.' );
+				throw new ReauthorizationRequiredException( __( 'No refresh token available. Please reauthorize.', 'pressbooks' ) );
 			}
 
 			$new_token = $client->fetchAccessTokenWithRefreshToken( $refresh_token );
 
 			if ( isset( $new_token['error'] ) ) {
 				$this->token_storage->delete( $user_id );
-				throw new ReauthorizationRequiredException( 'Token refresh failed: ' . ( $new_token['error_description'] ?? $new_token['error'] ) );
+				throw new ReauthorizationRequiredException(
+					sprintf(
+						// translators: %s: error detail returned by Google.
+						__( 'Token refresh failed: %s', 'pressbooks' ),
+						$new_token['error_description'] ?? $new_token['error']
+					)
+				);
 			}
 
 			$new_token['refresh_token'] = $refresh_token;
@@ -174,7 +180,15 @@ class OAuthClient {
 					$this->broker_refresh_client->revoke( $user_id );
 					return;
 				} catch ( \Throwable $e ) {
-					throw new \RuntimeException( 'Failed to revoke token at broker: ' . $e->getMessage() . ' Please try again.', 0, $e );
+					throw new \RuntimeException(
+						sprintf(
+							// translators: %s: underlying error detail.
+							__( 'Failed to revoke token at broker: %s Please try again.', 'pressbooks' ),
+							$e->getMessage()
+						),
+						0,
+						$e
+					);
 				}
 			}
 			$this->token_storage->delete( $user_id );
@@ -186,7 +200,15 @@ class OAuthClient {
 			$client->setAccessToken( $token->payload );
 			$client->revokeToken();
 		} catch ( \Exception $e ) {
-			throw new \RuntimeException( 'Failed to revoke token at Google: ' . $e->getMessage() . ' Please try again.', 0, $e );
+			throw new \RuntimeException(
+				sprintf(
+					// translators: %s: underlying error detail.
+					__( 'Failed to revoke token at Google: %s Please try again.', 'pressbooks' ),
+					$e->getMessage()
+				),
+				0,
+				$e
+			);
 		}
 		$this->token_storage->delete( $user_id );
 	}
@@ -217,7 +239,13 @@ class OAuthClient {
 		if ( file_exists( $value ) ) {
 			$contents = file_get_contents( $value );
 			if ( $contents === false ) {
-				throw new \RuntimeException( 'Failed to read broker public key file: ' . $value );
+				throw new \RuntimeException(
+					sprintf(
+						// translators: %s: file path.
+						__( 'Failed to read broker public key file: %s', 'pressbooks' ),
+						$value
+					)
+				);
 			}
 			return $contents;
 		}
@@ -230,55 +258,55 @@ class OAuthClient {
 		$return_url = get_site_transient( $transient_key );
 
 		if ( empty( $return_url ) ) {
-			throw new \RuntimeException( 'Invalid or expired OAuth state.' );
+			throw new \RuntimeException( __( 'Invalid or expired OAuth state.', 'pressbooks' ) );
 		}
 
 		delete_site_transient( $transient_key );
 
 		if ( ! defined( 'PRESSBOOKS_AUTH_BROKER_PUBLIC_KEY' ) || empty( PRESSBOOKS_AUTH_BROKER_PUBLIC_KEY ) ) {
-			throw new \RuntimeException( 'Broker public key not configured.' );
+			throw new \RuntimeException( __( 'Broker public key not configured.', 'pressbooks' ) );
 		}
 
 		$public_key = $this->getPublicKey();
 		$decoded = JWT::decode( $jwt, new Key( $public_key, 'RS256' ) );
 
 		if ( ! isset( $decoded->iss ) || $decoded->iss !== PRESSBOOKS_AUTH_BROKER_URL ) {
-			throw new \RuntimeException( 'Invalid JWT issuer.' );
+			throw new \RuntimeException( __( 'Invalid JWT issuer.', 'pressbooks' ) );
 		}
 
 		$expected_aud = parse_url( home_url(), PHP_URL_HOST );
 		if ( ! isset( $decoded->aud ) || $decoded->aud !== $expected_aud ) {
-			throw new \RuntimeException( 'Invalid JWT audience.' );
+			throw new \RuntimeException( __( 'Invalid JWT audience.', 'pressbooks' ) );
 		}
 
 		if ( ! isset( $decoded->exp ) || $decoded->exp < time() ) {
-			throw new \RuntimeException( 'JWT has expired.' );
+			throw new \RuntimeException( __( 'JWT has expired.', 'pressbooks' ) );
 		}
 
 		if ( ! isset( $decoded->jti ) ) {
-			throw new \RuntimeException( 'Missing JWT ID.' );
+			throw new \RuntimeException( __( 'Missing JWT ID.', 'pressbooks' ) );
 		}
 
 		$jti_key = 'pb_gdocs_jti_' . $decoded->jti;
 		if ( get_site_transient( $jti_key ) ) {
-			throw new \RuntimeException( 'JWT has already been used.' );
+			throw new \RuntimeException( __( 'JWT has already been used.', 'pressbooks' ) );
 		}
 		set_site_transient( $jti_key, '1', 300 );
 
 		if ( ! isset( $decoded->wp_state ) || $decoded->wp_state !== $state ) {
-			throw new \RuntimeException( 'JWT state mismatch.' );
+			throw new \RuntimeException( __( 'JWT state mismatch.', 'pressbooks' ) );
 		}
 
 		if ( ! isset( $decoded->tokens->access_token, $decoded->session_handle ) ) {
-			throw new \RuntimeException( 'Missing access_token or session_handle in JWT.' );
+			throw new \RuntimeException( __( 'Missing access_token or session_handle in JWT.', 'pressbooks' ) );
 		}
 
 		if ( property_exists( $decoded->tokens, 'refresh_token' ) && ! empty( $decoded->tokens->refresh_token ) ) {
-			throw new \RuntimeException( 'Broker handoff JWT must not contain a refresh_token.' );
+			throw new \RuntimeException( __( 'Broker handoff JWT must not contain a refresh_token.', 'pressbooks' ) );
 		}
 
 		if ( ! isset( $decoded->google_sub ) || ! is_string( $decoded->google_sub ) || $decoded->google_sub === '' ) {
-			throw new \RuntimeException( 'Missing google_sub in JWT.' );
+			throw new \RuntimeException( __( 'Missing google_sub in JWT.', 'pressbooks' ) );
 		}
 
 		$payload = [
@@ -303,7 +331,7 @@ class OAuthClient {
 		$return_url = get_site_transient( $transient_key );
 
 		if ( empty( $return_url ) ) {
-			throw new \RuntimeException( 'Invalid or expired OAuth state.' );
+			throw new \RuntimeException( __( 'Invalid or expired OAuth state.', 'pressbooks' ) );
 		}
 
 		delete_site_transient( $transient_key );
@@ -312,7 +340,13 @@ class OAuthClient {
 		$token = $client->fetchAccessTokenWithAuthCode( $code );
 
 		if ( isset( $token['error'] ) ) {
-			throw new \RuntimeException( 'Token exchange failed: ' . ( $token['error_description'] ?? $token['error'] ) );
+			throw new \RuntimeException(
+				sprintf(
+					// translators: %s: error detail returned by Google.
+					__( 'Token exchange failed: %s', 'pressbooks' ),
+					$token['error_description'] ?? $token['error']
+				)
+			);
 		}
 
 		$token['expires_at'] = time() + ( $token['expires_in'] ?? 3600 );

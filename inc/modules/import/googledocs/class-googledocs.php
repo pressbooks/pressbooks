@@ -159,7 +159,13 @@ class GoogleDocs extends Import {
 
 			if ( ! empty( $ch['warnings'] ) ) {
 				foreach ( $ch['warnings'] as $type => $count ) {
-					$this->import_warnings[] = sprintf( '%d %s skipped in "%s"', $count, str_replace( '_', ' ', $type ), $ch['title'] );
+					$this->import_warnings[] = sprintf(
+						/* translators: 1: number of elements, 2: element type, 3: chapter title */
+						__( '%1$d %2$s skipped in "%3$s"', 'pressbooks' ),
+						$count,
+						str_replace( '_', ' ', $type ),
+						$ch['title']
+					);
 				}
 			}
 		}

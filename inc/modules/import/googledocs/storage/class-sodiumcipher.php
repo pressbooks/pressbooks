@@ -25,7 +25,7 @@ final class SodiumCipher implements Cipher {
 
 		$raw = sodium_base642bin( $blob, SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING );
 		if ( strlen( $raw ) < SODIUM_CRYPTO_SECRETBOX_NONCEBYTES + SODIUM_CRYPTO_SECRETBOX_MACBYTES ) {
-			throw new \RuntimeException( 'Ciphertext too short.' );
+			throw new \RuntimeException( __( 'Ciphertext too short.', 'pressbooks' ) );
 		}
 
 		$nonce = substr( $raw, 0, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES );
@@ -35,7 +35,7 @@ final class SodiumCipher implements Cipher {
 		sodium_memzero( $key_bytes );
 
 		if ( $plaintext === false ) {
-			throw new \RuntimeException( 'Decryption failed: ciphertext integrity check failed or key mismatch.' );
+			throw new \RuntimeException( __( 'Decryption failed: ciphertext integrity check failed or key mismatch.', 'pressbooks' ) );
 		}
 
 		return $plaintext;
@@ -64,8 +64,11 @@ final class SodiumCipher implements Cipher {
 		}
 
 		throw new \RuntimeException(
-			'Encryption key must be a valid base64-encoded ' . SODIUM_CRYPTO_SECRETBOX_KEYBYTES . '-byte string. '
-			. 'Generate one with: openssl rand -base64 32'
+			sprintf(
+				// translators: %d: required key length in bytes.
+				__( 'Encryption key must be a valid base64-encoded %d-byte string. Generate one with: openssl rand -base64 32', 'pressbooks' ),
+				SODIUM_CRYPTO_SECRETBOX_KEYBYTES
+			)
 		);
 	}
 }

@@ -38,7 +38,7 @@ class BrokerRefreshClient {
 	public function refresh( int $user_id ): StoredToken {
 		$stored = $this->storage->load( $user_id );
 		if ( $stored === null || $stored->brokerSessionHandle() === null ) {
-			throw new ReauthorizationRequiredException( 'No broker session handle for user.' );
+			throw new ReauthorizationRequiredException( __( 'No broker session handle for user.', 'pressbooks' ) );
 		}
 
 		$signed = $this->buildSignedBody( [
@@ -51,23 +51,29 @@ class BrokerRefreshClient {
 
 		if ( $code === 410 ) {
 			$this->storage->delete( $user_id );
-			throw new ReauthorizationRequiredException( 'Broker reports session as gone; user must reconnect.' );
+			throw new ReauthorizationRequiredException( __( 'Broker reports session as gone; user must reconnect.', 'pressbooks' ) );
 		}
 
 		if ( $code === 401 ) {
-			throw new \RuntimeException( 'Broker rejected signature or freshness.' );
+			throw new \RuntimeException( __( 'Broker rejected signature or freshness.', 'pressbooks' ) );
 		}
 
 		if ( $code === 409 ) {
-			throw new \RuntimeException( 'Broker detected replay.' );
+			throw new \RuntimeException( __( 'Broker detected replay.', 'pressbooks' ) );
 		}
 
 		if ( $code >= 500 ) {
-			throw new \RuntimeException( 'Broker temporarily unavailable.' );
+			throw new \RuntimeException( __( 'Broker temporarily unavailable.', 'pressbooks' ) );
 		}
 
 		if ( $code !== 200 ) {
-			throw new \RuntimeException( "Unexpected broker response code {$code}." );
+			throw new \RuntimeException(
+				sprintf(
+					// translators: %d: HTTP response code returned by the broker.
+					__( 'Unexpected broker response code %d.', 'pressbooks' ),
+					$code
+				)
+			);
 		}
 
 		$jwt = wp_remote_retrieve_body( $response );
@@ -100,11 +106,17 @@ class BrokerRefreshClient {
 		$code = wp_remote_retrieve_response_code( $response );
 
 		if ( $code >= 500 ) {
-			throw new \RuntimeException( 'Broker temporarily unavailable during revoke.' );
+			throw new \RuntimeException( __( 'Broker temporarily unavailable during revoke.', 'pressbooks' ) );
 		}
 
 		if ( $code !== 204 && $code !== 200 ) {
-			throw new \RuntimeException( "Unexpected broker revoke response code {$code}." );
+			throw new \RuntimeException(
+				sprintf(
+					// translators: %d: HTTP response code returned by the broker.
+					__( 'Unexpected broker revoke response code %d.', 'pressbooks' ),
+					$code
+				)
+			);
 		}
 
 		$this->storage->delete( $user_id );
@@ -133,20 +145,20 @@ class BrokerRefreshClient {
 		$decoded = JWT::decode( $jwt, new Key( $this->broker_public_key, 'RS256' ) );
 
 		if ( ! isset( $decoded->iss ) || $decoded->iss !== $this->broker_url ) {
-			throw new \RuntimeException( 'Invalid broker response issuer.' );
+			throw new \RuntimeException( __( 'Invalid broker response issuer.', 'pressbooks' ) );
 		}
 
 		$expected_aud = parse_url( home_url(), PHP_URL_HOST );
 		if ( ! isset( $decoded->aud ) || $decoded->aud !== $expected_aud ) {
-			throw new \RuntimeException( 'Invalid broker response audience.' );
+			throw new \RuntimeException( __( 'Invalid broker response audience.', 'pressbooks' ) );
 		}
 
 		if ( ! isset( $decoded->exp ) || $decoded->exp < time() ) {
-			throw new \RuntimeException( 'Broker response JWT expired.' );
+			throw new \RuntimeException( __( 'Broker response JWT expired.', 'pressbooks' ) );
 		}
 
 		if ( ! isset( $decoded->access_token, $decoded->expires_at ) ) {
-			throw new \RuntimeException( 'Missing access_token or expires_at in broker response.' );
+			throw new \RuntimeException( __( 'Missing access_token or expires_at in broker response.', 'pressbooks' ) );
 		}
 
 		return $decoded;
@@ -164,7 +176,13 @@ class BrokerRefreshClient {
 		);
 
 		if ( is_wp_error( $response ) ) {
-			throw new \RuntimeException( 'Broker unreachable: ' . $response->get_error_message() );
+			throw new \RuntimeException(
+				sprintf(
+					// translators: %s: underlying HTTP error detail.
+					__( 'Broker unreachable: %s', 'pressbooks' ),
+					$response->get_error_message()
+				)
+			);
 		}
 
 		return $response;
@@ -174,7 +192,13 @@ class BrokerRefreshClient {
 		if ( file_exists( $value ) ) {
 			$contents = file_get_contents( $value );
 			if ( $contents === false ) {
-				throw new \RuntimeException( 'Failed to read broker public key file: ' . $value );
+				throw new \RuntimeException(
+					sprintf(
+						// translators: %s: file path.
+						__( 'Failed to read broker public key file: %s', 'pressbooks' ),
+						$value
+					)
+				);
 			}
 			return $contents;
 		}

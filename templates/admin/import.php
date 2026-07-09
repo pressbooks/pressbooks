@@ -223,8 +223,8 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 					</td>
 				</tr>
 			<?php
-			global $gdocs_oauth, $gdocs_creds_store;
-			$gdocs_store = $gdocs_creds_store;
+			$gdocs_store = \Pressbooks\Modules\Import\GoogleDocs\CredentialsStore::fromEnvironment();
+			$gdocs_oauth = \Pressbooks\Modules\Import\GoogleDocs\OAuthClient::fromEnvironment( $gdocs_store );
 			$gdocs_is_configured = $gdocs_store->isConfigured();
 			$gdocs_is_connected = $gdocs_is_configured && $gdocs_oauth->isConnected( get_current_user_id() );
 			?>

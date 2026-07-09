@@ -10,6 +10,7 @@ use Pressbooks\Admin\Menus\SideBar;
 use Pressbooks\Admin\Menus\TopBar;
 use Pressbooks\Admin\Users\User;
 use Pressbooks\Book;
+use Pressbooks\Modules\Import\GoogleDocs\Bootstrap;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -416,56 +417,4 @@ add_action( 'pb_new_blog', function() {
 add_action( 'admin_init', '\Pressbooks\Sanitize\escape_file_names_in_blob_mimes' );
 
 // Google Docs Import
-$gdocs_creds_store = \Pressbooks\Modules\Import\GoogleDocs\CredentialsStore::fromEnvironment();
-$gdocs_cipher = new \Pressbooks\Modules\Import\GoogleDocs\Storage\SodiumCipher();
-$gdocs_encryption_key = defined( 'PRESSBOOKS_GOOGLE_DOCS_ENCRYPTION_KEY' ) ? PRESSBOOKS_GOOGLE_DOCS_ENCRYPTION_KEY : '';
-$gdocs_token_storage = $gdocs_creds_store->isBrokerMode()
-	? new \Pressbooks\Modules\Import\GoogleDocs\Storage\BrokerBackedStorage( $gdocs_cipher, $gdocs_encryption_key )
-	: new \Pressbooks\Modules\Import\GoogleDocs\Storage\DirectEncryptedStorage( $gdocs_cipher, $gdocs_encryption_key );
-$gdocs_broker_refresh = null;
-if ( $gdocs_creds_store->isBrokerMode() && defined( 'PRESSBOOKS_AUTH_BROKER_PUBLIC_KEY' ) && defined( 'PRESSBOOKS_AUTH_BROKER_NETWORK_SECRET' ) ) {
-	$gdocs_broker_refresh = new \Pressbooks\Modules\Import\GoogleDocs\Broker\BrokerRefreshClient(
-		PRESSBOOKS_AUTH_BROKER_URL,
-		PRESSBOOKS_AUTH_BROKER_PUBLIC_KEY,
-		PRESSBOOKS_AUTH_BROKER_NETWORK_SECRET,
-		$gdocs_token_storage
-	);
-}
-$gdocs_oauth = new \Pressbooks\Modules\Import\GoogleDocs\OAuthClient( $gdocs_token_storage, $gdocs_creds_store, $gdocs_broker_refresh );
-
-// Network admin settings page
-$gdocs_settings = new \Pressbooks\Modules\Import\GoogleDocs\SettingsPage( $gdocs_creds_store, $gdocs_oauth, $gdocs_token_storage );
-$gdocs_settings->hooks();
-
-// Register import type in the dropdown
-add_filter( 'pb_select_import_type', function ( array $types ) use ( $gdocs_creds_store, $gdocs_token_storage ) {
-	if ( $gdocs_creds_store->isConfigured() && $gdocs_token_storage->isAvailable() ) {
-		$types[ \Pressbooks\Modules\Import\GoogleDocs\GoogleDocs::TYPE_OF ] = __( 'Google Docs', 'pressbooks' );
-	}
-	return $types;
-} );
-
-// OAuth authorize action
-add_action( 'admin_post_pb_gdocs_authorize', function () use ( $gdocs_oauth, $gdocs_creds_store ) {
-	check_admin_referer( 'pb_gdocs_authorize' );
-	if ( ! $gdocs_creds_store->isConfigured() ) {
-		wp_die( __( 'Google Docs import is not configured.', 'pressbooks' ) );
-	}
-	$return_url = wp_get_referer() ?: admin_url( 'admin.php?page=pb_import' );
-	$auth_url = $gdocs_oauth->getAuthorizeUrl( $return_url );
-	wp_redirect( $auth_url );
-	exit;
-} );
-
-// OAuth disconnect action
-add_action( 'admin_post_pb_gdocs_disconnect', function () use ( $gdocs_oauth ) {
-	check_admin_referer( 'pb_gdocs_disconnect' );
-	try {
-		$gdocs_oauth->disconnect( get_current_user_id() );
-		$return_url = wp_get_referer() ?: admin_url( 'admin.php?page=pb_import' );
-		wp_safe_redirect( add_query_arg( 'pb_gdocs', 'disconnected', $return_url ) );
-		exit;
-	} catch ( \Throwable $e ) {
-		wp_die( esc_html( $e->getMessage() ) );
-	}
-} );
+add_action( 'plugins_loaded', [ Bootstrap::class, 'init' ] );
