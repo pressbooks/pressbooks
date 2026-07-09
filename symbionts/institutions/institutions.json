@@ -3232,6 +3232,16 @@
             "url": "https:\/\/www.uhu.es\/"
           }
         ]
+      },
+      {
+        "name": "Switzerland",
+        "institutions": [
+          {
+            "code": "EU-SUI-001",
+            "name": "HfH Interkantonale Hochschule für Heilpädagogik",
+            "url": "https:\/\/www.hfh.ch\/"
+          }
+        ]
       }
     ]
   },
