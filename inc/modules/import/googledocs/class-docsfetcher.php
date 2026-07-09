@@ -9,6 +9,7 @@ namespace Pressbooks\Modules\Import\GoogleDocs;
 use Google\Client as GoogleClient;
 use Google\Service\Docs as DocsService;
 use Google\Service\Drive as DriveService;
+use function Pressbooks\Utility\put_contents;
 
 class DocsFetcher {
 
@@ -33,15 +34,6 @@ class DocsFetcher {
 		];
 	}
 
-	public function isGoogleDoc( string $doc_id ): bool {
-		try {
-			$meta = $this->getFileMetadata( $doc_id );
-			return $meta['mimeType'] === 'application/vnd.google-apps.document';
-		} catch ( \Exception $e ) {
-			return false;
-		}
-	}
-
 	public function downloadImage( string $content_uri ) {
 		$http = $this->client->authorize();
 		try {
@@ -59,7 +51,7 @@ class DocsFetcher {
 		$doc = $this->fetchDocument( $doc_id );
 		$hash = substr( md5( wp_json_encode( $doc ) ), 0, 8 );
 		$path = rtrim( $cache_dir, '/' ) . "/gdoc-{$doc_id}-{$hash}.json";
-		\Pressbooks\Utility\put_contents( $path, wp_json_encode( $doc, JSON_PRETTY_PRINT ) );
+		put_contents( $path, wp_json_encode( $doc, JSON_PRETTY_PRINT ) );
 		return $path;
 	}
 }
