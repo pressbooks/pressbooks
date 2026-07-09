@@ -1724,14 +1724,10 @@ function get_h5p_ids_for_exportable_posts(): array {
  * Hooked on `init` so the handles are available on both the front end and admin.
  *
  * @return void
- * @throws \Exception
  */
 function register_duet_date_picker(): void {
-	/** @var Assets $assets */
+	/** @var \PressbooksFrontendTools\Assets $assets */
 	$assets = app( 'Assets' );
-	if ( ! is_readable( $assets->getPath( 'manifest.json' ) ) ) {
-		return;
-	}
 	$assets->register( 'assets/src/scripts/duet-date-picker.js', 'duet-date-picker' );
 	wp_register_style( 'duet-date-picker', $assets->getAssetUrl( 'assets/src/styles/duet.css' ) );
 }

@@ -56,39 +56,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * When the built Vite manifest is missing (e.g. a downstream plugin's CI
-	 * clones Pressbooks and runs `composer install` without a JS build), the
-	 * registration must be a silent no-op instead of a fatal error that aborts
-	 * the bootstrap.
-	 *
-	 * @group utility
-	 */
-	public function test_register_duet_date_picker_is_noop_without_manifest() {
-		wp_deregister_script( 'duet-date-picker' );
-		wp_deregister_style( 'duet-date-picker' );
-
-		/** @var \PressbooksFrontendTools\Assets $assets */
-		$assets = app( 'Assets' );
-		$manifest = $assets->getPath( 'manifest.json' );
-		$backup = $manifest . '.bak';
-
-		// Temporarily hide the built manifest to simulate an unbuilt checkout.
-		$moved = is_readable( $manifest ) && rename( $manifest, $backup );
-
-		try {
-			// Must not throw or wp_die() even though no manifest is present.
-			register_duet_date_picker();
-
-			$this->assertFalse( wp_script_is( 'duet-date-picker', 'registered' ) );
-			$this->assertFalse( wp_style_is( 'duet-date-picker', 'registered' ) );
-		} finally {
-			if ( $moved ) {
-				rename( $backup, $manifest );
-			}
-		}
-	}
-
-	/**
 	 * @group utility
 	 */
 	public function test_scandir_by_date() {
