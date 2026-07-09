@@ -371,39 +371,6 @@ function check_xmllint_install() {
 }
 
 /**
- * Lightweight check to see if the Saxon-HE executable is installed and up to date.
- *
- * @return boolean
- */
-function check_saxonhe_install() {
-	if ( ! defined( 'PB_SAXON_COMMAND' ) ) { // @see wp-config.php
-		define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /opt/saxon-he/saxon-he.jar' );
-	}
-
-	$output = [];
-	$return_val = 0;
-	exec( PB_SAXON_COMMAND . ' -? 2>&1', $output, $return_val );
-
-	$output = $output[0];
-	if ( false !== strpos( $output, 'Saxon-HE ' ) ) { // Command found.
-		$output = explode( 'Saxon-HE ', $output );
-		$version = explode( 'J from Saxonica', $output[1] )[0];
-		if ( version_compare( $version, '9.7.0-10' ) >= 0 ) {
-			return true;
-		}
-	}
-
-	/**
-	 * @since 3.9.8
-	 *
-	 * Allows the SaxonHE dependency error to be disabled.
-	 *
-	 * @param bool $value
-	 */
-	return apply_filters( 'pb_odt_has_dependencies', false );
-}
-
-/**
  * Function to determine whether or not experimental features should be visible to users.
  *
  * @param $host string
@@ -1744,4 +1711,23 @@ function get_h5p_ids_for_exportable_posts(): array {
 	$h5p_ids = array_unique( $h5p_ids );
 
 	return $h5p_ids;
+}
+
+/**
+ * Register the Duet Date Picker as reusable, globally-available WordPress handles.
+ *
+ * Registers (but does not enqueue) a `duet-date-picker` script handle (the custom
+ * element definition) and a matching `duet-date-picker` style handle (the theming
+ * variables). Any plugin can then enqueue either or both on any page context via
+ * wp_enqueue_script( 'duet-date-picker' ) / wp_enqueue_style( 'duet-date-picker' ).
+ *
+ * Hooked on `init` so the handles are available on both the front end and admin.
+ *
+ * @return void
+ */
+function register_duet_date_picker(): void {
+	/** @var \PressbooksFrontendTools\Assets $assets */
+	$assets = app( 'Assets' );
+	$assets->register( 'assets/src/scripts/duet-date-picker.js', 'duet-date-picker' );
+	wp_register_style( 'duet-date-picker', $assets->getAssetUrl( 'assets/src/styles/duet.css' ) );
 }

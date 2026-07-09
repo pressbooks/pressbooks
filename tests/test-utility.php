@@ -6,6 +6,7 @@ use function Pressbooks\Utility\do_shortcode_by_tags;
 use function Pressbooks\Utility\latest_exports;
 use function Pressbooks\Utility\length_to_inches;
 use function Pressbooks\Utility\objects_to_csv;
+use function Pressbooks\Utility\register_duet_date_picker;
 
 class UtilityTest extends \WP_UnitTestCase {
 	use utilsTrait;
@@ -33,6 +34,25 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( \Pressbooks\Utility\getset( '_POST', 'hello' ), 'world' );
 		$this->assertEquals( \Pressbooks\Utility\getset( '_POST', 'nothing' ), null );
 		$this->assertEquals( \Pressbooks\Utility\getset( '_POST', 'nothing', 'something' ), 'something' );
+	}
+
+	/**
+	 * @group utility
+	 */
+	public function test_register_duet_date_picker() {
+		// Start from a clean slate in case the handles were registered elsewhere.
+		wp_deregister_script( 'duet-date-picker' );
+		wp_deregister_style( 'duet-date-picker' );
+
+		$this->assertFalse( wp_script_is( 'duet-date-picker', 'registered' ) );
+		$this->assertFalse( wp_style_is( 'duet-date-picker', 'registered' ) );
+
+		register_duet_date_picker();
+
+		// The custom-element script and its theming stylesheet are now available
+		// for any plugin to enqueue, on any page, via the shared handles.
+		$this->assertTrue( wp_script_is( 'duet-date-picker', 'registered' ) );
+		$this->assertTrue( wp_style_is( 'duet-date-picker', 'registered' ) );
 	}
 
 	/**
@@ -216,14 +236,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	public function test_check_xmllint_install() {
 		$this->assertIsBool( \Pressbooks\Utility\check_xmllint_install() );
 		$this->assertTrue( defined( 'PB_XMLLINT_COMMAND' ) );
-	}
-
-	/**
-	 * @group utility
-	 */
-	public function test_check_saxonhe_install() {
-		$this->assertIsBool( \Pressbooks\Utility\check_saxonhe_install() );
-		$this->assertTrue( defined( 'PB_SAXON_COMMAND' ) );
 	}
 
 	/**
