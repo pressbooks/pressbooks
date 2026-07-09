@@ -28,12 +28,6 @@
         <exclude-pattern>/functions.php</exclude-pattern>
         <exclude-pattern>/compatibility.php</exclude-pattern>
     </rule>
-    <rule ref="HM.Files.FunctionFileName">
-        <exclude-pattern>/inc/modules/import/googledocs/upgrade.php</exclude-pattern>
-    </rule>
-    <rule ref="HM.Files.NamespaceDirectoryName">
-        <exclude-pattern>/inc/modules/import/googledocs/upgrade.php</exclude-pattern>
-    </rule>
     <!-- Disable all rules for these files: -->
     <exclude-pattern>/hm-autoloader.php</exclude-pattern>
     <exclude-pattern>*.blade.php</exclude-pattern>
