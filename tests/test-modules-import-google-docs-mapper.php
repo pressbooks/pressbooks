@@ -966,4 +966,95 @@ class Modules_ImportGoogleDocsMapperTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<li>Level two</li>', $body );
 		$this->assertStringContainsString( '<li>Level three</li>', $body );
 	}
+
+	/**
+	 * @group import
+	 */
+	public function test_images_in_table_cells_collected(): void {
+		$obj_id = 'kix.cellimg1';
+		$doc    = [
+			'title' => 'Table Image',
+			'body'  => [ 'content' => [
+				[ 'sectionBreak' => [ 'sectionStyle' => [] ] ],
+				[ 'paragraph' => [
+					'elements'       => [ [ 'textRun' => [ 'content' => "Chapter\n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'HEADING_1' ],
+				] ],
+				[ 'table' => [ 'tableRows' => [
+					[ 'tableCells' => [ [ 'content' => [
+						[ 'paragraph' => [
+							'elements'       => [
+								[ 'inlineObjectElement' => [ 'inlineObjectId' => $obj_id ] ],
+								[ 'textRun' => [ 'content' => "\n", 'textStyle' => [] ] ],
+							],
+							'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ],
+						] ],
+					] ] ] ],
+				] ] ],
+			] ],
+			'inlineObjects' => [
+				$obj_id => [ 'inlineObjectProperties' => [ 'embeddedObject' => [
+					'description'     => 'A chart',
+					'title'           => 'Chart Title',
+					'imageProperties' => [ 'contentUri' => 'https://example.com/chart.png' ],
+				] ] ],
+			],
+			'lists' => [],
+		];
+
+		$mapper   = new DocsMapper();
+		$chapters = $mapper->toChapters( $doc );
+
+		$this->assertCount( 1, $chapters[0]['images'] );
+		$img = $chapters[0]['images'][0];
+		$this->assertSame( $obj_id, $img['object_id'] );
+		$this->assertSame( 'A chart', $img['alt'] );
+		$this->assertSame( 'https://example.com/chart.png', $img['content_uri'] );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_multiple_footnotes_in_same_paragraph(): void {
+		$doc = [
+			'title'     => 'Footnotes',
+			'body'      => [ 'content' => [
+				[ 'sectionBreak' => [ 'sectionStyle' => [] ] ],
+				[ 'paragraph' => [
+					'elements'       => [ [ 'textRun' => [ 'content' => "Chapter\n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'HEADING_1' ],
+				] ],
+				[ 'paragraph' => [
+					'elements'       => [
+						[ 'textRun'           => [ 'content' => 'First claim', 'textStyle' => [] ] ],
+						[ 'footnoteReference' => [ 'footnoteId' => 'fn1' ] ],
+						[ 'textRun'           => [ 'content' => ' and second claim', 'textStyle' => [] ] ],
+						[ 'footnoteReference' => [ 'footnoteId' => 'fn2' ] ],
+						[ 'textRun'           => [ 'content' => ".\n", 'textStyle' => [] ] ],
+					],
+					'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ],
+				] ],
+			] ],
+			'inlineObjects' => [],
+			'footnotes'  => [
+				'fn1' => [ 'content' => [ [ 'paragraph' => [
+					'elements' => [ [ 'textRun' => [ 'content' => "Note one.\n", 'textStyle' => [] ] ] ],
+				] ] ] ],
+				'fn2' => [ 'content' => [ [ 'paragraph' => [
+					'elements' => [ [ 'textRun' => [ 'content' => "Note two.\n", 'textStyle' => [] ] ] ],
+				] ] ] ],
+			],
+		];
+
+		$mapper   = new DocsMapper();
+		$chapters = $mapper->toChapters( $doc );
+		$body     = $chapters[0]['body'];
+
+		$this->assertStringContainsString( '[footnote]Note one.[/footnote]', $body );
+		$this->assertStringContainsString( '[footnote]Note two.[/footnote]', $body );
+		$this->assertStringContainsString(
+			'<p>First claim[footnote]Note one.[/footnote] and second claim[footnote]Note two.[/footnote].</p>',
+			$body
+		);
+	}
 }
