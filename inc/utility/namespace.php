@@ -1712,3 +1712,22 @@ function get_h5p_ids_for_exportable_posts(): array {
 
 	return $h5p_ids;
 }
+
+/**
+ * Register the Duet Date Picker as reusable, globally-available WordPress handles.
+ *
+ * Registers (but does not enqueue) a `duet-date-picker` script handle (the custom
+ * element definition) and a matching `duet-date-picker` style handle (the theming
+ * variables). Any plugin can then enqueue either or both on any page context via
+ * wp_enqueue_script( 'duet-date-picker' ) / wp_enqueue_style( 'duet-date-picker' ).
+ *
+ * Hooked on `init` so the handles are available on both the front end and admin.
+ *
+ * @return void
+ */
+function register_duet_date_picker(): void {
+	/** @var \PressbooksFrontendTools\Assets $assets */
+	$assets = app( 'Assets' );
+	$assets->register( 'assets/src/scripts/duet-date-picker.js', 'duet-date-picker' );
+	wp_register_style( 'duet-date-picker', $assets->getAssetUrl( 'assets/src/styles/duet.css' ) );
+}
