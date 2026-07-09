@@ -672,4 +672,193 @@ class Modules_ImportGoogleDocsMapperTest extends \WP_UnitTestCase {
 		$this->assertStringNotContainsString( 'onerror="alert(1)"', $body );
 		$this->assertStringContainsString( 'alt="a&quot; onerror=&quot;alert(1)"', $body );
 	}
+
+	/**
+	 * @group import
+	 */
+	public function test_bold_and_italic_combined(): void {
+		$doc = [
+			'title' => 'Style Test',
+			'body'  => [ 'content' => [
+				[ 'sectionBreak' => [ 'sectionStyle' => [] ] ],
+				[ 'paragraph' => [
+					'elements'       => [ [ 'textRun' => [ 'content' => "Chapter\n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'HEADING_1' ],
+				] ],
+				[ 'paragraph' => [
+					'elements'       => [
+						[ 'textRun' => [ 'content' => 'hello', 'textStyle' => [ 'bold' => true, 'italic' => true ] ] ],
+						[ 'textRun' => [ 'content' => "\n", 'textStyle' => [] ] ],
+					],
+					'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ],
+				] ],
+			] ],
+			'inlineObjects' => [],
+		];
+
+		$mapper   = new DocsMapper();
+		$chapters = $mapper->toChapters( $doc );
+
+		$this->assertStringContainsString( '<strong><em>hello</em></strong>', $chapters[0]['body'] );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_link_suppresses_underline(): void {
+		$doc = [
+			'title' => 'Link Test',
+			'body'  => [ 'content' => [
+				[ 'sectionBreak' => [ 'sectionStyle' => [] ] ],
+				[ 'paragraph' => [
+					'elements'       => [ [ 'textRun' => [ 'content' => "Chapter\n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'HEADING_1' ],
+				] ],
+				[ 'paragraph' => [
+					'elements'       => [
+						[ 'textRun' => [ 'content' => 'click here', 'textStyle' => [
+							'link'      => [ 'url' => 'https://example.com' ],
+							'underline' => true,
+						] ] ],
+						[ 'textRun' => [ 'content' => "\n", 'textStyle' => [] ] ],
+					],
+					'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ],
+				] ],
+			] ],
+			'inlineObjects' => [],
+		];
+
+		$mapper   = new DocsMapper();
+		$chapters = $mapper->toChapters( $doc );
+		$body     = $chapters[0]['body'];
+
+		$this->assertStringContainsString( '<a href="https://example.com">click here</a>', $body );
+		$this->assertStringNotContainsString( '<u>', $body );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_empty_paragraph_produces_no_output(): void {
+		$doc = [
+			'title' => 'Empty Para',
+			'body'  => [ 'content' => [
+				[ 'sectionBreak' => [ 'sectionStyle' => [] ] ],
+				[ 'paragraph' => [
+					'elements'       => [ [ 'textRun' => [ 'content' => "Chapter\n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'HEADING_1' ],
+				] ],
+				[ 'paragraph' => [
+					'elements'       => [ [ 'textRun' => [ 'content' => "   \n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ],
+				] ],
+				[ 'paragraph' => [
+					'elements'       => [ [ 'textRun' => [ 'content' => "Real content.\n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ],
+				] ],
+			] ],
+			'inlineObjects' => [],
+		];
+
+		$mapper   = new DocsMapper();
+		$chapters = $mapper->toChapters( $doc );
+		$body     = $chapters[0]['body'];
+
+		$this->assertStringContainsString( '<p>Real content.</p>', $body );
+		$this->assertSame( 1, substr_count( $body, '<p>' ) );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_inline_drawing_produces_warning(): void {
+		$obj_id = 'kix.drawing1';
+		$doc    = [
+			'title' => 'Drawing Test',
+			'body'  => [ 'content' => [
+				[ 'sectionBreak' => [ 'sectionStyle' => [] ] ],
+				[ 'paragraph' => [
+					'elements'       => [ [ 'textRun' => [ 'content' => "Chapter\n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'HEADING_1' ],
+				] ],
+				[ 'paragraph' => [
+					'elements'       => [
+						[ 'inlineObjectElement' => [ 'inlineObjectId' => $obj_id ] ],
+						[ 'textRun' => [ 'content' => "\n", 'textStyle' => [] ] ],
+					],
+					'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ],
+				] ],
+			] ],
+			'inlineObjects' => [
+				$obj_id => [ 'inlineObjectProperties' => [ 'embeddedObject' => [
+					'embeddedDrawingProperties' => [],
+				] ] ],
+			],
+		];
+
+		$mapper   = new DocsMapper();
+		$chapters = $mapper->toChapters( $doc );
+
+		$this->assertStringNotContainsString( '<img', $chapters[0]['body'] );
+		$this->assertContains( "Drawing element skipped (unsupported): {$obj_id}", $mapper->getWarnings() );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_equation_element_produces_warning(): void {
+		$doc = [
+			'title' => 'Equation Test',
+			'body'  => [ 'content' => [
+				[ 'sectionBreak' => [ 'sectionStyle' => [] ] ],
+				[ 'paragraph' => [
+					'elements'       => [ [ 'textRun' => [ 'content' => "Chapter\n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'HEADING_1' ],
+				] ],
+				[ 'paragraph' => [
+					'elements'       => [
+						[ 'textRun' => [ 'content' => 'Before ', 'textStyle' => [] ] ],
+						[ 'equation' => [] ],
+						[ 'textRun' => [ 'content' => " after.\n", 'textStyle' => [] ] ],
+					],
+					'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ],
+				] ],
+			] ],
+			'inlineObjects' => [],
+		];
+
+		$mapper   = new DocsMapper();
+		$chapters = $mapper->toChapters( $doc );
+
+		$this->assertContains( 'Equation element skipped (unsupported).', $mapper->getWarnings() );
+		$body = $chapters[0]['body'];
+		$this->assertStringContainsString( 'Before', $body );
+		$this->assertStringContainsString( 'after.', $body );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_subtitle_style_renders_as_h2(): void {
+		$doc = [
+			'title' => 'Subtitle Test',
+			'body'  => [ 'content' => [
+				[ 'sectionBreak' => [ 'sectionStyle' => [] ] ],
+				[ 'paragraph' => [
+					'elements'       => [ [ 'textRun' => [ 'content' => "Chapter\n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'HEADING_1' ],
+				] ],
+				[ 'paragraph' => [
+					'elements'       => [ [ 'textRun' => [ 'content' => "My Subtitle\n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'SUBTITLE' ],
+				] ],
+			] ],
+			'inlineObjects' => [],
+		];
+
+		$mapper   = new DocsMapper();
+		$chapters = $mapper->toChapters( $doc );
+
+		$this->assertStringContainsString( '<h2>My Subtitle</h2>', $chapters[0]['body'] );
+	}
 }
