@@ -299,8 +299,9 @@ function replace_book_admin_menu() {
 				$post_type = get_post_type();
 				if ( 'metadata' === $post_type ) {
 					$assets->enqueue('assets/src/scripts/book-information.js', 'pb-metadata', [
-						'dependencies' => [ 'jquery' ],
+						'dependencies' => [ 'jquery', 'duet-date-picker' ],
 					]);
+					wp_enqueue_style( 'duet-date-picker' );
 					wp_localize_script(
 						'pb-metadata', 'PB_BookInfoToken', [
 							'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=pb_get_thema_subjects' ), 'pb-metadata' ),
