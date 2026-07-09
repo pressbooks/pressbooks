@@ -861,4 +861,109 @@ class Modules_ImportGoogleDocsMapperTest extends \WP_UnitTestCase {
 
 		$this->assertStringContainsString( '<h2>My Subtitle</h2>', $chapters[0]['body'] );
 	}
+
+	/**
+	 * @group import
+	 */
+	public function test_list_type_switch_at_same_level(): void {
+		$doc = [
+			'title' => 'Switching Lists',
+			'body'  => [ 'content' => [
+				[ 'sectionBreak' => [ 'sectionStyle' => [] ] ],
+				[ 'paragraph' => [
+					'elements'       => [ [ 'textRun' => [ 'content' => "Chapter\n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'HEADING_1' ],
+				] ],
+				[ 'paragraph' => [
+					'elements'       => [ [ 'textRun' => [ 'content' => "Apple\n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ],
+					'bullet'         => [ 'listId' => 'kix.ul1', 'nestingLevel' => 0 ],
+				] ],
+				[ 'paragraph' => [
+					'elements'       => [ [ 'textRun' => [ 'content' => "Banana\n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ],
+					'bullet'         => [ 'listId' => 'kix.ul1', 'nestingLevel' => 0 ],
+				] ],
+				[ 'paragraph' => [
+					'elements'       => [ [ 'textRun' => [ 'content' => "Step one\n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ],
+					'bullet'         => [ 'listId' => 'kix.ol1', 'nestingLevel' => 0 ],
+				] ],
+				[ 'paragraph' => [
+					'elements'       => [ [ 'textRun' => [ 'content' => "Step two\n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ],
+					'bullet'         => [ 'listId' => 'kix.ol1', 'nestingLevel' => 0 ],
+				] ],
+			] ],
+			'inlineObjects' => [],
+			'lists'         => [
+				'kix.ul1' => [ 'listProperties' => [ 'nestingLevels' => [ [ 'glyphSymbol' => '●' ] ] ] ],
+				'kix.ol1' => [ 'listProperties' => [ 'nestingLevels' => [ [ 'glyphType' => 'DECIMAL' ] ] ] ],
+			],
+		];
+
+		$mapper   = new DocsMapper();
+		$chapters = $mapper->toChapters( $doc );
+		$body     = $chapters[0]['body'];
+
+		$this->assertStringContainsString( '<li>Apple</li>', $body );
+		$this->assertStringContainsString( '<li>Banana</li>', $body );
+		$this->assertStringContainsString( '<li>Step one</li>', $body );
+		$this->assertStringContainsString( '<li>Step two</li>', $body );
+		$this->assertStringContainsString( '<ul>', $body );
+		$this->assertStringContainsString( '<ol>', $body );
+		// ul must close before ol opens
+		$this->assertLessThan( strpos( $body, '<ol>' ), strpos( $body, '</ul>' ) );
+		$this->assertSame( substr_count( $body, '<ul>' ), substr_count( $body, '</ul>' ) );
+		$this->assertSame( substr_count( $body, '<ol>' ), substr_count( $body, '</ol>' ) );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_three_level_nested_list(): void {
+		$doc = [
+			'title' => 'Deep Nesting',
+			'body'  => [ 'content' => [
+				[ 'sectionBreak' => [ 'sectionStyle' => [] ] ],
+				[ 'paragraph' => [
+					'elements'       => [ [ 'textRun' => [ 'content' => "Chapter\n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'HEADING_1' ],
+				] ],
+				[ 'paragraph' => [
+					'elements'       => [ [ 'textRun' => [ 'content' => "Level one\n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ],
+					'bullet'         => [ 'listId' => 'kix.deep', 'nestingLevel' => 0 ],
+				] ],
+				[ 'paragraph' => [
+					'elements'       => [ [ 'textRun' => [ 'content' => "Level two\n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ],
+					'bullet'         => [ 'listId' => 'kix.deep', 'nestingLevel' => 1 ],
+				] ],
+				[ 'paragraph' => [
+					'elements'       => [ [ 'textRun' => [ 'content' => "Level three\n", 'textStyle' => [] ] ] ],
+					'paragraphStyle' => [ 'namedStyleType' => 'NORMAL_TEXT' ],
+					'bullet'         => [ 'listId' => 'kix.deep', 'nestingLevel' => 2 ],
+				] ],
+			] ],
+			'inlineObjects' => [],
+			'lists'         => [
+				'kix.deep' => [ 'listProperties' => [ 'nestingLevels' => [
+					[ 'glyphSymbol' => '●' ],
+					[ 'glyphSymbol' => '○' ],
+					[ 'glyphSymbol' => '▪' ],
+				] ] ],
+			],
+		];
+
+		$mapper   = new DocsMapper();
+		$chapters = $mapper->toChapters( $doc );
+		$body     = $chapters[0]['body'];
+
+		$this->assertSame( 3, substr_count( $body, '<ul>' ) );
+		$this->assertSame( 3, substr_count( $body, '</ul>' ) );
+		$this->assertStringContainsString( '<li>Level one', $body );
+		$this->assertStringContainsString( '<li>Level two</li>', $body );
+		$this->assertStringContainsString( '<li>Level three</li>', $body );
+	}
 }
