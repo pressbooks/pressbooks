@@ -6,10 +6,10 @@
 
 namespace Pressbooks\Modules\Import\GoogleDocs;
 
+use function Pressbooks\Utility\put_contents;
 use Google\Client as GoogleClient;
 use Google\Service\Docs as DocsService;
 use Google\Service\Drive as DriveService;
-use function Pressbooks\Utility\put_contents;
 
 class DocsFetcher {
 
