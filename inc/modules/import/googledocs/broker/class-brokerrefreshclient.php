@@ -124,7 +124,7 @@ class BrokerRefreshClient {
 
 	private function buildSignedBody( array $claims ): array {
 		$body = array_merge( $claims, [
-			'origin' => parse_url( home_url(), PHP_URL_HOST ),
+			'origin' => parse_url( network_home_url(), PHP_URL_HOST ),
 			'jti'    => wp_generate_password( 32, false ),
 			'iat'    => time(),
 		] );
@@ -148,7 +148,7 @@ class BrokerRefreshClient {
 			throw new \RuntimeException( __( 'Invalid broker response issuer.', 'pressbooks' ) );
 		}
 
-		$expected_aud = parse_url( home_url(), PHP_URL_HOST );
+		$expected_aud = parse_url( network_home_url(), PHP_URL_HOST );
 		if ( ! isset( $decoded->aud ) || $decoded->aud !== $expected_aud ) {
 			throw new \RuntimeException( __( 'Invalid broker response audience.', 'pressbooks' ) );
 		}

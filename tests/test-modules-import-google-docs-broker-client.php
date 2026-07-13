@@ -83,7 +83,7 @@ class Modules_ImportGoogleDocsBrokerClientTest extends \WP_UnitTestCase {
 		$payload['iat'] = time();
 		$payload['exp'] = time() + 30;
 		$payload['iss'] = 'https://broker.example.test';
-		$payload['aud'] = parse_url( home_url(), PHP_URL_HOST );
+		$payload['aud'] = parse_url( network_home_url(), PHP_URL_HOST );
 		return \Firebase\JWT\JWT::encode( $payload, self::$brokerPrivateKey, 'RS256' );
 	}
 
@@ -113,7 +113,7 @@ class Modules_ImportGoogleDocsBrokerClientTest extends \WP_UnitTestCase {
 		$body = json_decode( $this->captured_request_args['body'], true );
 		$this->assertSame( 'sh-abc', $body['handle'] );
 		$this->assertSame( 'sub-001', $body['google_sub'] );
-		$this->assertSame( parse_url( home_url(), PHP_URL_HOST ), $body['origin'] );
+		$this->assertSame( parse_url( network_home_url(), PHP_URL_HOST ), $body['origin'] );
 		$this->assertNotEmpty( $body['jti'] );
 		$this->assertNotEmpty( $body['iat'] );
 
@@ -179,5 +179,50 @@ class Modules_ImportGoogleDocsBrokerClientTest extends \WP_UnitTestCase {
 
 		$this->expectException( \RuntimeException::class );
 		$client->refresh( $user_id );
+	}
+
+	/**
+	 * The broker registers networks by the
+	 * network-level origin, so a subsite host produces a 403 "unknown_origin".
+	 *
+	 * @group import
+	 */
+	public function test_refresh_uses_network_origin_not_subsite_host(): void {
+		if ( ! is_multisite() ) {
+			$this->markTestSkipped( 'Requires multisite to create a subsite with a distinct host.' );
+		}
+
+		$subsite_id = self::factory()->blog->create( [ 'domain' => 'book.example.org', 'path' => '/' ] );
+		switch_to_blog( $subsite_id );
+
+		try {
+			$network_host = parse_url( network_home_url(), PHP_URL_HOST );
+			$subsite_host = parse_url( home_url(), PHP_URL_HOST );
+
+			if ( $network_host === $subsite_host ) {
+				$this->markTestSkipped( 'Could not create a subsite with a distinct host in this environment.' );
+			}
+
+			$client = $this->make_client();
+			$user_id = self::factory()->user->create();
+			$this->seed_broker_token( $user_id );
+
+			$this->set_http_response( 200, $this->sign_broker_response( [
+				'access_token' => 'fresh-at',
+				'expires_at'   => time() + 3600,
+				'token_type'   => 'Bearer',
+			] ) );
+
+			// Must not throw: the signed response aud is the network host, which the
+			// client now expects. If aud still used the subsite host, verification
+			// would fail here.
+			$client->refresh( $user_id );
+
+			$body = json_decode( $this->captured_request_args['body'], true );
+			$this->assertSame( $network_host, $body['origin'], 'Signed origin must be the network host.' );
+			$this->assertNotSame( $subsite_host, $body['origin'], 'Signed origin must not be the subsite host.' );
+		} finally {
+			restore_current_blog();
+		}
 	}
 }

@@ -227,7 +227,7 @@ class OAuthClient {
 
 	private function getBrokerAuthorizeUrl( string $state ): string {
 		$params = [
-			'origin' => parse_url( home_url(), PHP_URL_HOST ),
+			'origin' => parse_url( network_home_url(), PHP_URL_HOST ),
 			'wp_state' => $state,
 		];
 		return rtrim( PRESSBOOKS_AUTH_BROKER_URL, '/' ) . '/oauth/start?' . http_build_query( $params );
@@ -274,7 +274,7 @@ class OAuthClient {
 			throw new \RuntimeException( __( 'Invalid JWT issuer.', 'pressbooks' ) );
 		}
 
-		$expected_aud = parse_url( home_url(), PHP_URL_HOST );
+		$expected_aud = parse_url( network_home_url(), PHP_URL_HOST );
 		if ( ! isset( $decoded->aud ) || $decoded->aud !== $expected_aud ) {
 			throw new \RuntimeException( __( 'Invalid JWT audience.', 'pressbooks' ) );
 		}

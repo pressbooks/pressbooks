@@ -178,7 +178,7 @@ class Modules_ImportGoogleDocsOAuthTest extends \WP_UnitTestCase {
 		$payload = array_merge(
 			[
 				'iss'       => PRESSBOOKS_AUTH_BROKER_URL,
-				'aud'       => parse_url( home_url(), PHP_URL_HOST ),
+				'aud'       => parse_url( network_home_url(), PHP_URL_HOST ),
 				'tokens'    => [
 					'access_token'   => 'broker-access-token',
 					'expires_at'     => time() + 3600,
