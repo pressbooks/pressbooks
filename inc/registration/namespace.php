@@ -357,7 +357,7 @@ function check_for_strong_password( $pwd ) {
 }
 
 /**
- * Remove unwanted and unnecessary Bedrock's prefix in Lost Url link
+ * Remove unwanted and unnecessary Bedrock's prefix in login-related URLs
  * only if the book name is not wp
  */
 function remove_wp_prefix( $lostpassword_url ) {
