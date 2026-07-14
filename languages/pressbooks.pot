@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-09T14:39:28+00:00\n"
+"POT-Creation-Date: 2026-07-14T19:22:09+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -2492,7 +2492,7 @@ msgid "Google Analytics ID"
 msgstr ""
 
 #: inc/class-googleanalytics.php:28
-msgid "The Google Analytics ID for your network, e.g &lsquo;G-A123B4C5DE6&rsquo;."
+msgid "To send page traffic to Google Analytics (optional), provide your Google Analytics ID, e.g G-A123B4C5DE6."
 msgstr ""
 
 #: inc/class-googleanalytics.php:118
