@@ -371,6 +371,7 @@ add_filter( 'wpmu_validate_user_signup', '\Pressbooks\Registration\validate_pass
 add_filter( 'add_signup_meta', '\Pressbooks\Registration\add_temporary_password', 99 );
 add_action( 'signup_blogform', '\Pressbooks\Registration\add_hidden_password_field' );
 add_filter( 'random_password', '\Pressbooks\Registration\override_password_generation' );
+add_filter( 'login_url', '\Pressbooks\Registration\remove_wp_prefix', 12 );
 add_filter( 'lostpassword_url', '\Pressbooks\Registration\remove_wp_prefix', 12 );
 // Hooks to have pending invitation information
 add_action( 'invite_user', '\Pressbooks\Registration\save_invitation_data', 10, 3 );
