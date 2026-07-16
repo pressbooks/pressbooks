@@ -1,5 +1,19 @@
 # Changelog
 
+## [6.42.3](https://github.com/pressbooks/pressbooks/compare/6.42.2...6.42.3) (2026-07-15)
+
+
+### Bug Fixes
+
+* correct activation page login URL ([#4519](https://github.com/pressbooks/pressbooks/issues/4519)) ([8261cbd](https://github.com/pressbooks/pressbooks/commit/8261cbd845af40c8fa010b26528c853b9709aa0d))
+* global duet datepicker for proper enqueue ([#4513](https://github.com/pressbooks/pressbooks/issues/4513)) ([f2d9533](https://github.com/pressbooks/pressbooks/commit/f2d953327940b36e95c4a728873a312b6e64e9ec))
+
+
+### Chores
+
+* consolidate network managers helper ([#4517](https://github.com/pressbooks/pressbooks/issues/4517)) ([0a86d4e](https://github.com/pressbooks/pressbooks/commit/0a86d4ef17a8014f1a010449c2317a3c9fe374b7))
+* update label for GA setting ([#4521](https://github.com/pressbooks/pressbooks/issues/4521)) ([b467cf6](https://github.com/pressbooks/pressbooks/commit/b467cf694a9e4980d4ee12a4bb86bf9dba952b5f))
+
 ## [6.42.2](https://github.com/pressbooks/pressbooks/compare/6.42.1...6.42.2) (2026-07-07)
 
 
