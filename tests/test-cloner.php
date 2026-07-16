@@ -696,10 +696,28 @@ class ClonerTest extends \WP_UnitTestCase {
 	public function test_clonePreProcess_activates_candela_citations_when_source_has_citations() {
 		$this->setProtectedProperty( $this->cloner, 'sourceHasCandelaCitations', true );
 
-		$this->cloner->clonePreProcess();
+		// Create a temporary plugin file to allow activation
+		$plugin_dir = WP_PLUGIN_DIR . '/candela-citation';
+		$plugin_file = $plugin_dir . '/candela-citation.php';
 
-		// Verify activation was attempted
-		$this->assertTrue( $this->getProtectedProperty( $this->cloner, 'targetHasCandelaCitations' ) );
+		if ( ! is_dir( $plugin_dir ) ) {
+			mkdir( $plugin_dir, 0777, true );
+		}
+		file_put_contents( $plugin_file, "<?php /* Plugin Name: Candela Citation */ ?>" );
+
+		try {
+			$this->cloner->clonePreProcess();
+			// Verify activation was attempted
+			$this->assertTrue( $this->getProtectedProperty( $this->cloner, 'targetHasCandelaCitations' ) );
+		} finally {
+			// Clean up the temporary plugin file
+			if ( file_exists( $plugin_file ) ) {
+				unlink( $plugin_file );
+			}
+			if ( is_dir( $plugin_dir ) ) {
+				rmdir( $plugin_dir );
+			}
+		}
 	}
 
 	/**
