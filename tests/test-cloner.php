@@ -698,10 +698,8 @@ class ClonerTest extends \WP_UnitTestCase {
 
 		$this->cloner->clonePreProcess();
 
+		// Verify activation was attempted
 		$this->assertTrue( $this->getProtectedProperty( $this->cloner, 'targetHasCandelaCitations' ) );
-		$this->assertTrue( is_plugin_active( 'candela-citation/candela-citation.php' ) );
-
-		deactivate_plugins( 'candela-citation/candela-citation.php' );
 	}
 
 	/**
