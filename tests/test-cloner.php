@@ -597,4 +597,179 @@ class ClonerTest extends \WP_UnitTestCase {
 		
 		$this->assertTrue( $result_video );
 	}
+
+	/**
+	 * Helper to set a protected/private property on the cloner (or any object) via reflection.
+	 *
+	 * @param object $object
+	 * @param string $property
+	 * @param mixed $value
+	 */
+	private function setProtectedProperty( $object, $property, $value ) {
+		$reflection = new \ReflectionProperty( get_class( $object ), $property );
+		$reflection->setValue( $object, $value );
+	}
+
+	/**
+	 * Helper to get a protected/private property on the cloner (or any object) via reflection.
+	 *
+	 * @param object $object
+	 * @param string $property
+	 *
+	 * @return mixed
+	 */
+	private function getProtectedProperty( $object, $property ) {
+		$reflection = new \ReflectionProperty( get_class( $object ), $property );
+		return $reflection->getValue( $object );
+	}
+
+	/**
+	 * @group cloner
+	 */
+	public function test_sourceBookHasCandelaCitations_returns_false_when_no_citations() {
+		$this->setProtectedProperty(
+			$this->cloner, 'sourceBookStructure', [
+				'_embedded' => [
+					'front-matter' => [
+						[ 'id' => 1, 'meta' => [] ],
+					],
+					'chapter' => [
+						[ 'id' => 2, 'meta' => [ '_candela_citation' => '' ] ],
+					],
+					'back-matter' => [
+						[ 'id' => 3, 'meta' => [] ],
+					],
+				],
+			]
+		);
+
+		$this->assertFalse( $this->cloner->sourceBookHasCandelaCitations() );
+	}
+
+	/**
+	 * @group cloner
+	 */
+	public function test_sourceBookHasCandelaCitations_returns_true_when_a_chapter_has_citations() {
+		$this->setProtectedProperty(
+			$this->cloner, 'sourceBookStructure', [
+				'_embedded' => [
+					'front-matter' => [
+						[ 'id' => 1, 'meta' => [] ],
+					],
+					'chapter' => [
+						[ 'id' => 2, 'meta' => [ '_candela_citation' => '[{"foo":"bar"}]' ] ],
+					],
+					'back-matter' => [
+						[ 'id' => 3, 'meta' => [] ],
+					],
+				],
+			]
+		);
+
+		$this->assertTrue( $this->cloner->sourceBookHasCandelaCitations() );
+	}
+
+	/**
+	 * @group cloner
+	 */
+	public function test_sourceBookHasCandelaCitations_returns_false_when_structure_is_empty() {
+		$this->setProtectedProperty( $this->cloner, 'sourceBookStructure', [] );
+
+		$this->assertFalse( $this->cloner->sourceBookHasCandelaCitations() );
+	}
+
+	/**
+	 * @group cloner
+	 */
+	public function test_clonePreProcess_does_not_activate_candela_citations_when_source_has_no_citations() {
+		$this->setProtectedProperty( $this->cloner, 'sourceHasCandelaCitations', false );
+
+		$this->cloner->clonePreProcess();
+
+		$this->assertFalse( $this->getProtectedProperty( $this->cloner, 'targetHasCandelaCitations' ) );
+		$this->assertFalse( is_plugin_active( 'candela-citation/candela-citation.php' ) );
+	}
+
+	/**
+	 * @group cloner
+	 */
+	public function test_clonePreProcess_activates_candela_citations_when_source_has_citations() {
+		$this->setProtectedProperty( $this->cloner, 'sourceHasCandelaCitations', true );
+
+		$this->cloner->clonePreProcess();
+
+		$this->assertTrue( $this->getProtectedProperty( $this->cloner, 'targetHasCandelaCitations' ) );
+		$this->assertTrue( is_plugin_active( 'candela-citation/candela-citation.php' ) );
+
+		deactivate_plugins( 'candela-citation/candela-citation.php' );
+	}
+
+	/**
+	 * @group cloner
+	 */
+	public function test_clonePostProcess_adds_notice_when_candela_citations_could_not_be_activated() {
+		\Pressbooks\flush_all_notices();
+
+		$this->setProtectedProperty( $this->cloner, 'sourceHasCandelaCitations', true );
+		$this->setProtectedProperty( $this->cloner, 'targetHasCandelaCitations', false );
+
+		$this->cloner->clonePostProcess();
+
+		$notices = \Pressbooks\get_all_notices();
+		$this->assertNotEmpty(
+			array_filter(
+				$notices, function ( $notice ) {
+					return strpos( $notice, 'Candela Citations' ) !== false;
+				}
+			)
+		);
+
+		\Pressbooks\flush_all_notices();
+	}
+
+	/**
+	 * @group cloner
+	 */
+	public function test_clonePostProcess_does_not_add_notice_when_candela_citations_not_present_in_source() {
+		\Pressbooks\flush_all_notices();
+
+		$this->setProtectedProperty( $this->cloner, 'sourceHasCandelaCitations', false );
+		$this->setProtectedProperty( $this->cloner, 'targetHasCandelaCitations', false );
+
+		$this->cloner->clonePostProcess();
+
+		$notices = \Pressbooks\get_all_notices();
+		$this->assertEmpty(
+			array_filter(
+				$notices, function ( $notice ) {
+					return strpos( $notice, 'Candela Citations' ) !== false;
+				}
+			)
+		);
+
+		\Pressbooks\flush_all_notices();
+	}
+
+	/**
+	 * @group cloner
+	 */
+	public function test_clonePostProcess_does_not_add_notice_when_candela_citations_activated_successfully() {
+		\Pressbooks\flush_all_notices();
+
+		$this->setProtectedProperty( $this->cloner, 'sourceHasCandelaCitations', true );
+		$this->setProtectedProperty( $this->cloner, 'targetHasCandelaCitations', true );
+
+		$this->cloner->clonePostProcess();
+
+		$notices = \Pressbooks\get_all_notices();
+		$this->assertEmpty(
+			array_filter(
+				$notices, function ( $notice ) {
+					return strpos( $notice, 'Candela Citations' ) !== false;
+				}
+			)
+		);
+
+		\Pressbooks\flush_all_notices();
+	}
 }
