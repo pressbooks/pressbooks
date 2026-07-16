@@ -890,7 +890,9 @@ class Cloner {
 				continue;
 			}
 			foreach ( $this->sourceBookStructure['_embedded'][ $post_type ] as $post ) {
-				if ( ! empty( $post['meta']['_candela_citation'] ) ) {
+				$meta_value = $post['meta']['_candela_citation'] ?? null;
+				// Ignore null, empty arrays, empty strings, and serialized empty values
+				if ( ! empty( $meta_value ) && $meta_value !== '[]' ) {
 					return true;
 				}
 			}

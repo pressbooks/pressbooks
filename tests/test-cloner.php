@@ -681,6 +681,29 @@ class ClonerTest extends \WP_UnitTestCase {
 	/**
 	 * @group cloner
 	 */
+	public function test_sourceBookHasCandelaCitations_returns_false_when_citation_is_empty_array() {
+		$this->setProtectedProperty(
+			$this->cloner, 'sourceBookStructure', [
+				'_embedded' => [
+					'front-matter' => [
+						[ 'id' => 1, 'meta' => [] ],
+					],
+					'chapter' => [
+						[ 'id' => 2, 'meta' => [ '_candela_citation' => '[]' ] ],
+					],
+					'back-matter' => [
+						[ 'id' => 3, 'meta' => [] ],
+					],
+				],
+			]
+		);
+
+		$this->assertFalse( $this->cloner->sourceBookHasCandelaCitations() );
+	}
+
+	/**
+	 * @group cloner
+	 */
 	public function test_clonePreProcess_does_not_activate_candela_citations_when_source_has_no_citations() {
 		$this->setProtectedProperty( $this->cloner, 'sourceHasCandelaCitations', false );
 
