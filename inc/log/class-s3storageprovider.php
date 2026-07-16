@@ -125,7 +125,7 @@ class S3StorageProvider implements StorageProvider {
 		return false;
 	}
 
-	public function store( array $data, string $file_header = null ) {
+	public function store( array $data, ?string $file_header = null ) {
 		if ( $this->create() ) {
 			try {
 				$this->client->registerStreamWrapper();

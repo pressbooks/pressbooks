@@ -2,7 +2,7 @@
 
 use Aws\CloudWatchLogs\CloudWatchLogsClient;
 use Aws\S3\S3Client as S3Client;
-use Maxbanton\Cwh\Handler\CloudWatch;
+use Pressbooks\Log\CloudWatchHandler;
 use Monolog\Logger;
 use Pressbooks\Log;
 
@@ -75,7 +75,7 @@ class LogTest extends \WP_UnitTestCase {
 			->disableOriginalConstructor()
 			->getMock();
 		$handler = $this
-			->getMockBuilder( CloudWatch::class )
+			->getMockBuilder( CloudWatchHandler::class )
 			->disableOriginalConstructor()
 			->setMethods([
 				'setFormatter',

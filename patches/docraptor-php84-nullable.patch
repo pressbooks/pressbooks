@@ -1,0 +1,69 @@
+diff --git a/lib/DocApi.php b/lib/DocApi.php
+index 1111111..2222222 100644
+--- a/lib/DocApi.php
++++ b/lib/DocApi.php
+@@ -76,9 +76,9 @@ class DocApi
+      * @param int          $hostIndex (Optional) host index to select the list of hosts if defined in the OpenAPI spec
+      */
+     public function __construct(
+-        ClientInterface $client = null,
+-        Configuration $config = null,
+-        HeaderSelector $selector = null,
++        ?ClientInterface $client = null,
++        ?Configuration $config = null,
++        ?HeaderSelector $selector = null,
+         $hostIndex = 0
+     ) {
+         $this->client = $client ?: new Client();
+diff --git a/lib/PrinceOptions.php b/lib/PrinceOptions.php
+index 1111111..2222222 100644
+--- a/lib/PrinceOptions.php
++++ b/lib/PrinceOptions.php
+@@ -366,7 +366,7 @@ class PrinceOptions implements ModelInterface, ArrayAccess, \JsonSerializable
+      * @param mixed[] $data Associated array of property values
+      *                      initializing the model
+      */
+-    public function __construct(array $data = null)
++    public function __construct(?array $data = null)
+     {
+         $this->setIfExists('baseurl', $data ?? [], null);
+         $this->setIfExists('no_xinclude', $data ?? [], null);
+diff --git a/lib/Doc.php b/lib/Doc.php
+index 1111111..2222222 100644
+--- a/lib/Doc.php
++++ b/lib/Doc.php
+@@ -291,7 +291,7 @@ class Doc implements ModelInterface, ArrayAccess, \JsonSerializable
+      * @param mixed[] $data Associated array of property values
+      *                      initializing the model
+      */
+-    public function __construct(array $data = null)
++    public function __construct(?array $data = null)
+     {
+         $this->setIfExists('name', $data ?? [], null);
+         $this->setIfExists('document_type', $data ?? [], null);
+diff --git a/lib/AsyncDoc.php b/lib/AsyncDoc.php
+index 1111111..2222222 100644
+--- a/lib/AsyncDoc.php
++++ b/lib/AsyncDoc.php
+@@ -174,7 +174,7 @@ class AsyncDoc implements ModelInterface, ArrayAccess, \JsonSerializable
+      * @param mixed[] $data Associated array of property values
+      *                      initializing the model
+      */
+-    public function __construct(array $data = null)
++    public function __construct(?array $data = null)
+     {
+         $this->setIfExists('status_id', $data ?? [], null);
+ 
+diff --git a/lib/DocStatus.php b/lib/DocStatus.php
+index 1111111..2222222 100644
+--- a/lib/DocStatus.php
++++ b/lib/DocStatus.php
+@@ -199,7 +199,7 @@ class DocStatus implements ModelInterface, ArrayAccess, \JsonSerializable
+      * @param mixed[] $data Associated array of property values
+      *                      initializing the model
+      */
+-    public function __construct(array $data = null)
++    public function __construct(?array $data = null)
+     {
+         $this->setIfExists('status', $data ?? [], null);
+         $this->setIfExists('download_url', $data ?? [], null);
