@@ -13,7 +13,7 @@ class TaxonomyReorderableMultiselect extends Field {
 
 	public string $view = 'reorderable-multiselect';
 
-	public function __construct( string $name, string $label, ?string $description = null, ?string $id = null, string $taxonomy = null ) {
+	public function __construct( string $name, string $label, ?string $description = null, ?string $id = null, ?string $taxonomy = null ) {
 		parent::__construct( $name, $label, $description, $id );
 
 		$this->taxonomy = $taxonomy;
