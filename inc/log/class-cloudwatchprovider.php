@@ -6,7 +6,6 @@ use Aws\CloudWatchLogs\CloudWatchLogsClient;
 use Aws\Credentials\CredentialProvider;
 use Aws\Exception\UnresolvedApiException;
 use function Pressbooks\Utility\debug_error_log;
-use Maxbanton\Cwh\Handler\CloudWatch;
 use Monolog\Formatter\JsonFormatter;
 use Monolog\Logger;
 
@@ -38,7 +37,7 @@ class CloudWatchProvider implements StorageProvider {
 	private $client;
 
 	/**
-	 * @var CloudWatch
+	 * @var CloudWatchHandler
 	 */
 	private $handler;
 
@@ -91,13 +90,12 @@ class CloudWatchProvider implements StorageProvider {
 							'credentials' => CredentialProvider::env(),
 						]
 					);
-					$this->handler = new CloudWatch(
+					$this->handler = new CloudWatchHandler(
 						$this->client,
 						$this->group,
 						$this->stream,
 						$this->retention_days,
 						10000,
-						[], // TODO: Implement tags
 					);
 					$this->handler->setFormatter( new JsonFormatter() );
 					$this->logger = new Logger( $this->channel );
@@ -136,7 +134,7 @@ class CloudWatchProvider implements StorageProvider {
 		return false;
 	}
 
-	public function store( array $data, string $file_header = null ) {
+	public function store( array $data, ?string $file_header = null ) {
 		if ( $this->create() ) {
 			$data = $this->getDataFormat( $data );
 			try {
@@ -167,7 +165,7 @@ class CloudWatchProvider implements StorageProvider {
 		$this->client = $client;
 	}
 
-	public function setHandler( CloudWatch $handler ) {
+	public function setHandler( CloudWatchHandler $handler ) {
 		$this->handler = $handler;
 	}
 }
