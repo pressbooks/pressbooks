@@ -83,8 +83,9 @@ class Modules_ImportGoogleDocsOAuthTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( 'accounts.google.com', $url );
 		$this->assertStringContainsString( 'client_id=test-client-id', $url );
 		$this->assertStringContainsString( 'access_type=offline', $url );
-		$this->assertStringContainsString( 'documents.readonly', urldecode( $url ) );
-		$this->assertStringContainsString( 'drive.readonly', urldecode( $url ) );
+		$this->assertStringContainsString( 'drive.file', urldecode( $url ) );
+		$this->assertStringNotContainsString( 'documents.readonly', urldecode( $url ) );
+		$this->assertStringNotContainsString( 'drive.readonly', urldecode( $url ) );
 	}
 
 	/**

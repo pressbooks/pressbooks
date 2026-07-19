@@ -14,9 +14,14 @@ use Pressbooks\Modules\Import\GoogleDocs\Storage\TokenStorage;
 
 class OAuthClient {
 
+	/**
+	 * drive.file is a non-sensitive scope (no restricted-scope verification / CASA
+	 * assessment required). It grants per-file access only: the app can read files
+	 * the user explicitly selects via the Google Picker. The Docs API accepts this
+	 * scope for documents.get on granted files.
+	 */
 	const SCOPES = [
-		'https://www.googleapis.com/auth/documents.readonly',
-		'https://www.googleapis.com/auth/drive.readonly',
+		'https://www.googleapis.com/auth/drive.file',
 	];
 
 	const STATE_TRANSIENT_TTL = 600;
