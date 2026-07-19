@@ -132,7 +132,8 @@ class Bootstrap {
 
 		// Enqueue the Picker script on the import page.
 		add_action( 'admin_enqueue_scripts', function () use ( $creds_store ) {
-			if ( ( $_GET['page'] ?? '' ) !== 'pb_import' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$page = sanitize_text_field( wp_unslash( $_GET['page'] ?? '' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			if ( $page !== 'pb_import' ) {
 				return;
 			}
 			if ( ! $creds_store->isConfigured() || ! $creds_store->isPickerConfigured() ) {
