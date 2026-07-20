@@ -15,7 +15,6 @@
 
 namespace Pressbooks\Utility;
 
-use PressbooksFrontendTools\Assets;
 use function Pressbooks\Modules\Export\filetypes;
 use Pressbooks\Book;
 use Pressbooks\Modules\Export\Export;
@@ -1727,7 +1726,7 @@ function get_h5p_ids_for_exportable_posts(): array {
  * @return void
  */
 function register_duet_date_picker(): void {
-	/** @var Assets $assets */
+	/** @var \PressbooksFrontendTools\Assets $assets */
 	$assets = app( 'Assets' );
 	$assets->register( 'assets/src/scripts/duet-date-picker.js', 'duet-date-picker' );
 
