@@ -157,13 +157,13 @@ class ClonerTest extends \WP_UnitTestCase {
 		// When sourceBookId is set (in-network clone), HTML entities should be decoded from the source content
 		$encoded_content = '.test-class { color: red; } .test &gt; .child { margin: 10px; }';
 		$source_book_id = 123; // Non-zero indicates in-network clone
-		
+
 		// Apply the same conditional logic as in the cloneStyles method
 		$content = $encoded_content;
 		if ( ! empty( $source_book_id ) ) {
 			$content = html_entity_decode( $content, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
 		}
-		
+
 		// Verify the decoding worked
 		$this->assertStringContainsString( '.test > .child', $content, 'HTML entities should be decoded for in-network clones' );
 		$this->assertStringNotContainsString( '&gt;', $content, 'HTML entities should not remain encoded after decoding' );
@@ -177,7 +177,7 @@ class ClonerTest extends \WP_UnitTestCase {
 		// Test that html_entity_decode works as expected
 		$encoded = '.test-class { color: red; } .test &gt; .child { margin: 10px; }';
 		$decoded = html_entity_decode( $encoded, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
-		
+
 		$this->assertStringContainsString( '.test > .child', $decoded );
 		$this->assertStringNotContainsString( '&gt;', $decoded );
 	}
@@ -189,15 +189,15 @@ class ClonerTest extends \WP_UnitTestCase {
 	public function test_cloneStyles_entity_decoding_logic(): void {
 		// Test the specific logic used in cloneStyles method
 		$this->_book();
-		
+
 		$content = '.test-class { color: red; } .test &gt; .child { margin: 10px; }';
 		$sourceBookId = 123; // Non-empty value
-		
+
 		// Apply the same logic as in cloneStyles
 		if ( ! empty( $sourceBookId ) ) {
 			$content = html_entity_decode( $content, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
 		}
-		
+
 		$this->assertStringContainsString( '.test > .child', $content );
 		$this->assertStringNotContainsString( '&gt;', $content );
 	}
@@ -207,17 +207,17 @@ class ClonerTest extends \WP_UnitTestCase {
 	 * @group cloner
 	 */
 	public function cloneStyles_preserves_content_for_cross_network_clones(): void {
-		// Test the core logic: when sourceBookId is not set (cross-network clone), 
+		// Test the core logic: when sourceBookId is not set (cross-network clone),
 		// HTML entities should NOT be decoded from the source content
 		$encoded_content = '.test-class { color: red; } .test &gt; .child { margin: 10px; }';
 		$source_book_id = 0; // Zero or empty indicates cross-network clone
-		
+
 		// Apply the same conditional logic as in the cloneStyles method
 		$content = $encoded_content;
 		if ( ! empty( $source_book_id ) ) {
 			$content = html_entity_decode( $content, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
 		}
-		
+
 		// Verify the content was NOT decoded (condition should be false)
 		$this->assertStringContainsString( '.test &gt; .child', $content, 'HTML entities should be preserved for cross-network clones' );
 		$this->assertStringNotContainsString( '.test > .child', $content, 'HTML entities should not be decoded for cross-network clones' );
@@ -266,21 +266,21 @@ class ClonerTest extends \WP_UnitTestCase {
 	public function test_createMediaPatch() {
 		$downloads = new Downloads( $this->cloner, null );
 		$media = new \Pressbooks\Entities\Cloner\Media();
-		
+
 		// Test with basic media properties
 		$media->title = 'Test Image';
 		$media->description = 'Test description';
 		$media->caption = 'Test caption';
 		$media->altText = 'Test alt text';
-		
+
 		$patch = $downloads->createMediaPatch( $media );
-		
+
 		$this->assertEquals( 'Test Image', $patch['title'] );
 		$this->assertEquals( 'Test description', $patch['description'] );
 		$this->assertEquals( 'Test caption', $patch['caption'] );
 		$this->assertEquals( 'Test alt text', $patch['alt_text'] );
 		$this->assertArrayNotHasKey( 'meta', $patch );
-		
+
 		// Test with meta data fallback for title
 		$media2 = new \Pressbooks\Entities\Cloner\Media();
 		$media2->meta = [
@@ -299,9 +299,9 @@ class ClonerTest extends \WP_UnitTestCase {
 			],
 			'custom_field' => 'custom_value'
 		];
-		
+
 		$patch2 = $downloads->createMediaPatch( $media2 );
-		
+
 		$this->assertEquals( 'Meta Title Raw', $patch2['title'] );
 		$this->assertEquals( 'Meta Description Raw', $patch2['description'] );
 		$this->assertEquals( 'Meta Caption Rendered', $patch2['caption'] );
@@ -310,7 +310,7 @@ class ClonerTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'custom_value', $patch2['meta']['custom_field'] );
 		$this->assertArrayNotHasKey( '_rest_api_data', $patch2['meta'] );
 		$this->assertArrayNotHasKey( '_media_details', $patch2['meta'] );
-		
+
 		// Test precedence: primary properties override meta fallbacks
 		$media3 = new \Pressbooks\Entities\Cloner\Media();
 		$media3->title = 'Primary Title';
@@ -322,23 +322,23 @@ class ClonerTest extends \WP_UnitTestCase {
 			],
 			'preserved_field' => 'should_be_preserved'
 		];
-		
+
 		$patch3 = $downloads->createMediaPatch( $media3 );
-		
+
 		$this->assertEquals( 'Primary Title', $patch3['title'] );
 		$this->assertArrayHasKey( 'meta', $patch3 );
 		$this->assertEquals( 'should_be_preserved', $patch3['meta']['preserved_field'] );
-		
+
 		// Test empty media object
 		$media4 = new \Pressbooks\Entities\Cloner\Media();
 		$patch4 = $downloads->createMediaPatch( $media4 );
-		
+
 		$this->assertArrayNotHasKey( 'title', $patch4 );
 		$this->assertArrayNotHasKey( 'description', $patch4 );
 		$this->assertArrayNotHasKey( 'caption', $patch4 );
 		$this->assertArrayNotHasKey( 'alt_text', $patch4 );
 		$this->assertArrayNotHasKey( 'meta', $patch4 );
-		
+
 		// Test meta cleaning - _rest_api_data and _media_details should be filtered out
 		$media5 = new \Pressbooks\Entities\Cloner\Media();
 		$media5->meta = [
@@ -346,9 +346,9 @@ class ClonerTest extends \WP_UnitTestCase {
 			'_media_details' => ['should' => 'be_removed'],
 			'keep_this' => 'should_be_kept'
 		];
-		
+
 		$patch5 = $downloads->createMediaPatch( $media5 );
-		
+
 		$this->assertArrayHasKey( 'meta', $patch5 );
 		$this->assertArrayNotHasKey( '_rest_api_data', $patch5['meta'] );
 		$this->assertArrayNotHasKey( '_media_details', $patch5['meta'] );
@@ -364,40 +364,40 @@ class ClonerTest extends \WP_UnitTestCase {
 		$media->id = 123;
 		$media->title = 'Test Media';
 		$media->description = 'Test Description';
-		
+
 		$known_media = [
 			'2023/01/test-image.jpg' => $media
 		];
-		
+
 		// Test with valid attachment ID
 		$attachment_id = 456;
-		
+
 		// Mock the REST request by capturing what would be called
 		global $wp_rest_server;
 		$original_server = $wp_rest_server;
 		$requests_made = [];
-		
+
 		// Create a mock server that captures requests
 		$wp_rest_server = new class($requests_made) {
 			private $requests;
-			
+
 			public function __construct(&$requests) {
 				$this->requests = &$requests;
 			}
-			
+
 			public function dispatch($request) {
 				$this->requests[] = [
 					'route' => $request->get_route(),
 					'method' => $request->get_method(),
 					'params' => $request->get_body_params()
 				];
-				
+
 				// Return a mock successful response
 				$response = new \WP_REST_Response(['id' => 456]);
 				return $response;
 			}
 		};
-		
+
 		// Override rest_do_request function behavior
 		add_filter('pre_http_request', function($response, $parsed_args, $url) use ($media) {
 			// Mock the REST API call
@@ -406,26 +406,26 @@ class ClonerTest extends \WP_UnitTestCase {
 				'body' => json_encode(['id' => 456])
 			];
 		}, 10, 3);
-		
+
 		// Call the method
 		$downloads->extractedMedia( $known_media, '2023/01/test-image.jpg', $attachment_id );
-		
+
 		// Verify that the transition was created (we can't easily mock the cloner->createTransition call,
 		// but we can verify the method doesn't throw errors with valid input)
 		$this->assertTrue( true ); // If we get here, the method executed without errors
-		
+
 		// Test with unknown media file
 		$downloads->extractedMedia( $known_media, 'unknown/file.jpg', $attachment_id );
-		
+
 		// Should not throw error with unknown file
 		$this->assertTrue( true );
-		
+
 		// Test with empty known_media array
 		$downloads->extractedMedia( [], '2023/01/test-image.jpg', $attachment_id );
-		
+
 		// Should not throw error with empty known_media
 		$this->assertTrue( true );
-		
+
 		// Restore original server
 		$wp_rest_server = $original_server;
 		remove_all_filters('pre_http_request');
@@ -438,11 +438,11 @@ class ClonerTest extends \WP_UnitTestCase {
 		$downloads = new Downloads( $this->cloner, null );
 		$media = new \Pressbooks\Entities\Cloner\Media();
 		$media->id = 123;
-		
+
 		$known_media = [
 			'2023/01/test-image.jpg' => $media
 		];
-		
+
 		// Test with WP_Error - the method will fail because it tries to use WP_Error as an int in the URL
 		$wp_error = new \WP_Error( 'test_error', 'Test error message' );
 		// The current implementation has a bug where it doesn't check if $pid is WP_Error
@@ -456,7 +456,7 @@ class ClonerTest extends \WP_UnitTestCase {
 	 */
 	public function test_extractAndProcessCaptionAttachments() {
 		$downloads = new Downloads( $this->cloner, null );
-		
+
 		// Test content with caption shortcodes
 		$content_with_captions = '
 			[caption id="attachment_123" align="alignnone" width="300"]<img src="image.jpg" />Test Caption[/caption]
@@ -466,51 +466,51 @@ class ClonerTest extends \WP_UnitTestCase {
 			</div>
 			[caption id=attachment_789 width="200"]<img src="third-image.jpg" />Third caption[/caption]
 		';
-		
+
 		// Mock fetchAttachmentMetadata to prevent actual API calls
 		$processed_ids = [];
 		$original_method = new \ReflectionMethod($downloads, 'fetchAttachmentMetadata');
-		
+
 		// Use a simple approach - override the method behavior by extending the class
 		$test_downloads = new class($this->cloner, null) extends Downloads {
 			public $processed_attachment_ids = [];
-			
+
 			public function fetchAttachmentMetadata(int $attachment_id): bool {
 				$this->processed_attachment_ids[] = $attachment_id;
 				return true; // Mock successful fetch
 			}
 		};
-		
+
 		$result = $test_downloads->extractAndProcessCaptionAttachments( $content_with_captions );
-		
+
 		// Verify extracted IDs
 		$this->assertIsArray( $result );
 		$this->assertContains( 123, $result );
 		$this->assertContains( 456, $result );
 		$this->assertContains( 789, $result );
 		$this->assertCount( 3, $result );
-		
+
 		// Verify fetchAttachmentMetadata was called for each ID
 		$this->assertContains( 123, $test_downloads->processed_attachment_ids );
 		$this->assertContains( 456, $test_downloads->processed_attachment_ids );
 		$this->assertContains( 789, $test_downloads->processed_attachment_ids );
-		
+
 		// Test with content without captions
 		$content_without_captions = '<p>Just some regular content with no captions.</p>';
 		$result_empty = $test_downloads->extractAndProcessCaptionAttachments( $content_without_captions );
-		
+
 		$this->assertIsArray( $result_empty );
 		$this->assertEmpty( $result_empty );
-		
+
 		// Test with malformed/edge cases
 		$content_edge_cases = '
 			[caption id="attachment_" width="300"]Malformed ID[/caption]
 			<div id="attachment_999a" class="wp-caption">Bad ID format</div>
 			[caption id="attachment_000" width="200"]Zero ID[/caption]
 		';
-		
+
 		$result_edge = $test_downloads->extractAndProcessCaptionAttachments( $content_edge_cases );
-		
+
 		// Should handle edge cases gracefully - only valid numeric IDs should be extracted
 		$this->assertIsArray( $result_edge );
 		// Note: attachment_000 becomes 0, which might be filtered out depending on implementation
@@ -524,29 +524,29 @@ class ClonerTest extends \WP_UnitTestCase {
 		$mock_cloner = new class(home_url()) extends Cloner {
 			public $mock_media_data = null;
 			public $updated_known_media = null;
-			
+
 			public function handleGetRequest($url, $namespace, $endpoint, $params = [], $paginate = true, $previous_results = []) {
 				if (strpos($endpoint, 'media/') === 0) {
 					return $this->mock_media_data;
 				}
 				return parent::handleGetRequest($url, $namespace, $endpoint, $params, $paginate, $previous_results);
 			}
-			
+
 			public function getSourceBookUrl() {
 				return 'https://example.com';
 			}
-			
+
 			public function getKnownMedia(): array {
 				return ['existing' => 'media'];
 			}
-			
+
 			public function updateKnownMedia($known_media): void {
 				$this->updated_known_media = $known_media;
 			}
 		};
-		
+
 		$downloads = new Downloads( $mock_cloner, null );
-		
+
 		// Test successful metadata fetch
 		$mock_cloner->mock_media_data = [
 			'id' => 123,
@@ -565,24 +565,24 @@ class ClonerTest extends \WP_UnitTestCase {
 			],
 			'meta' => ['custom_field' => 'custom_value']
 		];
-		
+
 		$result = $downloads->fetchAttachmentMetadata( 123 );
-		
+
 		$this->assertTrue( $result );
 		$this->assertNotNull( $mock_cloner->updated_known_media );
-		
+
 		// Test with WP_Error response
 		$mock_cloner->mock_media_data = new \WP_Error( 'not_found', 'Media not found' );
 		$result_error = $downloads->fetchAttachmentMetadata( 456 );
-		
+
 		$this->assertFalse( $result_error );
-		
+
 		// Test with empty response
 		$mock_cloner->mock_media_data = [];
 		$result_empty = $downloads->fetchAttachmentMetadata( 789 );
-		
+
 		$this->assertFalse( $result_empty );
-		
+
 		// Test with non-image media (should not add size variants)
 		$mock_cloner->mock_media_data = [
 			'id' => 999,
@@ -592,35 +592,9 @@ class ClonerTest extends \WP_UnitTestCase {
 			'mime_type' => 'video/mp4',
 			'meta' => []
 		];
-		
+
 		$result_video = $downloads->fetchAttachmentMetadata( 999 );
-		
+
 		$this->assertTrue( $result_video );
 	}
-
-	/**
-	 * Helper to set a protected/private property on the cloner (or any object) via reflection.
-	 *
-	 * @param object $object
-	 * @param string $property
-	 * @param mixed $value
-	 */
-	private function setProtectedProperty( $object, $property, $value ) {
-		$reflection = new \ReflectionProperty( get_class( $object ), $property );
-		$reflection->setValue( $object, $value );
-	}
-
-	/**
-	 * Helper to get a protected/private property on the cloner (or any object) via reflection.
-	 *
-	 * @param object $object
-	 * @param string $property
-	 *
-	 * @return mixed
-	 */
-	private function getProtectedProperty( $object, $property ) {
-		$reflection = new \ReflectionProperty( get_class( $object ), $property );
-		return $reflection->getValue( $object );
-	}
-
 }
