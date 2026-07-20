@@ -251,16 +251,6 @@ class Cloner {
 	protected $knownH5P = [];
 
 	/**
-	 * @var bool Whether the source book has Candela Citations data
-	 */
-	protected $sourceHasCandelaCitations = false;
-
-	/**
-	 * @var bool Whether the target book has the Candela Citations plugin active
-	 */
-	protected $targetHasCandelaCitations = false;
-
-	/**
 	 * Flag to indicate the cloner is being used to import content
 	 * @var bool
 	 */
@@ -641,9 +631,6 @@ class Cloner {
 			$this->sourceHasH5pApi = true;
 		}
 
-		// Candela Citations
-		$this->sourceHasCandelaCitations = $this->sourceBookHasCandelaCitations();
-
 		// Set up $this->sourceBookGlossary
 		$this->sourceBookGlossary = $this->getBookGlossary( $this->sourceBookUrl );
 
@@ -666,16 +653,7 @@ class Cloner {
 			$this->targetHasH5pApi = $this->h5p->activate();
 		}
 
-		// Candela Citations
-		if ( $this->sourceHasCandelaCitations ) {
-			$candela_citation_plugin = 'candela-citation/candela-citation.php';
-			if ( is_plugin_active_for_network( $candela_citation_plugin ) || is_plugin_active( $candela_citation_plugin ) ) {
-				$this->targetHasCandelaCitations = true;
-			} elseif ( is_file( WP_PLUGIN_DIR . '/' . $candela_citation_plugin ) ) {
-				$result = activate_plugin( $candela_citation_plugin );
-				$this->targetHasCandelaCitations = ! is_wp_error( $result );
-			}
-		}
+		do_action( 'pb_pre_cloning', $this );
 	}
 
 	/**
@@ -811,11 +789,7 @@ class Cloner {
 			\Pressbooks\add_notice( __( 'The source book contained H5P content that could not be cloned. Please review the cloned version of your book carefully, as missing H5P content will be indicated. You may want to remove or replace these elements.', 'pressbooks' ) );
 		}
 
-		// Candela Citations
-		if ( $this->sourceHasCandelaCitations && ! $this->targetHasCandelaCitations ) {
-			// Add a notice to the user indicating that the Candela Citations could not be cloned
-			\Pressbooks\add_notice( __( 'The source book contained Candela Citations that could not be cloned because the Candela Citations plugin could not be activated on the new book. Contact your network manager to ensure this plugin is available and retry the cloning operation, or find another way to display the missing citations in your book.', 'pressbooks' ) );
-		}
+		do_action( 'pb_post_cloning', $this );
 	}
 
 	/**
@@ -875,29 +849,6 @@ class Cloner {
 			$known_h5p[] = $this->createH5PEntity( $item );
 		}
 		return $known_h5p;
-	}
-
-	/**
-	 * Check if the source book's front matter, chapters, or back matter contain any Candela Citations data.
-	 * Returns as soon as one is found. Must be called after $this->sourceBookStructure has been populated
-	 * (see getBookStructure()).
-	 *
-	 * @return bool True if the source book has at least one post with Candela Citations data
-	 */
-	public function sourceBookHasCandelaCitations() {
-		foreach ( [ 'front-matter', 'chapter', 'back-matter' ] as $post_type ) {
-			if ( empty( $this->sourceBookStructure['_embedded'][ $post_type ] ) ) {
-				continue;
-			}
-			foreach ( $this->sourceBookStructure['_embedded'][ $post_type ] as $post ) {
-				$meta_value = $post['meta']['_candela_citation'] ?? null;
-				// Ignore null, empty arrays, empty strings, and serialized empty values
-				if ( ! empty( $meta_value ) && $meta_value !== '[]' ) {
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 
 	/**
