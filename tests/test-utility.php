@@ -58,6 +58,83 @@ class UtilityTest extends \WP_UnitTestCase {
 	/**
 	 * @group utility
 	 */
+	public function test_register_duet_date_picker_uses_asset_url_when_available() {
+		wp_deregister_style( 'duet-date-picker' );
+
+		$container = \Pressbooks\Container::getInstance();
+
+		// Stub Assets so getAssetUrl() succeeds: exercises the happy path (try branch).
+		$fake_assets = new class {
+			public function register( $file, $handle, $options = [] ) {
+				return $this;
+			}
+
+			public function getAssetUrl( $file ): string {
+				return 'https://example.test/dist/duet.abc123.css';
+			}
+
+			public function getAssetPath( $file ): string {
+				throw new \Exception( 'getAssetPath() should not be called when getAssetUrl() succeeds' );
+			}
+		};
+		$container->instance( 'Assets', $fake_assets );
+
+		try {
+			register_duet_date_picker();
+
+			$this->assertTrue( wp_style_is( 'duet-date-picker', 'registered' ) );
+			$this->assertEquals(
+				'https://example.test/dist/duet.abc123.css',
+				wp_styles()->registered['duet-date-picker']->src
+			);
+		} finally {
+			$container->forgetInstance( 'Assets' );
+			wp_deregister_style( 'duet-date-picker' );
+		}
+	}
+
+	/**
+	 * @group utility
+	 */
+	public function test_register_duet_date_picker_falls_back_to_asset_path_when_url_lookup_fails() {
+		wp_deregister_style( 'duet-date-picker' );
+
+		$container = \Pressbooks\Container::getInstance();
+
+		// Stub Assets so getAssetUrl() throws (e.g. a missing Vite manifest); this
+		// forces the catch branch that gracefully degrades to getAssetPath().
+		$fake_assets = new class {
+			public function register( $file, $handle, $options = [] ) {
+				return $this;
+			}
+
+			public function getAssetUrl( $file ): string {
+				throw new \Exception( 'missing manifest' );
+			}
+
+			public function getAssetPath( $file ): string {
+				return 'https://example.test/fallback/' . $file;
+			}
+		};
+		$container->instance( 'Assets', $fake_assets );
+
+		try {
+			register_duet_date_picker();
+
+			$this->assertTrue( wp_style_is( 'duet-date-picker', 'registered' ) );
+			$this->assertEquals(
+				'https://example.test/fallback/assets/dist/assets/src/styles/duet.css',
+				wp_styles()->registered['duet-date-picker']->src
+			);
+		} finally {
+			$container->forgetInstance( 'Assets' );
+			wp_deregister_style( 'duet-date-picker' );
+		}
+	}
+
+	/**
+	 * @group utility
+	 */
 	public function test_scandir_by_date() {
 		$files = \Pressbooks\Utility\scandir_by_date( __DIR__ );
 
