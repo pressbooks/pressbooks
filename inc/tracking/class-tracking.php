@@ -54,7 +54,7 @@ abstract class Tracking {
 	 *
 	 * @return void
 	 */
-	protected function setup() {
+	protected function setup(): void {
 		if ( get_site_option( self::DB_VERSION_OPTION ) === self::DB_VERSION ) {
 			return;
 		}
@@ -85,7 +85,7 @@ abstract class Tracking {
 	 * @param mixed $value
 	 * @return void
 	 */
-	public function store( $value ) {
+	public function store( $value ): void {
 		global $wpdb;
 
 		$date = new \DateTime( 'now', new \DateTimeZone( 'UTC' ) );
@@ -109,7 +109,7 @@ abstract class Tracking {
 	 *
 	 * @return string|null
 	 */
-	protected function getUserAgent() {
+	protected function getUserAgent(): ?string {
 		$user_agent = sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ?? '' ) );
 
 		return $user_agent === '' ? null : mb_substr( $user_agent, 0, 500 );
@@ -120,7 +120,7 @@ abstract class Tracking {
 	 *
 	 * @return string|null
 	 */
-	protected function getReferrer() {
+	protected function getReferrer(): ?string {
 		$referrer = esc_url_raw( wp_unslash( $_SERVER['HTTP_REFERER'] ?? '' ) );
 
 		return $referrer === '' ? null : mb_substr( $referrer, 0, 500 );
@@ -132,7 +132,7 @@ abstract class Tracking {
 	 *
 	 * @return string|null
 	 */
-	protected function getIpHash() {
+	protected function getIpHash(): ?string {
 		/**
 		 * Filter the client IP used for hashed tracking.
 		 *
@@ -158,7 +158,7 @@ abstract class Tracking {
 	 *
 	 * @return string
 	 */
-	protected function getIpSalt() {
+	protected function getIpSalt(): string {
 		$salt = get_site_option( self::IP_SALT_OPTION );
 
 		if ( ! $salt ) {

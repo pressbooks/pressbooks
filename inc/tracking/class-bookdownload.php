@@ -20,7 +20,7 @@ class BookDownload extends Tracking {
 	 * @param mixed $value
 	 * @return void
 	 */
-	public function store( $value ) {
+	public function store( $value ): void {
 		if ( ! $this->shouldTrack() ) {
 			return;
 		}
