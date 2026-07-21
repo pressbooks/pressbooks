@@ -652,6 +652,8 @@ class Cloner {
 		if ( $this->sourceHasH5pApi ) {
 			$this->targetHasH5pApi = $this->h5p->activate();
 		}
+
+		do_action( 'pb_pre_cloning', $this );
 	}
 
 	/**
@@ -786,6 +788,8 @@ class Cloner {
 			// Add a notice to the user indicating that the H5P could not be cloned
 			\Pressbooks\add_notice( __( 'The source book contained H5P content that could not be cloned. Please review the cloned version of your book carefully, as missing H5P content will be indicated. You may want to remove or replace these elements.', 'pressbooks' ) );
 		}
+
+		do_action( 'pb_post_cloning', $this );
 	}
 
 	/**
@@ -1656,6 +1660,15 @@ class Cloner {
 		update_post_meta( $response['id'], 'pb_is_based_on', $permalink );
 		if ( isset( $section['meta']['pb_part_invisible_string'] ) && $section['meta']['pb_part_invisible_string'] === 'on' ) {
 			update_post_meta( $response['id'], 'pb_part_invisible', 'on' );
+		}
+
+		// Copy over all post meta on cloning, excluding keys handled explicitly above.
+		$excluded_meta = [ 'pb_is_based_on', 'pb_part_invisible' ];
+		foreach ( $section['meta'] as $meta_key => $meta_value ) {
+			if ( in_array( $meta_key, $excluded_meta, true ) ) {
+				continue;
+			}
+			update_post_meta( $response['id'], $meta_key, $meta_value );
 		}
 
 		// Clone associated content
