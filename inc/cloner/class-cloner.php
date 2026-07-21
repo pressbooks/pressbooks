@@ -1662,6 +1662,15 @@ class Cloner {
 			update_post_meta( $response['id'], 'pb_part_invisible', 'on' );
 		}
 
+		// Copy over all post meta on cloning, excluding keys handled explicitly above.
+		$excluded_meta = [ 'pb_is_based_on', 'pb_part_invisible' ];
+		foreach ( $section['meta'] as $meta_key => $meta_value ) {
+			if ( in_array( $meta_key, $excluded_meta, true ) ) {
+				continue;
+			}
+			update_post_meta( $response['id'], $meta_key, $meta_value );
+		}
+
 		// Clone associated content
 		if ( $post_type !== 'part' ) {
 			$this->cloneSectionMetadata( $section_id, $post_type, $response['id'] );

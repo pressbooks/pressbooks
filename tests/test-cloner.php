@@ -597,4 +597,106 @@ class ClonerTest extends \WP_UnitTestCase {
 
 		$this->assertTrue( $result_video );
 	}
+
+	/**
+	 * @test
+	 * @group cloner
+	 */
+	public function cloneSection_copies_all_post_meta_to_the_cloned_post(): void {
+		// A real post that stands in for the freshly created section on the target book.
+		$new_post_id = $this->factory()->post->create();
+
+		// Short-circuit the internal REST POST so cloneSection() gets a valid id back
+		// without dispatching to the real Pressbooks REST controllers.
+		add_filter(
+			'rest_pre_dispatch',
+			function ( $result, $server, $request ) use ( $new_post_id ) {
+				if ( $request->get_method() === 'POST' && $request->get_route() === '/pressbooks/v2/chapters' ) {
+					return new \WP_REST_Response( [ 'id' => $new_post_id ] );
+				}
+				return $result;
+			},
+			10,
+			3
+		);
+
+		// Cloner with all network/content dependencies stubbed out so we isolate the
+		// "Copy over all post meta on cloning" loop inside cloneSection().
+		$cloner = new class( home_url() ) extends Cloner {
+			public $sectionToReturn = [];
+
+			public function retrieveSectionMetadata( $section_id, $post_type ) {
+				return [ 'license' => 'https://creativecommons.org/licenses/by/4.0/' ];
+			}
+
+			public function isSourceCloneable( $metadata_license ): bool {
+				return true;
+			}
+
+			protected function locateSection( $section_id, $post_type ) {
+				return $this->sectionToReturn;
+			}
+
+			protected function retrieveSectionContent( $section ) {
+				return [ '<p>Cloned content</p>', [] ];
+			}
+
+			protected function retrieveH5P( $content ) {
+				return $content;
+			}
+
+			protected function cloneSectionMetadata( $section_id, $post_type, $target_id ) {
+				return true;
+			}
+
+			protected function checkInternalShortcodes( $post_id, $html ) {}
+
+			public function createTransition( $type, $old_id, $new_id ) {}
+
+			public function callCloneSection( $section_id, $post_type, $parent_id = null ) {
+				return $this->cloneSection( $section_id, $post_type, $parent_id );
+			}
+		};
+
+		// `_links` must be the last element: cloneSection() pops it off with array_pop().
+		$cloner->sectionToReturn = [
+			'id' => 999,
+			'author' => 1,
+			'title' => [ 'raw' => 'Cloned Chapter' ],
+			'status' => 'publish',
+			'link' => 'https://source.example/chapter/cloned-chapter/',
+			'meta' => [
+				'pb_short_title' => 'Short',
+				'pb_subtitle' => 'A subtitle',
+				// These two are handled by cloneSectionMetadata() and stripped before the copy.
+				'pb_authors' => 'should-be-removed',
+				'pb_section_license' => 'should-be-removed',
+				// These two are set explicitly by cloneSection() and must be excluded from the copy.
+				'pb_is_based_on' => 'https://should-not-win.example/',
+				'pb_part_invisible' => 'on',
+			],
+			'_links' => [ 'self' => [] ],
+		];
+
+		$cloned_id = $cloner->callCloneSection( 123, 'chapter' );
+
+		$this->assertEquals( $new_post_id, $cloned_id );
+
+		// The new loop should have copied every remaining meta key onto the cloned post.
+		$this->assertEquals( 'Short', get_post_meta( $cloned_id, 'pb_short_title', true ) );
+		$this->assertEquals( 'A subtitle', get_post_meta( $cloned_id, 'pb_subtitle', true ) );
+
+		// Meta removed earlier (handled by cloneSectionMetadata) must not be copied over.
+		$this->assertEmpty( get_post_meta( $cloned_id, 'pb_authors', true ) );
+		$this->assertEmpty( get_post_meta( $cloned_id, 'pb_section_license', true ) );
+
+		// pb_is_based_on is set explicitly to the source permalink and must not be
+		// clobbered by the copy loop.
+		$this->assertEquals( 'https://source.example/chapter/cloned-chapter/', get_post_meta( $cloned_id, 'pb_is_based_on', true ) );
+
+		// pb_part_invisible is excluded from the copy loop (handled explicitly above).
+		$this->assertEmpty( get_post_meta( $cloned_id, 'pb_part_invisible', true ) );
+
+		remove_all_filters( 'rest_pre_dispatch' );
+	}
 }
