@@ -20,7 +20,7 @@ class BookDownload extends Tracking {
 	 * @param mixed $value
 	 * @return void
 	 */
-	public function store( $value ): void {
+	public function store( $value ) {
 		if ( ! $this->shouldTrack() ) {
 			return;
 		}
@@ -31,8 +31,8 @@ class BookDownload extends Tracking {
 	/**
 	 * Only count GET requests with a non-empty, non-bot user agent.
 	 *
-	 * Files are still served to everyone; this stage changes only what is
-	 * counted, so direct links (including OPDS consumers) keep working.
+	 * The user agent is inspected in-memory to classify the request and
+	 * is never persisted.
 	 *
 	 * @return bool
 	 */
@@ -41,9 +41,9 @@ class BookDownload extends Tracking {
 			return false;
 		}
 
-		$user_agent = $this->getUserAgent();
+		$user_agent = sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ?? '' ) );
 
-		if ( $user_agent === null ) {
+		if ( $user_agent === '' ) {
 			return false;
 		}
 
