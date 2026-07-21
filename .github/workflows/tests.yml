@@ -14,18 +14,18 @@ jobs:
       matrix:
         include:
           - php: 8.3
-            wordpress: 6.9.4
-            prince: 15.4-1
+            wordpress: 6.9.5
+            prince: 16.2-1
             epubcheck: 4.2.6
             experimental: false
           - php: 8.3
             wordpress: latest
-            prince: 15.4-1
+            prince: 16.2-1
             epubcheck: 4.2.6
             experimental: true
           - php: 8.4
-            wordpress: 6.9.4
-            prince: 15.4-1
+            wordpress: 6.9.5
+            prince: 16.2-1
             epubcheck: 4.2.6
             experimental: true
 

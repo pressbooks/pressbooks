@@ -668,7 +668,41 @@ class ContributorsTest extends \WP_UnitTestCase {
 	}
 
 	public function test_handleImage() {
-		$src = $this->contributor->handleImage( 'https://guide.pressbooks.com/app/plugins/pressbooks/assets/dist/images/default-book-cover.jpg' );
+		$url = 'https://guide.pressbooks.com/app/plugins/pressbooks/assets/dist/images/default-book-cover.jpg';
+		$fixture = dirname( __DIR__ ) . '/assets/dist/images/default-book-cover.jpg';
+
+		// Stub the remote fetch with a local fixture so the test does not depend
+		// on outbound network access. download_url() streams to a temp file, so we
+		// must copy the fixture into $args['filename'] rather than only returning a
+		// fake 200 response.
+		$stub = function ( $pre, $args, $request_url ) use ( $url, $fixture ) {
+			if ( $request_url !== $url ) {
+				return $pre;
+			}
+
+			if ( ! empty( $args['filename'] ) ) {
+				copy( $fixture, $args['filename'] );
+			}
+
+			return [
+				'headers' => [],
+				'body' => '',
+				'response' => [
+					'code' => 200,
+					'message' => 'OK',
+				],
+				'cookies' => [],
+				'filename' => $args['filename'] ?? null,
+			];
+		};
+
+		add_filter( 'pre_http_request', $stub, 10, 3 );
+
+		try {
+			$src = $this->contributor->handleImage( $url );
+		} finally {
+			remove_filter( 'pre_http_request', $stub, 10 );
+		}
 
 		$this->assertStringContainsString( 'default-book-cover', $src );
 

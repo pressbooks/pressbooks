@@ -1729,5 +1729,13 @@ function register_duet_date_picker(): void {
 	/** @var \PressbooksFrontendTools\Assets $assets */
 	$assets = app( 'Assets' );
 	$assets->register( 'assets/src/scripts/duet-date-picker.js', 'duet-date-picker' );
-	wp_register_style( 'duet-date-picker', $assets->getAssetUrl( 'assets/src/styles/duet.css' ) );
+
+	try {
+		$style_url = $assets->getAssetUrl( 'assets/src/styles/duet.css' );
+	} catch ( \Exception $e ) {
+		// Mirroring Kucrut register_asset()'s graceful degradation.
+		$style_url = $assets->getAssetPath( 'assets/dist/assets/src/styles/duet.css' );
+	}
+
+	wp_register_style( 'duet-date-picker', $style_url );
 }
