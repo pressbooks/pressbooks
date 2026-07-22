@@ -124,4 +124,50 @@ class NetworkSettings {
 		return array_key_exists( self::DEFAULT_THEME, $themes ) ?
 			self::DEFAULT_THEME : 'pressbooks-book';
 	}
+
+	/**
+	 * Sync the network site name with the main site's blogname.
+	 *
+	 * Hooked to `update_option_blogname`; only the new value is used.
+	 *
+	 * @param mixed $old_value The previous blogname (unused).
+	 * @param mixed $value The updated blogname.
+	 *
+	 * @return void
+	 */
+	public static function syncSiteName( $old_value, $value ) {
+		if ( is_main_site() ) {
+			update_network_option( get_current_network_id(), 'site_name', $value );
+		}
+	}
+
+	/**
+	 * Hide the redundant Site Title field on the network settings screen.
+	 *
+	 * The network site name is kept in sync with the main site's blogname,
+	 * so the editable field is hidden to avoid conflicting sources of truth.
+	 *
+	 * @return void
+	 */
+	public static function hideSiteTitle() {
+		if ( ! is_network_admin() ) {
+			return;
+		}
+		echo '<style>tr:has(label[for="site_name"]) { display: none; }</style>';
+	}
+
+	/**
+	 * Force the network site name to match the main site's blogname.
+	 *
+	 * Hooked to `pre_update_site_option_site_name`. Falls back to the given
+	 * value when the main site's blogname is empty.
+	 *
+	 * @param mixed $value The value being saved for the site_name option.
+	 *
+	 * @return mixed
+	 */
+	public static function overrideSiteName( $value ) {
+		$blogname = get_blog_option( get_main_site_id(), 'blogname' );
+		return $blogname ?: $value;
+	}
 }
