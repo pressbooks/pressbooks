@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f235b1fd65d15f284ce34dbc99e81688",
+    "content-hash": "a556e9cace24e4a6c3ff1ee41719e181",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -62,16 +62,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.388.9",
+            "version": "3.389.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "d537c1143942ba8b7a0203a20c223127b9ba7108"
+                "reference": "e6e6649e58826c7edaa9f546f444461a25a22719"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d537c1143942ba8b7a0203a20c223127b9ba7108",
-                "reference": "d537c1143942ba8b7a0203a20c223127b9ba7108",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e6e6649e58826c7edaa9f546f444461a25a22719",
+                "reference": "e6e6649e58826c7edaa9f546f444461a25a22719",
                 "shasum": ""
             },
             "require": {
@@ -79,9 +79,9 @@
                 "ext-json": "*",
                 "ext-pcre": "*",
                 "ext-simplexml": "*",
-                "guzzlehttp/guzzle": "^7.4.5",
-                "guzzlehttp/promises": "^2.0",
-                "guzzlehttp/psr7": "^2.4.5",
+                "guzzlehttp/guzzle": "^7.8.2 || ^8.0",
+                "guzzlehttp/promises": "^2.0.3 || ^3.0",
+                "guzzlehttp/psr7": "^2.6.3 || ^3.0",
                 "mtdowling/jmespath.php": "^2.9.1",
                 "php": ">=8.1",
                 "psr/http-message": "^1.0 || ^2.0",
@@ -153,9 +153,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.388.9"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.389.0"
             },
-            "time": "2026-07-17T18:11:29+00:00"
+            "time": "2026-07-24T18:05:53+00:00"
         },
         {
             "name": "brick/math",
@@ -936,16 +936,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.450.0",
+            "version": "v0.452.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-api-php-client-services.git",
-                "reference": "4e5ffe870815596a1ab07cec9a4d87a073f2bedf"
+                "reference": "2b86a7203ffd6520968ec568d58131ed380a59e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/4e5ffe870815596a1ab07cec9a4d87a073f2bedf",
-                "reference": "4e5ffe870815596a1ab07cec9a4d87a073f2bedf",
+                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/2b86a7203ffd6520968ec568d58131ed380a59e1",
+                "reference": "2b86a7203ffd6520968ec568d58131ed380a59e1",
                 "shasum": ""
             },
             "require": {
@@ -974,35 +974,36 @@
             ],
             "support": {
                 "issues": "https://github.com/googleapis/google-api-php-client-services/issues",
-                "source": "https://github.com/googleapis/google-api-php-client-services/tree/v0.450.0"
+                "source": "https://github.com/googleapis/google-api-php-client-services/tree/v0.452.0"
             },
-            "time": "2026-07-13T01:20:31+00:00"
+            "time": "2026-07-27T01:28:26+00:00"
         },
         {
             "name": "google/auth",
-            "version": "v1.52.0",
+            "version": "v1.53.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-auth-library-php.git",
-                "reference": "7a7e5ab2ff2d9449a252eab587d4dae978c22a77"
+                "reference": "d677d0b0c4bd52ab222a85df8e74e0d491c0cc5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-auth-library-php/zipball/7a7e5ab2ff2d9449a252eab587d4dae978c22a77",
-                "reference": "7a7e5ab2ff2d9449a252eab587d4dae978c22a77",
+                "url": "https://api.github.com/repos/googleapis/google-auth-library-php/zipball/d677d0b0c4bd52ab222a85df8e74e0d491c0cc5a",
+                "reference": "d677d0b0c4bd52ab222a85df8e74e0d491c0cc5a",
                 "shasum": ""
             },
             "require": {
                 "firebase/php-jwt": "^6.0||^7.0",
-                "guzzlehttp/guzzle": "^7.4.5",
-                "guzzlehttp/psr7": "^2.4.5",
+                "guzzlehttp/guzzle": "^7.8.2||^8.0",
+                "guzzlehttp/psr7": "^2.6.3||^3.0",
                 "php": "^8.1",
                 "psr/cache": "^2.0||^3.0",
+                "psr/http-client": "^1.0",
                 "psr/http-message": "^1.1||^2.0",
                 "psr/log": "^2.0||^3.0"
             },
             "require-dev": {
-                "guzzlehttp/promises": "^2.0",
+                "guzzlehttp/promises": "^2.0.3||^3.0",
                 "kelvinmo/simplejwt": "^1.1.0",
                 "phpseclib/phpseclib": "^3.0.35",
                 "phpspec/prophecy-phpunit": "^2.1",
@@ -1036,9 +1037,9 @@
             "support": {
                 "docs": "https://cloud.google.com/php/docs/reference/auth/latest",
                 "issues": "https://github.com/googleapis/google-auth-library-php/issues",
-                "source": "https://github.com/googleapis/google-auth-library-php/tree/v1.52.0"
+                "source": "https://github.com/googleapis/google-auth-library-php/tree/v1.53.0"
             },
-            "time": "2026-06-23T16:43:15+00:00"
+            "time": "2026-07-22T22:36:10+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -1153,16 +1154,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.15.1",
+            "version": "7.15.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "61443dfb33c62f308ee8add20f45b4d6e4bf8d2f"
+                "reference": "744101956d78b7c1384d0cbf379db13e859167bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/61443dfb33c62f308ee8add20f45b4d6e4bf8d2f",
-                "reference": "61443dfb33c62f308ee8add20f45b4d6e4bf8d2f",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/744101956d78b7c1384d0cbf379db13e859167bf",
+                "reference": "744101956d78b7c1384d0cbf379db13e859167bf",
                 "shasum": ""
             },
             "require": {
@@ -1261,7 +1262,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.15.1"
+                "source": "https://github.com/guzzle/guzzle/tree/7.15.2"
             },
             "funding": [
                 {
@@ -1277,7 +1278,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-18T11:23:11+00:00"
+            "time": "2026-07-26T23:23:20+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -2552,6 +2553,58 @@
             "time": "2022-05-21T17:30:32+00:00"
         },
         {
+            "name": "jaybizzle/crawler-detect",
+            "version": "v1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JayBizzle/Crawler-Detect.git",
+                "reference": "770e00e5bcd35054871a6f790f380123cc3b8b0c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/770e00e5bcd35054871a6f790f380123cc3b8b0c",
+                "reference": "770e00e5bcd35054871a6f790f380123cc3b8b0c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5.52|^9.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Jaybizzle\\CrawlerDetect\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Beech",
+                    "email": "m@rkbee.ch",
+                    "role": "Developer"
+                }
+            ],
+            "description": "CrawlerDetect is a PHP class for detecting bots/crawlers/spiders via the user agent",
+            "homepage": "https://github.com/JayBizzle/Crawler-Detect/",
+            "keywords": [
+                "crawler",
+                "crawler detect",
+                "crawler detector",
+                "crawlerdetect",
+                "php crawler detect"
+            ],
+            "support": {
+                "issues": "https://github.com/JayBizzle/Crawler-Detect/issues",
+                "source": "https://github.com/JayBizzle/Crawler-Detect/tree/v1.4.1"
+            },
+            "time": "2026-07-10T14:15:38+00:00"
+        },
+        {
             "name": "jenssegers/imagehash",
             "version": "v0.9.0",
             "source": {
@@ -3115,16 +3168,16 @@
         },
         {
             "name": "laravel/serializable-closure",
-            "version": "v2.0.13",
+            "version": "v2.0.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/serializable-closure.git",
-                "reference": "b566ee0dd251f3c4078bed003a7ce015f5ea6dce"
+                "reference": "dccd8bcb851bb03fcc005df650b708b57cc52661"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/serializable-closure/zipball/b566ee0dd251f3c4078bed003a7ce015f5ea6dce",
-                "reference": "b566ee0dd251f3c4078bed003a7ce015f5ea6dce",
+                "url": "https://api.github.com/repos/laravel/serializable-closure/zipball/dccd8bcb851bb03fcc005df650b708b57cc52661",
+                "reference": "dccd8bcb851bb03fcc005df650b708b57cc52661",
                 "shasum": ""
             },
             "require": {
@@ -3172,7 +3225,7 @@
                 "issues": "https://github.com/laravel/serializable-closure/issues",
                 "source": "https://github.com/laravel/serializable-closure"
             },
-            "time": "2026-04-16T14:03:50+00:00"
+            "time": "2026-07-21T16:49:22+00:00"
         },
         {
             "name": "masterminds/html5",
