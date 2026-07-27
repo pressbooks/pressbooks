@@ -1,5 +1,25 @@
 # Changelog
 
+## [6.43.0](https://github.com/pressbooks/pressbooks/compare/6.42.3...6.43.0) (2026-07-22)
+
+
+### Features
+
+* add crawler filter and pressbooks_tracking schema changes ([#4527](https://github.com/pressbooks/pressbooks/issues/4527)) ([e48ff8a](https://github.com/pressbooks/pressbooks/commit/e48ff8ab161cbc9cdfdb5307f48ac0b6eed85fe8))
+* canonical network title ([#4528](https://github.com/pressbooks/pressbooks/issues/4528)) ([4decfb8](https://github.com/pressbooks/pressbooks/commit/4decfb8f7e8c72a89e9bb1a306058537400e84c9))
+* cloning hooks and removing candela citations handler ([#4522](https://github.com/pressbooks/pressbooks/issues/4522)) ([194c093](https://github.com/pressbooks/pressbooks/commit/194c093a920d5b2e57bac0871b14495b85952452))
+
+
+### Bug Fixes
+
+* updating the README.md to reflect the recommended WordPress version ([#4529](https://github.com/pressbooks/pressbooks/issues/4529)) ([3785dda](https://github.com/pressbooks/pressbooks/commit/3785dda1ad00b81d9dcc69a890ac3ee64b02dca9))
+
+
+### Chores
+
+* bump dependencies ([#4525](https://github.com/pressbooks/pressbooks/issues/4525)) ([9ddf4d5](https://github.com/pressbooks/pressbooks/commit/9ddf4d515defb93c5a1580b27e099f40dee2cbc1))
+* php 8.4 compat  ([#4412](https://github.com/pressbooks/pressbooks/issues/4412)) ([c29d5b4](https://github.com/pressbooks/pressbooks/commit/c29d5b483c8d9a1b33f282b83365587b939e5701))
+
 ## [6.42.3](https://github.com/pressbooks/pressbooks/compare/6.42.2...6.42.3) (2026-07-15)
 
 
