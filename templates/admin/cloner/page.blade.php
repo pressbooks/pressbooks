@@ -1,4 +1,4 @@
- <div class="pb-cloner wrap">
+<div class="pb-cloner wrap">
 	<div class="pb-cloner-section main">
 		<h1 class="page-title">{{ __( 'Clone a Book', 'pressbooks' ) }}</h1>
 		<p>{{ __( 'This tool allows you to clone openly licensed books from one Pressbooks network to another. The cloning process makes a copy of the original book for you to revise and redistribute as desired. You can enter the source book URL if you already know it, or find and select a suitable book from the Pressbooks Directory.', 'pressbooks' ) }}</p>
