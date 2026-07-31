@@ -253,6 +253,66 @@ function handle_book_indexing( array $robots ) {
 }
 
 /**
+ * Append Disallow rules to robots.txt for high-cost, zero-index-value endpoints
+ * (exports, on-the-fly renders, REST API, in-book search, faceted catalog search, misc WP).
+ *
+ * Hooked on `robots_txt` (not `do_robotstxt`) so the rules attach to the `User-agent: *`
+ * group that WordPress core builds; `do_robotstxt` fires before that group exists and is
+ * only valid for group-independent directives such as `Sitemap:`.
+ *
+ * robots.txt is only ever fetched by crawlers at the host root, so the rules emitted depend
+ * on the site role and the multisite install mode:
+ *
+ * - Main site, subdirectory install: a single root robots.txt must cover every book, so book
+ *   endpoints are emitted as wildcard paths (e.g. `/*​/open/`).
+ * - Main site, subdomain install: the root robots.txt is just the network homepage.
+ * - Book site (only crawler-reachable in a subdomain install): plain book endpoint paths.
+ *
+ * `/wp-admin/` is intentionally omitted because WordPress core already emits it.
+ *
+ * @param string $output The robots.txt output built by WordPress.
+ * @param bool $public Whether the site is considered "public".
+ *
+ * @return string
+ */
+function add_disallow_rules_to_robots_txt( $output, $public ) {
+	$rules = [ '/feed/', '/comments/feed/' ];
+
+	if ( is_main_site() ) {
+		$rules = array_merge( $rules, [ '/wp-signup.php', '/wp-activate.php', '/xmlrpc.php', '/wp-json/oembed/' ] );
+
+		if ( is_subdomain_install() ) {
+			$rules[] = '/wp-json/';
+		} else {
+			// Subdirectory install: one root robots.txt must cover every book.
+			$rules = array_merge( $rules, [ '/*/open/', '/*/format/', '/*/wp-json/', '/*/?s=' ] );
+		}
+	} else {
+		// Book site: only crawler-reachable in a subdomain install.
+		$rules = array_merge( $rules, [ '/open/', '/format/', '/wp-json/', '/?s=' ] );
+	}
+
+	/**
+	 * Filter the list of paths disallowed in robots.txt.
+	 *
+	 * Allows other Pressbooks plugins (e.g. pressbooks-network-catalog) to register their own
+	 * high-cost endpoints without coupling core to their implementation.
+	 *
+	 * @since 6.x.x
+	 *
+	 * @param string[] $rules Array of paths to disallow (each becomes a `Disallow:` line).
+	 * @param bool $public Whether the site is considered "public".
+	 */
+	$rules = apply_filters( 'pb_robots_txt_disallow', $rules, $public );
+
+	foreach ( array_unique( $rules ) as $rule ) {
+		$output .= "Disallow: {$rule}\n";
+	}
+
+	return $output;
+}
+
+/**
  * Echo a sitemap
  */
 function do_sitemap() {
@@ -1711,4 +1771,31 @@ function get_h5p_ids_for_exportable_posts(): array {
 	$h5p_ids = array_unique( $h5p_ids );
 
 	return $h5p_ids;
+}
+
+/**
+ * Register the Duet Date Picker as reusable, globally-available WordPress handles.
+ *
+ * Registers (but does not enqueue) a `duet-date-picker` script handle (the custom
+ * element definition) and a matching `duet-date-picker` style handle (the theming
+ * variables). Any plugin can then enqueue either or both on any page context via
+ * wp_enqueue_script( 'duet-date-picker' ) / wp_enqueue_style( 'duet-date-picker' ).
+ *
+ * Hooked on `init` so the handles are available on both the front end and admin.
+ *
+ * @return void
+ */
+function register_duet_date_picker(): void {
+	/** @var \PressbooksFrontendTools\Assets $assets */
+	$assets = app( 'Assets' );
+	$assets->register( 'assets/src/scripts/duet-date-picker.js', 'duet-date-picker' );
+
+	try {
+		$style_url = $assets->getAssetUrl( 'assets/src/styles/duet.css' );
+	} catch ( \Exception $e ) {
+		// Mirroring Kucrut register_asset()'s graceful degradation.
+		$style_url = $assets->getAssetPath( 'assets/dist/assets/src/styles/duet.css' );
+	}
+
+	wp_register_style( 'duet-date-picker', $style_url );
 }

@@ -120,6 +120,34 @@ class LicensingTest extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * @group licensing
+	 */
+	public function test_doLicenseFallsBackToEditors() {
+		$new_post = [
+			'post_title' => 'Test Chapter',
+			'post_type' => 'chapter',
+			'post_status' => 'publish',
+			'post_content' => 'My test chapter.',
+		];
+		$post_id = $this->factory()->post->create_object( $new_post );
+
+		// No copyright holder and no authors, but editors are present (as string).
+		$result = $this->licensing->doLicense( [ 'pb_book_license' => 'cc-by', 'pb_editors' => 'Edith Editor' ], $post_id );
+		$this->assertStringContainsString( 'by', $result );
+		$this->assertStringContainsString( 'Edith Editor', $result );
+
+		// Editors provided as an array of contributors.
+		$result = $this->licensing->doLicense( [ 'pb_book_license' => 'cc-by', 'pb_editors' => [ [ 'name' => 'Edith Editor' ], [ 'name' => 'Edmund Editor' ] ] ], $post_id );
+		$this->assertStringContainsString( 'Edith Editor', $result );
+		$this->assertStringContainsString( 'Edmund Editor', $result );
+
+		// Authors take precedence over editors.
+		$result = $this->licensing->doLicense( [ 'pb_book_license' => 'cc-by', 'pb_authors' => 'Anne Author', 'pb_editors' => 'Edith Editor' ], $post_id );
+		$this->assertStringContainsString( 'Anne Author', $result );
+		$this->assertStringNotContainsString( 'Edith Editor', $result );
+	}
+
+	/**
 	 * @expectedIncorrectUsage Pressbooks\Licensing::doLicense
 	 * @group licensing
 	 */

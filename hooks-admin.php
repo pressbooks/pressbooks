@@ -123,6 +123,9 @@ add_action( 'load-post-new.php', '\Pressbooks\Admin\Laf\block_metadata_add_new_p
 
 // Network settings
 add_action( 'network_admin_menu', [ '\Pressbooks\Admin\Network\NetworkSettings', 'init' ] );
+add_action( 'update_option_blogname', [ '\Pressbooks\Admin\Network\NetworkSettings', 'syncSiteName' ], 10, 2 );
+add_action( 'admin_head-settings.php', [ '\Pressbooks\Admin\Network\NetworkSettings', 'hideSiteTitle' ] );
+add_filter( 'pre_update_site_option_site_name', [ '\Pressbooks\Admin\Network\NetworkSettings', 'overrideSiteName' ] );
 
 // Replaces 'WordPress' with 'Pressbooks' in titles of admin pages.
 add_filter( 'admin_title', '\Pressbooks\Admin\Branding\admin_title' );

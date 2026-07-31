@@ -176,8 +176,6 @@ if ( $is_book ) {
 add_action( 'init', '\Pressbooks\Sanitize\allow_post_content' );
 add_filter( 'the_content', '\Pressbooks\Sanitize\sanitize_webbook_content' );
 add_filter( 'the_export_content', '\Pressbooks\Sanitize\filter_export_content' );
-add_filter( 'the_content', 'Pressbooks\Metadata\add_candela_citations', 13 );
-
 // -------------------------------------------------------------------------------------------------------------------
 // Images
 // -------------------------------------------------------------------------------------------------------------------
@@ -215,6 +213,12 @@ if ( $is_book ) {
 add_action( 'init', '\Pressbooks\PostType\register_meta' );
 
 // -------------------------------------------------------------------------------------------------------------------
+// Reusable web components (available to core and downstream plugins on any page context)
+// -------------------------------------------------------------------------------------------------------------------
+
+add_action( 'init', '\Pressbooks\Utility\register_duet_date_picker' );
+
+// -------------------------------------------------------------------------------------------------------------------
 // Remove the "admin bar" from any public facing theme
 // -------------------------------------------------------------------------------------------------------------------
 
@@ -248,6 +252,7 @@ add_filter( 'login_redirect', '\Pressbooks\Redirect\handle_dashboard_redirect', 
 add_action( 'init', '\Pressbooks\Redirect\rewrite_rules_for_sitemap', 1 );
 add_action( 'do_robotstxt', '\Pressbooks\Utility\add_sitemap_to_robots_txt' );
 add_filter( 'wp_robots', '\Pressbooks\Utility\handle_book_indexing' );
+add_filter( 'robots_txt', '\Pressbooks\Utility\add_disallow_rules_to_robots_txt', 10, 2 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Shortcodes
@@ -365,6 +370,7 @@ add_filter( 'wpmu_validate_user_signup', '\Pressbooks\Registration\validate_pass
 add_filter( 'add_signup_meta', '\Pressbooks\Registration\add_temporary_password', 99 );
 add_action( 'signup_blogform', '\Pressbooks\Registration\add_hidden_password_field' );
 add_filter( 'random_password', '\Pressbooks\Registration\override_password_generation' );
+add_filter( 'login_url', '\Pressbooks\Registration\remove_wp_prefix', 12 );
 add_filter( 'lostpassword_url', '\Pressbooks\Registration\remove_wp_prefix', 12 );
 // Hooks to have pending invitation information
 add_action( 'invite_user', '\Pressbooks\Registration\save_invitation_data', 10, 3 );

@@ -1,11 +1,13 @@
 <?php
 
 use Pressbooks\Modules\Export\Export;
+use function Pressbooks\Utility\add_disallow_rules_to_robots_txt;
 use function Pressbooks\Utility\add_sitemap_to_robots_txt;
 use function Pressbooks\Utility\do_shortcode_by_tags;
 use function Pressbooks\Utility\latest_exports;
 use function Pressbooks\Utility\length_to_inches;
 use function Pressbooks\Utility\objects_to_csv;
+use function Pressbooks\Utility\register_duet_date_picker;
 
 class UtilityTest extends \WP_UnitTestCase {
 	use utilsTrait;
@@ -33,6 +35,102 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( \Pressbooks\Utility\getset( '_POST', 'hello' ), 'world' );
 		$this->assertEquals( \Pressbooks\Utility\getset( '_POST', 'nothing' ), null );
 		$this->assertEquals( \Pressbooks\Utility\getset( '_POST', 'nothing', 'something' ), 'something' );
+	}
+
+	/**
+	 * @group utility
+	 */
+	public function test_register_duet_date_picker() {
+		// Start from a clean slate in case the handles were registered elsewhere.
+		wp_deregister_script( 'duet-date-picker' );
+		wp_deregister_style( 'duet-date-picker' );
+
+		$this->assertFalse( wp_script_is( 'duet-date-picker', 'registered' ) );
+		$this->assertFalse( wp_style_is( 'duet-date-picker', 'registered' ) );
+
+		register_duet_date_picker();
+
+		// The custom-element script and its theming stylesheet are now available
+		// for any plugin to enqueue, on any page, via the shared handles.
+		$this->assertTrue( wp_script_is( 'duet-date-picker', 'registered' ) );
+		$this->assertTrue( wp_style_is( 'duet-date-picker', 'registered' ) );
+	}
+
+	/**
+	 * @group utility
+	 */
+	public function test_register_duet_date_picker_uses_asset_url_when_available() {
+		wp_deregister_style( 'duet-date-picker' );
+
+		$container = \Pressbooks\Container::getInstance();
+
+		// Stub Assets so getAssetUrl() succeeds: exercises the happy path (try branch).
+		$fake_assets = new class {
+			public function register( $file, $handle, $options = [] ) {
+				return $this;
+			}
+
+			public function getAssetUrl( $file ): string {
+				return 'https://example.test/dist/duet.abc123.css';
+			}
+
+			public function getAssetPath( $file ): string {
+				throw new \Exception( 'getAssetPath() should not be called when getAssetUrl() succeeds' );
+			}
+		};
+		$container->instance( 'Assets', $fake_assets );
+
+		try {
+			register_duet_date_picker();
+
+			$this->assertTrue( wp_style_is( 'duet-date-picker', 'registered' ) );
+			$this->assertEquals(
+				'https://example.test/dist/duet.abc123.css',
+				wp_styles()->registered['duet-date-picker']->src
+			);
+		} finally {
+			$container->forgetInstance( 'Assets' );
+			wp_deregister_style( 'duet-date-picker' );
+		}
+	}
+
+	/**
+	 * @group utility
+	 */
+	public function test_register_duet_date_picker_falls_back_to_asset_path_when_url_lookup_fails() {
+		wp_deregister_style( 'duet-date-picker' );
+
+		$container = \Pressbooks\Container::getInstance();
+
+		// Stub Assets so getAssetUrl() throws (e.g. a missing Vite manifest); this
+		// forces the catch branch that gracefully degrades to getAssetPath().
+		$fake_assets = new class {
+			public function register( $file, $handle, $options = [] ) {
+				return $this;
+			}
+
+			public function getAssetUrl( $file ): string {
+				throw new \Exception( 'missing manifest' );
+			}
+
+			public function getAssetPath( $file ): string {
+				return 'https://example.test/fallback/' . $file;
+			}
+		};
+		$container->instance( 'Assets', $fake_assets );
+
+		try {
+			register_duet_date_picker();
+
+			$this->assertTrue( wp_style_is( 'duet-date-picker', 'registered' ) );
+			$this->assertEquals(
+				'https://example.test/fallback/assets/dist/assets/src/styles/duet.css',
+				wp_styles()->registered['duet-date-picker']->src
+			);
+		} finally {
+			$container->forgetInstance( 'Assets' );
+			wp_deregister_style( 'duet-date-picker' );
+		}
 	}
 
 	/**
@@ -875,6 +973,68 @@ class UtilityTest extends \WP_UnitTestCase {
 			[ 'max-image-preview' => 'large', 'noindex' => 1, 'nofollow' => 1, 'noai' => 1, 'noimageai' => 1 ],
 			\Pressbooks\Utility\handle_book_indexing( [ 'max-image-preview' => 'large'] )
 		);
+	}
+
+	/**
+	 * @group utility
+	 */
+	public function test_add_disallow_rules_to_robots_txt_main_site(): void {
+		// Default test environment is a subdirectory multisite install.
+		$output = add_disallow_rules_to_robots_txt( "User-agent: *\n", true );
+
+		// Network-root and shared WordPress rules.
+		$this->assertStringContainsString( "Disallow: /wp-signup.php\n", $output );
+		$this->assertStringContainsString( "Disallow: /wp-activate.php\n", $output );
+		$this->assertStringContainsString( "Disallow: /xmlrpc.php\n", $output );
+		$this->assertStringContainsString( "Disallow: /feed/\n", $output );
+
+		// Subdirectory install: book endpoints are covered by wildcard paths.
+		$this->assertStringContainsString( "Disallow: /*/open/\n", $output );
+		$this->assertStringContainsString( "Disallow: /*/format/\n", $output );
+		$this->assertStringContainsString( "Disallow: /*/wp-json/\n", $output );
+
+		// Plain book rules must not appear on the main site.
+		$this->assertStringNotContainsString( "Disallow: /open/\n", $output );
+
+		// WordPress core already emits the wp-admin rules; our callback must not duplicate them.
+		$this->assertStringNotContainsString( 'wp-admin', $output );
+	}
+
+	/**
+	 * @group utility
+	 */
+	public function test_add_disallow_rules_to_robots_txt_book(): void {
+		$this->_book();
+
+		$output = add_disallow_rules_to_robots_txt( "User-agent: *\n", true );
+
+		// Plain book endpoint rules.
+		$this->assertStringContainsString( "Disallow: /open/\n", $output );
+		$this->assertStringContainsString( "Disallow: /format/\n", $output );
+		$this->assertStringContainsString( "Disallow: /wp-json/\n", $output );
+		$this->assertStringContainsString( "Disallow: /?s=\n", $output );
+		$this->assertStringContainsString( "Disallow: /feed/\n", $output );
+
+		// Network-root-only rules must not appear on a book site.
+		$this->assertStringNotContainsString( 'wp-signup.php', $output );
+		$this->assertStringNotContainsString( '/*/open/', $output );
+	}
+
+	/**
+	 * @group utility
+	 */
+	public function test_add_disallow_rules_to_robots_txt_filter(): void {
+		$callback = function ( $rules ) {
+			$rules[] = '/custom-endpoint/';
+
+			return $rules;
+		};
+
+		add_filter( 'pb_robots_txt_disallow', $callback );
+		$output = add_disallow_rules_to_robots_txt( "User-agent: *\n", true );
+		remove_filter( 'pb_robots_txt_disallow', $callback );
+
+		$this->assertStringContainsString( "Disallow: /custom-endpoint/\n", $output );
 	}
 
 	/**

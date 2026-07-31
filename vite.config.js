@@ -8,6 +8,7 @@ export default createWpViteConfig({
 		'book-information': resolve(__dirname, 'assets/src/scripts/book-information.js'),
 		'catalog': resolve(__dirname, 'assets/src/scripts/catalog.js'),
 		'covergenerator': resolve(__dirname, 'assets/src/scripts/covergenerator.js'),
+		'duet-date-picker': resolve(__dirname, 'assets/src/scripts/duet-date-picker.js'),
 		'cloner': resolve(__dirname, 'assets/src/scripts/cloner.js'),
 		'color-picker': resolve(__dirname, 'assets/src/scripts/color-picker.js'),
 		'export': resolve(__dirname, 'assets/src/scripts/export.js'),
@@ -43,6 +44,7 @@ export default createWpViteConfig({
 		'colors-pb-styles': resolve(__dirname, 'assets/src/styles/colors-pb.scss'),
 		'colors-pb-a11y-styles': resolve(__dirname, 'assets/src/styles/colors-pb-a11y.scss'),
 		// Standalone CSS entries for external plugin consumption
+		'duet-date-picker-styles': resolve(__dirname, 'assets/src/styles/duet.css'),
 		'pressbooks-dashboard-styles': resolve(__dirname, 'assets/src/styles/pressbooks-dashboard.css'),
 		'pressbooks-admin-styles': resolve(__dirname, 'assets/src/styles/pressbooks.scss'),
 		'style-catalog': resolve(__dirname, 'assets/src/styles/style-catalog.scss'),
