@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-30T16:16:20+00:00\n"
+"POT-Creation-Date: 2026-08-03T17:31:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -70,8 +70,8 @@ msgid "ATTRIBUTIONS"
 msgstr ""
 
 #: inc/admin/attachments/namespace.php:46
-#: templates/admin/import.php:205
-#: templates/admin/import.php:206
+#: templates/admin/import.php:220
+#: templates/admin/import.php:221
 msgid "Source URL"
 msgstr ""
 
@@ -153,7 +153,7 @@ msgstr ""
 #: inc/admin/class-catalog-list-table.php:231
 #: inc/admin/covergenerator/namespace.php:75
 #: inc/admin/metaboxes/class-generalinformation.php:39
-#: templates/admin/import.php:90
+#: templates/admin/import.php:103
 #: templates/admin/cloner/stats.blade.php:4
 msgid "Title"
 msgstr ""
@@ -885,7 +885,7 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:372
 #: inc/editor/namespace.php:132
-#: templates/admin/import.php:156
+#: templates/admin/import.php:169
 msgid "Cancel"
 msgstr ""
 
@@ -907,8 +907,8 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:392
 #: inc/utility/class-handlestransfers.php:88
-#: templates/admin/import.php:38
-#: templates/admin/import.php:114
+#: templates/admin/import.php:39
+#: templates/admin/import.php:127
 msgid "Import"
 msgstr ""
 
@@ -961,7 +961,7 @@ msgstr ""
 #: inc/posttype/namespace.php:115
 #: inc/posttype/namespace.php:116
 #: inc/posttype/namespace.php:552
-#: templates/admin/import.php:91
+#: templates/admin/import.php:104
 #: templates/admin/organize.blade.php:52
 msgid "Front Matter"
 msgstr ""
@@ -974,7 +974,7 @@ msgstr ""
 #: inc/posttype/namespace.php:64
 #: inc/posttype/namespace.php:549
 #: inc/posttype/namespace.php:588
-#: templates/admin/import.php:92
+#: templates/admin/import.php:105
 msgid "Chapter"
 msgstr ""
 
@@ -984,7 +984,7 @@ msgstr ""
 #: inc/posttype/namespace.php:143
 #: inc/posttype/namespace.php:144
 #: inc/posttype/namespace.php:555
-#: templates/admin/import.php:96
+#: templates/admin/import.php:109
 #: templates/admin/organize.blade.php:54
 msgid "Back Matter"
 msgstr ""
@@ -1786,7 +1786,7 @@ msgstr ""
 #: inc/posttype/namespace.php:87
 #: inc/posttype/namespace.php:546
 #: inc/posttype/namespace.php:584
-#: templates/admin/import.php:94
+#: templates/admin/import.php:107
 msgid "Part"
 msgstr ""
 
@@ -1946,6 +1946,7 @@ msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:202
 #: inc/class-googleanalytics.php:230
+#: inc/modules/import/googledocs/class-settingspage.php:98
 msgid "Settings saved."
 msgstr ""
 
@@ -2143,7 +2144,7 @@ msgstr ""
 #: inc/posttype/namespace.php:165
 #: inc/posttype/namespace.php:166
 #: inc/posttype/namespace.php:543
-#: templates/admin/import.php:118
+#: templates/admin/import.php:131
 msgid "Book Information"
 msgstr ""
 
@@ -2718,7 +2719,7 @@ msgstr ""
 
 #: inc/cloner/class-cloner.php:556
 #: inc/covergenerator/class-generator.php:299
-#: inc/modules/import/class-import.php:373
+#: inc/modules/import/class-import.php:385
 msgid "Finishing up"
 msgstr ""
 
@@ -3642,31 +3643,68 @@ msgstr ""
 msgid "Importing glossary terms"
 msgstr ""
 
-#: inc/modules/import/class-import.php:371
+#: inc/modules/import/class-import.php:383
 #: inc/modules/import/epub/class-epub201.php:211
 msgid "Importing"
 msgstr ""
 
-#: inc/modules/import/class-import.php:420
+#: inc/modules/import/class-import.php:437
 #: inc/utility/class-handlestransfers.php:200
 msgid "Sorry, this file type is not permitted for security reasons."
 msgstr ""
 
-#: inc/modules/import/class-import.php:503
+#: inc/modules/import/class-import.php:520
 #, php-format
 msgid "Your file does not appear to be a valid %s."
 msgstr ""
 
-#: inc/modules/import/class-import.php:541
+#: inc/modules/import/class-import.php:538
+msgid "Please enter a valid Google Docs URL."
+msgstr ""
+
+#: inc/modules/import/class-import.php:544
+msgid "Google Docs import is not configured. Ask a network admin to set it up."
+msgstr ""
+
+#: inc/modules/import/class-import.php:552
+msgid "Please connect your Google account first."
+msgstr ""
+
+#: inc/modules/import/class-import.php:559
+msgid "Your Google connection expired. Please reconnect."
+msgstr ""
+
+#: inc/modules/import/class-import.php:575
+msgid "Access denied. Make sure the Google Docs API is enabled in your Google Cloud project and you have permission to view this document."
+msgstr ""
+
+#: inc/modules/import/class-import.php:577
+msgid "Document not found. Check the URL and make sure you have access."
+msgstr ""
+
+#: inc/modules/import/class-import.php:579
+msgid "Google is rate-limiting us. Try again in a few minutes."
+msgstr ""
+
+#: inc/modules/import/class-import.php:581
+msgid "Error fetching the Google Doc."
+msgstr ""
+
+#: inc/modules/import/class-import.php:585
+#, php-format
+msgid "Could not access the Google Doc: %s"
+msgstr ""
+
+#: inc/modules/import/class-import.php:629
 msgid "Your URL does not appear to be valid"
 msgstr ""
 
-#: inc/modules/import/class-import.php:548
-#: inc/modules/import/class-import.php:577
+#: inc/modules/import/class-import.php:636
+#: inc/modules/import/class-import.php:665
 msgid "The URL you are trying to import is bigger than the maximum file size."
 msgstr ""
 
-#: inc/modules/import/class-import.php:570
+#: inc/modules/import/class-import.php:658
 msgid "The website you are attempting to reach is not returning a successful response code: "
 msgstr ""
 
@@ -3685,6 +3723,316 @@ msgstr ""
 #: inc/modules/import/epub/class-epub201.php:216
 #, php-format
 msgid "Imported %s chapters."
+msgstr ""
+
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:41
+msgid "No broker session handle for user."
+msgstr ""
+
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:54
+msgid "Broker reports session as gone; user must reconnect."
+msgstr ""
+
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:58
+msgid "Broker rejected signature or freshness."
+msgstr ""
+
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:62
+msgid "Broker detected replay."
+msgstr ""
+
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:66
+msgid "Broker temporarily unavailable."
+msgstr ""
+
+#. translators: %d: HTTP response code returned by the broker.
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:73
+#, php-format
+msgid "Unexpected broker response code %d."
+msgstr ""
+
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:109
+msgid "Broker temporarily unavailable during revoke."
+msgstr ""
+
+#. translators: %d: HTTP response code returned by the broker.
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:116
+#, php-format
+msgid "Unexpected broker revoke response code %d."
+msgstr ""
+
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:148
+msgid "Invalid broker response issuer."
+msgstr ""
+
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:153
+msgid "Invalid broker response audience."
+msgstr ""
+
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:157
+msgid "Broker response JWT expired."
+msgstr ""
+
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:161
+msgid "Missing access_token or expires_at in broker response."
+msgstr ""
+
+#. translators: %s: underlying HTTP error detail.
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:182
+#, php-format
+msgid "Broker unreachable: %s"
+msgstr ""
+
+#. translators: %s: file path.
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:198
+#: inc/modules/import/googledocs/class-oauthclient.php:250
+#, php-format
+msgid "Failed to read broker public key file: %s"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-bootstrap.php:65
+msgid "Google Docs"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-bootstrap.php:79
+msgid "Google Docs import is not configured."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-bootstrap.php:113
+#: inc/modules/import/googledocs/class-settingspage.php:80
+msgid "Unauthorized."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-bootstrap.php:165
+msgid "Select from Google Drive"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-bootstrap.php:166
+msgid "Change document"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-bootstrap.php:167
+msgid "Could not load the Google Picker. Check your network connection and ad blockers."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-bootstrap.php:168
+msgid "Could not authenticate with Google. Please reconnect your Google account."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-encryptionkeymissingexception.php:13
+msgid "PRESSBOOKS_GOOGLE_DOCS_ENCRYPTION_KEY is not defined. Add a 32-byte base64-encoded key to wp-config.php (or Bedrock config/application.php). Generate one with: openssl rand -base64 32"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-googledocs.php:71
+msgid "Could not authenticate with Google. Images will not be imported."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-googledocs.php:155
+#, php-format
+msgid "Failed to import chapter: %s"
+msgstr ""
+
+#. translators: 1: number of elements, 2: element type, 3: chapter title
+#: inc/modules/import/googledocs/class-googledocs.php:164
+#, php-format
+msgid "%1$d %2$s skipped in \"%3$s\""
+msgstr ""
+
+#: inc/modules/import/googledocs/class-googledocs.php:190
+#, php-format
+msgid "Could not download image: %s"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-googledocs.php:209
+#, php-format
+msgid "Could not sideload image: %s"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-googledocs.php:276
+#, php-format
+msgid "Could not create glossary term: %s"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:87
+msgid "buildClient() must not be called in broker mode. OAuth is handled by the Pressbooks Auth Broker."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:127
+msgid "No token found. Please authorize first."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:133
+msgid "Token expired and no BrokerRefreshClient is configured."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:149
+msgid "No refresh token available. Please reauthorize."
+msgstr ""
+
+#. translators: %s: error detail returned by Google.
+#: inc/modules/import/googledocs/class-oauthclient.php:159
+#, php-format
+msgid "Token refresh failed: %s"
+msgstr ""
+
+#. translators: %s: underlying error detail.
+#: inc/modules/import/googledocs/class-oauthclient.php:191
+#, php-format
+msgid "Failed to revoke token at broker: %s Please try again."
+msgstr ""
+
+#. translators: %s: underlying error detail.
+#: inc/modules/import/googledocs/class-oauthclient.php:211
+#, php-format
+msgid "Failed to revoke token at Google: %s Please try again."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:266
+#: inc/modules/import/googledocs/class-oauthclient.php:339
+msgid "Invalid or expired OAuth state."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:272
+msgid "Broker public key not configured."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:279
+msgid "Invalid JWT issuer."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:284
+msgid "Invalid JWT audience."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:288
+msgid "JWT has expired."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:292
+msgid "Missing JWT ID."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:297
+msgid "JWT has already been used."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:302
+msgid "JWT state mismatch."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:306
+msgid "Missing access_token or session_handle in JWT."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:310
+msgid "Broker handoff JWT must not contain a refresh_token."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:314
+msgid "Missing google_sub in JWT."
+msgstr ""
+
+#. translators: %s: error detail returned by Google.
+#: inc/modules/import/googledocs/class-oauthclient.php:351
+#, php-format
+msgid "Token exchange failed: %s"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:46
+msgid "Google Docs Import is disabled."
+msgstr ""
+
+#. translators: %s: configuration constant name
+#: inc/modules/import/googledocs/class-settingspage.php:51
+#, php-format
+msgid "The %s constant must be defined in wp-config.php (or Bedrock config/application.php) with a 32-byte base64-encoded key. Generate one with: openssl rand -base64 32"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:63
+#: inc/modules/import/googledocs/class-settingspage.php:64
+msgid "Google Docs Import"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:96
+#: inc/modules/import/googledocs/class-settingspage.php:193
+msgid "Google Docs Import Settings"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:100
+msgid "Configure your Google Cloud OAuth credentials to enable Google Docs import."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:101
+msgid "Required Configuration in Google Cloud Console"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:102
+msgid "Add the following Authorized Redirect URI to your Google Cloud OAuth client:"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:104
+msgid "Required OAuth scope (non-sensitive; no restricted-scope verification required):"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:108
+msgid "This scope grants per-file access only: users select documents through the Google Picker. You must also enable the Google Picker API, the Google Docs API, and the Google Drive API in your Google Cloud project, and create an API key for the Picker."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:113
+msgid "Client ID"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:117
+msgid "Client Secret"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:121
+msgid "Picker API Key"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:124
+msgid "API key from Google Cloud Console (APIs &amp; Services &rarr; Credentials). Restrict it to the Google Picker API."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:128
+msgid "App ID (Project Number)"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:131
+msgid "The numeric project number of your Google Cloud project (Cloud Console &rarr; Project Settings). Required so files selected in the Picker are granted to this app."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:135
+msgid "Save Settings"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:165
+#: inc/modules/import/googledocs/class-settingspage.php:178
+msgid "Invalid OAuth callback parameters."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:195
+msgid "Google authentication is managed centrally via the Pressbooks Auth Broker. No local configuration is required."
+msgstr ""
+
+#. translators: 1: API key constant name, 2: app ID constant name
+#: inc/modules/import/googledocs/class-settingspage.php:203
+#, php-format
+msgid "The Google Picker is not configured, so users cannot select documents to import. Define %1$s and %2$s in wp-config.php (or Bedrock config/application.php). Both values must come from the same Google Cloud project as the OAuth client."
+msgstr ""
+
+#: inc/modules/import/googledocs/storage/class-sodiumcipher.php:28
+msgid "Ciphertext too short."
+msgstr ""
+
+#: inc/modules/import/googledocs/storage/class-sodiumcipher.php:38
+msgid "Decryption failed: ciphertext integrity check failed or key mismatch."
+msgstr ""
+
+#. translators: %d: required key length in bytes.
+#: inc/modules/import/googledocs/storage/class-sodiumcipher.php:69
+#, php-format
+msgid "Encryption key must be a valid base64-encoded %d-byte string. Generate one with: openssl rand -base64 32"
 msgstr ""
 
 #: inc/modules/import/html/class-xhtml.php:45
@@ -4492,7 +4840,7 @@ msgid "glossary"
 msgstr ""
 
 #: inc/posttype/namespace.php:558
-#: templates/admin/import.php:97
+#: templates/admin/import.php:110
 #: templates/admin/organize.blade.php:56
 msgid "Glossary"
 msgstr ""
@@ -4975,60 +5323,93 @@ msgid "Pressbooks/WordPress XML (.wxr or .xml)"
 msgstr ""
 
 #: templates/admin/import.php:44
+msgid "Google account connected successfully. You can now import from Google Docs."
+msgstr ""
+
+#: templates/admin/import.php:48
+msgid "Google account disconnected."
+msgstr ""
+
+#: templates/admin/import.php:57
 msgid "Select content below for import into Pressbooks."
 msgstr ""
 
-#: templates/admin/import.php:45
+#: templates/admin/import.php:58
 msgid "Source:"
 msgstr ""
 
-#: templates/admin/import.php:63
+#: templates/admin/import.php:76
 msgid "Selected all sections for import"
 msgstr ""
 
-#: templates/admin/import.php:65
+#: templates/admin/import.php:78
 msgid "Unselected all sections for import"
 msgstr ""
 
-#: templates/admin/import.php:70
+#: templates/admin/import.php:83
 msgid "Are you sure you want to abort the import?"
 msgstr ""
 
-#: templates/admin/import.php:88
-#: templates/admin/import.php:143
+#: templates/admin/import.php:101
+#: templates/admin/import.php:156
 msgid "Import all"
 msgstr ""
 
-#: templates/admin/import.php:99
+#: templates/admin/import.php:112
 msgid "Other"
 msgstr ""
 
-#: templates/admin/import.php:149
+#: templates/admin/import.php:162
 msgid "Show imported content in web"
 msgstr ""
 
-#: templates/admin/import.php:154
+#: templates/admin/import.php:167
 msgid "Import Selection"
 msgstr ""
 
-#: templates/admin/import.php:165
+#: templates/admin/import.php:178
 msgid "Maximum file size:"
 msgstr ""
 
-#: templates/admin/import.php:174
+#: templates/admin/import.php:189
 msgid "Import Type"
 msgstr ""
 
-#: templates/admin/import.php:186
-#: templates/admin/import.php:190
+#: templates/admin/import.php:201
+#: templates/admin/import.php:205
 msgid "Import Source"
 msgstr ""
 
-#: templates/admin/import.php:201
+#: templates/admin/import.php:216
 msgid "Choose file"
 msgstr ""
 
-#: templates/admin/import.php:214
+#: templates/admin/import.php:233
+#: templates/admin/import.php:236
+msgid "Google Docs URL"
+msgstr ""
+
+#: templates/admin/import.php:249
+msgid "Google Docs import is not configured. Ask a network admin to set it up under Network Admin → Settings → Google Docs Import."
+msgstr ""
+
+#: templates/admin/import.php:253
+msgid "Connect your Google account to import from Google Docs."
+msgstr ""
+
+#: templates/admin/import.php:255
+msgid "Connect Google Account"
+msgstr ""
+
+#: templates/admin/import.php:259
+msgid "Google account connected."
+msgstr ""
+
+#: templates/admin/import.php:260
+msgid "Disconnect"
+msgstr ""
+
+#: templates/admin/import.php:266
 msgid "Begin Import"
 msgstr ""
 
