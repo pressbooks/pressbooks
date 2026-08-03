@@ -252,6 +252,7 @@ add_filter( 'login_redirect', '\Pressbooks\Redirect\handle_dashboard_redirect', 
 add_action( 'init', '\Pressbooks\Redirect\rewrite_rules_for_sitemap', 1 );
 add_action( 'do_robotstxt', '\Pressbooks\Utility\add_sitemap_to_robots_txt' );
 add_filter( 'wp_robots', '\Pressbooks\Utility\handle_book_indexing' );
+add_filter( 'robots_txt', '\Pressbooks\Utility\add_disallow_rules_to_robots_txt', 10, 2 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Shortcodes

@@ -61,6 +61,7 @@
 		"vanilla/htmlawed": "^2.2",
 		"vlucas/phpdotenv": "^5.4",
 		"h5p/h5p-core": "1.27.0",
+		"google/apiclient": "^2.15",
 		"jaybizzle/crawler-detect": "^1.4"
 	},
 	"require-dev": {
