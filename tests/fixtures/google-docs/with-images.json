@@ -1,0 +1,23 @@
+{
+  "title": "Images Test",
+  "body": {
+    "content": [
+      {"sectionBreak": {"sectionStyle": {}}},
+      {"paragraph": {"elements": [{"textRun": {"content": "Image Chapter\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "HEADING_1"}}},
+      {"paragraph": {"elements": [{"inlineObjectElement": {"inlineObjectId": "kix.img1", "textStyle": {}}}, {"textRun": {"content": "\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}},
+      {"paragraph": {"elements": [{"textRun": {"content": "Text after the image.\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}}
+    ]
+  },
+  "inlineObjects": {
+    "kix.img1": {
+      "inlineObjectProperties": {
+        "embeddedObject": {
+          "title": "My Photo",
+          "description": "A beautiful landscape",
+          "imageProperties": {"contentUri": "https://lh3.googleusercontent.com/fake-image-uri", "sourceUri": "https://example.com/original.jpg"},
+          "size": {"width": {"magnitude": 400, "unit": "PT"}, "height": {"magnitude": 300, "unit": "PT"}}
+        }
+      }
+    }
+  }
+}

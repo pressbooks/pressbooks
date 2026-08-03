@@ -10,6 +10,7 @@ use Pressbooks\Admin\Menus\SideBar;
 use Pressbooks\Admin\Menus\TopBar;
 use Pressbooks\Admin\Users\User;
 use Pressbooks\Book;
+use Pressbooks\Modules\Import\GoogleDocs\Bootstrap;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -417,3 +418,6 @@ add_action( 'pb_new_blog', function() {
 } );
 
 add_action( 'admin_init', '\Pressbooks\Sanitize\escape_file_names_in_blob_mimes' );
+
+// Google Docs Import
+add_action( 'plugins_loaded', [ Bootstrap::class, 'init' ] );
