@@ -1,6 +1,7 @@
 <?php
 
 use Pressbooks\Modules\Export\Export;
+use function Pressbooks\Utility\add_disallow_rules_to_robots_txt;
 use function Pressbooks\Utility\add_sitemap_to_robots_txt;
 use function Pressbooks\Utility\do_shortcode_by_tags;
 use function Pressbooks\Utility\latest_exports;
@@ -972,6 +973,68 @@ class UtilityTest extends \WP_UnitTestCase {
 			[ 'max-image-preview' => 'large', 'noindex' => 1, 'nofollow' => 1, 'noai' => 1, 'noimageai' => 1 ],
 			\Pressbooks\Utility\handle_book_indexing( [ 'max-image-preview' => 'large'] )
 		);
+	}
+
+	/**
+	 * @group utility
+	 */
+	public function test_add_disallow_rules_to_robots_txt_main_site(): void {
+		// Default test environment is a subdirectory multisite install.
+		$output = add_disallow_rules_to_robots_txt( "User-agent: *\n", true );
+
+		// Network-root and shared WordPress rules.
+		$this->assertStringContainsString( "Disallow: /wp-signup.php\n", $output );
+		$this->assertStringContainsString( "Disallow: /wp-activate.php\n", $output );
+		$this->assertStringContainsString( "Disallow: /xmlrpc.php\n", $output );
+		$this->assertStringContainsString( "Disallow: /feed/\n", $output );
+
+		// Subdirectory install: book endpoints are covered by wildcard paths.
+		$this->assertStringContainsString( "Disallow: /*/open/\n", $output );
+		$this->assertStringContainsString( "Disallow: /*/format/\n", $output );
+		$this->assertStringContainsString( "Disallow: /*/wp-json/\n", $output );
+
+		// Plain book rules must not appear on the main site.
+		$this->assertStringNotContainsString( "Disallow: /open/\n", $output );
+
+		// WordPress core already emits the wp-admin rules; our callback must not duplicate them.
+		$this->assertStringNotContainsString( 'wp-admin', $output );
+	}
+
+	/**
+	 * @group utility
+	 */
+	public function test_add_disallow_rules_to_robots_txt_book(): void {
+		$this->_book();
+
+		$output = add_disallow_rules_to_robots_txt( "User-agent: *\n", true );
+
+		// Plain book endpoint rules.
+		$this->assertStringContainsString( "Disallow: /open/\n", $output );
+		$this->assertStringContainsString( "Disallow: /format/\n", $output );
+		$this->assertStringContainsString( "Disallow: /wp-json/\n", $output );
+		$this->assertStringContainsString( "Disallow: /?s=\n", $output );
+		$this->assertStringContainsString( "Disallow: /feed/\n", $output );
+
+		// Network-root-only rules must not appear on a book site.
+		$this->assertStringNotContainsString( 'wp-signup.php', $output );
+		$this->assertStringNotContainsString( '/*/open/', $output );
+	}
+
+	/**
+	 * @group utility
+	 */
+	public function test_add_disallow_rules_to_robots_txt_filter(): void {
+		$callback = function ( $rules ) {
+			$rules[] = '/custom-endpoint/';
+
+			return $rules;
+		};
+
+		add_filter( 'pb_robots_txt_disallow', $callback );
+		$output = add_disallow_rules_to_robots_txt( "User-agent: *\n", true );
+		remove_filter( 'pb_robots_txt_disallow', $callback );
+
+		$this->assertStringContainsString( "Disallow: /custom-endpoint/\n", $output );
 	}
 
 	/**
