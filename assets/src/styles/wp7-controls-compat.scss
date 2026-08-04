@@ -55,21 +55,35 @@
 }
 
 // .button-small
-// 6.9.5: line-height 2.18181818 (24px), min-height 26px (padding/font-size unchanged)
-// 7.0.2: line-height 2 (22px), min-height 24px
+// 6.9.5: line-height 2.18181818 (24px), min-height 26px, padding 0 8px, font-size 11px
+// 7.0.2: line-height 2 (22px), min-height 24px, padding 0 8px, font-size 11px (unchanged)
+// Padding is IDENTICAL in 6.9.5 and 7.0.2, but our own base `.button` rule
+// above (padding: 0 10px) is equal specificity (0,3,0) and loads after WP
+// core, so it silently clobbers WP's own correct `.button-small` padding.
+// Re-declaring padding here makes the rule self-complete; font-size (11px
+// in both versions) is left alone since nothing in this file overrides it.
 .wp-admin.wp-core-ui .button.button-small,
 .wp-admin.wp-core-ui .button-group.button-small .button {
   line-height: 2.1818; /* 24px */
   min-height: 26px;
+  padding: 0 8px;
 }
 
 // .button-hero
-// 6.9.5: line-height 3.14285714, min-height 46px (font-size/padding unchanged)
-// 7.0.2: line-height 3.28571429, min-height 48px
+// 6.9.5: font-size 14px, line-height 3.14285714, min-height 46px, padding 0 36px
+// 7.0.2: font-size 14px, line-height 3.28571429, min-height 48px, padding 0 36px (font-size/padding unchanged)
+// Font-size/padding are IDENTICAL in 6.9.5 and 7.0.2, but our own base
+// `.button` rule above (padding: 0 10px) is equal specificity (0,3,0) and
+// loads after WP core, so it silently clobbers WP's own correct
+// `.button-hero` padding, making hero buttons render narrow/smaller than
+// 6.9.5. Re-declaring padding (and font-size, for a fully self-complete
+// rule) here fixes it.
 .wp-admin.wp-core-ui .button.button-hero,
 .wp-admin.wp-core-ui .button-group.button-hero .button {
+  font-size: 14px;
   line-height: 3.1429;
   min-height: 46px;
+  padding: 0 36px;
 }
 
 // .page-title-action (CORE-016)
