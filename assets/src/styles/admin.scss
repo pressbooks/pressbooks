@@ -428,3 +428,9 @@ html #wpadminbar {
     }
   }
 }
+
+body.toplevel_page_pb_import {
+  .picker-dialog {
+    z-index: 9991; //display on top of: #adminmenuwrap
+  }
+}
