@@ -36,7 +36,7 @@
 .wp-admin.wp-core-ui .button,
 .wp-admin.wp-core-ui .button-primary,
 .wp-admin.wp-core-ui .button-secondary {
-  line-height: 2.15384615; /* 28px */
+  line-height: 2.1538; /* 28px */
   min-height: 30px;
   padding: 0 10px;
   border-radius: 3px;
@@ -47,7 +47,7 @@
 // 7.0.2: line-height 2.92307692 (38px), min-height 40px, padding 0 16px
 .wp-admin.wp-core-ui .button.button-large,
 .wp-admin.wp-core-ui .button-group.button-large .button {
-  line-height: 2.30769231; /* 30px */
+  line-height: 2.3077; /* 30px */
   min-height: 32px;
   padding: 0 12px;
 }
@@ -57,7 +57,7 @@
 // 7.0.2: line-height 2 (22px), min-height 24px
 .wp-admin.wp-core-ui .button.button-small,
 .wp-admin.wp-core-ui .button-group.button-small .button {
-  line-height: 2.18181818; /* 24px */
+  line-height: 2.1818; /* 24px */
   min-height: 26px;
 }
 
@@ -66,7 +66,7 @@
 // 7.0.2: line-height 3.28571429, min-height 48px
 .wp-admin.wp-core-ui .button.button-hero,
 .wp-admin.wp-core-ui .button-group.button-hero .button {
-  line-height: 3.14285714;
+  line-height: 3.1429;
   min-height: 46px;
 }
 
