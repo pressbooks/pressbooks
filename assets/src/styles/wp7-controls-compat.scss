@@ -26,6 +26,8 @@
  * `inc/admin/laf/namespace.php`, then run `npm run build`.
  */
 
+@use "partials/colors" as *;
+
 /* ----------------------------------------------------------------------
  * Buttons (WP 6.9.5 wp-includes/css/buttons.css)
  * -------------------------------------------------------------------- */
@@ -160,14 +162,18 @@
  * generator).
  *
  * We restore 6.9.5's box-stays-neutral behavior, and recolor the glyph
- * using `var(--wp-admin-theme-color)` — the SAME custom property WP 7.0
- * already exposes for the active admin color scheme — rather than a
- * hardcoded hex, so it keeps tracking whichever scheme is active
- * (Pressbooks red on book screens, Fresh blue on the network, etc.),
- * matching 6.9.5's per-scheme-tinted glyph without duplicating scheme
- * colors here. A `content: url(...)` image can't read CSS custom
- * properties, so the checkbox glyph is recolored via a CSS mask instead
- * of a recolored data-URI SVG.
+ * with the fixed Pressbooks brand red (`$monza`, `partials/colors.scss`)
+ * — the same value baked into `colors-pb.scss`'s `$form-checked` — rather
+ * than `var(--wp-admin-theme-color)`. That custom property is NOT a safe
+ * substitute here: on network-admin screens (e.g. Settings > Sharing &
+ * Privacy) it resolves to WP's default "Fresh" scheme color (blue),
+ * while real-world WP 6.9.5 renders the checked glyph in Pressbooks
+ * brand red on those same network-admin screens. Hardcoding `$monza`
+ * matches 6.9.5's actual rendering everywhere, including network admin,
+ * instead of tracking whatever scheme var happens to be in scope. A
+ * `content: url(...)` image can't read Sass variables either, so the
+ * checkbox glyph is recolored via a CSS mask instead of a recolored
+ * data-URI SVG.
  *
  * Sizing/position is NOT touched: 6.9.5 and 7.0.2 declare IDENTICAL
  * dimensions for the checked checkbox glyph
@@ -175,6 +181,12 @@
  * checked radio dot (`width/height: 0.5rem`) — only the color mechanism
  * changed, so those properties are left for WP 7.0's own rules to keep
  * supplying.
+ *
+ * Border-radius: 6.9.5's base `input[type="checkbox"]` rule declares
+ * `border-radius: 4px` (`wp-admin/css/forms.css` ~line 115); the
+ * installed WP 7.0.2 equivalent is `border-radius: 2px` (~line 129).
+ * The radio's `border-radius: 50%` is unchanged between versions and is
+ * left alone.
  * -------------------------------------------------------------------- */
 
 // Checked box background/border: 6.9.5 leaves these at their base
@@ -189,14 +201,27 @@
   border-color: #1e1e1e; // 7.0.2's own base (unchecked) border-color; 6.9.5's base is #8c8f94 but that's out of scope for this checked-state-only fix
 }
 
+// Checkbox base box: restore 6.9.5's slightly rounder corners.
+// 6.9.5: border-radius 4px (wp-admin/css/forms.css ~line 115)
+// 7.0.2: border-radius 2px (installed wp-admin/css/forms.css ~line 129)
+// Radio is unaffected: border-radius 50% is identical in both versions.
+.wp-admin.wp-core-ui input[type="checkbox"] {
+  border-radius: 4px;
+}
+
 // Checked checkbox glyph ("Yes" dashicon): recolor via mask instead of a
-// hardcoded-fill SVG, so the shape tracks var(--wp-admin-theme-color).
-// The mask image below is 7.0.2's own white-fill SVG, reused purely as a
-// luminance mask (white path = visible, transparent elsewhere).
+// hardcoded-fill SVG. The mask image below is 7.0.2's own white-fill
+// SVG, reused purely as a luminance mask (white path = visible,
+// transparent elsewhere).
 // (No manual -webkit- prefixes: this project's build runs autoprefixer.)
 .wp-admin.wp-core-ui input[type="checkbox"]:checked::before {
   content: "";
-  background-color: var(--wp-admin-theme-color); // 6.9.5: SVG fill = scheme accent (Pressbooks red via colors-pb.scss); 7.0.2: hardcoded #ffffff
+
+  // Fixed Pressbooks $form-checked red, NOT var(--wp-admin-theme-color):
+  // on network-admin screens that custom property resolves to WP's
+  // default "Fresh" scheme color (blue), but 6.9.5/dev renders this
+  // glyph in brand red on network-admin screens too.
+  background-color: $monza;
   mask-image: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M14.83%204.89l1.34.94-5.81%208.38H9.02L5.78%209.67l1.34-1.25%202.57%202.4z%27%20fill%3D%27%23ffffff%27%2F%3E%3C%2Fsvg%3E");
   mask-repeat: no-repeat;
   mask-size: contain;
@@ -207,5 +232,7 @@
 // (both center a 0.5rem dot in the same 1rem border-box), so only the
 // color needs restoring.
 .wp-admin.wp-core-ui input[type="radio"]:checked::before {
-  background-color: var(--wp-admin-theme-color); // 6.9.5: background-color = scheme accent (Pressbooks red via colors-pb.scss); 7.0.2: hardcoded #fff
+  // Fixed Pressbooks $form-checked red, NOT var(--wp-admin-theme-color):
+  // same network-admin scheme-var mismatch as the checkbox glyph above.
+  background-color: $monza;
 }
