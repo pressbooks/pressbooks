@@ -53,6 +53,32 @@ class testAdminSidebar extends \WP_UnitTestCase
 	/**
 	 * @test
 	 */
+	public function it_removes_font_library_submenu_item(): void
+	{
+		global $submenu;
+
+		$submenu['themes.php'] = [
+			[
+				'Fonts',
+				'edit_theme_options',
+				'font-library.php',
+			],
+			[
+				'Theme Options',
+				'edit_theme_options',
+				'themes.php?page=pressbooks_theme_options',
+			]
+		];
+
+		(new SideBar)->removePatternsSubMenuItem();
+
+		$this->assertCount(1, $submenu['themes.php']);
+		$this->assertNotContains('font-library.php', $submenu['themes.php'][1]);
+	}
+
+	/**
+	 * @test
+	 */
 	public function it_restricts_patterns_page_access(): void {
 		global $pagenow;
 		$pagenow = 'edit.php';
@@ -78,6 +104,36 @@ class testAdminSidebar extends \WP_UnitTestCase
 			$this->assertTrue(true);
 		} catch (WPDieException) {
 			$this->fail('Should not restrict access to other edit pages');
+		}
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_restricts_font_library_page_access(): void {
+		global $pagenow;
+		$pagenow = 'font-library.php';
+
+		try {
+			(new SideBar)->restrictFontLibraryPageAccess();
+			$this->fail('Should have restricted access to font-library.php');
+		} catch (WPDieException $e) {
+			$this->assertEquals('Sorry, you are not allowed to access this page.', $e->getMessage());
+		}
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_does_not_restrict_other_pages_for_font_library(): void {
+		global $pagenow;
+		$pagenow = 'themes.php';
+
+		try {
+			(new SideBar)->restrictFontLibraryPageAccess();
+			$this->assertTrue(true);
+		} catch (WPDieException) {
+			$this->fail('Should not restrict access to other pages');
 		}
 	}
 
