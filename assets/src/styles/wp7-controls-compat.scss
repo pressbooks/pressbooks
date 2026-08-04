@@ -108,6 +108,53 @@
   border-radius: 3px;
 }
 
+// Secondary .button background (CORE-020)
+// 6.9.5 filled the resting `.button` / `.button-secondary` with a solid
+// neutral gray and darkened it slightly on hover/kept it on focus/active.
+// 7.0.2's "Modern" restyle made the resting background fully transparent
+// and replaced the solid hover/active fills with a faint theme-color-tinted
+// rgba() wash instead. Diffed real WP 6.9.5 `wp-includes/css/buttons.css`
+// (lines 116-122 resting, 128-134 hover, 136-147 focus, 149-155 active)
+// against the installed WP 7.0.2 equivalent (`web/wp/wp-includes/css/
+// buttons.css` lines 148-153 resting, 160-166 hover, 168+ focus, active).
+//
+// Only `background` is restored per state below. `color` and
+// `border-color` are deliberately left untouched — those are owned by the
+// Pressbooks color scheme (`colors-pb.scss`'s
+// `.wp-core-ui .button { border-color: #7e8993; color: #32373c }`), and
+// restoring 6.9.5's blue color/border-color here would fight that scheme.
+// `.button-primary` is out of scope (hardcoded red primary, unaffected by
+// this transparency change) and is not touched.
+//
+// `.wp-admin.wp-core-ui .button` (0,3,0) out-specifies WP's own
+// `.wp-core-ui .button` (0,2,0) — and each state selector below carries
+// that same extra specificity into its own pseudo-class — so no
+// `!important` is needed anywhere in this block.
+//
+// Resting — 6.9.5: background #f6f7f7 | 7.0.2: background transparent
+.wp-admin.wp-core-ui .button,
+.wp-admin.wp-core-ui .button-secondary {
+  background: #f6f7f7;
+}
+
+// Hover — 6.9.5: background #f0f0f1 | 7.0.2: background rgba(var(--wp-admin-theme-color--rgb, 56, 88, 233), 0.04)
+.wp-admin.wp-core-ui .button:hover,
+.wp-admin.wp-core-ui .button-secondary:hover {
+  background: #f0f0f1;
+}
+
+// Focus — 6.9.5: background #f6f7f7 | 7.0.2: background transparent
+.wp-admin.wp-core-ui .button:focus,
+.wp-admin.wp-core-ui .button-secondary:focus {
+  background: #f6f7f7;
+}
+
+// Active — 6.9.5: background #f6f7f7 | 7.0.2: background rgba(var(--wp-admin-theme-color--rgb, 56, 88, 233), 0.08)
+.wp-admin.wp-core-ui .button:active,
+.wp-admin.wp-core-ui .button-secondary:active {
+  background: #f6f7f7;
+}
+
 /* ----------------------------------------------------------------------
  * Inputs, selects, textareas (WP 6.9.5 wp-admin/css/forms.css)
  * -------------------------------------------------------------------- */
