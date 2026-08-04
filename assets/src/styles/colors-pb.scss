@@ -1,5 +1,6 @@
 @use "partials/colors" as *;
 @use "sass:color";
+@use "sass:math";
 
 @use "wp-admin-colors/dist/admin" with (
 	$base-color: $alto,
@@ -27,6 +28,36 @@ $highlight-color: $monza;
 $link: color.adjust($monza, $lightness: -5%);
 $link-focus: $monza;
 $text-color: $mine-shaft;
+
+// WP 7.0 rebased admin control colors (radio/checkbox fills, button links,
+// focus/hover states) on these CSS custom properties. The v6.1.0 wp-admin-colors
+// module predates 7.0 and never emits them, so uncovered controls fall back to
+// WP's default blue (#3858e9) instead of this scheme's brand color. Define them
+// here, scoped to this scheme, from the accent color ($monza).
+//
+// color.adjust()'s HSL lightness math can leave fractional channel values
+// (e.g. 143.452...) for non-fully-saturated accents; round to whole numbers
+// so the emitted custom properties are clean integers.
+@function pb-rounded-rgb($color) {
+	@return rgb(
+		math.round(color.channel($color, "red", $space: rgb)),
+		math.round(color.channel($color, "green", $space: rgb)),
+		math.round(color.channel($color, "blue", $space: rgb))
+	);
+}
+
+$theme-accent: $monza;
+$theme-darker-10: pb-rounded-rgb(color.adjust($theme-accent, $lightness: -10%));
+$theme-darker-20: pb-rounded-rgb(color.adjust($theme-accent, $lightness: -20%));
+
+:root {
+	--wp-admin-theme-color: #{$theme-accent};
+	--wp-admin-theme-color--rgb: #{color.channel($theme-accent, "red", $space: rgb)}, #{color.channel($theme-accent, "green", $space: rgb)}, #{color.channel($theme-accent, "blue", $space: rgb)};
+	--wp-admin-theme-color-darker-10: #{$theme-darker-10};
+	--wp-admin-theme-color-darker-10--rgb: #{color.channel($theme-darker-10, "red", $space: rgb)}, #{color.channel($theme-darker-10, "green", $space: rgb)}, #{color.channel($theme-darker-10, "blue", $space: rgb)};
+	--wp-admin-theme-color-darker-20: #{$theme-darker-20};
+	--wp-admin-theme-color-darker-20--rgb: #{color.channel($theme-darker-20, "red", $space: rgb)}, #{color.channel($theme-darker-20, "green", $space: rgb)}, #{color.channel($theme-darker-20, "blue", $space: rgb)};
+}
 
 // Override menu styles that can't be configured via module system
 // These variables aren't forwarded by wp-admin-colors, so we override with CSS
