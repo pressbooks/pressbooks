@@ -298,6 +298,39 @@ class SanitizeTest extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * CORE-010: normalize_css_urls() must accept a null $css argument without
+	 * triggering a PHP 8.1+ "Passing null to parameter #3 ($subject) of type
+	 * array|string is deprecated" notice from preg_replace_callback(), and
+	 * still return a string (per its documented @return string).
+	 *
+	 * @group sanitize
+	 */
+	public function test_normalize_css_urls_null_css_is_null_safe() {
+		$deprecations = [];
+		set_error_handler(
+			function ( $errno, $errstr ) use ( &$deprecations ) {
+				$deprecations[] = $errstr;
+				return true;
+			},
+			E_DEPRECATED
+		);
+
+		$result = \Pressbooks\Sanitize\normalize_css_urls( null );
+
+		restore_error_handler();
+
+		$this->assertSame( '', $result );
+		$this->assertEmpty(
+			$deprecations,
+			'normalize_css_urls( null ) should not trigger a PHP deprecation notice: ' . implode( '; ', $deprecations )
+		);
+
+		// Happy path is unaffected: normal CSS strings still pass through unchanged.
+		$css = 'body { color: red; }';
+		$this->assertSame( $css, \Pressbooks\Sanitize\normalize_css_urls( $css ) );
+	}
+
+	/**
 	 * @group sanitize
 	 */
 	public function test_allow_post_content() {
