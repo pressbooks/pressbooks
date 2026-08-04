@@ -60,6 +60,7 @@ class SideBar {
 			add_action( 'admin_menu', [ $this, 'removePatternsSubMenuItem' ] );
 			add_action( 'admin_init', [ $this, 'restrictPatternsPageAccess' ] );
 			add_action( 'admin_init', [ $this, 'restrictFontLibraryPageAccess' ] );
+			add_action( 'admin_init', [ $this, 'restrictConnectorsPageAccess' ] );
 			return;
 		}
 
@@ -85,6 +86,7 @@ class SideBar {
 		remove_submenu_page( 'themes.php', 'edit.php?post_type=wp_block' );
 		remove_submenu_page( 'themes.php', 'site-editor.php?p=/pattern' );
 		remove_submenu_page( 'themes.php', 'font-library.php' );
+		remove_submenu_page( 'options-general.php', 'options-connectors.php' );
 	}
 
 	public function restrictPatternsPageAccess(): void {
@@ -101,6 +103,16 @@ class SideBar {
 		global $pagenow;
 
 		if ( $pagenow !== 'font-library.php' ) {
+			return;
+		}
+
+		wp_die( esc_html__( 'Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 );
+	}
+
+	public function restrictConnectorsPageAccess(): void {
+		global $pagenow;
+
+		if ( $pagenow !== 'options-connectors.php' ) {
 			return;
 		}
 

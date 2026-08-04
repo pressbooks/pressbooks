@@ -79,6 +79,32 @@ class testAdminSidebar extends \WP_UnitTestCase
 	/**
 	 * @test
 	 */
+	public function it_removes_connectors_submenu_item(): void
+	{
+		global $submenu;
+
+		$submenu['options-general.php'] = [
+			[
+				'Connectors',
+				'manage_options',
+				'options-connectors.php',
+			],
+			[
+				'General',
+				'manage_options',
+				'options-general.php',
+			]
+		];
+
+		(new SideBar)->removePatternsSubMenuItem();
+
+		$this->assertCount(1, $submenu['options-general.php']);
+		$this->assertNotContains('options-connectors.php', $submenu['options-general.php'][1]);
+	}
+
+	/**
+	 * @test
+	 */
 	public function it_restricts_patterns_page_access(): void {
 		global $pagenow;
 		$pagenow = 'edit.php';
@@ -131,6 +157,36 @@ class testAdminSidebar extends \WP_UnitTestCase
 
 		try {
 			(new SideBar)->restrictFontLibraryPageAccess();
+			$this->assertTrue(true);
+		} catch (WPDieException) {
+			$this->fail('Should not restrict access to other pages');
+		}
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_restricts_connectors_page_access(): void {
+		global $pagenow;
+		$pagenow = 'options-connectors.php';
+
+		try {
+			(new SideBar)->restrictConnectorsPageAccess();
+			$this->fail('Should have restricted access to options-connectors.php');
+		} catch (WPDieException $e) {
+			$this->assertEquals('Sorry, you are not allowed to access this page.', $e->getMessage());
+		}
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_does_not_restrict_other_pages_for_connectors(): void {
+		global $pagenow;
+		$pagenow = 'options-general.php';
+
+		try {
+			(new SideBar)->restrictConnectorsPageAccess();
 			$this->assertTrue(true);
 		} catch (WPDieException) {
 			$this->fail('Should not restrict access to other pages');
