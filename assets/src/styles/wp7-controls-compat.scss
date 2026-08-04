@@ -99,6 +99,7 @@
 // `.wrap .page-title-action` (0,2,0), so no !important is needed.
 // 6.9.5: min-height 30px, line-height 2.15384615, padding 0 10px, font-weight 400, border-radius 3px
 // 7.0.2: min-height 32px, line-height 2.30769231, padding 0 12px, font-weight 500, border-radius 2px
+// Resting background (CORE-021) — 6.9.5: background #f6f7f7 | 7.0.2: background transparent
 .wp-admin .wrap .page-title-action,
 .wp-admin .wrap .page-title-action:active {
   min-height: 30px;
@@ -106,6 +107,7 @@
   padding: 0 10px;
   font-weight: 400;
   border-radius: 3px;
+  background: #f6f7f7;
 }
 
 // Secondary .button background (CORE-020)
@@ -124,7 +126,12 @@
 // `.wp-core-ui .button { border-color: #7e8993; color: #32373c }`), and
 // restoring 6.9.5's blue color/border-color here would fight that scheme.
 // `.button-primary` is out of scope (hardcoded red primary, unaffected by
-// this transparency change) and is not touched.
+// this transparency change) and is EXCLUDED from the `.button` selectors
+// below via `:not(.button-primary)` (CORE-020-fix): `.wp-admin.wp-core-ui
+// .button` (0,3,0) would otherwise also match `.button.button-primary` and
+// out-specify colors-pb.scss's `.button-primary { background: #bb2026 }`
+// (0,1,0), forcing primary buttons (e.g. "Export Book") gray instead of
+// brand red.
 //
 // `.wp-admin.wp-core-ui .button` (0,3,0) out-specifies WP's own
 // `.wp-core-ui .button` (0,2,0) — and each state selector below carries
@@ -132,25 +139,25 @@
 // `!important` is needed anywhere in this block.
 //
 // Resting — 6.9.5: background #f6f7f7 | 7.0.2: background transparent
-.wp-admin.wp-core-ui .button,
+.wp-admin.wp-core-ui .button:not(.button-primary),
 .wp-admin.wp-core-ui .button-secondary {
   background: #f6f7f7;
 }
 
 // Hover — 6.9.5: background #f0f0f1 | 7.0.2: background rgba(var(--wp-admin-theme-color--rgb, 56, 88, 233), 0.04)
-.wp-admin.wp-core-ui .button:hover,
+.wp-admin.wp-core-ui .button:not(.button-primary):hover,
 .wp-admin.wp-core-ui .button-secondary:hover {
   background: #f0f0f1;
 }
 
 // Focus — 6.9.5: background #f6f7f7 | 7.0.2: background transparent
-.wp-admin.wp-core-ui .button:focus,
+.wp-admin.wp-core-ui .button:not(.button-primary):focus,
 .wp-admin.wp-core-ui .button-secondary:focus {
   background: #f6f7f7;
 }
 
 // Active — 6.9.5: background #f6f7f7 | 7.0.2: background rgba(var(--wp-admin-theme-color--rgb, 56, 88, 233), 0.08)
-.wp-admin.wp-core-ui .button:active,
+.wp-admin.wp-core-ui .button:not(.button-primary):active,
 .wp-admin.wp-core-ui .button-secondary:active {
   background: #f6f7f7;
 }
