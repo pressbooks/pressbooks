@@ -72,6 +72,28 @@
   min-height: 46px;
 }
 
+// .page-title-action (CORE-016)
+// The nav-pill / "Add Chapter", "Add Part", etc. buttons next to the page
+// heading. Diffed real WP 6.9.5 `wp-admin/css/common.css` (line 622) against
+// the installed WP 7.0.2 equivalent (`web/wp/wp-admin/css/common.css:626`).
+// `font-size` (13px) and `top` (-3px) are IDENTICAL in both versions and are
+// left alone; only the sizing props that actually differ are restored below.
+// Color/border-color are NOT touched here — Pressbooks owns those via its
+// own `.wrap .page-title-action` rules in `colors-pb-a11y.scss`, and
+// restoring color here would fight that brand styling.
+// `.wp-admin .wrap .page-title-action` (0,3,0) out-specifies WP's own
+// `.wrap .page-title-action` (0,2,0), so no !important is needed.
+// 6.9.5: min-height 30px, line-height 2.15384615, padding 0 10px, font-weight 400, border-radius 3px
+// 7.0.2: min-height 32px, line-height 2.30769231, padding 0 12px, font-weight 500, border-radius 2px
+.wp-admin .wrap .page-title-action,
+.wp-admin .wrap .page-title-action:active {
+  min-height: 30px;
+  line-height: 2.1538; /* 28px */
+  padding: 0 10px;
+  font-weight: 400;
+  border-radius: 3px;
+}
+
 /* ----------------------------------------------------------------------
  * Inputs, selects, textareas (WP 6.9.5 wp-admin/css/forms.css)
  * -------------------------------------------------------------------- */
