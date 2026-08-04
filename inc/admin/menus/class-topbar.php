@@ -42,6 +42,7 @@ class TopBar {
 			'pb-site-admin',
 			'my-books',
 			'my-books-list',
+			'command-palette',
 		] );
 
 		collect( $bar->get_nodes() )
