@@ -195,7 +195,12 @@
 // border-color #1e1e1e. `.wp-admin.wp-core-ui` gives this selector
 // higher specificity than 7.0's bare `input[type="checkbox"]:checked` /
 // `input[type="radio"]:checked` rules, so no !important is needed.
-.wp-admin.wp-core-ui input[type="checkbox"]:checked,
+// `:not(.toggle)` on the checkbox selector (CORE-015) excludes Pressbooks'
+// custom pill toggle switches (`input.toggle[type="checkbox"]`, styled in
+// `pressbooks.scss`) so this compat rule doesn't clobber their own
+// checked-state background/border; it also nudges specificity slightly
+// higher, so plain checkboxes still beat WP 7.0's bare rules as before.
+.wp-admin.wp-core-ui input[type="checkbox"]:not(.toggle):checked,
 .wp-admin.wp-core-ui input[type="radio"]:checked {
   background: #fff; // 6.9.5 + 7.0.2 base value; 6.9.5 :checked never overrides it
   border-color: #1e1e1e; // 7.0.2's own base (unchecked) border-color; 6.9.5's base is #8c8f94 but that's out of scope for this checked-state-only fix
@@ -205,7 +210,10 @@
 // 6.9.5: border-radius 4px (wp-admin/css/forms.css ~line 115)
 // 7.0.2: border-radius 2px (installed wp-admin/css/forms.css ~line 129)
 // Radio is unaffected: border-radius 50% is identical in both versions.
-.wp-admin.wp-core-ui input[type="checkbox"] {
+// `:not(.toggle)` (CORE-015) excludes Pressbooks' custom pill toggle
+// switches (`input.toggle[type="checkbox"]`), which define their own
+// border-radius in `pressbooks.scss` and must not be reset to 4px here.
+.wp-admin.wp-core-ui input[type="checkbox"]:not(.toggle) {
   border-radius: 4px;
 }
 
@@ -214,7 +222,7 @@
 // SVG, reused purely as a luminance mask (white path = visible,
 // transparent elsewhere).
 // (No manual -webkit- prefixes: this project's build runs autoprefixer.)
-.wp-admin.wp-core-ui input[type="checkbox"]:checked::before {
+.wp-admin.wp-core-ui input[type="checkbox"]:not(.toggle):checked::before {
   content: "";
 
   // Fixed Pressbooks $form-checked red, NOT var(--wp-admin-theme-color):
