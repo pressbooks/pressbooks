@@ -1,0 +1,138 @@
+/**
+ * WP 7.0 control-sizing compat (CORE-012).
+ *
+ * WordPress 7.0's "Modern" admin restyle changed the SIZING (padding,
+ * min-height, line-height, border-radius) of core buttons and text-like
+ * form controls (inputs, selects, textareas). This stylesheet restores the
+ * WordPress 6.9.x sizing values on top of WP 7.0, so Pressbooks' admin UI
+ * keeps its pre-7.0 button/input dimensions. It intentionally does NOT
+ * touch colors â only sizing.
+ *
+ * Values below were diffed from WP 6.9.5's `wp-includes/css/buttons.css`
+ * and `wp-admin/css/forms.css` against the installed WP 7.0.2 equivalents.
+ *
+ * Selectors are scoped under `.wp-admin`/`.wp-core-ui` (both always present
+ * on the admin `<body>`) specifically to out-specificity WP 7.0's own
+ * `.wp-core-ui .button` / `.wp-core-ui select` rules, so no `!important`
+ * is needed anywhere in this file.
+ *
+ * TO REVERT to WP 7.0's native control sizing: delete this file, remove
+ * its `wp7-controls-compat-styles` entry from `vite.config.js`, remove the
+ * "WP 7.0 control-sizing compat" block from
+ * `inc/admin/laf/namespace.php`, then run `npm run build`.
+ */
+
+/* ----------------------------------------------------------------------
+ * Buttons (WP 6.9.5 wp-includes/css/buttons.css)
+ * -------------------------------------------------------------------- */
+
+// Base .button / .button-primary / .button-secondary
+// 6.9.5: line-height 2.15384615 (28px), min-height 30px, padding 0 10px, border-radius 3px
+// 7.0.2: line-height 2.92307692 (38px), min-height 40px, padding 0 16px, border-radius 2px
+.wp-admin.wp-core-ui .button,
+.wp-admin.wp-core-ui .button-primary,
+.wp-admin.wp-core-ui .button-secondary {
+  line-height: 2.15384615; /* 28px */
+  min-height: 30px;
+  padding: 0 10px;
+  border-radius: 3px;
+}
+
+// .button-large
+// 6.9.5: line-height 2.30769231 (30px), min-height 32px, padding 0 12px
+// 7.0.2: line-height 2.92307692 (38px), min-height 40px, padding 0 16px
+.wp-admin.wp-core-ui .button.button-large,
+.wp-admin.wp-core-ui .button-group.button-large .button {
+  line-height: 2.30769231; /* 30px */
+  min-height: 32px;
+  padding: 0 12px;
+}
+
+// .button-small
+// 6.9.5: line-height 2.18181818 (24px), min-height 26px (padding/font-size unchanged)
+// 7.0.2: line-height 2 (22px), min-height 24px
+.wp-admin.wp-core-ui .button.button-small,
+.wp-admin.wp-core-ui .button-group.button-small .button {
+  line-height: 2.18181818; /* 24px */
+  min-height: 26px;
+}
+
+// .button-hero
+// 6.9.5: line-height 3.14285714, min-height 46px (font-size/padding unchanged)
+// 7.0.2: line-height 3.28571429, min-height 48px
+.wp-admin.wp-core-ui .button.button-hero,
+.wp-admin.wp-core-ui .button-group.button-hero .button {
+  line-height: 3.14285714;
+  min-height: 46px;
+}
+
+/* ----------------------------------------------------------------------
+ * Inputs, selects, textareas (WP 6.9.5 wp-admin/css/forms.css)
+ * -------------------------------------------------------------------- */
+
+// Shared box style for text-like inputs + select + textarea
+// 6.9.5: border-radius 4px
+// 7.0.2: border-radius 2px
+.wp-admin input[type="text"],
+.wp-admin input[type="password"],
+.wp-admin input[type="color"],
+.wp-admin input[type="date"],
+.wp-admin input[type="datetime"],
+.wp-admin input[type="datetime-local"],
+.wp-admin input[type="email"],
+.wp-admin input[type="month"],
+.wp-admin input[type="number"],
+.wp-admin input[type="search"],
+.wp-admin input[type="tel"],
+.wp-admin input[type="time"],
+.wp-admin input[type="url"],
+.wp-admin input[type="week"],
+.wp-admin select,
+.wp-admin textarea {
+  border-radius: 4px;
+}
+
+// Text-like inputs (excludes type=color, matching WP core's own grouping)
+// 6.9.5: padding 0 8px, line-height 2 (28px), min-height 30px
+// 7.0.2: padding 0 12px, min-height 40px (no explicit line-height)
+.wp-admin input[type="text"],
+.wp-admin input[type="password"],
+.wp-admin input[type="date"],
+.wp-admin input[type="datetime"],
+.wp-admin input[type="datetime-local"],
+.wp-admin input[type="email"],
+.wp-admin input[type="month"],
+.wp-admin input[type="number"],
+.wp-admin input[type="search"],
+.wp-admin input[type="tel"],
+.wp-admin input[type="time"],
+.wp-admin input[type="url"],
+.wp-admin input[type="week"] {
+  padding: 0 8px;
+  line-height: 2; /* 28px */
+  min-height: 30px;
+}
+
+// textarea
+// 6.9.5: padding 2px 6px
+// 7.0.2: padding 8px 12px
+.wp-admin textarea {
+  padding: 2px 6px;
+}
+
+// textarea.code
+// 6.9.5: padding 4px 6px 1px
+// 7.0.2: padding 8px 12px
+.wp-admin textarea.code {
+  padding: 4px 6px 1px;
+}
+
+// .wp-core-ui select
+// 6.9.5: line-height 2 (28px), border-radius 3px, padding 0 24px 0 8px, min-height 30px
+// 7.0.2: line-height 2.71428571 (38px), border-radius 2px, padding 0 24px 0 12px, min-height 40px
+.wp-admin.wp-core-ui select {
+  line-height: 2; /* 28px */
+  border-radius: 3px;
+  padding: 0 24px 0 8px;
+  min-height: 30px;
+}

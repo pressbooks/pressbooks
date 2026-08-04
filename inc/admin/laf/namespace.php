@@ -1233,6 +1233,21 @@ function init_css_js(): void {
 }
 
 /* ------------------------------------------------------------------------ *
+ * WP 7.0 control-sizing compat (CORE-012) — restores WordPress 6.9.x admin
+ * button/input sizing on top of WP 7.0's "Modern" admin restyle. Enqueued
+ * globally on every admin screen (site admin and network admin alike), since
+ * core buttons and text-like inputs are used throughout wp-admin, not just on
+ * Pressbooks-owned screens. To revert to WP 7.0 native control styling, remove
+ * this block + the wp7-controls-compat-styles entry in vite.config.js +
+ * assets/src/styles/wp7-controls-compat.scss, then rebuild.
+ * ------------------------------------------------------------------------ */
+add_action( 'admin_enqueue_scripts', function () {
+	/** @var Assets $assets */
+	$assets = app( 'Assets' );
+	wp_enqueue_style( 'pressbooks-wp7-controls-compat', $assets->getAssetUrl( 'assets/src/styles/wp7-controls-compat.scss' ) );
+} );
+
+/* ------------------------------------------------------------------------ *
  * Privacy
  * ------------------------------------------------------------------------ */
 
