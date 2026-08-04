@@ -1,12 +1,16 @@
 /**
- * WP 7.0 control-sizing compat (CORE-012).
+ * WP 7.0 control-sizing & checkbox/radio compat (CORE-012, CORE-013).
  *
  * WordPress 7.0's "Modern" admin restyle changed the SIZING (padding,
  * min-height, line-height, border-radius) of core buttons and text-like
- * form controls (inputs, selects, textareas). This stylesheet restores the
- * WordPress 6.9.x sizing values on top of WP 7.0, so Pressbooks' admin UI
- * keeps its pre-7.0 button/input dimensions. It intentionally does NOT
- * touch colors â only sizing.
+ * form controls (inputs, selects, textareas), and separately changed the
+ * CHECKED-STATE APPEARANCE of checkboxes/radios (solid
+ * `var(--wp-admin-theme-color)` fill + white glyph, vs WP 6.9.x's neutral
+ * box + theme-colored glyph). This stylesheet restores WP 6.9.x behavior
+ * on top of WP 7.0 for both: pre-7.0 button/input dimensions (sizing
+ * only, no color changes), and pre-7.0 checkbox/radio checked-state
+ * coloring (see the "Checkboxes & radios" section below for why that one
+ * DOES touch color).
  *
  * Values below were diffed from WP 6.9.5's `wp-includes/css/buttons.css`
  * and `wp-admin/css/forms.css` against the installed WP 7.0.2 equivalents.
@@ -16,9 +20,9 @@
  * `.wp-core-ui .button` / `.wp-core-ui select` rules, so no `!important`
  * is needed anywhere in this file.
  *
- * TO REVERT to WP 7.0's native control sizing: delete this file, remove
- * its `wp7-controls-compat-styles` entry from `vite.config.js`, remove the
- * "WP 7.0 control-sizing compat" block from
+ * TO REVERT to WP 7.0's native control sizing and checkbox/radio styling:
+ * delete this file, remove its `wp7-controls-compat-styles` entry from
+ * `vite.config.js`, remove the "WP 7.0 control-sizing compat" block from
  * `inc/admin/laf/namespace.php`, then run `npm run build`.
  */
 
@@ -135,4 +139,73 @@
   border-radius: 3px;
   padding: 0 24px 0 8px;
   min-height: 30px;
+}
+
+/* ----------------------------------------------------------------------
+ * Checkboxes & radios (CORE-013)
+ * WP 6.9.5 vs installed 7.0.2 `wp-admin/css/forms.css` (~lines 126-215)
+ *
+ * 7.0.2 fills the *checked* box solid via
+ * `background: var(--wp-admin-theme-color); border-color: var(--wp-admin-theme-color);`
+ * and draws a hardcoded WHITE (`#ffffff`) "Yes" dashicon SVG / white
+ * 0.5rem dot on top of it.
+ *
+ * 6.9.5 never sets background/border-color on `:checked` at all — the
+ * box stays exactly the same neutral box it is unchecked. Instead, the
+ * "checked" signal comes entirely from the glyph: the checkbox's SVG
+ * fill and the radio's dot `background-color` are colored per the
+ * active admin color scheme (in Pressbooks' case, baked from
+ * `colors-pb.scss`'s `$form-checked` = brand red, via the
+ * `wp-admin-colors` module's `input[type=checkbox]:checked::before`
+ * generator).
+ *
+ * We restore 6.9.5's box-stays-neutral behavior, and recolor the glyph
+ * using `var(--wp-admin-theme-color)` — the SAME custom property WP 7.0
+ * already exposes for the active admin color scheme — rather than a
+ * hardcoded hex, so it keeps tracking whichever scheme is active
+ * (Pressbooks red on book screens, Fresh blue on the network, etc.),
+ * matching 6.9.5's per-scheme-tinted glyph without duplicating scheme
+ * colors here. A `content: url(...)` image can't read CSS custom
+ * properties, so the checkbox glyph is recolored via a CSS mask instead
+ * of a recolored data-URI SVG.
+ *
+ * Sizing/position is NOT touched: 6.9.5 and 7.0.2 declare IDENTICAL
+ * dimensions for the checked checkbox glyph
+ * (`margin: -0.1875rem 0 0 -0.25rem; height/width: 1.3125rem`) and the
+ * checked radio dot (`width/height: 0.5rem`) — only the color mechanism
+ * changed, so those properties are left for WP 7.0's own rules to keep
+ * supplying.
+ * -------------------------------------------------------------------- */
+
+// Checked box background/border: 6.9.5 leaves these at their base
+// (unchecked) values on :checked — background #fff, and (since this file
+// doesn't otherwise touch the unchecked box's color) 7.0.2's own base
+// border-color #1e1e1e. `.wp-admin.wp-core-ui` gives this selector
+// higher specificity than 7.0's bare `input[type="checkbox"]:checked` /
+// `input[type="radio"]:checked` rules, so no !important is needed.
+.wp-admin.wp-core-ui input[type="checkbox"]:checked,
+.wp-admin.wp-core-ui input[type="radio"]:checked {
+  background: #fff; // 6.9.5 + 7.0.2 base value; 6.9.5 :checked never overrides it
+  border-color: #1e1e1e; // 7.0.2's own base (unchecked) border-color; 6.9.5's base is #8c8f94 but that's out of scope for this checked-state-only fix
+}
+
+// Checked checkbox glyph ("Yes" dashicon): recolor via mask instead of a
+// hardcoded-fill SVG, so the shape tracks var(--wp-admin-theme-color).
+// The mask image below is 7.0.2's own white-fill SVG, reused purely as a
+// luminance mask (white path = visible, transparent elsewhere).
+// (No manual -webkit- prefixes: this project's build runs autoprefixer.)
+.wp-admin.wp-core-ui input[type="checkbox"]:checked::before {
+  content: "";
+  background-color: var(--wp-admin-theme-color); // 6.9.5: SVG fill = scheme accent (Pressbooks red via colors-pb.scss); 7.0.2: hardcoded #ffffff
+  mask-image: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M14.83%204.89l1.34.94-5.81%208.38H9.02L5.78%209.67l1.34-1.25%202.57%202.4z%27%20fill%3D%27%23ffffff%27%2F%3E%3C%2Fsvg%3E");
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+// Checked radio dot: 7.0.2's own flex-based `margin: auto` centering
+// already reproduces 6.9.5's fixed `margin: 0.1875rem` position exactly
+// (both center a 0.5rem dot in the same 1rem border-box), so only the
+// color needs restoring.
+.wp-admin.wp-core-ui input[type="radio"]:checked::before {
+  background-color: var(--wp-admin-theme-color); // 6.9.5: background-color = scheme accent (Pressbooks red via colors-pb.scss); 7.0.2: hardcoded #fff
 }
