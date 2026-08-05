@@ -1,5 +1,24 @@
 # Changelog
 
+## [6.44.0](https://github.com/pressbooks/pressbooks/compare/6.43.0...6.44.0) (2026-08-05)
+
+
+### Features
+
+* bot crawling endpoints ([#4531](https://github.com/pressbooks/pressbooks/issues/4531)) ([ac4ffbf](https://github.com/pressbooks/pressbooks/commit/ac4ffbfae3d189622470e7f25ec202dc5d60a2a5))
+* google docs import ([#4432](https://github.com/pressbooks/pressbooks/issues/4432)) ([9b64465](https://github.com/pressbooks/pressbooks/commit/9b6446509c8ceb939b2b5e9e17cab173e28d504e))
+
+
+### Bug Fixes
+
+* use correct sitemap url ([#4540](https://github.com/pressbooks/pressbooks/issues/4540)) ([616ef3e](https://github.com/pressbooks/pressbooks/commit/616ef3e1e0d3bd546ac6d0410138a7ea700ee374))
+* z-index google docs picker dialog ([#4538](https://github.com/pressbooks/pressbooks/issues/4538)) ([123fd96](https://github.com/pressbooks/pressbooks/commit/123fd966843ef6be8fd7119fa8b2af071eb4358a))
+
+
+### Chores
+
+* **l10n:** update languages ([#4514](https://github.com/pressbooks/pressbooks/issues/4514)) ([66b9646](https://github.com/pressbooks/pressbooks/commit/66b96468eb8bd33feef743e86d403f24cc39968d))
+
 ## [6.43.0](https://github.com/pressbooks/pressbooks/compare/6.42.3...6.43.0) (2026-07-22)
 
 
