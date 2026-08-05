@@ -99,7 +99,8 @@
 // `.wrap .page-title-action` (0,2,0), so no !important is needed.
 // 6.9.5: min-height 30px, line-height 2.15384615, padding 0 10px, font-weight 400, border-radius 3px
 // 7.0.2: min-height 32px, line-height 2.30769231, padding 0 12px, font-weight 500, border-radius 2px
-// Resting background (CORE-021) — 6.9.5: background #f6f7f7 | 7.0.2: background transparent
+// Sizing applies in ALL states (stateless selector, incl. :hover) so the
+// button never resizes on hover.
 .wp-admin .wrap .page-title-action,
 .wp-admin .wrap .page-title-action:active {
   min-height: 30px;
@@ -107,6 +108,18 @@
   padding: 0 10px;
   font-weight: 400;
   border-radius: 3px;
+}
+
+// Resting background (CORE-021; hover-regression fix CORE-022) —
+// 6.9.5: background #f6f7f7 | 7.0.2: background transparent.
+// Scoped `:not(:hover)` so it restores the 6.9.5 gray at rest/focus/active but
+// does NOT clobber Pressbooks' brand-red hover. colors-pb(-a11y)'s
+// `.wrap .page-title-action:hover { background-color: $link-focus }` is (0,3,0)
+// and loads BEFORE this compat file; the previous stateless
+// `.wp-admin .wrap .page-title-action` (also (0,3,0)) matched during hover and,
+// loading later, replaced that brand red with gray. `:not(:hover)` ((0,4,0))
+// simply does not match while hovering, so the brand-red hover wins again.
+.wp-admin .wrap .page-title-action:not(:hover) {
   background: #f6f7f7;
 }
 
