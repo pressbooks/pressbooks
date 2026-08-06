@@ -226,7 +226,7 @@ function latest_exports() {
 function add_sitemap_to_robots_txt() {
 
 	if ( 1 === absint( get_option( 'blog_public' ) ) ) {
-		echo 'Sitemap: ' . get_option( 'siteurl' ) . "/?feed=sitemap.xml\n\n";
+		echo 'Sitemap: ' . home_url() . "/?feed=sitemap.xml\n\n";
 	}
 }
 

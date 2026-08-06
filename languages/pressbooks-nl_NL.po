@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-06-11T15:44:18+00:00\n"
-"PO-Revision-Date: 2026-06-12 00:30\n"
+"PO-Revision-Date: 2026-07-08 00:20\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -3543,7 +3543,7 @@ msgstr ""
 
 #: inc/modules/export/traits/class-handlecontributors.php:33
 msgid "Edited by "
-msgstr ""
+msgstr "Onder redactie van "
 
 #: inc/modules/export/wordpress/class-vanillawxr.php:24
 #: inc/modules/export/wordpress/class-vanillawxr.php:38
