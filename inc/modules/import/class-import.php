@@ -531,11 +531,10 @@ abstract class Import {
 	 * @return bool
 	 */
 	static protected function setGoogleDocsImportOptions(): bool {
-		$url = sanitize_text_field( getset( '_POST', 'import_http' ) );
-		$doc_id = GoogleDocs\OAuthClient::extractDocId( $url );
+		$doc_id = sanitize_text_field( getset( '_POST', 'import_gdoc_id' ) );
 
-		if ( ! $doc_id ) {
-			$_SESSION['pb_errors'][] = __( 'Please enter a valid Google Docs URL.', 'pressbooks' );
+		if ( ! $doc_id || ! preg_match( '/^[a-zA-Z0-9_-]+$/', $doc_id ) ) {
+			$_SESSION['pb_errors'][] = __( 'Please select a Google Doc to import.', 'pressbooks' );
 			return false;
 		}
 
@@ -588,7 +587,6 @@ abstract class Import {
 
 		$upload = [
 			'file' => $cached_path,
-			'url'  => $url,
 			'type' => 'application/json',
 		];
 
