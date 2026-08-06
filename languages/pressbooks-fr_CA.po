@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-06-11T15:44:18+00:00\n"
-"PO-Revision-Date: 2026-06-12 00:30\n"
+"PO-Revision-Date: 2026-08-06 00:18\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -89,11 +89,11 @@ msgstr "Adresse URL source"
 msgid "Author"
 msgid_plural "Authors"
 msgstr[0] "Auteur"
-msgstr[1] "Auteurs"
+msgstr[1] "Auteur·rices"
 
 #: inc/admin/attachments/namespace.php:60
 msgid "Author URL"
-msgstr "URL de l'auteur"
+msgstr "URL de l'auteur·rice"
 
 #: inc/admin/attachments/namespace.php:68
 msgid "License"
@@ -515,7 +515,7 @@ msgstr "Arrière-plan du plat verso"
 #: inc/admin/covergenerator/namespace.php:329
 #, php-format
 msgid "The text below is pulled from your <a href=\"%s\">Book Information</a> page, and is used to generate your cover(s). You can reformat the text below as needed. (<strong>IMPORTANT NOTE:</strong> Changes you make here will <strong>NOT</strong> be reflected on the Book Information page.)"
-msgstr "Le texte ci-dessous est tiré de votre page <a href=\"%s\">d&rsquo;informations sur le livre</a> et est utilisé pour générer vos couvertures. Vous pouvez reformater le texte ci-dessous si nécessaire. (<strong>REMARQUE IMPORTANTE :</strong> les modifications que vous apportez ici ne seront <strong>PAS</strong> reflétées sur la page d&rsquo;informations du livre.)"
+msgstr "Le texte ci-dessous est tiré de votre page <a href=\"%s\">Informations du livre</a> et est utilisé pour générer vos couvertures. Vous pouvez reformater le texte ci-dessous si nécessaire. (<strong>REMARQUE IMPORTANTE :</strong> les modifications que vous apportez ici ne seront <strong>PAS</strong> reflétées sur la page d&rsquo;informations du livre.)"
 
 #. translators: %s: URL to Appearance menu
 #: inc/admin/covergenerator/namespace.php:442
@@ -668,7 +668,7 @@ msgstr "Propulsé par %s"
 
 #: inc/admin/laf/namespace.php:104
 msgid "Pressbooks User Guide"
-msgstr "Guide de l'utilisateur Pressbooks"
+msgstr "Guide d'utilisation de Pressbooks"
 
 #: inc/admin/laf/namespace.php:114
 #: templates/admin/sitemap.blade.php:2
@@ -818,7 +818,7 @@ msgstr "Corbeille"
 #: inc/posttype/namespace.php:151
 #: templates/admin/cloner/stats.blade.php:3
 msgid "Book Info"
-msgstr "Information sur le livre"
+msgstr "Informations du livre"
 
 #: inc/admin/laf/namespace.php:309
 msgid "Choose institution(s)... "
@@ -1009,7 +1009,7 @@ msgstr "Livres"
 #: inc/admin/menus/class-sidebar.php:247
 #: inc/admin/menus/class-topbar.php:136
 msgid "Users"
-msgstr "Utilisateurs"
+msgstr "Utilisateur·rices"
 
 #: inc/admin/laf/namespace.php:882
 msgid "Themes"
@@ -1097,7 +1097,7 @@ msgstr "Vous êtes sur le point d’activer le site %s."
 
 #: inc/admin/laf/namespace.php:1625
 msgid "Deactivating a site makes it unavailable to its users and visitors. This is a reversible action."
-msgstr "La désactivation d’un site le rend inaccessible à ses utilisateurs et à ses visiteurs. Cette action est réversible."
+msgstr "La désactivation d’un site le rend inaccessible à ses utilisateur·rices et à ses visiteurs. Cette action est réversible."
 
 #: inc/admin/laf/namespace.php:1628
 msgid "Site deactivated."
@@ -1992,7 +1992,7 @@ msgstr "Utilisateur(s) ajouté(s) avec succès au réseau."
 
 #: inc/admin/users/class-userbulk.php:207
 msgid "An invitation email has been sent to the user(s) below. A confirmation link must be clicked before their account is created."
-msgstr "Un courriel d'invitation a été envoyé à l'utilisateur ou aux utilisateurs ci-dessous. Un lien de confirmation doit être cliqué pour que leur compte soit créé."
+msgstr "Un courriel d'invitation a été envoyé à l'utilisateur·rice ou aux utilisateur·rices ci-dessous. Un lien de confirmation doit être cliqué pour que leur compte soit créé."
 
 #: inc/api/endpoints/controller/books/class-books.php:108
 #: inc/api/endpoints/controller/class-toc.php:151
@@ -2124,7 +2124,7 @@ msgstr "Accès refusé"
 
 #: inc/class-activation.php:259
 msgid "This book is private, and accessible only to registered users. If you have an account you can login <a href=\"/wp-login.php\">here</a>. You can also set up your own Pressbooks book at: <a href=\"http://pressbooks.com\">Pressbooks.com</a>."
-msgstr "Ce livre est privé. Il est accessible uniquement aux utilisateurs enregistrés. Si vous avez un compte, vous pouvez vous connecter <a href=\"/wp-login.php\">ici</a>. Vous pouvez également créer votre propre livre Pressbooks à : <a href=\"http://pressbooks.com\">Pressbooks.com</a>."
+msgstr "Ce livre est privé. Il est accessible uniquement aux utilisateur·rices enregistré·es. Si vous avez un compte, vous pouvez vous connecter <a href=\"/wp-login.php\">ici</a>. Vous pouvez également créer votre propre livre Pressbooks à : <a href=\"http://pressbooks.com\">Pressbooks.com</a>."
 
 #: inc/class-activation.php:264
 #: inc/class-customcss.php:91
@@ -2147,7 +2147,7 @@ msgstr "CSS personnalisé pour le Web"
 #: inc/posttype/namespace.php:543
 #: templates/admin/import.php:118
 msgid "Book Information"
-msgstr "Information sur le livre"
+msgstr "Information du livre"
 
 #: inc/class-activation.php:311
 msgid "Default Data"
@@ -3029,7 +3029,7 @@ msgstr "Afficher les renseignements supplémentaires du livre"
 
 #: inc/metadata/namespace.php:126
 msgid "The book information you enter here appears on your book’s cover and title pages and in the metadata of your webbook and exported files."
-msgstr "Les renseignements sur le livre indiqués ici figurent sur la page couverture de votre livre et sur les pages titres ainsi que dans les métadonnées de votre livre Web et dans les fichiers exportés."
+msgstr "Les informations du livre indiquées ici figurent sur la page couverture de votre livre et sur les pages titres ainsi que dans les métadonnées de votre livre Web et dans les fichiers exportés."
 
 #: inc/metadata/namespace.php:128
 msgid "If you need to enter additional information, click the button below to see all available fields."
@@ -4588,7 +4588,7 @@ msgstr "Votre compte a été activé. Vous pouvez maintenant vous <a href=\"%1$s
 #: inc/registration/namespace.php:90
 #, php-format
 msgid "Your book at <a href=\"%1$s\">%2$s</a> is active. You may now log in to your book using your chosen username of &#8220;%3$s&#8221;. Please check your email inbox at %4$s for your password and login instructions. If you do not receive an email, please check your junk or spam folder. If you still do not receive an email within an hour, you can <a href=\"%5$s\">reset your password</a>."
-msgstr "Votre livre à <a href=\"%1$s\">%2$s</a>est actif. Vous pouvez maintenant vous connecter à votre livre avec votre nom d'utilisateur &#8220;%3$s&#8221;. Veuillez vérifier dans votre boîte de réception à %4$svotre mot de passe et les instructions de connexion vous ont été envoyés. Si vous n'avez pas reçu de courriel, veuillez vérifier votre courrier indésirable. Si vous n'avez toujours pas reçu de courriel dans l'heure, vous pouvez <a href=\"%5$s\">réinitialiser votre mot de passe</a>."
+msgstr "Votre livre à <a href=\"%1$s\">%2$s</a>est actif. Vous pouvez maintenant vous connecter à votre livre avec votre identifiant &#8220;%3$s&#8221;. Veuillez vérifier dans votre boîte de réception à %4$svotre mot de passe et les instructions de connexion vous ont été envoyés. Si vous n'avez pas reçu de courriel, veuillez vérifier votre courrier indésirable. Si vous n'avez toujours pas reçu de courriel dans l'heure, vous pouvez <a href=\"%5$s\">réinitialiser votre mot de passe</a>."
 
 #: inc/registration/namespace.php:93
 #, php-format
@@ -5366,7 +5366,7 @@ msgstr "Regardez une courte série de vidéos sur la façon de démarrer avec Pr
 
 #: templates/admin/dashboard/book.blade.php:116
 msgid "Pressbooks user guide"
-msgstr "Guide d'utilisation pour Pressbooks"
+msgstr "Guide d'utilisation de Pressbooks"
 
 #: templates/admin/dashboard/book.blade.php:119
 msgid "Find help and how-tos for your publishing project in this detailed handbook."
@@ -5405,7 +5405,7 @@ msgstr "Visitez la page d'accueil du réseau"
 #: templates/admin/dashboard/network.blade.php:23
 #, php-format
 msgid "Your network has %s books and %s users. "
-msgstr "Votre réseau compte %s livres et %s utilisateurs. "
+msgstr "Votre réseau compte %s livres et %s utilisateur·rices. "
 
 #: templates/admin/dashboard/network.blade.php:31
 msgid "Explore stats"
@@ -5441,7 +5441,7 @@ msgstr "Afficher la liste des livres"
 
 #: templates/admin/dashboard/network.blade.php:99
 msgid "View user list"
-msgstr "Afficher la liste des utilisateurs"
+msgstr "Afficher la liste des utilisateur·rices"
 
 #: templates/admin/dashboard/support.blade.php:8
 msgid "Network manager guide"
@@ -5653,7 +5653,7 @@ msgstr "Toute personne ayant le lien peut voir votre livre. Les livres publics p
 
 #: templates/admin/organize.blade.php:41
 msgid "Only users you invite can see your book, regardless of individual chapter visibility below."
-msgstr "Les utilisateurs que vous invitez seront les seuls à pouvoir consulter votre livre, peu importe la visibilité de chacun des chapitres indiqués ci-dessous."
+msgstr "Les utilisateur·rices que vous invitez seront les seuls à pouvoir consulter votre livre, peu importe la visibilité de chacun des chapitres indiqués ci-dessous."
 
 #: templates/admin/organize.blade.php:66
 msgid "Add Glossary Term"
