@@ -159,8 +159,8 @@ class Bootstrap {
 				/**
 				 * Selectors for the import form; filter if the import page markup changes.
 				 */
-				'typeSelector' => apply_filters( 'pb_gdocs_picker_type_selector', '#type_of' ),
-				'urlSelector'  => apply_filters( 'pb_gdocs_picker_url_selector', '#import_http_gdocs' ),
+				'typeSelector'  => apply_filters( 'pb_gdocs_picker_type_selector', '#type_of' ),
+				'fieldSelector' => apply_filters( 'pb_gdocs_picker_field_selector', '#import_gdoc_id' ),
 				'strings'      => [
 					'buttonLabel' => __( 'Select from Google Drive', 'pressbooks' ),
 					'changeLabel' => __( 'Change document', 'pressbooks' ),

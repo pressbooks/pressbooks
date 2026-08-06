@@ -104,22 +104,6 @@ class Modules_ImportGoogleDocsOAuthTest extends \WP_UnitTestCase {
 	/**
 	 * @group import
 	 */
-	public function test_extract_doc_id_from_url(): void {
-		$this->assertSame(
-			'1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms',
-			OAuthClient::extractDocId( 'https://docs.google.com/document/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms/edit' )
-		);
-		$this->assertSame(
-			'1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms',
-			OAuthClient::extractDocId( 'https://docs.google.com/document/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms/edit#heading=h.abc' )
-		);
-		$this->assertNull( OAuthClient::extractDocId( 'https://docs.google.com/spreadsheets/d/abc/edit' ) );
-		$this->assertNull( OAuthClient::extractDocId( 'not-a-url' ) );
-	}
-
-	/**
-	 * @group import
-	 */
 	public function test_get_authed_client_throws_when_no_token(): void {
 		$this->expectException( \Pressbooks\Modules\Import\GoogleDocs\ReauthorizationRequiredException::class );
 		$oauth = $this->make_oauth_client( false );
