@@ -1,5 +1,17 @@
 # Changelog
 
+## [6.44.1](https://github.com/pressbooks/pressbooks/compare/6.44.0...6.44.1) (2026-08-06)
+
+
+### Bug Fixes
+
+* orphan http_import url handler and cleanup ([#4544](https://github.com/pressbooks/pressbooks/issues/4544)) ([5f3b1c8](https://github.com/pressbooks/pressbooks/commit/5f3b1c81e3dd5c0dd83ec35f3b620d1d9b86f16a))
+
+
+### Chores
+
+* **l10n:** update languages ([#4543](https://github.com/pressbooks/pressbooks/issues/4543)) ([24d60ca](https://github.com/pressbooks/pressbooks/commit/24d60ca777bfffbd1f5ea1c0d52c0a9a7a0a022e))
+
 ## [6.44.0](https://github.com/pressbooks/pressbooks/compare/6.43.0...6.44.0) (2026-08-05)
 
 
