@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 6.44.0\n"
+"Project-Id-Version: Pressbooks 6.44.1\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-05T15:44:02+00:00\n"
+"POT-Creation-Date: 2026-08-07T00:15:52+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -3658,53 +3658,53 @@ msgstr ""
 msgid "Your file does not appear to be a valid %s."
 msgstr ""
 
-#: inc/modules/import/class-import.php:538
-msgid "Please enter a valid Google Docs URL."
+#: inc/modules/import/class-import.php:537
+msgid "Please select a Google Doc to import."
 msgstr ""
 
-#: inc/modules/import/class-import.php:544
+#: inc/modules/import/class-import.php:543
 msgid "Google Docs import is not configured. Ask a network admin to set it up."
 msgstr ""
 
-#: inc/modules/import/class-import.php:552
+#: inc/modules/import/class-import.php:551
 msgid "Please connect your Google account first."
 msgstr ""
 
-#: inc/modules/import/class-import.php:559
+#: inc/modules/import/class-import.php:558
 msgid "Your Google connection expired. Please reconnect."
 msgstr ""
 
-#: inc/modules/import/class-import.php:575
+#: inc/modules/import/class-import.php:574
 msgid "Access denied. Make sure the Google Docs API is enabled in your Google Cloud project and you have permission to view this document."
 msgstr ""
 
-#: inc/modules/import/class-import.php:577
+#: inc/modules/import/class-import.php:576
 msgid "Document not found. Check the URL and make sure you have access."
 msgstr ""
 
-#: inc/modules/import/class-import.php:579
+#: inc/modules/import/class-import.php:578
 msgid "Google is rate-limiting us. Try again in a few minutes."
 msgstr ""
 
-#: inc/modules/import/class-import.php:581
+#: inc/modules/import/class-import.php:580
 msgid "Error fetching the Google Doc."
 msgstr ""
 
-#: inc/modules/import/class-import.php:585
+#: inc/modules/import/class-import.php:584
 #, php-format
 msgid "Could not access the Google Doc: %s"
 msgstr ""
 
-#: inc/modules/import/class-import.php:629
+#: inc/modules/import/class-import.php:627
 msgid "Your URL does not appear to be valid"
 msgstr ""
 
-#: inc/modules/import/class-import.php:636
-#: inc/modules/import/class-import.php:665
+#: inc/modules/import/class-import.php:634
+#: inc/modules/import/class-import.php:663
 msgid "The URL you are trying to import is bigger than the maximum file size."
 msgstr ""
 
-#: inc/modules/import/class-import.php:658
+#: inc/modules/import/class-import.php:656
 msgid "The website you are attempting to reach is not returning a successful response code: "
 msgstr ""
 
@@ -3785,7 +3785,7 @@ msgstr ""
 
 #. translators: %s: file path.
 #: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:198
-#: inc/modules/import/googledocs/class-oauthclient.php:250
+#: inc/modules/import/googledocs/class-oauthclient.php:242
 #, php-format
 msgid "Failed to read broker public key file: %s"
 msgstr ""
@@ -3887,53 +3887,53 @@ msgstr ""
 msgid "Failed to revoke token at Google: %s Please try again."
 msgstr ""
 
-#: inc/modules/import/googledocs/class-oauthclient.php:266
-#: inc/modules/import/googledocs/class-oauthclient.php:339
+#: inc/modules/import/googledocs/class-oauthclient.php:258
+#: inc/modules/import/googledocs/class-oauthclient.php:331
 msgid "Invalid or expired OAuth state."
 msgstr ""
 
-#: inc/modules/import/googledocs/class-oauthclient.php:272
+#: inc/modules/import/googledocs/class-oauthclient.php:264
 msgid "Broker public key not configured."
 msgstr ""
 
-#: inc/modules/import/googledocs/class-oauthclient.php:279
+#: inc/modules/import/googledocs/class-oauthclient.php:271
 msgid "Invalid JWT issuer."
 msgstr ""
 
-#: inc/modules/import/googledocs/class-oauthclient.php:284
+#: inc/modules/import/googledocs/class-oauthclient.php:276
 msgid "Invalid JWT audience."
 msgstr ""
 
-#: inc/modules/import/googledocs/class-oauthclient.php:288
+#: inc/modules/import/googledocs/class-oauthclient.php:280
 msgid "JWT has expired."
 msgstr ""
 
-#: inc/modules/import/googledocs/class-oauthclient.php:292
+#: inc/modules/import/googledocs/class-oauthclient.php:284
 msgid "Missing JWT ID."
 msgstr ""
 
-#: inc/modules/import/googledocs/class-oauthclient.php:297
+#: inc/modules/import/googledocs/class-oauthclient.php:289
 msgid "JWT has already been used."
 msgstr ""
 
-#: inc/modules/import/googledocs/class-oauthclient.php:302
+#: inc/modules/import/googledocs/class-oauthclient.php:294
 msgid "JWT state mismatch."
 msgstr ""
 
-#: inc/modules/import/googledocs/class-oauthclient.php:306
+#: inc/modules/import/googledocs/class-oauthclient.php:298
 msgid "Missing access_token or session_handle in JWT."
 msgstr ""
 
-#: inc/modules/import/googledocs/class-oauthclient.php:310
+#: inc/modules/import/googledocs/class-oauthclient.php:302
 msgid "Broker handoff JWT must not contain a refresh_token."
 msgstr ""
 
-#: inc/modules/import/googledocs/class-oauthclient.php:314
+#: inc/modules/import/googledocs/class-oauthclient.php:306
 msgid "Missing google_sub in JWT."
 msgstr ""
 
 #. translators: %s: error detail returned by Google.
-#: inc/modules/import/googledocs/class-oauthclient.php:351
+#: inc/modules/import/googledocs/class-oauthclient.php:343
 #, php-format
 msgid "Token exchange failed: %s"
 msgstr ""
@@ -5385,31 +5385,30 @@ msgid "Choose file"
 msgstr ""
 
 #: templates/admin/import.php:233
-#: templates/admin/import.php:236
-msgid "Google Docs URL"
+msgid "Google Docs Document"
 msgstr ""
 
-#: templates/admin/import.php:249
+#: templates/admin/import.php:250
 msgid "Google Docs import is not configured. Ask a network admin to set it up under Network Admin → Settings → Google Docs Import."
 msgstr ""
 
-#: templates/admin/import.php:253
+#: templates/admin/import.php:254
 msgid "Connect your Google account to import from Google Docs."
 msgstr ""
 
-#: templates/admin/import.php:255
+#: templates/admin/import.php:256
 msgid "Connect Google Account"
 msgstr ""
 
-#: templates/admin/import.php:259
+#: templates/admin/import.php:260
 msgid "Google account connected."
 msgstr ""
 
-#: templates/admin/import.php:260
+#: templates/admin/import.php:261
 msgid "Disconnect"
 msgstr ""
 
-#: templates/admin/import.php:266
+#: templates/admin/import.php:267
 msgid "Begin Import"
 msgstr ""
 
