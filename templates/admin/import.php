@@ -230,10 +230,11 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 			?>
 			<tr x-show="typeOf === 'google-docs' && <?php echo $gdocs_is_connected ? 'true' : 'false'; ?>" x-cloak>
 				<th scope="row">
-					<label for="import_http_gdocs"><?php _e( 'Google Docs URL', 'pressbooks' ); ?></label>
+					<?php _e( 'Google Docs Document', 'pressbooks' ); ?>
 				</th>
 				<td>
-					<input type="url" class="widefat" name="import_http" id="import_http_gdocs" placeholder="https://docs.google.com/document/d/..." style="display:block;" aria-label="<?php _e( 'Google Docs URL', 'pressbooks' ); ?>" />
+					<?php // Populated by the Google Picker; see googledocs/assets/picker.js. ?>
+					<input type="hidden" name="import_gdoc_id" id="import_gdoc_id" />
 				</td>
 			</tr>
 

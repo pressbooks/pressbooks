@@ -218,14 +218,6 @@ class OAuthClient {
 		$this->token_storage->delete( $user_id );
 	}
 
-	public static function extractDocId( string $url ): ?string {
-		if ( preg_match( '#docs\.google\.com/document/d/([a-zA-Z0-9_-]+)#', $url, $matches ) ) {
-			return $matches[1];
-		}
-
-		return null;
-	}
-
 	public function getRedirectUri(): string {
 		return network_home_url( 'wp-admin/admin-post.php?action=pb_gdocs_callback' );
 	}
