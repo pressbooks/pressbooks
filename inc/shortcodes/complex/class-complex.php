@@ -6,20 +6,20 @@
 
 namespace Pressbooks\Shortcodes\Complex;
 
-use function \Pressbooks\Utility\do_shortcode_by_tags;
-use function \Pressbooks\Utility\str_starts_with;
+use function Pressbooks\Utility\do_shortcode_by_tags;
+use function Pressbooks\Utility\str_starts_with;
 
 class Complex {
 
 	/**
 	 * @var Complex - Static property to hold our singleton instance.
 	 */
-	static $instance = null;
+	public static $instance = null;
 
 	/**
 	 * Adds shortcodes based on $self->complex.
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -32,7 +32,7 @@ class Complex {
 	 *
 	 * @param Complex $obj
 	 */
-	static public function hooks( Complex $obj ) {
+	public static function hooks( Complex $obj ) {
 		add_shortcode( 'anchor', [ $obj, 'anchorShortCodeHandler' ] );
 		add_shortcode( 'columns', [ $obj, 'columnsShortCodeHandler' ] );
 		add_shortcode( 'email', [ $obj, 'emailShortCodeHandler' ] );

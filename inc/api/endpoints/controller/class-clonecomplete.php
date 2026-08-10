@@ -82,5 +82,4 @@ class CloneComplete extends \WP_REST_Controller {
 	public function validateUrl( string $url ): bool {
 		return filter_var( $url, FILTER_VALIDATE_URL );
 	}
-
 }

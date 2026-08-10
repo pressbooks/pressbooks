@@ -24,7 +24,10 @@ class TaxonomySelect extends Field {
 	}
 
 	public function getOptions(): array {
-		$terms = get_terms( $this->taxonomy, [ 'hide_empty' => false ] );
+		$terms = get_terms( [
+			'taxonomy' => $this->taxonomy,
+			'hide_empty' => false,
+		] );
 
 		$options = [];
 

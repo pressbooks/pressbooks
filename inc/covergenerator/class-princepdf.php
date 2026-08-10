@@ -2,8 +2,8 @@
 
 namespace Pressbooks\Covergenerator;
 
-use function Pressbooks\Utility\template;
 use Pressbooks\Container;
+use function Pressbooks\Utility\template;
 
 class PrincePdf extends Generator {
 

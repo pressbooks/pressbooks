@@ -78,7 +78,7 @@ class User {
 	 *
 	 * @return string
 	 */
-	public static function sanitizeUser( string $username ) : string {
+	public static function sanitizeUser( string $username ): string {
 		$unique_username = sanitize_user( $username, true );
 		$unique_username = strtolower( $unique_username );
 		$unique_username = preg_replace( '/[^a-z0-9]/', '', $unique_username );
@@ -103,13 +103,12 @@ class User {
 		$contributors = new Contributors();
 		$contributors->addBlogUser( $book_admin[0]->ID );
 
-		$metadata_post_id = ( new \Pressbooks\Metadata )->getMetaPostId();
+		$metadata_post_id = ( new \Pressbooks\Metadata() )->getMetaPostId();
 
 		$term = get_term_by( 'slug', $book_admin[0]->data->user_login, Contributors::TAXONOMY, ARRAY_A );
 
 		$contributors->link( $term['term_id'], $metadata_post_id );
 
 		$contributors->removeBlogUser( get_current_user_id() );
-
 	}
 }

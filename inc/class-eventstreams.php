@@ -12,11 +12,11 @@
 
 namespace Pressbooks;
 
-use function Pressbooks\Modules\Export\get_friendly_name_for_module;
-use function Pressbooks\Utility\getset;
 use Pressbooks\Cloner\Cloner;
 use Pressbooks\Modules\BackgroundProcessing\BackgroundJob;
 use Pressbooks\Modules\Import\Import;
+use function Pressbooks\Modules\Export\get_friendly_name_for_module;
+use function Pressbooks\Utility\getset;
 
 class EventStreams {
 
@@ -44,7 +44,7 @@ class EventStreams {
 	/**
 	 * @param EventStreams $obj
 	 */
-	static public function hooks( EventStreams $obj ) {
+	public static function hooks( EventStreams $obj ) {
 		add_action( 'wp_ajax_clone-book', [ $obj, 'cloneBook' ] );
 		add_action( 'wp_ajax_import-book', [ $obj, 'importBook' ] );
 		add_action( 'wp_ajax_cover-generator', [ $obj, 'coverGenerator' ] );
@@ -297,10 +297,10 @@ class EventStreams {
 			$active_jobs = $db->table( BackgroundJob::JOBS_TABLE_NAME )
 				->where( 'user_id', $user_id )
 				->where( 'book_id', $book_id )
-				->where(function( $query ) {
+				->where(function ( $query ) {
 					$query->whereIn( 'status', [ 'pending', 'processing', 'completed' ] )
 						// Include jobs that are 'failed' but were updated in the last minute to display recent errors
-						->orWhere(function( $sub ) {
+						->orWhere(function ( $sub ) {
 							$sub->where( 'status', 'failed' )
 								->where( 'updated_at', '>=', date( 'Y-m-d H:i:s', strtotime( '-1 minute' ) ) );
 						});
@@ -440,5 +440,4 @@ class EventStreams {
 			exit; // Short circuit wp_die(0);
 		}
 	}
-
 }

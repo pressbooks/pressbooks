@@ -46,5 +46,4 @@ class Appendix extends Element {
 		'appendix',
 		'afterword',
 	];
-
 }

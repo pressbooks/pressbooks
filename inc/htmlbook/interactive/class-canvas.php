@@ -27,5 +27,4 @@ class Canvas extends Element {
 	 * @var string
 	 */
 	protected $tag = 'canvas';
-
 }

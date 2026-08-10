@@ -67,5 +67,4 @@ class CodeListings extends Element {
 		}
 		return parent::renderAttributes();
 	}
-
 }

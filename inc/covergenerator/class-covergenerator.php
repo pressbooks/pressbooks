@@ -12,7 +12,7 @@ class Covergenerator {
 	/**
 	 * @return Covergenerator
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -23,7 +23,7 @@ class Covergenerator {
 	/**
 	 * @param Covergenerator $obj
 	 */
-	static public function hooks( Covergenerator $obj ) {
+	public static function hooks( Covergenerator $obj ) {
 		if ( is_admin() ) {
 			// Look & feel of admin interface and Dashboard
 			add_action( 'admin_menu', '\Pressbooks\Admin\Covergenerator\generator_menu' );
@@ -44,7 +44,7 @@ class Covergenerator {
 	/**
 	 * Set defaults for command line utilities
 	 */
-	static public function commandLineDefaults() {
+	public static function commandLineDefaults() {
 		if ( ! defined( 'PB_CONVERT_COMMAND' ) ) {
 			define( 'PB_CONVERT_COMMAND', '/usr/bin/convert' );
 		}
@@ -72,7 +72,7 @@ class Covergenerator {
 	/**
 	 * @return bool
 	 */
-	function hasDependencies() {
+	public function hasDependencies() {
 		$commands = [
 			PB_CONVERT_COMMAND . ' --version' => '6.7',
 			PB_GS_COMMAND . ' --version' => '8.7',
@@ -108,5 +108,4 @@ class Covergenerator {
 
 		return true;
 	}
-
 }

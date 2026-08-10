@@ -71,7 +71,7 @@ putenv( "LC_CTYPE={$pb_lc_ctype}" );
 // Turn on $_SESSION
 // -------------------------------------------------------------------------------------------------------------------
 
-require_once( PB_PLUGIN_DIR . 'inc/namespace.php' );
+require_once PB_PLUGIN_DIR . 'inc/namespace.php';
 add_action( 'plugins_loaded', '\Pressbooks\session_start', 1 );
 add_action( 'wp_logout', '\Pressbooks\session_kill' );
 add_action( 'wp_login', '\Pressbooks\session_kill' );
@@ -83,7 +83,7 @@ add_action( 'wp_login', '\Pressbooks\session_kill' );
 $composer = PB_PLUGIN_DIR . 'vendor/autoload.php';
 
 if ( file_exists( $composer ) ) {
-	require_once( $composer );
+	require_once $composer;
 } else {
 	if ( ! class_exists( '\Illuminate\Container\Container' ) ) {
 		/* translators: 1: URL to Composer documentation, 2: URL to Pressbooks latest releases */
@@ -121,17 +121,17 @@ $GLOBALS['pressbooks'] = new Pressbooks();
 // Hooks
 // -------------------------------------------------------------------------------------------------------------------
 
-require( PB_PLUGIN_DIR . 'hooks.php' );
+require PB_PLUGIN_DIR . 'hooks.php';
 
 if ( is_admin() ) {
-	require( PB_PLUGIN_DIR . 'hooks-admin.php' );
+	require PB_PLUGIN_DIR . 'hooks-admin.php';
 }
 
 // --------------------------------------------------------------------------------------------------------------------
 // Functions
 // --------------------------------------------------------------------------------------------------------------------
 
-require( PB_PLUGIN_DIR . 'functions.php' );
+require PB_PLUGIN_DIR . 'functions.php';
 
 //Background processing
 add_action( 'pressbooks_process_export_job', [ BackgroundJob::class, 'handle' ] );

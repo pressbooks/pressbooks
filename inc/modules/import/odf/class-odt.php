@@ -32,11 +32,11 @@ class Odt extends Import {
 	/**
 	 *
 	 */
-	function __construct() {
+	public function __construct() {
 		if ( ! function_exists( 'media_handle_sideload' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/image.php' );
-			require_once( ABSPATH . 'wp-admin/includes/file.php' );
-			require_once( ABSPATH . 'wp-admin/includes/media.php' );
+			require_once ABSPATH . 'wp-admin/includes/image.php';
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			require_once ABSPATH . 'wp-admin/includes/media.php';
 		}
 
 		$this->zip = new \ZipArchive();
@@ -49,7 +49,7 @@ class Odt extends Import {
 	 *
 	 * @return boolean - returns false if import fails
 	 */
-	function import( array $current_import ) {
+	public function import( array $current_import ) {
 
 		try {
 			$this->isValidZip( $current_import['file'] );
@@ -300,7 +300,7 @@ class Odt extends Import {
 	 *
 	 * @return boolean
 	 */
-	function setCurrentImportOption( array $upload ) {
+	public function setCurrentImportOption( array $upload ) {
 
 		try {
 			$this->isValidZip( $upload['file'] );
@@ -413,7 +413,7 @@ class Odt extends Import {
 		do {
 			$node = $chapter->importNode( $dom_list->item( $i ), true );
 			$chapter->documentElement->appendChild( $node );
-			$i++;
+			++$i;
 
 			// TODO
 			// This is problematic
@@ -561,5 +561,4 @@ class Odt extends Import {
 
 		return $xml;
 	}
-
 }

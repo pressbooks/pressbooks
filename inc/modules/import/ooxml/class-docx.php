@@ -71,11 +71,11 @@ class Docx extends Import {
 	/**
 	 *
 	 */
-	function __construct() {
+	public function __construct() {
 		if ( ! function_exists( 'media_handle_sideload' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/image.php' );
-			require_once( ABSPATH . 'wp-admin/includes/file.php' );
-			require_once( ABSPATH . 'wp-admin/includes/media.php' );
+			require_once ABSPATH . 'wp-admin/includes/image.php';
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			require_once ABSPATH . 'wp-admin/includes/media.php';
 		}
 
 		$this->zip = new \ZipArchive();
@@ -87,7 +87,7 @@ class Docx extends Import {
 	 *
 	 * @return boolean
 	 */
-	function import( array $current_import ) {
+	public function import( array $current_import ) {
 		try {
 			$this->isValidZip( $current_import['file'] );
 		} catch ( \Exception $e ) {
@@ -546,7 +546,7 @@ class Docx extends Import {
 		do {
 			$node = $chapter->importNode( $dom_list->item( $i ), true );
 			$chapter->documentElement->appendChild( $node );
-			$i++;
+			++$i;
 
 			// TODO
 			// This is problematic
@@ -632,7 +632,6 @@ class Docx extends Import {
 		}
 
 		return $this->addFootnotesToDOM( $chapter, $fn_ids );
-
 	}
 
 	/**
@@ -768,7 +767,7 @@ class Docx extends Import {
 	 *
 	 * @return boolean
 	 */
-	function setCurrentImportOption( array $upload ) {
+	public function setCurrentImportOption( array $upload ) {
 		try {
 			$this->isValidZip( $upload['file'] );
 		} catch ( \Exception $e ) {
@@ -994,5 +993,4 @@ class Docx extends Import {
 
 		return \Pressbooks\HtmLawed::filter( $html, $config );
 	}
-
 }

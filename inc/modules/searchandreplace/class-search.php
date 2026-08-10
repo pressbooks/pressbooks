@@ -51,10 +51,10 @@ abstract class Search {
 	 *
 	 * @return null|string
 	 */
-	function regexValidate( $expr ) {
+	public function regexValidate( $expr ) {
 		// evaluate expression without input and capture potential error message
 		$regex_error = 'invalid';
-		$error_handler = function( $errno, $errstr, $errfile, $errline ) use ( &$regex_error ) {
+		$error_handler = function ( $errno, $errstr, $errfile, $errline ) use ( &$regex_error ) {
 			$regex_error = preg_replace( '/(.*?):/', '', $errstr, 1 );
 		};
 		// detect possibility to execute code:
@@ -92,7 +92,7 @@ abstract class Search {
 	 *
 	 * @return \Pressbooks\Modules\SearchAndReplace\Result[]
 	 */
-	function searchAndReplace( $search, $replace, $limit, $offset, $orderby, $save = false ) {
+	public function searchAndReplace( $search, $replace, $limit, $offset, $orderby, $save = false ) {
 		// escape potential backreferences when not in regex mode
 		if ( ! $this->regex ) {
 			$replace = str_replace( '\\', '\\\\', $replace );
@@ -114,7 +114,7 @@ abstract class Search {
 	 *
 	 * @return string|\Pressbooks\Modules\SearchAndReplace\Result[]
 	 */
-	function searchForPattern( $search, $limit, $offset, $orderby ) {
+	public function searchForPattern( $search, $limit, $offset, $orderby ) {
 		if ( ! in_array( $orderby, [ 'asc', 'desc' ], true ) ) {
 			$orderby = 'asc';
 		}
@@ -153,7 +153,7 @@ abstract class Search {
 	 *
 	 * @return array
 	 */
-	static function getSearches() {
+	public static function getSearches() {
 		static $search_types = null; // Cheap cache
 		if ( ! is_array( $search_types ) ) {
 			$classes = [];
@@ -162,7 +162,7 @@ abstract class Search {
 				preg_match( '/class-(.*?)\.php/', $file, $match );
 				$class = __NAMESPACE__ . '\Types\\' . ucfirst( $match[1] );
 				if ( class_exists( $class ) ) {
-					$classes[] = new $class;
+					$classes[] = new $class();
 				}
 			}
 			$search_types = $classes;
@@ -175,7 +175,7 @@ abstract class Search {
 	 *
 	 * @return bool
 	 */
-	static function validSearch( $class ) {
+	public static function validSearch( $class ) {
 		$classes = Search::getSearches();
 		foreach ( $classes as $item ) {
 			if ( strcasecmp( get_class( $item ), $class ) === 0 ) {
@@ -192,7 +192,7 @@ abstract class Search {
 	 *
 	 * @return \Pressbooks\Modules\SearchAndReplace\Result[]|false
 	 */
-	function matches( $pattern, $content, $id ) {
+	public function matches( $pattern, $content, $id ) {
 		$matches = null;
 		if ( preg_match_all( $pattern, $content, $matches, PREG_OFFSET_CAPTURE ) > 0 ) {
 			// Reduce memory usage by doing preg_replace() for the same $pattern/$replacement combination only once
@@ -266,7 +266,7 @@ abstract class Search {
 	/**
 	 * @param array $results
 	 */
-	function replace( $results ) {
+	public function replace( $results ) {
 		// Update database, if appropriate
 		if ( count( $results ) > 0 ) {
 			// We only do the first replace of any set, as that will cover everything
@@ -286,7 +286,7 @@ abstract class Search {
 	 * @param int $length
 	 * @param string $replace
 	 */
-	function replaceInline( $id, $offset, $length, $replace ) {
+	public function replaceInline( $id, $offset, $length, $replace ) {
 		$content = $this->getContent( $id );
 
 		// Delete the original string

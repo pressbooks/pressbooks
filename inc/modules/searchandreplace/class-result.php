@@ -50,7 +50,7 @@ class Result {
 	/**
 	 * @return bool
 	 */
-	function singleLine() {
+	public function singleLine() {
 		if ( strpos( $this->search_plain, "\r" ) !== false || strpos( $this->search_plain, "\n" ) !== false ) {
 			return false;
 		}

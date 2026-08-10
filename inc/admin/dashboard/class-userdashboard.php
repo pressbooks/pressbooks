@@ -4,9 +4,9 @@
  */
 namespace Pressbooks\Admin\Dashboard;
 
-use function Pressbooks\Admin\Laf\can_create_new_books;
 use Pressbooks\Cloner\Cloner;
 use Pressbooks\Container;
+use function Pressbooks\Admin\Laf\can_create_new_books;
 
 class UserDashboard extends Dashboard {
 	protected static ?Dashboard $instance = null;

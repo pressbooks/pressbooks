@@ -40,5 +40,4 @@ class CrossReferences extends Element {
 	protected $dataTypes = [
 		'xref',
 	];
-
 }

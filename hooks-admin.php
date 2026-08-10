@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Includes
 // -------------------------------------------------------------------------------------------------------------------
 
-require_once( __DIR__ . '/requires-admin.php' );
+require_once __DIR__ . '/requires-admin.php';
 
 // -------------------------------------------------------------------------------------------------------------------
 // Recycle, reduce, reuse
@@ -155,7 +155,7 @@ add_filter( 'display_post_states', '\Pressbooks\PostType\display_post_states', 1
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action(
-	'init', function() {
+	'init', function () {
 		// replace default title filtering with our custom one that allows certain tags
 		remove_filter( 'title_save_pre', 'wp_filter_kses' );
 		add_filter( 'title_save_pre', '\Pressbooks\Sanitize\filter_title' );
@@ -413,7 +413,7 @@ add_action( 'plugins_loaded', [ SideBar::class, 'init' ] );
 add_action( 'plugins_loaded', [ TopBar::class, 'init' ] );
 add_action( 'plugins_loaded', [ User::class, 'init' ], 10 );
 
-add_action( 'pb_new_blog', function() {
+add_action( 'pb_new_blog', function () {
 	update_option( 'blog_public', 0 );
 } );
 

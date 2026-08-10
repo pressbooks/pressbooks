@@ -107,7 +107,7 @@ trait ExportHelpers {
 	public function countPartsAndChapters( array $book_contents ): int {
 		return array_reduce(
 			$book_contents['part'],
-			fn( $count, $part) => $count + 1 + count( $part['chapters'] ),
+			fn( $count, $part ) => $count + 1 + count( $part['chapters'] ),
 			0
 		);
 	}
@@ -203,5 +203,4 @@ trait ExportHelpers {
 		$css = str_replace( '.ui-datepicker-rtl { direction: rtl; }', '', $css );
 		return str_replace( '*/; text-decoration: none; }', '', $css );
 	}
-
 }

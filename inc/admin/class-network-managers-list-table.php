@@ -23,7 +23,7 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	/** ************************************************************************
 	 * Constructor.
 	 ***************************************************************************/
-	function __construct() {
+	public function __construct() {
 
 		parent::__construct(
 			[
@@ -32,7 +32,6 @@ class Network_Managers_List_Table extends \WP_List_Table {
 				'ajax' => false,
 			]
 		);
-
 	}
 
 	/** ************************************************************************
@@ -44,7 +43,7 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 *
 	 * @return string Text to be placed inside the column <td>
 	 **************************************************************************/
-	function column_display_name( $item ) {
+	public function column_display_name( $item ) {
 		return $item['display_name'];
 	}
 
@@ -57,7 +56,7 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 *
 	 * @return string Text to be placed inside the column <td>
 	 **************************************************************************/
-	function column_user_email( $item ) {
+	public function column_user_email( $item ) {
 		return $item['user_email'];
 	}
 
@@ -70,7 +69,7 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 *
 	 * @return string HTML to be placed inside the column <td>
 	 **************************************************************************/
-	function column_user_login( $item ) {
+	public function column_user_login( $item ) {
 
 		// Build row actions
 		$current_user = wp_get_current_user();
@@ -104,7 +103,7 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 * @see WP_List_Table::::single_row_columns()
 	 * @return array An associative array containing column information: 'slugs'=>'Visible Titles'
 	 **************************************************************************/
-	function get_columns() {
+	public function get_columns() {
 		$columns = [
 			'user_login' => 'Username',
 			'display_name' => 'Name',
@@ -118,7 +117,7 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 *
 	 * @return array An associative array containing all the columns that should be sortable: 'slugs'=>array('data_values',bool)
 	 **************************************************************************/
-	function get_sortable_columns() {
+	public function get_sortable_columns() {
 		$sortable_columns = [
 			'user_login' => [ 'user_login', true ], // True means it's already sorted
 			'display_name' => [ 'display_name', false ],
@@ -132,7 +131,7 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 *
 	 * @param object $item The current item
 	 */
-	function single_row( $item ) {
+	public function single_row( $item ) {
 		$class = '';
 		if ( ! empty( $item['restricted'] ) ) {
 			$class = 'restricted';
@@ -153,7 +152,7 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 * @uses $this->get_pagenum()
 	 * @uses $this->set_pagination_args()
 	 **************************************************************************/
-	function prepare_items() {
+	public function prepare_items() {
 
 		/**
 		 * Define column headers.

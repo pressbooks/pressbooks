@@ -20,19 +20,19 @@ class Glossary implements FrontOrBackMatter {
 	/**
 	 * @var Glossary
 	 */
-	static $instance = null;
+	public static $instance = null;
 
 	/**
 	 * @var array
 	 */
-	var $glossaryTerms = [];
+	public $glossaryTerms = [];
 
 	/**
 	 * Function to init our class, set filters & hooks, set a singleton instance
 	 *
 	 * @return Glossary
 	 */
-	static public function init(): Glossary {
+	public static function init(): Glossary {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -281,7 +281,7 @@ class Glossary implements FrontOrBackMatter {
 	 *
 	 * @return string
 	 */
-	function tooltipContent( string $content ): string {
+	public function tooltipContent( string $content ): string {
 
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 
@@ -356,7 +356,6 @@ class Glossary implements FrontOrBackMatter {
 				return $this->glossaryTerms();
 			}
 		);
-
 	}
 
 	public static function isGlossaryPost( ?WP_Post $post ): bool {

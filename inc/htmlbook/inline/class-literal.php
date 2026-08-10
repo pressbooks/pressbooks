@@ -21,5 +21,4 @@ class Literal extends Element {
 	 * @var string
 	 */
 	protected $tag = 'code';
-
 }

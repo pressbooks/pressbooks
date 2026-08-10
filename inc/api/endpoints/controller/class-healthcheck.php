@@ -37,10 +37,10 @@ class HealthCheck extends WP_REST_Controller {
 	public function healthCheck(): WP_REST_Response {
 		// TODO: allow users to customise the list of checks
 		$checks = [
-			new CacheCheck,
-			new ObjectCacheProCheck,
-			new DatabaseCheck,
-			new FilesystemCheck,
+			new CacheCheck(),
+			new ObjectCacheProCheck(),
+			new DatabaseCheck(),
+			new FilesystemCheck(),
 		];
 
 		$results = collect( $checks )

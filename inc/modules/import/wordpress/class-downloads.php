@@ -382,5 +382,4 @@ class Downloads {
 	public function sameAsSource( $url ) {
 		return \Pressbooks\Utility\urls_have_same_host( $this->wxr->getSourceBookUrl(), $url );
 	}
-
 }

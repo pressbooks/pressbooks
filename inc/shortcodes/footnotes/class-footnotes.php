@@ -16,24 +16,24 @@ class Footnotes {
 	/**
 	 * @var Footnotes
 	 */
-	static $instance = null;
+	public static $instance = null;
 
 	/**
 	 * @var array
 	 */
-	var $footnotes = [];
+	public $footnotes = [];
 
 	/**
 	 * @var array
 	 */
-	var $numbered = [];
+	public $numbered = [];
 
 	/**
 	 * Function to init our class, set filters & hooks, set a singleton instance
 	 *
 	 * @return Footnotes
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -44,7 +44,7 @@ class Footnotes {
 	/**
 	 * @param Footnotes $obj
 	 */
-	static public function hooks( Footnotes $obj ) {
+	public static function hooks( Footnotes $obj ) {
 		add_shortcode( 'footnote', [ $obj, 'shortcodeHandler' ] );
 		add_filter(
 			'no_texturize_shortcodes',
@@ -72,7 +72,7 @@ class Footnotes {
 	 *
 	 * @return string
 	 */
-	function shortcodeHandler( $atts, $content = '' ) {
+	public function shortcodeHandler( $atts, $content = '' ) {
 
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 
@@ -129,7 +129,7 @@ class Footnotes {
 	 *
 	 * @return string
 	 */
-	function footnoteContent( $content ) {
+	public function footnoteContent( $content ) {
 
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 
@@ -146,7 +146,7 @@ class Footnotes {
 		}
 
 		foreach ( $footnotes as $num => $footnote ) {
-			$num++;
+			++$num;
 			$numlabel = "$id-$num";
 			$content .= '<li id="footnote-' . $numlabel . '">' . $footnote . ' <a href="#return-footnote-' . $numlabel . '" class="return-footnote" aria-label="Return to footnote ' . $num . '">&crarr;</a></li>';
 		}
@@ -167,7 +167,7 @@ class Footnotes {
 	 *
 	 * @param string $msg (optional)
 	 */
-	static function ajaxFailure( $msg = '' ) {
+	public static function ajaxFailure( $msg = '' ) {
 
 		if ( ! headers_sent() ) {
 			header( 'HTTP/1.0 500 Internal Server Error' );
@@ -181,7 +181,7 @@ class Footnotes {
 	/**
 	 * WP_Ajax hook. Convert MS Word footnotes to Pressbooks compatible [footnotes]
 	 */
-	static function convertWordFootnotes() {
+	public static function convertWordFootnotes() {
 
 		if ( ! current_user_can( 'edit_posts' ) || ! check_ajax_referer( 'pb-footnote-convert', false, false ) ) {
 			static::ajaxFailure( __( 'Invalid permissions.', 'pressbooks' ) );
@@ -276,5 +276,4 @@ class Footnotes {
 
 		wp_die();
 	}
-
 }

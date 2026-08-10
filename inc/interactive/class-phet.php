@@ -64,7 +64,7 @@ class Phet {
 	 */
 	public function setIframeCounterByPost( $id ) {
 		if ( isset( $this->iframes_counter[ $id ] ) ) {
-			$this->iframes_counter[ $id ] ++;
+			++$this->iframes_counter[ $id ];
 		} else {
 			$this->iframes_counter[ $id ] = 1;
 		}
@@ -103,5 +103,4 @@ class Phet {
 		apply_filters( 'embed_' . self::EMBED_ID, $embed, $matches, $attr, $url, $rawattr );
 		return $embed;
 	}
-
 }

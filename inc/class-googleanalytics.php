@@ -186,7 +186,6 @@ class GoogleAnalytics {
 				'for_book' => true,
 			]
 		);
-
 	}
 
 	 // @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
@@ -284,7 +283,6 @@ class GoogleAnalytics {
 
 			$this->printScript( $network_google_code, $book_google_code );
 		}
-
 	}
 
 	private static function printScript( string $network_google_v4_code, string $book_google_v4_code ): void {

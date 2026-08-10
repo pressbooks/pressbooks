@@ -25,7 +25,7 @@ abstract class Dashboard {
 		add_action( 'admin_menu', [ $this, 'addNewPage' ] );
 	}
 
-	public abstract function render(): void;
+	abstract public function render(): void;
 
 	public function getUrl(): string {
 		return admin_url( "index.php?page={$this->page_name}" );
@@ -61,7 +61,7 @@ abstract class Dashboard {
 	}
 
 	public function enqueueStyles( string $page ): void {
-		add_action( "admin_print_styles-{$page}", function() {
+		add_action( "admin_print_styles-{$page}", function () {
 			/** @var \PressbooksFrontendTools\Assets $assets */
 			$assets = app( 'Assets' );
 
@@ -73,7 +73,7 @@ abstract class Dashboard {
 		} );
 	}
 
-	protected abstract function shouldRedirect(): bool;
+	abstract protected function shouldRedirect(): bool;
 
 	protected function shouldRemoveDefaultPage(): bool {
 		return true;

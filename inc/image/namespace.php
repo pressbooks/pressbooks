@@ -586,7 +586,6 @@ function fudge_factor( $format, $fullpath, $fudge = 1.65 ) {
 		trigger_error( "Image is too big, attempting to compensate by setting memory_limit to {$memory_limit} ...", E_USER_WARNING );
 		ini_set( 'memory_limit', $memory_limit );
 	}
-
 }
 
 /**

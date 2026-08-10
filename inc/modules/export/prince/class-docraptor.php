@@ -10,13 +10,13 @@ use DocRaptor\ApiException;
 use DocRaptor\Doc;
 use DocRaptor\DocApi;
 use DocRaptor\PrinceOptions;
+use Generator;
+use Pressbooks\Container;
+use Pressbooks\Modules\Export\Xhtml\Xhtml11;
 use function Pressbooks\Utility\check_xmllint_install;
 use function Pressbooks\Utility\get_contents;
 use function Pressbooks\Utility\get_docraptor_pipeline;
 use function Pressbooks\Utility\put_contents;
-use Generator;
-use Pressbooks\Container;
-use Pressbooks\Modules\Export\Xhtml\Xhtml11;
 
 class Docraptor extends Pdf {
 
@@ -143,7 +143,7 @@ class Docraptor extends Pdf {
 					case 'completed':
 						yield 90 => __( 'Fetching converted file...', 'pressbooks' );
 						if ( ! function_exists( 'download_url' ) ) {
-							require_once( ABSPATH . 'wp-admin/includes/file.php' );
+							require_once ABSPATH . 'wp-admin/includes/file.php';
 						}
 						$result = \download_url( $status_response->getDownloadUrl() );
 						if ( is_wp_error( $result ) ) {

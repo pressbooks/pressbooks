@@ -21,7 +21,7 @@ class Content extends \Pressbooks\Modules\SearchAndReplace\Search {
 	 *
 	 * @return \Pressbooks\Modules\SearchAndReplace\Result[]
 	 */
-	function find( $pattern, $limit, $offset, $orderby ) {
+	public function find( $pattern, $limit, $offset, $orderby ) {
 		global $wpdb;
 		$results = [];
 
@@ -56,7 +56,7 @@ class Content extends \Pressbooks\Modules\SearchAndReplace\Search {
 	 *
 	 * @return array
 	 */
-	function getOptions( $result ) {
+	public function getOptions( $result ) {
 		$options[] = '<a href="' . get_permalink( $result->id ) . '">' . __( 'view', 'pressbooks' ) . '</a>';
 		if ( current_user_can( 'edit_post', $result->id ) ) {
 			$options[] = '<a href="' . get_bloginfo( 'wpurl' ) . '/wp-admin/post.php?action=edit&amp;post=' . $result->id . '">' . __( 'edit', 'pressbooks' ) . '</a>';
@@ -67,7 +67,7 @@ class Content extends \Pressbooks\Modules\SearchAndReplace\Search {
 	/**
 	 * @param object $result
 	 */
-	function show( $result ) {
+	public function show( $result ) {
 		$type = get_post_type_label( get_post_type( $result->id ) );
 		printf( __( '%1$s ID #%2$d: %3$s', 'pressbooks' ), $type, $result->id, $result->title );
 	}
@@ -77,7 +77,7 @@ class Content extends \Pressbooks\Modules\SearchAndReplace\Search {
 	 *
 	 * @return string
 	 */
-	function getContent( $id ) {
+	public function getContent( $id ) {
 		global $wpdb;
 		$post = $wpdb->get_row( $wpdb->prepare( "SELECT post_content FROM {$wpdb->posts} WHERE id=%d", $id ) );
 		return $post->post_content;
@@ -87,7 +87,7 @@ class Content extends \Pressbooks\Modules\SearchAndReplace\Search {
 	 * @param int $id
 	 * @param string $content
 	 */
-	function replaceContent( $id, $content ) {
+	public function replaceContent( $id, $content ) {
 		global $wpdb;
 		$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_content=%s WHERE ID=%d", $content, $id ) );
 		wp_cache_flush();
@@ -96,8 +96,7 @@ class Content extends \Pressbooks\Modules\SearchAndReplace\Search {
 	/**
 	 * @return string
 	 */
-	function name() {
+	public function name() {
 		return __( 'Content Text', 'pressbooks' );
 	}
-
 }

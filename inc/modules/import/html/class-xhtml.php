@@ -19,11 +19,11 @@ class Xhtml extends Import {
 	/**
 	 *
 	 */
-	function __construct() {
+	public function __construct() {
 		if ( ! function_exists( 'media_handle_sideload' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/image.php' );
-			require_once( ABSPATH . 'wp-admin/includes/file.php' );
-			require_once( ABSPATH . 'wp-admin/includes/media.php' );
+			require_once ABSPATH . 'wp-admin/includes/image.php';
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			require_once ABSPATH . 'wp-admin/includes/media.php';
 		}
 	}
 
@@ -33,7 +33,7 @@ class Xhtml extends Import {
 	 *
 	 * @return bool
 	 */
-	function import( array $current_import ) {
+	public function import( array $current_import ) {
 
 		$html = \Pressbooks\Utility\get_contents( $current_import['file'] );
 
@@ -78,7 +78,7 @@ class Xhtml extends Import {
 	 * @param string $domain domain name of the web page
 	 * @param string $post_status
 	 */
-	function kneadAndInsert( $html, $post_type, $chapter_parent, $domain, $post_status ) {
+	public function kneadAndInsert( $html, $post_type, $chapter_parent, $domain, $post_status ) {
 		$matches = [];
 
 		$meta = $this->getLicenseAttribution( $html );
@@ -273,7 +273,7 @@ class Xhtml extends Import {
 	 *
 	 * @return string
 	 */
-	function kneadHtml( $html, $type, $domain ) {
+	public function kneadHtml( $html, $type, $domain ) {
 
 		$html5 = new HtmlParser();
 		$dom = $html5->loadHTML( $html );
@@ -436,7 +436,7 @@ class Xhtml extends Import {
 	 *
 	 * @return bool
 	 */
-	function setCurrentImportOption( array $upload ) {
+	public function setCurrentImportOption( array $upload ) {
 
 		// ensure the media type is HTML (not JSON, or something we can't deal with)
 		$valid_types = [
@@ -491,5 +491,4 @@ class Xhtml extends Import {
 
 		return \Pressbooks\Sanitize\htmlawed_with_mixed_markup( $html, $config );
 	}
-
 }

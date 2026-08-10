@@ -4,7 +4,7 @@ namespace Pressbooks\Log;
 
 use Aws\Credentials\CredentialProvider;
 use Aws\Exception\UnresolvedApiException;
-use Aws\S3\S3Client as S3Client;
+use Aws\S3\S3Client;
 use function Pressbooks\Utility\debug_error_log;
 
 class S3StorageProvider implements StorageProvider {

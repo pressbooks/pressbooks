@@ -21,7 +21,7 @@ class GoogleDocs extends Import {
 		$this->mapper = new DocsMapper();
 	}
 
-	function setCurrentImportOption( array $upload ): bool {
+	public function setCurrentImportOption( array $upload ): bool {
 		if ( ! file_exists( $upload['file'] ) ) {
 			return false;
 		}
@@ -55,7 +55,7 @@ class GoogleDocs extends Import {
 		return update_option( 'pressbooks_current_import', $option );
 	}
 
-	function import( array $current_import ): bool {
+	public function import( array $current_import ): bool {
 		if ( ! file_exists( $current_import['file'] ) ) {
 			return false;
 		}

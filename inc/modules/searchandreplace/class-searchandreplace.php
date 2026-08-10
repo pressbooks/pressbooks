@@ -24,7 +24,7 @@ class SearchAndReplace {
 	/**
 	 * @return SearchAndReplace|null
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -32,7 +32,7 @@ class SearchAndReplace {
 		return self::$instance;
 	}
 
-	static public function hooks( SearchAndReplace $obj ) {
+	public static function hooks( SearchAndReplace $obj ) {
 		if ( is_admin() ) {
 			add_filter( 'admin_menu', [ $obj, 'adminMenu' ] );
 			// Support both Tools menu and Content Toolkit menu locations
@@ -119,7 +119,7 @@ class SearchAndReplace {
 		if ( Search::validSearch( $source ) && ( isset( $_POST['search'] ) || isset( $_POST['replace'] ) || isset( $_POST['replace_and_save'] ) ) ) {
 
 			/** @var \Pressbooks\Modules\SearchAndReplace\Search $searcher */
-			$searcher = new $source;
+			$searcher = new $source();
 
 			// Enable regex mode
 			$enabled = ( defined( 'PB_ENABLE_REGEX_SEARCHREPLACE' ) && PB_ENABLE_REGEX_SEARCHREPLACE ) || is_super_admin();

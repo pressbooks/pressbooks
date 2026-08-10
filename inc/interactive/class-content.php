@@ -2,9 +2,9 @@
 
 namespace Pressbooks\Interactive;
 
-use function Pressbooks\Utility\str_starts_with;
 use Pressbooks\Container;
 use Pressbooks\HtmlParser;
+use function Pressbooks\Utility\str_starts_with;
 
 class Content {
 
@@ -61,7 +61,7 @@ class Content {
 	/**
 	 * @return Content
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -72,7 +72,7 @@ class Content {
 	/**
 	 * @param Content $obj
 	 */
-	static public function hooks( Content $obj ) {
+	public static function hooks( Content $obj ) {
 
 		// Iframes
 		// Note to self: admins are not affected by kses
@@ -282,7 +282,7 @@ class Content {
 		$title = $data->title ?? $this->getTitle( $id );
 		$post_url = wp_get_shortlink( $id ) ?: get_permalink( $id );
 		if ( isset( $this->iframes[ $id ] ) ) {
-			$this->iframes[ $id ] ++;
+			++$this->iframes[ $id ];
 		} else {
 			$this->iframes[ $id ] = 1;
 		}
@@ -346,7 +346,7 @@ class Content {
 				);
 				$fragment = $html5->parser->loadHTMLFragment( $template );
 				$element->parentNode->replaceChild( $dom->importNode( $fragment, true ), $element );
-				$element_number --;
+				--$element_number;
 			}
 		}
 
@@ -551,7 +551,7 @@ class Content {
 		}
 		global $id;
 		if ( isset( $this->oembeds[ $id ] ) ) {
-			$this->oembeds[ $id ] ++;
+			++$this->oembeds[ $id ];
 		} else {
 			$this->oembeds[ $id ] = 1;
 		}

@@ -10,11 +10,11 @@
 
 namespace Pressbooks;
 
-use function \Pressbooks\Editor\update_editor_style;
-use function \Pressbooks\Sanitize\normalize_css_urls;
-use function \Pressbooks\Utility\debug_error_log;
-use function \Pressbooks\Utility\get_contents;
-use function \Pressbooks\Utility\put_contents;
+use function Pressbooks\Editor\update_editor_style;
+use function Pressbooks\Sanitize\normalize_css_urls;
+use function Pressbooks\Utility\debug_error_log;
+use function Pressbooks\Utility\get_contents;
+use function Pressbooks\Utility\put_contents;
 
 /**
  * Custom Styles Feature(s)
@@ -238,7 +238,7 @@ class Styles {
 	 *
 	 * @return array
 	 */
-	public static function getAllPostContent() : array {
+	public static function getAllPostContent(): array {
 		$args = [
 			'post_name__in' => [ 'web', 'epub', 'prince' ],
 			'post_type' => 'custom-style',
@@ -251,10 +251,9 @@ class Styles {
 		$q = new \WP_Query();
 		$results = $q->query( $args );
 		return ! empty( $results ) ?
-			array_reduce( $results, static function( $styles, $style ) {
+			array_reduce( $results, static function ( $styles, $style ) {
 				return $styles + [ $style->post_name => $style->post_content ];
 			}, [] ) : [];
-
 	}
 
 	/**
@@ -827,7 +826,7 @@ class Styles {
 
 		set_transient( 'pb-last-custom-style-slug', $slug );
 
-		require( PB_PLUGIN_DIR . 'templates/admin/custom-styles.php' );
+		require PB_PLUGIN_DIR . 'templates/admin/custom-styles.php';
 	}
 
 	/**
@@ -955,7 +954,6 @@ class Styles {
 			// Ok!
 			\Pressbooks\Redirect\location( $redirect_url );
 		}
-
 	}
 
 	/**
@@ -983,5 +981,4 @@ class Styles {
 
 		return false;
 	}
-
 }

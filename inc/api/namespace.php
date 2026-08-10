@@ -2,8 +2,8 @@
 
 namespace Pressbooks\Api;
 
-use function Pressbooks\Utility\str_starts_with;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
+use function Pressbooks\Utility\str_starts_with;
 
 /**
  * @return array
@@ -109,9 +109,9 @@ function gutenberg_hack() {
 
 	// TODO: Remove this once https://core.trac.wordpress.org/ticket/44864 is fixed.
 	if ( is_multisite() ) {
-		require_once( ABSPATH . 'wp-admin/includes/ms-admin-filters.php' );
-		require_once( ABSPATH . 'wp-admin/includes/ms.php' );
-		require_once( ABSPATH . 'wp-admin/includes/ms-deprecated.php' );
+		require_once ABSPATH . 'wp-admin/includes/ms-admin-filters.php';
+		require_once ABSPATH . 'wp-admin/includes/ms.php';
+		require_once ABSPATH . 'wp-admin/includes/ms-deprecated.php';
 	}
 
 	foreach ( get_post_types( [ 'show_in_rest' => true ], 'objects' ) as $post_type ) {

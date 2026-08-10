@@ -7,14 +7,14 @@
 namespace Pressbooks\Modules\Export\ThinCC;
 
 use DOMDocument;
-use function Pressbooks\Utility\put_contents;
-use function Pressbooks\Utility\rmrdir;
 use Generator;
 use Pressbooks\Book;
 use Pressbooks\Container;
 use Pressbooks\Modules\Export\Export;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use function Pressbooks\Utility\put_contents;
+use function Pressbooks\Utility\rmrdir;
 
 class WebLinks extends Export {
 
@@ -43,9 +43,9 @@ class WebLinks extends Export {
 	/**
 	 * @param array $args
 	 */
-	function __construct( array $args ) {
+	public function __construct( array $args ) {
 		if ( ! class_exists( '\PclZip' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
+			require_once ABSPATH . 'wp-admin/includes/class-pclzip.php';
 		}
 		$this->tmpDir = $this->createTmpDir();
 	}
@@ -53,7 +53,7 @@ class WebLinks extends Export {
 	/**
 	 * Delete temporary directory when done.
 	 */
-	function __destruct() {
+	public function __destruct() {
 		$this->deleteTmpDir();
 	}
 
@@ -305,7 +305,7 @@ class WebLinks extends Export {
 	 */
 	public function formatXML( $xml, $error_log_prefix = '' ): string {
 		$use_errors = libxml_use_internal_errors( true );
-		$dom = new DOMDocument;
+		$dom = new DOMDocument();
 		$dom->preserveWhiteSpace = false;
 		$dom->loadXML( $xml );
 		$dom->formatOutput = true;
@@ -342,7 +342,7 @@ class WebLinks extends Export {
 		return in_array( $post_status, $visibility, true );
 	}
 
-	function convert(): Generator {
+	public function convert(): Generator {
 		if ( empty( $this->tmpDir ) || ! is_dir( $this->tmpDir ) ) {
 			$this->logError( '$this->tmpDir must be set before calling convert().' );
 			yield 'error' => '$this->tmpDir must be set before calling convert().';

@@ -8,11 +8,11 @@
 
 namespace Pressbooks\Cloner;
 
+use Pressbooks\Entities\Cloner\Media;
 use function Pressbooks\Image\attachment_id_from_url;
 use function Pressbooks\Image\strip_baseurl as image_strip_baseurl;
 use function Pressbooks\Media\strip_baseurl as media_strip_baseurl;
 use function Pressbooks\Utility\str_lreplace;
-use Pressbooks\Entities\Cloner\Media;
 
 class Downloads {
 
@@ -600,5 +600,4 @@ class Downloads {
 			$this->cloner->createTransition( 'attachment', $m->id, $pid );
 		}
 	}
-
 }

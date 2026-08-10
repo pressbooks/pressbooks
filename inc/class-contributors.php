@@ -8,12 +8,12 @@
 
 namespace Pressbooks;
 
-use function Pressbooks\Metadata\init_book_data_models;
-use function Pressbooks\Utility\explode_remove_and;
-use function Pressbooks\Utility\str_starts_with;
 use Pressbooks\PostType\FrontOrBackMatter;
 use Pressbooks\Utility\AutoDisplayable;
 use Pressbooks\Utility\HandlesTransfers;
+use function Pressbooks\Metadata\init_book_data_models;
+use function Pressbooks\Utility\explode_remove_and;
+use function Pressbooks\Utility\str_starts_with;
 
 /**
  *
@@ -30,7 +30,7 @@ class Contributors implements FrontOrBackMatter, Transferable {
 	/**
 	 * @var Contributors
 	 */
-	static $instance = null;
+	public static $instance = null;
 
 	/**
 	 * Valid contributor slugs ordered by preference
@@ -534,7 +534,7 @@ class Contributors implements FrontOrBackMatter, Transferable {
 
 		return array_keys(
 			array_filter(
-				$fields, function( $field ) {
+				$fields, function ( $field ) {
 					if ( ! isset( $field['sanitization_method'] ) ) {
 						return false;
 					}
@@ -851,7 +851,7 @@ class Contributors implements FrontOrBackMatter, Transferable {
 	}
 
 	public function getContributorTypeLabel( string $type, int $count ): string {
-		return match ($type) {
+		return match ( $type ) {
 			'pb_editors' => _n( 'Editor', 'Editors', $count, 'pressbooks' ),
 			'pb_authors' => _n( 'Author', 'Authors', $count, 'pressbooks' ),
 			'pb_contributors' => _n( 'Contributor', 'Contributors', $count, 'pressbooks' ),
@@ -884,7 +884,7 @@ class Contributors implements FrontOrBackMatter, Transferable {
 
 		return $this->display(
 			content: $content,
-			override: function() {
+			override: function () {
 				$blade = Container::get( 'Blade' );
 
 				return $blade->render(
@@ -897,7 +897,6 @@ class Contributors implements FrontOrBackMatter, Transferable {
 			taxonomy_query: 'contributors',
 			post_type: $post_type,
 		);
-
 	}
 
 	public static function changeContributorName( \WP_Roles $roles ) {

@@ -31,5 +31,4 @@ class Header extends Element {
 	 * @var string
 	 */
 	protected $tag = 'header';
-
 }

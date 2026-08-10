@@ -28,5 +28,4 @@ class Figures extends Element {
 	 * @var string
 	 */
 	protected $tag = 'figure';
-
 }

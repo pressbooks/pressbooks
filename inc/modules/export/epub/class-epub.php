@@ -10,6 +10,19 @@
 namespace Pressbooks\Modules\Export\Epub;
 
 use Exception;
+use Generator;
+use Pressbooks\Book;
+use Pressbooks\Container;
+use Pressbooks\Contributors;
+use Pressbooks\HtmLawed;
+use Pressbooks\HtmlParser;
+use Pressbooks\Interactive\Content;
+use Pressbooks\Modules\Export\Export;
+use Pressbooks\Modules\Export\ExportHelpers;
+use Pressbooks\Modules\Export\Traits\HandleContributors;
+use Pressbooks\Sanitize;
+use Pressbooks\Taxonomy;
+use Pressbooks\Utility\PercentageYield;
 use function Pressbooks\Image\default_cover_path;
 use function Pressbooks\Image\is_valid_image;
 use function Pressbooks\Image\resize_down;
@@ -34,19 +47,6 @@ use function Pressbooks\Utility\rmrdir;
 use function Pressbooks\Utility\str_ends_with;
 use function Pressbooks\Utility\str_lreplace;
 use function Pressbooks\Utility\str_starts_with;
-use Generator;
-use Pressbooks\Book;
-use Pressbooks\Container;
-use Pressbooks\Contributors;
-use Pressbooks\HtmLawed;
-use Pressbooks\HtmlParser;
-use Pressbooks\Interactive\Content;
-use Pressbooks\Modules\Export\Export;
-use Pressbooks\Modules\Export\ExportHelpers;
-use Pressbooks\Modules\Export\Traits\HandleContributors;
-use Pressbooks\Sanitize;
-use Pressbooks\Taxonomy;
-use Pressbooks\Utility\PercentageYield;
 
 class Epub extends Export {
 	use ExportHelpers;
@@ -382,7 +382,7 @@ class Epub extends Export {
 		$this->blade = Container::get( 'Blade' );
 
 		if ( ! class_exists( '\PclZip' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
+			require_once ABSPATH . 'wp-admin/includes/class-pclzip.php';
 		}
 
 		if ( ! defined( 'PB_EPUBCHECK_COMMAND' ) ) {
@@ -634,7 +634,7 @@ class Epub extends Export {
 	 * @return Generator
 	 * @throws Exception
 	 */
-	public function validate() : Generator {
+	public function validate(): Generator {
 		yield 90 => $this->generatorPrefix . __( 'Validating file', 'pressbooks' );
 
 		// Epubcheck command, (quiet flag requires version 3.0.1+)
@@ -709,7 +709,6 @@ class Epub extends Export {
 		if ( isset( $hacks['ebook_compress_images'] ) && $hacks['ebook_compress_images'] ) {
 			$this->compressImages = true;
 		}
-
 	}
 
 	/**
@@ -957,7 +956,7 @@ class Epub extends Export {
 	 * @return Generator
 	 * @throws Exception
 	 */
-	protected function createEPUBGenerator( array $book_contents, array $metadata ) : Generator {
+	protected function createEPUBGenerator( array $book_contents, array $metadata ): Generator {
 		// First, setup and affect $this->stylesheet
 		yield 40 => $this->generatorPrefix . __( 'Compiling styles', 'pressbooks' );
 		$this->createStylesheet();
@@ -1059,7 +1058,6 @@ class Epub extends Export {
 		if ( WP_DEBUG ) {
 			Container::get( 'Sass' )->debug( $css, $scss, 'epub' );
 		}
-
 	}
 
 	/**
@@ -1128,7 +1126,7 @@ class Epub extends Export {
 				} elseif ( preg_match( '#^images/#', $url ) && substr_count( $url, '/' ) === 1 ) {
 
 					// Look for "^images/"
-					// Count 1 slash so that we don't touch stuff like "^images/out/of/bounds/"	or "^images/../../denied/"
+					// Count 1 slash so that we don't touch stuff like "^images/out/of/bounds/" or "^images/../../denied/"
 
 					$my_image = realpath( "$scss_dir/$url" );
 					if ( $my_image ) {
@@ -1206,7 +1204,6 @@ class Epub extends Export {
 				}
 
 				return $matches[0]; // No change
-
 			}, $css
 		);
 
@@ -1569,7 +1566,7 @@ class Epub extends Export {
 	 * @return Generator
 	 * @throws Exception
 	 */
-	protected function renderFrontMatterGenerator( array $book_contents, array $metadata ) : Generator {
+	protected function renderFrontMatterGenerator( array $book_contents, array $metadata ): Generator {
 		$yield = new PercentageYield( 30, 40, count( $book_contents['front-matter'] ) );
 
 		$vars = [
@@ -1664,7 +1661,7 @@ class Epub extends Export {
 	 * @return Generator
 	 * @throws Exception
 	 */
-	protected function renderPartsAndChaptersGenerator( array $book_contents, array $metadata ) : Generator {
+	protected function renderPartsAndChaptersGenerator( array $book_contents, array $metadata ): Generator {
 		$yield = new PercentageYield( 40, 50, $this->countPartsAndChapters( $book_contents ) );
 
 		$vars = [
@@ -1773,7 +1770,7 @@ class Epub extends Export {
 
 				$has_chapters = true;
 
-				$chapter_position++;
+				++$chapter_position;
 
 				if ( $chapter_number ) {
 					++$chapter_index;
@@ -1808,7 +1805,7 @@ class Epub extends Export {
 					],
 				] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
 
-				$part_position++;
+				++$part_position;
 
 				if ( ! $invisible ) {
 					++$part_index;
@@ -1831,7 +1828,7 @@ class Epub extends Export {
 	 * @return Generator
 	 * @throws Exception
 	 */
-	protected function renderBackMatterGenerator( array $book_contents, array $metadata ) : Generator {
+	protected function renderBackMatterGenerator( array $book_contents, array $metadata ): Generator {
 		$yield = new PercentageYield( 50, 70, count( $book_contents['back-matter'] ) );
 
 		$vars = [
@@ -1872,7 +1869,6 @@ class Epub extends Export {
 
 			++$index;
 		}
-
 	}
 
 	/**
@@ -1961,7 +1957,7 @@ class Epub extends Export {
 
 				if ( 'numberless' !== $chapter_type && $this->numbered ) {
 					$chapter_data['title'] = "{$chapters_count}. {$chapter_data['title']}";
-					$chapters_count++;
+					++$chapters_count;
 				}
 
 				$rendered_items[] = $this->renderTocItem( 'chapter', $chapter_data, false, true );
@@ -2841,7 +2837,7 @@ class Epub extends Export {
 	 *
 	 * @return bool
 	 */
-	static function hasDependencies(): bool {
+	public static function hasDependencies(): bool {
 		if ( false !== check_epubcheck_install() ) {
 			return true;
 		}
@@ -2901,7 +2897,7 @@ class Epub extends Export {
 	private function extractEmbbededStyles( \DOMDocument $dom ): \DOMDocument {
 		$xpath = new \DOMXPath( $dom );
 		$style_tags = $xpath->query( '//style' );
-		add_filter( 'pb_validate_svg', function() {
+		add_filter( 'pb_validate_svg', function () {
 			return true;
 		} );
 		foreach ( $style_tags as $style ) {
@@ -3093,7 +3089,7 @@ class Epub extends Export {
 		$formatted_output .= "SUMMARY\n";
 		$formatted_output .= "Total Errors: {$total_errors}\n";
 		$formatted_output .= "Total Warnings: {$total_warnings}\n";
-		$formatted_output .= 'Files Affected: ' . count( array_filter( $error_groups, function( $errors ) {
+		$formatted_output .= 'Files Affected: ' . count( array_filter( $error_groups, function ( $errors ) {
 				return ! empty( array_filter( $errors ) );
 		} ) ) . "\n";
 

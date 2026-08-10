@@ -2,10 +2,10 @@
 
 namespace Pressbooks\Admin\Menus;
 
-use function Pressbooks\Admin\Laf\can_create_new_books;
-use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use Pressbooks\Cloner\Cloner;
 use WP_Admin_Bar;
+use function Pressbooks\Admin\Laf\can_create_new_books;
+use function Pressbooks\Admin\NetworkManagers\is_restricted;
 
 class TopBar {
 	protected array $order = [
@@ -25,7 +25,7 @@ class TopBar {
 
 	public static function init(): self {
 		return tap(
-			new self(), fn( TopBar $instance) => $instance->hooks()
+			new self(), fn( TopBar $instance ) => $instance->hooks()
 		);
 	}
 
@@ -220,7 +220,7 @@ class TopBar {
 			],
 		] );
 
-		$books->each(function( object $book ) use ( $bar ) {
+		$books->each(function ( object $book ) use ( $bar ) {
 			if ( is_main_site( $book->userblog_id ) ) {
 				return;
 			}
