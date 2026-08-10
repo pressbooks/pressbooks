@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d4428ef803b98ae301ffa021c029db4e",
+    "content-hash": "3c930f5d9f0e7f60450dda98b0b268b3",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -7885,16 +7885,16 @@
         },
         {
             "name": "pressbooks/coding-standards",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/coding-standards.git",
-                "reference": "c69c6a7fcb15b4be4196027c5e45c7edcd824374"
+                "reference": "45e279217fb0243df423b78b57f1f5151649074e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/coding-standards/zipball/c69c6a7fcb15b4be4196027c5e45c7edcd824374",
-                "reference": "c69c6a7fcb15b4be4196027c5e45c7edcd824374",
+                "url": "https://api.github.com/repos/pressbooks/coding-standards/zipball/45e279217fb0243df423b78b57f1f5151649074e",
+                "reference": "45e279217fb0243df423b78b57f1f5151649074e",
                 "shasum": ""
             },
             "require": {
@@ -7910,9 +7910,9 @@
             ],
             "support": {
                 "issues": "https://github.com/pressbooks/coding-standards/issues",
-                "source": "https://github.com/pressbooks/coding-standards/tree/2.0.0"
+                "source": "https://github.com/pressbooks/coding-standards/tree/2.0.1"
             },
-            "time": "2026-07-28T16:49:10+00:00"
+            "time": "2026-08-10T16:35:31+00:00"
         },
         {
             "name": "sebastian/cli-parser",
