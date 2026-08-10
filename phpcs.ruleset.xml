@@ -10,20 +10,10 @@
 		<exclude name="Squiz.Commenting"/>
 		<exclude name="Generic.Commenting"/>
 		<!--
-			Output-escaping checks are excluded pending the Laravel Pint migration.
-			NOTE: Pint is a style fixer and will NOT replace this security sniff, so
-			escaping coverage needs a dedicated follow-up. (ValidatedSanitizedInput
-			stays enabled; its few findings are handled inline with justifications.)
+			Output-escaping is excluded for now. Not worth mass edits before the
+			toolchain is replaced. Should revisit when working on PSR-4 + Pint.
 		-->
 		<exclude name="Pressbooks.Security.EscapeOutput"/>
-		<!--
-			PSR2R's alphabetical use-ordering sorts by the full statement string, so
-			"use function ..." sorts under "f" and lands before class imports like
-			Illuminate/Pressbooks. That directly contradicts PSR12.Files.FileHeader,
-			which requires class imports first. The two cannot both be satisfied, so
-			we keep PSR-12 header grouping and drop the conflicting PSR2R rule.
-		-->
-		<exclude name="PSR2R.Namespaces.UseInAlphabeticalOrder"/>
     </rule>
     <rule ref="PSR1.Methods.CamelCapsMethodName">
         <!-- Exclude classes that override WP Core: -->
