@@ -1,8 +1,8 @@
 # Pressbooks
 Contributors: Pressbooks <code@pressbooks.com>
 Tags: ebooks, publishing, webbooks
-Requires at least: 6.9.5
-Tested up to: 6.9.5
+Requires at least: 6.9.6
+Tested up to: 6.9.6
 <!-- x-release-please-start-version -->
 Stable tag: 6.44.1
 <!-- x-release-please-end -->
@@ -30,7 +30,7 @@ Our webbooks and EPUB/[PDF][pdf] exports are all driven by HTML + CSS. XML outpu
 
 ## Requirements
 
-Pressbooks works with PHP 8.3 and WordPress 6.9.5. Lower versions are not supported. Updating to 6.9.5 is strongly recommended, as there is a critical vulnerability [CVE-2026-63030](https://nvd.nist.gov/vuln/detail/CVE-2026-63030) that was addressed in that version.
+Pressbooks works with PHP 8.3 and WordPress 6.9.6. Lower versions are not supported. Updating to 6.9.6 is strongly recommended, as there is a critical vulnerability [CVE-2026-63030](https://nvd.nist.gov/vuln/detail/CVE-2026-63030) in 6.9.4 and below, and both 6.9.5 and 6.9.6 are security updates.
 
 ## Installing the Plugin
 
