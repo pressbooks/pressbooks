@@ -324,6 +324,10 @@ function maybe_https( $url ) {
  */
 function normalize_css_urls( $css, $url_path = '' ) {
 
+	if ( null === $css ) {
+		return '';
+	}
+
 	$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
 	$root_theme = get_template_directory_uri(); // If you want the current child theme then use `get_stylesheet_directory_uri()`
 

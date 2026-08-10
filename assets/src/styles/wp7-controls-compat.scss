@@ -1,0 +1,378 @@
+/**
+ * WP 7.0 control-sizing & checkbox/radio compat (CORE-012, CORE-013).
+ *
+ * WordPress 7.0's "Modern" admin restyle changed the SIZING (padding,
+ * min-height, line-height, border-radius) of core buttons and text-like
+ * form controls (inputs, selects, textareas), and separately changed the
+ * CHECKED-STATE APPEARANCE of checkboxes/radios (solid
+ * `var(--wp-admin-theme-color)` fill + white glyph, vs WP 6.9.x's neutral
+ * box + theme-colored glyph). This stylesheet restores WP 6.9.x behavior
+ * on top of WP 7.0 for both: pre-7.0 button/input dimensions (sizing
+ * only, no color changes), and pre-7.0 checkbox/radio checked-state
+ * coloring (see the "Checkboxes & radios" section below for why that one
+ * DOES touch color).
+ *
+ * Values below were diffed from WP 6.9.5's `wp-includes/css/buttons.css`
+ * and `wp-admin/css/forms.css` against the installed WP 7.0.2 equivalents.
+ *
+ * Selectors are scoped under `.wp-admin`/`.wp-core-ui` (both always present
+ * on the admin `<body>`) specifically to out-specificity WP 7.0's own
+ * `.wp-core-ui .button` / `.wp-core-ui select` rules, so no `!important`
+ * is needed anywhere in this file.
+ *
+ * TO REVERT to WP 7.0's native control sizing and checkbox/radio styling:
+ * delete this file, remove its `wp7-controls-compat-styles` entry from
+ * `vite.config.js`, remove the "WP 7.0 control-sizing compat" block from
+ * `inc/admin/laf/namespace.php`, then run `npm run build`.
+ */
+
+@use "partials/colors" as *;
+
+/* ----------------------------------------------------------------------
+ * Buttons (WP 6.9.5 wp-includes/css/buttons.css)
+ * -------------------------------------------------------------------- */
+
+// Base .button / .button-primary / .button-secondary
+// 6.9.5: line-height 2.15384615 (28px), min-height 30px, padding 0 10px, border-radius 3px
+// 7.0.2: line-height 2.92307692 (38px), min-height 40px, padding 0 16px, border-radius 2px
+.wp-admin.wp-core-ui .button,
+.wp-admin.wp-core-ui .button-primary,
+.wp-admin.wp-core-ui .button-secondary {
+  line-height: 2.1538; /* 28px */
+  min-height: 30px;
+  padding: 0 10px;
+  border-radius: 3px;
+}
+
+// .button-large
+// 6.9.5: line-height 2.30769231 (30px), min-height 32px, padding 0 12px
+// 7.0.2: line-height 2.92307692 (38px), min-height 40px, padding 0 16px
+.wp-admin.wp-core-ui .button.button-large,
+.wp-admin.wp-core-ui .button-group.button-large .button {
+  line-height: 2.3077; /* 30px */
+  min-height: 32px;
+  padding: 0 12px;
+}
+
+// .button-small
+// 6.9.5: line-height 2.18181818 (24px), min-height 26px, padding 0 8px, font-size 11px
+// 7.0.2: line-height 2 (22px), min-height 24px, padding 0 8px, font-size 11px (unchanged)
+// Padding is IDENTICAL in 6.9.5 and 7.0.2, but our own base `.button` rule
+// above (padding: 0 10px) is equal specificity (0,3,0) and loads after WP
+// core, so it silently clobbers WP's own correct `.button-small` padding.
+// Re-declaring padding here makes the rule self-complete; font-size (11px
+// in both versions) is left alone since nothing in this file overrides it.
+.wp-admin.wp-core-ui .button.button-small,
+.wp-admin.wp-core-ui .button-group.button-small .button {
+  line-height: 2.1818; /* 24px */
+  min-height: 26px;
+  padding: 0 8px;
+}
+
+// .button-hero
+// 6.9.5: font-size 14px, line-height 3.14285714, min-height 46px, padding 0 36px
+// 7.0.2: font-size 14px, line-height 3.28571429, min-height 48px, padding 0 36px (font-size/padding unchanged)
+// Font-size/padding are IDENTICAL in 6.9.5 and 7.0.2, but our own base
+// `.button` rule above (padding: 0 10px) is equal specificity (0,3,0) and
+// loads after WP core, so it silently clobbers WP's own correct
+// `.button-hero` padding, making hero buttons render narrow/smaller than
+// 6.9.5. Re-declaring padding (and font-size, for a fully self-complete
+// rule) here fixes it.
+.wp-admin.wp-core-ui .button.button-hero,
+.wp-admin.wp-core-ui .button-group.button-hero .button {
+  font-size: 14px;
+  line-height: 3.1429;
+  min-height: 46px;
+  padding: 0 36px;
+}
+
+// List-table pagination (CORE-023)
+// The pager nav controls (« ‹ › ») carry the plain `.button` class, so the
+// base `.button` rule above (padding 0 10px, line-height 2.15) bleeds into them
+// and renders the arrow buttons too wide/tall. WP sizes the pager specifically
+// in `wp-admin/css/list-tables.css` (`.tablenav .tablenav-pages .button`,
+// specificity 0,3,0) — the same specificity as this file's base `.button`
+// rule, which loads later and therefore wins the tie. Restore WP 6.9.5's pager
+// sizing, scoped under `.tablenav .tablenav-pages` (specificity 0,5,0) so it
+// out-specifies both WP core's own pager rule and this file's base rule.
+// nav buttons — 6.9.5: min-w/h 30px, padding 0 4px, font-size 16px, line-height 1.625
+//             — 7.0.2: min-w/h 32px, padding 0 4px, font-size 16px, line-height 1.875
+.wp-admin.wp-core-ui .tablenav .tablenav-pages .button,
+.wp-admin.wp-core-ui .tablenav .tablenav-pages .tablenav-pages-navspan {
+  min-width: 30px;
+  min-height: 30px;
+  padding: 0 4px;
+  font-size: 16px;
+  line-height: 1.625; /* 26px */
+}
+
+// current-page input — 6.9.5 sized it via the shared text-input rule
+// (min-height 30px) with no vertical-align; 7.0.2's pager rule bumps it to
+// min-height 32px and adds `vertical-align: top`. Match 6.9.5 so the input
+// lines up with the 30px nav buttons.
+.wp-admin.wp-core-ui .tablenav .tablenav-pages .current-page {
+  min-height: 30px;
+  vertical-align: baseline;
+}
+
+// .page-title-action (CORE-016)
+// The nav-pill / "Add Chapter", "Add Part", etc. buttons next to the page
+// heading. Diffed real WP 6.9.5 `wp-admin/css/common.css` (line 622) against
+// the installed WP 7.0.2 equivalent (`web/wp/wp-admin/css/common.css:626`).
+// `font-size` (13px) and `top` (-3px) are IDENTICAL in both versions and are
+// left alone; only the sizing props that actually differ are restored below.
+// Color/border-color are NOT touched here — Pressbooks owns those via its
+// own `.wrap .page-title-action` rules in `colors-pb-a11y.scss`, and
+// restoring color here would fight that brand styling.
+// `.wp-admin .wrap .page-title-action` (0,3,0) out-specifies WP's own
+// `.wrap .page-title-action` (0,2,0), so no !important is needed.
+// 6.9.5: min-height 30px, line-height 2.15384615, padding 0 10px, font-weight 400, border-radius 3px
+// 7.0.2: min-height 32px, line-height 2.30769231, padding 0 12px, font-weight 500, border-radius 2px
+// Sizing applies in ALL states (stateless selector, incl. :hover) so the
+// button never resizes on hover.
+.wp-admin .wrap .page-title-action,
+.wp-admin .wrap .page-title-action:active {
+  min-height: 30px;
+  line-height: 2.1538; /* 28px */
+  padding: 0 10px;
+  font-weight: 400;
+  border-radius: 3px;
+}
+
+// Resting background (CORE-021; hover-regression fix CORE-022) —
+// 6.9.5: background #f6f7f7 | 7.0.2: background transparent.
+// Scoped `:not(:hover)` so it restores the 6.9.5 gray at rest/focus/active but
+// does NOT clobber Pressbooks' brand-red hover. colors-pb(-a11y)'s
+// `.wrap .page-title-action:hover { background-color: $link-focus }` is (0,3,0)
+// and loads BEFORE this compat file; the previous stateless
+// `.wp-admin .wrap .page-title-action` (also (0,3,0)) matched during hover and,
+// loading later, replaced that brand red with gray. `:not(:hover)` ((0,4,0))
+// simply does not match while hovering, so the brand-red hover wins again.
+.wp-admin .wrap .page-title-action:not(:hover) {
+  background: #f6f7f7;
+}
+
+// Secondary .button background (CORE-020)
+// 6.9.5 filled the resting `.button` / `.button-secondary` with a solid
+// neutral gray and darkened it slightly on hover/kept it on focus/active.
+// 7.0.2's "Modern" restyle made the resting background fully transparent
+// and replaced the solid hover/active fills with a faint theme-color-tinted
+// rgba() wash instead. Diffed real WP 6.9.5 `wp-includes/css/buttons.css`
+// (lines 116-122 resting, 128-134 hover, 136-147 focus, 149-155 active)
+// against the installed WP 7.0.2 equivalent (`web/wp/wp-includes/css/
+// buttons.css` lines 148-153 resting, 160-166 hover, 168+ focus, active).
+//
+// Only `background` is restored per state below. `color` and
+// `border-color` are deliberately left untouched — those are owned by the
+// Pressbooks color scheme (`colors-pb.scss`'s
+// `.wp-core-ui .button { border-color: #7e8993; color: #32373c }`), and
+// restoring 6.9.5's blue color/border-color here would fight that scheme.
+// `.button-primary` is out of scope (hardcoded red primary, unaffected by
+// this transparency change) and is EXCLUDED from the `.button` selectors
+// below via `:not(.button-primary)` (CORE-020-fix): `.wp-admin.wp-core-ui
+// .button` (0,3,0) would otherwise also match `.button.button-primary` and
+// out-specify colors-pb.scss's `.button-primary { background: #bb2026 }`
+// (0,1,0), forcing primary buttons (e.g. "Export Book") gray instead of
+// brand red.
+//
+// `.wp-admin.wp-core-ui .button` (0,3,0) out-specifies WP's own
+// `.wp-core-ui .button` (0,2,0) — and each state selector below carries
+// that same extra specificity into its own pseudo-class — so no
+// `!important` is needed anywhere in this block.
+//
+// Resting — 6.9.5: background #f6f7f7 | 7.0.2: background transparent
+.wp-admin.wp-core-ui .button:not(.button-primary),
+.wp-admin.wp-core-ui .button-secondary {
+  background: #f6f7f7;
+}
+
+// Hover — 6.9.5: background #f0f0f1 | 7.0.2: background rgba(var(--wp-admin-theme-color--rgb, 56, 88, 233), 0.04)
+.wp-admin.wp-core-ui .button:not(.button-primary):hover,
+.wp-admin.wp-core-ui .button-secondary:hover {
+  background: #f0f0f1;
+}
+
+// Focus — 6.9.5: background #f6f7f7 | 7.0.2: background transparent
+.wp-admin.wp-core-ui .button:not(.button-primary):focus,
+.wp-admin.wp-core-ui .button-secondary:focus {
+  background: #f6f7f7;
+}
+
+// Active — 6.9.5: background #f6f7f7 | 7.0.2: background rgba(var(--wp-admin-theme-color--rgb, 56, 88, 233), 0.08)
+.wp-admin.wp-core-ui .button:not(.button-primary):active,
+.wp-admin.wp-core-ui .button-secondary:active {
+  background: #f6f7f7;
+}
+
+/* ----------------------------------------------------------------------
+ * Inputs, selects, textareas (WP 6.9.5 wp-admin/css/forms.css)
+ * -------------------------------------------------------------------- */
+
+// Shared box style for text-like inputs + select + textarea
+// 6.9.5: border-radius 4px
+// 7.0.2: border-radius 2px
+.wp-admin input[type="text"],
+.wp-admin input[type="password"],
+.wp-admin input[type="color"],
+.wp-admin input[type="date"],
+.wp-admin input[type="datetime"],
+.wp-admin input[type="datetime-local"],
+.wp-admin input[type="email"],
+.wp-admin input[type="month"],
+.wp-admin input[type="number"],
+.wp-admin input[type="search"],
+.wp-admin input[type="tel"],
+.wp-admin input[type="time"],
+.wp-admin input[type="url"],
+.wp-admin input[type="week"],
+.wp-admin select,
+.wp-admin textarea {
+  border-radius: 4px;
+}
+
+// Text-like inputs (excludes type=color, matching WP core's own grouping)
+// 6.9.5: padding 0 8px, line-height 2 (28px), min-height 30px
+// 7.0.2: padding 0 12px, min-height 40px (no explicit line-height)
+.wp-admin input[type="text"],
+.wp-admin input[type="password"],
+.wp-admin input[type="date"],
+.wp-admin input[type="datetime"],
+.wp-admin input[type="datetime-local"],
+.wp-admin input[type="email"],
+.wp-admin input[type="month"],
+.wp-admin input[type="number"],
+.wp-admin input[type="search"],
+.wp-admin input[type="tel"],
+.wp-admin input[type="time"],
+.wp-admin input[type="url"],
+.wp-admin input[type="week"] {
+  padding: 0 8px;
+  line-height: 2; /* 28px */
+  min-height: 30px;
+}
+
+// textarea
+// 6.9.5: padding 2px 6px
+// 7.0.2: padding 8px 12px
+.wp-admin textarea {
+  padding: 2px 6px;
+}
+
+// textarea.code
+// 6.9.5: padding 4px 6px 1px
+// 7.0.2: padding 8px 12px
+.wp-admin textarea.code {
+  padding: 4px 6px 1px;
+}
+
+// .wp-core-ui select
+// 6.9.5: line-height 2 (28px), border-radius 3px, padding 0 24px 0 8px, min-height 30px
+// 7.0.2: line-height 2.71428571 (38px), border-radius 2px, padding 0 24px 0 12px, min-height 40px
+.wp-admin.wp-core-ui select {
+  line-height: 2; /* 28px */
+  border-radius: 3px;
+  padding: 0 24px 0 8px;
+  min-height: 30px;
+}
+
+/* ----------------------------------------------------------------------
+ * Checkboxes & radios (CORE-013)
+ * WP 6.9.5 vs installed 7.0.2 `wp-admin/css/forms.css` (~lines 126-215)
+ *
+ * 7.0.2 fills the *checked* box solid via
+ * `background: var(--wp-admin-theme-color); border-color: var(--wp-admin-theme-color);`
+ * and draws a hardcoded WHITE (`#ffffff`) "Yes" dashicon SVG / white
+ * 0.5rem dot on top of it.
+ *
+ * 6.9.5 never sets background/border-color on `:checked` at all — the
+ * box stays exactly the same neutral box it is unchecked. Instead, the
+ * "checked" signal comes entirely from the glyph: the checkbox's SVG
+ * fill and the radio's dot `background-color` are colored per the
+ * active admin color scheme (in Pressbooks' case, baked from
+ * `colors-pb.scss`'s `$form-checked` = brand red, via the
+ * `wp-admin-colors` module's `input[type=checkbox]:checked::before`
+ * generator).
+ *
+ * We restore 6.9.5's box-stays-neutral behavior, and recolor the glyph
+ * with the fixed Pressbooks brand red (`$monza`, `partials/colors.scss`)
+ * — the same value baked into `colors-pb.scss`'s `$form-checked` — rather
+ * than `var(--wp-admin-theme-color)`. That custom property is NOT a safe
+ * substitute here: on network-admin screens (e.g. Settings > Sharing &
+ * Privacy) it resolves to WP's default "Fresh" scheme color (blue),
+ * while real-world WP 6.9.5 renders the checked glyph in Pressbooks
+ * brand red on those same network-admin screens. Hardcoding `$monza`
+ * matches 6.9.5's actual rendering everywhere, including network admin,
+ * instead of tracking whatever scheme var happens to be in scope. A
+ * `content: url(...)` image can't read Sass variables either, so the
+ * checkbox glyph is recolored via a CSS mask instead of a recolored
+ * data-URI SVG.
+ *
+ * Sizing/position is NOT touched: 6.9.5 and 7.0.2 declare IDENTICAL
+ * dimensions for the checked checkbox glyph
+ * (`margin: -0.1875rem 0 0 -0.25rem; height/width: 1.3125rem`) and the
+ * checked radio dot (`width/height: 0.5rem`) — only the color mechanism
+ * changed, so those properties are left for WP 7.0's own rules to keep
+ * supplying.
+ *
+ * Border-radius: 6.9.5's base `input[type="checkbox"]` rule declares
+ * `border-radius: 4px` (`wp-admin/css/forms.css` ~line 115); the
+ * installed WP 7.0.2 equivalent is `border-radius: 2px` (~line 129).
+ * The radio's `border-radius: 50%` is unchanged between versions and is
+ * left alone.
+ * -------------------------------------------------------------------- */
+
+// Checked box background/border: 6.9.5 leaves these at their base
+// (unchecked) values on :checked — background #fff, and (since this file
+// doesn't otherwise touch the unchecked box's color) 7.0.2's own base
+// border-color #1e1e1e. `.wp-admin.wp-core-ui` gives this selector
+// higher specificity than 7.0's bare `input[type="checkbox"]:checked` /
+// `input[type="radio"]:checked` rules, so no !important is needed.
+// `:not(.toggle)` on the checkbox selector (CORE-015) excludes Pressbooks'
+// custom pill toggle switches (`input.toggle[type="checkbox"]`, styled in
+// `pressbooks.scss`) so this compat rule doesn't clobber their own
+// checked-state background/border; it also nudges specificity slightly
+// higher, so plain checkboxes still beat WP 7.0's bare rules as before.
+.wp-admin.wp-core-ui input[type="checkbox"]:not(.toggle):checked,
+.wp-admin.wp-core-ui input[type="radio"]:checked {
+  background: #fff; // 6.9.5 + 7.0.2 base value; 6.9.5 :checked never overrides it
+  border-color: #1e1e1e; // 7.0.2's own base (unchecked) border-color; 6.9.5's base is #8c8f94 but that's out of scope for this checked-state-only fix
+}
+
+// Checkbox base box: restore 6.9.5's slightly rounder corners.
+// 6.9.5: border-radius 4px (wp-admin/css/forms.css ~line 115)
+// 7.0.2: border-radius 2px (installed wp-admin/css/forms.css ~line 129)
+// Radio is unaffected: border-radius 50% is identical in both versions.
+// `:not(.toggle)` (CORE-015) excludes Pressbooks' custom pill toggle
+// switches (`input.toggle[type="checkbox"]`), which define their own
+// border-radius in `pressbooks.scss` and must not be reset to 4px here.
+.wp-admin.wp-core-ui input[type="checkbox"]:not(.toggle) {
+  border-radius: 4px;
+}
+
+// Checked checkbox glyph ("Yes" dashicon): recolor via mask instead of a
+// hardcoded-fill SVG. The mask image below is 7.0.2's own white-fill
+// SVG, reused purely as a luminance mask (white path = visible,
+// transparent elsewhere).
+// (No manual -webkit- prefixes: this project's build runs autoprefixer.)
+.wp-admin.wp-core-ui input[type="checkbox"]:not(.toggle):checked::before {
+  content: "";
+
+  // Fixed Pressbooks $form-checked red, NOT var(--wp-admin-theme-color):
+  // on network-admin screens that custom property resolves to WP's
+  // default "Fresh" scheme color (blue), but 6.9.5/dev renders this
+  // glyph in brand red on network-admin screens too.
+  background-color: $monza;
+  mask-image: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M14.83%204.89l1.34.94-5.81%208.38H9.02L5.78%209.67l1.34-1.25%202.57%202.4z%27%20fill%3D%27%23ffffff%27%2F%3E%3C%2Fsvg%3E");
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+// Checked radio dot: 7.0.2's own flex-based `margin: auto` centering
+// already reproduces 6.9.5's fixed `margin: 0.1875rem` position exactly
+// (both center a 0.5rem dot in the same 1rem border-box), so only the
+// color needs restoring.
+.wp-admin.wp-core-ui input[type="radio"]:checked::before {
+  // Fixed Pressbooks $form-checked red, NOT var(--wp-admin-theme-color):
+  // same network-admin scheme-var mismatch as the checkbox glyph above.
+  background-color: $monza;
+}

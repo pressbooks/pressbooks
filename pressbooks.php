@@ -8,7 +8,7 @@
  * x-release-please-start-version
  * Version: 6.44.1
  * x-release-please-end
- * Requires at least: WordPress 6.8.3
+ * Requires at least: WordPress 7.0.3
  * Requires PHP: 8.3
  * Author: Pressbooks (Book Oven Inc.)
  * Author URI: https://pressbooks.org

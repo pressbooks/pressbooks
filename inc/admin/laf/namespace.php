@@ -1230,6 +1230,17 @@ function init_css_js(): void {
 	$assets->enqueue('assets/src/scripts/a11y.js', 'pb-a11y', [
 		'dependencies' => [ 'jquery', 'wp-i18n' ],
 	]);
+
+	/*
+	 * WP 7.0 control-sizing compat (CORE-012) — restore WordPress 6.9.x admin
+	 * button/input styling globally on WP 7.0's "Modern" restyle. To revert to
+	 * WP 7.0 native styling, remove this block + the wp7-controls-compat-styles
+	 * entry in vite.config.js + assets/src/styles/wp7-controls-compat.scss, then
+	 * rebuild.
+	 */
+	add_action( 'admin_enqueue_scripts', function () use ( $assets ) {
+		wp_enqueue_style( 'pressbooks-wp7-controls-compat', $assets->getAssetUrl( 'assets/src/styles/wp7-controls-compat.scss' ) );
+	} );
 }
 
 /* ------------------------------------------------------------------------ *

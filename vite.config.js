@@ -49,6 +49,7 @@ export default createWpViteConfig({
 		'pressbooks-admin-styles': resolve(__dirname, 'assets/src/styles/pressbooks.scss'),
 		'style-catalog': resolve(__dirname, 'assets/src/styles/style-catalog.scss'),
 		'metadata-styles': resolve(__dirname, 'assets/src/styles/metadata.scss'),
+		'wp7-controls-compat-styles': resolve(__dirname, 'assets/src/styles/wp7-controls-compat.scss'),
 	},
 	copyTargets: [
 		{
