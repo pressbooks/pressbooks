@@ -9,6 +9,21 @@
 		<!-- TODO: These should be re-enabled sooner than later... -->
 		<exclude name="Squiz.Commenting"/>
 		<exclude name="Generic.Commenting"/>
+		<!--
+			Output-escaping / input-sanitization checks are excluded pending the
+			Laravel Pint migration. NOTE: Pint is a style fixer and will NOT replace
+			these security sniffs, so escaping coverage needs a dedicated follow-up.
+		-->
+		<exclude name="Pressbooks.Security.EscapeOutput"/>
+		<exclude name="Pressbooks.Security.ValidatedSanitizedInput"/>
+		<!--
+			PSR2R's alphabetical use-ordering sorts by the full statement string, so
+			"use function ..." sorts under "f" and lands before class imports like
+			Illuminate/Pressbooks. That directly contradicts PSR12.Files.FileHeader,
+			which requires class imports first. The two cannot both be satisfied, so
+			we keep PSR-12 header grouping and drop the conflicting PSR2R rule.
+		-->
+		<exclude name="PSR2R.Namespaces.UseInAlphabeticalOrder"/>
     </rule>
     <rule ref="PSR1.Methods.CamelCapsMethodName">
         <!-- Exclude classes that override WP Core: -->

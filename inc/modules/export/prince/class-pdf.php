@@ -6,13 +6,13 @@
 
 namespace Pressbooks\Modules\Export\Prince;
 
-use function Pressbooks\Sanitize\normalize_css_urls;
-use function Pressbooks\Utility\get_contents;
-use function Pressbooks\Utility\put_contents;
 use Generator;
 use Pressbooks\Container;
 use Pressbooks\Modules\Export\Export;
 use PrinceXMLPhp\PrinceWrapper;
+use function Pressbooks\Sanitize\normalize_css_urls;
+use function Pressbooks\Utility\get_contents;
+use function Pressbooks\Utility\put_contents;
 
 class Pdf extends Export {
 
@@ -207,7 +207,6 @@ class Pdf extends Export {
 			$this->url .= '&endnotes=true';
 			$_GET['endnotes'] = 'true';
 		}
-
 	}
 
 	/**

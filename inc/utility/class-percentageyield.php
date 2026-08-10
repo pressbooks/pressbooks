@@ -80,7 +80,7 @@ class PercentageYield {
 	 *
 	 * @return \Generator
 	 */
-	public function tick( $msg, $emit = true ) : \Generator {
+	public function tick( $msg, $emit = true ): \Generator {
 		$percentage = $this->j;
 		if ( $percentage < $this->start ) {
 			$percentage = $this->start;
@@ -96,5 +96,4 @@ class PercentageYield {
 			++$this->j;
 		}
 	}
-
 }

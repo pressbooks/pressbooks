@@ -16,7 +16,7 @@ class Attachments {
 	/**
 	 * @var Attachments
 	 */
-	static $instance = null;
+	public static $instance = null;
 
 	/**
 	 * Function to init our class, set filters & hooks, set a singleton instance
@@ -25,7 +25,7 @@ class Attachments {
 	 *
 	 * @return Attachments
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -41,7 +41,7 @@ class Attachments {
 	 *
 	 * @param Attachments $obj
 	 */
-	static public function hooks( Attachments $obj ) {
+	public static function hooks( Attachments $obj ) {
 
 		add_shortcode( self::SHORTCODE, [ $obj, 'shortcodeHandler' ] );
 
@@ -75,7 +75,6 @@ class Attachments {
 				add_filter( 'the_content', [ $obj, 'getAttributions' ], 12 );
 			}
 		}
-
 	}
 
 	/**
@@ -87,7 +86,7 @@ class Attachments {
 	 *
 	 * @return array|null
 	 */
-	function getBookMedia( $reset = false ) {
+	public function getBookMedia( $reset = false ) {
 		// Cheap cache
 		static $book_media = null;
 		if ( $reset || $book_media === null ) {
@@ -119,7 +118,7 @@ class Attachments {
 	 *
 	 * @return string
 	 */
-	function getAttributions( $content ) {
+	public function getAttributions( $content ) {
 		$media_in_page = get_media_embedded_in_content( $content );
 
 		// these are not the droids you're looking for
@@ -182,7 +181,7 @@ class Attachments {
 	 *
 	 * @return string
 	 */
-	function attributionsContent( $attributions ) {
+	public function attributionsContent( $attributions ) {
 		$media_attributions = '';
 		$html = '';
 		$licensing = new Licensing();
@@ -279,7 +278,7 @@ class Attachments {
 	 *
 	 * @return string
 	 */
-	function shortcodeHandler( $atts, $content = '' ) {
+	public function shortcodeHandler( $atts, $content = '' ) {
 		$retval = '';
 
 		$a = shortcode_atts(
@@ -295,5 +294,4 @@ class Attachments {
 
 		return $retval;
 	}
-
 }

@@ -418,7 +418,7 @@ function include_core_overrides() {
 	if ( ! isset( $_overrides[ $locale ] ) ) {
 		$_overrides[ $locale ] = [];
 		if ( file_exists( $filepath ) ) {
-			$_overrides[ $locale ] = include( $filepath );
+			$_overrides[ $locale ] = include $filepath;
 		}
 	}
 
@@ -497,7 +497,7 @@ function install_book_locale( $meta_id, $post_id, $meta_key, $meta_value ) {
 	$languages = wplang_codes();
 	$locale = $languages[ $meta_value ];
 	if ( '' !== $locale && 'en_US' !== $locale ) {
-		require_once( ABSPATH . '/wp-admin/includes/translation-install.php' );
+		require_once ABSPATH . '/wp-admin/includes/translation-install.php';
 		$result = \wp_download_language_pack( $locale );
 		if ( $result ) {
 			if ( ! empty( $GLOBALS['wp_locale_switcher'] ) ) {
@@ -526,7 +526,7 @@ function update_user_locale() {
 		$locale = get_user_meta( get_current_user_id(), 'user_interface_lang', true );
 		if ( $locale && 'en_US' !== $locale ) {
 			update_user_meta( get_current_user_id(), 'locale', $locale );
-			require_once( ABSPATH . '/wp-admin/includes/translation-install.php' );
+			require_once ABSPATH . '/wp-admin/includes/translation-install.php';
 			$result = \wp_download_language_pack( $locale );
 			if ( false === $result ) {
 				$wplang_codes = wplang_codes();
@@ -600,4 +600,3 @@ function get_book_language() {
 	}
 	return $book_lang;
 }
-

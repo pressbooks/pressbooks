@@ -5,7 +5,7 @@
  */
 
 use function Pressbooks\Api\is_enabled;
-use function \Pressbooks\Utility\include_plugins as include_symbionts;
+use function Pressbooks\Utility\include_plugins as include_symbionts;
 use Pressbooks\Book;
 use Pressbooks\CloneComplete;
 use Pressbooks\Container;
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Includes
 // -------------------------------------------------------------------------------------------------------------------
 
-require_once( __DIR__ . '/requires.php' );
+require_once __DIR__ . '/requires.php';
 include_symbionts();
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -52,7 +52,7 @@ add_action( 'plugins_loaded', [ '\Pressbooks\Activation', 'init' ] );
 // Archive Banner
 // -------------------------------------------------------------------------------------------------------------------
 
-add_filter( 'ms_site_check', function() {
+add_filter( 'ms_site_check', function () {
 	// Only intervene for Pressbooks books, not main site
 	if ( ! Book::isBook() ) {
 		return null;
@@ -88,7 +88,7 @@ add_filter( 'ms_site_check', function() {
 // Sync WordPress native archive action with Pressbooks archive fields
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'wp_update_site', function( $new_site, $old_site ) {
+add_action( 'wp_update_site', function ( $new_site, $old_site ) {
 	// Only process for books, not main site
 	if ( ! Book::isBook() && $new_site->blog_id !== get_current_blog_id() ) {
 		return;
@@ -324,7 +324,7 @@ add_action( 'init', '\Pressbooks\Theme\update_template_root' );
 // Regenerate stylesheets
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'init', function() {
+add_action( 'init', function () {
 	Container::get( 'Styles' )->maybeUpdateStylesheets();
 } );
 

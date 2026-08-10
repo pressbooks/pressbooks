@@ -45,5 +45,4 @@ class Bibliography extends Element {
 	protected $dataTypes = [
 		'bibliography',
 	];
-
 }

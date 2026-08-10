@@ -6,9 +6,9 @@
 
 namespace Pressbooks;
 
-use function \Pressbooks\Utility\debug_error_log;
-use function \Pressbooks\Utility\explode_remove_and;
-use function \Pressbooks\Utility\get_contributors_name_imploded;
+use function Pressbooks\Utility\debug_error_log;
+use function Pressbooks\Utility\explode_remove_and;
+use function Pressbooks\Utility\get_contributors_name_imploded;
 
 /**
  * TODO: Refactor

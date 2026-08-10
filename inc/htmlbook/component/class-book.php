@@ -46,5 +46,4 @@ class Book extends Element {
 	protected $dataTypes = [
 		'book',
 	];
-
 }

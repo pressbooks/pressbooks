@@ -106,7 +106,6 @@ function update_admin_status() {
 		// Reset the cheap cache after updating the option
 		_restricted_users();
 	}
-
 }
 
 /**
@@ -281,7 +280,7 @@ function remove_from_pressbooks_network_managers( $user_id ): void {
 	}
 
 	// Remove any IDs that are not super admins or do not exist
-	$current_network_managers = array_filter($current_network_managers, function( $id ) {
+	$current_network_managers = array_filter($current_network_managers, function ( $id ) {
 		$user = get_userdata( $id );
 		return $user !== false && is_super_admin( $id );
 	});

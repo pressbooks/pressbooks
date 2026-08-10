@@ -43,5 +43,4 @@ class IndexTerm extends Element {
 	protected $dataTypes = [
 		'indexterm',
 	];
-
 }

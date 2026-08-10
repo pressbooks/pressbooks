@@ -35,7 +35,7 @@ class GlobalTypography {
 	 * @return array
 	 * @see \Pressbooks\Modules\ThemeOptions\GlobalOptions::renderLanguagesField
 	 */
-	function getSupportedLanguages() {
+	public function getSupportedLanguages() {
 		return [
 			'ff' => __( 'Adlam', 'pressbooks' ),
 			'am' => __( 'Amharic', 'pressbooks' ),
@@ -77,7 +77,7 @@ class GlobalTypography {
 	 *
 	 * @return string
 	 */
-	function getThemeFontStacks( $type ) {
+	public function getThemeFontStacks( $type ) {
 
 		$return_value = '';
 
@@ -95,7 +95,7 @@ class GlobalTypography {
 	 *
 	 * @return array
 	 */
-	function _getRequiredLanguages() {
+	public function _getRequiredLanguages() {
 		$languages = get_option( 'pressbooks_global_typography', [] );
 		$book_lang = $this->_getBookLanguage();
 
@@ -118,7 +118,7 @@ class GlobalTypography {
 	 * Creates the necessary @import statements and variables, for foreign language support
 	 * (CSS fallback font stacks, for unknown characters)
 	 */
-	function updateGlobalTypographyMixin() {
+	public function updateGlobalTypographyMixin() {
 
 		$languages = $this->_getRequiredLanguages();
 
@@ -131,7 +131,6 @@ class GlobalTypography {
 		}
 
 		$this->getFonts( $languages );
-
 	}
 
 	/**
@@ -227,7 +226,7 @@ class GlobalTypography {
 	 * @return array
 	 * @see \Pressbooks\Modules\ThemeOptions\GlobalOptions::renderLanguagesField
 	 */
-	function getThemeSupportedLanguages() {
+	public function getThemeSupportedLanguages() {
 
 		$return_value = false;
 
@@ -235,7 +234,7 @@ class GlobalTypography {
 
 		if ( is_file( $fullpath ) ) {
 
-			require( $fullpath );
+			require $fullpath;
 
 			if ( ! empty( $supported_languages ) ) {
 				$return_value = $supported_languages;
@@ -302,7 +301,7 @@ class GlobalTypography {
 	 *
 	 * @return array
 	 */
-	function fontPacks() {
+	public function fontPacks() {
 		$fontpacks = [
 			'am' => [
 				'baseurl' => 'https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/',
@@ -478,7 +477,7 @@ class GlobalTypography {
 	 *
 	 * @return bool
 	 */
-	function getFonts( $languages = null ) {
+	public function getFonts( $languages = null ) {
 		if ( ! $languages ) {
 			$languages = $this->_getRequiredLanguages();
 		}
@@ -496,7 +495,7 @@ class GlobalTypography {
 				foreach ( $val['files'] as $font => $font_url ) {
 					if ( ! file_exists( $basepath . $font ) ) {
 						if ( ! function_exists( 'download_url' ) ) {
-							require_once( ABSPATH . 'wp-admin/includes/file.php' );
+							require_once ABSPATH . 'wp-admin/includes/file.php';
 						}
 
 						$result = download_url( $val['baseurl'] . $font_url );

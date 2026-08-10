@@ -14,14 +14,6 @@
 
 namespace Pressbooks\Admin\Laf;
 
-use function Pressbooks\Admin\NetworkManagers\is_restricted;
-use function Pressbooks\Modules\Export\template_data;
-use function Pressbooks\PostType\get_post_type_label;
-use function Pressbooks\Sanitize\sanitize_string;
-use function Pressbooks\Sanitize\validate_url_field;
-use function Pressbooks\Utility\disable_comments;
-use function Pressbooks\Utility\is_algolia_search_enabled;
-use function Pressbooks\Utility\str_starts_with;
 use Pressbooks\Admin\ExportOptions;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Admin\PublishOptions;
@@ -34,6 +26,14 @@ use Pressbooks\Contributors;
 use Pressbooks\DataCollector\Book as DataCollector;
 use Pressbooks\Metadata;
 use WP_Error;
+use function Pressbooks\Admin\NetworkManagers\is_restricted;
+use function Pressbooks\Modules\Export\template_data;
+use function Pressbooks\PostType\get_post_type_label;
+use function Pressbooks\Sanitize\sanitize_string;
+use function Pressbooks\Sanitize\validate_url_field;
+use function Pressbooks\Utility\disable_comments;
+use function Pressbooks\Utility\is_algolia_search_enabled;
+use function Pressbooks\Utility\str_starts_with;
 
 /**
  * @return bool
@@ -541,7 +541,7 @@ function reorder_book_admin_menu( $menu_order = [] ) {
  * @return string
  */
 function book_info_slug() {
-	$metadata_post_id = ( new Metadata )->getMetaPostId();
+	$metadata_post_id = ( new Metadata() )->getMetaPostId();
 	$book_info_slug = ( ! empty( $metadata_post_id ) ) ?
 		'post.php?post=' . $metadata_post_id . '&amp;action=edit' :
 		'post-new.php?post_type=metadata';
@@ -783,7 +783,7 @@ function display_organize() {
  * Displays the trash page.
  */
 function display_trash() {
-	require( PB_PLUGIN_DIR . 'templates/admin/trash.php' );
+	require PB_PLUGIN_DIR . 'templates/admin/trash.php';
 }
 
 /**
@@ -824,7 +824,7 @@ function display_cloning_stats() {
  * Displays the Import Admin Page
  */
 function display_import() {
-	require( PB_PLUGIN_DIR . 'templates/admin/import.php' );
+	require PB_PLUGIN_DIR . 'templates/admin/import.php';
 }
 
 /**
@@ -1341,7 +1341,7 @@ function privacy_settings_init() {
 
 	if ( ! isset( $sharingandprivacy['network_directory_excluded'] ) || 0 === $sharingandprivacy['network_directory_excluded'] ) {
 		add_action(
-			'update_option_pb_book_directory_excluded', function( $old_value, $updated_value ) {
+			'update_option_pb_book_directory_excluded', function ( $old_value, $updated_value ) {
 				$current_book_id = get_current_blog_id();
 
 				if ( update_site_meta( $current_book_id, DataCollector::BOOK_DIRECTORY_EXCLUDED, $updated_value ) ) {
@@ -1351,7 +1351,6 @@ function privacy_settings_init() {
 				if ( $updated_value === 1 ) {
 					BookDirectory::init()->deleteBookFromDirectory( [ $current_book_id ] );
 				}
-
 			}, 10, 2
 		);
 
@@ -1967,7 +1966,7 @@ function block_metadata_add_new_page() {
 		return;
 	}
 
-	$metadata_post_id = ( new Metadata )->getMetaPostId();
+	$metadata_post_id = ( new Metadata() )->getMetaPostId();
 	if ( ! $metadata_post_id ) {
 		return;
 	}

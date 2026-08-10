@@ -3,7 +3,7 @@
 namespace Pressbooks\Log;
 
 interface StorageProvider {
-	function store( array $data, ?string $file_header = null );
-	function getDataFormat( array $data );
-	function setClient( $client );
+	public function store( array $data, ?string $file_header = null );
+	public function getDataFormat( array $data );
+	public function setClient( $client );
 }

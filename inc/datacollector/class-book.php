@@ -6,11 +6,11 @@
 
 namespace Pressbooks\DataCollector;
 
-use function Pressbooks\Image\attachment_id_from_url;
-use function Pressbooks\Metadata\get_institution_by_code;
-use function \Pressbooks\Metadata\get_in_catalog_option;
 use Illuminate\Database\Query\Builder;
 use Pressbooks\Licensing;
+use function Pressbooks\Image\attachment_id_from_url;
+use function Pressbooks\Metadata\get_institution_by_code;
+use function Pressbooks\Metadata\get_in_catalog_option;
 
 class Book {
 
@@ -417,7 +417,7 @@ class Book {
 		// pb_book_license
 		update_site_meta( $book_id, self::LICENSE, $metadata['pb_book_license'] ?? 'all-rights-reserved' );
 
-		$licensing = new Licensing;
+		$licensing = new Licensing();
 		$supported_types = $licensing->getSupportedTypes();
 
 		// pb_license_code
@@ -737,7 +737,7 @@ SQL;
 
 		restore_current_blog();
 
-		return  is_ssl() ? str_replace( 'http://', 'https://', $cover_path ) : $cover_path;
+		return is_ssl() ? str_replace( 'http://', 'https://', $cover_path ) : $cover_path;
 	}
 
 	// ------------------------------------------------------------------------
@@ -803,5 +803,4 @@ SQL;
 		// phpcs:enable
 		return $values;
 	}
-
 }

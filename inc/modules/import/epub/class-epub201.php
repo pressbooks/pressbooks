@@ -54,14 +54,14 @@ class Epub201 extends ImportGenerator {
 	/**
 	 *
 	 */
-	function __construct() {
+	public function __construct() {
 		if ( ! function_exists( 'media_handle_sideload' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/image.php' );
-			require_once( ABSPATH . 'wp-admin/includes/file.php' );
-			require_once( ABSPATH . 'wp-admin/includes/media.php' );
+			require_once ABSPATH . 'wp-admin/includes/image.php';
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			require_once ABSPATH . 'wp-admin/includes/media.php';
 		}
 
-		$this->zip = new \ZipArchive;
+		$this->zip = new \ZipArchive();
 	}
 
 	/**
@@ -69,7 +69,7 @@ class Epub201 extends ImportGenerator {
 	 *
 	 * @return bool
 	 */
-	function setCurrentImportOption( array $upload ) {
+	public function setCurrentImportOption( array $upload ) {
 
 		try {
 			$this->setCurrentZip( $upload['file'] );
@@ -131,7 +131,7 @@ class Epub201 extends ImportGenerator {
 	 *
 	 * @return bool
 	 */
-	function import( array $current_import ) {
+	public function import( array $current_import ) {
 		try {
 			foreach ( $this->importGenerator( $current_import ) as $percentage => $info ) {
 				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
@@ -148,7 +148,7 @@ class Epub201 extends ImportGenerator {
 	 * @throws \Exception
 	 * @return \Generator
 	 */
-	function importGenerator( array $current_import ) : \Generator {
+	public function importGenerator( array $current_import ): \Generator {
 		yield 10 => __( 'Opening EPUB file', 'pressbooks' );
 		$this->setCurrentZip( $current_import['file'] );
 
@@ -202,7 +202,7 @@ class Epub201 extends ImportGenerator {
 	 *
 	 * @return \Generator
 	 */
-	protected function parseManifestGenerator( \SimpleXMLElement $xml, array $match_ids, $chapter_parent, $current_import ) : \Generator {
+	protected function parseManifestGenerator( \SimpleXMLElement $xml, array $match_ids, $chapter_parent, $current_import ): \Generator {
 		$this->parseManifestToArray( $xml );
 		$selected_for_import = $this->selectedForImport( $xml, $match_ids );
 		$total = count( $selected_for_import );
@@ -295,7 +295,6 @@ class Epub201 extends ImportGenerator {
 		if ( ! $ok ) {
 			throw new \Exception( 'Bad or corrupted META-INF/container.xml' );
 		}
-
 	}
 
 	/**
@@ -627,6 +626,5 @@ class Epub201 extends ImportGenerator {
 				'href' => $href,
 			];
 		}
-
 	}
 }

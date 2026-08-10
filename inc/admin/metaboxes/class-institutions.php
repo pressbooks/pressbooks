@@ -6,8 +6,8 @@
 
 namespace Pressbooks\Admin\Metaboxes;
 
-use function Pressbooks\Metadata\get_institutions;
 use Pressbooks\Admin\Fields\Select;
+use function Pressbooks\Metadata\get_institutions;
 
 class Institutions extends Metabox {
 

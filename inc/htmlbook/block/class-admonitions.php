@@ -49,5 +49,4 @@ class Admonitions extends Element {
 		'caution',
 		'important',
 	];
-
 }

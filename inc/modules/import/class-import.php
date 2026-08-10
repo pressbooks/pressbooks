@@ -13,11 +13,11 @@
 
 namespace Pressbooks\Modules\Import;
 
-use function \Pressbooks\Utility\debug_error_log;
-use function \Pressbooks\Utility\getset;
 use Pressbooks\Book;
 use Pressbooks\Cloner\Cloner;
 use Pressbooks\HtmLawed;
+use function Pressbooks\Utility\debug_error_log;
+use function Pressbooks\Utility\getset;
 
 abstract class Import {
 
@@ -32,7 +32,7 @@ abstract class Import {
 	 * @deprecated
 	 * @var array
 	 */
-	static $logsEmail = [];
+	public static $logsEmail = [];
 
 	/**
 	 * Mandatory setCurrentImportOption() method, creates WP option 'pressbooks_current_import'
@@ -70,21 +70,21 @@ abstract class Import {
 	 *
 	 * @return bool
 	 */
-	abstract function setCurrentImportOption( array $upload );
+	abstract public function setCurrentImportOption( array $upload );
 
 	/**
 	 * @param array $current_import WP option 'pressbooks_current_import'
 	 *
 	 * @return bool
 	 */
-	abstract function import( array $current_import );
+	abstract public function import( array $current_import );
 
 	/**
 	 * Delete 'pressbooks_current_import' option, delete the file too.
 	 *
 	 * @return bool
 	 */
-	function revokeCurrentImport() {
+	public function revokeCurrentImport() {
 		return self::_revokeCurrentImport();
 	}
 
@@ -111,7 +111,7 @@ abstract class Import {
 	 *
 	 * @return string fullpath
 	 */
-	function createTmpFile() {
+	public function createTmpFile() {
 		return \Pressbooks\Utility\create_tmp_file();
 	}
 
@@ -233,7 +233,7 @@ abstract class Import {
 	 * @see pressbooks/templates/admin/import.php
 	 * @see \Pressbooks\EventStreams::importBook
 	 */
-	static public function formSubmit() {
+	public static function formSubmit() {
 
 		// --------------------------------------------------------------------------------------------------------
 		// Sanity check
@@ -275,7 +275,7 @@ abstract class Import {
 	/**
 	 * Pre-Import
 	 */
-	static function preImport() {
+	public static function preImport() {
 		// TODO
 	}
 
@@ -286,7 +286,7 @@ abstract class Import {
 	 *
 	 * @return \Generator
 	 */
-	static function doImportGenerator( array $current_import ) : \Generator {
+	public static function doImportGenerator( array $current_import ): \Generator {
 
 		// Set post status
 		$current_import['default_post_status'] = ( isset( $_POST['show_imports_in_web'] ) ) ? 'publish' : 'private'; // @codingStandardsIgnoreLine
@@ -390,7 +390,7 @@ abstract class Import {
 	/**
 	 * Post Export
 	 */
-	static function postImport() {
+	public static function postImport() {
 		// TODO
 	}
 
@@ -399,7 +399,7 @@ abstract class Import {
 	 *
 	 * @return bool
 	 */
-	static protected function setImportOptions() {
+	protected static function setImportOptions() {
 
 		if ( ! check_admin_referer( 'pb-import' ) ) {
 			return false;
@@ -416,7 +416,7 @@ abstract class Import {
 		];
 
 		if ( ! function_exists( 'wp_handle_upload' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/file.php' );
+			require_once ABSPATH . 'wp-admin/includes/file.php';
 		}
 
 		// If Import Type is a URL then download and fake $_FILES on success
@@ -530,7 +530,7 @@ abstract class Import {
 	 *
 	 * @return bool
 	 */
-	static protected function setGoogleDocsImportOptions(): bool {
+	protected static function setGoogleDocsImportOptions(): bool {
 		$doc_id = sanitize_text_field( getset( '_POST', 'import_gdoc_id' ) );
 
 		if ( ! $doc_id || ! preg_match( '/^[a-zA-Z0-9_-]+$/', $doc_id ) ) {
@@ -599,7 +599,7 @@ abstract class Import {
 	 *
 	 * @return bool
 	 */
-	static protected function hasApi( &$upload ) {
+	protected static function hasApi( &$upload ) {
 		$cloner = new Cloner( $upload['url'] );
 		$is_compatible = $cloner->isCompatible( $upload['url'] );
 		if ( $is_compatible ) {
@@ -615,7 +615,7 @@ abstract class Import {
 	 *
 	 * @return bool
 	 */
-	static protected function createFileFromUrl() {
+	protected static function createFileFromUrl() {
 
 		if ( ! check_admin_referer( 'pb-import' ) ) {
 			return false;
@@ -699,7 +699,7 @@ abstract class Import {
 	 *
 	 * @return bool
 	 */
-	static protected function isUrlSmallerThanUploadMaxSize( $url, $max ) {
+	protected static function isUrlSmallerThanUploadMaxSize( $url, $max ) {
 		$response = wp_safe_remote_head(
 			$url, [
 				'redirection' => 2,
@@ -717,7 +717,7 @@ abstract class Import {
 	 *
 	 * @return bool
 	 */
-	static function isFormSubmission() {
+	public static function isFormSubmission() {
 
 		if ( empty( $_REQUEST['page'] ) ) {
 			return false;
@@ -749,7 +749,7 @@ abstract class Import {
 	 * @param string $message
 	 * @param array $more_info
 	 */
-	static function log( $message, array $more_info = [] ) {
+	public static function log( $message, array $more_info = [] ) {
 
 		/** $var \WP_User $current_user */
 		global $current_user;
@@ -769,5 +769,4 @@ abstract class Import {
 			\Pressbooks\Utility\email_error_log( self::$logsEmail, $subject, $message );
 		}
 	}
-
 }

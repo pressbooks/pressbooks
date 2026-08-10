@@ -407,5 +407,4 @@ class Element {
 
 		return $html;
 	}
-
 }

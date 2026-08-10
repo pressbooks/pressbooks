@@ -29,7 +29,7 @@ class Theme extends \WP_REST_Controller {
 	 *
 	 * @return void
 	 */
-	public function register_routes() : void {
+	public function register_routes(): void {
 		register_rest_route(
 			$this->namespace, '/' . $this->rest_base, [
 				[
@@ -54,7 +54,7 @@ class Theme extends \WP_REST_Controller {
 	 *
 	 * @return array
 	 */
-	public function get_item_schema() : array {
+	public function get_item_schema(): array {
 		return $this->add_additional_fields_schema( [
 			'title' => 'Theme',
 			'type' => 'object',
@@ -125,7 +125,7 @@ class Theme extends \WP_REST_Controller {
 	 *
 	 * @return bool True if the request has read access
 	 */
-	public function get_item_permissions_check( $request ) : bool {
+	public function get_item_permissions_check( $request ): bool {
 		if ( has_filter( 'pb_set_api_items_permission' ) && apply_filters( 'pb_set_api_items_permission', $this->rest_base ) ) {
 			return true;
 		}
@@ -137,7 +137,7 @@ class Theme extends \WP_REST_Controller {
 	 *
 	 * @return \WP_REST_Response
 	 */
-	public function get_item( $request ) : \WP_REST_Response {
+	public function get_item( $request ): \WP_REST_Response {
 		$theme = wp_get_theme();
 		$response = rest_ensure_response( [
 			'name' => $theme->get( 'Name' ),

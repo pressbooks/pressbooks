@@ -58,7 +58,7 @@ class NetworkSettings {
 	 *
 	 * @return void
 	 */
-	public function renderCustomOptions() : void {
+	public function renderCustomOptions(): void {
 		echo '<h3>' . __( 'Theme Settings', 'pressbooks' ) . '</h3>';
 		echo ' <table id="menu" class="form-table" role="presentation"><tbody>';
 		echo '<tr><th scope="row">' . __( 'Default Theme', 'pressbooks' ) . '</th><td>';
@@ -99,7 +99,7 @@ class NetworkSettings {
 	 *
 	 * @return bool
 	 */
-	public function saveNetworkSettings() : bool {
+	public function saveNetworkSettings(): bool {
 		if ( isset( $_POST[ $this->customOptions['default_theme'] ] ) ) {
 			$default_theme = sanitize_text_field( $_POST[ $this->customOptions['default_theme'] ] );
 			$themes = $GLOBALS['pressbooks']->allowedBookThemes( \WP_Theme::get_allowed_on_network() );

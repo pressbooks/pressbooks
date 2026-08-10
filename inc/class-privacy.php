@@ -13,12 +13,12 @@ class Privacy {
 	/**
 	 * @var Privacy
 	 */
-	static $instance = null;
+	public static $instance = null;
 
 	/**
 	 * @return Privacy
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -29,7 +29,7 @@ class Privacy {
 	/**
 	 * @param Privacy $obj
 	 */
-	static public function hooks( Privacy $obj ) {
+	public static function hooks( Privacy $obj ) {
 		add_filter( 'schedule_event', [ $obj, 'reschedulePrivacyCron' ] );
 		self::$instance->removePublicOptionFromSignup();
 	}
@@ -98,7 +98,7 @@ class Privacy {
 
 	public function removePublicOptionFromSignup(): void {
 		if ( isset( $_SERVER['SCRIPT_FILENAME'] ) && basename( sanitize_text_field( wp_unslash( $_SERVER['SCRIPT_FILENAME'] ) ) ) === 'wp-signup.php' ) {
-			ob_start( function( $buffer ) {
+			ob_start( function ( $buffer ) {
 				return preg_replace( '/<div id="privacy">.*?<\/div>/s', '', $buffer );
 			});
 		}

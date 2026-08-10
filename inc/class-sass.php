@@ -101,7 +101,6 @@ class Sass {
 		}
 
 		return $localized;
-
 	}
 
 	/**
@@ -190,7 +189,7 @@ class Sass {
 
 		try {
 			$css = '/* Silence is golden. */'; // If no SCSS input was passed, prevent file write errors by putting a comment in the CSS output.
-			$scssphp = new \ScssPhp\ScssPhp\Compiler;
+			$scssphp = new \ScssPhp\ScssPhp\Compiler();
 			if ( ! empty( $scss ) || ! empty( $this->vars ) ) {
 				$scssphp->setVariables( $this->vars );
 				$scssphp->setImportPaths( $includes );

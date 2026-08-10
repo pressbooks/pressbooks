@@ -14,8 +14,8 @@
 
 namespace Pressbooks;
 
+use function Pressbooks\Utility\getset;
 use function Pressbooks\Utility\oxford_comma_explode;
-use function \Pressbooks\Utility\getset;
 
 class Catalog {
 
@@ -39,7 +39,9 @@ class Catalog {
 	 *
 	 * @var string
 	 */
-	protected $dbTable, $dbTagsTable, $dbLinkTable;
+	protected $dbTable;
+	protected $dbTagsTable;
+	protected $dbLinkTable;
 
 	/**
 	 * User ID to construct this object
@@ -76,7 +78,7 @@ class Catalog {
 	/**
 	 * @param int $user_id (optional)
 	 */
-	function __construct( $user_id = 0 ) {
+	public function __construct( $user_id = 0 ) {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -109,7 +111,7 @@ class Catalog {
 	 *
 	 * @return int
 	 */
-	function getUserId() {
+	public function getUserId() {
 
 		return $this->userId;
 	}
@@ -119,7 +121,7 @@ class Catalog {
 	 *
 	 * @return array
 	 */
-	function get() {
+	public function get() {
 		/** @var $wpdb \wpdb */
 		global $wpdb;
 
@@ -133,7 +135,7 @@ class Catalog {
 	 *
 	 * @return array
 	 */
-	function getAggregate() {
+	public function getAggregate() {
 
 		// -----------------------------------------------------------------------------
 		// Is cached?
@@ -329,7 +331,7 @@ class Catalog {
 	 *
 	 * @return array
 	 */
-	function getByTagId( $tag_group, $tag_id ) {
+	public function getByTagId( $tag_group, $tag_id ) {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -347,7 +349,7 @@ class Catalog {
 	 *
 	 * @param array $items
 	 */
-	function save( array $items ) {
+	public function save( array $items ) {
 
 		foreach ( $items as $item ) {
 			if ( isset( $item['blogs_id'] ) ) {
@@ -363,7 +365,7 @@ class Catalog {
 	 *
 	 * @return int|false
 	 */
-	function delete( $for_real = false ) {
+	public function delete( $for_real = false ) {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -392,7 +394,7 @@ class Catalog {
 	 *
 	 * @return array
 	 */
-	function getBook( $blog_id ) {
+	public function getBook( $blog_id ) {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -407,7 +409,7 @@ class Catalog {
 	 *
 	 * @return array
 	 */
-	function getBookIds() {
+	public function getBookIds() {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -425,7 +427,7 @@ class Catalog {
 	 *
 	 * @return int|false
 	 */
-	function saveBook( $blog_id, array $item ) {
+	public function saveBook( $blog_id, array $item ) {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -491,7 +493,7 @@ class Catalog {
 	 *
 	 * @return int|false
 	 */
-	function deleteBook( $blog_id, $for_real = false ) {
+	public function deleteBook( $blog_id, $for_real = false ) {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -523,7 +525,7 @@ class Catalog {
 	 *
 	 * @return array
 	 */
-	function getTags( $tag_group, $show_hidden_tags = true ) {
+	public function getTags( $tag_group, $show_hidden_tags = true ) {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -549,7 +551,7 @@ class Catalog {
 	 *
 	 * @return array
 	 */
-	function getTagsByBook( $blog_id, $tag_group ) {
+	public function getTagsByBook( $blog_id, $tag_group ) {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -572,7 +574,7 @@ class Catalog {
 	 *
 	 * @return int|false
 	 */
-	function saveTag( $tag, $blog_id, $tag_group ) {
+	public function saveTag( $tag, $blog_id, $tag_group ) {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -611,7 +613,7 @@ class Catalog {
 	 *
 	 * @return int|false
 	 */
-	function deleteTag( $tag, $blog_id, $tag_group, $for_real = false ) {
+	public function deleteTag( $tag, $blog_id, $tag_group, $for_real = false ) {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -667,7 +669,7 @@ class Catalog {
 	 *
 	 * @return int|false
 	 */
-	function deleteTags( $blog_id, $tag_group ) {
+	public function deleteTags( $blog_id, $tag_group ) {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -684,13 +686,12 @@ class Catalog {
 		// Optimize the links table: $wpdb->query( "OPTIMIZE TABLE {$this->dbLinkTable} " );
 
 		return $result;
-
 	}
 
 	/**
 	 * Find all IDs in dbTagsTable that have no matching ID in dbLinkTable and delete them.
 	 */
-	function purgeOrphanTags() {
+	public function purgeOrphanTags() {
 
 		// TODO
 	}
@@ -700,7 +701,7 @@ class Catalog {
 	 *
 	 * @return array
 	 */
-	function getProfile() {
+	public function getProfile() {
 
 		$profile['users_id'] = $this->userId;
 		foreach ( $this->profileMetaKeys as $key => $type ) {
@@ -715,7 +716,7 @@ class Catalog {
 	 *
 	 * @param array $item
 	 */
-	function saveProfile( array $item ) {
+	public function saveProfile( array $item ) {
 
 		// Sanitize
 		$item = array_intersect_key( $item, $this->profileMetaKeys );
@@ -750,12 +751,12 @@ class Catalog {
 	/**
 	 * @param string $meta_key
 	 */
-	function uploadLogo( $meta_key ) {
+	public function uploadLogo( $meta_key ) {
 		// Include media utilities
 		if ( ! function_exists( 'media_handle_sideload' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/image.php' );
-			require_once( ABSPATH . 'wp-admin/includes/file.php' );
-			require_once( ABSPATH . 'wp-admin/includes/media.php' );
+			require_once ABSPATH . 'wp-admin/includes/image.php';
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			require_once ABSPATH . 'wp-admin/includes/media.php';
 		}
 
 		if ( isset( $_FILES[ $meta_key ]['name'] ) && empty( $_FILES[ $meta_key ]['name'] ) ) {
@@ -815,7 +816,7 @@ class Catalog {
 	/**
 	 * Delete the cache(s)
 	 */
-	function deleteCache() {
+	public function deleteCache() {
 
 		wp_cache_delete( "cat-{$this->userId}", 'pb' );
 	}
@@ -825,7 +826,7 @@ class Catalog {
 	 *
 	 * @param int $book_id
 	 */
-	function deleteCacheByBookId( $book_id ) {
+	public function deleteCacheByBookId( $book_id ) {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -847,7 +848,7 @@ class Catalog {
 	 *
 	 * @param int $version
 	 */
-	function upgrade( $version ) {
+	public function upgrade( $version ) {
 
 		if ( $version < self::VERSION ) {
 			$this->createOrUpdateTables();
@@ -864,7 +865,7 @@ class Catalog {
 	 */
 	protected function createOrUpdateTables() {
 
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		$sql = "CREATE TABLE {$this->dbTable} (
 				users_id INT(11) NOT null,
@@ -906,7 +907,7 @@ class Catalog {
 	 *
 	 * @return array
 	 */
-	static function stringToTags( $tags ) {
+	public static function stringToTags( $tags ) {
 
 		$tags = mb_split( ',', $tags );
 
@@ -931,7 +932,7 @@ class Catalog {
 	 *
 	 * @return string
 	 */
-	static function tagsToString( array $tags ) {
+	public static function tagsToString( array $tags ) {
 
 		$tags = wp_list_sort( $tags, 'tag', 'asc' );
 
@@ -951,7 +952,7 @@ class Catalog {
 	 *
 	 * @return string
 	 */
-	static function thumbnailFromUserId( $user_id, $size ) {
+	public static function thumbnailFromUserId( $user_id, $size ) {
 
 		$image_url = get_user_meta( $user_id, 'pb_catalog_logo', true );
 		$book = get_active_blog_for_user( $user_id );
@@ -967,11 +968,11 @@ class Catalog {
 	/**
 	 * WP Hook, Instantiate UI
 	 */
-	static function addMenu() {
+	public static function addMenu() {
 		switch ( getset( '_REQUEST', 'action' ) ) {
 			case 'edit_profile':
 			case 'edit_tags':
-				require( PB_PLUGIN_DIR . 'templates/admin/catalog.php' );
+				require PB_PLUGIN_DIR . 'templates/admin/catalog.php';
 				break;
 			case 'add':
 			case 'remove':
@@ -988,7 +989,7 @@ class Catalog {
 	 *
 	 * @return string
 	 */
-	static function getTemplatePath() {
+	public static function getTemplatePath() {
 		$overridden_template = locate_template( 'pb-catalog.php' );
 		if ( $overridden_template ) {
 			return $overridden_template;
@@ -1004,7 +1005,7 @@ class Catalog {
 	/**
 	 * Catch me
 	 */
-	static function formSubmit() {
+	public static function formSubmit() {
 
 		if ( empty( static::isFormSubmission() ) || empty( current_user_can( 'read' ) ) ) {
 			// Don't do anything in this function, bail.
@@ -1022,7 +1023,6 @@ class Catalog {
 		} elseif ( ! empty( $_REQUEST['add_book_by_url'] ) ) {
 			static::formAddByUrl();
 		}
-
 	}
 
 	/**
@@ -1030,7 +1030,7 @@ class Catalog {
 	 *
 	 * @return bool
 	 */
-	static function isFormSubmission() {
+	public static function isFormSubmission() {
 
 		if ( empty( $_REQUEST['page'] ) ) {
 			return false;
@@ -1060,7 +1060,7 @@ class Catalog {
 	 *
 	 * @return bool
 	 */
-	static function isCurrentAction( $action ) {
+	public static function isCurrentAction( $action ) {
 
 		if ( isset( $_REQUEST['action'] ) && -1 !== (int) $_REQUEST['action'] ) {
 			$compare = $_REQUEST['action'];
@@ -1076,7 +1076,7 @@ class Catalog {
 	/**
 	 * WP_Ajax hook for pb_delete_catalog_logo
 	 */
-	static function deleteLogo() {
+	public static function deleteLogo() {
 
 		check_ajax_referer( 'pb-delete-catalog-logo' );
 
@@ -1112,7 +1112,7 @@ class Catalog {
 	protected static function formBulk( $action ) {
 
 		if ( ! class_exists( '\WP_List_Table' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+			require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 		}
 
 		$redirect_url = get_admin_url( get_current_blog_id(), '/index.php?page=pb_catalog' );
@@ -1269,7 +1269,7 @@ class Catalog {
 	/**
 	 * Add Book by URL
 	 */
-	static function formAddByUrl() {
+	public static function formAddByUrl() {
 
 		check_admin_referer( 'bulk-books' ); // Nonce auto-generated by WP_List_Table
 

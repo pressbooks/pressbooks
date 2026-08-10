@@ -281,7 +281,7 @@ class DocsMapper {
 			if ( $items[ $i ] !== null ) {
 				$j = $i;
 				while ( $j < $n && $items[ $j ] !== null ) {
-					$j++;
+					++$j;
 				}
 				if ( $j - $i >= 2 ) {
 					$flush();
@@ -293,11 +293,11 @@ class DocsMapper {
 				}
 				// Lone bullet line: keep as text (glyph retained).
 				$buffer[] = $lines[ $i ];
-				$i++;
+				++$i;
 				continue;
 			}
 			$buffer[] = $lines[ $i ];
-			$i++;
+			++$i;
 		}
 		$flush();
 
@@ -517,7 +517,7 @@ class DocsMapper {
 			foreach ( $row['tableCells'] ?? [] as $cell ) {
 				// Advance past skipped cells.
 				while ( ! empty( $skip[ $row_idx ][ $col_idx ] ) ) {
-					$col_idx++;
+					++$col_idx;
 				}
 
 				$row_span = $cell['tableCellStyle']['rowSpan'] ?? 1;

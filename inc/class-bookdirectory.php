@@ -38,7 +38,7 @@ class BookDirectory {
 	 *
 	 * @return BookDirectory
 	 */
-	static public function init() {
+	public static function init() {
 
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
@@ -55,7 +55,7 @@ class BookDirectory {
 	 *
 	 * @param BookDirectory $obj
 	 */
-	static public function hooks( BookDirectory $obj ) {
+	public static function hooks( BookDirectory $obj ) {
 		add_filter( 'update_option_blog_public', [ $obj, 'setBookPrivate' ], 10, 2 );
 		add_action( 'wp_update_site', [ $obj, 'softDeleteActions' ], 10, 2 );
 		add_action( 'wp_delete_site', [ $obj, 'deleteAction' ], 10, 2 );
@@ -199,4 +199,3 @@ class BookDirectory {
 		return false;
 	}
 }
-

@@ -10,9 +10,9 @@
 
 namespace Pressbooks\Theme;
 
-use function \Pressbooks\Utility\put_contents;
 use Pressbooks\Container;
 use Pressbooks\CustomCss;
+use function Pressbooks\Utility\put_contents;
 
 /**
  * Check for required themes; prompt to install if missing.

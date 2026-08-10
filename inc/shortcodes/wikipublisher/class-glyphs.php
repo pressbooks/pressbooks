@@ -17,7 +17,7 @@ class Glyphs {
 	/**
 	 * @var Glyphs - Static property to hold our singleton instance
 	 */
-	static $instance = null;
+	public static $instance = null;
 
 	// ISO-639-3
 	protected $supported_languages = [
@@ -43,7 +43,7 @@ class Glyphs {
 	/**
 	 * @param Glyphs $obj
 	 */
-	static public function hooks( Glyphs $obj ) {
+	public static function hooks( Glyphs $obj ) {
 		add_shortcode( 'pb_language', [ $obj, 'langShortcode' ] );
 		add_filter(
 			'no_texturize_shortcodes',
@@ -493,5 +493,4 @@ class Glyphs {
 
 		return str_replace( array_keys( $he_alphabet ), array_values( $he_alphabet ), $text );
 	}
-
 }

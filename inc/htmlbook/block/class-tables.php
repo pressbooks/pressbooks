@@ -69,5 +69,4 @@ class Tables extends Element {
 	 * @var string
 	 */
 	protected $tag = 'table';
-
 }

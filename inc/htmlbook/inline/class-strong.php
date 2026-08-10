@@ -21,5 +21,4 @@ class Strong extends Element {
 	 * @var string
 	 */
 	protected $tag = 'strong';
-
 }

@@ -5,9 +5,9 @@ namespace Pressbooks\Log;
 use Aws\CloudWatchLogs\CloudWatchLogsClient;
 use Aws\Credentials\CredentialProvider;
 use Aws\Exception\UnresolvedApiException;
-use function Pressbooks\Utility\debug_error_log;
 use Monolog\Formatter\JsonFormatter;
 use Monolog\Logger;
+use function Pressbooks\Utility\debug_error_log;
 
 class CloudWatchProvider implements StorageProvider {
 

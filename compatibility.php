@@ -37,7 +37,7 @@ function pb_meets_minimum_requirements() {
 	global $pb_minimum_wp;
 	$pb_minimum_wp = '7.0.3';
 
-	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+	include_once ABSPATH . 'wp-admin/includes/plugin.php';
 	$is_compatible = true;
 
 	if ( ! version_compare( PHP_VERSION, $pb_minimum_php, '>=' ) ) {
@@ -134,7 +134,7 @@ function pb_init_autoloader() {
 	static $registered = false;
 	if ( ! $registered ) {
 		_pb_copy_autoloader();
-		require_once( __DIR__ . '/requires.php' );
+		require_once __DIR__ . '/requires.php';
 		\HM\Autoloader\register_class_path( 'Pressbooks', __DIR__ . '/inc' );
 		$registered = true;
 	}
@@ -157,7 +157,7 @@ function _pb_copy_autoloader() {
 			die( sprintf( __( 'Pressbooks could not copy the autoloader from %1$s to %2$s. Please copy the file manually.', 'pressbooks' ), $source, $dest ) );
 		}
 		if ( ! function_exists( '\HM\Autoloader\register_class_path' ) ) {
-			require_once( $dest );
+			require_once $dest;
 		}
 	}
 }

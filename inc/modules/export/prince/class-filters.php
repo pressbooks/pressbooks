@@ -31,7 +31,7 @@ class Filters {
 		if ( $obj->overridePrince() ) {
 			add_filter( 'pb_export_formats', [ $obj, 'addToFormats' ] );
 			add_filter( 'pb_active_export_modules', [ $obj, 'addToModules' ] );
-			add_filter( 'pb_available_export_module_slug_to_classname_map', function( $map ) {
+			add_filter( 'pb_available_export_module_slug_to_classname_map', function ( $map ) {
 				$map['docraptor'] = '\Pressbooks\Modules\Export\Prince\Docraptor';
 				$map['docraptor_print'] = '\Pressbooks\Modules\Export\Prince\DocraptorPrint';
 				return $map;
@@ -114,5 +114,4 @@ class Filters {
 		}
 		return defined( 'DOCRAPTOR_API_KEY' ) || check_prince_install();
 	}
-
 }

@@ -15,10 +15,10 @@
 
 namespace Pressbooks\Utility;
 
-use function Pressbooks\Modules\Export\filetypes;
 use Pressbooks\Book;
 use Pressbooks\Modules\Export\Export;
 use RuntimeException;
+use function Pressbooks\Modules\Export\filetypes;
 
 /**
  * Return a value for a given key even if not set
@@ -465,7 +465,7 @@ function show_experimental_features( $host = '' ) {
  */
 function include_plugins() {
 	if ( true === disable_comments() ) {
-		require_once( PB_PLUGIN_DIR . 'symbionts/disable-comments-mu/disable-comments-mu.php' );
+		require_once PB_PLUGIN_DIR . 'symbionts/disable-comments-mu/disable-comments-mu.php';
 	}
 }
 
@@ -814,7 +814,7 @@ function template( $path, array $vars = [] ) {
 
 	ob_start();
 	extract( $vars ); // @codingStandardsIgnoreLine
-	include( $path );
+	include $path;
 	$output = ob_get_contents();
 	ob_end_clean();
 
@@ -843,7 +843,7 @@ function remote_get_retry( $url, $args, $retry = 3, $attempts = 0, $response = [
 		return $response;
 	}
 
-	$attempts++;
+	++$attempts;
 
 	$response = wp_remote_get( $url, $args );
 
@@ -992,7 +992,7 @@ function rcopy( $src, $dest, $excludes = [], $includes = [] ) {
 			$dir_pattern_count = 0;
 			foreach ( $includes as $include ) {
 				if ( str_ends_with( $include, '/' ) ) {
-					$dir_pattern_count++;
+					++$dir_pattern_count;
 					if ( fnmatch( rtrim( $include, '/' ), "$f" ) ) {
 						$include_this_file = true;
 						break;
@@ -1241,8 +1241,8 @@ function get_cache_path() {
 function init_direct_filesystem() {
 	if ( ! class_exists( 'WP_Filesystem_Direct' ) ) {
 		$abstraction_file = apply_filters( 'filesystem_method_file', ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php', 'direct' ); // Use for mocks / testing
-		require_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php' );
-		require_once( $abstraction_file );
+		require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php';
+		require_once $abstraction_file;
 
 		// Set the permission constants if not already set.
 		if ( ! defined( 'FS_CHMOD_DIR' ) ) {
@@ -1586,7 +1586,7 @@ function do_shortcode_by_tags( $content, array $tags ) {
  * @return array|mixed|string|string[]
  */
 function apply_https_if_available( $url ) {
-	return  is_ssl() ? str_replace( 'http://', 'https://', $url ) : $url;
+	return is_ssl() ? str_replace( 'http://', 'https://', $url ) : $url;
 }
 
 /**
@@ -1647,7 +1647,7 @@ function handle_image_upload( $url, $filename = 'profile.jpg' ) {
  *
  * @return void
  */
-function delete_options_cached() : void {
+function delete_options_cached(): void {
 	wp_cache_delete( 'alloptions', 'options' );
 }
 
@@ -1700,7 +1700,7 @@ function objects_to_csv( array $array ): string {
  * @param int $dpi
  * @return float|bool Converted value in inches or false if the value is invalid.
  */
-function length_to_inches( $value, $dpi = 96 ) : float|bool {
+function length_to_inches( $value, $dpi = 96 ): float|bool {
 	$value = trim( $value ?? '' );
 
 	preg_match( '/^([-+]?[0-9]*\.?[0-9]+)([a-zA-Z%]+)$/', $value, $matches );

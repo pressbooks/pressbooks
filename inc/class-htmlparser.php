@@ -2,8 +2,8 @@
 
 namespace Pressbooks;
 
-use function Pressbooks\Sanitize\strip_container_tags;
 use Masterminds\HTML5;
+use function Pressbooks\Sanitize\strip_container_tags;
 
 /**
  * This class wraps all our weird HTML parser hacks in one place
@@ -90,5 +90,4 @@ class HtmlParser {
 			]
 		);
 	}
-
 }

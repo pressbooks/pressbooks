@@ -12,15 +12,15 @@
 namespace Pressbooks\Admin\Diagnostics;
 
 use DeviceDetector\DeviceDetector;
-use function Pressbooks\Redirect\location;
-use function Pressbooks\Utility\check_epubcheck_install;
-use function Pressbooks\Utility\check_prince_install;
-use function Pressbooks\Utility\check_xmllint_install;
 use Pressbooks\Book;
 use Pressbooks\Container;
 use Pressbooks\HtmLawed;
 use Pressbooks\Modules\ThemeOptions\Admin;
 use Pressbooks\Theme\Lock;
+use function Pressbooks\Redirect\location;
+use function Pressbooks\Utility\check_epubcheck_install;
+use function Pressbooks\Utility\check_prince_install;
+use function Pressbooks\Utility\check_xmllint_install;
 
 /**
  * Add the diagnostics menu (with parent page set to null)
@@ -218,6 +218,3 @@ function handle_pdf_preview(): void {
 	}
 	location( $url );
 }
-
-
-

@@ -118,7 +118,6 @@ function fix_audio_shortcode() {
 			return $html;
 		}, 10, 5
 	);
-
 }
 
 /**
@@ -296,7 +295,6 @@ function canonicalize_url( $url ) {
 	$url = filter_var( $url, FILTER_SANITIZE_URL );
 
 	return $url;
-
 }
 
 /**
@@ -390,7 +388,6 @@ function normalize_css_urls( $css, $url_path = '' ) {
 			}
 
 			return $matches[0]; // No change
-
 		},
 		$css
 	);
@@ -626,7 +623,7 @@ function reverse_wpautop( $pee ) {
 			$pre_tags[ $name ] = substr( $pee_part, $start ) . '</pre>';
 
 			$pee .= substr( $pee_part, 0, $start ) . $name;
-			$i++;
+			++$i;
 		}
 
 		$pee .= $last_pee;
@@ -728,7 +725,7 @@ function htmlawed_with_mixed_markup( $content, $htmlawed_config = null, $htmlawe
 				$name = "\x83!-- pb-hidden-mixed-markup-{$tag}-{$i} --\x84";
 				$hidden_tags[ $name ] = substr( $content_part, $start ) . "</{$tag}>";
 				$content .= substr( $content_part, 0, $start ) . $name;
-				$i++;
+				++$i;
 			}
 			$content .= $last_content;
 		}
@@ -834,7 +831,6 @@ function maybe_safer_unserialize( $original ) {
 function sanitize_string( $value, $allow_html = false ) {
 
 	return $allow_html ? HtmLawed::filter( pb_decode( stripslashes_from_strings_only( $value ) ), [ 'safe' => 1 ] ) : wp_strip_all_tags( pb_decode( $value ) );
-
 }
 
 /**

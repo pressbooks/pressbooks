@@ -12,14 +12,6 @@
 namespace Pressbooks\Modules\Export\Xhtml;
 
 use Exception;
-use function Pressbooks\Image\maybe_swap_with_bigger;
-use function Pressbooks\L10n\romanize;
-use function Pressbooks\Modules\Export\get_contributors_section;
-use function Pressbooks\Sanitize\clean_filename;
-use function Pressbooks\Sanitize\decode;
-use function Pressbooks\Utility\check_xmllint_install;
-use function Pressbooks\Utility\put_contents;
-use function Pressbooks\Utility\str_starts_with;
 use Generator;
 use Pressbooks\Book;
 use Pressbooks\Container;
@@ -33,6 +25,14 @@ use Pressbooks\Modules\Export\Traits\HandleContributors;
 use Pressbooks\Sanitize;
 use Pressbooks\Taxonomy;
 use Pressbooks\Utility\PercentageYield;
+use function Pressbooks\Image\maybe_swap_with_bigger;
+use function Pressbooks\L10n\romanize;
+use function Pressbooks\Modules\Export\get_contributors_section;
+use function Pressbooks\Sanitize\clean_filename;
+use function Pressbooks\Sanitize\decode;
+use function Pressbooks\Utility\check_xmllint_install;
+use function Pressbooks\Utility\put_contents;
+use function Pressbooks\Utility\str_starts_with;
 
 class Xhtml11 extends Export {
 
@@ -220,7 +220,7 @@ class Xhtml11 extends Export {
 	 * @return Generator
 	 * @throws Exception
 	 */
-	public function convert() : Generator {
+	public function convert(): Generator {
 		yield 1 => $this->generatorPrefix . __( 'Initializing', 'pressbooks' );
 
 		// Optimize WordPress environment for export
@@ -253,7 +253,7 @@ class Xhtml11 extends Export {
 	 * @return Generator
 	 * @throws Exception
 	 */
-	public function validate() : Generator {
+	public function validate(): Generator {
 		yield 90 => $this->generatorPrefix . __( 'Validating file', 'pressbooks' );
 
 		// Xmllint params
@@ -329,7 +329,7 @@ class Xhtml11 extends Export {
 	 * @return Generator
 	 * @throws Exception
 	 */
-	public function transformGenerator() : Generator {
+	public function transformGenerator(): Generator {
 		/**
 		 * Let other plugins tweak things before exporting
 		 * TODO: (bg) Check why is this required in theory is being called in class-backgroundjob.php probably because we have a different the_content when processing
@@ -536,7 +536,7 @@ class Xhtml11 extends Export {
 	 *
 	 * @return string
 	 */
-	function footnoteShortcode( $atts, $content = null ): string {
+	public function footnoteShortcode( $atts, $content = null ): string {
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, preProcessBookContents, ...]
 		$this->footnotes[ $id ][] = trim( $content );
 		$ref_id = count( $this->footnotes[ $id ] );
@@ -554,7 +554,7 @@ class Xhtml11 extends Export {
 	 *
 	 * @return string
 	 */
-	function endnoteShortcode( $atts, $content = null ): string {
+	public function endnoteShortcode( $atts, $content = null ): string {
 
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, preProcessBookContents, ...]
 
@@ -576,7 +576,7 @@ class Xhtml11 extends Export {
 	 *
 	 * @return string
 	 */
-	function doEndnotes( $id ) {
+	public function doEndnotes( $id ) {
 		// TODO: convert to blade
 		if ( ! isset( $this->endnotes[ $id ] ) || ! count( $this->endnotes[ $id ] ) ) {
 			return '';
@@ -603,7 +603,7 @@ class Xhtml11 extends Export {
 	 *
 	 * @return string
 	 */
-	function doFootnotes( $id ): string {
+	public function doFootnotes( $id ): string {
 		if ( ! isset( $this->footnotes[ $id ] ) || ! count( $this->footnotes[ $id ] ) ) {
 			return '';
 		}
@@ -1547,7 +1547,7 @@ class Xhtml11 extends Export {
 	 * @param  array $metadata
 	 * @return Generator
 	 */
-	protected function renderFrontMatterGenerator( $book_contents, $metadata ) : Generator {
+	protected function renderFrontMatterGenerator( $book_contents, $metadata ): Generator {
 
 		$y = new PercentageYield( 50, 60, count( $book_contents['front-matter'] ) );
 
@@ -1612,7 +1612,7 @@ class Xhtml11 extends Export {
 	 * @param  array $metadata
 	 * @return Generator
 	 */
-	protected function renderPartsAndChaptersGenerator( $book_contents, $metadata ) : Generator {
+	protected function renderPartsAndChaptersGenerator( $book_contents, $metadata ): Generator {
 		$yield = new PercentageYield( 60, 70, $this->countPartsAndChapters( $book_contents ) );
 
 		$part_index = 1;
@@ -1697,7 +1697,7 @@ class Xhtml11 extends Export {
 
 				if ( preg_match_all( '/<style.*?scoped="scoped".*?>(.*?)<\/style>/is', $chapter_content, $matches ) ) {
 					$scoped_styles = implode( "\n", $matches[1] ) . "\n";
-					add_filter('pb_process_scoped_styles', function( $st ) use ( $scoped_styles ) {
+					add_filter('pb_process_scoped_styles', function ( $st ) use ( $scoped_styles ) {
 						return $st . $this->cleanH5PCss( $scoped_styles );
 					});
 				}
@@ -1769,7 +1769,7 @@ class Xhtml11 extends Export {
 	 * @param  array $metadata
 	 * @return Generator
 	 */
-	protected function renderBackMatterGenerator( $book_contents, $metadata ) : Generator {
+	protected function renderBackMatterGenerator( $book_contents, $metadata ): Generator {
 
 		$y = new PercentageYield( 70, 80, count( $book_contents['back-matter'] ) );
 
@@ -1793,7 +1793,6 @@ class Xhtml11 extends Export {
 
 			++$i;
 		}
-
 	}
 
 	/**
@@ -1850,5 +1849,4 @@ class Xhtml11 extends Export {
 
 		return false;
 	}
-
 }

@@ -59,6 +59,5 @@ class DocraptorPrint extends Docraptor {
 		if ( ! empty( $icc ) ) {
 			$this->cssOverrides .= "\n" . "@prince-pdf { prince-pdf-output-intent: url('$icc'); } \n";
 		}
-
 	}
 }

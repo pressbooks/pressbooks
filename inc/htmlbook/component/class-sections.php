@@ -65,5 +65,4 @@ class Sections extends Element {
 		'sect4',
 		'sect5',
 	];
-
 }
