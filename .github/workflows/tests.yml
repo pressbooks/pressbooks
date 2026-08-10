@@ -14,7 +14,7 @@ jobs:
       matrix:
         include:
           - php: 8.3
-            wordpress: 6.9.5
+            wordpress: 7.0.3
             prince: 16.2-1
             epubcheck: 4.2.6
             experimental: false
@@ -24,7 +24,7 @@ jobs:
             epubcheck: 4.2.6
             experimental: true
           - php: 8.4
-            wordpress: 6.9.5
+            wordpress: 7.0.3
             prince: 16.2-1
             epubcheck: 4.2.6
             experimental: true
