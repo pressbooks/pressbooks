@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <ruleset>
+    <autoload>./vendor/humanmade/coding-standards/HM/Sniffs/Files/MuPluginFileTrait.php</autoload>
     <!-- Use Pressbooks Coding Standards -->
     <rule ref="vendor/pressbooks/coding-standards">
         <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase"/>
