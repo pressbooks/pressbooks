@@ -1583,14 +1583,14 @@ function admin_notices() {
 	// Print the error(s).
 	$errors_to_print = \Pressbooks\get_all_errors();
 	foreach ( $errors_to_print as $msg ) {
-		echo '<div class="error" role="alert"><p>' . $msg . '</p></div>';
+		echo '<div class="error" role="alert"><p>' . wp_kses_post( $msg ) . '</p></div>';
 	}
 	\Pressbooks\flush_all_errors();
 
 	// Print the notice(s).
 	$notices_to_print = \Pressbooks\get_all_notices();
 	foreach ( $notices_to_print as $msg ) {
-		echo '<div class="updated" role="status"><p>' . $msg . '</p></div>';
+		echo '<div class="updated" role="status"><p>' . wp_kses_post( $msg ) . '</p></div>';
 	}
 	\Pressbooks\flush_all_notices();
 }

@@ -453,7 +453,7 @@ class Cloner {
 
 		yield 1 => __( 'Looking up the source book', 'pressbooks' );
 		if ( ! $this->setupSource() ) {
-			throw new \Exception( ! empty( $_SESSION['pb_errors'][0] ) ? $_SESSION['pb_errors'][0] : __( 'Failed to setup source', 'pressbooks' ) );
+			throw new \Exception( ! empty( $_SESSION['pb_errors'][0] ) ? $_SESSION['pb_errors'][0] : __( 'Failed to setup source', 'pressbooks' ) ); // phpcs:ignore Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized -- Pressbooks flash-message store, escaped on output.
 		}
 
 		// Create Book

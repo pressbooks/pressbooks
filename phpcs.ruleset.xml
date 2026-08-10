@@ -10,12 +10,12 @@
 		<exclude name="Squiz.Commenting"/>
 		<exclude name="Generic.Commenting"/>
 		<!--
-			Output-escaping / input-sanitization checks are excluded pending the
-			Laravel Pint migration. NOTE: Pint is a style fixer and will NOT replace
-			these security sniffs, so escaping coverage needs a dedicated follow-up.
+			Output-escaping checks are excluded pending the Laravel Pint migration.
+			NOTE: Pint is a style fixer and will NOT replace this security sniff, so
+			escaping coverage needs a dedicated follow-up. (ValidatedSanitizedInput
+			stays enabled; its few findings are handled inline with justifications.)
 		-->
 		<exclude name="Pressbooks.Security.EscapeOutput"/>
-		<exclude name="Pressbooks.Security.ValidatedSanitizedInput"/>
 		<!--
 			PSR2R's alphabetical use-ordering sorts by the full statement string, so
 			"use function ..." sorts under "f" and lands before class imports like
