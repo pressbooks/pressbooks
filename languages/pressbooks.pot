@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-07T00:15:52+00:00\n"
+"POT-Creation-Date: 2026-08-10T14:04:18+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -597,9 +597,9 @@ msgstr ""
 #: inc/admin/dashboard/class-dashboard.php:52
 #: inc/admin/laf/namespace.php:858
 #: inc/admin/laf/namespace.php:933
-#: inc/admin/menus/class-sidebar.php:225
-#: inc/admin/menus/class-sidebar.php:226
-#: inc/admin/menus/class-topbar.php:126
+#: inc/admin/menus/class-sidebar.php:249
+#: inc/admin/menus/class-sidebar.php:250
+#: inc/admin/menus/class-topbar.php:127
 msgid "Dashboard"
 msgstr ""
 
@@ -918,7 +918,7 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:430
 #: inc/admin/laf/namespace.php:637
-#: inc/admin/laf/namespace.php:1549
+#: inc/admin/laf/namespace.php:1560
 #: inc/admin/network/class-sharingandprivacyoptions.php:473
 msgid "Sharing and Privacy Settings"
 msgstr ""
@@ -994,18 +994,18 @@ msgid "Network Admin"
 msgstr ""
 
 #: inc/admin/laf/namespace.php:866
-#: inc/admin/laf/namespace.php:1604
-#: inc/admin/laf/namespace.php:1614
-#: inc/admin/menus/class-sidebar.php:236
-#: inc/admin/menus/class-sidebar.php:237
-#: inc/admin/menus/class-topbar.php:131
+#: inc/admin/laf/namespace.php:1615
+#: inc/admin/laf/namespace.php:1625
+#: inc/admin/menus/class-sidebar.php:260
+#: inc/admin/menus/class-sidebar.php:261
+#: inc/admin/menus/class-topbar.php:132
 msgid "Books"
 msgstr ""
 
 #: inc/admin/laf/namespace.php:874
-#: inc/admin/menus/class-sidebar.php:246
-#: inc/admin/menus/class-sidebar.php:247
-#: inc/admin/menus/class-topbar.php:136
+#: inc/admin/menus/class-sidebar.php:270
+#: inc/admin/menus/class-sidebar.php:271
+#: inc/admin/menus/class-topbar.php:137
 msgid "Users"
 msgstr ""
 
@@ -1014,9 +1014,9 @@ msgid "Themes"
 msgstr ""
 
 #: inc/admin/laf/namespace.php:891
-#: inc/admin/menus/class-sidebar.php:430
-#: inc/admin/menus/class-sidebar.php:431
-#: inc/admin/menus/class-topbar.php:151
+#: inc/admin/menus/class-sidebar.php:454
+#: inc/admin/menus/class-sidebar.php:455
+#: inc/admin/menus/class-topbar.php:152
 msgid "Plugins"
 msgstr ""
 
@@ -1025,7 +1025,7 @@ msgid "Visit Website"
 msgstr ""
 
 #: inc/admin/laf/namespace.php:951
-#: inc/admin/menus/class-topbar.php:193
+#: inc/admin/menus/class-topbar.php:194
 msgid "My Books"
 msgstr ""
 
@@ -1041,100 +1041,100 @@ msgstr ""
 msgid "Are you sure you want to unlock your theme? This will update your book to the most recent version of your selected theme, which may change your book&rsquo;s appearance and page count. Once you save your settings on this page, this action will NOT be reversable!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1258
+#: inc/admin/laf/namespace.php:1269
 #: templates/admin/settings/book-visibility.blade.php:2
 msgid "Book Visibility"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1272
+#: inc/admin/laf/namespace.php:1283
 #: templates/admin/settings/book-robots.blade.php:2
 msgid "Robots"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1287
+#: inc/admin/laf/namespace.php:1298
 #: templates/admin/settings/private-content.blade.php:2
 msgid "Private Content"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1301
+#: inc/admin/laf/namespace.php:1312
 #: templates/admin/settings/disable-comments.blade.php:2
 msgid "Disable Comments"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1319
+#: inc/admin/laf/namespace.php:1330
 #: templates/admin/settings/share-latest-export-files.blade.php:2
 msgid "Share Latest Export Files"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1349
+#: inc/admin/laf/namespace.php:1360
 #: templates/admin/settings/pressbooks-directory.blade.php:2
 msgid "Pressbooks Directory"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1366
+#: inc/admin/laf/namespace.php:1377
 msgid "Sharing and Privacy settings"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1607
+#: inc/admin/laf/namespace.php:1618
 msgid "All Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1617
+#: inc/admin/laf/namespace.php:1628
 msgid "Search Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1620
+#: inc/admin/laf/namespace.php:1631
 #, php-format
 msgid "You are about to deactivate the site %s."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1623
+#: inc/admin/laf/namespace.php:1634
 #, php-format
 msgid "You are about to activate the site %s."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1626
+#: inc/admin/laf/namespace.php:1637
 msgid "Deactivating a site makes it unavailable to its users and visitors. This is a reversible action."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1629
+#: inc/admin/laf/namespace.php:1640
 msgid "Site deactivated."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1632
+#: inc/admin/laf/namespace.php:1643
 msgid "Site activated."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1635
+#: inc/admin/laf/namespace.php:1646
 msgid "Deactivate"
 msgstr ""
 
 #. translators: %s: Number of books.
-#: inc/admin/laf/namespace.php:1638
-#: inc/admin/laf/namespace.php:1653
-#: inc/admin/laf/namespace.php:1733
+#: inc/admin/laf/namespace.php:1649
+#: inc/admin/laf/namespace.php:1664
+#: inc/admin/laf/namespace.php:1744
 msgid "Deactivated"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1641
+#: inc/admin/laf/namespace.php:1652
 msgid "Deactivate, Archive, and Spam which lead to confirmation screens. These actions can be reversed later."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1647
+#: inc/admin/laf/namespace.php:1658
 #, php-format
 msgid "Edit Book: %s"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1650
-#: inc/admin/laf/namespace.php:1662
+#: inc/admin/laf/namespace.php:1661
+#: inc/admin/laf/namespace.php:1673
 msgid "Book Address (URL)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1659
+#: inc/admin/laf/namespace.php:1670
 msgid "Add New Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1665
+#: inc/admin/laf/namespace.php:1676
 #: inc/modules/themeoptions/class-pdfoptions.php:409
 #: inc/modules/themeoptions/class-pdfoptions.php:429
 #: inc/modules/themeoptions/class-pdfoptions.php:449
@@ -1148,178 +1148,180 @@ msgstr ""
 msgid "Book Title"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1668
+#: inc/admin/laf/namespace.php:1679
 msgid "Book Language"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1671
+#: inc/admin/laf/namespace.php:1682
 msgid "Add Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1702
+#: inc/admin/laf/namespace.php:1713
 msgid "Activate"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1748
+#: inc/admin/laf/namespace.php:1759
 msgid "Edit previous or next item"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1753
+#: inc/admin/laf/namespace.php:1764
 #, php-format
 msgid "Edit Previous (%s)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1758
+#: inc/admin/laf/namespace.php:1769
 #, php-format
 msgid "Edit Next (%s)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1773
+#: inc/admin/laf/namespace.php:1784
 msgid "X/Twitter URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1774
+#: inc/admin/laf/namespace.php:1785
 msgid "LinkedIn URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1775
+#: inc/admin/laf/namespace.php:1786
 msgid "GitHub URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1828
+#: inc/admin/laf/namespace.php:1839
 #: inc/class-contributors.php:476
 msgid "Institution"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1830
+#: inc/admin/laf/namespace.php:1841
 msgid "Your institutional affiliation, e.g. Rebus Foundation, Open University, Amnesty International."
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:95
-#: inc/admin/menus/class-sidebar.php:113
+#: inc/admin/menus/class-sidebar.php:99
+#: inc/admin/menus/class-sidebar.php:109
+#: inc/admin/menus/class-sidebar.php:119
+#: inc/admin/menus/class-sidebar.php:137
 msgid "Sorry, you are not allowed to access this page."
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:256
-#: inc/admin/menus/class-sidebar.php:257
-#: inc/admin/menus/class-topbar.php:141
+#: inc/admin/menus/class-sidebar.php:280
+#: inc/admin/menus/class-sidebar.php:281
+#: inc/admin/menus/class-topbar.php:142
 msgid "Appearance"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:266
-#: inc/admin/menus/class-sidebar.php:267
-#: inc/admin/menus/class-topbar.php:146
+#: inc/admin/menus/class-sidebar.php:290
+#: inc/admin/menus/class-sidebar.php:291
+#: inc/admin/menus/class-topbar.php:147
 msgid "Pages"
-msgstr ""
-
-#: inc/admin/menus/class-sidebar.php:277
-#: inc/admin/menus/class-sidebar.php:278
-#: inc/admin/menus/class-sidebar.php:463
-#: inc/admin/menus/class-sidebar.php:464
-#: inc/admin/menus/class-topbar.php:156
-msgid "Settings"
-msgstr ""
-
-#: inc/admin/menus/class-sidebar.php:288
-#: inc/admin/menus/class-sidebar.php:289
-#: inc/admin/menus/class-sidebar.php:531
-#: inc/admin/menus/class-sidebar.php:532
-msgid "Network Options"
 msgstr ""
 
 #: inc/admin/menus/class-sidebar.php:301
 #: inc/admin/menus/class-sidebar.php:302
-#: inc/admin/menus/class-sidebar.php:331
-#: inc/admin/menus/class-sidebar.php:332
-#: inc/admin/menus/class-sidebar.php:610
-#: inc/admin/menus/class-sidebar.php:611
-#: inc/admin/menus/class-topbar.php:161
+#: inc/admin/menus/class-sidebar.php:487
+#: inc/admin/menus/class-sidebar.php:488
+#: inc/admin/menus/class-topbar.php:157
+msgid "Settings"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:312
+#: inc/admin/menus/class-sidebar.php:313
+#: inc/admin/menus/class-sidebar.php:555
+#: inc/admin/menus/class-sidebar.php:556
+msgid "Network Options"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:325
+#: inc/admin/menus/class-sidebar.php:326
+#: inc/admin/menus/class-sidebar.php:355
+#: inc/admin/menus/class-sidebar.php:356
+#: inc/admin/menus/class-sidebar.php:634
+#: inc/admin/menus/class-sidebar.php:635
+#: inc/admin/menus/class-topbar.php:162
 msgid "Stats"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:313
-#: inc/admin/menus/class-sidebar.php:314
+#: inc/admin/menus/class-sidebar.php:337
+#: inc/admin/menus/class-sidebar.php:338
 msgid "Network Stats"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:322
-#: inc/admin/menus/class-sidebar.php:323
-#: inc/admin/menus/class-sidebar.php:341
-#: inc/admin/menus/class-sidebar.php:342
+#: inc/admin/menus/class-sidebar.php:346
+#: inc/admin/menus/class-sidebar.php:347
+#: inc/admin/menus/class-sidebar.php:365
+#: inc/admin/menus/class-sidebar.php:366
 msgid "Analytics"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:361
-#: inc/admin/menus/class-sidebar.php:362
+#: inc/admin/menus/class-sidebar.php:385
+#: inc/admin/menus/class-sidebar.php:386
 msgid "Upgrade Network"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:374
-#: inc/admin/menus/class-sidebar.php:375
-#: inc/admin/menus/class-sidebar.php:383
-#: inc/admin/menus/class-sidebar.php:384
+#: inc/admin/menus/class-sidebar.php:398
+#: inc/admin/menus/class-sidebar.php:399
+#: inc/admin/menus/class-sidebar.php:407
+#: inc/admin/menus/class-sidebar.php:408
 msgid "Network Users"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:394
-#: inc/admin/menus/class-sidebar.php:395
+#: inc/admin/menus/class-sidebar.php:418
+#: inc/admin/menus/class-sidebar.php:419
 msgid "Root Site Users"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:403
-#: inc/admin/menus/class-sidebar.php:404
+#: inc/admin/menus/class-sidebar.php:427
+#: inc/admin/menus/class-sidebar.php:428
 msgid "Customize Home Page"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:411
-#: inc/admin/menus/class-sidebar.php:412
+#: inc/admin/menus/class-sidebar.php:435
+#: inc/admin/menus/class-sidebar.php:436
 msgid "Activate Book Themes"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:419
-#: inc/admin/menus/class-sidebar.php:420
+#: inc/admin/menus/class-sidebar.php:443
+#: inc/admin/menus/class-sidebar.php:444
 msgid "Change Root Site Theme"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:442
-#: inc/admin/menus/class-sidebar.php:443
+#: inc/admin/menus/class-sidebar.php:466
+#: inc/admin/menus/class-sidebar.php:467
 msgid "Network Plugins"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:454
-#: inc/admin/menus/class-sidebar.php:455
+#: inc/admin/menus/class-sidebar.php:478
+#: inc/admin/menus/class-sidebar.php:479
 msgid "Root Site Plugins"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:476
-#: inc/admin/menus/class-sidebar.php:477
+#: inc/admin/menus/class-sidebar.php:500
+#: inc/admin/menus/class-sidebar.php:501
 msgid "Network Settings"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:484
-#: inc/admin/menus/class-sidebar.php:485
+#: inc/admin/menus/class-sidebar.php:508
+#: inc/admin/menus/class-sidebar.php:509
 msgid "Network Setup"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:492
-#: inc/admin/menus/class-sidebar.php:493
+#: inc/admin/menus/class-sidebar.php:516
+#: inc/admin/menus/class-sidebar.php:517
 #: inc/admin/networkmanagers/namespace.php:18
 #: inc/admin/networkmanagers/namespace.php:19
 msgid "Network Managers"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:501
-#: inc/admin/menus/class-sidebar.php:502
+#: inc/admin/menus/class-sidebar.php:525
+#: inc/admin/menus/class-sidebar.php:526
 msgid "Whitelabel Settings"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:511
-#: inc/admin/menus/class-sidebar.php:512
+#: inc/admin/menus/class-sidebar.php:535
+#: inc/admin/menus/class-sidebar.php:536
 msgid "Object Cache"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:520
-#: inc/admin/menus/class-sidebar.php:521
+#: inc/admin/menus/class-sidebar.php:544
+#: inc/admin/menus/class-sidebar.php:545
 #: inc/class-googleanalytics.php:69
 #: inc/class-googleanalytics.php:70
 #: inc/class-googleanalytics.php:79
@@ -1329,51 +1331,51 @@ msgstr ""
 msgid "Google Analytics"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:539
-#: inc/admin/menus/class-sidebar.php:540
+#: inc/admin/menus/class-sidebar.php:563
+#: inc/admin/menus/class-sidebar.php:564
 msgid "Sharing & Privacy"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:551
-#: inc/admin/menus/class-sidebar.php:552
+#: inc/admin/menus/class-sidebar.php:575
+#: inc/admin/menus/class-sidebar.php:576
 msgid "Root Site General Settings"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:564
-#: inc/admin/menus/class-sidebar.php:565
+#: inc/admin/menus/class-sidebar.php:588
+#: inc/admin/menus/class-sidebar.php:589
 msgid "Root Site Media Settings"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:577
-#: inc/admin/menus/class-sidebar.php:578
+#: inc/admin/menus/class-sidebar.php:601
+#: inc/admin/menus/class-sidebar.php:602
 msgid "Root Site Privacy Settings"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:589
-#: inc/admin/menus/class-sidebar.php:590
-#: inc/admin/menus/class-sidebar.php:600
-#: inc/admin/menus/class-sidebar.php:601
+#: inc/admin/menus/class-sidebar.php:613
+#: inc/admin/menus/class-sidebar.php:614
+#: inc/admin/menus/class-sidebar.php:624
+#: inc/admin/menus/class-sidebar.php:625
 msgid "PB Stats"
 msgstr ""
 
-#: inc/admin/menus/class-topbar.php:111
+#: inc/admin/menus/class-topbar.php:112
 msgid "Pressbooks logo"
 msgstr ""
 
-#: inc/admin/menus/class-topbar.php:167
+#: inc/admin/menus/class-topbar.php:168
 msgid "Administer Network"
 msgstr ""
 
-#: inc/admin/menus/class-topbar.php:265
+#: inc/admin/menus/class-topbar.php:266
 #: inc/registration/namespace.php:59
 msgid "Create Book"
 msgstr ""
 
-#: inc/admin/menus/class-topbar.php:284
+#: inc/admin/menus/class-topbar.php:285
 msgid "Clone Book"
 msgstr ""
 
-#: inc/admin/menus/class-topbar.php:298
+#: inc/admin/menus/class-topbar.php:299
 msgid "Add Users"
 msgstr ""
 
