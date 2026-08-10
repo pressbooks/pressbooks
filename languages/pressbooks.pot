@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-10T14:04:18+00:00\n"
+"POT-Creation-Date: 2026-08-10T18:46:24+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -146,13 +146,13 @@ msgstr ""
 
 #: inc/admin/class-catalog-list-table.php:230
 #: inc/class-activation.php:237
-#: inc/modules/export/epub/class-epub.php:1251
+#: inc/modules/export/epub/class-epub.php:1248
 msgid "Cover"
 msgstr ""
 
 #: inc/admin/class-catalog-list-table.php:231
 #: inc/admin/covergenerator/namespace.php:75
-#: inc/admin/metaboxes/class-generalinformation.php:39
+#: inc/admin/metaboxes/class-generalinformation.php:38
 #: templates/admin/import.php:103
 #: templates/admin/cloner/stats.blade.php:4
 msgid "Title"
@@ -266,7 +266,7 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: inc/admin/class-catalog-list-table.php:601
+#: inc/admin/class-catalog-list-table.php:600
 #: inc/class-catalog.php:1143
 #: inc/class-catalog.php:1197
 #: inc/class-catalog.php:1244
@@ -274,7 +274,7 @@ msgstr ""
 msgid "You do not have permission to do that."
 msgstr ""
 
-#: inc/admin/class-catalog-list-table.php:608
+#: inc/admin/class-catalog-list-table.php:607
 msgid "The requested user does not exist."
 msgstr ""
 
@@ -329,13 +329,13 @@ msgstr ""
 msgid "Export Settings"
 msgstr ""
 
-#: inc/admin/class-network-managers-list-table.php:81
-#: inc/admin/class-network-managers-list-table.php:85
+#: inc/admin/class-network-managers-list-table.php:80
+#: inc/admin/class-network-managers-list-table.php:84
 msgid "Restrict Access"
 msgstr ""
 
-#: inc/admin/class-network-managers-list-table.php:81
-#: inc/admin/class-network-managers-list-table.php:85
+#: inc/admin/class-network-managers-list-table.php:80
+#: inc/admin/class-network-managers-list-table.php:84
 msgid "Unrestrict Access"
 msgstr ""
 
@@ -418,7 +418,7 @@ msgid "Title (Spine)"
 msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:97
-#: inc/admin/metaboxes/class-generalinformation.php:50
+#: inc/admin/metaboxes/class-generalinformation.php:49
 msgid "Subtitle"
 msgstr ""
 
@@ -812,7 +812,7 @@ msgid "Trash"
 msgstr ""
 
 #: inc/admin/laf/namespace.php:295
-#: inc/modules/import/wordpress/class-wxr.php:542
+#: inc/modules/import/wordpress/class-wxr.php:541
 #: inc/posttype/namespace.php:151
 #: templates/admin/cloner/stats.blade.php:3
 msgid "Book Info"
@@ -918,7 +918,7 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:430
 #: inc/admin/laf/namespace.php:637
-#: inc/admin/laf/namespace.php:1560
+#: inc/admin/laf/namespace.php:1559
 #: inc/admin/network/class-sharingandprivacyoptions.php:473
 msgid "Sharing and Privacy Settings"
 msgstr ""
@@ -994,8 +994,8 @@ msgid "Network Admin"
 msgstr ""
 
 #: inc/admin/laf/namespace.php:866
-#: inc/admin/laf/namespace.php:1615
-#: inc/admin/laf/namespace.php:1625
+#: inc/admin/laf/namespace.php:1614
+#: inc/admin/laf/namespace.php:1624
 #: inc/admin/menus/class-sidebar.php:260
 #: inc/admin/menus/class-sidebar.php:261
 #: inc/admin/menus/class-topbar.php:132
@@ -1066,75 +1066,75 @@ msgstr ""
 msgid "Share Latest Export Files"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1360
+#: inc/admin/laf/namespace.php:1359
 #: templates/admin/settings/pressbooks-directory.blade.php:2
 msgid "Pressbooks Directory"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1377
+#: inc/admin/laf/namespace.php:1376
 msgid "Sharing and Privacy settings"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1618
+#: inc/admin/laf/namespace.php:1617
 msgid "All Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1628
+#: inc/admin/laf/namespace.php:1627
 msgid "Search Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1631
+#: inc/admin/laf/namespace.php:1630
 #, php-format
 msgid "You are about to deactivate the site %s."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1634
+#: inc/admin/laf/namespace.php:1633
 #, php-format
 msgid "You are about to activate the site %s."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1637
+#: inc/admin/laf/namespace.php:1636
 msgid "Deactivating a site makes it unavailable to its users and visitors. This is a reversible action."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1640
+#: inc/admin/laf/namespace.php:1639
 msgid "Site deactivated."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1643
+#: inc/admin/laf/namespace.php:1642
 msgid "Site activated."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1646
+#: inc/admin/laf/namespace.php:1645
 msgid "Deactivate"
 msgstr ""
 
 #. translators: %s: Number of books.
-#: inc/admin/laf/namespace.php:1649
-#: inc/admin/laf/namespace.php:1664
-#: inc/admin/laf/namespace.php:1744
+#: inc/admin/laf/namespace.php:1648
+#: inc/admin/laf/namespace.php:1663
+#: inc/admin/laf/namespace.php:1743
 msgid "Deactivated"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1652
+#: inc/admin/laf/namespace.php:1651
 msgid "Deactivate, Archive, and Spam which lead to confirmation screens. These actions can be reversed later."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1658
+#: inc/admin/laf/namespace.php:1657
 #, php-format
 msgid "Edit Book: %s"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1661
-#: inc/admin/laf/namespace.php:1673
+#: inc/admin/laf/namespace.php:1660
+#: inc/admin/laf/namespace.php:1672
 msgid "Book Address (URL)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1670
+#: inc/admin/laf/namespace.php:1669
 msgid "Add New Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1676
+#: inc/admin/laf/namespace.php:1675
 #: inc/modules/themeoptions/class-pdfoptions.php:409
 #: inc/modules/themeoptions/class-pdfoptions.php:429
 #: inc/modules/themeoptions/class-pdfoptions.php:449
@@ -1148,50 +1148,50 @@ msgstr ""
 msgid "Book Title"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1679
+#: inc/admin/laf/namespace.php:1678
 msgid "Book Language"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1682
+#: inc/admin/laf/namespace.php:1681
 msgid "Add Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1713
+#: inc/admin/laf/namespace.php:1712
 msgid "Activate"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1759
+#: inc/admin/laf/namespace.php:1758
 msgid "Edit previous or next item"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1764
+#: inc/admin/laf/namespace.php:1763
 #, php-format
 msgid "Edit Previous (%s)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1769
+#: inc/admin/laf/namespace.php:1768
 #, php-format
 msgid "Edit Next (%s)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1784
+#: inc/admin/laf/namespace.php:1783
 msgid "X/Twitter URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1785
+#: inc/admin/laf/namespace.php:1784
 msgid "LinkedIn URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1786
+#: inc/admin/laf/namespace.php:1785
 msgid "GitHub URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1839
+#: inc/admin/laf/namespace.php:1838
 #: inc/class-contributors.php:476
 msgid "Institution"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1841
+#: inc/admin/laf/namespace.php:1840
 msgid "Your institutional affiliation, e.g. Rebus Foundation, Open University, Amnesty International."
 msgstr ""
 
@@ -1326,8 +1326,8 @@ msgstr ""
 #: inc/class-googleanalytics.php:70
 #: inc/class-googleanalytics.php:79
 #: inc/class-googleanalytics.php:80
-#: inc/class-googleanalytics.php:217
-#: inc/class-googleanalytics.php:267
+#: inc/class-googleanalytics.php:216
+#: inc/class-googleanalytics.php:266
 msgid "Google Analytics"
 msgstr ""
 
@@ -1519,8 +1519,8 @@ msgstr ""
 
 #: inc/admin/metaboxes/class-copyright.php:31
 #: inc/class-licensing.php:346
-#: inc/modules/export/epub/class-epub.php:1432
-#: inc/modules/export/epub/class-epub.php:1454
+#: inc/modules/export/epub/class-epub.php:1429
+#: inc/modules/export/epub/class-epub.php:1451
 #: inc/modules/export/xhtml/class-xhtml11.php:1372
 msgid "Copyright"
 msgstr ""
@@ -1566,107 +1566,107 @@ msgstr ""
 msgid "Enter a custom copyright notice, with whatever information you like. This will override the auto-generated copyright notice if All Rights Reserved or no license is selected, and will be inserted after the title page. If you select a Creative Commons license, the custom notice will appear after the license text in both the webbook and your exports."
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:32
+#: inc/admin/metaboxes/class-generalinformation.php:31
 msgid "General Book Information"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:44
+#: inc/admin/metaboxes/class-generalinformation.php:43
 msgid "Short Title"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:45
+#: inc/admin/metaboxes/class-generalinformation.php:44
 msgid "In case of long titles that might be truncated in running heads in the PDF export."
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:55
+#: inc/admin/metaboxes/class-generalinformation.php:54
 msgid "Author(s)"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:57
-#: inc/admin/metaboxes/class-generalinformation.php:64
-#: inc/admin/metaboxes/class-generalinformation.php:71
-#: inc/admin/metaboxes/class-generalinformation.php:78
-#: inc/admin/metaboxes/class-generalinformation.php:85
-#: inc/admin/metaboxes/class-generalinformation.php:92
+#: inc/admin/metaboxes/class-generalinformation.php:56
+#: inc/admin/metaboxes/class-generalinformation.php:63
+#: inc/admin/metaboxes/class-generalinformation.php:70
+#: inc/admin/metaboxes/class-generalinformation.php:77
+#: inc/admin/metaboxes/class-generalinformation.php:84
+#: inc/admin/metaboxes/class-generalinformation.php:91
 #: inc/admin/metaboxes/class-sectionmetadata.php:51
 msgid "Create New Contributor"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:62
+#: inc/admin/metaboxes/class-generalinformation.php:61
 msgid "Editor(s)"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:69
+#: inc/admin/metaboxes/class-generalinformation.php:68
 msgid "Translator(s)"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:76
+#: inc/admin/metaboxes/class-generalinformation.php:75
 msgid "Reviewer(s)"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:83
+#: inc/admin/metaboxes/class-generalinformation.php:82
 msgid "Illustrator(s)"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:90
+#: inc/admin/metaboxes/class-generalinformation.php:89
 msgid "Contributor(s)"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:97
+#: inc/admin/metaboxes/class-generalinformation.php:96
 msgid "Publisher"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:98
-#: inc/admin/metaboxes/class-generalinformation.php:104
+#: inc/admin/metaboxes/class-generalinformation.php:97
+#: inc/admin/metaboxes/class-generalinformation.php:103
 msgid "This text appears on the title page of your book."
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:103
+#: inc/admin/metaboxes/class-generalinformation.php:102
 msgid "Publisher City"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:109
+#: inc/admin/metaboxes/class-generalinformation.php:108
 msgid "Publication Date"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:110
-#: inc/admin/metaboxes/class-generalinformation.php:116
+#: inc/admin/metaboxes/class-generalinformation.php:109
+#: inc/admin/metaboxes/class-generalinformation.php:115
 msgid "This is added to the metadata in your ebook."
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:115
+#: inc/admin/metaboxes/class-generalinformation.php:114
 msgid "On-Sale Date"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:121
+#: inc/admin/metaboxes/class-generalinformation.php:120
 msgid "Ebook ISBN"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:122
+#: inc/admin/metaboxes/class-generalinformation.php:121
 msgid "ISBN is the International Standard Book Number, and you'll need one if you want to sell your book in some online ebook stores. This is added to the metadata in your ebook."
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:127
+#: inc/admin/metaboxes/class-generalinformation.php:126
 msgid "Print ISBN"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:128
+#: inc/admin/metaboxes/class-generalinformation.php:127
 msgid "ISBN is the International Standard Book Number, and you'll need one if you want to sell your book in online and physical book stores."
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:133
+#: inc/admin/metaboxes/class-generalinformation.php:132
 msgid "Digital Object Identifier (DOI)"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:138
+#: inc/admin/metaboxes/class-generalinformation.php:137
 msgid "Language"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:139
+#: inc/admin/metaboxes/class-generalinformation.php:138
 msgid "This sets metadata in your ebook, making it easier to find in some stores. It also changes some system generated content for supported languages, such as the \"Contents\" header."
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:139
+#: inc/admin/metaboxes/class-generalinformation.php:138
 msgid "Help translate Pressbooks into your language!"
 msgstr ""
 
@@ -1775,7 +1775,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:133
 #: inc/admin/metaboxes/namespace.php:172
-#: inc/class-metadata.php:437
+#: inc/class-metadata.php:436
 msgid "Cover Image"
 msgstr ""
 
@@ -1783,7 +1783,7 @@ msgstr ""
 #: inc/admin/metaboxes/namespace.php:278
 #: inc/api/endpoints/controller/class-toc.php:202
 #: inc/class-sass.php:96
-#: inc/modules/export/epub/class-epub.php:1941
+#: inc/modules/export/epub/class-epub.php:1937
 #: inc/modules/themeoptions/class-globaloptions.php:605
 #: inc/posttype/namespace.php:87
 #: inc/posttype/namespace.php:546
@@ -1942,27 +1942,27 @@ msgid "Sharing and Privacy settings."
 msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:188
-#: inc/class-googleanalytics.php:222
+#: inc/class-googleanalytics.php:221
 msgid "Security check"
 msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:202
-#: inc/class-googleanalytics.php:230
+#: inc/class-googleanalytics.php:229
 #: inc/modules/import/googledocs/class-settingspage.php:98
 msgid "Settings saved."
 msgstr ""
 
-#: inc/admin/networkmanagers/namespace.php:117
+#: inc/admin/networkmanagers/namespace.php:116
 #: inc/class-eventstreams.php:429
 #: templates/admin/custom-styles.php:8
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: inc/admin/networkmanagers/namespace.php:125
+#: inc/admin/networkmanagers/namespace.php:124
 msgid "Pressbooks Network Managers"
 msgstr ""
 
-#: inc/admin/networkmanagers/namespace.php:127
+#: inc/admin/networkmanagers/namespace.php:126
 msgid "Network administrators&rsquo; access to network administration menus can be restricted to leave only sites and users visible to them."
 msgstr ""
 
@@ -2154,7 +2154,7 @@ msgstr ""
 msgid "Default Data"
 msgstr ""
 
-#: inc/class-catalog.php:803
+#: inc/class-catalog.php:804
 msgid "Catalog Logo"
 msgstr ""
 
@@ -2485,7 +2485,7 @@ msgstr ""
 msgid "Urdu"
 msgstr ""
 
-#: inc/class-globaltypography.php:504
+#: inc/class-globaltypography.php:503
 #, php-format
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr ""
@@ -2506,7 +2506,7 @@ msgstr ""
 msgid "If enabled, the Google Analytics settings page will be visible to book administrators, allowing them to use their own Google Analytics accounts to track statistics at the book level."
 msgstr ""
 
-#: inc/class-googleanalytics.php:197
+#: inc/class-googleanalytics.php:196
 msgid "Google Analytics settings."
 msgstr ""
 
@@ -2576,8 +2576,8 @@ msgid "$title is deprecated. Method will automatically determine title from lice
 msgstr ""
 
 #: inc/class-licensing.php:348
-#: inc/class-styles.php:900
-#: inc/modules/export/epub/class-epub.php:1441
+#: inc/class-styles.php:899
+#: inc/modules/export/epub/class-epub.php:1438
 #: inc/modules/export/xhtml/class-xhtml11.php:1381
 #: templates/export/epub/opf.blade.php:100
 msgid "by"
@@ -2625,7 +2625,7 @@ msgstr ""
 msgid "<code>PB_MATHJAX_URL</code> is not configured."
 msgstr ""
 
-#: inc/class-sass.php:204
+#: inc/class-sass.php:203
 #, php-format
 msgid "There was a problem with SASS. Contact your site administrator. Error: %1$s %2$s"
 msgstr ""
@@ -2647,37 +2647,37 @@ msgstr ""
 msgid "Custom Style for Web"
 msgstr ""
 
-#: inc/class-styles.php:778
+#: inc/class-styles.php:777
 msgid "Theme default"
 msgstr ""
 
-#: inc/class-styles.php:779
-#: inc/class-styles.php:793
+#: inc/class-styles.php:778
+#: inc/class-styles.php:792
 #: templates/admin/custom-fonts.blade.php:64
 #: templates/admin/custom-fonts.blade.php:65
 msgid "Serif"
 msgstr ""
 
-#: inc/class-styles.php:780
+#: inc/class-styles.php:779
 msgid "Sans serif"
 msgstr ""
 
-#: inc/class-styles.php:820
+#: inc/class-styles.php:819
 #, php-format
 msgid "Unknown slug: %s"
 msgstr ""
 
-#: inc/class-styles.php:825
+#: inc/class-styles.php:824
 #, php-format
 msgid "Unexpected Error: There was a problem trying to query slug: %s - Please contact technical support."
 msgstr ""
 
-#: inc/class-styles.php:865
+#: inc/class-styles.php:864
 #: templates/admin/custom-styles.php:20
 msgid "Web"
 msgstr ""
 
-#: inc/class-styles.php:897
+#: inc/class-styles.php:896
 msgid "Last 10 Revisions"
 msgstr ""
 
@@ -2827,7 +2827,7 @@ msgstr ""
 msgid "Your PDF could not be retrieved."
 msgstr ""
 
-#: inc/covergenerator/class-isbn.php:61
+#: inc/covergenerator/class-isbn.php:60
 msgid "There was a problem creating the barcode: Invalid ISBN number."
 msgstr ""
 
@@ -3178,74 +3178,74 @@ msgstr ""
 msgid "Export successful!"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:962
+#: inc/modules/export/epub/class-epub.php:961
 msgid "Compiling styles"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:970
+#: inc/modules/export/epub/class-epub.php:969
 #: inc/modules/export/xhtml/class-xhtml11.php:455
 msgid "Creating cover"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:977
+#: inc/modules/export/epub/class-epub.php:976
 #: inc/modules/export/xhtml/class-xhtml11.php:459
 msgid "Creating title page"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:981
+#: inc/modules/export/epub/class-epub.php:980
 #: inc/modules/export/xhtml/class-xhtml11.php:463
 msgid "Creating copyright page"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:985
+#: inc/modules/export/epub/class-epub.php:984
 msgid "Exporting dedication and epigraph"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:989
-#: inc/modules/export/epub/class-epub.php:1586
+#: inc/modules/export/epub/class-epub.php:988
+#: inc/modules/export/epub/class-epub.php:1583
 #: inc/modules/export/xhtml/class-xhtml11.php:475
 #: inc/modules/export/xhtml/class-xhtml11.php:1556
 msgid "Exporting front matter"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:996
-#: inc/modules/export/epub/class-epub.php:1687
-#: inc/modules/export/epub/class-epub.php:1717
+#: inc/modules/export/epub/class-epub.php:995
+#: inc/modules/export/epub/class-epub.php:1684
+#: inc/modules/export/epub/class-epub.php:1714
 #: inc/modules/export/xhtml/class-xhtml11.php:482
 #: inc/modules/export/xhtml/class-xhtml11.php:1624
 #: inc/modules/export/xhtml/class-xhtml11.php:1665
 msgid "Exporting parts and chapters"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1000
-#: inc/modules/export/epub/class-epub.php:1848
+#: inc/modules/export/epub/class-epub.php:999
+#: inc/modules/export/epub/class-epub.php:1845
 #: inc/modules/export/xhtml/class-xhtml11.php:486
 #: inc/modules/export/xhtml/class-xhtml11.php:1778
 msgid "Exporting back matter"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1003
+#: inc/modules/export/epub/class-epub.php:1002
 msgid "Processing CSS"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1007
+#: inc/modules/export/epub/class-epub.php:1006
 #: inc/modules/export/xhtml/class-xhtml11.php:471
 msgid "Creating table of contents"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1377
+#: inc/modules/export/epub/class-epub.php:1374
 msgid "Title Page"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1642
+#: inc/modules/export/epub/class-epub.php:1639
 msgid "Make your own books using Pressbooks"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1900
+#: inc/modules/export/epub/class-epub.php:1896
 msgid "Table Of Contents"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1972
+#: inc/modules/export/epub/class-epub.php:1968
 #: inc/modules/export/xhtml/class-xhtml11.php:1537
 msgid "Contents"
 msgstr ""
@@ -3437,12 +3437,12 @@ msgid "Creating temporary files..."
 msgstr ""
 
 #: inc/modules/export/prince/class-docraptor.php:69
-#: inc/modules/export/prince/class-pdf.php:238
+#: inc/modules/export/prince/class-pdf.php:237
 msgid "Loading fonts..."
 msgstr ""
 
 #: inc/modules/export/prince/class-docraptor.php:73
-#: inc/modules/export/prince/class-pdf.php:242
+#: inc/modules/export/prince/class-pdf.php:241
 msgid "Generating CSS..."
 msgstr ""
 
@@ -3470,43 +3470,43 @@ msgstr ""
 msgid "This book was produced with Pressbooks (https://pressbooks.com) and rendered with Prince."
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:229
+#: inc/modules/export/prince/class-pdf.php:228
 msgid "Setting up conversion..."
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:251
+#: inc/modules/export/prince/class-pdf.php:250
 msgid "Loading Converter..."
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:261
+#: inc/modules/export/prince/class-pdf.php:260
 msgid "Setting up PDF options..."
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:270
+#: inc/modules/export/prince/class-pdf.php:269
 msgid "Adding stylesheets and scripts..."
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:284
+#: inc/modules/export/prince/class-pdf.php:283
 msgid "Creating file..."
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:290
+#: inc/modules/export/prince/class-pdf.php:289
 msgid "Conversion completed with warnings."
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:292
+#: inc/modules/export/prince/class-pdf.php:291
 msgid "Conversion completed successfully."
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:299
+#: inc/modules/export/prince/class-pdf.php:298
 msgid "Validating PDF."
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:302
+#: inc/modules/export/prince/class-pdf.php:301
 msgid "PDF validation failed."
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:306
+#: inc/modules/export/prince/class-pdf.php:305
 msgid "PDF Validation successful."
 msgstr ""
 
@@ -3548,7 +3548,7 @@ msgstr ""
 
 #: inc/modules/export/wordpress/class-vanillawxr.php:24
 #: inc/modules/export/wordpress/class-vanillawxr.php:38
-#: inc/modules/export/wordpress/class-wxr.php:85
+#: inc/modules/export/wordpress/class-wxr.php:84
 msgid "Transforming WXR."
 msgstr ""
 
@@ -3572,27 +3572,27 @@ msgstr ""
 msgid "Saving WXR file."
 msgstr ""
 
-#: inc/modules/export/wordpress/class-wxr.php:89
+#: inc/modules/export/wordpress/class-wxr.php:88
 msgid "Failed to transform WXR."
 msgstr ""
 
-#: inc/modules/export/wordpress/class-wxr.php:94
+#: inc/modules/export/wordpress/class-wxr.php:93
 msgid "Creating file."
 msgstr ""
 
-#: inc/modules/export/wordpress/class-wxr.php:100
+#: inc/modules/export/wordpress/class-wxr.php:99
 msgid "Saved WXR file."
 msgstr ""
 
-#: inc/modules/export/wordpress/class-wxr.php:105
+#: inc/modules/export/wordpress/class-wxr.php:104
 msgid "Validating WXR."
 msgstr ""
 
-#: inc/modules/export/wordpress/class-wxr.php:108
+#: inc/modules/export/wordpress/class-wxr.php:107
 msgid "WXR document is not well formed XML."
 msgstr ""
 
-#: inc/modules/export/wordpress/class-wxr.php:111
+#: inc/modules/export/wordpress/class-wxr.php:110
 msgid "WXR is valid."
 msgstr ""
 
@@ -4193,7 +4193,7 @@ msgid "Display information about authors at the end of each chapter"
 msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:175
-#: inc/shortcodes/attributions/class-attachments.php:262
+#: inc/shortcodes/attributions/class-attachments.php:261
 msgid "Media Attributions"
 msgstr ""
 
@@ -4994,11 +4994,11 @@ msgstr ""
 msgid "Password must include at least one number."
 msgstr ""
 
-#: inc/shortcodes/attributions/class-attachments.php:200
+#: inc/shortcodes/attributions/class-attachments.php:199
 msgid " &copy; "
 msgstr ""
 
-#: inc/shortcodes/attributions/class-attachments.php:201
+#: inc/shortcodes/attributions/class-attachments.php:200
 msgid " adapted by "
 msgstr ""
 
