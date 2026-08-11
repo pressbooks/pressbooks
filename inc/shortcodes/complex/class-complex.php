@@ -72,8 +72,8 @@ class Complex {
 		return sprintf(
 			'<a id="%1$s"%2$s%3$s></a>',
 			sanitize_title( $atts['id'] ),
-			( isset( $atts['class'] ) ) ? sprintf( ' class="%s"', $atts['class'] ) : '',
-			( $content ) ? sprintf( ' title="%s"', $content ) : ''
+			( isset( $atts['class'] ) ) ? sprintf( ' class="%s"', esc_attr( $atts['class'] ) ) : '',
+			( $content ) ? sprintf( ' title="%s"', esc_attr( $content ) ) : ''
 		);
 	}
 
@@ -115,7 +115,7 @@ class Complex {
 
 		return sprintf(
 			'<div class="%1$s">%2$s</div>',
-			trim( $classes ),
+			esc_attr( trim( $classes ) ),
 			wpautop( trim( $content ) )
 		);
 	}
@@ -149,13 +149,13 @@ class Complex {
 			return sprintf(
 				'<a href="mailto:%1$s"%2$s>%1$s</a>',
 				antispambot( $address ),
-				( isset( $atts['class'] ) ) ? sprintf( ' class="%s"', $atts['class'] ) : ''
+				( isset( $atts['class'] ) ) ? sprintf( ' class="%s"', esc_attr( $atts['class'] ) ) : ''
 			);
 		} else {
 			return sprintf(
 				'<a href="mailto:%1$s"%2$s>%3$s</a>',
 				antispambot( $address ),
-				( isset( $atts['class'] ) ) ? sprintf( ' class="%s"', $atts['class'] ) : '',
+				( isset( $atts['class'] ) ) ? sprintf( ' class="%s"', esc_attr( $atts['class'] ) ) : '',
 				( $content ) ? $content : antispambot( $address )
 			);
 		}

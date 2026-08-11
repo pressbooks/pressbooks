@@ -195,7 +195,7 @@ class Glossary implements FrontOrBackMatter {
 						'dfn-%s',
 						\Pressbooks\Sanitize\sanitize_xml_id( \Pressbooks\Utility\str_lowercase_dash( $glossary_term_id ) )
 					),
-					$glossary_term_id,
+					esc_html( $glossary_term_id ),
 					wpautop( $g_content )
 				);
 			}
@@ -253,6 +253,8 @@ class Glossary implements FrontOrBackMatter {
 				'type' => '',
 			], $atts
 		);
+
+		$a['id'] = absint( $a['id'] );
 
 		if ( ! empty( $content ) ) {
 			// This is a tooltip

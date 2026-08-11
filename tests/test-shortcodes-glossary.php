@@ -131,6 +131,23 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * A malicious id attribute must be reduced to its integer post ID (absint),
+	 * preventing attribute breakout in the tooltip href (stored XSS).
+	 *
+	 * @group glossary
+	 */
+	public function test_webShortcodeHandlerSanitizesId() {
+		global $id;
+		$id = 42;
+		$pid = $this->_createGlossaryPost();
+
+		$result = $this->gl->webShortCodeHandler( [ 'id' => $pid . '" onmouseover="alert(1)"' ], 'PHP' );
+
+		$this->assertStringNotContainsString( 'onmouseover="', $result );
+		$this->assertStringContainsString( 'href="#term_' . $id . '_' . $pid . '"', $result );
+	}
+
+	/**
 	 * @group glossary
 	 */
 	public function test_getGlossaryTerms() {
@@ -276,5 +293,30 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$pid = $this->factory()->post->update_object( $pid, [ 'post_content' => ' &nbsp;    ' ] );
 		$post = get_post( $pid );
 		$this->assertStringContainsString( '<dl data-type="glossary">', $this->gl->overrideDisplay( $post->post_content ) );
+	}
+
+	/**
+	 * A glossary term title is emitted into the <dfn> text node and must be escaped
+	 * with esc_html(), so a title containing markup (storable by a user with the
+	 * unfiltered_html capability) is not rendered as live HTML.
+	 *
+	 * @group glossary
+	 */
+	public function test_glossaryTermsEscapesTitle() {
+		$args = [
+			'post_type'    => 'glossary',
+			'post_title'   => 'Alpha <b>Beta</b>',
+			'post_content' => 'Content.',
+			'post_status'  => 'publish',
+		];
+		$pid = $this->factory()->post->create_object( $args );
+		wp_set_object_terms( $pid, 'definitions', 'glossary-type' );
+		$this->gl->getGlossaryTerms( true ); // Reset cache
+
+		$html = $this->gl->glossaryTerms();
+
+		// The title's markup is encoded, not rendered.
+		$this->assertStringContainsString( '&lt;b&gt;Beta&lt;/b&gt;', $html );
+		$this->assertStringNotContainsString( 'Alpha <b>Beta</b>', $html );
 	}
 }

@@ -210,15 +210,15 @@ class Attachments {
 						( isset( $attribution['title_url'] ) ) ?
 							sprintf(
 								'about="%s"',
-								$attribution['title_url']
+								esc_url( $attribution['title_url'] )
 							) : '',
 						// title attribution
 						( isset( $attribution['title_url'] ) ) ?
 							sprintf(
 								'<a rel="cc:attributionURL" href="%1$s" property="dc:title">%2$s</a>',
-								$attribution['title_url'],
-								$title
-							) : $title,
+								esc_url( $attribution['title_url'] ),
+								esc_html( $title )
+							) : esc_html( $title ),
 						// author attribution
 						sprintf(
 							'%1$s %2$s',
@@ -226,9 +226,9 @@ class Attachments {
 							( isset( $attribution['author_url'] ) ) ?
 								sprintf(
 									'<a rel="dc:creator" href="%1$s" property="cc:attributionName">%2$s</a>',
-									$attribution['author_url'],
-									$author
-								) : $author
+									esc_url( $attribution['author_url'] ),
+									esc_html( $author )
+								) : esc_html( $author )
 						),
 						// adapted attribution
 						sprintf(
@@ -237,9 +237,9 @@ class Attachments {
 							( isset( $attribution['adapted_url'] ) ) ?
 								sprintf(
 									'<a rel="dc:source" href="%1$s">%2$s</a>',
-									$attribution['adapted_url'],
-									$adapted_author
-								) : $adapted_author
+									esc_url( $attribution['adapted_url'] ),
+									esc_html( $adapted_author )
+								) : esc_html( $adapted_author )
 						),
 						// license attribution
 						sprintf(
