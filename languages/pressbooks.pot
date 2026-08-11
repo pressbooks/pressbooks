@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-10T18:46:24+00:00\n"
+"POT-Creation-Date: 2026-08-11T18:18:21+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -5010,11 +5010,11 @@ msgstr ""
 msgid "Select"
 msgstr ""
 
-#: inc/shortcodes/glossary/class-glossary.php:294
+#: inc/shortcodes/glossary/class-glossary.php:296
 msgid "definition"
 msgstr ""
 
-#: inc/shortcodes/glossary/class-glossary.php:298
+#: inc/shortcodes/glossary/class-glossary.php:300
 msgid "Close definition"
 msgstr ""
 
