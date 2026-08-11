@@ -112,6 +112,39 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * A malicious attribution value (e.g. set via the REST meta write path, which
+	 * bypasses validate_attachment_metadata()) must not break out of the HTML it is
+	 * rendered into. URLs are escaped with esc_url(), text with esc_html().
+	 *
+	 * @group attributions
+	 */
+	public function test_attributionsContentEscapesXss() {
+		$attributions = [
+			42 => [
+				'title'       => '<script>alert(1)</script>',
+				'title_url'   => 'https://example.com/" onmouseover="alert(1)',
+				'author'      => '"><img src=x onerror=alert(1)>',
+				'author_url'  => 'javascript:alert(document.cookie)',
+				'adapted'     => '',
+				'adapted_url' => '',
+				'license'     => 'cc-by',
+			],
+		];
+
+		$html = $this->att->attributionsContent( $attributions );
+
+		// URL attribute breakout is neutralized: no live event handler in the markup.
+		$this->assertStringNotContainsString( 'onmouseover="alert(1)"', $html );
+		// The javascript: scheme is stripped by esc_url().
+		$this->assertStringNotContainsString( 'javascript:alert', $html );
+		// Text-node payloads are escaped, not rendered as tags.
+		$this->assertStringNotContainsString( '<script>alert(1)</script>', $html );
+		$this->assertStringNotContainsString( '<img src=x onerror=alert(1)>', $html );
+		$this->assertStringContainsString( '&lt;script&gt;', $html );
+		$this->assertStringContainsString( '&lt;img', $html );
+	}
+
+	/**
 	 * @group attributions
 	 */
 	public function test_getBookMedia() {
