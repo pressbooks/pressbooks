@@ -1,5 +1,23 @@
 # Changelog
 
+## [6.45.0](https://github.com/pressbooks/pressbooks/compare/6.44.1...6.45.0) (2026-08-11)
+
+
+### Features
+
+* WP 7.x support ([#4541](https://github.com/pressbooks/pressbooks/issues/4541)) ([4344826](https://github.com/pressbooks/pressbooks/commit/4344826cad5dd701b0c6e6a47bff5006f5494fc0))
+
+
+### Bug Fixes
+
+* stored XSS in built-in shortcodes ([#4550](https://github.com/pressbooks/pressbooks/issues/4550)) ([e83cd8b](https://github.com/pressbooks/pressbooks/commit/e83cd8bfa9e0191addf710539d49c4d8fced1cf9))
+
+
+### Chores
+
+* bump coding-standards ([#4549](https://github.com/pressbooks/pressbooks/issues/4549)) ([d78b232](https://github.com/pressbooks/pressbooks/commit/d78b2327a207eecd53b767c00f20bc9feaf2b34e))
+* updating the WordPress version to address security issues ([#4547](https://github.com/pressbooks/pressbooks/issues/4547)) ([41e0763](https://github.com/pressbooks/pressbooks/commit/41e0763ac729d1bd735ed861489fa31d741f4556))
+
 ## [6.44.1](https://github.com/pressbooks/pressbooks/compare/6.44.0...6.44.1) (2026-08-06)
 
 
