@@ -91,7 +91,7 @@ class Generics {
 			if ( is_array( $atts ) && array_key_exists( 'class', $atts ) ) {
 				$classnames[] = $atts['class'];
 			}
-			$class = ' class="' . implode( ' ', $classnames ) . '"';
+			$class = ' class="' . esc_attr( implode( ' ', $classnames ) ) . '"';
 		}
 		$content = trim( $content );
 		return '<' . $tag . $class . '>' . do_shortcode( $content ) . '</' . $tag . '>';
@@ -113,7 +113,7 @@ class Generics {
 			if ( is_array( $atts ) && array_key_exists( 'class', $atts ) ) {
 				$classnames[] = $atts['class'];
 			}
-			$class = ' class="' . implode( ' ', $classnames ) . '"';
+			$class = ' class="' . esc_attr( implode( ' ', $classnames ) ) . '"';
 		}
 		$content = wpautop( trim( $content ) );
 		return '<' . $tag . $class . '>' . do_shortcode( $content ) . '</' . $tag . '>';
@@ -131,7 +131,7 @@ class Generics {
 			if ( is_array( $atts ) && array_key_exists( 'class', $atts ) ) {
 				$classnames[] = $atts['class'];
 			}
-			$class = ' class="' . implode( ' ', $classnames ) . '"';
+			$class = ' class="' . esc_attr( implode( ' ', $classnames ) ) . '"';
 		}
 		return '<' . $tag . $class . '>' . do_shortcode( $content ) . '</' . $tag . '>';
 	}

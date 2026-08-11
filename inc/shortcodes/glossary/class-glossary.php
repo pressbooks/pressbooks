@@ -254,6 +254,8 @@ class Glossary implements FrontOrBackMatter {
 			], $atts
 		);
 
+		$a['id'] = absint( $a['id'] );
+
 		if ( ! empty( $content ) ) {
 			// This is a tooltip
 			if ( $a['id'] ) {
