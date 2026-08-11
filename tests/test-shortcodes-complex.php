@@ -160,4 +160,27 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<iframe', $content );
 		$this->assertStringContainsString( '<figcaption>Deploy day!</figcaption>', $content );
 	}
+
+	/**
+	 * Attribute values supplied by the shortcode must be escaped so they cannot
+	 * break out of the attribute and inject an event handler (stored XSS).
+	 *
+	 * @group shortcodes
+	 */
+	public function test_shortcodeHandlersEscapeAttributes() {
+		$payload = 'x" onmouseover="alert(1)"';
+
+		// Anchor: class + title.
+		$anchor = $this->complex->anchorShortCodeHandler( [ 'id' => 'a', 'class' => $payload ], $payload, 'anchor' );
+		$this->assertStringNotContainsString( 'onmouseover="', $anchor );
+		$this->assertStringContainsString( '&quot;', $anchor );
+
+		// Columns: class.
+		$columns = $this->complex->columnsShortCodeHandler( [ 'class' => $payload ], 'Test', 'columns' );
+		$this->assertStringNotContainsString( 'onmouseover="', $columns );
+
+		// Email: class.
+		$email = $this->complex->emailShortCodeHandler( [ 'address' => 'me@here.com', 'class' => $payload ], '', 'email' );
+		$this->assertStringNotContainsString( 'onmouseover="', $email );
+	}
 }

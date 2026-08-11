@@ -131,6 +131,23 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * A malicious id attribute must be reduced to its integer post ID (absint),
+	 * preventing attribute breakout in the tooltip href (stored XSS).
+	 *
+	 * @group glossary
+	 */
+	public function test_webShortcodeHandlerSanitizesId() {
+		global $id;
+		$id = 42;
+		$pid = $this->_createGlossaryPost();
+
+		$result = $this->gl->webShortCodeHandler( [ 'id' => $pid . '" onmouseover="alert(1)"' ], 'PHP' );
+
+		$this->assertStringNotContainsString( 'onmouseover="', $result );
+		$this->assertStringContainsString( 'href="#term_' . $id . '_' . $pid . '"', $result );
+	}
+
+	/**
 	 * @group glossary
 	 */
 	public function test_getGlossaryTerms() {

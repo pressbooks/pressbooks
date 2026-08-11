@@ -86,4 +86,23 @@ class Shortcodes_Generics extends \WP_UnitTestCase {
 
 		$this->assertEmpty( $this->generics->inlineShortcodeHandler( [], '', 'strong' ) );
 	}
+
+	/**
+	 * A malicious class attribute must not be able to break out of the attribute
+	 * and inject an event handler (stored XSS).
+	 *
+	 * @group shortcodes
+	 */
+	public function test_shortcodeHandlersEscapeClassAttribute() {
+		$payload = 'x" onmouseover="alert(1)"';
+
+		$block = $this->generics->blockShortcodeHandler( [ 'class' => $payload ], 'Test', 'heading' );
+		$multiline = $this->generics->multilineBlockShortcodeHandler( [ 'class' => $payload ], 'Test', 'textbox' );
+		$inline = $this->generics->inlineShortcodeHandler( [ 'class' => $payload ], 'Test', 'strong' );
+
+		foreach ( [ $block, $multiline, $inline ] as $html ) {
+			$this->assertStringNotContainsString( 'onmouseover="', $html );
+			$this->assertStringContainsString( '&quot;', $html );
+		}
+	}
 }
