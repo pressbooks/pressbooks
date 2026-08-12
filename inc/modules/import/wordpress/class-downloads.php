@@ -206,26 +206,14 @@ class Downloads {
 			if ( $attachment_id === attachment_id_from_url( $maybe_src_new ) ) {
 				// Our best guess is that this is a cloned image, use old filename to preserve WP resizing
 				$src_new = $maybe_src_new;
-				// Update image class to new id to preserve WP Size dropdown
-				if ( $image->hasAttribute( 'class' ) ) {
-					$image->setAttribute( 'class', preg_replace( '/wp-image-\d+/', "wp-image-{$attachment_id}", $image->getAttribute( 'class' ) ) );
-				}
-				// Update wrapper IDs
-				if ( $image->parentNode->tagName === 'div' && strpos( $image->parentNode->getAttribute( 'id' ), 'attachment_' ) !== false ) {
-					// <div> id
-					$image->parentNode->setAttribute( 'id', preg_replace( '/attachment_\d+/', "attachment_{$attachment_id}", $image->parentNode->getAttribute( 'id' ) ) );
-				}
-				foreach ( $image->parentNode->childNodes as $child ) {
-					if ( $child instanceof \DOMText &&
-						strpos( $child->nodeValue, '[caption ' ) !== false &&
-						strpos( $child->nodeValue, 'attachment_' ) !== false
-					) {
-						// [caption] id
-						$child->nodeValue = preg_replace( '/attachment_\d+/', "attachment_{$attachment_id}", $child->nodeValue );
-					}
-				}
 			}
 		}
+
+		// Update the attachment ID references (wp-image-{id} class, attachment_{id} wrapper) to the
+		// newly sideloaded attachment. This runs regardless of the filename heuristic above: at this
+		// point $attachment_id is the new attachment for this exact <img>, so leaving the source book's
+		// IDs in place would make WordPress load the wrong attachment in the editor.
+		$this->replaceImageIds( $attachment_id, $image );
 
 		// Update srcset URLs
 		if ( $image->hasAttribute( 'srcset' ) ) {
@@ -233,6 +221,52 @@ class Downloads {
 		}
 
 		return $src_new;
+	}
+
+	/**
+	 * Rewrite the source book's attachment ID references on an imported image so they point to the
+	 * newly sideloaded attachment: the `wp-image-{id}` class on the <img>, the `attachment_{id}` id
+	 * on a caption wrapper <div>, and the id in a `[caption id="attachment_{id}"]` shortcode.
+	 *
+	 * Handles images wrapped in a link (e.g. `[caption]<a><img></a>[/caption]`), where the caption
+	 * shortcode text node and wrapper <div> are relatives of the <a>, not of the <img>.
+	 *
+	 * @param int $attachment_id
+	 * @param \DOMElement $image
+	 *
+	 * @return void
+	 */
+	protected function replaceImageIds( $attachment_id, $image ) {
+		// Update image class to new id to preserve WP Size dropdown
+		if ( $image->hasAttribute( 'class' ) ) {
+			$image->setAttribute( 'class', preg_replace( '/wp-image-\d+/', "wp-image-{$attachment_id}", $image->getAttribute( 'class' ) ) );
+		}
+
+		// The caption shortcode / wrapper <div> may sit above a link that wraps the image, so climb
+		// past any <a> ancestors to find the node that contains them.
+		$node = $image;
+		while ( $node->parentNode instanceof \DOMElement && $node->parentNode->tagName === 'a' ) {
+			$node = $node->parentNode;
+		}
+		$container = $node->parentNode;
+
+		// Update wrapper <div id="attachment_{id}">. The legacy rendered caption markup wraps each
+		// image in its own <div>, so this is already scoped to the current image.
+		if ( $container instanceof \DOMElement && $container->tagName === 'div' && strpos( $container->getAttribute( 'id' ), 'attachment_' ) !== false ) {
+			$container->setAttribute( 'id', preg_replace( '/attachment_\d+/', "attachment_{$attachment_id}", $container->getAttribute( 'id' ) ) );
+		}
+
+		// Update the [caption id="attachment_{id}"] shortcode that opens this image's caption. The
+		// opening tag lives in the text node immediately before the image (or its <a> wrapper), so
+		// scope the rewrite to that node's caption id and leave sibling captions untouched.
+		$prev = $node->previousSibling;
+		if ( $prev instanceof \DOMText && strpos( $prev->nodeValue, '[caption ' ) !== false ) {
+			$prev->nodeValue = preg_replace(
+				'/(\[caption[^\]]*\bid=["\']?)attachment_\d+/',
+				sprintf( '${1}attachment_%d', $attachment_id ),
+				$prev->nodeValue
+			);
+		}
 	}
 
 	/**
