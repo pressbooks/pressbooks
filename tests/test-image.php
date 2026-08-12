@@ -81,10 +81,6 @@ class ImageTest extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * A .jpeg intermediate size (e.g. foo-300x225.jpeg) must resolve to its attachment. Regression
-	 * test for a regex that stripped the size suffix from .jpg but not .jpeg, which made cloned
-	 * images keep the source book's wp-image-{id}/attachment_{id} references.
-	 *
 	 * @group media
 	 */
 	public function test_attachment_id_from_url_jpeg() {
@@ -96,11 +92,9 @@ class ImageTest extends \WP_UnitTestCase {
 		);
 		update_post_meta( $id, '_wp_attached_file', '2017/08/foo-bar.jpeg' );
 
-		// Intermediate size: the -300x225 suffix must be stripped before the lookup.
 		$sized = 'https://pressbooks.dev/app/uploads/2017/08/foo-bar-300x225.jpeg';
 		$this->assertSame( $id, \Pressbooks\Image\attachment_id_from_url( $sized ) );
 
-		// Full size resolves too.
 		$full = 'https://pressbooks.dev/app/uploads/2017/08/foo-bar.jpeg';
 		$this->assertSame( $id, \Pressbooks\Image\attachment_id_from_url( $full ) );
 	}

@@ -701,17 +701,11 @@ class ClonerTest extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * The wp-image-{id} class must be rewritten to the new attachment id even when the image's
-	 * src is not found in the source book's known media (the filename-preservation guard fails).
-	 * A stale source id here is what makes the editor load the wrong image on a clone.
-	 *
 	 * @group cloner
 	 */
 	public function test_replaceImage_rewrites_stale_wp_image_class_outside_known_media() {
 		$downloads = new Downloads( $this->cloner, null );
 
-		// External host => sameAsSource() is false => the known-media guard is skipped, which is
-		// exactly the failure path where the id used to be left pointing at the source book.
 		$src = 'https://external-source.test/app/uploads/sites/2/2023/01/photo.jpeg';
 		$html5 = new \Pressbooks\HtmlParser();
 		$dom = $html5->loadHTML( '<p><img class="size-medium wp-image-18" src="' . $src . '" alt="" /></p>' );
@@ -724,9 +718,6 @@ class ClonerTest extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * When the image is wrapped in a link, the [caption id="attachment_{id}"] shortcode is a sibling
-	 * of the <a>, not of the <img>. The rewrite must climb past the <a> to reach it.
-	 *
 	 * @group cloner
 	 */
 	public function test_replaceImage_rewrites_linked_caption_attachment_id() {
@@ -750,9 +741,6 @@ class ClonerTest extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * The legacy rendered caption markup wraps the image in <div id="attachment_{id}">. That id must
-	 * also be rewritten to the new attachment id.
-	 *
 	 * @group cloner
 	 */
 	public function test_replaceImage_rewrites_caption_div_attachment_id() {
@@ -775,10 +763,6 @@ class ClonerTest extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * When several captioned images live in the same content, each [caption id="attachment_{id}"]
-	 * must be rewritten to its OWN image's new id. A previous implementation rewrote every caption
-	 * in the container on each image, so they all collapsed to the last processed id.
-	 *
 	 * @group cloner
 	 */
 	public function test_replaceImage_scopes_caption_id_to_its_own_image() {

@@ -287,10 +287,6 @@ class Downloads {
 			}
 		}
 
-		// Update the attachment ID references (wp-image-{id} class, attachment_{id} wrapper) to the
-		// newly sideloaded attachment. This runs regardless of the filename heuristic above: at this
-		// point $attachment_id is the new attachment for this exact <img>, so leaving the source book's
-		// IDs in place would make WordPress load the wrong attachment in the editor.
 		$this->replaceImageIds( $attachment_id, $image );
 
 		// Update srcset URLs
@@ -320,23 +316,16 @@ class Downloads {
 			$image->setAttribute( 'class', preg_replace( '/wp-image-\d+/', "wp-image-{$attachment_id}", $image->getAttribute( 'class' ) ) );
 		}
 
-		// The caption shortcode / wrapper <div> may sit above a link that wraps the image, so climb
-		// past any <a> ancestors to find the node that contains them.
 		$node = $image;
 		while ( $node->parentNode instanceof \DOMElement && $node->parentNode->tagName === 'a' ) {
 			$node = $node->parentNode;
 		}
 		$container = $node->parentNode;
 
-		// Update wrapper <div id="attachment_{id}">. The legacy rendered caption markup wraps each
-		// image in its own <div>, so this is already scoped to the current image.
 		if ( $container instanceof \DOMElement && $container->tagName === 'div' && strpos( $container->getAttribute( 'id' ), 'attachment_' ) !== false ) {
 			$container->setAttribute( 'id', preg_replace( '/attachment_\d+/', "attachment_{$attachment_id}", $container->getAttribute( 'id' ) ) );
 		}
 
-		// Update the [caption id="attachment_{id}"] shortcode that opens this image's caption. The
-		// opening tag lives in the text node immediately before the image (or its <a> wrapper), so
-		// scope the rewrite to that node's caption id and leave sibling captions untouched.
 		$prev = $node->previousSibling;
 		if ( $prev instanceof \DOMText && strpos( $prev->nodeValue, '[caption ' ) !== false ) {
 			$prev->nodeValue = preg_replace(
