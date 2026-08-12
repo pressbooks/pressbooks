@@ -77,7 +77,7 @@ function upload_cover_image( $pid, $post, $image = null ) {
 		return; // Bail
 	}
 
-	if ( ! current_user_can_for_blog( get_current_blog_id(), 'upload_files' ) ) {
+	if ( ! current_user_can_for_site( get_current_blog_id(), 'upload_files' ) ) {
 		return; // Bail
 	}
 
@@ -291,7 +291,7 @@ function override_parent_id( $post ) {
  */
 function delete_cover_image() {
 
-	if ( current_user_can_for_blog( get_current_blog_id(), 'upload_files' ) && check_ajax_referer( 'pb-delete-cover-image' ) ) {
+	if ( current_user_can_for_site( get_current_blog_id(), 'upload_files' ) && check_ajax_referer( 'pb-delete-cover-image' ) ) {
 
 		$image_url = $_POST['filename'];
 		$pid = $_POST['pid'];

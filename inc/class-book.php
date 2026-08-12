@@ -818,9 +818,9 @@ class Book {
 			} else {
 				if ( in_array( $order[ $post_id ]['post_status'], [ 'publish', 'web-only' ], true ) ) {
 					break;
-				} elseif ( current_user_can_for_blog( $blog_id, 'read_private_posts' ) ) {
+				} elseif ( current_user_can_for_site( $blog_id, 'read_private_posts' ) ) {
 					break;
-				} elseif ( get_option( 'permissive_private_content' ) && current_user_can_for_blog( $blog_id, 'read' ) ) {
+				} elseif ( get_option( 'permissive_private_content' ) && current_user_can_for_site( $blog_id, 'read' ) ) {
 					break;
 				} else {
 					$what( $pos );
@@ -862,9 +862,9 @@ class Book {
 			} else {
 				if ( in_array( $order[ $first_id ]['post_status'], [ 'publish', 'web-only' ], true ) ) {
 					break;
-				} elseif ( current_user_can_for_blog( $blog_id, 'read_private_posts' ) ) {
+				} elseif ( current_user_can_for_site( $blog_id, 'read_private_posts' ) ) {
 					break;
-				} elseif ( get_option( 'permissive_private_content' ) && current_user_can_for_blog( $blog_id, 'read' ) ) {
+				} elseif ( get_option( 'permissive_private_content' ) && current_user_can_for_site( $blog_id, 'read' ) ) {
 					break;
 				} else {
 					next( $pos );

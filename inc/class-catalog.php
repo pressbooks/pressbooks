@@ -764,7 +764,7 @@ class Catalog {
 		}
 
 		$book = get_active_blog_for_user( $this->userId );
-		if ( ! current_user_can_for_blog( $book->blog_id, 'upload_files' ) ) {
+		if ( ! current_user_can_for_site( $book->blog_id, 'upload_files' ) ) {
 			return; // Bail
 		}
 
@@ -1084,7 +1084,7 @@ class Catalog {
 		$user_id = (int) $_POST['pid'];
 
 		$book = get_active_blog_for_user( $user_id );
-		if ( current_user_can_for_blog( $book->blog_id, 'upload_files' ) ) {
+		if ( current_user_can_for_site( $book->blog_id, 'upload_files' ) ) {
 
 			switch_to_blog( $book->blog_id );
 
