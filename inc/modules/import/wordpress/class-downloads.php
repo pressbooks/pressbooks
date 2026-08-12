@@ -206,26 +206,10 @@ class Downloads {
 			if ( $attachment_id === attachment_id_from_url( $maybe_src_new ) ) {
 				// Our best guess is that this is a cloned image, use old filename to preserve WP resizing
 				$src_new = $maybe_src_new;
-				// Update image class to new id to preserve WP Size dropdown
-				if ( $image->hasAttribute( 'class' ) ) {
-					$image->setAttribute( 'class', preg_replace( '/wp-image-\d+/', "wp-image-{$attachment_id}", $image->getAttribute( 'class' ) ) );
-				}
-				// Update wrapper IDs
-				if ( $image->parentNode->tagName === 'div' && strpos( $image->parentNode->getAttribute( 'id' ), 'attachment_' ) !== false ) {
-					// <div> id
-					$image->parentNode->setAttribute( 'id', preg_replace( '/attachment_\d+/', "attachment_{$attachment_id}", $image->parentNode->getAttribute( 'id' ) ) );
-				}
-				foreach ( $image->parentNode->childNodes as $child ) {
-					if ( $child instanceof \DOMText &&
-						strpos( $child->nodeValue, '[caption ' ) !== false &&
-						strpos( $child->nodeValue, 'attachment_' ) !== false
-					) {
-						// [caption] id
-						$child->nodeValue = preg_replace( '/attachment_\d+/', "attachment_{$attachment_id}", $child->nodeValue );
-					}
-				}
 			}
 		}
+
+		$this->replaceImageIds( $attachment_id, $image );
 
 		// Update srcset URLs
 		if ( $image->hasAttribute( 'srcset' ) ) {
@@ -233,6 +217,44 @@ class Downloads {
 		}
 
 		return $src_new;
+	}
+
+	/**
+	 * Rewrite the source book's attachment ID references on an imported image so they point to the
+	 * newly sideloaded attachment: the `wp-image-{id}` class on the <img>, the `attachment_{id}` id
+	 * on a caption wrapper <div>, and the id in a `[caption id="attachment_{id}"]` shortcode.
+	 *
+	 * Handles images wrapped in a link (e.g. `[caption]<a><img></a>[/caption]`), where the caption
+	 * shortcode text node and wrapper <div> are relatives of the <a>, not of the <img>.
+	 *
+	 * @param int $attachment_id
+	 * @param \DOMElement $image
+	 *
+	 * @return void
+	 */
+	protected function replaceImageIds( $attachment_id, $image ) {
+		if ( $image->hasAttribute( 'class' ) ) {
+			$image->setAttribute( 'class', preg_replace( '/wp-image-\d+/', "wp-image-{$attachment_id}", $image->getAttribute( 'class' ) ) );
+		}
+
+		$node = $image;
+		while ( $node->parentNode instanceof \DOMElement && $node->parentNode->tagName === 'a' ) {
+			$node = $node->parentNode;
+		}
+		$container = $node->parentNode;
+
+		if ( $container instanceof \DOMElement && $container->tagName === 'div' && strpos( $container->getAttribute( 'id' ), 'attachment_' ) !== false ) {
+			$container->setAttribute( 'id', preg_replace( '/attachment_\d+/', "attachment_{$attachment_id}", $container->getAttribute( 'id' ) ) );
+		}
+
+		$prev = $node->previousSibling;
+		if ( $prev instanceof \DOMText && strpos( $prev->nodeValue, '[caption ' ) !== false ) {
+			$prev->nodeValue = preg_replace(
+				'/(\[caption[^\]]*\bid=["\']?)attachment_\d+/',
+				sprintf( '${1}attachment_%d', $attachment_id ),
+				$prev->nodeValue
+			);
+		}
 	}
 
 	/**

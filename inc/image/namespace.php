@@ -197,7 +197,7 @@ function attachment_id_from_url( $url ) {
 	global $wpdb;
 
 	// If this is the URL of an auto-generated thumbnail, get the URL of the original image
-	$url = preg_replace( '/-\d+x\d+(?=\.(jp?g|png|gif)$)/i', '', $url );
+	$url = preg_replace( '/-\d+x\d+(?=\.(jpe?g|png|gif)$)/i', '', $url );
 
 	$attached_file = strip_baseurl( $url );
 
