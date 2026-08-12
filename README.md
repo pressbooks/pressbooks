@@ -4,7 +4,7 @@ Tags: ebooks, publishing, webbooks
 Requires at least: 7.0.4
 Tested up to: 7.0.4
 <!-- x-release-please-start-version -->
-Stable tag: 6.45.0
+Stable tag: 6.45.1
 <!-- x-release-please-end -->
 Requires PHP: 8.3
 License: GPL v3.0 or later

@@ -1,5 +1,17 @@
 # Changelog
 
+## [6.45.1](https://github.com/pressbooks/pressbooks/compare/6.45.0...6.45.1) (2026-08-12)
+
+
+### Bug Fixes
+
+* image and attachment id consistency during cloning ([#4551](https://github.com/pressbooks/pressbooks/issues/4551)) ([e0f5129](https://github.com/pressbooks/pressbooks/commit/e0f5129c2b015d4e5a470b06363669c2a371e6db))
+
+
+### Chores
+
+* bump wp version to 7.0.4 ([#4554](https://github.com/pressbooks/pressbooks/issues/4554)) ([b761263](https://github.com/pressbooks/pressbooks/commit/b76126366c5c42357581b38501d363c1416b11d3))
+
 ## [6.45.0](https://github.com/pressbooks/pressbooks/compare/6.44.1...6.45.0) (2026-08-11)
 
 
