@@ -2957,141 +2957,130 @@ class Epub extends Export {
 	}
 
 	/**
+	 * Parse an epubcheck validation log into a structured, lossless form.
+	 *
+	 * Handles both literal "\n" separators (as produced by validate()) and real
+	 * newlines. Every FATAL/ERROR/WARNING/INFO/USAGE line is captured with its
+	 * severity, code, file, line, column and verbatim message; lines without a
+	 * recognizable file are grouped under '(package)' so nothing is dropped.
+	 *
+	 * @param string $validation_log Raw validation log string
+	 * @return array{files: array<string, array<int, array{severity: string, code: string, line: int, column: int, message: string}>>, errors: int, warnings: int, files_affected: int}
+	 */
+	protected function parseValidationLog( string $validation_log ): array {
+		$lines = explode( "\n", str_replace( '\n', "\n", $validation_log ) );
+
+		$files = [];
+		$errors = 0;
+		$warnings = 0;
+
+		foreach ( $lines as $line ) {
+			$line = trim( $line );
+			if ( ! preg_match( '/^(FATAL|ERROR|WARNING|INFO|USAGE)\(([A-Z]{3}-\d{3}\w?)\):\s*(.*)$/', $line, $matches ) ) {
+				continue;
+			}
+
+			$severity = $matches[1];
+			$code = $matches[2];
+			$file = '(package)';
+			$line_number = 0;
+			$column = 0;
+			$message = $matches[3];
+
+			if ( preg_match( '/\/([^\/()]+)\((\d+),(\d+)\):\s*(.*)$/', $message, $detail ) ) {
+				$file = $detail[1];
+				$line_number = (int) $detail[2];
+				$column = (int) $detail[3];
+				$message = $detail[4];
+			}
+
+			$files[ $file ][] = [
+				'severity' => $severity,
+				'code' => $code,
+				'line' => $line_number,
+				'column' => $column,
+				'message' => $message,
+			];
+
+			if ( $severity === 'FATAL' || $severity === 'ERROR' ) {
+				++$errors;
+			} elseif ( $severity === 'WARNING' ) {
+				++$warnings;
+			}
+		}
+
+		$files_affected = 0;
+		foreach ( $files as $issues ) {
+			foreach ( $issues as $issue ) {
+				if ( in_array( $issue['severity'], [ 'FATAL', 'ERROR', 'WARNING' ], true ) ) {
+					++$files_affected;
+					break;
+				}
+			}
+		}
+
+		return [
+			'files' => $files,
+			'errors' => $errors,
+			'warnings' => $warnings,
+			'files_affected' => $files_affected,
+		];
+	}
+
+	/**
 	 * Format EPUB validation log into readable sections
 	 *
 	 * @param string $validation_log Raw validation log string
 	 * @return string Formatted log with proper line breaks and grouping
 	 */
 	public function formatValidationLog( string $validation_log ): string {
-		$lines = explode( '\n', $validation_log );
-		$formatted_output = '';
-		$error_groups = [];
+		$parsed = $this->parseValidationLog( $validation_log );
 
-		foreach ( $lines as $line ) {
-			$line = trim( $line );
-
-			if ( empty( $line ) ) {
-				continue;
-			}
-
-			// Extract file path from error (chapter)
-			if ( preg_match( '/\/([^\/]+\.xhtml)/', $line, $matches ) ) {
-				$file = $matches[1];
-
-				if ( ! isset( $error_groups[ $file ] ) ) {
-					$error_groups[ $file ] = [
-						'rsc_005' => [], // Invalid attribute errors
-						'opf_014' => [], // Remote resources errors
-						'rsc_006' => [], // Remote resource reference errors
-						'pkg_022' => [], // File extension warnings
-						'other' => [],
-					];
-				}
-
-				if ( str_contains( $line, 'ERROR(RSC-005)' ) ) {
-					if ( str_contains( $line, 'role" is invalid' ) ) {
-						$error_groups[ $file ]['rsc_005'][] = 'Invalid role attribute';
-					} elseif ( str_contains( $line, 'missing required attribute "aria-checked"' ) ) {
-						$error_groups[ $file ]['rsc_005'][] = 'Missing aria-checked attribute on <li> element';
-					}
-				} elseif ( str_contains( $line, 'ERROR(OPF-014)' ) ) {
-					$error_groups[ $file ]['opf_014'][] = 'Remote resources property not declared in OPF file';
-				} elseif ( str_contains( $line, 'ERROR(RSC-006)' ) ) {
-					$error_groups[ $file ]['rsc_006'][] = 'Remote resource reference not allowed';
-				} elseif ( str_contains( $line, 'WARNING(PKG-022)' ) ) {
-					$error_groups[ $file ]['pkg_022'][] = 'Wrong file extension for image (PNG with .jpg extension)';
-				} else {
-					$error_groups[ $file ]['other'][] = $line;
-				}
-			}
-		}
-
-		$formatted_output .= "EPUB VALIDATION REPORT\n";
+		/* translators: "EPUB" is a file format name and should not be translated */
+		$formatted_output = __( 'EPUB VALIDATION REPORT', 'pressbooks' ) . "\n";
 		$formatted_output .= str_repeat( '=', 50 ) . "\n\n";
 
-		$total_errors = 0;
-		$total_warnings = 0;
-
-		foreach ( $error_groups as $file => $errors ) {
-			$file_has_errors = false;
-			$file_output = '';
-
+		foreach ( $parsed['files'] as $file => $issues ) {
 			$file_error_count = 0;
 			$file_warning_count = 0;
-
-			foreach ( $errors as $error_type => $error_list ) {
-				if ( ! empty( $error_list ) ) {
-					$file_has_errors = true;
-
-					if ( $error_type === 'pkg_022' ) {
-						$file_warning_count += count( $error_list );
-					} else {
-						$file_error_count += count( $error_list );
-					}
+			foreach ( $issues as $issue ) {
+				if ( $issue['severity'] === 'FATAL' || $issue['severity'] === 'ERROR' ) {
+					++$file_error_count;
+				} elseif ( $issue['severity'] === 'WARNING' ) {
+					++$file_warning_count;
 				}
 			}
 
-			if ( ! $file_has_errors ) {
+			if ( $file_error_count + $file_warning_count === 0 ) {
 				continue;
 			}
 
-			$total_errors += $file_error_count;
-			$total_warnings += $file_warning_count;
+			$formatted_output .= sprintf( __( 'FILE: %s', 'pressbooks' ), $file ) . "\n";
+			/* translators: 1: number of errors, 2: number of warnings */
+			$formatted_output .= sprintf( __( 'Errors: %1$s | Warnings: %2$s', 'pressbooks' ), $file_error_count, $file_warning_count ) . "\n";
+			$formatted_output .= str_repeat( '-', 40 ) . "\n";
 
-			$file_output .= 'FILE: ' . $file . "\n";
-			$file_output .= "Errors: {$file_error_count} | Warnings: {$file_warning_count}\n";
-			$file_output .= str_repeat( '-', 40 ) . "\n";
-
-			// RSC-005 errors (Invalid attributes)
-			if ( ! empty( $errors['rsc_005'] ) ) {
-				$file_output .= "• ATTRIBUTE ERRORS (RSC-005):\n";
-				$unique_rsc_errors = array_count_values( $errors['rsc_005'] );
-				foreach ( $unique_rsc_errors as $error => $count ) {
-					$file_output .= "  - {$error} ({$count} occurrence" . ( $count > 1 ? 's' : '' ) . ")\n";
+			foreach ( $issues as $issue ) {
+				if ( $issue['line'] > 0 ) {
+					/* translators: 1: line number, 2: column number */
+					$location = ' ' . sprintf( __( 'Line %1$s, Col %2$s', 'pressbooks' ), $issue['line'], $issue['column'] ) . ':';
+				} else {
+					$location = '';
 				}
-				$file_output .= "\n";
+				$formatted_output .= "  [{$issue['severity']} {$issue['code']}]{$location} {$issue['message']}\n";
 			}
 
-			// OPF-014 errors (Remote resources)
-			if ( ! empty( $errors['opf_014'] ) ) {
-				$file_output .= "• REMOTE RESOURCES ERRORS (OPF-014):\n";
-				$file_output .= "  - Remote resources property not declared in OPF file\n\n";
-			}
-
-			// RSC-006 errors (Remote resource references)
-			if ( ! empty( $errors['rsc_006'] ) ) {
-				$file_output .= "• REMOTE REFERENCE ERRORS (RSC-006):\n";
-				$file_output .= '  - Remote resource references not allowed (' . count( $errors['rsc_006'] ) . " occurrences)\n\n";
-			}
-
-			// PKG-022 warnings (File extension)
-			if ( ! empty( $errors['pkg_022'] ) ) {
-				$file_output .= "• FILE EXTENSION WARNINGS (PKG-022):\n";
-				foreach ( $errors['pkg_022'] as $warning ) {
-					$file_output .= "  - {$warning}\n";
-				}
-				$file_output .= "\n";
-			}
-
-			// Other errors
-			if ( ! empty( $errors['other'] ) ) {
-				$file_output .= "• OTHER ISSUES:\n";
-				foreach ( $errors['other'] as $error ) {
-					$file_output .= "  - {$error}\n";
-				}
-				$file_output .= "\n";
-			}
-
-			$formatted_output .= $file_output . "\n";
+			$formatted_output .= "\n";
 		}
 
 		$formatted_output .= str_repeat( '=', 50 ) . "\n";
-		$formatted_output .= "SUMMARY\n";
-		$formatted_output .= "Total Errors: {$total_errors}\n";
-		$formatted_output .= "Total Warnings: {$total_warnings}\n";
-		$formatted_output .= 'Files Affected: ' . count( array_filter( $error_groups, function ( $errors ) {
-				return ! empty( array_filter( $errors ) );
-		} ) ) . "\n";
+		$formatted_output .= __( 'SUMMARY', 'pressbooks' ) . "\n";
+		/* translators: %s: number of errors */
+		$formatted_output .= sprintf( __( 'Total Errors: %s', 'pressbooks' ), $parsed['errors'] ) . "\n";
+		/* translators: %s: number of warnings */
+		$formatted_output .= sprintf( __( 'Total Warnings: %s', 'pressbooks' ), $parsed['warnings'] ) . "\n";
+		/* translators: %s: number of files affected */
+		$formatted_output .= sprintf( __( 'Files Affected: %s', 'pressbooks' ), $parsed['files_affected'] ) . "\n";
 
 		return $formatted_output;
 	}
@@ -3119,11 +3108,10 @@ class Epub extends Export {
 	 * @return string
 	 */
 	private function getValidationSummary( string $validation_log ): string {
-		$error_count = substr_count( $validation_log, 'ERROR(' );
-		$warning_count = substr_count( $validation_log, 'WARNING(' );
-		$files_affected = count( array_unique( preg_match_all( '/\/([^\/]+\.xhtml)/', $validation_log, $matches ) ? $matches[1] : [] ) );
+		$parsed = $this->parseValidationLog( $validation_log );
 
-		return "Errors: {$error_count}, Warnings: {$warning_count}, Files affected: {$files_affected}";
+		/* translators: 1: number of errors, 2: number of warnings, 3: number of files affected */
+		return sprintf( __( 'Errors: %1$s, Warnings: %2$s, Files affected: %3$s', 'pressbooks' ), $parsed['errors'], $parsed['warnings'], $parsed['files_affected'] );
 	}
 
 	/**
@@ -3131,7 +3119,7 @@ class Epub extends Export {
 	 */
 	public function logError( string $message, array $more_info = [] ): void {
 
-		if ( str_contains( $message, 'EPUB Validation' ) || str_contains( $message, 'ERROR(RSC-' ) ) {
+		if ( str_contains( $message, 'EPUB Validation' ) || preg_match( '/(?:FATAL|ERROR|WARNING)\(/', $message ) ) {
 
 			error_log( $message ); // Log raw message for debugging
 
@@ -3140,7 +3128,7 @@ class Epub extends Export {
 			$error_summary = $this->getValidationSummary( $message );
 			$more_info['validation_summary'] = $error_summary;
 
-			$message = 'EPUB validation completed with issues. See formatted report above.';
+			$message = __( 'EPUB validation completed with issues. See the validation report above.', 'pressbooks' );
 		}
 
 		parent::logError( $message, $more_info );
