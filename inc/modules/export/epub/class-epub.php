@@ -2983,16 +2983,6 @@ class Epub extends Export {
 	}
 
 	/**
-	 * Get a brief summary of validation errors for quick reference
-	 *
-	 * @param string $validation_log
-	 * @return string
-	 */
-	private function getValidationSummary( string $validation_log ): string {
-		return ( new EpubcheckLog( $validation_log ) )->summary();
-	}
-
-	/**
 	 * Override logError to format validation logs
 	 */
 	public function logError( string $message, array $more_info = [] ): void {
@@ -3001,10 +2991,9 @@ class Epub extends Export {
 
 			error_log( $message ); // Log raw message for debugging
 
-			$more_info['formatted_validation_report'] = $this->formatValidationLog( $message );
-
-			$error_summary = $this->getValidationSummary( $message );
-			$more_info['validation_summary'] = $error_summary;
+			$log = new EpubcheckLog( $message );
+			$more_info['formatted_validation_report'] = $log->report();
+			$more_info['validation_summary'] = $log->summary();
 
 			$message = __( 'EPUB validation completed with issues. See the validation report above.', 'pressbooks' );
 		}
