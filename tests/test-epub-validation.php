@@ -1,10 +1,9 @@
 <?php
 
 use Pressbooks\Modules\Export\Epub\Epub;
+use Pressbooks\Modules\Export\Epub\EpubcheckLog;
 
 class Epub_ValidationTest extends \WP_UnitTestCase {
-
-	protected Epub $epub;
 
 	private const VALIDATION_LINES = [
 		'Validating using EPUB version 3.3 rules.',
@@ -16,23 +15,12 @@ class Epub_ValidationTest extends \WP_UnitTestCase {
 		'Messages: 0 fatals / 2 errors / 0 warnings / 0 infos',
 	];
 
-	public function set_up() {
-		parent::set_up();
-		$this->epub = new Epub( [] );
-	}
-
 	private function logWithLiteralSeparators(): string {
 		return 'EPUB Validation Warnings/Errors:' . '\\n' . implode( '\\n', self::VALIDATION_LINES );
 	}
 
 	private function logWithRealNewlines(): string {
 		return 'EPUB Validation Warnings/Errors:' . "\n" . implode( "\n", self::VALIDATION_LINES );
-	}
-
-	private function getValidationSummary( string $validation_log ): string {
-		$method = new ReflectionMethod( Epub::class, 'getValidationSummary' );
-		$method->setAccessible( true );
-		return $method->invoke( $this->epub, $validation_log );
 	}
 
 	private function reportTotals( string $report ): array {
@@ -52,10 +40,10 @@ class Epub_ValidationTest extends \WP_UnitTestCase {
 	 * @test
 	 */
 	public function report_totals_match_summary_counts(): void {
-		$log = $this->logWithLiteralSeparators();
+		$log = new EpubcheckLog( $this->logWithLiteralSeparators() );
 
-		$report_totals = $this->reportTotals( $this->epub->formatValidationLog( $log ) );
-		$summary_totals = $this->summaryTotals( $this->getValidationSummary( $log ) );
+		$report_totals = $this->reportTotals( $log->report() );
+		$summary_totals = $this->summaryTotals( $log->summary() );
 
 		$this->assertSame( $summary_totals, $report_totals );
 		$this->assertSame( [ 3, 1, 4 ], $report_totals );
@@ -66,7 +54,7 @@ class Epub_ValidationTest extends \WP_UnitTestCase {
 	 * @test
 	 */
 	public function verbatim_message_and_location_are_preserved(): void {
-		$report = $this->epub->formatValidationLog( $this->logWithLiteralSeparators() );
+		$report = ( new EpubcheckLog( $this->logWithLiteralSeparators() ) )->report();
 
 		$this->assertStringContainsString( '[ERROR RSC-005] Line 15, Col 1045: Error while parsing file: value of attribute "target" is invalid', $report );
 		$this->assertStringContainsString( '[ERROR RSC-005] Line 19, Col 314773:', $report );
@@ -79,7 +67,7 @@ class Epub_ValidationTest extends \WP_UnitTestCase {
 	 * @test
 	 */
 	public function errors_in_non_xhtml_files_are_reported(): void {
-		$report = $this->epub->formatValidationLog( $this->logWithLiteralSeparators() );
+		$report = ( new EpubcheckLog( $this->logWithLiteralSeparators() ) )->report();
 
 		$this->assertStringContainsString( 'content.opf', $report );
 		$this->assertStringContainsString( '[ERROR OPF-014] Line 2, Col 92:', $report );
@@ -91,11 +79,11 @@ class Epub_ValidationTest extends \WP_UnitTestCase {
 	 * @test
 	 */
 	public function literal_and_real_newline_logs_format_identically(): void {
-		$literal = $this->epub->formatValidationLog( $this->logWithLiteralSeparators() );
-		$real = $this->epub->formatValidationLog( $this->logWithRealNewlines() );
+		$literal = new EpubcheckLog( $this->logWithLiteralSeparators() );
+		$real = new EpubcheckLog( $this->logWithRealNewlines() );
 
-		$this->assertSame( $literal, $real );
-		$this->assertSame( $this->getValidationSummary( $this->logWithLiteralSeparators() ), $this->getValidationSummary( $this->logWithRealNewlines() ) );
+		$this->assertSame( $literal->report(), $real->report() );
+		$this->assertSame( $literal->summary(), $real->summary() );
 	}
 
 	/**
@@ -103,9 +91,9 @@ class Epub_ValidationTest extends \WP_UnitTestCase {
 	 * @test
 	 */
 	public function unknown_codes_and_messages_are_not_dropped(): void {
-		$log = 'EPUB Validation Warnings/Errors:\nERROR(MED-001): ./book.epub/EPUB/chapter-001.xhtml(7,42): some future epubcheck message\nWARNING(ABC-999): package-level warning without a file';
+		$log = new EpubcheckLog( 'EPUB Validation Warnings/Errors:\nERROR(MED-001): ./book.epub/EPUB/chapter-001.xhtml(7,42): some future epubcheck message\nWARNING(ABC-999): package-level warning without a file' );
 
-		$report = $this->epub->formatValidationLog( $log );
+		$report = $log->report();
 
 		$this->assertSame( [ 1, 1, 2 ], $this->reportTotals( $report ) );
 		$this->assertStringContainsString( '[ERROR MED-001] Line 7, Col 42: some future epubcheck message', $report );
@@ -118,10 +106,10 @@ class Epub_ValidationTest extends \WP_UnitTestCase {
 	 * @test
 	 */
 	public function noise_lines_do_not_inflate_counts(): void {
-		$log = "Validating using EPUB version 3.3 rules.\nCheck finished with errors\nMessages: 0 fatals / 2 errors / 0 warnings / 0 infos";
+		$log = new EpubcheckLog( "Validating using EPUB version 3.3 rules.\nCheck finished with errors\nMessages: 0 fatals / 2 errors / 0 warnings / 0 infos" );
 
-		$this->assertSame( [ 0, 0, 0 ], $this->reportTotals( $this->epub->formatValidationLog( $log ) ) );
-		$this->assertSame( 'Errors: 0, Warnings: 0, Files affected: 0', $this->getValidationSummary( $log ) );
+		$this->assertSame( [ 0, 0, 0 ], $this->reportTotals( $log->report() ) );
+		$this->assertSame( 'Errors: 0, Warnings: 0, Files affected: 0', $log->summary() );
 	}
 
 	/**
@@ -129,8 +117,10 @@ class Epub_ValidationTest extends \WP_UnitTestCase {
 	 * @test
 	 */
 	public function empty_log_reports_zero_totals(): void {
-		$this->assertSame( [ 0, 0, 0 ], $this->reportTotals( $this->epub->formatValidationLog( '' ) ) );
-		$this->assertSame( 'Errors: 0, Warnings: 0, Files affected: 0', $this->getValidationSummary( '' ) );
+		$log = new EpubcheckLog( '' );
+
+		$this->assertSame( [ 0, 0, 0 ], $this->reportTotals( $log->report() ) );
+		$this->assertSame( 'Errors: 0, Warnings: 0, Files affected: 0', $log->summary() );
 	}
 
 	/**
@@ -138,11 +128,21 @@ class Epub_ValidationTest extends \WP_UnitTestCase {
 	 * @test
 	 */
 	public function info_only_entries_are_not_counted_as_issues(): void {
-		$log = 'INFO(INF-001): ./book.epub/EPUB/chapter-001.xhtml(1,1): informational message';
+		$log = new EpubcheckLog( 'INFO(INF-001): ./book.epub/EPUB/chapter-001.xhtml(1,1): informational message' );
 
-		$report = $this->epub->formatValidationLog( $log );
+		$report = $log->report();
 
 		$this->assertSame( [ 0, 0, 0 ], $this->reportTotals( $report ) );
 		$this->assertStringNotContainsString( 'INFO', $report );
+	}
+
+	/**
+	 * @group export
+	 * @test
+	 */
+	public function epub_export_delegates_report_formatting(): void {
+		$log = $this->logWithLiteralSeparators();
+
+		$this->assertSame( ( new EpubcheckLog( $log ) )->report(), ( new Epub( [] ) )->formatValidationLog( $log ) );
 	}
 }

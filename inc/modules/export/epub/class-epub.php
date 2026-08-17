@@ -2957,132 +2957,13 @@ class Epub extends Export {
 	}
 
 	/**
-	 * Parse an epubcheck validation log into a structured, lossless form.
-	 *
-	 * Handles both literal "\n" separators (as produced by validate()) and real
-	 * newlines. Every FATAL/ERROR/WARNING/INFO/USAGE line is captured with its
-	 * severity, code, file, line, column and verbatim message; lines without a
-	 * recognizable file are grouped under '(package)' so nothing is dropped.
-	 *
-	 * @param string $validation_log Raw validation log string
-	 * @return array{files: array<string, array<int, array{severity: string, code: string, line: int, column: int, message: string}>>, errors: int, warnings: int, files_affected: int}
-	 */
-	protected function parseValidationLog( string $validation_log ): array {
-		$lines = explode( "\n", str_replace( '\n', "\n", $validation_log ) );
-
-		$files = [];
-		$errors = 0;
-		$warnings = 0;
-
-		foreach ( $lines as $line ) {
-			$line = trim( $line );
-			if ( ! preg_match( '/^(FATAL|ERROR|WARNING|INFO|USAGE)\(([A-Z]{3}-\d{3}\w?)\):\s*(.*)$/', $line, $matches ) ) {
-				continue;
-			}
-
-			$severity = $matches[1];
-			$code = $matches[2];
-			$file = '(package)';
-			$line_number = 0;
-			$column = 0;
-			$message = $matches[3];
-
-			if ( preg_match( '/\/([^\/()]+)\((\d+),(\d+)\):\s*(.*)$/', $message, $detail ) ) {
-				$file = $detail[1];
-				$line_number = (int) $detail[2];
-				$column = (int) $detail[3];
-				$message = $detail[4];
-			}
-
-			$files[ $file ][] = [
-				'severity' => $severity,
-				'code' => $code,
-				'line' => $line_number,
-				'column' => $column,
-				'message' => $message,
-			];
-
-			if ( $severity === 'FATAL' || $severity === 'ERROR' ) {
-				++$errors;
-			} elseif ( $severity === 'WARNING' ) {
-				++$warnings;
-			}
-		}
-
-		$files_affected = 0;
-		foreach ( $files as $issues ) {
-			foreach ( $issues as $issue ) {
-				if ( in_array( $issue['severity'], [ 'FATAL', 'ERROR', 'WARNING' ], true ) ) {
-					++$files_affected;
-					break;
-				}
-			}
-		}
-
-		return [
-			'files' => $files,
-			'errors' => $errors,
-			'warnings' => $warnings,
-			'files_affected' => $files_affected,
-		];
-	}
-
-	/**
 	 * Format EPUB validation log into readable sections
 	 *
 	 * @param string $validation_log Raw validation log string
 	 * @return string Formatted log with proper line breaks and grouping
 	 */
 	public function formatValidationLog( string $validation_log ): string {
-		$parsed = $this->parseValidationLog( $validation_log );
-
-		/* translators: "EPUB" is a file format name and should not be translated */
-		$formatted_output = __( 'EPUB VALIDATION REPORT', 'pressbooks' ) . "\n";
-		$formatted_output .= str_repeat( '=', 50 ) . "\n\n";
-
-		foreach ( $parsed['files'] as $file => $issues ) {
-			$file_error_count = 0;
-			$file_warning_count = 0;
-			foreach ( $issues as $issue ) {
-				if ( $issue['severity'] === 'FATAL' || $issue['severity'] === 'ERROR' ) {
-					++$file_error_count;
-				} elseif ( $issue['severity'] === 'WARNING' ) {
-					++$file_warning_count;
-				}
-			}
-
-			if ( $file_error_count + $file_warning_count === 0 ) {
-				continue;
-			}
-
-			$formatted_output .= sprintf( __( 'FILE: %s', 'pressbooks' ), $file ) . "\n";
-			/* translators: 1: number of errors, 2: number of warnings */
-			$formatted_output .= sprintf( __( 'Errors: %1$s | Warnings: %2$s', 'pressbooks' ), $file_error_count, $file_warning_count ) . "\n";
-			$formatted_output .= str_repeat( '-', 40 ) . "\n";
-
-			foreach ( $issues as $issue ) {
-				if ( $issue['line'] > 0 ) {
-					/* translators: 1: line number, 2: column number */
-					$location = ' ' . sprintf( __( 'Line %1$s, Col %2$s', 'pressbooks' ), $issue['line'], $issue['column'] ) . ':';
-				} else {
-					$location = '';
-				}
-				$formatted_output .= "  [{$issue['severity']} {$issue['code']}]{$location} {$issue['message']}\n";
-			}
-
-			$formatted_output .= "\n";
-		}
-
-		$formatted_output .= str_repeat( '=', 50 ) . "\n";
-		$formatted_output .= __( 'SUMMARY', 'pressbooks' ) . "\n";
-		/* translators: %s: number of errors */
-		$formatted_output .= sprintf( __( 'Total Errors: %s', 'pressbooks' ), $parsed['errors'] ) . "\n";
-		/* translators: %s: number of warnings */
-		$formatted_output .= sprintf( __( 'Total Warnings: %s', 'pressbooks' ), $parsed['warnings'] ) . "\n";
-		/* translators: %s: number of files affected */
-		$formatted_output .= sprintf( __( 'Files Affected: %s', 'pressbooks' ), $parsed['files_affected'] ) . "\n";
-
-		return $formatted_output;
+		return ( new EpubcheckLog( $validation_log ) )->report();
 	}
 
 	protected function updateCssFile(): void {
@@ -3108,10 +2989,7 @@ class Epub extends Export {
 	 * @return string
 	 */
 	private function getValidationSummary( string $validation_log ): string {
-		$parsed = $this->parseValidationLog( $validation_log );
-
-		/* translators: 1: number of errors, 2: number of warnings, 3: number of files affected */
-		return sprintf( __( 'Errors: %1$s, Warnings: %2$s, Files affected: %3$s', 'pressbooks' ), $parsed['errors'], $parsed['warnings'], $parsed['files_affected'] );
+		return ( new EpubcheckLog( $validation_log ) )->summary();
 	}
 
 	/**
