@@ -140,9 +140,18 @@ class Epub_ValidationTest extends \WP_UnitTestCase {
 	 * @group export
 	 * @test
 	 */
-	public function epub_export_delegates_report_formatting(): void {
-		$log = $this->logWithLiteralSeparators();
+	public function log_error_attaches_report_and_summary(): void {
+		$temp = tempnam( sys_get_temp_dir(), 'pb-log' );
+		$previous = ini_set( 'error_log', $temp );
 
-		$this->assertSame( ( new EpubcheckLog( $log ) )->report(), ( new Epub( [] ) )->formatValidationLog( $log ) );
+		( new Epub( [] ) )->logError( $this->logWithLiteralSeparators() );
+
+		ini_set( 'error_log', $previous );
+		$logged = file_get_contents( $temp );
+		unlink( $temp );
+
+		$this->assertStringContainsString( 'EPUB VALIDATION REPORT', $logged );
+		$this->assertStringContainsString( '[ERROR RSC-005] Line 15, Col 1045:', $logged );
+		$this->assertStringContainsString( 'Errors: 3, Warnings: 1, Files affected: 4', $logged );
 	}
 }

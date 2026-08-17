@@ -2956,16 +2956,6 @@ class Epub extends Export {
 		return $dom;
 	}
 
-	/**
-	 * Format EPUB validation log into readable sections
-	 *
-	 * @param string $validation_log Raw validation log string
-	 * @return string Formatted log with proper line breaks and grouping
-	 */
-	public function formatValidationLog( string $validation_log ): string {
-		return ( new EpubcheckLog( $validation_log ) )->report();
-	}
-
 	protected function updateCssFile(): void {
 		$directory = $this->epubDir;
 		$filename = $this->stylesheet;
