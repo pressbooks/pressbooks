@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-12T21:00:05+00:00\n"
+"POT-Creation-Date: 2026-08-18T22:17:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -3248,6 +3248,58 @@ msgstr ""
 #: inc/modules/export/epub/class-epub.php:1968
 #: inc/modules/export/xhtml/class-xhtml11.php:1537
 msgid "Contents"
+msgstr ""
+
+#: inc/modules/export/epub/class-epub.php:2988
+msgid "EPUB validation completed with issues. See the validation report above."
+msgstr ""
+
+#. translators: "EPUB" is a file format name and should not be translated
+#: inc/modules/export/epub/class-epubchecklog.php:50
+msgid "EPUB VALIDATION REPORT"
+msgstr ""
+
+#: inc/modules/export/epub/class-epubchecklog.php:68
+#, php-format
+msgid "Errors: %1$s, Warnings: %2$s, Files affected: %3$s"
+msgstr ""
+
+#: inc/modules/export/epub/class-epubchecklog.php:126
+#, php-format
+msgid "FILE: %s"
+msgstr ""
+
+#: inc/modules/export/epub/class-epubchecklog.php:129
+#, php-format
+msgid "Errors: %1$s | Warnings: %2$s"
+msgstr ""
+
+#. translators: 1: line number, 2: column number
+#: inc/modules/export/epub/class-epubchecklog.php:143
+#, php-format
+msgid "Line %1$s, Col %2$s"
+msgstr ""
+
+#: inc/modules/export/epub/class-epubchecklog.php:151
+msgid "SUMMARY"
+msgstr ""
+
+#. translators: %s: number of errors
+#: inc/modules/export/epub/class-epubchecklog.php:153
+#, php-format
+msgid "Total Errors: %s"
+msgstr ""
+
+#. translators: %s: number of warnings
+#: inc/modules/export/epub/class-epubchecklog.php:155
+#, php-format
+msgid "Total Warnings: %s"
+msgstr ""
+
+#. translators: %s: number of files affected
+#: inc/modules/export/epub/class-epubchecklog.php:157
+#, php-format
+msgid "Files Affected: %s"
 msgstr ""
 
 #: inc/modules/export/namespace.php:77
