@@ -104,9 +104,21 @@ jQuery( function ( $ ) {
 		info.html( PB_ImportToken.ajaxSubmitMsg );
 
 		// Save the WP options and WP Media before triggering the generator
+		// Open the EventSource only after the POST has saved the transient.
 		// @see https://github.com/jquery-form/form
 		$( this ).ajaxSubmit( {
-			done: eventSourceHandler(),
+			success: eventSourceHandler,
+			/**
+			 *
+			 */
+			error: function () {
+				bar.val( 0 ).hide();
+				button.attr( 'disabled', false ).show();
+				info.html( 'EventStream Connection Error ' + PB_ImportToken.reloadSnippet );
+				if ( clock ) {
+					resetClock( clock );
+				}
+			},
 			timeout: 0, // A value of 0 means there will be no timeout.
 		} );
 
