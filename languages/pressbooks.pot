@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-19T07:18:47+00:00\n"
+"POT-Creation-Date: 2026-08-19T19:01:57+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -3310,11 +3310,11 @@ msgstr ""
 
 #: inc/modules/export/namespace.php:78
 #: inc/modules/themeoptions/class-globaloptions.php:455
-#: inc/utility/namespace.php:1372
 #: inc/utility/namespace.php:1377
-#: inc/utility/namespace.php:1411
-#: inc/utility/namespace.php:1421
-#: inc/utility/namespace.php:1427
+#: inc/utility/namespace.php:1382
+#: inc/utility/namespace.php:1416
+#: inc/utility/namespace.php:1426
+#: inc/utility/namespace.php:1432
 #: templates/admin/covergenerator.php:53
 msgid "and"
 msgstr ""
@@ -5129,17 +5129,17 @@ msgstr ""
 msgid " (%1$d of %2$d)"
 msgstr ""
 
-#: inc/utility/namespace.php:631
-#: inc/utility/namespace.php:642
-#: inc/utility/namespace.php:658
+#: inc/utility/namespace.php:636
+#: inc/utility/namespace.php:647
+#: inc/utility/namespace.php:663
 msgid "An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration."
 msgstr ""
 
-#: inc/utility/namespace.php:631
+#: inc/utility/namespace.php:636
 msgid "(Pressbooks could not establish a secure connection to the plugin recommendations server. Please contact your server administrator.)"
 msgstr ""
 
-#: inc/utility/namespace.php:682
+#: inc/utility/namespace.php:687
 msgid "These plugins have been created and/or recommended by the Pressbooks community."
 msgstr ""
 
