@@ -278,7 +278,7 @@ function handle_book_indexing( array $robots ) {
 function add_disallow_rules_to_robots_txt( $output, $public ) {
 	$rules = [ '/feed/', '/comments/feed/' ];
 
-	if ( ( $_SERVER["WP_ENV"] == 'development' ) or ( $_SERVER["WP_ENV"] == 'staging' ) ) {
+	if ( defined( 'WP_ENV' ) && in_array( constant( 'WP_ENV' ), [ 'development', 'staging' ], true ) ) {
 
                 $output .= "Disallow: /\n";
                 return $output;
