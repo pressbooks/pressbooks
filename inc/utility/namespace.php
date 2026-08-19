@@ -278,6 +278,11 @@ function handle_book_indexing( array $robots ) {
 function add_disallow_rules_to_robots_txt( $output, $public ) {
 	$rules = [ '/feed/', '/comments/feed/' ];
 
+	if ( defined( 'WP_ENV' ) && in_array( constant( 'WP_ENV' ), [ 'development', 'staging' ], true ) ) {
+		$output .= "Disallow: /\n";
+		return $output;
+	}
+
 	if ( is_main_site() ) {
 		$rules = array_merge( $rules, [ '/wp-signup.php', '/wp-activate.php', '/xmlrpc.php', '/wp-json/oembed/' ] );
 
