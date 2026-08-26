@@ -1,5 +1,18 @@
 # Changelog
 
+## [6.45.2](https://github.com/pressbooks/pressbooks/compare/6.45.1...6.45.2) (2026-08-19)
+
+
+### Bug Fixes
+
+* epub validation error display ([#4556](https://github.com/pressbooks/pressbooks/issues/4556)) ([5b38975](https://github.com/pressbooks/pressbooks/commit/5b38975f7bab7b719f2949ea174dee87d8cdf08c))
+* race condition showing 'No chapters were selected' on import ([#4559](https://github.com/pressbooks/pressbooks/issues/4559)) ([b5ce9b6](https://github.com/pressbooks/pressbooks/commit/b5ce9b690666a55e7a8dbde0c202c3043952652b))
+
+
+### Chores
+
+* disallow everything for development and staging environments ([#4557](https://github.com/pressbooks/pressbooks/issues/4557)) ([afed86a](https://github.com/pressbooks/pressbooks/commit/afed86a4a1119b9d111b1ae068df7656db1b3aa6))
+
 ## [6.45.1](https://github.com/pressbooks/pressbooks/compare/6.45.0...6.45.1) (2026-08-12)
 
 
