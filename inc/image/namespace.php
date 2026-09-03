@@ -584,6 +584,7 @@ function fudge_factor( $format, $fullpath, $fudge = 1.65 ) {
 	if ( memory_get_usage() + $memory_needed > (int) ini_get( 'memory_limit' ) * pow( 1024, 2 ) ) {
 		$memory_limit = (int) ini_get( 'memory_limit' ) + ceil( ( ( memory_get_usage() + $memory_needed ) - (int) ini_get( 'memory_limit' ) * pow( 1024, 2 ) ) / pow( 1024, 2 ) ) . 'M';
 		trigger_error( "Image is too big, attempting to compensate by setting memory_limit to {$memory_limit} ...", E_USER_WARNING );
+		trigger_error( "Image path: {$fullpath}", E_USER_WARNING );
 		ini_set( 'memory_limit', $memory_limit );
 	}
 }
