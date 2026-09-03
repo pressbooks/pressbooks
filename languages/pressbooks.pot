@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 6.42.0\n"
+"Project-Id-Version: Pressbooks 6.45.2\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-11T15:44:18+00:00\n"
+"POT-Creation-Date: 2026-09-03T17:40:17+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -70,8 +70,8 @@ msgid "ATTRIBUTIONS"
 msgstr ""
 
 #: inc/admin/attachments/namespace.php:46
-#: templates/admin/import.php:205
-#: templates/admin/import.php:206
+#: templates/admin/import.php:220
+#: templates/admin/import.php:221
 msgid "Source URL"
 msgstr ""
 
@@ -146,14 +146,14 @@ msgstr ""
 
 #: inc/admin/class-catalog-list-table.php:230
 #: inc/class-activation.php:237
-#: inc/modules/export/epub/class-epub.php:1251
+#: inc/modules/export/epub/class-epub.php:1248
 msgid "Cover"
 msgstr ""
 
 #: inc/admin/class-catalog-list-table.php:231
 #: inc/admin/covergenerator/namespace.php:75
-#: inc/admin/metaboxes/class-generalinformation.php:39
-#: templates/admin/import.php:90
+#: inc/admin/metaboxes/class-generalinformation.php:38
+#: templates/admin/import.php:103
 #: templates/admin/cloner/stats.blade.php:4
 msgid "Title"
 msgstr ""
@@ -189,9 +189,9 @@ msgid "Public"
 msgstr ""
 
 #: inc/admin/class-catalog-list-table.php:481
-#: inc/admin/laf/namespace.php:477
-#: inc/admin/laf/namespace.php:677
-#: inc/admin/laf/namespace.php:960
+#: inc/admin/laf/namespace.php:478
+#: inc/admin/laf/namespace.php:678
+#: inc/admin/laf/namespace.php:961
 msgid "My Catalog"
 msgstr ""
 
@@ -266,7 +266,7 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: inc/admin/class-catalog-list-table.php:601
+#: inc/admin/class-catalog-list-table.php:600
 #: inc/class-catalog.php:1143
 #: inc/class-catalog.php:1197
 #: inc/class-catalog.php:1244
@@ -274,7 +274,7 @@ msgstr ""
 msgid "You do not have permission to do that."
 msgstr ""
 
-#: inc/admin/class-catalog-list-table.php:608
+#: inc/admin/class-catalog-list-table.php:607
 msgid "The requested user does not exist."
 msgstr ""
 
@@ -325,17 +325,17 @@ msgid "This will prevent any changes to your book&rsquo;s appearance and page co
 msgstr ""
 
 #: inc/admin/class-exportoptions.php:225
-#: inc/admin/laf/namespace.php:442
+#: inc/admin/laf/namespace.php:443
 msgid "Export Settings"
 msgstr ""
 
-#: inc/admin/class-network-managers-list-table.php:81
-#: inc/admin/class-network-managers-list-table.php:85
+#: inc/admin/class-network-managers-list-table.php:80
+#: inc/admin/class-network-managers-list-table.php:84
 msgid "Restrict Access"
 msgstr ""
 
-#: inc/admin/class-network-managers-list-table.php:81
-#: inc/admin/class-network-managers-list-table.php:85
+#: inc/admin/class-network-managers-list-table.php:80
+#: inc/admin/class-network-managers-list-table.php:84
 msgid "Unrestrict Access"
 msgstr ""
 
@@ -378,7 +378,7 @@ msgid "Enter the URLs for locations where your book can be purchased below. <a h
 msgstr ""
 
 #: inc/admin/class-publishoptions.php:182
-#: inc/admin/laf/namespace.php:426
+#: inc/admin/laf/namespace.php:427
 msgid "Publish"
 msgstr ""
 
@@ -393,7 +393,7 @@ msgid "Cover Generator"
 msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:45
-#: inc/admin/laf/namespace.php:407
+#: inc/admin/laf/namespace.php:408
 msgid "Saving settings"
 msgstr ""
 
@@ -402,10 +402,10 @@ msgid "Cover generation is not done. Leaving this page, now, will cause problems
 msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:49
-#: inc/admin/laf/namespace.php:366
-#: inc/admin/laf/namespace.php:406
-#: inc/admin/laf/namespace.php:466
-#: inc/admin/laf/namespace.php:704
+#: inc/admin/laf/namespace.php:367
+#: inc/admin/laf/namespace.php:407
+#: inc/admin/laf/namespace.php:467
+#: inc/admin/laf/namespace.php:705
 msgid "Reload"
 msgstr ""
 
@@ -418,7 +418,7 @@ msgid "Title (Spine)"
 msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:97
-#: inc/admin/metaboxes/class-generalinformation.php:50
+#: inc/admin/metaboxes/class-generalinformation.php:49
 msgid "Subtitle"
 msgstr ""
 
@@ -595,11 +595,11 @@ msgid "Your image is the wrong aspect ratio. The image must have an aspect ratio
 msgstr ""
 
 #: inc/admin/dashboard/class-dashboard.php:52
-#: inc/admin/laf/namespace.php:857
-#: inc/admin/laf/namespace.php:932
-#: inc/admin/menus/class-sidebar.php:225
-#: inc/admin/menus/class-sidebar.php:226
-#: inc/admin/menus/class-topbar.php:126
+#: inc/admin/laf/namespace.php:858
+#: inc/admin/laf/namespace.php:933
+#: inc/admin/menus/class-sidebar.php:249
+#: inc/admin/menus/class-sidebar.php:250
+#: inc/admin/menus/class-topbar.php:127
 msgid "Dashboard"
 msgstr ""
 
@@ -644,14 +644,14 @@ msgid ""
 "###SITENAME###"
 msgstr ""
 
+#: inc/admin/diagnostics/namespace.php:32
 #: inc/admin/diagnostics/namespace.php:33
-#: inc/admin/diagnostics/namespace.php:34
 #: inc/admin/laf/namespace.php:109
 #: templates/admin/diagnostics.blade.php:4
 msgid "Diagnostics"
 msgstr ""
 
-#: inc/admin/diagnostics/namespace.php:200
+#: inc/admin/diagnostics/namespace.php:198
 msgid "Stylesheet regenerated."
 msgstr ""
 
@@ -812,161 +812,161 @@ msgid "Trash"
 msgstr ""
 
 #: inc/admin/laf/namespace.php:295
-#: inc/modules/import/wordpress/class-wxr.php:542
+#: inc/modules/import/wordpress/class-wxr.php:541
 #: inc/posttype/namespace.php:151
 #: templates/admin/cloner/stats.blade.php:3
 msgid "Book Info"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:309
+#: inc/admin/laf/namespace.php:310
 msgid "Choose institution(s)... "
 msgstr ""
 
-#: inc/admin/laf/namespace.php:310
+#: inc/admin/laf/namespace.php:311
 msgid "Choose a subject…"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:311
+#: inc/admin/laf/namespace.php:312
 msgid "Choose some subject(s)…"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:333
 #: inc/admin/laf/namespace.php:334
+#: inc/admin/laf/namespace.php:335
 msgid "Contributors"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:340
-#: inc/admin/laf/namespace.php:442
+#: inc/admin/laf/namespace.php:341
+#: inc/admin/laf/namespace.php:443
 #: templates/admin/export.blade.php:11
 #: templates/admin/icon.blade.php:15
 #: templates/admin/organize.blade.php:60
 msgid "Export"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:360
+#: inc/admin/laf/namespace.php:361
 msgid "Please select at least one export format."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:361
+#: inc/admin/laf/namespace.php:362
 msgid "Exporting..."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:362
+#: inc/admin/laf/namespace.php:363
 msgid "Starting export process..."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:363
+#: inc/admin/laf/namespace.php:364
 msgid "Download File"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:364
+#: inc/admin/laf/namespace.php:365
 msgid "Up to 5 files can be pinned at once."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:365
+#: inc/admin/laf/namespace.php:366
 msgid "Cannot pin more than 3 of the same file type."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:367
+#: inc/admin/laf/namespace.php:368
 msgid "Export job(s) successfully added to the queue. Progress updates will appear below until the export process is completed. In the meantime, you can safely navigate away from this page."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:368
+#: inc/admin/laf/namespace.php:369
 msgid "Are you sure you want to cancel this export job?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:369
+#: inc/admin/laf/namespace.php:370
 msgid "Failed to cancel export job."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:370
+#: inc/admin/laf/namespace.php:371
 msgid "Starting..."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:371
+#: inc/admin/laf/namespace.php:372
 #: inc/editor/namespace.php:132
-#: templates/admin/import.php:156
+#: templates/admin/import.php:169
 msgid "Cancel"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:372
+#: inc/admin/laf/namespace.php:373
 msgid "Error submitting export jobs:"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:373
+#: inc/admin/laf/namespace.php:374
 msgid "Dismiss this notice."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:374
+#: inc/admin/laf/namespace.php:375
 msgid "This export is currently running"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:375
+#: inc/admin/laf/namespace.php:376
 msgid "Completed"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:391
+#: inc/admin/laf/namespace.php:392
 #: inc/utility/class-handlestransfers.php:88
-#: templates/admin/import.php:38
-#: templates/admin/import.php:114
+#: templates/admin/import.php:39
+#: templates/admin/import.php:127
 msgid "Import"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:405
+#: inc/admin/laf/namespace.php:406
 msgid "Imports are not done. Leaving this page, now, will cause problems. Are you sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:429
-#: inc/admin/laf/namespace.php:636
-#: inc/admin/laf/namespace.php:1548
+#: inc/admin/laf/namespace.php:430
+#: inc/admin/laf/namespace.php:637
+#: inc/admin/laf/namespace.php:1559
 #: inc/admin/network/class-sharingandprivacyoptions.php:473
 msgid "Sharing and Privacy Settings"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:429
-#: inc/admin/laf/namespace.php:636
+#: inc/admin/laf/namespace.php:430
+#: inc/admin/laf/namespace.php:637
 msgid "Sharing &amp; Privacy"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:447
 #: inc/admin/laf/namespace.php:448
+#: inc/admin/laf/namespace.php:449
 msgid "QuickLaTeX"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:457
-#: inc/admin/laf/namespace.php:686
+#: inc/admin/laf/namespace.php:458
 #: inc/admin/laf/namespace.php:687
+#: inc/admin/laf/namespace.php:688
 #: templates/admin/cloner/page.blade.php:3
 msgid "Clone a Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:465
-#: inc/admin/laf/namespace.php:703
+#: inc/admin/laf/namespace.php:466
+#: inc/admin/laf/namespace.php:704
 msgid "Cloning is not done. Leaving this page, now, will cause problems. Are you sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:644
 #: inc/admin/laf/namespace.php:645
+#: inc/admin/laf/namespace.php:646
 msgid "Custom Fonts"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:716
 #: inc/admin/laf/namespace.php:717
+#: inc/admin/laf/namespace.php:718
 msgid "Cloning Stats"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:734
+#: inc/admin/laf/namespace.php:735
 #: inc/admin/metaboxes/namespace.php:184
 #: inc/api/endpoints/controller/class-toc.php:192
 #: inc/posttype/namespace.php:115
 #: inc/posttype/namespace.php:116
 #: inc/posttype/namespace.php:552
-#: templates/admin/import.php:91
+#: templates/admin/import.php:104
 #: templates/admin/organize.blade.php:52
 msgid "Front Matter"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:742
+#: inc/admin/laf/namespace.php:743
 #: inc/admin/metaboxes/namespace.php:188
 #: inc/api/endpoints/controller/class-toc.php:209
 #: inc/class-sass.php:85
@@ -974,167 +974,167 @@ msgstr ""
 #: inc/posttype/namespace.php:64
 #: inc/posttype/namespace.php:549
 #: inc/posttype/namespace.php:588
-#: templates/admin/import.php:92
+#: templates/admin/import.php:105
 msgid "Chapter"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:752
+#: inc/admin/laf/namespace.php:753
 #: inc/admin/metaboxes/namespace.php:192
 #: inc/api/endpoints/controller/class-toc.php:225
 #: inc/posttype/namespace.php:143
 #: inc/posttype/namespace.php:144
 #: inc/posttype/namespace.php:555
-#: templates/admin/import.php:96
+#: templates/admin/import.php:109
 #: templates/admin/organize.blade.php:54
 msgid "Back Matter"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:846
+#: inc/admin/laf/namespace.php:847
 msgid "Network Admin"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:865
-#: inc/admin/laf/namespace.php:1603
-#: inc/admin/laf/namespace.php:1613
-#: inc/admin/menus/class-sidebar.php:236
-#: inc/admin/menus/class-sidebar.php:237
-#: inc/admin/menus/class-topbar.php:131
+#: inc/admin/laf/namespace.php:866
+#: inc/admin/laf/namespace.php:1614
+#: inc/admin/laf/namespace.php:1624
+#: inc/admin/menus/class-sidebar.php:260
+#: inc/admin/menus/class-sidebar.php:261
+#: inc/admin/menus/class-topbar.php:132
 msgid "Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:873
-#: inc/admin/menus/class-sidebar.php:246
-#: inc/admin/menus/class-sidebar.php:247
-#: inc/admin/menus/class-topbar.php:136
+#: inc/admin/laf/namespace.php:874
+#: inc/admin/menus/class-sidebar.php:270
+#: inc/admin/menus/class-sidebar.php:271
+#: inc/admin/menus/class-topbar.php:137
 msgid "Users"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:882
+#: inc/admin/laf/namespace.php:883
 msgid "Themes"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:890
-#: inc/admin/menus/class-sidebar.php:430
-#: inc/admin/menus/class-sidebar.php:431
-#: inc/admin/menus/class-topbar.php:151
+#: inc/admin/laf/namespace.php:891
+#: inc/admin/menus/class-sidebar.php:454
+#: inc/admin/menus/class-sidebar.php:455
+#: inc/admin/menus/class-topbar.php:152
 msgid "Plugins"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:940
+#: inc/admin/laf/namespace.php:941
 msgid "Visit Website"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:950
-#: inc/admin/menus/class-topbar.php:193
+#: inc/admin/laf/namespace.php:951
+#: inc/admin/menus/class-topbar.php:194
 msgid "My Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:970
+#: inc/admin/laf/namespace.php:971
 msgid "Create A New Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:982
+#: inc/admin/laf/namespace.php:983
 msgid "Clone A Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1210
+#: inc/admin/laf/namespace.php:1211
 msgid "Are you sure you want to unlock your theme? This will update your book to the most recent version of your selected theme, which may change your book&rsquo;s appearance and page count. Once you save your settings on this page, this action will NOT be reversable!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1257
+#: inc/admin/laf/namespace.php:1269
 #: templates/admin/settings/book-visibility.blade.php:2
 msgid "Book Visibility"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1271
+#: inc/admin/laf/namespace.php:1283
 #: templates/admin/settings/book-robots.blade.php:2
 msgid "Robots"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1286
+#: inc/admin/laf/namespace.php:1298
 #: templates/admin/settings/private-content.blade.php:2
 msgid "Private Content"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1300
+#: inc/admin/laf/namespace.php:1312
 #: templates/admin/settings/disable-comments.blade.php:2
 msgid "Disable Comments"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1318
+#: inc/admin/laf/namespace.php:1330
 #: templates/admin/settings/share-latest-export-files.blade.php:2
 msgid "Share Latest Export Files"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1348
+#: inc/admin/laf/namespace.php:1359
 #: templates/admin/settings/pressbooks-directory.blade.php:2
 msgid "Pressbooks Directory"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1365
+#: inc/admin/laf/namespace.php:1376
 msgid "Sharing and Privacy settings"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1606
+#: inc/admin/laf/namespace.php:1617
 msgid "All Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1616
+#: inc/admin/laf/namespace.php:1627
 msgid "Search Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1619
+#: inc/admin/laf/namespace.php:1630
 #, php-format
 msgid "You are about to deactivate the site %s."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1622
+#: inc/admin/laf/namespace.php:1633
 #, php-format
 msgid "You are about to activate the site %s."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1625
+#: inc/admin/laf/namespace.php:1636
 msgid "Deactivating a site makes it unavailable to its users and visitors. This is a reversible action."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1628
+#: inc/admin/laf/namespace.php:1639
 msgid "Site deactivated."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1631
+#: inc/admin/laf/namespace.php:1642
 msgid "Site activated."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1634
+#: inc/admin/laf/namespace.php:1645
 msgid "Deactivate"
 msgstr ""
 
 #. translators: %s: Number of books.
-#: inc/admin/laf/namespace.php:1637
-#: inc/admin/laf/namespace.php:1652
-#: inc/admin/laf/namespace.php:1732
+#: inc/admin/laf/namespace.php:1648
+#: inc/admin/laf/namespace.php:1663
+#: inc/admin/laf/namespace.php:1743
 msgid "Deactivated"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1640
+#: inc/admin/laf/namespace.php:1651
 msgid "Deactivate, Archive, and Spam which lead to confirmation screens. These actions can be reversed later."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1646
+#: inc/admin/laf/namespace.php:1657
 #, php-format
 msgid "Edit Book: %s"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1649
-#: inc/admin/laf/namespace.php:1661
+#: inc/admin/laf/namespace.php:1660
+#: inc/admin/laf/namespace.php:1672
 msgid "Book Address (URL)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1658
+#: inc/admin/laf/namespace.php:1669
 msgid "Add New Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1664
+#: inc/admin/laf/namespace.php:1675
 #: inc/modules/themeoptions/class-pdfoptions.php:409
 #: inc/modules/themeoptions/class-pdfoptions.php:429
 #: inc/modules/themeoptions/class-pdfoptions.php:449
@@ -1148,232 +1148,234 @@ msgstr ""
 msgid "Book Title"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1667
+#: inc/admin/laf/namespace.php:1678
 msgid "Book Language"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1670
+#: inc/admin/laf/namespace.php:1681
 msgid "Add Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1701
+#: inc/admin/laf/namespace.php:1712
 msgid "Activate"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1747
+#: inc/admin/laf/namespace.php:1758
 msgid "Edit previous or next item"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1752
+#: inc/admin/laf/namespace.php:1763
 #, php-format
 msgid "Edit Previous (%s)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1757
+#: inc/admin/laf/namespace.php:1768
 #, php-format
 msgid "Edit Next (%s)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1772
+#: inc/admin/laf/namespace.php:1783
 msgid "X/Twitter URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1773
+#: inc/admin/laf/namespace.php:1784
 msgid "LinkedIn URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1774
+#: inc/admin/laf/namespace.php:1785
 msgid "GitHub URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1827
+#: inc/admin/laf/namespace.php:1838
 #: inc/class-contributors.php:476
 msgid "Institution"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1829
+#: inc/admin/laf/namespace.php:1840
 msgid "Your institutional affiliation, e.g. Rebus Foundation, Open University, Amnesty International."
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:95
-#: inc/admin/menus/class-sidebar.php:113
+#: inc/admin/menus/class-sidebar.php:99
+#: inc/admin/menus/class-sidebar.php:109
+#: inc/admin/menus/class-sidebar.php:119
+#: inc/admin/menus/class-sidebar.php:137
 msgid "Sorry, you are not allowed to access this page."
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:256
-#: inc/admin/menus/class-sidebar.php:257
-#: inc/admin/menus/class-topbar.php:141
+#: inc/admin/menus/class-sidebar.php:280
+#: inc/admin/menus/class-sidebar.php:281
+#: inc/admin/menus/class-topbar.php:142
 msgid "Appearance"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:266
-#: inc/admin/menus/class-sidebar.php:267
-#: inc/admin/menus/class-topbar.php:146
+#: inc/admin/menus/class-sidebar.php:290
+#: inc/admin/menus/class-sidebar.php:291
+#: inc/admin/menus/class-topbar.php:147
 msgid "Pages"
-msgstr ""
-
-#: inc/admin/menus/class-sidebar.php:277
-#: inc/admin/menus/class-sidebar.php:278
-#: inc/admin/menus/class-sidebar.php:463
-#: inc/admin/menus/class-sidebar.php:464
-#: inc/admin/menus/class-topbar.php:156
-msgid "Settings"
-msgstr ""
-
-#: inc/admin/menus/class-sidebar.php:288
-#: inc/admin/menus/class-sidebar.php:289
-#: inc/admin/menus/class-sidebar.php:531
-#: inc/admin/menus/class-sidebar.php:532
-msgid "Network Options"
 msgstr ""
 
 #: inc/admin/menus/class-sidebar.php:301
 #: inc/admin/menus/class-sidebar.php:302
-#: inc/admin/menus/class-sidebar.php:331
-#: inc/admin/menus/class-sidebar.php:332
-#: inc/admin/menus/class-sidebar.php:610
-#: inc/admin/menus/class-sidebar.php:611
-#: inc/admin/menus/class-topbar.php:161
+#: inc/admin/menus/class-sidebar.php:487
+#: inc/admin/menus/class-sidebar.php:488
+#: inc/admin/menus/class-topbar.php:157
+msgid "Settings"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:312
+#: inc/admin/menus/class-sidebar.php:313
+#: inc/admin/menus/class-sidebar.php:555
+#: inc/admin/menus/class-sidebar.php:556
+msgid "Network Options"
+msgstr ""
+
+#: inc/admin/menus/class-sidebar.php:325
+#: inc/admin/menus/class-sidebar.php:326
+#: inc/admin/menus/class-sidebar.php:355
+#: inc/admin/menus/class-sidebar.php:356
+#: inc/admin/menus/class-sidebar.php:634
+#: inc/admin/menus/class-sidebar.php:635
+#: inc/admin/menus/class-topbar.php:162
 msgid "Stats"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:313
-#: inc/admin/menus/class-sidebar.php:314
+#: inc/admin/menus/class-sidebar.php:337
+#: inc/admin/menus/class-sidebar.php:338
 msgid "Network Stats"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:322
-#: inc/admin/menus/class-sidebar.php:323
-#: inc/admin/menus/class-sidebar.php:341
-#: inc/admin/menus/class-sidebar.php:342
+#: inc/admin/menus/class-sidebar.php:346
+#: inc/admin/menus/class-sidebar.php:347
+#: inc/admin/menus/class-sidebar.php:365
+#: inc/admin/menus/class-sidebar.php:366
 msgid "Analytics"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:361
-#: inc/admin/menus/class-sidebar.php:362
+#: inc/admin/menus/class-sidebar.php:385
+#: inc/admin/menus/class-sidebar.php:386
 msgid "Upgrade Network"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:374
-#: inc/admin/menus/class-sidebar.php:375
-#: inc/admin/menus/class-sidebar.php:383
-#: inc/admin/menus/class-sidebar.php:384
+#: inc/admin/menus/class-sidebar.php:398
+#: inc/admin/menus/class-sidebar.php:399
+#: inc/admin/menus/class-sidebar.php:407
+#: inc/admin/menus/class-sidebar.php:408
 msgid "Network Users"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:394
-#: inc/admin/menus/class-sidebar.php:395
+#: inc/admin/menus/class-sidebar.php:418
+#: inc/admin/menus/class-sidebar.php:419
 msgid "Root Site Users"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:403
-#: inc/admin/menus/class-sidebar.php:404
+#: inc/admin/menus/class-sidebar.php:427
+#: inc/admin/menus/class-sidebar.php:428
 msgid "Customize Home Page"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:411
-#: inc/admin/menus/class-sidebar.php:412
+#: inc/admin/menus/class-sidebar.php:435
+#: inc/admin/menus/class-sidebar.php:436
 msgid "Activate Book Themes"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:419
-#: inc/admin/menus/class-sidebar.php:420
+#: inc/admin/menus/class-sidebar.php:443
+#: inc/admin/menus/class-sidebar.php:444
 msgid "Change Root Site Theme"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:442
-#: inc/admin/menus/class-sidebar.php:443
+#: inc/admin/menus/class-sidebar.php:466
+#: inc/admin/menus/class-sidebar.php:467
 msgid "Network Plugins"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:454
-#: inc/admin/menus/class-sidebar.php:455
+#: inc/admin/menus/class-sidebar.php:478
+#: inc/admin/menus/class-sidebar.php:479
 msgid "Root Site Plugins"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:476
-#: inc/admin/menus/class-sidebar.php:477
+#: inc/admin/menus/class-sidebar.php:500
+#: inc/admin/menus/class-sidebar.php:501
 msgid "Network Settings"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:484
-#: inc/admin/menus/class-sidebar.php:485
+#: inc/admin/menus/class-sidebar.php:508
+#: inc/admin/menus/class-sidebar.php:509
 msgid "Network Setup"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:492
-#: inc/admin/menus/class-sidebar.php:493
+#: inc/admin/menus/class-sidebar.php:516
+#: inc/admin/menus/class-sidebar.php:517
 #: inc/admin/networkmanagers/namespace.php:18
 #: inc/admin/networkmanagers/namespace.php:19
 msgid "Network Managers"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:501
-#: inc/admin/menus/class-sidebar.php:502
+#: inc/admin/menus/class-sidebar.php:525
+#: inc/admin/menus/class-sidebar.php:526
 msgid "Whitelabel Settings"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:511
-#: inc/admin/menus/class-sidebar.php:512
+#: inc/admin/menus/class-sidebar.php:535
+#: inc/admin/menus/class-sidebar.php:536
 msgid "Object Cache"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:520
-#: inc/admin/menus/class-sidebar.php:521
+#: inc/admin/menus/class-sidebar.php:544
+#: inc/admin/menus/class-sidebar.php:545
 #: inc/class-googleanalytics.php:69
 #: inc/class-googleanalytics.php:70
 #: inc/class-googleanalytics.php:79
 #: inc/class-googleanalytics.php:80
-#: inc/class-googleanalytics.php:217
-#: inc/class-googleanalytics.php:267
+#: inc/class-googleanalytics.php:216
+#: inc/class-googleanalytics.php:266
 msgid "Google Analytics"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:539
-#: inc/admin/menus/class-sidebar.php:540
+#: inc/admin/menus/class-sidebar.php:563
+#: inc/admin/menus/class-sidebar.php:564
 msgid "Sharing & Privacy"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:551
-#: inc/admin/menus/class-sidebar.php:552
+#: inc/admin/menus/class-sidebar.php:575
+#: inc/admin/menus/class-sidebar.php:576
 msgid "Root Site General Settings"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:564
-#: inc/admin/menus/class-sidebar.php:565
+#: inc/admin/menus/class-sidebar.php:588
+#: inc/admin/menus/class-sidebar.php:589
 msgid "Root Site Media Settings"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:577
-#: inc/admin/menus/class-sidebar.php:578
+#: inc/admin/menus/class-sidebar.php:601
+#: inc/admin/menus/class-sidebar.php:602
 msgid "Root Site Privacy Settings"
 msgstr ""
 
-#: inc/admin/menus/class-sidebar.php:589
-#: inc/admin/menus/class-sidebar.php:590
-#: inc/admin/menus/class-sidebar.php:600
-#: inc/admin/menus/class-sidebar.php:601
+#: inc/admin/menus/class-sidebar.php:613
+#: inc/admin/menus/class-sidebar.php:614
+#: inc/admin/menus/class-sidebar.php:624
+#: inc/admin/menus/class-sidebar.php:625
 msgid "PB Stats"
 msgstr ""
 
-#: inc/admin/menus/class-topbar.php:111
+#: inc/admin/menus/class-topbar.php:112
 msgid "Pressbooks logo"
 msgstr ""
 
-#: inc/admin/menus/class-topbar.php:167
+#: inc/admin/menus/class-topbar.php:168
 msgid "Administer Network"
 msgstr ""
 
-#: inc/admin/menus/class-topbar.php:265
+#: inc/admin/menus/class-topbar.php:266
 #: inc/registration/namespace.php:59
 msgid "Create Book"
 msgstr ""
 
-#: inc/admin/menus/class-topbar.php:284
+#: inc/admin/menus/class-topbar.php:285
 msgid "Clone Book"
 msgstr ""
 
-#: inc/admin/menus/class-topbar.php:298
+#: inc/admin/menus/class-topbar.php:299
 msgid "Add Users"
 msgstr ""
 
@@ -1516,9 +1518,9 @@ msgid "BISAC Regional Themes help libraries and bookstores properly classify you
 msgstr ""
 
 #: inc/admin/metaboxes/class-copyright.php:31
-#: inc/class-licensing.php:333
-#: inc/modules/export/epub/class-epub.php:1432
-#: inc/modules/export/epub/class-epub.php:1454
+#: inc/class-licensing.php:346
+#: inc/modules/export/epub/class-epub.php:1429
+#: inc/modules/export/epub/class-epub.php:1451
 #: inc/modules/export/xhtml/class-xhtml11.php:1372
 msgid "Copyright"
 msgstr ""
@@ -1564,107 +1566,107 @@ msgstr ""
 msgid "Enter a custom copyright notice, with whatever information you like. This will override the auto-generated copyright notice if All Rights Reserved or no license is selected, and will be inserted after the title page. If you select a Creative Commons license, the custom notice will appear after the license text in both the webbook and your exports."
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:32
+#: inc/admin/metaboxes/class-generalinformation.php:31
 msgid "General Book Information"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:44
+#: inc/admin/metaboxes/class-generalinformation.php:43
 msgid "Short Title"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:45
+#: inc/admin/metaboxes/class-generalinformation.php:44
 msgid "In case of long titles that might be truncated in running heads in the PDF export."
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:55
+#: inc/admin/metaboxes/class-generalinformation.php:54
 msgid "Author(s)"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:57
-#: inc/admin/metaboxes/class-generalinformation.php:64
-#: inc/admin/metaboxes/class-generalinformation.php:71
-#: inc/admin/metaboxes/class-generalinformation.php:78
-#: inc/admin/metaboxes/class-generalinformation.php:85
-#: inc/admin/metaboxes/class-generalinformation.php:92
+#: inc/admin/metaboxes/class-generalinformation.php:56
+#: inc/admin/metaboxes/class-generalinformation.php:63
+#: inc/admin/metaboxes/class-generalinformation.php:70
+#: inc/admin/metaboxes/class-generalinformation.php:77
+#: inc/admin/metaboxes/class-generalinformation.php:84
+#: inc/admin/metaboxes/class-generalinformation.php:91
 #: inc/admin/metaboxes/class-sectionmetadata.php:51
 msgid "Create New Contributor"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:62
+#: inc/admin/metaboxes/class-generalinformation.php:61
 msgid "Editor(s)"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:69
+#: inc/admin/metaboxes/class-generalinformation.php:68
 msgid "Translator(s)"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:76
+#: inc/admin/metaboxes/class-generalinformation.php:75
 msgid "Reviewer(s)"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:83
+#: inc/admin/metaboxes/class-generalinformation.php:82
 msgid "Illustrator(s)"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:90
+#: inc/admin/metaboxes/class-generalinformation.php:89
 msgid "Contributor(s)"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:97
+#: inc/admin/metaboxes/class-generalinformation.php:96
 msgid "Publisher"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:98
-#: inc/admin/metaboxes/class-generalinformation.php:104
+#: inc/admin/metaboxes/class-generalinformation.php:97
+#: inc/admin/metaboxes/class-generalinformation.php:103
 msgid "This text appears on the title page of your book."
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:103
+#: inc/admin/metaboxes/class-generalinformation.php:102
 msgid "Publisher City"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:109
+#: inc/admin/metaboxes/class-generalinformation.php:108
 msgid "Publication Date"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:110
-#: inc/admin/metaboxes/class-generalinformation.php:116
+#: inc/admin/metaboxes/class-generalinformation.php:109
+#: inc/admin/metaboxes/class-generalinformation.php:115
 msgid "This is added to the metadata in your ebook."
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:115
+#: inc/admin/metaboxes/class-generalinformation.php:114
 msgid "On-Sale Date"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:121
+#: inc/admin/metaboxes/class-generalinformation.php:120
 msgid "Ebook ISBN"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:122
+#: inc/admin/metaboxes/class-generalinformation.php:121
 msgid "ISBN is the International Standard Book Number, and you'll need one if you want to sell your book in some online ebook stores. This is added to the metadata in your ebook."
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:127
+#: inc/admin/metaboxes/class-generalinformation.php:126
 msgid "Print ISBN"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:128
+#: inc/admin/metaboxes/class-generalinformation.php:127
 msgid "ISBN is the International Standard Book Number, and you'll need one if you want to sell your book in online and physical book stores."
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:133
+#: inc/admin/metaboxes/class-generalinformation.php:132
 msgid "Digital Object Identifier (DOI)"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:138
+#: inc/admin/metaboxes/class-generalinformation.php:137
 msgid "Language"
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:139
+#: inc/admin/metaboxes/class-generalinformation.php:138
 msgid "This sets metadata in your ebook, making it easier to find in some stores. It also changes some system generated content for supported languages, such as the \"Contents\" header."
 msgstr ""
 
-#: inc/admin/metaboxes/class-generalinformation.php:139
+#: inc/admin/metaboxes/class-generalinformation.php:138
 msgid "Help translate Pressbooks into your language!"
 msgstr ""
 
@@ -1773,7 +1775,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:133
 #: inc/admin/metaboxes/namespace.php:172
-#: inc/class-metadata.php:437
+#: inc/class-metadata.php:436
 msgid "Cover Image"
 msgstr ""
 
@@ -1781,12 +1783,12 @@ msgstr ""
 #: inc/admin/metaboxes/namespace.php:278
 #: inc/api/endpoints/controller/class-toc.php:202
 #: inc/class-sass.php:96
-#: inc/modules/export/epub/class-epub.php:1941
+#: inc/modules/export/epub/class-epub.php:1937
 #: inc/modules/themeoptions/class-globaloptions.php:605
 #: inc/posttype/namespace.php:87
 #: inc/posttype/namespace.php:546
 #: inc/posttype/namespace.php:584
-#: templates/admin/import.php:94
+#: templates/admin/import.php:107
 msgid "Part"
 msgstr ""
 
@@ -1940,26 +1942,27 @@ msgid "Sharing and Privacy settings."
 msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:188
-#: inc/class-googleanalytics.php:222
+#: inc/class-googleanalytics.php:221
 msgid "Security check"
 msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:202
-#: inc/class-googleanalytics.php:230
+#: inc/class-googleanalytics.php:229
+#: inc/modules/import/googledocs/class-settingspage.php:98
 msgid "Settings saved."
 msgstr ""
 
-#: inc/admin/networkmanagers/namespace.php:117
+#: inc/admin/networkmanagers/namespace.php:116
 #: inc/class-eventstreams.php:429
 #: templates/admin/custom-styles.php:8
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: inc/admin/networkmanagers/namespace.php:125
+#: inc/admin/networkmanagers/namespace.php:124
 msgid "Pressbooks Network Managers"
 msgstr ""
 
-#: inc/admin/networkmanagers/namespace.php:127
+#: inc/admin/networkmanagers/namespace.php:126
 msgid "Network administrators&rsquo; access to network administration menus can be restricted to leave only sites and users visible to them."
 msgstr ""
 
@@ -2143,7 +2146,7 @@ msgstr ""
 #: inc/posttype/namespace.php:165
 #: inc/posttype/namespace.php:166
 #: inc/posttype/namespace.php:543
-#: templates/admin/import.php:118
+#: templates/admin/import.php:131
 msgid "Book Information"
 msgstr ""
 
@@ -2151,7 +2154,7 @@ msgstr ""
 msgid "Default Data"
 msgstr ""
 
-#: inc/class-catalog.php:803
+#: inc/class-catalog.php:804
 msgid "Catalog Logo"
 msgstr ""
 
@@ -2482,7 +2485,7 @@ msgstr ""
 msgid "Urdu"
 msgstr ""
 
-#: inc/class-globaltypography.php:504
+#: inc/class-globaltypography.php:503
 #, php-format
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr ""
@@ -2492,7 +2495,7 @@ msgid "Google Analytics ID"
 msgstr ""
 
 #: inc/class-googleanalytics.php:28
-msgid "The Google Analytics ID for your network, e.g &lsquo;G-A123B4C5DE6&rsquo;."
+msgid "To send page traffic to Google Analytics (optional), provide your Google Analytics ID, e.g G-A123B4C5DE6."
 msgstr ""
 
 #: inc/class-googleanalytics.php:118
@@ -2503,7 +2506,7 @@ msgstr ""
 msgid "If enabled, the Google Analytics settings page will be visible to book administrators, allowing them to use their own Google Analytics accounts to track statistics at the book level."
 msgstr ""
 
-#: inc/class-googleanalytics.php:197
+#: inc/class-googleanalytics.php:196
 msgid "Google Analytics settings."
 msgstr ""
 
@@ -2564,7 +2567,7 @@ msgid "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 Internationa
 msgstr ""
 
 #: inc/class-licensing.php:139
-#: inc/class-licensing.php:338
+#: inc/class-licensing.php:351
 msgid "All Rights Reserved"
 msgstr ""
 
@@ -2572,42 +2575,42 @@ msgstr ""
 msgid "$title is deprecated. Method will automatically determine title from licenses"
 msgstr ""
 
-#: inc/class-licensing.php:335
-#: inc/class-styles.php:900
-#: inc/modules/export/epub/class-epub.php:1441
+#: inc/class-licensing.php:348
+#: inc/class-styles.php:899
+#: inc/modules/export/epub/class-epub.php:1438
 #: inc/modules/export/xhtml/class-xhtml11.php:1381
 #: templates/export/epub/opf.blade.php:100
 msgid "by"
 msgstr ""
 
-#: inc/class-licensing.php:394
+#: inc/class-licensing.php:407
 msgid "except where otherwise noted."
 msgstr ""
 
-#: inc/class-licensing.php:421
-#: inc/class-licensing.php:446
+#: inc/class-licensing.php:434
+#: inc/class-licensing.php:459
 #, php-format
 msgid "%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved."
 msgstr ""
 
-#: inc/class-licensing.php:433
+#: inc/class-licensing.php:446
 #, php-format
 msgid "Icon for the %s"
 msgstr ""
 
-#: inc/class-licensing.php:435
-#: inc/class-licensing.php:482
+#: inc/class-licensing.php:448
+#: inc/class-licensing.php:495
 #, php-format
 msgid "%1$s Copyright &copy;%2$s by %3$s is licensed under a %4$s, except where otherwise noted."
 msgstr ""
 
-#: inc/class-licensing.php:455
-#: inc/class-licensing.php:465
+#: inc/class-licensing.php:468
+#: inc/class-licensing.php:478
 #, php-format
 msgid "Icon for the %s license"
 msgstr ""
 
-#: inc/class-licensing.php:457
+#: inc/class-licensing.php:470
 #, php-format
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
 msgstr ""
@@ -2622,7 +2625,7 @@ msgstr ""
 msgid "<code>PB_MATHJAX_URL</code> is not configured."
 msgstr ""
 
-#: inc/class-sass.php:204
+#: inc/class-sass.php:203
 #, php-format
 msgid "There was a problem with SASS. Contact your site administrator. Error: %1$s %2$s"
 msgstr ""
@@ -2644,37 +2647,37 @@ msgstr ""
 msgid "Custom Style for Web"
 msgstr ""
 
-#: inc/class-styles.php:778
+#: inc/class-styles.php:777
 msgid "Theme default"
 msgstr ""
 
-#: inc/class-styles.php:779
-#: inc/class-styles.php:793
+#: inc/class-styles.php:778
+#: inc/class-styles.php:792
 #: templates/admin/custom-fonts.blade.php:64
 #: templates/admin/custom-fonts.blade.php:65
 msgid "Serif"
 msgstr ""
 
-#: inc/class-styles.php:780
+#: inc/class-styles.php:779
 msgid "Sans serif"
 msgstr ""
 
-#: inc/class-styles.php:820
+#: inc/class-styles.php:819
 #, php-format
 msgid "Unknown slug: %s"
 msgstr ""
 
-#: inc/class-styles.php:825
+#: inc/class-styles.php:824
 #, php-format
 msgid "Unexpected Error: There was a problem trying to query slug: %s - Please contact technical support."
 msgstr ""
 
-#: inc/class-styles.php:865
+#: inc/class-styles.php:864
 #: templates/admin/custom-styles.php:20
 msgid "Web"
 msgstr ""
 
-#: inc/class-styles.php:897
+#: inc/class-styles.php:896
 msgid "Last 10 Revisions"
 msgstr ""
 
@@ -2718,7 +2721,7 @@ msgstr ""
 
 #: inc/cloner/class-cloner.php:556
 #: inc/covergenerator/class-generator.php:299
-#: inc/modules/import/class-import.php:373
+#: inc/modules/import/class-import.php:385
 msgid "Finishing up"
 msgstr ""
 
@@ -2751,50 +2754,50 @@ msgstr ""
 msgid "Could not retrieve media from %s."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:787
+#: inc/cloner/class-cloner.php:789
 msgid "The source book contained H5P content that could not be cloned. Please review the cloned version of your book carefully, as missing H5P content will be indicated. You may want to remove or replace these elements."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:809
+#: inc/cloner/class-cloner.php:813
 msgid "The source book&rsquo;s media could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:905
+#: inc/cloner/class-cloner.php:909
 msgid "The source book&rsquo;s metadata could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:936
+#: inc/cloner/class-cloner.php:940
 msgid "The source book&rsquo;s structure and contents could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:981
+#: inc/cloner/class-cloner.php:985
 msgid "The source book&rsquo;s taxonomies could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2077
+#: inc/cloner/class-cloner.php:2090
 msgid "Your book URL can only contain lowercase letters (a-z) and numbers."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2079
+#: inc/cloner/class-cloner.php:2092
 msgid "Your book URL must contain at least some letters."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2081
+#: inc/cloner/class-cloner.php:2094
 msgid "That book URL is not allowed."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2083
+#: inc/cloner/class-cloner.php:2096
 #, php-format
 msgid "Your book URL must be at least %s character."
 msgid_plural "Your book URL must be at least %s characters."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/cloner/class-cloner.php:2085
+#: inc/cloner/class-cloner.php:2098
 msgid "Sorry, you may not use that book URL."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2087
+#: inc/cloner/class-cloner.php:2100
 msgid "Sorry, that book URL already exists!"
 msgstr ""
 
@@ -2824,7 +2827,7 @@ msgstr ""
 msgid "Your PDF could not be retrieved."
 msgstr ""
 
-#: inc/covergenerator/class-isbn.php:61
+#: inc/covergenerator/class-isbn.php:60
 msgid "There was a problem creating the barcode: Invalid ISBN number."
 msgstr ""
 
@@ -3033,7 +3036,7 @@ msgstr ""
 msgid "If you need to enter additional information, click the button below to see all available fields."
 msgstr ""
 
-#: inc/metadata/namespace.php:1214
+#: inc/metadata/namespace.php:1169
 #, php-format
 msgid "The %1$s Thema subject terms requested for this book could not be downloaded from %2$s. Please report this error to your network manager."
 msgstr ""
@@ -3175,76 +3178,128 @@ msgstr ""
 msgid "Export successful!"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:962
+#: inc/modules/export/epub/class-epub.php:961
 msgid "Compiling styles"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:970
+#: inc/modules/export/epub/class-epub.php:969
 #: inc/modules/export/xhtml/class-xhtml11.php:455
 msgid "Creating cover"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:977
+#: inc/modules/export/epub/class-epub.php:976
 #: inc/modules/export/xhtml/class-xhtml11.php:459
 msgid "Creating title page"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:981
+#: inc/modules/export/epub/class-epub.php:980
 #: inc/modules/export/xhtml/class-xhtml11.php:463
 msgid "Creating copyright page"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:985
+#: inc/modules/export/epub/class-epub.php:984
 msgid "Exporting dedication and epigraph"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:989
-#: inc/modules/export/epub/class-epub.php:1586
+#: inc/modules/export/epub/class-epub.php:988
+#: inc/modules/export/epub/class-epub.php:1583
 #: inc/modules/export/xhtml/class-xhtml11.php:475
 #: inc/modules/export/xhtml/class-xhtml11.php:1556
 msgid "Exporting front matter"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:996
-#: inc/modules/export/epub/class-epub.php:1687
-#: inc/modules/export/epub/class-epub.php:1717
+#: inc/modules/export/epub/class-epub.php:995
+#: inc/modules/export/epub/class-epub.php:1684
+#: inc/modules/export/epub/class-epub.php:1714
 #: inc/modules/export/xhtml/class-xhtml11.php:482
 #: inc/modules/export/xhtml/class-xhtml11.php:1624
 #: inc/modules/export/xhtml/class-xhtml11.php:1665
 msgid "Exporting parts and chapters"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1000
-#: inc/modules/export/epub/class-epub.php:1848
+#: inc/modules/export/epub/class-epub.php:999
+#: inc/modules/export/epub/class-epub.php:1845
 #: inc/modules/export/xhtml/class-xhtml11.php:486
 #: inc/modules/export/xhtml/class-xhtml11.php:1778
 msgid "Exporting back matter"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1003
+#: inc/modules/export/epub/class-epub.php:1002
 msgid "Processing CSS"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1007
+#: inc/modules/export/epub/class-epub.php:1006
 #: inc/modules/export/xhtml/class-xhtml11.php:471
 msgid "Creating table of contents"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1377
+#: inc/modules/export/epub/class-epub.php:1374
 msgid "Title Page"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1642
+#: inc/modules/export/epub/class-epub.php:1639
 msgid "Make your own books using Pressbooks"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1900
+#: inc/modules/export/epub/class-epub.php:1896
 msgid "Table Of Contents"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1972
+#: inc/modules/export/epub/class-epub.php:1968
 #: inc/modules/export/xhtml/class-xhtml11.php:1537
 msgid "Contents"
+msgstr ""
+
+#: inc/modules/export/epub/class-epub.php:2988
+msgid "EPUB validation completed with issues. See the validation report above."
+msgstr ""
+
+#. translators: "EPUB" is a file format name and should not be translated
+#: inc/modules/export/epub/class-epubchecklog.php:50
+msgid "EPUB VALIDATION REPORT"
+msgstr ""
+
+#: inc/modules/export/epub/class-epubchecklog.php:68
+#, php-format
+msgid "Errors: %1$s, Warnings: %2$s, Files affected: %3$s"
+msgstr ""
+
+#: inc/modules/export/epub/class-epubchecklog.php:126
+#, php-format
+msgid "FILE: %s"
+msgstr ""
+
+#: inc/modules/export/epub/class-epubchecklog.php:129
+#, php-format
+msgid "Errors: %1$s | Warnings: %2$s"
+msgstr ""
+
+#. translators: 1: line number, 2: column number
+#: inc/modules/export/epub/class-epubchecklog.php:143
+#, php-format
+msgid "Line %1$s, Col %2$s"
+msgstr ""
+
+#: inc/modules/export/epub/class-epubchecklog.php:151
+msgid "SUMMARY"
+msgstr ""
+
+#. translators: %s: number of errors
+#: inc/modules/export/epub/class-epubchecklog.php:153
+#, php-format
+msgid "Total Errors: %s"
+msgstr ""
+
+#. translators: %s: number of warnings
+#: inc/modules/export/epub/class-epubchecklog.php:155
+#, php-format
+msgid "Total Warnings: %s"
+msgstr ""
+
+#. translators: %s: number of files affected
+#: inc/modules/export/epub/class-epubchecklog.php:157
+#, php-format
+msgid "Files Affected: %s"
 msgstr ""
 
 #: inc/modules/export/namespace.php:77
@@ -3255,11 +3310,11 @@ msgstr ""
 
 #: inc/modules/export/namespace.php:78
 #: inc/modules/themeoptions/class-globaloptions.php:455
-#: inc/utility/namespace.php:1345
-#: inc/utility/namespace.php:1350
-#: inc/utility/namespace.php:1384
-#: inc/utility/namespace.php:1394
-#: inc/utility/namespace.php:1400
+#: inc/utility/namespace.php:1377
+#: inc/utility/namespace.php:1382
+#: inc/utility/namespace.php:1416
+#: inc/utility/namespace.php:1426
+#: inc/utility/namespace.php:1432
 #: templates/admin/covergenerator.php:53
 msgid "and"
 msgstr ""
@@ -3434,12 +3489,12 @@ msgid "Creating temporary files..."
 msgstr ""
 
 #: inc/modules/export/prince/class-docraptor.php:69
-#: inc/modules/export/prince/class-pdf.php:238
+#: inc/modules/export/prince/class-pdf.php:237
 msgid "Loading fonts..."
 msgstr ""
 
 #: inc/modules/export/prince/class-docraptor.php:73
-#: inc/modules/export/prince/class-pdf.php:242
+#: inc/modules/export/prince/class-pdf.php:241
 msgid "Generating CSS..."
 msgstr ""
 
@@ -3467,43 +3522,43 @@ msgstr ""
 msgid "This book was produced with Pressbooks (https://pressbooks.com) and rendered with Prince."
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:229
+#: inc/modules/export/prince/class-pdf.php:228
 msgid "Setting up conversion..."
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:251
+#: inc/modules/export/prince/class-pdf.php:250
 msgid "Loading Converter..."
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:261
+#: inc/modules/export/prince/class-pdf.php:260
 msgid "Setting up PDF options..."
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:270
+#: inc/modules/export/prince/class-pdf.php:269
 msgid "Adding stylesheets and scripts..."
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:284
+#: inc/modules/export/prince/class-pdf.php:283
 msgid "Creating file..."
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:290
+#: inc/modules/export/prince/class-pdf.php:289
 msgid "Conversion completed with warnings."
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:292
+#: inc/modules/export/prince/class-pdf.php:291
 msgid "Conversion completed successfully."
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:299
+#: inc/modules/export/prince/class-pdf.php:298
 msgid "Validating PDF."
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:302
+#: inc/modules/export/prince/class-pdf.php:301
 msgid "PDF validation failed."
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:306
+#: inc/modules/export/prince/class-pdf.php:305
 msgid "PDF Validation successful."
 msgstr ""
 
@@ -3545,7 +3600,7 @@ msgstr ""
 
 #: inc/modules/export/wordpress/class-vanillawxr.php:24
 #: inc/modules/export/wordpress/class-vanillawxr.php:38
-#: inc/modules/export/wordpress/class-wxr.php:85
+#: inc/modules/export/wordpress/class-wxr.php:84
 msgid "Transforming WXR."
 msgstr ""
 
@@ -3569,27 +3624,27 @@ msgstr ""
 msgid "Saving WXR file."
 msgstr ""
 
-#: inc/modules/export/wordpress/class-wxr.php:89
+#: inc/modules/export/wordpress/class-wxr.php:88
 msgid "Failed to transform WXR."
 msgstr ""
 
-#: inc/modules/export/wordpress/class-wxr.php:94
+#: inc/modules/export/wordpress/class-wxr.php:93
 msgid "Creating file."
 msgstr ""
 
-#: inc/modules/export/wordpress/class-wxr.php:100
+#: inc/modules/export/wordpress/class-wxr.php:99
 msgid "Saved WXR file."
 msgstr ""
 
-#: inc/modules/export/wordpress/class-wxr.php:105
+#: inc/modules/export/wordpress/class-wxr.php:104
 msgid "Validating WXR."
 msgstr ""
 
-#: inc/modules/export/wordpress/class-wxr.php:108
+#: inc/modules/export/wordpress/class-wxr.php:107
 msgid "WXR document is not well formed XML."
 msgstr ""
 
-#: inc/modules/export/wordpress/class-wxr.php:111
+#: inc/modules/export/wordpress/class-wxr.php:110
 msgid "WXR is valid."
 msgstr ""
 
@@ -3642,31 +3697,68 @@ msgstr ""
 msgid "Importing glossary terms"
 msgstr ""
 
-#: inc/modules/import/class-import.php:371
+#: inc/modules/import/class-import.php:383
 #: inc/modules/import/epub/class-epub201.php:211
 msgid "Importing"
 msgstr ""
 
-#: inc/modules/import/class-import.php:420
+#: inc/modules/import/class-import.php:437
 #: inc/utility/class-handlestransfers.php:200
 msgid "Sorry, this file type is not permitted for security reasons."
 msgstr ""
 
-#: inc/modules/import/class-import.php:503
+#: inc/modules/import/class-import.php:520
 #, php-format
 msgid "Your file does not appear to be a valid %s."
 msgstr ""
 
-#: inc/modules/import/class-import.php:541
+#: inc/modules/import/class-import.php:537
+msgid "Please select a Google Doc to import."
+msgstr ""
+
+#: inc/modules/import/class-import.php:543
+msgid "Google Docs import is not configured. Ask a network admin to set it up."
+msgstr ""
+
+#: inc/modules/import/class-import.php:551
+msgid "Please connect your Google account first."
+msgstr ""
+
+#: inc/modules/import/class-import.php:558
+msgid "Your Google connection expired. Please reconnect."
+msgstr ""
+
+#: inc/modules/import/class-import.php:574
+msgid "Access denied. Make sure the Google Docs API is enabled in your Google Cloud project and you have permission to view this document."
+msgstr ""
+
+#: inc/modules/import/class-import.php:576
+msgid "Document not found. Check the URL and make sure you have access."
+msgstr ""
+
+#: inc/modules/import/class-import.php:578
+msgid "Google is rate-limiting us. Try again in a few minutes."
+msgstr ""
+
+#: inc/modules/import/class-import.php:580
+msgid "Error fetching the Google Doc."
+msgstr ""
+
+#: inc/modules/import/class-import.php:584
+#, php-format
+msgid "Could not access the Google Doc: %s"
+msgstr ""
+
+#: inc/modules/import/class-import.php:627
 msgid "Your URL does not appear to be valid"
 msgstr ""
 
-#: inc/modules/import/class-import.php:548
-#: inc/modules/import/class-import.php:577
+#: inc/modules/import/class-import.php:634
+#: inc/modules/import/class-import.php:663
 msgid "The URL you are trying to import is bigger than the maximum file size."
 msgstr ""
 
-#: inc/modules/import/class-import.php:570
+#: inc/modules/import/class-import.php:656
 msgid "The website you are attempting to reach is not returning a successful response code: "
 msgstr ""
 
@@ -3685,6 +3777,316 @@ msgstr ""
 #: inc/modules/import/epub/class-epub201.php:216
 #, php-format
 msgid "Imported %s chapters."
+msgstr ""
+
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:41
+msgid "No broker session handle for user."
+msgstr ""
+
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:54
+msgid "Broker reports session as gone; user must reconnect."
+msgstr ""
+
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:58
+msgid "Broker rejected signature or freshness."
+msgstr ""
+
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:62
+msgid "Broker detected replay."
+msgstr ""
+
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:66
+msgid "Broker temporarily unavailable."
+msgstr ""
+
+#. translators: %d: HTTP response code returned by the broker.
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:73
+#, php-format
+msgid "Unexpected broker response code %d."
+msgstr ""
+
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:109
+msgid "Broker temporarily unavailable during revoke."
+msgstr ""
+
+#. translators: %d: HTTP response code returned by the broker.
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:116
+#, php-format
+msgid "Unexpected broker revoke response code %d."
+msgstr ""
+
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:148
+msgid "Invalid broker response issuer."
+msgstr ""
+
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:153
+msgid "Invalid broker response audience."
+msgstr ""
+
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:157
+msgid "Broker response JWT expired."
+msgstr ""
+
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:161
+msgid "Missing access_token or expires_at in broker response."
+msgstr ""
+
+#. translators: %s: underlying HTTP error detail.
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:182
+#, php-format
+msgid "Broker unreachable: %s"
+msgstr ""
+
+#. translators: %s: file path.
+#: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:198
+#: inc/modules/import/googledocs/class-oauthclient.php:242
+#, php-format
+msgid "Failed to read broker public key file: %s"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-bootstrap.php:65
+msgid "Google Docs"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-bootstrap.php:79
+msgid "Google Docs import is not configured."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-bootstrap.php:113
+#: inc/modules/import/googledocs/class-settingspage.php:80
+msgid "Unauthorized."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-bootstrap.php:165
+msgid "Select from Google Drive"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-bootstrap.php:166
+msgid "Change document"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-bootstrap.php:167
+msgid "Could not load the Google Picker. Check your network connection and ad blockers."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-bootstrap.php:168
+msgid "Could not authenticate with Google. Please reconnect your Google account."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-encryptionkeymissingexception.php:13
+msgid "PRESSBOOKS_GOOGLE_DOCS_ENCRYPTION_KEY is not defined. Add a 32-byte base64-encoded key to wp-config.php (or Bedrock config/application.php). Generate one with: openssl rand -base64 32"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-googledocs.php:71
+msgid "Could not authenticate with Google. Images will not be imported."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-googledocs.php:155
+#, php-format
+msgid "Failed to import chapter: %s"
+msgstr ""
+
+#. translators: 1: number of elements, 2: element type, 3: chapter title
+#: inc/modules/import/googledocs/class-googledocs.php:164
+#, php-format
+msgid "%1$d %2$s skipped in \"%3$s\""
+msgstr ""
+
+#: inc/modules/import/googledocs/class-googledocs.php:190
+#, php-format
+msgid "Could not download image: %s"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-googledocs.php:209
+#, php-format
+msgid "Could not sideload image: %s"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-googledocs.php:276
+#, php-format
+msgid "Could not create glossary term: %s"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:87
+msgid "buildClient() must not be called in broker mode. OAuth is handled by the Pressbooks Auth Broker."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:127
+msgid "No token found. Please authorize first."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:133
+msgid "Token expired and no BrokerRefreshClient is configured."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:149
+msgid "No refresh token available. Please reauthorize."
+msgstr ""
+
+#. translators: %s: error detail returned by Google.
+#: inc/modules/import/googledocs/class-oauthclient.php:159
+#, php-format
+msgid "Token refresh failed: %s"
+msgstr ""
+
+#. translators: %s: underlying error detail.
+#: inc/modules/import/googledocs/class-oauthclient.php:191
+#, php-format
+msgid "Failed to revoke token at broker: %s Please try again."
+msgstr ""
+
+#. translators: %s: underlying error detail.
+#: inc/modules/import/googledocs/class-oauthclient.php:211
+#, php-format
+msgid "Failed to revoke token at Google: %s Please try again."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:258
+#: inc/modules/import/googledocs/class-oauthclient.php:331
+msgid "Invalid or expired OAuth state."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:264
+msgid "Broker public key not configured."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:271
+msgid "Invalid JWT issuer."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:276
+msgid "Invalid JWT audience."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:280
+msgid "JWT has expired."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:284
+msgid "Missing JWT ID."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:289
+msgid "JWT has already been used."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:294
+msgid "JWT state mismatch."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:298
+msgid "Missing access_token or session_handle in JWT."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:302
+msgid "Broker handoff JWT must not contain a refresh_token."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-oauthclient.php:306
+msgid "Missing google_sub in JWT."
+msgstr ""
+
+#. translators: %s: error detail returned by Google.
+#: inc/modules/import/googledocs/class-oauthclient.php:343
+#, php-format
+msgid "Token exchange failed: %s"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:46
+msgid "Google Docs Import is disabled."
+msgstr ""
+
+#. translators: %s: configuration constant name
+#: inc/modules/import/googledocs/class-settingspage.php:51
+#, php-format
+msgid "The %s constant must be defined in wp-config.php (or Bedrock config/application.php) with a 32-byte base64-encoded key. Generate one with: openssl rand -base64 32"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:63
+#: inc/modules/import/googledocs/class-settingspage.php:64
+msgid "Google Docs Import"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:96
+#: inc/modules/import/googledocs/class-settingspage.php:193
+msgid "Google Docs Import Settings"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:100
+msgid "Configure your Google Cloud OAuth credentials to enable Google Docs import."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:101
+msgid "Required Configuration in Google Cloud Console"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:102
+msgid "Add the following Authorized Redirect URI to your Google Cloud OAuth client:"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:104
+msgid "Required OAuth scope (non-sensitive; no restricted-scope verification required):"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:108
+msgid "This scope grants per-file access only: users select documents through the Google Picker. You must also enable the Google Picker API, the Google Docs API, and the Google Drive API in your Google Cloud project, and create an API key for the Picker."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:113
+msgid "Client ID"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:117
+msgid "Client Secret"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:121
+msgid "Picker API Key"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:124
+msgid "API key from Google Cloud Console (APIs &amp; Services &rarr; Credentials). Restrict it to the Google Picker API."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:128
+msgid "App ID (Project Number)"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:131
+msgid "The numeric project number of your Google Cloud project (Cloud Console &rarr; Project Settings). Required so files selected in the Picker are granted to this app."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:135
+msgid "Save Settings"
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:165
+#: inc/modules/import/googledocs/class-settingspage.php:178
+msgid "Invalid OAuth callback parameters."
+msgstr ""
+
+#: inc/modules/import/googledocs/class-settingspage.php:195
+msgid "Google authentication is managed centrally via the Pressbooks Auth Broker. No local configuration is required."
+msgstr ""
+
+#. translators: 1: API key constant name, 2: app ID constant name
+#: inc/modules/import/googledocs/class-settingspage.php:203
+#, php-format
+msgid "The Google Picker is not configured, so users cannot select documents to import. Define %1$s and %2$s in wp-config.php (or Bedrock config/application.php). Both values must come from the same Google Cloud project as the OAuth client."
+msgstr ""
+
+#: inc/modules/import/googledocs/storage/class-sodiumcipher.php:28
+msgid "Ciphertext too short."
+msgstr ""
+
+#: inc/modules/import/googledocs/storage/class-sodiumcipher.php:38
+msgid "Decryption failed: ciphertext integrity check failed or key mismatch."
+msgstr ""
+
+#. translators: %d: required key length in bytes.
+#: inc/modules/import/googledocs/storage/class-sodiumcipher.php:69
+#, php-format
+msgid "Encryption key must be a valid base64-encoded %d-byte string. Generate one with: openssl rand -base64 32"
 msgstr ""
 
 #: inc/modules/import/html/class-xhtml.php:45
@@ -3843,7 +4245,7 @@ msgid "Display information about authors at the end of each chapter"
 msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:175
-#: inc/shortcodes/attributions/class-attachments.php:262
+#: inc/shortcodes/attributions/class-attachments.php:261
 msgid "Media Attributions"
 msgstr ""
 
@@ -4492,7 +4894,7 @@ msgid "glossary"
 msgstr ""
 
 #: inc/posttype/namespace.php:558
-#: templates/admin/import.php:97
+#: templates/admin/import.php:110
 #: templates/admin/organize.blade.php:56
 msgid "Glossary"
 msgstr ""
@@ -4644,11 +5046,11 @@ msgstr ""
 msgid "Password must include at least one number."
 msgstr ""
 
-#: inc/shortcodes/attributions/class-attachments.php:200
+#: inc/shortcodes/attributions/class-attachments.php:199
 msgid " &copy; "
 msgstr ""
 
-#: inc/shortcodes/attributions/class-attachments.php:201
+#: inc/shortcodes/attributions/class-attachments.php:200
 msgid " adapted by "
 msgstr ""
 
@@ -4660,11 +5062,11 @@ msgstr ""
 msgid "Select"
 msgstr ""
 
-#: inc/shortcodes/glossary/class-glossary.php:294
+#: inc/shortcodes/glossary/class-glossary.php:296
 msgid "definition"
 msgstr ""
 
-#: inc/shortcodes/glossary/class-glossary.php:298
+#: inc/shortcodes/glossary/class-glossary.php:300
 msgid "Close definition"
 msgstr ""
 
@@ -4727,17 +5129,17 @@ msgstr ""
 msgid " (%1$d of %2$d)"
 msgstr ""
 
-#: inc/utility/namespace.php:604
-#: inc/utility/namespace.php:615
-#: inc/utility/namespace.php:631
+#: inc/utility/namespace.php:636
+#: inc/utility/namespace.php:647
+#: inc/utility/namespace.php:663
 msgid "An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration."
 msgstr ""
 
-#: inc/utility/namespace.php:604
+#: inc/utility/namespace.php:636
 msgid "(Pressbooks could not establish a secure connection to the plugin recommendations server. Please contact your server administrator.)"
 msgstr ""
 
-#: inc/utility/namespace.php:655
+#: inc/utility/namespace.php:687
 msgid "These plugins have been created and/or recommended by the Pressbooks community."
 msgstr ""
 
@@ -4975,60 +5377,92 @@ msgid "Pressbooks/WordPress XML (.wxr or .xml)"
 msgstr ""
 
 #: templates/admin/import.php:44
+msgid "Google account connected successfully. You can now import from Google Docs."
+msgstr ""
+
+#: templates/admin/import.php:48
+msgid "Google account disconnected."
+msgstr ""
+
+#: templates/admin/import.php:57
 msgid "Select content below for import into Pressbooks."
 msgstr ""
 
-#: templates/admin/import.php:45
+#: templates/admin/import.php:58
 msgid "Source:"
 msgstr ""
 
-#: templates/admin/import.php:63
+#: templates/admin/import.php:76
 msgid "Selected all sections for import"
 msgstr ""
 
-#: templates/admin/import.php:65
+#: templates/admin/import.php:78
 msgid "Unselected all sections for import"
 msgstr ""
 
-#: templates/admin/import.php:70
+#: templates/admin/import.php:83
 msgid "Are you sure you want to abort the import?"
 msgstr ""
 
-#: templates/admin/import.php:88
-#: templates/admin/import.php:143
+#: templates/admin/import.php:101
+#: templates/admin/import.php:156
 msgid "Import all"
 msgstr ""
 
-#: templates/admin/import.php:99
+#: templates/admin/import.php:112
 msgid "Other"
 msgstr ""
 
-#: templates/admin/import.php:149
+#: templates/admin/import.php:162
 msgid "Show imported content in web"
 msgstr ""
 
-#: templates/admin/import.php:154
+#: templates/admin/import.php:167
 msgid "Import Selection"
 msgstr ""
 
-#: templates/admin/import.php:165
+#: templates/admin/import.php:178
 msgid "Maximum file size:"
 msgstr ""
 
-#: templates/admin/import.php:174
+#: templates/admin/import.php:189
 msgid "Import Type"
 msgstr ""
 
-#: templates/admin/import.php:186
-#: templates/admin/import.php:190
+#: templates/admin/import.php:201
+#: templates/admin/import.php:205
 msgid "Import Source"
 msgstr ""
 
-#: templates/admin/import.php:201
+#: templates/admin/import.php:216
 msgid "Choose file"
 msgstr ""
 
-#: templates/admin/import.php:214
+#: templates/admin/import.php:233
+msgid "Google Docs Document"
+msgstr ""
+
+#: templates/admin/import.php:250
+msgid "Google Docs import is not configured. Ask a network admin to set it up under Network Admin → Settings → Google Docs Import."
+msgstr ""
+
+#: templates/admin/import.php:254
+msgid "Connect your Google account to import from Google Docs."
+msgstr ""
+
+#: templates/admin/import.php:256
+msgid "Connect Google Account"
+msgstr ""
+
+#: templates/admin/import.php:260
+msgid "Google account connected."
+msgstr ""
+
+#: templates/admin/import.php:261
+msgid "Disconnect"
+msgstr ""
+
+#: templates/admin/import.php:267
 msgid "Begin Import"
 msgstr ""
 
