@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.45.3](https://github.com/pressbooks/pressbooks/compare/6.45.2...6.45.3) (2026-09-03)
+
+
+### Chores
+
+* adding  to the debug output for images with problems ([#4555](https://github.com/pressbooks/pressbooks/issues/4555)) ([a259c2f](https://github.com/pressbooks/pressbooks/commit/a259c2f07380b2631883a48aa843225b772d5620))
+
 ## [6.45.2](https://github.com/pressbooks/pressbooks/compare/6.45.1...6.45.2) (2026-08-19)
 
 
