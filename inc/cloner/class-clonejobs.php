@@ -55,6 +55,111 @@ class CloneJobs {
 	}
 
 	/**
+	 * Handles the background processing of a clone job. Triggered by WP-Cron.
+	 *
+	 * @param int $job_id
+	 */
+	public static function handle( $job_id ) {
+		set_time_limit( 0 );
+
+		$job = app( 'db' )->table( self::JOBS_TABLE_NAME )
+			->where( 'id', $job_id )
+			->first();
+
+		if ( ! $job ) {
+			error_log( 'CloneJobs::handle(Job ID: ' . $job_id . '): Job not found.' );
+			return;
+		}
+
+		if ( self::STATUS_PENDING !== $job->status ) {
+			return;
+		}
+
+		// Restore the queueing user: Cloner snapshots super-admin status in its
+		// constructor and wpmu_create_blog() assigns ownership from the current user.
+		wp_set_current_user( (int) $job->user_id );
+
+		self::update( $job_id, [
+			'status' => self::STATUS_PROCESSING,
+			'progress_percentage' => 0,
+			'progress_message' => __( 'Starting clone…', 'pressbooks' ),
+			'job_started_at' => current_time( 'mysql', true ),
+		] );
+
+		/**
+		 * Filter the Cloner instance used by the background job. Primarily a test seam.
+		 *
+		 * @param \Pressbooks\Cloner\Cloner $cloner
+		 * @param object $job The job row.
+		 */
+		$cloner = apply_filters(
+			'pb_clone_job_cloner',
+			new Cloner( $job->source_url, $job->target_url, $job->target_title ),
+			$job
+		);
+
+		$target_book_recorded = false;
+
+		try {
+			foreach ( $cloner->cloneBookGenerator() as $percentage => $info ) {
+				$data = [
+					'progress_percentage' => (int) $percentage,
+					'progress_message' => $info,
+				];
+				if ( ! $target_book_recorded && $cloner->getTargetBookId() ) {
+					$data['target_book_id'] = (int) $cloner->getTargetBookId();
+					$target_book_recorded = true;
+				}
+				self::update( $job_id, $data );
+			}
+
+			self::update( $job_id, [
+				'status' => self::STATUS_COMPLETED,
+				'progress_percentage' => 100,
+				'progress_message' => __( 'Cloning succeeded!', 'pressbooks' ),
+				'target_book_id' => (int) $cloner->getTargetBookId(),
+				'cloned_items' => wp_json_encode( self::summarize( $cloner ) ),
+				'job_completed_at' => current_time( 'mysql', true ),
+			] );
+		} catch ( \Exception $e ) {
+			self::update( $job_id, [
+				'status' => self::STATUS_FAILED,
+				'progress_message' => $e->getMessage(),
+				'job_completed_at' => current_time( 'mysql', true ),
+			] );
+		}
+	}
+
+	/**
+	 * Build the completion summary stored on the job row and rendered by the UI.
+	 *
+	 * @param Cloner $cloner
+	 * @return array
+	 */
+	protected static function summarize( Cloner $cloner ): array {
+		$cloned_items = $cloner->getClonedItems();
+		$count = function ( $key ) use ( $cloned_items ) {
+			return is_countable( $cloned_items[ $key ] ?? null ) ? count( $cloned_items[ $key ] ) : 0;
+		};
+		return [
+			'counts' => [
+				'terms' => $count( 'terms' ),
+				'front-matter' => $count( 'front-matter' ),
+				'parts' => $count( 'parts' ),
+				'chapters' => $count( 'chapters' ),
+				'back-matter' => $count( 'back-matter' ),
+				'media' => $count( 'media' ),
+				'h5p' => $count( 'h5p' ),
+				'glossary' => $count( 'glossary' ),
+			],
+			'theme_applied' => ! empty( $cloned_items['theme'] ),
+			'source_theme' => $cloner->getSourceTheme(),
+			'target_book_url' => $cloner->getTargetBookUrl(),
+			'target_book_title' => $cloner->getTargetBookTitle(),
+		];
+	}
+
+	/**
 	 * Update a job row, always bumping updated_at (UTC).
 	 *
 	 * @param int $job_id
