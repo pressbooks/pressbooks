@@ -124,4 +124,109 @@ class ClonerNamespaceTest extends \WP_UnitTestCase {
 		revoke_super_admin( $user_id );
 		wp_set_current_user( 0 );
 	}
+
+	private function seedStatusJob( int $user_id, array $overrides = [] ): int {
+		global $wpdb;
+		$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}" . CloneJobs::JOBS_TABLE_NAME );
+		CloneJobs::createJobTable();
+		$defaults = [
+			'user_id' => $user_id,
+			'source_url' => 'https://example.com/source',
+			'target_url' => 'example.com/target/',
+			'target_title' => 'Target Book',
+			'status' => CloneJobs::STATUS_PROCESSING,
+			'progress_percentage' => 40,
+			'progress_message' => 'Cloning parts and chapters',
+			'created_at' => current_time( 'mysql', true ),
+			'updated_at' => current_time( 'mysql', true ),
+		];
+		return app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )
+			->insertGetId( array_merge( $defaults, $overrides ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function status_returns_own_job(): void {
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+		$job_id = $this->seedStatusJob( $user_id );
+
+		$_REQUEST['_wpnonce'] = wp_create_nonce( 'pb-cloner' );
+		$_GET['job_id'] = (string) $job_id;
+
+		$output = $this->callAjax( 'Pressbooks\Cloner\clone_job_status' );
+
+		$this->assertStringContainsString( '"success":true', $output );
+		$this->assertStringContainsString( '"status":"processing"', $output );
+		$this->assertStringContainsString( '"progress_percentage":40', $output );
+
+		unset( $_REQUEST['_wpnonce'], $_GET['job_id'] );
+		wp_set_current_user( 0 );
+	}
+
+	/**
+	 * @test
+	 */
+	public function status_hides_other_users_jobs(): void {
+		$owner_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		$intruder_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		$job_id = $this->seedStatusJob( $owner_id );
+		wp_set_current_user( $intruder_id );
+
+		$_REQUEST['_wpnonce'] = wp_create_nonce( 'pb-cloner' );
+		$_GET['job_id'] = (string) $job_id;
+
+		$output = $this->callAjax( 'Pressbooks\Cloner\clone_job_status' );
+
+		$this->assertStringContainsString( '"success":false', $output );
+		$this->assertStringContainsString( 'Job not found', $output );
+
+		unset( $_REQUEST['_wpnonce'], $_GET['job_id'] );
+		wp_set_current_user( 0 );
+	}
+
+	/**
+	 * @test
+	 */
+	public function status_reports_stale_processing_job_as_failed(): void {
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+		$job_id = $this->seedStatusJob( $user_id, [
+			'updated_at' => gmdate( 'Y-m-d H:i:s', time() - 2 * HOUR_IN_SECONDS ),
+		] );
+
+		$_REQUEST['_wpnonce'] = wp_create_nonce( 'pb-cloner' );
+		$_GET['job_id'] = (string) $job_id;
+
+		$output = $this->callAjax( 'Pressbooks\Cloner\clone_job_status' );
+
+		$this->assertStringContainsString( '"status":"failed"', $output );
+		$this->assertStringContainsString( 'timed out', $output );
+
+		$job = app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )->where( 'id', $job_id )->first();
+		$this->assertEquals( CloneJobs::STATUS_FAILED, $job->status, 'Staleness must be persisted' );
+
+		unset( $_REQUEST['_wpnonce'], $_GET['job_id'] );
+		wp_set_current_user( 0 );
+	}
+
+	/**
+	 * @test
+	 */
+	public function status_without_job_id_returns_latest_active_job(): void {
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+		$job_id = $this->seedStatusJob( $user_id );
+
+		$_REQUEST['_wpnonce'] = wp_create_nonce( 'pb-cloner' );
+
+		$output = $this->callAjax( 'Pressbooks\Cloner\clone_job_status' );
+
+		$this->assertStringContainsString( '"success":true', $output );
+		$this->assertStringContainsString( '"job_id":' . $job_id, $output );
+
+		unset( $_REQUEST['_wpnonce'] );
+		wp_set_current_user( 0 );
+	}
 }

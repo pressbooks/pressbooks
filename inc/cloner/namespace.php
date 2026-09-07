@@ -117,3 +117,74 @@ function queue_clone_job(): void {
 
 	wp_send_json_success( [ 'job_id' => $job_id ] );
 }
+
+/**
+ * WP_Ajax: report the status of a clone job.
+ *
+ * With ?job_id → that job (must belong to the current user).
+ * Without → the current user's most recent pending/processing job (page-load resume).
+ */
+function clone_job_status(): void {
+	check_ajax_referer( 'pb-cloner' );
+
+	if ( ! is_user_logged_in() ) {
+		wp_send_json_error( [ 'message' => __( 'Permission denied.', 'pressbooks' ) ], 403 );
+		return;
+	}
+
+	CloneJobs::ensureTable();
+
+	$job_id = isset( $_GET['job_id'] ) ? (int) $_GET['job_id'] : 0;
+
+	$query = app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )
+		->where( 'user_id', get_current_user_id() );
+
+	if ( $job_id > 0 ) {
+		$query->where( 'id', $job_id );
+	} else {
+		$query->whereIn( 'status', [ CloneJobs::STATUS_PENDING, CloneJobs::STATUS_PROCESSING ] )
+			->orderBy( 'created_at', 'desc' );
+	}
+
+	$job = $query->first();
+
+	if ( ! $job ) {
+		wp_send_json_error( [ 'message' => __( 'Job not found.', 'pressbooks' ) ], 404 );
+		return;
+	}
+
+	$status = $job->status;
+	$message = $job->progress_message;
+
+	// Staleness guard: a processing job whose worker died can never finish on its own.
+	if ( CloneJobs::STATUS_PROCESSING === $status ) {
+		/**
+		 * Filter the number of seconds after which a silent processing clone job
+		 * is considered dead.
+		 *
+		 * @param int $timeout
+		 */
+		$timeout = apply_filters( 'pb_clone_job_stale_timeout', HOUR_IN_SECONDS );
+		$last_update = strtotime( $job->updated_at . ' +0000' );
+		if ( $last_update && $last_update < time() - $timeout ) {
+			$status = CloneJobs::STATUS_FAILED;
+			$message = __( 'The clone job timed out. The target book may exist in a partial state; contact your network manager to remove it.', 'pressbooks' );
+			app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )
+				->where( 'id', $job->id )
+				->update( [
+					'status' => CloneJobs::STATUS_FAILED,
+					'progress_message' => $message,
+					'job_completed_at' => current_time( 'mysql', true ),
+					'updated_at' => current_time( 'mysql', true ),
+				] );
+		}
+	}
+
+	wp_send_json_success( [
+		'job_id' => (int) $job->id,
+		'status' => $status,
+		'progress_percentage' => (int) $job->progress_percentage,
+		'progress_message' => $message,
+		'cloned_items' => $job->cloned_items ? json_decode( $job->cloned_items, true ) : null,
+	] );
+}
