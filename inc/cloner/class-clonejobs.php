@@ -122,9 +122,42 @@ class CloneJobs {
 				'job_completed_at' => current_time( 'mysql', true ),
 			] );
 		} catch ( \Exception $e ) {
+			// The generator may throw while switched into the target blog.
+			while ( is_multisite() && ms_is_switched() ) {
+				restore_current_blog();
+			}
+
+			$errors = array_merge( [ $e->getMessage() ], $cloner->getErrors() );
+
+			$target_book_id = (int) $cloner->getTargetBookId();
+			$cleanup_note = '';
+			if ( $target_book_id ) {
+				try {
+					if ( ! function_exists( 'wpmu_delete_blog' ) ) {
+						require_once ABSPATH . 'wp-admin/includes/ms.php';
+					}
+					wpmu_delete_blog( $target_book_id, true );
+					$cleanup_note = __( 'The partially created book was deleted.', 'pressbooks' );
+				} catch ( \Throwable $cleanup_error ) {
+					error_log( 'CloneJobs::handle(Job ID: ' . $job_id . '): Cleanup failed: ' . $cleanup_error->getMessage() );
+					$cleanup_note = sprintf(
+						/* translators: %s: error message explaining why the partially created book could not be removed */
+						__( 'The partially created book could not be deleted automatically: %s', 'pressbooks' ),
+						$cleanup_error->getMessage()
+					);
+				}
+			}
+
+			error_log( 'CloneJobs::handle(Job ID: ' . $job_id . '): Exception during clone: ' . $e->getMessage() );
+
 			self::update( $job_id, [
 				'status' => self::STATUS_FAILED,
-				'progress_message' => $e->getMessage(),
+				'progress_message' => trim( $e->getMessage() . ' ' . $cleanup_note ),
+				'target_book_id' => $target_book_id ? $target_book_id : null,
+				'log_details' => wp_json_encode( [
+					'errors' => $errors,
+					'cleanup' => $cleanup_note,
+				] ),
 				'job_completed_at' => current_time( 'mysql', true ),
 			] );
 		}

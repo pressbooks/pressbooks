@@ -132,4 +132,69 @@ class CloneJobsTest extends \WP_UnitTestCase {
 		$this->assertTrue( $summary['theme_applied'] );
 		$this->assertEquals( 'https://example.com/target', $summary['target_book_url'] );
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_marks_failed_without_cleanup_when_no_book_was_created(): void {
+		$job_id = $this->seedJob();
+
+		$generator = ( function (): \Generator {
+			yield 1 => 'Looking up the source book';
+			throw new \Exception( 'Could not retrieve metadata from source.' );
+		} )();
+
+		$stub = $this->makeClonerStub( $generator, 0 ); // No target book.
+		add_filter( 'pb_clone_job_cloner', function () use ( $stub ) {
+			return $stub;
+		} );
+
+		CloneJobs::handle( $job_id );
+		remove_all_filters( 'pb_clone_job_cloner' );
+
+		$job = app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )->where( 'id', $job_id )->first();
+
+		$this->assertEquals( CloneJobs::STATUS_FAILED, $job->status );
+		$this->assertNull( $job->target_book_id );
+		$this->assertStringContainsString( 'Could not retrieve metadata', $job->progress_message );
+		$log = json_decode( $job->log_details, true );
+		$this->assertContains( 'Could not retrieve metadata from source.', $log['errors'] );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_deletes_partial_target_book_on_failure(): void {
+		if ( ! is_multisite() ) {
+			$this->markTestSkipped( 'Requires multisite.' );
+		}
+
+		$blog_id = $this->factory()->blog->create();
+		$job_id = $this->seedJob();
+
+		$generator = ( function (): \Generator {
+			yield 10 => 'Creating the target book';
+			throw new \Exception( 'boom' );
+		} )();
+
+		$stub = $this->makeClonerStub( $generator, $blog_id );
+		add_filter( 'pb_clone_job_cloner', function () use ( $stub ) {
+			return $stub;
+		} );
+
+		CloneJobs::handle( $job_id );
+		remove_all_filters( 'pb_clone_job_cloner' );
+
+		$job = app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )->where( 'id', $job_id )->first();
+
+		$this->assertEquals( CloneJobs::STATUS_FAILED, $job->status );
+		$this->assertEquals( $blog_id, (int) $job->target_book_id );
+		$this->assertStringContainsString( 'boom', $job->progress_message );
+
+		$log = json_decode( $job->log_details, true );
+		$this->assertNotEmpty( $log['cleanup'] );
+
+		$site = get_site( $blog_id );
+		$this->assertTrue( empty( $site ) || ! empty( $site->deleted ), 'Partial target book must be deleted' );
+	}
 }
