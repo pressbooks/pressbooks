@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-06-11T15:44:18+00:00\n"
-"PO-Revision-Date: 2026-08-06 00:18\n"
+"PO-Revision-Date: 2026-09-04 00:05\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -1836,7 +1836,7 @@ msgstr "Montrer dans le Web"
 
 #: inc/admin/metaboxes/namespace.php:426
 msgid "Require a Password"
-msgstr "Exige un mot de passe"
+msgstr "Exiger un mot de passe"
 
 #: inc/admin/metaboxes/namespace.php:427
 msgid "Password..."
@@ -2076,7 +2076,7 @@ msgstr "Impossible de mettre à jour la partie"
 
 #: inc/class-activation.php:204
 msgid "Main Body"
-msgstr "Corps du texte"
+msgstr ""
 
 #: inc/class-activation.php:210
 msgid "Introduction"
@@ -3814,19 +3814,19 @@ msgstr "Afficher les numéros de parties et de chapitres"
 
 #: inc/modules/themeoptions/class-globaloptions.php:129
 msgid "Part Label"
-msgstr "Étiquette de la partie"
+msgstr "Libellé d'une partie"
 
 #: inc/modules/themeoptions/class-globaloptions.php:134
 msgid "The \"part\" label is used in the table of contents and in part titles in your webbook and exports."
-msgstr "L'étiquette de la partie est utilisée dans la table des matières et dans les titres des parties de votre livre Web et de vos exportations."
+msgstr "Le libellé d'une partie est utilisée dans la table des matières et dans les titres des parties de votre livre Web et de vos exportations."
 
 #: inc/modules/themeoptions/class-globaloptions.php:141
 msgid "Chapter Label"
-msgstr "Étiquette de chapitre"
+msgstr "Libellé d'un chapitre"
 
 #: inc/modules/themeoptions/class-globaloptions.php:146
 msgid "The \"chapter\" label is used in the table of contents and in chapter titles in your webbook and exports."
-msgstr "L'étiquette de chapitre est utilisée dans la table des matières et dans les titres des chapitres de votre livre Web et de vos exportations."
+msgstr "Le libellé de chapitre est utilisée dans la table des matières et dans les titres des chapitres de votre livre Web et de vos exportations."
 
 #: inc/modules/themeoptions/class-globaloptions.php:153
 msgid "Two-Level TOC"
