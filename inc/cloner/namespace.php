@@ -50,35 +50,10 @@ function queue_clone_job(): void {
 		return;
 	}
 
-	// Fail fast: compatibility (remote sources) and license.
-	$probe = new Cloner( $source_url );
-	if ( ! $probe->getSourceBookId() && ! $probe->isCompatible( $source_url ) ) {
-		wp_send_json_error( [
-			'message' => __( 'You can only clone from a book hosted by Pressbooks 4.1 or later. Please ensure that your source book meets these requirements.', 'pressbooks' ),
-		], 400 );
-		return;
-	}
-	$metadata = $probe->getBookMetadata( $probe->getSourceBookUrl() );
-	if ( empty( $metadata ) ) {
-		wp_send_json_error( [
-			/* translators: %s: source book URL */
-			'message' => sprintf( __( 'Could not retrieve metadata from %s.', 'pressbooks' ), $source_url ),
-		], 400 );
-		return;
-	}
-	if ( ! $probe->isSourceCloneable( $metadata['license'] ?? '' ) ) {
-		wp_send_json_error( [
-			/* translators: %s: source book title */
-			'message' => sprintf( __( '%s is not licensed for cloning.', 'pressbooks' ), $metadata['name'] ?? $source_url ),
-		], 400 );
-		return;
-	}
-
 	CloneJobs::ensureTable();
 
-	// Duplicate guard: one active job per user + target.
+	// Duplicate guard: one active job per target.
 	$existing = app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )
-		->where( 'user_id', get_current_user_id() )
 		->where( 'target_url', $target_url )
 		->whereIn( 'status', [ CloneJobs::STATUS_PENDING, CloneJobs::STATUS_PROCESSING ] )
 		->first();
@@ -86,6 +61,42 @@ function queue_clone_job(): void {
 		wp_send_json_error( [ 'message' => __( 'A clone job for this book is already in progress.', 'pressbooks' ) ], 409 );
 		return;
 	}
+
+	// Cap remote-probe timeouts: the 300s budget belongs to the background job, not this AJAX request.
+	$probe_timeout = function ( $args ) {
+		$args['timeout'] = 15;
+		return $args;
+	};
+	add_filter( 'http_request_args', $probe_timeout );
+
+	// Fail fast: compatibility (remote sources) and license.
+	$probe = new Cloner( $source_url );
+	if ( ! $probe->getSourceBookId() && ! $probe->isCompatible( $source_url ) ) {
+		remove_filter( 'http_request_args', $probe_timeout );
+		wp_send_json_error( [
+			'message' => __( 'You can only clone from a book hosted by Pressbooks 4.1 or later. Please ensure that your source book meets these requirements.', 'pressbooks' ),
+		], 400 );
+		return;
+	}
+	$metadata = $probe->getBookMetadata( $probe->getSourceBookUrl() );
+	if ( empty( $metadata ) ) {
+		remove_filter( 'http_request_args', $probe_timeout );
+		wp_send_json_error( [
+			/* translators: %s: source book URL */
+			'message' => sprintf( __( 'Could not retrieve metadata from %s.', 'pressbooks' ), $source_url ),
+		], 400 );
+		return;
+	}
+	if ( ! $probe->isSourceCloneable( $metadata['license'] ?? '' ) ) {
+		remove_filter( 'http_request_args', $probe_timeout );
+		wp_send_json_error( [
+			/* translators: %s: source book title */
+			'message' => sprintf( __( '%s is not licensed for cloning.', 'pressbooks' ), $metadata['name'] ?? $source_url ),
+		], 400 );
+		return;
+	}
+
+	remove_filter( 'http_request_args', $probe_timeout );
 
 	$job_id = app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )->insertGetId( [
 		'user_id' => get_current_user_id(),

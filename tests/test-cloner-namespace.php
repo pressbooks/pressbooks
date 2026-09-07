@@ -84,4 +84,44 @@ class ClonerNamespaceTest extends \WP_UnitTestCase {
 		revoke_super_admin( $user_id );
 		wp_set_current_user( 0 );
 	}
+
+	/**
+	 * @test
+	 */
+	public function queue_rejects_duplicate_active_target(): void {
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		grant_super_admin( $user_id );
+		wp_set_current_user( $user_id );
+
+		global $wpdb;
+		$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}" . CloneJobs::JOBS_TABLE_NAME );
+		CloneJobs::createJobTable();
+
+		// Active job for the same target owned by a DIFFERENT user.
+		$other_user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		$target_url = \Pressbooks\Cloner\Cloner::validateNewBookName( 'duptarget' );
+		$this->assertIsString( $target_url );
+		app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )->insert( [
+			'user_id' => $other_user_id,
+			'source_url' => 'https://example.com/source',
+			'target_url' => $target_url,
+			'target_title' => 'Dup',
+			'status' => CloneJobs::STATUS_PROCESSING,
+			'created_at' => current_time( 'mysql', true ),
+			'updated_at' => current_time( 'mysql', true ),
+		] );
+
+		$_REQUEST['_wpnonce'] = wp_create_nonce( 'pb-cloner' );
+		$_POST['source_book_url'] = 'https://example.com/source';
+		$_POST['target_book_url'] = 'duptarget';
+
+		$output = $this->callAjax( 'Pressbooks\Cloner\queue_clone_job' );
+
+		$this->assertStringContainsString( 'already in progress', $output );
+		$this->assertStringContainsString( '"success":false', $output );
+
+		unset( $_REQUEST['_wpnonce'], $_POST['source_book_url'], $_POST['target_book_url'] );
+		revoke_super_admin( $user_id );
+		wp_set_current_user( 0 );
+	}
 }
