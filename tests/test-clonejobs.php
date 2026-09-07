@@ -192,9 +192,34 @@ class CloneJobsTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( 'boom', $job->progress_message );
 
 		$log = json_decode( $job->log_details, true );
-		$this->assertNotEmpty( $log['cleanup'] );
+		$this->assertStringContainsString( 'was deleted', $log['cleanup'] );
 
 		$site = get_site( $blog_id );
 		$this->assertTrue( empty( $site ) || ! empty( $site->deleted ), 'Partial target book must be deleted' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_marks_failed_when_generator_throws_error(): void {
+		$job_id = $this->seedJob();
+
+		$generator = ( function (): \Generator {
+			yield 1 => 'Looking up the source book';
+			throw new \TypeError( 'type boom' );
+		} )();
+
+		$stub = $this->makeClonerStub( $generator, 0 );
+		add_filter( 'pb_clone_job_cloner', function () use ( $stub ) {
+			return $stub;
+		} );
+
+		CloneJobs::handle( $job_id );
+		remove_all_filters( 'pb_clone_job_cloner' );
+
+		$job = app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )->where( 'id', $job_id )->first();
+
+		$this->assertEquals( CloneJobs::STATUS_FAILED, $job->status );
+		$this->assertStringContainsString( 'type boom', $job->progress_message );
 	}
 }

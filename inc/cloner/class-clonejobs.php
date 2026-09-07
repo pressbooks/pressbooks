@@ -121,7 +121,7 @@ class CloneJobs {
 				'cloned_items' => wp_json_encode( self::summarize( $cloner ) ),
 				'job_completed_at' => current_time( 'mysql', true ),
 			] );
-		} catch ( \Exception $e ) {
+		} catch ( \Throwable $e ) {
 			// The generator may throw while switched into the target blog.
 			while ( is_multisite() && ms_is_switched() ) {
 				restore_current_blog();
@@ -137,7 +137,12 @@ class CloneJobs {
 						require_once ABSPATH . 'wp-admin/includes/ms.php';
 					}
 					wpmu_delete_blog( $target_book_id, true );
-					$cleanup_note = __( 'The partially created book was deleted.', 'pressbooks' );
+					$remaining_site = get_site( $target_book_id );
+					if ( $remaining_site && empty( $remaining_site->deleted ) ) {
+						$cleanup_note = __( 'The partially created book could not be deleted automatically. Please remove it manually.', 'pressbooks' );
+					} else {
+						$cleanup_note = __( 'The partially created book was deleted.', 'pressbooks' );
+					}
 				} catch ( \Throwable $cleanup_error ) {
 					error_log( 'CloneJobs::handle(Job ID: ' . $job_id . '): Cleanup failed: ' . $cleanup_error->getMessage() );
 					$cleanup_note = sprintf(
