@@ -229,4 +229,74 @@ class ClonerNamespaceTest extends \WP_UnitTestCase {
 		unset( $_REQUEST['_wpnonce'] );
 		wp_set_current_user( 0 );
 	}
+
+	/**
+	 * @test
+	 */
+	public function status_resume_skips_finished_jobs_and_prefers_newest(): void {
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+
+		// seedStatusJob drops + recreates the table, so call it once, then insert extras.
+		$completed_id = $this->seedStatusJob( $user_id, [ 'status' => CloneJobs::STATUS_COMPLETED ] );
+		$older_active_id = app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )->insertGetId( [
+			'user_id' => $user_id,
+			'source_url' => 'https://example.com/source',
+			'target_url' => 'example.com/older/',
+			'target_title' => 'Older',
+			'status' => CloneJobs::STATUS_PROCESSING,
+			'created_at' => gmdate( 'Y-m-d H:i:s', time() - 100 ),
+			'updated_at' => current_time( 'mysql', true ),
+		] );
+		$newest_active_id = app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )->insertGetId( [
+			'user_id' => $user_id,
+			'source_url' => 'https://example.com/source',
+			'target_url' => 'example.com/newest/',
+			'target_title' => 'Newest',
+			'status' => CloneJobs::STATUS_PENDING,
+			'created_at' => current_time( 'mysql', true ),
+			'updated_at' => current_time( 'mysql', true ),
+		] );
+
+		$_REQUEST['_wpnonce'] = wp_create_nonce( 'pb-cloner' );
+
+		$output = $this->callAjax( 'Pressbooks\Cloner\clone_job_status' );
+
+		$this->assertStringContainsString( '"success":true', $output );
+		$this->assertStringContainsString( '"job_id":' . $newest_active_id, $output );
+
+		unset( $_REQUEST['_wpnonce'] );
+		wp_set_current_user( 0 );
+	}
+
+	/**
+	 * @test
+	 */
+	public function staleness_update_does_not_clobber_completed_job(): void {
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+		$job_id = $this->seedStatusJob( $user_id, [
+			'updated_at' => gmdate( 'Y-m-d H:i:s', time() - 2 * HOUR_IN_SECONDS ),
+		] );
+
+		// Simulate the worker finishing between the endpoint's SELECT and UPDATE:
+		// flip the row to completed BEFORE the endpoint runs; the guarded UPDATE
+		// must then match zero rows. (We can't inject mid-request, so we verify
+		// the guard by ensuring a completed row is never flipped to failed.)
+		app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )
+			->where( 'id', $job_id )
+			->update( [ 'status' => CloneJobs::STATUS_COMPLETED ] );
+
+		$_REQUEST['_wpnonce'] = wp_create_nonce( 'pb-cloner' );
+		$_GET['job_id'] = (string) $job_id;
+
+		$output = $this->callAjax( 'Pressbooks\Cloner\clone_job_status' );
+
+		$this->assertStringContainsString( '"status":"completed"', $output );
+		$job = app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )->where( 'id', $job_id )->first();
+		$this->assertEquals( CloneJobs::STATUS_COMPLETED, $job->status, 'Completed job must never be flipped to failed' );
+
+		unset( $_REQUEST['_wpnonce'], $_GET['job_id'] );
+		wp_set_current_user( 0 );
+	}
 }

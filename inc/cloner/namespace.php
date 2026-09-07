@@ -127,6 +127,9 @@ function queue_clone_job(): void {
 function clone_job_status(): void {
 	check_ajax_referer( 'pb-cloner' );
 
+	// Unlike queue_clone_job(), this endpoint deliberately skips can_user_clone():
+	// owner scoping below is the real authorization, and a job already running
+	// must stay visible even if cloning gets disabled network-wide mid-clone.
 	if ( ! is_user_logged_in() ) {
 		wp_send_json_error( [ 'message' => __( 'Permission denied.', 'pressbooks' ) ], 403 );
 		return;
@@ -143,7 +146,8 @@ function clone_job_status(): void {
 		$query->where( 'id', $job_id );
 	} else {
 		$query->whereIn( 'status', [ CloneJobs::STATUS_PENDING, CloneJobs::STATUS_PROCESSING ] )
-			->orderBy( 'created_at', 'desc' );
+			->orderBy( 'created_at', 'desc' )
+			->orderBy( 'id', 'desc' );
 	}
 
 	$job = $query->first();
@@ -171,6 +175,7 @@ function clone_job_status(): void {
 			$message = __( 'The clone job timed out. The target book may exist in a partial state; contact your network manager to remove it.', 'pressbooks' );
 			app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )
 				->where( 'id', $job->id )
+				->where( 'status', CloneJobs::STATUS_PROCESSING )
 				->update( [
 					'status' => CloneJobs::STATUS_FAILED,
 					'progress_message' => $message,
