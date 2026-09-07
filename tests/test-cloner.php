@@ -789,4 +789,27 @@ class ClonerTest extends \WP_UnitTestCase {
 		$this->assertStringNotContainsString( 'attachment_46', $out );
 		$this->assertStringNotContainsString( 'attachment_50', $out );
 	}
+
+	/**
+	 * @test
+	 * @group clonejobs
+	 */
+	public function it_exposes_target_book_id(): void {
+		$cloner = new \Pressbooks\Cloner\Cloner( 'https://example.com/source' );
+		$this->assertEmpty( $cloner->getTargetBookId() );
+	}
+
+	/**
+	 * @test
+	 * @group clonejobs
+	 */
+	public function it_collects_errors_without_a_session(): void {
+		$cloner = new class( 'https://example.com/source' ) extends \Pressbooks\Cloner\Cloner {
+			public function pushError( string $message ): void {
+				$this->addError( $message );
+			}
+		};
+		$cloner->pushError( 'Something went wrong' );
+		$this->assertSame( [ 'Something went wrong' ], $cloner->getErrors() );
+	}
 }
