@@ -43,6 +43,17 @@ jQuery( function ( $ ) {
 	}
 
 	/**
+	 * HTML-escape a plain-text string for safe insertion via displayNotice
+	 * (which uses insertAdjacentHTML). Server messages may include remote
+	 * source titles/URLs, so never pass them as raw HTML.
+	 * @param {string} text
+	 * @returns {string}
+	 */
+	function escapeHtml( text ) {
+		return $( '<div></div>' ).text( text === null || text === undefined ? '' : text ).html();
+	}
+
+	/**
 	 *
 	 * @param data
 	 */
@@ -94,7 +105,7 @@ jQuery( function ( $ ) {
 		stopPolling();
 		bar.val( 0 ).hide();
 		info.text( '' );
-		displayNotice( 'error', data.progress_message || PB_ClonerToken.text.failed, true );
+		displayNotice( 'error', escapeHtml( data.progress_message || PB_ClonerToken.text.failed ), true );
 		button.attr( 'disabled', false ).show();
 	}
 
@@ -177,7 +188,7 @@ jQuery( function ( $ ) {
 					jqXHR.responseJSON && jqXHR.responseJSON.data && jqXHR.responseJSON.data.message
 						? jqXHR.responseJSON.data.message
 						: PB_ClonerToken.text.failed;
-				displayNotice( 'error', message, true );
+				displayNotice( 'error', escapeHtml( message ), true );
 				button.attr( 'disabled', false );
 			} );
 	} );
