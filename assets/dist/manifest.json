@@ -3,6 +3,10 @@
     "file": "assets/_commonjsHelpers-DsqdWQfm.js",
     "name": "_commonjsHelpers"
   },
+  "_displayNotice-C8JCgQMx.js": {
+    "file": "assets/displayNotice-C8JCgQMx.js",
+    "name": "displayNotice"
+  },
   "_jquery.bundler-require-wrapper-CKDLgtpV.js": {
     "file": "assets/jquery.bundler-require-wrapper-CKDLgtpV.js",
     "name": "jquery.bundler-require-wrapper",
@@ -14,8 +18,8 @@
     "file": "assets/lit-element-BlzW_tbz.js",
     "name": "lit-element"
   },
-  "_startClock-BGTX34Vu.js": {
-    "file": "assets/startClock-BGTX34Vu.js",
+  "_startClock-uVKWhohy.js": {
+    "file": "assets/startClock-uVKWhohy.js",
     "name": "startClock"
   },
   "assets/src/fonts/PBFont.svg": {
@@ -96,12 +100,12 @@
     ]
   },
   "assets/src/scripts/cloner.js": {
-    "file": "assets/cloner-CNw2JrE-.js",
+    "file": "assets/cloner-DTYIwP2Q.js",
     "name": "cloner",
     "src": "assets/src/scripts/cloner.js",
     "isEntry": true,
     "imports": [
-      "_startClock-BGTX34Vu.js"
+      "_displayNotice-C8JCgQMx.js"
     ]
   },
   "assets/src/scripts/color-picker.js": {
@@ -117,12 +121,13 @@
     "isEntry": true
   },
   "assets/src/scripts/covergenerator.js": {
-    "file": "assets/covergenerator-CiR2NV4H.js",
+    "file": "assets/covergenerator-CkfK9REm.js",
     "name": "covergenerator",
     "src": "assets/src/scripts/covergenerator.js",
     "isEntry": true,
     "imports": [
-      "_startClock-BGTX34Vu.js"
+      "_displayNotice-C8JCgQMx.js",
+      "_startClock-uVKWhohy.js"
     ],
     "css": [
       "assets/covergenerator-BPTG2Ppo.css"
@@ -177,12 +182,13 @@
     "isEntry": true
   },
   "assets/src/scripts/import.js": {
-    "file": "assets/import-BthjuJq4.js",
+    "file": "assets/import-BlK0JZPn.js",
     "name": "import",
     "src": "assets/src/scripts/import.js",
     "isEntry": true,
     "imports": [
-      "_startClock-BGTX34Vu.js"
+      "_displayNotice-C8JCgQMx.js",
+      "_startClock-uVKWhohy.js"
     ]
   },
   "assets/src/scripts/latex.js": {
