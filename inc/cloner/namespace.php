@@ -78,13 +78,27 @@ function queue_clone_job(): void {
 		], 400 );
 		return;
 	}
-	$metadata = $probe->getBookMetadata( $probe->getSourceBookUrl() );
-	if ( empty( $metadata ) ) {
+	// Fetch metadata directly so we can inspect the HTTP status: a 401/403 means the
+	// source book is not public (its REST API rejects anonymous reads), which is a
+	// different problem from an unreachable host and needs a different message.
+	$metadata = $probe->handleGetRequest( $probe->getSourceBookUrl(), 'pressbooks/v2', 'metadata' );
+	if ( is_wp_error( $metadata ) || empty( $metadata ) ) {
 		remove_filter( 'http_request_args', $probe_timeout );
-		wp_send_json_error( [
-			/* translators: %s: source book URL */
-			'message' => sprintf( __( 'Could not retrieve metadata from %s.', 'pressbooks' ), $source_url ),
-		], 400 );
+		$http_status = is_wp_error( $metadata ) ? (int) $metadata->get_error_code() : 0;
+		if ( in_array( $http_status, [ 401, 403 ], true ) ) {
+			$message = sprintf(
+				/* translators: %s: source book URL */
+				__( 'The source book at %s is not publicly accessible. Ask the book&rsquo;s owner to make it public before cloning.', 'pressbooks' ),
+				$source_url
+			);
+		} else {
+			$message = sprintf(
+				/* translators: %s: source book URL */
+				__( 'Could not retrieve metadata from %s. Check that the URL is correct and the book is reachable.', 'pressbooks' ),
+				$source_url
+			);
+		}
+		wp_send_json_error( [ 'message' => $message ], 400 );
 		return;
 	}
 	if ( ! $probe->isSourceCloneable( $metadata['license'] ?? '' ) ) {

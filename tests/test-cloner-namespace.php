@@ -125,6 +125,107 @@ class ClonerNamespaceTest extends \WP_UnitTestCase {
 		wp_set_current_user( 0 );
 	}
 
+	/**
+	 * Short-circuit outbound HTTP during the queue probe.
+	 *
+	 * @param array $responses Map of URL substring => [ code, body ].
+	 * @return callable The registered filter callback (pass to remove_filter).
+	 */
+	private function mockHttp( array $responses ): callable {
+		$callback = function ( $pre, $args, $url ) use ( $responses ) {
+			foreach ( $responses as $needle => $response ) {
+				if ( strpos( $url, $needle ) !== false ) {
+					if ( $response['code'] === 0 ) {
+						return new \WP_Error( 'http_request_failed', 'Connection refused' );
+					}
+					return [
+						'headers' => [],
+						'body' => $response['body'] ?? '',
+						'response' => [ 'code' => $response['code'], 'message' => '' ],
+						'cookies' => [],
+						'filename' => null,
+					];
+				}
+			}
+			// Default: benign 200 with no Link header (discovery finds no API root).
+			return [
+				'headers' => [],
+				'body' => '',
+				'response' => [ 'code' => 200, 'message' => 'OK' ],
+				'cookies' => [],
+				'filename' => null,
+			];
+		};
+		add_filter( 'pre_http_request', $callback, 10, 3 );
+		return $callback;
+	}
+
+	/**
+	 * @test
+	 */
+	public function queue_reports_private_source_as_not_public(): void {
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		grant_super_admin( $user_id );
+		wp_set_current_user( $user_id );
+
+		global $wpdb;
+		$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}" . CloneJobs::JOBS_TABLE_NAME );
+		CloneJobs::createJobTable();
+
+		// Compat probe (chapter-type) succeeds; metadata is forbidden (private book).
+		$callback = $this->mockHttp( [
+			'/pressbooks/v2/chapter-type' => [ 'code' => 200, 'body' => '[{"id":1,"slug":"x","taxonomy":"chapter-type"}]' ],
+			'/pressbooks/v2/metadata' => [ 'code' => 401, 'body' => '{"code":"rest_forbidden","data":{"status":401}}' ],
+		] );
+
+		$_REQUEST['_wpnonce'] = wp_create_nonce( 'pb-cloner' );
+		$_POST['source_book_url'] = 'https://remote.example/privatebook';
+		$_POST['target_book_url'] = 'privateclone';
+
+		$output = $this->callAjax( 'Pressbooks\Cloner\queue_clone_job' );
+
+		$this->assertStringContainsString( 'not publicly accessible', $output );
+		$this->assertStringContainsString( '"success":false', $output );
+
+		remove_filter( 'pre_http_request', $callback, 10 );
+		unset( $_REQUEST['_wpnonce'], $_POST['source_book_url'], $_POST['target_book_url'] );
+		revoke_super_admin( $user_id );
+		wp_set_current_user( 0 );
+	}
+
+	/**
+	 * @test
+	 */
+	public function queue_reports_unreachable_source_distinctly(): void {
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		grant_super_admin( $user_id );
+		wp_set_current_user( $user_id );
+
+		global $wpdb;
+		$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}" . CloneJobs::JOBS_TABLE_NAME );
+		CloneJobs::createJobTable();
+
+		// Compat probe succeeds; metadata fetch fails at the network level (not a 401/403).
+		$callback = $this->mockHttp( [
+			'/pressbooks/v2/chapter-type' => [ 'code' => 200, 'body' => '[{"id":1,"slug":"x","taxonomy":"chapter-type"}]' ],
+			'/pressbooks/v2/metadata' => [ 'code' => 0 ],
+		] );
+
+		$_REQUEST['_wpnonce'] = wp_create_nonce( 'pb-cloner' );
+		$_POST['source_book_url'] = 'https://remote.example/gonebook';
+		$_POST['target_book_url'] = 'goneclone';
+
+		$output = $this->callAjax( 'Pressbooks\Cloner\queue_clone_job' );
+
+		$this->assertStringContainsString( 'is reachable', $output );
+		$this->assertStringNotContainsString( 'not publicly accessible', $output );
+
+		remove_filter( 'pre_http_request', $callback, 10 );
+		unset( $_REQUEST['_wpnonce'], $_POST['source_book_url'], $_POST['target_book_url'] );
+		revoke_super_admin( $user_id );
+		wp_set_current_user( 0 );
+	}
+
 	private function seedStatusJob( int $user_id, array $overrides = [] ): int {
 		global $wpdb;
 		$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}" . CloneJobs::JOBS_TABLE_NAME );
