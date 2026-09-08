@@ -71,20 +71,27 @@ class CloneJobs {
 			return;
 		}
 
-		if ( self::STATUS_PENDING !== $job->status ) {
+		// Atomically claim the job: only one worker can flip it from pending to
+		// processing, so a WP-Cron double fire cannot clone the same job twice.
+		$claimed = app( 'db' )->table( self::JOBS_TABLE_NAME )
+			->where( 'id', $job_id )
+			->where( 'status', self::STATUS_PENDING )
+			->update( [
+				'status' => self::STATUS_PROCESSING,
+				'progress_percentage' => 0,
+				'progress_message' => __( 'Starting clone…', 'pressbooks' ),
+				'job_started_at' => current_time( 'mysql', true ),
+				'updated_at' => current_time( 'mysql', true ),
+			] );
+
+		if ( ! $claimed ) {
+			// Already claimed by another worker, or no longer pending.
 			return;
 		}
 
 		// Restore the queueing user: Cloner snapshots super-admin status in its
 		// constructor and wpmu_create_blog() assigns ownership from the current user.
 		wp_set_current_user( (int) $job->user_id );
-
-		self::update( $job_id, [
-			'status' => self::STATUS_PROCESSING,
-			'progress_percentage' => 0,
-			'progress_message' => __( 'Starting clone…', 'pressbooks' ),
-			'job_started_at' => current_time( 'mysql', true ),
-		] );
 
 		/**
 		 * Filter the Cloner instance used by the background job. Primarily a test seam.

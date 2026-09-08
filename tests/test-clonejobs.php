@@ -100,6 +100,28 @@ class CloneJobsTest extends \WP_UnitTestCase {
 	/**
 	 * @test
 	 */
+	public function it_does_not_reprocess_an_already_claimed_job(): void {
+		// A job another worker already flipped to processing must not be cloned again.
+		$job_id = $this->seedJob( [ 'status' => CloneJobs::STATUS_PROCESSING ] );
+
+		$cloner_built = false;
+		add_filter( 'pb_clone_job_cloner', function ( $cloner ) use ( &$cloner_built ) {
+			$cloner_built = true;
+			return $cloner;
+		} );
+
+		CloneJobs::handle( $job_id );
+		remove_all_filters( 'pb_clone_job_cloner' );
+
+		$this->assertFalse( $cloner_built, 'A job that is not pending must not reach the cloning stage' );
+
+		$job = app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )->where( 'id', $job_id )->first();
+		$this->assertEquals( CloneJobs::STATUS_PROCESSING, $job->status, 'Claimed job status must be left untouched' );
+	}
+
+	/**
+	 * @test
+	 */
 	public function it_completes_job_and_records_progress_and_summary(): void {
 		$job_id = $this->seedJob();
 
