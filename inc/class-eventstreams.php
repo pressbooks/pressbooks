@@ -12,11 +12,9 @@
 
 namespace Pressbooks;
 
-use Pressbooks\Cloner\Cloner;
 use Pressbooks\Modules\BackgroundProcessing\BackgroundJob;
 use Pressbooks\Modules\Import\Import;
 use function Pressbooks\Modules\Export\get_friendly_name_for_module;
-use function Pressbooks\Utility\getset;
 
 class EventStreams {
 
@@ -45,7 +43,6 @@ class EventStreams {
 	 * @param EventStreams $obj
 	 */
 	public static function hooks( EventStreams $obj ) {
-		add_action( 'wp_ajax_clone-book', [ $obj, 'cloneBook' ] );
 		add_action( 'wp_ajax_import-book', [ $obj, 'importBook' ] );
 		add_action( 'wp_ajax_cover-generator', [ $obj, 'coverGenerator' ] );
 		add_action( 'wp_ajax_pb_sse_exports', [ $obj, 'ajaxStreamUserExportsJobs' ] );
@@ -178,62 +175,6 @@ class EventStreams {
 		}
 		flush();
 		$this->msgStack = []; // Reset
-	}
-
-	/**
-	 * Clone a book
-	 */
-	public function cloneBook() {
-		check_admin_referer( 'pb-cloner' );
-
-		$source_url = $_GET['source_book_url'] ?? '';
-
-		$target_url = Cloner::validateNewBookName( $_GET['target_book_url'] );
-		if ( is_wp_error( $target_url ) ) {
-			$this->emitOneTimeError( $target_url->get_error_message() );
-			return;
-		}
-
-		$target_title = $_GET['target_book_title'] ?? '';
-
-		$cloner = new Cloner( $source_url, $target_url, $target_title );
-		$everything_ok = $this->emit( $cloner->cloneBookGenerator() );
-
-		if ( $everything_ok ) {
-			$cloned_items = $cloner->getClonedItems();
-			$notice = sprintf(
-				__( 'Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s, and %8$s to %9$s.', 'pressbooks' ),
-				sprintf( _n( '%s term', '%s terms', count( getset( $cloned_items, 'terms', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'terms', [] ) ) ),
-				sprintf( _n( '%s front matter', '%s front matter', count( getset( $cloned_items, 'front-matter', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'front-matter', [] ) ) ),
-				sprintf( _n( '%s part', '%s parts', count( getset( $cloned_items, 'parts', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'parts', [] ) ) ),
-				sprintf( _n( '%s chapter', '%s chapters', count( getset( $cloned_items, 'chapters', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'chapters', [] ) ) ),
-				sprintf( _n( '%s back matter', '%s back matter', count( getset( $cloned_items, 'back-matter', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'back-matter', [] ) ) ),
-				sprintf( _n( '%s media attachment', '%s media attachments', count( getset( $cloned_items, 'media', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'media', [] ) ) ),
-				sprintf( _n( '%s H5P element', '%s H5P elements', count( getset( $cloned_items, 'h5p', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'h5p', [] ) ) ),
-				sprintf( _n( '%s glossary term', '%s glossary terms', count( getset( $cloned_items, 'glossary', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'glossary', [] ) ) ),
-				sprintf( '<a href="%1$s"><em>%2$s</em></a>', trailingslashit( $cloner->getTargetBookUrl() ) . 'wp-admin/', $cloner->getTargetBookTitle() )
-			);
-			$source_theme = $cloner->getSourceTheme();
-			if ( ! empty( $source_theme ) ) {
-				$theme_notice = ! $cloned_items['theme'] ?
-					sprintf(
-						__( ' The source book\'s theme, \'%1$s (%2$s)\', was not available on this network and could not be applied. Contact your network manager with questions about theme availability.', 'pressbooks' ),
-						$source_theme['name'],
-						$source_theme['version']
-					) :
-					__( 'The source book\'s theme, theme settings, and custom styles were successfully applied.', 'pressbooks' );
-				$notice .= " $theme_notice";
-			}
-			\Pressbooks\add_notice( $notice );
-		}
-
-		// Tell the browser to stop reconnecting.
-		$this->emitComplete();
-		status_header( 204 );
-
-		if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
-			exit; // Short circuit wp_die(0);
-		}
 	}
 
 	/**
