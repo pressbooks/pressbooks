@@ -183,6 +183,31 @@ function clone_job_status(): void {
 					'updated_at' => current_time( 'mysql', true ),
 				] );
 		}
+	} elseif ( CloneJobs::STATUS_PENDING === $status ) {
+		// A pending job that never reached processing means WP-Cron never fired
+		// (or the scheduled event was lost). It created no target book, so it can
+		// simply be failed and retried instead of polling forever.
+		/**
+		 * Filter the number of seconds after which a clone job that never started
+		 * processing is considered dead.
+		 *
+		 * @param int $timeout
+		 */
+		$timeout = apply_filters( 'pb_clone_job_pending_timeout', 15 * MINUTE_IN_SECONDS );
+		$queued_at = strtotime( $job->created_at . ' +0000' );
+		if ( $queued_at && $queued_at < time() - $timeout ) {
+			$status = CloneJobs::STATUS_FAILED;
+			$message = __( 'The clone job could not be started. Please try again.', 'pressbooks' );
+			app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )
+				->where( 'id', $job->id )
+				->where( 'status', CloneJobs::STATUS_PENDING )
+				->update( [
+					'status' => CloneJobs::STATUS_FAILED,
+					'progress_message' => $message,
+					'job_completed_at' => current_time( 'mysql', true ),
+					'updated_at' => current_time( 'mysql', true ),
+				] );
+		}
 	}
 
 	wp_send_json_success( [

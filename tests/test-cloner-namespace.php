@@ -214,6 +214,61 @@ class ClonerNamespaceTest extends \WP_UnitTestCase {
 	/**
 	 * @test
 	 */
+	public function status_reports_stale_pending_job_as_failed(): void {
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+		$job_id = $this->seedStatusJob( $user_id, [
+			'status' => CloneJobs::STATUS_PENDING,
+			'progress_percentage' => 0,
+			'progress_message' => '',
+			'created_at' => gmdate( 'Y-m-d H:i:s', time() - 2 * HOUR_IN_SECONDS ),
+			'updated_at' => gmdate( 'Y-m-d H:i:s', time() - 2 * HOUR_IN_SECONDS ),
+		] );
+
+		$_REQUEST['_wpnonce'] = wp_create_nonce( 'pb-cloner' );
+		$_GET['job_id'] = (string) $job_id;
+
+		$output = $this->callAjax( 'Pressbooks\Cloner\clone_job_status' );
+
+		$this->assertStringContainsString( '"status":"failed"', $output );
+		$this->assertStringContainsString( 'could not be started', $output );
+
+		$job = app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )->where( 'id', $job_id )->first();
+		$this->assertEquals( CloneJobs::STATUS_FAILED, $job->status, 'Pending timeout must be persisted' );
+
+		unset( $_REQUEST['_wpnonce'], $_GET['job_id'] );
+		wp_set_current_user( 0 );
+	}
+
+	/**
+	 * @test
+	 */
+	public function status_does_not_fail_a_fresh_pending_job(): void {
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+		$job_id = $this->seedStatusJob( $user_id, [
+			'status' => CloneJobs::STATUS_PENDING,
+			'progress_percentage' => 0,
+			'progress_message' => '',
+		] );
+
+		$_REQUEST['_wpnonce'] = wp_create_nonce( 'pb-cloner' );
+		$_GET['job_id'] = (string) $job_id;
+
+		$output = $this->callAjax( 'Pressbooks\Cloner\clone_job_status' );
+
+		$this->assertStringContainsString( '"status":"pending"', $output );
+
+		$job = app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )->where( 'id', $job_id )->first();
+		$this->assertEquals( CloneJobs::STATUS_PENDING, $job->status, 'A fresh pending job must not be timed out' );
+
+		unset( $_REQUEST['_wpnonce'], $_GET['job_id'] );
+		wp_set_current_user( 0 );
+	}
+
+	/**
+	 * @test
+	 */
 	public function status_without_job_id_returns_latest_active_job(): void {
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
