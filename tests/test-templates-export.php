@@ -212,4 +212,24 @@ class TemplateExportTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<div id="title-page">', $title_rendered );
 		$this->assertStringContainsString( 'I am a content in the title page!', $title_rendered );
 	}
+
+	/**
+	 * @group export_templates
+	 */
+	public function test_epubTocHasLangAttributes() {
+		$toc_rendered = $this->blade->render(
+			'export/epub/toc',
+			[
+				'stylesheet' => '',
+				'lang' => 'fr',
+				'manifest' => [],
+				'manifest_keys' => [],
+			]
+		);
+
+		$this->assertStringContainsString(
+			'<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="fr" lang="fr">',
+			$toc_rendered
+		);
+	}
 }
