@@ -351,9 +351,58 @@ class testAdminSidebar extends \WP_UnitTestCase
 		(new SideBar)->restrictPostsPageAccess();
 	}
 
+	/**
+	 * @test
+	 */
+	public function it_restricts_network_settings_page_access(): void {
+		global $pagenow;
+		$pagenow = 'settings.php';
+		unset($_GET['page']);
+
+		try {
+			(new SideBar)->restrictNetworkSettingsPageAccess();
+			$this->fail('Should have restricted access to the Network Settings page');
+		} catch (WPDieException $e) {
+			$this->assertEquals('Sorry, you are not allowed to access this page.', $e->getMessage());
+		}
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_does_not_restrict_network_settings_subpages(): void {
+		global $pagenow;
+		$pagenow = 'settings.php';
+		$_GET['page'] = 'pb_analytics';
+
+		try {
+			(new SideBar)->restrictNetworkSettingsPageAccess();
+			$this->assertTrue(true);
+		} catch (WPDieException) {
+			$this->fail('Should not restrict access to Pressbooks settings subpages');
+		}
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_does_not_restrict_other_network_pages(): void {
+		global $pagenow;
+		$pagenow = 'sites.php';
+		unset($_GET['page']);
+
+		try {
+			(new SideBar)->restrictNetworkSettingsPageAccess();
+			$this->assertTrue(true);
+		} catch (WPDieException) {
+			$this->fail('Should not restrict access to other network pages');
+		}
+	}
+
 	public function tearDown(): void {
 		unset($_GET['post_type']);
 		unset($_POST['post_type']);
+		unset($_GET['page']);
 		$_SERVER['REQUEST_METHOD'] = 'GET';
 		parent::tearDown();
 	}

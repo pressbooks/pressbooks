@@ -77,6 +77,8 @@ class SideBar {
 		if ( ! is_restricted() ) {
 			add_filter( 'custom_menu_order', '__return_true' );
 			add_filter( 'menu_order', [ $this, 'reorderSuperAdminMenu' ], 998 );
+		} else {
+			add_action( 'admin_init', [ $this, 'restrictNetworkSettingsPageAccess' ] );
 		}
 
 		remove_action( 'admin_init', '\Pressbooks\Admin\NetworkManagers\restrict_access' );
@@ -136,6 +138,18 @@ class SideBar {
 		if ( in_array( $pagenow, $pages_to_block, true ) && ( $post_type === null || $post_type === 'post' ) ) {
 			wp_die( esc_html__( 'Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 );
 		}
+	}
+
+	public function restrictNetworkSettingsPageAccess(): void {
+		global $pagenow;
+
+		// Restrict only the core Network Settings screen. Pressbooks setting subpages
+		// ( settings.php?page=... ) remain accessible to network managers.
+		if ( $pagenow !== 'settings.php' || isset( $_GET['page'] ) ) {
+			return;
+		}
+
+		wp_die( esc_html__( 'Sorry, you are not allowed to access this page.', 'pressbooks' ), 403 );
 	}
 
 	public function manageNetworkAdminMenu(): void {
