@@ -1,5 +1,18 @@
 # Changelog
 
+## [6.45.3](https://github.com/pressbooks/pressbooks/compare/6.45.2...6.45.3) (2026-09-15)
+
+
+### Bug Fixes
+
+* add lang attributes to EPUB toc.xhtml ([#4570](https://github.com/pressbooks/pressbooks/issues/4570)) ([89ee45a](https://github.com/pressbooks/pressbooks/commit/89ee45a14e1595f38833a2ff2b6da9fc13f63092)), closes [#4444](https://github.com/pressbooks/pressbooks/issues/4444)
+* restrict Network Settings page for network managers ([#4573](https://github.com/pressbooks/pressbooks/issues/4573)) ([a5581a9](https://github.com/pressbooks/pressbooks/commit/a5581a9d2c4be1ec1f1fbe0cd06492cae7736112))
+
+
+### Chores
+
+* adding  to the debug output for images with problems ([#4555](https://github.com/pressbooks/pressbooks/issues/4555)) ([a259c2f](https://github.com/pressbooks/pressbooks/commit/a259c2f07380b2631883a48aa843225b772d5620))
+
 ## [6.45.2](https://github.com/pressbooks/pressbooks/compare/6.45.1...6.45.2) (2026-08-19)
 
 
