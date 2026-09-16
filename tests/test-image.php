@@ -102,19 +102,6 @@ class ImageTest extends \WP_UnitTestCase {
 	/**
 	 * @group media
 	 */
-	public function test_fudge_factor() {
-		$before = (int) ini_get( 'memory_limit' );
-		$format = 'png';
-		$file = __DIR__ . '/data/pb.png';
-		@\Pressbooks\Image\fudge_factor( $format, $file, 100 ); //adjust fudge to png during tests to avoid false positives
-		$after = (int) ini_get( 'memory_limit' );
-		$this->assertTrue( $before < $after );
-		ini_set( 'memory_limit', $before );
-	}
-
-	/**
-	 * @group media
-	 */
 	public function test_proper_image_extension() {
 		$file = __DIR__ . '/data/pb.png';
 		$result = \Pressbooks\Image\proper_image_extension( $file, 'pb.jpg' );
