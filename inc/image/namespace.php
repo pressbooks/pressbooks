@@ -502,9 +502,6 @@ function resize_down( $format, $fullpath, $max_w = 1024, $max_h = 1024 ) {
 		throw new \Exception( 'Invalid image format' );
 	}
 
-	/* Try to avoid problems with memory limit */
-	fudge_factor( $format, $fullpath );
-
 	/* Proceed with resizing */
 
 	$func = 'imagecreatefrom' . $format;
@@ -553,40 +550,6 @@ function resize_down( $format, $fullpath, $max_w = 1024, $max_h = 1024 ) {
 	$func = 'image' . $format;
 	$func( $dst, $fullpath );
 	imagedestroy( $dst );
-}
-
-/**
- * Adjust memory for large images
- *
- * @param  string  $format  expect jpg, jpeg, gif, or png
- * @param  string  $fullpath  path to read image file
- * @param  float  $fudge This is a guestimate, your mileage may very
- */
-function fudge_factor( $format, $fullpath, $fudge = 1.65 ) {
-
-	$size = @getimagesize( $fullpath ); // @codingStandardsIgnoreLine
-	if ( false === $size ) {
-		return;
-	}
-
-	if ( 'jpeg' === $format ) {
-		// Jpeg
-		$memory_needed = round( ( $size[0] * $size[1] * $size['bits'] * $size['channels'] / 8 + pow( 2, 16 ) ) * $fudge );
-	} else {
-		// Not Sure
-		$memory_needed = $size[0] * $size[1];
-		if ( isset( $size['bits'] ) ) {
-			$memory_needed = $memory_needed * $size['bits'];
-		}
-		$memory_needed = round( $memory_needed * $fudge );
-	}
-
-	if ( memory_get_usage() + $memory_needed > (int) ini_get( 'memory_limit' ) * pow( 1024, 2 ) ) {
-		$memory_limit = (int) ini_get( 'memory_limit' ) + ceil( ( ( memory_get_usage() + $memory_needed ) - (int) ini_get( 'memory_limit' ) * pow( 1024, 2 ) ) / pow( 1024, 2 ) ) . 'M';
-		trigger_error( "Image is too big, attempting to compensate by setting memory_limit to {$memory_limit} ...", E_USER_WARNING );
-		trigger_error( "Image path: {$fullpath}", E_USER_WARNING );
-		ini_set( 'memory_limit', $memory_limit );
-	}
 }
 
 /**
