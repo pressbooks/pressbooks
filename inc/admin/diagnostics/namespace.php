@@ -54,7 +54,7 @@ function render_page() {
 		$output .= "#### Book Info\n\n";
 		$output .= 'Book ID: ' . get_current_blog_id() . "\n";
 		$output .= 'Book URL: ' . trailingslashit( get_bloginfo( 'url' ) ) . "\n";
-		$output .= 'Book Privacy: ' . ( get_bloginfo( 'blog_public' ) ? 'Public' : 'Private' ) . "\n\n";
+		$output .= 'Book Privacy: ' . ( get_option( 'blog_public' ) ? 'Public' : 'Private' ) . "\n\n";
 	} else {
 		$output .= "#### Root Blog Info\n\n";
 		$output .= 'Root Blog ID: ' . get_current_blog_id() . "\n";
