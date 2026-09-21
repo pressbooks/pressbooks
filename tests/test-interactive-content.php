@@ -151,4 +151,43 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'bar', $s['_foo'] );
 		$this->assertFalse( $s['autoRewind'] );
 	}
+
+	/**
+	 * @group interactivecontent
+	 */
+	public function test_enqueueYouTubeApiForH5P() {
+		$handle = 'pb-youtube-iframe-api';
+
+		add_shortcode( \Pressbooks\Interactive\H5P::SHORTCODE, '__return_empty_string' );
+
+		$post_id = $this->factory()->post->create(
+			[ 'post_content' => 'Intro [h5p id="1"] outro' ]
+		);
+		$GLOBALS['post'] = get_post( $post_id ); // phpcs:ignore
+		wp_dequeue_script( $handle );
+		$this->content->enqueueYouTubeApiForH5P();
+		$this->assertTrue( wp_script_is( $handle, 'enqueued' ) );
+
+		$post_id = $this->factory()->post->create(
+			[ 'post_content' => 'Nothing to see here' ]
+		);
+		$GLOBALS['post'] = get_post( $post_id ); // phpcs:ignore
+		wp_dequeue_script( $handle );
+		$this->content->enqueueYouTubeApiForH5P();
+		$this->assertFalse( wp_script_is( $handle, 'enqueued' ) );
+
+		$post_id = $this->factory()->post->create(
+			[ 'post_content' => 'Intro [h5p id="1"] outro' ]
+		);
+		$GLOBALS['post'] = get_post( $post_id ); // phpcs:ignore
+		wp_dequeue_script( $handle );
+		add_filter( 'pb_h5p_preload_youtube_api', '__return_false' );
+		$this->content->enqueueYouTubeApiForH5P();
+		$this->assertFalse( wp_script_is( $handle, 'enqueued' ) );
+
+		remove_filter( 'pb_h5p_preload_youtube_api', '__return_false' );
+		remove_shortcode( \Pressbooks\Interactive\H5P::SHORTCODE );
+		wp_dequeue_script( $handle );
+		unset( $GLOBALS['post'] );
+	}
 }
