@@ -758,7 +758,7 @@
           },
           {
             "code": "CA-NS-009",
-            "name": "St. Mary's University",
+            "name": "Saint Mary's University",
             "url": "https:\/\/www.smu.ca\/"
           },
           {
@@ -1245,6 +1245,11 @@
             "code": "CA-QC-018",
             "name": "Universit\u00e9 T\u00c9LUQ",
             "url": "https:\/\/www.teluq.ca\/"
+          },
+          {
+            "code": "CA-QC-019",
+            "name": "C\u00e9gep Garneau",
+            "url": "https:\/\/cegepgarneau.ca\/"
           }
         ]
       },
@@ -7727,7 +7732,7 @@
           },
           {
             "code": "US-LA-034",
-            "name": "University of New Orleans",
+            "name": "LSU New Orleans",
             "url": "https:\/\/www.uno.edu\/"
           },
           {
