@@ -1154,7 +1154,7 @@
         ]
       },
       {
-        "name": "Qu\u00e9bec",
+        "name": "Québec",
         "institutions": [
           {
             "code": "CA-QC-001",
@@ -1168,12 +1168,12 @@
           },
           {
             "code": "CA-QC-003",
-            "name": "\u00c9cole des Hautes \u00c9tudes Commerciales",
+            "name": "École des Hautes Études Commerciales",
             "url": "https:\/\/www.hec.ca\/"
           },
           {
             "code": "CA-QC-004",
-            "name": "\u00c9cole Polytechnique de Montr\u00e9al, Universit\u00e9 de Montr\u00e9al",
+            "name": "École Polytechnique de Montréal, Université de Montréal",
             "url": "https:\/\/www.polymtl.ca\/"
           },
           {
@@ -1183,7 +1183,7 @@
           },
           {
             "code": "CA-QC-006",
-            "name": "\u00c9cole de Technologie Sup\u00e9rieure",
+            "name": "École de Technologie Supérieure",
             "url": "https:\/\/www.etsmtl.ca\/"
           },
           {
@@ -1198,57 +1198,57 @@
           },
           {
             "code": "CA-QC-009",
-            "name": "Universit\u00e9 de Montr\u00e9al",
+            "name": "Université de Montréal",
             "url": "https:\/\/www.umontreal.ca\/"
           },
           {
             "code": "CA-QC-010",
-            "name": "Universit\u00e9 de Sherbrooke",
+            "name": "Université de Sherbrooke",
             "url": "https:\/\/www.usherbrooke.ca\/"
           },
           {
             "code": "CA-QC-011",
-            "name": "Universit\u00e9 du Qu\u00e9bec \u00e0 Chicoutimi",
+            "name": "Université du Québec à Chicoutimi",
             "url": "https:\/\/www.uqac.ca\/"
           },
           {
             "code": "CA-QC-012",
-            "name": "Universit\u00e9 du Qu\u00e9bec \u00e0 Montr\u00e9al",
+            "name": "Université du Québec à Montréal",
             "url": "https:\/\/uqam.ca\/"
           },
           {
             "code": "CA-QC-013",
-            "name": "Universit\u00e9 du Qu\u00e9bec \u00e0 Rimouski",
+            "name": "Université du Québec à Rimouski",
             "url": "https:\/\/www.uqar.ca\/"
           },
           {
             "code": "CA-QC-014",
-            "name": "Universit\u00e9 du Qu\u00e9bec \u00e0 Trois-Rivi\u00e8res",
+            "name": "Université du Québec à Trois-Rivières",
             "url": "https:\/\/www.uqtr.ca\/"
           },
           {
             "code": "CA-QC-015",
-            "name": "Universit\u00e9 du Qu\u00e9bec en Abitibi-T\u00e9miscamingue",
+            "name": "Université du Québec en Abitibi-Témiscamingue",
             "url": "https:\/\/www.uqat.ca\/"
           },
           {
             "code": "CA-QC-016",
-            "name": "Universit\u00e9 du Qu\u00e9bec en Outaouais",
+            "name": "Université du Québec en Outaouais",
             "url": "https:\/\/uqo.ca\/"
           },
           {
             "code": "CA-QC-017",
-            "name": "Universit\u00e9 Laval",
+            "name": "Université Laval",
             "url": "https:\/\/www.ulaval.ca\/"
           },
           {
             "code": "CA-QC-018",
-            "name": "Universit\u00e9 T\u00c9LUQ",
+            "name": "Université TÉLUQ",
             "url": "https:\/\/www.teluq.ca\/"
           },
           {
             "code": "CA-QC-019",
-            "name": "C\u00e9gep Garneau",
+            "name": "Cégep Garneau",
             "url": "https:\/\/cegepgarneau.ca\/"
           }
         ]
