@@ -1,5 +1,22 @@
 # Changelog
 
+## [6.45.3](https://github.com/pressbooks/pressbooks/compare/6.45.2...6.45.3) (2026-09-22)
+
+
+### Bug Fixes
+
+* add lang attributes to EPUB toc.xhtml ([#4570](https://github.com/pressbooks/pressbooks/issues/4570)) ([89ee45a](https://github.com/pressbooks/pressbooks/commit/89ee45a14e1595f38833a2ff2b6da9fc13f63092)), closes [#4444](https://github.com/pressbooks/pressbooks/issues/4444)
+* gtag and h5p.video script conflict ([#4576](https://github.com/pressbooks/pressbooks/issues/4576)) ([74a72a0](https://github.com/pressbooks/pressbooks/commit/74a72a00274e2c78425c12b05c9934b088ba47c3))
+* remove fudge factor ([#4575](https://github.com/pressbooks/pressbooks/issues/4575)) ([fe0b24b](https://github.com/pressbooks/pressbooks/commit/fe0b24b7acfa257c60ed7f24b02b2269c8cb39db))
+* restrict Network Settings page for network managers ([#4573](https://github.com/pressbooks/pressbooks/issues/4573)) ([a5581a9](https://github.com/pressbooks/pressbooks/commit/a5581a9d2c4be1ec1f1fbe0cd06492cae7736112))
+
+
+### Chores
+
+* adding  to the debug output for images with problems ([#4555](https://github.com/pressbooks/pressbooks/issues/4555)) ([a259c2f](https://github.com/pressbooks/pressbooks/commit/a259c2f07380b2631883a48aa843225b772d5620))
+* bump WP 7.0.6 ([#4581](https://github.com/pressbooks/pressbooks/issues/4581)) ([f63557b](https://github.com/pressbooks/pressbooks/commit/f63557bba49ee4db7877e0c99acac5fe7e37eb68))
+* change Saint Mary's, change LSU New Orleans, add Cégep Garneau ([#4580](https://github.com/pressbooks/pressbooks/issues/4580)) ([93db740](https://github.com/pressbooks/pressbooks/commit/93db740ecc4bcdeaab53266e19be45505f121380))
+
 ## [6.45.2](https://github.com/pressbooks/pressbooks/compare/6.45.1...6.45.2) (2026-08-19)
 
 
