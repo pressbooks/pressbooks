@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.45.4](https://github.com/pressbooks/pressbooks/compare/6.45.3...6.45.4) (2026-09-23)
+
+
+### Chores
+
+* bump WP 7.1.2 ([#4582](https://github.com/pressbooks/pressbooks/issues/4582)) ([1df76b1](https://github.com/pressbooks/pressbooks/commit/1df76b1e27c8e2d3810c98f5ffd6e4034b7e48ed))
+
 ## [6.45.3](https://github.com/pressbooks/pressbooks/compare/6.45.2...6.45.3) (2026-09-22)
 
 
