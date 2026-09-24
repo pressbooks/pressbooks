@@ -34,7 +34,7 @@ version_in() {
 # disagree with each other, so drift is never silently ignored.
 current_version() {
 	set -e
-	local compat plugin readme_requires readme_tested readme_prose workflow found
+	local compat plugin readme_requires readme_tested readme_prose workflow pair
 
 	compat=$(version_in "$COMPAT_FILE" "[$]pb_minimum_wp = '([0-9.]+)';" 'compatibility.php')
 	plugin=$(version_in "$PLUGIN_FILE" 'Requires at least: WordPress ([0-9.]+)' 'pressbooks.php')
@@ -43,8 +43,13 @@ current_version() {
 	readme_prose=$(version_in "$README_FILE" 'Pressbooks works with PHP [0-9.]+ and WordPress ([0-9]+\.[0-9]+\.[0-9]+)\.' 'README.md (Requirements)')
 	workflow=$(version_in "$WORKFLOW_FILE" '^[[:space:]]*wordpress: ([0-9]+\.[0-9]+\.[0-9]+)' '.github/workflows/tests.yml')
 
-	for found in "$plugin" "$readme_requires" "$readme_tested" "$readme_prose" "$workflow"; do
-		[ "$found" = "$compat" ] || die "version mismatch: '$found' found alongside '$compat' in compatibility.php — fix the drift manually before bumping"
+	for pair in \
+		"pressbooks.php=$plugin" \
+		"README.md (Requires at least)=$readme_requires" \
+		"README.md (Tested up to)=$readme_tested" \
+		"README.md (Requirements)=$readme_prose" \
+		".github/workflows/tests.yml=$workflow"; do
+		[ "${pair#*=}" = "$compat" ] || die "version mismatch: ${pair%%=*} has '${pair#*=}' but compatibility.php has '$compat' — fix the drift manually before bumping"
 	done
 
 	printf '%s' "$compat"
