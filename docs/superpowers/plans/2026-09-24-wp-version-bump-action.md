@@ -93,17 +93,23 @@ version_in() {
 # Prints the version recorded in the repo. Fails when the target files
 # disagree with each other, so drift is never silently ignored.
 current_version() {
-	local compat plugin readme_requires readme_tested readme_prose workflow found
+	set -e
+	local compat plugin readme_requires readme_tested readme_prose workflow pair
 
 	compat=$(version_in "$COMPAT_FILE" "[$]pb_minimum_wp = '([0-9.]+)';" 'compatibility.php')
 	plugin=$(version_in "$PLUGIN_FILE" 'Requires at least: WordPress ([0-9.]+)' 'pressbooks.php')
 	readme_requires=$(version_in "$README_FILE" '^Requires at least: ([0-9.]+)' 'README.md (Requires at least)')
 	readme_tested=$(version_in "$README_FILE" '^Tested up to: ([0-9.]+)' 'README.md (Tested up to)')
-	readme_prose=$(version_in "$README_FILE" 'Pressbooks works with PHP [0-9.]+ and WordPress ([0-9.]+)' 'README.md (Requirements)')
+	readme_prose=$(version_in "$README_FILE" 'Pressbooks works with PHP [0-9.]+ and WordPress ([0-9]+\.[0-9]+\.[0-9]+)\.' 'README.md (Requirements)')
 	workflow=$(version_in "$WORKFLOW_FILE" '^[[:space:]]*wordpress: ([0-9]+\.[0-9]+\.[0-9]+)' '.github/workflows/tests.yml')
 
-	for found in "$plugin" "$readme_requires" "$readme_tested" "$readme_prose" "$workflow"; do
-		[ "$found" = "$compat" ] || die "version mismatch: '$found' found alongside '$compat' in compatibility.php — fix the drift manually before bumping"
+	for pair in \
+		"pressbooks.php=$plugin" \
+		"README.md (Requires at least)=$readme_requires" \
+		"README.md (Tested up to)=$readme_tested" \
+		"README.md (Requirements)=$readme_prose" \
+		".github/workflows/tests.yml=$workflow"; do
+		[ "${pair#*=}" = "$compat" ] || die "version mismatch: ${pair%%=*} has '${pair#*=}' but compatibility.php has '$compat' — fix the drift manually before bumping"
 	done
 
 	printf '%s' "$compat"
@@ -123,7 +129,7 @@ replace_all() {
 
 # bump_to <new-version> <current-version>
 bump_to() {
-	local new="$1" old="$2" tmp
+	local new="$1" old="$2"
 
 	if [ "$new" = "$old" ]; then
 		printf 'Already at WordPress %s\n' "$new"
@@ -142,7 +148,7 @@ bump_to() {
 	replace_all "$tmp/compatibility.php" "[$]pb_minimum_wp = '[0-9.]+" "$new" 1 'compatibility.php'
 	replace_all "$tmp/README.md" '^Requires at least: [0-9.]+' "$new" 1 'README.md (Requires at least)'
 	replace_all "$tmp/README.md" '^Tested up to: [0-9.]+' "$new" 1 'README.md (Tested up to)'
-	replace_all "$tmp/README.md" 'Pressbooks works with PHP [0-9.]+ and WordPress [0-9.]+' "$new" 1 'README.md (Requirements)'
+	replace_all "$tmp/README.md" 'Pressbooks works with PHP [0-9.]+ and WordPress [0-9]+\.[0-9]+\.[0-9]+' "$new" 1 'README.md (Requirements)'
 	replace_all "$tmp/tests.yml" '^[[:space:]]*wordpress: [0-9]+\.[0-9]+\.[0-9]+' "$new" 2 '.github/workflows/tests.yml'
 
 	mv "$tmp/pressbooks.php" "$PLUGIN_FILE"
@@ -296,7 +302,7 @@ jobs:
           if [ -z "$version" ]; then
             version=$(curl -sf https://api.wordpress.org/core/version-check/1.7/ | jq -r '.offers[0].version')
           fi
-          if [ -z "$version" ] || [ "$version" = "null" ] || printf '%s' "$version" | grep -q -e '-'; then
+          if ! printf '%s' "$version" | grep -qE '^[0-9]+(\.[0-9]+){1,2}$'; then
             echo "Could not resolve a stable WordPress version (got: '$version')" >&2
             exit 1
           fi
@@ -308,12 +314,15 @@ jobs:
 
       - name: Bump WordPress version
         if: steps.target.outputs.version != steps.current.outputs.version
-        run: bin/bump-wp-version.sh "${{ steps.target.outputs.version }}"
+        env:
+          TARGET_VERSION: ${{ steps.target.outputs.version }}
+        run: bin/bump-wp-version.sh "$TARGET_VERSION"
 
       - name: Create or update pull request
         if: steps.target.outputs.version != steps.current.outputs.version
         uses: peter-evans/create-pull-request@v8
         with:
+          # Classic PAT with `repo` + `workflow` scopes (the bump branch modifies a workflow file)
           token: ${{ secrets.WORKFLOW_TOKEN }}
           base: dev
           branch: chore/bump-wp-version
@@ -388,7 +397,7 @@ gh pr create --base dev \
 
 ## One-time setup (required)
 
-Create a `WORKFLOW_TOKEN` repository secret containing a bot PAT with `repo` scope. A PAT is required because PRs opened with the default `GITHUB_TOKEN` do not trigger `tests.yml`, so checks would not run on the bump PR.
+Create a classic PAT on a bot account with `repo` and `workflow` scopes (the `workflow` scope is required because the bump branch modifies `.github/workflows/tests.yml`; a fine-grained PAT needs Contents: write, Pull requests: write, and Workflows: write), and store it as the repository secret `WORKFLOW_TOKEN`. A PAT is required because PRs opened with the default `GITHUB_TOKEN` do not trigger `tests.yml`, so checks would not run on the bump PR.
 
 ## How to test
 

@@ -32,7 +32,7 @@ jobs:
           if [ -z "$version" ]; then
             version=$(curl -sf https://api.wordpress.org/core/version-check/1.7/ | jq -r '.offers[0].version')
           fi
-          if [ -z "$version" ] || [ "$version" = "null" ] || printf '%s' "$version" | grep -q -e '-'; then
+          if ! printf '%s' "$version" | grep -qE '^[0-9]+(\.[0-9]+){1,2}$'; then
             echo "Could not resolve a stable WordPress version (got: '$version')" >&2
             exit 1
           fi
@@ -44,12 +44,15 @@ jobs:
 
       - name: Bump WordPress version
         if: steps.target.outputs.version != steps.current.outputs.version
-        run: bin/bump-wp-version.sh "${{ steps.target.outputs.version }}"
+        env:
+          TARGET_VERSION: ${{ steps.target.outputs.version }}
+        run: bin/bump-wp-version.sh "$TARGET_VERSION"
 
       - name: Create or update pull request
         if: steps.target.outputs.version != steps.current.outputs.version
         uses: peter-evans/create-pull-request@v8
         with:
+          # Classic PAT with `repo` + `workflow` scopes (the bump branch modifies a workflow file)
           token: ${{ secrets.WORKFLOW_TOKEN }}
           base: dev
           branch: chore/bump-wp-version

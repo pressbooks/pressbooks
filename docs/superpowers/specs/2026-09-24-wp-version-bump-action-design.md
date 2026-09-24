@@ -126,9 +126,12 @@ of creating a second stale PR.
 
 ### Setup prerequisite
 
-Create a PAT on a bot account (`repo` scope) and store it as the repository secret
-`WORKFLOW_TOKEN`. Without it, PR creation fails at that step. This is a one-time manual
-step and must be documented in the PR introducing the workflow.
+Create a classic PAT on a bot account with `repo` and `workflow` scopes (the `workflow`
+scope is required because the bump branch modifies `.github/workflows/tests.yml`; a
+fine-grained PAT needs Contents: write, Pull requests: write, and Workflows: write), and
+store it as the repository secret `WORKFLOW_TOKEN`. Without it, PR creation fails at that
+step. This is a one-time manual step and must be documented in the PR introducing the
+workflow.
 
 ## Edge cases
 
