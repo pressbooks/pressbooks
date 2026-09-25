@@ -7,6 +7,8 @@ class IntegrationsTest extends \WP_UnitTestCase {
 	 * @group integrations
 	 */
 	public function test_cloneRemoteBook() {
+		$this->markTestSkipped( 'Remote fixture book https://dev.pressbooks.pub/pbtest is no longer available (returns HTTP 403). Re-enable once remote clone/import integration testing is refactored.' );
+
 		$source = 'https://dev.pressbooks.pub/pbtest';
 		$target = uniqid( 'clone-' );
 
@@ -52,6 +54,8 @@ class IntegrationsTest extends \WP_UnitTestCase {
 	 * @group integrations
 	 */
 	public function test_ImportUsingCloningApi() {
+		$this->markTestSkipped( 'Remote fixture book https://dev.pressbooks.pub/pbtest is no longer available (returns HTTP 403). Re-enable once remote clone/import integration testing is refactored.' );
+
 		$source = 'https://dev.pressbooks.pub/pbtest';
 
 		$this->_setupBookApi();
@@ -104,6 +108,8 @@ class IntegrationsTest extends \WP_UnitTestCase {
 	 * @group integrations
 	 */
 	public function test_ImportPressbooksWxr() {
+		$this->markTestSkipped( 'WXR fixture media are hosted on https://dev.pressbooks.pub which is no longer available (returns HTTP 403), so media sideloading fails. Re-enable once remote clone/import integration testing is refactored.' );
+
 		$this->_book();
 		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
 		( new \Pressbooks\Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
