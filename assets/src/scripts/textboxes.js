@@ -44,7 +44,7 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 	 * @param selection
 	 */
 	function eduTextboxWithSelection( type, title, selection ) {
-		return `<div class="textbox textbox--${ type }"><header class="textbox__header"><p class="textbox__title">${ title }</p></header>\n<div class="textbox__content">${ selection }</div></div><p></p>`;
+		return `<div class="textbox textbox--${ type }" role="region"><header class="textbox__header"><p class="textbox__title">${ title }</p></header>\n<div class="textbox__content">${ selection }</div></div><p></p>`;
 	}
 
 	/**
@@ -55,7 +55,7 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 	 * @param second
 	 */
 	function eduTextboxWithPlaceholder( type, title, placeholder, first, second ) {
-		return `<div class="textbox textbox--${ type }"><header class="textbox__header"><p class="textbox__title">${ title }</p></header>\n<div class="textbox__content"><p>${ placeholder }</p><ul><li>${ first }</li><li>${ second }</li></ul></div></div><p></p>`;
+		return `<div class="textbox textbox--${ type }" role="region"><header class="textbox__header"><p class="textbox__title">${ title }</p></header>\n<div class="textbox__content"><p>${ placeholder }</p><ul><li>${ first }</li><li>${ second }</li></ul></div></div><p></p>`;
 	}
 
 	/**
@@ -64,7 +64,7 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 	 * @param selection
 	 */
 	function eduSidebarTextboxWithSelection( type, title, selection ) {
-		return `<div class="textbox textbox--sidebar textbox--${ type }"><header class="textbox__header"><p class="textbox__title">${ title }</p></header>\n<div class="textbox__content">${ selection }</div></div><p></p>`;
+		return `<div class="textbox textbox--sidebar textbox--${ type }" role="complementary"><header class="textbox__header"><p class="textbox__title">${ title }</p></header>\n<div class="textbox__content">${ selection }</div></div><p></p>`;
 	}
 
 	/**
@@ -81,7 +81,7 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 		first,
 		second
 	) {
-		return `<div class="textbox textbox--sidebar textbox--${ type }"><header class="textbox__header"><p class="textbox__title">${ title }</p></header>\n<div class="textbox__content"><p>${ placeholder }</p><ul><li>${ first }</li><li>${ second }</li></ul></div></div><p></p>`;
+		return `<div class="textbox textbox--sidebar textbox--${ type }" role="complementary"><header class="textbox__header"><p class="textbox__title">${ title }</p></header>\n<div class="textbox__content"><p>${ placeholder }</p><ul><li>${ first }</li><li>${ second }</li></ul></div></div><p></p>`;
 	}
 
 	editor.addButton( 'textboxes', {
@@ -100,13 +100,13 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 						editor.execCommand(
 							'mceReplaceContent',
 							false,
-							`<div class="textbox"><p>${ selection }</p></div><p></p>`
+							`<div class="textbox" role="region"><p>${ selection }</p></div><p></p>`
 						);
 					} else {
 						editor.execCommand(
 							'mceInsertContent',
 							0,
-							`<div class="textbox"><p>${ editor.getLang( 'strings.standardplaceholder' ) }</p></div><p></p>`
+							`<div class="textbox" role="region"><p>${ editor.getLang( 'strings.standardplaceholder' ) }</p></div><p></p>`
 						);
 					}
 				},
@@ -122,13 +122,13 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 						editor.execCommand(
 							'mceReplaceContent',
 							false,
-							`<div class="textbox textbox--sidebar"><p>${ selection }</p></div><p></p>`
+							`<div class="textbox textbox--sidebar" role="complementary"><p>${ selection }</p></div><p></p>`
 						);
 					} else {
 						editor.execCommand(
 							'mceInsertContent',
 							0,
-							`<div class="textbox textbox--sidebar"><p>${ editor.getLang( 'strings.standardplaceholder' ) }</p></div><p></p>`
+							`<div class="textbox textbox--sidebar" role="complementary"><p>${ editor.getLang( 'strings.standardplaceholder' ) }</p></div><p></p>`
 						);
 					}
 				},
@@ -144,13 +144,13 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 						editor.execCommand(
 							'mceReplaceContent',
 							false,
-							`<div class="textbox shaded"><p>${ selection }</p></div><p></p>`
+							`<div class="textbox shaded" role="region"><p>${ selection }</p></div><p></p>`
 						);
 					} else {
 						editor.execCommand(
 							'mceInsertContent',
 							0,
-							`<div class="textbox shaded"><p>${ editor.getLang( 'strings.standardplaceholder' ) }</p></div><p></p>`
+							`<div class="textbox shaded" role="region"><p>${ editor.getLang( 'strings.standardplaceholder' ) }</p></div><p></p>`
 						);
 					}
 				},
@@ -166,13 +166,13 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 						editor.execCommand(
 							'mceReplaceContent',
 							false,
-							`<div class="textbox textbox--sidebar shaded"><p>${ selection }</p></div><p></p>`
+							`<div class="textbox textbox--sidebar shaded" role="complementary"><p>${ selection }</p></div><p></p>`
 						);
 					} else {
 						editor.execCommand(
 							'mceInsertContent',
 							0,
-							`<div class="textbox textbox--sidebar shaded"><p>${ editor.getLang( 'strings.standardplaceholder' ) }</p></div><p></p>`
+							`<div class="textbox textbox--sidebar shaded" role="complementary"><p>${ editor.getLang( 'strings.standardplaceholder' ) }</p></div><p></p>`
 						);
 					}
 				},
