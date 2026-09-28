@@ -251,6 +251,7 @@ class Footnotes {
 				$tmp = trim( preg_replace( '/\s+/', ' ', $tmp ) ); // Normalize white spaces
 
 				$find[] = str_replace( '__REPLACE_ME__', preg_quote( $footnote[2] ), $replacers[ $i ] );
+				$tmp = strtr( $tmp, [ '\\' => '\\\\', '$' => '\$' ] ); // Escape preg_replace() backreference syntax
 				$replace[] = '[footnote]' . $tmp . '[/footnote]';
 			}
 

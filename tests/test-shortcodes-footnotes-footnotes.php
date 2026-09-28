@@ -162,4 +162,26 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 
 		$this->_fakeAjaxDone( $old_error_reporting );
 	}
+
+	/**
+	 * @group footnotes
+	 */
+	public function test_convertWordFootnotes_preservesDollarSign() {
+		$old_error_reporting = $this->_fakeAjax();
+
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+		$_REQUEST['_ajax_nonce'] = wp_create_nonce( 'pb-footnote-convert' );
+		$_POST['content'] = '<p>Paragraph text.<a href="#_ftn1" name="_ftnref1" title="">[1]</a></p>' .
+			'<div id="ftn1"><a href="#_ftnref1" name="_ftn1" title="">[1]</a> This costs $5 and $10 more.</div>';
+
+		ob_start();
+		\Pressbooks\Shortcodes\Footnotes\Footnotes::convertWordFootnotes();
+		$buffer = ob_get_clean();
+		$json = json_decode( $buffer, true );
+
+		$this->assertStringContainsString( 'This costs $5 and $10 more.', $json['content'] );
+
+		$this->_fakeAjaxDone( $old_error_reporting );
+	}
 }
