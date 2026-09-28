@@ -40,6 +40,12 @@ if ( ! empty( $_GET['custom_styles_error'] ) ) {
 ?>
 <div class="wrap">
 	<h1><?php _e( 'Custom Styles', 'pressbooks' ); ?></h1>
+	<p class="description" id="pb-editor-keyboard-trap-help-1"><?php _e( 'When using a keyboard to navigate the code editors below:', 'pressbooks' ); ?></p>
+	<ul class="description">
+		<li id="pb-editor-keyboard-trap-help-2"><?php _e( 'In the editing area, the Tab key enters a tab character.', 'pressbooks' ); ?></li>
+		<li id="pb-editor-keyboard-trap-help-3"><?php _e( 'To move away from this area, press the Esc key followed by the Tab key (or Shift+Tab to move backward).', 'pressbooks' ); ?></li>
+		<li id="pb-editor-keyboard-trap-help-4"><?php _e( 'Screen reader users: when in forms mode, you may need to press the Esc key twice.', 'pressbooks' ); ?></li>
+	</ul>
 	<div class="custom-styles-page">
 		<form id="pb-custom-styles-form" action="<?php echo $custom_form_url ?>" method="post">
 			<input type="hidden" name="post_id" value="<?php echo $post_id; ?>"/>
@@ -56,18 +62,42 @@ if ( ! empty( $_GET['custom_styles_error'] ) ) {
 </div>
 <script>
 (function( $, wp ) {
-	var e1 = wp.CodeMirror.fromTextArea( document.getElementById( 'theme_styles' ), {
-		lineNumbers: true,
-		matchBrackets: true,
-		readOnly: true,
-		mode: 'text/x-scss'
+	// wp.codeEditor.initialize() (not raw CodeMirror) wires up Esc-then-Tab to escape the editor.
+	if ( ! wp.codeEditor ) {
+		return; // Not enqueued if user disabled syntax highlighting; plain textareas have no trap.
+	}
+
+	var describedBy = 'pb-editor-keyboard-trap-help-1 pb-editor-keyboard-trap-help-2 pb-editor-keyboard-trap-help-3 pb-editor-keyboard-trap-help-4';
+
+	var themeStyles = wp.codeEditor.initialize( 'theme_styles', {
+		codemirror: {
+			readOnly: true
+		},
+		onTabPrevious: function() {
+			$( '#slug' ).trigger( 'focus' );
+		},
+		onTabNext: function() {
+			yourStyles.codemirror.focus();
+		}
 	} );
-	var e2 = wp.CodeMirror.fromTextArea( document.getElementById( 'your_styles' ), {
-		lineNumbers: true,
-		matchBrackets: true,
-		mode: 'text/x-scss'
+
+	var yourStyles = wp.codeEditor.initialize( 'your_styles', {
+		onTabPrevious: function() {
+			themeStyles.codemirror.focus();
+		},
+		onTabNext: function() {
+			$( '#pb-custom-styles-form' ).find( '#submit' ).trigger( 'focus' );
+		}
 	} );
-	$( e1.display.input.textarea ).attr({ 'aria-label': '<?php printf( __( 'Theme %1$s Styles (%2$s)', 'pressbooks' ), $current_label, $theme ); ?>', 'aria-disabled': true })
-	$( e2.display.input.textarea ).attr({ 'aria-label': '<?php printf( __( 'Your %s Styles', 'pressbooks' ), $current_label ); ?>' })
+
+	$( themeStyles.codemirror.display.input.textarea ).attr({
+		'aria-label': '<?php printf( __( 'Theme %1$s Styles (%2$s)', 'pressbooks' ), $current_label, $theme ); ?>',
+		'aria-disabled': true,
+		'aria-describedby': describedBy
+	});
+	$( yourStyles.codemirror.display.input.textarea ).attr({
+		'aria-label': '<?php printf( __( 'Your %s Styles', 'pressbooks' ), $current_label ); ?>',
+		'aria-describedby': describedBy
+	});
 })( window.jQuery, window.wp );
 </script>
