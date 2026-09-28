@@ -86,7 +86,7 @@ if ( ! empty( $_GET['custom_styles_error'] ) ) {
 			themeStyles.codemirror.focus();
 		},
 		onTabNext: function() {
-			$( '#pb-custom-styles-form' ).find( '#submit' ).trigger( 'focus' );
+			$( '#pb-custom-styles-form' ).find( ':submit' ).trigger( 'focus' );
 		}
 	} );
 
