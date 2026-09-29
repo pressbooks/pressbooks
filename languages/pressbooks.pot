@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-24T21:22:10+00:00\n"
+"POT-Creation-Date: 2026-09-29T09:49:15+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -1813,7 +1813,7 @@ msgstr ""
 #: inc/admin/metaboxes/namespace.php:328
 #: inc/admin/metaboxes/namespace.php:344
 #: inc/admin/metaboxes/namespace.php:349
-#: templates/admin/custom-styles.php:52
+#: templates/admin/custom-styles.php:58
 msgid "Save"
 msgstr ""
 
@@ -2577,7 +2577,7 @@ msgid "$title is deprecated. Method will automatically determine title from lice
 msgstr ""
 
 #: inc/class-licensing.php:348
-#: inc/class-styles.php:899
+#: inc/class-styles.php:898
 #: inc/modules/export/epub/class-epub.php:1438
 #: inc/modules/export/xhtml/class-xhtml11.php:1381
 #: templates/export/epub/opf.blade.php:100
@@ -2631,54 +2631,54 @@ msgstr ""
 msgid "There was a problem with SASS. Contact your site administrator. Error: %1$s %2$s"
 msgstr ""
 
-#: inc/class-styles.php:98
+#: inc/class-styles.php:97
 #: templates/admin/custom-styles.php:42
 msgid "Custom Styles"
 msgstr ""
 
-#: inc/class-styles.php:120
+#: inc/class-styles.php:119
 msgid "Custom Style for Ebook"
 msgstr ""
 
-#: inc/class-styles.php:125
+#: inc/class-styles.php:124
 msgid "Custom Style for PDF"
 msgstr ""
 
-#: inc/class-styles.php:130
+#: inc/class-styles.php:129
 msgid "Custom Style for Web"
 msgstr ""
 
-#: inc/class-styles.php:777
+#: inc/class-styles.php:776
 msgid "Theme default"
 msgstr ""
 
-#: inc/class-styles.php:778
-#: inc/class-styles.php:792
+#: inc/class-styles.php:777
+#: inc/class-styles.php:791
 #: templates/admin/custom-fonts.blade.php:64
 #: templates/admin/custom-fonts.blade.php:65
 msgid "Serif"
 msgstr ""
 
-#: inc/class-styles.php:779
+#: inc/class-styles.php:778
 msgid "Sans serif"
 msgstr ""
 
-#: inc/class-styles.php:819
+#: inc/class-styles.php:818
 #, php-format
 msgid "Unknown slug: %s"
 msgstr ""
 
-#: inc/class-styles.php:824
+#: inc/class-styles.php:823
 #, php-format
 msgid "Unexpected Error: There was a problem trying to query slug: %s - Please contact technical support."
 msgstr ""
 
-#: inc/class-styles.php:864
+#: inc/class-styles.php:863
 #: templates/admin/custom-styles.php:20
 msgid "Web"
 msgstr ""
 
-#: inc/class-styles.php:896
+#: inc/class-styles.php:895
 msgid "Last 10 Revisions"
 msgstr ""
 
@@ -5337,18 +5337,34 @@ msgstr ""
 msgid "Error: Something went wrong. See logs for more details."
 msgstr ""
 
+#: templates/admin/custom-styles.php:43
+msgid "When using a keyboard to navigate the code editors below:"
+msgstr ""
+
+#: templates/admin/custom-styles.php:45
+msgid "In the editing area, the Tab key enters a tab character."
+msgstr ""
+
+#: templates/admin/custom-styles.php:46
+msgid "To move away from this area, press the Esc key followed by the Tab key (or Shift+Tab to move backward)."
+msgstr ""
+
 #: templates/admin/custom-styles.php:47
+msgid "Screen reader users: when in forms mode, you may need to press the Esc key twice."
+msgstr ""
+
+#: templates/admin/custom-styles.php:53
 msgid "You are currently editing styles for"
 msgstr ""
 
-#: templates/admin/custom-styles.php:48
-#: templates/admin/custom-styles.php:70
+#: templates/admin/custom-styles.php:54
+#: templates/admin/custom-styles.php:94
 #, php-format
 msgid "Theme %1$s Styles (%2$s)"
 msgstr ""
 
-#: templates/admin/custom-styles.php:50
-#: templates/admin/custom-styles.php:71
+#: templates/admin/custom-styles.php:56
+#: templates/admin/custom-styles.php:99
 #, php-format
 msgid "Your %s Styles"
 msgstr ""
