@@ -288,12 +288,20 @@ class Docx extends Import {
 				if ( $s->length > 0 ) {
 					$texts = [];
 					for ( $j = 0; $j < $s->length; $j++ ) {
-						$texts[] = $s->item( $j )->parentNode->parentNode->lastChild->nodeValue;
+						$run = $s->item( $j )->parentNode->parentNode;
+						// Skip paragraph mark formatting, e.g. <w:pPr><w:rPr><w:i/></w:rPr></w:pPr>.
+						// It styles the pilcrow, not a run of visible text, so there's nothing to extract.
+						if ( ! ( $run instanceof \DOMElement ) || 'r' !== $run->localName ) {
+							continue;
+						}
+						$texts[] = $run->lastChild->nodeValue;
 					}
-					$styles[] = [
-						'style' => $available_style,
-						'texts' => $texts,
-					];
+					if ( ! empty( $texts ) ) {
+						$styles[] = [
+							'style' => $available_style,
+							'texts' => $texts,
+						];
+					}
 				}
 				if ( count( $styles ) > 0 ) {
 					$this->fn_styles[ $ids[ $i ] ] = $styles;
@@ -676,6 +684,10 @@ class Docx extends Import {
 					$footnote_text = $notes[ $id ];
 					foreach ( $this->fn_styles[ $id ] as $style ) {
 						foreach ( $style['texts'] as $text_style ) {
+							if ( '' === $text_style ) {
+								continue; // explode() throws a ValueError on an empty separator
+							}
+
 							// Create style element
 							$style_element = $chapter->createElement( $style['style'] );
 							$text_element = $chapter->createTextNode( $text_style );
