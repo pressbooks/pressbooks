@@ -40,11 +40,11 @@ if ( ! empty( $_GET['custom_styles_error'] ) ) {
 ?>
 <div class="wrap">
 	<h1><?php _e( 'Custom Styles', 'pressbooks' ); ?></h1>
-	<p class="description" id="pb-editor-keyboard-trap-help-1"><?php _e( 'When using a keyboard to navigate the code editors below:', 'pressbooks' ); ?></p>
+	<p class="description" id="pb-editor-keyboard-trap-help-1"><?php printf( __( 'Add your own styles in Your %1$s Styles. Theme %1$s Styles is read-only.', 'pressbooks' ), $current_label ); ?></p>
 	<ul class="description">
-		<li id="pb-editor-keyboard-trap-help-2"><?php _e( 'In the editing area, the Tab key enters a tab character.', 'pressbooks' ); ?></li>
-		<li id="pb-editor-keyboard-trap-help-3"><?php _e( 'To move away from this area, press the Esc key followed by the Tab key (or Shift+Tab to move backward).', 'pressbooks' ); ?></li>
-		<li id="pb-editor-keyboard-trap-help-4"><?php _e( 'Screen reader users: when in forms mode, you may need to press the Esc key twice.', 'pressbooks' ); ?></li>
+		<li id="pb-editor-keyboard-trap-help-2"><?php printf( __( 'When using a keyboard, Tab enters a tab character in Your %s Styles.', 'pressbooks' ), $current_label ); ?></li>
+		<li id="pb-editor-keyboard-trap-help-3"><?php _e( 'To move away from either editor, press Esc, then Tab (or Shift+Tab to go back).', 'pressbooks' ); ?></li>
+		<li id="pb-editor-keyboard-trap-help-4"><?php _e( 'Screen reader users: in forms mode, you may need to press Esc twice.', 'pressbooks' ); ?></li>
 	</ul>
 	<div class="custom-styles-page">
 		<form id="pb-custom-styles-form" action="<?php echo $custom_form_url ?>" method="post">
