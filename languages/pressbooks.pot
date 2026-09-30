@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-29T20:31:25+00:00\n"
+"POT-Creation-Date: 2026-09-30T16:37:10+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -172,17 +172,23 @@ msgstr ""
 msgid "Pub Date"
 msgstr ""
 
+#: inc/admin/class-catalog-list-table.php:336
+msgid "Security check."
+msgstr ""
+
 #: inc/admin/class-catalog-list-table.php:379
 msgid "Edit Tags"
 msgstr ""
 
 #: inc/admin/class-catalog-list-table.php:409
+#: inc/admin/diagnostics/namespace.php:57
 #: templates/admin/organize.blade.php:18
 #: templates/admin/organize.blade.php:40
 msgid "Private"
 msgstr ""
 
 #: inc/admin/class-catalog-list-table.php:409
+#: inc/admin/diagnostics/namespace.php:57
 #: templates/admin/organize.blade.php:13
 #: templates/admin/organize.blade.php:26
 msgid "Public"
@@ -339,6 +345,19 @@ msgstr ""
 msgid "Unrestrict Access"
 msgstr ""
 
+#: inc/admin/class-network-managers-list-table.php:108
+msgid "Username"
+msgstr ""
+
+#: inc/admin/class-network-managers-list-table.php:109
+#: inc/admin/metaboxes/namespace.php:806
+msgid "Name"
+msgstr ""
+
+#: inc/admin/class-network-managers-list-table.php:110
+msgid "E-mail"
+msgstr ""
+
 #: inc/admin/class-pressbookstable.php:76
 #, php-format
 msgid "%1$s column, sorted %2$s. Activate to sort %3$s."
@@ -460,6 +479,10 @@ msgstr ""
 msgid "Book Title Case"
 msgstr ""
 
+#: inc/admin/covergenerator/namespace.php:186
+msgid "Title Case"
+msgstr ""
+
 #: inc/admin/covergenerator/namespace.php:193
 msgid "Spine Size"
 msgstr ""
@@ -470,6 +493,18 @@ msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:211
 msgid "Paper Type"
+msgstr ""
+
+#: inc/admin/covergenerator/namespace.php:216
+msgid "Black & white interior, white paper"
+msgstr ""
+
+#: inc/admin/covergenerator/namespace.php:217
+msgid "Black & white interior, creme paper"
+msgstr ""
+
+#: inc/admin/covergenerator/namespace.php:218
+msgid "Color interior"
 msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:225
@@ -594,6 +629,23 @@ msgstr ""
 msgid "Your image is the wrong aspect ratio. The image must have an aspect ratio of %1$s to %2$s."
 msgstr ""
 
+#: inc/admin/customfonts/namespace.php:33
+#: inc/admin/customfonts/namespace.php:38
+#: inc/admin/customfonts/namespace.php:139
+#: inc/admin/customfonts/namespace.php:143
+#: inc/admin/customfonts/namespace.php:184
+#: inc/admin/customfonts/namespace.php:188
+msgid "Permission denied"
+msgstr ""
+
+#: inc/admin/customfonts/namespace.php:110
+msgid "Invalid font file type."
+msgstr ""
+
+#: inc/admin/customfonts/namespace.php:127
+msgid "Font upload failed for "
+msgstr ""
+
 #: inc/admin/dashboard/class-dashboard.php:52
 #: inc/admin/laf/namespace.php:858
 #: inc/admin/laf/namespace.php:933
@@ -649,6 +701,231 @@ msgstr ""
 #: inc/admin/laf/namespace.php:109
 #: templates/admin/diagnostics.blade.php:4
 msgid "Diagnostics"
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:55
+msgid "Book ID: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:56
+msgid "Book URL: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:57
+msgid "Book Privacy: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:60
+msgid "Root Blog ID: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:61
+msgid "Root Blog URL: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:64
+msgid "Platform: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:65
+msgid "Browser Name: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:66
+msgid "Browser Version: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:67
+msgid "User Agent String: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:68
+msgid "#### WordPress Configuration"
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:69
+msgid "Network URL: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:70
+msgid "Network Type: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:70
+msgid "Subdomain"
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:70
+msgid "Subdirectory"
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:71
+#: inc/admin/diagnostics/namespace.php:77
+msgid "Version: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:72
+msgid "Language: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:73
+msgid "WP_ENV: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:73
+#: inc/admin/diagnostics/namespace.php:74
+msgid "Not set"
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:74
+msgid "WP_DEBUG: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:74
+msgid "Enabled"
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:74
+msgid "Disabled"
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:75
+#: inc/admin/diagnostics/namespace.php:141
+msgid "Memory Limit: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:76
+msgid "#### Pressbooks Configuration"
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:86
+#: inc/admin/diagnostics/namespace.php:90
+msgid "Book Theme: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:87
+#: inc/admin/diagnostics/namespace.php:91
+msgid "Book Theme Version: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:87
+msgid "Current Version"
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:96
+msgid "Root Theme: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:97
+msgid "Root Theme Version: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:98
+msgid "#### Pressbooks Dependencies"
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:99
+msgid "Epubcheck: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:99
+#: inc/admin/diagnostics/namespace.php:100
+#: inc/admin/diagnostics/namespace.php:101
+msgid "Installed"
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:99
+#: inc/admin/diagnostics/namespace.php:100
+#: inc/admin/diagnostics/namespace.php:101
+msgid "Not Installed"
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:100
+msgid "xmllint: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:101
+msgid "PrinceXML: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:104
+msgid "#### Must-Use Plugins"
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:106
+msgid "n/a"
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:109
+msgid "#### Network Active Plugins"
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:118
+msgid "#### Book Active Plugins"
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:120
+msgid "#### Root Blog Active Plugins"
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:129
+msgid "#### Inactive Plugins"
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:136
+msgid "#### Server Configuration"
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:137
+msgid "PHP Version: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:138
+msgid "MySQL Version: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:139
+msgid "Webserver Info: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:140
+msgid "#### PHP Configuration"
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:142
+msgid "Upload Max Size: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:143
+msgid "Post Max Size: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:144
+msgid "Upload Max Filesize: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:145
+msgid "Time Limit: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:146
+msgid "Max Input Vars: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:147
+msgid "URL-aware fopen: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:148
+msgid "Display Errors: "
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:149
+msgid "#### PHP Extensions"
+msgstr ""
+
+#: inc/admin/diagnostics/namespace.php:150
+msgid "OPcache: "
 msgstr ""
 
 #: inc/admin/diagnostics/namespace.php:198
@@ -1523,6 +1800,7 @@ msgstr ""
 #: inc/modules/export/epub/class-epub.php:1429
 #: inc/modules/export/epub/class-epub.php:1451
 #: inc/modules/export/xhtml/class-xhtml11.php:1372
+#: templates/export/epub/opf.blade.php:87
 msgid "Copyright"
 msgstr ""
 
@@ -1856,10 +2134,6 @@ msgstr ""
 #: inc/admin/metaboxes/namespace.php:629
 #: inc/admin/metaboxes/namespace.php:687
 msgid "Images should be square (400px x 400px). You will be allowed to crop images after upload."
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:806
-msgid "Name"
 msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:835
@@ -2379,14 +2653,17 @@ msgid "Ancient Greek"
 msgstr ""
 
 #: inc/class-globaltypography.php:43
+#: inc/l10n/namespace.php:37
 msgid "Armenian"
 msgstr ""
 
 #: inc/class-globaltypography.php:44
+#: inc/l10n/namespace.php:22
 msgid "Arabic"
 msgstr ""
 
 #: inc/class-globaltypography.php:45
+#: inc/l10n/namespace.php:41
 msgid "Bengali"
 msgstr ""
 
@@ -2415,6 +2692,7 @@ msgid "Devanagari (Hindi and Sanskrit)"
 msgstr ""
 
 #: inc/class-globaltypography.php:52
+#: inc/l10n/namespace.php:84
 msgid "Gujarati"
 msgstr ""
 
@@ -2427,14 +2705,17 @@ msgid "Hebrew (Modern)"
 msgstr ""
 
 #: inc/class-globaltypography.php:55
+#: inc/l10n/namespace.php:92
 msgid "Japanese"
 msgstr ""
 
 #: inc/class-globaltypography.php:56
+#: inc/l10n/namespace.php:93
 msgid "Kannada"
 msgstr ""
 
 #: inc/class-globaltypography.php:57
+#: inc/l10n/namespace.php:96
 msgid "Korean"
 msgstr ""
 
@@ -2443,6 +2724,7 @@ msgid "Khmer"
 msgstr ""
 
 #: inc/class-globaltypography.php:59
+#: inc/l10n/namespace.php:101
 msgid "Malayalam"
 msgstr ""
 
@@ -2467,10 +2749,12 @@ msgid "Syriac"
 msgstr ""
 
 #: inc/class-globaltypography.php:65
+#: inc/l10n/namespace.php:147
 msgid "Tamil"
 msgstr ""
 
 #: inc/class-globaltypography.php:66
+#: inc/l10n/namespace.php:149
 msgid "Telugu"
 msgstr ""
 
@@ -2479,10 +2763,12 @@ msgid "Tibetan"
 msgstr ""
 
 #: inc/class-globaltypography.php:68
+#: inc/l10n/namespace.php:153
 msgid "Turkish"
 msgstr ""
 
 #: inc/class-globaltypography.php:69
+#: inc/l10n/namespace.php:155
 msgid "Urdu"
 msgstr ""
 
@@ -2569,6 +2855,7 @@ msgstr ""
 
 #: inc/class-licensing.php:139
 #: inc/class-licensing.php:351
+#: inc/datacollector/class-book.php:429
 msgid "All Rights Reserved"
 msgstr ""
 
@@ -2802,6 +3089,22 @@ msgstr ""
 msgid "Sorry, that book URL already exists!"
 msgstr ""
 
+#: inc/cloner/class-downloads.php:157
+#: inc/modules/import/epub/class-epub201.php:556
+#: inc/modules/import/html/class-xhtml.php:407
+#: inc/modules/import/odf/class-odt.php:247
+#: inc/modules/import/ooxml/class-docx.php:471
+#: inc/modules/import/wordpress/class-downloads.php:145
+msgid "Image is corrupt, and file extension matches the mime type"
+msgstr ""
+
+#: inc/covergenerator/class-docraptorjpg.php:181
+#: inc/covergenerator/class-isbn.php:99
+#: inc/covergenerator/class-princejpg.php:202
+#: inc/covergenerator/class-sku.php:80
+msgid "No attachment url."
+msgstr ""
+
 #: inc/covergenerator/class-generator.php:202
 msgid "Calculating spine width"
 msgstr ""
@@ -2832,8 +3135,17 @@ msgstr ""
 msgid "There was a problem creating the barcode: Invalid ISBN number."
 msgstr ""
 
+#: inc/covergenerator/class-princejpg.php:77
+#: inc/covergenerator/class-princepdf.php:93
+msgid "Failed to create PDF file"
+msgstr ""
+
 #: inc/covergenerator/class-sku.php:43
 msgid "There was a problem creating the barcode: Invalid characters in SKU"
+msgstr ""
+
+#: inc/datacollector/class-book.php:651
+msgid "Objects are forbidden. Unserialization can result in code being loaded and executed due to object instantiation and autoloading, and a malicious user may be able to exploit this. Fix your code!"
 msgstr ""
 
 #: inc/editor/namespace.php:110
@@ -2998,6 +3310,48 @@ msgstr ""
 msgid "Internal Link"
 msgstr ""
 
+#: inc/health/checks/class-cachecheck.php:15
+msgid "Could not set or retrieve an application cache value."
+msgstr ""
+
+#: inc/health/checks/class-databasecheck.php:14
+msgid "Could not connect to the database."
+msgstr ""
+
+#: inc/health/checks/class-filesystemcheck.php:14
+msgid "Failed to obtain filesystem write access."
+msgstr ""
+
+#: inc/health/checks/class-filesystemcheck.php:18
+msgid "The filesystem is not writable."
+msgstr ""
+
+#: inc/health/checks/class-filesystemcheck.php:22
+msgid "The filesystem is not readable."
+msgstr ""
+
+#: inc/health/checks/class-filesystemcheck.php:29
+#, php-format
+msgid "The disk is almost full (%d%% used)."
+msgstr ""
+
+#: inc/health/checks/class-objectcacheprocheck.php:14
+msgid "Object Cache Pro plugin is either inactive or not installed."
+msgstr ""
+
+#: inc/health/checks/class-objectcacheprocheck.php:28
+msgid "Could not connect to Redis cache."
+msgstr ""
+
+#: inc/health/checks/class-objectcacheprocheck.php:32
+msgid "License token is not valid or it's missing."
+msgstr ""
+
+#: inc/htmlbook/class-element.php:252
+#: inc/htmlbook/class-element.php:265
+msgid "Recursion problem: cannot set self as content to self"
+msgstr ""
+
 #: inc/image/namespace.php:399
 msgid "This image will be displayed on the webbook home page and used as the internal cover in ebook exports. Cover images must be at least 800px tall and have an aspect ratio between .66 and 1. Very large images will be resized upon upload. Read more in <a href=\"https://guide.pressbooks.com/chapter/how-to-design-your-book-cover/\" target=\"_blank\">our guide</a>."
 msgstr ""
@@ -3011,8 +3365,528 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+#: inc/image/namespace.php:502
+msgid "Invalid image format"
+msgstr ""
+
+#: inc/image/namespace.php:523
+msgid "Error loading image"
+msgstr ""
+
 #: inc/interactive/class-h5p.php:549
 msgid "The original version of this chapter contained H5P content. You may want to remove or replace this element."
+msgstr ""
+
+#: inc/l10n/namespace.php:20
+msgid "Afrikaans"
+msgstr ""
+
+#: inc/l10n/namespace.php:21
+msgid "Albanian"
+msgstr ""
+
+#: inc/l10n/namespace.php:23
+msgid "Arabic (Algeria)"
+msgstr ""
+
+#: inc/l10n/namespace.php:24
+msgid "Arabic (Bahrain)"
+msgstr ""
+
+#: inc/l10n/namespace.php:25
+msgid "Arabic (Egypt)"
+msgstr ""
+
+#: inc/l10n/namespace.php:26
+msgid "Arabic (Jordan)"
+msgstr ""
+
+#: inc/l10n/namespace.php:27
+msgid "Arabic (Kuwait)"
+msgstr ""
+
+#: inc/l10n/namespace.php:28
+msgid "Arabic (Lebanon)"
+msgstr ""
+
+#: inc/l10n/namespace.php:29
+msgid "Arabic (Morocco)"
+msgstr ""
+
+#: inc/l10n/namespace.php:30
+msgid "Arabic (Oman)"
+msgstr ""
+
+#: inc/l10n/namespace.php:31
+msgid "Arabic (Qatar)"
+msgstr ""
+
+#: inc/l10n/namespace.php:32
+msgid "Arabic (Saudi Arabia)"
+msgstr ""
+
+#: inc/l10n/namespace.php:33
+msgid "Arabic (Syria)"
+msgstr ""
+
+#: inc/l10n/namespace.php:34
+msgid "Arabic (Tunisia)"
+msgstr ""
+
+#: inc/l10n/namespace.php:35
+msgid "Arabic (U.A.E.)"
+msgstr ""
+
+#: inc/l10n/namespace.php:36
+msgid "Arabic (Yemen)"
+msgstr ""
+
+#: inc/l10n/namespace.php:38
+msgid "Azeri"
+msgstr ""
+
+#: inc/l10n/namespace.php:39
+msgid "Basque"
+msgstr ""
+
+#: inc/l10n/namespace.php:40
+msgid "Belarusian"
+msgstr ""
+
+#: inc/l10n/namespace.php:42
+msgid "Bulgarian"
+msgstr ""
+
+#: inc/l10n/namespace.php:43
+msgid "Catalan"
+msgstr ""
+
+#: inc/l10n/namespace.php:44
+msgid "Chinese"
+msgstr ""
+
+#: inc/l10n/namespace.php:45
+msgid "Chinese (Hong Kong)"
+msgstr ""
+
+#: inc/l10n/namespace.php:46
+msgid "Chinese (PRC)"
+msgstr ""
+
+#: inc/l10n/namespace.php:47
+msgid "Chinese (Singapore)"
+msgstr ""
+
+#: inc/l10n/namespace.php:48
+msgid "Chinese (Taiwan)"
+msgstr ""
+
+#: inc/l10n/namespace.php:49
+msgid "Croatian"
+msgstr ""
+
+#: inc/l10n/namespace.php:50
+msgid "Czech"
+msgstr ""
+
+#: inc/l10n/namespace.php:51
+msgid "Danish"
+msgstr ""
+
+#: inc/l10n/namespace.php:52
+msgid "Dutch"
+msgstr ""
+
+#: inc/l10n/namespace.php:53
+msgid "Dutch (Belgium)"
+msgstr ""
+
+#: inc/l10n/namespace.php:54
+msgid "English"
+msgstr ""
+
+#: inc/l10n/namespace.php:55
+msgid "English (Australia)"
+msgstr ""
+
+#: inc/l10n/namespace.php:56
+msgid "English (Belize)"
+msgstr ""
+
+#: inc/l10n/namespace.php:57
+msgid "English (Canada)"
+msgstr ""
+
+#: inc/l10n/namespace.php:58
+msgid "English (Ireland)"
+msgstr ""
+
+#: inc/l10n/namespace.php:59
+msgid "English (Jamaica)"
+msgstr ""
+
+#: inc/l10n/namespace.php:60
+msgid "English (New Zealand)"
+msgstr ""
+
+#: inc/l10n/namespace.php:61
+msgid "English (Philippines)"
+msgstr ""
+
+#: inc/l10n/namespace.php:62
+msgid "English (South Africa)"
+msgstr ""
+
+#: inc/l10n/namespace.php:63
+msgid "English (Trinidad)"
+msgstr ""
+
+#: inc/l10n/namespace.php:64
+msgid "English (United Kingdom)"
+msgstr ""
+
+#: inc/l10n/namespace.php:65
+msgid "English (United States)"
+msgstr ""
+
+#: inc/l10n/namespace.php:66
+msgid "English (Zimbabwe)"
+msgstr ""
+
+#: inc/l10n/namespace.php:67
+msgid "Estonian"
+msgstr ""
+
+#: inc/l10n/namespace.php:68
+msgid "Faeroese"
+msgstr ""
+
+#: inc/l10n/namespace.php:69
+msgid "Farsi"
+msgstr ""
+
+#: inc/l10n/namespace.php:70
+msgid "Finnish"
+msgstr ""
+
+#: inc/l10n/namespace.php:71
+msgid "French (Belgium)"
+msgstr ""
+
+#: inc/l10n/namespace.php:72
+msgid "French (Canada)"
+msgstr ""
+
+#: inc/l10n/namespace.php:73
+msgid "French"
+msgstr ""
+
+#: inc/l10n/namespace.php:74
+msgid "French (Luxembourg)"
+msgstr ""
+
+#: inc/l10n/namespace.php:75
+msgid "French (Monaco)"
+msgstr ""
+
+#: inc/l10n/namespace.php:76
+msgid "French (Switzerland)"
+msgstr ""
+
+#: inc/l10n/namespace.php:77
+msgid "Georgian"
+msgstr ""
+
+#: inc/l10n/namespace.php:78
+msgid "German"
+msgstr ""
+
+#: inc/l10n/namespace.php:79
+msgid "German (Austria)"
+msgstr ""
+
+#: inc/l10n/namespace.php:80
+msgid "German (Liechtenstein)"
+msgstr ""
+
+#: inc/l10n/namespace.php:81
+msgid "German (Luxembourg)"
+msgstr ""
+
+#: inc/l10n/namespace.php:82
+msgid "German (Switzerland)"
+msgstr ""
+
+#: inc/l10n/namespace.php:83
+msgid "Greek"
+msgstr ""
+
+#: inc/l10n/namespace.php:85
+msgid "Hebrew"
+msgstr ""
+
+#: inc/l10n/namespace.php:86
+msgid "Hindi"
+msgstr ""
+
+#: inc/l10n/namespace.php:87
+msgid "Hungarian"
+msgstr ""
+
+#: inc/l10n/namespace.php:88
+msgid "Icelandic"
+msgstr ""
+
+#: inc/l10n/namespace.php:89
+msgid "Indonesian"
+msgstr ""
+
+#: inc/l10n/namespace.php:90
+msgid "Italian"
+msgstr ""
+
+#: inc/l10n/namespace.php:91
+msgid "Italian (Switzerland)"
+msgstr ""
+
+#: inc/l10n/namespace.php:94
+msgid "Kazakh"
+msgstr ""
+
+#: inc/l10n/namespace.php:95
+msgid "Konkani"
+msgstr ""
+
+#: inc/l10n/namespace.php:97
+msgid "Latvian"
+msgstr ""
+
+#: inc/l10n/namespace.php:98
+msgid "Lithuanian"
+msgstr ""
+
+#: inc/l10n/namespace.php:99
+msgid "Macedonian"
+msgstr ""
+
+#: inc/l10n/namespace.php:100
+msgid "Malay"
+msgstr ""
+
+#: inc/l10n/namespace.php:102
+msgid "Maltese"
+msgstr ""
+
+#: inc/l10n/namespace.php:103
+msgid "Marathi"
+msgstr ""
+
+#: inc/l10n/namespace.php:104
+msgid "Nepali"
+msgstr ""
+
+#: inc/l10n/namespace.php:105
+msgid "Norwegian"
+msgstr ""
+
+#: inc/l10n/namespace.php:106
+msgid "Norwegian (Bokm&aring;l)"
+msgstr ""
+
+#: inc/l10n/namespace.php:107
+msgid "Norwegian (Nynorsk)"
+msgstr ""
+
+#: inc/l10n/namespace.php:108
+msgid "Oriya"
+msgstr ""
+
+#: inc/l10n/namespace.php:109
+msgid "Polish"
+msgstr ""
+
+#: inc/l10n/namespace.php:110
+msgid "Portuguese"
+msgstr ""
+
+#: inc/l10n/namespace.php:111
+msgid "Portuguese (Brazil)"
+msgstr ""
+
+#: inc/l10n/namespace.php:112
+msgid "Punjabi"
+msgstr ""
+
+#: inc/l10n/namespace.php:113
+msgid "Rhaeto-Romanic"
+msgstr ""
+
+#: inc/l10n/namespace.php:114
+msgid "Romanian"
+msgstr ""
+
+#: inc/l10n/namespace.php:115
+msgid "Romanian (Moldova)"
+msgstr ""
+
+#: inc/l10n/namespace.php:116
+msgid "Russian"
+msgstr ""
+
+#: inc/l10n/namespace.php:117
+msgid "Russian (Moldova)"
+msgstr ""
+
+#: inc/l10n/namespace.php:118
+msgid "Sami (Lappish)"
+msgstr ""
+
+#: inc/l10n/namespace.php:119
+msgid "Sanskrit"
+msgstr ""
+
+#: inc/l10n/namespace.php:120
+msgid "Serbian"
+msgstr ""
+
+#: inc/l10n/namespace.php:121
+msgid "Slovak"
+msgstr ""
+
+#: inc/l10n/namespace.php:122
+msgid "Slovenian"
+msgstr ""
+
+#: inc/l10n/namespace.php:123
+msgid "Sorbian"
+msgstr ""
+
+#: inc/l10n/namespace.php:124
+msgid "Spanish"
+msgstr ""
+
+#: inc/l10n/namespace.php:125
+msgid "Spanish (Argentina)"
+msgstr ""
+
+#: inc/l10n/namespace.php:126
+msgid "Spanish (Bolivia)"
+msgstr ""
+
+#: inc/l10n/namespace.php:127
+msgid "Spanish (Chile)"
+msgstr ""
+
+#: inc/l10n/namespace.php:128
+msgid "Spanish (Colombia)"
+msgstr ""
+
+#: inc/l10n/namespace.php:129
+msgid "Spanish (Costa Rica)"
+msgstr ""
+
+#: inc/l10n/namespace.php:130
+msgid "Spanish (Dominican Republic)"
+msgstr ""
+
+#: inc/l10n/namespace.php:131
+msgid "Spanish (Ecuador)"
+msgstr ""
+
+#: inc/l10n/namespace.php:132
+msgid "Spanish (El Salvador)"
+msgstr ""
+
+#: inc/l10n/namespace.php:133
+msgid "Spanish (Guatemala)"
+msgstr ""
+
+#: inc/l10n/namespace.php:134
+msgid "Spanish (Honduras)"
+msgstr ""
+
+#: inc/l10n/namespace.php:135
+msgid "Spanish (Mexico)"
+msgstr ""
+
+#: inc/l10n/namespace.php:136
+msgid "Spanish (Nicaragua)"
+msgstr ""
+
+#: inc/l10n/namespace.php:137
+msgid "Spanish (Panama)"
+msgstr ""
+
+#: inc/l10n/namespace.php:138
+msgid "Spanish (Paraguay)"
+msgstr ""
+
+#: inc/l10n/namespace.php:139
+msgid "Spanish (Peru)"
+msgstr ""
+
+#: inc/l10n/namespace.php:140
+msgid "Spanish (Puerto Rico)"
+msgstr ""
+
+#: inc/l10n/namespace.php:141
+msgid "Spanish (Uruguay)"
+msgstr ""
+
+#: inc/l10n/namespace.php:142
+msgid "Spanish (Venezuela)"
+msgstr ""
+
+#: inc/l10n/namespace.php:143
+msgid "Sutu"
+msgstr ""
+
+#: inc/l10n/namespace.php:144
+msgid "Swahili"
+msgstr ""
+
+#: inc/l10n/namespace.php:145
+msgid "Swedish"
+msgstr ""
+
+#: inc/l10n/namespace.php:146
+msgid "Swedish (Finland)"
+msgstr ""
+
+#: inc/l10n/namespace.php:148
+msgid "Tatar"
+msgstr ""
+
+#: inc/l10n/namespace.php:150
+msgid "Thai"
+msgstr ""
+
+#: inc/l10n/namespace.php:151
+msgid "Tsonga"
+msgstr ""
+
+#: inc/l10n/namespace.php:152
+msgid "Tswana"
+msgstr ""
+
+#: inc/l10n/namespace.php:154
+msgid "Ukranian"
+msgstr ""
+
+#: inc/l10n/namespace.php:156
+msgid "Uzbek"
+msgstr ""
+
+#: inc/l10n/namespace.php:157
+msgid "Vietnamese"
+msgstr ""
+
+#: inc/l10n/namespace.php:158
+msgid "Xhosa"
+msgstr ""
+
+#: inc/l10n/namespace.php:159
+msgid "Zulu"
 msgstr ""
 
 #: inc/l10n/namespace.php:512
@@ -3058,6 +3932,11 @@ msgstr ""
 
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:147
 msgid "Converting content"
+msgstr ""
+
+#: inc/modules/backgroundprocessing/class-backgroundjob.php:160
+#, php-format
+msgid "Exporter class %s must extends Export class."
 msgstr ""
 
 #: inc/modules/backgroundprocessing/class-backgroundjob.php:177
@@ -3139,6 +4018,10 @@ msgstr ""
 msgid "EPUB %s: "
 msgstr ""
 
+#: inc/modules/export/epub/class-epub.php:433
+msgid "File contents empty for getProperties"
+msgstr ""
+
 #: inc/modules/export/epub/class-epub.php:510
 #: inc/modules/export/xhtml/class-xhtml11.php:224
 msgid "Initializing"
@@ -3177,6 +4060,11 @@ msgstr ""
 
 #: inc/modules/export/epub/class-epub.php:663
 msgid "Export successful!"
+msgstr ""
+
+#: inc/modules/export/epub/class-epub.php:817
+#: inc/modules/export/epub/class-epub.php:2231
+msgid "Bad URL: "
 msgstr ""
 
 #: inc/modules/export/epub/class-epub.php:961
@@ -3780,6 +4668,18 @@ msgstr ""
 msgid "Imported %s chapters."
 msgstr ""
 
+#: inc/modules/import/epub/class-epub201.php:289
+msgid "Opening epub file failed"
+msgstr ""
+
+#: inc/modules/import/epub/class-epub201.php:296
+msgid "Bad or corrupted META-INF/container.xml"
+msgstr ""
+
+#: inc/modules/import/epub/class-epub201.php:539
+msgid "Could not import images from EPUB"
+msgstr ""
+
 #: inc/modules/import/googledocs/broker/class-brokerrefreshclient.php:41
 msgid "No broker session handle for user."
 msgstr ""
@@ -4094,6 +4994,22 @@ msgstr ""
 msgid "The HTML is larger than pcre.backtrack_limit."
 msgstr ""
 
+#: inc/modules/import/odf/class-odt.php:336
+msgid "Opening odt file failed"
+msgstr ""
+
+#: inc/modules/import/odf/class-odt.php:342
+msgid "Bad or corrupted META-INF/manifest.xml"
+msgstr ""
+
+#: inc/modules/import/ooxml/class-docx.php:253
+msgid "mismatch between length of FootnoteReference array number of footnotes available"
+msgstr ""
+
+#: inc/modules/import/ooxml/class-docx.php:854
+msgid "Opening docx file failed"
+msgstr ""
+
 #: inc/modules/import/wordpress/class-parser.php:73
 #: inc/modules/import/wordpress/class-parser.php:79
 msgid "This does not appear to be a WXR file, missing/invalid WXR version number"
@@ -4103,6 +5019,10 @@ msgstr ""
 #, php-format
 msgctxt "String which tells user how many front matter, parts, chapters, back matter, media attachments, and glossary terms were imported."
 msgid "Imported %1$s, %2$s, %3$s, %4$s, %5$s, and %6$s."
+msgstr ""
+
+#: inc/modules/searchandreplace/class-search.php:63
+msgid "Null byte in regex"
 msgstr ""
 
 #: inc/modules/searchandreplace/class-search.php:140
@@ -5071,6 +5991,15 @@ msgstr ""
 msgid "Close definition"
 msgstr ""
 
+#: inc/shortcodes/wikipublisher/class-glyphs.php:80
+#, php-format
+msgid "*** ERROR: Unsupported pb_language attribute: %s -- "
+msgstr ""
+
+#: inc/shortcodes/wikipublisher/class-glyphs.php:83
+msgid "Valid choices, based on ISO-639-3, are: "
+msgstr ""
+
 #: inc/theme/class-lock.php:96
 #, php-format
 msgid "Your book&rsquo;s theme, %1$s, has been locked in its current state as of %2$s at %3$s."
@@ -5130,6 +6059,18 @@ msgstr ""
 msgid " (%1$d of %2$d)"
 msgstr ""
 
+#: inc/utility/namespace.php:229
+msgid "Sitemap: "
+msgstr ""
+
+#: inc/utility/namespace.php:331
+msgid "404 Not Found"
+msgstr ""
+
+#: inc/utility/namespace.php:332
+msgid "The page that you have requested could not be found."
+msgstr ""
+
 #: inc/utility/namespace.php:636
 #: inc/utility/namespace.php:647
 #: inc/utility/namespace.php:663
@@ -5142,6 +6083,10 @@ msgstr ""
 
 #: inc/utility/namespace.php:687
 msgid "These plugins have been created and/or recommended by the Pressbooks community."
+msgstr ""
+
+#: inc/utility/namespace.php:1681
+msgid "Failed to open memory stream for CSV conversion."
 msgstr ""
 
 #: languages/tinymce.php:4
@@ -6291,6 +7236,10 @@ msgstr ""
 msgid "Add users"
 msgstr ""
 
+#: templates/export/epub/opf.blade.php:138
+msgid "This publication conforms to the EPUB Accessibility specification at WCAG level A."
+msgstr ""
+
 #: templates/export/title.blade.php:16
 msgid "Publisher Logo"
 msgstr ""
@@ -6329,6 +7278,30 @@ msgstr ""
 
 #: templates/metaboxes/fields/reorderable-multiselect.blade.php:10
 msgid "Added $1 to selection"
+msgstr ""
+
+#: templates/posttypes/contributor.blade.php:9
+msgid "name:"
+msgstr ""
+
+#: templates/posttypes/contributor.blade.php:17
+msgid "institution:"
+msgstr ""
+
+#: templates/posttypes/contributor.blade.php:26
+msgid "website:"
+msgstr ""
+
+#: templates/posttypes/contributor.blade.php:41
+msgid "X logo"
+msgstr ""
+
+#: templates/posttypes/contributor.blade.php:55
+msgid "LinkedIn logo"
+msgstr ""
+
+#: templates/posttypes/contributor.blade.php:69
+msgid "GitHub logo"
 msgstr ""
 
 #: assets/src/scripts/a11y.js:31
