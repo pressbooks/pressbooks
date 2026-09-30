@@ -154,7 +154,7 @@ class Downloads {
 			try { // changing the file name so that extension matches the mime type
 				$filename = \Pressbooks\Image\proper_image_extension( $tmp_name, $filename );
 				if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
-					throw new \Exception( 'Image is corrupt, and file extension matches the mime type' );
+					throw new \Exception( __( 'Image is corrupt, and file extension matches the mime type', 'pressbooks' ) );
 				}
 			} catch ( \Exception $exc ) {
 				// Garbage, don't import

@@ -12,7 +12,7 @@ class CacheCheck extends Check {
 
 		return $this->canWriteValuesToCache()
 			? $result->ok()
-			: $result->failed( 'Could not set or retrieve an application cache value.' );
+			: $result->failed( __( 'Could not set or retrieve an application cache value.', 'pressbooks' ) );
 	}
 
 	protected function canWriteValuesToCache(): bool {

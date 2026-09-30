@@ -75,7 +75,7 @@
 
 		@if ( ! empty( $meta['pb_copyright_year'] ) || ! empty( $meta['pb_copyright_holder'] ) )
 			<dc:rights>
-				{{ \Pressbooks\Sanitize\sanitize_xml_attribute( 'Copyright', 'pressbooks') }} &#169;
+				{{ \Pressbooks\Sanitize\sanitize_xml_attribute( __( 'Copyright', 'pressbooks' ) ) }} &#169;
 				@if( ! empty( $meta['pb_copyright_year'] ) )
 					{{ $meta['pb_copyright_year'] }}
 				@elseif( ! empty( $meta['pb_publication_date'] ) )
@@ -119,7 +119,7 @@
 		<meta property="schema:accessibilityHazard">noMotionSimulationHazard</meta>
 		<meta property="schema:accessibilityHazard">noSoundHazard</meta>
 		<!-- TODO: Allow creators to add accessibility info/summary in book info and display it here -->
-		<meta property="schema:accessibilitySummary">This publication conforms to the EPUB Accessibility specification at WCAG level A.</meta>
+		<meta property="schema:accessibilitySummary">{{ __( 'This publication conforms to the EPUB Accessibility specification at WCAG level A.', 'pressbooks' ) }}</meta>
 	</metadata>
 
 	<manifest>
