@@ -1,0 +1,23 @@
+{
+  "title": "Callout Table",
+  "body": {
+    "content": [
+      {"sectionBreak": {"sectionStyle": {}}},
+      {"paragraph": {"elements": [{"textRun": {"content": "Chapter One\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "HEADING_1"}}},
+      {"table": {"rows": 2, "columns": 1, "tableRows": [
+        {"tableCells": [
+          {"content": [{"paragraph": {"elements": [{"textRun": {"content": "KEY TERMS\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "HEADING_4"}}}]}
+        ]},
+        {"tableCells": [
+          {"content": [
+            {"paragraph": {"elements": [{"textRun": {"content": "Crime\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}, "bullet": {"listId": "kix.list.99", "nestingLevel": 0}}},
+            {"paragraph": {"elements": [{"textRun": {"content": "Tort\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}, "bullet": {"listId": "kix.list.99", "nestingLevel": 0}}},
+            {"paragraph": {"elements": [{"textRun": {"content": "Mens Rea\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}, "bullet": {"listId": "kix.list.99", "nestingLevel": 0}}}
+          ]}
+        ]}
+      ]}}
+    ]
+  },
+  "inlineObjects": {},
+  "lists": {"kix.list.99": {"listProperties": {"nestingLevels": [{"glyphSymbol": "●"}]}}}
+}

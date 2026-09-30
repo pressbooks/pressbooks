@@ -20,5 +20,4 @@ class Revisions extends \WP_REST_Revisions_Controller {
 		}
 		return parent::get_items_permissions_check( $request );
 	}
-
 }

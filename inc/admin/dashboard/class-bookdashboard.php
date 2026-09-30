@@ -4,11 +4,11 @@
  */
 namespace Pressbooks\Admin\Dashboard;
 
-use function Pressbooks\Admin\Laf\book_info_slug;
-use function Pressbooks\Image\thumbnail_from_url;
 use Illuminate\Support\Str;
 use Pressbooks\Container;
 use Pressbooks\Metadata;
+use function Pressbooks\Admin\Laf\book_info_slug;
+use function Pressbooks\Image\thumbnail_from_url;
 
 class BookDashboard extends Dashboard {
 	protected static ?Dashboard $instance = null;
@@ -81,7 +81,7 @@ class BookDashboard extends Dashboard {
 	 */
 	protected function getBookCover(): string {
 		$cover_image = get_post_meta(
-			( new Metadata )->getMetaPostId(), 'pb_cover_image', true
+			( new Metadata() )->getMetaPostId(), 'pb_cover_image', true
 		);
 
 		$cover_image = Str::of( $cover_image );

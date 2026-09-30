@@ -8,8 +8,8 @@ namespace Pressbooks\Modules\Export\WordPress;
 
 use DOMDocument;
 use Exception;
-use function Pressbooks\Utility\put_contents;
 use Generator;
+use function Pressbooks\Utility\put_contents;
 
 /**
  * This class will export wxr that can be consumed by a vanilla installation of WP
@@ -61,7 +61,7 @@ class VanillaWxr extends Wxr {
 				default:
 					break;
 			}
-			$processed++;
+			++$processed;
 		}
 
 		// git rid of wp:term declaratation
@@ -74,7 +74,7 @@ class VanillaWxr extends Wxr {
 		$processed = 0;
 		for ( $i = 0; $i < $length; $i++ ) {
 			$this->deleteNode( $term->item( 0 ) );
-			$processed++;
+			++$processed;
 			if ( $processed % 100 === 0 ) {
 				yield "Removing terms: {$processed}/{$length}";
 			}
@@ -112,7 +112,7 @@ class VanillaWxr extends Wxr {
 				default:
 					break;
 			}
-			$processed++;
+			++$processed;
 		}
 
 		// convert back to xml string
@@ -149,5 +149,4 @@ class VanillaWxr extends Wxr {
 			$node->removeChild( $node->firstChild );
 		}
 	}
-
 }

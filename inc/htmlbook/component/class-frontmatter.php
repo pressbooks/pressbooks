@@ -46,5 +46,4 @@ class Frontmatter extends Element {
 		'copyright-page',
 		'dedication',
 	];
-
 }

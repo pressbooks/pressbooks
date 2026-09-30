@@ -38,7 +38,7 @@ class Taxonomy {
 	/**
 	 * @return Taxonomy
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			$licensing = new Licensing();
 			$contributor = new Contributors();

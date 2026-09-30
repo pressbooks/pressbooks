@@ -1,0 +1,33 @@
+{
+  "title": "Footnotes Test",
+  "body": {
+    "content": [
+      {"sectionBreak": {"sectionStyle": {}}},
+      {"paragraph": {"elements": [{"textRun": {"content": "Chapter With Footnotes\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "HEADING_1"}}},
+      {"paragraph": {"elements": [
+        {"textRun": {"content": "This has a footnote", "textStyle": {}}},
+        {"footnoteReference": {"footnoteId": "fn1", "footnoteNumber": "1", "textStyle": {"baselineOffset": "SUPERSCRIPT"}}},
+        {"textRun": {"content": " and continues", "textStyle": {}}},
+        {"footnoteReference": {"footnoteId": "fn2", "footnoteNumber": "2", "textStyle": {"baselineOffset": "SUPERSCRIPT"}}},
+        {"textRun": {"content": " after.\n", "textStyle": {}}}
+      ], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}}
+    ]
+  },
+  "footnotes": {
+    "fn1": {
+      "content": [
+        {"paragraph": {"elements": [{"textRun": {"content": "First footnote text.\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}}
+      ]
+    },
+    "fn2": {
+      "content": [
+        {"paragraph": {"elements": [
+          {"textRun": {"content": "Second footnote with ", "textStyle": {}}},
+          {"textRun": {"content": "bold", "textStyle": {"bold": true}}},
+          {"textRun": {"content": " text.\n", "textStyle": {}}}
+        ], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}}
+      ]
+    }
+  },
+  "inlineObjects": {}
+}

@@ -43,7 +43,7 @@ class PublishOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $options
 	 */
-	function __construct( array $options ) {
+	public function __construct( array $options ) {
 		$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->urls = $this->getUrlOptions();
@@ -58,7 +58,7 @@ class PublishOptions extends \Pressbooks\Options {
 	/**
 	 * Configure the publish options page using the settings API.
 	 */
-	function init() {
+	public function init() {
 		$_option = $this->getSlug();
 		$_page = $_option;
 		$_section = $this->getSlug() . '_section';
@@ -82,7 +82,7 @@ class PublishOptions extends \Pressbooks\Options {
 			add_settings_field(
 				$id,
 				$label,
-				function() use ( $id ) {
+				function () use ( $id ) {
 					$this->renderPublisherUrlField( $id );
 				},
 				$_page,
@@ -101,7 +101,7 @@ class PublishOptions extends \Pressbooks\Options {
 	/**
 	 * Display the publish options page description.
 	 */
-	function display() {
+	public function display() {
 		ob_start(); ?>
 		<h2><?php _e( 'Add BUY Links to Your Pressbooks Webbook', 'pressbooks' ); ?></h2>
 		<p><?php _e( 'Enter the URLs for locations where your book can be purchased below. <a href="https://guide.pressbooks.com/chapter/publish/">Our guide</a> provides additional information about selling and distributing your book.', 'pressbooks' ); ?></p>
@@ -129,7 +129,7 @@ class PublishOptions extends \Pressbooks\Options {
 		);
 	}
 
-	function render() {
+	public function render() {
 		?>
 		<div class="wrap">
 			<h1><?php echo $this->getTitle(); ?></h1>
@@ -144,13 +144,13 @@ class PublishOptions extends \Pressbooks\Options {
 		<?php
 	}
 
-	function upgrade( $version ) {
+	public function upgrade( $version ) {
 		if ( $version < 1 ) {
 			$this->doInitialUpgrade();
 		}
 	}
 
-	function doInitialUpgrade() {
+	public function doInitialUpgrade() {
 	}
 
 	private function renderPublisherUrlField( string $id ): void {
@@ -169,7 +169,7 @@ class PublishOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $slug
 	 */
-	static function getSlug() {
+	public static function getSlug() {
 		return 'pressbooks_ecommerce_links';
 	}
 
@@ -178,7 +178,7 @@ class PublishOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $title
 	 */
-	static function getTitle() {
+	public static function getTitle() {
 		return __( 'Publish', 'pressbooks' );
 	}
 
@@ -187,7 +187,7 @@ class PublishOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $defaults
 	 */
-	static function getDefaults() {
+	public static function getDefaults() {
 		return [
 			'amazon' => '',
 			'barnesandnoble' => '',
@@ -202,7 +202,7 @@ class PublishOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getUrlOptions() {
+	public static function getUrlOptions() {
 		return [
 			'amazon',
 			'barnesandnoble',
@@ -219,7 +219,7 @@ class PublishOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $defaults
 	 */
-	static function filterDefaults( $defaults ) {
+	public static function filterDefaults( $defaults ) {
 		return $defaults;
 	}
 }

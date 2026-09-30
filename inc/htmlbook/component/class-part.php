@@ -45,5 +45,4 @@ class Part extends Element {
 	protected $dataTypes = [
 		'part',
 	];
-
 }

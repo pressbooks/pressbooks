@@ -6,8 +6,8 @@
 
 namespace Pressbooks\Admin\Metaboxes;
 
-use function Pressbooks\Metadata\get_thema_subjects;
 use Pressbooks\Admin\Fields\Select;
+use function Pressbooks\Metadata\get_thema_subjects;
 
 class Subjects extends Metabox {
 

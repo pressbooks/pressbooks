@@ -20,19 +20,19 @@ class Glossary implements FrontOrBackMatter {
 	/**
 	 * @var Glossary
 	 */
-	static $instance = null;
+	public static $instance = null;
 
 	/**
 	 * @var array
 	 */
-	var $glossaryTerms = [];
+	public $glossaryTerms = [];
 
 	/**
 	 * Function to init our class, set filters & hooks, set a singleton instance
 	 *
 	 * @return Glossary
 	 */
-	static public function init(): Glossary {
+	public static function init(): Glossary {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -195,7 +195,7 @@ class Glossary implements FrontOrBackMatter {
 						'dfn-%s',
 						\Pressbooks\Sanitize\sanitize_xml_id( \Pressbooks\Utility\str_lowercase_dash( $glossary_term_id ) )
 					),
-					$glossary_term_id,
+					esc_html( $glossary_term_id ),
 					wpautop( $g_content )
 				);
 			}
@@ -254,6 +254,8 @@ class Glossary implements FrontOrBackMatter {
 			], $atts
 		);
 
+		$a['id'] = absint( $a['id'] );
+
 		if ( ! empty( $content ) ) {
 			// This is a tooltip
 			if ( $a['id'] ) {
@@ -281,7 +283,7 @@ class Glossary implements FrontOrBackMatter {
 	 *
 	 * @return string
 	 */
-	function tooltipContent( string $content ): string {
+	public function tooltipContent( string $content ): string {
 
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 
@@ -356,7 +358,6 @@ class Glossary implements FrontOrBackMatter {
 				return $this->glossaryTerms();
 			}
 		);
-
 	}
 
 	public static function isGlossaryPost( ?WP_Post $post ): bool {

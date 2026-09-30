@@ -17,8 +17,8 @@ class Date extends Field {
 
 		if ( $d && $d->format( 'Y-m-d' ) === $value ) {
 			return strtotime( $value );
-		};
+		}
 
 		return $value;
 	}
-};
+}

@@ -12,4 +12,4 @@ class TextArea extends Field {
 	public string $view = 'textarea';
 
 	public bool $allowHtml = true;
-};
+}

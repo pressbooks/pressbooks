@@ -133,9 +133,9 @@ function createJobRow( jobData ) {
                 </div>
                 <div class="export-progress">
                     <div class="progress-bar-container">
-                        <div class="progress-bar" style="width: ${ jobData.progress_percentage || 0 }%" aria-valuenow="${ jobData.progress_percentage || 0 }"></div>
+                        <div class="progress-bar" role="progress" style="width: ${ jobData.progress_percentage || 0 }%" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${ jobData.progress_percentage || 0 }"></div>
                     </div>
-                    <span class="progress-text">${ jobData.progress_percentage || 0 }%</span>
+                    <span class="progress-text" aria-live="polite">${ jobData.progress_percentage || 0 }%</span>
                 </div>
                 <div class="export-actions">
                	  <button class="button button-secondary cancel-job" data-job-id="${ jobData.job_id }" type="button">${ PB_ExportToken?.text?.cancel_button || 'Cancel' }</button>

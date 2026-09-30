@@ -34,5 +34,4 @@ class Log {
 	public function store() {
 		return $this->store_provider->store( $this->data, $this->file_header );
 	}
-
 }

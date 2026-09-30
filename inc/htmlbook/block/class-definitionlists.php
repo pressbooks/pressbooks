@@ -32,5 +32,4 @@ class DefinitionLists extends Element {
 	 * @var string
 	 */
 	protected $tag = 'dl';
-
 }

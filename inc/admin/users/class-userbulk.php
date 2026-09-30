@@ -37,7 +37,7 @@ class UserBulk {
 	/**
 	 * @return UserBulk
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -48,7 +48,7 @@ class UserBulk {
 	/**
 	 * @param UserBulk $obj
 	 */
-	static public function hooks( UserBulk $obj ) {
+	public static function hooks( UserBulk $obj ) {
 		if ( Book::isBook() ) {
 			add_action( 'admin_menu', [ $obj, 'addMenu' ] );
 		}
@@ -164,7 +164,7 @@ class UserBulk {
 	 * @param array $results
 	 * @return string
 	 */
-	public function getBulkResultHtml( array $results ) : string {
+	public function getBulkResultHtml( array $results ): string {
 		$output_success_new = '';
 		$output_success_invited = '';
 		$output_errors = '';

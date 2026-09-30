@@ -8,12 +8,12 @@
 
 namespace Pressbooks;
 
-use function Pressbooks\Metadata\init_book_data_models;
-use function Pressbooks\Utility\explode_remove_and;
-use function Pressbooks\Utility\str_starts_with;
 use Pressbooks\PostType\FrontOrBackMatter;
 use Pressbooks\Utility\AutoDisplayable;
 use Pressbooks\Utility\HandlesTransfers;
+use function Pressbooks\Metadata\init_book_data_models;
+use function Pressbooks\Utility\explode_remove_and;
+use function Pressbooks\Utility\str_starts_with;
 
 /**
  *
@@ -30,7 +30,7 @@ class Contributors implements FrontOrBackMatter, Transferable {
 	/**
 	 * @var Contributors
 	 */
-	static $instance = null;
+	public static $instance = null;
 
 	/**
 	 * Valid contributor slugs ordered by preference
@@ -534,7 +534,7 @@ class Contributors implements FrontOrBackMatter, Transferable {
 
 		return array_keys(
 			array_filter(
-				$fields, function( $field ) {
+				$fields, function ( $field ) {
 					if ( ! isset( $field['sanitization_method'] ) ) {
 						return false;
 					}
@@ -806,8 +806,19 @@ class Contributors implements FrontOrBackMatter, Transferable {
 		foreach ( $contributors as $key => $contributor ) {
 			$term = get_term_by( 'slug', $contributor, self::TAXONOMY );
 			if ( $term ) {
+				$full_contributors[ $key ]['name'] = $this->personalName( $contributor );
+				/* Attempt to fetch the attachment ID for the contributor's picture. */
+				$contributor_picture_id = attachment_url_to_postid( get_term_meta( $term->term_id, 'contributor_picture', true ) );
+				if ( $contributor_picture_id ) {
+					/* Attempt to retrieve alt text for the contributor's picture. */
+					$alt = get_post_meta( $contributor_picture_id, '_wp_attachment_image_alt', true );
+					/* Set the alt text if found, falling back to a generic string which describes the purpose of the image. */
+					$full_contributors[ $key ]['contributor_picture_alt'] = $alt ?
+						get_post_meta( $contributor_picture_id, '_wp_attachment_image_alt', true ) :
+						/* Translators: %s: name of contributor */
+						sprintf( __( 'Profile picture for %s', 'pressbooks' ), $full_contributors[ $key ]['name'] );
+				}
 				foreach ( self::getContributorFields() as $field => $value ) {
-					$full_contributors[ $key ]['name'] = $this->personalName( $contributor );
 					$full_contributors[ $key ][ $field ] = get_term_meta( $term->term_id, $field, true );
 				}
 			}
@@ -840,7 +851,7 @@ class Contributors implements FrontOrBackMatter, Transferable {
 	}
 
 	public function getContributorTypeLabel( string $type, int $count ): string {
-		return match ($type) {
+		return match ( $type ) {
 			'pb_editors' => _n( 'Editor', 'Editors', $count, 'pressbooks' ),
 			'pb_authors' => _n( 'Author', 'Authors', $count, 'pressbooks' ),
 			'pb_contributors' => _n( 'Contributor', 'Contributors', $count, 'pressbooks' ),
@@ -873,7 +884,7 @@ class Contributors implements FrontOrBackMatter, Transferable {
 
 		return $this->display(
 			content: $content,
-			override: function() {
+			override: function () {
 				$blade = Container::get( 'Blade' );
 
 				return $blade->render(
@@ -886,7 +897,6 @@ class Contributors implements FrontOrBackMatter, Transferable {
 			taxonomy_query: 'contributors',
 			post_type: $post_type,
 		);
-
 	}
 
 	public static function changeContributorName( \WP_Roles $roles ) {

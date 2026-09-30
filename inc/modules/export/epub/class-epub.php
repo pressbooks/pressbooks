@@ -10,6 +10,19 @@
 namespace Pressbooks\Modules\Export\Epub;
 
 use Exception;
+use Generator;
+use Pressbooks\Book;
+use Pressbooks\Container;
+use Pressbooks\Contributors;
+use Pressbooks\HtmLawed;
+use Pressbooks\HtmlParser;
+use Pressbooks\Interactive\Content;
+use Pressbooks\Modules\Export\Export;
+use Pressbooks\Modules\Export\ExportHelpers;
+use Pressbooks\Modules\Export\Traits\HandleContributors;
+use Pressbooks\Sanitize;
+use Pressbooks\Taxonomy;
+use Pressbooks\Utility\PercentageYield;
 use function Pressbooks\Image\default_cover_path;
 use function Pressbooks\Image\is_valid_image;
 use function Pressbooks\Image\resize_down;
@@ -34,19 +47,6 @@ use function Pressbooks\Utility\rmrdir;
 use function Pressbooks\Utility\str_ends_with;
 use function Pressbooks\Utility\str_lreplace;
 use function Pressbooks\Utility\str_starts_with;
-use Generator;
-use Pressbooks\Book;
-use Pressbooks\Container;
-use Pressbooks\Contributors;
-use Pressbooks\HtmLawed;
-use Pressbooks\HtmlParser;
-use Pressbooks\Interactive\Content;
-use Pressbooks\Modules\Export\Export;
-use Pressbooks\Modules\Export\ExportHelpers;
-use Pressbooks\Modules\Export\Traits\HandleContributors;
-use Pressbooks\Sanitize;
-use Pressbooks\Taxonomy;
-use Pressbooks\Utility\PercentageYield;
 
 class Epub extends Export {
 	use ExportHelpers;
@@ -382,7 +382,7 @@ class Epub extends Export {
 		$this->blade = Container::get( 'Blade' );
 
 		if ( ! class_exists( '\PclZip' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
+			require_once ABSPATH . 'wp-admin/includes/class-pclzip.php';
 		}
 
 		if ( ! defined( 'PB_EPUBCHECK_COMMAND' ) ) {
@@ -634,7 +634,7 @@ class Epub extends Export {
 	 * @return Generator
 	 * @throws Exception
 	 */
-	public function validate() : Generator {
+	public function validate(): Generator {
 		yield 90 => $this->generatorPrefix . __( 'Validating file', 'pressbooks' );
 
 		// Epubcheck command, (quiet flag requires version 3.0.1+)
@@ -709,7 +709,6 @@ class Epub extends Export {
 		if ( isset( $hacks['ebook_compress_images'] ) && $hacks['ebook_compress_images'] ) {
 			$this->compressImages = true;
 		}
-
 	}
 
 	/**
@@ -957,7 +956,7 @@ class Epub extends Export {
 	 * @return Generator
 	 * @throws Exception
 	 */
-	protected function createEPUBGenerator( array $book_contents, array $metadata ) : Generator {
+	protected function createEPUBGenerator( array $book_contents, array $metadata ): Generator {
 		// First, setup and affect $this->stylesheet
 		yield 40 => $this->generatorPrefix . __( 'Compiling styles', 'pressbooks' );
 		$this->createStylesheet();
@@ -1059,7 +1058,6 @@ class Epub extends Export {
 		if ( WP_DEBUG ) {
 			Container::get( 'Sass' )->debug( $css, $scss, 'epub' );
 		}
-
 	}
 
 	/**
@@ -1128,7 +1126,7 @@ class Epub extends Export {
 				} elseif ( preg_match( '#^images/#', $url ) && substr_count( $url, '/' ) === 1 ) {
 
 					// Look for "^images/"
-					// Count 1 slash so that we don't touch stuff like "^images/out/of/bounds/"	or "^images/../../denied/"
+					// Count 1 slash so that we don't touch stuff like "^images/out/of/bounds/" or "^images/../../denied/"
 
 					$my_image = realpath( "$scss_dir/$url" );
 					if ( $my_image ) {
@@ -1206,7 +1204,6 @@ class Epub extends Export {
 				}
 
 				return $matches[0]; // No change
-
 			}, $css
 		);
 
@@ -1569,7 +1566,7 @@ class Epub extends Export {
 	 * @return Generator
 	 * @throws Exception
 	 */
-	protected function renderFrontMatterGenerator( array $book_contents, array $metadata ) : Generator {
+	protected function renderFrontMatterGenerator( array $book_contents, array $metadata ): Generator {
 		$yield = new PercentageYield( 30, 40, count( $book_contents['front-matter'] ) );
 
 		$vars = [
@@ -1664,7 +1661,7 @@ class Epub extends Export {
 	 * @return Generator
 	 * @throws Exception
 	 */
-	protected function renderPartsAndChaptersGenerator( array $book_contents, array $metadata ) : Generator {
+	protected function renderPartsAndChaptersGenerator( array $book_contents, array $metadata ): Generator {
 		$yield = new PercentageYield( 40, 50, $this->countPartsAndChapters( $book_contents ) );
 
 		$vars = [
@@ -1773,7 +1770,7 @@ class Epub extends Export {
 
 				$has_chapters = true;
 
-				$chapter_position++;
+				++$chapter_position;
 
 				if ( $chapter_number ) {
 					++$chapter_index;
@@ -1808,7 +1805,7 @@ class Epub extends Export {
 					],
 				] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
 
-				$part_position++;
+				++$part_position;
 
 				if ( ! $invisible ) {
 					++$part_index;
@@ -1831,7 +1828,7 @@ class Epub extends Export {
 	 * @return Generator
 	 * @throws Exception
 	 */
-	protected function renderBackMatterGenerator( array $book_contents, array $metadata ) : Generator {
+	protected function renderBackMatterGenerator( array $book_contents, array $metadata ): Generator {
 		$yield = new PercentageYield( 50, 70, count( $book_contents['back-matter'] ) );
 
 		$vars = [
@@ -1872,7 +1869,6 @@ class Epub extends Export {
 
 			++$index;
 		}
-
 	}
 
 	/**
@@ -1961,7 +1957,7 @@ class Epub extends Export {
 
 				if ( 'numberless' !== $chapter_type && $this->numbered ) {
 					$chapter_data['title'] = "{$chapters_count}. {$chapter_data['title']}";
-					$chapters_count++;
+					++$chapters_count;
 				}
 
 				$rendered_items[] = $this->renderTocItem( 'chapter', $chapter_data, false, true );
@@ -2841,7 +2837,7 @@ class Epub extends Export {
 	 *
 	 * @return bool
 	 */
-	static function hasDependencies(): bool {
+	public static function hasDependencies(): bool {
 		if ( false !== check_epubcheck_install() ) {
 			return true;
 		}
@@ -2901,7 +2897,7 @@ class Epub extends Export {
 	private function extractEmbbededStyles( \DOMDocument $dom ): \DOMDocument {
 		$xpath = new \DOMXPath( $dom );
 		$style_tags = $xpath->query( '//style' );
-		add_filter( 'pb_validate_svg', function() {
+		add_filter( 'pb_validate_svg', function () {
 			return true;
 		} );
 		foreach ( $style_tags as $style ) {
@@ -2960,146 +2956,6 @@ class Epub extends Export {
 		return $dom;
 	}
 
-	/**
-	 * Format EPUB validation log into readable sections
-	 *
-	 * @param string $validation_log Raw validation log string
-	 * @return string Formatted log with proper line breaks and grouping
-	 */
-	public function formatValidationLog( string $validation_log ): string {
-		$lines = explode( '\n', $validation_log );
-		$formatted_output = '';
-		$error_groups = [];
-
-		foreach ( $lines as $line ) {
-			$line = trim( $line );
-
-			if ( empty( $line ) ) {
-				continue;
-			}
-
-			// Extract file path from error (chapter)
-			if ( preg_match( '/\/([^\/]+\.xhtml)/', $line, $matches ) ) {
-				$file = $matches[1];
-
-				if ( ! isset( $error_groups[ $file ] ) ) {
-					$error_groups[ $file ] = [
-						'rsc_005' => [], // Invalid attribute errors
-						'opf_014' => [], // Remote resources errors
-						'rsc_006' => [], // Remote resource reference errors
-						'pkg_022' => [], // File extension warnings
-						'other' => [],
-					];
-				}
-
-				if ( str_contains( $line, 'ERROR(RSC-005)' ) ) {
-					if ( str_contains( $line, 'role" is invalid' ) ) {
-						$error_groups[ $file ]['rsc_005'][] = __( 'Invalid role attribute', 'pressbooks' );
-					} elseif ( str_contains( $line, 'missing required attribute "aria-checked"' ) ) {
-						$error_groups[ $file ]['rsc_005'][] = __( 'Missing aria-checked attribute on <li> element', 'pressbooks' );
-					}
-				} elseif ( str_contains( $line, 'ERROR(OPF-014)' ) ) {
-					$error_groups[ $file ]['opf_014'][] = __( 'Remote resources property not declared in OPF file', 'pressbooks' );
-				} elseif ( str_contains( $line, 'ERROR(RSC-006)' ) ) {
-					$error_groups[ $file ]['rsc_006'][] = __( 'Remote resource reference not allowed', 'pressbooks' );
-				} elseif ( str_contains( $line, 'WARNING(PKG-022)' ) ) {
-					$error_groups[ $file ]['pkg_022'][] = __( 'Wrong file extension for image (PNG with .jpg extension)', 'pressbooks' );
-				} else {
-					$error_groups[ $file ]['other'][] = $line;
-				}
-			}
-		}
-
-		$formatted_output .= __( 'EPUB VALIDATION REPORT', 'pressbooks' ) . "\n";
-		$formatted_output .= str_repeat( '=', 50 ) . "\n\n";
-
-		$total_errors = 0;
-		$total_warnings = 0;
-
-		foreach ( $error_groups as $file => $errors ) {
-			$file_has_errors = false;
-			$file_output = '';
-
-			$file_error_count = 0;
-			$file_warning_count = 0;
-
-			foreach ( $errors as $error_type => $error_list ) {
-				if ( ! empty( $error_list ) ) {
-					$file_has_errors = true;
-
-					if ( $error_type === 'pkg_022' ) {
-						$file_warning_count += count( $error_list );
-					} else {
-						$file_error_count += count( $error_list );
-					}
-				}
-			}
-
-			if ( ! $file_has_errors ) {
-				continue;
-			}
-
-			$total_errors += $file_error_count;
-			$total_warnings += $file_warning_count;
-
-			$file_output .= __( 'FILE: ', 'pressbooks' ) . $file . "\n";
-			$file_output .= sprintf( __( 'Errors: %d | Warnings: %d', 'pressbooks' ), $file_error_count, $file_warning_count ) . "\n";
-			$file_output .= str_repeat( '-', 40 ) . "\n";
-
-			// RSC-005 errors (Invalid attributes)
-			if ( ! empty( $errors['rsc_005'] ) ) {
-				$file_output .= __( '• ATTRIBUTE ERRORS (RSC-005):', 'pressbooks' ) . "\n";
-				$unique_rsc_errors = array_count_values( $errors['rsc_005'] );
-				foreach ( $unique_rsc_errors as $error => $count ) {
-					$file_output .= "  - {$error} ({$count} " . _n( 'occurrence', 'occurrences', $count, 'pressbooks' ) . ")\n";
-				}
-				$file_output .= "\n";
-			}
-
-			// OPF-014 errors (Remote resources)
-			if ( ! empty( $errors['opf_014'] ) ) {
-				$file_output .= __( '• REMOTE RESOURCES ERRORS (OPF-014):', 'pressbooks' ) . "\n";
-				$file_output .= "  - Remote resources property not declared in OPF file\n\n";
-			}
-
-			// RSC-006 errors (Remote resource references)
-			if ( ! empty( $errors['rsc_006'] ) ) {
-				$file_output .= __( '• REMOTE REFERENCE ERRORS (RSC-006):', 'pressbooks' ) . "\n";
-				$file_output .= sprintf( __( '  - Remote resource references not allowed (%d occurrences)', 'pressbooks' ), count( $errors['rsc_006'] ) ) . "\n\n";
-			}
-
-			// PKG-022 warnings (File extension)
-			if ( ! empty( $errors['pkg_022'] ) ) {
-				$file_output .= __( '• FILE EXTENSION WARNINGS (PKG-022):', 'pressbooks' ) . "\n";
-				foreach ( $errors['pkg_022'] as $warning ) {
-					$file_output .= "  - {$warning}\n";
-				}
-				$file_output .= "\n";
-			}
-
-			// Other errors
-			if ( ! empty( $errors['other'] ) ) {
-				$file_output .= __( '• OTHER ISSUES:', 'pressbooks' ) . "\n";
-				foreach ( $errors['other'] as $error ) {
-					$file_output .= "  - {$error}\n";
-				}
-				$file_output .= "\n";
-			}
-
-			$formatted_output .= $file_output . "\n";
-		}
-
-		$formatted_output .= str_repeat( '=', 50 ) . "\n";
-		$formatted_output .= __( 'SUMMARY', 'pressbooks' ) . "\n";
-		$formatted_output .= sprintf( __( 'Total Errors: %d', 'pressbooks' ), $total_errors ) . "\n";
-		$formatted_output .= sprintf( __( 'Total Warnings: %d', 'pressbooks' ), $total_warnings ) . "\n";
-		$formatted_output .= sprintf( __( 'Files Affected: %d', 'pressbooks' ), count( array_filter( $error_groups, function( $errors ) {
-				return ! empty( array_filter( $errors ) );
-		} ) ) ) . "\n";
-
-		return $formatted_output;
-	}
-
 	protected function updateCssFile(): void {
 		$directory = $this->epubDir;
 		$filename = $this->stylesheet;
@@ -3117,34 +2973,19 @@ class Epub extends Export {
 	}
 
 	/**
-	 * Get a brief summary of validation errors for quick reference
-	 *
-	 * @param string $validation_log
-	 * @return string
-	 */
-	private function getValidationSummary( string $validation_log ): string {
-		$error_count = substr_count( $validation_log, 'ERROR(' );
-		$warning_count = substr_count( $validation_log, 'WARNING(' );
-		$files_affected = count( array_unique( preg_match_all( '/\/([^\/]+\.xhtml)/', $validation_log, $matches ) ? $matches[1] : [] ) );
-
-		return "Errors: {$error_count}, Warnings: {$warning_count}, Files affected: {$files_affected}";
-	}
-
-	/**
 	 * Override logError to format validation logs
 	 */
 	public function logError( string $message, array $more_info = [] ): void {
 
-		if ( str_contains( $message, 'EPUB Validation' ) || str_contains( $message, 'ERROR(RSC-' ) ) {
+		if ( str_contains( $message, 'EPUB Validation' ) || preg_match( '/(?:FATAL|ERROR|WARNING)\(/', $message ) ) {
 
 			error_log( $message ); // Log raw message for debugging
 
-			$more_info['formatted_validation_report'] = $this->formatValidationLog( $message );
+			$log = new EpubcheckLog( $message );
+			$more_info['formatted_validation_report'] = $log->report();
+			$more_info['validation_summary'] = $log->summary();
 
-			$error_summary = $this->getValidationSummary( $message );
-			$more_info['validation_summary'] = $error_summary;
-
-			$message = __( 'EPUB validation completed with issues. See formatted report above.', 'pressbooks' );
+			$message = __( 'EPUB validation completed with issues. See the validation report above.', 'pressbooks' );
 		}
 
 		parent::logError( $message, $more_info );

@@ -194,7 +194,7 @@ abstract class Generator {
 	 * @return \Generator
 	 * @throws \Exception
 	 */
-	public static function formGenerator( $format ) : \Generator {
+	public static function formGenerator( $format ): \Generator {
 		wp_cache_delete( 'pressbooks_cg_options', 'options' ); // WordPress Core caches this key in the "options" group
 		wp_cache_delete( 'alloptions', 'options' );
 		$cg_options = get_option( 'pressbooks_cg_options' );
@@ -203,7 +203,7 @@ abstract class Generator {
 		if ( isset( $cg_options['pdf_pagecount'] ) ) {
 			$pages = $cg_options['pdf_pagecount'];
 		} else {
-			$spine = new Spine;
+			$spine = new Spine();
 			$pages = $spine->countPagesInMostRecentPdf();
 		}
 		if ( isset( $cg_options['ppi'] ) ) {
@@ -452,7 +452,7 @@ abstract class Generator {
 				switch ( $status_response->getStatus() ) {
 					case 'completed':
 						if ( ! function_exists( 'download_url' ) ) {
-							require_once( ABSPATH . 'wp-admin/includes/file.php' );
+							require_once ABSPATH . 'wp-admin/includes/file.php';
 						}
 						$result = \download_url( $status_response->getDownloadUrl() );
 						if ( is_wp_error( $result ) ) {
@@ -479,5 +479,4 @@ abstract class Generator {
 
 		return $retval;
 	}
-
 }

@@ -40,5 +40,4 @@ class Sidebar extends Element {
 	protected $dataTypes = [
 		'sidebar',
 	];
-
 }

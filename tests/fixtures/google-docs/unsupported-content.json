@@ -1,0 +1,21 @@
+{
+  "title": "Unsupported Content",
+  "body": {
+    "content": [
+      {"sectionBreak": {"sectionStyle": {}}},
+      {"paragraph": {"elements": [{"textRun": {"content": "Chapter With Unsupported\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "HEADING_1"}}},
+      {"paragraph": {"elements": [{"textRun": {"content": "Normal text.\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}},
+      {"paragraph": {"elements": [{"inlineObjectElement": {"inlineObjectId": "kix.drawing1", "textStyle": {}}}, {"textRun": {"content": "\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}},
+      {"paragraph": {"elements": [{"equation": {}}, {"textRun": {"content": "\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}}
+    ]
+  },
+  "inlineObjects": {
+    "kix.drawing1": {
+      "inlineObjectProperties": {
+        "embeddedObject": {
+          "embeddedDrawingProperties": {}
+        }
+      }
+    }
+  }
+}

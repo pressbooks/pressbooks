@@ -63,6 +63,33 @@ class testAdminTopbar extends \WP_UnitTestCase {
 		$this->assertEquals( $expected_order, $items_ordered );
 	}
 
+	/**
+	 * @test
+	 * @group topbar
+	 */
+	public function reset_removes_the_wp_7_command_palette_button(): void {
+		require_once ABSPATH . WPINC . '/class-wp-admin-bar.php';
+
+		$bar = new \WP_Admin_Bar();
+		$bar->initialize();
+
+		$bar->add_node( [
+			'id' => 'command-palette',
+			'title' => 'Command Palette',
+		] );
+
+		$bar->add_node( [
+			'id' => 'my-account',
+			'title' => 'My Account',
+		] );
+
+		$topbar = TopBar::init();
+		$topbar->reset( $bar );
+
+		$this->assertNull( $bar->get_node( 'command-palette' ) );
+		$this->assertNotNull( $bar->get_node( 'my-account' ) );
+	}
+
 	private function getAdminBar(): WP_Admin_Bar {
 		require_once ABSPATH . WPINC . '/class-wp-admin-bar.php';
 

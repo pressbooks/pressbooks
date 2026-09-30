@@ -106,7 +106,6 @@ function update_admin_status() {
 		// Reset the cheap cache after updating the option
 		_restricted_users();
 	}
-
 }
 
 /**
@@ -281,7 +280,7 @@ function remove_from_pressbooks_network_managers( $user_id ): void {
 	}
 
 	// Remove any IDs that are not super admins or do not exist
-	$current_network_managers = array_filter($current_network_managers, function( $id ) {
+	$current_network_managers = array_filter($current_network_managers, function ( $id ) {
 		$user = get_userdata( $id );
 		return $user !== false && is_super_admin( $id );
 	});
@@ -289,4 +288,25 @@ function remove_from_pressbooks_network_managers( $user_id ): void {
 	$current_network_managers = array_values( $current_network_managers );
 
 	update_site_option( 'pressbooks_network_managers', $current_network_managers );
+}
+
+/**
+ * Get network managers list
+ *
+ * @return array Associative array with username => email
+ */
+function get_network_managers(): array {
+	$restricted_users_ids = array_filter(_restricted_users(), function ( $ids ) {
+		return ! in_array( $ids, apply_filters( 'pb_institutional_managers', [] ), true );
+	});
+
+	$network_managers = [];
+	foreach ( $restricted_users_ids as $user_id ) {
+		$user = get_user_by( 'ID', $user_id );
+		if ( $user ) {
+			$user_name_display = sprintf( '%s %s', $user->user_firstname, $user->user_lastname );
+			$network_managers[ ! empty( trim( $user_name_display ) ) ? $user_name_display : $user->user_login ] = $user->user_email;
+		}
+	}
+	return $network_managers;
 }

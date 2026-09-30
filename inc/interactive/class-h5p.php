@@ -2,9 +2,9 @@
 
 namespace Pressbooks\Interactive;
 
-use function Pressbooks\Utility\length_to_inches;
-use function \Pressbooks\Utility\debug_error_log;
 use Pressbooks\Container;
+use function Pressbooks\Utility\debug_error_log;
+use function Pressbooks\Utility\length_to_inches;
 
 /**
  * This class wedges itself in between Pressbooks and the H5P WordPress Plugin
@@ -59,7 +59,7 @@ class H5P {
 	 */
 	protected bool $enableStaticRepresentation = false;
 
-	static ?H5P $instance = null;
+	public static ?H5P $instance = null;
 
 	/**
 	 * @param Blade $blade
@@ -614,5 +614,4 @@ class H5P {
 		}
 		return $filename;
 	}
-
 }

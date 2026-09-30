@@ -3,6 +3,7 @@
 use function Pressbooks\Admin\NetworkManagers\_restricted_users;
 use function Pressbooks\Admin\NetworkManagers\add_menu;
 use function Pressbooks\Admin\NetworkManagers\admin_enqueues;
+use function Pressbooks\Admin\NetworkManagers\get_network_managers;
 use function Pressbooks\Admin\NetworkManagers\update_admin_status;
 
 require_once( PB_PLUGIN_DIR . 'inc/admin/networkmanagers/namespace.php' );
@@ -244,5 +245,75 @@ class Admin_NetworkManagers extends \WP_UnitTestCase {
 		$this->assertNotContains( 443, $restricted_users );
 		$this->assertNotContains( 545, $restricted_users );
 
+	}
+
+	/**
+	 * @group networkmanagers
+	 */
+	public function test_get_network_managers_returns_empty_array_when_no_restricted_users(): void {
+		update_site_option( 'pressbooks_network_managers', [] );
+
+		$result = get_network_managers();
+
+		$this->assertIsArray( $result );
+		$this->assertEmpty( $result );
+	}
+
+	/**
+	 * @group networkmanagers
+	 */
+	public function test_get_network_managers_returns_fullname_email_map(): void {
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		grant_super_admin( $user_id );
+		wp_update_user( [
+			'ID'         => $user_id,
+			'first_name' => 'Jane',
+			'last_name'  => 'Smith',
+		] );
+		$user = get_user_by( 'ID', $user_id );
+		update_site_option( 'pressbooks_network_managers', [ $user_id ] );
+
+		$result = get_network_managers();
+
+		$this->assertArrayHasKey( 'Jane Smith', $result );
+		$this->assertEquals( $user->user_email, $result['Jane Smith'] );
+	}
+
+	/**
+	 * @group networkmanagers
+	 */
+	public function test_get_network_managers_falls_back_to_login_when_no_name(): void {
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		grant_super_admin( $user_id );
+		$user = get_user_by( 'ID', $user_id );
+		update_site_option( 'pressbooks_network_managers', [ $user_id ] );
+
+		$result = get_network_managers();
+
+		$this->assertArrayHasKey( $user->user_login, $result );
+		$this->assertEquals( $user->user_email, $result[ $user->user_login ] );
+	}
+
+	/**
+	 * @group networkmanagers
+	 */
+	public function test_get_network_managers_excludes_institutional_managers(): void {
+		$manager_id       = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		$institutional_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		grant_super_admin( $manager_id );
+		grant_super_admin( $institutional_id );
+		$institutional_user = get_user_by( 'ID', $institutional_id );
+		update_site_option( 'pressbooks_network_managers', [ $manager_id, $institutional_id ] );
+
+		add_filter( 'pb_institutional_managers', function () use ( $institutional_id ) {
+			return [ $institutional_id ];
+		} );
+
+		$result = get_network_managers();
+
+		remove_all_filters( 'pb_institutional_managers' );
+
+		$this->assertNotContains( $institutional_user->user_email, $result );
+		$this->assertCount( 1, $result );
 	}
 }

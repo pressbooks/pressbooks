@@ -29,5 +29,4 @@ class Video extends Element {
 	 * @var string
 	 */
 	protected $tag = 'video';
-
 }

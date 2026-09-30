@@ -11,7 +11,6 @@
 
 namespace Pressbooks\Modules\Export;
 
-use function Pressbooks\Sanitize\fix_audio_shortcode;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Container;
 use Pressbooks\Contributors;
@@ -20,6 +19,7 @@ use Pressbooks\Modules\Export\Epub\Epub;
 use Pressbooks\Modules\Export\Prince\Filters;
 use Pressbooks\Modules\Export\Xhtml\Xhtml11;
 use Pressbooks\Theme\Lock;
+use function Pressbooks\Sanitize\fix_audio_shortcode;
 
 /**
  * @return array
@@ -386,7 +386,7 @@ function handle_exports_submit(): void {
 	foreach ( $results as $result ) {
 		if ( isset( $result['status'] ) && $result['status'] === 'success' && $result['event_type'] === 'job_queued' ) {
 			$has_successful_queues = true;
-			$successfully_queued_count++;
+			++$successfully_queued_count;
 		}
 	}
 

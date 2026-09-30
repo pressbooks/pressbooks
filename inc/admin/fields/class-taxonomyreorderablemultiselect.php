@@ -13,7 +13,7 @@ class TaxonomyReorderableMultiselect extends Field {
 
 	public string $view = 'reorderable-multiselect';
 
-	public function __construct( string $name, string $label, ?string $description = null, ?string $id = null, string $taxonomy = null ) {
+	public function __construct( string $name, string $label, ?string $description = null, ?string $id = null, ?string $taxonomy = null ) {
 		parent::__construct( $name, $label, $description, $id );
 
 		$this->taxonomy = $taxonomy;
@@ -33,7 +33,10 @@ class TaxonomyReorderableMultiselect extends Field {
 	}
 
 	public function getOptions(): array {
-		$terms = get_terms( $this->taxonomy, [ 'hide_empty' => false ] );
+		$terms = get_terms( [
+			'taxonomy' => $this->taxonomy,
+			'hide_empty' => false,
+		] );
 
 		$options = [];
 
@@ -56,7 +59,5 @@ class TaxonomyReorderableMultiselect extends Field {
 				add_post_meta( $post_id, $this->name, $v, false );
 			}
 		}
-
 	}
 }
-

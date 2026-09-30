@@ -252,5 +252,4 @@ class User {
 	public static function storeLastActiveDate() {
 		update_user_meta( get_current_user_id(), self::USER_DATE_LAST_ACTIVE, gmdate( 'Y-m-d H:i:s' ) );
 	}
-
 }

@@ -6,8 +6,8 @@
 
 namespace Pressbooks\Admin\Fonts;
 
-use function Pressbooks\Editor\update_editor_style;
 use Pressbooks\Container;
+use function Pressbooks\Editor\update_editor_style;
 
 /**
  * Compile Sass for everything that has to do with dynamically generated font stacks

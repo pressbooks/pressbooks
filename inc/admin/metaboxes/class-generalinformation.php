@@ -21,7 +21,6 @@ class GeneralInformation extends Metabox {
 		$this->priority = 'high';
 
 		parent::__construct();
-
 	}
 
 	public function getSlug(): string {

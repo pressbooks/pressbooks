@@ -2,13 +2,13 @@
 
 namespace Pressbooks\Api\Endpoints\Controller\Books;
 
-use function Pressbooks\Metadata\book_information_to_schema;
-use function Pressbooks\Utility\apply_https_if_available;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Api\Endpoints\Controller\Metadata;
 use Pressbooks\Book;
 use Pressbooks\DataCollector\Book as BookDataCollector;
 use Pressbooks\Licensing;
+use function Pressbooks\Metadata\book_information_to_schema;
+use function Pressbooks\Utility\apply_https_if_available;
 
 class Books extends \WP_REST_Controller {
 
@@ -153,7 +153,7 @@ class Books extends \WP_REST_Controller {
 					return false;
 				}
 
-				$licensing = new Licensing;
+				$licensing = new Licensing();
 				$supported_codes = $licensing->getSupportedCodes();
 
 				$values = array_map( fn ( $value ) => str_starts_with( $value, '-' ) ? substr( $value, 1 ) : $value, $param );

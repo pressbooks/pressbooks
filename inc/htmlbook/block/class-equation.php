@@ -46,5 +46,4 @@ class Equation extends Element {
 	protected $dataTypes = [
 		'equation',
 	];
-
 }

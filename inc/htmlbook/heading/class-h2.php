@@ -13,5 +13,4 @@ class H2 extends Headings {
 	 * @var string
 	 */
 	protected $tag = 'h2';
-
 }

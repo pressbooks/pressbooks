@@ -29,5 +29,4 @@ class Audio extends Element {
 	 * @var string
 	 */
 	protected $tag = 'audio';
-
 }

@@ -71,11 +71,11 @@ class Docx extends Import {
 	/**
 	 *
 	 */
-	function __construct() {
+	public function __construct() {
 		if ( ! function_exists( 'media_handle_sideload' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/image.php' );
-			require_once( ABSPATH . 'wp-admin/includes/file.php' );
-			require_once( ABSPATH . 'wp-admin/includes/media.php' );
+			require_once ABSPATH . 'wp-admin/includes/image.php';
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			require_once ABSPATH . 'wp-admin/includes/media.php';
 		}
 
 		$this->zip = new \ZipArchive();
@@ -87,7 +87,7 @@ class Docx extends Import {
 	 *
 	 * @return boolean
 	 */
-	function import( array $current_import ) {
+	public function import( array $current_import ) {
 		try {
 			$this->isValidZip( $current_import['file'] );
 		} catch ( \Exception $e ) {
@@ -288,12 +288,20 @@ class Docx extends Import {
 				if ( $s->length > 0 ) {
 					$texts = [];
 					for ( $j = 0; $j < $s->length; $j++ ) {
-						$texts[] = $s->item( $j )->parentNode->parentNode->lastChild->nodeValue;
+						$run = $s->item( $j )->parentNode->parentNode;
+						// Skip paragraph mark formatting, e.g. <w:pPr><w:rPr><w:i/></w:rPr></w:pPr>.
+						// It styles the pilcrow, not a run of visible text, so there's nothing to extract.
+						if ( ! ( $run instanceof \DOMElement ) || 'r' !== $run->localName ) {
+							continue;
+						}
+						$texts[] = $run->lastChild->nodeValue;
 					}
-					$styles[] = [
-						'style' => $available_style,
-						'texts' => $texts,
-					];
+					if ( ! empty( $texts ) ) {
+						$styles[] = [
+							'style' => $available_style,
+							'texts' => $texts,
+						];
+					}
 				}
 				if ( count( $styles ) > 0 ) {
 					$this->fn_styles[ $ids[ $i ] ] = $styles;
@@ -546,7 +554,7 @@ class Docx extends Import {
 		do {
 			$node = $chapter->importNode( $dom_list->item( $i ), true );
 			$chapter->documentElement->appendChild( $node );
-			$i++;
+			++$i;
 
 			// TODO
 			// This is problematic
@@ -632,7 +640,6 @@ class Docx extends Import {
 		}
 
 		return $this->addFootnotesToDOM( $chapter, $fn_ids );
-
 	}
 
 	/**
@@ -677,6 +684,10 @@ class Docx extends Import {
 					$footnote_text = $notes[ $id ];
 					foreach ( $this->fn_styles[ $id ] as $style ) {
 						foreach ( $style['texts'] as $text_style ) {
+							if ( '' === $text_style ) {
+								continue; // explode() throws a ValueError on an empty separator
+							}
+
 							// Create style element
 							$style_element = $chapter->createElement( $style['style'] );
 							$text_element = $chapter->createTextNode( $text_style );
@@ -768,7 +779,7 @@ class Docx extends Import {
 	 *
 	 * @return boolean
 	 */
-	function setCurrentImportOption( array $upload ) {
+	public function setCurrentImportOption( array $upload ) {
 		try {
 			$this->isValidZip( $upload['file'] );
 		} catch ( \Exception $e ) {
@@ -994,5 +1005,4 @@ class Docx extends Import {
 
 		return \Pressbooks\HtmLawed::filter( $html, $config );
 	}
-
 }

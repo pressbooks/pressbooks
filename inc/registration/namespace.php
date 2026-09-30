@@ -357,11 +357,11 @@ function check_for_strong_password( $pwd ) {
 }
 
 /**
- * Remove unwanted and unnecessary Bedrock's prefix in Lost Url link
+ * Remove unwanted and unnecessary Bedrock's prefix in login-related URLs
  * only if the book name is not wp
  */
-function remove_wp_prefix( $lostpassword_url ) {
-	return preg_replace( '/(.*[^\/])\/wp\/(.*)(\/wp-login.php)(.*)/i', '$1/$2$3$4', $lostpassword_url );
+function remove_wp_prefix( $url ) {
+	return preg_replace( '/(.*[^\/])\/wp\/(.*)(\/wp-login.php)(.*)/i', '$1/$2$3$4', $url );
 }
 
 /**
@@ -413,7 +413,21 @@ function clean_invitation_data( $user_id, $result ) {
 }
 
 function remove_ip_from_password_reset_email( $message ) {
-	$lines = explode( "\r\n", trim( $message ) );
-	array_pop( $lines );
-	return implode( "\r\n", $lines ) . "\r\n";
+	// WordPress only appends the "originated from the IP address" line when the
+	// requester is logged out (see retrieve_password() in wp-includes/user.php).
+	// When a logged-in network manager triggers the reset from the user-edit
+	// screen there is no IP line, so popping the last line removed the reset URL
+	// itself (#4469). Remove only the IP-address line, identified by WordPress's
+	// own translatable sentence, wherever it appears.
+	$ip_marker = trim( explode( '%s', __( 'This password reset request originated from the IP address %s.' ) )[0] );
+
+	$lines = preg_split( '/\r\n|\r|\n/', $message );
+	$lines = array_filter(
+		$lines,
+		static function ( $line ) use ( $ip_marker ) {
+			return '' === $ip_marker || false === strpos( $line, $ip_marker );
+		}
+	);
+
+	return implode( "\r\n", $lines );
 }

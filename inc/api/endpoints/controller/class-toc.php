@@ -475,5 +475,4 @@ class Toc extends \WP_REST_Controller {
 
 		return $back_matter;
 	}
-
 }

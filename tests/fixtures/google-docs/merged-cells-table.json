@@ -1,0 +1,27 @@
+{
+  "title": "Merged Cells Test",
+  "body": {
+    "content": [
+      {"sectionBreak": {"sectionStyle": {}}},
+      {"paragraph": {"elements": [{"textRun": {"content": "Table With Merged Cells\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "HEADING_1"}}},
+      {"table": {"rows": 3, "columns": 3, "tableRows": [
+        {"tableCells": [
+          {"content": [{"paragraph": {"elements": [{"textRun": {"content": "Merged Header\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}}], "tableCellStyle": {"columnSpan": 3, "rowSpan": 1}},
+          {"content": [{"paragraph": {"elements": [{"textRun": {"content": "\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}}], "tableCellStyle": {"columnSpan": 1, "rowSpan": 1}},
+          {"content": [{"paragraph": {"elements": [{"textRun": {"content": "\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}}], "tableCellStyle": {"columnSpan": 1, "rowSpan": 1}}
+        ]},
+        {"tableCells": [
+          {"content": [{"paragraph": {"elements": [{"textRun": {"content": "Tall Cell\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}}], "tableCellStyle": {"columnSpan": 1, "rowSpan": 2}},
+          {"content": [{"paragraph": {"elements": [{"textRun": {"content": "B2\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}}], "tableCellStyle": {"columnSpan": 1, "rowSpan": 1}},
+          {"content": [{"paragraph": {"elements": [{"textRun": {"content": "C2\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}}], "tableCellStyle": {"columnSpan": 1, "rowSpan": 1}}
+        ]},
+        {"tableCells": [
+          {"content": [{"paragraph": {"elements": [{"textRun": {"content": "\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}}], "tableCellStyle": {"columnSpan": 1, "rowSpan": 1}},
+          {"content": [{"paragraph": {"elements": [{"textRun": {"content": "B3\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}}], "tableCellStyle": {"columnSpan": 1, "rowSpan": 1}},
+          {"content": [{"paragraph": {"elements": [{"textRun": {"content": "C3\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}}], "tableCellStyle": {"columnSpan": 1, "rowSpan": 1}}
+        ]}
+      ]}}
+    ]
+  },
+  "inlineObjects": {}
+}

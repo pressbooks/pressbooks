@@ -21,5 +21,4 @@ class Superscripts extends Element {
 	 * @var string
 	 */
 	protected $tag = 'sup';
-
 }

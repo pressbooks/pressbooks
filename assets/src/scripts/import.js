@@ -9,6 +9,7 @@ jQuery( function ( $ ) {
 	const button = $( 'input[type=submit]' );
 	const bar = $( '#pb-sse-progressbar' );
 	const info = $( '#pb-sse-info' );
+	const status = $( '#pb-sse-status' );
 	const notices = $( '.notice' );
 
 	// Init clock
@@ -45,11 +46,12 @@ jQuery( function ( $ ) {
 			switch ( data.action ) {
 				case 'updateStatusBar':
 					bar.val( parseInt( data.percentage, 10 ) );
+					status.html( `${ data.percentage }%` );
 					info.html( data.info );
 					break;
 				case 'complete':
 					evtSource.close();
-					$( window ).unbind( 'beforeunload' );
+					$( window ).off( 'beforeunload' );
 					if ( data.error ) {
 						bar.val( 0 ).hide();
 						button.attr( 'disabled', false ).show();
@@ -74,7 +76,7 @@ jQuery( function ( $ ) {
 			evtSource.close();
 			bar.removeAttr( 'value' );
 			info.html( 'EventStream Connection Error ' + PB_ImportToken.reloadSnippet );
-			$( window ).unbind( 'beforeunload' );
+			$( window ).off( 'beforeunload' );
 			if ( clock ) {
 				resetClock( clock );
 			}
@@ -102,9 +104,21 @@ jQuery( function ( $ ) {
 		info.html( PB_ImportToken.ajaxSubmitMsg );
 
 		// Save the WP options and WP Media before triggering the generator
+		// Open the EventSource only after the POST has saved the transient.
 		// @see https://github.com/jquery-form/form
 		$( this ).ajaxSubmit( {
-			done: eventSourceHandler(),
+			success: eventSourceHandler,
+			/**
+			 *
+			 */
+			error: function () {
+				bar.val( 0 ).hide();
+				button.attr( 'disabled', false ).show();
+				info.html( 'EventStream Connection Error ' + PB_ImportToken.reloadSnippet );
+				if ( clock ) {
+					resetClock( clock );
+				}
+			},
 			timeout: 0, // A value of 0 means there will be no timeout.
 		} );
 

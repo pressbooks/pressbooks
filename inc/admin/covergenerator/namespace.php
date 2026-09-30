@@ -21,7 +21,7 @@ function generator_menu() {
  *
  */
 function display_generator() {
-	require( PB_PLUGIN_DIR . 'templates/admin/covergenerator.php' );
+	require PB_PLUGIN_DIR . 'templates/admin/covergenerator.php';
 }
 
 /**
@@ -524,7 +524,7 @@ function pressbooks_cg_spine_size_callback() {
 	<p><?php _e( 'Spine size is calculated based on the number of pages in your book, and the weight of the paper used in printing.', 'pressbooks' ); ?></p>
 	<p>
 	<?php
-	$spine = new \Pressbooks\Covergenerator\Spine;
+	$spine = new \Pressbooks\Covergenerator\Spine();
 		$pages = $spine->countPagesInMostRecentPdf();
 	if ( ! $pages ) {
 		_e( 'You haven\'t exported any PDF copies of your book, so you will need to enter a page count below.', 'pressbooks' );
@@ -541,7 +541,7 @@ function pressbooks_cg_spine_size_callback() {
 function pressbooks_cg_pdf_pagecount_callback( $args ) {
 	unset( $args['label_for'], $args['class'] );
 	$option = get_option( 'pressbooks_cg_options', [] );
-	$spine = new \Pressbooks\Covergenerator\Spine;
+	$spine = new \Pressbooks\Covergenerator\Spine();
 	$pages = $spine->countPagesInMostRecentPdf();
 
 	if ( empty( $option ) || empty( $option['pdf_pagecount'] ) ) {

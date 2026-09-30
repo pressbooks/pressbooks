@@ -2,8 +2,8 @@
 
 namespace Pressbooks\Api\Endpoints\Controller;
 
-use function \Pressbooks\Metadata\get_section_information;
 use Pressbooks\Book;
+use function Pressbooks\Metadata\get_section_information;
 
 class SectionMetadata extends \WP_REST_Controller {
 

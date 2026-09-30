@@ -65,7 +65,7 @@ class CloneComplete {
 	 * @param
 	 * @return array|null
 	 */
-	public static function getCloningStats(): array | null {
+	public static function getCloningStats(): array|null {
 		global $wpdb;
 		$table = static::$table;
 		$blog_id = get_current_blog_id();
@@ -76,5 +76,4 @@ class CloneComplete {
 			)
 		);
 	}
-
 }

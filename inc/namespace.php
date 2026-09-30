@@ -129,9 +129,9 @@ function get_all( $key ) {
 	if ( ! empty( $_SESSION[ $key ] ) ) {
 		// Array-ify the error(s).
 		if ( ! is_array( $_SESSION[ $key ] ) ) {
-			$_SESSION[ $key ] = [ $_SESSION[ $key ] ];
+			$_SESSION[ $key ] = [ $_SESSION[ $key ] ]; // phpcs:ignore Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized -- Pressbooks flash-message store, escaped on output.
 		}
-		$messages = array_merge( $messages, $_SESSION[ $key ] );
+		$messages = array_merge( $messages, $_SESSION[ $key ] ); // phpcs:ignore Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized -- Pressbooks flash-message store, escaped on output.
 	}
 	$transient = get_site_transient( $key . get_current_user_id() );
 	if ( ! empty( $transient ) ) {
@@ -153,7 +153,7 @@ function add( $msg, $key ) {
 	if ( $use_non_blocking_session ) {
 		$messages = get_site_transient( "{$key}{$current_user_id}" );
 	} else {
-		$messages = $_SESSION[ $key ] ?? [];
+		$messages = $_SESSION[ $key ] ?? []; // phpcs:ignore Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized -- Pressbooks flash-message store, escaped on output.
 	}
 	if ( empty( $messages ) ) {
 		$messages = [];

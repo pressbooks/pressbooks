@@ -11,7 +11,7 @@ class Pressbooks {
 	/**
 	 * Constructor.
 	 */
-	function __construct() {
+	public function __construct() {
 
 		/**
 		 * Memcached Object Cache v2.0.2 doesn't like when we loop on switch_to_blog()
@@ -35,7 +35,7 @@ class Pressbooks {
 	/**
 	 * Register theme directories, set a filter that hides themes under certain conditions
 	 */
-	function registerThemeDirectories() {
+	public function registerThemeDirectories() {
 
 		/**
 		 * Register additional theme directories.
@@ -63,7 +63,7 @@ class Pressbooks {
 	 *
 	 * @return array
 	 */
-	function allowedBookThemes( $themes ) {
+	public function allowedBookThemes( $themes ) {
 		$compare = search_theme_directories();
 		$themes = array_intersect_key( $themes, $compare );
 		foreach ( $compare as $key => $val ) {
@@ -85,7 +85,7 @@ class Pressbooks {
 	 *
 	 * @return array
 	 */
-	function allowedRootThemes( $themes ) {
+	public function allowedRootThemes( $themes ) {
 		$compare = search_theme_directories();
 		$themes = array_intersect_key( $themes, $compare );
 		foreach ( $compare as $key => $val ) {
@@ -99,5 +99,4 @@ class Pressbooks {
 
 		return $themes;
 	}
-
 }

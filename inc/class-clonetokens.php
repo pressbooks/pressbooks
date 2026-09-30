@@ -67,5 +67,4 @@ class CloneTokens {
 	protected function save(): void {
 		update_option( $this->option_name, $this->tokens );
 	}
-
 }

@@ -396,7 +396,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			$xhtml_content = file_get_contents( ( $xhtml_path ) );
 			$this->assertStringContainsString( '<div class="footnotes">', $xhtml_content );
 			$this->assertStringContainsString( '[latex]', $xhtml_content ); // TODO: add_filter( 'pb_mathjax_use', '__return_true' );
-			$this->assertStringContainsString( ' <div id="attachment_1" ', $xhtml_content );
+			$this->assertMatchesRegularExpression( '/ <div id="attachment_1(-\d+)?" /', $xhtml_content );
 			$this->assertStringContainsString( '<p><em>Ka kite ano!</em></p>', $xhtml_content );
 			$this->assertStringContainsString( 'https://github.com/pressbooks/pressbooks', $xhtml_content );
 
@@ -438,7 +438,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 
 		$this->assertStringContainsString( '<div class="footnotes">', $xhtml_content );
 		$this->assertStringContainsString( '[latex]', $xhtml_content );
-		$this->assertStringContainsString( ' <div id="attachment_1" ', $xhtml_content );
+		$this->assertMatchesRegularExpression( '/ <div id="attachment_1(-\d+)?" /', $xhtml_content );
 		$this->assertStringContainsString( '<p><em>Ka kite ano!</em></p>', $xhtml_content );
 		$this->assertStringContainsString( 'https://github.com/pressbooks/pressbooks', $xhtml_content );
 		// Heading elements should be in a "bad" place.

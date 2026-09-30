@@ -29,45 +29,45 @@ abstract class Options {
 	/**
 	 * Configure the options page or tab using the settings API.
 	 */
-	abstract function init();
+	abstract public function init();
 
 	/**
 	 * Display the options page or tab description.
 	 */
-	abstract function display();
+	abstract public function display();
 
 	/**
 	 * Render the options page or tab.
 	 */
-	abstract function render();
+	abstract public function render();
 
 	/**
 	 * Upgrade handler for the options page or tab.
 	 *
 	 * @param int $version
 	 */
-	abstract function upgrade( $version );
+	abstract public function upgrade( $version );
 
 	/**
 	 * Get the slug for this options page or tab.
 	 *
 	 * @return string $slug
 	 */
-	abstract static function getSlug();
+	abstract public static function getSlug();
 
 	/**
 	 * Get the localized title of this options page or tab.
 	 *
 	 * @return string $title
 	 */
-	abstract static function getTitle();
+	abstract public static function getTitle();
 
 	/**
 	 * Get an array of default values for this set of options
 	 *
 	 * @return array $defaults
 	 */
-	abstract static function getDefaults();
+	abstract public static function getDefaults();
 
 	/**
 	 * Filter the array of default values for this set of options
@@ -76,7 +76,7 @@ abstract class Options {
 	 *
 	 * @return array $defaults
 	 */
-	abstract static function filterDefaults( $defaults );
+	abstract public static function filterDefaults( $defaults );
 
 	/**
 	 * Sanitize various options (boolean, string, integer, float).
@@ -85,7 +85,7 @@ abstract class Options {
 	 *
 	 * @return array $options
 	 */
-	function sanitize( $input ) {
+	public function sanitize( $input ) {
 		$options = [];
 
 		if ( ! is_array( $input ) ) {
@@ -187,7 +187,7 @@ abstract class Options {
 	 * @type bool $disabled Is the field disabled?
 	 * }
 	 */
-	static function renderField( $args ) {
+	public static function renderField( $args ) {
 		$defaults = [
 			'id' => null,
 			'name' => null,
@@ -242,7 +242,7 @@ abstract class Options {
 	 * @type bool $disabled Is the field disabled?
 	 * }
 	 */
-	static function renderTextarea( $args ) {
+	public static function renderTextarea( $args ) {
 		$defaults = [
 			'id' => null,
 			'name' => null,
@@ -295,7 +295,7 @@ abstract class Options {
 	 * @type bool $disabled Is the field disabled?
 	 * }
 	 */
-	static function renderColorField( $args ) {
+	public static function renderColorField( $args ) {
 		$defaults = [
 			'id' => null,
 			'name' => null,
@@ -330,7 +330,7 @@ abstract class Options {
 	 *
 	 * @param array $args
 	 */
-	static function renderCheckbox( $args ) {
+	public static function renderCheckbox( $args ) {
 		$defaults = [
 			'id' => null,
 			'name' => null,
@@ -368,7 +368,7 @@ abstract class Options {
 	 *
 	 * @param array $args
 	 */
-	static function renderRadioButtons( $args ) {
+	public static function renderRadioButtons( $args ) {
 		$defaults = [
 			'id' => null,
 			'name' => null,
@@ -409,7 +409,7 @@ abstract class Options {
 	 *
 	 * @param array $args
 	 */
-	static function renderSelect( $args ) {
+	public static function renderSelect( $args ) {
 		$defaults = [
 			'id' => null,
 			'name' => null,
@@ -456,7 +456,7 @@ abstract class Options {
 	 *
 	 * @param array $args
 	 */
-	static function renderSelectOptGroup( $args ) {
+	public static function renderSelectOptGroup( $args ) {
 		$defaults = [
 			'id' => null,
 			'name' => null,
@@ -516,7 +516,7 @@ abstract class Options {
 	 *
 	 * @param array $args
 	 */
-	static function renderCustomSelect( $args ) {
+	public static function renderCustomSelect( $args ) {
 		$defaults = [
 			'id' => null,
 			'name' => null,
@@ -556,7 +556,7 @@ abstract class Options {
 	 *
 	 * @param string $option name of the updated option.
 	 */
-	static function deleteCacheAfterUpdate( $option ) {
+	public static function deleteCacheAfterUpdate( $option ) {
 		if ( str_starts_with( $option, 'pressbooks_' ) ) {
 			Book::deleteBookObjectCache();
 			// Update the last export time to prevent the export from being cached when toggling book options.
@@ -570,7 +570,7 @@ abstract class Options {
 	 * @param string $opt
 	 * @return mixed
 	 */
-	static function getOption( $opt ) {
+	public static function getOption( $opt ) {
 		$var = get_site_option( static::getSlug(), [] );
 
 		if ( isset( $var[ $opt ] ) ) {

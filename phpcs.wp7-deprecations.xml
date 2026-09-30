@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ruleset name="Pressbooks WP7 Deprecations">
+    <description>Flags WordPress deprecated/removed APIs for the WP 7.0 audit.</description>
+    <arg name="extensions" value="php"/>
+    <file>inc/</file>
+    <file>hooks.php</file>
+    <file>hooks-admin.php</file>
+    <file>functions.php</file>
+    <file>pressbooks.php</file>
+    <rule ref="WordPress.WP.DeprecatedFunctions"/>
+    <rule ref="WordPress.WP.DeprecatedClasses"/>
+    <rule ref="WordPress.WP.DeprecatedParameters"/>
+    <rule ref="WordPress.WP.DeprecatedParameterValues"/>
+</ruleset>

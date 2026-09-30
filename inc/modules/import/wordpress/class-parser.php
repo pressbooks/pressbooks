@@ -19,7 +19,7 @@ class Parser {
 	 * @return array
 	 * @throws \Exception
 	 */
-	function parse( $file ) {
+	public function parse( $file ) {
 
 		// ------------------------------------------------------------------------------------------------------------
 		// Setup & sanity check
@@ -38,7 +38,7 @@ class Parser {
 			$old_value = libxml_disable_entity_loader( true );
 		}
 
-		$dom = new \DOMDocument;
+		$dom = new \DOMDocument();
 		$dom->recover = true; // Try to parse non-well formed documents
 		$success = $dom->loadXML( \Pressbooks\Utility\get_contents( $file ) );
 		foreach ( $dom->childNodes as $child ) {
@@ -261,5 +261,4 @@ class Parser {
 			'version' => $wxr_version,
 		];
 	}
-
 }

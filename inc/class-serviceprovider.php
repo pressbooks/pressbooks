@@ -2,7 +2,6 @@
 
 namespace Pressbooks;
 
-use function Pressbooks\Utility\get_cache_path;
 use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager;
 use Illuminate\Events\Dispatcher;
@@ -18,6 +17,7 @@ use Pressbooks\Interactive\H5PCoreAdapter;
 use Pressbooks\Interactive\H5PExtractorAdapter;
 use Pressbooks\Interactive\H5PPluginAdapter;
 use Pressbooks\Interactive\WordPressHelperAdapter;
+use function Pressbooks\Utility\get_cache_path;
 
 /**
  * Service Provider for Pressbooks
@@ -51,7 +51,7 @@ class ServiceProvider {
 
 		$container->singleton(
 			'ScopedStyles', function () {
-				return new class {
+				return new class() {
 					public function __construct(
 						public string $h5p_css_url = '',
 						public string $scoped_styles = '',
@@ -69,11 +69,11 @@ class ServiceProvider {
 				$path_to_compiled_templates = get_cache_path();
 
 				// Dependencies
-				$filesystem = new Filesystem;
-				$event_dispatcher = new Dispatcher( new Container );
+				$filesystem = new Filesystem();
+				$event_dispatcher = new Dispatcher( new Container() );
 
 				// Create View Factory capable of rendering PHP and Blade templates
-				$view_resolver = new EngineResolver;
+				$view_resolver = new EngineResolver();
 				$blade_compiler = new BladeCompiler( $filesystem, $path_to_compiled_templates );
 
 				$view_resolver->register('blade', function () use ( $blade_compiler ) {
@@ -104,7 +104,7 @@ class ServiceProvider {
 
 		global $wpdb;
 
-		$db = new Manager;
+		$db = new Manager();
 
 		/**
 		 * TODO: how to fetch environment variables from a config class,
@@ -131,7 +131,7 @@ class ServiceProvider {
 		// H5P Plugin Autoloader Bootstrap
 		// Load H5P plugin autoloader if available (required for H5P classes)
 		if ( is_file( WP_PLUGIN_DIR . '/h5p/autoloader.php' ) ) {
-			require_once( WP_PLUGIN_DIR . '/h5p/autoloader.php' );
+			require_once WP_PLUGIN_DIR . '/h5p/autoloader.php';
 		}
 
 		// H5P Dependencies
@@ -173,6 +173,5 @@ class ServiceProvider {
 				return new Assets( 'pressbooks', AssetType::PLUGIN );
 			}
 		);
-
 	}
 }

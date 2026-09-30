@@ -6,8 +6,8 @@
 
 namespace Pressbooks\Admin\Fields;
 
-use function Pressbooks\Sanitize\sanitize_string;
 use Pressbooks\Container;
+use function Pressbooks\Sanitize\sanitize_string;
 
 abstract class Field {
 	/* The name attribute of the field. */

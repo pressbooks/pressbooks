@@ -326,7 +326,7 @@ function register_meta() {
 				$defaults, [
 					'object_subtype' => $post_type,
 					'description' => __( 'Show title in exports', 'pressbooks' ),
-					'sanitize_callback' => function( $v ) {
+					'sanitize_callback' => function ( $v ) {
 						return ( $v ? 'on' : null );
 					},
 				]

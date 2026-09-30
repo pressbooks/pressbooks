@@ -58,5 +58,4 @@ class Index extends Element {
 	protected $dataTypes = [
 		'index',
 	];
-
 }

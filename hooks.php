@@ -5,7 +5,7 @@
  */
 
 use function Pressbooks\Api\is_enabled;
-use function \Pressbooks\Utility\include_plugins as include_symbionts;
+use function Pressbooks\Utility\include_plugins as include_symbionts;
 use Pressbooks\Book;
 use Pressbooks\CloneComplete;
 use Pressbooks\Container;
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Includes
 // -------------------------------------------------------------------------------------------------------------------
 
-require_once( __DIR__ . '/requires.php' );
+require_once __DIR__ . '/requires.php';
 include_symbionts();
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -52,7 +52,7 @@ add_action( 'plugins_loaded', [ '\Pressbooks\Activation', 'init' ] );
 // Archive Banner
 // -------------------------------------------------------------------------------------------------------------------
 
-add_filter( 'ms_site_check', function() {
+add_filter( 'ms_site_check', function () {
 	// Only intervene for Pressbooks books, not main site
 	if ( ! Book::isBook() ) {
 		return null;
@@ -88,7 +88,7 @@ add_filter( 'ms_site_check', function() {
 // Sync WordPress native archive action with Pressbooks archive fields
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'wp_update_site', function( $new_site, $old_site ) {
+add_action( 'wp_update_site', function ( $new_site, $old_site ) {
 	// Only process for books, not main site
 	if ( ! Book::isBook() && $new_site->blog_id !== get_current_blog_id() ) {
 		return;
@@ -176,8 +176,6 @@ if ( $is_book ) {
 add_action( 'init', '\Pressbooks\Sanitize\allow_post_content' );
 add_filter( 'the_content', '\Pressbooks\Sanitize\sanitize_webbook_content' );
 add_filter( 'the_export_content', '\Pressbooks\Sanitize\filter_export_content' );
-add_filter( 'the_content', 'Pressbooks\Metadata\add_candela_citations', 13 );
-
 // -------------------------------------------------------------------------------------------------------------------
 // Images
 // -------------------------------------------------------------------------------------------------------------------
@@ -215,6 +213,12 @@ if ( $is_book ) {
 add_action( 'init', '\Pressbooks\PostType\register_meta' );
 
 // -------------------------------------------------------------------------------------------------------------------
+// Reusable web components (available to core and downstream plugins on any page context)
+// -------------------------------------------------------------------------------------------------------------------
+
+add_action( 'init', '\Pressbooks\Utility\register_duet_date_picker' );
+
+// -------------------------------------------------------------------------------------------------------------------
 // Remove the "admin bar" from any public facing theme
 // -------------------------------------------------------------------------------------------------------------------
 
@@ -234,9 +238,9 @@ if ( is_admin() === false ) {
 // Redirects
 // -------------------------------------------------------------------------------------------------------------------
 
-add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_format', 1 );
-add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_catalog', 1 );
-add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_open', 1 );
+add_action( 'init', '\Pressbooks\Redirect\rewrite_rules_for_format', 1 );
+add_action( 'init', '\Pressbooks\Redirect\rewrite_rules_for_catalog', 1 );
+add_action( 'init', '\Pressbooks\Redirect\rewrite_rules_for_open', 1 );
 add_action( 'plugins_loaded', '\Pressbooks\Redirect\migrate_generated_content', 1 );
 add_filter( 'login_redirect', '\Pressbooks\Redirect\break_reset_password_loop', 10, 3 );
 add_filter( 'login_redirect', '\Pressbooks\Redirect\handle_dashboard_redirect', 10, 3 );
@@ -245,9 +249,11 @@ add_filter( 'login_redirect', '\Pressbooks\Redirect\handle_dashboard_redirect', 
 // Sitemap
 // -------------------------------------------------------------------------------------------------------------------
 
-add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_sitemap', 1 );
+add_filter( 'wp_sitemaps_enabled', '__return_false' );
+add_action( 'init', '\Pressbooks\Redirect\rewrite_rules_for_sitemap', 1 );
 add_action( 'do_robotstxt', '\Pressbooks\Utility\add_sitemap_to_robots_txt' );
 add_filter( 'wp_robots', '\Pressbooks\Utility\handle_book_indexing' );
+add_filter( 'robots_txt', '\Pressbooks\Utility\add_disallow_rules_to_robots_txt', 10, 2 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Shortcodes
@@ -318,7 +324,7 @@ add_action( 'init', '\Pressbooks\Theme\update_template_root' );
 // Regenerate stylesheets
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'init', function() {
+add_action( 'init', function () {
 	Container::get( 'Styles' )->maybeUpdateStylesheets();
 } );
 
@@ -365,6 +371,7 @@ add_filter( 'wpmu_validate_user_signup', '\Pressbooks\Registration\validate_pass
 add_filter( 'add_signup_meta', '\Pressbooks\Registration\add_temporary_password', 99 );
 add_action( 'signup_blogform', '\Pressbooks\Registration\add_hidden_password_field' );
 add_filter( 'random_password', '\Pressbooks\Registration\override_password_generation' );
+add_filter( 'login_url', '\Pressbooks\Registration\remove_wp_prefix', 12 );
 add_filter( 'lostpassword_url', '\Pressbooks\Registration\remove_wp_prefix', 12 );
 // Hooks to have pending invitation information
 add_action( 'invite_user', '\Pressbooks\Registration\save_invitation_data', 10, 3 );
@@ -409,7 +416,7 @@ add_filter( 'admin_email_check_interval', '__return_false' );
 // -------------------------------------------------------------------------------------------------------------------
 // Book directory event actions
 // -------------------------------------------------------------------------------------------------------------------
-add_filter( 'init', [ '\Pressbooks\BookDirectory', 'init' ], 10, 2 );
+add_action( 'init', [ '\Pressbooks\BookDirectory', 'init' ] );
 
 add_action( 'activated_plugin', '\Pressbooks\Utility\delete_options_cached' );
 
@@ -417,10 +424,10 @@ add_action( 'activated_plugin', '\Pressbooks\Utility\delete_options_cached' );
 register_deactivation_hook( 'pressbooks/pressbooks.php', [ CloneComplete::class, 'uninstall' ] );
 add_action( 'init', [ CloneComplete::class, 'install' ] );
 
-add_filter( 'init', [ '\Pressbooks\Utility\ErrorHandler', 'init' ] );
+add_action( 'init', [ '\Pressbooks\Utility\ErrorHandler', 'init' ] );
 
 // Open up private content to subscribers and collaborators when permissive_private_content is enabled
-add_filter( 'init', [ Privacy::class, 'showPermissivePrivateContent' ] );
+add_action( 'init', [ Privacy::class, 'showPermissivePrivateContent' ] );
 
 add_action( 'wp_initialize_site', [ Privacy::class, 'setDefaultPermissivePrivateContent' ], 100, 1 );
 

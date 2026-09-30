@@ -12,16 +12,15 @@
 namespace Pressbooks\Admin\Diagnostics;
 
 use DeviceDetector\DeviceDetector;
-use function Pressbooks\Redirect\location;
-use function Pressbooks\Utility\check_epubcheck_install;
-use function Pressbooks\Utility\check_prince_install;
-use function Pressbooks\Utility\check_saxonhe_install;
-use function Pressbooks\Utility\check_xmllint_install;
 use Pressbooks\Book;
 use Pressbooks\Container;
 use Pressbooks\HtmLawed;
 use Pressbooks\Modules\ThemeOptions\Admin;
 use Pressbooks\Theme\Lock;
+use function Pressbooks\Redirect\location;
+use function Pressbooks\Utility\check_epubcheck_install;
+use function Pressbooks\Utility\check_prince_install;
+use function Pressbooks\Utility\check_xmllint_install;
 
 /**
  * Add the diagnostics menu (with parent page set to null)
@@ -100,7 +99,6 @@ function render_page() {
 	$output .= __( 'Epubcheck: ', 'pressbooks' ) . ( check_epubcheck_install() ? __( 'Installed', 'pressbooks' ) : __( 'Not Installed', 'pressbooks' ) ) . "\n"; // TODO: version
 	$output .= __( 'xmllint: ', 'pressbooks' ) . ( check_xmllint_install() ? __( 'Installed', 'pressbooks' ) : __( 'Not Installed', 'pressbooks' ) ) . "\n"; // TODO: version
 	$output .= __( 'PrinceXML: ', 'pressbooks' ) . ( check_prince_install() ? __( 'Installed', 'pressbooks' ) : __( 'Not Installed', 'pressbooks' ) ) . "\n"; // TODO: version
-	$output .= __( 'Saxon-HE: ', 'pressbooks' ) . ( check_saxonhe_install() ? __( 'Installed', 'pressbooks' ) : __( 'Not Installed', 'pressbooks' ) ) . "\n\n"; // TODO: version
 	$muplugins = get_mu_plugins();
 	if ( count( $muplugins ) > 0 ) {
 		$output .= __( '#### Must-Use Plugins', 'pressbooks' ) . "\n\n";
@@ -205,7 +203,7 @@ function handle_stylesheet_regeneration() {
 /**
  * @since 6.23.0
  *
- * Handle form submission on the diagnostics page which generates a PDF preview.
+ * Update PDF stylesheet before loading page preview.
  *
  * @return void
  */
@@ -214,8 +212,9 @@ function handle_pdf_preview(): void {
 		( new Admin() )->clearCache();
 		Container::get( 'Styles' )->updatePdfStyleSheet();
 	}
-	location( get_site_url( get_current_blog_id() ) . '/format/xhtml?debug=prince' );
+	$url = get_site_url( get_current_blog_id() ) . '/format/xhtml?debug=prince';
+	if ( ! empty( $_POST['optimize_for_print'] ) ) {
+		$url .= '&optimize-for-print=1';
+	}
+	location( $url );
 }
-
-
-

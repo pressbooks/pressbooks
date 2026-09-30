@@ -22,5 +22,4 @@ class General extends Element {
 	 * @var string
 	 */
 	protected $tag = 'span';
-
 }

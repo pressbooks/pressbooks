@@ -9,17 +9,16 @@
 
 namespace Pressbooks\Modules\Export\WordPress;
 
-use function Pressbooks\Utility\put_contents;
 use Generator;
 use Pressbooks\Modules\Export\Export;
+use function Pressbooks\Utility\put_contents;
 
 class Wxr extends Export {
 
 	/**
 	 * @param array $args
 	 */
-	function __construct( array $args ) {
-
+	public function __construct( array $args ) {
 	}
 
 	/**
@@ -46,7 +45,7 @@ class Wxr extends Export {
 			if ( ! defined( 'WP_LOAD_IMPORTERS' ) ) {
 				define( 'WP_LOAD_IMPORTERS', true );
 			}
-			require_once( ABSPATH . 'wp-admin/includes/export.php' );
+			require_once ABSPATH . 'wp-admin/includes/export.php';
 
 			try {
 				export_wp( [ 'content' => 'all' ] );

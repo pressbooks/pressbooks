@@ -6,16 +6,16 @@
 
 namespace Pressbooks\Modules\Import\WordPress;
 
-use function Pressbooks\Media\strip_baseurl as media_strip_baseurl;
-use function Pressbooks\Sanitize\maybe_safer_unserialize;
-use function Pressbooks\Sanitize\safer_unserialize;
-use function Pressbooks\Utility\str_starts_with;
 use Pressbooks\Book;
 use Pressbooks\Contributors;
 use Pressbooks\HtmlParser;
 use Pressbooks\Licensing;
 use Pressbooks\Metadata;
 use Pressbooks\Modules\Import\Import;
+use function Pressbooks\Media\strip_baseurl as media_strip_baseurl;
+use function Pressbooks\Sanitize\maybe_safer_unserialize;
+use function Pressbooks\Sanitize\safer_unserialize;
+use function Pressbooks\Utility\str_starts_with;
 
 class Wxr extends Import {
 
@@ -76,11 +76,11 @@ class Wxr extends Import {
 	/**
 	 *
 	 */
-	function __construct() {
+	public function __construct() {
 		if ( ! function_exists( 'media_handle_sideload' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/image.php' );
-			require_once( ABSPATH . 'wp-admin/includes/file.php' );
-			require_once( ABSPATH . 'wp-admin/includes/media.php' );
+			require_once ABSPATH . 'wp-admin/includes/image.php';
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			require_once ABSPATH . 'wp-admin/includes/media.php';
 		}
 		$this->dependencies();
 	}
@@ -122,7 +122,7 @@ class Wxr extends Import {
 	 *
 	 * @return bool
 	 */
-	function setCurrentImportOption( array $upload ) {
+	public function setCurrentImportOption( array $upload ) {
 
 		try {
 			$parser = new Parser();
@@ -245,7 +245,7 @@ class Wxr extends Import {
 	 *
 	 * @return bool
 	 */
-	function import( array $current_import ) {
+	public function import( array $current_import ) {
 
 		try {
 			$parser = new Parser();
@@ -456,7 +456,6 @@ class Wxr extends Import {
 				break;
 			}
 		}
-
 	}
 
 	/**
@@ -889,17 +888,16 @@ class Wxr extends Import {
 		foreach ( $this->contributors->valid as $contributor_type ) {
 			if ( $this->searchForMetaValue( $contributor_type, $postmeta ) ) {
 				return 5;
-			};
+			}
 		}
 
 		foreach ( $this->contributors->deprecated as $contributor_type ) {
 			if ( $this->searchForMetaValue( $contributor_type, $postmeta ) ) {
 				return 4;
-			};
+			}
 		}
 
 		// We found nothing? May as well use most recent version then...
 		return 5;
 	}
-
 }

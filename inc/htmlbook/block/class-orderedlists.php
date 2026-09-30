@@ -34,5 +34,4 @@ class OrderedLists extends Element {
 	 * @var string
 	 */
 	protected $tag = 'ol';
-
 }

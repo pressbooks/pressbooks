@@ -51,5 +51,4 @@ class Footnote extends Element {
 	protected $dataTypes = [
 		'footnote',
 	];
-
 }

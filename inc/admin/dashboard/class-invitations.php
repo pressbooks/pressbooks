@@ -20,7 +20,7 @@ class Invitations {
 		);
 
 		return collect( $invitations )
-			->map(function( $invitation ) use ( $current_blog_id ) {
+			->map(function ( $invitation ) use ( $current_blog_id ) {
 				$metadata = maybe_unserialize( $invitation->meta_value );
 
 				switch_to_blog( $metadata['blog_id'] );

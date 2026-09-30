@@ -21,5 +21,4 @@ class Subscripts extends Element {
 	 * @var string
 	 */
 	protected $tag = 'sub';
-
 }

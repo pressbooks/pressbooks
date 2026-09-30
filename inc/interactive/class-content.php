@@ -2,9 +2,9 @@
 
 namespace Pressbooks\Interactive;
 
-use function Pressbooks\Utility\str_starts_with;
 use Pressbooks\Container;
 use Pressbooks\HtmlParser;
+use function Pressbooks\Utility\str_starts_with;
 
 class Content {
 
@@ -61,7 +61,7 @@ class Content {
 	/**
 	 * @return Content
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -72,7 +72,7 @@ class Content {
 	/**
 	 * @param Content $obj
 	 */
-	static public function hooks( Content $obj ) {
+	public static function hooks( Content $obj ) {
 
 		// Iframes
 		// Note to self: admins are not affected by kses
@@ -86,6 +86,9 @@ class Content {
 		add_filter( 'embed_oembed_html', [ $obj, 'adjustOembeds' ], 10, 3 );
 		add_action( 'save_post', [ $obj, 'deleteOembedCaches' ] );
 		add_filter( 'mejs_settings', [ $obj, 'mediaElementConfiguration' ] );
+
+		// H5P
+		add_action( 'wp_enqueue_scripts', [ $obj, 'enqueueYouTubeApiForH5P' ] );
 
 		// Export hacks
 		add_action( 'pb_pre_export', [ $obj, 'beforeExport' ] );
@@ -282,7 +285,7 @@ class Content {
 		$title = $data->title ?? $this->getTitle( $id );
 		$post_url = wp_get_shortlink( $id ) ?: get_permalink( $id );
 		if ( isset( $this->iframes[ $id ] ) ) {
-			$this->iframes[ $id ] ++;
+			++$this->iframes[ $id ];
 		} else {
 			$this->iframes[ $id ] = 1;
 		}
@@ -346,7 +349,7 @@ class Content {
 				);
 				$fragment = $html5->parser->loadHTMLFragment( $template );
 				$element->parentNode->replaceChild( $dom->importNode( $fragment, true ), $element );
-				$element_number --;
+				--$element_number;
 			}
 		}
 
@@ -404,6 +407,46 @@ class Content {
 	 */
 	public function registerEmbedHandlers() {
 		$this->phet->registerEmbedHandlerForWeb();
+	}
+
+	/**
+	 * Preload the YouTube IFrame Player API on pages that contain H5P content.
+	 *
+	 * H5P's YouTube video handler only loads the API itself when
+	 * `window.onYouTubeIframeAPIReady` is undefined. Google Analytics (gtag)
+	 * defines that callback for its video engagement tracking but never loads
+	 * the API, so on books with analytics enabled the H5P video never renders.
+	 *
+	 * @see https://github.com/h5p/h5p-video/blob/master/scripts/youtube.js
+	 */
+	public function enqueueYouTubeApiForH5P() {
+		if ( ! $this->h5p->isActive() ) {
+			return;
+		}
+
+		/**
+		 * Filter whether Pressbooks preloads the YouTube IFrame API on pages with H5P content.
+		 *
+		 * @since 6.46.0
+		 *
+		 * @param bool $preload
+		 */
+		if ( ! apply_filters( 'pb_h5p_preload_youtube_api', true ) ) {
+			return;
+		}
+
+		$post = get_post();
+		if ( ! $post instanceof \WP_Post || ! has_shortcode( $post->post_content, H5P::SHORTCODE ) ) {
+			return;
+		}
+
+		wp_enqueue_script(
+			'pb-youtube-iframe-api',
+			'https://www.youtube.com/iframe_api',
+			[],
+			null,
+			false
+		);
 	}
 
 	/**
@@ -551,7 +594,7 @@ class Content {
 		}
 		global $id;
 		if ( isset( $this->oembeds[ $id ] ) ) {
-			$this->oembeds[ $id ] ++;
+			++$this->oembeds[ $id ];
 		} else {
 			$this->oembeds[ $id ] = 1;
 		}

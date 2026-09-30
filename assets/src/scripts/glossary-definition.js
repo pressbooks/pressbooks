@@ -6,9 +6,9 @@ const glossaryTerms = document.querySelectorAll( '#content .glossary-term' );
 
 Array.prototype.forEach.call( glossaryTerms, glossaryTerm => {
 	document.addEventListener( 'click', event => {
-		if ( event.target === glossaryTerm ) {
+		if ( event.target.closest( '.glossary-term' ) === glossaryTerm ) {
 			event.preventDefault();
-			event.target.setAttribute( 'data-source', true );
+			glossaryTerm.setAttribute( 'data-source', true );
 			const template = document.querySelector(
 				glossaryTerm.getAttribute( 'href' )
 			);

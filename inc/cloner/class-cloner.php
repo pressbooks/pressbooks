@@ -8,6 +8,12 @@
 
 namespace Pressbooks\Cloner;
 
+use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
+use Pressbooks\Container;
+use Pressbooks\Entities\Cloner\H5P;
+use Pressbooks\Entities\Cloner\Media;
+use Pressbooks\Shortcodes\Glossary\Glossary;
+use Pressbooks\Utility\PercentageYield;
 use function Pressbooks\Image\default_cover_url;
 use function Pressbooks\Image\strip_baseurl as image_strip_baseurl;
 use function Pressbooks\Media\strip_baseurl as media_strip_baseurl;
@@ -17,12 +23,6 @@ use function Pressbooks\Utility\str_ends_with;
 use function Pressbooks\Utility\str_lreplace;
 use function Pressbooks\Utility\str_remove_prefix;
 use function Pressbooks\Utility\str_starts_with;
-use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
-use Pressbooks\Container;
-use Pressbooks\Entities\Cloner\H5P;
-use Pressbooks\Entities\Cloner\Media;
-use Pressbooks\Shortcodes\Glossary\Glossary;
-use Pressbooks\Utility\PercentageYield;
 
 class Cloner {
 
@@ -307,9 +307,9 @@ class Cloner {
 
 		// Include media utilities
 		if ( ! function_exists( 'media_handle_sideload' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/image.php' );
-			require_once( ABSPATH . 'wp-admin/includes/file.php' );
-			require_once( ABSPATH . 'wp-admin/includes/media.php' );
+			require_once ABSPATH . 'wp-admin/includes/image.php';
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			require_once ABSPATH . 'wp-admin/includes/media.php';
 		}
 
 		$this->dependencies();
@@ -449,11 +449,11 @@ class Cloner {
 	 * @throws \Exception
 	 * @return \Generator
 	 */
-	public function cloneBookGenerator() : \Generator {
+	public function cloneBookGenerator(): \Generator {
 
 		yield 1 => __( 'Looking up the source book', 'pressbooks' );
 		if ( ! $this->setupSource() ) {
-			throw new \Exception( ! empty( $_SESSION['pb_errors'][0] ) ? $_SESSION['pb_errors'][0] : __( 'Failed to setup source', 'pressbooks' ) );
+			throw new \Exception( ! empty( $_SESSION['pb_errors'][0] ) ? $_SESSION['pb_errors'][0] : __( 'Failed to setup source', 'pressbooks' ) ); // phpcs:ignore Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized -- Pressbooks flash-message store, escaped on output.
 		}
 
 		// Create Book
@@ -652,6 +652,8 @@ class Cloner {
 		if ( $this->sourceHasH5pApi ) {
 			$this->targetHasH5pApi = $this->h5p->activate();
 		}
+
+		do_action( 'pb_pre_cloning', $this );
 	}
 
 	/**
@@ -670,7 +672,7 @@ class Cloner {
 				$term = $this->sourceBookTerms[ $k ];
 				break;
 			}
-		};
+		}
 
 		if ( empty( $term['slug'] ) || empty( $term['taxonomy'] ) ) {
 			// Doing it wrong...
@@ -682,7 +684,7 @@ class Cloner {
 			if ( $v['slug'] === $term['slug'] && $v['taxonomy'] === $term['taxonomy'] ) {
 				return $v['id'];
 			}
-		};
+		}
 
 		// Set endpoint
 		$endpoint = $term['taxonomy'];
@@ -786,6 +788,8 @@ class Cloner {
 			// Add a notice to the user indicating that the H5P could not be cloned
 			\Pressbooks\add_notice( __( 'The source book contained H5P content that could not be cloned. Please review the cloned version of your book carefully, as missing H5P content will be indicated. You may want to remove or replace these elements.', 'pressbooks' ) );
 		}
+
+		do_action( 'pb_post_cloning', $this );
 	}
 
 	/**
@@ -856,7 +860,7 @@ class Cloner {
 	 * @param int $new_id
 	 */
 	public function createTransition( $type, $old_id, $new_id ) {
-		$transition = new  \Pressbooks\Entities\Cloner\Transition();
+		$transition = new \Pressbooks\Entities\Cloner\Transition();
 		$transition->type = $type;
 		$transition->oldId = $old_id;
 		$transition->newId = $new_id;
@@ -869,7 +873,7 @@ class Cloner {
 	 * @param string $url
 	 * @return array
 	 */
-	public function getBookStyles( string $url ) : array {
+	public function getBookStyles( string $url ): array {
 		$response = $this->handleGetRequest( $url, 'pressbooks/v2', 'styles' );
 		return is_wp_error( $response ) ? [] : $response;
 	}
@@ -880,7 +884,7 @@ class Cloner {
 	 * @param string $url
 	 * @return array
 	 */
-	public function getBookTheme( string $url ) : array {
+	public function getBookTheme( string $url ): array {
 		$response = $this->handleGetRequest( $url, 'pressbooks/v2', 'theme' );
 		return is_wp_error( $response ) ? [] : $response;
 	}
@@ -1390,7 +1394,7 @@ class Cloner {
 	 *
 	 * @return bool
 	 */
-	public function switchTheme() : bool {
+	public function switchTheme(): bool {
 		if ( empty( $this->sourceTheme ) ) {
 			return false;
 		}
@@ -1407,7 +1411,7 @@ class Cloner {
 	 *
 	 * @return void
 	 */
-	public function cloneThemeOptions() : void {
+	public function cloneThemeOptions(): void {
 		$clonable_options_classes = [
 			'\Pressbooks\Modules\ThemeOptions\GlobalOptions',
 			'\Pressbooks\Modules\ThemeOptions\WebOptions',
@@ -1437,7 +1441,7 @@ class Cloner {
 	 *
 	 * @return array
 	 */
-	public function getSourceTheme() : array {
+	public function getSourceTheme(): array {
 		return $this->sourceTheme;
 	}
 
@@ -1446,7 +1450,7 @@ class Cloner {
 	 *
 	 * @return bool
 	 */
-	public function cloneStyles() : bool {
+	public function cloneStyles(): bool {
 		if ( empty( $this->sourceStyles ) || ! $this->clonedItems['theme'] ) {
 			return false;
 		}
@@ -1482,7 +1486,7 @@ class Cloner {
 	 * @return bool | int False if the creation failed; the ID of the new book's book information post if it succeeded.
 	 */
 	protected function cloneMetadata() {
-		$metadata_post_id = ( new \Pressbooks\Metadata )->getMetaPostId();
+		$metadata_post_id = ( new \Pressbooks\Metadata() )->getMetaPostId();
 
 		if ( ! $metadata_post_id ) {
 			return false;
@@ -1607,7 +1611,7 @@ class Cloner {
 		static $menu_order_guess = 1;
 		if ( ! isset( $section['menu_order'] ) ) {
 			$section['menu_order'] = $menu_order_guess;
-			$menu_order_guess++;
+			++$menu_order_guess;
 		}
 
 		// Set mapped term ID
@@ -1658,6 +1662,15 @@ class Cloner {
 			update_post_meta( $response['id'], 'pb_part_invisible', 'on' );
 		}
 
+		// Copy over all post meta on cloning, excluding keys handled explicitly above.
+		$excluded_meta = [ 'pb_is_based_on', 'pb_part_invisible' ];
+		foreach ( $section['meta'] as $meta_key => $meta_value ) {
+			if ( in_array( $meta_key, $excluded_meta, true ) ) {
+				continue;
+			}
+			update_post_meta( $response['id'], $meta_key, $meta_value );
+		}
+
 		// Clone associated content
 		if ( $post_type !== 'part' ) {
 			$this->cloneSectionMetadata( $section_id, $post_type, $response['id'] );
@@ -1700,7 +1713,7 @@ class Cloner {
 				if ( $v['id'] === absint( $section_id ) ) {
 					return $this->sourceBookStructure['_embedded'][ $post_type ][ $k ];
 				}
-			};
+			}
 		}
 		return false;
 	}
@@ -2146,5 +2159,4 @@ class Cloner {
 		}
 		return true;
 	}
-
 }

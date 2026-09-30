@@ -1,9 +1,8 @@
-import '../styles/duet.css';
 import './webcomponents/pressbooks-reorderable-multiselect.js';
-import { DuetDatePicker } from '@duetds/date-picker/custom-element';
-if ( ! customElements.get( 'duet-date-picker' ) ) {
-	customElements.define( 'duet-date-picker', DuetDatePicker );
-}
+
+// The `duet-date-picker` custom element and its theming are provided by the
+// dedicated `duet-date-picker` script/style handles, declared as dependencies
+// when this bundle is enqueued (see \Pressbooks\Utility\register_duet_date_picker).
 jQuery( document ).ready( function ( $ ) {
 	// Set an initial focus to help users of assistive technology
 	$( '#pb_title' ).trigger( 'focus' );

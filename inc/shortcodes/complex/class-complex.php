@@ -6,20 +6,20 @@
 
 namespace Pressbooks\Shortcodes\Complex;
 
-use function \Pressbooks\Utility\do_shortcode_by_tags;
-use function \Pressbooks\Utility\str_starts_with;
+use function Pressbooks\Utility\do_shortcode_by_tags;
+use function Pressbooks\Utility\str_starts_with;
 
 class Complex {
 
 	/**
 	 * @var Complex - Static property to hold our singleton instance.
 	 */
-	static $instance = null;
+	public static $instance = null;
 
 	/**
 	 * Adds shortcodes based on $self->complex.
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -32,7 +32,7 @@ class Complex {
 	 *
 	 * @param Complex $obj
 	 */
-	static public function hooks( Complex $obj ) {
+	public static function hooks( Complex $obj ) {
 		add_shortcode( 'anchor', [ $obj, 'anchorShortCodeHandler' ] );
 		add_shortcode( 'columns', [ $obj, 'columnsShortCodeHandler' ] );
 		add_shortcode( 'email', [ $obj, 'emailShortCodeHandler' ] );
@@ -72,8 +72,8 @@ class Complex {
 		return sprintf(
 			'<a id="%1$s"%2$s%3$s></a>',
 			sanitize_title( $atts['id'] ),
-			( isset( $atts['class'] ) ) ? sprintf( ' class="%s"', $atts['class'] ) : '',
-			( $content ) ? sprintf( ' title="%s"', $content ) : ''
+			( isset( $atts['class'] ) ) ? sprintf( ' class="%s"', esc_attr( $atts['class'] ) ) : '',
+			( $content ) ? sprintf( ' title="%s"', esc_attr( $content ) ) : ''
 		);
 	}
 
@@ -115,7 +115,7 @@ class Complex {
 
 		return sprintf(
 			'<div class="%1$s">%2$s</div>',
-			trim( $classes ),
+			esc_attr( trim( $classes ) ),
 			wpautop( trim( $content ) )
 		);
 	}
@@ -149,13 +149,13 @@ class Complex {
 			return sprintf(
 				'<a href="mailto:%1$s"%2$s>%1$s</a>',
 				antispambot( $address ),
-				( isset( $atts['class'] ) ) ? sprintf( ' class="%s"', $atts['class'] ) : ''
+				( isset( $atts['class'] ) ) ? sprintf( ' class="%s"', esc_attr( $atts['class'] ) ) : ''
 			);
 		} else {
 			return sprintf(
 				'<a href="mailto:%1$s"%2$s>%3$s</a>',
 				antispambot( $address ),
-				( isset( $atts['class'] ) ) ? sprintf( ' class="%s"', $atts['class'] ) : '',
+				( isset( $atts['class'] ) ) ? sprintf( ' class="%s"', esc_attr( $atts['class'] ) ) : '',
 				( $content ) ? $content : antispambot( $address )
 			);
 		}

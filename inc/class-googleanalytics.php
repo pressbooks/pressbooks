@@ -25,7 +25,7 @@ class GoogleAnalytics {
 
 	public function __construct() {
 		$this->settings['input_label'] = __( 'Google Analytics ID', 'pressbooks' );
-		$this->settings['input_legend'] = __( 'The Google Analytics ID for your network, e.g &lsquo;G-A123B4C5DE6&rsquo;.', 'pressbooks' );}
+		$this->settings['input_legend'] = __( 'To send page traffic to Google Analytics (optional), provide your Google Analytics ID, e.g G-A123B4C5DE6.', 'pressbooks' );}
 
 	public function getGoogleIDSiteOption( bool $for_book_context ): false|string {
 		return ! $for_book_context ?
@@ -186,7 +186,6 @@ class GoogleAnalytics {
 				'for_book' => true,
 			]
 		);
-
 	}
 
 	 // @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
@@ -284,7 +283,6 @@ class GoogleAnalytics {
 
 			$this->printScript( $network_google_code, $book_google_code );
 		}
-
 	}
 
 	private static function printScript( string $network_google_v4_code, string $book_google_v4_code ): void {

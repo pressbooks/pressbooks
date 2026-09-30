@@ -42,5 +42,4 @@ class Examples extends Element {
 	protected $dataTypes = [
 		'example',
 	];
-
 }

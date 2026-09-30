@@ -83,14 +83,20 @@ class ImageTest extends \WP_UnitTestCase {
 	/**
 	 * @group media
 	 */
-	public function test_fudge_factor() {
-		$before = (int) ini_get( 'memory_limit' );
-		$format = 'png';
-		$file = __DIR__ . '/data/pb.png';
-		@\Pressbooks\Image\fudge_factor( $format, $file, 100 ); //adjust fudge to png during tests to avoid false positives
-		$after = (int) ini_get( 'memory_limit' );
-		$this->assertTrue( $before < $after );
-		ini_set( 'memory_limit', $before );
+	public function test_attachment_id_from_url_jpeg() {
+		$id = $this->factory()->post->create(
+			[
+				'post_type' => 'attachment',
+				'post_mime_type' => 'image/jpeg',
+			]
+		);
+		update_post_meta( $id, '_wp_attached_file', '2017/08/foo-bar.jpeg' );
+
+		$sized = 'https://pressbooks.dev/app/uploads/2017/08/foo-bar-300x225.jpeg';
+		$this->assertSame( $id, \Pressbooks\Image\attachment_id_from_url( $sized ) );
+
+		$full = 'https://pressbooks.dev/app/uploads/2017/08/foo-bar.jpeg';
+		$this->assertSame( $id, \Pressbooks\Image\attachment_id_from_url( $full ) );
 	}
 
 	/**

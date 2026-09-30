@@ -12,6 +12,10 @@
 
 namespace Pressbooks\Modules\Export;
 
+use Generator;
+use Pressbooks\Book;
+use Pressbooks\Container;
+use Pressbooks\CustomCss;
 use function Pressbooks\add_error;
 use function Pressbooks\L10n\get_book_language;
 use function Pressbooks\L10n\wplang_codes;
@@ -22,12 +26,8 @@ use function Pressbooks\Utility\create_tmp_file;
 use function Pressbooks\Utility\email_error_log;
 use function Pressbooks\Utility\get_media_prefix;
 use function Pressbooks\Utility\put_contents;
+use function Pressbooks\Utility\scandir_by_date;
 use function Pressbooks\Utility\template;
-use function \Pressbooks\Utility\scandir_by_date;
-use Generator;
-use Pressbooks\Book;
-use Pressbooks\Container;
-use Pressbooks\CustomCss;
 
 // IMPORTANT! if this isn't set correctly before include, with a trailing slash, PclZip will fail.
 if ( ! defined( 'PCLZIP_TEMPORARY_DIR' ) ) {
@@ -85,7 +85,7 @@ abstract class Export {
 	 *
 	 * @return string
 	 */
-	function getOutputPath(): string {
+	public function getOutputPath(): string {
 
 		return $this->outputPath;
 	}
@@ -99,7 +99,7 @@ abstract class Export {
 	 * @throws ContainerExceptionInterface
 	 * @throws NotFoundExceptionInterface
 	 */
-	function getExportStylePath( string $type ): false|string {
+	public function getExportStylePath( string $type ): false|string {
 
 		$fullpath = false;
 
@@ -132,7 +132,7 @@ abstract class Export {
 	 * @throws ContainerExceptionInterface
 	 * @throws NotFoundExceptionInterface
 	 */
-	function getLatestExportStylePath( string $type ): false|string {
+	public function getLatestExportStylePath( string $type ): false|string {
 		// This method only supports Prince stylesheets at the moment.
 		if ( $type === 'prince' ) {
 			foreach ( scandir_by_date( Container::get( 'Sass' )->pathToUserGeneratedCss() ) as $file ) {
@@ -154,7 +154,7 @@ abstract class Export {
 	 * @throws ContainerExceptionInterface
 	 * @throws NotFoundExceptionInterface
 	 */
-	function getLatestExportStyleUrl( string $type ): false|string {
+	public function getLatestExportStyleUrl( string $type ): false|string {
 		// This method only supports Prince stylesheets at the moment.
 		if ( $type === 'prince' ) {
 			foreach ( scandir_by_date( Container::get( 'Sass' )->pathToUserGeneratedCss() ) as $file ) {
@@ -175,7 +175,7 @@ abstract class Export {
 	 * @throws ContainerExceptionInterface
 	 * @throws NotFoundExceptionInterface
 	 */
-	function truncateExportStylesheets( $type, $max = 1 ): void {
+	public function truncateExportStylesheets( $type, $max = 1 ): void {
 		// This method only supports Prince stylesheets at the moment.
 		if ( $type === 'prince' ) {
 			$stylesheets = scandir_by_date( Container::get( 'Sass' )->pathToUserGeneratedCss() );
@@ -186,7 +186,7 @@ abstract class Export {
 					if ( $i > $max ) {
 						unlink( Container::get( 'Sass' )->pathToUserGeneratedCss() . '/' . $stylesheet );
 					}
-					$i++;
+					++$i;
 				}
 			}
 		}
@@ -201,7 +201,7 @@ abstract class Export {
 	 * @throws ContainerExceptionInterface
 	 * @throws NotFoundExceptionInterface
 	 */
-	function getExportScriptPath( $type ): false|string {
+	public function getExportScriptPath( $type ): false|string {
 
 		$fullpath = false;
 
@@ -237,7 +237,7 @@ abstract class Export {
 	 * @throws ContainerExceptionInterface
 	 * @throws NotFoundExceptionInterface
 	 */
-	function getExportScriptUrl( $type ): false|string {
+	public function getExportScriptUrl( $type ): false|string {
 
 		$url = false;
 
@@ -318,7 +318,7 @@ abstract class Export {
 	 *
 	 * @return string fullpath
 	 */
-	function createTmpFile(): string {
+	public function createTmpFile(): string {
 
 		return create_tmp_file();
 	}
@@ -351,7 +351,7 @@ abstract class Export {
 	 *
 	 * @return string
 	 */
-	function nonce( $timestamp ): string {
+	public function nonce( $timestamp ): string {
 		return md5( NONCE_KEY . $timestamp );
 	}
 
@@ -365,7 +365,7 @@ abstract class Export {
 	 *
 	 * @return bool
 	 */
-	function verifyNonce( $timestamp, $md5 ): bool {
+	public function verifyNonce( $timestamp, $md5 ): bool {
 
 		// Within range of 5 minutes?
 		$within_range = time() - $timestamp;
@@ -729,12 +729,12 @@ abstract class Export {
 	 *
 	 * @return Generator
 	 */
-	abstract function convert() : Generator;
+	abstract public function convert(): Generator;
 
 	/**
 	 * Mandatory validate Generator method, check the sanity of $this->outputPath
 	 *
 	 * @return Generator
 	 */
-	abstract function validate() : Generator;
+	abstract public function validate(): Generator;
 }

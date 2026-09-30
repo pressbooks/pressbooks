@@ -5,17 +5,17 @@
 // @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
 namespace Pressbooks\Metadata;
 
-use function \Pressbooks\L10n\get_book_language;
-use function \Pressbooks\L10n\get_locale;
-use function \Pressbooks\Sanitize\is_valid_timestamp;
-use function \Pressbooks\Utility\apply_https_if_available;
-use function \Pressbooks\Utility\explode_remove_and;
-use function \Pressbooks\Utility\get_contents;
-use function \Pressbooks\Utility\get_contributors_name_imploded;
 use Pressbooks\Book;
 use Pressbooks\Contributors;
 use Pressbooks\Licensing;
 use Pressbooks\Metadata;
+use function Pressbooks\L10n\get_book_language;
+use function Pressbooks\L10n\get_locale;
+use function Pressbooks\Sanitize\is_valid_timestamp;
+use function Pressbooks\Utility\apply_https_if_available;
+use function Pressbooks\Utility\explode_remove_and;
+use function Pressbooks\Utility\get_contents;
+use function Pressbooks\Utility\get_contributors_name_imploded;
 
 /**
  * Returns an html blob of meta elements based on what is set in 'Book Information'
@@ -297,7 +297,7 @@ function book_information_to_schema( array $book_information, bool $network_excl
 
 	if ( isset( $book_information['pb_institutions'] ) ) {
 		$book_schema['institutions'] = array_reduce(
-			$book_information['pb_institutions'], static function( $carry, $code ) {
+			$book_information['pb_institutions'], static function ( $carry, $code ) {
 				$institution = \Pressbooks\Metadata\get_institution_by_code( $code );
 
 				return array_merge( $carry, [
@@ -352,7 +352,7 @@ function book_information_to_schema( array $book_information, bool $network_excl
 		$book_information['pb_book_license'] = 'all-rights-reserved';
 	}
 
-	$licensing = new Licensing;
+	$licensing = new Licensing();
 	$supported_types = $licensing->getSupportedTypes();
 	$book_schema['license'] = [
 		'@type' => 'CreativeWork',
@@ -449,6 +449,7 @@ function book_information_to_schema( array $book_information, bool $network_excl
  *
  */
 function schema_to_book_information( array $book_schema ): array {
+
 	$book_information = [];
 
 	if ( isset( $book_schema['description'] ) ) {
@@ -517,7 +518,7 @@ function schema_to_book_information( array $book_schema ): array {
 
 	if ( isset( $book_schema['institutions'] ) ) {
 		$book_information['pb_institutions'] = array_reduce(
-			$book_schema['institutions'], static function( $carry, $item ) {
+			$book_schema['institutions'], static function ( $carry, $item ) {
 				return array_merge( $carry, [ $item['code'] ] );
 			}, []
 		);
@@ -542,7 +543,7 @@ function schema_to_book_information( array $book_schema ): array {
 		$book_information['pb_copyright_holder'] = $book_schema['copyrightHolder']['name'];
 	}
 
-	$licensing = new Licensing;
+	$licensing = new Licensing();
 	if ( is_array( $book_schema['license'] ) ) {
 		$book_information['pb_book_license'] = $licensing->getLicenseFromUrl( $book_schema['license']['url'] );
 		if ( isset( $book_schema['license']['description'] ) ) {
@@ -689,7 +690,7 @@ function section_information_to_schema( $section_information, $book_information 
 		}
 	}
 
-	$licensing = new Licensing;
+	$licensing = new Licensing();
 
 	if ( ! $licensing->isSupportedType( $section_information['pb_section_license'] ) ) {
 		$section_information['pb_section_license'] = 'all-rights-reserved';
@@ -787,7 +788,7 @@ function schema_to_section_information( $section_schema, $book_schema ) {
 		}
 	}
 	if ( $section_license !== $book_license ) {
-		$licensing = new Licensing;
+		$licensing = new Licensing();
 		$section_information['pb_section_license'] = $licensing->getLicenseFromUrl( $section_license );
 	}
 
@@ -1013,7 +1014,7 @@ function get_section_information( $post_id ) {
 	$all_contributors = $contributors->getAll( $post_id, false, true );
 	foreach ( $all_contributors as $key => $val ) {
 		$section_meta[ $key ] = $val;
-	};
+	}
 
 	return $section_meta;
 }
@@ -1109,52 +1110,6 @@ function add_citation_metadata() {
 }
 
 /**
- * @see https://github.com/lumenlearning/candela-citation
- * @see https://github.com/lumenlearning/candela-bombadil
- *
- * @since 5.8.1
- *
- * @return string
- */
-function add_candela_citations( $content ) {
-	if ( is_file( WP_PLUGIN_DIR . '/candela-citation/candela-citation.php' ) ) {
-		if ( is_plugin_active_for_network( 'candela-citation/candela-citation.php' ) || is_plugin_active( 'candela-citation/candela-citation.php' ) ) {
-
-			// Candela Citations, out-of-the-box, already works with exports using pb_append_front_matter_content,
-			// pb_append_chapter_content, and pb_append_back_matter_content filters. They also handle appending webbook
-			// chapters with the Bombadil Theme.
-			//
-			// For backwards compatibility, this function should only print Candela Citations when we are in a webbook chapter
-			// (that isn't Bombadil).
-
-			$is_book = Book::isBook();
-			$is_not_admin = ( ! is_admin() );
-			$is_not_bombadil = ( wp_get_theme()->get_stylesheet() !== 'candela-bombadil' );
-
-			if ( $is_book && $is_not_admin && $is_not_bombadil ) {
-				$post = get_post();
-				if ( $post ) {
-					$citation = \Candela\Citation::renderCitation( $post->ID );
-					if ( $citation ) {
-						$new_html = '
-			 <section class="citations-section" role="contentinfo">
-			 <h3>Candela Citations</h3>
-					 <div>
-						 <div id="citation-list-' . $post->ID . '">
-							 ' . $citation . '
-						 </div>
-					 </div>
-			 </section>';
-						$content .= $new_html;
-					}
-				}
-			}
-		}
-	}
-	return $content;
-}
-
-/**
  * Return $option to use in get_option() for "is this book in the network catalog?"
  *
  * @return string
@@ -1205,7 +1160,7 @@ function download_thema_lang( $meta_id, $post_id, $meta_key, $meta_value ) {
 	if ( $status === 200 ) {
 		if ( ! file_exists( $local_file ) ) {
 			if ( ! function_exists( 'download_url' ) ) {
-				require_once( ABSPATH . 'wp-admin/includes/file.php' );
+				require_once ABSPATH . 'wp-admin/includes/file.php';
 			}
 			// If a file is available for download download the file
 			$downloaded = download_url( $download_file );
@@ -1243,7 +1198,6 @@ function check_thema_lang_file( $post ) {
 	if ( ! get_thema_lang_file() ) {
 		download_thema_lang( $post, $post->ID, 'pb_language', get_book_metadata_lang() );
 	}
-
 }
 
 /**
@@ -1260,7 +1214,7 @@ function transform_institutions( array $institutions ): array {
 		return strcmp( $a['name'], $b['name'] );
 	} );
 
-	return array_reduce( $institutions, static function( $carry, $institution ) {
+	return array_reduce( $institutions, static function ( $carry, $institution ) {
 		return array_merge( $carry, [ $institution['code'] => $institution ] );
 	}, [] );
 }
@@ -1276,7 +1230,7 @@ function transform_institutions( array $institutions ): array {
  * @return array
  */
 function transform_regions( string $country, array $regions ): array {
-	return array_reduce( $regions, static function( $values, $region ) use ( $country ) {
+	return array_reduce( $regions, static function ( $values, $region ) use ( $country ) {
 		$institutions = [ "{$country}/{$region['name']}" => transform_institutions( $region['institutions'] ?? [] ) ];
 
 		return array_merge( $values, $institutions );
@@ -1304,7 +1258,7 @@ function get_institutions(): array {
 	);
 
 	$institutions = array_reduce(
-		$items, static function( $list, $country ) {
+		$items, static function ( $list, $country ) {
 			$country_name = $country['country'];
 			$regions = $country['regions'] ?? [];
 			$institutions = $country['institutions'] ?? [];
@@ -1331,8 +1285,8 @@ function get_institutions(): array {
  * @return array
  */
 function get_institutions_flattened(): array {
-	return array_reduce( get_institutions(), static function( $carry, $institutions ) {
-		return array_merge( $carry, array_reduce( $institutions, static function( $carry, $institution ) {
+	return array_reduce( get_institutions(), static function ( $carry, $institutions ) {
+		return array_merge( $carry, array_reduce( $institutions, static function ( $carry, $institution ) {
 			return array_merge( $carry, [ $institution['code'] => $institution['name'] ] );
 		}, [] ) );
 	}, [] );

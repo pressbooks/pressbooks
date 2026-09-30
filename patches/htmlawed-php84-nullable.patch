@@ -1,0 +1,12 @@
+diff --git a/src/Htmlawed.php b/src/Htmlawed.php
+--- a/src/Htmlawed.php
++++ b/src/Htmlawed.php
+@@ -41,7 +41,7 @@
+      * @return string Returns the filtered html.
+      * @see http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/htmLawed_README.htm
+      */
+-    public static function filter($html, array $config = null, $spec = null) {
++    public static function filter($html, ?array $config = null, $spec = null) {
+         require_once __DIR__.'/htmLawed/htmLawed.php';
+ 
+         if ($config === null) {

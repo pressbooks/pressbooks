@@ -89,6 +89,10 @@
     }
 
     .book-cards {
+      &.is-hidden {
+        display: none;
+      }
+
       .ais-Hits-list {
         margin: 1.5rem 0 0;
       }
@@ -161,6 +165,14 @@
           }
         }
       }
+    }
+
+    #stats.is-hidden {
+      display: none;
+    }
+
+    #stats:not(.is-hidden) {
+      display: block;
     }
 
     .ais-SearchBox-reset {

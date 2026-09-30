@@ -31,5 +31,4 @@ class ItemizedLists extends Element {
 	 * @var string
 	 */
 	protected $tag = 'ul';
-
 }

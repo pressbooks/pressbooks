@@ -47,5 +47,4 @@ class Backmatter extends Element {
 		'afterword',
 		'conclusion',
 	];
-
 }

@@ -14,14 +14,6 @@
 
 namespace Pressbooks\Admin\Laf;
 
-use function Pressbooks\Admin\NetworkManagers\is_restricted;
-use function Pressbooks\Modules\Export\template_data;
-use function Pressbooks\PostType\get_post_type_label;
-use function Pressbooks\Sanitize\sanitize_string;
-use function Pressbooks\Sanitize\validate_url_field;
-use function Pressbooks\Utility\disable_comments;
-use function Pressbooks\Utility\is_algolia_search_enabled;
-use function Pressbooks\Utility\str_starts_with;
 use Pressbooks\Admin\ExportOptions;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Admin\PublishOptions;
@@ -34,6 +26,14 @@ use Pressbooks\Contributors;
 use Pressbooks\DataCollector\Book as DataCollector;
 use Pressbooks\Metadata;
 use WP_Error;
+use function Pressbooks\Admin\NetworkManagers\is_restricted;
+use function Pressbooks\Modules\Export\template_data;
+use function Pressbooks\PostType\get_post_type_label;
+use function Pressbooks\Sanitize\sanitize_string;
+use function Pressbooks\Sanitize\validate_url_field;
+use function Pressbooks\Utility\disable_comments;
+use function Pressbooks\Utility\is_algolia_search_enabled;
+use function Pressbooks\Utility\str_starts_with;
 
 /**
  * @return bool
@@ -299,8 +299,9 @@ function replace_book_admin_menu() {
 				$post_type = get_post_type();
 				if ( 'metadata' === $post_type ) {
 					$assets->enqueue('assets/src/scripts/book-information.js', 'pb-metadata', [
-						'dependencies' => [ 'jquery' ],
+						'dependencies' => [ 'jquery', 'duet-date-picker' ],
 					]);
+					wp_enqueue_style( 'duet-date-picker' );
 					wp_localize_script(
 						'pb-metadata', 'PB_BookInfoToken', [
 							'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=pb_get_thema_subjects' ), 'pb-metadata' ),
@@ -540,7 +541,7 @@ function reorder_book_admin_menu( $menu_order = [] ) {
  * @return string
  */
 function book_info_slug() {
-	$metadata_post_id = ( new Metadata )->getMetaPostId();
+	$metadata_post_id = ( new Metadata() )->getMetaPostId();
 	$book_info_slug = ( ! empty( $metadata_post_id ) ) ?
 		'post.php?post=' . $metadata_post_id . '&amp;action=edit' :
 		'post-new.php?post_type=metadata';
@@ -782,7 +783,7 @@ function display_organize() {
  * Displays the trash page.
  */
 function display_trash() {
-	require( PB_PLUGIN_DIR . 'templates/admin/trash.php' );
+	require PB_PLUGIN_DIR . 'templates/admin/trash.php';
 }
 
 /**
@@ -823,7 +824,7 @@ function display_cloning_stats() {
  * Displays the Import Admin Page
  */
 function display_import() {
-	require( PB_PLUGIN_DIR . 'templates/admin/import.php' );
+	require PB_PLUGIN_DIR . 'templates/admin/import.php';
 }
 
 /**
@@ -1229,6 +1230,17 @@ function init_css_js(): void {
 	$assets->enqueue('assets/src/scripts/a11y.js', 'pb-a11y', [
 		'dependencies' => [ 'jquery', 'wp-i18n' ],
 	]);
+
+	/*
+	 * WP 7.0 control-sizing compat (CORE-012) — restore WordPress 6.9.x admin
+	 * button/input styling globally on WP 7.0's "Modern" restyle. To revert to
+	 * WP 7.0 native styling, remove this block + the wp7-controls-compat-styles
+	 * entry in vite.config.js + assets/src/styles/wp7-controls-compat.scss, then
+	 * rebuild.
+	 */
+	add_action( 'admin_enqueue_scripts', function () use ( $assets ) {
+		wp_enqueue_style( 'pressbooks-wp7-controls-compat', $assets->getAssetUrl( 'assets/src/styles/wp7-controls-compat.scss' ) );
+	} );
 }
 
 /* ------------------------------------------------------------------------ *
@@ -1329,7 +1341,7 @@ function privacy_settings_init() {
 
 	if ( ! isset( $sharingandprivacy['network_directory_excluded'] ) || 0 === $sharingandprivacy['network_directory_excluded'] ) {
 		add_action(
-			'update_option_pb_book_directory_excluded', function( $old_value, $updated_value ) {
+			'update_option_pb_book_directory_excluded', function ( $old_value, $updated_value ) {
 				$current_book_id = get_current_blog_id();
 
 				if ( update_site_meta( $current_book_id, DataCollector::BOOK_DIRECTORY_EXCLUDED, $updated_value ) ) {
@@ -1339,7 +1351,6 @@ function privacy_settings_init() {
 				if ( $updated_value === 1 ) {
 					BookDirectory::init()->deleteBookFromDirectory( [ $current_book_id ] );
 				}
-
 			}, 10, 2
 		);
 
@@ -1572,14 +1583,14 @@ function admin_notices() {
 	// Print the error(s).
 	$errors_to_print = \Pressbooks\get_all_errors();
 	foreach ( $errors_to_print as $msg ) {
-		echo '<div class="error" role="alert"><p>' . $msg . '</p></div>';
+		echo '<div class="error" role="alert"><p>' . wp_kses_post( $msg ) . '</p></div>';
 	}
 	\Pressbooks\flush_all_errors();
 
 	// Print the notice(s).
 	$notices_to_print = \Pressbooks\get_all_notices();
 	foreach ( $notices_to_print as $msg ) {
-		echo '<div class="updated" role="status"><p>' . $msg . '</p></div>';
+		echo '<div class="updated" role="status"><p>' . wp_kses_post( $msg ) . '</p></div>';
 	}
 	\Pressbooks\flush_all_notices();
 }
@@ -1955,7 +1966,7 @@ function block_metadata_add_new_page() {
 		return;
 	}
 
-	$metadata_post_id = ( new Metadata )->getMetaPostId();
+	$metadata_post_id = ( new Metadata() )->getMetaPostId();
 	if ( ! $metadata_post_id ) {
 		return;
 	}

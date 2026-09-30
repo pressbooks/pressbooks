@@ -2,10 +2,10 @@
 
 namespace Pressbooks\Covergenerator;
 
+use Pressbooks\Container;
 use function Pressbooks\Utility\create_tmp_file;
 use function Pressbooks\Utility\debug_error_log;
 use function Pressbooks\Utility\template;
-use Pressbooks\Container;
 
 class PrinceJpg extends Generator {
 
@@ -179,9 +179,9 @@ class PrinceJpg extends Generator {
 			}
 
 			if ( ! function_exists( 'media_handle_sideload' ) ) {
-				require_once( ABSPATH . 'wp-admin/includes/image.php' );
-				require_once( ABSPATH . 'wp-admin/includes/file.php' );
-				require_once( ABSPATH . 'wp-admin/includes/media.php' );
+				require_once ABSPATH . 'wp-admin/includes/image.php';
+				require_once ABSPATH . 'wp-admin/includes/file.php';
+				require_once ABSPATH . 'wp-admin/includes/media.php';
 			}
 
 			$pid = media_handle_sideload(

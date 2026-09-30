@@ -1,0 +1,27 @@
+{
+  "title": "Positioned Image",
+  "body": {
+    "content": [
+      {"sectionBreak": {"sectionStyle": {}}},
+      {"paragraph": {"elements": [{"textRun": {"content": "Chapter One\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "HEADING_1"}}},
+      {"paragraph": {"elements": [{"textRun": {"content": "Body paragraph before the figure.\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}},
+      {"paragraph": {
+        "elements": [{"textRun": {"content": "Figure 1.1: The United States Supreme Court.\n", "textStyle": {}}}],
+        "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"},
+        "positionedObjectIds": ["kix.he6ar3rdivr8"]
+      }}
+    ]
+  },
+  "inlineObjects": {},
+  "positionedObjects": {
+    "kix.he6ar3rdivr8": {
+      "positionedObjectProperties": {
+        "embeddedObject": {
+          "title": "Figure 1.1: The United States Supreme Court.",
+          "description": "Figure 1.1 The United States Supreme Court building.",
+          "imageProperties": {"contentUri": "https://lh7-rt.googleusercontent.com/example-supreme-court.png"}
+        }
+      }
+    }
+  }
+}

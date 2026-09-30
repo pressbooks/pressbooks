@@ -43,7 +43,7 @@ class ExportOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $options
 	 */
-	function __construct( array $options ) {
+	public function __construct( array $options ) {
 		$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
@@ -58,7 +58,7 @@ class ExportOptions extends \Pressbooks\Options {
 	/**
 	 * Configure the export options page using the settings API.
 	 */
-	function init() {
+	public function init() {
 		$_option = $this->getSlug();
 		$_page = $_option;
 		$_section = $this->getSlug() . '_section';
@@ -116,11 +116,11 @@ class ExportOptions extends \Pressbooks\Options {
 	/**
 	 * Display the export options page description.
 	 */
-	function display() {
+	public function display() {
 		echo '<p>' . __( 'Export settings.', 'pressbooks' ) . '</p>';
 	}
 
-	function render() {
+	public function render() {
 		?>
 		<div class="wrap">
 			<h1><?php echo $this->getTitle(); ?></h1>
@@ -135,13 +135,13 @@ class ExportOptions extends \Pressbooks\Options {
 		<?php
 	}
 
-	function upgrade( $version ) {
+	public function upgrade( $version ) {
 		if ( $version < 1 ) {
 			$this->doInitialUpgrade();
 		}
 	}
 
-	function doInitialUpgrade() {
+	public function doInitialUpgrade() {
 		$_option = $this->getSlug();
 		$options = [];
 
@@ -158,7 +158,7 @@ class ExportOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderEmailValidationLogsField( $args ) {
+	public function renderEmailValidationLogsField( $args ) {
 		$this->renderRadioButtons(
 			[
 				'id' => 'email_validation_logs',
@@ -176,7 +176,7 @@ class ExportOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderH5PField( $args ) {
+	public function renderH5PField( $args ) {
 		$this->renderCheckbox(
 			[
 				'id' => 'h5p_print_on_exports',
@@ -194,7 +194,7 @@ class ExportOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderThemeLockField( $args ) {
+	public function renderThemeLockField( $args ) {
 		$this->renderCheckbox(
 			[
 				'id' => 'theme_lock',
@@ -212,7 +212,7 @@ class ExportOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $slug
 	 */
-	static function getSlug() {
+	public static function getSlug() {
 		return 'pressbooks_export_options';
 	}
 
@@ -221,7 +221,7 @@ class ExportOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $title
 	 */
-	static function getTitle() {
+	public static function getTitle() {
 		return __( 'Export Settings', 'pressbooks' );
 	}
 
@@ -230,7 +230,7 @@ class ExportOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $defaults
 	 */
-	static function getDefaults() {
+	public static function getDefaults() {
 		return [
 			'email_validation_logs' => 0,
 			'theme_lock' => 0,
@@ -243,7 +243,7 @@ class ExportOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getBooleanOptions() {
+	public static function getBooleanOptions() {
 		return [
 			'email_validation_logs',
 			'theme_lock',
@@ -258,7 +258,7 @@ class ExportOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $defaults
 	 */
-	static function filterDefaults( $defaults ) {
+	public static function filterDefaults( $defaults ) {
 		return $defaults;
 	}
 }

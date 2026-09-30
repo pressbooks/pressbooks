@@ -21,5 +21,4 @@ class Emphasis extends Element {
 	 * @var string
 	 */
 	protected $tag = 'em';
-
 }

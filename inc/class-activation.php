@@ -45,7 +45,7 @@ class Activation {
 	 *
 	 * @return Activation
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			$taxonomy = Taxonomy::init();
 			self::$instance = new self( $taxonomy );
@@ -59,7 +59,7 @@ class Activation {
 	 *
 	 * @param Activation $obj
 	 */
-	static public function hooks( Activation $obj ) {
+	public static function hooks( Activation $obj ) {
 		// $priority must be after the database tables are created
 		// See add_action( 'wp_initialize_site', 'wp_initialize_site', 10, 2 );
 		add_action( 'wp_initialize_site', [ $obj, 'wpmuNewBlog' ], 11, 2 );
@@ -72,7 +72,7 @@ class Activation {
 	/**
 	 * @param Taxonomy $taxonomy
 	 */
-	function __construct( $taxonomy ) {
+	public function __construct( $taxonomy ) {
 		$this->taxonomy = $taxonomy;
 	}
 
@@ -467,5 +467,4 @@ class Activation {
 		}
 		return $result;
 	}
-
 }

@@ -10,6 +10,7 @@ use Pressbooks\Admin\Menus\SideBar;
 use Pressbooks\Admin\Menus\TopBar;
 use Pressbooks\Admin\Users\User;
 use Pressbooks\Book;
+use Pressbooks\Modules\Import\GoogleDocs\Bootstrap;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -19,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Includes
 // -------------------------------------------------------------------------------------------------------------------
 
-require_once( __DIR__ . '/requires-admin.php' );
+require_once __DIR__ . '/requires-admin.php';
 
 // -------------------------------------------------------------------------------------------------------------------
 // Recycle, reduce, reuse
@@ -97,7 +98,7 @@ if ( is_main_site() && is_network_admin() ) {
 }
 
 // Replace strings
-add_action( 'gettext', '\Pressbooks\Admin\Laf\sites_to_books', 3, 20 );
+add_filter( 'gettext', '\Pressbooks\Admin\Laf\sites_to_books', 3, 3 );
 add_filter( 'gettext_with_context', '\Pressbooks\Admin\Laf\sites_to_books_with_context', 3, 4 );
 add_filter( 'ngettext', '\Pressbooks\Admin\Laf\sites_to_books_ngettext', 3, 5 );
 
@@ -123,6 +124,9 @@ add_action( 'load-post-new.php', '\Pressbooks\Admin\Laf\block_metadata_add_new_p
 
 // Network settings
 add_action( 'network_admin_menu', [ '\Pressbooks\Admin\Network\NetworkSettings', 'init' ] );
+add_action( 'update_option_blogname', [ '\Pressbooks\Admin\Network\NetworkSettings', 'syncSiteName' ], 10, 2 );
+add_action( 'admin_head-settings.php', [ '\Pressbooks\Admin\Network\NetworkSettings', 'hideSiteTitle' ] );
+add_filter( 'pre_update_site_option_site_name', [ '\Pressbooks\Admin\Network\NetworkSettings', 'overrideSiteName' ] );
 
 // Replaces 'WordPress' with 'Pressbooks' in titles of admin pages.
 add_filter( 'admin_title', '\Pressbooks\Admin\Branding\admin_title' );
@@ -151,7 +155,7 @@ add_filter( 'display_post_states', '\Pressbooks\PostType\display_post_states', 1
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action(
-	'init', function() {
+	'init', function () {
 		// replace default title filtering with our custom one that allows certain tags
 		remove_filter( 'title_save_pre', 'wp_filter_kses' );
 		add_filter( 'title_save_pre', '\Pressbooks\Sanitize\filter_title' );
@@ -409,8 +413,11 @@ add_action( 'plugins_loaded', [ SideBar::class, 'init' ] );
 add_action( 'plugins_loaded', [ TopBar::class, 'init' ] );
 add_action( 'plugins_loaded', [ User::class, 'init' ], 10 );
 
-add_action( 'pb_new_blog', function() {
+add_action( 'pb_new_blog', function () {
 	update_option( 'blog_public', 0 );
 } );
 
 add_action( 'admin_init', '\Pressbooks\Sanitize\escape_file_names_in_blob_mimes' );
+
+// Google Docs Import
+add_action( 'plugins_loaded', [ Bootstrap::class, 'init' ] );

@@ -443,7 +443,6 @@ STYLES;
 			}, $content);
 		}
 		return $content;
-
 	}
 
 	/**
@@ -547,7 +546,6 @@ STYLES;
 		return preg_replace_callback( $pattern, function ( $matches ) {
 			return $this->renderFormula( $matches[1], 'asciimath' );
 		}, $content );
-
 	}
 
 	/**
@@ -569,7 +567,7 @@ STYLES;
 	 *
 	 * @return string
 	 */
-	function asciiMathShortcode( $atts, $content = '' ) {
+	public function asciiMathShortcode( $atts, $content = '' ) {
 		// No attributes are supported by our code
 		return $this->renderFormula( $this->asciiMathEntityDecode( $content ), 'asciimath' );
 	}
@@ -908,12 +906,10 @@ STYLES;
 		);
 
 		return null === $filtered_content ? $content : $filtered_content;
-
 	}
 
 	public function displayMathHandler( $scss ) {
 		$scss .= ".display-math { display: block; text-align:center; padding-top: 20px; padding-bottom:20px; } \n";
 		return $scss;
 	}
-
 }

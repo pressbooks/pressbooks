@@ -8,10 +8,10 @@
 
 namespace Pressbooks\Modules\ThemeOptions;
 
-use function \Pressbooks\Utility\getset;
 use Pressbooks\Container;
 use Pressbooks\CustomCss;
 use Pressbooks\GlobalTypography;
+use function Pressbooks\Utility\getset;
 
 class PDFOptions extends \Pressbooks\Options {
 
@@ -77,7 +77,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $options
 	 */
-	function __construct( array $options ) {
+	public function __construct( array $options ) {
 		$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
@@ -96,7 +96,7 @@ class PDFOptions extends \Pressbooks\Options {
 	/**
 	 * Configure the PDF options tab using the settings API.
 	 */
-	function init() {
+	public function init() {
 		$_option = 'pressbooks_theme_options_' . $this->getSlug();
 		$_page = $_option;
 		$_section = $this->getSlug() . '_options_section';
@@ -666,14 +666,14 @@ class PDFOptions extends \Pressbooks\Options {
 	/**
 	 * Display the PDF options tab description.
 	 */
-	function display() {
+	public function display() {
 		echo '<p>' . __( 'These options apply to PDF exports.', 'pressbooks' ) . '</p>';
 	}
 
 	/**
 	 * Render the PDF options tab form (NOT USED).
 	 */
-	function render() {
+	public function render() {
 	}
 
 	/**
@@ -681,7 +681,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param int $version
 	 */
-	function upgrade( $version ) {
+	public function upgrade( $version ) {
 		if ( $version < 1 ) {
 			$this->doInitialUpgrade();
 		} elseif ( $version < 2 ) {
@@ -695,7 +695,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 * Substitute human-readable values, add new defaults, replace pdf_page_size
 	 * with pdf_page_width and pdf_page_height.
 	 */
-	function doInitialUpgrade() {
+	public function doInitialUpgrade() {
 		$_option = $this->getSlug();
 		$options = get_option( 'pressbooks_theme_options_' . $_option, $this->defaults );
 
@@ -777,7 +777,7 @@ class PDFOptions extends \Pressbooks\Options {
 	/**
 	 * Replace pdf_blankpages option with pdf_sectionopenings option.
 	 */
-	function upgradeSectionOpenings() {
+	public function upgradeSectionOpenings() {
 		$_option = $this->getSlug();
 		$options = get_option( 'pressbooks_theme_options_' . $_option, $this->defaults );
 
@@ -792,7 +792,7 @@ class PDFOptions extends \Pressbooks\Options {
 		update_option( 'pressbooks_theme_options_' . $_option, $options );
 	}
 
-	function upgradePrinceVersion() {
+	public function upgradePrinceVersion() {
 		$_option = $this->getSlug();
 		$options = get_option( 'pressbooks_theme_options_' . $_option, $this->defaults );
 
@@ -807,7 +807,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderBodyFontSizeField( $args ) {
+	public function renderBodyFontSizeField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderField(
 			[
@@ -828,7 +828,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderFootnoteFontSizeField( $args ) {
+	public function renderFootnoteFontSizeField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderField(
 			[
@@ -849,7 +849,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderHeaderFontField( $args ) {
+	public function renderHeaderFontField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderSelectOptGroup(
 			[
@@ -867,7 +867,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderBodyFontField( $args ) {
+	public function renderBodyFontField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderSelectOptGroup(
 			[
@@ -885,7 +885,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderBodyLineHightField( $args ) {
+	public function renderBodyLineHightField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderField(
 			[
@@ -906,7 +906,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderPageSizeField( $args ) {
+	public function renderPageSizeField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		// Prior to VERSION 1, pdf_page_size was an <option> value (1, 2, 3, ...)
 		if ( ! isset( $this->options['pdf_page_size'] ) ) {
@@ -952,7 +952,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderPageWidthField( $args ) {
+	public function renderPageWidthField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderField(
 			[
@@ -972,7 +972,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderPageHeightField( $args ) {
+	public function renderPageHeightField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderField(
 			[
@@ -992,7 +992,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderMarginsField( $args ) {
+	public function renderMarginsField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		?>
 		<div class="margin-diagram">
@@ -1031,7 +1031,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderOutsideMarginField( $args ) {
+	public function renderOutsideMarginField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderField(
 			[
@@ -1051,7 +1051,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderInsideMarginField( $args ) {
+	public function renderInsideMarginField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderField(
 			[
@@ -1071,7 +1071,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderTopMarginField( $args ) {
+	public function renderTopMarginField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderField(
 			[
@@ -1091,7 +1091,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderBottomMarginField( $args ) {
+	public function renderBottomMarginField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderField(
 			[
@@ -1111,7 +1111,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderHyphenationField( $args ) {
+	public function renderHyphenationField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderCheckbox(
 			[
@@ -1129,7 +1129,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderParagraphSeparationField( $args ) {
+	public function renderParagraphSeparationField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderRadioButtons(
 			[
@@ -1148,7 +1148,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderSectionOpeningsField( $args ) {
+	public function renderSectionOpeningsField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderRadioButtons(
 			[
@@ -1167,7 +1167,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderTOCField( $args ) {
+	public function renderTOCField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderCheckbox(
 			[
@@ -1185,7 +1185,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderCropMarksField( $args ) {
+	public function renderCropMarksField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderCheckbox(
 			[
@@ -1198,7 +1198,7 @@ class PDFOptions extends \Pressbooks\Options {
 		);
 	}
 
-	function renderPrinceVersionField( $args ) {
+	public function renderPrinceVersionField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderSelect(
 			[
@@ -1212,7 +1212,7 @@ class PDFOptions extends \Pressbooks\Options {
 		);
 	}
 
-	function renderBoxDecorationBreakField( $args ) {
+	public function renderBoxDecorationBreakField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderSelect(
 			[
@@ -1231,7 +1231,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderRomanizePartsField( $args ) {
+	public function renderRomanizePartsField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderCheckbox(
 			[
@@ -1249,7 +1249,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderFootnoteStyleField( $args ) {
+	public function renderFootnoteStyleField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderRadioButtons(
 			[
@@ -1268,7 +1268,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderWidowsField( $args ) {
+	public function renderWidowsField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderField(
 			[
@@ -1287,7 +1287,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderOrphansField( $args ) {
+	public function renderOrphansField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderField(
 			[
@@ -1306,7 +1306,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderRunningContentField( $args ) {
+	public function renderRunningContentField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		?>
 		<p class="description"><?php echo $args[0]; ?></p>
@@ -1318,7 +1318,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderRunningContentFrontMatterLeftField( $args ) {
+	public function renderRunningContentFrontMatterLeftField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderCustomSelect(
 			[
@@ -1345,7 +1345,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderRunningContentFrontMatterRightField( $args ) {
+	public function renderRunningContentFrontMatterRightField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderCustomSelect(
 			[
@@ -1372,7 +1372,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderRunningContentIntroductionLeftField( $args ) {
+	public function renderRunningContentIntroductionLeftField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderCustomSelect(
 			[
@@ -1399,7 +1399,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderRunningContentIntroductionRightField( $args ) {
+	public function renderRunningContentIntroductionRightField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderCustomSelect(
 			[
@@ -1426,7 +1426,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderRunningContentPartLeftField( $args ) {
+	public function renderRunningContentPartLeftField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderCustomSelect(
 			[
@@ -1453,7 +1453,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderRunningContentPartRightField( $args ) {
+	public function renderRunningContentPartRightField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderCustomSelect(
 			[
@@ -1480,7 +1480,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderRunningContentChapterLeftField( $args ) {
+	public function renderRunningContentChapterLeftField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderCustomSelect(
 			[
@@ -1507,7 +1507,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderRunningContentChapterRightField( $args ) {
+	public function renderRunningContentChapterRightField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderCustomSelect(
 			[
@@ -1534,7 +1534,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderRunningContentBackMatterLeftField( $args ) {
+	public function renderRunningContentBackMatterLeftField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderCustomSelect(
 			[
@@ -1561,7 +1561,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderRunningContentBackMatterRightField( $args ) {
+	public function renderRunningContentBackMatterRightField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderCustomSelect(
 			[
@@ -1588,7 +1588,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderFontSizeField( $args ) {
+	public function renderFontSizeField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderCheckbox(
 			[
@@ -1606,7 +1606,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $slug
 	 */
-	static function getSlug() {
+	public static function getSlug() {
 		return 'pdf';
 	}
 
@@ -1615,7 +1615,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $title
 	 */
-	static function getTitle() {
+	public static function getTitle() {
 		return __( 'PDF Options', 'pressbooks' );
 	}
 
@@ -1624,7 +1624,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $defaults
 	 */
-	static function getDefaults() {
+	public static function getDefaults() {
 		/**
 		 * @since 3.9.7
 		 *
@@ -1676,7 +1676,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $defaults
 	 */
-	static function filterDefaults( $defaults ) {
+	public static function filterDefaults( $defaults ) {
 
 		// SASS => WP
 		$overrides = [
@@ -1749,7 +1749,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @return string
 	 */
-	static protected function parseSassValue( $val ) {
+	protected static function parseSassValue( $val ) {
 
 		if ( substr( $val, 0, 1 ) === '(' ) {
 			// We think this is a Sass Map
@@ -1778,7 +1778,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getBooleanOptions() {
+	public static function getBooleanOptions() {
 		/**
 		 * Allow custom boolean options to be passed to sanitization routines.
 		 *
@@ -1802,7 +1802,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getStringOptions() {
+	public static function getStringOptions() {
 		/**
 		 * Allow custom string options to be passed to sanitization routines.
 		 *
@@ -1841,7 +1841,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getIntegerOptions() {
+	public static function getIntegerOptions() {
 		/**
 		 * Allow custom integer options to be passed to sanitization routines.
 		 *
@@ -1862,7 +1862,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getFloatOptions() {
+	public static function getFloatOptions() {
 		/**
 		 * Allow custom float options to be passed to sanitization routines.
 		 *
@@ -1884,7 +1884,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getPredefinedOptions() {
+	public static function getPredefinedOptions() {
 		/**
 		 * Allow custom predifined options to be passed to sanitization routines.
 		 *
@@ -1912,7 +1912,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @since 3.9.8
 	 */
-	static function replaceRunningContentTags( $input ) {
+	public static function replaceRunningContentTags( $input ) {
 		$input = '"' . $input . '"';
 
 		return str_replace(
@@ -1953,7 +1953,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @since 4.5.0
 	 */
-	static function replaceRunningContentStrings( $input ) {
+	public static function replaceRunningContentStrings( $input ) {
 		return str_replace(
 			[
 				'string(book-title)',
@@ -1992,7 +1992,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @since 3.9.8
 	 */
-	static function scssOverrides( $scss ) {
+	public static function scssOverrides( $scss ) {
 
 		$styles = Container::get( 'Styles' );
 		$v2_compatible = $styles->isCurrentThemeCompatible( 2 );

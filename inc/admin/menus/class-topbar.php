@@ -2,10 +2,10 @@
 
 namespace Pressbooks\Admin\Menus;
 
-use function Pressbooks\Admin\Laf\can_create_new_books;
-use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use Pressbooks\Cloner\Cloner;
 use WP_Admin_Bar;
+use function Pressbooks\Admin\Laf\can_create_new_books;
+use function Pressbooks\Admin\NetworkManagers\is_restricted;
 
 class TopBar {
 	protected array $order = [
@@ -25,7 +25,7 @@ class TopBar {
 
 	public static function init(): self {
 		return tap(
-			new self(), fn( TopBar $instance) => $instance->hooks()
+			new self(), fn( TopBar $instance ) => $instance->hooks()
 		);
 	}
 
@@ -42,6 +42,7 @@ class TopBar {
 			'pb-site-admin',
 			'my-books',
 			'my-books-list',
+			'command-palette',
 		] );
 
 		collect( $bar->get_nodes() )
@@ -63,6 +64,8 @@ class TopBar {
 		$this->addMyBooks( $bar );
 
 		$this->updateCurrentBook( $bar );
+
+		$this->updateViewItem( $bar );
 
 		if ( can_create_new_books() || is_super_admin() ) {
 			$this->addCreateBook( $bar );
@@ -217,7 +220,7 @@ class TopBar {
 			],
 		] );
 
-		$books->each(function( object $book ) use ( $bar ) {
+		$books->each(function ( object $book ) use ( $bar ) {
 			if ( is_main_site( $book->userblog_id ) ) {
 				return;
 			}
@@ -243,6 +246,19 @@ class TopBar {
 		$bar->add_node( [
 			'id' => $node->id,
 			'title' => "<i aria-hidden='true' class='pb-heroicons pb-heroicons-outline_book-open'></i><span>{$node->title}</span>",
+		] );
+	}
+
+	protected function updateViewItem( WP_Admin_Bar $bar ): void {
+		$node = $bar->get_node( 'view' ) ?? null;
+
+		if ( ! $node ) {
+			return;
+		}
+
+		$bar->add_node( [
+			'id' => $node->id,
+			'title' => "<i aria-hidden='true' class='pb-heroicons pb-heroicons-outline_document-magnifying-glass'></i><span>{$node->title}</span>",
 		] );
 	}
 

@@ -13,11 +13,11 @@
 
 namespace Pressbooks\Modules\Import;
 
-use function \Pressbooks\Utility\debug_error_log;
-use function \Pressbooks\Utility\getset;
 use Pressbooks\Book;
 use Pressbooks\Cloner\Cloner;
 use Pressbooks\HtmLawed;
+use function Pressbooks\Utility\debug_error_log;
+use function Pressbooks\Utility\getset;
 
 abstract class Import {
 
@@ -32,7 +32,7 @@ abstract class Import {
 	 * @deprecated
 	 * @var array
 	 */
-	static $logsEmail = [];
+	public static $logsEmail = [];
 
 	/**
 	 * Mandatory setCurrentImportOption() method, creates WP option 'pressbooks_current_import'
@@ -70,21 +70,21 @@ abstract class Import {
 	 *
 	 * @return bool
 	 */
-	abstract function setCurrentImportOption( array $upload );
+	abstract public function setCurrentImportOption( array $upload );
 
 	/**
 	 * @param array $current_import WP option 'pressbooks_current_import'
 	 *
 	 * @return bool
 	 */
-	abstract function import( array $current_import );
+	abstract public function import( array $current_import );
 
 	/**
 	 * Delete 'pressbooks_current_import' option, delete the file too.
 	 *
 	 * @return bool
 	 */
-	function revokeCurrentImport() {
+	public function revokeCurrentImport() {
 		return self::_revokeCurrentImport();
 	}
 
@@ -111,7 +111,7 @@ abstract class Import {
 	 *
 	 * @return string fullpath
 	 */
-	function createTmpFile() {
+	public function createTmpFile() {
 		return \Pressbooks\Utility\create_tmp_file();
 	}
 
@@ -233,7 +233,7 @@ abstract class Import {
 	 * @see pressbooks/templates/admin/import.php
 	 * @see \Pressbooks\EventStreams::importBook
 	 */
-	static public function formSubmit() {
+	public static function formSubmit() {
 
 		// --------------------------------------------------------------------------------------------------------
 		// Sanity check
@@ -275,7 +275,7 @@ abstract class Import {
 	/**
 	 * Pre-Import
 	 */
-	static function preImport() {
+	public static function preImport() {
 		// TODO
 	}
 
@@ -286,7 +286,7 @@ abstract class Import {
 	 *
 	 * @return \Generator
 	 */
-	static function doImportGenerator( array $current_import ) : \Generator {
+	public static function doImportGenerator( array $current_import ): \Generator {
 
 		// Set post status
 		$current_import['default_post_status'] = ( isset( $_POST['show_imports_in_web'] ) ) ? 'publish' : 'private'; // @codingStandardsIgnoreLine
@@ -330,6 +330,18 @@ abstract class Import {
 
 			case Html\Xhtml::TYPE_OF:
 				$importer = new Html\Xhtml();
+				break;
+
+			case GoogleDocs\GoogleDocs::TYPE_OF:
+				$importer = new GoogleDocs\GoogleDocs();
+				$store = GoogleDocs\CredentialsStore::fromEnvironment();
+				$oauth = GoogleDocs\OAuthClient::fromEnvironment( $store );
+				try {
+					$client = $oauth->getAuthedClient( get_current_user_id() );
+					$importer->setFetcher( new GoogleDocs\DocsFetcher( $client ) );
+				} catch ( GoogleDocs\ReauthorizationRequiredException $e ) {
+					// Images will be skipped; text still imports
+				}
 				break;
 
 			default:
@@ -378,7 +390,7 @@ abstract class Import {
 	/**
 	 * Post Export
 	 */
-	static function postImport() {
+	public static function postImport() {
 		// TODO
 	}
 
@@ -387,10 +399,15 @@ abstract class Import {
 	 *
 	 * @return bool
 	 */
-	static protected function setImportOptions() {
+	protected static function setImportOptions() {
 
 		if ( ! check_admin_referer( 'pb-import' ) ) {
 			return false;
+		}
+
+		// Google Docs: intercept before file upload handling
+		if ( isset( $_POST['type_of'] ) && $_POST['type_of'] === GoogleDocs\GoogleDocs::TYPE_OF ) {
+			return self::setGoogleDocsImportOptions();
 		}
 
 		$overrides = [
@@ -399,7 +416,7 @@ abstract class Import {
 		];
 
 		if ( ! function_exists( 'wp_handle_upload' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/file.php' );
+			require_once ABSPATH . 'wp-admin/includes/file.php';
 		}
 
 		// If Import Type is a URL then download and fake $_FILES on success
@@ -509,11 +526,80 @@ abstract class Import {
 	}
 
 	/**
+	 * Handle Google Docs import: fetch doc via API, cache JSON, set import option.
+	 *
+	 * @return bool
+	 */
+	protected static function setGoogleDocsImportOptions(): bool {
+		$doc_id = sanitize_text_field( getset( '_POST', 'import_gdoc_id' ) );
+
+		if ( ! $doc_id || ! preg_match( '/^[a-zA-Z0-9_-]+$/', $doc_id ) ) {
+			$_SESSION['pb_errors'][] = __( 'Please select a Google Doc to import.', 'pressbooks' );
+			return false;
+		}
+
+		$store = GoogleDocs\CredentialsStore::fromEnvironment();
+		if ( ! $store->isConfigured() ) {
+			$_SESSION['pb_errors'][] = __( 'Google Docs import is not configured. Ask a network admin to set it up.', 'pressbooks' );
+			return false;
+		}
+
+		$oauth = GoogleDocs\OAuthClient::fromEnvironment( $store );
+		$user_id = get_current_user_id();
+
+		if ( ! $oauth->isConnected( $user_id ) ) {
+			$_SESSION['pb_errors'][] = __( 'Please connect your Google account first.', 'pressbooks' );
+			return false;
+		}
+
+		try {
+			$client = $oauth->getAuthedClient( $user_id );
+		} catch ( GoogleDocs\ReauthorizationRequiredException $e ) {
+			$_SESSION['pb_errors'][] = __( 'Your Google connection expired. Please reconnect.', 'pressbooks' );
+			return false;
+		}
+
+		$fetcher = new GoogleDocs\DocsFetcher( $client );
+
+		try {
+			$imports_dir = wp_upload_dir()['basedir'] . '/imports';
+			if ( ! is_dir( $imports_dir ) ) {
+				wp_mkdir_p( $imports_dir );
+			}
+
+			$cached_path = $fetcher->fetchAndCache( $doc_id, $imports_dir );
+		} catch ( \Google\Service\Exception $e ) {
+			$code = $e->getCode();
+			if ( $code === 403 ) {
+				$_SESSION['pb_errors'][] = __( 'Access denied. Make sure the Google Docs API is enabled in your Google Cloud project and you have permission to view this document.', 'pressbooks' );
+			} elseif ( $code === 404 ) {
+				$_SESSION['pb_errors'][] = __( 'Document not found. Check the URL and make sure you have access.', 'pressbooks' );
+			} elseif ( $code === 429 ) {
+				$_SESSION['pb_errors'][] = __( 'Google is rate-limiting us. Try again in a few minutes.', 'pressbooks' );
+			} else {
+				$_SESSION['pb_errors'][] = __( 'Error fetching the Google Doc.', 'pressbooks' ) . " (HTTP {$code}) " . $e->getMessage();
+			}
+			return false;
+		} catch ( \Exception $e ) {
+			$_SESSION['pb_errors'][] = sprintf( __( 'Could not access the Google Doc: %s', 'pressbooks' ), $e->getMessage() );
+			return false;
+		}
+
+		$upload = [
+			'file' => $cached_path,
+			'type' => 'application/json',
+		];
+
+		$importer = new GoogleDocs\GoogleDocs();
+		return $importer->setCurrentImportOption( $upload );
+	}
+
+	/**
 	 * @param array $upload Passed by reference because we want to change the URL
 	 *
 	 * @return bool
 	 */
-	static protected function hasApi( &$upload ) {
+	protected static function hasApi( &$upload ) {
 		$cloner = new Cloner( $upload['url'] );
 		$is_compatible = $cloner->isCompatible( $upload['url'] );
 		if ( $is_compatible ) {
@@ -529,7 +615,7 @@ abstract class Import {
 	 *
 	 * @return bool
 	 */
-	static protected function createFileFromUrl() {
+	protected static function createFileFromUrl() {
 
 		if ( ! check_admin_referer( 'pb-import' ) ) {
 			return false;
@@ -613,7 +699,7 @@ abstract class Import {
 	 *
 	 * @return bool
 	 */
-	static protected function isUrlSmallerThanUploadMaxSize( $url, $max ) {
+	protected static function isUrlSmallerThanUploadMaxSize( $url, $max ) {
 		$response = wp_safe_remote_head(
 			$url, [
 				'redirection' => 2,
@@ -631,7 +717,7 @@ abstract class Import {
 	 *
 	 * @return bool
 	 */
-	static function isFormSubmission() {
+	public static function isFormSubmission() {
 
 		if ( empty( $_REQUEST['page'] ) ) {
 			return false;
@@ -663,7 +749,7 @@ abstract class Import {
 	 * @param string $message
 	 * @param array $more_info
 	 */
-	static function log( $message, array $more_info = [] ) {
+	public static function log( $message, array $more_info = [] ) {
 
 		/** $var \WP_User $current_user */
 		global $current_user;
@@ -683,5 +769,4 @@ abstract class Import {
 			\Pressbooks\Utility\email_error_log( self::$logsEmail, $subject, $message );
 		}
 	}
-
 }

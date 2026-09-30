@@ -18,7 +18,7 @@ class Lock {
 	/**
 	 * @return Lock
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -29,7 +29,7 @@ class Lock {
 	/**
 	 * @param Lock $obj
 	 */
-	static public function hooks( Lock $obj ) {
+	public static function hooks( Lock $obj ) {
 		if ( \Pressbooks\Book::isBook() && $obj->isLocked() ) {
 			add_filter( 'pb_stylesheet_directory', [ $obj, 'getLockDir' ] );
 			add_filter( 'pb_stylesheet_directory_uri', [ $obj, 'getLockDirURI' ] );

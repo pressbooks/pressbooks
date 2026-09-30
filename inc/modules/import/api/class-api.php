@@ -111,7 +111,7 @@ class Api extends ImportGenerator {
 	 * @throws \Exception
 	 * @return \Generator
 	 */
-	public function importGenerator( array $current_import ) : \Generator {
+	public function importGenerator( array $current_import ): \Generator {
 		yield 1 => __( 'Looking up the source book', 'pressbooks' );
 
 		if ( empty( $current_import['url'] ) ) {
@@ -150,11 +150,11 @@ class Api extends ImportGenerator {
 		$ch_ticks = 0;
 		foreach ( $this->cloner->getSourceBookStructure()['parts'] as $key => $part ) {
 			if ( $this->flaggedForImport( $part['id'] ) ) {
-				$ch_ticks++;
+				++$ch_ticks;
 			}
 			foreach ( $this->cloner->getSourceBookStructure()['parts'][ $key ]['chapters'] as $chapter ) {
 				if ( $this->flaggedForImport( $chapter['id'] ) ) {
-					$ch_ticks++;
+					++$ch_ticks;
 				}
 			}
 		}

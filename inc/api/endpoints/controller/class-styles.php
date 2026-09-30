@@ -52,7 +52,7 @@ class Styles extends \WP_REST_Controller {
 	 *
 	 * @return array
 	 */
-	public function get_item_schema() : array {
+	public function get_item_schema(): array {
 		return $this->add_additional_fields_schema( [
 			'title' => 'styles',
 			'type' => 'object',
@@ -84,7 +84,7 @@ class Styles extends \WP_REST_Controller {
 	 *
 	 * @return bool True if the request has read access
 	 */
-	public function get_item_permissions_check( $request ) : bool {
+	public function get_item_permissions_check( $request ): bool {
 		if ( has_filter( 'pb_set_api_items_permission' ) && apply_filters( 'pb_set_api_items_permission', $this->rest_base ) ) {
 			return true;
 		}
@@ -96,7 +96,7 @@ class Styles extends \WP_REST_Controller {
 	 *
 	 * @return \WP_REST_Response
 	 */
-	public function get_item( $request ) : \WP_REST_Response {
+	public function get_item( $request ): \WP_REST_Response {
 		$response = rest_ensure_response( \Pressbooks\Styles::getAllPostContent() );
 		$this->linkCollector['self'] = [
 			'href' => rest_url( sprintf( '%s/%s', $this->namespace, $this->rest_base ) ),

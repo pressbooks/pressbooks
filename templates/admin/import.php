@@ -33,9 +33,22 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 ] );
 
 ?>
+<style>[x-cloak] { display: none !important; }</style>
 <div class="wrap">
 
 	<h1><?php _e( 'Import', 'pressbooks' ); ?></h1>
+
+	<?php if ( isset( $_GET['pb_gdocs'] ) ) : ?>
+		<?php if ( $_GET['pb_gdocs'] === 'connected' ) : ?>
+			<div class="notice notice-success is-dismissible">
+				<p><?php _e( 'Google account connected successfully. You can now import from Google Docs.', 'pressbooks' ); ?></p>
+			</div>
+		<?php elseif ( $_GET['pb_gdocs'] === 'disconnected' ) : ?>
+			<div class="notice notice-info is-dismissible">
+				<p><?php _e( 'Google account disconnected.', 'pressbooks' ); ?></p>
+			</div>
+		<?php endif; ?>
+	<?php endif; ?>
 
 	<?php if ( is_array( $current_import ) && isset( $current_import['file'] ) ) { ?>
 
@@ -149,7 +162,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 		<p><input type='checkbox' id='show_imports_in_web' name='show_imports_in_web' value='1'><label for="show_imports_in_web"> <?php _e( 'Show imported content in web', 'pressbooks' ); ?></label></p>
 
 		<progress id="pb-sse-progressbar" max="100"></progress>
-		<p><b><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></b> <span id="pb-sse-info" aria-live="polite"></span></p>
+		<p><b><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></b> <span id="pb-sse-info" aria-live="polite"></span> <span id="pb-sse-status" class="screen-reader-text" aria-live="polite">0%</span></p>
 		<p><?php
 			submit_button( __( 'Import Selection', 'pressbooks' ), 'primary', 'submit', false );
 			echo ' &nbsp; ';
@@ -166,7 +179,9 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 			echo ' ' . \Pressbooks\Utility\file_upload_max_size(); ?>
 		</p>
 
-		<form id="pb-import-form-step-1" action="<?php echo $import_form_url ?>" enctype="multipart/form-data" method="post">
+		<form id="pb-import-form-step-1" action="<?php echo $import_form_url ?>" enctype="multipart/form-data" method="post"
+		      x-data="{ typeOf: '' }"
+		      x-init="typeOf = document.getElementById('type_of')?.value || ''; document.getElementById('type_of')?.addEventListener('change', (e) => typeOf = e.target.value)">
 			<table class="form-table" role="none">
 				<tbody>
 				<tr>
@@ -181,7 +196,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 						</select>
 					</td>
 				</tr>
-				<tr class="pb-input-types" x-data>
+				<tr class="pb-input-types" x-show="typeOf !== 'google-docs'">
 					<th scope="row">
 						<?php _e( 'Import Source', 'pressbooks' ); ?>
 					</th>
@@ -207,9 +222,47 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 						</div>
 					</td>
 				</tr>
+			<?php
+			$gdocs_store = \Pressbooks\Modules\Import\GoogleDocs\CredentialsStore::fromEnvironment();
+			$gdocs_oauth = \Pressbooks\Modules\Import\GoogleDocs\OAuthClient::fromEnvironment( $gdocs_store );
+			$gdocs_is_configured = $gdocs_store->isConfigured();
+			$gdocs_is_connected = $gdocs_is_configured && $gdocs_oauth->isConnected( get_current_user_id() );
+			?>
+			<tr x-show="typeOf === 'google-docs' && <?php echo $gdocs_is_connected ? 'true' : 'false'; ?>" x-cloak>
+				<th scope="row">
+					<?php _e( 'Google Docs Document', 'pressbooks' ); ?>
+				</th>
+				<td>
+					<?php // Populated by the Google Picker; see googledocs/assets/picker.js. ?>
+					<input type="hidden" name="import_gdoc_id" id="import_gdoc_id" />
+				</td>
+			</tr>
 
-				</tbody>
-			</table>
+			</tbody>
+		</table>
+
+			<div x-show="typeOf === 'google-docs'"
+			     x-cloak
+			     style="margin: 1em 0;">
+
+				<?php if ( ! $gdocs_is_configured ) : ?>
+					<div class="notice notice-warning inline">
+						<p><?php _e( 'Google Docs import is not configured. Ask a network admin to set it up under Network Admin → Settings → Google Docs Import.', 'pressbooks' ); ?></p>
+					</div>
+				<?php elseif ( ! $gdocs_is_connected ) : ?>
+					<div class="notice notice-info inline">
+						<p><?php _e( 'Connect your Google account to import from Google Docs.', 'pressbooks' ); ?></p>
+					</div>
+					<a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=pb_gdocs_authorize' ), 'pb_gdocs_authorize' ) ); ?>" class="button button-secondary"><?php _e( 'Connect Google Account', 'pressbooks' ); ?></a>
+				<?php else : ?>
+					<div class="notice notice-success inline">
+						<p>
+							<?php _e( 'Google account connected.', 'pressbooks' ); ?>
+							<a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=pb_gdocs_disconnect' ), 'pb_gdocs_disconnect' ) ); ?>" class="button-link"><?php _e( 'Disconnect', 'pressbooks' ); ?></a>
+						</p>
+					</div>
+				<?php endif; ?>
+			</div>
 
 			<?php submit_button( __( 'Begin Import', 'pressbooks' ) ); ?>
 		</form>

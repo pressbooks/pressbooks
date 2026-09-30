@@ -22,7 +22,7 @@ class TablePress {
 	/**
 	 * @return TablePress
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -33,7 +33,7 @@ class TablePress {
 	/**
 	 * @param TablePress $obj
 	 */
-	static public function hooks( TablePress $obj ) {
+	public static function hooks( TablePress $obj ) {
 		if ( is_plugin_active( 'tablepress/tablepress.php' ) || is_plugin_active_for_network( 'tablepress/tablepress.php' ) ) {
 			// Load shortcodes
 			$obj->loadShortcodes();

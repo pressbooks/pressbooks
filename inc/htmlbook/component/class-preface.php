@@ -47,5 +47,4 @@ class Preface extends Element {
 		'foreword',
 		'introduction',
 	];
-
 }

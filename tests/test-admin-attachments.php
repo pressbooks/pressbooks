@@ -6,7 +6,7 @@ class Admin_AttachmentTest extends \WP_UnitTestCase {
 	 * @group media
 	 */
 	function test_validate_attachment_metadata() {
-		$good_url   = 'https://metamorphosiskafka.pressbooks.com/wp-content/uploads/sites/26642/2014/04/themetamorphosis_1200x1600.jpg';
+		$good_url   = 'https://example.com/wp-content/uploads/2024/01/test-image.jpg';
 		$bad_url    = 'ftp://upload.file';
 		$url_key    = 'pb_media_attribution_title_url';
 		$string_key = 'pb_media_attribution_figure';

@@ -53,5 +53,4 @@ class Glossary extends Element {
 	protected $dataTypes = [
 		'glossary',
 	];
-
 }

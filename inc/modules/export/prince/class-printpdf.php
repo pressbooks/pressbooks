@@ -11,7 +11,7 @@ class PrintPdf extends Pdf {
 	/**
 	 * @param array $args
 	 */
-	function __construct( array $args ) {
+	public function __construct( array $args ) {
 		parent::__construct( $args );
 		$this->url .= '&optimize-for-print=1';
 		// PDF size tends to shrink if you disable links

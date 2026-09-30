@@ -51,5 +51,4 @@ class TableOfContents extends Element {
 	protected $dataTypes = [
 		'toc',
 	];
-
 }

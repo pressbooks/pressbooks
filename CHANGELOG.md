@@ -1,5 +1,209 @@
 # Changelog
 
+## [6.45.5](https://github.com/pressbooks/pressbooks/compare/6.45.4...6.45.5) (2026-09-29)
+
+
+### Bug Fixes
+
+* clarify Custom Styles editor instructions ([#4588](https://github.com/pressbooks/pressbooks/issues/4588)) ([495083b](https://github.com/pressbooks/pressbooks/commit/495083bb5af88f62518e27d76486b35bd26a189e))
+* escape keyboard trap on Custom Styles CodeMirror editors ([#4586](https://github.com/pressbooks/pressbooks/issues/4586)) ([0c89aec](https://github.com/pressbooks/pressbooks/commit/0c89aec24edf9f7fea31b4b44b7fac1bd4da5bc2))
+* preserve $ sign in Word footnotes and skip paragraph-mark formatting ([#4585](https://github.com/pressbooks/pressbooks/issues/4585)) ([5b35f79](https://github.com/pressbooks/pressbooks/commit/5b35f794b5a6e831fb82148e812e710dbb642b59))
+
+## [6.45.4](https://github.com/pressbooks/pressbooks/compare/6.45.3...6.45.4) (2026-09-23)
+
+
+### Chores
+
+* bump WP 7.1.2 ([#4582](https://github.com/pressbooks/pressbooks/issues/4582)) ([1df76b1](https://github.com/pressbooks/pressbooks/commit/1df76b1e27c8e2d3810c98f5ffd6e4034b7e48ed))
+
+## [6.45.3](https://github.com/pressbooks/pressbooks/compare/6.45.2...6.45.3) (2026-09-22)
+
+
+### Bug Fixes
+
+* add lang attributes to EPUB toc.xhtml ([#4570](https://github.com/pressbooks/pressbooks/issues/4570)) ([89ee45a](https://github.com/pressbooks/pressbooks/commit/89ee45a14e1595f38833a2ff2b6da9fc13f63092)), closes [#4444](https://github.com/pressbooks/pressbooks/issues/4444)
+* gtag and h5p.video script conflict ([#4576](https://github.com/pressbooks/pressbooks/issues/4576)) ([74a72a0](https://github.com/pressbooks/pressbooks/commit/74a72a00274e2c78425c12b05c9934b088ba47c3))
+* remove fudge factor ([#4575](https://github.com/pressbooks/pressbooks/issues/4575)) ([fe0b24b](https://github.com/pressbooks/pressbooks/commit/fe0b24b7acfa257c60ed7f24b02b2269c8cb39db))
+* restrict Network Settings page for network managers ([#4573](https://github.com/pressbooks/pressbooks/issues/4573)) ([a5581a9](https://github.com/pressbooks/pressbooks/commit/a5581a9d2c4be1ec1f1fbe0cd06492cae7736112))
+
+
+### Chores
+
+* adding  to the debug output for images with problems ([#4555](https://github.com/pressbooks/pressbooks/issues/4555)) ([a259c2f](https://github.com/pressbooks/pressbooks/commit/a259c2f07380b2631883a48aa843225b772d5620))
+* bump WP 7.0.6 ([#4581](https://github.com/pressbooks/pressbooks/issues/4581)) ([f63557b](https://github.com/pressbooks/pressbooks/commit/f63557bba49ee4db7877e0c99acac5fe7e37eb68))
+* change Saint Mary's, change LSU New Orleans, add Cégep Garneau ([#4580](https://github.com/pressbooks/pressbooks/issues/4580)) ([93db740](https://github.com/pressbooks/pressbooks/commit/93db740ecc4bcdeaab53266e19be45505f121380))
+
+## [6.45.2](https://github.com/pressbooks/pressbooks/compare/6.45.1...6.45.2) (2026-08-19)
+
+
+### Bug Fixes
+
+* epub validation error display ([#4556](https://github.com/pressbooks/pressbooks/issues/4556)) ([5b38975](https://github.com/pressbooks/pressbooks/commit/5b38975f7bab7b719f2949ea174dee87d8cdf08c))
+* race condition showing 'No chapters were selected' on import ([#4559](https://github.com/pressbooks/pressbooks/issues/4559)) ([b5ce9b6](https://github.com/pressbooks/pressbooks/commit/b5ce9b690666a55e7a8dbde0c202c3043952652b))
+
+
+### Chores
+
+* disallow everything for development and staging environments ([#4557](https://github.com/pressbooks/pressbooks/issues/4557)) ([afed86a](https://github.com/pressbooks/pressbooks/commit/afed86a4a1119b9d111b1ae068df7656db1b3aa6))
+
+## [6.45.1](https://github.com/pressbooks/pressbooks/compare/6.45.0...6.45.1) (2026-08-12)
+
+
+### Bug Fixes
+
+* image and attachment id consistency during cloning ([#4551](https://github.com/pressbooks/pressbooks/issues/4551)) ([e0f5129](https://github.com/pressbooks/pressbooks/commit/e0f5129c2b015d4e5a470b06363669c2a371e6db))
+
+
+### Chores
+
+* bump wp version to 7.0.4 ([#4554](https://github.com/pressbooks/pressbooks/issues/4554)) ([b761263](https://github.com/pressbooks/pressbooks/commit/b76126366c5c42357581b38501d363c1416b11d3))
+
+## [6.45.0](https://github.com/pressbooks/pressbooks/compare/6.44.1...6.45.0) (2026-08-11)
+
+
+### Features
+
+* WP 7.x support ([#4541](https://github.com/pressbooks/pressbooks/issues/4541)) ([4344826](https://github.com/pressbooks/pressbooks/commit/4344826cad5dd701b0c6e6a47bff5006f5494fc0))
+
+
+### Bug Fixes
+
+* stored XSS in built-in shortcodes ([#4550](https://github.com/pressbooks/pressbooks/issues/4550)) ([e83cd8b](https://github.com/pressbooks/pressbooks/commit/e83cd8bfa9e0191addf710539d49c4d8fced1cf9))
+
+
+### Chores
+
+* bump coding-standards ([#4549](https://github.com/pressbooks/pressbooks/issues/4549)) ([d78b232](https://github.com/pressbooks/pressbooks/commit/d78b2327a207eecd53b767c00f20bc9feaf2b34e))
+* updating the WordPress version to address security issues ([#4547](https://github.com/pressbooks/pressbooks/issues/4547)) ([41e0763](https://github.com/pressbooks/pressbooks/commit/41e0763ac729d1bd735ed861489fa31d741f4556))
+
+## [6.44.1](https://github.com/pressbooks/pressbooks/compare/6.44.0...6.44.1) (2026-08-06)
+
+
+### Bug Fixes
+
+* orphan http_import url handler and cleanup ([#4544](https://github.com/pressbooks/pressbooks/issues/4544)) ([5f3b1c8](https://github.com/pressbooks/pressbooks/commit/5f3b1c81e3dd5c0dd83ec35f3b620d1d9b86f16a))
+
+
+### Chores
+
+* **l10n:** update languages ([#4543](https://github.com/pressbooks/pressbooks/issues/4543)) ([24d60ca](https://github.com/pressbooks/pressbooks/commit/24d60ca777bfffbd1f5ea1c0d52c0a9a7a0a022e))
+
+## [6.44.0](https://github.com/pressbooks/pressbooks/compare/6.43.0...6.44.0) (2026-08-05)
+
+
+### Features
+
+* bot crawling endpoints ([#4531](https://github.com/pressbooks/pressbooks/issues/4531)) ([ac4ffbf](https://github.com/pressbooks/pressbooks/commit/ac4ffbfae3d189622470e7f25ec202dc5d60a2a5))
+* google docs import ([#4432](https://github.com/pressbooks/pressbooks/issues/4432)) ([9b64465](https://github.com/pressbooks/pressbooks/commit/9b6446509c8ceb939b2b5e9e17cab173e28d504e))
+
+
+### Bug Fixes
+
+* use correct sitemap url ([#4540](https://github.com/pressbooks/pressbooks/issues/4540)) ([616ef3e](https://github.com/pressbooks/pressbooks/commit/616ef3e1e0d3bd546ac6d0410138a7ea700ee374))
+* z-index google docs picker dialog ([#4538](https://github.com/pressbooks/pressbooks/issues/4538)) ([123fd96](https://github.com/pressbooks/pressbooks/commit/123fd966843ef6be8fd7119fa8b2af071eb4358a))
+
+
+### Chores
+
+* **l10n:** update languages ([#4514](https://github.com/pressbooks/pressbooks/issues/4514)) ([66b9646](https://github.com/pressbooks/pressbooks/commit/66b96468eb8bd33feef743e86d403f24cc39968d))
+
+## [6.43.0](https://github.com/pressbooks/pressbooks/compare/6.42.3...6.43.0) (2026-07-22)
+
+
+### Features
+
+* add crawler filter and pressbooks_tracking schema changes ([#4527](https://github.com/pressbooks/pressbooks/issues/4527)) ([e48ff8a](https://github.com/pressbooks/pressbooks/commit/e48ff8ab161cbc9cdfdb5307f48ac0b6eed85fe8))
+* canonical network title ([#4528](https://github.com/pressbooks/pressbooks/issues/4528)) ([4decfb8](https://github.com/pressbooks/pressbooks/commit/4decfb8f7e8c72a89e9bb1a306058537400e84c9))
+* cloning hooks and removing candela citations handler ([#4522](https://github.com/pressbooks/pressbooks/issues/4522)) ([194c093](https://github.com/pressbooks/pressbooks/commit/194c093a920d5b2e57bac0871b14495b85952452))
+
+
+### Bug Fixes
+
+* updating the README.md to reflect the recommended WordPress version ([#4529](https://github.com/pressbooks/pressbooks/issues/4529)) ([3785dda](https://github.com/pressbooks/pressbooks/commit/3785dda1ad00b81d9dcc69a890ac3ee64b02dca9))
+
+
+### Chores
+
+* bump dependencies ([#4525](https://github.com/pressbooks/pressbooks/issues/4525)) ([9ddf4d5](https://github.com/pressbooks/pressbooks/commit/9ddf4d515defb93c5a1580b27e099f40dee2cbc1))
+* php 8.4 compat  ([#4412](https://github.com/pressbooks/pressbooks/issues/4412)) ([c29d5b4](https://github.com/pressbooks/pressbooks/commit/c29d5b483c8d9a1b33f282b83365587b939e5701))
+
+## [6.42.3](https://github.com/pressbooks/pressbooks/compare/6.42.2...6.42.3) (2026-07-15)
+
+
+### Bug Fixes
+
+* correct activation page login URL ([#4519](https://github.com/pressbooks/pressbooks/issues/4519)) ([8261cbd](https://github.com/pressbooks/pressbooks/commit/8261cbd845af40c8fa010b26528c853b9709aa0d))
+* global duet datepicker for proper enqueue ([#4513](https://github.com/pressbooks/pressbooks/issues/4513)) ([f2d9533](https://github.com/pressbooks/pressbooks/commit/f2d953327940b36e95c4a728873a312b6e64e9ec))
+
+
+### Chores
+
+* consolidate network managers helper ([#4517](https://github.com/pressbooks/pressbooks/issues/4517)) ([0a86d4e](https://github.com/pressbooks/pressbooks/commit/0a86d4ef17a8014f1a010449c2317a3c9fe374b7))
+* update label for GA setting ([#4521](https://github.com/pressbooks/pressbooks/issues/4521)) ([b467cf6](https://github.com/pressbooks/pressbooks/commit/b467cf694a9e4980d4ee12a4bb86bf9dba952b5f))
+
+## [6.42.2](https://github.com/pressbooks/pressbooks/compare/6.42.1...6.42.2) (2026-07-07)
+
+
+### Bug Fixes
+
+* fall back to editors for copyright when book has no authors ([#4508](https://github.com/pressbooks/pressbooks/issues/4508)) ([88d74c9](https://github.com/pressbooks/pressbooks/commit/88d74c9edb24dde26f1732b1ecdd76f30ebbd495))
+* keep reset URL in password reset email when no IP line is present ([#4507](https://github.com/pressbooks/pressbooks/issues/4507)) ([6c54070](https://github.com/pressbooks/pressbooks/commit/6c54070932d743ed1809439a4fc054f7eea870db)), closes [#4469](https://github.com/pressbooks/pressbooks/issues/4469)
+
+
+### Chores
+
+* add institution HfH in Switzerland ([#4511](https://github.com/pressbooks/pressbooks/issues/4511)) ([9cefd7c](https://github.com/pressbooks/pressbooks/commit/9cefd7c33609d901e1d1f8b9e72f209450f91c7f))
+* add institution HfH Interkantonale Hochschule für Heilpädagogik in Switzerland ([9cefd7c](https://github.com/pressbooks/pressbooks/commit/9cefd7c33609d901e1d1f8b9e72f209450f91c7f))
+* **l10n:** update languages ([#4494](https://github.com/pressbooks/pressbooks/issues/4494)) ([b2181b6](https://github.com/pressbooks/pressbooks/commit/b2181b60cdbb576de99ca2586b631576cb9ad7a8))
+* removing SaxonHE requirements and tests ([#4501](https://github.com/pressbooks/pressbooks/issues/4501)) ([b0b4969](https://github.com/pressbooks/pressbooks/commit/b0b4969deb149844758ddb1960816ef189f97fb1))
+
+## [6.42.1](https://github.com/pressbooks/pressbooks/compare/6.42.0...6.42.1) (2026-06-11)
+
+
+### Bug Fixes
+
+* debounce algolia search ([#4490](https://github.com/pressbooks/pressbooks/issues/4490)) ([a90ab33](https://github.com/pressbooks/pressbooks/commit/a90ab3363dfbc1586a3fccfaaea5038ef8df1c1f))
+* hook correctness & escape site name for XHTML exports ([#4485](https://github.com/pressbooks/pressbooks/issues/4485)) ([e3309d3](https://github.com/pressbooks/pressbooks/commit/e3309d3ab8ead831177cece3ebfe4d9ada7596eb))
+
+
+### Chores
+
+* **i18n:** update POT file for translations ([#4388](https://github.com/pressbooks/pressbooks/issues/4388)) ([042bc13](https://github.com/pressbooks/pressbooks/commit/042bc131f89f81b06d874fd37236cfc0c03300b3))
+* **l10n:** update languages ([#4393](https://github.com/pressbooks/pressbooks/issues/4393)) ([cfc6d11](https://github.com/pressbooks/pressbooks/commit/cfc6d11a3084945e0974e44703fb9b32903d0662))
+
+## [6.42.0](https://github.com/pressbooks/pressbooks/compare/6.41.0...6.42.0) (2026-06-04)
+
+
+### Features
+
+* add second PDF preview option ([#4344](https://github.com/pressbooks/pressbooks/issues/4344)) ([#4394](https://github.com/pressbooks/pressbooks/issues/4394)) ([bd06639](https://github.com/pressbooks/pressbooks/commit/bd066398e562949d3e9d0797c77a10686221414a))
+* announce progress bar progress (resolves [#3718](https://github.com/pressbooks/pressbooks/issues/3718)) ([#4460](https://github.com/pressbooks/pressbooks/issues/4460)) ([4ef0ff4](https://github.com/pressbooks/pressbooks/commit/4ef0ff44e90e41a1968948cfd121cbd5c515c2eb))
+* use provided alt text for contributor pictures ([#4459](https://github.com/pressbooks/pressbooks/issues/4459)) ([783bac7](https://github.com/pressbooks/pressbooks/commit/783bac722ac929de3b7738e7036ed95cfd5a0357))
+
+
+### Bug Fixes
+
+* include src/js assets for distribution ([#4480](https://github.com/pressbooks/pressbooks/issues/4480)) ([845d07e](https://github.com/pressbooks/pressbooks/commit/845d07ed2f25eb13d1cde8e89f38ef807d9e9792))
+* resolve display issue with admin bar View link ([#4456](https://github.com/pressbooks/pressbooks/issues/4456)) ([0fc8465](https://github.com/pressbooks/pressbooks/commit/0fc8465e71ee10ed65d8737b81faf09fbc2bf8ce))
+
+
+### Chores
+
+* change institution 'University of Adelaide' to 'Adelaide University' ([45aa7f2](https://github.com/pressbooks/pressbooks/commit/45aa7f295a57d4fc0f2c14f839fa0c1c3a0a2b56))
+* change institution name Adelaide ([#4471](https://github.com/pressbooks/pressbooks/issues/4471)) ([45aa7f2](https://github.com/pressbooks/pressbooks/commit/45aa7f295a57d4fc0f2c14f839fa0c1c3a0a2b56))
+
+## [6.41.0](https://github.com/pressbooks/pressbooks/compare/6.40.0...6.41.0) (2026-05-12)
+
+
+### Features
+
+* prince 16 support ([#4428](https://github.com/pressbooks/pressbooks/issues/4428)) ([51c412d](https://github.com/pressbooks/pressbooks/commit/51c412dab377dbe4c03957730c36e74448bcc5a2))
+
+
+### Bug Fixes
+
+* consider parts post content for word counting ([#4453](https://github.com/pressbooks/pressbooks/issues/4453)) ([d3f6964](https://github.com/pressbooks/pressbooks/commit/d3f69641310ea14919438558237a6d71b370c561))
+
 ## [6.40.0](https://github.com/pressbooks/pressbooks/compare/6.39.3...6.40.0) (2026-05-05)
 
 

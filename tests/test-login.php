@@ -20,4 +20,19 @@ class Login extends \WP_UnitTestCase {
 			\Pressbooks\Registration\remove_wp_prefix( 'https://network.pressbooks.pub/wp-login.php?action=lostpassword' )
 		);
 	}
+
+	/**
+	 * @group Login
+	 */
+	public function test_if_wp_prefix_is_removed_from_login_url_filter() {
+		$this->assertSame(
+			'https://network.pressbooks.pub/booktitle/wp-login.php',
+			apply_filters(
+				'login_url',
+				'https://network.pressbooks.pub/wp/booktitle/wp-login.php',
+				'',
+				false
+			)
+		);
+	}
 }

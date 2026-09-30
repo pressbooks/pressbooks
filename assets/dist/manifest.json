@@ -45,7 +45,7 @@
     "isEntry": true
   },
   "assets/src/scripts/algolia-search.js": {
-    "file": "assets/algolia-search-Dqg3nHqj.js",
+    "file": "assets/algolia-search-462sVLNs.js",
     "name": "algolia-search",
     "src": "assets/src/scripts/algolia-search.js",
     "isEntry": true,
@@ -53,7 +53,7 @@
       "__commonjsHelpers-DsqdWQfm.js"
     ],
     "css": [
-      "assets/algolia-search-DoMTmBPl.css"
+      "assets/algolia-search-DNLkBxAQ.css"
     ]
   },
   "assets/src/scripts/anchor.js": {
@@ -69,16 +69,13 @@
     "isEntry": true
   },
   "assets/src/scripts/book-information.js": {
-    "file": "assets/book-information-CKvt9HHq.js",
+    "file": "assets/book-information-B6pDNsaz.js",
     "name": "book-information",
     "src": "assets/src/scripts/book-information.js",
     "isEntry": true,
     "imports": [
       "assets/src/scripts/webcomponents/pressbooks-reorderable-multiselect.js",
       "_lit-element-BlzW_tbz.js"
-    ],
-    "css": [
-      "assets/book-information-CCL6ZHe4.css"
     ]
   },
   "assets/src/scripts/catalog.js": {
@@ -99,7 +96,7 @@
     ]
   },
   "assets/src/scripts/cloner.js": {
-    "file": "assets/cloner-CVZVQquv.js",
+    "file": "assets/cloner-CNw2JrE-.js",
     "name": "cloner",
     "src": "assets/src/scripts/cloner.js",
     "isEntry": true,
@@ -120,7 +117,7 @@
     "isEntry": true
   },
   "assets/src/scripts/covergenerator.js": {
-    "file": "assets/covergenerator-ko3Uslqz.js",
+    "file": "assets/covergenerator-CiR2NV4H.js",
     "name": "covergenerator",
     "src": "assets/src/scripts/covergenerator.js",
     "isEntry": true,
@@ -131,6 +128,12 @@
       "assets/covergenerator-BPTG2Ppo.css"
     ]
   },
+  "assets/src/scripts/duet-date-picker.js": {
+    "file": "assets/duet-date-picker-Cqi2FNMR.js",
+    "name": "duet-date-picker",
+    "src": "assets/src/scripts/duet-date-picker.js",
+    "isEntry": true
+  },
   "assets/src/scripts/export-footnotes.js": {
     "file": "assets/export-footnotes-B7O5MUFm.js",
     "name": "export-footnotes",
@@ -138,7 +141,7 @@
     "isEntry": true
   },
   "assets/src/scripts/export.js": {
-    "file": "assets/export-DL-5LhtF.js",
+    "file": "assets/export-CXiNmMJV.js",
     "name": "export",
     "src": "assets/src/scripts/export.js",
     "isEntry": true,
@@ -159,7 +162,7 @@
     "isEntry": true
   },
   "assets/src/scripts/glossary-definition.js": {
-    "file": "assets/glossary-definition-BDVUgK8G.js",
+    "file": "assets/glossary-definition-CcpXryhy.js",
     "name": "glossary-definition",
     "src": "assets/src/scripts/glossary-definition.js",
     "isEntry": true,
@@ -174,7 +177,7 @@
     "isEntry": true
   },
   "assets/src/scripts/import.js": {
-    "file": "assets/import-sc0Pz6UE.js",
+    "file": "assets/import-BthjuJq4.js",
     "name": "import",
     "src": "assets/src/scripts/import.js",
     "isEntry": true,
@@ -231,12 +234,12 @@
     "isEntry": true
   },
   "assets/src/scripts/pressbooks.js": {
-    "file": "assets/pressbooks-W1qZ-Zgu.js",
+    "file": "assets/pressbooks-BZFKjsRn.js",
     "name": "pressbooks",
     "src": "assets/src/scripts/pressbooks.js",
     "isEntry": true,
     "css": [
-      "assets/pressbooks-admin-styles--LilPr96.css"
+      "assets/pressbooks-admin-styles-Kd3UPGsR.css"
     ],
     "assets": [
       "assets/heroicons-CVYPToTZ.eot",
@@ -335,7 +338,7 @@
     ]
   },
   "assets/src/styles/colors-pb-a11y.scss": {
-    "file": "assets/colors-pb-a11y-styles-CJ1k2X3m.css",
+    "file": "assets/colors-pb-a11y-styles-mLOo-t2c.css",
     "src": "assets/src/styles/colors-pb-a11y.scss",
     "isEntry": true,
     "name": "colors-pb-a11y-styles",
@@ -344,12 +347,21 @@
     ]
   },
   "assets/src/styles/colors-pb.scss": {
-    "file": "assets/colors-pb-styles-DLxg-MEI.css",
+    "file": "assets/colors-pb-styles-BT6itvur.css",
     "src": "assets/src/styles/colors-pb.scss",
     "isEntry": true,
     "name": "colors-pb-styles",
     "names": [
       "colors-pb-styles.css"
+    ]
+  },
+  "assets/src/styles/duet.css": {
+    "file": "assets/duet-date-picker-styles-CCL6ZHe4.css",
+    "src": "assets/src/styles/duet.css",
+    "isEntry": true,
+    "name": "duet-date-picker-styles",
+    "names": [
+      "duet-date-picker-styles.css"
     ]
   },
   "assets/src/styles/login.scss": {
@@ -380,7 +392,7 @@
     ]
   },
   "assets/src/styles/pressbooks.scss": {
-    "file": "assets/pressbooks-admin-styles--LilPr96.css",
+    "file": "assets/pressbooks-admin-styles-Kd3UPGsR.css",
     "src": "assets/src/styles/pressbooks.scss",
     "isEntry": true,
     "name": "pressbooks-admin-styles",
@@ -395,6 +407,15 @@
     "name": "style-catalog",
     "names": [
       "style-catalog.css"
+    ]
+  },
+  "assets/src/styles/wp7-controls-compat.scss": {
+    "file": "assets/wp7-controls-compat-styles-wwG60rAx.css",
+    "src": "assets/src/styles/wp7-controls-compat.scss",
+    "isEntry": true,
+    "name": "wp7-controls-compat-styles",
+    "names": [
+      "wp7-controls-compat-styles.css"
     ]
   }
 }

@@ -8,7 +8,6 @@ class Spine {
 	 * Constructor
 	 */
 	public function __construct() {
-
 	}
 
 	/**

@@ -1,0 +1,16 @@
+{
+  "title": "Glossary Only Chapter Test",
+  "body": {
+    "content": [
+      {"sectionBreak": {"sectionStyle": {}}},
+      {"paragraph": {"elements": [{"textRun": {"content": "Chapter One\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "HEADING_1"}}},
+      {"paragraph": {"elements": [{"textRun": {"content": "An [GT]operating system[/GT] runs programs.\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}},
+      {"paragraph": {"elements": [{"textRun": {"content": "Glossary Reference\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "HEADING_1"}}},
+      {"paragraph": {"elements": [{"textRun": {"content": "Glossary\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "HEADING_3"}}},
+      {"paragraph": {"elements": [{"textRun": {"content": "operating system: Software that manages hardware.\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}},
+      {"paragraph": {"elements": [{"textRun": {"content": "daemon: A background process.\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}}
+    ]
+  },
+  "footnotes": {},
+  "inlineObjects": {}
+}

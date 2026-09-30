@@ -57,9 +57,9 @@ class Sku extends Isbn {
 		}
 
 		if ( ! function_exists( 'media_handle_sideload' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/image.php' );
-			require_once( ABSPATH . 'wp-admin/includes/file.php' );
-			require_once( ABSPATH . 'wp-admin/includes/media.php' );
+			require_once ABSPATH . 'wp-admin/includes/image.php';
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			require_once ABSPATH . 'wp-admin/includes/media.php';
 		}
 
 		$pid = media_handle_sideload(
@@ -137,5 +137,4 @@ class Sku extends Isbn {
 		file_put_contents( $path_to_ps, ( "\n" . 'showpage' ), FILE_APPEND | LOCK_EX );
 		// @codingStandardsIgnoreEnd
 	}
-
 }

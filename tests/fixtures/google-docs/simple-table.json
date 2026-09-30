@@ -1,0 +1,20 @@
+{
+  "title": "Table Test",
+  "body": {
+    "content": [
+      {"sectionBreak": {"sectionStyle": {}}},
+      {"paragraph": {"elements": [{"textRun": {"content": "Table Chapter\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "HEADING_1"}}},
+      {"table": {"rows": 2, "columns": 2, "tableRows": [
+        {"tableCells": [
+          {"content": [{"paragraph": {"elements": [{"textRun": {"content": "Cell A1\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}}]},
+          {"content": [{"paragraph": {"elements": [{"textRun": {"content": "Cell B1\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}}]}
+        ]},
+        {"tableCells": [
+          {"content": [{"paragraph": {"elements": [{"textRun": {"content": "Cell A2\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}}]},
+          {"content": [{"paragraph": {"elements": [{"textRun": {"content": "Cell B2\n", "textStyle": {}}}], "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"}}}]}
+        ]}
+      ]}}
+    ]
+  },
+  "inlineObjects": {}
+}

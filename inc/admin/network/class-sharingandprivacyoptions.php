@@ -12,10 +12,10 @@
 
 namespace Pressbooks\Admin\Network;
 
-use function Pressbooks\Admin\NetworkManagers\is_restricted;
-use function Pressbooks\Utility\str_lreplace;
 use Pressbooks\BookDirectory;
 use Pressbooks\DataCollector\Book;
+use function Pressbooks\Admin\NetworkManagers\is_restricted;
+use function Pressbooks\Utility\str_lreplace;
 
 class SharingAndPrivacyOptions extends \Pressbooks\Options {
 
@@ -62,7 +62,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $options
 	 */
-	function __construct( array $options ) {
+	public function __construct( array $options ) {
 		$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
@@ -78,7 +78,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	/**
 	 * Configure the network export options page using the settings API.
 	 */
-	function init() {
+	public function init() {
 		$_option = $this->getSlug();
 		$_page = $_option;
 		$_section = $this->getSlug() . '_section';
@@ -172,11 +172,11 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	/**
 	 * Display the network sharing and privacy options page description.
 	 */
-	function display() {
+	public function display() {
 		echo '<p>' . __( 'Sharing and Privacy settings.', 'pressbooks' ) . '</p>';
 	}
 
-	function render() {
+	public function render() {
 		$_option = $this->getSlug();
 		?>
 		<div class="wrap">
@@ -244,7 +244,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @param bool $revert  un-checking network exclude
 	 */
-	static function excludeNonCatalogBooksFromDirectory( $callback, bool $revert = false ) {
+	public static function excludeNonCatalogBooksFromDirectory( $callback, bool $revert = false ) {
 		$book_ids = self::getPublicBooks( ! $revert );
 
 		if ( count( $book_ids ) > 0 ) {
@@ -257,7 +257,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @return array    public books
 	 */
-	static function getPublicBooks( $only_non_catalog = false ) {
+	public static function getPublicBooks( $only_non_catalog = false ) {
 		global $wpdb;
 
 		$public = Book::PUBLIC;
@@ -296,13 +296,13 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 * @param $book_ids
 	 * @return array   Responses from actions
 	 */
-	static function excludeNonCatalogBooksFromDirectoryAction( array $book_ids, bool $revert = false ) {
+	public static function excludeNonCatalogBooksFromDirectoryAction( array $book_ids, bool $revert = false ) {
 
 		$is_deleted = [];
 
 		if ( ! $revert ) {
 			$is_deleted = array_map(
-				function( $book_ids ) {
+				function ( $book_ids ) {
 					return BookDirectory::init()->deleteBookFromDirectory( $book_ids );
 				},
 				array_chunk( $book_ids, 50 )
@@ -326,7 +326,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	/**
 	 * @param int $version
 	 */
-	function upgrade( $version ) {
+	public function upgrade( $version ) {
 
 		$slug = $this->getSlug();
 		$options = get_site_option( $slug, [] );
@@ -351,7 +351,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderAllowRedistributionField( $args ) {
+	public function renderAllowRedistributionField( $args ) {
 		$options = get_site_option( $this->getSlug() );
 		$this->renderCheckbox(
 			[
@@ -369,7 +369,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderAllowRootApi( $args ) {
+	public function renderAllowRootApi( $args ) {
 		$options = get_site_option( $this->getSlug() );
 		$this->renderCheckbox(
 			[
@@ -387,7 +387,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderAllowCloning( $args ) {
+	public function renderAllowCloning( $args ) {
 		$options = get_site_option( $this->getSlug() );
 		$this->renderCheckbox(
 			[
@@ -405,7 +405,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderAllowThinCcWeblinks( $args ) {
+	public function renderAllowThinCcWeblinks( $args ) {
 		$options = get_site_option( $this->getSlug() );
 		$this->renderCheckbox(
 			[
@@ -423,7 +423,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderNetworkExcludeNonCataloguedPublicBooks( $args ) {
+	public function renderNetworkExcludeNonCataloguedPublicBooks( $args ) {
 		$options = get_site_option( $this->getSlug() );
 		$this->renderCheckbox(
 			[
@@ -441,7 +441,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @param $args
 	 */
-	function renderIframesWhiteList( $args ) {
+	public function renderIframesWhiteList( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$options = get_site_option( $this->getSlug() );
 		$this->renderTextarea(
@@ -460,7 +460,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $slug
 	 */
-	static function getSlug() {
+	public static function getSlug() {
 		return 'pressbooks_sharingandprivacy_options';
 	}
 
@@ -469,7 +469,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $title
 	 */
-	static function getTitle() {
+	public static function getTitle() {
 		return __( 'Sharing and Privacy Settings', 'pressbooks' );
 	}
 
@@ -478,7 +478,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $defaults
 	 */
-	static function getDefaults() {
+	public static function getDefaults() {
 		return [
 			'allow_redistribution'           => 0,
 			'enable_network_api'             => 1,
@@ -494,7 +494,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getBooleanOptions() {
+	public static function getBooleanOptions() {
 		return [
 			'allow_redistribution',
 			'enable_network_api',
@@ -509,7 +509,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getMultilineStringOptions() {
+	public static function getMultilineStringOptions() {
 		return [
 			'iframe_whitelist',
 		];
@@ -522,7 +522,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $defaults
 	 */
-	static function filterDefaults( $defaults ) {
+	public static function filterDefaults( $defaults ) {
 		return $defaults;
 	}
 }

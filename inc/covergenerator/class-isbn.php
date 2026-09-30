@@ -42,8 +42,7 @@ class Isbn {
 	/**
 	 * Constructor
 	 */
-	function __construct() {
-
+	public function __construct() {
 	}
 
 	/**
@@ -77,9 +76,9 @@ class Isbn {
 		}
 
 		if ( ! function_exists( 'media_handle_sideload' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/image.php' );
-			require_once( ABSPATH . 'wp-admin/includes/file.php' );
-			require_once( ABSPATH . 'wp-admin/includes/media.php' );
+			require_once ABSPATH . 'wp-admin/includes/image.php';
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			require_once ABSPATH . 'wp-admin/includes/media.php';
 		}
 
 		$pid = media_handle_sideload(

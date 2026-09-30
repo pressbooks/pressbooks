@@ -76,7 +76,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $options
 	 */
-	function __construct( array $options ) {
+	public function __construct( array $options ) {
 		$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
@@ -95,7 +95,7 @@ class WebOptions extends \Pressbooks\Options {
 	/**
 	 * Configure the web options tab using the settings API.
 	 */
-	function init() {
+	public function init() {
 		$_option = 'pressbooks_theme_options_' . $this->getSlug();
 		$_page = $_option;
 		$_section = $this->getSlug() . '_options_section';
@@ -215,14 +215,14 @@ class WebOptions extends \Pressbooks\Options {
 	/**
 	 * Display the web options tab description.
 	 */
-	function display() {
+	public function display() {
 		echo '<p>' . __( 'These options apply to the webbook.', 'pressbooks' ) . '</p>';
 	}
 
 	/**
 	 * Render the web options tab form (NOT USED).
 	 */
-	function render() {
+	public function render() {
 	}
 
 	/**
@@ -230,7 +230,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @param int $version
 	 */
-	function upgrade( $version ) {
+	public function upgrade( $version ) {
 		if ( $version < 1 ) {
 			$this->doInitialUpgrade();
 		}
@@ -239,7 +239,7 @@ class WebOptions extends \Pressbooks\Options {
 	/**
 	 * Remove deprecated keys from web options.
 	 */
-	function doInitialUpgrade() {
+	public function doInitialUpgrade() {
 		$_option = $this->getSlug();
 		$options = get_option( 'pressbooks_theme_options_' . $_option, $this->defaults );
 		$deprecated = [
@@ -257,7 +257,7 @@ class WebOptions extends \Pressbooks\Options {
 		update_option( 'pressbooks_theme_options_' . $_option, $options );
 	}
 
-	function renderSocialMediaOptionsField( $args ) {
+	public function renderSocialMediaOptionsField( $args ) {
 		$options = isset( $this->options['social_media_options'] ) ? $this->options['social_media_options'] : [];
 		$stored_options = get_option( 'pressbooks_theme_options_' . $this->getSlug() );
 		// if empty, override default values with empty array for displaying purposes
@@ -286,7 +286,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderWebbookWidthField( $args ) {
+	public function renderWebbookWidthField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderSelect(
 			[
@@ -304,7 +304,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderParagraphSeparationField( $args ) {
+	public function renderParagraphSeparationField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderRadioButtons(
 			[
@@ -323,7 +323,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderPartTitle( $args ) {
+	public function renderPartTitle( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderCheckbox(
 			[
@@ -341,7 +341,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderCollapseSections( $args ) {
+	public function renderCollapseSections( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderCheckbox(
 			[
@@ -359,7 +359,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderHeaderFontField( $args ) {
+	public function renderHeaderFontField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderSelectOptGroup(
 			[
@@ -377,7 +377,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderBodyFontField( $args ) {
+	public function renderBodyFontField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderSelectOptGroup(
 			[
@@ -395,7 +395,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $slug
 	 */
-	static function getSlug() {
+	public static function getSlug() {
 		return 'web';
 	}
 
@@ -404,7 +404,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $title
 	 */
-	static function getTitle() {
+	public static function getTitle() {
 		return __( 'Web Options', 'pressbooks' );
 	}
 
@@ -413,7 +413,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $defaults
 	 */
-	static function getDefaults() {
+	public static function getDefaults() {
 		/**
 		 * @param array $value
 		 *
@@ -439,7 +439,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $defaults
 	 */
-	static function filterDefaults( $defaults ) {
+	public static function filterDefaults( $defaults ) {
 		return $defaults;
 	}
 
@@ -448,7 +448,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getBooleanOptions() {
+	public static function getBooleanOptions() {
 		/**
 		 * Allow custom boolean options to be passed to sanitization routines.
 		 *
@@ -469,7 +469,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getStringOptions() {
+	public static function getStringOptions() {
 		/**
 		 * Allow custom string options to be passed to sanitization routines.
 		 *
@@ -490,7 +490,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getIntegerOptions() {
+	public static function getIntegerOptions() {
 		/**
 		 * Allow custom integer options to be passed to sanitization routines.
 		 *
@@ -506,7 +506,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getFloatOptions() {
+	public static function getFloatOptions() {
 		/**
 		 * Allow custom float options to be passed to sanitization routines.
 		 *
@@ -522,7 +522,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getPredefinedOptions() {
+	public static function getPredefinedOptions() {
 		/**
 		 * Allow custom predefined options to be passed to sanitization routines.
 		 *
@@ -548,7 +548,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @since 3.9.8
 	 */
-	static function scssOverrides( $scss ) {
+	public static function scssOverrides( $scss ) {
 
 		$styles = Container::get( 'Styles' );
 		$v2_compatible = $styles->isCurrentThemeCompatible( 2 );

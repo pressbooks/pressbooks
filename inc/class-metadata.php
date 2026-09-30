@@ -291,7 +291,6 @@ class Metadata implements \JsonSerializable {
 				}
 			}
 		}
-
 	}
 
 	/**
@@ -439,7 +438,7 @@ class Metadata implements \JsonSerializable {
 					'post_status' => 'inherit',
 				];
 
-				include_once( ABSPATH . 'wp-admin/includes/image.php' );
+				include_once ABSPATH . 'wp-admin/includes/image.php';
 				$id = wp_insert_attachment( $args, $path, $post->ID );
 				wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $path ) );
 				Book::deleteBookObjectCache();
@@ -573,5 +572,4 @@ class Metadata implements \JsonSerializable {
 
 		return $status; // No change
 	}
-
 }

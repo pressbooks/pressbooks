@@ -11,10 +11,10 @@
 
 namespace Pressbooks\Editor;
 
-use function Pressbooks\Sanitize\normalize_css_urls;
 use Pressbooks\Container;
 use Pressbooks\HtmlParser;
 use Pressbooks\Shortcodes\Glossary\Glossary;
+use function Pressbooks\Sanitize\normalize_css_urls;
 
 /**
  * Ensure that Word formatting that we like doesn't get filtered out.

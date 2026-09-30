@@ -49,5 +49,4 @@ class ReferenceEntries extends Element {
 	protected $attributes = [
 		'class' => 'refentry',
 	];
-
 }

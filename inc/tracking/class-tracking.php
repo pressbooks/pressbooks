@@ -27,7 +27,7 @@ abstract class Tracking {
 
 	public static function init() {
 		if ( is_null( static::$instance ) ) {
-			static::$instance = new static;
+			static::$instance = new static();
 
 			static::$instance->setup();
 		}
@@ -41,7 +41,7 @@ abstract class Tracking {
 	 * @return void
 	 */
 	protected function setup() {
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		$sql = "CREATE TABLE IF NOT EXISTS `$this->dbTable` (
 				`id` bigint(20) NOT NULL AUTO_INCREMENT,

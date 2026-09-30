@@ -11,8 +11,8 @@
 
 namespace Pressbooks\Modules\ThemeOptions;
 
-use function \Pressbooks\Utility\debug_error_log;
 use Pressbooks\Cloner\Cloner;
+use function Pressbooks\Utility\debug_error_log;
 
 /**
  * Not a subclass of \Pressbooks\Options!
@@ -28,7 +28,7 @@ class Admin {
 	/**
 	 * @return Admin
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -39,7 +39,7 @@ class Admin {
 	/**
 	 * @param Admin $obj
 	 */
-	static public function hooks( Admin $obj ) {
+	public static function hooks( Admin $obj ) {
 		add_action( 'admin_init', [ $obj, 'loadTabs' ] );
 		add_filter( 'admin_menu', [ $obj, 'adminMenu' ] );
 		add_action( 'after_switch_theme', [ $obj, 'afterSwitchTheme' ] );
@@ -190,7 +190,7 @@ class Admin {
 	 *
 	 * @return void
 	 */
-	public function afterSwitchTheme() : void {
+	public function afterSwitchTheme(): void {
 		$cloned_options = get_option( Cloner::THEME_OPTIONS_CLONED_OPTION );
 		if ( ! $cloned_options ) {
 			$this->clearCache();
@@ -216,5 +216,4 @@ class Admin {
 			delete_transient( "pressbooks_theme_options_{$slug}_parsed_sass_variables" );
 		}
 	}
-
 }

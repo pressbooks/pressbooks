@@ -10,8 +10,8 @@
 
 namespace Pressbooks\Utility;
 
-use function Pressbooks\Redirect\force_download;
 use Pressbooks\Transferable;
+use function Pressbooks\Redirect\force_download;
 
 /**
  * This trait allows exporting taxonomies.

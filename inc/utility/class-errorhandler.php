@@ -13,7 +13,7 @@ class ErrorHandler {
 	 */
 	protected static $instance = null;
 
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			set_error_handler( [ self::$instance, 'silenceDeprecationNotices' ] );
@@ -58,5 +58,4 @@ class ErrorHandler {
 		 */
 		return apply_filters( 'pressbooks_deprecation_paths_to_silence', $paths );
 	}
-
 }

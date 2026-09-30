@@ -613,15 +613,6 @@ class MetadataTest extends \WP_UnitTestCase {
 	/**
 	 * @group metadata
 	 */
-	function test_add_candela_citations() {
-		deactivate_plugins( 'candela-citation/candela-citation.php' );
-		$html = '<p>hello</p>';
-		$this->assertEquals( $html, \Pressbooks\Metadata\add_candela_citations( $html ) );
-	}
-
-	/**
-	 * @group metadata
-	 */
 	function test_get_in_catalog_option() {
 		$option = \Pressbooks\Metadata\get_in_catalog_option();
 		$this->assertTrue( ! empty( $option ) );
