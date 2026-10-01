@@ -9,10 +9,7 @@ jQuery( function ( $ ) {
 			function () {
 				let link = $( this );
 				let parent = link.parent( 'span' );
-				let parent_row = parent
-					.parent( 'div' )
-					.parent( 'td' )
-					.parent( 'tr' );
+				let parent_row = link.closest( 'tr' );
 				let admin_id = parent_row.attr( 'id' );
 				let restrict_string = link.attr( 'data-restrict-text' );
 				let unrestrict_string = link.attr( 'data-unrestrict-text' );
