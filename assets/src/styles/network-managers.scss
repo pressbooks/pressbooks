@@ -6,7 +6,7 @@
     transition: all 0.5s;
   }
 
-  tr.restricted td:first-child {
+  tr.restricted th:first-child {
     border-left: solid 4px $selective-yellow;
   }
 
