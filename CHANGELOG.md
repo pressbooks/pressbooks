@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.45.6](https://github.com/pressbooks/pressbooks/compare/6.45.5...6.45.6) (2026-10-01)
+
+
+### Bug Fixes
+
+* restore restricted-access indicator in network managers list ([#4591](https://github.com/pressbooks/pressbooks/issues/4591)) ([63b97b9](https://github.com/pressbooks/pressbooks/commit/63b97b90f6e8b9b7bbbd1d4eea5bcb88336c251d))
+* wrap strings for translation ([#4464](https://github.com/pressbooks/pressbooks/issues/4464)) ([8eed66e](https://github.com/pressbooks/pressbooks/commit/8eed66ee08919dd895dad72bb5171b2d7e5e4155))
+
 ## [6.45.5](https://github.com/pressbooks/pressbooks/compare/6.45.4...6.45.5) (2026-09-29)
 
 
