@@ -72,7 +72,7 @@ trait ExportHelpers {
 		} else {
 			$data['append_post_content'] .= $this->removeAttributionLink( $section_license );
 		}
-		$data['short_title'] = ( $data['short_title'] ) ?: wp_strip_all_tags( Sanitize\decode( $post_data['post_title'] ) ); //Sanitize to pass this to the blade template as the Title attr
+		$data['short_title'] = Sanitize\sanitize_xml_attribute( ( $data['short_title'] ) ?: wp_strip_all_tags( Sanitize\decode( $post_data['post_title'] ) ) ); //Sanitize to pass this to the blade template as the Title attr
 		$data['subtitle'] = trim( get_post_meta( $post_data['ID'], 'pb_subtitle', true ) );
 		$data['author'] = $this->contributors->get( $post_data['ID'], 'pb_authors' );
 		$data['post_number'] = $post_number;

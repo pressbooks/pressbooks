@@ -2,6 +2,7 @@
 
 use Pressbooks\Book;
 use Pressbooks\Contributors;
+use Pressbooks\Modules\Export\Epub\Epub;
 use Pressbooks\Modules\Export\ExportHelpers;
 use Pressbooks\Modules\Export\Xhtml\Xhtml11;
 use Pressbooks\Taxonomy;
@@ -355,5 +356,139 @@ CSS;
 		Book::deleteBookObjectCache();
 		restore_current_blog();
 		ini_set( 'memory_limit', $original_memory_limit );
+	}
+
+	/**
+	 * @group export_helpers
+	 */
+	public function test_xhtml_chapter_title_attribute_escapes_double_quotes() {
+		$original_memory_limit = ini_get( 'memory_limit' );
+		delete_transient( Xhtml11::TRANSIENT );
+		$this->_book();
+
+		$book_contents = Book::getBookContents();
+		$chapter_id = $book_contents['part'][0]['chapters'][0]['ID'];
+		wp_update_post(
+			[
+				'ID' => $chapter_id,
+				'post_title' => 'A "Quoted" Chapter Title',
+			]
+		);
+		Book::deleteBookObjectCache();
+
+		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
+		wp_set_current_user( $user_id );
+		add_filter( 'pb_mathjax_use', '__return_false' );
+
+		$exporter = new Xhtml11( [] );
+		$converter = $exporter->convert();
+		$this->runGenerator( $converter );
+
+		$xhtml_content = file_get_contents( $exporter->getOutputPath() );
+
+		$this->assertStringContainsString(
+			'title="A &quot;Quoted&quot; Chapter Title"',
+			$xhtml_content,
+			'The XHTML chapter title attribute must escape double quotes.'
+		);
+		$this->assertStringNotContainsString(
+			'title="A "Quoted" Chapter Title"',
+			$xhtml_content,
+			'The XHTML chapter title attribute must not contain unescaped double quotes.'
+		);
+
+		remove_filter( 'pb_mathjax_use', '__return_false' );
+		wp_set_current_user( 0 );
+		unlink( $exporter->getOutputPath() );
+		delete_transient( Xhtml11::TRANSIENT );
+		Book::deleteBookObjectCache();
+		restore_current_blog();
+		ini_set( 'memory_limit', $original_memory_limit );
+	}
+
+	/**
+	 * @group export_helpers
+	 */
+	public function test_epub_chapter_title_attribute_escapes_double_quotes() {
+		$original_memory_limit = ini_get( 'memory_limit' );
+		$this->_book();
+
+		$book_contents = Book::getBookContents();
+		$chapter_id = $book_contents['part'][0]['chapters'][0]['ID'];
+		wp_update_post(
+			[
+				'ID' => $chapter_id,
+				'post_title' => 'A "Quoted" Chapter Title',
+			]
+		);
+		Book::deleteBookObjectCache();
+
+		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
+		wp_set_current_user( $user_id );
+		add_filter( 'pb_mathjax_use', '__return_false' );
+
+		$exporter = new Epub( [] );
+		$converter = $exporter->convert();
+		$this->runGenerator( $converter );
+
+		$zip = new \ZipArchive();
+		$this->assertTrue( $zip->open( $exporter->getOutputPath() ) );
+
+		$chapter_html = '';
+		for ( $i = 0; $i < $zip->numFiles; $i++ ) {
+			$name = $zip->getNameIndex( $i );
+			if ( str_contains( $name, 'chapter-' ) && str_ends_with( $name, '.xhtml' ) ) {
+				$chapter_html = $zip->getFromName( $name );
+				break;
+			}
+		}
+		$zip->close();
+
+		$this->assertStringContainsString(
+			'title="A &quot;Quoted&quot; Chapter Title"',
+			$chapter_html,
+			'The EPUB chapter title attribute must escape double quotes.'
+		);
+		$this->assertStringNotContainsString(
+			'title="A "Quoted" Chapter Title"',
+			$chapter_html,
+			'The EPUB chapter title attribute must not contain unescaped double quotes.'
+		);
+
+		remove_filter( 'pb_mathjax_use', '__return_false' );
+		wp_set_current_user( 0 );
+		unlink( $exporter->getOutputPath() );
+		Book::deleteBookObjectCache();
+		restore_current_blog();
+		ini_set( 'memory_limit', $original_memory_limit );
+	}
+
+	/**
+	 * @group export_helpers
+	 */
+	public function test_mapBookDataAndContent_short_title_escapes_double_quotes() {
+		$this->_book();
+
+		$metadata = Book::getBookInformation( null, false, false );
+		$book_contents = Book::getBookContents();
+		$this->taxonomy = Taxonomy::init();
+		$this->contributors = new Contributors();
+
+		$front_matter = $book_contents['front-matter'][0];
+		$front_matter['post_title'] = 'Introduction "Quoted"';
+
+		$front_matter_mapped = $this->mapBookDataAndContent(
+			$front_matter,
+			$metadata,
+			1,
+			[ 'type' => 'front_matter' ]
+		);
+
+		$this->assertStringContainsString(
+			'&quot;Quoted&quot;',
+			$front_matter_mapped['short_title'],
+			'The short title used as an HTML attribute must escape double quotes.'
+		);
+		$this->assertStringNotContainsString( 'Introduction "Quoted"', $front_matter_mapped['short_title'] );
 	}
 }
