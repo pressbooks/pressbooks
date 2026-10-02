@@ -1746,7 +1746,7 @@ class Epub extends Export {
 					[
 						'subclass' => $chapter_subclass,
 						'slug' => $chapter_slug,
-						'sanitized_title' => wp_strip_all_tags( decode( $chapter['post_title'] ) ),
+						'sanitized_title' => sanitize_xml_attribute( wp_strip_all_tags( decode( $chapter['post_title'] ) ) ),
 						'number' => $this->numbered ? $chapter_number : '',
 						'title' => decode( $chapter_title ),
 						'is_new_buckram' => $this->wrapHeaderElements,
