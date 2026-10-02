@@ -1,5 +1,3 @@
-/* global PB_ColorPicker */
-
 const { __ } = wp.i18n;
 import Coloris from '@melloware/coloris';
 
