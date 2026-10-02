@@ -438,8 +438,7 @@ CSS;
 		for ( $i = 0; $i < $zip->numFiles; $i++ ) {
 			$name = $zip->getNameIndex( $i );
 			if ( str_contains( $name, 'chapter-' ) && str_ends_with( $name, '.xhtml' ) ) {
-				$chapter_html = $zip->getFromName( $name );
-				break;
+				$chapter_html .= $zip->getFromName( $name );
 			}
 		}
 		$zip->close();
