@@ -1708,7 +1708,7 @@ class Xhtml11 extends Export {
 					[
 						'subclass' => $chapter_subclass,
 						'slug' => $chapter_slug,
-						'sanitized_title' => decode( $chapter_short_title ) ?: wp_strip_all_tags( decode( $chapter['post_title'] ) ),
+						'sanitized_title' => Sanitize\sanitize_xml_attribute( decode( $chapter_short_title ) ?: wp_strip_all_tags( decode( $chapter['post_title'] ) ) ),
 						'number' => $chapter_number,
 						'title' => decode( $chapter_title ),
 						'is_new_buckram' => $this->wrapHeaderElements,
