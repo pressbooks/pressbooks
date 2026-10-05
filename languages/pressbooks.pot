@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-05T07:36:45+00:00\n"
+"POT-Creation-Date: 2026-10-05T13:33:48+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -7304,119 +7304,72 @@ msgstr ""
 msgid "GitHub logo"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:31
-#: assets/src/scripts/a11y.js:32
-#: assets/dist/assets/a11y-CR-ogGGg.js:31
-#: assets/dist/assets/a11y-CR-ogGGg.js:32
-msgid "Gradient selector"
-msgstr ""
-
-#: assets/src/scripts/a11y.js:45
-#: assets/dist/assets/a11y-CR-ogGGg.js:45
-msgid "Black"
-msgstr ""
-
-#: assets/src/scripts/a11y.js:48
-#: assets/dist/assets/a11y-CR-ogGGg.js:48
-msgid "White"
-msgstr ""
-
-#: assets/src/scripts/a11y.js:51
-#: assets/dist/assets/a11y-CR-ogGGg.js:51
-msgid "Red"
-msgstr ""
-
-#: assets/src/scripts/a11y.js:54
-#: assets/dist/assets/a11y-CR-ogGGg.js:54
-msgid "Orange"
-msgstr ""
-
-#: assets/src/scripts/a11y.js:57
-#: assets/dist/assets/a11y-CR-ogGGg.js:57
-msgid "Yellow"
-msgstr ""
-
-#: assets/src/scripts/a11y.js:60
-#: assets/dist/assets/a11y-CR-ogGGg.js:60
-msgid "Green"
-msgstr ""
-
-#: assets/src/scripts/a11y.js:63
-#: assets/dist/assets/a11y-CR-ogGGg.js:63
-msgid "Blue"
-msgstr ""
-
-#: assets/src/scripts/a11y.js:66
-#: assets/dist/assets/a11y-CR-ogGGg.js:66
-msgid "Purple"
-msgstr ""
-
-#: assets/src/scripts/a11y.js:81
-#: assets/dist/assets/a11y-CR-ogGGg.js:81
+#: assets/src/scripts/a11y.js:37
+#: assets/dist/assets/a11y-uJ8SusmL.js:37
 msgid "Create footnote shortcode"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:83
-#: assets/dist/assets/a11y-CR-ogGGg.js:83
+#: assets/src/scripts/a11y.js:39
+#: assets/dist/assets/a11y-uJ8SusmL.js:39
 msgid "Close footnote shortcode"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:117
-#: assets/dist/assets/a11y-CR-ogGGg.js:117
+#: assets/src/scripts/a11y.js:73
+#: assets/dist/assets/a11y-uJ8SusmL.js:73
 msgid "Close all open tags"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:121
-#: assets/dist/assets/a11y-CR-ogGGg.js:121
+#: assets/src/scripts/a11y.js:77
+#: assets/dist/assets/a11y-uJ8SusmL.js:77
 msgid "Distraction-free writing mode"
+msgstr ""
+
+#: assets/src/scripts/color-picker.js:10
+#: assets/dist/assets/color-picker-BV4qfqiI.js:1337
+msgid "Open color picker"
+msgstr ""
+
+#: assets/src/scripts/color-picker.js:11
+#: assets/dist/assets/color-picker-BV4qfqiI.js:1338
+msgid "Close color picker"
 msgstr ""
 
 #: assets/src/scripts/color-picker.js:12
 #: assets/dist/assets/color-picker-BV4qfqiI.js:1339
-msgid "Open color picker"
+msgid "Clear the selected color"
 msgstr ""
 
 #: assets/src/scripts/color-picker.js:13
 #: assets/dist/assets/color-picker-BV4qfqiI.js:1340
-msgid "Close color picker"
+msgid "Saturation: {s}. Brightness: {v}."
 msgstr ""
 
 #: assets/src/scripts/color-picker.js:14
 #: assets/dist/assets/color-picker-BV4qfqiI.js:1341
-msgid "Clear the selected color"
+msgid "Hue slider"
 msgstr ""
 
 #: assets/src/scripts/color-picker.js:15
 #: assets/dist/assets/color-picker-BV4qfqiI.js:1342
-msgid "Saturation: {s}. Brightness: {v}."
+msgid "Opacity slider"
 msgstr ""
 
 #: assets/src/scripts/color-picker.js:16
 #: assets/dist/assets/color-picker-BV4qfqiI.js:1343
-msgid "Hue slider"
+msgid "Color value field"
 msgstr ""
 
 #: assets/src/scripts/color-picker.js:17
 #: assets/dist/assets/color-picker-BV4qfqiI.js:1344
-msgid "Opacity slider"
+msgid "Color format"
 msgstr ""
 
 #: assets/src/scripts/color-picker.js:18
 #: assets/dist/assets/color-picker-BV4qfqiI.js:1345
-msgid "Color value field"
+msgid "Color swatch"
 msgstr ""
 
 #: assets/src/scripts/color-picker.js:19
 #: assets/dist/assets/color-picker-BV4qfqiI.js:1346
-msgid "Color format"
-msgstr ""
-
-#: assets/src/scripts/color-picker.js:20
-#: assets/dist/assets/color-picker-BV4qfqiI.js:1347
-msgid "Color swatch"
-msgstr ""
-
-#: assets/src/scripts/color-picker.js:21
-#: assets/dist/assets/color-picker-BV4qfqiI.js:1348
 msgid "Saturation and brightness selector. Use up, down, left and right arrow keys to select."
 msgstr ""
