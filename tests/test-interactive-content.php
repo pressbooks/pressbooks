@@ -190,4 +190,32 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		wp_dequeue_script( $handle );
 		unset( $GLOBALS['post'] );
 	}
+
+	/**
+	 * @group interactivecontent
+	 */
+	public function test_enqueueH5PMathJaxGuard() {
+		$handle = 'pb-h5p-mathjax-guard';
+
+		// H5P active (shortcode registered): guard is enqueued.
+		add_shortcode( \Pressbooks\Interactive\H5P::SHORTCODE, '__return_empty_string' );
+		wp_dequeue_script( $handle );
+		$this->content->enqueueH5PMathJaxGuard();
+		$this->assertTrue( wp_script_is( $handle, 'enqueued' ) );
+
+		// Opt-out filter: guard is not enqueued.
+		wp_dequeue_script( $handle );
+		add_filter( 'pb_h5p_mathjax_guard', '__return_false' );
+		$this->content->enqueueH5PMathJaxGuard();
+		$this->assertFalse( wp_script_is( $handle, 'enqueued' ) );
+		remove_filter( 'pb_h5p_mathjax_guard', '__return_false' );
+
+		// H5P inactive (shortcode not registered): guard is not enqueued.
+		remove_shortcode( \Pressbooks\Interactive\H5P::SHORTCODE );
+		wp_dequeue_script( $handle );
+		$this->content->enqueueH5PMathJaxGuard();
+		$this->assertFalse( wp_script_is( $handle, 'enqueued' ) );
+
+		wp_dequeue_script( $handle );
+	}
 }

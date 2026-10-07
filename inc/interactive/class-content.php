@@ -89,6 +89,7 @@ class Content {
 
 		// H5P
 		add_action( 'wp_enqueue_scripts', [ $obj, 'enqueueYouTubeApiForH5P' ] );
+		add_action( 'wp_enqueue_scripts', [ $obj, 'enqueueH5PMathJaxGuard' ] );
 
 		// Export hacks
 		add_action( 'pb_pre_export', [ $obj, 'beforeExport' ] );
@@ -447,6 +448,50 @@ class Content {
 			null,
 			false
 		);
+	}
+
+	/**
+	 * Prevent H5P.MathDisplay from loading MathJax more than once per page.
+	 *
+	 * H5P.MathDisplay injects its bundled MathJax via `document.body.appendChild`
+	 * with no guard. With two or more math-bearing H5P activities on one page the
+	 * engine is injected twice, and MathJax v3 crashes with
+	 * "Cannot set property Package ... which has only a getter" (combineWithMathJax).
+	 * This drops any MathDisplay `mathjax.js` insertion after the first.
+	 *
+	 * Temporary mitigation pending an upstream fix in h5p/h5p-math-display.
+	 *
+	 * The guard is enqueued in the head (not the footer) as a deferred module, so
+	 * it installs before MathDisplay injects MathJax on `jQuery( document ).ready`.
+	 *
+	 * It loads on every front-end page of a book with H5P active rather than only
+	 * pages whose `post_content` holds the shortcode: the H5P listing page
+	 * (`page-h5p-listing.php`) renders activities via `do_shortcode()` built at
+	 * runtime, so a `post_content` check would miss that multi-activity page. The
+	 * guard is a tiny no-op until a MathDisplay script is injected.
+	 *
+	 * @see https://github.com/h5p/h5p-math-display/blob/master/src/scripts/mathdisplay.js
+	 */
+	public function enqueueH5PMathJaxGuard() {
+		if ( ! $this->h5p->isActive() ) {
+			return;
+		}
+
+		/**
+		 * Filter whether Pressbooks guards against H5P.MathDisplay loading MathJax twice.
+		 *
+		 * @since [next version]
+		 *
+		 * @param bool $enabled
+		 */
+		if ( ! apply_filters( 'pb_h5p_mathjax_guard', true ) ) {
+			return;
+		}
+
+		$assets = app( 'Assets' );
+		$assets->enqueue('assets/src/scripts/h5p-mathjax-guard.js', 'pb-h5p-mathjax-guard', [
+			'in-footer' => false,
+		]);
 	}
 
 	/**
