@@ -53,7 +53,7 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           # Classic PAT with `repo` + `workflow` scopes (the bump branch modifies a workflow file)
-          token: ${{ secrets.WORKFLOW_TOKEN }}
+          token: ${{ secrets.PAT_FOR_GITHUB_ACTIONS }}
           base: dev
           branch: chore/bump-wp-version
           delete-branch: true
