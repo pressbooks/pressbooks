@@ -1,5 +1,21 @@
 # Changelog
 
+## [6.45.5](https://github.com/pressbooks/pressbooks/compare/6.45.4...6.45.5) (2026-09-29)
+
+
+### Bug Fixes
+
+* clarify Custom Styles editor instructions ([#4588](https://github.com/pressbooks/pressbooks/issues/4588)) ([495083b](https://github.com/pressbooks/pressbooks/commit/495083bb5af88f62518e27d76486b35bd26a189e))
+* escape keyboard trap on Custom Styles CodeMirror editors ([#4586](https://github.com/pressbooks/pressbooks/issues/4586)) ([0c89aec](https://github.com/pressbooks/pressbooks/commit/0c89aec24edf9f7fea31b4b44b7fac1bd4da5bc2))
+* preserve $ sign in Word footnotes and skip paragraph-mark formatting ([#4585](https://github.com/pressbooks/pressbooks/issues/4585)) ([5b35f79](https://github.com/pressbooks/pressbooks/commit/5b35f794b5a6e831fb82148e812e710dbb642b59))
+
+## [6.45.4](https://github.com/pressbooks/pressbooks/compare/6.45.3...6.45.4) (2026-09-23)
+
+
+### Chores
+
+* bump WP 7.1.2 ([#4582](https://github.com/pressbooks/pressbooks/issues/4582)) ([1df76b1](https://github.com/pressbooks/pressbooks/commit/1df76b1e27c8e2d3810c98f5ffd6e4034b7e48ed))
+
 ## [6.45.3](https://github.com/pressbooks/pressbooks/compare/6.45.2...6.45.3) (2026-09-22)
 
 

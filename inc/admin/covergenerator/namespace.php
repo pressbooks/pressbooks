@@ -183,7 +183,7 @@ function cg_options_init() {
 		'pressbooks_cg_design',
 		[
 			'uppercase' => 'UPPERCASE',
-			'titlecase' => 'Title Case',
+			'titlecase' => __( 'Title Case', 'pressbooks' ),
 			'label_for' => 'text_transform',
 		]
 	);
@@ -213,9 +213,9 @@ function cg_options_init() {
 		$_page,
 		'pressbooks_cg_spine_size',
 		[
-			'444' => 'Black & white interior, white paper',
-			'400' => 'Black & white interior, creme paper',
-			'426' => 'Color interior',
+			'444' => __( 'Black & white interior, white paper', 'pressbooks' ),
+			'400' => __( 'Black & white interior, creme paper', 'pressbooks' ),
+			'426' => __( 'Color interior', 'pressbooks' ),
 			'label_for' => 'ppi',
 		]
 	);

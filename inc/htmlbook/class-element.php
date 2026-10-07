@@ -249,7 +249,7 @@ class Element {
 		}
 		foreach ( $content as $v ) {
 			if ( $this === $v ) {
-				throw new \LogicException( 'Recursion problem: cannot set self as content to self' );
+				throw new \LogicException( __( 'Recursion problem: cannot set self as content to self', 'pressbooks' ) );
 			}
 		}
 		$this->content = $content;
@@ -262,7 +262,7 @@ class Element {
 	 */
 	public function appendContent( $content ) {
 		if ( $this === $content ) {
-			throw new \LogicException( 'Recursion problem: cannot set self as content to self' );
+			throw new \LogicException( __( 'Recursion problem: cannot set self as content to self', 'pressbooks' ) );
 		}
 		$this->content[] = $content;
 	}

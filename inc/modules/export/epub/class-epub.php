@@ -430,7 +430,7 @@ class Epub extends Export {
 		$properties = [];
 
 		if ( empty( $html ) ) {
-			throw new Exception( 'File contents empty for getProperties' );
+			throw new Exception( __( 'File contents empty for getProperties', 'pressbooks' ) );
 		}
 
 		if ( $this->isMathML( $html ) ) {
@@ -814,7 +814,7 @@ class Epub extends Export {
 					]
 				);
 				if ( is_wp_error( $response ) ) {
-					throw new Exception( 'Bad URL: ' . $url );
+					throw new Exception( __( 'Bad URL: ', 'pressbooks' ) . $url );
 				}
 			} catch ( Exception $exc ) {
 				$this->fetchedImageCache[ $url ] = '';
@@ -1746,7 +1746,7 @@ class Epub extends Export {
 					[
 						'subclass' => $chapter_subclass,
 						'slug' => $chapter_slug,
-						'sanitized_title' => wp_strip_all_tags( decode( $chapter['post_title'] ) ),
+						'sanitized_title' => sanitize_xml_attribute( wp_strip_all_tags( decode( $chapter['post_title'] ) ) ),
 						'number' => $this->numbered ? $chapter_number : '',
 						'title' => decode( $chapter_title ),
 						'is_new_buckram' => $this->wrapHeaderElements,
@@ -2228,7 +2228,7 @@ class Epub extends Export {
 				}
 				$response = wp_remote_get( $url, $args );
 				if ( is_wp_error( $response ) ) {
-					throw new Exception( 'Bad URL: ' . $url );
+					throw new Exception( __( 'Bad URL: ', 'pressbooks' ) . $url );
 				}
 			} catch ( Exception $exc ) {
 				$this->fetchedImageCache[ $url ] = '';

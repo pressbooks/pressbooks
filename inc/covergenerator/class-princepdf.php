@@ -90,7 +90,7 @@ class PrincePdf extends Generator {
 		$output_path = $this->timestampedFileName( 'pdf' );
 		$success = $this->generateWithPrince( $this->pdfProfile, $this->pdfOutputIntent, $this->generateHtml(), $output_path );
 		if ( true !== $success ) {
-			throw new \Exception( 'Failed to create PDF file' );
+			throw new \Exception( __( 'Failed to create PDF file', 'pressbooks' ) );
 		}
 		delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
 		return $output_path;

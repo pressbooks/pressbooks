@@ -118,6 +118,39 @@ class Modules_Import_OoxmlTest extends \WP_UnitTestCase {
 
 	/**
 	 * @group import
+	 * @see https://github.com/pressbooks/pressbooks/issues/4569
+	 */
+	public function test_getFootnotesStyles_ignoresParagraphMarkFormatting() {
+		$xml = '<?xml version="1.0" encoding="UTF-8"?>' .
+			'<w:footnotes xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">' .
+			'<w:footnote w:type="separator" w:id="-1"><w:p><w:r><w:separator/></w:r></w:p></w:footnote>' .
+			'<w:footnote w:type="continuationSeparator" w:id="0"><w:p><w:r><w:continuationSeparator/></w:r></w:p></w:footnote>' .
+			'<w:footnote w:id="1"><w:p>' .
+			'<w:pPr><w:rPr><w:i/></w:rPr></w:pPr>' . // paragraph mark formatting, not a run of text
+			'<w:r><w:t xml:space="preserve">Some text with </w:t></w:r>' .
+			'<w:r><w:rPr><w:i/></w:rPr><w:t>an italic phrase</w:t></w:r>' .
+			'<w:r><w:t>.</w:t></w:r>' .
+			'</w:p></w:footnote>' .
+			'</w:footnotes>';
+
+		$chapter = new \DOMDocument( '1.0', 'UTF-8' );
+		$chapter->loadXML( $xml );
+		$text_tags = $chapter->documentElement->getElementsByTagName( 'footnote' );
+		$ids = [ 1 ];
+
+		$import_class = new \ReflectionClass( 'Pressbooks\Modules\Import\Ooxml\Docx' );
+		$footnotes_style = $import_class->getMethod( 'getFootnotesStyles' );
+		$footnotes_style->setAccessible( true );
+		$array_styles = $footnotes_style->invokeArgs( $this->docx, [ $text_tags, $ids ] );
+
+		$this->assertArrayHasKey( 1, $array_styles );
+		$this->assertCount( 1, $array_styles[1] );
+		$this->assertSame( 'i', $array_styles[1][0]['style'] );
+		$this->assertSame( [ 'an italic phrase' ], $array_styles[1][0]['texts'] );
+	}
+
+	/**
+	 * @group import
 	 */
 	public function test_addFootnotesToDOM() {
 		$chapter = new \DOMDocument( '1.0', 'UTF-8' );

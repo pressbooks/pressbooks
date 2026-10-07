@@ -11,7 +11,7 @@ class ObjectCacheProCheck extends Check {
 		$result = Result::make();
 
 		if ( ! is_plugin_active_for_network( 'object-cache-pro/object-cache-pro.php' ) ) {
-			return $result->ok( 'Object Cache Pro plugin is either inactive or not installed.' );
+			return $result->ok( __( 'Object Cache Pro plugin is either inactive or not installed.', 'pressbooks' ) );
 		}
 
 		global $wp_object_cache;
@@ -25,11 +25,11 @@ class ObjectCacheProCheck extends Check {
 		$license = $diagnostics[ Diagnostics::GENERAL ]['license'];
 
 		if ( $status->hasIssue() ) {
-			return $result->failed( 'Could not connect to Redis cache.' );
+			return $result->failed( __( 'Could not connect to Redis cache.', 'pressbooks' ) );
 		}
 
 		if ( $license->hasIssue() ) {
-			return $result->failed( 'License token is not valid or it\'s missing' );
+			return $result->failed( __( 'License token is not valid or it\'s missing.', 'pressbooks' ) );
 		}
 
 		return $result->ok();

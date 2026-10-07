@@ -250,7 +250,7 @@ class Docx extends Import {
 		// TODO
 		// could be more sophisticated
 		if ( $text_tags->length !== $limit + 2 ) {
-			throw new \Exception( 'mismatch between length of FootnoteReference array number of footnotes available' );
+			throw new \Exception( __( 'mismatch between length of FootnoteReference array number of footnotes available', 'pressbooks' ) );
 		}
 
 		// get all the footnote ids
@@ -288,12 +288,20 @@ class Docx extends Import {
 				if ( $s->length > 0 ) {
 					$texts = [];
 					for ( $j = 0; $j < $s->length; $j++ ) {
-						$texts[] = $s->item( $j )->parentNode->parentNode->lastChild->nodeValue;
+						$run = $s->item( $j )->parentNode->parentNode;
+						// Skip paragraph mark formatting, e.g. <w:pPr><w:rPr><w:i/></w:rPr></w:pPr>.
+						// It styles the pilcrow, not a run of visible text, so there's nothing to extract.
+						if ( ! ( $run instanceof \DOMElement ) || 'r' !== $run->localName ) {
+							continue;
+						}
+						$texts[] = $run->lastChild->nodeValue;
 					}
-					$styles[] = [
-						'style' => $available_style,
-						'texts' => $texts,
-					];
+					if ( ! empty( $texts ) ) {
+						$styles[] = [
+							'style' => $available_style,
+							'texts' => $texts,
+						];
+					}
 				}
 				if ( count( $styles ) > 0 ) {
 					$this->fn_styles[ $ids[ $i ] ] = $styles;
@@ -460,7 +468,7 @@ class Docx extends Import {
 				$filename = $this->properImageExtension( $tmp_name, $filename );
 
 				if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
-					throw new \Exception( 'Image is corrupt, and file extension matches the mime type' );
+					throw new \Exception( __( 'Image is corrupt, and file extension matches the mime type', 'pressbooks' ) );
 				}
 			} catch ( \Exception $exc ) {
 				// Garbage, Don't import
@@ -676,6 +684,10 @@ class Docx extends Import {
 					$footnote_text = $notes[ $id ];
 					foreach ( $this->fn_styles[ $id ] as $style ) {
 						foreach ( $style['texts'] as $text_style ) {
+							if ( '' === $text_style ) {
+								continue; // explode() throws a ValueError on an empty separator
+							}
+
 							// Create style element
 							$style_element = $chapter->createElement( $style['style'] );
 							$text_element = $chapter->createTextNode( $text_style );
@@ -839,7 +851,7 @@ class Docx extends Import {
 		$result = $this->zip->open( $fullpath );
 
 		if ( true !== $result ) {
-			throw new \Exception( 'Opening docx file failed' );
+			throw new \Exception( __( 'Opening docx file failed', 'pressbooks' ) );
 		}
 
 		// check if a document file exists

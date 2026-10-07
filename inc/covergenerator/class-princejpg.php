@@ -74,7 +74,7 @@ class PrinceJpg extends Generator {
 		$tmp_pdf_path = create_tmp_file();
 		$success = $this->generateWithPrince( null, null, $this->generateHtml(), $tmp_pdf_path );
 		if ( true !== $success ) {
-			throw new \Exception( 'Failed to create PDF file' );
+			throw new \Exception( __( 'Failed to create PDF file', 'pressbooks' ) );
 		}
 		$output_path = $this->timestampedFileName( 'jpg' );
 		$this->convert( $tmp_pdf_path, $output_path );
@@ -199,7 +199,7 @@ class PrinceJpg extends Generator {
 			$src = wp_get_attachment_url( $pid );
 
 			if ( false === $src ) {
-				throw new \Exception( 'No attachment url.' );
+				throw new \Exception( __( 'No attachment url.', 'pressbooks' ) );
 			}
 
 			update_post_meta( $post->ID, 'pb_cover_image', $src );

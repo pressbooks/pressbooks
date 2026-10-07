@@ -83,9 +83,8 @@ class Styles {
 		if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === $this::PAGE ) {
 			add_action(
 				'admin_enqueue_scripts', function () {
-					wp_enqueue_script( 'wp-codemirror' );
-					wp_enqueue_script( 'csslint' );
-					wp_enqueue_style( 'wp-codemirror' );
+					// Enqueues `code-editor`, which provides wp.codeEditor.initialize() (accessible tabbing).
+					wp_enqueue_code_editor( [ 'type' => 'text/x-scss' ] );
 				}
 			);
 		}
