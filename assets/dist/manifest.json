@@ -176,6 +176,12 @@
     "src": "assets/src/scripts/glossary.js",
     "isEntry": true
   },
+  "assets/src/scripts/h5p-mathjax-guard.js": {
+    "file": "assets/h5p-mathjax-guard-D1vhr1xE.js",
+    "name": "h5p-mathjax-guard",
+    "src": "assets/src/scripts/h5p-mathjax-guard.js",
+    "isEntry": true
+  },
   "assets/src/scripts/import.js": {
     "file": "assets/import-BthjuJq4.js",
     "name": "import",

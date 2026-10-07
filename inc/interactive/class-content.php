@@ -89,6 +89,7 @@ class Content {
 
 		// H5P
 		add_action( 'wp_enqueue_scripts', [ $obj, 'enqueueYouTubeApiForH5P' ] );
+		add_action( 'wp_enqueue_scripts', [ $obj, 'enqueueH5PMathJaxGuard' ] );
 
 		// Export hacks
 		add_action( 'pb_pre_export', [ $obj, 'beforeExport' ] );
@@ -447,6 +448,35 @@ class Content {
 			null,
 			false
 		);
+	}
+
+	/**
+	 * Prevent H5P.MathDisplay from loading MathJax more than once per page.
+	 *
+	 * Temporary mitigation pending an upstream fix: h5p/h5p-math-display#49.
+	 *
+	 * @see https://github.com/h5p/h5p-math-display/blob/master/src/scripts/mathdisplay.js
+	 */
+	public function enqueueH5PMathJaxGuard() {
+		if ( ! $this->h5p->isActive() ) {
+			return;
+		}
+
+		/**
+		 * Filter whether Pressbooks guards against H5P.MathDisplay loading MathJax twice.
+		 *
+		 * @since [next version]
+		 *
+		 * @param bool $enabled
+		 */
+		if ( ! apply_filters( 'pb_h5p_mathjax_guard', true ) ) {
+			return;
+		}
+
+		$assets = app( 'Assets' );
+		$assets->enqueue('assets/src/scripts/h5p-mathjax-guard.js', 'pb-h5p-mathjax-guard', [
+			'in-footer' => false,
+		]);
 	}
 
 	/**

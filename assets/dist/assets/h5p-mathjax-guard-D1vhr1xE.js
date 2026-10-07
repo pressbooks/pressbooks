@@ -1,0 +1,2 @@
+const n=/H5P\.MathDisplay[^"']*\/dist\/mathjax\.js(?:[?#]|$)/i;let a=!1;function s(t){if(!t||t.nodeType!==1||t.tagName!=="SCRIPT")return!1;const e=t.getAttribute&&t.getAttribute("src");return!e||!n.test(e)?!1:a?!0:(a=!0,!1)}function u(t){const e=Node.prototype[t],i=function(r){return s(r)?r:e.apply(this,arguments)};Node.prototype[t]=i}window.pbH5PMathJaxGuardInstalled||(window.pbH5PMathJaxGuardInstalled=!0,["appendChild","insertBefore"].forEach(u));
+//# sourceMappingURL=h5p-mathjax-guard-D1vhr1xE.js.map

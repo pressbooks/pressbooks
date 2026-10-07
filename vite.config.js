@@ -27,6 +27,7 @@ export default createWpViteConfig({
 		'post-back-matter': resolve(__dirname, 'assets/src/scripts/post-back-matter.js'),
 		'post-visibility': resolve(__dirname, 'assets/src/scripts/post-visibility.js'),
 		'post-mathjax': resolve(__dirname, 'assets/src/scripts/post-mathjax.js'),
+		'h5p-mathjax-guard': resolve(__dirname, 'assets/src/scripts/h5p-mathjax-guard.js'),
 		'profile': resolve(__dirname, 'assets/src/scripts/profile.js'),
 		'quicktags': resolve(__dirname, 'assets/src/scripts/quicktags.js'),
 		'search-and-replace': resolve(__dirname, 'assets/src/scripts/search-and-replace.js'),
