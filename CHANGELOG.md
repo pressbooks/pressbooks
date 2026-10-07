@@ -1,5 +1,21 @@
 # Changelog
 
+## [6.45.6](https://github.com/pressbooks/pressbooks/compare/6.45.5...6.45.6) (2026-10-07)
+
+
+### Bug Fixes
+
+* escape double quotes in chapter title attributes ([#4592](https://github.com/pressbooks/pressbooks/issues/4592)) ([7cd9fed](https://github.com/pressbooks/pressbooks/commit/7cd9fed00d660356822ac0cac56070e54a345e6d))
+* prevent H5P.MathDisplay from loading MathJax twice (temporary mitigation) ([#4595](https://github.com/pressbooks/pressbooks/issues/4595)) ([9316a55](https://github.com/pressbooks/pressbooks/commit/9316a557e13c34edb48a0ff910c5e16ff6838c49))
+* restore restricted-access indicator in network managers list ([#4591](https://github.com/pressbooks/pressbooks/issues/4591)) ([63b97b9](https://github.com/pressbooks/pressbooks/commit/63b97b90f6e8b9b7bbbd1d4eea5bcb88336c251d))
+* wrap strings for translation ([#4464](https://github.com/pressbooks/pressbooks/issues/4464)) ([8eed66e](https://github.com/pressbooks/pressbooks/commit/8eed66ee08919dd895dad72bb5171b2d7e5e4155))
+
+
+### Chores
+
+* automate WordPress version bumps ([#4584](https://github.com/pressbooks/pressbooks/issues/4584)) ([8338efa](https://github.com/pressbooks/pressbooks/commit/8338efa966fedabd84c5e75f24ab269c0226782b))
+* remove dead Iris color picker patches ([#4594](https://github.com/pressbooks/pressbooks/issues/4594)) ([4ee37c8](https://github.com/pressbooks/pressbooks/commit/4ee37c843859b87cace7543ddc0e8ab6c5ae7335))
+
 ## [6.45.5](https://github.com/pressbooks/pressbooks/compare/6.45.4...6.45.5) (2026-09-29)
 
 
