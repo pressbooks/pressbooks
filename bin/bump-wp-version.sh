@@ -4,7 +4,7 @@
 #
 # Usage:
 #   bin/bump-wp-version.sh --print-current
-#   bin/bump-wp-version.sh <x.y.z>
+#   bin/bump-wp-version.sh <x.y[.z]>
 
 set -euo pipefail
 
@@ -40,8 +40,8 @@ current_version() {
 	plugin=$(version_in "$PLUGIN_FILE" 'Requires at least: WordPress ([0-9.]+)' 'pressbooks.php')
 	readme_requires=$(version_in "$README_FILE" '^Requires at least: ([0-9.]+)' 'README.md (Requires at least)')
 	readme_tested=$(version_in "$README_FILE" '^Tested up to: ([0-9.]+)' 'README.md (Tested up to)')
-	readme_prose=$(version_in "$README_FILE" 'Pressbooks works with PHP [0-9.]+ and WordPress ([0-9]+\.[0-9]+\.[0-9]+)\.' 'README.md (Requirements)')
-	workflow=$(version_in "$WORKFLOW_FILE" '^[[:space:]]*wordpress: ([0-9]+\.[0-9]+\.[0-9]+)' '.github/workflows/tests.yml')
+	readme_prose=$(version_in "$README_FILE" 'Pressbooks works with PHP [0-9.]+ and WordPress ([0-9]+(?:\.[0-9]+){1,2})\.' 'README.md (Requirements)')
+	workflow=$(version_in "$WORKFLOW_FILE" '^[[:space:]]*wordpress: ([0-9]+(?:\.[0-9]+){1,2})' '.github/workflows/tests.yml')
 
 	for pair in \
 		"pressbooks.php=$plugin" \
@@ -88,8 +88,8 @@ bump_to() {
 	replace_all "$tmp/compatibility.php" "[$]pb_minimum_wp = '[0-9.]+" "$new" 1 'compatibility.php'
 	replace_all "$tmp/README.md" '^Requires at least: [0-9.]+' "$new" 1 'README.md (Requires at least)'
 	replace_all "$tmp/README.md" '^Tested up to: [0-9.]+' "$new" 1 'README.md (Tested up to)'
-	replace_all "$tmp/README.md" 'Pressbooks works with PHP [0-9.]+ and WordPress [0-9]+\.[0-9]+\.[0-9]+' "$new" 1 'README.md (Requirements)'
-	replace_all "$tmp/tests.yml" '^[[:space:]]*wordpress: [0-9]+\.[0-9]+\.[0-9]+' "$new" 2 '.github/workflows/tests.yml'
+	replace_all "$tmp/README.md" 'Pressbooks works with PHP [0-9.]+ and WordPress [0-9]+(?:\.[0-9]+){1,2}' "$new" 1 'README.md (Requirements)'
+	replace_all "$tmp/tests.yml" '^[[:space:]]*wordpress: [0-9]+(?:\.[0-9]+){1,2}' "$new" 2 '.github/workflows/tests.yml'
 
 	mv "$tmp/pressbooks.php" "$PLUGIN_FILE"
 	mv "$tmp/compatibility.php" "$COMPAT_FILE"
@@ -105,17 +105,19 @@ case "${1:-}" in
 		printf '\n'
 		;;
 	'')
-		die 'usage: bin/bump-wp-version.sh --print-current | <x.y.z>'
+		die 'usage: bin/bump-wp-version.sh --print-current | <x.y[.z]>'
 		;;
 	*)
 		target="$1"
 		case "$target" in
 			*[!0-9.]*) die "invalid version: $target" ;;
 		esac
-		if [[ "$target" =~ ^[0-9]+\.[0-9]+$ ]]; then
-			target="$target.0"
+		# WordPress ships major releases as X.Y and point releases as X.Y.Z;
+		# there is no X.Y.0 release, so canonicalize it to X.Y.
+		if [[ "$target" =~ ^([0-9]+\.[0-9]+)\.0+$ ]]; then
+			target="${BASH_REMATCH[1]}"
 		fi
-		[[ "$target" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || die "invalid version: $target"
+		[[ "$target" =~ ^[0-9]+\.[0-9]+(\.[0-9]+)?$ ]] || die "invalid version: $target"
 		current="$(current_version)"
 		bump_to "$target" "$current"
 		;;
