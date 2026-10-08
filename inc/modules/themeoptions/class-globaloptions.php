@@ -125,6 +125,17 @@ class GlobalOptions extends \Pressbooks\Options {
 		);
 
 		add_settings_field(
+			'section_numbering',
+			__( 'Numbering Style', 'pressbooks' ),
+			[ $this, 'renderSectionNumberingField' ],
+			$_page,
+			$_section,
+			[
+				__( 'Customize numbering styles for parts and chapters in the Webbook.', 'pressbooks' ),
+			]
+		);
+
+		add_settings_field(
 			'part_label',
 			__( 'Part Label', 'pressbooks' ),
 			[ $this, 'renderPartLabelField' ],
@@ -366,6 +377,89 @@ class GlobalOptions extends \Pressbooks\Options {
 				'label' => $args[0],
 			]
 		);
+		?>
+		<script>
+			jQuery(function($) {
+				const $chapterNumbers = $('#chapter_numbers');
+				const $sectionNumberingRow = $('#section_numbering').closest('tr');
+				const $sectionNumberingFields = $('#part_numbering_style, #chapter_numbering_style, #chapter_numbering_restart_per_part');
+
+				function toggleSectionNumbering() {
+					const enabled = $chapterNumbers.is(':checked');
+
+					$sectionNumberingRow.toggle(enabled);
+					$sectionNumberingFields.prop('disabled', ! enabled);
+				}
+
+				toggleSectionNumbering();
+				$chapterNumbers.on('change', toggleSectionNumbering);
+			});
+		</script>
+		<?php
+	}
+
+	/**
+	 * Render the section numbering fields.
+	 *
+	 * @param array $args
+	 */
+	function renderSectionNumberingField( array $args ): void {
+		unset( $args['label_for'], $args['class'] );
+
+		$chapter_numbers_enabled = ! empty( $this->options['chapter_numbers'] );
+		$part_numbering_style = $this->options['part_numbering_style'] ?? 'roman_upper';
+		$chapter_numbering_style = $this->options['chapter_numbering_style'] ?? 'arabic';
+		$restart_per_part = ! empty( $this->options['chapter_numbering_restart_per_part'] );
+
+		$part_numbering_options = [
+			'roman_upper' => __( 'Roman numerals (Uppercase): I, II, III', 'pressbooks' ),
+			'alphabetical_upper' => __( 'Alphabetical (Uppercase): A, B, C', 'pressbooks' ),
+			'arabic' => __( 'Arabic numerals: 1, 2, 3', 'pressbooks' ),
+		];
+
+		$chapter_numbering_options = [
+			'roman_upper' => __( 'Roman numerals (Uppercase): I, II, III', 'pressbooks' ),
+			'alphabetical_upper' => __( 'Alphabetical (Uppercase): A, B, C', 'pressbooks' ),
+			'roman_lower' => __( 'Roman numerals (Lowercase): i, ii, iii', 'pressbooks' ),
+			'alphabetical_lower' => __( 'Alphabetical (Lowercase): a, b, c', 'pressbooks' ),
+			'arabic' => __( 'Arabic numerals: 1, 2, 3', 'pressbooks' ),
+		];
+		?>
+
+		<div id="section_numbering">
+			<p class="description">
+				<?php echo esc_html( $args[0] ); ?>
+			</p>
+			<p>
+				<label for="part_numbering_style"><?php esc_html_e( 'Part:', 'pressbooks' ); ?></label><br>
+				<select name="pressbooks_theme_options_global[part_numbering_style]" id="part_numbering_style" class="regular-text" <?php disabled( ! $chapter_numbers_enabled ); ?>>
+					<?php foreach ( $part_numbering_options as $value => $label ) : ?>
+						<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $part_numbering_style, $value ); ?>>
+							<?php echo esc_html( $label ); ?>
+						</option>
+					<?php endforeach; ?>
+				</select>
+			</p>
+
+			<p>
+				<label for="chapter_numbering_style"><?php esc_html_e( 'Chapter:', 'pressbooks' ); ?></label><br>
+				<select name="pressbooks_theme_options_global[chapter_numbering_style]" id="chapter_numbering_style" class="regular-text" <?php disabled( ! $chapter_numbers_enabled ); ?>>
+					<?php foreach ( $chapter_numbering_options as $value => $label ) : ?>
+						<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $chapter_numbering_style, $value ); ?>>
+							<?php echo esc_html( $label ); ?>
+						</option>
+					<?php endforeach; ?>
+				</select>
+			</p>
+			<p>
+				<label for="chapter_numbering_restart_per_part">
+					<input type="checkbox" name="pressbooks_theme_options_global[chapter_numbering_restart_per_part]" id="chapter_numbering_restart_per_part" value="1" <?php checked( $restart_per_part ); ?> <?php disabled( ! $chapter_numbers_enabled ); ?>>
+					<?php esc_html_e( 'Restart chapter numbering for each part', 'pressbooks' ); ?>
+				</label>
+			</p>
+		</div>
+
+		<?php
 	}
 
 	/**
@@ -601,6 +695,9 @@ class GlobalOptions extends \Pressbooks\Options {
 		return apply_filters(
 			'pb_theme_options_global_defaults', [
 				'chapter_numbers' => 1,
+				'part_numbering_style' => 'roman_upper',
+				'chapter_numbering_style' => 'arabic',
+				'chapter_numbering_restart_per_part' => 0,
 				'parse_subsections' => 0,
 				'part_label' => __( 'Part', 'pressbooks' ),
 				'chapter_label' => __( 'Chapter', 'pressbooks' ),
@@ -697,6 +794,7 @@ class GlobalOptions extends \Pressbooks\Options {
 		return apply_filters(
 			'pb_theme_options_global_booleans', [
 				'chapter_numbers',
+				'chapter_numbering_restart_per_part',
 				'parse_subsections',
 				'attachment_attributions',
 				'about_the_author',
@@ -733,6 +831,8 @@ class GlobalOptions extends \Pressbooks\Options {
 				'edu_textbox_takeaways_background',
 				'part_label',
 				'chapter_label',
+				'part_numbering_style',
+				'chapter_numbering_style',
 			]
 		);
 	}
