@@ -266,6 +266,9 @@ add_action( 'wp_ajax_pb_delete_catalog_logo', [ '\Pressbooks\Catalog', 'deleteLo
 add_action( 'wp_ajax_pb_update_pins', '\Pressbooks\Modules\Export\update_pins' );
 add_action( 'wp_ajax_pb_export_book', '\Pressbooks\Modules\Export\handle_exports_submit' );
 add_action( 'wp_ajax_pb_cancel_job', '\Pressbooks\Modules\Export\handle_cancel_export_job' );
+// Clone a Book page (background jobs)
+add_action( 'wp_ajax_pb_queue_clone', '\Pressbooks\Cloner\queue_clone_job' );
+add_action( 'wp_ajax_pb_clone_job_status', '\Pressbooks\Cloner\clone_job_status' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // SASS

@@ -1,0 +1,247 @@
+<?php
+
+use Pressbooks\Cloner\CloneJobs;
+
+/**
+ * @group clonejobs
+ */
+class CloneJobsTest extends \WP_UnitTestCase {
+
+	/**
+	 * @test
+	 */
+	public function it_creates_clone_jobs_table(): void {
+		global $wpdb;
+		$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}" . CloneJobs::JOBS_TABLE_NAME );
+
+		CloneJobs::ensureTable();
+
+		$this->assertTrue(
+			app( 'db' )->schema()->hasTable( CloneJobs::JOBS_TABLE_NAME ),
+			'Table should exist after ensureTable()'
+		);
+
+		// Idempotent
+		CloneJobs::ensureTable();
+		$this->assertTrue( app( 'db' )->schema()->hasTable( CloneJobs::JOBS_TABLE_NAME ) );
+	}
+
+	private function seedJob( array $overrides = [] ): int {
+		global $wpdb;
+		$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}" . CloneJobs::JOBS_TABLE_NAME );
+		CloneJobs::createJobTable();
+		$defaults = [
+			'user_id' => 1,
+			'source_url' => 'https://example.com/source',
+			'target_url' => 'example.com/target/',
+			'target_title' => 'Target Book',
+			'status' => CloneJobs::STATUS_PENDING,
+			'created_at' => current_time( 'mysql', true ),
+			'updated_at' => current_time( 'mysql', true ),
+		];
+		return app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )
+			->insertGetId( array_merge( $defaults, $overrides ) );
+	}
+
+	private function makeClonerStub( \Generator $generator = null, int $target_book_id = 0 ) {
+		return new class( $generator, $target_book_id ) extends \Pressbooks\Cloner\Cloner {
+			private $gen;
+			private $fakeTargetId;
+			public function __construct( $gen, $fake_target_id ) {
+				$this->gen = $gen;
+				$this->fakeTargetId = $fake_target_id;
+				// Deliberately skip parent constructor: no HTTP, no H5P bootstrapping.
+			}
+			public function dependencies( $h5p = null, $downloads = null, $contributors = null ) {}
+			public function cloneBookGenerator(): \Generator {
+				yield from $this->gen;
+			}
+			public function getTargetBookId() {
+				return $this->fakeTargetId;
+			}
+			public function getTargetBookUrl() {
+				return 'https://example.com/target';
+			}
+			public function getTargetBookTitle() {
+				return 'Target Book';
+			}
+			public function getClonedItems() {
+				return [
+					'terms' => [ 1, 2 ],
+					'front-matter' => [ 1 ],
+					'parts' => [ 1 ],
+					'chapters' => [ 1, 2, 3 ],
+					'back-matter' => [],
+					'media' => [ 1 ],
+					'h5p' => [],
+					'glossary' => [],
+					'theme' => true,
+				];
+			}
+			public function getSourceTheme(): array {
+				return [ 'name' => 'McLuhan', 'version' => '1.0.0', 'stylesheet' => 'pressbooks-book' ];
+			}
+		};
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_ignores_missing_or_non_pending_jobs(): void {
+		$job_id = $this->seedJob( [ 'status' => CloneJobs::STATUS_COMPLETED ] );
+
+		CloneJobs::handle( 999999 ); // Missing: must not throw.
+		CloneJobs::handle( $job_id );
+
+		$job = app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )->where( 'id', $job_id )->first();
+		$this->assertEquals( CloneJobs::STATUS_COMPLETED, $job->status, 'Non-pending job must not be reprocessed' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_does_not_reprocess_an_already_claimed_job(): void {
+		// A job another worker already flipped to processing must not be cloned again.
+		$job_id = $this->seedJob( [ 'status' => CloneJobs::STATUS_PROCESSING ] );
+
+		$cloner_built = false;
+		add_filter( 'pb_clone_job_cloner', function ( $cloner ) use ( &$cloner_built ) {
+			$cloner_built = true;
+			return $cloner;
+		} );
+
+		CloneJobs::handle( $job_id );
+		remove_all_filters( 'pb_clone_job_cloner' );
+
+		$this->assertFalse( $cloner_built, 'A job that is not pending must not reach the cloning stage' );
+
+		$job = app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )->where( 'id', $job_id )->first();
+		$this->assertEquals( CloneJobs::STATUS_PROCESSING, $job->status, 'Claimed job status must be left untouched' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_completes_job_and_records_progress_and_summary(): void {
+		$job_id = $this->seedJob();
+
+		$generator = ( function (): \Generator {
+			yield 1 => 'Looking up the source book';
+			yield 10 => 'Creating the target book';
+			yield 50 => 'Cloning parts and chapters';
+			yield 100 => 'Finishing up';
+		} )();
+
+		$stub = $this->makeClonerStub( $generator, 123 );
+		add_filter( 'pb_clone_job_cloner', function () use ( $stub ) {
+			return $stub;
+		} );
+
+		CloneJobs::handle( $job_id );
+		remove_all_filters( 'pb_clone_job_cloner' );
+
+		$job = app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )->where( 'id', $job_id )->first();
+
+		$this->assertEquals( CloneJobs::STATUS_COMPLETED, $job->status );
+		$this->assertEquals( 100, (int) $job->progress_percentage );
+		$this->assertEquals( 123, (int) $job->target_book_id );
+		$this->assertNotEmpty( $job->job_started_at );
+		$this->assertNotEmpty( $job->job_completed_at );
+
+		$summary = json_decode( $job->cloned_items, true );
+		$this->assertEquals( 3, $summary['counts']['chapters'] );
+		$this->assertEquals( 2, $summary['counts']['terms'] );
+		$this->assertTrue( $summary['theme_applied'] );
+		$this->assertEquals( 'https://example.com/target', $summary['target_book_url'] );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_marks_failed_without_cleanup_when_no_book_was_created(): void {
+		$job_id = $this->seedJob();
+
+		$generator = ( function (): \Generator {
+			yield 1 => 'Looking up the source book';
+			throw new \Exception( 'Could not retrieve metadata from source.' );
+		} )();
+
+		$stub = $this->makeClonerStub( $generator, 0 ); // No target book.
+		add_filter( 'pb_clone_job_cloner', function () use ( $stub ) {
+			return $stub;
+		} );
+
+		CloneJobs::handle( $job_id );
+		remove_all_filters( 'pb_clone_job_cloner' );
+
+		$job = app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )->where( 'id', $job_id )->first();
+
+		$this->assertEquals( CloneJobs::STATUS_FAILED, $job->status );
+		$this->assertNull( $job->target_book_id );
+		$this->assertStringContainsString( 'Could not retrieve metadata', $job->progress_message );
+		$log = json_decode( $job->log_details, true );
+		$this->assertContains( 'Could not retrieve metadata from source.', $log['errors'] );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_deletes_partial_target_book_on_failure(): void {
+		if ( ! is_multisite() ) {
+			$this->markTestSkipped( 'Requires multisite.' );
+		}
+
+		$blog_id = $this->factory()->blog->create();
+		$job_id = $this->seedJob();
+
+		$generator = ( function (): \Generator {
+			yield 10 => 'Creating the target book';
+			throw new \Exception( 'boom' );
+		} )();
+
+		$stub = $this->makeClonerStub( $generator, $blog_id );
+		add_filter( 'pb_clone_job_cloner', function () use ( $stub ) {
+			return $stub;
+		} );
+
+		CloneJobs::handle( $job_id );
+		remove_all_filters( 'pb_clone_job_cloner' );
+
+		$job = app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )->where( 'id', $job_id )->first();
+
+		$this->assertEquals( CloneJobs::STATUS_FAILED, $job->status );
+		$this->assertEquals( $blog_id, (int) $job->target_book_id );
+		$this->assertStringContainsString( 'boom', $job->progress_message );
+
+		$log = json_decode( $job->log_details, true );
+		$this->assertStringContainsString( 'was deleted', $log['cleanup'] );
+
+		$site = get_site( $blog_id );
+		$this->assertTrue( empty( $site ) || ! empty( $site->deleted ), 'Partial target book must be deleted' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_marks_failed_when_generator_throws_error(): void {
+		$job_id = $this->seedJob();
+
+		$generator = ( function (): \Generator {
+			yield 1 => 'Looking up the source book';
+			throw new \TypeError( 'type boom' );
+		} )();
+
+		$stub = $this->makeClonerStub( $generator, 0 );
+		add_filter( 'pb_clone_job_cloner', function () use ( $stub ) {
+			return $stub;
+		} );
+
+		CloneJobs::handle( $job_id );
+		remove_all_filters( 'pb_clone_job_cloner' );
+
+		$job = app( 'db' )->table( CloneJobs::JOBS_TABLE_NAME )->where( 'id', $job_id )->first();
+
+		$this->assertEquals( CloneJobs::STATUS_FAILED, $job->status );
+		$this->assertStringContainsString( 'type boom', $job->progress_message );
+	}
+}
