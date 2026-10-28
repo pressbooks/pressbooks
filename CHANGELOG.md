@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.45.8](https://github.com/pressbooks/pressbooks/compare/6.45.7...6.45.8) (2026-10-28)
+
+
+### Chores
+
+* bump WP to 7.1.4 ([#4605](https://github.com/pressbooks/pressbooks/issues/4605)) ([a4a0724](https://github.com/pressbooks/pressbooks/commit/a4a072433e8e7e7ef8c6fb437bf7ad8714a13230))
+* **i18n:** update POT file for translations ([#4500](https://github.com/pressbooks/pressbooks/issues/4500)) ([370bca9](https://github.com/pressbooks/pressbooks/commit/370bca955547da76718e63d626e037a21fecb680))
+
 ## [6.45.7](https://github.com/pressbooks/pressbooks/compare/6.45.6...6.45.7) (2026-10-07)
 
 
