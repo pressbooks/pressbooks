@@ -81,8 +81,6 @@ class SideBar {
 			add_action( 'admin_init', [ $this, 'restrictNetworkSettingsPageAccess' ] );
 		}
 
-		// Settings restrictions are handled by restrictNetworkSettingsPageAccess(). Plugins, themes and updates
-		// pages remain blocked by \Pressbooks\Admin\NetworkManagers\restrict_network_admin_pages().
 		remove_action( 'admin_init', '\Pressbooks\Admin\NetworkManagers\restrict_access' );
 	}
 

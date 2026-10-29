@@ -250,7 +250,6 @@ function restrict_network_admin_pages() {
 
 /**
  * Deny network-level plugin management capabilities to restricted users.
- * Hooked into `map_meta_cap`
  *
  * @param string[] $caps
  * @param string $cap
@@ -280,7 +279,6 @@ function deny_network_plugin_caps( $caps, $cap, $user_id ) {
 function restrict_access() {
 	$user = wp_get_current_user();
 	if ( ! in_array( $user->ID, _restricted_users(), true ) ) {
-		// This user doesn't have any restrictions. Bail.
 		return;
 	}
 
