@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.45.9](https://github.com/pressbooks/pressbooks/compare/6.45.8...6.45.9) (2026-10-29)
+
+
+### Bug Fixes
+
+* block network managers from network plugin management ([#4608](https://github.com/pressbooks/pressbooks/issues/4608)) ([60bed1e](https://github.com/pressbooks/pressbooks/commit/60bed1e8c491400ea1d0da6d9023606bf61a73cb))
+
 ## [6.45.8](https://github.com/pressbooks/pressbooks/compare/6.45.7...6.45.8) (2026-10-28)
 
 
