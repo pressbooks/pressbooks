@@ -4,6 +4,7 @@ use function Pressbooks\Admin\NetworkManagers\_restricted_users;
 use function Pressbooks\Admin\NetworkManagers\add_menu;
 use function Pressbooks\Admin\NetworkManagers\admin_enqueues;
 use function Pressbooks\Admin\NetworkManagers\get_network_managers;
+use function Pressbooks\Admin\NetworkManagers\restrict_network_admin_pages;
 use function Pressbooks\Admin\NetworkManagers\update_admin_status;
 
 require_once( PB_PLUGIN_DIR . 'inc/admin/networkmanagers/namespace.php' );
@@ -315,5 +316,93 @@ class Admin_NetworkManagers extends \WP_UnitTestCase {
 
 		$this->assertNotContains( $institutional_user->user_email, $result );
 		$this->assertCount( 1, $result );
+	}
+
+	/**
+	 * @group networkmanagers
+	 */
+	public function test_restrict_network_admin_pages_redirects_network_managers(): void {
+		$this->_createSuperAdmin( true );
+
+		foreach ( [ 'plugins.php', 'plugin-install.php', 'plugin-editor.php' ] as $page ) {
+			unset( $GLOBALS['_pb_redirect_location'] );
+			$_SERVER['REQUEST_URI'] = "/wp-admin/network/{$page}";
+
+			restrict_network_admin_pages();
+
+			$this->assertEquals( get_site_url() . '/wp-admin/network/', $GLOBALS['_pb_redirect_location'] ?? null, $page );
+		}
+	}
+
+	/**
+	 * @group networkmanagers
+	 */
+	public function test_restrict_network_admin_pages_does_not_redirect_permitted_pages(): void {
+		$this->_createSuperAdmin( true );
+		unset( $GLOBALS['_pb_redirect_location'] );
+		$_SERVER['REQUEST_URI'] = '/wp-admin/network/settings.php?page=pb_analytics';
+
+		restrict_network_admin_pages();
+
+		$this->assertArrayNotHasKey( '_pb_redirect_location', $GLOBALS );
+	}
+
+	/**
+	 * @group networkmanagers
+	 */
+	public function test_restrict_network_admin_pages_does_not_redirect_unrestricted_super_admins(): void {
+		$this->_createSuperAdmin( false );
+		unset( $GLOBALS['_pb_redirect_location'] );
+		$_SERVER['REQUEST_URI'] = '/wp-admin/network/plugins.php';
+
+		restrict_network_admin_pages();
+
+		$this->assertArrayNotHasKey( '_pb_redirect_location', $GLOBALS );
+	}
+
+	/**
+	 * @group networkmanagers
+	 */
+	public function test_network_managers_cannot_manage_network_plugins(): void {
+		$user_id = $this->_createSuperAdmin( true );
+		add_filter( 'map_meta_cap', '\Pressbooks\Admin\NetworkManagers\deny_network_plugin_caps', 10, 3 );
+
+		foreach ( [ 'manage_network_plugins', 'install_plugins', 'update_plugins', 'delete_plugins', 'edit_plugins' ] as $cap ) {
+			$this->assertFalse( user_can( $user_id, $cap ), $cap );
+		}
+		$this->assertTrue( user_can( $user_id, 'activate_plugins' ) );
+	}
+
+	/**
+	 * @group networkmanagers
+	 */
+	public function test_unrestricted_super_admins_can_manage_network_plugins(): void {
+		$user_id = $this->_createSuperAdmin( false );
+		add_filter( 'map_meta_cap', '\Pressbooks\Admin\NetworkManagers\deny_network_plugin_caps', 10, 3 );
+
+		foreach ( [ 'manage_network_plugins', 'install_plugins', 'update_plugins', 'delete_plugins', 'edit_plugins', 'activate_plugins' ] as $cap ) {
+			$this->assertTrue( user_can( $user_id, $cap ), $cap );
+		}
+	}
+
+	/**
+	 * @group networkmanagers
+	 */
+	public function test_sidebar_keeps_network_admin_pages_restriction(): void {
+		$this->_createSuperAdmin( true );
+		add_action( 'admin_init', '\Pressbooks\Admin\NetworkManagers\restrict_network_admin_pages' );
+
+		\Pressbooks\Admin\Menus\SideBar::init();
+
+		$this->assertNotFalse( has_action( 'admin_init', '\Pressbooks\Admin\NetworkManagers\restrict_network_admin_pages' ) );
+	}
+
+	private function _createSuperAdmin( bool $restricted ): int {
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		grant_super_admin( $user_id );
+		update_site_option( 'pressbooks_network_managers', $restricted ? [ $user_id ] : [] );
+		wp_set_current_user( $user_id );
+
+		return $user_id;
 	}
 }

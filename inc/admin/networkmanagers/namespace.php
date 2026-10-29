@@ -223,20 +223,15 @@ function hide_network_menus() {
 }
 
 /**
- *
+ * Don't let restricted users go to any of these network admin pages, under any circumstances.
+ * Kept separate from restrict_access() because SideBar replaces the settings restrictions but not these.
  */
-function restrict_access() {
-	$user = wp_get_current_user();
-	if ( ! in_array( $user->ID, _restricted_users(), true ) ) {
-		// This user doesn't have any restrictions. Bail.
+function restrict_network_admin_pages() {
+	if ( ! is_restricted() ) {
 		return;
 	}
 
 	$check_against_url = wp_parse_url( ( is_ssl() ? 'http://' : 'https://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], PHP_URL_PATH );
-	$redirect_url = get_site_url() . '/wp-admin/network/';
-
-	// ---------------------------------------------------------------------------------------------------------------
-	// Don't let user go to any of these pages, under any circumstances
 
 	$restricted_urls = [
 		'themes',
@@ -249,8 +244,48 @@ function restrict_access() {
 
 	$expr = '~/wp-admin/network/(' . implode( '|', $restricted_urls ) . ')\.php$~';
 	if ( preg_match( $expr, $check_against_url ) ) {
-		\Pressbooks\Redirect\location( $redirect_url );
+		\Pressbooks\Redirect\location( get_site_url() . '/wp-admin/network/' );
 	}
+}
+
+/**
+ * Deny network-level plugin management capabilities to restricted users.
+ * Hooked into `map_meta_cap`
+ *
+ * @param string[] $caps
+ * @param string $cap
+ * @param int $user_id
+ *
+ * @return string[]
+ */
+function deny_network_plugin_caps( $caps, $cap, $user_id ) {
+	$denied_caps = [
+		'manage_network_plugins',
+		'install_plugins',
+		'update_plugins',
+		'delete_plugins',
+		'edit_plugins',
+	];
+
+	if ( in_array( $cap, $denied_caps, true ) && in_array( (int) $user_id, _restricted_users(), true ) ) {
+		$caps[] = 'do_not_allow';
+	}
+
+	return $caps;
+}
+
+/**
+ *
+ */
+function restrict_access() {
+	$user = wp_get_current_user();
+	if ( ! in_array( $user->ID, _restricted_users(), true ) ) {
+		// This user doesn't have any restrictions. Bail.
+		return;
+	}
+
+	$check_against_url = wp_parse_url( ( is_ssl() ? 'http://' : 'https://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], PHP_URL_PATH );
+	$redirect_url = get_site_url() . '/wp-admin/network/';
 
 	// ---------------------------------------------------------------------------------------------------------------
 	// Settings

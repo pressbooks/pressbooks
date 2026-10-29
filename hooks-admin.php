@@ -393,6 +393,7 @@ add_action( 'admin_init', '\Pressbooks\Theme\check_upgraded_customcss' );
 add_action( 'init', [ '\Pressbooks\Admin\Users\UserBulk', 'init' ] );
 
 add_action( 'admin_init', '\Pressbooks\Admin\NetworkManagers\restrict_access' );
+add_action( 'admin_init', '\Pressbooks\Admin\NetworkManagers\restrict_network_admin_pages' );
 
 add_action( 'admin_menu', '\Pressbooks\Admin\NetworkManagers\hide_menus' );
 add_action( 'admin_bar_menu', '\Pressbooks\Admin\NetworkManagers\hide_admin_bar_menus', 999 );
