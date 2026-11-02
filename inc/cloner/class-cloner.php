@@ -276,6 +276,14 @@ class Cloner {
 	private string $cloneToken = '';
 
 	/**
+	 * Errors collected while cloning. Unlike $_SESSION['pb_errors'], this is
+	 * available in contexts without a PHP session (e.g. WP-Cron background jobs).
+	 *
+	 * @var string[]
+	 */
+	protected $errors = [];
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 4.1.0
@@ -402,6 +410,33 @@ class Cloner {
 	}
 
 	/**
+	 * @return int|null
+	 */
+	public function getTargetBookId() {
+		return $this->targetBookId;
+	}
+
+	/**
+	 * @return string[]
+	 */
+	public function getErrors(): array {
+		return $this->errors;
+	}
+
+	/**
+	 * Record an error. Also mirrors into $_SESSION['pb_errors'] when a session
+	 * exists, preserving the behaviour of the synchronous (admin-ajax) paths.
+	 *
+	 * @param string $message
+	 */
+	protected function addError( string $message ): void {
+		$this->errors[] = $message;
+		if ( isset( $_SESSION ) ) {
+			$_SESSION['pb_errors'][] = $message;
+		}
+	}
+
+	/**
 	 * @return Media[]
 	 */
 	public function getKnownMedia(): array {
@@ -453,7 +488,7 @@ class Cloner {
 
 		yield 1 => __( 'Looking up the source book', 'pressbooks' );
 		if ( ! $this->setupSource() ) {
-			throw new \Exception( ! empty( $_SESSION['pb_errors'][0] ) ? $_SESSION['pb_errors'][0] : __( 'Failed to setup source', 'pressbooks' ) ); // phpcs:ignore Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized -- Pressbooks flash-message store, escaped on output.
+			throw new \Exception( $this->errors[0] ?? __( 'Failed to setup source', 'pressbooks' ) );
 		}
 
 		// Create Book
@@ -569,14 +604,14 @@ class Cloner {
 			switch_to_blog( $this->sourceBookId );
 		} elseif ( ! $this->isCompatible( $this->sourceBookUrl ) ) {
 			// Remote is not compatible, bail.
-			$_SESSION['pb_errors'][] = __( 'You can only clone from a book hosted by Pressbooks 4.1 or later. Please ensure that your source book meets these requirements.', 'pressbooks' );
+			$this->addError( __( 'You can only clone from a book hosted by Pressbooks 4.1 or later. Please ensure that your source book meets these requirements.', 'pressbooks' ) );
 			return false;
 		}
 
 		// Set up $this->sourceBookMetadata
 		$this->sourceBookMetadata = $this->getBookMetadata( $this->sourceBookUrl );
 		if ( empty( $this->sourceBookMetadata ) ) {
-			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve metadata from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookUrl ) );
+			$this->addError( sprintf( __( 'Could not retrieve metadata from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookUrl ) ) );
 			$this->maybeRestoreCurrentBlog();
 			return false;
 		}
@@ -584,7 +619,7 @@ class Cloner {
 		if ( $respect_book_license ) {
 			// Verify license or network administrator override
 			if ( ! $this->isSourceCloneable( $this->sourceBookMetadata['license'] ) ) {
-				$_SESSION['pb_errors'][] = sprintf( __( '%s is not licensed for cloning.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
+				$this->addError( sprintf( __( '%s is not licensed for cloning.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) ) );
 				$this->maybeRestoreCurrentBlog();
 				return false;
 			}
@@ -593,7 +628,7 @@ class Cloner {
 		// Set up $this->sourceBookStructure
 		$this->sourceBookStructure = $this->getBookStructure( $this->sourceBookUrl );
 		if ( empty( $this->sourceBookStructure ) ) {
-			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve contents and structure from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
+			$this->addError( sprintf( __( 'Could not retrieve contents and structure from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) ) );
 			$this->maybeRestoreCurrentBlog();
 			return false;
 		}
@@ -601,7 +636,7 @@ class Cloner {
 		// Set up $this->sourceBookTerms
 		$this->sourceBookTerms = $this->getBookTerms( $this->sourceBookUrl );
 		if ( empty( $this->sourceBookTerms ) ) {
-			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve taxonomies from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
+			$this->addError( sprintf( __( 'Could not retrieve taxonomies from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) ) );
 			$this->maybeRestoreCurrentBlog();
 			return false;
 		}
@@ -609,7 +644,7 @@ class Cloner {
 		// Media
 		$this->knownMedia = $this->buildListOfKnownMedia( $this->sourceBookUrl );
 		if ( $this->knownMedia === false ) {
-			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve media from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
+			$this->addError( sprintf( __( 'Could not retrieve media from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) ) );
 			$this->maybeRestoreCurrentBlog();
 			return false;
 		}
@@ -808,10 +843,12 @@ class Cloner {
 
 		// Handle errors
 		if ( is_wp_error( $response ) ) {
-			$_SESSION['pb_errors'][] = sprintf(
-				'<p>%1$s</p><p>%2$s</p>',
-				__( 'The source book&rsquo;s media could not be read.', 'pressbooks' ),
-				$response->get_error_message()
+			$this->addError(
+				sprintf(
+					'<p>%1$s</p><p>%2$s</p>',
+					__( 'The source book&rsquo;s media could not be read.', 'pressbooks' ),
+					$response->get_error_message()
+				)
 			);
 			return false;
 		}
@@ -904,10 +941,12 @@ class Cloner {
 
 		// Handle errors
 		if ( is_wp_error( $response ) ) {
-			$_SESSION['pb_errors'][] = sprintf(
-				'<p>%1$s</p><p>%2$s</p>',
-				__( 'The source book&rsquo;s metadata could not be read.', 'pressbooks' ),
-				$response->get_error_message()
+			$this->addError(
+				sprintf(
+					'<p>%1$s</p><p>%2$s</p>',
+					__( 'The source book&rsquo;s metadata could not be read.', 'pressbooks' ),
+					$response->get_error_message()
+				)
 			);
 			return false;
 		}
@@ -935,10 +974,12 @@ class Cloner {
 
 		// Handle errors
 		if ( is_wp_error( $response ) ) {
-			$_SESSION['pb_errors'][] = sprintf(
-				'<p>%1$s</p><p>%2$s</p>',
-				__( 'The source book&rsquo;s structure and contents could not be read.', 'pressbooks' ),
-				$response->get_error_message()
+			$this->addError(
+				sprintf(
+					'<p>%1$s</p><p>%2$s</p>',
+					__( 'The source book&rsquo;s structure and contents could not be read.', 'pressbooks' ),
+					$response->get_error_message()
+				)
 			);
 			return false;
 		}
@@ -982,7 +1023,7 @@ class Cloner {
 		}
 
 		if ( empty( $terms ) ) {
-			$_SESSION['pb_errors'][] = sprintf( '<p>%1$s</p>', __( 'The source book&rsquo;s taxonomies could not be read.', 'pressbooks' ) );
+			$this->addError( sprintf( '<p>%1$s</p>', __( 'The source book&rsquo;s taxonomies could not be read.', 'pressbooks' ) ) );
 		}
 
 		return $terms;

@@ -19,6 +19,7 @@
 			<progress id="pb-sse-progressbar" max="100" aria-label="{{ __( 'Cloning progress', 'pressbooks' ) }}"></progress>
 			<strong><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></strong> <span id="pb-sse-info" aria-live="polite"></span> <span id="pb-sse-status" class="screen-reader-text" aria-live="polite">0%</span>
 		</form>
+		<div id="pb-clone-result" tabindex="-1" aria-live="polite" hidden></div>
 	</div>
 	@if( \Pressbooks\Utility\is_algolia_search_enabled() )
 		<div class="pb-cloner-section search">

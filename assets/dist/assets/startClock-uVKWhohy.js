@@ -1,0 +1,2 @@
+const o=t=>{const e=document.getElementById("pb-sse-seconds"),n=document.getElementById("pb-sse-minutes");n.textContent="",e.textContent="",clearInterval(t)},s=t=>t>9?t:`0${t}`,c=()=>{const t=document.getElementById("pb-sse-seconds"),e=document.getElementById("pb-sse-minutes");let n=0;return e.textContent="00:",t.textContent="00",setInterval(function(){t.textContent=s(++n%60),e.textContent=s(parseInt(n/60,10))+":"},1e3)};export{o as r,c as s};
+//# sourceMappingURL=startClock-uVKWhohy.js.map
