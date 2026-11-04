@@ -1616,6 +1616,10 @@ function sites_to_books( $translated_text, $untranslated_text, $domain ) {
 		case 'All Sites':
 			$translated_text = esc_html__( 'All Books', 'pressbooks' );
 			break;
+		case '&mdash; No role for this site &mdash;':
+			/* translators: Option in the "Change role to…" dropdown. Keep the &mdash; entities around the text. */
+			$translated_text = __( '&mdash; No role for this book &mdash;', 'pressbooks' );
+			break;
 	}
 
 	if ( $pagenow === 'sites.php' ) {

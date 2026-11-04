@@ -160,6 +160,7 @@ add_action(
 		remove_filter( 'title_save_pre', 'wp_filter_kses' );
 		add_filter( 'title_save_pre', '\Pressbooks\Sanitize\filter_title' );
 		add_action( 'wp_roles_init', [ '\Pressbooks\Contributors', 'changeContributorName' ] );
+		add_filter( 'gettext_with_context', [ '\Pressbooks\Contributors', 'translateCollaboratorRoleName' ], 10, 4 );
 	}
 );
 

@@ -309,6 +309,18 @@ class Admin_LafTest extends \WP_UnitTestCase {
 	/**
 	 * @group branding
 	 */
+	function test_sites_to_books_no_role_option() {
+		$result = \Pressbooks\Admin\Laf\sites_to_books(
+			'&mdash; No role for this site &mdash;',
+			'&mdash; No role for this site &mdash;',
+			'default'
+		);
+		$this->assertEquals( '&mdash; No role for this book &mdash;', $result );
+	}
+
+	/**
+	 * @group branding
+	 */
 	function test_sites_to_books_deactivation_overrides() {
 		global $pagenow;
 		$pagenow = 'sites.php';
