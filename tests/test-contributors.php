@@ -667,6 +667,23 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Collaborator', $current_roles->roles['contributor']['name'] );
 	}
 
+	public function test_collaboratorRoleNameIsTranslatedWithPressbooksDomain() {
+		$fake_translation = function ( $translation, $text, $context, $domain ) {
+			if ( $domain === 'pressbooks' && $context === 'User role' && $text === 'Collaborator' ) {
+				return 'Collaborateur';
+			}
+			return $translation;
+		};
+		add_filter( 'gettext_with_context', $fake_translation, 10, 4 );
+		add_filter( 'gettext_with_context', [ Contributors::class, 'translateCollaboratorRoleName' ], 10, 4 );
+
+		$this->assertEquals( 'Collaborateur', translate_user_role( 'Collaborator' ) );
+		$this->assertEquals( 'Editor', translate_user_role( 'Editor' ) );
+
+		remove_filter( 'gettext_with_context', $fake_translation, 10 );
+		remove_filter( 'gettext_with_context', [ Contributors::class, 'translateCollaboratorRoleName' ], 10 );
+	}
+
 	public function test_handleImage() {
 		$url = 'https://guide.pressbooks.com/app/plugins/pressbooks/assets/dist/images/default-book-cover.jpg';
 		$fixture = dirname( __DIR__ ) . '/assets/dist/images/default-book-cover.jpg';

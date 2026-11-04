@@ -903,4 +903,26 @@ class Contributors implements FrontOrBackMatter, Transferable {
 		$roles->roles['contributor']['name'] = 'Collaborator';
 		$roles->role_names['contributor'] = 'Collaborator';
 	}
+
+	/**
+	 * Translate the renamed contributor role with the pressbooks textdomain.
+	 *
+	 * Core translates role names via translate_user_role(), which only looks in the
+	 * default textdomain, where "Collaborator" does not exist.
+	 *
+	 * @param string $translation Translated text.
+	 * @param string $text Text to translate.
+	 * @param string $context Context information for the translators.
+	 * @param string $domain Text domain.
+	 *
+	 * @return string
+	 */
+	public static function translateCollaboratorRoleName( $translation, $text, $context, $domain ) {
+		// Only the default domain: the _x() call below re-enters this filter with the pressbooks domain.
+		if ( $domain !== 'default' || $context !== 'User role' || $text !== 'Collaborator' ) {
+			return $translation;
+		}
+
+		return _x( 'Collaborator', 'User role', 'pressbooks' );
+	}
 }
