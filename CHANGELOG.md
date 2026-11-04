@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.45.10](https://github.com/pressbooks/pressbooks/compare/6.45.9...6.45.10) (2026-11-04)
+
+
+### Bug Fixes
+
+* say "book" in role dropdown and translate Collaborator role ([#4617](https://github.com/pressbooks/pressbooks/issues/4617)) ([2d2e02a](https://github.com/pressbooks/pressbooks/commit/2d2e02aaa4b29d1d6cf21140a62dd5044f3c94ef)), closes [#4599](https://github.com/pressbooks/pressbooks/issues/4599)
+
 ## [6.45.9](https://github.com/pressbooks/pressbooks/compare/6.45.8...6.45.9) (2026-10-29)
 
 
