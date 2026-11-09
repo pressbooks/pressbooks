@@ -1298,4 +1298,45 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 		remove_all_filters( 'h5p_activities_to_export' );
 	}
 
+	/**
+	 * The H5P plugin links every stylesheet in H5PCore::$styles from its own h5p-php-library directory.
+	 * Pressbooks loads its vendored H5PCore first, so the list has to match the 1.28 library the plugin ships.
+	 *
+	 * @group interactivecontent
+	 */
+	public function test_h5pCoreStylesMatchPluginLibrary() {
+		// Order matters: the theme layer has to load after h5p.css, the way the H5P plugin's own library lists it.
+		$shipped = [
+			'styles/h5p-fonts.css',
+			'styles/h5p.css',
+			'styles/h5p-confirmation-dialog.css',
+			'styles/h5p-core-button.css',
+			'styles/h5p-theme.css',
+			'styles/h5p-theme-variables.css',
+			'styles/h5p-tooltip.css',
+			'styles/h5p-table.css',
+		];
+		$this->assertSame( $shipped, \H5PCore::$styles );
+
+		$core_dir = dirname( ( new \ReflectionClass( \H5PCore::class ) )->getFileName() );
+		foreach ( $shipped as $style ) {
+			$this->assertFileExists( "$core_dir/$style" );
+		}
+	}
+
+	/**
+	 * H5PValidator rejects a package whose libraries need a newer coreApi than H5PCore::$coreApi.
+	 *
+	 * @group interactivecontent
+	 */
+	public function test_h5pValidatorAcceptsCoreApi128() {
+		$framework = $this->createMock( \H5PFrameworkInterface::class );
+		$framework->expects( $this->never() )->method( 'setErrorMessage' );
+		$validator = new \H5PValidator( $framework, $this->createMock( \H5PCore::class ) );
+
+		$is_valid = new \ReflectionMethod( $validator, 'isValidH5pData' );
+		$h5p_data = [ 'coreApi' => [ 'majorVersion' => 1, 'minorVersion' => 28 ] ];
+		$this->assertTrue( $is_valid->invoke( $validator, $h5p_data, 'H5P.DragText', [], [] ) );
+	}
+
 }
