@@ -399,6 +399,29 @@ function override_core_strings( $translated, $original, $domain ) {
 }
 
 /**
+ * Change core WordPress strings translated with context (e.g. user role names).
+ * Override keys use the gettext format: "{$context}\004{$original}".
+ *
+ * @param string $translated
+ * @param string $original
+ * @param string $context
+ * @param string $domain
+ *
+ * @return string
+ */
+function override_core_strings_with_context( $translated, $original, $context, $domain ) {
+	$overrides = include_core_overrides();
+	$key = $context . "\004" . $original;
+
+	if ( isset( $overrides[ $key ] ) ) {
+		$translations = get_translations_for_domain( $domain );
+		$translated = $translations->translate( $overrides[ $key ] ); // @codingStandardsIgnoreLine
+	}
+
+	return $translated;
+}
+
+/**
  * Include the core WordPress override file.
  * Looks for ./languages/core-en_US.php, where "en_US" is defined by get_locale()
  * Expects $overrides array.

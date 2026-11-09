@@ -162,6 +162,7 @@ add_action( 'switch_locale', '\Pressbooks\L10n\load_plugin_textdomain' );
 add_action( 'restore_previous_locale', '\Pressbooks\L10n\load_plugin_textdomain' );
 add_action( 'admin_init', '\Pressbooks\L10n\update_user_locale' );
 add_filter( 'gettext', '\Pressbooks\L10n\override_core_strings', 10, 3 );
+add_filter( 'gettext_with_context', '\Pressbooks\L10n\override_core_strings_with_context', 10, 4 );
 
 if ( $is_book ) {
 	add_filter( 'locale', '\Pressbooks\L10n\set_locale' );
