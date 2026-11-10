@@ -1,5 +1,28 @@
 # Changelog
 
+## [6.46.0](https://github.com/pressbooks/pressbooks/compare/6.45.9...6.46.0) (2026-11-10)
+
+
+### Features
+
+* apply fr_CA wp core language translation for users strings ([#4616](https://github.com/pressbooks/pressbooks/issues/4616)) ([6d0d258](https://github.com/pressbooks/pressbooks/commit/6d0d258f3597e279efeca31cb4e1853946337bb6))
+* apply fr_ca wp core language translation strings ([6d0d258](https://github.com/pressbooks/pressbooks/commit/6d0d258f3597e279efeca31cb4e1853946337bb6))
+
+
+### Bug Fixes
+
+* say "book" in role dropdown and translate Collaborator role ([#4617](https://github.com/pressbooks/pressbooks/issues/4617)) ([2d2e02a](https://github.com/pressbooks/pressbooks/commit/2d2e02aaa4b29d1d6cf21140a62dd5044f3c94ef)), closes [#4599](https://github.com/pressbooks/pressbooks/issues/4599)
+* update bundled H5P core to 1.28 to match the H5P plugin ([#4598](https://github.com/pressbooks/pressbooks/issues/4598)) ([f10be08](https://github.com/pressbooks/pressbooks/commit/f10be08793d0db3a2d7c08e2737b3a9667463929))
+
+
+### Chores
+
+* **i18n:** update POT file for translations ([#4607](https://github.com/pressbooks/pressbooks/issues/4607)) ([361ee49](https://github.com/pressbooks/pressbooks/commit/361ee496dd5170c41dfb3dbf3aaa8518ae72ac62))
+* **i18n:** update POT file for translations ([#4619](https://github.com/pressbooks/pressbooks/issues/4619)) ([e10e314](https://github.com/pressbooks/pressbooks/commit/e10e31479e408a22a603223ae20112952b08328d))
+* **l10n:** update languages ([#4565](https://github.com/pressbooks/pressbooks/issues/4565)) ([803a225](https://github.com/pressbooks/pressbooks/commit/803a22535d5ff01a7c6ff819232324569f1fa1ea))
+* **l10n:** update languages ([#4620](https://github.com/pressbooks/pressbooks/issues/4620)) ([e87989f](https://github.com/pressbooks/pressbooks/commit/e87989fcd688a784454b5456f9993a4e23bbe2a3))
+* update POT file for translations ([e10e314](https://github.com/pressbooks/pressbooks/commit/e10e31479e408a22a603223ae20112952b08328d))
+
 ## [6.45.9](https://github.com/pressbooks/pressbooks/compare/6.45.8...6.45.9) (2026-10-29)
 
 
