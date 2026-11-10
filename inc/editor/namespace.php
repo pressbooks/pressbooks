@@ -519,6 +519,27 @@ function show_kitchen_sink( $args ) {
 	return $args;
 }
 
+function mce_settings( $settings, $editor_id ) {
+	$settings['init_instance_callback'] = <<<JS
+function(editor) {
+  editor.on('keydown', function(e) {
+    if (e.keyCode === 9 && e.shiftKey) {
+      e.preventDefault();
+	  var toolbar = editor.getContainer().querySelector('.mce-toolbar-grp');
+      if (toolbar) {
+        var buttons = toolbar.querySelectorAll('button, [tabindex]');
+        if (buttons.length) {
+          buttons[buttons.length - 1].focus();
+        }
+      }
+    }
+  });
+}
+JS;
+
+	return $settings;
+}
+
 /**
  * Convert <td> elements to <th> elements in table header rows if they contain content.
  *
