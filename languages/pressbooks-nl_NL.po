@@ -9,8 +9,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-08T00:01:10+00:00\n"
-"PO-Revision-Date: 2026-10-29 00:04\n"
+"POT-Creation-Date: 2026-11-09T17:54:50+00:00\n"
+"PO-Revision-Date: 2026-11-10 00:03\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1274,7 +1274,7 @@ msgstr "Netwerk Beheer"
 
 #: inc/admin/laf/namespace.php:866
 #: inc/admin/laf/namespace.php:1614
-#: inc/admin/laf/namespace.php:1624
+#: inc/admin/laf/namespace.php:1628
 #: inc/admin/menus/class-sidebar.php:274
 #: inc/admin/menus/class-sidebar.php:275
 #: inc/admin/menus/class-topbar.php:132
@@ -1358,62 +1358,67 @@ msgstr "Deel- en Privacy Instellingen"
 msgid "All Books"
 msgstr "Alle Boeken"
 
-#: inc/admin/laf/namespace.php:1627
+#. translators: Option in the "Change role to…" dropdown. Keep the &mdash; entities around the text.
+#: inc/admin/laf/namespace.php:1621
+msgid "&mdash; No role for this book &mdash;"
+msgstr ""
+
+#: inc/admin/laf/namespace.php:1631
 msgid "Search Books"
 msgstr "Boeken Zoeken"
 
-#: inc/admin/laf/namespace.php:1630
+#: inc/admin/laf/namespace.php:1634
 #, php-format
 msgid "You are about to deactivate the site %s."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1633
+#: inc/admin/laf/namespace.php:1637
 #, php-format
 msgid "You are about to activate the site %s."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1636
+#: inc/admin/laf/namespace.php:1640
 msgid "Deactivating a site makes it unavailable to its users and visitors. This is a reversible action."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1639
+#: inc/admin/laf/namespace.php:1643
 msgid "Site deactivated."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1642
+#: inc/admin/laf/namespace.php:1646
 msgid "Site activated."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1645
+#: inc/admin/laf/namespace.php:1649
 msgid "Deactivate"
 msgstr ""
 
 #. translators: %s: Number of books.
-#: inc/admin/laf/namespace.php:1648
-#: inc/admin/laf/namespace.php:1663
-#: inc/admin/laf/namespace.php:1743
+#: inc/admin/laf/namespace.php:1652
+#: inc/admin/laf/namespace.php:1667
+#: inc/admin/laf/namespace.php:1747
 msgid "Deactivated"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1651
+#: inc/admin/laf/namespace.php:1655
 msgid "Deactivate, Archive, and Spam which lead to confirmation screens. These actions can be reversed later."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1657
+#: inc/admin/laf/namespace.php:1661
 #, php-format
 msgid "Edit Book: %s"
 msgstr "Bewerk Boek: %s"
 
-#: inc/admin/laf/namespace.php:1660
-#: inc/admin/laf/namespace.php:1672
+#: inc/admin/laf/namespace.php:1664
+#: inc/admin/laf/namespace.php:1676
 msgid "Book Address (URL)"
 msgstr "Boek Adres (URL)"
 
-#: inc/admin/laf/namespace.php:1669
+#: inc/admin/laf/namespace.php:1673
 msgid "Add New Book"
 msgstr "Nieuw Boek Toevoegen"
 
-#: inc/admin/laf/namespace.php:1675
+#: inc/admin/laf/namespace.php:1679
 #: inc/modules/themeoptions/class-pdfoptions.php:409
 #: inc/modules/themeoptions/class-pdfoptions.php:429
 #: inc/modules/themeoptions/class-pdfoptions.php:449
@@ -1427,50 +1432,50 @@ msgstr "Nieuw Boek Toevoegen"
 msgid "Book Title"
 msgstr "Boektitel"
 
-#: inc/admin/laf/namespace.php:1678
+#: inc/admin/laf/namespace.php:1682
 msgid "Book Language"
 msgstr "Boektaal"
 
-#: inc/admin/laf/namespace.php:1681
+#: inc/admin/laf/namespace.php:1685
 msgid "Add Book"
 msgstr "Boek Toevoegen"
 
-#: inc/admin/laf/namespace.php:1712
+#: inc/admin/laf/namespace.php:1716
 msgid "Activate"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1758
+#: inc/admin/laf/namespace.php:1762
 msgid "Edit previous or next item"
 msgstr "Bewerk vorige of volgende item"
 
-#: inc/admin/laf/namespace.php:1763
+#: inc/admin/laf/namespace.php:1767
 #, php-format
 msgid "Edit Previous (%s)"
 msgstr "Bewerk Vorige (%s)"
 
-#: inc/admin/laf/namespace.php:1768
+#: inc/admin/laf/namespace.php:1772
 #, php-format
 msgid "Edit Next (%s)"
 msgstr "Bewerk Volgende (%s)"
 
-#: inc/admin/laf/namespace.php:1783
+#: inc/admin/laf/namespace.php:1787
 msgid "X/Twitter URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1784
+#: inc/admin/laf/namespace.php:1788
 msgid "LinkedIn URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1785
+#: inc/admin/laf/namespace.php:1789
 msgid "GitHub URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1838
+#: inc/admin/laf/namespace.php:1842
 #: inc/class-contributors.php:476
 msgid "Institution"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1840
+#: inc/admin/laf/namespace.php:1844
 msgid "Your institutional affiliation, e.g. Rebus Foundation, Open University, Amnesty International."
 msgstr ""
 
@@ -2557,6 +2562,11 @@ msgid "Illustrator"
 msgid_plural "Illustrators"
 msgstr[0] ""
 msgstr[1] ""
+
+#: inc/class-contributors.php:926
+msgctxt "User role"
+msgid "Collaborator"
+msgstr ""
 
 #: inc/class-eventstreams.php:205
 #, php-format
@@ -3891,8 +3901,8 @@ msgstr ""
 msgid "Zulu"
 msgstr ""
 
-#: inc/l10n/namespace.php:512
 #: inc/l10n/namespace.php:535
+#: inc/l10n/namespace.php:558
 #, php-format
 msgid "Please contact your system administrator if you would like them to install extended %s language support for the Pressbooks interface."
 msgstr "Neem alstublieft contact op met uw systeembeheerder indien u extra %staalondersteuneuning geinstalleerd wil hebben voor de Pressbooks interface."
