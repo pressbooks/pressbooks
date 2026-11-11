@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-11-09T17:54:50+00:00\n"
-"PO-Revision-Date: 2026-11-10 00:03\n"
+"PO-Revision-Date: 2026-11-11 00:03\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -1361,7 +1361,7 @@ msgstr "Tous les livres"
 #. translators: Option in the "Change role to…" dropdown. Keep the &mdash; entities around the text.
 #: inc/admin/laf/namespace.php:1621
 msgid "&mdash; No role for this book &mdash;"
-msgstr ""
+msgstr "&mdash; Aucun rôle dans ce livre &mdash;"
 
 #: inc/admin/laf/namespace.php:1631
 msgid "Search Books"
