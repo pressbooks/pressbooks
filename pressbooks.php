@@ -6,7 +6,7 @@
  * Release Asset: true
  * Description: Simple Book Production
  * x-release-please-start-version
- * Version: 6.46.0
+ * Version: 6.46.1
  * x-release-please-end
  * Requires at least: WordPress 7.1.4
  * Requires PHP: 8.3
