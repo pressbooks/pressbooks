@@ -1,5 +1,14 @@
 # Changelog
 
+## [6.46.1](https://github.com/pressbooks/pressbooks/compare/6.46.0...6.46.1) (2026-11-11)
+
+
+### Chores
+
+* **i18n:** update POT file for translations ([#4621](https://github.com/pressbooks/pressbooks/issues/4621)) ([76b2971](https://github.com/pressbooks/pressbooks/commit/76b297195b549703c967979ebc67d199ae219fdf))
+* **l10n:** update languages ([#4622](https://github.com/pressbooks/pressbooks/issues/4622)) ([436a583](https://github.com/pressbooks/pressbooks/commit/436a583db6455dd8763d49a0a544ea9b5f808bad))
+* update POT file for translations ([76b2971](https://github.com/pressbooks/pressbooks/commit/76b297195b549703c967979ebc67d199ae219fdf))
+
 ## [6.46.0](https://github.com/pressbooks/pressbooks/compare/6.45.9...6.46.0) (2026-11-10)
 
 
