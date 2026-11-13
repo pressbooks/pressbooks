@@ -461,10 +461,29 @@ function replace_book_admin_menu() {
 				if ( $hook === $cloner_page ) {
 					wp_localize_script(
 						'pb-cloner', 'PB_ClonerToken', [
-							'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=clone-book' ), 'pb-cloner' ),
-							'redirectUrl' => admin_url( 'options.php?page=pb_cloner' ),
-							'unloadWarning' => esc_html__( 'Cloning is not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
+							'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+							'nonce' => wp_create_nonce( 'pb-cloner' ),
 							'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . esc_html__( 'Reload', 'pressbooks' ) . '</a>)</em>',
+							'text' => [
+								'queued' => esc_html__( 'Waiting to start…', 'pressbooks' ),
+								'completed' => esc_html__( 'Cloning succeeded!', 'pressbooks' ),
+								'failed' => esc_html__( 'Cloning failed.', 'pressbooks' ),
+								'connectionLost' => esc_html__( 'Connection lost.', 'pressbooks' ),
+								'goToBook' => esc_html__( 'Go to your new book', 'pressbooks' ),
+								'themeApplied' => esc_html__( 'The source book’s theme, theme settings, and custom styles were successfully applied.', 'pressbooks' ),
+								'themeNotApplied' => esc_html__( 'The source book’s theme was not available on this network and could not be applied.', 'pressbooks' ),
+								'summaryHeading' => esc_html__( 'Cloned items', 'pressbooks' ),
+								'labels' => [
+									'terms' => esc_html__( 'Terms', 'pressbooks' ),
+									'front-matter' => esc_html__( 'Front matter', 'pressbooks' ),
+									'parts' => esc_html__( 'Parts', 'pressbooks' ),
+									'chapters' => esc_html__( 'Chapters', 'pressbooks' ),
+									'back-matter' => esc_html__( 'Back matter', 'pressbooks' ),
+									'media' => esc_html__( 'Media attachments', 'pressbooks' ),
+									'h5p' => esc_html__( 'H5P elements', 'pressbooks' ),
+									'glossary' => esc_html__( 'Glossary terms', 'pressbooks' ),
+								],
+							],
 						]
 					);
 					wp_enqueue_script( 'pb-cloner' );
@@ -699,10 +718,29 @@ function add_pb_cloner_page() {
 					]);
 					wp_localize_script(
 						'pb-cloner', 'PB_ClonerToken', [
-							'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=clone-book' ), 'pb-cloner' ),
-							'redirectUrl' => admin_url( 'admin.php?page=pb_cloner' ),
-							'unloadWarning' => esc_html__( 'Cloning is not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
+							'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+							'nonce' => wp_create_nonce( 'pb-cloner' ),
 							'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . esc_html__( 'Reload', 'pressbooks' ) . '</a>)</em>',
+							'text' => [
+								'queued' => esc_html__( 'Waiting to start…', 'pressbooks' ),
+								'completed' => esc_html__( 'Cloning succeeded!', 'pressbooks' ),
+								'failed' => esc_html__( 'Cloning failed.', 'pressbooks' ),
+								'connectionLost' => esc_html__( 'Connection lost.', 'pressbooks' ),
+								'goToBook' => esc_html__( 'Go to your new book', 'pressbooks' ),
+								'themeApplied' => esc_html__( 'The source book’s theme, theme settings, and custom styles were successfully applied.', 'pressbooks' ),
+								'themeNotApplied' => esc_html__( 'The source book’s theme was not available on this network and could not be applied.', 'pressbooks' ),
+								'summaryHeading' => esc_html__( 'Cloned items', 'pressbooks' ),
+								'labels' => [
+									'terms' => esc_html__( 'Terms', 'pressbooks' ),
+									'front-matter' => esc_html__( 'Front matter', 'pressbooks' ),
+									'parts' => esc_html__( 'Parts', 'pressbooks' ),
+									'chapters' => esc_html__( 'Chapters', 'pressbooks' ),
+									'back-matter' => esc_html__( 'Back matter', 'pressbooks' ),
+									'media' => esc_html__( 'Media attachments', 'pressbooks' ),
+									'h5p' => esc_html__( 'H5P elements', 'pressbooks' ),
+									'glossary' => esc_html__( 'Glossary terms', 'pressbooks' ),
+								],
+							],
 						]
 					);
 					wp_deregister_script( 'heartbeat' );
