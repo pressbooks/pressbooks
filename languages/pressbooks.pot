@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-18T21:22:03+00:00\n"
+"POT-Creation-Date: 2026-11-25T18:29:52+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks\n"
@@ -4209,11 +4209,11 @@ msgstr ""
 
 #: inc/modules/export/namespace.php:78
 #: inc/modules/themeoptions/class-globaloptions.php:455
-#: inc/utility/namespace.php:1377
-#: inc/utility/namespace.php:1382
-#: inc/utility/namespace.php:1416
-#: inc/utility/namespace.php:1426
-#: inc/utility/namespace.php:1432
+#: inc/utility/namespace.php:1384
+#: inc/utility/namespace.php:1389
+#: inc/utility/namespace.php:1423
+#: inc/utility/namespace.php:1433
+#: inc/utility/namespace.php:1439
 #: templates/admin/covergenerator.php:53
 msgid "and"
 msgstr ""
@@ -6073,29 +6073,29 @@ msgstr ""
 msgid "Sitemap: "
 msgstr ""
 
-#: inc/utility/namespace.php:331
+#: inc/utility/namespace.php:338
 msgid "404 Not Found"
 msgstr ""
 
-#: inc/utility/namespace.php:332
+#: inc/utility/namespace.php:339
 msgid "The page that you have requested could not be found."
 msgstr ""
 
-#: inc/utility/namespace.php:636
-#: inc/utility/namespace.php:647
-#: inc/utility/namespace.php:663
+#: inc/utility/namespace.php:643
+#: inc/utility/namespace.php:654
+#: inc/utility/namespace.php:670
 msgid "An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration."
 msgstr ""
 
-#: inc/utility/namespace.php:636
+#: inc/utility/namespace.php:643
 msgid "(Pressbooks could not establish a secure connection to the plugin recommendations server. Please contact your server administrator.)"
 msgstr ""
 
-#: inc/utility/namespace.php:687
+#: inc/utility/namespace.php:694
 msgid "These plugins have been created and/or recommended by the Pressbooks community."
 msgstr ""
 
-#: inc/utility/namespace.php:1681
+#: inc/utility/namespace.php:1688
 msgid "Failed to open memory stream for CSV conversion."
 msgstr ""
 
