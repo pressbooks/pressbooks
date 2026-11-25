@@ -8,6 +8,7 @@ require_once __DIR__ . '/inc/admin/branding/namespace.php';
 require_once __DIR__ . '/inc/admin/networkmanagers/namespace.php';
 require_once __DIR__ . '/inc/admin/plugins/namespace.php';
 require_once __DIR__ . '/inc/api/namespace.php';
+require_once __DIR__ . '/inc/cloner/namespace.php';
 require_once __DIR__ . '/inc/editor/namespace.php';
 require_once __DIR__ . '/inc/image/namespace.php';
 require_once __DIR__ . '/inc/l10n/namespace.php';

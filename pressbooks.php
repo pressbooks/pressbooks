@@ -135,3 +135,4 @@ require PB_PLUGIN_DIR . 'functions.php';
 
 //Background processing
 add_action( 'pressbooks_process_export_job', [ BackgroundJob::class, 'handle' ] );
+add_action( 'pressbooks_process_clone_job', [ \Pressbooks\Cloner\CloneJobs::class, 'handle' ] );
