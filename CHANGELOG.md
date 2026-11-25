@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.46.2](https://github.com/pressbooks/pressbooks/compare/6.46.1...6.46.2) (2026-11-25)
+
+
+### Bug Fixes
+
+* let PressbooksBot through robots.txt ([#4630](https://github.com/pressbooks/pressbooks/issues/4630)) ([ce20208](https://github.com/pressbooks/pressbooks/commit/ce20208bd77e11264c00650fed84cecfe4197573))
+
 ## [6.46.1](https://github.com/pressbooks/pressbooks/compare/6.46.0...6.46.1) (2026-11-18)
 
 
