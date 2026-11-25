@@ -318,6 +318,13 @@ function add_disallow_rules_to_robots_txt( $output, $public ) {
 }
 
 /**
+ * Let PressbooksBot, the content checker's link checker, request any page.
+ */
+function allow_pressbooks_bot_in_robots_txt( $output ) {
+	return "User-agent: PressbooksBot\nAllow: /\n\n" . $output;
+}
+
+/**
  * Echo a sitemap
  */
 function do_sitemap() {
