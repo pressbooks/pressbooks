@@ -1040,6 +1040,16 @@ class UtilityTest extends \WP_UnitTestCase {
 	/**
 	 * @group utility
 	 */
+	public function test_robots_txt_allows_pressbooks_bot_in_its_own_group(): void {
+		$output = apply_filters( 'robots_txt', "User-agent: *\n", true );
+
+		$this->assertStringStartsWith( "User-agent: PressbooksBot\nAllow: /\n\nUser-agent: *\n", $output );
+		$this->assertStringContainsString( "Disallow: /feed/\n", $output );
+	}
+
+	/**
+	 * @group utility
+	 */
 	public function test_length_to_inches() {
 		$css = [
 			'pdf_page_width' => '10cm',
