@@ -213,6 +213,181 @@ function pb_get_chapter_number( $post_id ) {
 }
 
 /**
+ * Get formatted chapter number.
+ *
+ * @param int    $post_id
+ * @param string $type_of
+ *
+ * @return string
+ */
+function pb_get_section_number( $post_id, $type_of = 'webbook' ) {
+	$options = get_option( 'pressbooks_theme_options_global', [] );
+
+	if ( empty( $options['chapter_numbers'] ) ) {
+		return '';
+	}
+
+	$number = ! empty( $options['chapter_numbering_restart_per_part'] )
+		? pb_get_chapter_number_per_part( $post_id, $type_of )
+		: pb_get_chapter_number( $post_id );
+
+	return pb_convert_section_number(
+		$number,
+		$options['chapter_numbering_style'] ?? 'arabic'
+	);
+}
+
+/**
+ * Get formatted part number.
+ *
+ * @param int $n
+ *
+ * @return string
+ */
+function pb_get_part_number( $n ) {
+	$options = get_option( 'pressbooks_theme_options_global', [] );
+
+	if ( empty( $options['chapter_numbers'] ) ) {
+		return '';
+	}
+
+	return pb_convert_section_number(
+		$n,
+		$options['part_numbering_style'] ?? 'roman_upper'
+	);
+}
+
+/**
+ * Convert a number to the configured numbering style.
+ *
+ * @param int    $n
+ * @param string $style
+ *
+ * @return string
+ */
+function pb_convert_section_number( int $n, string $style ): string {
+	if ( $n === 0 ) {
+		return '';
+	}
+
+	switch ( $style ) {
+		case 'roman_upper':
+			return \Pressbooks\L10n\romanize( $n );
+		case 'roman_lower':
+			return strtolower( \Pressbooks\L10n\romanize( $n ) );
+		case 'alphabetical_upper':
+			return pb_number_to_letters( $n, true );
+		case 'alphabetical_lower':
+			return pb_number_to_letters( $n, false );
+		case 'arabic':
+			return (string) $n;
+		default:
+			return '';
+	}
+}
+
+/**
+ * Convert a number to alphabetical notation.
+ *
+ * @param int  $n
+ * @param bool $uppercase
+ *
+ * @return string
+ */
+function pb_number_to_letters( int $n, bool $uppercase = true ): string {
+	$letters = '';
+
+	while ( $n > 0 ) {
+		$remainder = ( $n - 1 ) % 26;
+		$letters = chr( ( $uppercase ? 65 : 97 ) + $remainder ) . $letters;
+		$n = intdiv( $n - 1, 26 );
+	}
+
+	return $letters;
+}
+
+/**
+ * Get chapter number, restarting from 1 within each part.
+ *
+ * @param int    $post_id
+ * @param string $type_of
+ *
+ * @return int
+ */
+function pb_get_chapter_number_per_part( $post_id, $type_of = 'webbook' ) {
+
+	$structure = \Pressbooks\Book::getBookStructure();
+	$lookup = $structure['__order'];
+
+	$post_statii = ( $type_of === 'webbook' )
+		? [ 'web-only', 'publish' ]
+		: [ 'private', 'publish' ];
+
+	if (
+		empty( get_option( 'pressbooks_theme_options_global', [] )['chapter_numbers'] ) ||
+		empty( $lookup[ $post_id ] ) ||
+		$lookup[ $post_id ]['post_type'] !== 'chapter' ||
+		! in_array( $lookup[ $post_id ]['post_status'], $post_statii, true )
+	) {
+		return 0;
+	}
+
+	$current_part = null;
+
+	if ( ! empty( $structure['part'] ) ) {
+		foreach ( $structure['part'] as $part ) {
+			if ( empty( $part['chapters'] ) ) {
+				continue;
+			}
+
+			foreach ( $part['chapters'] as $chapter ) {
+				if ( (int) $chapter['ID'] === (int) $post_id ) {
+					$current_part = $part;
+					break 2;
+				}
+			}
+		}
+	}
+
+	if ( ! $current_part ) {
+		return 0;
+	}
+
+	$i = 0;
+	$type = 'standard';
+	$found = array_merge( [ 'ID' => $post_id ], $lookup[ $post_id ] );
+
+	foreach ( $current_part['chapters'] as $chapter ) {
+		$cid = $chapter['ID'];
+
+		if ( empty( $lookup[ $cid ] ) ) {
+			continue;
+		}
+
+		$val = $lookup[ $cid ];
+
+		if (
+			$val['post_type'] !== 'chapter' ||
+			! in_array( $val['post_status'], $post_statii, true )
+		) {
+			continue;
+		}
+
+		$type = \Pressbooks\Taxonomy::init()->getChapterType( $cid );
+
+		if ( 'numberless' !== $type ) {
+			++$i;
+		}
+
+		if ( (int) $cid === (int) $found['ID'] ) {
+			break;
+		}
+	}
+
+	return ( $type === 'numberless' ) ? 0 : $i;
+}
+
+/**
  * Get chapter, front or back matter type
  *
  * @param WP_Post $post
